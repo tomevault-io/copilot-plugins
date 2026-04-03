@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--ordercli",
+  "version": "1.0.0",
+  "description": "Foodora-only CLI for checking past orders and active order status (Deliveroo WIP).",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
