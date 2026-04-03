@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--blucli",
+  "version": "1.0.0",
+  "description": "BluOS CLI (blu) for discovery, playback, grouping, and volume.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
