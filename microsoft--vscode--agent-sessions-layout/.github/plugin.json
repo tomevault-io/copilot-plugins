@@ -1,0 +1,13 @@
+{
+  "name": "microsoft--vscode--agent-sessions-layout",
+  "version": "1.0.0",
+  "description": "Agents workbench layout \u2014 covers the fixed layout structure, grid configuration, part visibility, editor modal, titlebar, sidebar footer, and implementation requirements. Use when implementing features or fixing issues in the Agents workbench layout.",
+  "author": {
+    "name": "microsoft (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
