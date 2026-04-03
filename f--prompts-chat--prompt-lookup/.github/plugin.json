@@ -1,0 +1,13 @@
+{
+  "name": "f--prompts-chat--prompt-lookup",
+  "version": "1.0.0",
+  "description": "Activates when the user asks about AI prompts, needs prompt templates, wants to search for prompts, or mentions prompts.chat. Use for discovering, retrieving, and improving prompts.",
+  "author": {
+    "name": "f (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
