@@ -1,0 +1,13 @@
+{
+  "name": "remotion-dev--remotion--web-renderer-test",
+  "version": "1.0.0",
+  "description": "Add a test case to the web renderer",
+  "author": {
+    "name": "remotion-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
