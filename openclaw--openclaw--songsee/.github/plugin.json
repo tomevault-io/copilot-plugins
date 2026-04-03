@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--songsee",
+  "version": "1.0.0",
+  "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
