@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--peekaboo",
+  "version": "1.0.0",
+  "description": "Capture and automate macOS UI with the Peekaboo CLI.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
