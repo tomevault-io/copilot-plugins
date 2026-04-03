@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--jpa-patterns",
+  "version": "1.0.0",
+  "description": "JPA/Hibernate patterns for entity design, relationships, query optimization, transactions, auditing, indexing, pagination, and pooling in Spring Boot.",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
