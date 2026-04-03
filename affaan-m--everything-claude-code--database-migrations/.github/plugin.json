@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--database-migrations",
+  "version": "1.0.0",
+  "description": "Database migration best practices for schema changes, data migrations, rollbacks, and zero-downtime deployments across PostgreSQL, MySQL, and common ORMs (Prisma, Drizzle, Kysely, Django, TypeORM, golang-migrate).",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
