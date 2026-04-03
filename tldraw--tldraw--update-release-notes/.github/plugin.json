@@ -1,0 +1,13 @@
+{
+  "name": "tldraw--tldraw--update-release-notes",
+  "version": "1.0.0",
+  "description": "Update the release notes file at `apps/docs/content/releases/next.mdx` in the tldraw/tldraw repo based on PRs since the previous release, or archive `next.mdx` to a versioned file when a new version is published.",
+  "author": {
+    "name": "tldraw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
