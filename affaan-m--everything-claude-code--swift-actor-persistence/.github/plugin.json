@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--swift-actor-persistence",
+  "version": "1.0.0",
+  "description": "Thread-safe data persistence in Swift using actors \u2014 in-memory cache with file-backed storage, eliminating data races by design.",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
