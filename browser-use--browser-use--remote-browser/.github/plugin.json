@@ -1,0 +1,13 @@
+{
+  "name": "browser-use--browser-use--remote-browser",
+  "version": "1.0.0",
+  "description": "Controls a local browser from a sandboxed remote machine. Use when the agent is running in a sandbox (no GUI) and needs to navigate websites, interact with web pages, fill forms, take screenshots, or expose local dev servers via tunnels.",
+  "author": {
+    "name": "browser-use (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
