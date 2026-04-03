@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--cpp-coding-standards",
+  "version": "1.0.0",
+  "description": "C++ coding standards based on the C++ Core Guidelines (isocpp.github.io). Use when writing, reviewing, or refactoring C++ code to enforce modern, safe, and idiomatic practices.",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
