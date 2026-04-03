@@ -1,0 +1,13 @@
+{
+  "name": "facebook--react--fix",
+  "version": "1.0.0",
+  "description": "Use when you have lint errors, formatting issues, or before committing code to ensure it passes CI.",
+  "author": {
+    "name": "facebook (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
