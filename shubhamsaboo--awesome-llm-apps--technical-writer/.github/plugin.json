@@ -1,0 +1,13 @@
+{
+  "name": "shubhamsaboo--awesome-llm-apps--technical-writer",
+  "version": "1.0.0",
+  "description": "|",
+  "author": {
+    "name": "shubhamsaboo (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
