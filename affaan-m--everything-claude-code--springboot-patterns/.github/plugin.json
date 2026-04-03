@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--springboot-patterns",
+  "version": "1.0.0",
+  "description": "Spring Boot architecture patterns, REST API design, layered services, data access, caching, async processing, and logging. Use for Java Spring Boot backend work.",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
