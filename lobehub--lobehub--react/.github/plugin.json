@@ -1,0 +1,13 @@
+{
+  "name": "lobehub--lobehub--react",
+  "version": "1.0.0",
+  "description": "React component development guide. Use when working with React components (.tsx files), creating UI, using @lobehub/ui components, implementing routing, or building frontend features. Triggers on React component creation, modification, layout implementation, or navigation tasks.",
+  "author": {
+    "name": "lobehub (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
