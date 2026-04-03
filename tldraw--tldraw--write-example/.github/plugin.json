@@ -1,0 +1,13 @@
+{
+  "name": "tldraw--tldraw--write-example",
+  "version": "1.0.0",
+  "description": "Writing examples for the tldraw SDK examples app. Use when creating new examples, adding SDK demonstrations, or writing example code in apps/examples.",
+  "author": {
+    "name": "tldraw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
