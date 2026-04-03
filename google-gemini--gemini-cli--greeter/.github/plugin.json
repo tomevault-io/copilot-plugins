@@ -1,0 +1,13 @@
+{
+  "name": "google-gemini--gemini-cli--greeter",
+  "version": "1.0.0",
+  "description": "A friendly greeter skill",
+  "author": {
+    "name": "google-gemini (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
