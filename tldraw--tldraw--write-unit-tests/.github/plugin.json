@@ -1,0 +1,13 @@
+{
+  "name": "tldraw--tldraw--write-unit-tests",
+  "version": "1.0.0",
+  "description": "Writing unit and integration tests for the tldraw SDK. Use when creating new tests, adding test coverage, or fixing failing tests in packages/editor or packages/tldraw. Covers Vitest patterns, TestEditor usage, and test file organization.",
+  "author": {
+    "name": "tldraw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
