@@ -1,3 +1,996 @@
 {
-  "plugins": []
+  "plugins": [
+    {
+      "name": "facebook--react--extract-errors",
+      "source": "./facebook--react--extract-errors"
+    },
+    {
+      "name": "facebook--react--feature-flags",
+      "source": "./facebook--react--feature-flags"
+    },
+    {
+      "name": "facebook--react--fix",
+      "source": "./facebook--react--fix"
+    },
+    {
+      "name": "facebook--react--flow",
+      "source": "./facebook--react--flow"
+    },
+    {
+      "name": "facebook--react--test",
+      "source": "./facebook--react--test"
+    },
+    {
+      "name": "facebook--react--verify",
+      "source": "./facebook--react--verify"
+    },
+    {
+      "name": "openclaw--openclaw--1password",
+      "source": "./openclaw--openclaw--1password"
+    },
+    {
+      "name": "openclaw--openclaw--apple-notes",
+      "source": "./openclaw--openclaw--apple-notes"
+    },
+    {
+      "name": "openclaw--openclaw--apple-reminders",
+      "source": "./openclaw--openclaw--apple-reminders"
+    },
+    {
+      "name": "openclaw--openclaw--bear-notes",
+      "source": "./openclaw--openclaw--bear-notes"
+    },
+    {
+      "name": "openclaw--openclaw--blogwatcher",
+      "source": "./openclaw--openclaw--blogwatcher"
+    },
+    {
+      "name": "openclaw--openclaw--blucli",
+      "source": "./openclaw--openclaw--blucli"
+    },
+    {
+      "name": "openclaw--openclaw--bluebubbles",
+      "source": "./openclaw--openclaw--bluebubbles"
+    },
+    {
+      "name": "openclaw--openclaw--camsnap",
+      "source": "./openclaw--openclaw--camsnap"
+    },
+    {
+      "name": "openclaw--openclaw--clawhub",
+      "source": "./openclaw--openclaw--clawhub"
+    },
+    {
+      "name": "openclaw--openclaw--coding-agent",
+      "source": "./openclaw--openclaw--coding-agent"
+    },
+    {
+      "name": "openclaw--openclaw--feishu-doc",
+      "source": "./openclaw--openclaw--feishu-doc"
+    },
+    {
+      "name": "openclaw--openclaw--feishu-perm",
+      "source": "./openclaw--openclaw--feishu-perm"
+    },
+    {
+      "name": "openclaw--openclaw--gemini",
+      "source": "./openclaw--openclaw--gemini"
+    },
+    {
+      "name": "openclaw--openclaw--gh-issues",
+      "source": "./openclaw--openclaw--gh-issues"
+    },
+    {
+      "name": "openclaw--openclaw--gifgrep",
+      "source": "./openclaw--openclaw--gifgrep"
+    },
+    {
+      "name": "openclaw--openclaw--github",
+      "source": "./openclaw--openclaw--github"
+    },
+    {
+      "name": "openclaw--openclaw--gog",
+      "source": "./openclaw--openclaw--gog"
+    },
+    {
+      "name": "openclaw--openclaw--goplaces",
+      "source": "./openclaw--openclaw--goplaces"
+    },
+    {
+      "name": "openclaw--openclaw--healthcheck",
+      "source": "./openclaw--openclaw--healthcheck"
+    },
+    {
+      "name": "openclaw--openclaw--himalaya",
+      "source": "./openclaw--openclaw--himalaya"
+    },
+    {
+      "name": "openclaw--openclaw--imsg",
+      "source": "./openclaw--openclaw--imsg"
+    },
+    {
+      "name": "openclaw--openclaw--mcporter",
+      "source": "./openclaw--openclaw--mcporter"
+    },
+    {
+      "name": "openclaw--openclaw--model-usage",
+      "source": "./openclaw--openclaw--model-usage"
+    },
+    {
+      "name": "openclaw--openclaw--nano-pdf",
+      "source": "./openclaw--openclaw--nano-pdf"
+    },
+    {
+      "name": "openclaw--openclaw--notion",
+      "source": "./openclaw--openclaw--notion"
+    },
+    {
+      "name": "openclaw--openclaw--obsidian",
+      "source": "./openclaw--openclaw--obsidian"
+    },
+    {
+      "name": "openclaw--openclaw--openai-whisper",
+      "source": "./openclaw--openclaw--openai-whisper"
+    },
+    {
+      "name": "openclaw--openclaw--openai-whisper-api",
+      "source": "./openclaw--openclaw--openai-whisper-api"
+    },
+    {
+      "name": "openclaw--openclaw--openhue",
+      "source": "./openclaw--openclaw--openhue"
+    },
+    {
+      "name": "openclaw--openclaw--oracle",
+      "source": "./openclaw--openclaw--oracle"
+    },
+    {
+      "name": "openclaw--openclaw--ordercli",
+      "source": "./openclaw--openclaw--ordercli"
+    },
+    {
+      "name": "openclaw--openclaw--peekaboo",
+      "source": "./openclaw--openclaw--peekaboo"
+    },
+    {
+      "name": "openclaw--openclaw--prose",
+      "source": "./openclaw--openclaw--prose"
+    },
+    {
+      "name": "openclaw--openclaw--sag",
+      "source": "./openclaw--openclaw--sag"
+    },
+    {
+      "name": "openclaw--openclaw--skill-creator",
+      "source": "./openclaw--openclaw--skill-creator"
+    },
+    {
+      "name": "openclaw--openclaw--slack",
+      "source": "./openclaw--openclaw--slack"
+    },
+    {
+      "name": "openclaw--openclaw--songsee",
+      "source": "./openclaw--openclaw--songsee"
+    },
+    {
+      "name": "openclaw--openclaw--things-mac",
+      "source": "./openclaw--openclaw--things-mac"
+    },
+    {
+      "name": "openclaw--openclaw--tmux",
+      "source": "./openclaw--openclaw--tmux"
+    },
+    {
+      "name": "openclaw--openclaw--trello",
+      "source": "./openclaw--openclaw--trello"
+    },
+    {
+      "name": "openclaw--openclaw--video-frames",
+      "source": "./openclaw--openclaw--video-frames"
+    },
+    {
+      "name": "openclaw--openclaw--wacli",
+      "source": "./openclaw--openclaw--wacli"
+    },
+    {
+      "name": "openclaw--openclaw--weather",
+      "source": "./openclaw--openclaw--weather"
+    },
+    {
+      "name": "microsoft--vscode--accessibility",
+      "source": "./microsoft--vscode--accessibility"
+    },
+    {
+      "name": "microsoft--vscode--agent-sessions-layout",
+      "source": "./microsoft--vscode--agent-sessions-layout"
+    },
+    {
+      "name": "microsoft--vscode--author-contributions",
+      "source": "./microsoft--vscode--author-contributions"
+    },
+    {
+      "name": "microsoft--vscode--fix-errors",
+      "source": "./microsoft--vscode--fix-errors"
+    },
+    {
+      "name": "microsoft--vscode--sessions",
+      "source": "./microsoft--vscode--sessions"
+    },
+    {
+      "name": "n8n-io--n8n--content-design",
+      "source": "./n8n-io--n8n--content-design"
+    },
+    {
+      "name": "n8n-io--n8n--create-pr",
+      "source": "./n8n-io--n8n--create-pr"
+    },
+    {
+      "name": "n8n-io--n8n--n8n-conventions",
+      "source": "./n8n-io--n8n--n8n-conventions"
+    },
+    {
+      "name": "f--prompts-chat--book-translation",
+      "source": "./f--prompts-chat--book-translation"
+    },
+    {
+      "name": "f--prompts-chat--prompt-lookup",
+      "source": "./f--prompts-chat--prompt-lookup"
+    },
+    {
+      "name": "f--prompts-chat--skill-lookup",
+      "source": "./f--prompts-chat--skill-lookup"
+    },
+    {
+      "name": "vercel--next-js--authoring-skills",
+      "source": "./vercel--next-js--authoring-skills"
+    },
+    {
+      "name": "vercel--next-js--cache-components",
+      "source": "./vercel--next-js--cache-components"
+    },
+    {
+      "name": "vercel--next-js--dce-edge",
+      "source": "./vercel--next-js--dce-edge"
+    },
+    {
+      "name": "vercel--next-js--flags",
+      "source": "./vercel--next-js--flags"
+    },
+    {
+      "name": "vercel--next-js--pr-status-triage",
+      "source": "./vercel--next-js--pr-status-triage"
+    },
+    {
+      "name": "vercel--next-js--react-vendoring",
+      "source": "./vercel--next-js--react-vendoring"
+    },
+    {
+      "name": "vercel--next-js--runtime-debug",
+      "source": "./vercel--next-js--runtime-debug"
+    },
+    {
+      "name": "langgenius--dify--component-refactoring",
+      "source": "./langgenius--dify--component-refactoring"
+    },
+    {
+      "name": "langgenius--dify--frontend-code-review",
+      "source": "./langgenius--dify--frontend-code-review"
+    },
+    {
+      "name": "langgenius--dify--frontend-testing",
+      "source": "./langgenius--dify--frontend-testing"
+    },
+    {
+      "name": "electron--electron--electron-chromium-upgrade",
+      "source": "./electron--electron--electron-chromium-upgrade"
+    },
+    {
+      "name": "vercel-labs--agent-skills--web-design-guidelines",
+      "source": "./vercel-labs--agent-skills--web-design-guidelines"
+    },
+    {
+      "name": "angular--angular--angular-new-app",
+      "source": "./angular--angular--angular-new-app"
+    },
+    {
+      "name": "supabase--supabase--vitest",
+      "source": "./supabase--supabase--vitest"
+    },
+    {
+      "name": "pytorch--pytorch--aoti-debug",
+      "source": "./pytorch--pytorch--aoti-debug"
+    },
+    {
+      "name": "pytorch--pytorch--at-dispatch-v2",
+      "source": "./pytorch--pytorch--at-dispatch-v2"
+    },
+    {
+      "name": "pytorch--pytorch--docstring",
+      "source": "./pytorch--pytorch--docstring"
+    },
+    {
+      "name": "pytorch--pytorch--metal-kernel",
+      "source": "./pytorch--pytorch--metal-kernel"
+    },
+    {
+      "name": "pytorch--pytorch--pr-review",
+      "source": "./pytorch--pytorch--pr-review"
+    },
+    {
+      "name": "pytorch--pytorch--skill-writer",
+      "source": "./pytorch--pytorch--skill-writer"
+    },
+    {
+      "name": "pytorch--pytorch--triaging-issues",
+      "source": "./pytorch--pytorch--triaging-issues"
+    },
+    {
+      "name": "shubhamsaboo--awesome-llm-apps--code-reviewer",
+      "source": "./shubhamsaboo--awesome-llm-apps--code-reviewer"
+    },
+    {
+      "name": "shubhamsaboo--awesome-llm-apps--content-creator",
+      "source": "./shubhamsaboo--awesome-llm-apps--content-creator"
+    },
+    {
+      "name": "shubhamsaboo--awesome-llm-apps--debugger",
+      "source": "./shubhamsaboo--awesome-llm-apps--debugger"
+    },
+    {
+      "name": "shubhamsaboo--awesome-llm-apps--editor",
+      "source": "./shubhamsaboo--awesome-llm-apps--editor"
+    },
+    {
+      "name": "shubhamsaboo--awesome-llm-apps--fullstack-developer",
+      "source": "./shubhamsaboo--awesome-llm-apps--fullstack-developer"
+    },
+    {
+      "name": "shubhamsaboo--awesome-llm-apps--meeting-notes",
+      "source": "./shubhamsaboo--awesome-llm-apps--meeting-notes"
+    },
+    {
+      "name": "shubhamsaboo--awesome-llm-apps--python-expert",
+      "source": "./shubhamsaboo--awesome-llm-apps--python-expert"
+    },
+    {
+      "name": "shubhamsaboo--awesome-llm-apps--technical-writer",
+      "source": "./shubhamsaboo--awesome-llm-apps--technical-writer"
+    },
+    {
+      "name": "shubhamsaboo--awesome-llm-apps--visualization-expert",
+      "source": "./shubhamsaboo--awesome-llm-apps--visualization-expert"
+    },
+    {
+      "name": "google-gemini--gemini-cli--code-reviewer",
+      "source": "./google-gemini--gemini-cli--code-reviewer"
+    },
+    {
+      "name": "google-gemini--gemini-cli--docs-changelog",
+      "source": "./google-gemini--gemini-cli--docs-changelog"
+    },
+    {
+      "name": "google-gemini--gemini-cli--docs-writer",
+      "source": "./google-gemini--gemini-cli--docs-writer"
+    },
+    {
+      "name": "google-gemini--gemini-cli--greeter",
+      "source": "./google-gemini--gemini-cli--greeter"
+    },
+    {
+      "name": "google-gemini--gemini-cli--pr-creator",
+      "source": "./google-gemini--gemini-cli--pr-creator"
+    },
+    {
+      "name": "google-gemini--gemini-cli--skill-creator",
+      "source": "./google-gemini--gemini-cli--skill-creator"
+    },
+    {
+      "name": "oven-sh--bun--implementing-jsc-classes-cpp",
+      "source": "./oven-sh--bun--implementing-jsc-classes-cpp"
+    },
+    {
+      "name": "oven-sh--bun--implementing-jsc-classes-zig",
+      "source": "./oven-sh--bun--implementing-jsc-classes-zig"
+    },
+    {
+      "name": "oven-sh--bun--writing-bundler-tests",
+      "source": "./oven-sh--bun--writing-bundler-tests"
+    },
+    {
+      "name": "oven-sh--bun--writing-dev-server-tests",
+      "source": "./oven-sh--bun--writing-dev-server-tests"
+    },
+    {
+      "name": "oven-sh--bun--zig-system-calls",
+      "source": "./oven-sh--bun--zig-system-calls"
+    },
+    {
+      "name": "home-assistant--core--integrations",
+      "source": "./home-assistant--core--integrations"
+    },
+    {
+      "name": "microsoft--playwright--playwright-dev",
+      "source": "./microsoft--playwright--playwright-dev"
+    },
+    {
+      "name": "anthropics--skills--frontend-design",
+      "source": "./anthropics--skills--frontend-design"
+    },
+    {
+      "name": "browser-use--browser-use--browser-use",
+      "source": "./browser-use--browser-use--browser-use"
+    },
+    {
+      "name": "browser-use--browser-use--remote-browser",
+      "source": "./browser-use--browser-use--remote-browser"
+    },
+    {
+      "name": "zed-industries--zed--brand-writer",
+      "source": "./zed-industries--zed--brand-writer"
+    },
+    {
+      "name": "zed-industries--zed--brand-voice",
+      "source": "./zed-industries--zed--brand-voice"
+    },
+    {
+      "name": "lobehub--lobehub--add-provider-doc",
+      "source": "./lobehub--lobehub--add-provider-doc"
+    },
+    {
+      "name": "lobehub--lobehub--add-setting-env",
+      "source": "./lobehub--lobehub--add-setting-env"
+    },
+    {
+      "name": "lobehub--lobehub--debug",
+      "source": "./lobehub--lobehub--debug"
+    },
+    {
+      "name": "lobehub--lobehub--desktop",
+      "source": "./lobehub--lobehub--desktop"
+    },
+    {
+      "name": "lobehub--lobehub--drizzle",
+      "source": "./lobehub--lobehub--drizzle"
+    },
+    {
+      "name": "lobehub--lobehub--hotkey",
+      "source": "./lobehub--lobehub--hotkey"
+    },
+    {
+      "name": "lobehub--lobehub--i18n",
+      "source": "./lobehub--lobehub--i18n"
+    },
+    {
+      "name": "lobehub--lobehub--microcopy",
+      "source": "./lobehub--lobehub--microcopy"
+    },
+    {
+      "name": "lobehub--lobehub--modal",
+      "source": "./lobehub--lobehub--modal"
+    },
+    {
+      "name": "lobehub--lobehub--project-overview",
+      "source": "./lobehub--lobehub--project-overview"
+    },
+    {
+      "name": "lobehub--lobehub--react",
+      "source": "./lobehub--lobehub--react"
+    },
+    {
+      "name": "lobehub--lobehub--recent-data",
+      "source": "./lobehub--lobehub--recent-data"
+    },
+    {
+      "name": "lobehub--lobehub--testing",
+      "source": "./lobehub--lobehub--testing"
+    },
+    {
+      "name": "lobehub--lobehub--typescript",
+      "source": "./lobehub--lobehub--typescript"
+    },
+    {
+      "name": "lobehub--lobehub--zustand",
+      "source": "./lobehub--lobehub--zustand"
+    },
+    {
+      "name": "anthropics--skills--algorithmic-art",
+      "source": "./anthropics--skills--algorithmic-art"
+    },
+    {
+      "name": "anthropics--skills--brand-guidelines",
+      "source": "./anthropics--skills--brand-guidelines"
+    },
+    {
+      "name": "anthropics--skills--canvas-design",
+      "source": "./anthropics--skills--canvas-design"
+    },
+    {
+      "name": "anthropics--skills--doc-coauthoring",
+      "source": "./anthropics--skills--doc-coauthoring"
+    },
+    {
+      "name": "anthropics--skills--docx",
+      "source": "./anthropics--skills--docx"
+    },
+    {
+      "name": "anthropics--skills--internal-comms",
+      "source": "./anthropics--skills--internal-comms"
+    },
+    {
+      "name": "anthropics--skills--mcp-builder",
+      "source": "./anthropics--skills--mcp-builder"
+    },
+    {
+      "name": "anthropics--skills--pdf",
+      "source": "./anthropics--skills--pdf"
+    },
+    {
+      "name": "anthropics--skills--pptx",
+      "source": "./anthropics--skills--pptx"
+    },
+    {
+      "name": "anthropics--skills--skill-creator",
+      "source": "./anthropics--skills--skill-creator"
+    },
+    {
+      "name": "anthropics--skills--theme-factory",
+      "source": "./anthropics--skills--theme-factory"
+    },
+    {
+      "name": "anthropics--skills--web-artifacts-builder",
+      "source": "./anthropics--skills--web-artifacts-builder"
+    },
+    {
+      "name": "anthropics--skills--webapp-testing",
+      "source": "./anthropics--skills--webapp-testing"
+    },
+    {
+      "name": "anthropics--skills--xlsx",
+      "source": "./anthropics--skills--xlsx"
+    },
+    {
+      "name": "leonardomso--33-js-concepts--concept-workflow",
+      "source": "./leonardomso--33-js-concepts--concept-workflow"
+    },
+    {
+      "name": "leonardomso--33-js-concepts--fact-check",
+      "source": "./leonardomso--33-js-concepts--fact-check"
+    },
+    {
+      "name": "leonardomso--33-js-concepts--resource-curator",
+      "source": "./leonardomso--33-js-concepts--resource-curator"
+    },
+    {
+      "name": "leonardomso--33-js-concepts--seo-review",
+      "source": "./leonardomso--33-js-concepts--seo-review"
+    },
+    {
+      "name": "leonardomso--33-js-concepts--test-writer",
+      "source": "./leonardomso--33-js-concepts--test-writer"
+    },
+    {
+      "name": "leonardomso--33-js-concepts--write-concept",
+      "source": "./leonardomso--33-js-concepts--write-concept"
+    },
+    {
+      "name": "openai--codex--test-tui",
+      "source": "./openai--codex--test-tui"
+    },
+    {
+      "name": "obra--superpowers--brainstorming",
+      "source": "./obra--superpowers--brainstorming"
+    },
+    {
+      "name": "obra--superpowers--dispatching-parallel-agents",
+      "source": "./obra--superpowers--dispatching-parallel-agents"
+    },
+    {
+      "name": "obra--superpowers--finishing-a-development-branch",
+      "source": "./obra--superpowers--finishing-a-development-branch"
+    },
+    {
+      "name": "obra--superpowers--receiving-code-review",
+      "source": "./obra--superpowers--receiving-code-review"
+    },
+    {
+      "name": "obra--superpowers--requesting-code-review",
+      "source": "./obra--superpowers--requesting-code-review"
+    },
+    {
+      "name": "obra--superpowers--subagent-driven-development",
+      "source": "./obra--superpowers--subagent-driven-development"
+    },
+    {
+      "name": "obra--superpowers--systematic-debugging",
+      "source": "./obra--superpowers--systematic-debugging"
+    },
+    {
+      "name": "obra--superpowers--test-driven-development",
+      "source": "./obra--superpowers--test-driven-development"
+    },
+    {
+      "name": "obra--superpowers--using-git-worktrees",
+      "source": "./obra--superpowers--using-git-worktrees"
+    },
+    {
+      "name": "obra--superpowers--using-superpowers",
+      "source": "./obra--superpowers--using-superpowers"
+    },
+    {
+      "name": "obra--superpowers--writing-plans",
+      "source": "./obra--superpowers--writing-plans"
+    },
+    {
+      "name": "obra--superpowers--writing-skills",
+      "source": "./obra--superpowers--writing-skills"
+    },
+    {
+      "name": "tryghost--ghost--add-admin-api-endpoint",
+      "source": "./tryghost--ghost--add-admin-api-endpoint"
+    },
+    {
+      "name": "coollabsio--coolify--debugging-output-and-previewing-html-using-ray",
+      "source": "./coollabsio--coolify--debugging-output-and-previewing-html-using-ray"
+    },
+    {
+      "name": "coollabsio--coolify--developing-with-fortify",
+      "source": "./coollabsio--coolify--developing-with-fortify"
+    },
+    {
+      "name": "coollabsio--coolify--livewire-development",
+      "source": "./coollabsio--coolify--livewire-development"
+    },
+    {
+      "name": "coollabsio--coolify--pest-testing",
+      "source": "./coollabsio--coolify--pest-testing"
+    },
+    {
+      "name": "coollabsio--coolify--tailwindcss-development",
+      "source": "./coollabsio--coolify--tailwindcss-development"
+    },
+    {
+      "name": "microsoft--ai-agents-for-beginners--microsoft-docs",
+      "source": "./microsoft--ai-agents-for-beginners--microsoft-docs"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--api-design",
+      "source": "./affaan-m--everything-claude-code--api-design"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--backend-patterns",
+      "source": "./affaan-m--everything-claude-code--backend-patterns"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--clickhouse-io",
+      "source": "./affaan-m--everything-claude-code--clickhouse-io"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--coding-standards",
+      "source": "./affaan-m--everything-claude-code--coding-standards"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--continuous-learning",
+      "source": "./affaan-m--everything-claude-code--continuous-learning"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--continuous-learning-v2",
+      "source": "./affaan-m--everything-claude-code--continuous-learning-v2"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--cost-aware-llm-pipeline",
+      "source": "./affaan-m--everything-claude-code--cost-aware-llm-pipeline"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--cpp-coding-standards",
+      "source": "./affaan-m--everything-claude-code--cpp-coding-standards"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--database-migrations",
+      "source": "./affaan-m--everything-claude-code--database-migrations"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--deployment-patterns",
+      "source": "./affaan-m--everything-claude-code--deployment-patterns"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--django-verification",
+      "source": "./affaan-m--everything-claude-code--django-verification"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--docker-patterns",
+      "source": "./affaan-m--everything-claude-code--docker-patterns"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--e2e-testing",
+      "source": "./affaan-m--everything-claude-code--e2e-testing"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--eval-harness",
+      "source": "./affaan-m--everything-claude-code--eval-harness"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--frontend-patterns",
+      "source": "./affaan-m--everything-claude-code--frontend-patterns"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--java-coding-standards",
+      "source": "./affaan-m--everything-claude-code--java-coding-standards"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--jpa-patterns",
+      "source": "./affaan-m--everything-claude-code--jpa-patterns"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--springboot-patterns",
+      "source": "./affaan-m--everything-claude-code--springboot-patterns"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--springboot-security",
+      "source": "./affaan-m--everything-claude-code--springboot-security"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--springboot-verification",
+      "source": "./affaan-m--everything-claude-code--springboot-verification"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--swift-actor-persistence",
+      "source": "./affaan-m--everything-claude-code--swift-actor-persistence"
+    },
+    {
+      "name": "affaan-m--everything-claude-code--swift-protocol-di-testing",
+      "source": "./affaan-m--everything-claude-code--swift-protocol-di-testing"
+    },
+    {
+      "name": "discourse--discourse--discourse-upcoming-changes",
+      "source": "./discourse--discourse--discourse-upcoming-changes"
+    },
+    {
+      "name": "metabase--metabase--add-malli-schemas",
+      "source": "./metabase--metabase--add-malli-schemas"
+    },
+    {
+      "name": "metabase--metabase--analytics-events",
+      "source": "./metabase--metabase--analytics-events"
+    },
+    {
+      "name": "metabase--metabase--clojure-review",
+      "source": "./metabase--metabase--clojure-review"
+    },
+    {
+      "name": "metabase--metabase--clojure-write",
+      "source": "./metabase--metabase--clojure-write"
+    },
+    {
+      "name": "metabase--metabase--docs-review",
+      "source": "./metabase--metabase--docs-review"
+    },
+    {
+      "name": "metabase--metabase--docs-write",
+      "source": "./metabase--metabase--docs-write"
+    },
+    {
+      "name": "metabase--metabase--mutation-testing",
+      "source": "./metabase--metabase--mutation-testing"
+    },
+    {
+      "name": "metabase--metabase--typescript-review",
+      "source": "./metabase--metabase--typescript-review"
+    },
+    {
+      "name": "metabase--metabase--typescript-write",
+      "source": "./metabase--metabase--typescript-write"
+    },
+    {
+      "name": "clickhouse--clickhouse--fix-sync",
+      "source": "./clickhouse--clickhouse--fix-sync"
+    },
+    {
+      "name": "vercel-labs--agent-browser--agent-browser",
+      "source": "./vercel-labs--agent-browser--agent-browser"
+    },
+    {
+      "name": "tldraw--tldraw--pr-walkthrough",
+      "source": "./tldraw--tldraw--pr-walkthrough"
+    },
+    {
+      "name": "tldraw--tldraw--review-docs",
+      "source": "./tldraw--tldraw--review-docs"
+    },
+    {
+      "name": "tldraw--tldraw--skill-creator",
+      "source": "./tldraw--tldraw--skill-creator"
+    },
+    {
+      "name": "tldraw--tldraw--update-release-notes",
+      "source": "./tldraw--tldraw--update-release-notes"
+    },
+    {
+      "name": "tldraw--tldraw--write-docs",
+      "source": "./tldraw--tldraw--write-docs"
+    },
+    {
+      "name": "tldraw--tldraw--write-e2e-tests",
+      "source": "./tldraw--tldraw--write-e2e-tests"
+    },
+    {
+      "name": "tldraw--tldraw--write-example",
+      "source": "./tldraw--tldraw--write-example"
+    },
+    {
+      "name": "tldraw--tldraw--write-issue",
+      "source": "./tldraw--tldraw--write-issue"
+    },
+    {
+      "name": "tldraw--tldraw--write-release-notes",
+      "source": "./tldraw--tldraw--write-release-notes"
+    },
+    {
+      "name": "tldraw--tldraw--write-unit-tests",
+      "source": "./tldraw--tldraw--write-unit-tests"
+    },
+    {
+      "name": "meteor--meteor--ai-context",
+      "source": "./meteor--meteor--ai-context"
+    },
+    {
+      "name": "meteor--meteor--codebase",
+      "source": "./meteor--meteor--codebase"
+    },
+    {
+      "name": "meteor--meteor--conventions",
+      "source": "./meteor--meteor--conventions"
+    },
+    {
+      "name": "meteor--meteor--modern-tools",
+      "source": "./meteor--meteor--modern-tools"
+    },
+    {
+      "name": "meteor--meteor--testing",
+      "source": "./meteor--meteor--testing"
+    },
+    {
+      "name": "slidevjs--slidev--slidev",
+      "source": "./slidevjs--slidev--slidev"
+    },
+    {
+      "name": "karpathy--nanochat--read-arxiv-paper",
+      "source": "./karpathy--nanochat--read-arxiv-paper"
+    },
+    {
+      "name": "streamlit--streamlit--addressing-pr-review-comments",
+      "source": "./streamlit--streamlit--addressing-pr-review-comments"
+    },
+    {
+      "name": "streamlit--streamlit--checking-changes",
+      "source": "./streamlit--streamlit--checking-changes"
+    },
+    {
+      "name": "streamlit--streamlit--debugging-streamlit",
+      "source": "./streamlit--streamlit--debugging-streamlit"
+    },
+    {
+      "name": "streamlit--streamlit--discovering-make-commands",
+      "source": "./streamlit--streamlit--discovering-make-commands"
+    },
+    {
+      "name": "streamlit--streamlit--fixing-streamlit-ci",
+      "source": "./streamlit--streamlit--fixing-streamlit-ci"
+    },
+    {
+      "name": "zhayujie--chatgpt-on-wechat--skill-creator",
+      "source": "./zhayujie--chatgpt-on-wechat--skill-creator"
+    },
+    {
+      "name": "ccxt--ccxt--ccxt-csharp",
+      "source": "./ccxt--ccxt--ccxt-csharp"
+    },
+    {
+      "name": "ccxt--ccxt--ccxt-go",
+      "source": "./ccxt--ccxt--ccxt-go"
+    },
+    {
+      "name": "ccxt--ccxt--ccxt-php",
+      "source": "./ccxt--ccxt--ccxt-php"
+    },
+    {
+      "name": "ccxt--ccxt--ccxt-python",
+      "source": "./ccxt--ccxt--ccxt-python"
+    },
+    {
+      "name": "ccxt--ccxt--ccxt-typescript",
+      "source": "./ccxt--ccxt--ccxt-typescript"
+    },
+    {
+      "name": "payloadcms--payload--payload",
+      "source": "./payloadcms--payload--payload"
+    },
+    {
+      "name": "payloadcms--payload--triage-ci-flake",
+      "source": "./payloadcms--payload--triage-ci-flake"
+    },
+    {
+      "name": "calcom--cal-com--calcom-api",
+      "source": "./calcom--cal-com--calcom-api"
+    },
+    {
+      "name": "calcom--cal-com--vercel-react-best-practices",
+      "source": "./calcom--cal-com--vercel-react-best-practices"
+    },
+    {
+      "name": "calcom--cal-com--vercel-react-best-practices",
+      "source": "./calcom--cal-com--vercel-react-best-practices"
+    },
+    {
+      "name": "calcom--cal-com--web-design-guidelines",
+      "source": "./calcom--cal-com--web-design-guidelines"
+    },
+    {
+      "name": "cherryhq--cherry-studio--gh-create-pr",
+      "source": "./cherryhq--cherry-studio--gh-create-pr"
+    },
+    {
+      "name": "twentyhq--twenty--syncable-entity-integration",
+      "source": "./twentyhq--twenty--syncable-entity-integration"
+    },
+    {
+      "name": "twentyhq--twenty--syncable-entity-testing",
+      "source": "./twentyhq--twenty--syncable-entity-testing"
+    },
+    {
+      "name": "pingcap--tidb--tidb-test-guidelines",
+      "source": "./pingcap--tidb--tidb-test-guidelines"
+    },
+    {
+      "name": "novuhq--novu--better-auth-best-practices",
+      "source": "./novuhq--novu--better-auth-best-practices"
+    },
+    {
+      "name": "novuhq--novu--email-best-practices",
+      "source": "./novuhq--novu--email-best-practices"
+    },
+    {
+      "name": "novuhq--novu--react-email",
+      "source": "./novuhq--novu--react-email"
+    },
+    {
+      "name": "novuhq--novu--run-api-e2e-tests",
+      "source": "./novuhq--novu--run-api-e2e-tests"
+    },
+    {
+      "name": "agno-agi--agno--code-review",
+      "source": "./agno-agi--agno--code-review"
+    },
+    {
+      "name": "agno-agi--agno--git-workflow",
+      "source": "./agno-agi--agno--git-workflow"
+    },
+    {
+      "name": "remotion-dev--remotion--add-expert",
+      "source": "./remotion-dev--remotion--add-expert"
+    },
+    {
+      "name": "remotion-dev--remotion--docs-demo",
+      "source": "./remotion-dev--remotion--docs-demo"
+    },
+    {
+      "name": "remotion-dev--remotion--pr",
+      "source": "./remotion-dev--remotion--pr"
+    },
+    {
+      "name": "remotion-dev--remotion--remotion",
+      "source": "./remotion-dev--remotion--remotion"
+    },
+    {
+      "name": "remotion-dev--remotion--video-report",
+      "source": "./remotion-dev--remotion--video-report"
+    },
+    {
+      "name": "remotion-dev--remotion--web-renderer-test",
+      "source": "./remotion-dev--remotion--web-renderer-test"
+    },
+    {
+      "name": "remotion-dev--remotion--writing-docs",
+      "source": "./remotion-dev--remotion--writing-docs"
+    }
+  ]
 }
