@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--blogwatcher",
+  "version": "1.0.0",
+  "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
