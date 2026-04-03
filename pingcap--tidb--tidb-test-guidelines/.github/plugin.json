@@ -1,0 +1,13 @@
+{
+  "name": "pingcap--tidb--tidb-test-guidelines",
+  "version": "1.0.0",
+  "description": "Decide where to place TiDB tests and how to write them (basic structure, naming, testdata usage). Use when asked about test locations, writing conventions, shard_count limits, casetest categorization, or when reviewing test changes in code review.",
+  "author": {
+    "name": "pingcap (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
