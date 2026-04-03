@@ -1,0 +1,13 @@
+{
+  "name": "coollabsio--coolify--tailwindcss-development",
+  "version": "1.0.0",
+  "description": ">-",
+  "author": {
+    "name": "coollabsio (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
