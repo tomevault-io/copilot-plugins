@@ -1,0 +1,13 @@
+{
+  "name": "leonardomso--33-js-concepts--seo-review",
+  "version": "1.0.0",
+  "description": "Perform a focused SEO audit on JavaScript concept pages to maximize search visibility, featured snippet optimization, and ranking potential",
+  "author": {
+    "name": "leonardomso (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
