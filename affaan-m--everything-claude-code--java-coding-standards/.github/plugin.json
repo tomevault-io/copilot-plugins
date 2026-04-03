@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--java-coding-standards",
+  "version": "1.0.0",
+  "description": "\"Java coding standards for Spring Boot services: naming, immutability, Optional usage, streams, exceptions, generics, and project layout.\"",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
