@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--swift-protocol-di-testing",
+  "version": "1.0.0",
+  "description": "Protocol-based dependency injection for testable Swift code \u2014 mock file system, network, and external APIs using focused protocols and Swift Testing.",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
