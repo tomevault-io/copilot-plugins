@@ -1,0 +1,13 @@
+{
+  "name": "lobehub--lobehub--debug",
+  "version": "1.0.0",
+  "description": "Debug package usage guide. Use when adding debug logging, understanding log namespaces, or implementing debugging features. Triggers on debug logging requests or logging implementation.",
+  "author": {
+    "name": "lobehub (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
