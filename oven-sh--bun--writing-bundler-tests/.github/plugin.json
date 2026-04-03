@@ -1,0 +1,13 @@
+{
+  "name": "oven-sh--bun--writing-bundler-tests",
+  "version": "1.0.0",
+  "description": "Guides writing bundler tests using itBundled/expectBundled in test/bundler/. Use when creating or modifying bundler, transpiler, or code transformation tests.",
+  "author": {
+    "name": "oven-sh (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
