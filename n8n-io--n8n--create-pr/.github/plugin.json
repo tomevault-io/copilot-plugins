@@ -1,0 +1,13 @@
+{
+  "name": "n8n-io--n8n--create-pr",
+  "version": "1.0.0",
+  "description": "Creates GitHub pull requests with properly formatted titles that pass the check-pr-title CI validation. Use when creating PRs, submitting changes for review, or when the user says /pr or asks to create a pull request.",
+  "author": {
+    "name": "n8n-io (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
