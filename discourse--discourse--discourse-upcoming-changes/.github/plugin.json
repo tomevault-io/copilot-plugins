@@ -1,0 +1,13 @@
+{
+  "name": "discourse--discourse--discourse-upcoming-changes",
+  "version": "1.0.0",
+  "description": "Use when adding a new upcoming change feature flag to Discourse - handles site settings, translations, images, and code access patterns",
+  "author": {
+    "name": "discourse (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
