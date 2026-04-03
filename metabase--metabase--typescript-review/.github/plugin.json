@@ -1,0 +1,13 @@
+{
+  "name": "metabase--metabase--typescript-review",
+  "version": "1.0.0",
+  "description": "Review TypeScript and JavaScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing TypeScript/JavaScript code.",
+  "author": {
+    "name": "metabase (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
