@@ -1,0 +1,13 @@
+{
+  "name": "remotion-dev--remotion--docs-demo",
+  "version": "1.0.0",
+  "description": "Add an interactive demo to the Remotion documentation. Use when creating a new <Demo> component for docs pages.",
+  "author": {
+    "name": "remotion-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
