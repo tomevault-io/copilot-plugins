@@ -1,0 +1,13 @@
+{
+  "name": "streamlit--streamlit--checking-changes",
+  "version": "1.0.0",
+  "description": "Validates all code changes before committing by running format, lint, type, and unit test checks. Use after making backend (Python) or frontend (TypeScript) changes, before committing or finishing a work session.",
+  "author": {
+    "name": "streamlit (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
