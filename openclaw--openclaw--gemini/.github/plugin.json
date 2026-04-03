@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--gemini",
+  "version": "1.0.0",
+  "description": "Gemini CLI for one-shot Q&A, summaries, and generation.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
