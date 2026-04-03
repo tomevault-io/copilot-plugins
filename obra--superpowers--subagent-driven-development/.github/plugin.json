@@ -1,0 +1,13 @@
+{
+  "name": "obra--superpowers--subagent-driven-development",
+  "version": "1.0.0",
+  "description": "Use when executing implementation plans with independent tasks in the current session",
+  "author": {
+    "name": "obra (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
