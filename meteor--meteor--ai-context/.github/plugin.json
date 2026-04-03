@@ -1,0 +1,13 @@
+{
+  "name": "meteor--meteor--ai-context",
+  "version": "1.0.0",
+  "description": "Use when creating, updating, or maintaining AI documentation files (AGENTS.md, CLAUDE.md, skills). Covers file structure, conventions, and guidelines for evolving AI context.",
+  "author": {
+    "name": "meteor (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
