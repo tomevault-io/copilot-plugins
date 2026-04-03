@@ -1,0 +1,13 @@
+{
+  "name": "tryghost--ghost--add-admin-api-endpoint",
+  "version": "1.0.0",
+  "description": "Add a new endpoint or endpoints to Ghost's Admin API at `ghost/api/admin/**`.",
+  "author": {
+    "name": "tryghost (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
