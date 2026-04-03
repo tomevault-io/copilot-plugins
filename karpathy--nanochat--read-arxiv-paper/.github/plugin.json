@@ -1,0 +1,13 @@
+{
+  "name": "karpathy--nanochat--read-arxiv-paper",
+  "version": "1.0.0",
+  "description": "Use this skill when asked to read an arxiv paper given an arxiv URL",
+  "author": {
+    "name": "karpathy (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
