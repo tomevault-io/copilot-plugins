@@ -1,0 +1,13 @@
+{
+  "name": "payloadcms--payload--triage-ci-flake",
+  "version": "1.0.0",
+  "description": "Use when CI tests fail on main branch after PR merge, or when investigating flaky test failures in CI environments",
+  "author": {
+    "name": "payloadcms (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
