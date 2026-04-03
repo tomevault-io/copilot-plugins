@@ -1,0 +1,13 @@
+{
+  "name": "microsoft--playwright--playwright-dev",
+  "version": "1.0.0",
+  "description": "Explains how to develop Playwright - add APIs, MCP tools, CLI commands, and vendor dependencies.",
+  "author": {
+    "name": "microsoft (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
