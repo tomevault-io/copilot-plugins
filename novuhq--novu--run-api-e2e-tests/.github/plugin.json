@@ -1,0 +1,13 @@
+{
+  "name": "novuhq--novu--run-api-e2e-tests",
+  "version": "1.0.0",
+  "description": "Run e2e tests for the API service. Use when the user wants to run API E2E tests.",
+  "author": {
+    "name": "novuhq (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
