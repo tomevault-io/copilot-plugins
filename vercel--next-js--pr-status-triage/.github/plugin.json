@@ -1,0 +1,13 @@
+{
+  "name": "vercel--next-js--pr-status-triage",
+  "version": "1.0.0",
+  "description": ">",
+  "author": {
+    "name": "vercel (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
