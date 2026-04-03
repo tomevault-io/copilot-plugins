@@ -1,0 +1,13 @@
+{
+  "name": "remotion-dev--remotion--video-report",
+  "version": "1.0.0",
+  "description": "Generate a report about a video",
+  "author": {
+    "name": "remotion-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
