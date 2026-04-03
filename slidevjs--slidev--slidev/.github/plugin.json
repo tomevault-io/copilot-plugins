@@ -1,0 +1,13 @@
+{
+  "name": "slidevjs--slidev--slidev",
+  "version": "1.0.0",
+  "description": "Create and present web-based slidedecks for developers using Slidev with Markdown, Vue components, code highlighting, animations, and interactive features. Use when building technical presentations, conference talks, code walkthroughs, teaching materials, or developer decks.",
+  "author": {
+    "name": "slidevjs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
