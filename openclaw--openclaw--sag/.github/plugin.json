@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--sag",
+  "version": "1.0.0",
+  "description": "ElevenLabs text-to-speech with mac-style say UX.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
