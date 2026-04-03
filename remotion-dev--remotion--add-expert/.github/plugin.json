@@ -1,0 +1,13 @@
+{
+  "name": "remotion-dev--remotion--add-expert",
+  "version": "1.0.0",
+  "description": "Add a new expert to the Remotion experts page",
+  "author": {
+    "name": "remotion-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
