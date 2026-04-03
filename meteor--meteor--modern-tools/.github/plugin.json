@@ -1,0 +1,13 @@
+{
+  "name": "meteor--meteor--modern-tools",
+  "version": "1.0.0",
+  "description": "Use when working with tools-core utilities, rspack integration, or modern tooling. Covers logging, npm management, process spawning, git helpers, and Meteor app configuration APIs.",
+  "author": {
+    "name": "meteor (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
