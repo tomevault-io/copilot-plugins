@@ -1,0 +1,13 @@
+{
+  "name": "openai--codex--test-tui",
+  "version": "1.0.0",
+  "description": "Guide for testing Codex TUI interactively",
+  "author": {
+    "name": "openai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
