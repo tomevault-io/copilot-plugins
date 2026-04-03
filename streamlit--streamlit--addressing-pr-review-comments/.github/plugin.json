@@ -1,0 +1,13 @@
+{
+  "name": "streamlit--streamlit--addressing-pr-review-comments",
+  "version": "1.0.0",
+  "description": "Address all valid review comments on a PR for the current branch in the streamlit/streamlit repo. Covers both inline review comments and general PR (issue) comments. Use when a PR has reviewer feedback to address, including code changes, style fixes, and documentation updates.",
+  "author": {
+    "name": "streamlit (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
