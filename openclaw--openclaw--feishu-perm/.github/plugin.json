@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--feishu-perm",
+  "version": "1.0.0",
+  "description": "|",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
