@@ -1,0 +1,13 @@
+{
+  "name": "oven-sh--bun--implementing-jsc-classes-zig",
+  "version": "1.0.0",
+  "description": "Creates JavaScript classes using Bun's Zig bindings generator (.classes.ts). Use when implementing new JS APIs in Zig with JSC integration.",
+  "author": {
+    "name": "oven-sh (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
