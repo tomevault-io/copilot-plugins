@@ -1,0 +1,13 @@
+{
+  "name": "tldraw--tldraw--write-issue",
+  "version": "1.0.0",
+  "description": "Writing and maintaining GitHub issues for the tldraw repository. Use when creating new issues, editing issue titles/bodies, triaging issues, or cleaning up issue metadata (types, labels).",
+  "author": {
+    "name": "tldraw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
