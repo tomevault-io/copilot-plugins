@@ -1,0 +1,13 @@
+{
+  "name": "zed-industries--zed--brand-writer",
+  "version": "1.0.0",
+  "description": "Write clear, developer-first copy for Zed \u2014 leading with facts, grounded in craft.",
+  "author": {
+    "name": "zed-industries (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
