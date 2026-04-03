@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--gog",
+  "version": "1.0.0",
+  "description": "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
