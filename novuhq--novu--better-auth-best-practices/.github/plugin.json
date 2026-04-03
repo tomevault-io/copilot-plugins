@@ -1,0 +1,13 @@
+{
+  "name": "novuhq--novu--better-auth-best-practices",
+  "version": "1.0.0",
+  "description": "Skill for integrating Better Auth - the comprehensive TypeScript authentication framework.",
+  "author": {
+    "name": "novuhq (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
