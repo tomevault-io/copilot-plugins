@@ -1,0 +1,13 @@
+{
+  "name": "oven-sh--bun--writing-dev-server-tests",
+  "version": "1.0.0",
+  "description": "Guides writing HMR/Dev Server tests in test/bake/. Use when creating or modifying dev server, hot reloading, or bundling tests.",
+  "author": {
+    "name": "oven-sh (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
