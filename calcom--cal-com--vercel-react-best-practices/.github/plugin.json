@@ -1,0 +1,13 @@
+{
+  "name": "calcom--cal-com--vercel-react-best-practices",
+  "version": "1.0.0",
+  "description": "**Version 1.0.0**",
+  "author": {
+    "name": "calcom (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
