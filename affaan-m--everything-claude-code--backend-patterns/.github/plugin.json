@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--backend-patterns",
+  "version": "1.0.0",
+  "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
