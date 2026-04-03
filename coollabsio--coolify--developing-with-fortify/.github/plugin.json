@@ -1,0 +1,13 @@
+{
+  "name": "coollabsio--coolify--developing-with-fortify",
+  "version": "1.0.0",
+  "description": "Laravel Fortify headless authentication backend development. Activate when implementing authentication features including login, registration, password reset, email verification, two-factor authentication (2FA/TOTP), profile updates, headless auth, authentication scaffolding, or auth guards in Laravel applications.",
+  "author": {
+    "name": "coollabsio (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
