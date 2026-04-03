@@ -1,0 +1,13 @@
+{
+  "name": "agno-agi--agno--code-review",
+  "version": "1.0.0",
+  "description": "Code review assistance with linting, style checking, and best practices",
+  "author": {
+    "name": "agno-agi (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
