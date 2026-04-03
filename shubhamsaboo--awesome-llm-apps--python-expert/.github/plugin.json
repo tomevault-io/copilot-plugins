@@ -1,0 +1,13 @@
+{
+  "name": "shubhamsaboo--awesome-llm-apps--python-expert",
+  "version": "1.0.0",
+  "description": "**A comprehensive guide for AI agents writing and reviewing Python code**, organized by priority and impact.",
+  "author": {
+    "name": "shubhamsaboo (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
