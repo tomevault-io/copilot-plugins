@@ -1,0 +1,13 @@
+{
+  "name": "streamlit--streamlit--debugging-streamlit",
+  "version": "1.0.0",
+  "description": "Debug Streamlit frontend and backend changes using make debug with hot-reload. Use when testing code changes, investigating bugs, checking UI behavior, or needing screenshots of the running app.",
+  "author": {
+    "name": "streamlit (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
