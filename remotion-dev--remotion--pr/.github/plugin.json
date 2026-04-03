@@ -1,0 +1,13 @@
+{
+  "name": "remotion-dev--remotion--pr",
+  "version": "1.0.0",
+  "description": "Open a pull request for the current feature",
+  "author": {
+    "name": "remotion-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
