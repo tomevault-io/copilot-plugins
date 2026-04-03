@@ -1,0 +1,13 @@
+{
+  "name": "lobehub--lobehub--add-provider-doc",
+  "version": "1.0.0",
+  "description": "Guide for adding new AI provider documentation. Use when adding documentation for a new AI provider (like OpenAI, Anthropic, etc.), including usage docs, environment variables, Docker config, and image resources. Triggers on provider documentation tasks.",
+  "author": {
+    "name": "lobehub (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
