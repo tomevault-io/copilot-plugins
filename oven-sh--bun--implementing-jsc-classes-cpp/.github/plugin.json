@@ -1,0 +1,13 @@
+{
+  "name": "oven-sh--bun--implementing-jsc-classes-cpp",
+  "version": "1.0.0",
+  "description": "Implements JavaScript classes in C++ using JavaScriptCore. Use when creating new JS classes with C++ bindings, prototypes, or constructors.",
+  "author": {
+    "name": "oven-sh (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
