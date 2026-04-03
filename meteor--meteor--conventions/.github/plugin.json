@@ -1,0 +1,13 @@
+{
+  "name": "meteor--meteor--conventions",
+  "version": "1.0.0",
+  "description": "Use when writing new packages, adding CLI commands, creating build plugins, or following Meteor code patterns. Covers package.js structure, file naming, and common code patterns.",
+  "author": {
+    "name": "meteor (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
