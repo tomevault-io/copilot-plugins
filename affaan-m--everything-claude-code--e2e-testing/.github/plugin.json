@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--e2e-testing",
+  "version": "1.0.0",
+  "description": "Playwright E2E testing patterns, Page Object Model, configuration, CI/CD integration, artifact management, and flaky test strategies.",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
