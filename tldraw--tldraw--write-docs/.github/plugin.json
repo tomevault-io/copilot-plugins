@@ -1,0 +1,13 @@
+{
+  "name": "tldraw--tldraw--write-docs",
+  "version": "1.0.0",
+  "description": "Writing SDK documentation for tldraw. Use when creating new documentation articles, updating existing docs, or when documentation writing guidance is needed. Applies to docs in apps/docs/content/.",
+  "author": {
+    "name": "tldraw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
