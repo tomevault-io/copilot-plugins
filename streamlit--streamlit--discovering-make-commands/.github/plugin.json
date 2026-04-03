@@ -1,0 +1,13 @@
+{
+  "name": "streamlit--streamlit--discovering-make-commands",
+  "version": "1.0.0",
+  "description": "Lists available make commands for Streamlit development. Use for build, test, lint, or format tasks.",
+  "author": {
+    "name": "streamlit (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
