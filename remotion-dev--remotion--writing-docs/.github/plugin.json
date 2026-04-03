@@ -1,0 +1,13 @@
+{
+  "name": "remotion-dev--remotion--writing-docs",
+  "version": "1.0.0",
+  "description": "Guides for writing and editing Remotion documentation. Use when adding docs pages, editing MDX files in packages/docs, or writing documentation content.",
+  "author": {
+    "name": "remotion-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
