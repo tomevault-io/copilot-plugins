@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--gifgrep",
+  "version": "1.0.0",
+  "description": "Search GIF providers with CLI/TUI, download results, and extract stills/sheets.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
