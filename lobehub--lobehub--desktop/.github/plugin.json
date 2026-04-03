@@ -1,0 +1,13 @@
+{
+  "name": "lobehub--lobehub--desktop",
+  "version": "1.0.0",
+  "description": "Electron desktop development guide. Use when implementing desktop features, IPC handlers, controllers, preload scripts, window management, menu configuration, or Electron-specific functionality. Triggers on desktop app development, Electron IPC, or desktop local tools implementation.",
+  "author": {
+    "name": "lobehub (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
