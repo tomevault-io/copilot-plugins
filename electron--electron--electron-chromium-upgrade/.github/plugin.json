@@ -1,0 +1,13 @@
+{
+  "name": "electron--electron--electron-chromium-upgrade",
+  "version": "1.0.0",
+  "description": "Guide for performing Chromium version upgrades in the Electron project. Use when working on the roller/chromium/main branch to fix patch conflicts during `e sync --3`. Covers the patch application workflow, conflict resolution, analyzing upstream Chromium changes, and proper commit formatting for patch fixes.",
+  "author": {
+    "name": "electron (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
