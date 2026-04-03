@@ -1,0 +1,13 @@
+{
+  "name": "angular--angular--angular-new-app",
+  "version": "1.0.0",
+  "description": "Creates a new Angular app using the Angular CLI. This skill should be used whenever a user wants to create a new Angular application and contains important guidelines for how to effectively create a modern Angular application.",
+  "author": {
+    "name": "angular (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
