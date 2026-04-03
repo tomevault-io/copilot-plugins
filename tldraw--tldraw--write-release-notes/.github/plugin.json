@@ -1,0 +1,13 @@
+{
+  "name": "tldraw--tldraw--write-release-notes",
+  "version": "1.0.0",
+  "description": "Writing release notes articles for tldraw SDK releases. Use when creating new release documentation, drafting release notes from scratch, or reviewing release note quality. Provides guidance on structure, voice, and content for release files in `apps/docs/content/releases/`.",
+  "author": {
+    "name": "tldraw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
