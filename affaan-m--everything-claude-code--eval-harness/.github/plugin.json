@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--eval-harness",
+  "version": "1.0.0",
+  "description": "Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
