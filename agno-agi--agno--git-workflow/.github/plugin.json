@@ -1,0 +1,13 @@
+{
+  "name": "agno-agi--agno--git-workflow",
+  "version": "1.0.0",
+  "description": "Git workflow guidance for commits, branches, and pull requests",
+  "author": {
+    "name": "agno-agi (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
