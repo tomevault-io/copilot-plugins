@@ -1,0 +1,13 @@
+{
+  "name": "f--prompts-chat--skill-lookup",
+  "version": "1.0.0",
+  "description": ">",
+  "author": {
+    "name": "f (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
