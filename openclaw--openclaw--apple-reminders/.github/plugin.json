@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--apple-reminders",
+  "version": "1.0.0",
+  "description": "Manage Apple Reminders via remindctl CLI (list, add, edit, complete, delete). Supports lists, date filters, and JSON/plain output.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
