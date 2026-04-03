@@ -1,0 +1,13 @@
+{
+  "name": "coollabsio--coolify--pest-testing",
+  "version": "1.0.0",
+  "description": ">-",
+  "author": {
+    "name": "coollabsio (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
