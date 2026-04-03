@@ -1,0 +1,13 @@
+{
+  "name": "clickhouse--clickhouse--fix-sync",
+  "version": "1.0.0",
+  "description": "Fix the \"CH Inc sync\" job in a pull request by resolving conflicts in the corresponding clickhouse-private sync PR.",
+  "author": {
+    "name": "clickhouse (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
