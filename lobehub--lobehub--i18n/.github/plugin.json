@@ -1,0 +1,13 @@
+{
+  "name": "lobehub--lobehub--i18n",
+  "version": "1.0.0",
+  "description": "Internationalization guide using react-i18next. Use when adding translations, creating i18n keys, or working with localized text in React components (.tsx files). Triggers on translation tasks, locale management, or i18n implementation.",
+  "author": {
+    "name": "lobehub (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
