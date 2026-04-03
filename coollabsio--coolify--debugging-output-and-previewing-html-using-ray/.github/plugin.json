@@ -1,0 +1,13 @@
+{
+  "name": "coollabsio--coolify--debugging-output-and-previewing-html-using-ray",
+  "version": "1.0.0",
+  "description": "Use when user says \"send to Ray,\" \"show in Ray,\" \"debug in Ray,\" \"log to Ray,\" \"display in Ray,\" or wants to visualize data, debug output, or show diagrams in the Ray desktop application.",
+  "author": {
+    "name": "coollabsio (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
