@@ -1,0 +1,13 @@
+{
+  "name": "oven-sh--bun--zig-system-calls",
+  "version": "1.0.0",
+  "description": "Guides using bun.sys for system calls and file I/O in Zig. Use when implementing file operations instead of std.fs or std.posix.",
+  "author": {
+    "name": "oven-sh (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
