@@ -1,0 +1,13 @@
+{
+  "name": "google-gemini--gemini-cli--docs-writer",
+  "version": "1.0.0",
+  "description": "",
+  "author": {
+    "name": "google-gemini (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
