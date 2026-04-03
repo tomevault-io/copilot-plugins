@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--openclaw--openai-whisper-api",
+  "version": "1.0.0",
+  "description": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper).",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
