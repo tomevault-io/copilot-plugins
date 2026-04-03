@@ -1,0 +1,13 @@
+{
+  "name": "shubhamsaboo--awesome-llm-apps--content-creator",
+  "version": "1.0.0",
+  "description": "|",
+  "author": {
+    "name": "shubhamsaboo (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
