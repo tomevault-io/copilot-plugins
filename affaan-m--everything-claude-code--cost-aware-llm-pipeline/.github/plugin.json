@@ -1,0 +1,13 @@
+{
+  "name": "affaan-m--everything-claude-code--cost-aware-llm-pipeline",
+  "version": "1.0.0",
+  "description": "Cost optimization patterns for LLM API usage \u2014 model routing by task complexity, budget tracking, retry logic, and prompt caching.",
+  "author": {
+    "name": "affaan-m (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
