@@ -1,0 +1,13 @@
+{
+  "name": "obra--superpowers--test-driven-development",
+  "version": "1.0.0",
+  "description": "Use when implementing any feature or bugfix, before writing implementation code",
+  "author": {
+    "name": "obra (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
