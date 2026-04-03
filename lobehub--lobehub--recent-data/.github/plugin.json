@@ -1,0 +1,13 @@
+{
+  "name": "lobehub--lobehub--recent-data",
+  "version": "1.0.0",
+  "description": "Guide for using Recent Data (topics, resources, pages). Use when working with recently accessed items, implementing recent lists, or accessing session store recent data. Triggers on recent data usage or implementation tasks.",
+  "author": {
+    "name": "lobehub (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
