@@ -1,0 +1,13 @@
+{
+  "name": "remotion-dev--remotion--remotion",
+  "version": "1.0.0",
+  "description": "Best practices for Remotion - Video creation in React",
+  "author": {
+    "name": "remotion-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
