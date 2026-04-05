@@ -1,0 +1,13 @@
+{
+  "name": "ruvnet--claude-flow--agent-goal-planner",
+  "version": "1.0.0",
+  "description": "Agent skill for goal-planner - invoke with $agent-goal-planner",
+  "author": {
+    "name": "ruvnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
