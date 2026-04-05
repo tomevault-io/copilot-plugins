@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--competitive-landscape",
+  "version": "1.0.0",
+  "description": "\"Comprehensive frameworks for analyzing competition, identifying differentiation opportunities, and developing winning market positioning strategies.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
