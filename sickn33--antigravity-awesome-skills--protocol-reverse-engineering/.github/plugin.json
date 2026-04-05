@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--protocol-reverse-engineering",
+  "version": "1.0.0",
+  "description": "\"Comprehensive techniques for capturing, analyzing, and documenting network protocols for security research, interoperability, and debugging.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
