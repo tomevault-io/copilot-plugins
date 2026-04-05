@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--codebase-cleanup-deps-audit",
+  "version": "1.0.0",
+  "description": "\"You are a dependency security expert specializing in vulnerability scanning, license compliance, and supply chain security. Analyze project dependencies for known vulnerabilities, licensing issues, outdated packages, and provide actionable remediation strategies.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
