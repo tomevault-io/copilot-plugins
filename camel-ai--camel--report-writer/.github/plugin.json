@@ -1,0 +1,13 @@
+{
+  "name": "camel-ai--camel--report-writer",
+  "version": "1.0.0",
+  "description": "Generate professional reports from analysis results. Use when user needs to create formatted documents summarizing findings.",
+  "author": {
+    "name": "camel-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
