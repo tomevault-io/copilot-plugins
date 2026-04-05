@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--react-modernization",
+  "version": "1.0.0",
+  "description": "\"Master React version upgrades, class to hooks migration, concurrent features adoption, and codemods for automated transformation.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
