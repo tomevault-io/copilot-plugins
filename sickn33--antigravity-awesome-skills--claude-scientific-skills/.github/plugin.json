@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--claude-scientific-skills",
+  "version": "1.0.0",
+  "description": "\"Scientific research and analysis skills\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
