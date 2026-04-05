@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--fal-platform",
+  "version": "1.0.0",
+  "description": "\"Platform APIs for model management, pricing, and usage tracking\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
