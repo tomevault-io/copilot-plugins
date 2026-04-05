@@ -1,0 +1,13 @@
+{
+  "name": "yamadashy--repomix--browser-extension-developer",
+  "version": "1.0.0",
+  "description": "Use this skill when developing or maintaining browser extension code in the `browser/` directory, including Chrome/Firefox/Edge compatibility, content scripts, background scripts, or i18n updates.",
+  "author": {
+    "name": "yamadashy (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
