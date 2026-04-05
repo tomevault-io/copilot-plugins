@@ -1,0 +1,13 @@
+{
+  "name": "elizaos--eliza--openai-image-gen",
+  "version": "1.0.0",
+  "description": "Batch-generate images via the OpenAI Images API using DALL-E 2, DALL-E 3, or GPT image models. Produces random-but-structured prompts, renders them, and outputs a browsable `index.html` gallery. Use when the user asks to generate AI images, create pictures with DALL-E, batch-produce image assets, render AI art, or build an image gallery from text prompts.",
+  "author": {
+    "name": "elizaos (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
