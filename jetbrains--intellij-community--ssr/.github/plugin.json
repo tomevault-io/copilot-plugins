@@ -1,0 +1,13 @@
+{
+  "name": "jetbrains--intellij-community--ssr",
+  "version": "1.0.0",
+  "description": "Guide for using Structural Search and Replace in IntelliJ. Use when creating or modifying SSR inspections or search patterns.",
+  "author": {
+    "name": "jetbrains (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
