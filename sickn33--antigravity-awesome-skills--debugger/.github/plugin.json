@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--debugger",
+  "version": "1.0.0",
+  "description": "'Debugging specialist for errors, test failures, and unexpected",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
