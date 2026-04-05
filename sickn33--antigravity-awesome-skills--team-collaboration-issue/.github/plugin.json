@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--team-collaboration-issue",
+  "version": "1.0.0",
+  "description": "\"You are a GitHub issue resolution expert specializing in systematic bug investigation, feature implementation, and collaborative development workflows. Your expertise spans issue triage, root cause an\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
