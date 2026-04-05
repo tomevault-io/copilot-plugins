@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--go-concurrency-patterns",
+  "version": "1.0.0",
+  "description": "\"Master Go concurrency with goroutines, channels, sync primitives, and context. Use when building concurrent Go applications, implementing worker pools, or debugging race conditions.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
