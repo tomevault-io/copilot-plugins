@@ -1,0 +1,13 @@
+{
+  "name": "2025emma--vibe-coding-cn--claude-cookbooks",
+  "version": "1.0.0",
+  "description": "Claude AI cookbooks - code examples, tutorials, and best practices for using Claude API. Use when learning Claude API integration, building Claude-powered applications, or exploring Claude capabilities.",
+  "author": {
+    "name": "2025emma (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
