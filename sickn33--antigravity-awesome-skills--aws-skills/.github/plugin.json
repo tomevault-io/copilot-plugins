@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--aws-skills",
+  "version": "1.0.0",
+  "description": "\"AWS development with infrastructure automation and cloud architecture patterns\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
