@@ -1,0 +1,13 @@
+{
+  "name": "microsoft--playwright-python--playwright-roll",
+  "version": "1.0.0",
+  "description": "Roll Playwright Python to a new version",
+  "author": {
+    "name": "microsoft (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
