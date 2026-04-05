@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--fal-upscale",
+  "version": "1.0.0",
+  "description": "\"Upscale and enhance image and video resolution using AI\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
