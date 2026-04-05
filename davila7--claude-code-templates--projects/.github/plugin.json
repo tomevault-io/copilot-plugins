@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--projects",
+  "version": "1.0.0",
+  "description": "List, switch, and configure Railway projects. Use when user wants to list all projects, switch projects, rename a project, enable/disable PR deploys, make a project public/private, or modify project settings.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
