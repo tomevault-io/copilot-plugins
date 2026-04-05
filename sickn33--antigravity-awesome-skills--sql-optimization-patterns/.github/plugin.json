@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--sql-optimization-patterns",
+  "version": "1.0.0",
+  "description": "\"Transform slow database queries into lightning-fast operations through systematic optimization, proper indexing, and query plan analysis.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
