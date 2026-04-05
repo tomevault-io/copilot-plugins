@@ -1,0 +1,13 @@
+{
+  "name": "shareai-lab--learn-claude-code--pdf",
+  "version": "1.0.0",
+  "description": "Process PDF files - extract text, create PDFs, merge documents. Use when user asks to read PDF, create PDF, or work with PDF files.",
+  "author": {
+    "name": "shareai-lab (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
