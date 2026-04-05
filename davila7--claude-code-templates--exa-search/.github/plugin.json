@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--exa-search",
+  "version": "1.0.0",
+  "description": "Semantic search, similar content discovery, and structured research using Exa API",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
