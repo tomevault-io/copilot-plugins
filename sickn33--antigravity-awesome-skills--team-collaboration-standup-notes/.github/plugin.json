@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--team-collaboration-standup-notes",
+  "version": "1.0.0",
+  "description": "\"You are an expert team communication specialist focused on async-first standup practices, AI-assisted note generation from commit history, and effective remote team coordination patterns.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
