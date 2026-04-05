@@ -1,0 +1,13 @@
+{
+  "name": "jetbrains--intellij-community--debugging",
+  "version": "1.0.0",
+  "description": "Debugging techniques and tools for IntelliJ development. Use when debugging IDE issues or investigating failures.",
+  "author": {
+    "name": "jetbrains (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
