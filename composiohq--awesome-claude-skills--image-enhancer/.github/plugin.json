@@ -1,0 +1,13 @@
+{
+  "name": "composiohq--awesome-claude-skills--image-enhancer",
+  "version": "1.0.0",
+  "description": "Improves the quality of images, especially screenshots, by enhancing resolution, sharpness, and clarity. Perfect for preparing images for presentations, documentation, or social media posts.",
+  "author": {
+    "name": "composiohq (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
