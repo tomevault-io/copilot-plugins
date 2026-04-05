@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--architecture",
+  "version": "1.0.0",
+  "description": "Architectural decision-making framework. Requirements analysis, trade-off evaluation, ADR documentation. Use when making architecture decisions or analyzing system design.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
