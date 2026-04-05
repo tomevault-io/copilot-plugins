@@ -1,0 +1,13 @@
+{
+  "name": "composiohq--awesome-claude-skills--tailored-resume-generator",
+  "version": "1.0.0",
+  "description": "Analyzes job descriptions and generates tailored resumes that highlight relevant experience, skills, and achievements to maximize interview chances",
+  "author": {
+    "name": "composiohq (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
