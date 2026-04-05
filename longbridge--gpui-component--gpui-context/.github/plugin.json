@@ -1,0 +1,13 @@
+{
+  "name": "longbridge--gpui-component--gpui-context",
+  "version": "1.0.0",
+  "description": "Context management in GPUI including App, Window, and AsyncApp. Use when working with contexts, entity updates, or window operations. Different context types provide different capabilities for UI rendering, entity management, and async operations.",
+  "author": {
+    "name": "longbridge (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
