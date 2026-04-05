@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--openapi-spec-generation",
+  "version": "1.0.0",
+  "description": "\"Generate and maintain OpenAPI 3.1 specifications from code, design-first specs, and validation patterns. Use when creating API documentation, generating SDKs, or ensuring API contract compliance.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
