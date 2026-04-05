@@ -1,0 +1,13 @@
+{
+  "name": "longbridge--gpui-component--github-pull-request-description",
+  "version": "1.0.0",
+  "description": "Write a description to description GitHub Pull Request.",
+  "author": {
+    "name": "longbridge (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
