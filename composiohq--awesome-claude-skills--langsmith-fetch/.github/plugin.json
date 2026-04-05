@@ -1,0 +1,13 @@
+{
+  "name": "composiohq--awesome-claude-skills--langsmith-fetch",
+  "version": "1.0.0",
+  "description": "Debug LangChain and LangGraph agents by fetching execution traces from LangSmith Studio. Use when debugging agent behavior, investigating errors, analyzing tool calls, checking memory operations, or examining agent performance. Automatically fetches recent traces and analyzes execution patterns. Requires langsmith-fetch CLI installed.",
+  "author": {
+    "name": "composiohq (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
