@@ -1,0 +1,13 @@
+{
+  "name": "vercel--ai--capture-api-response-test-fixture",
+  "version": "1.0.0",
+  "description": "Capture API response test fixture.",
+  "author": {
+    "name": "vercel (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
