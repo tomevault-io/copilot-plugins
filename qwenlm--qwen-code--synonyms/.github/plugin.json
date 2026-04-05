@@ -1,0 +1,13 @@
+{
+  "name": "qwenlm--qwen-code--synonyms",
+  "version": "1.0.0",
+  "description": "Generate synonyms for words or phrases. Use this skill when the user needs alternative words with similar meanings, wants to expand vocabulary, or seeks varied expressions for writing.",
+  "author": {
+    "name": "qwenlm (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
