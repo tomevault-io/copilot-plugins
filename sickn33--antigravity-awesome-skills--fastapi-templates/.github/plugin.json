@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--fastapi-templates",
+  "version": "1.0.0",
+  "description": "\"Create production-ready FastAPI projects with async patterns, dependency injection, and comprehensive error handling. Use when building new FastAPI applications or setting up backend API projects.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
