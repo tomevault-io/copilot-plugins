@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--create-pr",
+  "version": "1.0.0",
+  "description": "Alias for sentry-skills:pr-writer. Use when users explicitly ask for \"create-pr\" or reference the legacy skill name. Redirects to the canonical PR writing workflow.",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
