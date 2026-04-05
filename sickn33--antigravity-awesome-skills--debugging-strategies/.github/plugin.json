@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--debugging-strategies",
+  "version": "1.0.0",
+  "description": "\"Transform debugging from frustrating guesswork into systematic problem-solving with proven strategies, powerful tools, and methodical approaches.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
