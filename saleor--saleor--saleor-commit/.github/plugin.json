@@ -1,0 +1,13 @@
+{
+  "name": "saleor--saleor--saleor-commit",
+  "version": "1.0.0",
+  "description": "Commit changes in the Saleor codebase with pre-commit hook error handling. Use when asked to \"commit\", \"commit changes\", \"make a commit\", or any git commit task in the Saleor project. Handles virtual env activation, staging, commit message writing, and automatic resolution of pre-commit hook failures (ruff, mypy, schema, migrations).",
+  "author": {
+    "name": "saleor (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
