@@ -1,0 +1,13 @@
+{
+  "name": "composiohq--awesome-claude-skills--competitive-ads-extractor",
+  "version": "1.0.0",
+  "description": "Extracts and analyzes competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working. Helps inspire and improve your own ad campaigns.",
+  "author": {
+    "name": "composiohq (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
