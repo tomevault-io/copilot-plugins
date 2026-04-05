@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--rust-async-patterns",
+  "version": "1.0.0",
+  "description": "\"Master Rust async programming with Tokio, async traits, error handling, and concurrent patterns. Use when building async Rust applications, implementing concurrent systems, or debugging async code.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
