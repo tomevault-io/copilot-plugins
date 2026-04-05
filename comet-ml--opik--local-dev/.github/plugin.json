@@ -1,0 +1,13 @@
+{
+  "name": "comet-ml--opik--local-dev",
+  "version": "1.0.0",
+  "description": "Local development environment setup and commands. Use when helping with dev server, Docker, or local testing.",
+  "author": {
+    "name": "comet-ml (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
