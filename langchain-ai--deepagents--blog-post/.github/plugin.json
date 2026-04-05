@@ -1,0 +1,13 @@
+{
+  "name": "langchain-ai--deepagents--blog-post",
+  "version": "1.0.0",
+  "description": "Writes and structures long-form blog posts, creates tutorial outlines, and optimizes content for SEO with cover image generation. Use when the user asks to write a blog post, article, how-to guide, tutorial, technical writeup, thought leadership piece, or long-form content.",
+  "author": {
+    "name": "langchain-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
