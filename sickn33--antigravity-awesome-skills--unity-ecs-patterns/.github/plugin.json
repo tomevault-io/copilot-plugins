@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--unity-ecs-patterns",
+  "version": "1.0.0",
+  "description": "\"Production patterns for Unity's Data-Oriented Technology Stack (DOTS) including Entity Component System, Job System, and Burst Compiler.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
