@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--nodejs-backend-patterns",
+  "version": "1.0.0",
+  "description": "\"Comprehensive guidance for building scalable, maintainable, and production-ready Node.js backend applications with modern frameworks, architectural patterns, and best practices.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
