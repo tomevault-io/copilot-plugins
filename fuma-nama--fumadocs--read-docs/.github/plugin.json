@@ -1,0 +1,13 @@
+{
+  "name": "fuma-nama--fumadocs--read-docs",
+  "version": "1.0.0",
+  "description": "Enables efficient, accurate retrieval of content from Fumadocs-powered documentation sites.",
+  "author": {
+    "name": "fuma-nama (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
