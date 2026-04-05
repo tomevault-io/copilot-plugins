@@ -1,0 +1,13 @@
+{
+  "name": "onyx-dot-app--onyx--playwright",
+  "version": "1.0.0",
+  "description": "Write and maintain Playwright end-to-end tests for the Onyx application. Use when creating new E2E tests, debugging test failures, adding test coverage, or when the user mentions Playwright, E2E tests, or browser testing.",
+  "author": {
+    "name": "onyx-dot-app (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
