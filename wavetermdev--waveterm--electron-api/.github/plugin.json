@@ -1,0 +1,13 @@
+{
+  "name": "wavetermdev--waveterm--electron-api",
+  "version": "1.0.0",
+  "description": "Guide for adding new Electron APIs to Wave Terminal. Use when implementing new frontend-to-electron communications via preload/IPC.",
+  "author": {
+    "name": "wavetermdev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
