@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--backtesting-frameworks",
+  "version": "1.0.0",
+  "description": "\"Build robust, production-grade backtesting systems that avoid common pitfalls and produce reliable strategy performance estimates.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
