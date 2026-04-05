@@ -1,0 +1,13 @@
+{
+  "name": "ruvnet--claude-flow--agent-user-tools",
+  "version": "1.0.0",
+  "description": "Agent skill for user-tools - invoke with $agent-user-tools",
+  "author": {
+    "name": "ruvnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
