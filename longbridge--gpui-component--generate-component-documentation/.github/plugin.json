@@ -1,0 +1,13 @@
+{
+  "name": "longbridge--gpui-component--generate-component-documentation",
+  "version": "1.0.0",
+  "description": "Generate documentation for new components. Use when writing docs, documenting components, or creating component documentation.",
+  "author": {
+    "name": "longbridge (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
