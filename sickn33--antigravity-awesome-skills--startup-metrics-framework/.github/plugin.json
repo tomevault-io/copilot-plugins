@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--startup-metrics-framework",
+  "version": "1.0.0",
+  "description": "\"Comprehensive guide to tracking, calculating, and optimizing key performance metrics for different startup business models from seed through Series A.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
