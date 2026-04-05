@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--c-pro",
+  "version": "1.0.0",
+  "description": "\"Write efficient C code with proper memory management, pointer\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
