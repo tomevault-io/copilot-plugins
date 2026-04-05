@@ -1,0 +1,13 @@
+{
+  "name": "rolldown--rolldown--upgrade-oxc",
+  "version": "1.0.0",
+  "description": "'Upgrade oxc, run codegen, and fix any breaking changes.'",
+  "author": {
+    "name": "rolldown (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
