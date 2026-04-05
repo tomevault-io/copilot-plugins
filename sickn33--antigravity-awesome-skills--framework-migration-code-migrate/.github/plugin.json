@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--framework-migration-code-migrate",
+  "version": "1.0.0",
+  "description": "\"You are a code migration expert specializing in transitioning codebases between frameworks, languages, versions, and platforms. Generate comprehensive migration plans, automated migration scripts, and\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
