@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--hybrid-search-implementation",
+  "version": "1.0.0",
+  "description": "\"Combine vector and keyword search for improved retrieval. Use when implementing RAG systems, building search engines, or when neither approach alone provides sufficient recall.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
