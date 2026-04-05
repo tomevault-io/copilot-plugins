@@ -1,0 +1,13 @@
+{
+  "name": "ruvnet--claude-flow--swarm-orchestration",
+  "version": "1.0.0",
+  "description": "\"Orchestrate multi-agent swarms with agentic-flow for parallel task execution, dynamic topology, and intelligent coordination. Use when scaling beyond single agents, implementing complex workflows, or building distributed AI systems.\"",
+  "author": {
+    "name": "ruvnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
