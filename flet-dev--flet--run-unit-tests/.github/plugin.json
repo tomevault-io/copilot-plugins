@@ -1,0 +1,13 @@
+{
+  "name": "flet-dev--flet--run-unit-tests",
+  "version": "1.0.0",
+  "description": "Use when asked to run unit tests.",
+  "author": {
+    "name": "flet-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
