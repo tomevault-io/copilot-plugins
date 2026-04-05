@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--competitive-landscape",
+  "version": "1.0.0",
+  "description": "Analyze competition, identify differentiation opportunities, and develop winning market positioning strategies using Porter's Five Forces, Blue Ocean Strategy, and positioning maps. Use this skill when evaluating competitors, assessing market positioning, identifying sustainable competitive advantages, or preparing competitive strategy analysis for a startup or investor pitch.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
