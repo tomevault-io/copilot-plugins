@@ -1,0 +1,13 @@
+{
+  "name": "jetbrains--ideavim--extensions-api-migration",
+  "version": "1.0.0",
+  "description": "Migrates IdeaVim extensions from the old VimExtensionFacade API to the new @VimPlugin annotation-based API. Use when converting existing extensions to use the new API patterns.",
+  "author": {
+    "name": "jetbrains (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
