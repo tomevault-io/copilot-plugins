@@ -1,0 +1,13 @@
+{
+  "name": "github--awesome-copilot--azure-role-selector",
+  "version": "1.0.0",
+  "description": "When user is asking for guidance for which role to assign to an identity given desired permissions, this agent helps them understand the role that will meet the requirements with least privilege access and how to apply that role.",
+  "author": {
+    "name": "github (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
