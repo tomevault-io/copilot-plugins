@@ -1,0 +1,13 @@
+{
+  "name": "freshrss--freshrss--freshrss-i18n",
+  "version": "1.0.0",
+  "description": "Add, move, or format translation strings in FreshRSS. Use when modifying UI text that needs translation (i18n). Handles all supported languages automatically.",
+  "author": {
+    "name": "freshrss (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
