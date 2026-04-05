@@ -1463,6 +1463,78 @@
     {
       "name": "davila7--claude-code-templates--exa-search",
       "source": "./davila7--claude-code-templates--exa-search"
+    },
+    {
+      "name": "davila7--claude-code-templates--fastmcp-server",
+      "source": "./davila7--claude-code-templates--fastmcp-server"
+    },
+    {
+      "name": "davila7--claude-code-templates--find-bugs",
+      "source": "./davila7--claude-code-templates--find-bugs"
+    },
+    {
+      "name": "davila7--claude-code-templates--firebase",
+      "source": "./davila7--claude-code-templates--firebase"
+    },
+    {
+      "name": "davila7--claude-code-templates--firecrawl-scraper",
+      "source": "./davila7--claude-code-templates--firecrawl-scraper"
+    },
+    {
+      "name": "davila7--claude-code-templates--form-cro",
+      "source": "./davila7--claude-code-templates--form-cro"
+    },
+    {
+      "name": "davila7--claude-code-templates--free-tool-strategy",
+      "source": "./davila7--claude-code-templates--free-tool-strategy"
+    },
+    {
+      "name": "davila7--claude-code-templates--geopandas",
+      "source": "./davila7--claude-code-templates--geopandas"
+    },
+    {
+      "name": "davila7--claude-code-templates--git-pushing",
+      "source": "./davila7--claude-code-templates--git-pushing"
+    },
+    {
+      "name": "davila7--claude-code-templates--graphql",
+      "source": "./davila7--claude-code-templates--graphql"
+    },
+    {
+      "name": "davila7--claude-code-templates--hubspot-integration",
+      "source": "./davila7--claude-code-templates--hubspot-integration"
+    },
+    {
+      "name": "davila7--claude-code-templates--tokenization-huggingface-tokenizers",
+      "source": "./davila7--claude-code-templates--tokenization-huggingface-tokenizers"
+    },
+    {
+      "name": "davila7--claude-code-templates--internal-comms-community",
+      "source": "./davila7--claude-code-templates--internal-comms-community"
+    },
+    {
+      "name": "davila7--claude-code-templates--launch-strategy",
+      "source": "./davila7--claude-code-templates--launch-strategy"
+    },
+    {
+      "name": "davila7--claude-code-templates--marketing-ideas",
+      "source": "./davila7--claude-code-templates--marketing-ideas"
+    },
+    {
+      "name": "davila7--claude-code-templates--mui",
+      "source": "./davila7--claude-code-templates--mui"
+    },
+    {
+      "name": "davila7--claude-code-templates--neurokit2",
+      "source": "./davila7--claude-code-templates--neurokit2"
+    },
+    {
+      "name": "davila7--claude-code-templates--nextjs-supabase-auth",
+      "source": "./davila7--claude-code-templates--nextjs-supabase-auth"
+    },
+    {
+      "name": "davila7--claude-code-templates--notion-template-business",
+      "source": "./davila7--claude-code-templates--notion-template-business"
     }
   ]
 }
