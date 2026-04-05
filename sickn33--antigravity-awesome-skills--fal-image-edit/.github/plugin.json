@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--fal-image-edit",
+  "version": "1.0.0",
+  "description": "\"AI-powered image editing with style transfer and object removal\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
