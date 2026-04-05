@@ -1,0 +1,13 @@
+{
+  "name": "flet-dev--flet--fix-members-short-description",
+  "version": "1.0.0",
+  "description": "Use when asked to fix short descriptions of Python type members.",
+  "author": {
+    "name": "flet-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
