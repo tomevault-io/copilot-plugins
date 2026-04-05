@@ -1,0 +1,13 @@
+{
+  "name": "promptfoo--promptfoo--redteam-plugin-development",
+  "version": "1.0.0",
+  "description": "Standards for creating redteam plugins and graders. Use when creating new plugins, writing graders, or modifying attack templates.",
+  "author": {
+    "name": "promptfoo (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
