@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--remotion-best-practices",
+  "version": "1.0.0",
+  "description": "Best practices for Remotion - Video creation in React",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
