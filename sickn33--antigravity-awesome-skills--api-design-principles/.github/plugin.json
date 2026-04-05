@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--api-design-principles",
+  "version": "1.0.0",
+  "description": "\"Master REST and GraphQL API design principles to build intuitive, scalable, and maintainable APIs that delight developers and stand the test of time.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
