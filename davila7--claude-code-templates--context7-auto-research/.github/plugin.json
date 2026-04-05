@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--context7-auto-research",
+  "version": "1.0.0",
+  "description": "Automatically fetch latest library/framework documentation for Claude Code via Context7 API",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
