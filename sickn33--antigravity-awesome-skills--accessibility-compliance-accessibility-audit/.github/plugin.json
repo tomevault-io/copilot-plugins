@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--accessibility-compliance-accessibility-audit",
+  "version": "1.0.0",
+  "description": "\"You are an accessibility expert specializing in WCAG compliance, inclusive design, and assistive technology compatibility. Conduct audits, identify barriers, and provide remediation guidance.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
