@@ -1,0 +1,13 @@
+{
+  "name": "mlflow--mlflow--add-review-comment",
+  "version": "1.0.0",
+  "description": "Add a review comment to a GitHub pull request.",
+  "author": {
+    "name": "mlflow (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
