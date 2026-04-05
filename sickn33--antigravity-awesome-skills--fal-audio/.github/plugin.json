@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--fal-audio",
+  "version": "1.0.0",
+  "description": "\"Text-to-speech and speech-to-text using fal.ai audio models\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
