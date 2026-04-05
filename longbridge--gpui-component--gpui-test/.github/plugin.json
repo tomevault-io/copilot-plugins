@@ -1,0 +1,13 @@
+{
+  "name": "longbridge--gpui-component--gpui-test",
+  "version": "1.0.0",
+  "description": "Writing tests for GPUI applications. Use when testing components, async operations, or UI behavior.",
+  "author": {
+    "name": "longbridge (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
