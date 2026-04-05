@@ -1,0 +1,13 @@
+{
+  "name": "quickwit-oss--quickwit--fix-clippy",
+  "version": "1.0.0",
+  "description": "Fix all clippy lint warnings in the project",
+  "author": {
+    "name": "quickwit-oss (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
