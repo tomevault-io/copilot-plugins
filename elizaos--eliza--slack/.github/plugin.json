@@ -1,0 +1,13 @@
+{
+  "name": "elizaos--eliza--slack",
+  "version": "1.0.0",
+  "description": "Use when the agent needs to send, edit, delete, or read Slack messages, add or list emoji reactions, pin or unpin messages, fetch member info, or list custom emoji in Slack channels and DMs. Handles all Slack workspace interactions including message management, reaction workflows, pinned-item management, and user lookups via the configured bot token.",
+  "author": {
+    "name": "elizaos (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
