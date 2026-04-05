@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--wiki-changelog",
+  "version": "1.0.0",
+  "description": "\"Generate structured changelogs from git history. Use when user asks \\\"what changed recently\\\", \\\"generate a changelog\\\", \\\"summarize commits\\\" or user wants to understand recent development activity.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
