@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--react-state-management",
+  "version": "1.0.0",
+  "description": "\"Master modern React state management with Redux Toolkit, Zustand, Jotai, and React Query. Use when setting up global state, managing server state, or choosing between state management solutions.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
