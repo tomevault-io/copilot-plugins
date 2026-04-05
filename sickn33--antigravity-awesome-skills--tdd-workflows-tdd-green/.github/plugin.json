@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--tdd-workflows-tdd-green",
+  "version": "1.0.0",
+  "description": "\"Implement the minimal code needed to make failing tests pass in the TDD green phase.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
