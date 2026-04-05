@@ -1,0 +1,13 @@
+{
+  "name": "woocommerce--woocommerce--woocommerce-git",
+  "version": "1.0.0",
+  "description": "Guidelines for git and GitHub operations in the WooCommerce repository.",
+  "author": {
+    "name": "woocommerce (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
