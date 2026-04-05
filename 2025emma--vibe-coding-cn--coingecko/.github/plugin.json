@@ -1,0 +1,13 @@
+{
+  "name": "2025emma--vibe-coding-cn--coingecko",
+  "version": "1.0.0",
+  "description": "CoinGecko API documentation - cryptocurrency market data API, price feeds, market cap, volume, historical data. Use when integrating CoinGecko API, building crypto price trackers, or accessing cryptocurrency market data.",
+  "author": {
+    "name": "2025emma (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
