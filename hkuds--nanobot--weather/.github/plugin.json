@@ -1,0 +1,13 @@
+{
+  "name": "hkuds--nanobot--weather",
+  "version": "1.0.0",
+  "description": "Get current weather and forecasts (no API key required).",
+  "author": {
+    "name": "hkuds (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
