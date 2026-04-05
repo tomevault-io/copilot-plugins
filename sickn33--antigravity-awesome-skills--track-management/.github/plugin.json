@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--track-management",
+  "version": "1.0.0",
+  "description": "Use this skill when creating, managing, or working with Conductor tracks - the logical work units for features, bugs, and refactors. Applies to spec.md, plan.md, and track lifecycle operations.",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
