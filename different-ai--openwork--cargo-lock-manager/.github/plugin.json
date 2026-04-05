@@ -1,0 +1,13 @@
+{
+  "name": "different-ai--openwork--cargo-lock-manager",
+  "version": "1.0.0",
+  "description": "|",
+  "author": {
+    "name": "different-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
