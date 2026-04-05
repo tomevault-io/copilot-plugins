@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--e2e-testing-patterns",
+  "version": "1.0.0",
+  "description": "\"Build reliable, fast, and maintainable end-to-end test suites that provide confidence to ship code quickly and catch regressions before users do.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
