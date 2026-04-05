@@ -1,0 +1,13 @@
+{
+  "name": "longbridge--gpui-component--gpui-async",
+  "version": "1.0.0",
+  "description": "Async operations and background tasks in GPUI. Use when working with async, spawn, background tasks, or concurrent operations. Essential for handling async I/O, long-running computations, and coordinating between foreground UI updates and background work.",
+  "author": {
+    "name": "longbridge (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
