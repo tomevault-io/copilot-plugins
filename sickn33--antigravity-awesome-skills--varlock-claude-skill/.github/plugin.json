@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--varlock-claude-skill",
+  "version": "1.0.0",
+  "description": "\"Secure environment variable management ensuring secrets are never exposed in Claude sessions, terminals, logs, or git commits\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
