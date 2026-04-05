@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--solidity-security",
+  "version": "1.0.0",
+  "description": "\"Master smart contract security best practices, vulnerability prevention, and secure Solidity development patterns.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
