@@ -1,0 +1,13 @@
+{
+  "name": "elizaos--eliza--imsg",
+  "version": "1.0.0",
+  "description": "iMessage/SMS CLI for listing chats, fetching history, watching conversations, and sending messages on macOS via the Messages app. Use when the user wants to send a text message, read iMessages, check recent texts, reply to a conversation, send an SMS, or interact with the Messages app from the terminal. Supports texting contacts by phone number or email, attaching files, and streaming incoming messages in real time.",
+  "author": {
+    "name": "elizaos (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
