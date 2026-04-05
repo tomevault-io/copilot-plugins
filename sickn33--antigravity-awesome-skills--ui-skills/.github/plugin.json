@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--ui-skills",
+  "version": "1.0.0",
+  "description": "\"Opinionated, evolving constraints to guide agents when building interfaces\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
