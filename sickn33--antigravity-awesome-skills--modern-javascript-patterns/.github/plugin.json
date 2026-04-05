@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--modern-javascript-patterns",
+  "version": "1.0.0",
+  "description": "\"Comprehensive guide for mastering modern JavaScript (ES6+) features, functional programming patterns, and best practices for writing clean, maintainable, and performant code.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
