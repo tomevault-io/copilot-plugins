@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--vexor",
+  "version": "1.0.0",
+  "description": "\"Vector-powered CLI for semantic file search with a Claude/Codex skill\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
