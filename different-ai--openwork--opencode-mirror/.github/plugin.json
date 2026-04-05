@@ -1,0 +1,13 @@
+{
+  "name": "different-ai--openwork--opencode-mirror",
+  "version": "1.0.0",
+  "description": "Maintain the local OpenCode mirror for self-reference",
+  "author": {
+    "name": "different-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
