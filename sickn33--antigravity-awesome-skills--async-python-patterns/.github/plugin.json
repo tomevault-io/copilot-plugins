@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--async-python-patterns",
+  "version": "1.0.0",
+  "description": "\"Comprehensive guidance for implementing asynchronous Python applications using asyncio, concurrent programming patterns, and async/await for building high-performance, non-blocking systems.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
