@@ -1535,6 +1535,442 @@
     {
       "name": "davila7--claude-code-templates--notion-template-business",
       "source": "./davila7--claude-code-templates--notion-template-business"
+    },
+    {
+      "name": "davila7--claude-code-templates--pdf-processing",
+      "source": "./davila7--claude-code-templates--pdf-processing"
+    },
+    {
+      "name": "davila7--claude-code-templates--pennylane",
+      "source": "./davila7--claude-code-templates--pennylane"
+    },
+    {
+      "name": "davila7--claude-code-templates--plaid-fintech",
+      "source": "./davila7--claude-code-templates--plaid-fintech"
+    },
+    {
+      "name": "davila7--claude-code-templates--pricing-strategy",
+      "source": "./davila7--claude-code-templates--pricing-strategy"
+    },
+    {
+      "name": "davila7--claude-code-templates--product-strategist",
+      "source": "./davila7--claude-code-templates--product-strategist"
+    },
+    {
+      "name": "davila7--claude-code-templates--pydicom",
+      "source": "./davila7--claude-code-templates--pydicom"
+    },
+    {
+      "name": "davila7--claude-code-templates--qutip",
+      "source": "./davila7--claude-code-templates--qutip"
+    },
+    {
+      "name": "davila7--claude-code-templates--rag-engineer",
+      "source": "./davila7--claude-code-templates--rag-engineer"
+    },
+    {
+      "name": "davila7--claude-code-templates--railway-docs",
+      "source": "./davila7--claude-code-templates--railway-docs"
+    },
+    {
+      "name": "davila7--claude-code-templates--projects",
+      "source": "./davila7--claude-code-templates--projects"
+    },
+    {
+      "name": "davila7--claude-code-templates--templates",
+      "source": "./davila7--claude-code-templates--templates"
+    },
+    {
+      "name": "davila7--claude-code-templates--react-dev",
+      "source": "./davila7--claude-code-templates--react-dev"
+    },
+    {
+      "name": "davila7--claude-code-templates--react-ui-patterns",
+      "source": "./davila7--claude-code-templates--react-ui-patterns"
+    },
+    {
+      "name": "davila7--claude-code-templates--react-useeffect",
+      "source": "./davila7--claude-code-templates--react-useeffect"
+    },
+    {
+      "name": "davila7--claude-code-templates--referral-program",
+      "source": "./davila7--claude-code-templates--referral-program"
+    },
+    {
+      "name": "davila7--claude-code-templates--remotion-best-practices",
+      "source": "./davila7--claude-code-templates--remotion-best-practices"
+    },
+    {
+      "name": "davila7--claude-code-templates--salesforce-development",
+      "source": "./davila7--claude-code-templates--salesforce-development"
+    },
+    {
+      "name": "davila7--claude-code-templates--segment-cdp",
+      "source": "./davila7--claude-code-templates--segment-cdp"
+    },
+    {
+      "name": "davila7--claude-code-templates--shopify-apps",
+      "source": "./davila7--claude-code-templates--shopify-apps"
+    },
+    {
+      "name": "davila7--claude-code-templates--skill-installer",
+      "source": "./davila7--claude-code-templates--skill-installer"
+    },
+    {
+      "name": "davila7--claude-code-templates--sympy",
+      "source": "./davila7--claude-code-templates--sympy"
+    },
+    {
+      "name": "davila7--claude-code-templates--task-execution-engine",
+      "source": "./davila7--claude-code-templates--task-execution-engine"
+    },
+    {
+      "name": "davila7--claude-code-templates--tavily-web",
+      "source": "./davila7--claude-code-templates--tavily-web"
+    },
+    {
+      "name": "davila7--claude-code-templates--templates",
+      "source": "./davila7--claude-code-templates--templates"
+    },
+    {
+      "name": "davila7--claude-code-templates--twilio-communications",
+      "source": "./davila7--claude-code-templates--twilio-communications"
+    },
+    {
+      "name": "davila7--claude-code-templates--using-superpowers",
+      "source": "./davila7--claude-code-templates--using-superpowers"
+    },
+    {
+      "name": "davila7--claude-code-templates--using-superpowers",
+      "source": "./davila7--claude-code-templates--using-superpowers"
+    },
+    {
+      "name": "davila7--claude-code-templates--ux-researcher-designer",
+      "source": "./davila7--claude-code-templates--ux-researcher-designer"
+    },
+    {
+      "name": "davila7--claude-code-templates--vercel-deploy",
+      "source": "./davila7--claude-code-templates--vercel-deploy"
+    },
+    {
+      "name": "davila7--claude-code-templates--vercel-deployment",
+      "source": "./davila7--claude-code-templates--vercel-deployment"
+    },
+    {
+      "name": "davila7--claude-code-templates--web-design-guidelines",
+      "source": "./davila7--claude-code-templates--web-design-guidelines"
+    },
+    {
+      "name": "davila7--claude-code-templates--writing-clearly-and-concisely",
+      "source": "./davila7--claude-code-templates--writing-clearly-and-concisely"
+    },
+    {
+      "name": "bytedance--deer-flow--deep-research",
+      "source": "./bytedance--deer-flow--deep-research"
+    },
+    {
+      "name": "jetbrains--intellij-community--debugging",
+      "source": "./jetbrains--intellij-community--debugging"
+    },
+    {
+      "name": "jetbrains--intellij-community--debugging",
+      "source": "./jetbrains--intellij-community--debugging"
+    },
+    {
+      "name": "jetbrains--intellij-community--safe-push",
+      "source": "./jetbrains--intellij-community--safe-push"
+    },
+    {
+      "name": "jetbrains--intellij-community--safe-push",
+      "source": "./jetbrains--intellij-community--safe-push"
+    },
+    {
+      "name": "jetbrains--intellij-community--ssr",
+      "source": "./jetbrains--intellij-community--ssr"
+    },
+    {
+      "name": "jetbrains--intellij-community--ssr",
+      "source": "./jetbrains--intellij-community--ssr"
+    },
+    {
+      "name": "dyad-sh--dyad--e2e-rebase",
+      "source": "./dyad-sh--dyad--e2e-rebase"
+    },
+    {
+      "name": "openai--openai-agents-python--openai-knowledge",
+      "source": "./openai--openai-agents-python--openai-knowledge"
+    },
+    {
+      "name": "qwenlm--qwen-code--synonyms",
+      "source": "./qwenlm--qwen-code--synonyms"
+    },
+    {
+      "name": "temporalio--temporal--review",
+      "source": "./temporalio--temporal--review"
+    },
+    {
+      "name": "comet-ml--opik--local-dev",
+      "source": "./comet-ml--opik--local-dev"
+    },
+    {
+      "name": "comet-ml--opik--typescript-sdk",
+      "source": "./comet-ml--opik--typescript-sdk"
+    },
+    {
+      "name": "dotnet--runtime--add-new-jit-ee-api",
+      "source": "./dotnet--runtime--add-new-jit-ee-api"
+    },
+    {
+      "name": "elizaos--eliza--1password",
+      "source": "./elizaos--eliza--1password"
+    },
+    {
+      "name": "elizaos--eliza--apple-notes",
+      "source": "./elizaos--eliza--apple-notes"
+    },
+    {
+      "name": "elizaos--eliza--apple-reminders",
+      "source": "./elizaos--eliza--apple-reminders"
+    },
+    {
+      "name": "elizaos--eliza--bear-notes",
+      "source": "./elizaos--eliza--bear-notes"
+    },
+    {
+      "name": "elizaos--eliza--bird",
+      "source": "./elizaos--eliza--bird"
+    },
+    {
+      "name": "elizaos--eliza--blogwatcher",
+      "source": "./elizaos--eliza--blogwatcher"
+    },
+    {
+      "name": "elizaos--eliza--blucli",
+      "source": "./elizaos--eliza--blucli"
+    },
+    {
+      "name": "elizaos--eliza--camsnap",
+      "source": "./elizaos--eliza--camsnap"
+    },
+    {
+      "name": "elizaos--eliza--clawhub",
+      "source": "./elizaos--eliza--clawhub"
+    },
+    {
+      "name": "elizaos--eliza--coding-agent",
+      "source": "./elizaos--eliza--coding-agent"
+    },
+    {
+      "name": "elizaos--eliza--food-order",
+      "source": "./elizaos--eliza--food-order"
+    },
+    {
+      "name": "elizaos--eliza--gemini",
+      "source": "./elizaos--eliza--gemini"
+    },
+    {
+      "name": "elizaos--eliza--gifgrep",
+      "source": "./elizaos--eliza--gifgrep"
+    },
+    {
+      "name": "elizaos--eliza--github",
+      "source": "./elizaos--eliza--github"
+    },
+    {
+      "name": "elizaos--eliza--gog",
+      "source": "./elizaos--eliza--gog"
+    },
+    {
+      "name": "elizaos--eliza--goplaces",
+      "source": "./elizaos--eliza--goplaces"
+    },
+    {
+      "name": "elizaos--eliza--himalaya",
+      "source": "./elizaos--eliza--himalaya"
+    },
+    {
+      "name": "elizaos--eliza--imsg",
+      "source": "./elizaos--eliza--imsg"
+    },
+    {
+      "name": "elizaos--eliza--local-places",
+      "source": "./elizaos--eliza--local-places"
+    },
+    {
+      "name": "elizaos--eliza--mcporter",
+      "source": "./elizaos--eliza--mcporter"
+    },
+    {
+      "name": "elizaos--eliza--model-usage",
+      "source": "./elizaos--eliza--model-usage"
+    },
+    {
+      "name": "elizaos--eliza--nano-pdf",
+      "source": "./elizaos--eliza--nano-pdf"
+    },
+    {
+      "name": "elizaos--eliza--notion",
+      "source": "./elizaos--eliza--notion"
+    },
+    {
+      "name": "elizaos--eliza--obsidian",
+      "source": "./elizaos--eliza--obsidian"
+    },
+    {
+      "name": "elizaos--eliza--openai-image-gen",
+      "source": "./elizaos--eliza--openai-image-gen"
+    },
+    {
+      "name": "elizaos--eliza--openai-whisper",
+      "source": "./elizaos--eliza--openai-whisper"
+    },
+    {
+      "name": "elizaos--eliza--openai-whisper-api",
+      "source": "./elizaos--eliza--openai-whisper-api"
+    },
+    {
+      "name": "elizaos--eliza--openhue",
+      "source": "./elizaos--eliza--openhue"
+    },
+    {
+      "name": "elizaos--eliza--ordercli",
+      "source": "./elizaos--eliza--ordercli"
+    },
+    {
+      "name": "elizaos--eliza--peekaboo",
+      "source": "./elizaos--eliza--peekaboo"
+    },
+    {
+      "name": "elizaos--eliza--sag",
+      "source": "./elizaos--eliza--sag"
+    },
+    {
+      "name": "elizaos--eliza--slack",
+      "source": "./elizaos--eliza--slack"
+    },
+    {
+      "name": "elizaos--eliza--songsee",
+      "source": "./elizaos--eliza--songsee"
+    },
+    {
+      "name": "elizaos--eliza--things-mac",
+      "source": "./elizaos--eliza--things-mac"
+    },
+    {
+      "name": "elizaos--eliza--trello",
+      "source": "./elizaos--eliza--trello"
+    },
+    {
+      "name": "elizaos--eliza--video-frames",
+      "source": "./elizaos--eliza--video-frames"
+    },
+    {
+      "name": "elizaos--eliza--wacli",
+      "source": "./elizaos--eliza--wacli"
+    },
+    {
+      "name": "elizaos--eliza--weather",
+      "source": "./elizaos--eliza--weather"
+    },
+    {
+      "name": "onyx-dot-app--onyx--playwright",
+      "source": "./onyx-dot-app--onyx--playwright"
+    },
+    {
+      "name": "wavetermdev--waveterm--context-menu",
+      "source": "./wavetermdev--waveterm--context-menu"
+    },
+    {
+      "name": "wavetermdev--waveterm--electron-api",
+      "source": "./wavetermdev--waveterm--electron-api"
+    },
+    {
+      "name": "shareai-lab--learn-claude-code--pdf",
+      "source": "./shareai-lab--learn-claude-code--pdf"
+    },
+    {
+      "name": "gfx-rs--wgpu--webgpu-specs",
+      "source": "./gfx-rs--wgpu--webgpu-specs"
+    },
+    {
+      "name": "camel-ai--camel--code-reviewer",
+      "source": "./camel-ai--camel--code-reviewer"
+    },
+    {
+      "name": "camel-ai--camel--data-analyzer",
+      "source": "./camel-ai--camel--data-analyzer"
+    },
+    {
+      "name": "camel-ai--camel--report-writer",
+      "source": "./camel-ai--camel--report-writer"
+    },
+    {
+      "name": "windmill-labs--windmill--rust-backend",
+      "source": "./windmill-labs--windmill--rust-backend"
+    },
+    {
+      "name": "windmill-labs--windmill--write-script-go",
+      "source": "./windmill-labs--windmill--write-script-go"
+    },
+    {
+      "name": "windmill-labs--windmill--write-script-java",
+      "source": "./windmill-labs--windmill--write-script-java"
+    },
+    {
+      "name": "windmill-labs--windmill--write-script-rust",
+      "source": "./windmill-labs--windmill--write-script-rust"
+    },
+    {
+      "name": "flet-dev--flet--fix-members-short-description",
+      "source": "./flet-dev--flet--fix-members-short-description"
+    },
+    {
+      "name": "flet-dev--flet--run-integration-tests",
+      "source": "./flet-dev--flet--run-integration-tests"
+    },
+    {
+      "name": "flet-dev--flet--run-unit-tests",
+      "source": "./flet-dev--flet--run-unit-tests"
+    },
+    {
+      "name": "ag-grid--ag-grid--dev-server",
+      "source": "./ag-grid--ag-grid--dev-server"
+    },
+    {
+      "name": "ag-grid--ag-grid--dev-server",
+      "source": "./ag-grid--ag-grid--dev-server"
+    },
+    {
+      "name": "microsoft--playwright-python--playwright-roll",
+      "source": "./microsoft--playwright-python--playwright-roll"
+    },
+    {
+      "name": "ruvnet--claude-flow--agent-goal-planner",
+      "source": "./ruvnet--claude-flow--agent-goal-planner"
+    },
+    {
+      "name": "ruvnet--claude-flow--agent-payments",
+      "source": "./ruvnet--claude-flow--agent-payments"
+    },
+    {
+      "name": "ruvnet--claude-flow--agent-user-tools",
+      "source": "./ruvnet--claude-flow--agent-user-tools"
+    },
+    {
+      "name": "ruvnet--claude-flow--agentdb-memory-patterns",
+      "source": "./ruvnet--claude-flow--agentdb-memory-patterns"
+    },
+    {
+      "name": "ruvnet--claude-flow--agentdb-memory-patterns",
+      "source": "./ruvnet--claude-flow--agentdb-memory-patterns"
+    },
+    {
+      "name": "ruvnet--claude-flow--agentdb-vector-search",
+      "source": "./ruvnet--claude-flow--agentdb-vector-search"
+    },
+    {
+      "name": "ruvnet--claude-flow--agentdb-vector-search",
+      "source": "./ruvnet--claude-flow--agentdb-vector-search"
     }
   ]
 }
