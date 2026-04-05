@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--distributed-debugging-debug-trace",
+  "version": "1.0.0",
+  "description": "\"You are a debugging expert specializing in setting up comprehensive debugging environments, distributed tracing, and diagnostic tools. Configure debugging workflows, implement tracing solutions, and establish troubleshooting practices for development and production environments.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
