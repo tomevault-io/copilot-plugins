@@ -1,0 +1,13 @@
+{
+  "name": "comet-ml--opik--typescript-sdk",
+  "version": "1.0.0",
+  "description": "TypeScript SDK patterns for Opik. Use when working in sdks/typescript.",
+  "author": {
+    "name": "comet-ml (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
