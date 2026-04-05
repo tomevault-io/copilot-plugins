@@ -1,0 +1,13 @@
+{
+  "name": "dotnet--runtime--add-new-jit-ee-api",
+  "version": "1.0.0",
+  "description": "Add a new API to the JIT-VM (aka JIT-EE) interface in the codebase.",
+  "author": {
+    "name": "dotnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
