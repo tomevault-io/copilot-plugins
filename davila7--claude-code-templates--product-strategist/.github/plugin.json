@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--product-strategist",
+  "version": "1.0.0",
+  "description": "Strategic product leadership toolkit for Head of Product including OKR cascade generation, market analysis, vision setting, and team scaling. Use for strategic planning, goal alignment, competitive analysis, and organizational design.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
