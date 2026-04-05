@@ -1,0 +1,13 @@
+{
+  "name": "ruvnet--claude-flow--hive-mind",
+  "version": "1.0.0",
+  "description": ">",
+  "author": {
+    "name": "ruvnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
