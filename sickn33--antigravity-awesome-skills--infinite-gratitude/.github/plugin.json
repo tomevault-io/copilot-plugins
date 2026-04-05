@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--infinite-gratitude",
+  "version": "1.0.0",
+  "description": "\"Multi-agent research skill for parallel research execution (10 agents, battle-tested with real case studies).\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
