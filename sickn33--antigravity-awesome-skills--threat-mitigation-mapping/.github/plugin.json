@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--threat-mitigation-mapping",
+  "version": "1.0.0",
+  "description": "\"Map identified threats to appropriate security controls and mitigations. Use when prioritizing security investments, creating remediation plans, or validating control effectiveness.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
