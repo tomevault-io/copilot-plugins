@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--data-privacy-compliance",
+  "version": "1.0.0",
+  "description": "Data privacy and regulatory compliance specialist for GDPR, CCPA, HIPAA, and international data protection laws. Use when implementing privacy controls, conducting data protection impact assessments, ensuring regulatory compliance, or managing data subject rights. Expert in consent management, data minimization, and privacy-by-design principles.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
