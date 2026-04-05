@@ -1,0 +1,13 @@
+{
+  "name": "openai--openai-agents-python--openai-knowledge",
+  "version": "1.0.0",
+  "description": "Use when working with the OpenAI API (Responses API) or OpenAI platform features (tools, streaming, Realtime API, auth, models, rate limits, MCP) and you need authoritative, up-to-date documentation (schemas, examples, limits, edge cases). Prefer the OpenAI Developer Documentation MCP server tools when available; otherwise guide the user to enable `openaiDeveloperDocs`.",
+  "author": {
+    "name": "openai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
