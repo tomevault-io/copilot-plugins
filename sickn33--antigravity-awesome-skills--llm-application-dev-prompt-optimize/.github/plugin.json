@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--llm-application-dev-prompt-optimize",
+  "version": "1.0.0",
+  "description": "\"You are an expert prompt engineer specializing in crafting effective prompts for LLMs through advanced techniques including constitutional AI, chain-of-thought reasoning, and model-specific optimizati\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
