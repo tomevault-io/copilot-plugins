@@ -1,0 +1,13 @@
+{
+  "name": "ruvnet--claude-flow--agent-payments",
+  "version": "1.0.0",
+  "description": "Agent skill for payments - invoke with $agent-payments",
+  "author": {
+    "name": "ruvnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
