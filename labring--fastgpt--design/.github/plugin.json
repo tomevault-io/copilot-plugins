@@ -1,0 +1,13 @@
+{
+  "name": "labring--fastgpt--design",
+  "version": "1.0.0",
+  "description": "\u5f53\u7528\u6237\u9700\u8981\u8bbe\u8ba1 FastGPT \u7684\u4ee3\u7801\u65f6\uff0c\u53ef\u8c03\u7528\u6b64 Skill\u3002",
+  "author": {
+    "name": "labring (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
