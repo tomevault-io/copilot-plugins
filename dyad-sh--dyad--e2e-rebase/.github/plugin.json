@@ -1,0 +1,13 @@
+{
+  "name": "dyad-sh--dyad--e2e-rebase",
+  "version": "1.0.0",
+  "description": "Rebase E2E test snapshots based on failed tests from the PR comments.",
+  "author": {
+    "name": "dyad-sh (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
