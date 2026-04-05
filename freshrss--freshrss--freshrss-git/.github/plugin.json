@@ -1,0 +1,13 @@
+{
+  "name": "freshrss--freshrss--freshrss-git",
+  "version": "1.0.0",
+  "description": "FreshRSS version control, git workflow, branching strategy (edge/latest), diff/compare, PR changes.",
+  "author": {
+    "name": "freshrss (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
