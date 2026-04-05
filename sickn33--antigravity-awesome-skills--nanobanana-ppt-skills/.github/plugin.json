@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--nanobanana-ppt-skills",
+  "version": "1.0.0",
+  "description": "\"AI-powered PPT generation with document analysis and styled images\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
