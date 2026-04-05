@@ -1,0 +1,13 @@
+{
+  "name": "hkuds--nanobot--clawhub",
+  "version": "1.0.0",
+  "description": "Search and install agent skills from ClawHub, the public skill registry.",
+  "author": {
+    "name": "hkuds (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
