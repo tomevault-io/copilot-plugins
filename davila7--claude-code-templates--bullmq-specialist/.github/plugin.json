@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--bullmq-specialist",
+  "version": "1.0.0",
+  "description": "\"BullMQ expert for Redis-backed job queues, background processing, and reliable async execution in Node.js/TypeScript applications. Use when: bullmq, bull queue, redis queue, background job, job queue.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
