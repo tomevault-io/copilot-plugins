@@ -1,0 +1,13 @@
+{
+  "name": "windmill-labs--windmill--rust-backend",
+  "version": "1.0.0",
+  "description": "Rust coding guidelines for the Windmill backend. MUST use when writing or modifying Rust code in the backend directory.",
+  "author": {
+    "name": "windmill-labs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
