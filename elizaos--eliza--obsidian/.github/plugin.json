@@ -1,0 +1,13 @@
+{
+  "name": "elizaos--eliza--obsidian",
+  "version": "1.0.0",
+  "description": "Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli. Use when the user asks about notes, vault management, PKM, knowledge base organization, wikilinks, or personal knowledge management in Obsidian.",
+  "author": {
+    "name": "elizaos (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
