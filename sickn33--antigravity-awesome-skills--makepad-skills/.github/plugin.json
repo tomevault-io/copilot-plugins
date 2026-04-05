@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--makepad-skills",
+  "version": "1.0.0",
+  "description": "\"Makepad UI development skills for Rust apps: setup, patterns, shaders, packaging, and troubleshooting.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
