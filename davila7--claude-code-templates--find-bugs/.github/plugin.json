@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--find-bugs",
+  "version": "1.0.0",
+  "description": "Find bugs, security vulnerabilities, and code quality issues in local branch changes. Use when asked to review changes, find bugs, security review, or audit code on the current branch.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
