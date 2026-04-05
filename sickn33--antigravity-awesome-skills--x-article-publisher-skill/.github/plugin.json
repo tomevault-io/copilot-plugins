@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--x-article-publisher-skill",
+  "version": "1.0.0",
+  "description": "\"Publish articles to X/Twitter\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
