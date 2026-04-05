@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--anti-reversing-techniques",
+  "version": "1.0.0",
+  "description": "\"AUTHORIZED USE ONLY: This skill contains dual-use security techniques. Before proceeding with any bypass or analysis: > 1.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
