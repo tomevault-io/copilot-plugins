@@ -1,0 +1,13 @@
+{
+  "name": "pubkey--rxdb--verify",
+  "version": "1.0.0",
+  "description": "Verifies code changes by running tests and generation scripts",
+  "author": {
+    "name": "pubkey (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
