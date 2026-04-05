@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--data-quality-frameworks",
+  "version": "1.0.0",
+  "description": "\"Implement data quality validation with Great Expectations, dbt tests, and data contracts. Use when building data quality pipelines, implementing validation rules, or establishing data contracts.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
