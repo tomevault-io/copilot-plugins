@@ -1,0 +1,13 @@
+{
+  "name": "elastic--kibana--chat-with-agent",
+  "version": "1.0.0",
+  "description": "Sends a message to an Agent Builder agent and displays the response including reasoning and tool calls. Use when asked to chat with, test, or talk to a Kibana agent.",
+  "author": {
+    "name": "elastic (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
