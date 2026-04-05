@@ -1,0 +1,13 @@
+{
+  "name": "quickwit-oss--quickwit--fmt",
+  "version": "1.0.0",
+  "description": "Run `make fmt` to check the code format.",
+  "author": {
+    "name": "quickwit-oss (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
