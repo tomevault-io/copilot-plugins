@@ -1,0 +1,13 @@
+{
+  "name": "camel-ai--camel--data-analyzer",
+  "version": "1.0.0",
+  "description": "Analyze datasets and extract insights. Use when user needs to understand data patterns, statistics, or trends.",
+  "author": {
+    "name": "camel-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
