@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--beautiful-prose",
+  "version": "1.0.0",
+  "description": "A hard-edged writing style contract for timeless, forceful English prose without modern AI tics. Use when users ask for prose or rewrites that must be clean, exact, concrete, and free of AI cadence, filler, or therapeutic tone.",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
