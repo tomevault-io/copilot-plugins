@@ -1,0 +1,13 @@
+{
+  "name": "2025emma--vibe-coding-cn--postgresql",
+  "version": "1.0.0",
+  "description": "PostgreSQL database documentation - SQL queries, database design, administration, performance tuning, and advanced features. Use when working with PostgreSQL databases, writing SQL, or managing database systems.",
+  "author": {
+    "name": "2025emma (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
