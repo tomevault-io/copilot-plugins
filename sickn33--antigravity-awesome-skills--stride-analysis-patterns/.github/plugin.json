@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--stride-analysis-patterns",
+  "version": "1.0.0",
+  "description": "\"Apply STRIDE methodology to systematically identify threats. Use when analyzing system security, conducting threat modeling sessions, or creating security documentation.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
