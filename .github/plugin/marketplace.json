@@ -991,6 +991,478 @@
     {
       "name": "remotion-dev--remotion--writing-docs",
       "source": "./remotion-dev--remotion--writing-docs"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--artifacts-builder",
+      "source": "./composiohq--awesome-claude-skills--artifacts-builder"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--changelog-generator",
+      "source": "./composiohq--awesome-claude-skills--changelog-generator"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--competitive-ads-extractor",
+      "source": "./composiohq--awesome-claude-skills--competitive-ads-extractor"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--connect",
+      "source": "./composiohq--awesome-claude-skills--connect"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--connect-apps",
+      "source": "./composiohq--awesome-claude-skills--connect-apps"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--developer-growth-analysis",
+      "source": "./composiohq--awesome-claude-skills--developer-growth-analysis"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--docx",
+      "source": "./composiohq--awesome-claude-skills--docx"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--domain-name-brainstormer",
+      "source": "./composiohq--awesome-claude-skills--domain-name-brainstormer"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--image-enhancer",
+      "source": "./composiohq--awesome-claude-skills--image-enhancer"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--langsmith-fetch",
+      "source": "./composiohq--awesome-claude-skills--langsmith-fetch"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--lead-research-assistant",
+      "source": "./composiohq--awesome-claude-skills--lead-research-assistant"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--mcp-builder",
+      "source": "./composiohq--awesome-claude-skills--mcp-builder"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--meeting-insights-analyzer",
+      "source": "./composiohq--awesome-claude-skills--meeting-insights-analyzer"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--pdf",
+      "source": "./composiohq--awesome-claude-skills--pdf"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--skill-creator",
+      "source": "./composiohq--awesome-claude-skills--skill-creator"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--skill-share",
+      "source": "./composiohq--awesome-claude-skills--skill-share"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--slack-gif-creator",
+      "source": "./composiohq--awesome-claude-skills--slack-gif-creator"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--tailored-resume-generator",
+      "source": "./composiohq--awesome-claude-skills--tailored-resume-generator"
+    },
+    {
+      "name": "composiohq--awesome-claude-skills--video-downloader",
+      "source": "./composiohq--awesome-claude-skills--video-downloader"
+    },
+    {
+      "name": "thedotmack--claude-mem--make-plan",
+      "source": "./thedotmack--claude-mem--make-plan"
+    },
+    {
+      "name": "wshobson--agents--anti-reversing-techniques",
+      "source": "./wshobson--agents--anti-reversing-techniques"
+    },
+    {
+      "name": "wshobson--agents--backtesting-frameworks",
+      "source": "./wshobson--agents--backtesting-frameworks"
+    },
+    {
+      "name": "wshobson--agents--competitive-landscape",
+      "source": "./wshobson--agents--competitive-landscape"
+    },
+    {
+      "name": "wshobson--agents--data-quality-frameworks",
+      "source": "./wshobson--agents--data-quality-frameworks"
+    },
+    {
+      "name": "wshobson--agents--defi-protocol-templates",
+      "source": "./wshobson--agents--defi-protocol-templates"
+    },
+    {
+      "name": "wshobson--agents--e2e-testing-patterns",
+      "source": "./wshobson--agents--e2e-testing-patterns"
+    },
+    {
+      "name": "wshobson--agents--gdpr-data-handling",
+      "source": "./wshobson--agents--gdpr-data-handling"
+    },
+    {
+      "name": "wshobson--agents--go-concurrency-patterns",
+      "source": "./wshobson--agents--go-concurrency-patterns"
+    },
+    {
+      "name": "wshobson--agents--grafana-dashboards",
+      "source": "./wshobson--agents--grafana-dashboards"
+    },
+    {
+      "name": "wshobson--agents--market-sizing-analysis",
+      "source": "./wshobson--agents--market-sizing-analysis"
+    },
+    {
+      "name": "wshobson--agents--mobile-android-design",
+      "source": "./wshobson--agents--mobile-android-design"
+    },
+    {
+      "name": "wshobson--agents--modern-javascript-patterns",
+      "source": "./wshobson--agents--modern-javascript-patterns"
+    },
+    {
+      "name": "wshobson--agents--on-call-handoff-patterns",
+      "source": "./wshobson--agents--on-call-handoff-patterns"
+    },
+    {
+      "name": "wshobson--agents--parallel-debugging",
+      "source": "./wshobson--agents--parallel-debugging"
+    },
+    {
+      "name": "wshobson--agents--parallel-feature-development",
+      "source": "./wshobson--agents--parallel-feature-development"
+    },
+    {
+      "name": "wshobson--agents--python-configuration",
+      "source": "./wshobson--agents--python-configuration"
+    },
+    {
+      "name": "wshobson--agents--python-error-handling",
+      "source": "./wshobson--agents--python-error-handling"
+    },
+    {
+      "name": "wshobson--agents--python-observability",
+      "source": "./wshobson--agents--python-observability"
+    },
+    {
+      "name": "wshobson--agents--python-performance-optimization",
+      "source": "./wshobson--agents--python-performance-optimization"
+    },
+    {
+      "name": "wshobson--agents--python-resilience",
+      "source": "./wshobson--agents--python-resilience"
+    },
+    {
+      "name": "wshobson--agents--python-resource-management",
+      "source": "./wshobson--agents--python-resource-management"
+    },
+    {
+      "name": "wshobson--agents--python-type-safety",
+      "source": "./wshobson--agents--python-type-safety"
+    },
+    {
+      "name": "wshobson--agents--react-native-design",
+      "source": "./wshobson--agents--react-native-design"
+    },
+    {
+      "name": "wshobson--agents--react-state-management",
+      "source": "./wshobson--agents--react-state-management"
+    },
+    {
+      "name": "wshobson--agents--responsive-design",
+      "source": "./wshobson--agents--responsive-design"
+    },
+    {
+      "name": "wshobson--agents--rust-async-patterns",
+      "source": "./wshobson--agents--rust-async-patterns"
+    },
+    {
+      "name": "wshobson--agents--screen-reader-testing",
+      "source": "./wshobson--agents--screen-reader-testing"
+    },
+    {
+      "name": "wshobson--agents--slo-implementation",
+      "source": "./wshobson--agents--slo-implementation"
+    },
+    {
+      "name": "wshobson--agents--solidity-security",
+      "source": "./wshobson--agents--solidity-security"
+    },
+    {
+      "name": "wshobson--agents--sql-optimization-patterns",
+      "source": "./wshobson--agents--sql-optimization-patterns"
+    },
+    {
+      "name": "wshobson--agents--startup-financial-modeling",
+      "source": "./wshobson--agents--startup-financial-modeling"
+    },
+    {
+      "name": "wshobson--agents--startup-metrics-framework",
+      "source": "./wshobson--agents--startup-metrics-framework"
+    },
+    {
+      "name": "wshobson--agents--team-composition-analysis",
+      "source": "./wshobson--agents--team-composition-analysis"
+    },
+    {
+      "name": "wshobson--agents--typescript-advanced-types",
+      "source": "./wshobson--agents--typescript-advanced-types"
+    },
+    {
+      "name": "wshobson--agents--unity-ecs-patterns",
+      "source": "./wshobson--agents--unity-ecs-patterns"
+    },
+    {
+      "name": "alibaba--druid--openspec-continue-change",
+      "source": "./alibaba--druid--openspec-continue-change"
+    },
+    {
+      "name": "alibaba--druid--openspec-new-change",
+      "source": "./alibaba--druid--openspec-new-change"
+    },
+    {
+      "name": "nrwl--nx--nx-run-tasks",
+      "source": "./nrwl--nx--nx-run-tasks"
+    },
+    {
+      "name": "heroui-inc--heroui--heroui-native",
+      "source": "./heroui-inc--heroui--heroui-native"
+    },
+    {
+      "name": "labring--fastgpt--api-development",
+      "source": "./labring--fastgpt--api-development"
+    },
+    {
+      "name": "labring--fastgpt--design",
+      "source": "./labring--fastgpt--design"
+    },
+    {
+      "name": "labring--fastgpt--system-test",
+      "source": "./labring--fastgpt--system-test"
+    },
+    {
+      "name": "srbhr--resume-matcher--react-patterns",
+      "source": "./srbhr--resume-matcher--react-patterns"
+    },
+    {
+      "name": "srbhr--resume-matcher--react-patterns",
+      "source": "./srbhr--resume-matcher--react-patterns"
+    },
+    {
+      "name": "srbhr--resume-matcher--ui-review",
+      "source": "./srbhr--resume-matcher--ui-review"
+    },
+    {
+      "name": "chromedevtools--chrome-devtools-mcp--chrome-devtools",
+      "source": "./chromedevtools--chrome-devtools-mcp--chrome-devtools"
+    },
+    {
+      "name": "zulip--zulip--debug-node-coverage",
+      "source": "./zulip--zulip--debug-node-coverage"
+    },
+    {
+      "name": "zulip--zulip--fetch-zulip-messages",
+      "source": "./zulip--zulip--fetch-zulip-messages"
+    },
+    {
+      "name": "mlflow--mlflow--add-review-comment",
+      "source": "./mlflow--mlflow--add-review-comment"
+    },
+    {
+      "name": "mlflow--mlflow--copilot",
+      "source": "./mlflow--mlflow--copilot"
+    },
+    {
+      "name": "mlflow--mlflow--fetch-diff",
+      "source": "./mlflow--mlflow--fetch-diff"
+    },
+    {
+      "name": "biomejs--biome--prettier-compare",
+      "source": "./biomejs--biome--prettier-compare"
+    },
+    {
+      "name": "pubkey--rxdb--verify",
+      "source": "./pubkey--rxdb--verify"
+    },
+    {
+      "name": "jlowin--fastmcp--python-tests",
+      "source": "./jlowin--fastmcp--python-tests"
+    },
+    {
+      "name": "saleor--saleor--pytest-runner",
+      "source": "./saleor--saleor--pytest-runner"
+    },
+    {
+      "name": "saleor--saleor--saleor-commit",
+      "source": "./saleor--saleor--saleor-commit"
+    },
+    {
+      "name": "yamadashy--repomix--browser-extension-developer",
+      "source": "./yamadashy--repomix--browser-extension-developer"
+    },
+    {
+      "name": "yamadashy--repomix--website-maintainer",
+      "source": "./yamadashy--repomix--website-maintainer"
+    },
+    {
+      "name": "vercel--ai--capture-api-response-test-fixture",
+      "source": "./vercel--ai--capture-api-response-test-fixture"
+    },
+    {
+      "name": "github--awesome-copilot--azure-devops-cli",
+      "source": "./github--awesome-copilot--azure-devops-cli"
+    },
+    {
+      "name": "github--awesome-copilot--azure-role-selector",
+      "source": "./github--awesome-copilot--azure-role-selector"
+    },
+    {
+      "name": "github--awesome-copilot--fabric-lakehouse",
+      "source": "./github--awesome-copilot--fabric-lakehouse"
+    },
+    {
+      "name": "github--awesome-copilot--make-skill-template",
+      "source": "./github--awesome-copilot--make-skill-template"
+    },
+    {
+      "name": "github--awesome-copilot--pdftk-server",
+      "source": "./github--awesome-copilot--pdftk-server"
+    },
+    {
+      "name": "github--awesome-copilot--terraform-azurerm-set-diff-analyzer",
+      "source": "./github--awesome-copilot--terraform-azurerm-set-diff-analyzer"
+    },
+    {
+      "name": "github--awesome-copilot--transloadit-media-processing",
+      "source": "./github--awesome-copilot--transloadit-media-processing"
+    },
+    {
+      "name": "github--awesome-copilot--vscode-ext-commands",
+      "source": "./github--awesome-copilot--vscode-ext-commands"
+    },
+    {
+      "name": "github--awesome-copilot--vscode-ext-localization",
+      "source": "./github--awesome-copilot--vscode-ext-localization"
+    },
+    {
+      "name": "hkuds--nanobot--clawhub",
+      "source": "./hkuds--nanobot--clawhub"
+    },
+    {
+      "name": "hkuds--nanobot--weather",
+      "source": "./hkuds--nanobot--weather"
+    },
+    {
+      "name": "elastic--kibana--chat-with-agent",
+      "source": "./elastic--kibana--chat-with-agent"
+    },
+    {
+      "name": "elastic--kibana--create-agent",
+      "source": "./elastic--kibana--create-agent"
+    },
+    {
+      "name": "davila7--claude-code-templates--ab-test-setup",
+      "source": "./davila7--claude-code-templates--ab-test-setup"
+    },
+    {
+      "name": "davila7--claude-code-templates--adaptyv",
+      "source": "./davila7--claude-code-templates--adaptyv"
+    },
+    {
+      "name": "davila7--claude-code-templates--address-github-comments",
+      "source": "./davila7--claude-code-templates--address-github-comments"
+    },
+    {
+      "name": "davila7--claude-code-templates--aeon",
+      "source": "./davila7--claude-code-templates--aeon"
+    },
+    {
+      "name": "davila7--claude-code-templates--agent-evaluation",
+      "source": "./davila7--claude-code-templates--agent-evaluation"
+    },
+    {
+      "name": "davila7--claude-code-templates--agent-tool-builder",
+      "source": "./davila7--claude-code-templates--agent-tool-builder"
+    },
+    {
+      "name": "davila7--claude-code-templates--ai-product",
+      "source": "./davila7--claude-code-templates--ai-product"
+    },
+    {
+      "name": "davila7--claude-code-templates--algolia-search",
+      "source": "./davila7--claude-code-templates--algolia-search"
+    },
+    {
+      "name": "davila7--claude-code-templates--architecture",
+      "source": "./davila7--claude-code-templates--architecture"
+    },
+    {
+      "name": "davila7--claude-code-templates--astropy",
+      "source": "./davila7--claude-code-templates--astropy"
+    },
+    {
+      "name": "davila7--claude-code-templates--autonomous-agents",
+      "source": "./davila7--claude-code-templates--autonomous-agents"
+    },
+    {
+      "name": "davila7--claude-code-templates--avalonia-viewmodels-zafiro",
+      "source": "./davila7--claude-code-templates--avalonia-viewmodels-zafiro"
+    },
+    {
+      "name": "davila7--claude-code-templates--azure-functions",
+      "source": "./davila7--claude-code-templates--azure-functions"
+    },
+    {
+      "name": "davila7--claude-code-templates--best-practices",
+      "source": "./davila7--claude-code-templates--best-practices"
+    },
+    {
+      "name": "davila7--claude-code-templates--bullmq-specialist",
+      "source": "./davila7--claude-code-templates--bullmq-specialist"
+    },
+    {
+      "name": "davila7--claude-code-templates--ceo-advisor",
+      "source": "./davila7--claude-code-templates--ceo-advisor"
+    },
+    {
+      "name": "davila7--claude-code-templates--cirq",
+      "source": "./davila7--claude-code-templates--cirq"
+    },
+    {
+      "name": "davila7--claude-code-templates--clerk-auth",
+      "source": "./davila7--claude-code-templates--clerk-auth"
+    },
+    {
+      "name": "davila7--claude-code-templates--context7-auto-research",
+      "source": "./davila7--claude-code-templates--context7-auto-research"
+    },
+    {
+      "name": "davila7--claude-code-templates--core-components",
+      "source": "./davila7--claude-code-templates--core-components"
+    },
+    {
+      "name": "davila7--claude-code-templates--crewai",
+      "source": "./davila7--claude-code-templates--crewai"
+    },
+    {
+      "name": "davila7--claude-code-templates--data-privacy-compliance",
+      "source": "./davila7--claude-code-templates--data-privacy-compliance"
+    },
+    {
+      "name": "davila7--claude-code-templates--deslop",
+      "source": "./davila7--claude-code-templates--deslop"
+    },
+    {
+      "name": "davila7--claude-code-templates--difficult-workplace-conversations",
+      "source": "./davila7--claude-code-templates--difficult-workplace-conversations"
+    },
+    {
+      "name": "davila7--claude-code-templates--email-systems",
+      "source": "./davila7--claude-code-templates--email-systems"
+    },
+    {
+      "name": "davila7--claude-code-templates--exa-search",
+      "source": "./davila7--claude-code-templates--exa-search"
     }
   ]
 }
