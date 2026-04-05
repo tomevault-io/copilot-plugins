@@ -1971,6 +1971,638 @@
     {
       "name": "ruvnet--claude-flow--agentdb-vector-search",
       "source": "./ruvnet--claude-flow--agentdb-vector-search"
+    },
+    {
+      "name": "ruvnet--claude-flow--claims",
+      "source": "./ruvnet--claude-flow--claims"
+    },
+    {
+      "name": "ruvnet--claude-flow--embeddings",
+      "source": "./ruvnet--claude-flow--embeddings"
+    },
+    {
+      "name": "ruvnet--claude-flow--hive-mind",
+      "source": "./ruvnet--claude-flow--hive-mind"
+    },
+    {
+      "name": "ruvnet--claude-flow--memory-management",
+      "source": "./ruvnet--claude-flow--memory-management"
+    },
+    {
+      "name": "ruvnet--claude-flow--memory-management",
+      "source": "./ruvnet--claude-flow--memory-management"
+    },
+    {
+      "name": "ruvnet--claude-flow--reasoningbank-agentdb",
+      "source": "./ruvnet--claude-flow--reasoningbank-agentdb"
+    },
+    {
+      "name": "ruvnet--claude-flow--reasoningbank-agentdb",
+      "source": "./ruvnet--claude-flow--reasoningbank-agentdb"
+    },
+    {
+      "name": "ruvnet--claude-flow--security-audit",
+      "source": "./ruvnet--claude-flow--security-audit"
+    },
+    {
+      "name": "ruvnet--claude-flow--security-audit",
+      "source": "./ruvnet--claude-flow--security-audit"
+    },
+    {
+      "name": "ruvnet--claude-flow--swarm-orchestration",
+      "source": "./ruvnet--claude-flow--swarm-orchestration"
+    },
+    {
+      "name": "ruvnet--claude-flow--swarm-orchestration",
+      "source": "./ruvnet--claude-flow--swarm-orchestration"
+    },
+    {
+      "name": "ruvnet--claude-flow--swarm-orchestration",
+      "source": "./ruvnet--claude-flow--swarm-orchestration"
+    },
+    {
+      "name": "freshrss--freshrss--freshrss-git",
+      "source": "./freshrss--freshrss--freshrss-git"
+    },
+    {
+      "name": "freshrss--freshrss--freshrss-i18n",
+      "source": "./freshrss--freshrss--freshrss-i18n"
+    },
+    {
+      "name": "tamagui--tamagui--git-safety",
+      "source": "./tamagui--tamagui--git-safety"
+    },
+    {
+      "name": "tamagui--tamagui--release-safety",
+      "source": "./tamagui--tamagui--release-safety"
+    },
+    {
+      "name": "triggerdotdev--trigger-dev--trigger-dev-tasks",
+      "source": "./triggerdotdev--trigger-dev--trigger-dev-tasks"
+    },
+    {
+      "name": "tencent--weknora--pdf-processing",
+      "source": "./tencent--weknora--pdf-processing"
+    },
+    {
+      "name": "rolldown--rolldown--upgrade-oxc",
+      "source": "./rolldown--rolldown--upgrade-oxc"
+    },
+    {
+      "name": "antvis--g2--g2-legend-expert",
+      "source": "./antvis--g2--g2-legend-expert"
+    },
+    {
+      "name": "2025emma--vibe-coding-cn--claude-cookbooks",
+      "source": "./2025emma--vibe-coding-cn--claude-cookbooks"
+    },
+    {
+      "name": "2025emma--vibe-coding-cn--coingecko",
+      "source": "./2025emma--vibe-coding-cn--coingecko"
+    },
+    {
+      "name": "2025emma--vibe-coding-cn--postgresql",
+      "source": "./2025emma--vibe-coding-cn--postgresql"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--accessibility-compliance-accessibility-audit",
+      "source": "./sickn33--antigravity-awesome-skills--accessibility-compliance-accessibility-audit"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--airflow-dag-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--airflow-dag-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--anti-reversing-techniques",
+      "source": "./sickn33--antigravity-awesome-skills--anti-reversing-techniques"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--api-design-principles",
+      "source": "./sickn33--antigravity-awesome-skills--api-design-principles"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--api-testing-observability-api-mock",
+      "source": "./sickn33--antigravity-awesome-skills--api-testing-observability-api-mock"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--async-python-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--async-python-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--auth-implementation-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--auth-implementation-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--aws-skills",
+      "source": "./sickn33--antigravity-awesome-skills--aws-skills"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--backtesting-frameworks",
+      "source": "./sickn33--antigravity-awesome-skills--backtesting-frameworks"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--bats-testing-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--bats-testing-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--beautiful-prose",
+      "source": "./sickn33--antigravity-awesome-skills--beautiful-prose"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--c-pro",
+      "source": "./sickn33--antigravity-awesome-skills--c-pro"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--claude-ally-health",
+      "source": "./sickn33--antigravity-awesome-skills--claude-ally-health"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--claude-scientific-skills",
+      "source": "./sickn33--antigravity-awesome-skills--claude-scientific-skills"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--claude-win11-speckit-update-skill",
+      "source": "./sickn33--antigravity-awesome-skills--claude-win11-speckit-update-skill"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--code-documentation-code-explain",
+      "source": "./sickn33--antigravity-awesome-skills--code-documentation-code-explain"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--code-refactoring-refactor-clean",
+      "source": "./sickn33--antigravity-awesome-skills--code-refactoring-refactor-clean"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--codebase-cleanup-deps-audit",
+      "source": "./sickn33--antigravity-awesome-skills--codebase-cleanup-deps-audit"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--codebase-cleanup-refactor-clean",
+      "source": "./sickn33--antigravity-awesome-skills--codebase-cleanup-refactor-clean"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--competitive-landscape",
+      "source": "./sickn33--antigravity-awesome-skills--competitive-landscape"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--create-pr",
+      "source": "./sickn33--antigravity-awesome-skills--create-pr"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--data-quality-frameworks",
+      "source": "./sickn33--antigravity-awesome-skills--data-quality-frameworks"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--debugger",
+      "source": "./sickn33--antigravity-awesome-skills--debugger"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--debugging-strategies",
+      "source": "./sickn33--antigravity-awesome-skills--debugging-strategies"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--defi-protocol-templates",
+      "source": "./sickn33--antigravity-awesome-skills--defi-protocol-templates"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--distributed-debugging-debug-trace",
+      "source": "./sickn33--antigravity-awesome-skills--distributed-debugging-debug-trace"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--e2e-testing-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--e2e-testing-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--employment-contract-templates",
+      "source": "./sickn33--antigravity-awesome-skills--employment-contract-templates"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--error-detective",
+      "source": "./sickn33--antigravity-awesome-skills--error-detective"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--error-handling-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--error-handling-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--fal-audio",
+      "source": "./sickn33--antigravity-awesome-skills--fal-audio"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--fal-generate",
+      "source": "./sickn33--antigravity-awesome-skills--fal-generate"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--fal-image-edit",
+      "source": "./sickn33--antigravity-awesome-skills--fal-image-edit"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--fal-platform",
+      "source": "./sickn33--antigravity-awesome-skills--fal-platform"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--fal-upscale",
+      "source": "./sickn33--antigravity-awesome-skills--fal-upscale"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--fal-workflow",
+      "source": "./sickn33--antigravity-awesome-skills--fal-workflow"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--fastapi-templates",
+      "source": "./sickn33--antigravity-awesome-skills--fastapi-templates"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--ffuf-claude-skill",
+      "source": "./sickn33--antigravity-awesome-skills--ffuf-claude-skill"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--find-bugs",
+      "source": "./sickn33--antigravity-awesome-skills--find-bugs"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--fp-ts-errors",
+      "source": "./sickn33--antigravity-awesome-skills--fp-ts-errors"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--fp-ts-pragmatic",
+      "source": "./sickn33--antigravity-awesome-skills--fp-ts-pragmatic"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--framework-migration-code-migrate",
+      "source": "./sickn33--antigravity-awesome-skills--framework-migration-code-migrate"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--framework-migration-deps-upgrade",
+      "source": "./sickn33--antigravity-awesome-skills--framework-migration-deps-upgrade"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--gdpr-data-handling",
+      "source": "./sickn33--antigravity-awesome-skills--gdpr-data-handling"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--go-concurrency-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--go-concurrency-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--godot-gdscript-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--godot-gdscript-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--hybrid-search-implementation",
+      "source": "./sickn33--antigravity-awesome-skills--hybrid-search-implementation"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--infinite-gratitude",
+      "source": "./sickn33--antigravity-awesome-skills--infinite-gratitude"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--llm-application-dev-ai-assistant",
+      "source": "./sickn33--antigravity-awesome-skills--llm-application-dev-ai-assistant"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--llm-application-dev-prompt-optimize",
+      "source": "./sickn33--antigravity-awesome-skills--llm-application-dev-prompt-optimize"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--makepad-skills",
+      "source": "./sickn33--antigravity-awesome-skills--makepad-skills"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--memory-safety-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--memory-safety-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--modern-javascript-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--modern-javascript-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--nanobanana-ppt-skills",
+      "source": "./sickn33--antigravity-awesome-skills--nanobanana-ppt-skills"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--nodejs-backend-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--nodejs-backend-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--observability-monitoring-slo-implement",
+      "source": "./sickn33--antigravity-awesome-skills--observability-monitoring-slo-implement"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--openapi-spec-generation",
+      "source": "./sickn33--antigravity-awesome-skills--openapi-spec-generation"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--protocol-reverse-engineering",
+      "source": "./sickn33--antigravity-awesome-skills--protocol-reverse-engineering"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--pypict-skill",
+      "source": "./sickn33--antigravity-awesome-skills--pypict-skill"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--python-performance-optimization",
+      "source": "./sickn33--antigravity-awesome-skills--python-performance-optimization"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--python-testing-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--python-testing-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--react-modernization",
+      "source": "./sickn33--antigravity-awesome-skills--react-modernization"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--react-state-management",
+      "source": "./sickn33--antigravity-awesome-skills--react-state-management"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--rust-async-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--rust-async-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--screen-reader-testing",
+      "source": "./sickn33--antigravity-awesome-skills--screen-reader-testing"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--security-requirement-extraction",
+      "source": "./sickn33--antigravity-awesome-skills--security-requirement-extraction"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--skill-seekers",
+      "source": "./sickn33--antigravity-awesome-skills--skill-seekers"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--solidity-security",
+      "source": "./sickn33--antigravity-awesome-skills--solidity-security"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--sql-optimization-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--sql-optimization-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--startup-metrics-framework",
+      "source": "./sickn33--antigravity-awesome-skills--startup-metrics-framework"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--stride-analysis-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--stride-analysis-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--tailwind-design-system",
+      "source": "./sickn33--antigravity-awesome-skills--tailwind-design-system"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--tdd-workflows-tdd-green",
+      "source": "./sickn33--antigravity-awesome-skills--tdd-workflows-tdd-green"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--team-collaboration-issue",
+      "source": "./sickn33--antigravity-awesome-skills--team-collaboration-issue"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--team-collaboration-standup-notes",
+      "source": "./sickn33--antigravity-awesome-skills--team-collaboration-standup-notes"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--threat-mitigation-mapping",
+      "source": "./sickn33--antigravity-awesome-skills--threat-mitigation-mapping"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--track-management",
+      "source": "./sickn33--antigravity-awesome-skills--track-management"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--typescript-advanced-types",
+      "source": "./sickn33--antigravity-awesome-skills--typescript-advanced-types"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--ui-skills",
+      "source": "./sickn33--antigravity-awesome-skills--ui-skills"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--unity-ecs-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--unity-ecs-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--varlock-claude-skill",
+      "source": "./sickn33--antigravity-awesome-skills--varlock-claude-skill"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--vexor",
+      "source": "./sickn33--antigravity-awesome-skills--vexor"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--wiki-changelog",
+      "source": "./sickn33--antigravity-awesome-skills--wiki-changelog"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--wiki-qa",
+      "source": "./sickn33--antigravity-awesome-skills--wiki-qa"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--workflow-patterns",
+      "source": "./sickn33--antigravity-awesome-skills--workflow-patterns"
+    },
+    {
+      "name": "sickn33--antigravity-awesome-skills--x-article-publisher-skill",
+      "source": "./sickn33--antigravity-awesome-skills--x-article-publisher-skill"
+    },
+    {
+      "name": "mozilla-firefox--firefox--android",
+      "source": "./mozilla-firefox--firefox--android"
+    },
+    {
+      "name": "quickwit-oss--quickwit--fix-clippy",
+      "source": "./quickwit-oss--quickwit--fix-clippy"
+    },
+    {
+      "name": "quickwit-oss--quickwit--fmt",
+      "source": "./quickwit-oss--quickwit--fmt"
+    },
+    {
+      "name": "fuma-nama--fumadocs--read-docs",
+      "source": "./fuma-nama--fumadocs--read-docs"
+    },
+    {
+      "name": "ryoppippi--ccusage--byethrow",
+      "source": "./ryoppippi--ccusage--byethrow"
+    },
+    {
+      "name": "ryoppippi--ccusage--use-gunshi-cli",
+      "source": "./ryoppippi--ccusage--use-gunshi-cli"
+    },
+    {
+      "name": "snarktank--ralph--prd",
+      "source": "./snarktank--ralph--prd"
+    },
+    {
+      "name": "snarktank--ralph--ralph",
+      "source": "./snarktank--ralph--ralph"
+    },
+    {
+      "name": "promptfoo--promptfoo--redteam-plugin-development",
+      "source": "./promptfoo--promptfoo--redteam-plugin-development"
+    },
+    {
+      "name": "longbridge--gpui-component--generate-component-documentation",
+      "source": "./longbridge--gpui-component--generate-component-documentation"
+    },
+    {
+      "name": "longbridge--gpui-component--github-pull-request-description",
+      "source": "./longbridge--gpui-component--github-pull-request-description"
+    },
+    {
+      "name": "longbridge--gpui-component--gpui-async",
+      "source": "./longbridge--gpui-component--gpui-async"
+    },
+    {
+      "name": "longbridge--gpui-component--gpui-context",
+      "source": "./longbridge--gpui-component--gpui-context"
+    },
+    {
+      "name": "longbridge--gpui-component--gpui-element",
+      "source": "./longbridge--gpui-component--gpui-element"
+    },
+    {
+      "name": "longbridge--gpui-component--gpui-entity",
+      "source": "./longbridge--gpui-component--gpui-entity"
+    },
+    {
+      "name": "longbridge--gpui-component--gpui-global",
+      "source": "./longbridge--gpui-component--gpui-global"
+    },
+    {
+      "name": "longbridge--gpui-component--gpui-test",
+      "source": "./longbridge--gpui-component--gpui-test"
+    },
+    {
+      "name": "longbridge--gpui-component--new-component",
+      "source": "./longbridge--gpui-component--new-component"
+    },
+    {
+      "name": "pipecat-ai--pipecat--changelog",
+      "source": "./pipecat-ai--pipecat--changelog"
+    },
+    {
+      "name": "pipecat-ai--pipecat--pr-submit",
+      "source": "./pipecat-ai--pipecat--pr-submit"
+    },
+    {
+      "name": "woocommerce--woocommerce--woocommerce-copy-guidelines",
+      "source": "./woocommerce--woocommerce--woocommerce-copy-guidelines"
+    },
+    {
+      "name": "woocommerce--woocommerce--woocommerce-dev-cycle",
+      "source": "./woocommerce--woocommerce--woocommerce-dev-cycle"
+    },
+    {
+      "name": "woocommerce--woocommerce--woocommerce-git",
+      "source": "./woocommerce--woocommerce--woocommerce-git"
+    },
+    {
+      "name": "jetbrains--ideavim--extensions-api-migration",
+      "source": "./jetbrains--ideavim--extensions-api-migration"
+    },
+    {
+      "name": "jetbrains--ideavim--git-workflow",
+      "source": "./jetbrains--ideavim--git-workflow"
+    },
+    {
+      "name": "elie222--inbox-zero--llm-test",
+      "source": "./elie222--inbox-zero--llm-test"
+    },
+    {
+      "name": "elie222--inbox-zero--testing",
+      "source": "./elie222--inbox-zero--testing"
+    },
+    {
+      "name": "elie222--inbox-zero--ui-components",
+      "source": "./elie222--inbox-zero--ui-components"
+    },
+    {
+      "name": "kepano--obsidian-skills--defuddle",
+      "source": "./kepano--obsidian-skills--defuddle"
+    },
+    {
+      "name": "different-ai--openwork--cargo-lock-manager",
+      "source": "./different-ai--openwork--cargo-lock-manager"
+    },
+    {
+      "name": "different-ai--openwork--get-started",
+      "source": "./different-ai--openwork--get-started"
+    },
+    {
+      "name": "different-ai--openwork--opencode-mirror",
+      "source": "./different-ai--openwork--opencode-mirror"
+    },
+    {
+      "name": "different-ai--openwork--openwork-debug",
+      "source": "./different-ai--openwork--openwork-debug"
+    },
+    {
+      "name": "douyinfe--semi-design--semi-ui-skills",
+      "source": "./douyinfe--semi-design--semi-ui-skills"
+    },
+    {
+      "name": "coreyhaines31--marketingskills--marketing-ideas",
+      "source": "./coreyhaines31--marketingskills--marketing-ideas"
+    },
+    {
+      "name": "langchain-ai--deepagents--arxiv-search",
+      "source": "./langchain-ai--deepagents--arxiv-search"
+    },
+    {
+      "name": "langchain-ai--deepagents--blog-post",
+      "source": "./langchain-ai--deepagents--blog-post"
+    },
+    {
+      "name": "langchain-ai--deepagents--langgraph-docs",
+      "source": "./langchain-ai--deepagents--langgraph-docs"
+    },
+    {
+      "name": "langchain-ai--deepagents--query-writing",
+      "source": "./langchain-ai--deepagents--query-writing"
+    },
+    {
+      "name": "tobi--qmd--qmd",
+      "source": "./tobi--qmd--qmd"
+    },
+    {
+      "name": "everyinc--compound-engineering-plugin--rclone",
+      "source": "./everyinc--compound-engineering-plugin--rclone"
+    },
+    {
+      "name": "everyinc--compound-engineering-plugin--setup",
+      "source": "./everyinc--compound-engineering-plugin--setup"
+    },
+    {
+      "name": "coreyhaines31--marketingskills--pricing-strategy",
+      "source": "./coreyhaines31--marketingskills--pricing-strategy"
+    },
+    {
+      "name": "openai--skills--skill-installer",
+      "source": "./openai--skills--skill-installer"
+    },
+    {
+      "name": "k-dense-ai--claude-scientific-skills--adaptyv",
+      "source": "./k-dense-ai--claude-scientific-skills--adaptyv"
+    },
+    {
+      "name": "k-dense-ai--claude-scientific-skills--aeon",
+      "source": "./k-dense-ai--claude-scientific-skills--aeon"
+    },
+    {
+      "name": "k-dense-ai--claude-scientific-skills--arboreto",
+      "source": "./k-dense-ai--claude-scientific-skills--arboreto"
+    },
+    {
+      "name": "k-dense-ai--claude-scientific-skills--astropy",
+      "source": "./k-dense-ai--claude-scientific-skills--astropy"
+    },
+    {
+      "name": "k-dense-ai--claude-scientific-skills--cirq",
+      "source": "./k-dense-ai--claude-scientific-skills--cirq"
     }
   ]
 }
