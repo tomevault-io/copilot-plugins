@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--python-error-handling",
+  "version": "1.0.0",
+  "description": "Python error handling patterns including input validation, exception hierarchies, and partial failure handling. Use when implementing validation logic, designing exception strategies, handling batch processing failures, or building robust APIs.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
