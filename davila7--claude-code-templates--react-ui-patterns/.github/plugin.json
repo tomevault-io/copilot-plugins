@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--react-ui-patterns",
+  "version": "1.0.0",
+  "description": "Modern React UI patterns for loading states, error handling, and data fetching. Use when building UI components, handling async data, or managing UI states.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
