@@ -1,0 +1,13 @@
+{
+  "name": "flet-dev--flet--run-integration-tests",
+  "version": "1.0.0",
+  "description": "Use when asked to run integration tests.",
+  "author": {
+    "name": "flet-dev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
