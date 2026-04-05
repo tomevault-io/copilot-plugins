@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--auth-implementation-patterns",
+  "version": "1.0.0",
+  "description": "\"Build secure, scalable authentication and authorization systems using industry-standard patterns and modern best practices.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
