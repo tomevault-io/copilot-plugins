@@ -1,0 +1,13 @@
+{
+  "name": "heroui-inc--heroui--heroui-native",
+  "version": "1.0.0",
+  "description": "\"HeroUI Native component library for React Native (Tailwind v4 via Uniwind). Use when building mobile UIs with HeroUI Native \u2014 creating Buttons, Cards, TextFields, Dialogs; installing heroui-native; configuring dark/light themes; or fetching component docs. Keywords: HeroUI Native, heroui-native, React Native UI, Uniwind, mobile components.\"",
+  "author": {
+    "name": "heroui-inc (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
