@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--nextjs-supabase-auth",
+  "version": "1.0.0",
+  "description": "\"Expert integration of Supabase Auth with Next.js App Router Use when: supabase auth next, authentication next.js, login supabase, auth middleware, protected route.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
