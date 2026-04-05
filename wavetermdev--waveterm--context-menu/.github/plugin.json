@@ -1,0 +1,13 @@
+{
+  "name": "wavetermdev--waveterm--context-menu",
+  "version": "1.0.0",
+  "description": "Guide for creating and displaying context menus in Wave Terminal. Use when implementing right-click menus, adding context menu items, creating submenus, or handling menu interactions with checkboxes and separators.",
+  "author": {
+    "name": "wavetermdev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
