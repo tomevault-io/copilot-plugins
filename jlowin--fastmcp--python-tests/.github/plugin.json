@@ -1,0 +1,13 @@
+{
+  "name": "jlowin--fastmcp--python-tests",
+  "version": "1.0.0",
+  "description": "Write and evaluate effective Python tests using pytest. Use when writing tests, reviewing test code, debugging test failures, or improving test coverage. Covers test design, fixtures, parameterization, mocking, and async testing.",
+  "author": {
+    "name": "jlowin (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
