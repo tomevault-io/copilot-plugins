@@ -1,0 +1,13 @@
+{
+  "name": "camel-ai--camel--code-reviewer",
+  "version": "1.0.0",
+  "description": "Review code for quality, bugs, and improvements. Use when user wants code review or quality assessment.",
+  "author": {
+    "name": "camel-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
