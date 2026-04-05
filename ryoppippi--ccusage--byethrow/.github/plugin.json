@@ -1,0 +1,13 @@
+{
+  "name": "ryoppippi--ccusage--byethrow",
+  "version": "1.0.0",
+  "description": "Reference the byethrow documentation to understand and use the Result type library for error handling in JavaScript/TypeScript. Access detailed API references, practical usage examples, and best practice guides.",
+  "author": {
+    "name": "ryoppippi (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
