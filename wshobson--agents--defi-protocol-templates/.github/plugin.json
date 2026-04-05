@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--defi-protocol-templates",
+  "version": "1.0.0",
+  "description": "Implement DeFi protocols with production-ready templates for staking, AMMs, governance, and lending systems. Use when building decentralized finance applications or smart contract protocols.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
