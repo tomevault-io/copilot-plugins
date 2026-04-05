@@ -1,0 +1,13 @@
+{
+  "name": "gfx-rs--wgpu--webgpu-specs",
+  "version": "1.0.0",
+  "description": "Download WebGPU and WGSL specifications for use as a reference",
+  "author": {
+    "name": "gfx-rs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
