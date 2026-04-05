@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--core-components",
+  "version": "1.0.0",
+  "description": "Core component library and design system patterns. Use when building UI, using design tokens, or working with the component library.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
