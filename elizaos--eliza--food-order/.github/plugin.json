@@ -1,0 +1,13 @@
+{
+  "name": "elizaos--eliza--food-order",
+  "version": "1.0.0",
+  "description": "\"Reorder Foodora orders + track ETA/status with ordercli. Never confirm without explicit user approval. Triggers: order food, reorder, track ETA.\"",
+  "author": {
+    "name": "elizaos (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
