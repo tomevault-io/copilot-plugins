@@ -1,0 +1,13 @@
+{
+  "name": "elastic--kibana--create-agent",
+  "version": "1.0.0",
+  "description": "Creates an Agent Builder agent in a running Kibana instance, wired to data source tools. Use when asked to create, set up, or configure an AI agent in Kibana.",
+  "author": {
+    "name": "elastic (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
