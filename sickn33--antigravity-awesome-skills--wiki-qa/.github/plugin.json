@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--wiki-qa",
+  "version": "1.0.0",
+  "description": "\"Answer repository questions grounded entirely in source code evidence. Use when user asks a question about the codebase, user wants to understand a specific file, function, or component, or user asks \\\"how does X work\\\" or \\\"where is Y defined\\\".\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
