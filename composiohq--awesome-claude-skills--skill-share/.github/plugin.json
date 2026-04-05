@@ -1,0 +1,13 @@
+{
+  "name": "composiohq--awesome-claude-skills--skill-share",
+  "version": "1.0.0",
+  "description": "A skill that creates new Claude skills and automatically shares them on Slack using Rube for seamless team collaboration and skill discovery.",
+  "author": {
+    "name": "composiohq (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
