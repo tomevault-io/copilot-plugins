@@ -1,0 +1,13 @@
+{
+  "name": "thedotmack--claude-mem--make-plan",
+  "version": "1.0.0",
+  "description": "Create a detailed, phased implementation plan with documentation discovery. Use when asked to plan a feature, task, or multi-step implementation \u2014 especially before executing with do.",
+  "author": {
+    "name": "thedotmack (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
