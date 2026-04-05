@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--bats-testing-patterns",
+  "version": "1.0.0",
+  "description": "\"Master Bash Automated Testing System (Bats) for comprehensive shell script testing. Use when writing tests for shell scripts, CI/CD pipelines, or requiring test-driven development of shell utilities.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
