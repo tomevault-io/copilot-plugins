@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--api-testing-observability-api-mock",
+  "version": "1.0.0",
+  "description": "\"You are an API mocking expert specializing in realistic mock services for development, testing, and demos. Design mocks that simulate real API behavior and enable parallel development.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
