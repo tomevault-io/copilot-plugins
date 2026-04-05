@@ -1,0 +1,13 @@
+{
+  "name": "zulip--zulip--debug-node-coverage",
+  "version": "1.0.0",
+  "description": "\"Debug node test coverage failures. Use when ./tools/test-js-with-node --coverage reports lines missing coverage.\"",
+  "author": {
+    "name": "zulip (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
