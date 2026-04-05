@@ -1,0 +1,13 @@
+{
+  "name": "elizaos--eliza--video-frames",
+  "version": "1.0.0",
+  "description": "Extract frames or short clips from videos using ffmpeg. Use when the user asks to grab a frame, capture a screenshot from a video, extract a thumbnail, pull a still image from footage, or snapshot a specific timestamp in a video file.",
+  "author": {
+    "name": "elizaos (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
