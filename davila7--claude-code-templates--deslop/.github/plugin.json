@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--deslop",
+  "version": "1.0.0",
+  "description": "Remove AI-generated code slop from a branch. Use when cleaning up AI-generated code, removing unnecessary comments, defensive checks, or type casts. Checks diff against main and fixes style inconsistencies.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
