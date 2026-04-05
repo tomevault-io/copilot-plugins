@@ -1,0 +1,13 @@
+{
+  "name": "ryoppippi--ccusage--use-gunshi-cli",
+  "version": "1.0.0",
+  "description": "Use the Gunshi library to create command-line interfaces in JavaScript/TypeScript.",
+  "author": {
+    "name": "ryoppippi (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
