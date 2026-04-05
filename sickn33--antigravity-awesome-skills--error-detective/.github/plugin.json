@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--error-detective",
+  "version": "1.0.0",
+  "description": "Search logs and codebases for error patterns, stack traces, and anomalies. Correlates errors across systems and identifies root causes.",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
