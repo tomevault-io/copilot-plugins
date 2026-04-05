@@ -1,0 +1,13 @@
+{
+  "name": "everyinc--compound-engineering-plugin--setup",
+  "version": "1.0.0",
+  "description": "Configure project-level settings for compound-engineering workflows. Currently a placeholder \u2014 review agent selection is handled automatically by ce:review.",
+  "author": {
+    "name": "everyinc (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
