@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--railway-docs",
+  "version": "1.0.0",
+  "description": "Fetch up-to-date Railway documentation to answer questions accurately. Use when user asks about Railway features, how Railway works, or shares a docs.railway.com URL.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
