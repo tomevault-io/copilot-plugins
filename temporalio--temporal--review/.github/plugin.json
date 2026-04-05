@@ -1,0 +1,13 @@
+{
+  "name": "temporalio--temporal--review",
+  "version": "1.0.0",
+  "description": "Review code for common issues. Use when reviewing PRs, suggesting code changes, or when user asks to review code.",
+  "author": {
+    "name": "temporalio (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
