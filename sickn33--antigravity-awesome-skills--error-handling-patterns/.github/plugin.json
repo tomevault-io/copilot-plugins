@@ -1,0 +1,13 @@
+{
+  "name": "sickn33--antigravity-awesome-skills--error-handling-patterns",
+  "version": "1.0.0",
+  "description": "\"Build resilient applications with robust error handling strategies that gracefully handle failures and provide excellent debugging experiences.\"",
+  "author": {
+    "name": "sickn33 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
