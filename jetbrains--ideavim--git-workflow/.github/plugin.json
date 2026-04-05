@@ -1,0 +1,13 @@
+{
+  "name": "jetbrains--ideavim--git-workflow",
+  "version": "1.0.0",
+  "description": "IdeaVim git workflow conventions covering commits, branches, PRs, and CI. Use when creating commits, managing branches, creating pull requests, reviewing git history, or any git-related activity in the IdeaVim project.",
+  "author": {
+    "name": "jetbrains (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
