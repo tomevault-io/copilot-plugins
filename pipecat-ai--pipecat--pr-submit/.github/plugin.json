@@ -1,0 +1,13 @@
+{
+  "name": "pipecat-ai--pipecat--pr-submit",
+  "version": "1.0.0",
+  "description": "Create and submit a GitHub PR from the current branch",
+  "author": {
+    "name": "pipecat-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
