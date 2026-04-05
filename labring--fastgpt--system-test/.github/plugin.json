@@ -1,0 +1,13 @@
+{
+  "name": "labring--fastgpt--system-test",
+  "version": "1.0.0",
+  "description": "\u5f53\u7528\u6237\u9700\u8981\u7f16\u5199\u4e00\u4e2a\u5355\u5143\u6d4b\u8bd5\u65f6\uff0c\u89e6\u53d1\u8be5 skill\uff0c\u7f16\u5199\u5355\u5143\u6d4b\u8bd5\u3002",
+  "author": {
+    "name": "labring (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
