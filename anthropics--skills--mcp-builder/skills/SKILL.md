@@ -237,3 +237,4 @@ Load these resources as needed during development:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/anthropics/skills)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
