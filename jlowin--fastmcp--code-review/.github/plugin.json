@@ -1,0 +1,13 @@
+{
+  "name": "jlowin--fastmcp--code-review",
+  "version": "1.0.0",
+  "description": "Review code for quality, maintainability, and correctness. Use when reviewing pull requests, evaluating code changes, or providing feedback on implementations. Focuses on API design, patterns, and actionable feedback.",
+  "author": {
+    "name": "jlowin (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
