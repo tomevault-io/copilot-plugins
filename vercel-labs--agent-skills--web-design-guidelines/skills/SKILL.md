@@ -40,3 +40,4 @@ If no files specified, ask the user which files to review.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/vercel-labs/agent-skills)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
