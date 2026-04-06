@@ -1,0 +1,13 @@
+{
+  "name": "github--awesome-copilot--gh-cli",
+  "version": "1.0.0",
+  "description": "GitHub CLI (gh) comprehensive reference for repositories, issues, pull requests, Actions, projects, releases, gists, codespaces, organizations, extensions, and all GitHub operations from the command line.",
+  "author": {
+    "name": "github (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
