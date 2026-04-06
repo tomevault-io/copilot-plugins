@@ -1,0 +1,13 @@
+{
+  "name": "mastra-ai--mastra--api-design",
+  "version": "1.0.0",
+  "description": "Guidelines for designing RESTful APIs and TypeScript interfaces. Use when designing new endpoints, reviewing API contracts, or structuring data models.",
+  "author": {
+    "name": "mastra-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
