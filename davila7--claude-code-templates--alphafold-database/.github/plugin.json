@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--alphafold-database",
+  "version": "1.0.0",
+  "description": "\"Access AlphaFold's 200M+ AI-predicted protein structures. Retrieve structures by UniProt ID, download PDB/mmCIF files, analyze confidence metrics (pLDDT, PAE), for drug discovery and structural biology.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
