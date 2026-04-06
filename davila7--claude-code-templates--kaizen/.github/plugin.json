@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--kaizen",
+  "version": "1.0.0",
+  "description": "Guide for continuous improvement, error proofing, and standardization. Use this skill when the user wants to improve code quality, refactor, or discuss process improvements.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
