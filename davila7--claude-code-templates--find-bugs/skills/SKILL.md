@@ -76,3 +76,4 @@ Do not make changes - just report findings. I'll decide what to address.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/davila7/claude-code-templates)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
