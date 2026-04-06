@@ -100,3 +100,4 @@ This analysis came from reading the construction code, not from memorized rules 
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/microsoft/vscode)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
