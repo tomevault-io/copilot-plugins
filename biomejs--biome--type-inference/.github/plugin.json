@@ -1,0 +1,13 @@
+{
+  "name": "biomejs--biome--type-inference",
+  "version": "1.0.0",
+  "description": "Guide for working with Biome's module graph and type inference system. Use when implementing type-aware lint rules, understanding type resolution, working on the module graph infrastructure, or implementing type inference for new features.",
+  "author": {
+    "name": "biomejs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
