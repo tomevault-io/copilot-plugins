@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--autonomous-agent-patterns",
+  "version": "1.0.0",
+  "description": "\"Design patterns for building autonomous coding agents. Covers tool integration, permission systems, browser automation, and human-in-the-loop workflows. Use when building AI agents, designing tool APIs, implementing permission systems, or creating autonomous coding assistants.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
