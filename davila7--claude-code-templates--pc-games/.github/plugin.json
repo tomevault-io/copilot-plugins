@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--pc-games",
+  "version": "1.0.0",
+  "description": "PC and console game development principles. Engine selection, platform features, optimization strategies.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
