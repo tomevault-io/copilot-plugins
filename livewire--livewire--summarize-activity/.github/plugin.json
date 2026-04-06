@@ -1,0 +1,13 @@
+{
+  "name": "livewire--livewire--summarize-activity",
+  "version": "1.0.0",
+  "description": "Summarize recent GitHub activity \u2014 discussions, PRs, issues, events, traffic \u2014 into an actionable report so you can stay on top of the project without reading everything.",
+  "author": {
+    "name": "livewire (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
