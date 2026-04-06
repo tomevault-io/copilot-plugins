@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--python-patterns",
+  "version": "1.0.0",
+  "description": "Python development principles and decision-making. Framework selection, async patterns, type hints, project structure. Teaches thinking, not copying.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
