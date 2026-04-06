@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--scientific-brainstorming",
+  "version": "1.0.0",
+  "description": "\"Research ideation partner. Generate hypotheses, explore interdisciplinary connections, challenge assumptions, develop methodologies, identify research gaps, for creative scientific problem-solving.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
