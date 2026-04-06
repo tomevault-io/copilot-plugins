@@ -1,0 +1,13 @@
+{
+  "name": "mastra-ai--mastra--react-best-practices",
+  "version": "1.0.0",
+  "description": "React performance optimization guidelines from Mastra Engineering. This skill should be used when writing, reviewing, or refactoring React code to ensure optimal performance patterns. Triggers on tasks involving React components, data fetching, bundle optimization, or performance improvements.",
+  "author": {
+    "name": "mastra-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
