@@ -1,0 +1,13 @@
+{
+  "name": "labring--fastgpt--server-common-api-development",
+  "version": "1.0.0",
+  "description": "FastGPT API \u5f00\u53d1\u89c4\u8303\u3002\u91cd\u70b9\u5f3a\u8c03\u4f7f\u7528 zod schema \u5b9a\u4e49\u5165\u53c2\u548c\u51fa\u53c2,\u5728 API \u6587\u6863\u4e2d\u58f0\u660e\u8def\u7531\u4fe1\u606f,\u7f16\u5199\u5bf9\u5e94\u7684 OpenAPI \u6587\u6863,\u4ee5\u53ca\u5728 API \u8def\u7531\u4e2d\u4f7f\u7528 schema.parse \u8fdb\u884c\u9a8c\u8bc1\u3002",
+  "author": {
+    "name": "labring (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
