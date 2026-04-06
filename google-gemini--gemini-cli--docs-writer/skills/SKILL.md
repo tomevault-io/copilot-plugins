@@ -183,3 +183,4 @@ and that all links are functional.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/google-gemini/gemini-cli)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
