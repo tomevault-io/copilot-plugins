@@ -77,3 +77,4 @@ When the user asks to install a skill:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/f/prompts.chat)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
