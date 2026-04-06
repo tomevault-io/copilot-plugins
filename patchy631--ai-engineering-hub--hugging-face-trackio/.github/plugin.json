@@ -1,0 +1,13 @@
+{
+  "name": "patchy631--ai-engineering-hub--hugging-face-trackio",
+  "version": "1.0.0",
+  "description": "name: hugging-face-trackio",
+  "author": {
+    "name": "patchy631 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
