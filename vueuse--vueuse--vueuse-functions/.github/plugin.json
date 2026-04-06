@@ -1,0 +1,13 @@
+{
+  "name": "vueuse--vueuse--vueuse-functions",
+  "version": "1.0.0",
+  "description": "Apply VueUse composables where appropriate to build concise, maintainable Vue.js / Nuxt features.",
+  "author": {
+    "name": "vueuse (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
