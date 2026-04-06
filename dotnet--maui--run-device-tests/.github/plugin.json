@@ -1,0 +1,13 @@
+{
+  "name": "dotnet--maui--run-device-tests",
+  "version": "1.0.0",
+  "description": "\"Build and run .NET MAUI device tests locally with category filtering. Supports iOS, MacCatalyst, Android on macOS; Android, Windows on Windows. Use TestFilter to run specific test categories.\"",
+  "author": {
+    "name": "dotnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
