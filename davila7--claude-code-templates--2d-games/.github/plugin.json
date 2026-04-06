@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--2d-games",
+  "version": "1.0.0",
+  "description": "2D game development principles. Sprites, tilemaps, physics, camera.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
