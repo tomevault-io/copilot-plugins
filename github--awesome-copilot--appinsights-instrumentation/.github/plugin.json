@@ -1,0 +1,13 @@
+{
+  "name": "github--awesome-copilot--appinsights-instrumentation",
+  "version": "1.0.0",
+  "description": "'Instrument a webapp to send useful telemetry data to Azure App Insights'",
+  "author": {
+    "name": "github (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
