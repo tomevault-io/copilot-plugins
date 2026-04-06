@@ -78,3 +78,4 @@ Full design system: `docs/agent/design/style-guide.md`
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/srbhr/resume-matcher)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
