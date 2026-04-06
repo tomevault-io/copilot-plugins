@@ -1,0 +1,13 @@
+{
+  "name": "hkuds--nanobot--github",
+  "version": "1.0.0",
+  "description": "\"Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.\"",
+  "author": {
+    "name": "hkuds (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
