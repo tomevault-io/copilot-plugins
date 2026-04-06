@@ -112,3 +112,4 @@ Keep these files very short — a few lines of context is often enough.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/meteor/meteor)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
