@@ -1,0 +1,13 @@
+{
+  "name": "biomejs--biome--biome-developer",
+  "version": "1.0.0",
+  "description": "General development best practices and common gotchas when working on Biome. Use for avoiding common mistakes, understanding Biome-specific patterns (AST, syntax nodes, string extraction, embedded languages), and learning technical tips.",
+  "author": {
+    "name": "biomejs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
