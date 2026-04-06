@@ -94,3 +94,4 @@ Never blame user. Put error codes in "Details".
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/lobehub/lobehub)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
