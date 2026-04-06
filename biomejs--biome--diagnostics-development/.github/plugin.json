@@ -1,0 +1,13 @@
+{
+  "name": "biomejs--biome--diagnostics-development",
+  "version": "1.0.0",
+  "description": "Guide for creating high-quality, user-friendly diagnostics in Biome. Use when creating diagnostics for lint rules, adding helpful advice to error messages, implementing code frame displays, or improving diagnostic quality.",
+  "author": {
+    "name": "biomejs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
