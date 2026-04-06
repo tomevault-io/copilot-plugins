@@ -1,0 +1,13 @@
+{
+  "name": "zulip--zulip--fix-backend-coverage",
+  "version": "1.0.0",
+  "description": "Fix backend test coverage gaps. Use when CI output or test-backend --coverage reports missing lines, like \"ERROR: path/to/file.py no longer has complete backend test coverage\".",
+  "author": {
+    "name": "zulip (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
