@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--github-actions-creator",
+  "version": "1.0.0",
+  "description": "\"Use when the user wants to create, generate, or set up a GitHub Actions workflow. Handles CI/CD pipelines, testing, deployment, linting, security scanning, release automation, Docker builds, scheduled tasks, and any custom workflow for any language or framework.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
