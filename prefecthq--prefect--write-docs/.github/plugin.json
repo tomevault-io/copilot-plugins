@@ -1,0 +1,13 @@
+{
+  "name": "prefecthq--prefect--write-docs",
+  "version": "1.0.0",
+  "description": "Comprehensive guide for writing and updating Prefect documentation. Use when creating new doc pages, updating existing docs, or working with Mintlify components and code example testing.",
+  "author": {
+    "name": "prefecthq (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
