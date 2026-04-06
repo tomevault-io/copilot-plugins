@@ -1,0 +1,13 @@
+{
+  "name": "cockroachdb--cockroach--commit-helper",
+  "version": "1.0.0",
+  "description": "Help create git commits and PRs with properly formatted messages and release notes following CockroachDB conventions. Use when committing changes or creating pull requests.",
+  "author": {
+    "name": "cockroachdb (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
