@@ -165,3 +165,4 @@ If they agree to the companion, read the detailed guide before proceeding:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/obra/superpowers)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
