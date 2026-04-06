@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--claude-code-guide",
+  "version": "1.0.0",
+  "description": "Master guide for using Claude Code effectively. Includes configuration templates, prompting strategies \"Thinking\" keywords, debugging techniques, and best practices for interacting with the agent.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
