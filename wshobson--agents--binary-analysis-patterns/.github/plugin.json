@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--binary-analysis-patterns",
+  "version": "1.0.0",
+  "description": "Master binary analysis patterns including disassembly, decompilation, control flow analysis, and code pattern recognition. Use when analyzing executables, understanding compiled code, or performing static analysis on binaries.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
