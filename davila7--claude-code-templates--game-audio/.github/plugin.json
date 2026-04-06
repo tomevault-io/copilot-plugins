@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--game-audio",
+  "version": "1.0.0",
+  "description": "Game audio principles. Sound design, music integration, adaptive audio systems.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
