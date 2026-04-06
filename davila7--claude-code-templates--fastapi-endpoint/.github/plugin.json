@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--fastapi-endpoint",
+  "version": "1.0.0",
+  "description": "Plan and build production-ready FastAPI endpoints with async SQLAlchemy, Pydantic v2 models, dependency injection for auth, and pytest tests. Uses interview-driven planning to clarify data models, authentication method, pagination strategy, and caching before writing any code.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
