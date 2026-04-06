@@ -18,3 +18,4 @@ For a detailed reference on Ghost's API framework and how to create API controll
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/tryghost/ghost)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
