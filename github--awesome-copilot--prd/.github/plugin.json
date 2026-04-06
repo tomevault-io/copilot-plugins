@@ -1,0 +1,13 @@
+{
+  "name": "github--awesome-copilot--prd",
+  "version": "1.0.0",
+  "description": "'Generate high-quality Product Requirements Documents (PRDs) for software systems and AI-powered features. Includes executive summaries, user stories, technical specifications, and risk analysis.'",
+  "author": {
+    "name": "github (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
