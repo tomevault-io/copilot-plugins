@@ -1,0 +1,13 @@
+{
+  "name": "zulip--zulip--visual-test",
+  "version": "1.0.0",
+  "description": "\"Visually verify UI changes using Puppeteer screenshots. Use when you need to check layout, colors, positioning, or other visual aspects of a UI change.\"",
+  "author": {
+    "name": "zulip (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
