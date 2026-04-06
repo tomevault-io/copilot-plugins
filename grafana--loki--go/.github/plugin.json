@@ -1,0 +1,13 @@
+{
+  "name": "grafana--loki--go",
+  "version": "1.0.0",
+  "description": ">",
+  "author": {
+    "name": "grafana (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
