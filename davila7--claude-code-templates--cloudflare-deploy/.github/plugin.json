@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--cloudflare-deploy",
+  "version": "1.0.0",
+  "description": "Deploy applications and infrastructure to Cloudflare using Workers, Pages, and related platform services. Use when the user asks to deploy, host, publish, or set up a project on Cloudflare.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
