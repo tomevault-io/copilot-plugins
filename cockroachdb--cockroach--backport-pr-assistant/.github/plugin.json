@@ -1,0 +1,13 @@
+{
+  "name": "cockroachdb--cockroach--backport-pr-assistant",
+  "version": "1.0.0",
+  "description": "Help backport PRs to release branches using the backport CLI tool. Use when backporting changes that have merge conflicts requiring manual resolution.",
+  "author": {
+    "name": "cockroachdb (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
