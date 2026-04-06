@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--frontend-to-backend-requirements",
+  "version": "1.0.0",
+  "description": "Document frontend data needs for backend developers. Use when frontend needs to communicate API requirements to backend, or user says 'backend requirements', 'what data do I need', 'API requirements', or is describing data needs for a UI.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
