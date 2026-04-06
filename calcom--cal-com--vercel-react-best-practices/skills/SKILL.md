@@ -1,6 +1,8 @@
 ---
 name: vercel-react-best-practices
-description: **Version 1.0.0**
+description: Use when sequential user actions hit multiple endpoints needing the same data within seconds.
+metadata:
+  author: calcom
 ---
 # React Best Practices
 
@@ -2254,3 +2256,4 @@ function SearchInput({ onSearch }: { onSearch: (q: string) => void }) {
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/calcom/cal.com)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
