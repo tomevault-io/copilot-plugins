@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--datadog-cli",
+  "version": "1.0.0",
+  "description": "Datadog CLI for searching logs, querying metrics, tracing requests, and managing dashboards. Use this when debugging production issues or working with Datadog observability.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
