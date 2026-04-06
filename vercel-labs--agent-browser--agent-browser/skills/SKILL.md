@@ -770,3 +770,4 @@ The dashboard runs independently of browser sessions on port 4848 (configurable 
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/vercel-labs/agent-browser)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
