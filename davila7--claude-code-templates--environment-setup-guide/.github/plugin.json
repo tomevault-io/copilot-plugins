@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--environment-setup-guide",
+  "version": "1.0.0",
+  "description": "\"Guide developers through setting up development environments with proper tools, dependencies, and configurations\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
