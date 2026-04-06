@@ -47,3 +47,4 @@ If there are errors launching `chrome-devtools-mcp` or Chrome, refer to https://
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/chromedevtools/chrome-devtools-mcp)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
