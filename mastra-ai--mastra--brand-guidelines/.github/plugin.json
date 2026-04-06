@@ -1,0 +1,13 @@
+{
+  "name": "mastra-ai--mastra--brand-guidelines",
+  "version": "1.0.0",
+  "description": "Applies Mastra's brand colors, typography, and writing style to documentation, code examples, or artifacts. Use when brand colors, style guidelines, visual formatting, or company design standards apply.",
+  "author": {
+    "name": "mastra-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
