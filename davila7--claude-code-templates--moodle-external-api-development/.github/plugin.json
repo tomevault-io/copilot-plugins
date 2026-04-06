@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--moodle-external-api-development",
+  "version": "1.0.0",
+  "description": "Create custom external web service APIs for Moodle LMS. Use when implementing web services for course management, user tracking, quiz operations, or custom plugin functionality. Covers parameter validation, database operations, error handling, service registration, and Moodle coding standards.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
