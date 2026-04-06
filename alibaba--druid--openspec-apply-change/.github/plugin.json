@@ -1,0 +1,13 @@
+{
+  "name": "alibaba--druid--openspec-apply-change",
+  "version": "1.0.0",
+  "description": "Implement tasks from an OpenSpec change. Use when the user wants to start implementing, continue implementation, or work through tasks.",
+  "author": {
+    "name": "alibaba (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
