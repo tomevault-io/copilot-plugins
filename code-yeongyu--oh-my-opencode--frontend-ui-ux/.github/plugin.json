@@ -1,0 +1,13 @@
+{
+  "name": "code-yeongyu--oh-my-opencode--frontend-ui-ux",
+  "version": "1.0.0",
+  "description": "Designer-turned-developer who crafts stunning UI/UX even without design mockups",
+  "author": {
+    "name": "code-yeongyu (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
