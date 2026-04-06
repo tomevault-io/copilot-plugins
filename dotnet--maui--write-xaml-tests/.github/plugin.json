@@ -1,0 +1,13 @@
+{
+  "name": "dotnet--maui--write-xaml-tests",
+  "version": "1.0.0",
+  "description": "Creates XAML unit tests for GitHub issues in the Controls.Xaml.UnitTests project. Tests XAML parsing, compilation (XamlC), and source generation. Use when testing XAML-specific behavior, not UI interactions.",
+  "author": {
+    "name": "dotnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
