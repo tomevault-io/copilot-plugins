@@ -1,0 +1,13 @@
+{
+  "name": "patchy631--ai-engineering-hub--hugging-face-paper-publisher",
+  "version": "1.0.0",
+  "description": "This skill provides comprehensive tools for AI engineers and researchers to publish, manage, and link research papers on the Hugging Face Hub. It streamlines the workflow from paper creation to publication, including integration with arXiv, model/dataset linking, and authorship management.",
+  "author": {
+    "name": "patchy631 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
