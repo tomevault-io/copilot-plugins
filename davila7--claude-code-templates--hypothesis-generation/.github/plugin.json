@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--hypothesis-generation",
+  "version": "1.0.0",
+  "description": "\"Generate testable hypotheses. Formulate from observations, design experiments, explore competing explanations, develop predictions, propose mechanisms, for scientific inquiry across domains.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
