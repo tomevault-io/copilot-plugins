@@ -214,3 +214,4 @@ The English (`en`) translation is complete and serves as the **base template** f
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/f/prompts.chat)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
