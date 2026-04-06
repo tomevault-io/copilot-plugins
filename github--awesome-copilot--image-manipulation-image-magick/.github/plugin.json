@@ -1,0 +1,13 @@
+{
+  "name": "github--awesome-copilot--image-manipulation-image-magick",
+  "version": "1.0.0",
+  "description": "Process and manipulate images using ImageMagick. Supports resizing, format conversion, batch processing, and retrieving image metadata. Use when working with images, creating thumbnails, resizing wallpapers, or performing batch image operations.",
+  "author": {
+    "name": "github (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
