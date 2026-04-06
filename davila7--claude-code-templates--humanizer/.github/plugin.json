@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--humanizer",
+  "version": "1.0.0",
+  "description": "|",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
