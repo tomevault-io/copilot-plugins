@@ -1,0 +1,13 @@
+{
+  "name": "dotnet--maui--run-integration-tests",
+  "version": "1.0.0",
+  "description": "\"Build, pack, and run .NET MAUI integration tests locally. Validates templates, samples, and end-to-end scenarios using the local workload.\"",
+  "author": {
+    "name": "dotnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
