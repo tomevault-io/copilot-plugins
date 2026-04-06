@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--python-project-structure",
+  "version": "1.0.0",
+  "description": "Python project organization, module architecture, and public API design. Use when setting up new projects, organizing modules, defining public interfaces with __all__, or planning directory layouts.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
