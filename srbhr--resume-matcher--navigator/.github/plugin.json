@@ -1,0 +1,13 @@
+{
+  "name": "srbhr--resume-matcher--navigator",
+  "version": "1.0.0",
+  "description": "Quick codebase orientation for Resume Matcher. Points to key directories, architecture docs, and available skills. Use as a starting point before diving into code. For advanced search, use the codebase-navigator skill.",
+  "author": {
+    "name": "srbhr (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
