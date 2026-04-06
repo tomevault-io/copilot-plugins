@@ -351,3 +351,4 @@ Load specific reference files as needed using the Read tool to access detailed f
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/davila7/claude-code-templates)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
