@@ -114,3 +114,4 @@ Include context:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/microsoft/ai-agents-for-beginners)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
