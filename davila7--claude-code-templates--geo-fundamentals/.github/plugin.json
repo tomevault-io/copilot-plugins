@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--geo-fundamentals",
+  "version": "1.0.0",
+  "description": "Generative Engine Optimization for AI search engines (ChatGPT, Claude, Perplexity).",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
