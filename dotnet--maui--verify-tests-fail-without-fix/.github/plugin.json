@@ -1,0 +1,13 @@
+{
+  "name": "dotnet--maui--verify-tests-fail-without-fix",
+  "version": "1.0.0",
+  "description": "Verifies UI tests catch the bug. Supports two modes - verify failure only (test creation) or full verification (test + fix validation).",
+  "author": {
+    "name": "dotnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
