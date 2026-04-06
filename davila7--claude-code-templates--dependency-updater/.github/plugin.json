@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--dependency-updater",
+  "version": "1.0.0",
+  "description": "Smart dependency management for any language. Auto-detects project type, applies safe updates automatically, prompts for major versions, diagnoses and fixes dependency issues.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
