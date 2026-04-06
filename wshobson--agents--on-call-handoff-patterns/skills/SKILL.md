@@ -332,3 +332,4 @@ Add a standard step: outgoing engineer fires a test alert and confirms incoming 
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/wshobson/agents)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
