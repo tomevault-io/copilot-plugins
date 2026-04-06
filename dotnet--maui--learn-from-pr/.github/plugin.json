@@ -1,0 +1,13 @@
+{
+  "name": "dotnet--maui--learn-from-pr",
+  "version": "1.0.0",
+  "description": "Analyzes a completed PR to extract lessons learned from agent behavior. Use after any PR with agent involvement - whether the agent failed, succeeded slowly, or succeeded quickly. Identifies patterns to reinforce or fix, and generates actionable recommendations for instruction files, skills, and documentation.",
+  "author": {
+    "name": "dotnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
