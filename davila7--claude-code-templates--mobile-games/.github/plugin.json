@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--mobile-games",
+  "version": "1.0.0",
+  "description": "Mobile game development principles. Touch input, battery, performance, app stores.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
