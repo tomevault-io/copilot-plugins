@@ -1,0 +1,13 @@
+{
+  "name": "roocodeinc--roo-code--evals-context",
+  "version": "1.0.0",
+  "description": "Provides context about the Roo Code evals system structure in this monorepo. Use when tasks mention \"evals\", \"evaluation\", \"eval runs\", \"eval exercises\", or working with the evals infrastructure. Helps distinguish between the evals execution system (packages/evals, apps/web-evals) and the public website evals display page (apps/web-roo-code/src/app/evals).",
+  "author": {
+    "name": "roocodeinc (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
