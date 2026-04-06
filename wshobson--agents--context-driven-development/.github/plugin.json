@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--context-driven-development",
+  "version": "1.0.0",
+  "description": ">-",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
