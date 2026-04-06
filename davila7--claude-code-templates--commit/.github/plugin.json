@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--commit",
+  "version": "1.0.0",
+  "description": "Create commit messages following Sentry conventions. Use when committing code changes, writing commit messages, or formatting git history. Follows conventional commits with Sentry-specific issue references.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
