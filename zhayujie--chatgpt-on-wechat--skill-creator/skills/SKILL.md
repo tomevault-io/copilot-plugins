@@ -419,3 +419,4 @@ When user chooses AWS, agent only reads aws.md.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/zhayujie/chatgpt-on-wechat)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
