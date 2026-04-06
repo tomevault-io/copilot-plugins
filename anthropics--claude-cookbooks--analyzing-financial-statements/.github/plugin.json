@@ -1,0 +1,13 @@
+{
+  "name": "anthropics--claude-cookbooks--analyzing-financial-statements",
+  "version": "1.0.0",
+  "description": "This skill calculates key financial ratios and metrics from financial statement data for investment analysis",
+  "author": {
+    "name": "anthropics (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
