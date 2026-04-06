@@ -1,0 +1,13 @@
+{
+  "name": "nikivdev--flow--quality-bun-feature-delivery",
+  "version": "1.0.0",
+  "description": "Enforce tight Codex/Claude delivery loop with Bun-first testing, skill sync/reload, and commit quality gates.",
+  "author": {
+    "name": "nikivdev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
