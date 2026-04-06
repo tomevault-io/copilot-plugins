@@ -1,0 +1,13 @@
+{
+  "name": "nrwl--nx--run-nx-generator",
+  "version": "1.0.0",
+  "description": "Run Nx generators with prioritization for workspace-plugin generators. Use this when generating code, scaffolding new features, or automating repetitive tasks in the monorepo.",
+  "author": {
+    "name": "nrwl (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
