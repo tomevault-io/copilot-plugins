@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--cc-skill-coding-standards",
+  "version": "1.0.0",
+  "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
