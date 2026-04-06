@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--latchbio-integration",
+  "version": "1.0.0",
+  "description": "\"Latch platform for bioinformatics workflows. Build pipelines with Latch SDK, @workflow/@task decorators, deploy serverless workflows, LatchFile/LatchDir, Nextflow/Snakemake integration.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
