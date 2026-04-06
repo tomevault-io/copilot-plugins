@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--api-documentation-generator",
+  "version": "1.0.0",
+  "description": "\"Generate comprehensive, developer-friendly API documentation from code, including endpoints, parameters, examples, and best practices\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
