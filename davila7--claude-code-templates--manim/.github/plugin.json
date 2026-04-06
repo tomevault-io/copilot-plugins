@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--manim",
+  "version": "1.0.0",
+  "description": "Comprehensive guide for Manim Community - Python framework for creating mathematical animations and educational videos with programmatic control",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
