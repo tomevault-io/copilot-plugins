@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--network-101",
+  "version": "1.0.0",
+  "description": "This skill should be used when the user asks to \"set up a web server\", \"configure HTTP or HTTPS\", \"perform SNMP enumeration\", \"configure SMB shares\", \"test network services\", or needs guidance on configuring and testing network services for penetration testing labs.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
