@@ -1,0 +1,13 @@
+{
+  "name": "github--awesome-copilot--workiq-copilot",
+  "version": "1.0.0",
+  "description": "'Guides the Copilot CLI on how to use the WorkIQ CLI/MCP server to query Microsoft 365 Copilot data (emails, meetings, docs, Teams, people) for live context, summaries, and recommendations.'",
+  "author": {
+    "name": "github (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
