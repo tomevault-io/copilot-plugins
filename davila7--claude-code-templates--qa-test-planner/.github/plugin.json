@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--qa-test-planner",
+  "version": "1.0.0",
+  "description": "Generate comprehensive test plans, manual test cases, regression test suites, and bug reports for QA engineers. Includes Figma MCP integration for design validation.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
