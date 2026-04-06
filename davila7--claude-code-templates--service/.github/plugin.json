@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--service",
+  "version": "1.0.0",
+  "description": "Check service status, rename services, change service icons, link services, or create services with Docker images. For creating services with local code, prefer railway-new skill. For GitHub repo sources, use railway-new skill to create empty service then railway-environment skill to configure source.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
