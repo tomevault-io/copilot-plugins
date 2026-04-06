@@ -1,0 +1,13 @@
+{
+  "name": "mastra-ai--mastra--smoke-test",
+  "version": "1.0.0",
+  "description": "Create a Mastra project using create-mastra and smoke test the studio in Chrome",
+  "author": {
+    "name": "mastra-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
