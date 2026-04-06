@@ -518,3 +518,4 @@ From `references/board_governance_investor_relations.md`:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/davila7/claude-code-templates)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
