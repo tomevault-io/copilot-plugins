@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--documentation-templates",
+  "version": "1.0.0",
+  "description": "Documentation templates and structure guidelines. README, API docs, code comments, and AI-friendly documentation.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
