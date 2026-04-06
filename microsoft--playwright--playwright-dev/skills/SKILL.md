@@ -17,3 +17,4 @@ See [CLAUDE.md](../../../CLAUDE.md) for monorepo structure, build/test/lint comm
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/microsoft/playwright)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
