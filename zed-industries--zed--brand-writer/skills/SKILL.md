@@ -280,3 +280,4 @@ When invoked with `--review`:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/zed-industries/zed)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
