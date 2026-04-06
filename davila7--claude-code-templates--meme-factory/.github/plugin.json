@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--meme-factory",
+  "version": "1.0.0",
+  "description": "Generate memes using the memegen.link API. Use when users request memes, want to add humor to content, or need visual aids for social media. Supports 100+ popular templates with custom text and styling.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
