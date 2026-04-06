@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--3d-games",
+  "version": "1.0.0",
+  "description": "3D game development principles. Rendering, shaders, physics, cameras.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
