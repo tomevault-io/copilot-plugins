@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--production-code-audit",
+  "version": "1.0.0",
+  "description": "\"Autonomously deep-scan entire codebase line-by-line, understand architecture and patterns, then systematically transform it to production-grade, corporate-level professional quality with optimizations\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
