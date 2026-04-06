@@ -30,3 +30,4 @@ description: 当用户需要设计 FastGPT 的代码时，可调用此 Skill。
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/labring/fastgpt)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
