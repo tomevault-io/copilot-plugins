@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--multi-reviewer-patterns",
+  "version": "1.0.0",
+  "description": "Coordinate parallel code reviews across multiple quality dimensions with finding deduplication, severity calibration, and consolidated reporting. Use this skill when organizing multi-reviewer code reviews, calibrating finding severity, or consolidating review results.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
