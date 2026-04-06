@@ -1,0 +1,13 @@
+{
+  "name": "srbhr--resume-matcher--codebase-navigator",
+  "version": "1.0.0",
+  "description": "|",
+  "author": {
+    "name": "srbhr (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
