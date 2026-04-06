@@ -1,0 +1,13 @@
+{
+  "name": "dotnet--maui--find-reviewable-pr",
+  "version": "1.0.0",
+  "description": "Finds open PRs in the dotnet/maui and dotnet/docs-maui repositories that are good candidates for review, prioritizing by milestone, priority labels, partner/community status.",
+  "author": {
+    "name": "dotnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
