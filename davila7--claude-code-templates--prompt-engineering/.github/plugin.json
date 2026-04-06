@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--prompt-engineering",
+  "version": "1.0.0",
+  "description": "Expert guide on prompt engineering patterns, best practices, and optimization techniques. Use when user wants to improve prompts, learn prompting strategies, or debug agent behavior.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
