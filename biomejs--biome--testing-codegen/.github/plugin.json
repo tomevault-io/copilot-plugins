@@ -1,0 +1,13 @@
+{
+  "name": "biomejs--biome--testing-codegen",
+  "version": "1.0.0",
+  "description": "Guide for testing workflows and code generation commands in Biome. Use when running snapshot tests for lint rules, managing insta snapshots, or regenerating analyzer/parser/formatter code after changes.",
+  "author": {
+    "name": "biomejs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
