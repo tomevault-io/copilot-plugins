@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--motion-canvas",
+  "version": "1.0.0",
+  "description": "Complete production-ready guide for Motion Canvas with ESM/CommonJS workarounds, full setup templates, and troubleshooting for programmatic video creation using TypeScript",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
