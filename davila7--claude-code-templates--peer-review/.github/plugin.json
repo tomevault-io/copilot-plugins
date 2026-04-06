@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--peer-review",
+  "version": "1.0.0",
+  "description": "\"Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and grant review across disciplines.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
