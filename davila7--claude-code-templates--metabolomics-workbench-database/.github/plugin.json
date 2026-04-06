@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--metabolomics-workbench-database",
+  "version": "1.0.0",
+  "description": "\"Access NIH Metabolomics Workbench via REST API (4,200+ studies). Query metabolites, RefMet nomenclature, MS/NMR data, m/z searches, study metadata, for metabolomics and biomarker discovery.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
