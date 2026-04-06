@@ -1,0 +1,13 @@
+{
+  "name": "marmelab--react-admin--react-admin",
+  "version": "1.0.0",
+  "description": "This skill should be used when building, modifying, or debugging a react-admin application \u2014 including creating resources, lists, forms, data fetching, authentication, relationships between entities, custom pages, or any CRUD admin interface built with react-admin.",
+  "author": {
+    "name": "marmelab (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
