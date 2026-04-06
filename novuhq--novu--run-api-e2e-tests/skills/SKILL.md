@@ -59,3 +59,4 @@ pnpm exec cross-env NODE_ENV=test CI_EE_TEST=true CLERK_ENABLED=true NODE_OPTION
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/novuhq/novu)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
