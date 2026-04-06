@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--database",
+  "version": "1.0.0",
+  "description": "Add official Railway database services (Postgres, Redis, MySQL, MongoDB). Use when user wants to add a database, says \"add postgres\", \"add redis\", \"add database\", \"connect to database\", or \"wire up the database\". For other templates (Ghost, Strapi, n8n), use the railway-templates skill.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
