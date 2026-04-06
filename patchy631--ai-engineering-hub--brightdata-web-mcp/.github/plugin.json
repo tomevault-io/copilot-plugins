@@ -1,0 +1,13 @@
+{
+  "name": "patchy631--ai-engineering-hub--brightdata-web-mcp",
+  "version": "1.0.0",
+  "description": "name: brightdata-web-mcp",
+  "author": {
+    "name": "patchy631 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
