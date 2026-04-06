@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--parallel-agents",
+  "version": "1.0.0",
+  "description": "Multi-agent orchestration patterns. Use when multiple independent tasks can run with different domain expertise or when comprehensive analysis requires multiple perspectives.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
