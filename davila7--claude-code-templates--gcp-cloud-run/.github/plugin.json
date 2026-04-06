@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--gcp-cloud-run",
+  "version": "1.0.0",
+  "description": "\"Specialized skill for building production-ready serverless applications on GCP. Covers Cloud Run services (containerized), Cloud Run Functions (event-driven), cold start optimization, and event-driven architecture with Pub/Sub.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
