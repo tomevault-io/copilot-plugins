@@ -1,0 +1,13 @@
+{
+  "name": "patchy631--ai-engineering-hub--hugging-face-evaluation",
+  "version": "1.0.0",
+  "description": "This skill provides tools to add structured evaluation results to Hugging Face model cards. It supports multiple methods for adding evaluation data:",
+  "author": {
+    "name": "patchy631 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
