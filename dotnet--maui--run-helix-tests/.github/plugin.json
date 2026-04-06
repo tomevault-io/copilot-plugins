@@ -1,0 +1,13 @@
+{
+  "name": "dotnet--maui--run-helix-tests",
+  "version": "1.0.0",
+  "description": "\"Submit and monitor .NET MAUI unit tests on Helix infrastructure. Supports running XAML, Resizetizer, Core, Essentials, and other unit test projects on distributed Helix queues.\"",
+  "author": {
+    "name": "dotnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
