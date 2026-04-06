@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--polars",
+  "version": "1.0.0",
+  "description": "\"Fast DataFrame library (Apache Arrow). Select, filter, group_by, joins, lazy evaluation, CSV/Parquet I/O, expression API, for high-performance data analysis workflows.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
