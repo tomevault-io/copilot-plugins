@@ -1,7 +1,7 @@
 {
   "name": "calcom--cal-com--vercel-react-best-practices",
   "version": "1.0.0",
-  "description": "**Version 1.0.0**",
+  "description": "Use when sequential user actions hit multiple endpoints needing the same data within seconds.",
   "author": {
     "name": "calcom (via TomeVault)"
   },
