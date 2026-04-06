@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--clinvar-database",
+  "version": "1.0.0",
+  "description": "\"Query NCBI ClinVar for variant clinical significance. Search by gene/position, interpret pathogenicity classifications, access via E-utilities API or FTP, annotate VCFs, for genomic medicine.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
