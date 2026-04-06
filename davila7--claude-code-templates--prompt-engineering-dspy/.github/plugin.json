@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--prompt-engineering-dspy",
+  "version": "1.0.0",
+  "description": "Build complex AI systems with declarative programming, optimize prompts automatically, create modular RAG systems and agents with DSPy - Stanford NLP's framework for systematic LM programming",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
