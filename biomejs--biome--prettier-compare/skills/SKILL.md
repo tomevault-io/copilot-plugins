@@ -50,3 +50,4 @@ echo 'const x = 1' | bun packages/prettier-compare/bin/prettier-compare.js --reb
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/biomejs/biome)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
