@@ -1,0 +1,13 @@
+{
+  "name": "biomejs--biome--parser-development",
+  "version": "1.0.0",
+  "description": "Guide for implementing parsers with error recovery for new languages in Biome. Use when adding parsing support for a new language, implementing error recovery in a parser, or writing grammar definitions in .ungram format for JavaScript, CSS, JSON, HTML, GraphQL, or other languages.",
+  "author": {
+    "name": "biomejs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
