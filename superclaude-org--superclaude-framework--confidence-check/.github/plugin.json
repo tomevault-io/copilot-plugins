@@ -1,0 +1,13 @@
+{
+  "name": "superclaude-org--superclaude-framework--confidence-check",
+  "version": "1.0.0",
+  "description": "Pre-implementation confidence assessment (\u226590% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS references, and root cause identification.",
+  "author": {
+    "name": "superclaude-org (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
