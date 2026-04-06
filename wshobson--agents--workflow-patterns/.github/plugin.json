@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--workflow-patterns",
+  "version": "1.0.0",
+  "description": "Use this skill when implementing tasks according to Conductor's TDD workflow, handling phase checkpoints, managing git commits for tasks, or understanding the verification protocol.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
