@@ -1,0 +1,13 @@
+{
+  "name": "continuedev--continue--docs-style",
+  "version": "1.0.0",
+  "description": "Style guidelines for writing and updating documentation. Use when writing new docs, updating existing docs, or reviewing docs for quality.",
+  "author": {
+    "name": "continuedev (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
