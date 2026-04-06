@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--discord-bot-architect",
+  "version": "1.0.0",
+  "description": "\"Specialized skill for building production-ready Discord bots. Covers Discord.js (JavaScript) and Pycord (Python), gateway intents, slash commands, interactive components, rate limiting, and sharding.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
