@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--heygen-best-practices",
+  "version": "1.0.0",
+  "description": "Best practices for HeyGen - AI avatar video creation API",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
