@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--avalonia-zafiro-development",
+  "version": "1.0.0",
+  "description": "Mandatory skills, conventions, and behavioral rules for Avalonia UI development using the Zafiro toolkit.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
