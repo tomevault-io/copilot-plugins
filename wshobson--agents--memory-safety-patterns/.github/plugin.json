@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--memory-safety-patterns",
+  "version": "1.0.0",
+  "description": "Implement memory-safe programming with RAII, ownership, smart pointers, and resource management across Rust, C++, and C. Use when writing safe systems code, managing resources, or preventing memory bugs.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
