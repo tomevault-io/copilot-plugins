@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--app-store-optimization",
+  "version": "1.0.0",
+  "description": "Complete App Store Optimization (ASO) toolkit for researching, optimizing, and tracking mobile app performance on Apple App Store and Google Play Store",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
