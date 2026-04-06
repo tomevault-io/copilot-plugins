@@ -377,3 +377,4 @@ async def get_recommendations(user_id: str) -> list[str]:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/wshobson/agents)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
