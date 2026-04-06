@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--nextjs-best-practices",
+  "version": "1.0.0",
+  "description": "Next.js App Router principles. Server Components, data fetching, routing patterns.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
