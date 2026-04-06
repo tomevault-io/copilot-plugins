@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--godot-gdscript-patterns",
+  "version": "1.0.0",
+  "description": "Master Godot 4 GDScript patterns including signals, scenes, state machines, and optimization. Use when building Godot games, implementing game systems, or learning GDScript best practices.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
