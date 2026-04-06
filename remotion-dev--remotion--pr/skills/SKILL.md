@@ -25,3 +25,4 @@ Use the `gh` CLI to create a pull request and use the same format as above for t
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/remotion-dev/remotion)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
