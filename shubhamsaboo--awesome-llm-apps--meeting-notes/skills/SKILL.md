@@ -78,3 +78,4 @@ Use this skill when:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/shubhamsaboo/awesome-llm-apps)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
