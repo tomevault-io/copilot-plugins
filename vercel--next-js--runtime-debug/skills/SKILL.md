@@ -55,3 +55,4 @@ Then use `stats.toJson({ modules: true, chunks: true, reasons: true })` and diff
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/vercel/next.js)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
