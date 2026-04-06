@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--agent-memory-mcp",
+  "version": "1.0.0",
+  "description": "A hybrid memory system that provides persistent, searchable knowledge management for AI agents (Architecture, Patterns, Decisions).",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
