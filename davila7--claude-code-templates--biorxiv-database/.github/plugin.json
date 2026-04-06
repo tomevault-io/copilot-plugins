@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--biorxiv-database",
+  "version": "1.0.0",
+  "description": "Efficient database search tool for bioRxiv preprint server. Use this skill when searching for life sciences preprints by keywords, authors, date ranges, or categories, retrieving paper metadata, downloading PDFs, or conducting literature reviews.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
