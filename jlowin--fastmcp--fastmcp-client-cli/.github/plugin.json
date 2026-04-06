@@ -1,0 +1,13 @@
+{
+  "name": "jlowin--fastmcp--fastmcp-client-cli",
+  "version": "1.0.0",
+  "description": "Query and invoke tools on MCP servers using fastmcp list and fastmcp call. Use when you need to discover what tools a server offers, call tools, or integrate MCP servers into workflows.",
+  "author": {
+    "name": "jlowin (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
