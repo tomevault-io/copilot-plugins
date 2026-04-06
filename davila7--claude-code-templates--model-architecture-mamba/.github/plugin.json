@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--model-architecture-mamba",
+  "version": "1.0.0",
+  "description": "State-space model with O(n) complexity vs Transformers' O(n\u00b2). 5\u00d7 faster inference, million-token sequences, no KV cache. Selective SSM with hardware-aware design. Mamba-1 (d_state=16) and Mamba-2 (d_state=128, multi-head). Models 130M-2.8B on HuggingFace.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
