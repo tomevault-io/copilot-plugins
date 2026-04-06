@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--aws-serverless",
+  "version": "1.0.0",
+  "description": "\"Specialized skill for building production-ready serverless applications on AWS. Covers Lambda functions, API Gateway, DynamoDB, SQS/SNS event-driven patterns, SAM/CDK deployment, and cold start optimization.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
