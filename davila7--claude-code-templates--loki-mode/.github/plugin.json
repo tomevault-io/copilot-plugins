@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--loki-mode",
+  "version": "1.0.0",
+  "description": "Multi-agent autonomous startup system for Claude Code. Takes PRD to fully deployed, revenue-generating product with zero human intervention.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
