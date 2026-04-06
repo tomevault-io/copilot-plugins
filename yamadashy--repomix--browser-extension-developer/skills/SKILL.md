@@ -37,3 +37,4 @@ New language: Create `public/_locales/[code]/messages.json` with keys: appDescri
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/yamadashy/repomix)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
