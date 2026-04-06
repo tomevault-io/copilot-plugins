@@ -1,0 +1,13 @@
+{
+  "name": "mastra-ai--mastra--ralph-plan",
+  "version": "1.0.0",
+  "description": "Interactive planning assistant that helps create focused, well-structured ralph-loop commands through collaborative conversation",
+  "author": {
+    "name": "mastra-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
