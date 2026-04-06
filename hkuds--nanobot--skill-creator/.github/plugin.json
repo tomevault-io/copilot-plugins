@@ -1,0 +1,13 @@
+{
+  "name": "hkuds--nanobot--skill-creator",
+  "version": "1.0.0",
+  "description": "Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.",
+  "author": {
+    "name": "hkuds (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
