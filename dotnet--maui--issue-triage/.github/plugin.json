@@ -1,0 +1,13 @@
+{
+  "name": "dotnet--maui--issue-triage",
+  "version": "1.0.0",
+  "description": "Queries and triages open GitHub issues that need attention. Helps identify issues needing milestones, labels, or investigation.",
+  "author": {
+    "name": "dotnet (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
