@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--feature-design-assistant",
+  "version": "1.0.0",
+  "description": "\"Turn ideas into fully formed designs and specs through natural collaborative dialogue. Use when planning new features, designing architecture, or making significant changes to the codebase.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
