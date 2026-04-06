@@ -643,3 +643,4 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/affaan-m/everything-claude-code)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
