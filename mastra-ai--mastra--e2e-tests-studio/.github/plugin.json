@@ -1,0 +1,13 @@
+{
+  "name": "mastra-ai--mastra--e2e-tests-studio",
+  "version": "1.0.0",
+  "description": ">",
+  "author": {
+    "name": "mastra-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
