@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--agents-autogpt",
+  "version": "1.0.0",
+  "description": "Autonomous AI agent platform for building and deploying continuous agents. Use when creating visual workflow agents, deploying persistent autonomous agents, or building complex multi-step AI automation systems.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
