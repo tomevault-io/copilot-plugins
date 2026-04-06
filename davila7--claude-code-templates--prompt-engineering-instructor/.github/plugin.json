@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--prompt-engineering-instructor",
+  "version": "1.0.0",
+  "description": "Extract structured data from LLM responses with Pydantic validation, retry failed extractions automatically, parse complex JSON with type safety, and stream partial results with Instructor - battle-tested structured output library",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
