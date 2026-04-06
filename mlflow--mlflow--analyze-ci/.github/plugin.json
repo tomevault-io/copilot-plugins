@@ -1,0 +1,13 @@
+{
+  "name": "mlflow--mlflow--analyze-ci",
+  "version": "1.0.0",
+  "description": "Analyze failed GitHub Action jobs for a pull request.",
+  "author": {
+    "name": "mlflow (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
