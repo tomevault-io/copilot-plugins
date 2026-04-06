@@ -50,3 +50,4 @@ description: Decide where to place TiDB tests and how to write them (basic struc
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/pingcap/tidb)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
