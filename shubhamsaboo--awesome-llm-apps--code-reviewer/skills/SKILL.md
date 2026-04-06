@@ -1,6 +1,8 @@
 ---
 name: code-reviewer
 description: **A comprehensive guide for AI agents performing code reviews**, organized by priority and impact.
+metadata:
+  author: shubhamsaboo
 ---
 # Code Review Guidelines
 
@@ -297,3 +299,4 @@ When performing reviews, structure as:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/shubhamsaboo/awesome-llm-apps)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
