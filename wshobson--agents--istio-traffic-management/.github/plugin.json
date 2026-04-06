@@ -1,0 +1,13 @@
+{
+  "name": "wshobson--agents--istio-traffic-management",
+  "version": "1.0.0",
+  "description": "Configure Istio traffic management including routing, load balancing, circuit breakers, and canary deployments. Use when implementing service mesh traffic policies, progressive delivery, or resilience patterns.",
+  "author": {
+    "name": "wshobson (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
