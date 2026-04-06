@@ -1,0 +1,13 @@
+{
+  "name": "mastra-ai--mastra--customer-support",
+  "version": "1.0.0",
+  "description": "Guidelines for handling customer support interactions. Use when responding to user inquiries, troubleshooting issues, or escalating problems.",
+  "author": {
+    "name": "mastra-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
