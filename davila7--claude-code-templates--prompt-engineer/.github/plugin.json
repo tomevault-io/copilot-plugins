@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--prompt-engineer",
+  "version": "1.0.0",
+  "description": "\"Expert in designing effective prompts for LLM-powered applications. Masters prompt structure, context management, output formatting, and prompt evaluation. Use when: prompt engineering, system prompt, few-shot, chain of thought, prompt design.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
