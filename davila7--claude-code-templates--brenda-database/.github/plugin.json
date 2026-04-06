@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--brenda-database",
+  "version": "1.0.0",
+  "description": "\"Access BRENDA enzyme database via SOAP API. Retrieve kinetic parameters (Km, kcat), reaction equations, organism data, and substrate-specific enzyme information for biochemical research and metabolic pathway analysis.\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
