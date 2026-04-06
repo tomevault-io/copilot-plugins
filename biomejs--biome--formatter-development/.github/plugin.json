@@ -1,0 +1,13 @@
+{
+  "name": "biomejs--biome--formatter-development",
+  "version": "1.0.0",
+  "description": "Guide for implementing formatting rules using Biome's IR-based formatter infrastructure. Use when implementing formatting for new syntax nodes, handling comments in formatted output, or comparing Biome's formatting against Prettier for JavaScript, CSS, JSON, HTML, or other languages.",
+  "author": {
+    "name": "biomejs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
