@@ -1,0 +1,13 @@
+{
+  "name": "mastra-ai--mastra--code-review",
+  "version": "1.0.0",
+  "description": "Provides structured code review guidelines for TypeScript projects. Use when reviewing pull requests, analyzing code quality, or suggesting improvements.",
+  "author": {
+    "name": "mastra-ai (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
