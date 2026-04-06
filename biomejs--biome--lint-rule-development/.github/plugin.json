@@ -1,0 +1,13 @@
+{
+  "name": "biomejs--biome--lint-rule-development",
+  "version": "1.0.0",
+  "description": "Step-by-step guide for creating and implementing lint rules in Biome's analyzer. Use when implementing rules like noVar, useConst, or any custom lint/assist rule, adding code actions to fix diagnostics, implementing semantic analysis for binding references, or adding configurable options to rules.",
+  "author": {
+    "name": "biomejs (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
