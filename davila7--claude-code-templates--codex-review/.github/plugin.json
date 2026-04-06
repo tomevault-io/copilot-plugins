@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--codex-review",
+  "version": "1.0.0",
+  "description": "Professional code review with auto CHANGELOG generation, integrated with Codex AI",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
