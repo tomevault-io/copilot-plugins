@@ -22,3 +22,4 @@ VS Code commands must always define a `title`, independent of its category, visi
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/github/awesome-copilot)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
