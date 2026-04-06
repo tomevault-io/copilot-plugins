@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--code-review-checklist",
+  "version": "1.0.0",
+  "description": "\"Comprehensive checklist for conducting thorough code reviews covering functionality, security, performance, and maintainability\"",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
