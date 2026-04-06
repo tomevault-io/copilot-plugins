@@ -1,0 +1,13 @@
+{
+  "name": "davila7--claude-code-templates--regulatory-affairs-head",
+  "version": "1.0.0",
+  "description": "Senior Regulatory Affairs Manager expertise for HealthTech and MedTech companies. Provides strategic regulatory guidance, submission management, regulatory pathway analysis, global compliance coordination, and cross-functional team leadership. Use for regulatory strategy development, submission planning, regulatory risk assessment, and team coordination activities.",
+  "author": {
+    "name": "davila7 (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
