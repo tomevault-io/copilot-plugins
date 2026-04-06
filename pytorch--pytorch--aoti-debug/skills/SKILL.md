@@ -179,3 +179,4 @@ The new API stores device metadata in the package, so `aoti_load_package()` auto
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/pytorch/pytorch)
+<!-- tomevault:2.0:skill_md:2026-04-05 -->
