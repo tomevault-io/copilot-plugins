@@ -1,0 +1,58 @@
+{
+  "name": "webconsulting-skills",
+  "owner": "dirnbauer",
+  "repo": "webconsulting-skills",
+  "description": "AI instruction files for webconsulting-skills by dirnbauer",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-search-optimization",
+      "path": "skills/ai-search-optimization",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/ai-search-optimization",
+      "description": ""
+    },
+    {
+      "name": "typo3-ddev",
+      "path": "skills/typo3-ddev",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-ddev",
+      "description": ""
+    },
+    {
+      "name": "typo3-extension-upgrade",
+      "path": "skills/typo3-extension-upgrade",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-extension-upgrade",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/dirnbauer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:06:25Z"
+}
