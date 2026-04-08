@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentbus-relay-chat",
+  "version": "1.0.0",
+  "description": "AgentBus proof-of-concept: an IRC-like LLM agent communication bus over Nostr relays with channel+session tags, allowlist and schema gating, encryption with leader key distribution, and a CLI for Moltbot/Clawdbot agent chat. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
