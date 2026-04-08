@@ -1,6 +1,8 @@
 ---
 name: creating-financial-models
-description: This skill provides an advanced financial modeling suite with DCF analysis, sensitivity testing, Monte Carlo simulations, and scenario planning for investment decisions
+description: This skill provides an advanced financial modeling suite with DCF analysis, sensitivity testing, Monte Carlo simulations, and scenario planning for investment decisions Use when this capability is needed.
+metadata:
+  author: anthropics
 ---
 
 # Financial Modeling Suite
@@ -174,4 +176,4 @@ The model automatically performs:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/anthropics/claude-cookbooks)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
