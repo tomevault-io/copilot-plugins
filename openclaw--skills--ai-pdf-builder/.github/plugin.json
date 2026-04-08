@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-pdf-builder",
+  "version": "1.0.0",
+  "description": "AI-powered PDF generator for legal docs, pitch decks, and reports. SAFEs, NDAs, term sheets, whitepapers. npx ai-pdf-builder. Works with Claude, Cursor, GPT, Copilot. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
