@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--security",
+  "version": "1.0.0",
+  "description": "GoPlus AgentGuard \u2014 AI agent security guard. Automatically blocks dangerous commands, prevents data leaks, and protects secrets. Use when reviewing third-party code, auditing skills, checking for vulnerabilities, evaluating action safety, or viewing security logs. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
