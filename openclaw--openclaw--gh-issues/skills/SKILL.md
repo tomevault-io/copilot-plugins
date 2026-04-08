@@ -1,25 +1,8 @@
 ---
 name: gh-issues
-description: "Fetch GitHub issues, spawn sub-agents to implement fixes and open PRs, then monitor and address PR review comments. Usage: /gh-issues [owner/repo] [--label bug] [--limit 5] [--milestone v1.0] [--assignee @me] [--fork user/repo] [--watch] [--interval 5] [--reviews-only] [--cron] [--dry-run] [--model glm-5] [--notify-channel -1002381931352]"
-user-invocable: true
+description: Fetch GitHub issues, spawn sub-agents to implement fixes and open PRs, then monitor and address PR review comments. Usage: /gh-issues [owner/repo] [--label bug] [--limit 5] [--milestone v1.0] [--assignee @me] [--fork user/repo] [--watch] [--interval 5] [--reviews-only] [--cron] [--dry-run] [--model glm-5] [--notify-channel -1002381931352] Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "requires": { "bins": ["curl", "git", "gh"] },
-        "primaryEnv": "GH_TOKEN",
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "gh",
-              "bins": ["gh"],
-              "label": "Install GitHub CLI (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # gh-issues — Auto-fix GitHub Issues with Parallel Sub-agents
@@ -886,4 +869,4 @@ Only retain between poll cycles:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
