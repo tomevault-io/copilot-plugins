@@ -1,0 +1,46 @@
+{
+  "name": "faion-network",
+  "owner": "faionfaion",
+  "repo": "faion-network",
+  "description": "AI instruction files for faion-network by faionfaion",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "faion-devtools-developer",
+      "path": "skills/faion-devtools-developer",
+      "github_url": "https://github.com/faionfaion/faion-network/tree/main/skills/faion-devtools-developer",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/faionfaion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:13:56Z"
+}
