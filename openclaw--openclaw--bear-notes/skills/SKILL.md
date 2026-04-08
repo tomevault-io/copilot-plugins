@@ -1,26 +1,8 @@
 ---
 name: bear-notes
-description: Create, search, and manage Bear notes via grizzly CLI.
-homepage: https://bear.app
+description: Create, search, and manage Bear notes via grizzly CLI. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🐻",
-        "os": ["darwin"],
-        "requires": { "bins": ["grizzly"] },
-        "install":
-          [
-            {
-              "id": "go",
-              "kind": "go",
-              "module": "github.com/tylerwince/grizzly/cmd/grizzly@latest",
-              "bins": ["grizzly"],
-              "label": "Install grizzly (go)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # Bear Notes
@@ -108,4 +90,4 @@ timeout = "5s"
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
