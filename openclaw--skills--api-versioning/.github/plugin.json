@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--api-versioning",
+  "version": "1.0.0",
+  "description": "API versioning strategies \u2014 URL path, header, query param, content negotiation \u2014 with breaking change classification, deprecation timelines, migration patterns, and multi-version support. Use when evolving APIs, planning breaking changes, or managing version lifecycles. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
