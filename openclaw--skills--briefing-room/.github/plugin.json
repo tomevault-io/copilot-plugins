@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--briefing-room",
+  "version": "1.0.0",
+  "description": "Daily news briefing generator \u2014 produces a conversational radio-host-style audio briefing + DOCX document covering weather, X/Twitter trends, web trends, world news, politics, tech, local news, sports, markets, and crypto. macOS only (uses Apple TTS and afplay). Use when user asks for a news briefing, morning briefing, daily update, or similar. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
