@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--auth-patterns",
+  "version": "1.0.0",
+  "description": "Authentication and authorization patterns \u2014 JWT, OAuth 2.0, sessions, RBAC/ABAC, password security, MFA, and vulnerability prevention. Use when implementing login flows, protecting routes, managing tokens, or auditing auth security. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
