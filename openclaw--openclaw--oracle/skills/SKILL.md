@@ -1,25 +1,8 @@
 ---
 name: oracle
-description: Best practices for using the oracle CLI (prompt + file bundling, engines, sessions, and file attachment patterns).
-homepage: https://askoracle.dev
+description: Best practices for using the oracle CLI (prompt + file bundling, engines, sessions, and file attachment patterns). Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🧿",
-        "requires": { "bins": ["oracle"] },
-        "install":
-          [
-            {
-              "id": "node",
-              "kind": "node",
-              "package": "@steipete/oracle",
-              "bins": ["oracle"],
-              "label": "Install oracle (node)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # oracle — best use
@@ -126,4 +109,4 @@ Oracle runs are one-shot; the model doesn’t remember prior runs. “Restoring 
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
