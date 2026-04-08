@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aaveclaw",
+  "version": "1.0.0",
+  "description": "Aave V3 lending protocol on Base Sepolia testnet. Deposit WETH collateral, borrow USDC, repay loans, withdraw collateral, check health factor, and mint test tokens via faucet. Use when users want to interact with Aave lending, check their lending position health, or get testnet tokens. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
