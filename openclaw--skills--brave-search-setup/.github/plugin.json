@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--brave-search-setup",
+  "version": "1.0.0",
+  "description": "Configure Brave Search API and troubleshoot network/proxy issues for web_search functionality. Use when user needs to (1) Set up Brave Search API key, (2) Fix web_search fetch failures, (3) Configure proxy for OpenClaw tools on macOS with Clash/V2Ray/Surge, or (4) Diagnose \"fetch failed\" errors with web_search/web_fetch tools. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
