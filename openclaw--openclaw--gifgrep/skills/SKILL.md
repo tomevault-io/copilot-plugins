@@ -1,32 +1,8 @@
 ---
 name: gifgrep
-description: Search GIF providers with CLI/TUI, download results, and extract stills/sheets.
-homepage: https://gifgrep.com
+description: Search GIF providers with CLI/TUI, download results, and extract stills/sheets. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🧲",
-        "requires": { "bins": ["gifgrep"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "steipete/tap/gifgrep",
-              "bins": ["gifgrep"],
-              "label": "Install gifgrep (brew)",
-            },
-            {
-              "id": "go",
-              "kind": "go",
-              "module": "github.com/steipete/gifgrep/cmd/gifgrep@latest",
-              "bins": ["gifgrep"],
-              "label": "Install gifgrep (go)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # gifgrep
@@ -80,4 +56,4 @@ Environment tweaks
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
