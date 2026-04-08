@@ -1,0 +1,112 @@
+{
+  "name": "superpowers",
+  "owner": "obra",
+  "repo": "superpowers",
+  "description": "AI instruction files for superpowers by obra",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "brainstorming",
+      "path": "skills/brainstorming",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": "skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "path": "skills/finishing-a-development-branch",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "path": "skills/receiving-code-review",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "path": "skills/requesting-code-review",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "path": "skills/subagent-driven-development",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": "skills/systematic-debugging",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "skills/test-driven-development",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "path": "skills/using-git-worktrees",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-superpowers",
+      "path": "skills/using-superpowers",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/using-superpowers",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "skills/writing-plans",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "skills/writing-skills",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/writing-skills",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/obra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:10:22Z"
+}
