@@ -2603,6 +2603,14 @@
     {
       "name": "k-dense-ai--claude-scientific-skills--cirq",
       "source": "./k-dense-ai--claude-scientific-skills--cirq"
+    },
+    {
+      "name": "assafelovic--gpt-researcher---claude",
+      "source": "./assafelovic--gpt-researcher---claude"
+    },
+    {
+      "name": "assafelovic--skyll--skyll",
+      "source": "./assafelovic--skyll--skyll"
     }
   ]
 }
