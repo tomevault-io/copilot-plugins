@@ -1,26 +1,8 @@
 ---
 name: openai-whisper-api
-description: Transcribe audio via OpenAI Audio Transcriptions API (Whisper).
-homepage: https://platform.openai.com/docs/guides/speech-to-text
+description: Transcribe audio via OpenAI Audio Transcriptions API (Whisper). Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🌐",
-        "requires": { "bins": ["curl"], "env": ["OPENAI_API_KEY"] },
-        "primaryEnv": "OPENAI_API_KEY",
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "curl",
-              "bins": ["curl"],
-              "label": "Install curl (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # OpenAI Whisper API (curl)
@@ -63,4 +45,4 @@ Set `OPENAI_API_KEY`, or configure it in the active OpenClaw config file (`$OPEN
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
