@@ -1,0 +1,22 @@
+# consigliere
+
+> Config by [marcusschimizzi](https://github.com/marcusschimizzi/consigliere) — distributed by [TomeVault](https://tomevault.io/claim/marcusschimizzi)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [marcusschimizzi/consigliere](https://github.com/marcusschimizzi/consigliere).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+
+Browse all formats: [https://tomevault.io/claim/marcusschimizzi](https://tomevault.io/claim/marcusschimizzi)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/marcusschimizzi) to manage distribution.
