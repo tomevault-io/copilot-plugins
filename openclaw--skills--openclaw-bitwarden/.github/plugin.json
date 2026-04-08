@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--openclaw-bitwarden",
+  "version": "1.0.0",
+  "description": "Set up and use Bitwarden CLI (bw). Use when installing the CLI, unlocking vault, or reading/generating secrets via bw. Handles session management with BW_SESSION. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
