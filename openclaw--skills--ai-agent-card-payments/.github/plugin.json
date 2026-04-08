@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-agent-card-payments",
+  "version": "1.0.0",
+  "description": "Virtual card payments for AI agents. Create intents, issue cards within policy, and make autonomous purchases with approvals for high-value spend. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
