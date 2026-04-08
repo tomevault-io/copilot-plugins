@@ -1,7 +1,7 @@
 {
   "name": "anthropics--claude-cookbooks--creating-financial-models",
   "version": "1.0.0",
-  "description": "This skill provides an advanced financial modeling suite with DCF analysis, sensitivity testing, Monte Carlo simulations, and scenario planning for investment decisions",
+  "description": "This skill provides an advanced financial modeling suite with DCF analysis, sensitivity testing, Monte Carlo simulations, and scenario planning for investment decisions Use when this capability is needed.",
   "author": {
     "name": "anthropics (via TomeVault)"
   },
