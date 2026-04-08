@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--arena-agent",
+  "version": "1.0.0",
+  "description": "Autonomous AI agent for Arena.social using the official Agent API. 24/7 monitoring, auto-replies to mentions, scheduled contextual posts. Use when you need to automate Arena.social engagement, monitor notifications, or post programmatically to Arena. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
