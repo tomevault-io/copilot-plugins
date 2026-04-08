@@ -1,0 +1,58 @@
+{
+  "name": "community",
+  "owner": "nowledge-co",
+  "repo": "community",
+  "description": "AI instruction files for community by nowledge-co",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "distill-memory",
+      "path": "nowledge-mem-npx-skills/skills/distill-memory",
+      "github_url": "https://github.com/nowledge-co/community/tree/main/nowledge-mem-npx-skills/skills/distill-memory",
+      "description": ""
+    },
+    {
+      "name": "save-thread",
+      "path": "nowledge-mem-claude-code-plugin/skills/save-thread",
+      "github_url": "https://github.com/nowledge-co/community/tree/main/nowledge-mem-claude-code-plugin/skills/save-thread",
+      "description": ""
+    },
+    {
+      "name": "distill-memory",
+      "path": "nowledge-mem-claude-code-plugin/skills/distill-memory",
+      "github_url": "https://github.com/nowledge-co/community/tree/main/nowledge-mem-claude-code-plugin/skills/distill-memory",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/nowledge-co",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:10:08Z"
+}
