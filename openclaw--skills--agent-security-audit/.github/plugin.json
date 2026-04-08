@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-security-audit",
+  "version": "1.0.0",
+  "description": "\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u5411\u3051\u30d7\u30ed\u30f3\u30d7\u30c8\u30fb\u30a4\u30f3\u30b8\u30a7\u30af\u30b7\u30e7\u30f3\u9632\u5fa1\u30c1\u30a7\u30c3\u30af\u30ea\u30b9\u30c8 Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
