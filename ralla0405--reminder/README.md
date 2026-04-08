@@ -1,0 +1,22 @@
+# reminder
+
+> Config by [ralla0405](https://github.com/ralla0405/reminder) — distributed by [TomeVault](https://tomevault.io/claim/ralla0405)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [ralla0405/reminder](https://github.com/ralla0405/reminder).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+
+Browse all formats: [https://tomevault.io/claim/ralla0405](https://tomevault.io/claim/ralla0405)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/ralla0405) to manage distribution.
