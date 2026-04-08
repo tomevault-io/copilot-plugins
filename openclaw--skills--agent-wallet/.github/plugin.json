@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-wallet",
+  "version": "1.0.0",
+  "description": "Use when working with the agent's wallet. Use this skill to safely create a wallet the agent can use for transfers, swaps, and any EVM chain transaction.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
