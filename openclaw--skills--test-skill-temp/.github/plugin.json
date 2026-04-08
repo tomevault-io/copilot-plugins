@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--test-skill-temp",
+  "version": "1.0.0",
+  "description": "generate a bunch of images, then you curate the results to handpick the best ones Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
