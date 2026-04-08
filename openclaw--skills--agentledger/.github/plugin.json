@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentledger",
+  "version": "1.0.0",
+  "description": "Expense tracking and accounting for AI agents. Log purchases, set budgets, generate spending reports, and manage multi-currency finances \u2014 all stored locally. Privacy.com card import, natural language queries, CSV/JSON export. Use when agents make purchases and need a financial audit trail. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
