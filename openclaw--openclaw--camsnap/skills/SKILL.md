@@ -1,25 +1,8 @@
 ---
 name: camsnap
-description: Capture frames or clips from RTSP/ONVIF cameras.
-homepage: https://camsnap.ai
+description: Capture frames or clips from RTSP/ONVIF cameras. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "📸",
-        "requires": { "bins": ["camsnap"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "steipete/tap/camsnap",
-              "bins": ["camsnap"],
-              "label": "Install camsnap (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # camsnap
@@ -46,4 +29,4 @@ Notes
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
