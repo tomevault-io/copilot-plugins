@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-doppelganger",
+  "version": "1.0.0",
+  "description": "Constrained autonomous delegate for identity-proxied communication. Handles incoming messages (Email, Discord, Slack, WhatsApp) by analyzing intent and applying declarative authority policies before generating responses. Use when the user wants to delegate communication tasks while maintaining identity fidelity and enforcing strict non-overreach boundaries. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
