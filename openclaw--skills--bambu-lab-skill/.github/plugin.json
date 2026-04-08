@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bambu-lab-skill",
+  "version": "1.0.0",
+  "description": "Steuere Bambu Lab 3D-Drucker (A1, P1P, X1) \u00fcber MQTT. Nutze diesen Skill f\u00fcr Druck-\u00dcberwachung, Status-Abfragen, Steuerung (Pause/Stopp) und Benachrichtigungen bei Druckende oder Fehlern. Erfordert LAN-Mode mit Access Code. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
