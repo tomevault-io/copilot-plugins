@@ -1,0 +1,88 @@
+{
+  "name": "hash",
+  "owner": "hashintel",
+  "repo": "hash",
+  "description": "AI instruction files for hash by hashintel",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documenting-rust-code",
+      "path": ".claude/skills/documenting-rust-code",
+      "github_url": "https://github.com/hashintel/hash/tree/main/.claude/skills/documenting-rust-code",
+      "description": ""
+    },
+    {
+      "name": "exploring-rust-crates",
+      "path": ".claude/skills/exploring-rust-crates",
+      "github_url": "https://github.com/hashintel/hash/tree/main/.claude/skills/exploring-rust-crates",
+      "description": ""
+    },
+    {
+      "name": "handling-rust-errors",
+      "path": ".claude/skills/handling-rust-errors",
+      "github_url": "https://github.com/hashintel/hash/tree/main/.claude/skills/handling-rust-errors",
+      "description": ""
+    },
+    {
+      "name": "managing-git-workflow",
+      "path": ".claude/skills/managing-git-workflow",
+      "github_url": "https://github.com/hashintel/hash/tree/main/.claude/skills/managing-git-workflow",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/hashintel/hash/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "testing-hashql",
+      "path": ".claude/skills/testing-hashql",
+      "github_url": "https://github.com/hashintel/hash/tree/main/.claude/skills/testing-hashql",
+      "description": ""
+    },
+    {
+      "name": "writing-hashql-diagnostics",
+      "path": ".claude/skills/writing-hashql-diagnostics",
+      "github_url": "https://github.com/hashintel/hash/tree/main/.claude/skills/writing-hashql-diagnostics",
+      "description": ""
+    },
+    {
+      "name": "writing-hashql-jexpr",
+      "path": ".claude/skills/writing-hashql-jexpr",
+      "github_url": "https://github.com/hashintel/hash/tree/main/.claude/skills/writing-hashql-jexpr",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/hashintel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:07:56Z"
+}
