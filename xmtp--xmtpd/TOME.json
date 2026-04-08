@@ -1,0 +1,52 @@
+{
+  "name": "xmtpd",
+  "owner": "xmtp",
+  "repo": "xmtpd",
+  "description": "AI instruction files for xmtpd by xmtp",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "writing-go-code",
+      "path": ".claude/skills/writing-go-code",
+      "github_url": "https://github.com/xmtp/xmtpd/tree/main/.claude/skills/writing-go-code",
+      "description": ""
+    },
+    {
+      "name": "writing-queries",
+      "path": ".claude/skills/writing-queries",
+      "github_url": "https://github.com/xmtp/xmtpd/tree/main/.claude/skills/writing-queries",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/xmtp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:12:12Z"
+}
