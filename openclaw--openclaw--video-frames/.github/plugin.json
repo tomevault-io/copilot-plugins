@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--video-frames",
   "version": "1.0.0",
-  "description": "Extract frames or short clips from videos using ffmpeg.",
+  "description": "Extract frames or short clips from videos using ffmpeg. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
