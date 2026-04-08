@@ -1,0 +1,22 @@
+# Bid-Euchre
+
+> Config by [Questuart](https://github.com/Questuart/Bid-Euchre) — distributed by [TomeVault](https://tomevault.io/claim/Questuart)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [Questuart/Bid-Euchre](https://github.com/Questuart/Bid-Euchre).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+
+Browse all formats: [https://tomevault.io/claim/Questuart](https://tomevault.io/claim/Questuart)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/Questuart) to manage distribution.
