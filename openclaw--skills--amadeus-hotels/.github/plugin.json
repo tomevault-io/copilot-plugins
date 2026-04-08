@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--amadeus-hotels",
+  "version": "1.0.0",
+  "description": "Search hotel prices and availability via Amadeus API. Find vacation hotels by city, coordinates, or amenities. Compare prices, view ratings, get offer details. Track prices with alerts. Use when user asks to \"find hotels\", \"search hotels in [city]\", \"hotel prices\", \"vacation accommodation\", \"hotel deals\", \"track hotel price\". Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
