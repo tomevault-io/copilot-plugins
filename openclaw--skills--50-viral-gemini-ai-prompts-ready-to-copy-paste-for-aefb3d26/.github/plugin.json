@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--50-viral-gemini-ai-prompts-ready-to-copy-paste-for-aefb3d26",
+  "version": "1.0.0",
+  "description": "Polaroid-style portrait of a woman smiling, casual outfit, natural light, using reference face Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
