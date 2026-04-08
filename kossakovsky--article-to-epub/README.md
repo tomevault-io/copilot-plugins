@@ -1,0 +1,22 @@
+# article-to-epub
+
+> Config by [kossakovsky](https://github.com/kossakovsky/article-to-epub) — distributed by [TomeVault](https://tomevault.io/claim/kossakovsky)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [kossakovsky/article-to-epub](https://github.com/kossakovsky/article-to-epub).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+
+Browse all formats: [https://tomevault.io/claim/kossakovsky](https://tomevault.io/claim/kossakovsky)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/kossakovsky) to manage distribution.
