@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--erc8004-agent",
+  "version": "1.0.0",
+  "description": "Validates that the keyring proxy is working correctly (7 tests).",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
