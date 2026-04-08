@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bitcoin-daily",
+  "version": "1.0.0",
+  "description": "Daily digest of the Bitcoin Development mailing list and Bitcoin Core commits. Use when asked about recent bitcoin-dev discussions, mailing list activity, Bitcoin Core code changes, or to set up daily summaries. Fetches threads from groups.google.com/g/bitcoindev and commits from github.com/bitcoin/bitcoin. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
