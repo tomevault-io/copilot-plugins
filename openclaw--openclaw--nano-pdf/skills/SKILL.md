@@ -1,25 +1,8 @@
 ---
 name: nano-pdf
-description: Edit PDFs with natural-language instructions using the nano-pdf CLI.
-homepage: https://pypi.org/project/nano-pdf/
+description: Edit PDFs with natural-language instructions using the nano-pdf CLI. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "📄",
-        "requires": { "bins": ["nano-pdf"] },
-        "install":
-          [
-            {
-              "id": "uv",
-              "kind": "uv",
-              "package": "nano-pdf",
-              "bins": ["nano-pdf"],
-              "label": "Install nano-pdf (uv)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # nano-pdf
@@ -39,4 +22,4 @@ Notes:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
