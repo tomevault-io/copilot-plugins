@@ -1,25 +1,8 @@
 ---
 name: gemini
-description: Gemini CLI for one-shot Q&A, summaries, and generation.
-homepage: https://ai.google.dev/
+description: Gemini CLI for one-shot Q&A, summaries, and generation. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "✨",
-        "requires": { "bins": ["gemini"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "gemini-cli",
-              "bins": ["gemini"],
-              "label": "Install Gemini CLI (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # Gemini CLI
@@ -44,4 +27,4 @@ Notes
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
