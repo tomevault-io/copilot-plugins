@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--baml-codegen",
+  "version": "1.0.0",
+  "description": "Use when generating BAML code for type-safe LLM extraction, classification, RAG, or agent workflows - creates complete .baml files with types, functions, clients, tests, and framework integrations from natural language requirements. Queries official BoundaryML repositories via MCP for real-time patterns. Supports multimodal inputs (images, audio), Python/TypeScript/Ruby/Go, 10+ frameworks, 50-70% token optimization, 95%+ compilation success.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
