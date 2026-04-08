@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--api-dev",
+  "version": "1.0.0",
+  "description": "Scaffold, test, document, and debug REST and GraphQL APIs. Use when the user needs to create API endpoints, write integration tests, generate OpenAPI specs, test with curl, mock APIs, or troubleshoot HTTP issues. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
