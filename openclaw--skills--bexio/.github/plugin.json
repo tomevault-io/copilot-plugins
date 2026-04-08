@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bexio",
+  "version": "1.0.0",
+  "description": "Bexio Swiss business software API for managing contacts, quotes/offers, invoices, orders, and items/products. Use when working with Bexio CRM, creating or managing invoices, quotes, sales orders, contact management, or Swiss business administration tasks. Supports listing, searching, creating, editing contacts and sales documents. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
