@@ -1,0 +1,13 @@
+{
+  "name": "anthropics--knowledge-work-plugins--draft-outreach",
+  "version": "1.0.0",
+  "description": "Research a prospect then draft personalized outreach. Uses web research by default, supercharged with enrichment and CRM. Trigger with \"draft outreach to [person/company]\", \"write cold email to [prospect]\", \"reach out to [name]\". Use when this capability is needed.",
+  "author": {
+    "name": "anthropics (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
