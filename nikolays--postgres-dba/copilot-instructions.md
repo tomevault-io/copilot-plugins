@@ -1,35 +1,141 @@
 ## postgres-dba
 
-> Follow the rules at https://gitlab.com/postgres-ai/rules/-/tree/main/rules — always pull latest before starting work.
+> SQL style guide rules for PostgreSQL development
 
-# CLAUDE.md
 
-## Engineering Standards
+# SQL style guide
 
-Follow the rules at https://gitlab.com/postgres-ai/rules/-/tree/main/rules — always pull latest before starting work.
+Source: [postgres.ai SQL style guide](https://postgres.ai/rules/sql-style)
 
-## SQL Style
+## Core philosophy
 
-- Lowercase keywords (`select`, `from`, `where` — not `SELECT`, `FROM`, `WHERE`)
-- `<>` not `!=`
+From PEP8: 
 
-## CI
+* Consistency with this style guide is important
+* Consistency within a project is more important
+* Consistency within one module or function is the most important
+* However, know when to be inconsistent -- sometimes style guide recommendations just aren't applicable
 
-GitHub Actions (`test.yml`): runs on push and PRs — tests across PostgreSQL 13, 14, 15, 16, 17, 18.
+## Core rules
 
-## Code Review
+* **Use lowercase SQL keywords** (not uppercase)
+* Use `snake_case` for all identifiers (no CamelCase)
+* Names must begin with a letter and may not end in underscore
+* Only use letters, numbers, and underscores in names
+* Be explicit: always use `AS` for aliases, specify JOIN types
+* Root keywords on their own line (except with single argument)
+* Multi-line arguments must be indented relative to root keyword
+* Use **ISO 8601 date format**: `yyyy-mm-ddThh:mm:ss.sssss`
+* Foreign key naming: `user_id` to reference `users` table (singular + \_id)
+* Use meaningful aliases that reflect the data (not just single letters)
 
-All changes go through PRs. Before merging, run a REV review (https://gitlab.com/postgres-ai/rev/) and post the report as a PR comment. REV is designed for GitLab but works on GitHub PRs too.
+## Formatting
 
-Never merge without explicit approval from the project owner.
+### Keywords and alignment
 
-## Stack
+```sql
+-- Root keywords left-aligned
+-- Arguments indented relative to root keyword
+select
+  client_id,
+  submission_date
+from main_summary
+where
+  sample_id = '42'
+  and submission_date > '20180101'
+limit 10;
+```
 
-- Pure SQL reports loaded via `psql` (`\i start.psql`)
-- Interactive menu system — user picks a report number
-- Works on any Postgres 13+ including managed services (RDS, Cloud SQL, AlloyDB, etc.)
+### Comments
+
+```sql
+/* Block comments for multi-line descriptions */
+-- Line comments for single line notes
+select
+  client_id,  -- user identifier
+  submission_date
+from main_summary;
+```
+
+### Parentheses
+
+```sql
+-- Opening paren ends the line
+-- Closing paren aligns with starting line
+-- Contents indented
+with sample as (
+  select
+    client_id,
+    submission_date
+  from main_summary
+  where sample_id = '42'
+)
+```
+
+### Boolean operators
+
+```sql
+-- AND/OR at beginning of line
+where
+  submission_date > '20180101'
+  and sample_id = '42'
+```
+
+## Table design rules
+
+* Always add `id` column of type `identity generated always`
+* Always add table comments using `comment on table...`
+* Default to `public` schema
+* Include schema in queries for clarity
+* Use singular table names with `_id` suffix for foreign keys
+
+## Best practices
+
+* Use CTEs instead of nested queries
+* Explicit column names in GROUP BY (except for expressions - see below)
+* Functions treated as identifiers: `date_trunc()` not `DATE_TRUNC()`
+* One argument per line for multi-argument clauses
+* Use meaningful aliases that reflect the data being selected
+
+### GROUP BY exception
+
+```sql
+-- Acceptable: use numbers to avoid repeating complex expressions
+select
+  date_trunc('minute', xact_start) as xact_start_minute,
+  count(*)
+from pg_stat_activity
+group by 1
+order by 1;
+```
+
+## Examples
+
+### Good
+
+```sql
+select
+  t.client_id as client_id,
+  date(t.created_at) as day
+from telemetry as t
+inner join users as u
+  on t.user_id = u.id
+where
+  t.submission_date > '2019-07-01'
+  and t.sample_id = '10'
+group by t.client_id, day;
+```
+
+### Bad
+
+```sql
+SELECT t.client_id, DATE(t.created_at) day
+FROM telemetry t, users u
+WHERE t.user_id = u.id AND t.submission_date > '2019-07-01'
+GROUP BY 1, 2;
+```
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/NikolayS)
 > This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/NikolayS)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
