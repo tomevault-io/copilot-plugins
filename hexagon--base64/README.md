@@ -1,0 +1,22 @@
+# base64
+
+> Config by [Hexagon](https://github.com/Hexagon/base64) — distributed by [TomeVault](https://tomevault.io/claim/Hexagon)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [Hexagon/base64](https://github.com/Hexagon/base64).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+
+Browse all formats: [https://tomevault.io/claim/Hexagon](https://tomevault.io/claim/Hexagon)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/Hexagon) to manage distribution.
