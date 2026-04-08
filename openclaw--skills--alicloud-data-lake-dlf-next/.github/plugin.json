@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alicloud-data-lake-dlf-next",
+  "version": "1.0.0",
+  "description": "Manage Alibaba Cloud Data Lake Formation (DlfNext) via OpenAPI/SDK. Use whenever the user needs DLF Next catalog/governance resource operations, including listing resources, create/update flows, status checks, and troubleshooting metadata workflow issues. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
