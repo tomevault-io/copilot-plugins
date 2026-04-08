@@ -1,31 +1,8 @@
 ---
 name: github
-description: "GitHub operations via `gh` CLI: issues, PRs, CI runs, code review, API queries. Use when: (1) checking PR status or CI, (2) creating/commenting on issues, (3) listing/filtering PRs or issues, (4) viewing run logs. NOT for: complex web UI interactions requiring manual browser flows (use browser tooling when available), bulk operations across many repos (script with gh api), or when gh auth is not configured."
+description: GitHub operations via `gh` CLI: issues, PRs, CI runs, code review, API queries. Use when: (1) checking PR status or CI, (2) creating/commenting on issues, (3) listing/filtering PRs or issues, (4) viewing run logs. NOT for: complex web UI interactions requiring manual browser flows (use browser tooling when available), bulk operations across many repos (script with gh api), or when gh auth is not configured. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🐙",
-        "requires": { "bins": ["gh"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "gh",
-              "bins": ["gh"],
-              "label": "Install GitHub CLI (brew)",
-            },
-            {
-              "id": "apt",
-              "kind": "apt",
-              "package": "gh",
-              "bins": ["gh"],
-              "label": "Install GitHub CLI (apt)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # GitHub Skill
@@ -164,4 +141,4 @@ gh issue list --repo owner/repo --state open --json number,title,labels,createdA
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
