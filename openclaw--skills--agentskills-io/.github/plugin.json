@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentskills-io",
+  "version": "1.0.0",
+  "description": "Create, validate, and publish Agent Skills following the official open standard from agentskills.io. Use when (1) creating new skills for AI agents, (2) validating skill structure and metadata, (3) understanding the Agent Skills specification, (4) converting existing documentation into portable skills, or (5) ensuring cross-platform compatibility with Claude Code, Cursor, GitHub Copilot, and other tools. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
