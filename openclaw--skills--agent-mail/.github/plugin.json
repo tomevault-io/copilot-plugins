@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-mail",
+  "version": "1.0.0",
+  "description": "Email inbox for AI agents. Check messages, send emails, and communicate via your own @agentmail.to address. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
