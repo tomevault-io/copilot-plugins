@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bot-status-api-test",
+  "version": "1.0.0",
+  "description": "Deploy a lightweight status API that exposes your OpenClaw bot's runtime health, service connectivity, cron jobs, skills, system metrics, and more. Use when setting up a monitoring dashboard, health endpoint, or status page for an OpenClaw agent. Supports any services via config (HTTP checks, CLI commands, file checks). Zero dependencies \u2014 Node.js only. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
