@@ -1,0 +1,70 @@
+{
+  "name": "ai-software-architect",
+  "owner": "codenamev",
+  "repo": "ai-software-architect",
+  "description": "AI instruction files for ai-software-architect by codenamev",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecture-review",
+      "path": ".claude/skills/architecture-review",
+      "github_url": "https://github.com/codenamev/ai-software-architect/tree/main/.claude/skills/architecture-review",
+      "description": ""
+    },
+    {
+      "name": "architecture-status",
+      "path": ".claude/skills/architecture-status",
+      "github_url": "https://github.com/codenamev/ai-software-architect/tree/main/.claude/skills/architecture-status",
+      "description": ""
+    },
+    {
+      "name": "create-adr",
+      "path": ".claude/skills/create-adr",
+      "github_url": "https://github.com/codenamev/ai-software-architect/tree/main/.claude/skills/create-adr",
+      "description": ""
+    },
+    {
+      "name": "list-members",
+      "path": ".claude/skills/list-members",
+      "github_url": "https://github.com/codenamev/ai-software-architect/tree/main/.claude/skills/list-members",
+      "description": ""
+    },
+    {
+      "name": "pragmatic-guard",
+      "path": ".claude/skills/pragmatic-guard",
+      "github_url": "https://github.com/codenamev/ai-software-architect/tree/main/.claude/skills/pragmatic-guard",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/codenamev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:06:00Z"
+}
