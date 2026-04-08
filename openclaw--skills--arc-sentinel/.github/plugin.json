@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--arc-sentinel",
+  "version": "1.0.0",
+  "description": "Security monitoring and infrastructure health checks for OpenClaw agents. Run breach monitoring (HaveIBeenPwned), SSL certificate expiry checks, GitHub security audits, credential rotation tracking, secret scanning, git hygiene, token watchdog, and permission audits. Use when performing security scans, checking credential rotation status, auditing repos for leaked secrets, or monitoring SSL certificates and infrastructure health. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
