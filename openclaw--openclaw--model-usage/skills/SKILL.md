@@ -1,25 +1,8 @@
 ---
 name: model-usage
-description: Use CodexBar CLI local cost usage to summarize per-model usage for Codex or Claude, including the current (most recent) model or a full model breakdown. Trigger when asked for model-level usage/cost data from codexbar, or when you need a scriptable per-model summary from codexbar cost JSON.
+description: Use CodexBar CLI local cost usage to summarize per-model usage for Codex or Claude, including the current (most recent) model or a full model breakdown. Trigger when asked for model-level usage/cost data from codexbar, or when you need a scriptable per-model summary from codexbar cost JSON. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "📊",
-        "os": ["darwin"],
-        "requires": { "bins": ["codexbar"] },
-        "install":
-          [
-            {
-              "id": "brew-cask",
-              "kind": "brew",
-              "formula": "steipete/tap/codexbar",
-              "bins": ["codexbar"],
-              "label": "Install CodexBar (brew cask)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # Model usage
@@ -70,4 +53,4 @@ cat /tmp/cost.json | python {baseDir}/scripts/model_usage.py --input - --mode cu
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
