@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--audiopod",
+  "version": "1.0.0",
+  "description": "Use AudioPod AI's API for audio processing tasks including AI music generation (text-to-music, text-to-rap, instrumentals, samples, vocals), stem separation, text-to-speech, noise reduction, speech-to-text transcription, speaker separation, and media extraction. Use when the user needs to generate music/songs/rap from text, split a song into stems/vocals/instruments, generate speech from text, clean up noisy audio, transcribe audio/video, or extract audio from YouTube/URLs. Requires AUDIOPOD_API_KEY env var or pass api_key directly. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
