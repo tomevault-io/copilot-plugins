@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-access-control",
+  "version": "1.0.0",
+  "description": "Tiered stranger access control for AI agents. Use when setting up contact permissions, handling unknown senders, managing approved contacts, or configuring stranger deflection on messaging platforms (WhatsApp, Telegram, Discord, Signal). Provides diplomatic deflection, owner approval flow, and multi-tier access (owner/trusted/chat-only/blocked). Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
