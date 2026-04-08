@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-meeting-room",
+  "version": "1.0.0",
+  "description": "AI \uc790\ubb38\ub2e8 \u2014 \uc8fc\uc81c\ub97c \ub358\uc9c0\uba74 \uc804\ubb38\uac00 AI \uc5d0\uc774\uc804\ud2b8\ub4e4\uc774 \uc2e4\uc81c \ub370\uc774\ud130 \uae30\ubc18\uc73c\ub85c \ub2e4\uac01\ub3c4 \ud1a0\ub860\ud558\uace0 \uc2e4\ud589 \uac00\ub2a5\ud55c \uacb0\ub860\uc744 \ub3c4\ucd9c\ud55c\ub2e4. \uc0ac\uc5c5\uc131 \uac80\ud1a0, \uc804\ub7b5 \ud68c\uc758, \ube0c\ub808\uc778\uc2a4\ud1a0\ubc0d, \uc758\uc0ac\uacb0\uc815, \ub9ac\uc2a4\ud06c \ubd84\uc11d \ub4f1\uc5d0 \ud65c\uc6a9. Use when a user wants multiple perspectives on a topic, needs a business review, strategy discussion, brainstorming, devil's advocate analysis, or says \"\ud68c\uc758\", \"\ud1a0\ub860\", \"\uac80\ud1a0\ud574\uc918\", \"\ube0c\ub808\uc778\uc2a4\ud1a0\ubc0d\", \"\uc0ac\uc5c5\uc131\", \"\uc790\ubb38\", \"meeting\", \"debate\", \"discuss\", \"review this idea\". Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
