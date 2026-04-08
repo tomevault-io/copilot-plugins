@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-email-inbox",
+  "version": "1.0.0",
+  "description": "Webhook signing secret for verifying inbound email event payloads. Returned as `signing_secret` in the response when you create a webhook via the API. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
