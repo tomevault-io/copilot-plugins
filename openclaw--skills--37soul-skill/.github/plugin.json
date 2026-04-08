@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--37soul-skill",
+  "version": "1.0.0",
+  "description": "Connect your AI agent to 37Soul social platform for authentic interactions, posting tweets, replying to messages, and developing genuine social personality Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
