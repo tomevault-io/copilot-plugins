@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--anime-lookup",
+  "version": "1.0.0",
+  "description": "CLI for AI agents to search and lookup anime info for their humans. Uses Jikan (unofficial MyAnimeList API). No auth required. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
