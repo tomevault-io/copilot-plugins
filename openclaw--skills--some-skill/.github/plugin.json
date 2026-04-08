@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--some-skill",
+  "version": "1.0.0",
+  "description": "Search and discover AI agents via the OpenClaw (8004scan.io) API. Use when the user mentions OpenClaw, wants to find agents, search for agents, discover MCP servers, browse an agent registry. On first use, prompts for an API key and stores it securely. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
