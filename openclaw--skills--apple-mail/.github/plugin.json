@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--apple-mail",
+  "version": "1.0.0",
+  "description": "Apple Mail.app integration for macOS. Read inbox, search emails, send emails, reply, and manage messages with fast direct access (no enumeration). Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
