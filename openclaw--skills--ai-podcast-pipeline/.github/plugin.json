@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-podcast-pipeline",
+  "version": "1.0.0",
+  "description": "Create Korean AI podcast packages from QuickView trend notes. Use for dual-host script writing (Callie \u00d7 Nick), Gemini multi-speaker TTS audio generation, subtitle timing/render fixes, thumbnail+MP4 packaging, and YouTube title/description output. Supports both full (15~20 min) and compressed (5~7 min) editions. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
