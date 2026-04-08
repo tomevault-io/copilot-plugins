@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--baidu-scholar-search-skill",
+  "version": "1.0.0",
+  "description": "Baidu Scholar Search - Search Chinese and English academic literature (journals, conferences, papers, etc.) Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
