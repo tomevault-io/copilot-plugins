@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--archon-skill",
+  "version": "1.0.0",
+  "description": "Full Archon decentralized identity operations - local node management, DID creation, credential issuance, vault operations, and public network resolution. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
