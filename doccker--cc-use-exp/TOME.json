@@ -1,0 +1,70 @@
+{
+  "name": "cc-use-exp",
+  "owner": "doccker",
+  "repo": "cc-use-exp",
+  "description": "AI instruction files for cc-use-exp by doccker",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bash-style",
+      "path": ".claude/skills/bash-style",
+      "github_url": "https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/bash-style",
+      "description": ""
+    },
+    {
+      "name": "frontend-dev",
+      "path": ".claude/skills/frontend-dev",
+      "github_url": "https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/frontend-dev",
+      "description": ""
+    },
+    {
+      "name": "go-dev",
+      "path": ".claude/skills/go-dev",
+      "github_url": "https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/go-dev",
+      "description": ""
+    },
+    {
+      "name": "java-dev",
+      "path": ".claude/skills/java-dev",
+      "github_url": "https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/java-dev",
+      "description": ""
+    },
+    {
+      "name": "ops-safety",
+      "path": ".claude/skills/ops-safety",
+      "github_url": "https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/ops-safety",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/doccker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:06:38Z"
+}
