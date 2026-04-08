@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-self-governance",
+  "version": "1.0.0",
+  "description": "Self-governance protocol for autonomous agents: WAL (Write-Ahead Log), VBR (Verify Before Reporting), ADL (Anti-Divergence Limit), VFM (Value-For-Money), and IKL (Infrastructure Knowledge Logging). Use when: (1) receiving a user correction \u2014 log it before responding, (2) making an important decision or analysis \u2014 log it before continuing, (3) pre-compaction memory flush \u2014 flush the working buffer to WAL, (4) session start \u2014 replay unapplied WAL entries to restore lost context, (5) any time you want to ensure something survives compaction, (6) before claiming a task is done \u2014 verify it, (7) periodic self-check \u2014 am I drifting from my persona? (8) cost tracking \u2014 was that expensive operation worth it? (9) discovering infrastructure \u2014 log hardware/service specs immediately. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
