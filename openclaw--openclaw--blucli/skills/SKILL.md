@@ -1,25 +1,8 @@
 ---
 name: blucli
-description: BluOS CLI (blu) for discovery, playback, grouping, and volume.
-homepage: https://blucli.sh
+description: BluOS CLI (blu) for discovery, playback, grouping, and volume. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🫐",
-        "requires": { "bins": ["blu"] },
-        "install":
-          [
-            {
-              "id": "go",
-              "kind": "go",
-              "module": "github.com/steipete/blucli/cmd/blu@latest",
-              "bins": ["blu"],
-              "label": "Install blucli (go)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # blucli (blu)
@@ -48,4 +31,4 @@ Prefer `--json` for scripts. Confirm the target device before changing playback.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
