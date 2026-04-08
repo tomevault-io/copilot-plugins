@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--arc-creator",
+  "version": "1.0.0",
+  "description": "Create and populate Annotated Research Contexts (ARCs) following the nfdi4plants ARC specification. Use when creating a new ARC, adding studies/assays/workflows/runs, annotating ISA metadata, organizing research data into ARC structure, or pushing ARCs to a DataHUB. Guides the user interactively through all required and optional metadata fields. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
