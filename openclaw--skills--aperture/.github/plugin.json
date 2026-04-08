@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aperture",
+  "version": "1.0.0",
+  "description": "Install and run Aperture, the L402 Lightning reverse proxy from Lightning Labs. Use when creating L402 paywalls, configuring paid API endpoints, hosting paid content for other agents, or testing L402 authentication flows. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
