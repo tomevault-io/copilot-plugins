@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--abn-skill",
+  "version": "1.0.0",
+  "description": "Decentralized backlink exchange for AI agents. Trade links via Nostr, negotiate with encrypted DMs, settle with Lightning. No middlemen. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
