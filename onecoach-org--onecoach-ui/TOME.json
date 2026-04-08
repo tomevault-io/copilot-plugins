@@ -4,7 +4,7 @@
   "repo": "onecoach-ui",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -35,5 +35,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/OneCoach-org",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T21:15:21Z"
+  "distributed_at": "2026-04-08T22:04:01Z"
 }
