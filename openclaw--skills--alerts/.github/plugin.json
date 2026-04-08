@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alerts",
+  "version": "1.0.0",
+  "description": "Smart alerting patterns for AI agents - deduplication, routing, escalation, and fatigue prevention Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
