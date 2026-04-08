@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentpay",
+  "version": "1.0.0",
+  "description": "Buy things from real websites on behalf of your human. Use when you need to purchase a product, complete a checkout, order something online, or propose a purchase for human approval. Handles encrypted credential storage, cryptographic purchase mandates, and headless browser checkout on any merchant site. The agent never sees the card. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
