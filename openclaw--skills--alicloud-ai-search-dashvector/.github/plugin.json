@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alicloud-ai-search-dashvector",
+  "version": "1.0.0",
+  "description": "Build vector retrieval with DashVector using the Python SDK. Use when creating collections, upserting docs, and running similarity search with filters in Claude Code/Codex. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
