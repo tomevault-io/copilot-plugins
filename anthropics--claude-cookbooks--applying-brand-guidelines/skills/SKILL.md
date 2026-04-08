@@ -1,6 +1,8 @@
 ---
 name: applying-brand-guidelines
-description: This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging
+description: This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging Use when this capability is needed.
+metadata:
+  author: anthropics
 ---
 
 # Corporate Brand Guidelines Skill
@@ -172,4 +174,4 @@ When creating any document:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/anthropics/claude-cookbooks)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
