@@ -1,7 +1,7 @@
 {
   "name": "anthropics--claude-cookbooks--applying-brand-guidelines",
   "version": "1.0.0",
-  "description": "This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging",
+  "description": "This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging Use when this capability is needed.",
   "author": {
     "name": "anthropics (via TomeVault)"
   },
