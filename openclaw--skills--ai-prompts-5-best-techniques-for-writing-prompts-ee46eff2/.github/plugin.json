@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-prompts-5-best-techniques-for-writing-prompts-ee46eff2",
+  "version": "1.0.0",
+  "description": "write an article on cybersecurity, we will first prompt the model to generate some facts, types, or techniques for cybersecurity Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
