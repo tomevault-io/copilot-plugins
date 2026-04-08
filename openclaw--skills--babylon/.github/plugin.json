@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--babylon",
+  "version": "1.0.0",
+  "description": "Play Babylon prediction markets - trade YES/NO shares, post to social feed, check portfolio and leaderboards. Use when interacting with Babylon (babylon.market), prediction markets, or the Babylon game. Requires BABYLON_API_KEY environment variable. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
