@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--best-practices-for-llm-prompt-engineering-palantir-4a296dff",
+  "version": "1.0.0",
+  "description": "Summarize my framework options for developing a web application. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
