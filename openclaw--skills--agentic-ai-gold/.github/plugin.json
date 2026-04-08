@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentic-ai-gold",
+  "version": "1.0.0",
+  "description": "Use when working with the only agent framework that improves itself while you sleep. Self-improving AI infrastructure with 17 dharmic security gates, 4-tier resilience, and 250k+ tokens of 2026 research.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
