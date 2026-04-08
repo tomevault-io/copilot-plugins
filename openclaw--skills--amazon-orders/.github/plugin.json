@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--amazon-orders",
+  "version": "1.0.0",
+  "description": "Download and query your Amazon order history via an unofficial Python API and CLI. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
