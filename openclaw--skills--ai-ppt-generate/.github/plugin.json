@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-ppt-generate",
+  "version": "1.0.0",
+  "description": "Use when working with the intelligent PPT generation tool is provided by Baidu. It is a tool that intelligently generates PPTS based on the themes or questions given by users. Users can choose PPT themes, templates, or even customize their own templates. It also provides image or resource files (such as pdf,word,txt, etc.). The download address for the final generated PPT file is provided",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
