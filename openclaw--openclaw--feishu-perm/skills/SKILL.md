@@ -1,7 +1,8 @@
 ---
 name: feishu-perm
-description: |
-  Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.
+description: | Use when this capability is needed.
+metadata:
+  author: openclaw
 ---
 
 # Feishu Permission Tool
@@ -120,4 +121,4 @@ Required: `drive:permission`
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
