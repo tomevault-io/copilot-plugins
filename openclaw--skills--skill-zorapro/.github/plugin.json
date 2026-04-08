@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--skill-zorapro",
+  "version": "1.0.0",
+  "description": "name: banana-zora-pro Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
