@@ -1,0 +1,70 @@
+{
+  "name": "langgraphgo",
+  "owner": "smallnest",
+  "repo": "langgraphgo",
+  "description": "AI instruction files for langgraphgo by smallnest",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "baoyu-comic",
+      "path": "examples/comic_skill_example/skills/baoyu-comic",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/examples/comic_skill_example/skills/baoyu-comic",
+      "description": ""
+    },
+    {
+      "name": "baoyu-image-gen",
+      "path": "examples/comic_skill_example/skills/baoyu-image-gen",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/examples/comic_skill_example/skills/baoyu-image-gen",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "testdata/skills/code-review",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "testdata/skills/code-review/code-review",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/code-review/code-review",
+      "description": ""
+    },
+    {
+      "name": "coze-api",
+      "path": "testdata/skills/coze-api/coze-api",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/coze-api/coze-api",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/smallnest",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:11:25Z"
+}
