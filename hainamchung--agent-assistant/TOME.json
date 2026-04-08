@@ -1,0 +1,70 @@
+{
+  "name": "agent-assistant",
+  "owner": "hainamchung",
+  "repo": "agent-assistant",
+  "description": "AI instruction files for agent-assistant by hainamchung",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aesthetic",
+      "path": "skills/aesthetic",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/aesthetic",
+      "description": ""
+    },
+    {
+      "name": "angular-architect",
+      "path": "skills/angular-architect",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/angular-architect",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "path": "skills/api-patterns",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/api-patterns",
+      "description": ""
+    },
+    {
+      "name": "architecture-designer",
+      "path": "skills/architecture-designer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/architecture-designer",
+      "description": ""
+    },
+    {
+      "name": "artifacts-builder",
+      "path": "skills/artifacts-builder",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/artifacts-builder",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/hainamchung",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:07:45Z"
+}
