@@ -4,7 +4,7 @@
   "repo": "hotshot-logistics-admin-portal",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -35,5 +35,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/dpalfery",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T20:14:55Z"
+  "distributed_at": "2026-04-08T22:26:35Z"
 }
