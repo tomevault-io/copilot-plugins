@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aegis-security",
+  "version": "1.0.0",
+  "description": "Blockchain security API for AI agents. Scan tokens, simulate transactions, check addresses for threats. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
