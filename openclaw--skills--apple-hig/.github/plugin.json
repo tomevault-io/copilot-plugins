@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--apple-hig",
+  "version": "1.0.0",
+  "description": "Expert guide for designing iOS, macOS, watchOS, tvOS, and visionOS apps following Apple Human Interface Guidelines. Use when building Apple platform apps or interfaces, implementing SF Symbols, designing with iOS components, following accessibility guidelines, or creating native Apple experiences. Covers design principles, patterns, components, typography, color, layout, navigation, and platform-specific conventions. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
