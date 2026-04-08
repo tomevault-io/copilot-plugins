@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bahn",
+  "version": "1.0.0",
+  "description": "Search Deutsche Bahn train connections using the bahn-cli tool. Use when you need to find train connections between German stations, check departure times, or help with travel planning. Works with station names like \"Berlin Hbf\", \"M\u00fcnchen\", \"Hannover\". Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
