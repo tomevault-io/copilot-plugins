@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--openai-whisper",
   "version": "1.0.0",
-  "description": "Local speech-to-text with the Whisper CLI (no API key).",
+  "description": "Local speech-to-text with the Whisper CLI (no API key). Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
