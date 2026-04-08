@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--api-development",
+  "version": "1.0.0",
+  "description": "Meta-skill that orchestrates the full API development lifecycle \u2014 from design through documentation \u2014 by coordinating specialized skills, agents, and commands into a seamless build workflow. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
