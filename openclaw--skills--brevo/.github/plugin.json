@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--brevo",
+  "version": "1.0.0",
+  "description": "Brevo (formerly Sendinblue) email marketing API for managing contacts, lists, sending transactional emails, and campaigns. Use when importing contacts, sending emails, managing subscriptions, or working with email automation. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
