@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--apple-music",
+  "version": "1.0.0",
+  "description": "Search Apple Music, add songs to library, manage playlists, control playback and AirPlay. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
