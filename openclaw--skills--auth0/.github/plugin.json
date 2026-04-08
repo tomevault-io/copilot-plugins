@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--auth0",
+  "version": "1.0.0",
+  "description": "Manage users, applications, and authentication via Auth0 Management API. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
