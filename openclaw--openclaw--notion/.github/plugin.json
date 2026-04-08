@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--notion",
   "version": "1.0.0",
-  "description": "Notion API for creating and managing pages, databases, and blocks.",
+  "description": "Notion API for creating and managing pages, databases, and blocks. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
