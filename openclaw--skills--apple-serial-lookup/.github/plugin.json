@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--apple-serial-lookup",
+  "version": "1.0.0",
+  "description": "Look up Apple device information from a serial number. Supports iPhones, iPads, Macs (MacBook, iMac, Mac mini, Mac Pro, Mac Studio), Apple Watch, Apple TV, and iPods. Use when a user provides an Apple serial number and wants to identify the device, check specs, manufacturing date/location, warranty status, or get detailed model information. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
