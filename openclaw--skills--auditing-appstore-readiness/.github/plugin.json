@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--auditing-appstore-readiness",
+  "version": "1.0.0",
+  "description": "Audit an iOS app repo (Swift/Xcode or React Native/Expo) for App Store compliance and release readiness; output a pass/warn/fail report and publish checklist. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
