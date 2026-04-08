@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--bear-notes",
   "version": "1.0.0",
-  "description": "Create, search, and manage Bear notes via grizzly CLI.",
+  "description": "Create, search, and manage Bear notes via grizzly CLI. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
