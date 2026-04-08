@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--amai-id",
+  "version": "1.0.0",
+  "description": "Soul-Bound Keys and Soulchain for persistent agent identity, reputation, and messaging. The identity primitive for the agentic web. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
