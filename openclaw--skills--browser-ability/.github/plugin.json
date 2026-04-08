@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--browser-ability",
+  "version": "1.0.0",
+  "description": "This skill enables an AI Agent to signin and retrieve data from websites via JS script. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
