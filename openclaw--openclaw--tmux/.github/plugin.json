@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--tmux",
   "version": "1.0.0",
-  "description": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.",
+  "description": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
