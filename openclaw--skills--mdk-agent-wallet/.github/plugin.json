@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--mdk-agent-wallet",
+  "version": "1.0.0",
+  "description": "Self-custodial Bitcoin Lightning wallet for AI agents. Use when the agent needs to send or receive bitcoin payments, check its balance, generate invoices, or manage its wallet. Supports bolt11, bolt12, LNURL, and lightning addresses. Zero config \u2014 one command to initialize. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
