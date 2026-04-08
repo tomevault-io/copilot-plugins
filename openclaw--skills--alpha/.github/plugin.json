@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alpha",
+  "version": "1.0.0",
+  "description": "Binance Alpha new coin launch detector. Uses WebSocket to monitor !miniTicker@arr stream and detects new trading pairs immediately when they appear. Maintains known symbols set in memory and triggers alert for new symbols with valid opening price. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
