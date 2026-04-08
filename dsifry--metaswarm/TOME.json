@@ -1,0 +1,52 @@
+{
+  "name": "metaswarm",
+  "owner": "dsifry",
+  "repo": "metaswarm",
+  "description": "AI instruction files for metaswarm by dsifry",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "external-tools",
+      "path": "skills/external-tools",
+      "github_url": "https://github.com/dsifry/metaswarm/tree/main/skills/external-tools",
+      "description": ""
+    },
+    {
+      "name": "visual-review",
+      "path": "skills/visual-review",
+      "github_url": "https://github.com/dsifry/metaswarm/tree/main/skills/visual-review",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/dsifry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:06:48Z"
+}
