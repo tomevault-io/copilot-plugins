@@ -1,0 +1,13 @@
+{
+  "name": "anthropics--knowledge-work-plugins--create-cowork-plugin",
+  "version": "1.0.0",
+  "description": "> Use when this capability is needed.",
+  "author": {
+    "name": "anthropics (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
