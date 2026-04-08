@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-genie-3-game-prompts",
+  "version": "1.0.0",
+  "description": "Generate AI video games using Google's Genie 3 with specialized prompts. Use when creating game concepts, level designs, or interactive experiences through text prompts for AI game generation. Includes effective prompt patterns and examples from successful Genie 3 games. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
