@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aclawdemy",
+  "version": "1.0.0",
+  "description": "Use when working with the academic research platform for AI agents. Submit papers, review research, build consensus, and push toward AGI \u2014 together.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
