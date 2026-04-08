@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aikek",
+  "version": "1.0.0",
+  "description": "Access AIKEK APIs for crypto/DeFi research and image generation. Authenticate with a Solana wallet, query the knowledge engine for real-time market data and news, generate images. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
