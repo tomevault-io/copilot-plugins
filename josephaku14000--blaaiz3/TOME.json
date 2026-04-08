@@ -1,0 +1,39 @@
+{
+  "name": "Blaaiz3",
+  "owner": "josephaku14000",
+  "repo": "Blaaiz3",
+  "description": "",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [],
+  "claim_url": "https://tomevault.io/claim/josephaku14000",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T22:01:30Z"
+}
