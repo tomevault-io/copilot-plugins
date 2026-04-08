@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--apple-mail-search-safe",
+  "version": "1.0.0",
+  "description": "Apple Mail search on macOS with fast metadata and full body lookup. Use for finding messages in Mail.app by subject/sender/recipient/date, opening messages, and reading full body text.  Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
