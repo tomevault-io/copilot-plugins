@@ -1,0 +1,22 @@
+# MetaTypes
+
+> Config by [amather](https://github.com/amather/MetaTypes) — distributed by [TomeVault](https://tomevault.io/claim/amather)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [amather/MetaTypes](https://github.com/amather/MetaTypes).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+
+Browse all formats: [https://tomevault.io/claim/amather](https://tomevault.io/claim/amather)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/amather) to manage distribution.
