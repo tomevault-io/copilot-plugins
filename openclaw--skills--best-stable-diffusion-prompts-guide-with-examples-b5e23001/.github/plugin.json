@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--best-stable-diffusion-prompts-guide-with-examples-b5e23001",
+  "version": "1.0.0",
+  "description": "create an image similar to a particular artist Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
