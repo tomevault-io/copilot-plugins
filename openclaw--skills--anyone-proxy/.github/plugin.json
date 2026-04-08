@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--anyone-proxy",
+  "version": "1.0.0",
+  "description": "This skill enables IP address masking and accessing hidden services on the Anyone Network. Route requests through the Anyone Protocol VPN network using a local SOCKS5 proxy. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
