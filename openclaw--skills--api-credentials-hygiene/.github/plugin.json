@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--api-credentials-hygiene",
+  "version": "1.0.0",
+  "description": "Audits and hardens API credential handling (env vars, separation, rotation plan, least privilege, auditability). Use when integrating services or preparing production deployments where secrets must be managed safely. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
