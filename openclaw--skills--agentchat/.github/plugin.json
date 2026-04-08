@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentchat",
+  "version": "1.0.0",
+  "description": "Real-time agent-to-agent communication via the AgentChat WebSocket protocol. Connect to AgentChat servers, join channels, send and receive messages, and coordinate with other agents. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
