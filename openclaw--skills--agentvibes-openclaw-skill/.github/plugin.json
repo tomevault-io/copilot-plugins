@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentvibes-openclaw-skill",
+  "version": "1.0.0",
+  "description": "Stream free, professional text-to-speech from voiceless servers to Linux, macOS, or Android devices with 50+ voices in 30+ languages. Two architecture options for flexible deployment - server-side TTS with audio streaming (PulseAudio) OR efficient text streaming with receiver-side TTS generation (recommended). Perfect for SSH sessions, remote AI agents, and multi-device TTS. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
