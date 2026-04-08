@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--apple-notes-applescript",
+  "version": "1.0.0",
+  "description": "Apple Notes.app integration for macOS. List folders, read, create, search, edit, and delete notes via AppleScript. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
