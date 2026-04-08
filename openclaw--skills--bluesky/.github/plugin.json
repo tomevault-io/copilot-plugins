@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bluesky",
+  "version": "1.0.0",
+  "description": "Complete Bluesky CLI: post, reply, like, repost, follow, block, mute, search, threads, images. Everything you need to engage on Bluesky from the terminal. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
