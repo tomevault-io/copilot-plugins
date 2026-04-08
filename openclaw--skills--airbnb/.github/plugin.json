@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--airbnb",
+  "version": "1.0.0",
+  "description": "description: Search Airbnb listings with prices, ratings, and direct links. No API key required. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
