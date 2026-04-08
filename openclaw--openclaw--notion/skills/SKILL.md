@@ -1,12 +1,8 @@
 ---
 name: notion
-description: Notion API for creating and managing pages, databases, and blocks.
-homepage: https://developers.notion.com
+description: Notion API for creating and managing pages, databases, and blocks. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      { "emoji": "📝", "requires": { "env": ["NOTION_API_KEY"] }, "primaryEnv": "NOTION_API_KEY" },
-  }
+  author: openclaw
 ---
 
 # notion
@@ -175,4 +171,4 @@ Common property formats for database items:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
