@@ -1,25 +1,8 @@
 ---
 name: trello
-description: Manage Trello boards, lists, and cards via the Trello REST API.
-homepage: https://developer.atlassian.com/cloud/trello/rest/
+description: Manage Trello boards, lists, and cards via the Trello REST API. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "📋",
-        "requires": { "bins": ["jq"], "env": ["TRELLO_API_KEY", "TRELLO_TOKEN"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "jq",
-              "bins": ["jq"],
-              "label": "Install jq (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # Trello Skill
@@ -109,4 +92,4 @@ curl -s "https://api.trello.com/1/boards/{boardId}/cards?key=$TRELLO_API_KEY&tok
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
