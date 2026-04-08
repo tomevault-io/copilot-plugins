@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--trello",
   "version": "1.0.0",
-  "description": "Manage Trello boards, lists, and cards via the Trello REST API.",
+  "description": "Manage Trello boards, lists, and cards via the Trello REST API. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
