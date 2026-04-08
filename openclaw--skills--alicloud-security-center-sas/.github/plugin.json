@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alicloud-security-center-sas",
+  "version": "1.0.0",
+  "description": "Manage Alibaba Cloud Security Center (Sas) via OpenAPI/SDK. Use whenever the user needs Security Center resource operations, configuration updates, status queries, and troubleshooting Sas API or security workflow issues. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
