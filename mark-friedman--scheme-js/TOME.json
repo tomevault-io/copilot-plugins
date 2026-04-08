@@ -1,0 +1,64 @@
+{
+  "name": "scheme-js",
+  "owner": "mark-friedman",
+  "repo": "scheme-js",
+  "description": "AI instruction files for scheme-js by mark-friedman",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create_library",
+      "path": ".agent/skills/create_library",
+      "github_url": "https://github.com/mark-friedman/scheme-js/tree/main/.agent/skills/create_library",
+      "description": ""
+    },
+    {
+      "name": "implement_primitive",
+      "path": ".agent/skills/implement_primitive",
+      "github_url": "https://github.com/mark-friedman/scheme-js/tree/main/.agent/skills/implement_primitive",
+      "description": ""
+    },
+    {
+      "name": "refactor_to_scheme",
+      "path": ".agent/skills/refactor_to_scheme",
+      "github_url": "https://github.com/mark-friedman/scheme-js/tree/main/.agent/skills/refactor_to_scheme",
+      "description": ""
+    },
+    {
+      "name": "update_documentation",
+      "path": ".agent/skills/update_documentation",
+      "github_url": "https://github.com/mark-friedman/scheme-js/tree/main/.agent/skills/update_documentation",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/mark-friedman",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:09:09Z"
+}
