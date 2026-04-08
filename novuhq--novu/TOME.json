@@ -1,0 +1,64 @@
+{
+  "name": "novu",
+  "owner": "novuhq",
+  "repo": "novu",
+  "description": "AI instruction files for novu by novuhq",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "better-auth-best-practices",
+      "path": ".claude/skills/better-auth-best-practices",
+      "github_url": "https://github.com/novuhq/novu/tree/main/.claude/skills/better-auth-best-practices",
+      "description": ""
+    },
+    {
+      "name": "email-best-practices",
+      "path": ".agents/skills/email-best-practices",
+      "github_url": "https://github.com/novuhq/novu/tree/main/.agents/skills/email-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-email",
+      "path": ".agents/skills/react-email",
+      "github_url": "https://github.com/novuhq/novu/tree/main/.agents/skills/react-email",
+      "description": ""
+    },
+    {
+      "name": "run-api-e2e-tests",
+      "path": ".cursor/skills/run-api-e2e-tests",
+      "github_url": "https://github.com/novuhq/novu/tree/main/.cursor/skills/run-api-e2e-tests",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/novuhq",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:09:59Z"
+}
