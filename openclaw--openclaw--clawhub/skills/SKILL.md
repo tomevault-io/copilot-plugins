@@ -1,23 +1,8 @@
 ---
 name: clawhub
-description: Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.
+description: Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "requires": { "bins": ["clawhub"] },
-        "install":
-          [
-            {
-              "id": "node",
-              "kind": "node",
-              "package": "clawhub",
-              "bins": ["clawhub"],
-              "label": "Install ClawHub CLI (npm)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # ClawHub CLI
@@ -78,4 +63,4 @@ Notes
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
