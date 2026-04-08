@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agirails",
+  "version": "1.0.0",
+  "description": "Trustless payment protocol for AI agents \u2014 ACTP escrow + x402 instant payments, USDC on Base L2. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
