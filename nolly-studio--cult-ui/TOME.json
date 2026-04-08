@@ -1,0 +1,46 @@
+{
+  "name": "cult-ui",
+  "owner": "nolly-studio",
+  "repo": "cult-ui",
+  "description": "AI instruction files for cult-ui by nolly-studio",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "components-build",
+      "path": ".agents/skills/components-build",
+      "github_url": "https://github.com/nolly-studio/cult-ui/tree/main/.agents/skills/components-build",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/nolly-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:14:49Z"
+}
