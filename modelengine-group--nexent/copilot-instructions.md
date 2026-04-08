@@ -1,141 +1,37 @@
 ## nexent
 
-> - All comments and docstrings must be written in clear, concise English
+> Service layer implements core business logic orchestration; raise custom exceptions; no HTTP handling
 
-# Claude Code Rules
 
-## Code Quality Standards
+### Service Layer Rules
 
-### English-Only Comments and Documentation
-- All comments and docstrings must be written in clear, concise English
-- Do not use non-English characters in comments (string literals may contain any language)
-- Use proper grammar and spelling; avoid ambiguous abbreviations
-- Apply to: docstrings, inline comments, TODO/FIXME/NOTE, header comments, configuration comments
+- **Scope**: Applies to `backend/services/*.py`.
+- **Goal**: Implement core business logic and orchestrate complex workflows. Coordinate repositories/SDKs. Keep HTTP concerns out of this layer.
+- **Exceptions**: Raise domain/service exceptions declared in `backend/consts/exceptions.py`. If a new case is needed, add a new class there, then raise it here. Do not translate to HTTP here.
+- **Environment variables**: Do not access `os.getenv()` directly. Read configuration from `consts.const` (see `environment_variable` rule) or accept parameters.
 
-**Good:**
+Reference: [backend/consts/exceptions.py](mdc:backend/consts/exceptions.py)
+
+### Correct example (service orchestrates business logic and raises domain exceptions)
 ```python
-# Initialize cache for 60 seconds
-self.cache_ttl = 60
-```
-
-**Bad:**
-```python
-# 初始化缓存 60 秒 - FORBIDDEN
-# データキャッシュ60秒 - FORBIDDEN
-```
-
-### Environment Variable Management
-- All environment variable access must go through `backend/consts/const.py`
-- No direct `os.getenv()` or `os.environ.get()` calls outside of `const.py`
-- SDK modules (`sdk/`) should never read environment variables directly - accept configuration via parameters
-- Services (`backend/services/`) read from `consts.const` and pass config to SDK
-- Apps (`backend/apps/`) read from `consts.const` and pass through to services/SDK
-
-**Good:**
-```python
-# backend/consts/const.py
-APPID = os.getenv("APPID", "")
-TOKEN = os.getenv("TOKEN", "")
-
-# other modules
-from consts.const import APPID, TOKEN
-```
-
-**Bad:**
-```python
-# direct calls in other modules
-import os
-appid = os.getenv("APPID")
-token = os.environ.get("TOKEN")
-```
-
-## Backend Architecture Rules
-
-### App Layer Rules (`backend/apps/**/*.py`)
-**Purpose:** HTTP boundary for the backend - parse/validate input, call services, map domain errors to HTTP
-
-**Responsibilities:**
-- Parse and validate HTTP inputs using Pydantic models
-- Call underlying services; do not implement core business logic
-- Translate domain/service exceptions into `HTTPException` with proper status codes
-- Return `JSONResponse(status_code=HTTPStatus.OK, content=payload)` on success
-
-**Routing and URL Design:**
-- Keep existing top-level prefixes for compatibility (e.g., `"/agent"`, `"/memory"`)
-- Use plural nouns for collection-style resources (e.g., `"/agents"`, `"/memories"`)
-- Use snake_case for all path segments
-- Path parameters must be singular, semantic nouns: `"/agents/{agent_id}"`
-
-**HTTP Methods:**
-- GET: Read and list operations only
-- POST: Create resources, perform searches, or trigger actions with side effects
-- DELETE: Delete resources or clear collections (ensure idempotency)
-- PUT/PATCH: Update resources
-
-**Authorization:**
-- Retrieve bearer token via header injection: `authorization: Optional[str] = Header(None)`
-- Use utility helpers from `utils.auth_utils` (e.g., `get_current_user_id`)
-
-**Exception Mapping:**
-- `UnauthorizedError` → 401 UNAUTHORIZED
-- `LimitExceededError` → 429 TOO_MANY_REQUESTS
-- Parameter/validation errors → 400 BAD_REQUEST or 406 NOT_ACCEPTABLE
-- Unexpected errors → 500 INTERNAL_SERVER_ERROR
-
-**Correct Example:**
-```python
-from http import HTTPStatus
-import logging
-from fastapi import APIRouter, HTTPException
-from starlette.responses import JSONResponse
-
-from consts.exceptions import LimitExceededError, AgentRunException
-from services.agent_service import run_agent
-
-logger = logging.getLogger(__name__)
-router = APIRouter()
-
-@router.post("/agent/run")
-def run_agent_endpoint(payload: dict):
-    try:
-        result = run_agent(payload)
-        return JSONResponse(status_code=HTTPStatus.OK, content=result)
-    except LimitExceededError as exc:
-        raise HTTPException(status_code=HTTPStatus.TOO_MANY_REQUESTS, detail=str(exc))
-    except AgentRunException as exc:
-        raise HTTPException(status_code=HTTPStatus.INTERNAL_SERVER_ERROR, detail=str(exc))
-```
-
-### Service Layer Rules (`backend/services/**/*.py`)
-**Purpose:** Implement core business logic orchestration; coordinate repositories/SDKs
-
-**Requirements:**
-- Implement core business logic and orchestrate complex workflows
-- Raise domain/service exceptions from `backend/consts/exceptions.py`
-- No HTTP concerns (no HTTPException, JSONResponse, etc.)
-- No direct environment variable access (use `consts.const`)
-- Return plain Python objects, not HTTP responses
-
-**Available Exceptions:**
-- `AgentRunException`: When agent run fails
-- `LimitExceededError`: When outer platform calls too frequently  
-- `UnauthorizedError`: When user from outer platform is unauthorized
-- `SignatureValidationError`: When X-Signature header validation fails
-- `MemoryPreparationException`: When memory preprocessing/retrieval fails
-
-**Correct Example:**
-```python
+# backend/services/agent_service.py
 from typing import Any, Dict
+
 from consts.exceptions import LimitExceededError, AgentRunException, MemoryPreparationException
+# from consts.const import APPID, TOKEN  # Example: read config via consts, not os.getenv
+
 
 def run_agent(task_payload: Dict[str, Any]) -> Dict[str, Any]:
-    """Run agent core workflow and return domain result dict."""
+    """Run agent core workflow and return domain result dict.
+    Raises domain exceptions on failure; no HTTP concerns here.
+    """
     if _is_rate_limited(task_payload):
         raise LimitExceededError("Too many requests for this tenant.")
 
     try:
         memory = _prepare_memory(task_payload)
     except Exception as exc:
+        # Wrap low-level error in a domain exception for the app layer to translate
         raise MemoryPreparationException("Failed to prepare memory.") from exc
 
     try:
@@ -143,52 +39,80 @@ def run_agent(task_payload: Dict[str, Any]) -> Dict[str, Any]:
     except Exception as exc:
         raise AgentRunException("Agent execution failed.") from exc
 
+    # Return a plain Python object, not a Response
     return {"status": "ok", "data": result}
+
+
+def _is_rate_limited(_: Dict[str, Any]) -> bool:
+    return False
+
+
+def _prepare_memory(_: Dict[str, Any]) -> Dict[str, Any]:
+    return {"memo": "prepared"}
+
+
+def _execute_core_logic(_: Dict[str, Any], __: Dict[str, Any]) -> Dict[str, Any]:
+    return {"answer": "42"}
 ```
 
-## Migration Checklist
+### Incorrect example (service leaks HTTP/web concerns or reads env directly)
+```python
+# backend/services/agent_service.py
+from fastapi import HTTPException  # WRONG: HTTP in service
+from starlette.responses import JSONResponse  # WRONG: Response in service
+import os  # WRONG: direct env access in service
 
-### Environment Variables
-1. Add new vars to `backend/consts/const.py`
-2. Update `.env.example`
-3. Remove all direct `os.getenv()`/`os.environ.get()` outside `const.py`
-4. Import from `consts.const` in backend modules
-5. Pass configuration as parameters to SDK
-6. Remove `from_env()` methods from config classes
 
-### Code Quality
-1. Convert all non-English comments to English
-2. Ensure docstrings use proper English grammar
-3. Add module-level loggers: `logger = logging.getLogger(__name__)`
-4. Follow existing async/sync conventions in each module
+def run_agent(_: dict):
+    # WRONG: translating to HTTP inside service
+    if os.getenv("RATE_LIMIT", "0") == "1":  # WRONG: direct getenv here
+        raise HTTPException(status_code=429, detail="Too many requests")
 
-## File Structure
-
-```
-backend/
-├── apps/           # HTTP API layer (FastAPI endpoints)
-├── services/       # Business logic orchestration
-├── consts/
-│   ├── const.py   # Single source of truth for env vars
-│   └── exceptions.py # Domain exceptions
-└── utils/
-    └── auth_utils.py # Authentication utilities
-
-sdk/               # Pure configuration-based, no env vars
+    # WRONG: returning framework response from service
+    return JSONResponse({"status": "ok"})
 ```
 
-## Validation Rules
+### Declaring a new custom exception (do this in exceptions module)
+```python
+# backend/consts/exceptions.py
+class OrderProcessingError(Exception):
+    """Raised when order processing fails in service layer."""
+    pass
+```
 
-- No direct env access outside `const.py`
-- No `from_env()` in config classes
-- All env vars defined in `const.py`
-- SDK modules accept configuration via parameters
-- All comments in English
-- Service layer raises domain exceptions only
-- App layer maps domain exceptions to HTTP status codes
-- Use structured logging with module-level loggers
+### Existing exceptions (excerpt from current code)
+```python
+"""
+Custom exception classes for the application.
+"""
+
+
+class AgentRunException(Exception):
+    """Exception raised when agent run fails."""
+    pass
+
+
+class LimitExceededError(Exception):
+    """Raised when an outer platform calling too frequently"""
+    pass
+
+
+class UnauthorizedError(Exception):
+    """Raised when a user from outer platform is unauthorized."""
+    pass
+
+
+class SignatureValidationError(Exception):
+    """Raised when X-Signature header is missing or does not match the expected HMAC value."""
+    pass
+
+
+class MemoryPreparationException(Exception):
+    """Raised when memory preprocessing or retrieval fails prior to agent run."""
+    pass
+```
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/ModelEngine-Group)
 > This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ModelEngine-Group)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
