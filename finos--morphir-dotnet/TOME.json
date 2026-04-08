@@ -1,0 +1,52 @@
+{
+  "name": "morphir-dotnet",
+  "owner": "finos",
+  "repo": "morphir-dotnet",
+  "description": "AI instruction files for morphir-dotnet by finos",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aot-guru",
+      "path": ".claude/skills/aot-guru",
+      "github_url": "https://github.com/finos/morphir-dotnet/tree/main/.claude/skills/aot-guru",
+      "description": ""
+    },
+    {
+      "name": "elm-to-fsharp-guru",
+      "path": ".claude/skills/elm-to-fsharp-guru",
+      "github_url": "https://github.com/finos/morphir-dotnet/tree/main/.claude/skills/elm-to-fsharp-guru",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/finos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:07:10Z"
+}
