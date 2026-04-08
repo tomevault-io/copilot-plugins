@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-credit",
+  "version": "1.0.0",
+  "description": "Borrow from Aave via credit delegation. Agent self-funds by borrowing against delegator collateral. Supports borrow, repay, health checks. Works on Aave V2/V3. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
