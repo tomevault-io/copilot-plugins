@@ -1,0 +1,46 @@
+{
+  "name": "claudekit-engineer",
+  "owner": "toanpv-0639",
+  "repo": "claudekit-engineer",
+  "description": "AI instruction files for claudekit-engineer by toanpv-0639",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-multimodal",
+      "path": ".claude/skills/ai-multimodal",
+      "github_url": "https://github.com/toanpv-0639/claudekit-engineer/tree/main/.claude/skills/ai-multimodal",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/toanpv-0639",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:15:34Z"
+}
