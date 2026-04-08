@@ -2611,6 +2611,22 @@
     {
       "name": "assafelovic--skyll--skyll",
       "source": "./assafelovic--skyll--skyll"
+    },
+    {
+      "name": "plurigrid--asi--12-factor-app-modernization",
+      "source": "./plurigrid--asi--12-factor-app-modernization"
+    },
+    {
+      "name": "plurigrid--asi--13c0e3",
+      "source": "./plurigrid--asi--13c0e3"
+    },
+    {
+      "name": "plurigrid--asi--19d57d",
+      "source": "./plurigrid--asi--19d57d"
+    },
+    {
+      "name": "plurigrid--asi--1ea91a",
+      "source": "./plurigrid--asi--1ea91a"
     }
   ]
 }
