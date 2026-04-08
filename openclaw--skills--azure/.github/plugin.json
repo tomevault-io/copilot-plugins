@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--azure",
+  "version": "1.0.0",
+  "description": "Deploy, monitor, and manage Azure services with battle-tested patterns. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
