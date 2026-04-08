@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--add-newcli-provider",
+  "version": "1.0.0",
+  "description": "\u4e3a OpenClaw \u914d\u7f6e code.newcli.com \u4f5c\u4e3a\u6a21\u578b\u6e90\uff0c\u5305\u542b\u56db\u4e2a provider\uff1anewcli\uff08Claude \u4e3b\u7ebf\u8def\uff09\u3001newcli-aws\uff08Claude AWS \u7279\u4ef7\u7ebf\u8def\uff0c\u6d88\u8017 1/24\uff09\u3001newcli-codex\uff08GPT \u7cfb\u5217\uff09\u3001newcli-gemini\uff08Gemini \u7cfb\u5217\uff09\u3002\u9002\u7528\u4e8e\u9700\u8981\u63a5\u5165 Claude \u6216 GPT \u6a21\u578b\u7684\u573a\u666f\u3002\u5305\u542b provider \u6ce8\u518c\u3001\u6a21\u578b\u5b9a\u4e49\u3001\u522b\u540d\u914d\u7f6e\u3001fallback \u94fe\u63a5\u5165\u548c\u9a8c\u8bc1\u7684\u5b8c\u6574\u6d41\u7a0b\u3002\u5f53\u7ba1\u7406\u5458\u8bf4\u60f3\"\u52a0 Claude\"\u3001\"\u52a0 GPT\"\u3001\"\u914d newcli\"\u3001\"\u52a0 fox \u6e90\"\u3001\"\u63a5\u5165 Claude \u6a21\u578b\"\u3001\"\u63a5\u5165 GPT \u6a21\u578b\"\u3001\"\u52a0 codex\"\u3001\"\u52a0 aws \u7ebf\u8def\"\u65f6\u4f7f\u7528\u6b64 skill\u3002 Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
