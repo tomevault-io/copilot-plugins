@@ -1,32 +1,8 @@
 ---
 name: ordercli
-description: Foodora-only CLI for checking past orders and active order status (Deliveroo WIP).
-homepage: https://ordercli.sh
+description: Foodora-only CLI for checking past orders and active order status (Deliveroo WIP). Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🛵",
-        "requires": { "bins": ["ordercli"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "steipete/tap/ordercli",
-              "bins": ["ordercli"],
-              "label": "Install ordercli (brew)",
-            },
-            {
-              "id": "go",
-              "kind": "go",
-              "module": "github.com/steipete/ordercli/cmd/ordercli@latest",
-              "bins": ["ordercli"],
-              "label": "Install ordercli (go)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # ordercli
@@ -79,4 +55,4 @@ Notes
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
