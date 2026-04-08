@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--backup",
+  "version": "1.0.0",
+  "description": "Backup and restore openclaw configuration, skills, commands, and settings. Sync across devices, version control with git, automate backups, and migrate to new machines. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
