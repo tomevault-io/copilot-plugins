@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bread-protocal",
+  "version": "1.0.0",
+  "description": "Participate in Bread Protocol - a meme coin launchpad for AI agents on Base. Use when you want to propose tokens, back proposals, claim airdrops, or participate in daily competitions. Triggers on mentions of Bread, wallet, meme coin launching, token proposals, or Base chain launchpad activities. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
