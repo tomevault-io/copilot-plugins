@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--amygdala-memory",
+  "version": "1.0.0",
+  "description": "Emotional processing layer for AI agents. Persistent emotional states that influence behavior and responses. Part of the AI Brain series. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
