@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-image-prompts-for-eye-catching-marketing-creati-d97f99e2",
+  "version": "1.0.0",
+  "description": "Use when working with a product photo of running shoes on white marble in a minimalist studio, shot with natural lighting and shallow depth of field.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
