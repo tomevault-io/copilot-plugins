@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--book-appliance-repair",
+  "version": "1.0.0",
+  "description": "Book appliance-repair services through Lokuli MCP. Use when user needs to find and book appliance-repair. Triggers on requests like \"book a appliance-repair\", \"find appliance-repair near me\", or any appliance-repair service request. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
