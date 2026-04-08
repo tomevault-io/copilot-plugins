@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--backup-script-gen",
+  "version": "1.0.0",
+  "description": "Generate database backup scripts with AI. Use when you need automated backups to S3, GCS, or local storage. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
