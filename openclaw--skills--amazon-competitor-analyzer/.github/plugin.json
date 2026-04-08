@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--amazon-competitor-analyzer",
+  "version": "1.0.0",
+  "description": "Scrapes Amazon product data from ASINs using browseract.com automation API and performs surgical competitive analysis. Compares specifications, pricing, review quality, and visual strategies to identify competitor moats and vulnerabilities. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
