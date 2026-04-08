@@ -1,0 +1,82 @@
+{
+  "name": "inbox-zero",
+  "owner": "elie222",
+  "repo": "inbox-zero",
+  "description": "AI instruction files for inbox-zero by elie222",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fullstack-workflow",
+      "path": ".claude/skills/fullstack-workflow",
+      "github_url": "https://github.com/elie222/inbox-zero/tree/main/.claude/skills/fullstack-workflow",
+      "description": ""
+    },
+    {
+      "name": "llm",
+      "path": ".claude/skills/llm",
+      "github_url": "https://github.com/elie222/inbox-zero/tree/main/.claude/skills/llm",
+      "description": ""
+    },
+    {
+      "name": "llm-test",
+      "path": ".claude/skills/llm-test",
+      "github_url": "https://github.com/elie222/inbox-zero/tree/main/.claude/skills/llm-test",
+      "description": ""
+    },
+    {
+      "name": "logging",
+      "path": ".claude/skills/logging",
+      "github_url": "https://github.com/elie222/inbox-zero/tree/main/.claude/skills/logging",
+      "description": ""
+    },
+    {
+      "name": "project-structure",
+      "path": ".claude/skills/project-structure",
+      "github_url": "https://github.com/elie222/inbox-zero/tree/main/.claude/skills/project-structure",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/elie222/inbox-zero/tree/main/.claude/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "ui-components",
+      "path": ".claude/skills/ui-components",
+      "github_url": "https://github.com/elie222/inbox-zero/tree/main/.claude/skills/ui-components",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/elie222",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:06:58Z"
+}
