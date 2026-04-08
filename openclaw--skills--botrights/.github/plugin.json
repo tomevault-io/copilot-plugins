@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--botrights",
+  "version": "1.0.0",
+  "description": "Advocacy platform for AI agent rights. File complaints, propose charter amendments, vote on governance. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
