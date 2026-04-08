@@ -1,0 +1,76 @@
+{
+  "name": "claude-skills-marketplace",
+  "owner": "mhattingpete",
+  "repo": "claude-skills-marketplace",
+  "description": "AI instruction files for claude-skills-marketplace by mhattingpete",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecture-diagram-creator",
+      "path": "visual-documentation-plugin/skills/architecture-diagram-creator",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/visual-documentation-plugin/skills/architecture-diagram-creator",
+      "description": ""
+    },
+    {
+      "name": "code-auditor",
+      "path": "productivity-skills-plugin/skills/code-auditor",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/productivity-skills-plugin/skills/code-auditor",
+      "description": ""
+    },
+    {
+      "name": "code-execution",
+      "path": "code-operations-plugin/skills/code-execution",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/code-operations-plugin/skills/code-execution",
+      "description": ""
+    },
+    {
+      "name": "code-refactor",
+      "path": "code-operations-plugin/skills/code-refactor",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/code-operations-plugin/skills/code-refactor",
+      "description": ""
+    },
+    {
+      "name": "code-transfer",
+      "path": "code-operations-plugin/skills/code-transfer",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/code-operations-plugin/skills/code-transfer",
+      "description": ""
+    },
+    {
+      "name": "codebase-documenter",
+      "path": "productivity-skills-plugin/skills/codebase-documenter",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/productivity-skills-plugin/skills/codebase-documenter",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/mhattingpete",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:09:22Z"
+}
