@@ -1,0 +1,70 @@
+{
+  "name": "go-crypto-wallet",
+  "owner": "hiromaily",
+  "repo": "go-crypto-wallet",
+  "description": "AI instruction files for go-crypto-wallet by hiromaily",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bch-development",
+      "path": ".claude/skills/bch-development",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/bch-development",
+      "description": ""
+    },
+    {
+      "name": "btc-terminology",
+      "path": ".claude/skills/btc-terminology",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/btc-terminology",
+      "description": ""
+    },
+    {
+      "name": "db-migration",
+      "path": ".claude/skills/db-migration",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/db-migration",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "path": ".claude/skills/devops",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/devops",
+      "description": ""
+    },
+    {
+      "name": "docs-update",
+      "path": ".claude/skills/docs-update",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/docs-update",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/hiromaily",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:08:07Z"
+}
