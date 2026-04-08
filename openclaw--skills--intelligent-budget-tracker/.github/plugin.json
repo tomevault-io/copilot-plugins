@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--intelligent-budget-tracker",
+  "version": "1.0.0",
+  "description": "name: agent-money-tracker Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
