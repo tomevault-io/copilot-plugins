@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--assess-risk",
+  "version": "1.0.0",
+  "description": "Get an independent risk assessment for any proposed Uniswap operation \u2014 swap, LP position, bridge, or token interaction. Evaluates slippage, impermanent loss, liquidity, smart contract, and bridge risks with a clear APPROVE or VETO decision. Use when the user asks if something is safe or wants a risk evaluation. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
