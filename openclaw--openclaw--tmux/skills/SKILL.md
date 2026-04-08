@@ -1,25 +1,8 @@
 ---
 name: tmux
-description: Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
+description: Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🧵",
-        "os": ["darwin", "linux"],
-        "requires": { "bins": ["tmux"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "tmux",
-              "bins": ["tmux"],
-              "label": "Install tmux (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # tmux Session Control
@@ -171,4 +154,4 @@ tmux send-keys -t worker-4 "Fix the bug in auth.js" Enter
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
