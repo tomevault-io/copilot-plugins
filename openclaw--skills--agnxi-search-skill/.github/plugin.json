@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agnxi-search-skill",
+  "version": "1.0.0",
+  "description": "This skill provides direct access to the [Agnxi.com](https://agnxi.com) database, allowing agents to autonomously discover and retrieve information about thousands of curated tools, MCP servers, and coding capabilities. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
