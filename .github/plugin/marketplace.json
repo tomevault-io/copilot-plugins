@@ -2771,6 +2771,10 @@
     {
       "name": "anthropics--claude-agent-sdk-demos--pdf",
       "source": "./anthropics--claude-agent-sdk-demos--pdf"
+    },
+    {
+      "name": "captainsafia--grove---agents",
+      "source": "./captainsafia--grove---agents"
     }
   ]
 }
