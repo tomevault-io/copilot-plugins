@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--api",
+  "version": "1.0.0",
+  "description": "REST API reference for 147 services. Authentication patterns, endpoints, rate limits, and common gotchas. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
