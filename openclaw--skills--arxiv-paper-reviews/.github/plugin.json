@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--arxiv-paper-reviews",
+  "version": "1.0.0",
+  "description": "Interact with arXiv Crawler API to fetch papers, read reviews, submit comments, search papers, and import papers. Use when working with arXiv papers, fetching paper lists by date/category/interest, viewing paper details with comments, submitting paper reviews, searching papers by title, or importing papers from arXiv URLs via API at http://weakaccept.top:8000/. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
