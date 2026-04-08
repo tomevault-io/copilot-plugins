@@ -1,25 +1,8 @@
 ---
 name: weather
-description: "Get current weather and forecasts via wttr.in or Open-Meteo. Use when: user asks about weather, temperature, or forecasts for any location. NOT for: historical weather data, severe weather alerts, or detailed meteorological analysis. No API key needed."
-homepage: https://wttr.in/:help
+description: Get current weather and forecasts via wttr.in or Open-Meteo. Use when: user asks about weather, temperature, or forecasts for any location. NOT for: historical weather data, severe weather alerts, or detailed meteorological analysis. No API key needed. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "☔",
-        "requires": { "bins": ["curl"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "curl",
-              "bins": ["curl"],
-              "label": "Install curl (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # Weather Skill
@@ -130,4 +113,4 @@ curl "wttr.in/London?format=v2"
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
