@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentpayy",
+  "version": "1.0.0",
+  "description": "Use when working with the Economic OS for OpenClaw. Autonomous USDC wallets on Base L2 via x402.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
