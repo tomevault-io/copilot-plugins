@@ -1,26 +1,8 @@
 ---
 name: sag
-description: ElevenLabs text-to-speech with mac-style say UX.
-homepage: https://sag.sh
+description: ElevenLabs text-to-speech with mac-style say UX. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🔊",
-        "requires": { "bins": ["sag"], "env": ["ELEVENLABS_API_KEY"] },
-        "primaryEnv": "ELEVENLABS_API_KEY",
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "steipete/tap/sag",
-              "bins": ["sag"],
-              "label": "Install sag (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # sag
@@ -88,4 +70,4 @@ Default voice for Clawd: `lj2rcrvANS3gaWWnczSX` (or just `-v Clawd`)
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
