@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--beeper-api-cli",
+  "version": "1.0.0",
+  "description": "Read and send messages via Beeper CLI. Supports WhatsApp, Telegram, Signal, Instagram, Twitter/X, LinkedIn, Facebook Messenger and more. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
