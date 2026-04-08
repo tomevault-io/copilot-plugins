@@ -1,0 +1,13 @@
+{
+  "name": "anthropics--knowledge-work-plugins--data-visualization",
+  "version": "1.0.0",
+  "description": "Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory. Use when this capability is needed.",
+  "author": {
+    "name": "anthropics (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
