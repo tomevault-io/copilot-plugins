@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bria-ai",
+  "version": "1.0.0",
+  "description": "AI image generation, editing, and background removal API via Bria.ai \u2014 authenticates via OAuth device flow and caches credentials in ~/.bria/credentials, then calls 20+ endpoints to remove backgrounds for transparent PNGs and cutouts, generate images from text prompts, and edit photos with natural language instructions. Also create product photography and lifestyle shots, replace or blur backgrounds, upscale resolution, restyle, and batch-generate visual assets. Use this skill whenever the user wants to remove a background, create transparent PNGs, generate, edit, modify, or transform any image \u2014 including hero images, banners, social media visuals, product photos, illustrations, icons, thumbnails, ad creatives, or marketing materials. Also triggers on cutout, inpainting, outpainting, object removal or addition, photo restoration, style transfer, image enhancement, relight, reseason, sketch-to-photo, or any visual content creation. Commercially safe, royalty-free. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
