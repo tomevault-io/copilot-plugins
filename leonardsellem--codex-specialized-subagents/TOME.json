@@ -1,0 +1,46 @@
+{
+  "name": "codex-specialized-subagents",
+  "owner": "leonardsellem",
+  "repo": "codex-specialized-subagents",
+  "description": "AI instruction files for codex-specialized-subagents by leonardsellem",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "delegation-autopilot",
+      "path": ".codex/skills/delegation-autopilot",
+      "github_url": "https://github.com/leonardsellem/codex-specialized-subagents/tree/main/.codex/skills/delegation-autopilot",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/leonardsellem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:14:36Z"
+}
