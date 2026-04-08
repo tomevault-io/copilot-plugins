@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-slides",
+  "version": "1.0.0",
+  "description": "Generate complete presentations with AI - from outline to polished slides Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
