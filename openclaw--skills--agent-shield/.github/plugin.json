@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-shield",
+  "version": "1.0.0",
+  "description": "Use when working with the Chitin Protocol. Protect yourself. Protect your siblings.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
