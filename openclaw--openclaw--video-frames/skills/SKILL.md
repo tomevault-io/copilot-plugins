@@ -1,25 +1,8 @@
 ---
 name: video-frames
-description: Extract frames or short clips from videos using ffmpeg.
-homepage: https://ffmpeg.org
+description: Extract frames or short clips from videos using ffmpeg. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🎬",
-        "requires": { "bins": ["ffmpeg"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "ffmpeg",
-              "bins": ["ffmpeg"],
-              "label": "Install ffmpeg (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # Video Frames (ffmpeg)
@@ -47,4 +30,4 @@ At a timestamp:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
