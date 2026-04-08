@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-portrait-generator",
+  "version": "1.0.0",
+  "description": "Generate ultra-photorealistic portraits using structured JSON prompts. Use when creating AI-generated portraits, character art, or realistic human images with cinematic quality and detailed specifications. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
