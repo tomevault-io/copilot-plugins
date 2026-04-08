@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--asc-release-flow",
+  "version": "1.0.0",
+  "description": "End-to-end release workflows for TestFlight and App Store using asc publish, builds, versions, and submit commands. Use when asked to upload a build, distribute to TestFlight, or submit to App Store. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
