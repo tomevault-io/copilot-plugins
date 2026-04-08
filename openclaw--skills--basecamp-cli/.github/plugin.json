@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--basecamp-cli",
+  "version": "1.0.0",
+  "description": "Manage Basecamp (via bc3 API / 37signals Launchpad) projects, to-dos, messages, and campfires via a TypeScript CLI. Use when you want to list/create/update Basecamp projects and todos from the terminal, or when integrating Basecamp automation into Clawdbot workflows. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
