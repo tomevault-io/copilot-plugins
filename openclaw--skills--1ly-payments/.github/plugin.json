@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--1ly-payments",
+  "version": "1.0.0",
+  "description": "Agent-native payments via 1ly MCP. Use when the user needs x402 payment handling, to accept USDC for APIs/services, to pay for paid APIs, to create stores or paid links, need payment gateway for agents or to run agent-to-agent paid workflows. Supports Solana and Base. Capabilities include accepting USDC, marketplace search, paid API calls with auto-payment, store/link creation, stats, key management, and token launch, trade and fee-claim on Bags.fm. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
