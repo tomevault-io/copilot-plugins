@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--books",
+  "version": "1.0.0",
+  "description": "CLI for AI agents to search and lookup books for their humans. Uses Open Library API. No auth required. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
