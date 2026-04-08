@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--book-brain",
+  "version": "1.0.0",
+  "description": "3-brain filesystem + memory reference utility for LYGO-based agents. Use to design, organize, and maintain a durable file/folder memory system (indexes, reference .txt links, logging, retrieval) without overwriting existing data. Works best on fresh OpenClaw/Clawhub Havens with the full LYGO Champion stack, but is compatible with any agent that can read/write files. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
