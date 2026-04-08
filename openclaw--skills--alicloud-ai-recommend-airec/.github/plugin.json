@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alicloud-ai-recommend-airec",
+  "version": "1.0.0",
+  "description": "Manage Alibaba Cloud AIRec (Airec) via OpenAPI/SDK. Use whenever the user needs recommendation-engine resource operations in Alibaba Cloud, including list/create/update flows, status inspection, and troubleshooting AIRec configuration or runtime issues. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
