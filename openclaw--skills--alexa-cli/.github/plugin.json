@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alexa-cli",
+  "version": "1.0.0",
+  "description": "Control Amazon Alexa devices and smart home via the `alexacli` CLI. Use when a user asks to speak/announce on Echo devices, control lights/thermostats/locks, send voice commands, or query Alexa. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
