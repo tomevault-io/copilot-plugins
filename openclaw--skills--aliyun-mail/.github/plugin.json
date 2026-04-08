@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aliyun-mail",
+  "version": "1.0.0",
+  "description": "Use when working with a skill to send emails via Aliyun enterprise email service with support for markdown, HTML text, attachments, and syntax highlighting for code blocks.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
