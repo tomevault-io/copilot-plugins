@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bluetooth-monitor",
+  "version": "1.0.0",
+  "description": "\u84dd\u7259\u8bbe\u5907\u76d1\u63a7 / Bluetooth Device Monitor - \u67e5\u770bMac\u5df2\u8fde\u63a5\u7684\u84dd\u7259\u8bbe\u5907\u5217\u8868\uff0c\u652f\u6301\u914d\u5bf9\u3001\u8fde\u63a5\u3001\u65ad\u5f00\u64cd\u4f5c Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
