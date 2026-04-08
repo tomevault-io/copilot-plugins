@@ -1,7 +1,8 @@
 ---
 name: feishu-doc
-description: |
-  Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.
+description: | Use when this capability is needed.
+metadata:
+  author: openclaw
 ---
 
 # Feishu Document Tool
@@ -212,4 +213,4 @@ Required: `docx:document`, `docx:document:readonly`, `docx:document.block:conver
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
