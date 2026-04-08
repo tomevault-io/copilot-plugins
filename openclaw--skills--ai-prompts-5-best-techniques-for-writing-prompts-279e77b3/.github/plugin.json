@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-prompts-5-best-techniques-for-writing-prompts-279e77b3",
+  "version": "1.0.0",
+  "description": "generate a more effective response by integrating the provided knowledge before the final Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
