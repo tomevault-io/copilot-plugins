@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--atris",
+  "version": "1.0.0",
+  "description": "Codebase intelligence \u2014 generates structured navigation maps with file:line references so agents stop re-scanning the same files every session. Use when exploring code, answering \"where is X?\", or onboarding to a new codebase. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
