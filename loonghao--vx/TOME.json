@@ -1,0 +1,70 @@
+{
+  "name": "vx",
+  "owner": "loonghao",
+  "repo": "vx",
+  "description": "AI instruction files for vx by loonghao",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "llms-txt-generator",
+      "path": ".codebuddy/skills/llms-txt-generator",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/llms-txt-generator",
+      "description": ""
+    },
+    {
+      "name": "project-analyze",
+      "path": ".codebuddy/skills/project-analyze",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/project-analyze",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "path": ".codebuddy/skills/remotion",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/remotion",
+      "description": ""
+    },
+    {
+      "name": "rfc-creator",
+      "path": ".codebuddy/skills/rfc-creator",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/rfc-creator",
+      "description": ""
+    },
+    {
+      "name": "vx-provider-creator",
+      "path": ".codebuddy/skills/vx-provider-creator",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/vx-provider-creator",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/loonghao",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:09:01Z"
+}
