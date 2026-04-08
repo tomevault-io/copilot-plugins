@@ -1,0 +1,70 @@
+{
+  "name": "voxtype",
+  "owner": "peteonrails",
+  "repo": "voxtype",
+  "description": "AI instruction files for voxtype by peteonrails",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aur-publish",
+      "path": ".claude/skills/aur-publish",
+      "github_url": "https://github.com/peteonrails/voxtype/tree/main/.claude/skills/aur-publish",
+      "description": ""
+    },
+    {
+      "name": "build-release",
+      "path": ".claude/skills/build-release",
+      "github_url": "https://github.com/peteonrails/voxtype/tree/main/.claude/skills/build-release",
+      "description": ""
+    },
+    {
+      "name": "docker-test",
+      "path": ".claude/skills/docker-test",
+      "github_url": "https://github.com/peteonrails/voxtype/tree/main/.claude/skills/docker-test",
+      "description": ""
+    },
+    {
+      "name": "regression-test",
+      "path": ".claude/skills/regression-test",
+      "github_url": "https://github.com/peteonrails/voxtype/tree/main/.claude/skills/regression-test",
+      "description": ""
+    },
+    {
+      "name": "smoke-test",
+      "path": ".claude/skills/smoke-test",
+      "github_url": "https://github.com/peteonrails/voxtype/tree/main/.claude/skills/smoke-test",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/peteonrails",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:10:59Z"
+}
