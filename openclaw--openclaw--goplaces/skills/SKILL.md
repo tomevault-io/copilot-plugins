@@ -1,26 +1,8 @@
 ---
 name: goplaces
-description: Query Google Places API (New) via the goplaces CLI for text search, place details, resolve, and reviews. Use for human-friendly place lookup or JSON output for scripts.
-homepage: https://github.com/steipete/goplaces
+description: Query Google Places API (New) via the goplaces CLI for text search, place details, resolve, and reviews. Use for human-friendly place lookup or JSON output for scripts. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "📍",
-        "requires": { "bins": ["goplaces"], "env": ["GOOGLE_PLACES_API_KEY"] },
-        "primaryEnv": "GOOGLE_PLACES_API_KEY",
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "steipete/tap/goplaces",
-              "bins": ["goplaces"],
-              "label": "Install goplaces (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # goplaces
@@ -53,4 +35,4 @@ Notes
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
