@@ -1,0 +1,46 @@
+{
+  "name": "refly",
+  "owner": "refly-ai",
+  "repo": "refly",
+  "description": "AI instruction files for refly by refly-ai",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill",
+      "path": "packages/cli/skill",
+      "github_url": "https://github.com/refly-ai/refly/tree/main/packages/cli/skill",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/refly-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:15:11Z"
+}
