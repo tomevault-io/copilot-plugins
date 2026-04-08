@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--jarvis-memory-architecture",
+  "version": "1.0.0",
+  "description": "Universal memory architecture for AI agents. Provides long-term memory, daily logs, diary, cron inbox, heartbeat state tracking, social platform post tracking, sub-agent context patterns, and adaptive learning -- everything an agent needs for identity continuity across sessions. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
