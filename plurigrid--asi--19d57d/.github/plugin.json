@@ -1,0 +1,13 @@
+{
+  "name": "plurigrid--asi--19d57d",
+  "version": "1.0.0",
+  "description": "Gay MCP skill at invocation 5 Use when this capability is needed.",
+  "author": {
+    "name": "plurigrid (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
