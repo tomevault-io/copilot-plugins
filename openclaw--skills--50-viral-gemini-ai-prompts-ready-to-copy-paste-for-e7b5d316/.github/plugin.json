@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--50-viral-gemini-ai-prompts-ready-to-copy-paste-for-e7b5d316",
+  "version": "1.0.0",
+  "description": "Romantic couple hugging on a beach at sunset, cinematic lighting, soft focus, using reference faces Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
