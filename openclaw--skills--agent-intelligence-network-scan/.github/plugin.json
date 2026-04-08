@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-intelligence-network-scan",
+  "version": "1.0.0",
+  "description": "Query agent reputation, detect threats, and discover high-quality agents across the ecosystem. Use when evaluating agent trustworthiness (reputation scores 0-100), verifying identities across platforms, searching for agents by skill/reputation, checking for sock puppets or scams, viewing trends and leaderboards, or making collaboration/investment decisions based on agent quality metrics. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
