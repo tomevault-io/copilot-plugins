@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--blrd",
+  "version": "1.0.0",
+  "description": "description: X/Twitter CLI for reading, searching, and posting via cookies or Sweetistics. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
