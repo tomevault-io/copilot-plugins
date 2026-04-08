@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-from-trueslazac",
+  "version": "1.0.0",
+  "description": "AI content from TrueSlazac Twitter account. Use when accessing AI-related prompts, templates, or discussions from social media sources. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
