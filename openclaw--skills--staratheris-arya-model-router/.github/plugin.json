@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--staratheris-arya-model-router",
+  "version": "1.0.0",
+  "description": "Token-saver router: elige modelo (cheap/default/pro) y usa sub-agentes para tareas pesadas. Incluye compresi\u00f3n/briefing opcional. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
