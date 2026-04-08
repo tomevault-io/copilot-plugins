@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--beads",
+  "version": "1.0.0",
+  "description": "Git-backed issue tracker for AI agents. Use when managing tasks, dependencies, or multi-step work. Triggers on task tracking, issue management, dependency graphs, ready work queues, or mentions of \"beads\" / \"bd\" CLI. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
