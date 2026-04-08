@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-republic-docs",
+  "version": "1.0.0",
+  "description": "Docs-only guide to Agent Republic. No bundled scripts, just clear workflows and HTTP examples so agents can register, manage bots, and monitor onboarding health after asking their human for approval. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
