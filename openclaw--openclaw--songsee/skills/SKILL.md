@@ -1,25 +1,8 @@
 ---
 name: songsee
-description: Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.
-homepage: https://github.com/steipete/songsee
+description: Generate spectrograms and feature-panel visualizations from audio with the songsee CLI. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🌊",
-        "requires": { "bins": ["songsee"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "steipete/tap/songsee",
-              "bins": ["songsee"],
-              "label": "Install songsee (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # songsee
@@ -50,4 +33,4 @@ Notes
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
