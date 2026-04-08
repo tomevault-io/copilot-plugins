@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentmail-integration",
+  "version": "1.0.0",
+  "description": "Integrate AgentMail API for AI agent email automation. Create and manage dedicated email inboxes, send and receive emails programmatically, handle email-based workflows with webhooks and real-time events. Use when Codex needs to set up agent email identity, send emails from agents, handle incoming email workflows, or replace traditional email providers like Gmail with agent-friendly infrastructure. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
