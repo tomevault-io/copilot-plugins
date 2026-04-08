@@ -1,7 +1,8 @@
 ---
 name: prose
-description: OpenProse VM skill pack. Activate on any `prose` command, .prose files, or OpenProse mentions; orchestrates multi-agent workflows.
-metadata: { "openclaw": { "emoji": "🪶", "homepage": "https://www.prose.md" } }
+description: OpenProse VM skill pack. Activate on any `prose` command, .prose files, or OpenProse mentions; orchestrates multi-agent workflows. Use when this capability is needed.
+metadata:
+  author: openclaw
 ---
 
 # OpenProse Skill
@@ -324,4 +325,4 @@ If you encounter references to the old names in user prompts or external docs, m
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
