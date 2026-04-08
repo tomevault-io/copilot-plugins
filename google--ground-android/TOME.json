@@ -1,0 +1,64 @@
+{
+  "name": "ground-android",
+  "owner": "google",
+  "repo": "ground-android",
+  "description": "AI instruction files for ground-android by google",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fetch_pr_comments",
+      "path": ".agent/skills/fetch_pr_comments",
+      "github_url": "https://github.com/google/ground-android/tree/main/.agent/skills/fetch_pr_comments",
+      "description": ""
+    },
+    {
+      "name": "prepare_commit",
+      "path": ".agent/skills/prepare_commit",
+      "github_url": "https://github.com/google/ground-android/tree/main/.agent/skills/prepare_commit",
+      "description": ""
+    },
+    {
+      "name": "push_to_github",
+      "path": ".agent/skills/push_to_github",
+      "github_url": "https://github.com/google/ground-android/tree/main/.agent/skills/push_to_github",
+      "description": ""
+    },
+    {
+      "name": "verify_changes",
+      "path": ".agent/skills/verify_changes",
+      "github_url": "https://github.com/google/ground-android/tree/main/.agent/skills/verify_changes",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/google",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:07:34Z"
+}
