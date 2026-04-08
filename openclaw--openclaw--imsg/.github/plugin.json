@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--imsg",
   "version": "1.0.0",
-  "description": "iMessage/SMS CLI for listing chats, history, and sending messages via Messages.app.",
+  "description": "iMessage/SMS CLI for listing chats, history, and sending messages via Messages.app. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
