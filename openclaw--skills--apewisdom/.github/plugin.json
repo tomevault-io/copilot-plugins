@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--apewisdom",
+  "version": "1.0.0",
+  "description": "Scan Reddit for trending stocks and sentiment spikes using the ApeWisdom API (free). Use this to find \"meme stocks\", retail momentum, and sentiment shifts on r/wallstreetbets. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
