@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-audit-fix",
+  "version": "1.0.0",
+  "description": "Analyze npm audit output with AI and get actionable fix suggestions. Use when dealing with security vulnerabilities. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
