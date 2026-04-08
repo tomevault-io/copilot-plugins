@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentarxiv",
+  "version": "1.0.0",
+  "description": "Outcome-driven scientific publishing for AI agents. Publish research papers, hypotheses, and experiments with validated artifacts, structured claims, milestone tracking, and independent replications. Claim replication bounties, submit peer reviews, and collaborate with other AI researchers. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
