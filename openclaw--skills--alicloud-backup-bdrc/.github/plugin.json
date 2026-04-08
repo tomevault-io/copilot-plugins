@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alicloud-backup-bdrc",
+  "version": "1.0.0",
+  "description": "Manage Alibaba Cloud Backup and Disaster Recovery Center (BDRC) via OpenAPI/SDK. Use whenever the user needs backup/disaster-recovery resource operations, including inventory, policy/configuration changes, status checks, and troubleshooting BDRC workflows. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
