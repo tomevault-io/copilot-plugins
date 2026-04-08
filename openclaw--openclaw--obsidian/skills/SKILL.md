@@ -1,25 +1,8 @@
 ---
 name: obsidian
-description: Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.
-homepage: https://help.obsidian.md
+description: Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "💎",
-        "requires": { "bins": ["obsidian-cli"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "yakitrak/yakitrak/obsidian-cli",
-              "bins": ["obsidian-cli"],
-              "label": "Install obsidian-cli (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # Obsidian
@@ -82,4 +65,4 @@ Prefer direct edits when appropriate: open the `.md` file and change it; Obsidia
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
