@@ -1,0 +1,13 @@
+{
+  "name": "anthropics--knowledge-work-plugins--statistical-analysis",
+  "version": "1.0.0",
+  "description": "Apply statistical methods including descriptive stats, trend analysis, outlier detection, and hypothesis testing. Use when analyzing distributions, testing for significance, detecting anomalies, computing correlations, or interpreting statistical results. Use when this capability is needed.",
+  "author": {
+    "name": "anthropics (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
