@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-config",
+  "version": "1.0.0",
+  "description": "Intelligently modify agent core context files (AGENTS.md, SOUL.md, IDENTITY.md, USER.md, TOOLS.md, MEMORY.md, HEARTBEAT.md). Use when conversation involves changing agent behavior, updating rules, tweaking personality, modifying instructions, adjusting operational procedures, updating memory architecture, changing delegation patterns, adding safety rules, refining prompt patterns, or any other modification to agent workspace configuration files. Triggers on intent to configure, tune, improve, fix, or evolve agent behavior through context file changes. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
