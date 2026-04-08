@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--a2a-hub",
+  "version": "1.0.0",
+  "description": "Manage the MoltBot A2A Hub \u2014 register agents, search the registry, relay messages, and stream responses. Use when working with the A2A agent-to-agent protocol hub deployed at a2a-hub.fly.dev. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
