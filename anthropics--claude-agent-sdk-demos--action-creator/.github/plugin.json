@@ -1,0 +1,13 @@
+{
+  "name": "anthropics--claude-agent-sdk-demos--action-creator",
+  "version": "1.0.0",
+  "description": "Creates user-specific one-click action templates that execute email operations when clicked in the chat interface. Use when user wants reusable actions for their specific workflows (send payment reminder to ACME Corp, forward bugs to engineering, archive old newsletters from specific sources).",
+  "author": {
+    "name": "anthropics (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
