@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--auto-context",
+  "version": "1.0.0",
+  "description": "Automatically read relevant context before major actions. Loads TODO.md, roadmap.md, handoffs, task plans, and other project context files so the AI operates with full situational awareness. Use when starting a task, implementing a feature, refactoring, debugging, planning, or resuming a session. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
