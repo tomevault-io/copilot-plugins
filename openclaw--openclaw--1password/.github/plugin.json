@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--1password",
   "version": "1.0.0",
-  "description": "Set up and use 1Password CLI (op). Use when installing the CLI, enabling desktop app integration, signing in (single or multi-account), or reading/injecting/running secrets via op.",
+  "description": "Set up and use 1Password CLI (op). Use when installing the CLI, enabling desktop app integration, signing in (single or multi-account), or reading/injecting/running secrets via op. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
