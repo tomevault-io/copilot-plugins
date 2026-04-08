@@ -1,0 +1,58 @@
+{
+  "name": "n8n",
+  "owner": "n8n-io",
+  "repo": "n8n",
+  "description": "AI instruction files for n8n by n8n-io",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "content-design",
+      "path": ".claude/skills/content-design",
+      "github_url": "https://github.com/n8n-io/n8n/tree/main/.claude/skills/content-design",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": ".claude/skills/create-pr",
+      "github_url": "https://github.com/n8n-io/n8n/tree/main/.claude/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "n8n-conventions",
+      "path": ".claude/skills/n8n-conventions",
+      "github_url": "https://github.com/n8n-io/n8n/tree/main/.claude/skills/n8n-conventions",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/n8n-io",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:09:33Z"
+}
