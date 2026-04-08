@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--nas-master",
+  "version": "1.0.0",
+  "description": "name: asustor-pro-adaptive-suite Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
