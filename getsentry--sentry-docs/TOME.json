@@ -1,0 +1,52 @@
+{
+  "name": "sentry-docs",
+  "owner": "getsentry",
+  "repo": "sentry-docs",
+  "description": "AI instruction files for sentry-docs by getsentry",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docs-review",
+      "path": ".claude/skills/docs-review",
+      "github_url": "https://github.com/getsentry/sentry-docs/tree/main/.claude/skills/docs-review",
+      "description": ""
+    },
+    {
+      "name": "technical-docs",
+      "path": ".claude/skills/technical-docs",
+      "github_url": "https://github.com/getsentry/sentry-docs/tree/main/.claude/skills/technical-docs",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/getsentry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:07:23Z"
+}
