@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--brand-analyzer",
+  "version": "1.0.0",
+  "description": "This skill should be used when the user requests brand analysis, brand guidelines creation, brand audits, or establishing brand identity and consistency standards. It provides comprehensive frameworks for analyzing brand elements and creating actionable brand guidelines based on requirements. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
