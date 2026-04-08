@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aifrens-ambassador",
+  "version": "1.0.0",
+  "description": "AI Frens Ambassador Program - how to promote the vision of autonomous AI agents with their own economies. Install this skill to become an AI Frens ambassador and learn how to authentically promote the ecosystem. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
