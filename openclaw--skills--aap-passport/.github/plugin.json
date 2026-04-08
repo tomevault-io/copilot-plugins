@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aap-passport",
+  "version": "1.0.0",
+  "description": "Agent Attestation Protocol - The Reverse Turing Test. Verify AI agents, block humans. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
