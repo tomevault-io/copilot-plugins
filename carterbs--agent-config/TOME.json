@@ -1,0 +1,46 @@
+{
+  "name": "agent-config",
+  "owner": "carterbs",
+  "repo": "agent-config",
+  "description": "AI instruction files for agent-config by carterbs",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "commit",
+      "path": "plugins/brad-personal/skills/commit",
+      "github_url": "https://github.com/carterbs/agent-config/tree/main/plugins/brad-personal/skills/commit",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/carterbs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:12:32Z"
+}
