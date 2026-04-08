@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--add-siliconflow-provider",
+  "version": "1.0.0",
+  "description": "\u4e3a OpenClaw \u914d\u7f6e\u7845\u57fa\u6d41\u52a8 (SiliconFlow) \u4f5c\u4e3a\u6a21\u578b\u6e90\u3002SiliconFlow \u662f\u56fd\u5185\u9886\u5148\u7684 AI \u6a21\u578b\u63a8\u7406\u5e73\u53f0\uff0c\u63d0\u4f9b 98+ \u4e2a chat \u6a21\u578b\uff0c\u5305\u542b\u591a\u4e2a\u514d\u8d39\u6a21\u578b\uff08Qwen3-8B\u3001DeepSeek-R1-8B \u7b49\uff09\u3002\u4f7f\u7528\u6807\u51c6 OpenAI \u534f\u8bae\uff08openai-completions\uff09\u3002\u5305\u542b provider \u6ce8\u518c\u3001\u6a21\u578b\u5b9a\u4e49\u3001\u522b\u540d\u914d\u7f6e\u3001fallback \u94fe\u63a5\u5165\u548c\u9a8c\u8bc1\u7684\u5b8c\u6574\u6d41\u7a0b\u3002\u5f53\u7ba1\u7406\u5458\u8bf4\u60f3\"\u52a0\u7845\u57fa\u6d41\u52a8\"\u3001\"\u914d SiliconFlow\"\u3001\"\u63a5\u5165 SF \u6a21\u578b\"\u3001\"\u52a0 Kimi\"\u3001\"\u52a0 Qwen3\"\u3001\"\u52a0\u514d\u8d39\u6a21\u578b\"\u3001\"\u63a5\u5165 DeepSeek V3.2\"\u65f6\u4f7f\u7528\u6b64 skill\u3002 Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
