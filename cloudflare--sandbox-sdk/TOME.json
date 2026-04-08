@@ -1,0 +1,52 @@
+{
+  "name": "sandbox-sdk",
+  "owner": "cloudflare",
+  "repo": "sandbox-sdk",
+  "description": "AI instruction files for sandbox-sdk by cloudflare",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-commit",
+      "path": ".opencode/skill/git-commit",
+      "github_url": "https://github.com/cloudflare/sandbox-sdk/tree/main/.opencode/skill/git-commit",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".opencode/skill/testing",
+      "github_url": "https://github.com/cloudflare/sandbox-sdk/tree/main/.opencode/skill/testing",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/cloudflare",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:05:49Z"
+}
