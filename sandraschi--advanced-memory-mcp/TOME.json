@@ -1,0 +1,64 @@
+{
+  "name": "advanced-memory-mcp",
+  "owner": "sandraschi",
+  "repo": "advanced-memory-mcp",
+  "description": "AI instruction files for advanced-memory-mcp by sandraschi",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "abstract-algebra-specialist",
+      "path": "skills/mathematics/abstract-algebra-specialist",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/abstract-algebra-specialist",
+      "description": ""
+    },
+    {
+      "name": "advanced-memory-skill-creator",
+      "path": ".windsurf/skills/advanced-memory-skill-creator",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/.windsurf/skills/advanced-memory-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "ai-debate-dominator",
+      "path": "skills/advanced-memory/ai-debate-dominator",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/advanced-memory/ai-debate-dominator",
+      "description": ""
+    },
+    {
+      "name": "ai-ide-developer",
+      "path": "skills/technical/ai-ide-developer",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/ai-ide-developer",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/sandraschi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:11:13Z"
+}
