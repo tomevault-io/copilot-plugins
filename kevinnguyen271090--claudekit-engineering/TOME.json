@@ -1,0 +1,64 @@
+{
+  "name": "claudekit-engineering",
+  "owner": "kevinnguyen271090",
+  "repo": "claudekit-engineering",
+  "description": "AI instruction files for claudekit-engineering by kevinnguyen271090",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-multimodal",
+      "path": ".claude/skills/ai-multimodal",
+      "github_url": "https://github.com/kevinnguyen271090/claudekit-engineering/tree/main/.claude/skills/ai-multimodal",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "path": ".claude/skills/chrome-devtools",
+      "github_url": "https://github.com/kevinnguyen271090/claudekit-engineering/tree/main/.claude/skills/chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "mcp-management",
+      "path": ".claude/skills/mcp-management",
+      "github_url": "https://github.com/kevinnguyen271090/claudekit-engineering/tree/main/.claude/skills/mcp-management",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": ".claude/skills/ui-ux-pro-max",
+      "github_url": "https://github.com/kevinnguyen271090/claudekit-engineering/tree/main/.claude/skills/ui-ux-pro-max",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/kevinnguyen271090",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:08:40Z"
+}
