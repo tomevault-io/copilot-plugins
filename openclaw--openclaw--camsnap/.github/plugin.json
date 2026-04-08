@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--camsnap",
   "version": "1.0.0",
-  "description": "Capture frames or clips from RTSP/ONVIF cameras.",
+  "description": "Capture frames or clips from RTSP/ONVIF cameras. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
