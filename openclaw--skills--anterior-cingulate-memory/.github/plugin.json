@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--anterior-cingulate-memory",
+  "version": "1.0.0",
+  "description": "Conflict detection and error monitoring for AI agents. The 'something's off' detector. Part of the AI Brain series. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
