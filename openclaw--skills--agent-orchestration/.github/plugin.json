@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-orchestration",
+  "version": "1.0.0",
+  "description": "Master the art of spawning and managing sub-agents. Write prompts that actually work, track running agents, and learn from every outcome. Part of the Hal Stack \ud83e\udd9e Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
