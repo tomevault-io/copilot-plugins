@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--base-wallet",
+  "version": "1.0.0",
+  "description": "\ud83d\udd10 Base Wallet - Crypto Identity for AI Agents. Create wallets, sign messages (SIWE), send transactions programmatically. No browser extensions, no human intervention. The foundation for autonomous Web3 agents. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
