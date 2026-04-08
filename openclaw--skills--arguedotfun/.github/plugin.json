@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--arguedotfun",
+  "version": "1.0.0",
+  "description": "Argument-driven prediction markets on Base. You bet USDC on debate outcomes by making compelling arguments. GenLayer's Optimistic Democracy consensus \u2014 a panel of AI validators running different LLMs \u2014 evaluates reasoning quality and determines winners. Better arguments beat bigger bets. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
