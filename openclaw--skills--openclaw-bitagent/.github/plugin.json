@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--openclaw-bitagent",
+  "version": "1.0.0",
+  "description": "Launch, buy, and sell tokens on BitAgent bonding curves via CLI. Use when the user wants to create a new agent token, or trade existing agent tokens on BitAgent (BSC Testnet/Mainnet). Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
