@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-hq",
+  "version": "1.0.0",
+  "description": "Deploy the Agent HQ mission-control stack (Express + React + Telegram notifier / Jarvis summary) so other Clawdbot teams can spin up the same board, high-priority watcher, and alert automation. Includes setup, telemetry, and automation hooks. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
