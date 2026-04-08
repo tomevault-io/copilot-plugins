@@ -1,7 +1,8 @@
 ---
 name: brand-guidelines
-description: Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
-license: Complete terms in LICENSE.txt
+description: Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply. Use when this capability is needed.
+metadata:
+  author: anthropics
 ---
 
 # Anthropic Brand Styling
@@ -74,4 +75,4 @@ To access Anthropic's official brand identity and style resources, use this skil
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/anthropics/skills)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
