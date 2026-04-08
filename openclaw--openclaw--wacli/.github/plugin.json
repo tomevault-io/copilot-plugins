@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--wacli",
   "version": "1.0.0",
-  "description": "Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats).",
+  "description": "Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats). Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
