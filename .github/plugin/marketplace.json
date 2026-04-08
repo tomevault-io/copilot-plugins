@@ -2627,6 +2627,150 @@
     {
       "name": "plurigrid--asi--1ea91a",
       "source": "./plurigrid--asi--1ea91a"
+    },
+    {
+      "name": "anthropics--claude-cookbooks--analyzing-financial-statements",
+      "source": "./anthropics--claude-cookbooks--analyzing-financial-statements"
+    },
+    {
+      "name": "anthropics--claude-cookbooks--applying-brand-guidelines",
+      "source": "./anthropics--claude-cookbooks--applying-brand-guidelines"
+    },
+    {
+      "name": "anthropics--claude-cookbooks--creating-financial-models",
+      "source": "./anthropics--claude-cookbooks--creating-financial-models"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--agent-development",
+      "source": "./anthropics--claude-plugins-official--agent-development"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--claude-automation-recommender",
+      "source": "./anthropics--claude-plugins-official--claude-automation-recommender"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--command-development",
+      "source": "./anthropics--claude-plugins-official--command-development"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--example-skill",
+      "source": "./anthropics--claude-plugins-official--example-skill"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--frontend-design",
+      "source": "./anthropics--claude-plugins-official--frontend-design"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--hook-development",
+      "source": "./anthropics--claude-plugins-official--hook-development"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--mcp-integration",
+      "source": "./anthropics--claude-plugins-official--mcp-integration"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--plugin-settings",
+      "source": "./anthropics--claude-plugins-official--plugin-settings"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--plugin-structure",
+      "source": "./anthropics--claude-plugins-official--plugin-structure"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--skill-development",
+      "source": "./anthropics--claude-plugins-official--skill-development"
+    },
+    {
+      "name": "anthropics--claude-plugins-official--writing-rules",
+      "source": "./anthropics--claude-plugins-official--writing-rules"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--account-research",
+      "source": "./anthropics--knowledge-work-plugins--account-research"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--audit-support",
+      "source": "./anthropics--knowledge-work-plugins--audit-support"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--call-prep",
+      "source": "./anthropics--knowledge-work-plugins--call-prep"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--competitive-intelligence",
+      "source": "./anthropics--knowledge-work-plugins--competitive-intelligence"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--cowork-plugin-customizer",
+      "source": "./anthropics--knowledge-work-plugins--cowork-plugin-customizer"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--create-cowork-plugin",
+      "source": "./anthropics--knowledge-work-plugins--create-cowork-plugin"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--customer-research",
+      "source": "./anthropics--knowledge-work-plugins--customer-research"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--data-context-extractor",
+      "source": "./anthropics--knowledge-work-plugins--data-context-extractor"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--data-visualization",
+      "source": "./anthropics--knowledge-work-plugins--data-visualization"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--draft-outreach",
+      "source": "./anthropics--knowledge-work-plugins--draft-outreach"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--instrument-data-to-allotrope",
+      "source": "./anthropics--knowledge-work-plugins--instrument-data-to-allotrope"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--journal-entry-prep",
+      "source": "./anthropics--knowledge-work-plugins--journal-entry-prep"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--knowledge-synthesis",
+      "source": "./anthropics--knowledge-work-plugins--knowledge-synthesis"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--nextflow-development",
+      "source": "./anthropics--knowledge-work-plugins--nextflow-development"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--scientific-problem-selection",
+      "source": "./anthropics--knowledge-work-plugins--scientific-problem-selection"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--scvi-tools",
+      "source": "./anthropics--knowledge-work-plugins--scvi-tools"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--single-cell-rna-qc",
+      "source": "./anthropics--knowledge-work-plugins--single-cell-rna-qc"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--source-management",
+      "source": "./anthropics--knowledge-work-plugins--source-management"
+    },
+    {
+      "name": "anthropics--knowledge-work-plugins--statistical-analysis",
+      "source": "./anthropics--knowledge-work-plugins--statistical-analysis"
+    },
+    {
+      "name": "anthropics--claude-agent-sdk-demos--action-creator",
+      "source": "./anthropics--claude-agent-sdk-demos--action-creator"
+    },
+    {
+      "name": "anthropics--claude-agent-sdk-demos--docx",
+      "source": "./anthropics--claude-agent-sdk-demos--docx"
+    },
+    {
+      "name": "anthropics--claude-agent-sdk-demos--pdf",
+      "source": "./anthropics--claude-agent-sdk-demos--pdf"
     }
   ]
 }
