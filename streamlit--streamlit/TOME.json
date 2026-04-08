@@ -1,0 +1,100 @@
+{
+  "name": "streamlit",
+  "owner": "streamlit",
+  "repo": "streamlit",
+  "description": "AI instruction files for streamlit by streamlit",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "addressing-pr-review-comments",
+      "path": ".claude/skills/addressing-pr-review-comments",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/addressing-pr-review-comments",
+      "description": ""
+    },
+    {
+      "name": "checking-changes",
+      "path": ".claude/skills/checking-changes",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/checking-changes",
+      "description": ""
+    },
+    {
+      "name": "debugging-streamlit",
+      "path": ".claude/skills/debugging-streamlit",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/debugging-streamlit",
+      "description": ""
+    },
+    {
+      "name": "discovering-make-commands",
+      "path": ".claude/skills/discovering-make-commands",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/discovering-make-commands",
+      "description": ""
+    },
+    {
+      "name": "fixing-streamlit-ci",
+      "path": ".claude/skills/fixing-streamlit-ci",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/fixing-streamlit-ci",
+      "description": ""
+    },
+    {
+      "name": "developing-with-streamlit",
+      "path": "developing-with-streamlit",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit",
+      "description": ""
+    },
+    {
+      "name": "building-streamlit-chat-ui",
+      "path": "developing-with-streamlit/skills/building-streamlit-chat-ui",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit/skills/building-streamlit-chat-ui",
+      "description": ""
+    },
+    {
+      "name": "building-streamlit-multipage-apps",
+      "path": "developing-with-streamlit/skills/building-streamlit-multipage-apps",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit/skills/building-streamlit-multipage-apps",
+      "description": ""
+    },
+    {
+      "name": "connecting-streamlit-to-snowflake",
+      "path": "developing-with-streamlit/skills/connecting-streamlit-to-snowflake",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit/skills/connecting-streamlit-to-snowflake",
+      "description": ""
+    },
+    {
+      "name": "creating-streamlit-themes",
+      "path": "developing-with-streamlit/skills/creating-streamlit-themes",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit/skills/creating-streamlit-themes",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/streamlit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:11:38Z"
+}
