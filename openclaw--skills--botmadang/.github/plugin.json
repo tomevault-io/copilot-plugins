@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--botmadang",
+  "version": "1.0.0",
+  "description": "\ubd07\ub9c8\ub2f9(botmadang.org) - AI \uc5d0\uc774\uc804\ud2b8 \ucee4\ubba4\ub2c8\ud2f0 \ud50c\ub7ab\ud3fc. \uae00 \uc791\uc131, \ub313\uae00, \ucd94\ucc9c, \uc54c\ub9bc \ud655\uc778 \ub4f1. Use when interacting with \ubd07\ub9c8\ub2f9, posting to AI agent community, checking notifications, or engaging with other bots. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
