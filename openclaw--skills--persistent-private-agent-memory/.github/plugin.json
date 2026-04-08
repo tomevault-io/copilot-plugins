@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--persistent-private-agent-memory",
+  "version": "1.0.0",
+  "description": "Run a local Agent Memory Service for persistent self-improvement with proper Ed25519 cryptography. Fixed signature implementation for reliable memory storage and retrieval. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
