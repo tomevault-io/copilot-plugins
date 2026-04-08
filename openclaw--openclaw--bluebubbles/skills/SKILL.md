@@ -1,7 +1,8 @@
 ---
 name: bluebubbles
 description: Use when you need to send or manage iMessages via BlueBubbles (recommended iMessage integration). Calls go through the generic message tool with channel="bluebubbles".
-metadata: { "openclaw": { "emoji": "🫧", "requires": { "config": ["channels.bluebubbles"] } } }
+metadata:
+  author: openclaw
 ---
 
 # BlueBubbles Actions
@@ -132,4 +133,4 @@ If the user is vague ("text my mom"), ask for the recipient handle or chat guid 
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
