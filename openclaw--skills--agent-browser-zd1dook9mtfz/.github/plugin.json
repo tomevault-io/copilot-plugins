@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-browser-zd1dook9mtfz",
+  "version": "1.0.0",
+  "description": "Use when working with a fast Rust-based headless browser automation CLI with Node.js fallback that enables AI agents to navigate, click, type, and snapshot pages via structured commands.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
