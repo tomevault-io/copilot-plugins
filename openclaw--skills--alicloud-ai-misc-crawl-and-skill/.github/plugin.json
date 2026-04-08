@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alicloud-ai-misc-crawl-and-skill",
+  "version": "1.0.0",
+  "description": "Refresh the Model Studio models crawl and regenerate derived summaries and `skills/ai/**` skills. Use when the models list or generated skills must be updated. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
