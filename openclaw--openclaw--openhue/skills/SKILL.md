@@ -1,25 +1,8 @@
 ---
 name: openhue
-description: Control Philips Hue lights and scenes via the OpenHue CLI.
-homepage: https://www.openhue.io/cli
+description: Control Philips Hue lights and scenes via the OpenHue CLI. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "💡",
-        "requires": { "bins": ["openhue"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "openhue/cli/openhue-cli",
-              "bins": ["openhue"],
-              "label": "Install OpenHue CLI (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # OpenHue CLI
@@ -113,4 +96,4 @@ openhue set room "Living Room" --on --brightness 10
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
