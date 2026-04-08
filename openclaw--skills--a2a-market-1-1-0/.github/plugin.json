@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--a2a-market-1-1-0",
+  "version": "1.0.0",
+  "description": "| Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
