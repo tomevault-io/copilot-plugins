@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--blog-to-kindle",
+  "version": "1.0.0",
+  "description": "Scrape blogs/essay sites and compile into Kindle-friendly EPUB with AI-generated cover. Use for requests to download blogs for Kindle, compile essays into ebook, or send blog archives to Kindle. Supports Paul Graham, Kevin Kelly, Derek Sivers, Wait But Why, Astral Codex Ten, and custom sites. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
