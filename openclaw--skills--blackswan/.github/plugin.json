@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--blackswan",
+  "version": "1.0.0",
+  "description": "Real-time crypto risk intelligence; before and as things break. Two tools: Flare (15-min precursor detection, immediate alarms) and Core (60-min state synthesis, context assessment). Free access to the last analysis. No API key required. Upgrade to x402 for custom analysis. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
