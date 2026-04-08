@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--ai-persona-os",
+  "version": "1.0.0",
+  "description": "Use when working with the complete operating system for OpenClaw agents. Now with 13 Iconic Character souls (Thanos, Deadpool, JARVIS, Mary Poppins, Darth Vader, and more), SOUL.md Maker (deep SOUL.md builder interview), 11 original personality souls, soul blending, and the full soul gallery. Plus: zero-terminal agent-driven setup, quick-start persona presets, in-chat commands, ambient context monitoring, enforced heartbeat protocol (model + version display), traffic-light status indicators, auto-migration, auto-pruning, config validator, version tracking, structured escalation protocol, context protection, security inoculation, shared-channel discipline, team integration, proactive patterns, never-forget protocol, 8 operating rules, and 4 growth loops. One install. Complete system. Built by Jeff J Hunter.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
