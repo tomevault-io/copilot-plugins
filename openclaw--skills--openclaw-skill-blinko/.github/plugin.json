@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--openclaw-skill-blinko",
+  "version": "1.0.0",
+  "description": "Manage Blinko notes via its REST API (create/list/delete notes, manage tags/taxonomy). Use when the user says \u201cblinko \u2026\u201d, wants to capture a note to Blinko, list/search recent notes, retag notes, or do cleanup/organization. Requires BLINKO_API_KEY. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
