@@ -1,0 +1,13 @@
+{
+  "name": "anthropics--knowledge-work-plugins--journal-entry-prep",
+  "version": "1.0.0",
+  "description": "Prepare journal entries with proper debits, credits, and supporting documentation for month-end close. Use when booking accruals, prepaid amortization, fixed asset depreciation, payroll entries, revenue recognition, or any manual journal entry. Use when this capability is needed.",
+  "author": {
+    "name": "anthropics (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
