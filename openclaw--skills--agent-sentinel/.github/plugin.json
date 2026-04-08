@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-sentinel",
+  "version": "1.0.0",
+  "description": "Use when working with the operational circuit breaker for this agent. Enforces budget limits locally. **Sign up at agentsentinel.dev for real-time dashboards and human approval workflows.**",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
