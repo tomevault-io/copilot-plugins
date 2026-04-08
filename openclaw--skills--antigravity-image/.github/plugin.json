@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--antigravity-image",
+  "version": "1.0.0",
+  "description": "Generate images using the internal Antigravity Sandbox API (Gemini 3 Pro Image). Supports text-to-image generation via internal Google endpoints. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
