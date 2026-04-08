@@ -1,0 +1,70 @@
+{
+  "name": "kirby-mcp",
+  "owner": "bnomei",
+  "repo": "kirby-mcp",
+  "description": "AI instruction files for kirby-mcp by bnomei",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kirby-content-migration",
+      "path": "skills/kirby-content-migration",
+      "github_url": "https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-content-migration",
+      "description": ""
+    },
+    {
+      "name": "kirby-forms-and-frontend-actions",
+      "path": "skills/kirby-forms-and-frontend-actions",
+      "github_url": "https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-forms-and-frontend-actions",
+      "description": ""
+    },
+    {
+      "name": "kirby-headless-api",
+      "path": "skills/kirby-headless-api",
+      "github_url": "https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-headless-api",
+      "description": ""
+    },
+    {
+      "name": "kirby-panel-and-blueprints",
+      "path": "skills/kirby-panel-and-blueprints",
+      "github_url": "https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-panel-and-blueprints",
+      "description": ""
+    },
+    {
+      "name": "kirby-plugin-development",
+      "path": "skills/kirby-plugin-development",
+      "github_url": "https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-plugin-development",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/bnomei",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:05:29Z"
+}
