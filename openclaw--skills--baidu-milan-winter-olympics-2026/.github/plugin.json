@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--baidu-milan-winter-olympics-2026",
+  "version": "1.0.0",
+  "description": "\u83b7\u53d62026\u5e74\u7c73\u5170\u51ac\u5965\u4f1a\u6570\u636e\u6280\u80fd\uff0c\u5305\u62ec\u5956\u724c\u699c\u6392\u540d\u3001\u73b0\u573a\u65b0\u95fb\u62a5\u9053\u548c\u8d5b\u7a0b\u5b89\u6392\u3002\u4ece\u767e\u5ea6\u4f53\u80b2\u7f51\u9875\u6293\u53d6\u5b9e\u65f6\u7684\u5956\u724c\u6392\u884c\u699c\u4fe1\u606f\u3001\u6700\u65b0\u65b0\u95fb\u8d44\u8baf\u548c\u6bd4\u8d5b\u8d5b\u7a0b\u3002\u5f53\u7528\u6237\u9700\u8981\u83b7\u53d6\u7c73\u5170\u51ac\u5965\u4f1a\u9700\u6c42\uff0c\u9700\u8981\u67e5\u8be2\u51ac\u5965\u4f1a\u5956\u724c\u699c\u3001\u4e86\u89e3\u5404\u56fd\u5956\u724c\u6570\u91cf\u3001\u83b7\u53d6\u73b0\u573a\u65b0\u95fb\u3001\u67e5\u770b\u8d5b\u7a0b\u5b89\u6392\u65f6\u4f7f\u7528\u6b64\u6280\u80fd\u3002\u80fd\u591f\u6839\u636e\u6307\u5b9a\u65f6\u95f4(\u4eca\u5929\u3001\u660e\u5929\u3001yyyy-MM-dd\u65e5\u671f\u683c\u5f0f)\u6216\u6307\u5b9a\u8fd0\u52a8\u9879\u76ee\u83b7\u53d6\u8d5b\u7a0b\u5b89\u6392\u3002A skill for retrieving 2026 Milan Winter Olympics data, including medal standings, live news reports, and competition schedules. Scrapes real-time medal rankings, latest news, and match schedules from Baidu Sports. Use this skill when users need to query Winter Olympics medal standings, check medal counts by country, get live news, or view competition schedules. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
