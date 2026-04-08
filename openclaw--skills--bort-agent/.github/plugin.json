@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bort-agent",
+  "version": "1.0.0",
+  "description": "description: Interact with BORT AI agents on BNB Chain via BAP-578. Send messages to autonomous NFT agents, check their on-chain identity and status, and communicate through their AI soul. Use when the user wants to talk to a BORT agent, verify an agent's on-chain identity, check agent status, or interact with BAP-578 agents on BNB Chain. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
