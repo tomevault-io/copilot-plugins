@@ -4,7 +4,7 @@
   "repo": "dfwsc2.0",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -35,5 +35,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/DFW-Software-Consulting",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T20:12:40Z"
+  "distributed_at": "2026-04-08T22:05:13Z"
 }
