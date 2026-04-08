@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--antigravity-balance",
+  "version": "1.0.0",
+  "description": "Check Google Antigravity AI model quota/token balance. Use when a user asks about their Antigravity usage, remaining tokens, model limits, quota status, or rate limits. Works by detecting the local Antigravity language server process and querying its API. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
