@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--obsidian",
   "version": "1.0.0",
-  "description": "Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.",
+  "description": "Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
