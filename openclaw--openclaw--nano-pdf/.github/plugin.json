@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--nano-pdf",
   "version": "1.0.0",
-  "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
+  "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
