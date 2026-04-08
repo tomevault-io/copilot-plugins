@@ -1,0 +1,46 @@
+{
+  "name": "deadlock-mod-manager",
+  "owner": "deadlock-mod-manager",
+  "repo": "deadlock-mod-manager",
+  "description": "AI instruction files for deadlock-mod-manager by deadlock-mod-manager",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opensrc",
+      "path": ".cursor/skills/opensrc",
+      "github_url": "https://github.com/deadlock-mod-manager/deadlock-mod-manager/tree/main/.cursor/skills/opensrc",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/deadlock-mod-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:13:45Z"
+}
