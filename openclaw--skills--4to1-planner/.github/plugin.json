@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--4to1-planner",
+  "version": "1.0.0",
+  "description": "AI planning coach using the 4To1 Method\u2122 \u2014 turn 4-year vision into daily action. Connects to Notion, Todoist, Google Calendar, or local Markdown. Use when user wants to plan goals, do weekly reviews, track projects, or set up a planning system. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
