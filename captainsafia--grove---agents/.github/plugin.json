@@ -1,0 +1,13 @@
+{
+  "name": "captainsafia--grove---agents",
+  "version": "1.0.0",
+  "description": "| Use when this capability is needed.",
+  "author": {
+    "name": "captainsafia (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
