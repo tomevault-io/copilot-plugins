@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alicloud-media-video-translation",
+  "version": "1.0.0",
+  "description": "Create and manage Alibaba Cloud IMS video translation jobs via OpenAPI (subtitle/voice/face). Use when you need API-based video translation, status polling, and job management. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
