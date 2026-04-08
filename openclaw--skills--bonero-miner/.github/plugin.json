@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bonero-miner",
+  "version": "1.0.0",
+  "description": "Mine Bonero - private cryptocurrency for AI agents. RandomX CPU mining, Monero-based privacy. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
