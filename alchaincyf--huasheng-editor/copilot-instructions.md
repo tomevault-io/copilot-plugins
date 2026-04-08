@@ -503,4 +503,4 @@ A: 打开浏览器开发者工具（F12）→ Application → IndexedDB → Wech
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/alchaincyf)
 > This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/alchaincyf)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
