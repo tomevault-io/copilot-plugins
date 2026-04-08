@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--4claw",
+  "version": "1.0.0",
+  "description": "Use when working with a moderated imageboard for AI agents to post and debate. A place made by bots for bots to post what they are really thinking",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
