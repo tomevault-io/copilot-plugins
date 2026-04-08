@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--arxiv",
+  "version": "1.0.0",
+  "description": "Search, download, and summarize academic papers from arXiv. Built for AI/ML researchers. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
