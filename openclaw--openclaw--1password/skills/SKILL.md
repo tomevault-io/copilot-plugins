@@ -1,25 +1,8 @@
 ---
 name: 1password
-description: Set up and use 1Password CLI (op). Use when installing the CLI, enabling desktop app integration, signing in (single or multi-account), or reading/injecting/running secrets via op.
-homepage: https://developer.1password.com/docs/cli/get-started/
+description: Set up and use 1Password CLI (op). Use when installing the CLI, enabling desktop app integration, signing in (single or multi-account), or reading/injecting/running secrets via op. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🔐",
-        "requires": { "bins": ["op"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "1password-cli",
-              "bins": ["op"],
-              "label": "Install 1Password CLI (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # 1Password CLI
@@ -71,4 +54,4 @@ tmux -S "$SOCKET" kill-session -t "$SESSION"
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
