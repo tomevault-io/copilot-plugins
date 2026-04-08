@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentmail-kessler",
+  "version": "1.0.0",
+  "description": "Programmatic email for AI agents via AgentMail API. Create inboxes, send/receive messages, manage threads, webhooks, pods, and custom domains. Use when you need agent email identity, email-based workflows, or real-time email processing. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
