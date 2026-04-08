@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--openhue",
   "version": "1.0.0",
-  "description": "Control Philips Hue lights and scenes via the OpenHue CLI.",
+  "description": "Control Philips Hue lights and scenes via the OpenHue CLI. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
