@@ -1,0 +1,52 @@
+{
+  "name": "ouro",
+  "owner": "ouro-ai-labs",
+  "repo": "ouro",
+  "description": "AI instruction files for ouro by ouro-ai-labs",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-creator",
+      "path": "agent/skills/system/skill-creator",
+      "github_url": "https://github.com/ouro-ai-labs/ouro/tree/main/agent/skills/system/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-installer",
+      "path": "agent/skills/system/skill-installer",
+      "github_url": "https://github.com/ouro-ai-labs/ouro/tree/main/agent/skills/system/skill-installer",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/ouro-ai-labs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:10:32Z"
+}
