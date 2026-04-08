@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aviation-weather",
+  "version": "1.0.0",
+  "description": "Fetch aviation weather data (METAR, TAF, PIREPs) from aviationweather.gov. Use for flight planning, weather briefings, checking airport conditions, or any pilot-related weather queries. Triggers on \"METAR\", \"TAF\", \"flight weather\", \"airport weather\", \"aviation weather\", \"pilot report\", \"PIREP\", or specific ICAO codes. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
