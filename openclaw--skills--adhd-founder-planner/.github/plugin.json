@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--adhd-founder-planner",
+  "version": "1.0.0",
+  "description": "This skill should be used when the user asks to 'plan my day', 'help me plan today', 'morning planning', 'what should I work on today', 'daily planner', 'evening reflection', 'reflect on my day', 'migrate tasks', 'carry tasks forward', 'rapid log', 'brain dump my tasks', or mentions ADHD-friendly planning, time-blindness, swim lanes, energy-based task management, bullet journal for ADHD, or dopamine menu. Provides a BuJo-style daily planning system with swim lanes, migration, reflection, and dopamine rewards. Part of the ADHD-founder.com ecosystem. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
