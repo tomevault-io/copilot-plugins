@@ -1,25 +1,8 @@
 ---
 name: himalaya
-description: "CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIME Meta Language)."
-homepage: https://github.com/pimalaya/himalaya
+description: CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIME Meta Language). Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "📧",
-        "requires": { "bins": ["himalaya"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "himalaya",
-              "bins": ["himalaya"],
-              "label": "Install Himalaya (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # Himalaya Email CLI
@@ -258,4 +241,4 @@ RUST_LOG=trace RUST_BACKTRACE=1 himalaya envelope list
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
