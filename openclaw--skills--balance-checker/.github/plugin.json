@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--balance-checker",
+  "version": "1.0.0",
+  "description": "\u67e5\u8be2 AI API \u670d\u52a1\u5546\u7684\u4f59\u989d\uff08DeepSeek\u3001Moonshot/Kimi\u3001\u706b\u5c71\u5f15\u64ce\uff09\u3002\u5f53\u7528\u6237\u8bf4\"\u67e5\u4f59\u989d\"\u3001\"\u8fd8\u6709\u591a\u5c11\u989d\u5ea6\"\u3001\"\u4f59\u989d\u591a\u5c11\"\u65f6\u81ea\u52a8\u89e6\u53d1\u3002 Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
