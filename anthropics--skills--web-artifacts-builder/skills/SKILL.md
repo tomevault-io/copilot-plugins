@@ -1,7 +1,8 @@
 ---
 name: web-artifacts-builder
-description: Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
-license: Complete terms in LICENSE.txt
+description: Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts. Use when this capability is needed.
+metadata:
+  author: anthropics
 ---
 
 # Web Artifacts Builder
@@ -75,4 +76,4 @@ To test/visualize the artifact, use available tools (including other Skills or b
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/anthropics/skills)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
