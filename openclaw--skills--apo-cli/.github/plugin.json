@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--apo-cli",
+  "version": "1.0.0",
+  "description": "Search and order pharmacy products from apohealth.de via apo-cli. Use for medication search (by name or PZN), product details, category browsing, and cart management. Trigger when the user mentions Apotheke, pharmacy, Medikament, medication, PZN, apohealth, or health products. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
