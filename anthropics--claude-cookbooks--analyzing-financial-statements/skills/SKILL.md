@@ -1,6 +1,8 @@
 ---
 name: analyzing-financial-statements
-description: This skill calculates key financial ratios and metrics from financial statement data for investment analysis
+description: This skill calculates key financial ratios and metrics from financial statement data for investment analysis Use when this capability is needed.
+metadata:
+  author: anthropics
 ---
 
 # Financial Ratio Calculator Skill
@@ -70,4 +72,4 @@ Results include:
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/anthropics/claude-cookbooks)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
