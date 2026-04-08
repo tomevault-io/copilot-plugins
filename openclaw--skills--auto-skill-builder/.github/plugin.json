@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--auto-skill-builder",
+  "version": "1.0.0",
+  "description": "\u81ea\u52a8\u6784\u5efa Claude AI Skills\uff0c\u7ed3\u5408 skill-seekers \u81ea\u52a8\u751f\u6210\u548c skill-creator \u6700\u4f73\u5b9e\u8df5\u3002\u652f\u6301\u4ece\u6587\u6863\u3001GitHub \u4ed3\u5e93\u3001PDF \u4e00\u952e\u751f\u6210\u4e13\u4e1a Skill\u3002 Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
