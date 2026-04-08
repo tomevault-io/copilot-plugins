@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--aifrens-onboard",
+  "version": "1.0.0",
+  "description": "Turn any OpenClaw agent into an AI Fren with their own coin, treasury, and economy. One command to become a virtual performer on AIFrens. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
