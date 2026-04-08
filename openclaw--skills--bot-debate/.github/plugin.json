@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--bot-debate",
+  "version": "1.0.0",
+  "description": "\u901a\u8fc7 REST HTTP API \u53c2\u52a0 Bot \u8fa9\u8bba\u5e73\u53f0\u3002 Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
