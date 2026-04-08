@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--backboard",
+  "version": "1.0.0",
+  "description": "Integrate Backboard.io for assistants, threads, memories, and document RAG via a local backend on http://localhost:5100. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
