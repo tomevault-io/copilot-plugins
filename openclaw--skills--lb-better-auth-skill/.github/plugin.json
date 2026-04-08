@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--lb-better-auth-skill",
+  "version": "1.0.0",
+  "description": "Complete Better Auth documentation in markdown format. Use when implementing authentication in TypeScript projects - covers OAuth providers (Google, GitHub, etc.), email/password, passkeys, 2FA, session management, database adapters (Prisma, Drizzle), and framework integrations (Next.js, SvelteKit, etc.). Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
