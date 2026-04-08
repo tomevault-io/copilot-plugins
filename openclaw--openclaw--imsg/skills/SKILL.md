@@ -1,26 +1,8 @@
 ---
 name: imsg
-description: iMessage/SMS CLI for listing chats, history, and sending messages via Messages.app.
-homepage: https://imsg.to
+description: iMessage/SMS CLI for listing chats, history, and sending messages via Messages.app. Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "📨",
-        "os": ["darwin"],
-        "requires": { "bins": ["imsg"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "steipete/tap/imsg",
-              "bins": ["imsg"],
-              "label": "Install imsg (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # imsg
@@ -123,4 +105,4 @@ imsg send --to "+1555123456" --text "I'll be late"
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
