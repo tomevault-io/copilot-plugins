@@ -1,0 +1,64 @@
+{
+  "name": "ai-workflow",
+  "owner": "nicepkg",
+  "repo": "ai-workflow",
+  "description": "AI instruction files for ai-workflow by nicepkg",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-downloader",
+      "path": ".claude/skills/legacy-to-ai-ready/assets/skill-downloader",
+      "github_url": "https://github.com/nicepkg/ai-workflow/tree/main/.claude/skills/legacy-to-ai-ready/assets/skill-downloader",
+      "description": ""
+    },
+    {
+      "name": "resource-scout",
+      "path": ".claude/skills/legacy-to-ai-ready/assets/resource-scout",
+      "github_url": "https://github.com/nicepkg/ai-workflow/tree/main/.claude/skills/legacy-to-ai-ready/assets/resource-scout",
+      "description": ""
+    },
+    {
+      "name": "add-new-skills-to-workflow",
+      "path": ".claude/skills/add-new-skills-to-workflow",
+      "github_url": "https://github.com/nicepkg/ai-workflow/tree/main/.claude/skills/add-new-skills-to-workflow",
+      "description": ""
+    },
+    {
+      "name": "legacy-to-ai-ready",
+      "path": ".claude/skills/legacy-to-ai-ready",
+      "github_url": "https://github.com/nicepkg/ai-workflow/tree/main/.claude/skills/legacy-to-ai-ready",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/nicepkg",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:09:44Z"
+}
