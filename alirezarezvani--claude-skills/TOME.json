@@ -1,0 +1,244 @@
+{
+  "name": "claude-skills",
+  "owner": "alirezarezvani",
+  "repo": "claude-skills",
+  "description": "AI instruction files for claude-skills by alirezarezvani",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "app-store-optimization",
+      "path": "marketing-skill/app-store-optimization",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/marketing-skill/app-store-optimization",
+      "description": ""
+    },
+    {
+      "name": "aws-solution-architect",
+      "path": "engineering-team/aws-solution-architect",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/aws-solution-architect",
+      "description": ""
+    },
+    {
+      "name": "capa-officer",
+      "path": "ra-qm-team/capa-officer",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/capa-officer",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "engineering-team/code-reviewer",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "confluence-expert",
+      "path": "project-management/confluence-expert",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/project-management/confluence-expert",
+      "description": ""
+    },
+    {
+      "name": "fda-consultant-specialist",
+      "path": "ra-qm-team/fda-consultant-specialist",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/fda-consultant-specialist",
+      "description": ""
+    },
+    {
+      "name": "gdpr-dsgvo-expert",
+      "path": "ra-qm-team/gdpr-dsgvo-expert",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/gdpr-dsgvo-expert",
+      "description": ""
+    },
+    {
+      "name": "information-security-manager-iso27001",
+      "path": "ra-qm-team/information-security-manager-iso27001",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/information-security-manager-iso27001",
+      "description": ""
+    },
+    {
+      "name": "interview-system-designer",
+      "path": "engineering/interview-system-designer",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering/interview-system-designer",
+      "description": ""
+    },
+    {
+      "name": "jira-expert",
+      "path": "project-management/jira-expert",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/project-management/jira-expert",
+      "description": ""
+    },
+    {
+      "name": "marketing-strategy-pmm",
+      "path": "marketing-skill/marketing-strategy-pmm",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/marketing-skill/marketing-strategy-pmm",
+      "description": ""
+    },
+    {
+      "name": "mdr-745-specialist",
+      "path": "ra-qm-team/mdr-745-specialist",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/mdr-745-specialist",
+      "description": ""
+    },
+    {
+      "name": "product-manager-toolkit",
+      "path": "product-team/product-manager-toolkit",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/product-team/product-manager-toolkit",
+      "description": ""
+    },
+    {
+      "name": "product-strategist",
+      "path": "product-team/product-strategist",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/product-team/product-strategist",
+      "description": ""
+    },
+    {
+      "name": "qms-audit-expert",
+      "path": "ra-qm-team/qms-audit-expert",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/qms-audit-expert",
+      "description": ""
+    },
+    {
+      "name": "quality-documentation-manager",
+      "path": "ra-qm-team/quality-documentation-manager",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/quality-documentation-manager",
+      "description": ""
+    },
+    {
+      "name": "quality-manager-qms-iso13485",
+      "path": "ra-qm-team/quality-manager-qms-iso13485",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/quality-manager-qms-iso13485",
+      "description": ""
+    },
+    {
+      "name": "regulatory-affairs-head",
+      "path": "ra-qm-team/regulatory-affairs-head",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/regulatory-affairs-head",
+      "description": ""
+    },
+    {
+      "name": "risk-management-specialist",
+      "path": "ra-qm-team/risk-management-specialist",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/ra-qm-team/risk-management-specialist",
+      "description": ""
+    },
+    {
+      "name": "scrum-master",
+      "path": "project-management/scrum-master",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/project-management/scrum-master",
+      "description": ""
+    },
+    {
+      "name": "senior-architect",
+      "path": "engineering-team/senior-architect",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-architect",
+      "description": ""
+    },
+    {
+      "name": "senior-backend",
+      "path": "engineering-team/senior-backend",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-backend",
+      "description": ""
+    },
+    {
+      "name": "senior-computer-vision",
+      "path": "engineering-team/senior-computer-vision",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-computer-vision",
+      "description": ""
+    },
+    {
+      "name": "senior-data-engineer",
+      "path": "engineering-team/senior-data-engineer",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-data-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-frontend",
+      "path": "engineering-team/senior-frontend",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-frontend",
+      "description": ""
+    },
+    {
+      "name": "senior-fullstack",
+      "path": "engineering-team/senior-fullstack",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-fullstack",
+      "description": ""
+    },
+    {
+      "name": "senior-ml-engineer",
+      "path": "engineering-team/senior-ml-engineer",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-ml-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-prompt-engineer",
+      "path": "engineering-team/senior-prompt-engineer",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-qa",
+      "path": "engineering-team/senior-qa",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-qa",
+      "description": ""
+    },
+    {
+      "name": "senior-secops",
+      "path": "engineering-team/senior-secops",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-secops",
+      "description": ""
+    },
+    {
+      "name": "senior-security",
+      "path": "engineering-team/senior-security",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/senior-security",
+      "description": ""
+    },
+    {
+      "name": "tdd-guide",
+      "path": "engineering-team/tdd-guide",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/tdd-guide",
+      "description": ""
+    },
+    {
+      "name": "ui-design-system",
+      "path": "product-team/ui-design-system",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/product-team/ui-design-system",
+      "description": ""
+    },
+    {
+      "name": "ux-researcher-designer",
+      "path": "product-team/ux-researcher-designer",
+      "github_url": "https://github.com/alirezarezvani/claude-skills/tree/main/product-team/ux-researcher-designer",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/alirezarezvani",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-08T18:05:20Z"
+}
