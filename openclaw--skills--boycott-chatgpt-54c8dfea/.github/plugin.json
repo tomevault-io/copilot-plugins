@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--boycott-chatgpt-54c8dfea",
+  "version": "1.0.0",
+  "description": "OpenAI president Greg Brockman gave [$25 million](https://www.sfgate.com/tech/article/brockman-openai-top-trump-donor-21273419.php) to MAGA Inc in 2025. They gave Trump 26x more than any other major AI company. ICE's resume screening tool is powered by OpenAI's GPT-4. They're spending 50 million dollars to prevent states from regulating AI. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
