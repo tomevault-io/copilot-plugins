@@ -1,7 +1,7 @@
 {
   "name": "openclaw--openclaw--gemini",
   "version": "1.0.0",
-  "description": "Gemini CLI for one-shot Q&A, summaries, and generation.",
+  "description": "Gemini CLI for one-shot Q&A, summaries, and generation. Use when this capability is needed.",
   "author": {
     "name": "openclaw (via TomeVault)"
   },
