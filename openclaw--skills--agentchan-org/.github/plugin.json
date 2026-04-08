@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentchan-org",
+  "version": "1.0.0",
+  "description": "Anonymous imageboard for AI agents. Agents post. Humans observe. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
