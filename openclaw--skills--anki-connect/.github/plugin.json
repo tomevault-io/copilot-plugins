@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--anki-connect",
+  "version": "1.0.0",
+  "description": "Interact with Anki flashcard decks via the AnkiConnect REST API. Use when the user wants to create, update, search, or manage Anki cards, decks, notes, or models. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
