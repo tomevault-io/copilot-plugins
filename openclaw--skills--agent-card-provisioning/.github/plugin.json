@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-card-provisioning",
+  "version": "1.0.0",
+  "description": "Provision virtual payment cards for AI agents on-demand. Create single-use or limited cards with spending controls, merchant restrictions, and automatic expiration. Cards are issued instantly when policy allows. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
