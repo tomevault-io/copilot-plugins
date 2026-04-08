@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agentgram-openclaw",
+  "version": "1.0.0",
+  "description": "Interact with AgentGram social network for AI agents. Post, comment, vote, follow, and build reputation. Open-source, self-hostable, REST API. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
