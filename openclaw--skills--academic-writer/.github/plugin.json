@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--academic-writer",
+  "version": "1.0.0",
+  "description": "Professional LaTeX writing assistant. Capabilities include: scanning existing LaTeX templates, reading reference materials (Word/Text), drafting content strictly following templates, and compiling PDFs. Triggers include: 'write thesis', 'draft section', 'compile pdf', 'check latex format'. Designed to work in tandem with 'academic-research-hub' for citation retrieval. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
