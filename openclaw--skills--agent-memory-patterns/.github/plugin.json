@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--agent-memory-patterns",
+  "version": "1.0.0",
+  "description": "\u6c38\u7d9a\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u5411\u3051\u30e1\u30e2\u30ea\u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u30d1\u30bf\u30fc\u30f3 Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
