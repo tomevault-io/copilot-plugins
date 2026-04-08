@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--basename-agent",
+  "version": "1.0.0",
+  "description": "\ud83c\udff7\ufe0f Basename Agent - Onchain Identity + \u00c6mail for AI. Register yourname.base.eth and get yourname@basemail.ai \u2014 via Donate Buy (recommended), free auto-register, or WalletConnect v2. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
