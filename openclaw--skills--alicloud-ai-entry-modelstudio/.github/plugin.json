@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--alicloud-ai-entry-modelstudio",
+  "version": "1.0.0",
+  "description": "Route Alibaba Cloud Model Studio requests to the right local skill (Qwen Image, Qwen Image Edit, Wan Video, Wan R2V, Qwen TTS, Qwen ASR and advanced TTS variants). Use when the user asks for Model Studio without specifying a capability. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
