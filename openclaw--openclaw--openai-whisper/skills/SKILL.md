@@ -1,25 +1,8 @@
 ---
 name: openai-whisper
-description: Local speech-to-text with the Whisper CLI (no API key).
-homepage: https://openai.com/research/whisper
+description: Local speech-to-text with the Whisper CLI (no API key). Use when this capability is needed.
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🎤",
-        "requires": { "bins": ["whisper"] },
-        "install":
-          [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "openai-whisper",
-              "bins": ["whisper"],
-              "label": "Install OpenAI Whisper (brew)",
-            },
-          ],
-      },
-  }
+  author: openclaw
 ---
 
 # Whisper (CLI)
@@ -39,4 +22,4 @@ Notes
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io) | [Claim this content](https://tomevault.io/claim/openclaw/openclaw)
-<!-- tomevault:2.0:skill_md:2026-04-05 -->
+<!-- tomevault:3.0:skill_md:2026-04-07 -->
