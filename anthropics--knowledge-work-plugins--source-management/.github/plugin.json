@@ -1,0 +1,13 @@
+{
+  "name": "anthropics--knowledge-work-plugins--source-management",
+  "version": "1.0.0",
+  "description": "Manages connected MCP sources for enterprise search. Detects available sources, guides users to connect new ones, handles source priority ordering, and manages rate limiting awareness.",
+  "author": {
+    "name": "anthropics (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
