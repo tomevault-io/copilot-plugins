@@ -1,0 +1,13 @@
+{
+  "name": "plurigrid--asi--12-factor-app-modernization",
+  "version": "1.0.0",
+  "description": "| Use when this capability is needed.",
+  "author": {
+    "name": "plurigrid (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
