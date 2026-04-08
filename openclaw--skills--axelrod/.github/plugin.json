@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--axelrod",
+  "version": "1.0.0",
+  "description": "AI-powered Base-chain trading and on-chain query agent via natural language. Use when the user wants to trade crypto (buy/sell/swap tokens), set up automated strategies (DCA, limit orders, RSI), check portfolio balances, view token prices, query token info/analysis, check order status, manage take-profit/stop-loss orders, or ask about crypto/DeFi topics on Base chain. Always run scripts/axelrod_chat.py to fetch real-time results. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
