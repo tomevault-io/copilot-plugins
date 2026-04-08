@@ -1,0 +1,13 @@
+{
+  "name": "openclaw--skills--10x-patterns",
+  "version": "1.0.0",
+  "description": "Patterns and practices that dramatically accelerate development velocity. Covers parallel execution, automation, feedback loops, workflow optimization, and anti-pattern avoidance. Use when starting projects, planning sprints, optimizing workflows, or onboarding developers. Use when this capability is needed.",
+  "author": {
+    "name": "openclaw (via TomeVault)"
+  },
+  "components": {
+    "skills": [
+      "skills/"
+    ]
+  }
+}
