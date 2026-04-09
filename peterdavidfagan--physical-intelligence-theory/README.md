@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [peterdavidfagan/physical_intelligence_theory](h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/peterdavidfagan](https://tomevault.io/claim/peterdavidfagan)
 
