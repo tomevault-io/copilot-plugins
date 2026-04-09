@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Krosebrook/archdesigner](https://github.com/Kro
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Krosebrook](https://tomevault.io/claim/Krosebrook)
 
