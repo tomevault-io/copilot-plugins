@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mscamargo/image-processor-with-firebase](https:
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mscamargo](https://tomevault.io/claim/mscamargo)
 
