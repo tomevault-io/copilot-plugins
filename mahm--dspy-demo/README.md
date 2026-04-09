@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mahm/dspy-demo](https://github.com/mahm/dspy-de
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mahm](https://tomevault.io/claim/mahm)
 
