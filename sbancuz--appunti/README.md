@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [sbancuz/Appunti](https://github.com/sbancuz/App
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sbancuz](https://tomevault.io/claim/sbancuz)
 
