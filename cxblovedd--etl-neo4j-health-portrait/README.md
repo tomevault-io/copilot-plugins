@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [cxblovedd/etl_neo4j_health_portrait](https://gi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cxblovedd](https://tomevault.io/claim/cxblovedd)
 
