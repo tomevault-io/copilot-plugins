@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [alankaz19/amazonbuyer](https://github.com/alank
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/alankaz19](https://tomevault.io/claim/alankaz19)
 
