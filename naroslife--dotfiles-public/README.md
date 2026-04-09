@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [naroslife/dotfiles-public](https://github.com/n
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/naroslife](https://tomevault.io/claim/naroslife)
 
