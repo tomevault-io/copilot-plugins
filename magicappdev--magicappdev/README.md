@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [magicappdev/magicappdev](https://github.com/mag
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/magicappdev](https://tomevault.io/claim/magicappdev)
 
