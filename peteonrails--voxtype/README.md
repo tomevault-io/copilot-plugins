@@ -15,16 +15,19 @@ Original source: `CLAUDE.md` in [peteonrails/voxtype](https://github.com/peteonr
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/peteonrails](https://tomevault.io/claim/peteonrails)
 
-## Bundled Skills (5)
+## Bundled Skills (7)
 
 - [aur-publish](https://github.com/peteonrails/voxtype/tree/main/.claude/skills/aur-publish)
 - [build-release](https://github.com/peteonrails/voxtype/tree/main/.claude/skills/build-release)
 - [docker-test](https://github.com/peteonrails/voxtype/tree/main/.claude/skills/docker-test)
 - [regression-test](https://github.com/peteonrails/voxtype/tree/main/.claude/skills/regression-test)
 - [smoke-test](https://github.com/peteonrails/voxtype/tree/main/.claude/skills/smoke-test)
+- [triage](https://github.com/peteonrails/voxtype/tree/main/.claude/skills/triage)
+- [update-docs](https://github.com/peteonrails/voxtype/tree/main/.claude/skills/update-docs)
 
 ---
 
