@@ -1,0 +1,35 @@
+## dotfiles
+
+> ClickHouse optimization rules, schema standards, and debugging workflows
+
+
+# ClickHouse Development Rules
+
+## Optimization Constraints
+
+- **ReplacingMergeTree Strategy**: MUST use `GROUP BY` with `argMax()` to retrieve the latest state.
+  - **FORBIDDEN**: Do not use `FINAL`, Self-JOINs, or `IN (...)` subqueries for deduplication.
+  - **Pattern**: `SELECT id, argMax(col, created_at) FROM table GROUP BY id`
+
+## Query Analysis Standards
+
+- **Performance Verification**: Before finalizing complex queries, suggest running `EXPLAIN PIPELINE` or `EXPLAIN indexes = 1`.
+- **Debugging**: Reference `system.query_log` for analyzing slow queries (>1s duration) or high memory usage.
+
+## Schema Design Guidelines
+
+- **Partitioning**: Default to `toYYYYMM(date)` for time-series. strictly limit partitions to <1000.
+- **Index Definition**: Ensure Primary Key (`ORDER BY`) matches the most frequent filter predicates.
+- **Engine Selection**:
+  - `MergeTree`: Default for immutable logs.
+  - `ReplacingMergeTree`: Strict requirement for mutable data.
+  - `SummingMergeTree`: Use for pre-aggregation.
+
+## Operational Limits
+
+- Always respect `max_memory_usage` constraints.
+- Enable query cache (`use_query_cache = 1`) for dashboard/analytical queries.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/dandedotdev) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
