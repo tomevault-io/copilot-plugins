@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [tmm/dotfiles](https://github.com/tmm/dotfiles).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tmm](https://tomevault.io/claim/tmm)
 
