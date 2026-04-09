@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [vincent-uden/miro](https://github.com/vincent-u
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vincent-uden](https://tomevault.io/claim/vincent-uden)
 
