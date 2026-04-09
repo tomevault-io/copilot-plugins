@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [martinsantos/um25](https://github.com/martinsan
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/martinsantos](https://tomevault.io/claim/martinsantos)
 
