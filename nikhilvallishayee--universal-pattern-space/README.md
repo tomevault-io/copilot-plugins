@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [nikhilvallishayee/universal-pattern-space](http
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nikhilvallishayee](https://tomevault.io/claim/nikhilvallishayee)
 
