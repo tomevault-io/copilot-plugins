@@ -1,0 +1,46 @@
+## karasu-ios
+
+> - 项目暂定名称：Shadow Log（影子日记）
+
+
+# Karasu 项目规则
+
+## 产品背景
+
+- 项目暂定名称：Shadow Log（影子日记）
+- 仅上架 iOS 平台，定位为出海产品
+- 个人独立开发项目
+- 产品定位为极致轻量的独立应用
+
+## 技术选型
+
+- 前端：Flutter（为保证可在 Windows 上开发 iOS 应用）
+- 后端：技术方案待定
+
+## 交流要求
+
+- 所有与项目相关的沟通、代码注释、文档输出等，必须使用中文。
+- 此规则适用于所有团队成员和协作工具。
+
+---
+如有补充规则，请在本文件继续追加。
+
+## 执行环境说明
+
+- 项目负责人将在多台不同 PC 上进行开发，
+- 可能会在 Windows 系统和 MacOS 系统之间切换，开发和规则需兼容两种操作系统。
+- 本规则在所有设备上的 Windsurf 与 Cursor 环境中均需生效。
+
+## 开发准则
+
+1. 以产品经理（你）的需求为主，开发过程中不得自创功能。如需求存在漏洞或不明确，须及时询问确认。
+2. 接到新需求时，必须优先进行 DevDesign（开发设计），并向你说明设计优劣势，由你决定是否执行。
+3. DevDesign 需充分考虑现有功能和组件，优先轻量化实现，避免影响已实现功能，除非可实现功能整合。
+4. 块化开发：所有开发任务需模块化、分块实现，便于维护和扩展。
+5. BUG 修复时，需多角度、多流程分析问题，对相关工程文件逐行细读，最后汇报多种修复可能性及方案，由你决定最终执行方案。
+6. 当你提供 API 地址、图片、截图等信息时，必须完整、仔细阅读全部内容，严禁中途臆断。
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Helfez)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Helfez)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
