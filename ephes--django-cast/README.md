@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [ephes/django-cast](https://github.com/ephes/dja
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ephes](https://tomevault.io/claim/ephes)
 
