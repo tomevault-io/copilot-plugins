@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [atovk/skillx](https://github.com/atovk/skillx).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/atovk](https://tomevault.io/claim/atovk)
 
