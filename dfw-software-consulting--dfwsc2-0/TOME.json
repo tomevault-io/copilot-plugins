@@ -4,7 +4,7 @@
   "repo": "dfwsc2.0",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/DFW-Software-Consulting",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T22:05:13Z"
+  "distributed_at": "2026-04-09T17:10:33Z"
 }
