@@ -1,0 +1,46 @@
+{
+  "name": "eser--aya-is",
+  "displayName": "aya.is",
+  "description": "AI instruction files for aya.is by eser",
+  "version": "1.0.0",
+  "author": "eser",
+  "homepage": "https://tomevault.io/claim/eser",
+  "skills": [
+    {
+      "name": "architecture-guidelines",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-practices",
+      "description": ""
+    },
+    {
+      "name": "coding-practices",
+      "description": ""
+    },
+    {
+      "name": "eser-rules-manager",
+      "description": ""
+    },
+    {
+      "name": "go-practices",
+      "description": ""
+    },
+    {
+      "name": "javascript-practices",
+      "description": ""
+    },
+    {
+      "name": "requirement-clarification",
+      "description": ""
+    },
+    {
+      "name": "tooling-standards",
+      "description": ""
+    },
+    {
+      "name": "workflow-practices",
+      "description": ""
+    }
+  ]
+}
