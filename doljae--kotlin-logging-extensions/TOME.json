@@ -4,7 +4,7 @@
   "repo": "kotlin-logging-extensions",
   "description": "AI instruction files for kotlin-logging-extensions by doljae",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -48,5 +48,5 @@
   ],
   "claim_url": "https://tomevault.io/claim/doljae",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T01:49:41Z"
+  "distributed_at": "2026-04-09T07:25:10Z"
 }
