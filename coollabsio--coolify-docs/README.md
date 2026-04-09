@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [coollabsio/coolify-docs](https://github.com/coo
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/coollabsio](https://tomevault.io/claim/coollabsio)
 
