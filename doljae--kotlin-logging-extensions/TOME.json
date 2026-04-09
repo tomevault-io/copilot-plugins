@@ -1,0 +1,52 @@
+{
+  "name": "kotlin-logging-extensions",
+  "owner": "doljae",
+  "repo": "kotlin-logging-extensions",
+  "description": "AI instruction files for kotlin-logging-extensions by doljae",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ksp-module-router",
+      "path": ".agents/skills/ksp-module-router",
+      "github_url": "https://github.com/doljae/kotlin-logging-extensions/tree/main/.agents/skills/ksp-module-router",
+      "description": ""
+    },
+    {
+      "name": "workload-regression-maintainer",
+      "path": ".agents/skills/workload-regression-maintainer",
+      "github_url": "https://github.com/doljae/kotlin-logging-extensions/tree/main/.agents/skills/workload-regression-maintainer",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/doljae",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:49:41Z"
+}
