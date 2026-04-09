@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [pnz1990/kro-ui](https://github.com/pnz1990/kro-
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pnz1990](https://tomevault.io/claim/pnz1990)
 
