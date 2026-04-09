@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [getmarkus/python_template](https://github.com/g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/getmarkus](https://tomevault.io/claim/getmarkus)
 
