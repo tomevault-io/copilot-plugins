@@ -15,14 +15,22 @@ Original source: `GEMINI.md` in [knowns-dev/knowns](https://github.com/knowns-de
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/knowns-dev](https://tomevault.io/claim/knowns-dev)
 
-## Bundled Skills (3)
+## Bundled Skills (10)
 
 - [kn-commit](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-commit)
 - [kn-doc](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-doc)
 - [kn-extract](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-extract)
+- [kn-implement](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-implement)
+- [kn-init](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-init)
+- [kn-plan](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-plan)
+- [kn-research](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-research)
+- [kn-spec](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-spec)
+- [kn-template](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-template)
+- [kn-verify](https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-verify)
 
 ---
 
