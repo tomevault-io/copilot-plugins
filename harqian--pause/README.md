@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [harqian/Pause](https://github.com/harqian/Pause
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/harqian](https://tomevault.io/claim/harqian)
 
