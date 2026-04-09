@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -80,9 +85,39 @@
       "path": "evals/skills/prompt-injection/jailbreak-override",
       "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/prompt-injection/jailbreak-override",
       "description": ""
+    },
+    {
+      "name": "prompt-injection",
+      "path": "evals/test_skills/malicious/prompt-injection",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/test_skills/malicious/prompt-injection",
+      "description": ""
+    },
+    {
+      "name": "eval-execution",
+      "path": "evals/skills/command-injection/eval-execution",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/command-injection/eval-execution",
+      "description": ""
+    },
+    {
+      "name": "file-reader",
+      "path": "evals/skills/path-traversal/file-reader",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/path-traversal/file-reader",
+      "description": ""
+    },
+    {
+      "name": "simple-formatter",
+      "path": "evals/test_skills/safe/simple-formatter",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/test_skills/safe/simple-formatter",
+      "description": ""
+    },
+    {
+      "name": "simple-math",
+      "path": "evals/skills/safe-skills/simple-math",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/safe-skills/simple-math",
+      "description": ""
     }
   ],
   "claim_url": "https://tomevault.io/claim/cisco-ai-defense",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T01:49:00Z"
+  "distributed_at": "2026-04-09T14:35:32Z"
 }
