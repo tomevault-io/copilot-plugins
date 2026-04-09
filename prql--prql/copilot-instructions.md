@@ -1,0 +1,158 @@
+## prql
+
+> Use a tiered testing approach—iterate quickly, validate thoroughly:
+
+# Claude
+
+## Development Workflow
+
+Use a tiered testing approach—iterate quickly, validate thoroughly:
+
+**Inner loop** (during development, ~5s):
+
+```sh
+# Fast tests on core packages
+task prqlc:test
+
+# Filtered by test name
+cargo insta test -p prqlc --lib -- resolver
+cargo insta test -p prqlc --test integration -- date
+```
+
+**Before returning to user** (~30s):
+
+```sh
+# Comprehensive prqlc tests - sufficient for most changes
+task prqlc:pull-request
+```
+
+**Cross-binding changes only** (~2min):
+
+```sh
+# Only when changes affect JS/Python/wasm bindings
+task test-all
+```
+
+The test suite is configured to minimize token usage:
+
+- **Nextest** only shows failures and slow tests (not 600 PASS lines)
+- **Cargo builds** use `--quiet` flag (no compilation spam)
+- **Result**: ~52% reduction in output (1128 → 540 lines, ~4.5k tokens)
+
+## Tests
+
+Prefer inline snapshots for almost all tests:
+
+```rust
+insta::assert_snapshot!(result, @"expected output");
+```
+
+Initialize tests with empty snapshots, then run with `--accept`:
+
+```rust
+insta::assert_snapshot!(result, @"");
+```
+
+The test commands above with `--accept` will fill in the result automatically.
+
+### Test Strategy
+
+**Prefer small inline `insta` snapshot tests** over full integration tests:
+
+- **Use inline tests** for most bug fixes and small features
+  - Add `#[test]` functions in a `#[cfg(test)]` module at the end of the file
+  - Use `insta::assert_snapshot!` for compact, readable test assertions
+  - Fast to run, easy to review in PRs
+
+- **Use integration tests** (`prqlc/tests/integration/queries/*.prql`) only
+  when:
+  - Developing large, complex features that need comprehensive testing
+  - Testing end-to-end behavior across multiple compilation stages
+  - The test requires external resources or multi-file scenarios
+
+Example of a good inline test:
+
+```rust
+#[cfg(test)]
+mod test {
+    use insta::assert_snapshot;
+
+    #[test]
+    fn test_my_feature() {
+        let query = "from employees | filter country == 'USA'";
+        assert_snapshot!(crate::tests::compile(query).unwrap(), @"");
+    }
+}
+```
+
+## Running the CLI
+
+For viewing `prqlc` output, for any stage of the compilation process:
+
+```sh
+# Compile PRQL to SQL
+cargo run -p prqlc -- compile "from employees | filter country == 'USA'"
+
+# Format PRQL code
+cargo run -p prqlc -- fmt "from employees | filter country == 'USA'"
+
+# See all available commands
+cargo run -p prqlc -- --help
+```
+
+## Linting
+
+Run all lints with
+
+```sh
+task lint
+```
+
+## Error Handling
+
+Never panic on user input or recoverable errors. Use proper error returns:
+
+- ❌ `.unwrap()` on operations that can fail with user input
+- ✅ `?` operator or `return Err(Error::new_simple("message"))`
+- ✅ `.expect("reason")` or `unreachable!()` only for compiler-bug invariants
+
+## Error Messages
+
+Error messages should avoid 2nd person (you/your). Use softer modal verbs like
+"might" for a friendlier tone:
+
+- ❌ "are you missing `from` statement?" → ✅ "`from` statement might be
+  missing?"
+- ❌ "did you forget to specify the column name?" → ✅ "column name might be
+  missing?"
+- ❌ "you can only use X" → ✅ "X requires Y" (for hard constraints)
+- ❌ "Have you forgotten an argument?" → ✅ "Argument might be missing?"
+
+## Documentation
+
+For Claude to view crate documentation:
+
+```sh
+# Build documentation for a specific crate
+cargo doc -p prqlc
+
+# View the generated HTML documentation with the View tool
+# The docs are generated at target/doc/{crate_name}/index.html
+View target/doc/prqlc/index.html
+
+# For specific module documentation
+View target/doc/prqlc/module_name/index.html
+
+# For function documentation
+View target/doc/prqlc/fn.compile.html
+```
+
+## Releases & Environment
+
+For releases or environment issues, see
+`web/book/src/project/contributing/development.md`.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/PRQL)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/PRQL)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
