@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [emkey1/pscal](https://github.com/emkey1/pscal).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/emkey1](https://tomevault.io/claim/emkey1)
 
