@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [TTORANG/Web](https://github.com/TTORANG/Web).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/TTORANG](https://tomevault.io/claim/TTORANG)
 
