@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [elie222/inbox-zero](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/elie222](https://tomevault.io/claim/elie222)
 
