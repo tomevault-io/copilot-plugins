@@ -1,81 +1,77 @@
 ## stella
 
-> Please also reference the following documents as needed. In this case, `@` stands for the project root directory.
+> Shadcn UI 组件规范与 MCP 使用指引（优先使用 shadcn MCP 获取信息与命令）
 
-Please also reference the following documents as needed. In this case, `@` stands for the project root directory.
 
-<Documents>
-  <Document>
-    <Path>@.codex\memories\astro-development.md</Path>
-    <FilePatterns>**/*</FilePatterns>
-  </Document>
-  <Document>
-    <Path>@.codex\memories\content-authoring.md</Path>
-    <Description>Content authoring rules aligned with src/content.config.ts schemas</Description>
-    <FilePatterns>src/content/**/*.md, src/content/**/*.mdx</FilePatterns>
-  </Document>
-  <Document>
-    <Path>@.codex\memories\shadcn-components.md</Path>
-    <Description>Shadcn UI 组件规范与 MCP 使用指引（优先使用 shadcn MCP 获取信息与命令）</Description>
-    <FilePatterns>**/*</FilePatterns>
-  </Document>
-  <Document>
-    <Path>@.codex\memories\site-config.md</Path>
-    <Description>站点配置中心化（src/siteConfig.ts）与避免硬编码的约定</Description>
-    <FilePatterns>**/*</FilePatterns>
-  </Document>
-</Documents>
+# Shadcn UI 组件使用与来源规则（MCP 增强）
 
-# Additional Conventions Beyond the Built-in Functions
+本项目对 shadcn UI 的使用有强约束，且要求在涉及 shadcn 组件的任何任务时，**在必要的时候总是优先尝试使用 shadcn MCP 工具** 进行检索、命令生成与校验，再执行命令或实现代码。
 
-As this project's AI coding tool, you must follow the additional conventions below, in addition to the built-in functions.# 项目结构与开发约定（Stella / Astro）
+## 基本规范
 
-- 包管理器：必须使用 pnpm（见 [package.json](mdc:package.json) 中 `packageManager` 字段）。
-  - 安装依赖：`pnpm install`
-  - 本地开发：`pnpm dev`
-  - 构建产物：`pnpm build`
-  - 本地预览：`pnpm preview`
+- **包管理器统一使用 pnpm**。
+- **强制使用 CLI 管理组件**：`pnpm dlx shadcn@latest`
+  - 添加：`pnpm dlx shadcn@latest add button input`
+  - 覆盖更新：`pnpm dlx shadcn@latest add --overwrite button`
+- **禁止**：
+  - 手动在 `src/components/ui` 下创建、拷贝、粘贴、重命名组件文件。
+  - 从文档/第三方仓库直接复制 shadcn 组件源码。
+  - 通过脚手架/代码生成器绕过 `shadcn` CLI 生成组件。
+- 已生成组件的修改：
+  - 原则上不直接改动 `src/components/ui/*`。如需变更，优先修改 [components.json](mdc:components.json) 或通过 `add --overwrite` 重新生成。
+  - 若必须本地化小范围样式，不能改变组件 API，并在提交中说明原因与范围。
+- 目录与约定：
+  - 组件根目录：`src/components/ui`
+  - 不在其他目录重复放置 shadcn 组件。
+- 代码评审检查：
+  - PR 若新增/修改 `src/components/ui/*` 且非由 `pnpm dlx shadcn` 生成，应退回并改为通过 CLI 处理。
+  - 确认组件清单与 [components.json](mdc:components.json) 一致。
+- 提交信息建议：
+  - `chore(shadcn): add button via shadcn CLI`
+  - `chore(shadcn): update button via shadcn --overwrite`
 
-## 关键配置与入口
-- Astro 配置：[astro.config.mjs](mdc:astro.config.mjs)
-- 包与脚本：[package.json](mdc:package.json)
-- TypeScript 配置：[tsconfig.json](mdc:tsconfig.json)
+## MCP 工具使用（务必优先尝试）
 
-## 目录总览（./src）
-- 组件：`src/components`（通用组件与 `ui/` 下的 shadcn 组件）
-- 内容集合：`src/content`（Markdown/资产内容）
-- 内容模型定义：[src/content.config.ts](mdc:src/content.config.ts)
-- 布局：`src/layouts`（`main.astro`、`pages.astro`、`article.astro`）
-- 路由页面：`src/pages`（基于文件系统路由）
-- 样式：`src/styles`（`global.css`）
-- 工具库：`src/utils`、`src/lib`
-- 自定义插件：`plugin/`（`remark-modified-time.ts`、`remark-reading-time.ts`）
-- 静态资源：`public/`
+当需要查找、添加、更新、核对 shadcn 组件时，**先使用 shadcn MCP 工具** 获取信息与生成命令，再执行 CLI：
 
-## 基础路由（基于 src/pages）
-- `/` → [src/pages/index.astro](mdc:src/pages/index.astro)
-- `/about` → [src/pages/about.mdx](mdc:src/pages/about.mdx)
-- `/posts` 列表 → [src/pages/posts/index.astro](mdc:src/pages/posts/index.astro)
-- `/posts/:slug...` 详情（动态） → [src/pages/posts/[...slug].astro](mdc:src/pages/posts/[...slug].astro)
-- `/snippets` 列表 → [src/pages/snippets/index.astro](mdc:src/pages/snippets/index.astro)
-- `/snippets/:slug...` 详情（动态） → [src/pages/snippets/[...slug].astro](mdc:src/pages/snippets/[...slug].astro)
+- 可用工具（按常见流程）：
+  - `get_project_registries`：读取项目已配置的 shadcn registry。
+  - `list_items_in_registries`：列出可用组件项（支持分页）。
+  - `search_items_in_registries`：按名称/描述模糊搜索组件。
+  - `view_items_in_registries`：查看组件的详细信息、文件清单与说明。
+  - `get_item_examples_from_registries`：获取组件示例与完整用法代码。
+  - `get_add_command_for_items`：根据所选组件生成准确的 `shadcn add` 命令。
+  - `get_audit_checklist`：生成变更后的核对清单，确保新增/更新后无遗漏。
 
-## 内容组织（src/content）
-- 文章集合：`src/content/posts`（含 `.md` 与配图等资产）
-- 片段集合：`src/content/snippets`
-- 集合/字段等规范在 [src/content.config.ts](mdc:src/content.config.ts) 中定义与校验。
+### 典型操作流程
 
-## shadcn 组件使用
-- 严格遵循规则见：[shadcn-components.mdc](mdc:shadcn-components.mdc)
+- 添加组件：
+  1) 使用 `search_items_in_registries` 定位组件 → 2) 用 `view_items_in_registries` 确认内容与依赖 → 3) 用 `get_add_command_for_items` 生成命令 → 4) 执行生成的 `pnpm dlx shadcn@latest add <items>`。
 
-## Astro 研发流程
-- 新增 Astro 能力时遵循：[astro-development.mdc](mdc:astro-development.mdc)
+- 更新组件：
+  1) 按上步骤检索 → 2) 使用 `get_add_command_for_items` 生成命令并添加 `--overwrite` → 3) 执行 `pnpm dlx shadcn@latest add --overwrite <items>`。
 
-## 其他约定
-- 禁止使用 npm/yarn 进行安装与脚本执行；统一使用 pnpm。
-- 代码格式：使用 Prettier；修复命令：`pnpm run fix:prettier`。
+- 变更校验：
+  - 运行 `get_audit_checklist`，并确保：
+    - [components.json](mdc:components.json) 与实际组件文件一致；
+    - 未直接手改 `src/components/ui/*`；
+    - 依赖、样式、构建均正常。
+
+### 执行约束与命令规范
+
+- 运行命令统一使用 `pnpm`，禁止 `npm/yarn`。
+- 执行时如需非交互，请添加对应的非交互参数（在自动化任务中务必考虑）。
+- 组件覆盖更新必须使用 `--overwrite`，避免手工同步差异。
+
+## 参考与对齐
+
+- 组件清单与生成策略以 [components.json](mdc:components.json) 为准。
+- 组件目录：`src/components/ui`（请勿在其他目录重复放置）。
+- 出现与规则冲突的变更，应回滚并按 MCP + CLI 流程重新执行。
+
+> 提示：本规则为“总是应用”。当任务与 shadcn 组件相关时，应首先尝试使用上列 **shadcn MCP** 工具完成检索和命令生成，再执行具体变更。
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/jctaoo)
 > This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/jctaoo)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
