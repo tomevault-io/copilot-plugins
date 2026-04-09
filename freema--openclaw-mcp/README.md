@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [freema/openclaw-mcp](https://github.com/freema/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/freema](https://tomevault.io/claim/freema)
 
