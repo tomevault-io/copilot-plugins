@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Nezeon/AI-Threat-Actor-Tracking-system](https:/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Nezeon](https://tomevault.io/claim/Nezeon)
 
