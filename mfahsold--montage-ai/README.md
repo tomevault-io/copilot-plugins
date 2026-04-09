@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [mfahsold/montage-ai](https://github.com/mfahsol
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mfahsold](https://tomevault.io/claim/mfahsold)
 
