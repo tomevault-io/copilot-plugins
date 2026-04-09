@@ -1,0 +1,14 @@
+{
+  "name": "coleam00--archon",
+  "displayName": "Archon",
+  "description": "AI instruction files for Archon by coleam00",
+  "version": "1.0.0",
+  "author": "coleam00",
+  "homepage": "https://tomevault.io/claim/coleam00",
+  "skills": [
+    {
+      "name": "archon",
+      "description": ""
+    }
+  ]
+}
