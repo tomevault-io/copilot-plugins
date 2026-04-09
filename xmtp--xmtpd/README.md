@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [xmtp/xmtpd](https://github.com/xmtp/x
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/xmtp](https://tomevault.io/claim/xmtp)
 
