@@ -1,0 +1,64 @@
+{
+  "name": "walnut-admin-client",
+  "owner": "walnut-admin",
+  "repo": "walnut-admin-client",
+  "description": "AI instruction files for walnut-admin-client by walnut-admin",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "walnut-api",
+      "path": ".agents/skills/walnut-api",
+      "github_url": "https://github.com/walnut-admin/walnut-admin-client/tree/main/.agents/skills/walnut-api",
+      "description": ""
+    },
+    {
+      "name": "walnut-component",
+      "path": ".agents/skills/walnut-component",
+      "github_url": "https://github.com/walnut-admin/walnut-admin-client/tree/main/.agents/skills/walnut-component",
+      "description": ""
+    },
+    {
+      "name": "walnut-crud",
+      "path": ".agents/skills/walnut-crud",
+      "github_url": "https://github.com/walnut-admin/walnut-admin-client/tree/main/.agents/skills/walnut-crud",
+      "description": ""
+    },
+    {
+      "name": "walnut-store",
+      "path": ".agents/skills/walnut-store",
+      "github_url": "https://github.com/walnut-admin/walnut-admin-client/tree/main/.agents/skills/walnut-store",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/walnut-admin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:26:45Z"
+}
