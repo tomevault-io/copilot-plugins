@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [BernardUriza/Robo-Poet](https://github.com/Bern
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/BernardUriza](https://tomevault.io/claim/BernardUriza)
 
