@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [qStivi/repair-game](https://github.com/qStivi/r
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/qStivi](https://tomevault.io/claim/qStivi)
 
