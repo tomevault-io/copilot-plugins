@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ilyanosovsky/fastmcp-quickstart-20251009-8iit](
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ilyanosovsky](https://tomevault.io/claim/ilyanosovsky)
 
