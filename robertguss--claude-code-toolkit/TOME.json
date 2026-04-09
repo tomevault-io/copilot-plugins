@@ -1,0 +1,70 @@
+{
+  "name": "claude-code-toolkit",
+  "owner": "robertguss",
+  "repo": "claude-code-toolkit",
+  "description": "AI instruction files for claude-code-toolkit by robertguss",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "book-architect",
+      "path": "skills/non-fiction-book-factory/book-architect",
+      "github_url": "https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-architect",
+      "description": ""
+    },
+    {
+      "name": "book-idea-validator",
+      "path": "skills/non-fiction-book-factory/book-idea-validator",
+      "github_url": "https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-idea-validator",
+      "description": ""
+    },
+    {
+      "name": "book-ideation",
+      "path": "skills/non-fiction-book-factory/book-ideation",
+      "github_url": "https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-ideation",
+      "description": ""
+    },
+    {
+      "name": "book-market-research",
+      "path": "skills/non-fiction-book-factory/book-market-research",
+      "github_url": "https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-market-research",
+      "description": ""
+    },
+    {
+      "name": "book-research-assistant",
+      "path": "skills/non-fiction-book-factory/book-research-assistant",
+      "github_url": "https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-research-assistant",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/robertguss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:26:25Z"
+}
