@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [xafron-bv/botc-party](https://github.com/xafron
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/xafron-bv](https://tomevault.io/claim/xafron-bv)
 
