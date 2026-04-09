@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [derogab/llm-proxy](https://github.com/derogab/l
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/derogab](https://tomevault.io/claim/derogab)
 
