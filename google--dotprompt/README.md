@@ -1,6 +1,6 @@
 # dotprompt
 
-> Config by [google](https://github.com/google/dotprompt) — distributed by [TomeVault](https://tomevault.io/claim/google)
+> Tome by [google](https://github.com/google/dotprompt) — distributed by [TomeVault](https://tomevault.io/claim/google)
 
 ## GitHub Copilot Config
 
@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [google/dotprompt](https://github.com/google/dot
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/google](https://tomevault.io/claim/google)
 
