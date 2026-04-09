@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-go",
+  "displayName": "sentry-go",
+  "description": "sentry-go",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://tomevault.io/claim/getsentry",
+  "skills": []
+}
