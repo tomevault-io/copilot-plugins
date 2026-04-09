@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -66,5 +71,5 @@
   ],
   "claim_url": "https://tomevault.io/claim/bnomei",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T19:25:41Z"
+  "distributed_at": "2026-04-09T14:33:55Z"
 }
