@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [madebyaris/spec-kit-command-cursor](h
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/madebyaris](https://tomevault.io/claim/madebyaris)
 
