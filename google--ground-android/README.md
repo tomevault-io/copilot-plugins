@@ -15,6 +15,7 @@ Original source: `GEMINI.md` in [google/ground-android](https://github.com/googl
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/google](https://tomevault.io/claim/google)
 
