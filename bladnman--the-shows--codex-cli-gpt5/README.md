@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [bladnman/the_shows__codex_cli_gpt5](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bladnman](https://tomevault.io/claim/bladnman)
 
