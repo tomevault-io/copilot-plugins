@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bdmorin/anthropic-pentagon-wiki](https://github
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bdmorin](https://tomevault.io/claim/bdmorin)
 
