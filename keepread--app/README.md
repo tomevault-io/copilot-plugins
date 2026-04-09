@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [keepread/app](https://github.com/keepread/app).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/keepread](https://tomevault.io/claim/keepread)
 
