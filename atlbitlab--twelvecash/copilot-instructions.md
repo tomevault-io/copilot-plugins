@@ -1,0 +1,39 @@
+## twelvecash
+
+> Keep documentation in sync with code changes
+
+
+# Documentation Maintenance
+
+## When Making Major Changes
+
+After significant code changes, update the documentation:
+
+1. **Update `AGENTS.md`** in the project root with:
+   - New features or APIs
+   - Changed project structure
+   - Updated dependencies or tech stack
+   - New environment variables
+
+2. **Update Cursor rules** in `.cursor/rules/` to reflect changes
+
+3. **Update `README.md`** if user-facing documentation is affected
+
+## Why This Matters
+
+AI coding assistants and future developers rely on this documentation for context. Keeping it accurate prevents:
+- Outdated instructions
+- Wrong assumptions about the codebase
+- Wasted time debugging documentation mismatches
+
+## Documentation Files
+
+- `AGENTS.md` - Comprehensive agent documentation
+- `claude.md` - Entry point for Claude Code
+- `.cursor/rules/*.mdc` - Cursor IDE rules
+- `README.md` - User-facing documentation
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ATLBitLab)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ATLBitLab)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
