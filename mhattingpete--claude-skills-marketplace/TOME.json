@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -68,9 +73,57 @@
       "path": "productivity-skills-plugin/skills/codebase-documenter",
       "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/productivity-skills-plugin/skills/codebase-documenter",
       "description": ""
+    },
+    {
+      "name": "conversation-analyzer",
+      "path": "productivity-skills-plugin/skills/conversation-analyzer",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/productivity-skills-plugin/skills/conversation-analyzer",
+      "description": ""
+    },
+    {
+      "name": "ensemble-solving",
+      "path": "engineering-workflow-plugin/skills/ensemble-solving",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/ensemble-solving",
+      "description": ""
+    },
+    {
+      "name": "flowchart-creator",
+      "path": "visual-documentation-plugin/skills/flowchart-creator",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/visual-documentation-plugin/skills/flowchart-creator",
+      "description": ""
+    },
+    {
+      "name": "git-pushing",
+      "path": "engineering-workflow-plugin/skills/git-pushing",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/git-pushing",
+      "description": ""
+    },
+    {
+      "name": "project-bootstrapper",
+      "path": "productivity-skills-plugin/skills/project-bootstrapper",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/productivity-skills-plugin/skills/project-bootstrapper",
+      "description": ""
+    },
+    {
+      "name": "review-implementing",
+      "path": "engineering-workflow-plugin/skills/review-implementing",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/review-implementing",
+      "description": ""
+    },
+    {
+      "name": "technical-doc-creator",
+      "path": "visual-documentation-plugin/skills/technical-doc-creator",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/visual-documentation-plugin/skills/technical-doc-creator",
+      "description": ""
+    },
+    {
+      "name": "test-fixing",
+      "path": "engineering-workflow-plugin/skills/test-fixing",
+      "github_url": "https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/test-fixing",
+      "description": ""
     }
   ],
   "claim_url": "https://tomevault.io/claim/mhattingpete",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T19:50:31Z"
+  "distributed_at": "2026-04-09T15:09:09Z"
 }
