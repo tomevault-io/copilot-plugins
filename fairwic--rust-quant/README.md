@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [fairwic/rust_quant](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/fairwic](https://tomevault.io/claim/fairwic)
 
