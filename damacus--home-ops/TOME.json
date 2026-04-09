@@ -1,0 +1,52 @@
+{
+  "name": "home-ops",
+  "owner": "damacus",
+  "repo": "home-ops",
+  "description": "AI instruction files for home-ops by damacus",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "failing-deployments",
+      "path": ".gemini/new-skills/failing-deployments",
+      "github_url": "https://github.com/damacus/home-ops/tree/main/.gemini/new-skills/failing-deployments",
+      "description": ""
+    },
+    {
+      "name": "grafana-alerts",
+      "path": ".gemini/new-skills/grafana-alerts",
+      "github_url": "https://github.com/damacus/home-ops/tree/main/.gemini/new-skills/grafana-alerts",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/damacus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:49:19Z"
+}
