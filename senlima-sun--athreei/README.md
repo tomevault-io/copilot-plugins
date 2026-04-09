@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [senlima-sun/athreei](https://github.com/senlima
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/senlima-sun](https://tomevault.io/claim/senlima-sun)
 
