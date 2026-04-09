@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [work-prototypes/status-updates-downloadables](h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/work-prototypes](https://tomevault.io/claim/work-prototypes)
 
