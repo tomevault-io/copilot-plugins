@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [ivawzh/agents-md](https://github.com/ivawzh/age
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ivawzh](https://tomevault.io/claim/ivawzh)
 
