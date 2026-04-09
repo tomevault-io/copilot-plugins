@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [hexlet-codebattle/codebattle](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hexlet-codebattle](https://tomevault.io/claim/hexlet-codebattle)
 
