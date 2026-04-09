@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [hexsprite/intervaltree](https://github.com/hexs
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hexsprite](https://tomevault.io/claim/hexsprite)
 
