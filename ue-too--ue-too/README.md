@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ue-too/ue-too](https://github.com/ue-
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ue-too](https://tomevault.io/claim/ue-too)
 
