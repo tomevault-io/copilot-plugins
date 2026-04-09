@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Michaelliv/cc-dejavu](https://github.com/Michae
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Michaelliv](https://tomevault.io/claim/Michaelliv)
 
