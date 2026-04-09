@@ -1,0 +1,64 @@
+{
+  "name": "eduhub",
+  "owner": "eduhub-org",
+  "repo": "eduhub",
+  "description": "AI instruction files for eduhub by eduhub-org",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cherrypick-hotfix",
+      "path": ".cursor/skills/cherrypick-hotfix",
+      "github_url": "https://github.com/eduhub-org/eduhub/tree/main/.cursor/skills/cherrypick-hotfix",
+      "description": ""
+    },
+    {
+      "name": "lint-project",
+      "path": ".cursor/skills/lint-project",
+      "github_url": "https://github.com/eduhub-org/eduhub/tree/main/.cursor/skills/lint-project",
+      "description": ""
+    },
+    {
+      "name": "regenerate-types",
+      "path": ".cursor/skills/regenerate-types",
+      "github_url": "https://github.com/eduhub-org/eduhub/tree/main/.cursor/skills/regenerate-types",
+      "description": ""
+    },
+    {
+      "name": "run-tests",
+      "path": ".cursor/skills/run-tests",
+      "github_url": "https://github.com/eduhub-org/eduhub/tree/main/.cursor/skills/run-tests",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/eduhub-org",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:25:21Z"
+}
