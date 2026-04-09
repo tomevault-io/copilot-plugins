@@ -15,6 +15,7 @@ Original source: `AGENTS.md` in [bnomei/kirby-mcp](https://github.com/bnomei/kir
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bnomei](https://tomevault.io/claim/bnomei)
 
