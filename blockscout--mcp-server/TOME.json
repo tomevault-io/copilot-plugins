@@ -1,0 +1,70 @@
+{
+  "name": "mcp-server",
+  "owner": "blockscout",
+  "repo": "mcp-server",
+  "description": "AI instruction files for mcp-server by blockscout",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codex-session-bootstrap",
+      "path": ".codex/skills/codex-session-bootstrap",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.codex/skills/codex-session-bootstrap",
+      "description": ""
+    },
+    {
+      "name": "consult-spec",
+      "path": ".claude/skills/consult-spec",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.claude/skills/consult-spec",
+      "description": ""
+    },
+    {
+      "name": "describe-changes",
+      "path": ".claude/skills/describe-changes",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.claude/skills/describe-changes",
+      "description": ""
+    },
+    {
+      "name": "gh-issue-bug",
+      "path": ".claude/skills/gh-issue-bug",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.claude/skills/gh-issue-bug",
+      "description": ""
+    },
+    {
+      "name": "gh-issue-improvement",
+      "path": ".claude/skills/gh-issue-improvement",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.claude/skills/gh-issue-improvement",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/blockscout",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T12:25:09Z"
+}
