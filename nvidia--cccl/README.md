@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [NVIDIA/cccl](https://github.com/NVIDIA/cccl).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/NVIDIA](https://tomevault.io/claim/NVIDIA)
 
