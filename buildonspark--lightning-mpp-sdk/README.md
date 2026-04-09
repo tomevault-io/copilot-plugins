@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [buildonspark/lightning-mpp-sdk](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/buildonspark](https://tomevault.io/claim/buildonspark)
 
