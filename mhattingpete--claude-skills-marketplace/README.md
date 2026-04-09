@@ -15,10 +15,11 @@ Original source: `CLAUDE.md` in [mhattingpete/claude-skills-marketplace](https:/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mhattingpete](https://tomevault.io/claim/mhattingpete)
 
-## Bundled Skills (6)
+## Bundled Skills (14)
 
 - [architecture-diagram-creator](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/visual-documentation-plugin/skills/architecture-diagram-creator)
 - [code-auditor](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/productivity-skills-plugin/skills/code-auditor)
@@ -26,6 +27,14 @@ Browse all formats: [https://tomevault.io/claim/mhattingpete](https://tomevault.
 - [code-refactor](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/code-operations-plugin/skills/code-refactor)
 - [code-transfer](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/code-operations-plugin/skills/code-transfer)
 - [codebase-documenter](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/productivity-skills-plugin/skills/codebase-documenter)
+- [conversation-analyzer](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/productivity-skills-plugin/skills/conversation-analyzer)
+- [ensemble-solving](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/ensemble-solving)
+- [flowchart-creator](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/visual-documentation-plugin/skills/flowchart-creator)
+- [git-pushing](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/git-pushing)
+- [project-bootstrapper](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/productivity-skills-plugin/skills/project-bootstrapper)
+- [review-implementing](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/review-implementing)
+- [technical-doc-creator](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/visual-documentation-plugin/skills/technical-doc-creator)
+- [test-fixing](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/test-fixing)
 
 ---
 
