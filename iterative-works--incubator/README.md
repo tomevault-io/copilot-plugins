@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [iterative-works/incubator](https://github.com/i
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/iterative-works](https://tomevault.io/claim/iterative-works)
 
