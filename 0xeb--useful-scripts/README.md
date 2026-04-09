@@ -1,0 +1,22 @@
+# useful-scripts
+
+> Config by [0xeb](https://github.com/0xeb/useful-scripts) — distributed by [TomeVault](https://tomevault.io/claim/0xeb)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [0xeb/useful-scripts](https://github.com/0xeb/useful-scripts).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+
+Browse all formats: [https://tomevault.io/claim/0xeb](https://tomevault.io/claim/0xeb)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/0xeb) to manage distribution.
