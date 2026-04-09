@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Studio-kalavati/Swaranotebook-bandish-editor](h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Studio-kalavati](https://tomevault.io/claim/Studio-kalavati)
 
