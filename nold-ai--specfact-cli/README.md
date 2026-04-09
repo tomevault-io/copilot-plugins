@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [nold-ai/specfact-cli](https://github.
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nold-ai](https://tomevault.io/claim/nold-ai)
 
