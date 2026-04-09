@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [chatchailim/SecureGen](https://github.com/chatc
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/chatchailim](https://tomevault.io/claim/chatchailim)
 
