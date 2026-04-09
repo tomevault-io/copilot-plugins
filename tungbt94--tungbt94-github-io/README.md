@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [tungbt94/tungbt94.github.io](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tungbt94](https://tomevault.io/claim/tungbt94)
 
