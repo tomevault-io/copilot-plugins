@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/wellingtonlope",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T21:56:13Z"
+  "distributed_at": "2026-04-09T22:59:45Z"
 }
