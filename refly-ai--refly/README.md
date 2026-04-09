@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [refly-ai/refly](https://github.com/re
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/refly-ai](https://tomevault.io/claim/refly-ai)
 
