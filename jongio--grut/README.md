@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [jongio/grut](https://github.com/jongio/grut).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jongio](https://tomevault.io/claim/jongio)
 
