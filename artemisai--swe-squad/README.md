@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ArtemisAI/SWE-Squad](https://github.com/Artemis
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ArtemisAI](https://tomevault.io/claim/ArtemisAI)
 
