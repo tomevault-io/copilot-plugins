@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [surajfale/surajfale](https://github.com/surajfa
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/surajfale](https://tomevault.io/claim/surajfale)
 
