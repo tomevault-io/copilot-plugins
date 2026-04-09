@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [jchaselubitz/drill-app](https://githu
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jchaselubitz](https://tomevault.io/claim/jchaselubitz)
 
