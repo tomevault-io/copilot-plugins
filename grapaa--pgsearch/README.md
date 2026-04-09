@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [grapaa/pgsearch](https://github.com/grapaa/pgse
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/grapaa](https://tomevault.io/claim/grapaa)
 
