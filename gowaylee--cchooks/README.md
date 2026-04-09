@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [GowayLee/cchooks](https://github.com/GowayLee/c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/GowayLee](https://tomevault.io/claim/GowayLee)
 
