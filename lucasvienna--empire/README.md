@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [lucasvienna/empire](https://github.com/lucasvie
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lucasvienna](https://tomevault.io/claim/lucasvienna)
 
