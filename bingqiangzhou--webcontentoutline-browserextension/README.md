@@ -1,0 +1,22 @@
+# WebContentOutline-BrowserExtension
+
+> Config by [BingqiangZhou](https://github.com/BingqiangZhou/WebContentOutline-BrowserExtension) — distributed by [TomeVault](https://tomevault.io/claim/BingqiangZhou)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [BingqiangZhou/WebContentOutline-BrowserExtension](https://github.com/BingqiangZhou/WebContentOutline-BrowserExtension).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+
+Browse all formats: [https://tomevault.io/claim/BingqiangZhou](https://tomevault.io/claim/BingqiangZhou)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/BingqiangZhou) to manage distribution.
