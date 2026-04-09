@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [wilfison/vscode-haml-all](https://github.com/wi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wilfison](https://tomevault.io/claim/wilfison)
 
