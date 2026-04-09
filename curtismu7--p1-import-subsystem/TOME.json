@@ -1,0 +1,39 @@
+{
+  "name": "P1-import-Subsystem",
+  "owner": "curtismu7",
+  "repo": "P1-import-Subsystem",
+  "description": "",
+  "type": "config",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [],
+  "claim_url": "https://tomevault.io/claim/curtismu7",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T03:19:09Z"
+}
