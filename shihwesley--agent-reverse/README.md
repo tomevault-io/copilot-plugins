@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [shihwesley/agent-reverse](https://github.com/sh
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/shihwesley](https://tomevault.io/claim/shihwesley)
 
