@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rlawless22/ultra-search](https://github.com/rla
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rlawless22](https://tomevault.io/claim/rlawless22)
 
