@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [LindsayB610/Lindsay-Brunner-Website](https://gi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/LindsayB610](https://tomevault.io/claim/LindsayB610)
 
