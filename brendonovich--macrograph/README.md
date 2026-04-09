@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Brendonovich/MacroGraph](https://github.com/Bre
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Brendonovich](https://tomevault.io/claim/Brendonovich)
 
