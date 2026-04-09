@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [petems/go-s3-uploader](https://github.com/petem
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/petems](https://tomevault.io/claim/petems)
 
