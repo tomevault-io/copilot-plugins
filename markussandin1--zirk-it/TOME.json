@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/markussandin1",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T20:51:38Z"
+  "distributed_at": "2026-04-09T18:59:56Z"
 }
