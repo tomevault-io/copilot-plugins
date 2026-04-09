@@ -15,6 +15,7 @@ Original source: `GEMINI.md` in [hainamchung/agent-assistant](https://github.com
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hainamchung](https://tomevault.io/claim/hainamchung)
 
