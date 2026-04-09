@@ -1,0 +1,26 @@
+{
+  "name": "dmitryprg-ai--cursor-develop-autorules",
+  "displayName": "cursor-develop-autorules",
+  "description": "AI instruction files for cursor-develop-autorules by dmitryprg-ai",
+  "version": "1.0.0",
+  "author": "dmitryprg-ai",
+  "homepage": "https://tomevault.io/claim/dmitryprg-ai",
+  "skills": [
+    {
+      "name": "api-testing",
+      "description": ""
+    },
+    {
+      "name": "backlog-to-rules",
+      "description": ""
+    },
+    {
+      "name": "bugfix",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
