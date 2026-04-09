@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [lambdaofgod/rlm_tracer](https://github.com/lamb
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lambdaofgod](https://tomevault.io/claim/lambdaofgod)
 
