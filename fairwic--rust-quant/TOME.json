@@ -1,0 +1,58 @@
+{
+  "name": "rust_quant",
+  "owner": "fairwic",
+  "repo": "rust_quant",
+  "description": "AI instruction files for rust_quant by fairwic",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/fairwic/rust_quant/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "vegas-backtest-optimizer",
+      "path": ".claude/skills/vegas-backtest-optimizer",
+      "github_url": "https://github.com/fairwic/rust_quant/tree/main/.claude/skills/vegas-backtest-optimizer",
+      "description": ""
+    },
+    {
+      "name": "vegas-backtest-runbook",
+      "path": ".claude/skills/vegas-backtest-runbook",
+      "github_url": "https://github.com/fairwic/rust_quant/tree/main/.claude/skills/vegas-backtest-runbook",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/fairwic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:49:59Z"
+}
