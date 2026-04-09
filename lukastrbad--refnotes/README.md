@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [LukaStrbad/refnotes](https://github.com/LukaStr
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/LukaStrbad](https://tomevault.io/claim/LukaStrbad)
 
