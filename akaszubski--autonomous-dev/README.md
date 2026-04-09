@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [akaszubski/autonomous-dev](https://github.com/a
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/akaszubski](https://tomevault.io/claim/akaszubski)
 
