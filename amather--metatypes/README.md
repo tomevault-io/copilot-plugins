@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [amather/MetaTypes](https://github.com/amather/M
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/amather](https://tomevault.io/claim/amather)
 
