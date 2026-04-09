@@ -1,0 +1,192 @@
+## mcp-twitter-nextjs
+
+> This is a comprehensive Twitter/X management platform built with Next.js 15, Twitter API v2, and Claude MCP integration. The project features multi-account management, tweet scheduling, and AI-powered content optimization.
+
+# MCP Twitter Next.js Project - Cursor Rules
+
+## Project Overview
+This is a comprehensive Twitter/X management platform built with Next.js 15, Twitter API v2, and Claude MCP integration. The project features multi-account management, tweet scheduling, and AI-powered content optimization.
+
+## Development Guidelines
+
+### Package Manager
+- **ALWAYS use pnpm** for package management
+- Run `pnpm dev` to start development server
+- Use `pnpm dev:turbo` for Turbopack development
+
+### Code Style & Quality
+- **Biome** is the primary linter and formatter (configured in biome.json)
+- Run `pnpm lint` or `pnpm lint:fix` to fix linting issues
+- Use `pnpm format` to format code
+- TypeScript strict mode is enabled - always type your code properly
+- Follow 2-space indentation, 80-character line width
+- Use double quotes for strings
+- Organize imports properly
+
+### File Structure Patterns
+- Use route groups in `src/app/`: `(auth)/`, `(premium)/`, `(psec)/`
+- Components in `src/components/` organized by feature
+- Utilities in `src/lib/` with clear separation of concerns
+- Custom hooks in `src/hooks/`
+- Database operations in `src/lib/db/repositories/`
+
+### Database (Drizzle + PostgreSQL)
+- Use Drizzle ORM for all database operations
+- Run `pnpm db:migrate` for migrations
+- Use `pnpm db:studio` for database management
+- Follow repository pattern for data access
+
+### Authentication
+- Better Auth with Google + Twitter OAuth
+- API key authentication for MCP integration
+- Multi-account Twitter management per user
+
+### Twitter Integration
+- Use Twitter API v2 client (`twitter-api-v2`)
+- Support OAuth 2.0 and OAuth 1.0a
+- Handle rate limiting and error scenarios
+- Cache Twitter data with Upstash Redis
+
+### Environment Variables
+- Copy `.env.example` to `.env.local` for development
+- Use `pnpm initial:env` to generate initial environment
+- Required: Twitter API keys, Upstash Redis/QStash, database URL
+
+### Testing
+- Use Vitest for unit testing
+- Run `pnpm test` or `pnpm test:watch`
+- Test configuration in `vitest.config.ts`
+
+### Deployment
+- Docker support with `docker/` directory
+- Use `pnpm docker-compose:up` for containerized development
+- Production builds with `pnpm build`
+
+## Component Guidelines
+
+### Twitter Components
+- `ConnectedAccounts` - Multi-account management
+- `TweetComposer` - Tweet creation with scheduling
+- `TweetList` - Display tweets with embedded previews
+- Follow existing patterns for character counting and validation
+
+### UI Components
+- Based on shadcn/ui components
+- Located in `src/components/ui/`
+- Use Tailwind CSS for styling
+- Support 20+ theme variants
+
+### Layout Components
+- `AppSidebar` - Main navigation
+- `ThemeProvider` - Theme management
+- Follow responsive design patterns
+
+## API Routes
+
+### Twitter API Routes
+- `/api/twitter/accounts` - Account management
+- `/api/twitter/post` - Tweet posting
+- `/api/twitter/schedule` - Tweet scheduling
+- `/api/twitter/tweets` - Tweet management
+
+### Authentication Routes
+- `/api/auth/[...all]` - Better Auth handler
+- `/api/auth/twitter/connect` - Twitter OAuth
+- `/api/auth/twitter/callback` - OAuth callback
+
+### MCP Integration
+- `/api/mcp` - Claude MCP server
+- Supports tools: list_tweets, create_tweet, schedule_tweet, delete_tweet
+
+### WebSocket Integration
+- Real-time updates for multi-client synchronization
+- Server: `src/lib/websocket/server.ts`
+- Client: `src/lib/websocket/client.ts`
+
+## Database Schema
+
+### Core Tables
+- `UserSchema` - User accounts with preferences
+- `SessionSchema` - Authentication sessions
+- `TwitterAccountSchema` - Connected Twitter accounts
+- `TweetSchema` - Tweet management (drafts, scheduled, posted)
+- `ApiKeySchema` - MCP API keys
+
+### Migration Commands
+- `pnpm db:generate` - Generate migrations
+- `pnpm db:migrate` - Run migrations
+- `pnpm db:push` - Push schema changes (dev only)
+- `pnpm db:reset` - Reset database (destructive)
+
+## Security Best Practices
+- Never commit secrets to git
+- Use environment variables for sensitive data
+- Implement rate limiting for API endpoints
+- Validate all user inputs
+- Use HTTPS in production
+- Implement proper CORS policies
+
+## Performance Considerations
+- Use Upstash Redis for caching
+- Implement proper error handling
+- Use React hooks for state management
+- Optimize database queries
+- Use proper TypeScript types
+
+## Common Commands
+```bash
+# Development
+pnpm dev                 # Start development server
+pnpm dev:turbo          # Start with Turbopack
+pnpm build              # Build for production
+pnpm start              # Start production server
+
+# Code Quality
+pnpm lint               # Run linting
+pnpm format             # Format code
+pnpm check-types        # TypeScript checking
+pnpm test               # Run tests
+
+# Database
+pnpm db:migrate         # Run migrations
+pnpm db:studio          # Open database studio
+pnpm db:generate        # Generate migrations
+
+# Docker
+pnpm docker-compose:up  # Start containers
+pnpm docker-compose:down # Stop containers
+```
+
+## When Adding New Features
+1. Follow existing patterns in the codebase
+2. Update TypeScript types appropriately
+3. Add proper error handling
+4. Consider caching implications
+5. Update documentation if needed
+6. Test thoroughly before committing
+7. Use existing UI components when possible
+8. Follow authentication patterns for protected routes
+
+## Dependencies to Know
+- `@modelcontextprotocol/sdk` - MCP integration
+- `twitter-api-v2` - Twitter API client
+- `@upstash/redis` - Redis caching
+- `@upstash/qstash` - Message queuing
+- `better-auth` - Authentication
+- `drizzle-orm` - Database ORM
+- `socket.io` - WebSocket communication
+- `next-intl` - Internationalization
+- `@polar-sh/sdk` - Payment integration
+
+## File Naming Conventions
+- Use kebab-case for file names
+- Components: `component-name.tsx`
+- Utilities: `util-name.ts`
+- API routes: `route.ts`
+- Types: `types.ts`
+- Hooks: `use-hook-name.ts`
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/proSamik)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/proSamik)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
