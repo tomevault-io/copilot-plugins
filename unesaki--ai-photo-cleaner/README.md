@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [unesaki/AI_photo_cleaner](https://github.com/un
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/unesaki](https://tomevault.io/claim/unesaki)
 
