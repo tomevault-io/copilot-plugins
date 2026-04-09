@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Manan123345/goldmasters](https://github.com/Man
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Manan123345](https://tomevault.io/claim/Manan123345)
 
