@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [steiner385/battlefrog](https://github.com/stein
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/steiner385](https://tomevault.io/claim/steiner385)
 
