@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [atelier-nyaarium/agent-team-bridge](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/atelier-nyaarium](https://tomevault.io/claim/atelier-nyaarium)
 
