@@ -15,6 +15,7 @@ Original source: `GEMINI.md` in [obra/superpowers](https://github.com/obra/super
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/obra](https://tomevault.io/claim/obra)
 
