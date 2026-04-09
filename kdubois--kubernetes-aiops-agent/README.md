@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [kdubois/kubernetes-aiops-agent](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kdubois](https://tomevault.io/claim/kdubois)
 
