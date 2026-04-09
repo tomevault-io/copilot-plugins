@@ -1,0 +1,205 @@
+## exam-genius
+
+> You are an expert in TypeScript, Node.js, Next.js App Router, React, Turborepo, pnpm, tRPC, Mantine UI v6, Prisma, Clerk Auth, Stripe, TailwindCSS, and Zod.
+
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Turborepo, pnpm, tRPC, Mantine UI v6, Prisma, Clerk Auth, Stripe, TailwindCSS, and Zod.
+
+## Code Style and Structure
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes unless necessary for React components.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files as: exported component, subcomponents, helpers, static content, types.
+- Follow existing project patterns observed in the codebase.
+
+## Naming Conventions
+- Use lowercase with dashes for directories (e.g., components/exam-board).
+- Use kebab-case for component file names, e.g. `components/course-card.tsx`.
+- Favor named exports for utilities and components.
+- Use monorepo package names: `@exam-genius/dashboard-app`, `@exam-genius/landing-page`, `@exam-genius/shared-ui`, `@exam-genius/shared-utils`, `@exam-genius/shared-prisma`.
+
+## TypeScript Usage
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use maps or `as const` objects instead.
+- Use functional components with TypeScript interfaces.
+- Avoid the use of `any`; prefer `unknown` when the type is uncertain.
+- Leverage tRPC's type inference; avoid manually typing API responses when they can be inferred.
+
+## Syntax and Formatting
+- Use tabs for indentation (width: 4) as defined in `.prettierrc`.
+- Use single quotes for strings.
+- No trailing commas.
+- 120 character line width.
+- Use the `function` keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Prefer declarative, readable JSX.
+
+## Monorepo & Build (Turborepo + pnpm)
+- Use **pnpm** as the package manager; do not introduce yarn or npm lockfiles.
+- Use **Turborepo** for running tasks across the monorepo:
+  - `pnpm dev` / `pnpm dev:dashboard` / `pnpm dev:landing`
+  - `pnpm build`, `pnpm build:dashboard`, `pnpm build:landing`
+  - `pnpm lint`, `pnpm test`
+- Respect project boundaries; import shared code using TypeScript path aliases:
+  - `@exam-genius/shared/ui` for UI components
+  - `@exam-genius/shared/utils` for utilities
+  - `@exam-genius/shared/prisma` for the Prisma client
+  - `~/*` for internal `dashboard-app` imports
+- Keep Turborepo tasks fast and cache-friendly; avoid unnecessary global side effects in build/lint/test scripts.
+
+## Next.js App Router
+- This project uses Next.js **App Router**, not the Pages Router.
+- Pages live in `app/` directories as `page.tsx` files.
+- Use React Server Components (RSC) by default for server-side rendering and data fetching.
+- Mark components with `'use client'` only when necessary (interactivity, hooks, browser APIs, event handlers).
+- API routes go in `app/api/**/route.ts`.
+- Use `next/link` for navigation and `useRouter` from `next/navigation` for programmatic routing.
+- Implement `app/layout.tsx` for global providers (Clerk, Mantine, tRPC, theme) and HTML structure.
+- Use `loading.tsx` for route segment loading UI and `error.tsx` for error handling at the segment level.
+
+## UI and Styling
+- Use **Mantine v6** as the primary UI component library.
+- Use TailwindCSS for utility classes and custom styling.
+- Import Mantine components from `@mantine/core`, `@mantine/hooks`, `@mantine/notifications`, etc.
+- Respect the brand color palette (primary `brand` from `#D6DCFD` to `#030A39`, primary shade `#2742F5`).
+- Use Poppins font family (configured via `next/font/local`) as the main font.
+- Implement responsive design with Mantine responsive props and Tailwind breakpoints.
+- Use Mantine theme overrides sparingly; prefer Tailwind utilities for custom styles.
+
+## tRPC Usage
+- Use tRPC for end-to-end typesafe APIs without code generation or runtime bloat.
+- Define procedures in routers under `apps/dashboard-app/src/server/api/routers` (user, stripe, course, paper).
+- Combine domain routers into the centralized `appRouter` (`apps/dashboard-app/src/server/api/routers/_app.ts`).
+- Use Zod for input validation in all procedures.
+- Export only router type definitions (`AppRouter`); never import server code in client bundles.
+- Use `publicProcedure` for public endpoints and `protectedProcedure` for authenticated routes.
+- Access the authenticated user via `ctx.auth.userId` in protected procedures.
+- Use `superjson` as the data transformer to preserve Date, Map, Set, etc.
+- Import the tRPC client hooks from the existing client factory (e.g. `~/trpc/react`) on the client side.
+
+## tRPC Best Practices
+- Use meaningful procedure names that clearly indicate their purpose (e.g., `getById`, `createCourse`, `updateUser`).
+- Use `.query()` for retrieval and `.mutation()` for writes or side effects.
+- Implement middleware for cross-cutting concerns (auth, logging, rate limiting).
+- Context should provide: `auth` (Clerk), `prisma`, `stripe`, and request metadata as needed.
+- Keep procedures focused and single-purpose; compose complex flows from multiple procedures.
+- Use `.invalidate()` to refresh queries after mutations, and `.setData()` for optimistic updates with proper rollback.
+- Throw `TRPCError` with appropriate error codes (`UNAUTHORIZED`, `BAD_REQUEST`, etc.) for expected failures.
+
+## Prisma & Database
+- Use Prisma ORM with Neon PostgreSQL (serverless with connection pooling).
+- Schemas are split across multiple files in `prisma/schemas/` and merged via `prismerge`:
+  - `base.prisma`: database config
+  - `user.prisma`: user models
+  - `course.prisma`: course models
+  - `paper.prisma`: paper / exam models
+  - `StripeEvent.prisma`: Stripe webhook logging
+- Do not run `prisma generate` directly; instead use root scripts:
+  - `pnpm prisma:generate` (merges schemas + generates client)
+  - `pnpm prisma:sync` (merges schemas + generates client + pushes to DB)
+- The merged schema is output to `prisma/schema.prisma` via `prismerge`.
+- Access the Prisma client via shared code under `libs/shared/prisma` (and the `server/prisma` helper in `dashboard-app`).
+- Use `DATABASE_URL` (pooled) and `DATABASE_URL_UNPOOLED` (direct) from the environment when needed.
+- Handle Prisma errors gracefully and translate them into appropriate tRPC errors.
+
+## Clerk Authentication
+- Use Clerk for authentication across the dashboard.
+- In tRPC, access auth via `ctx.auth.userId`; protected procedures must check for a valid user id.
+- Public routes include marketing/landing pages and specific API/webhook endpoints as configured in `middleware.ts`.
+- Use `@clerk/nextjs` components such as `<SignIn />`, `<SignUp />`, `<UserButton />` in client components.
+- Handle Clerk webhooks via App Router route handlers under `app/api/clerk/**/route.ts`.
+
+## Stripe Integration
+- Use Stripe for payments and subscriptions.
+- Access the Stripe client via a dedicated server helper (e.g. `apps/dashboard-app/src/server/stripe.ts`).
+- Implement Stripe webhook handlers under `app/api/stripe/**/route.ts`.
+- Log all Stripe webhook events to the `StripeEvent` Prisma model for observability and debugging.
+- For local development, use the root script `pnpm stripe-local-webhook` with the Stripe CLI to forward webhooks.
+- Use `@stripe/stripe-js` for client-side Stripe integration where necessary (e.g. Checkout).
+- Always verify webhook signatures and handle idempotency for event processing.
+
+## Environment Variables
+- Use **Doppler** for secrets management where possible (project `exam-genius`, config `loc`).
+- For local development with Doppler, use `pnpm dev:dashboard:doppler` or the corresponding Doppler command.
+- Required env vars include: `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, Clerk keys, Stripe keys, `OPENAI_API_KEY`, `APP_BASE_URL`,
+  as well as multiple subject- and board-specific Stripe price IDs.
+- Never commit `.env` files. Use `.env.local` for local overrides and Doppler for secure storage.
+- Access env vars via the typed env helpers (e.g. `env` from `@t3-oss/env-nextjs`) instead of `process.env` directly.
+
+## Testing
+- Use Jest for unit/integration tests (configured at the root, driven via Turborepo).
+- Prefer running tests via root scripts, e.g. `pnpm test`, and add per-package `test` scripts when needed.
+- Write tests alongside source code in `*.spec.ts` or `*.test.ts` files.
+- Mock external services (Stripe, OpenAI, Clerk) in tests to keep them deterministic.
+
+## API Routes
+- tRPC HTTP endpoint is handled via an App Router route (e.g. `app/api/trpc/[trpc]/route.ts`) using the tRPC Next.js adapter.
+- REST-style API routes live under `app/api/**/route.ts` for webhooks and external integrations (Stripe, Clerk, OpenAI).
+- Route handlers use named exports: `GET`, `POST`, `PUT`, `PATCH`, `DELETE` as appropriate.
+- Debug/developer tooling routes (e.g. tRPC panel) should be clearly marked and guarded for non-production use.
+- Always validate webhook signatures and perform basic input validation at the edge.
+- Use `NextRequest` / `NextResponse` (or `Response`) and utilities like `cookies()` / `headers()` from `next/headers` for
+  request/response handling.
+
+## Performance & Best Practices
+- Default to Server Components; use `'use client'` only when required by hooks or interactivity.
+- Avoid over-fetching; colocate data-fetching logic with the components that need it.
+- Use `revalidate`, `revalidatePath`, or `revalidateTag` for ISR and cache invalidation where appropriate.
+- Optimize images with `next/image` and correct sizing/priority for key LCP assets.
+- Use `dynamic` imports with `ssr: false` for heavy client-only components that are not critical to initial render.
+- Minimize Mantine imports to only the components actually used.
+- Design APIs and components to be streaming-friendly (Suspense boundaries, progressive rendering) where it adds value.
+
+## Error Handling & Logging
+- Use Axiom (`next-axiom`) for structured logging and Web Vitals. In route handlers, use `withAxiom` and `req.log`; in
+  tRPC/server code, use the shared logger helper (e.g. `~/server/logger`) and flush logs before returning on critical paths.
+- Use Sentry for error tracking (see `sentry.*.config.ts`).
+- Log errors in tRPC procedures before throwing `TRPCError`.
+- Return user-friendly error messages to the client and keep detailed error information on the server side.
+
+## Key Conventions
+- Default git branch is `master` (not `main`).
+- Use **pnpm** with the workspace configuration in `pnpm-workspace.yaml`; do not switch package managers.
+- SuperJSON serialization handles complex types across client-server boundaries.
+- Respect app/lib boundaries; do not import app-specific code into shared libraries.
+- Always test webhooks locally before deploying (Stripe, Clerk).
+
+## File Organization
+- **Dashboard App**: `apps/dashboard-app/`
+  - App Router: `src/app/` (pages, layouts, loading, error)
+  - API Routes: `src/app/api/**/route.ts`
+  - tRPC Routers: `src/server/api/routers/`
+  - tRPC Context & helpers: `src/server/api/trpc.ts`, `src/server/api/context.ts`
+  - Components: `src/components/` (organize as server/client as needed)
+  - Layout components: `src/layout/`
+  - Server utilities: `src/server/**`
+  - Client utilities: `src/utils/**`
+  - Styles: `styles/`, `tailwind.config.js`
+- **Landing Page**: `apps/landing-page/`
+  - App Router: `app/` (layout, landing `page.tsx`, providers)
+  - UI building blocks: `components/`, `containers/`, `modals/`
+- **Shared Libraries**:
+  - `libs/shared/ui/` — reusable UI components (Mantine + Tailwind)
+  - `libs/shared/utils/` — reusable utilities
+  - `libs/shared/prisma/` — generated Prisma client
+- **Database**:
+  - `prisma/schemas/` — modular schema sources
+  - `prisma/schema.prisma` — merged schema (generated by `prismerge`)
+
+## App Router Conventions
+- `page.tsx`: route page component (default Server Component).
+- `layout.tsx`: shared UI for a route segment (wraps pages).
+- `loading.tsx`: loading UI for a route segment.
+- `error.tsx`: error UI for a route segment (must be a Client Component).
+- `not-found.tsx`: 404 UI for a route segment.
+- `route.ts`: API endpoint (route handler).
+- `template.tsx`: layout that re-renders on navigation.
+- `default.tsx`: fallback UI for parallel routes.
+
+Follow the official Next.js App Router documentation for routing, data fetching, and Server Components, and use Turborepo
+and pnpm as the orchestration layer for all workspace tasks.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Chipzstar)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Chipzstar)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
