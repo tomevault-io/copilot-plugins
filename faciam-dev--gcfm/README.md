@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [faciam-dev/gcfm](https://github.com/faciam-dev/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/faciam-dev](https://tomevault.io/claim/faciam-dev)
 
