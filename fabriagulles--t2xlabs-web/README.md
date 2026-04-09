@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [FabriAgulles/t2xlabs-web](https://github.com/Fa
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/FabriAgulles](https://tomevault.io/claim/FabriAgulles)
 
