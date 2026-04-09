@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [powerbauer1337/NutriCalc](https://github.com/po
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/powerbauer1337](https://tomevault.io/claim/powerbauer1337)
 
