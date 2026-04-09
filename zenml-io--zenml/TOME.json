@@ -1,0 +1,46 @@
+{
+  "name": "zenml",
+  "owner": "zenml-io",
+  "repo": "zenml",
+  "description": "AI instruction files for zenml by zenml-io",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zenml-backport",
+      "path": ".claude/skills/zenml-backport",
+      "github_url": "https://github.com/zenml-io/zenml/tree/main/.claude/skills/zenml-backport",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/zenml-io",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:51:29Z"
+}
