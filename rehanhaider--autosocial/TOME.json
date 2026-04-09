@@ -4,7 +4,7 @@
   "repo": "AutoSocial",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -35,5 +35,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/rehanhaider",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T23:01:32Z"
+  "distributed_at": "2026-04-09T02:34:35Z"
 }
