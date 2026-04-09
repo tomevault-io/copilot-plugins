@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sequencer/asl](https://github.com/sequencer/asl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sequencer](https://tomevault.io/claim/sequencer)
 
