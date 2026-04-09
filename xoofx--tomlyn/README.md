@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [xoofx/Tomlyn](https://github.com/xoofx/Tomlyn).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/xoofx](https://tomevault.io/claim/xoofx)
 
