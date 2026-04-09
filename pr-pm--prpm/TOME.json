@@ -1,0 +1,70 @@
+{
+  "name": "prpm",
+  "owner": "pr-pm",
+  "repo": "prpm",
+  "description": "AI instruction files for prpm by pr-pm",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adding-new-ai-format",
+      "path": ".claude/skills/adding-new-ai-format",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/adding-new-ai-format",
+      "description": ""
+    },
+    {
+      "name": "agent-builder",
+      "path": ".claude/skills/agent-builder",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/agent-builder",
+      "description": ""
+    },
+    {
+      "name": "aws-beanstalk-expert",
+      "path": ".claude/skills/aws-beanstalk-expert",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/aws-beanstalk-expert",
+      "description": ""
+    },
+    {
+      "name": "beanstalk-deploy",
+      "path": ".claude/skills/beanstalk-deploy",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/beanstalk-deploy",
+      "description": ""
+    },
+    {
+      "name": "claude-skill",
+      "path": "packages/cli/test-fixtures/integration/batch-2-agents/files/claude-skill",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/packages/cli/test-fixtures/integration/batch-2-agents/files/claude-skill",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/pr-pm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:51:04Z"
+}
