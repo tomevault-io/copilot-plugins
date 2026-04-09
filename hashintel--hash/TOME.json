@@ -4,7 +4,7 @@
   "repo": "hash",
   "description": "AI instruction files for hash by hashintel",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -84,5 +84,5 @@
   ],
   "claim_url": "https://tomevault.io/claim/hashintel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T19:48:25Z"
+  "distributed_at": "2026-04-09T01:50:11Z"
 }
