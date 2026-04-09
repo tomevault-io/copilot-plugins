@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [adawalli/ant-proxy](https://github.com/adawalli
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/adawalli](https://tomevault.io/claim/adawalli)
 
