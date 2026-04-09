@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [twonthebuilder/wanderland](https://github.com/t
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/twonthebuilder](https://tomevault.io/claim/twonthebuilder)
 
