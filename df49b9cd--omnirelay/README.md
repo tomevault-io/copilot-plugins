@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [df49b9cd/OmniRelay](https://github.com/df49b9cd
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/df49b9cd](https://tomevault.io/claim/df49b9cd)
 
