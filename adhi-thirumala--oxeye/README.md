@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [adhi-thirumala/oxeye](https://github.com/adhi-t
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/adhi-thirumala](https://tomevault.io/claim/adhi-thirumala)
 
