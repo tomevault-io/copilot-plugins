@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [d25037/trading25](https://github.com/d25037/tra
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/d25037](https://tomevault.io/claim/d25037)
 
