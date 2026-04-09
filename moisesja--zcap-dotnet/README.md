@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [moisesja/zcap-dotnet](https://github.com/moises
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/moisesja](https://tomevault.io/claim/moisesja)
 
