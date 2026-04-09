@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -42,5 +47,5 @@
   ],
   "claim_url": "https://tomevault.io/claim/faionfaion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T19:56:56Z"
+  "distributed_at": "2026-04-09T16:09:17Z"
 }
