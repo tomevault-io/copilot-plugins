@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rafaelcostaleite/new_blog_veloder](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rafaelcostaleite](https://tomevault.io/claim/rafaelcostaleite)
 
