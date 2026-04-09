@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [pantheon-upstreams/nextjs15-cache-starter](http
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pantheon-upstreams](https://tomevault.io/claim/pantheon-upstreams)
 
