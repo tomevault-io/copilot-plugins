@@ -1,0 +1,32 @@
+## basilic-old
+
+> Fastify backend development standards and patterns
+
+
+- CRITICAL: never edit db/migrations, openapi schema files directly
+- Each endpoint in its own file. Structure mirrors URL path: `routes/{domain}/{group}/{action}.ts`. 
+  Examples: `routes/auth/magiclink/request.ts`, `routes/auth/magiclink/verify.ts`
+- Keep handler code lean inside the route definition to leverage typescript inference (typebox schema based)
+- Collocate route definition, handler and typebox schema
+- Keep routes focused/single-purpose, use route grouping, thin handlers
+- Use @sinclair/typebox route schemas
+- Avoid unnecessary validations - Fastify already validates inputs based on route schemas
+- Pass `logger: request.log` to `@repo/error` for Fastify's Pino logger with request context. 
+- Routes can throw - global handler catches/formats
+- Always use @fastify/sensible
+
+## Testing
+
+- Use `fastify.inject()` for integration testing
+- Vitest ESM-native, tests TypeScript source directly (not built output)
+- CRITICAL: pglite does NOT support concurrent writers reliably. Vitest parallelizes. Control worker boundaries and DB lifecycle strictly.
+- Group entry pattern: `routes/{domain}/{group}/{group}.spec.ts` is the only Vitest-discovered file per group. Owns Fastify + DB lifecycle. Imports route-level test modules
+- Route-level tests: `routes/{domain}/{group}/{endpoint}.test.ts` contains pure test definitions (`describe/it`). No Fastify bootstrapping, no DB setup/teardown. Executes in same worker as importing `.spec.ts`
+- Vitest config: `include: ['**/*.spec.ts']` only. Never include `*.test.ts` in include patterns, handle pglite db instantiation and teardown removal per worker.
+- Naming: `*.spec.ts` = test entrypoints/worker boundary, `*.test.ts` = imported test modules. Do not mix `.e2e-spec.ts`, `.spec.ts`, `.test.ts` arbitrarily
+- Parallelism: Vitest runs test files in parallel, not `describe()` blocks or imports. Imported files execute in same worker. DB initialized once per group entry file
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/blockmatic-icebox)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/blockmatic-icebox)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
