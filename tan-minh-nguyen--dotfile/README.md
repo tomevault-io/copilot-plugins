@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [tan-minh-nguyen/dotfile](https://github.com/tan
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tan-minh-nguyen](https://tomevault.io/claim/tan-minh-nguyen)
 
