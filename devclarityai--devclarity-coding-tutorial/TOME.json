@@ -1,0 +1,64 @@
+{
+  "name": "devclarity-coding-tutorial",
+  "owner": "devclarityai",
+  "repo": "devclarity-coding-tutorial",
+  "description": "AI instruction files for devclarity-coding-tutorial by devclarityai",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-explainer",
+      "path": ".cursor/skills/code-explainer",
+      "github_url": "https://github.com/devclarityai/devclarity-coding-tutorial/tree/main/.cursor/skills/code-explainer",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".cursor/skills/code-review",
+      "github_url": "https://github.com/devclarityai/devclarity-coding-tutorial/tree/main/.cursor/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "implement-it",
+      "path": ".cursor/skills/implement-it",
+      "github_url": "https://github.com/devclarityai/devclarity-coding-tutorial/tree/main/.cursor/skills/implement-it",
+      "description": ""
+    },
+    {
+      "name": "task-creator",
+      "path": ".cursor/skills/task-creator",
+      "github_url": "https://github.com/devclarityai/devclarity-coding-tutorial/tree/main/.cursor/skills/task-creator",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/devclarityai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:49:30Z"
+}
