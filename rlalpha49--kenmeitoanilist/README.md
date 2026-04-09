@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [RLAlpha49/KenmeiToAnilist](https://github.com/R
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/RLAlpha49](https://tomevault.io/claim/RLAlpha49)
 
