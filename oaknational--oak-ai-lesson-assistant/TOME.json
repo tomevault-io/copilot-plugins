@@ -1,0 +1,70 @@
+{
+  "name": "oak-ai-lesson-assistant",
+  "owner": "oaknational",
+  "repo": "oak-ai-lesson-assistant",
+  "description": "AI instruction files for oak-ai-lesson-assistant by oaknational",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-style",
+      "path": ".claude/skills/code-style",
+      "github_url": "https://github.com/oaknational/oak-ai-lesson-assistant/tree/main/.claude/skills/code-style",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": ".claude/skills/git-workflow",
+      "github_url": "https://github.com/oaknational/oak-ai-lesson-assistant/tree/main/.claude/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "local-development",
+      "path": ".claude/skills/local-development",
+      "github_url": "https://github.com/oaknational/oak-ai-lesson-assistant/tree/main/.claude/skills/local-development",
+      "description": ""
+    },
+    {
+      "name": "notion-tasks",
+      "path": ".claude/skills/notion-tasks",
+      "github_url": "https://github.com/oaknational/oak-ai-lesson-assistant/tree/main/.claude/skills/notion-tasks",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/oaknational/oak-ai-lesson-assistant/tree/main/.claude/skills/testing",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/oaknational",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T08:25:17Z"
+}
