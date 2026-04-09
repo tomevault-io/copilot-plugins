@@ -4,7 +4,7 @@
   "repo": "prompt-gen",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -35,5 +35,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/Limbicnation",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T02:10:36Z"
+  "distributed_at": "2026-04-09T04:28:59Z"
 }
