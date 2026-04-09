@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [loctime/controlauditv2](https://github.com/loct
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/loctime](https://tomevault.io/claim/loctime)
 
