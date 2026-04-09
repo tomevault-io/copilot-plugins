@@ -1,0 +1,22 @@
+{
+  "name": "eferro--augmentedcode-skills",
+  "displayName": "augmentedcode-skills",
+  "description": "AI instruction files for augmentedcode-skills by eferro",
+  "version": "1.0.0",
+  "author": "eferro",
+  "homepage": "https://tomevault.io/claim/eferro",
+  "skills": [
+    {
+      "name": "mutation-testing-js",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing-python",
+      "description": ""
+    },
+    {
+      "name": "test-desiderata",
+      "description": ""
+    }
+  ]
+}
