@@ -7,14 +7,14 @@ AI instruction files for kotlin-logging-extensions by doljae
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [doljae/kotlin-logging-extensions](https://github.com/doljae/kotlin-logging-extensions).
+Original source: `.cursor/rules/*.mdc` in [doljae/kotlin-logging-extensions](https://github.com/doljae/kotlin-logging-extensions).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 
 Browse all formats: [https://tomevault.io/claim/doljae](https://tomevault.io/claim/doljae)
 
