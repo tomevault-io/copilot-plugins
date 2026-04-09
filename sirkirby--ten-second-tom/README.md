@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sirkirby/ten-second-tom](https://github.com/sir
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sirkirby](https://tomevault.io/claim/sirkirby)
 
