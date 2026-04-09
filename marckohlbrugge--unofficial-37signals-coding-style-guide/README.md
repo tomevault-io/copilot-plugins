@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [marckohlbrugge/unofficial-37signals-coding-styl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/marckohlbrugge](https://tomevault.io/claim/marckohlbrugge)
 
