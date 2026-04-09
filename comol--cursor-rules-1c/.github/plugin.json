@@ -1,0 +1,22 @@
+{
+  "name": "comol--cursor-rules-1c",
+  "displayName": "cursor_rules_1c",
+  "description": "AI instruction files for cursor_rules_1c by comol",
+  "version": "1.0.0",
+  "author": "comol",
+  "homepage": "https://tomevault.io/claim/comol",
+  "skills": [
+    {
+      "name": "1c-metadata-manage",
+      "description": ""
+    },
+    {
+      "name": "mermaid-diagrams",
+      "description": ""
+    },
+    {
+      "name": "powershell-windows",
+      "description": ""
+    }
+  ]
+}
