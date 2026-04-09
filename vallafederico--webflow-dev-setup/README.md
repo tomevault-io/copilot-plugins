@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [vallafederico/webflow-dev-setup](http
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vallafederico](https://tomevault.io/claim/vallafederico)
 
