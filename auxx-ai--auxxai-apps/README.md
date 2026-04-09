@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Auxx-Ai/auxxai-apps](https://github.com/Auxx-Ai
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Auxx-Ai](https://tomevault.io/claim/Auxx-Ai)
 
