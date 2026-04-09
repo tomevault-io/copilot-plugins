@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [sttts/ha-git-backup](https://github.com/sttts/h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sttts](https://tomevault.io/claim/sttts)
 
