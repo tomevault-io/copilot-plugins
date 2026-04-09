@@ -1,0 +1,64 @@
+{
+  "name": "webflow-dev-setup",
+  "owner": "vallafederico",
+  "repo": "webflow-dev-setup",
+  "description": "AI instruction files for webflow-dev-setup by vallafederico",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "webflow-editor-integration",
+      "path": ".cursor/skills/webflow-editor-integration",
+      "github_url": "https://github.com/vallafederico/webflow-dev-setup/tree/main/.cursor/skills/webflow-editor-integration",
+      "description": ""
+    },
+    {
+      "name": "webflow-editor-integration",
+      "path": ".codex/skills/webflow-editor-integration",
+      "github_url": "https://github.com/vallafederico/webflow-dev-setup/tree/main/.codex/skills/webflow-editor-integration",
+      "description": ""
+    },
+    {
+      "name": "webflow-editor-integration",
+      "path": ".claude/skills/webflow-editor-integration",
+      "github_url": "https://github.com/vallafederico/webflow-dev-setup/tree/main/.claude/skills/webflow-editor-integration",
+      "description": ""
+    },
+    {
+      "name": "webflow-interactivity-systems",
+      "path": ".claude/skills/webflow-interactivity-systems",
+      "github_url": "https://github.com/vallafederico/webflow-dev-setup/tree/main/.claude/skills/webflow-interactivity-systems",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/vallafederico",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:26:37Z"
+}
