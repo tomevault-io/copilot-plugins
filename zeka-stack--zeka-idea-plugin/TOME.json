@@ -1,0 +1,52 @@
+{
+  "name": "zeka-idea-plugin",
+  "owner": "zeka-stack",
+  "repo": "zeka-idea-plugin",
+  "description": "AI instruction files for zeka-idea-plugin by zeka-stack",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "idea-plugin-dev",
+      "path": ".claude/skills/idea-plugin-dev",
+      "github_url": "https://github.com/zeka-stack/zeka-idea-plugin/tree/main/.claude/skills/idea-plugin-dev",
+      "description": ""
+    },
+    {
+      "name": "plugin-deployment",
+      "path": ".claude/skills/plugin-deployment",
+      "github_url": "https://github.com/zeka-stack/zeka-idea-plugin/tree/main/.claude/skills/plugin-deployment",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/zeka-stack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:51:13Z"
+}
