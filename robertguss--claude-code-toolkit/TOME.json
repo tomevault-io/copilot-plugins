@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -66,5 +71,5 @@
   ],
   "claim_url": "https://tomevault.io/claim/robertguss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T07:26:25Z"
+  "distributed_at": "2026-04-09T16:00:19Z"
 }
