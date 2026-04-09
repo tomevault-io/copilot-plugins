@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [cududa/financial-statement-parser](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cududa](https://tomevault.io/claim/cududa)
 
