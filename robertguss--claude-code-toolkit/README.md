@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [robertguss/claude-code-toolkit](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/robertguss](https://tomevault.io/claim/robertguss)
 
