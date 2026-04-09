@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [AIahmedshrf/myonyx](https://github.com/AIahmeds
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/AIahmedshrf](https://tomevault.io/claim/AIahmedshrf)
 
