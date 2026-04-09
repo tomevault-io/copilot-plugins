@@ -1,0 +1,58 @@
+{
+  "name": "claude-code-plugins",
+  "owner": "pleaseai",
+  "repo": "claude-code-plugins",
+  "description": "AI instruction files for claude-code-plugins by pleaseai",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "plugin-builder",
+      "path": ".claude/skills/plugin-builder",
+      "github_url": "https://github.com/pleaseai/claude-code-plugins/tree/main/.claude/skills/plugin-builder",
+      "description": ""
+    },
+    {
+      "name": "cubic-review",
+      "path": "plugins/cubic/skills/cubic-review",
+      "github_url": "https://github.com/pleaseai/claude-code-plugins/tree/main/plugins/cubic/skills/cubic-review",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "plugins/mcp-dev/skills/mcp-builder",
+      "github_url": "https://github.com/pleaseai/claude-code-plugins/tree/main/plugins/mcp-dev/skills/mcp-builder",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/pleaseai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:50:53Z"
+}
