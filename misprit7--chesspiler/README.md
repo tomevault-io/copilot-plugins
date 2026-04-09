@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [misprit7/chesspiler](https://github.com/misprit
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/misprit7](https://tomevault.io/claim/misprit7)
 
