@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [maxcountryman/underway](https://github.com/maxc
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/maxcountryman](https://tomevault.io/claim/maxcountryman)
 
