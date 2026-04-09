@@ -1,0 +1,46 @@
+{
+  "name": "ue-too",
+  "owner": "ue-too",
+  "repo": "ue-too",
+  "description": "AI instruction files for ue-too by ue-too",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "typedoc",
+      "path": ".claude/skills/typedoc",
+      "github_url": "https://github.com/ue-too/ue-too/tree/main/.claude/skills/typedoc",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/ue-too",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:27:27Z"
+}
