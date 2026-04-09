@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [zetetos/simtezilo](https://github.com/zetetos/s
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zetetos](https://tomevault.io/claim/zetetos)
 
