@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Robert-Cunningham/nozzle](https://github.com/Ro
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Robert-Cunningham](https://tomevault.io/claim/Robert-Cunningham)
 
