@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [rydmike/flex_seed_scheme](https://github.com/ry
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rydmike](https://tomevault.io/claim/rydmike)
 
