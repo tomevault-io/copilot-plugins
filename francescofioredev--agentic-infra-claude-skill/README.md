@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [francescofioredev/agentic-infra-claude-skill](h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/francescofioredev](https://tomevault.io/claim/francescofioredev)
 
