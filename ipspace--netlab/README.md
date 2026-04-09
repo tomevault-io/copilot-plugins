@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [ipspace/netlab](https://github.com/ipspace/netl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ipspace](https://tomevault.io/claim/ipspace)
 
