@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [unbound-force/gaze](https://github.com/unbound-
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/unbound-force](https://tomevault.io/claim/unbound-force)
 
