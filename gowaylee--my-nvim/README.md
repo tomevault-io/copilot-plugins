@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [GowayLee/my-nvim](https://github.com/GowayLee/m
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/GowayLee](https://tomevault.io/claim/GowayLee)
 
