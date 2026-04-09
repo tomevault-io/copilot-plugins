@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [BlockSurvey/ballot](https://github.com/BlockSur
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/BlockSurvey](https://tomevault.io/claim/BlockSurvey)
 
