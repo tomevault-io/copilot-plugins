@@ -133,6 +133,5 @@ RESET app.participant_token;
 - RLS policies require `app.participant_token` to be set — test both owner and participant contexts
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/steveoleary)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/steveoleary)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/steveoleary) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
