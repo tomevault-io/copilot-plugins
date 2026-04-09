@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Salshriaan/GauchoRevise](https://github.com/Sal
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Salshriaan](https://tomevault.io/claim/Salshriaan)
 
