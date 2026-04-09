@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rbazinet/accidental_technologist](https://githu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rbazinet](https://tomevault.io/claim/rbazinet)
 
