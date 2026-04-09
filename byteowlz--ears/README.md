@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [byteowlz/eaRS](https://github.com/byteowlz/eaRS
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/byteowlz](https://tomevault.io/claim/byteowlz)
 
