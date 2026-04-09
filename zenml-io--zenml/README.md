@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [zenml-io/zenml](https://github.com/zenml-io/zen
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zenml-io](https://tomevault.io/claim/zenml-io)
 
