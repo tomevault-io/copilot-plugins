@@ -1,0 +1,52 @@
+{
+  "name": "skillx",
+  "owner": "atovk",
+  "repo": "skillx",
+  "description": "AI instruction files for skillx by atovk",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "test-generator",
+      "path": "skills/03-code-generation/test-generator",
+      "github_url": "https://github.com/atovk/skillx/tree/main/skills/03-code-generation/test-generator",
+      "description": ""
+    },
+    {
+      "name": "code-explainer",
+      "path": "skills/01-basics/code-explainer",
+      "github_url": "https://github.com/atovk/skillx/tree/main/skills/01-basics/code-explainer",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/atovk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T10:25:14Z"
+}
