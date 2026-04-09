@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [signaldecode/deasung-kiosk-frontend](https://gi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/signaldecode](https://tomevault.io/claim/signaldecode)
 
