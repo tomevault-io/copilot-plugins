@@ -1,0 +1,510 @@
+## claude-code-plugins
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Overview
+
+This is a Claude Code plugin marketplace repository providing bundled plugins that extend Claude Code with specialized tools and automation. The repository contains:
+
+- **Marketplace Configuration**: Managed via `.claude-plugin/marketplace.json`
+- **External Plugins**: All plugins are maintained as git submodules in `external-plugins/` directory
+- **Web Application**: Nuxt-based marketplace frontend in `apps/web/`
+- **Hooks System**: Session initialization hooks in `hooks/`
+
+### Directory Structure
+
+```
+claude-code-plugins/
+├── external-plugins/           # All plugins (git submodules)
+│   ├── nanobanana/            # Image generation plugin
+│   ├── flutter/               # Flutter development tools
+│   ├── security/              # Security analysis
+│   ├── spec-kit/              # Spec-driven development
+│   ├── code-review/           # Code review automation
+│   ├── firebase/              # Firebase integration
+│   ├── postgres/              # PostgreSQL MCP server
+│   ├── grafana/               # Grafana integration
+│   ├── chrome-devtools-mcp/   # Chrome DevTools automation
+│   └── context7/              # Up-to-date library documentation
+├── plugins/                    # Built-in plugins (manually maintained) AND auto-generated Type 4 output
+│   ├── gatekeeper/            # Auto-approve safe commands (manually maintained)
+│   ├── plugin-dev/            # Plugin development tools (manually maintained)
+│   └── ...                    # Framework-specific plugins + auto-synced Gemini CLI extensions
+├── apps/web/                  # Marketplace website
+├── .claude-plugin/            # Marketplace configuration
+└── hooks/                     # Session hooks
+```
+
+## Architecture
+
+### Plugin Structure
+
+Each plugin follows this standard structure:
+```
+external-plugins/<plugin-name>/
+├── .claude-plugin/
+│   └── plugin.json          # Claude Code plugin manifest
+├── gemini-extension.json    # Gemini CLI extension manifest (legacy)
+├── README.md                # Plugin documentation
+├── commands/                # Slash commands (markdown files)
+├── hooks/                   # Hook configurations
+└── mcp-server/             # MCP server implementation
+    ├── package.json
+    ├── src/
+    │   ├── index.ts        # Main server entry
+    │   └── *.ts            # Implementation modules
+    └── dist/               # Compiled output
+```
+
+### Key Components
+
+**1. plugin.json (Claude Code)**
+- Located in `.claude-plugin/plugin.json`
+- Required for Claude Code plugins
+- Defines plugin metadata (name, version, description)
+- Configures MCP servers with command and args
+- Specifies `contextFileName` for AI context loading
+- Defines hooks for lifecycle events
+
+**2. gemini-extension.json (Gemini CLI - Legacy)**
+- Original Gemini CLI extension manifest
+- Kept for backwards compatibility with Gemini CLI
+- Not used by Claude Code
+
+**3. MCP Servers**
+- Node.js-based servers using `@modelcontextprotocol/sdk`
+- Compiled TypeScript from `mcp-server/src/` to `mcp-server/dist/`
+- Run via `node mcp-server/dist/index.js`
+
+**4. Commands**
+- Markdown files in `commands/` directory
+- Define slash commands accessible in Claude Code
+- Command names derived from file structure (e.g., `commands/security/analyze.md` → `/security:analyze`)
+
+**5. Hooks**
+- Defined in `plugin.json` under `hooks` key
+- Common hooks: `SessionStart`, `PostToolUse`
+- Can execute shell commands or load context
+- Example: `hooks/context.sh` loads context files automatically
+
+**6. Context Files**
+- Plugins can specify a `contextFileName` in their `plugin.json`
+- Context files (e.g., `GEMINI.md`, `flutter.md`) provide AI-specific instructions
+- Automatically loaded via SessionStart hooks
+- Enables seamless migration from Gemini CLI extensions to Claude Code plugins
+
+### Web Application
+
+The marketplace website is built with:
+- **Framework**: Nuxt 4 (Vue 3)
+- **UI**: Nuxt UI v4
+- **Content**: Nuxt Content for markdown pages
+- **Database**: better-sqlite3
+- **Node**: Version 22.x (specified in `.nvmrc`)
+
+## Common Commands
+
+### Web Application
+```bash
+# Navigate to web app
+cd apps/web
+
+# Install dependencies
+bun install
+
+# Development server
+bun run dev
+
+# Build for production
+bun run build
+
+# Preview production build
+bun run preview
+
+# Generate static site
+bun run generate
+```
+
+### Plugin Development
+
+All plugins are maintained in separate repositories and included as git submodules:
+
+- `external-plugins/nanobanana/` → https://github.com/pleaseai/nanobanana-plugin
+- `external-plugins/security/` → https://github.com/pleaseai/security-plugin
+- `external-plugins/flutter/` → https://github.com/pleaseai/flutter-plugin
+- `external-plugins/code-review/` → https://github.com/pleaseai/code-review-plugin
+- `external-plugins/spec-kit/` → https://github.com/pleaseai/spec-kit-plugin
+- `external-plugins/firebase/` → https://github.com/pleaseai/firebase-plugin
+- `external-plugins/postgres/` → https://github.com/pleaseai/postgres-plugin
+- `external-plugins/grafana/` → https://github.com/amondnet/mcp-grafana
+- `external-plugins/chrome-devtools-mcp/` → https://github.com/pleaseai/chrome-devtools-mcp
+- `external-plugins/context7/` → https://github.com/pleaseai/context7
+
+## Claude Code Plugin Development Guide
+
+### Adding a Gemini CLI Extension (Type 4 Auto-Sync)
+
+Type 4 plugins are Gemini CLI extensions stored as read-only git submodules in `external-plugins/<name>/`. The sync system auto-generates Claude Code plugin artifacts into `plugins/<name>/` — do not edit files in `plugins/<name>/` manually when they are Type 4 output.
+
+**Simplest approach — use the slash command:**
+```bash
+/add-gemini-extension <extension-name> <github-repo-url>
+```
+This automates the full workflow: validates the repo, updates `scripts/meta.ts`, runs `init` and `sync`, and updates the marketplace config.
+
+**Manual approach:**
+
+1. Add an entry to the `extensions` registry in `scripts/meta.ts`:
+   ```typescript
+   export const extensions: Record<string, ExtensionMeta> = {
+     "extension-name": {
+       source: "https://github.com/org/repo",
+       // pluginName: "override-name",  // optional: defaults to extension key
+       // skipCommands: true,           // optional: skip TOML→Markdown command conversion
+     },
+   }
+   ```
+
+2. Run init to add the submodule, then sync to generate artifacts:
+   ```bash
+   bun scripts/cli.ts init   # adds git submodule at external-plugins/<name>/
+   bun scripts/cli.ts sync   # generates plugins/<name>/ artifacts
+   ```
+
+**`ExtensionMeta` interface fields:**
+- `source` (required) — Git repository URL of the Gemini CLI extension
+- `pluginName` (optional) — Override the output plugin name; defaults to the extension key
+- `skipCommands` (optional) — Set `true` to skip converting TOML commands to Markdown
+
+**Data flow:**
+```
+external-plugins/<name>/    →    plugins/<name>/
+  (read-only submodule)          (auto-generated — do not edit manually)
+  gemini-extension.json    →     .claude-plugin/plugin.json
+  commands/*.toml          →     commands/*.md
+  <contextFileName>        →     hooks/hooks.json + hooks/context.sh + <contextFileName>
+```
+
+Files in `plugins/<name>/` that are auto-generated will have a `SYNC.md` marker. Fields added manually to `plugin.json` (such as `author`, `homepage`, `repository`, `license`, `keywords`) survive re-syncs; auto-generated fields (`name`, `version`, `description`, `mcpServers`, `commands`) are overwritten each sync.
+
+### Adding a New Plugin to the Marketplace
+
+When integrating an existing MCP server or tool as a Claude Code plugin:
+
+1. **Add as Git Submodule:**
+   ```bash
+   git submodule add git@github.com:org/tool-repo.git external-plugins/plugin-name
+   cd external-plugins/plugin-name
+   ```
+
+2. **Create Plugin Structure:**
+   ```bash
+   mkdir -p .claude-plugin hooks
+   ```
+
+3. **Create plugin.json:**
+   ```json
+   {
+     "name": "plugin-name",
+     "version": "1.0.0",
+     "description": "Brief description of the plugin",
+     "author": {
+       "name": "Author Name",
+       "url": "https://github.com/author"
+     },
+     "homepage": "https://tool-website.com",
+     "repository": "https://github.com/org/tool-repo",
+     "license": "MIT",
+     "keywords": ["keyword1", "keyword2"],
+     "mcpServers": {
+       "server-name": {
+         "command": "npx",
+         "args": ["-y", "@org/package-name"],
+         "env": {
+           "API_KEY": "${PLUGIN_API_KEY:-}"
+         }
+       }
+     }
+   }
+   ```
+
+4. **Create Skill for Intelligent Activation (Recommended):**
+
+   Create `skills/[plugin-name]/SKILL.md`:
+   ```markdown
+   ---
+   name: Plugin Name Feature
+   description: Brief description of what this plugin does. Use when [specific scenarios]. Triggers on mentions of [keywords, features, use cases].
+   allowed-tools: mcp__plugin_name__tool-1, mcp__plugin_name__tool-2
+   ---
+
+   # Plugin Name - Feature Description
+
+   Always use [plugin-name] MCP tools automatically when [specific scenarios].
+
+   ## When to Use
+   - Scenario 1: Specific use case
+   - Scenario 2: Another use case
+   - Scenario 3: Framework/library specific
+
+   ## How to Use
+   1. Use `tool-1` to perform action
+   2. Use `tool-2` to complete workflow
+   3. Apply results as needed
+
+   ## Important Notes
+   - Note about API keys or configuration
+   - Performance considerations
+   - Best practices
+   ```
+
+   **Why Skills over SessionStart Hooks:**
+   - ✅ Claude loads skill only when relevant to the task
+   - ✅ Significantly reduces token usage
+   - ✅ Simpler maintenance (single markdown file)
+   - ✅ Intelligent activation based on context
+   - ✅ Clear trigger patterns in description
+
+   **Legacy Approach (SessionStart Hook - Not Recommended):**
+
+   <details>
+   <summary>Click to see SessionStart hook approach (deprecated)</summary>
+
+   Create `hooks/hooks.json`:
+   ```json
+   {
+     "description": "Load plugin usage instructions at session start",
+     "hooks": {
+       "SessionStart": [
+         {
+           "matcher": "startup",
+           "hooks": [
+             {
+               "type": "command",
+               "command": "${CLAUDE_PLUGIN_ROOT}/hooks/context.sh",
+               "timeout": 10
+             }
+           ]
+         }
+       ]
+     }
+   }
+   ```
+
+   **Limitations:**
+   - ❌ Loads on every session start regardless of need
+   - ❌ Wastes tokens even when plugin is not relevant
+   - ❌ Requires shell script + JSON output complexity
+   </details>
+
+   Make script executable:
+   ```bash
+   chmod +x hooks/context.sh
+   ```
+
+5. **Update Plugin README:**
+   Add Claude Code installation instructions:
+   ```markdown
+   #### Claude Code Plugin
+
+   Install as a Claude Code plugin:
+
+   \`\`\`sh
+   claude
+   /plugin marketplace add pleaseai/claude-code-plugins
+   /plugin install plugin-name@pleaseai
+   \`\`\`
+
+   This automatically loads usage instructions on session start.
+
+   Optionally set API key (if required):
+   \`\`\`sh
+   export PLUGIN_API_KEY="your-api-key"
+   \`\`\`
+   ```
+
+6. **Commit Plugin Changes:**
+   ```bash
+   git add .claude-plugin/ hooks/ README.md
+   git commit -m "feat: add Claude Code plugin configuration"
+   git push origin main
+   ```
+
+7. **Create Upstream PR (if forked):**
+   ```bash
+   gh pr create --repo original-org/tool-repo \
+     --title "feat: add Claude Code plugin configuration" \
+     --body "Add Claude Code plugin support with automatic integration..."
+   ```
+
+8. **Update Marketplace Configuration:**
+   In the main repository root:
+   ```bash
+   # Update marketplace.json
+   # Add entry to plugins array
+   git add .claude-plugin/marketplace.json external-plugins/plugin-name
+   git commit -m "feat: add plugin-name to marketplace"
+   ```
+
+### Best Practices
+
+**MCP Server Integration:**
+- Use `npx` for MCP servers published to npm
+- Use `${PLUGIN_VAR:-}` pattern for optional environment variables
+- Always specify `-y` flag with npx to avoid interactive prompts
+
+**Skills (Recommended):**
+- Use gerund form for skill name ("Processing PDFs", "Analyzing Code")
+- Include specific triggers in description for intelligent activation
+- Specify `allowed-tools` for automatic MCP tool permissions
+- Keep SKILL.md under 500 lines for token efficiency
+
+**SessionStart Hooks (Legacy - Not Recommended):**
+- Use Skills instead for better token efficiency and intelligent activation
+- Only use hooks for non-MCP tool automation (validation, formatting, etc.)
+
+**Plugin Naming:**
+- Use the canonical short name matching the npm package (e.g. `next` not `nextjs`, `vue` not `vuejs`)
+
+**Directory Structure:**
+- `.claude-plugin/plugin.json` must be at this exact path
+- `hooks/`, `commands/`, `agents/`, `skills/` directories at plugin root
+- Use `${CLAUDE_PLUGIN_ROOT}` for all path references
+
+**Skills Directory:**
+- Built-in plugins (`plugins/`) use `skills/` at plugin root (default path, no need to set `"skills"` in plugin.json)
+- `.agents/skills/` is used by skills.sh (`bunx skills add`) — same convention, different path
+- Do NOT create a `skills/<name>/` directory at the repository root for built-in plugins
+
+**Agent Memory:**
+- Review agents create memory files in `.claude/agent-memory/`. These are NOT auto-committed — commit them after review sessions
+
+**Hooks Auto-Loading:**
+- `hooks/hooks.json` is auto-loaded by Claude Code — do NOT reference it in `plugin.json`'s `hooks` field
+- `plugin.json`'s `hooks` field should only reference ADDITIONAL hook files beyond the standard path
+
+**Documentation:**
+- Include Claude Code installation in plugin README
+- Explain automatic features (SessionStart hooks)
+- Document optional environment variables clearly
+
+**Testing:**
+- Test the full installation flow
+- Verify SessionStart hook loads correctly
+- Test with and without environment variables
+
+### Example: Context7 Plugin
+
+See `external-plugins/context7/` for a complete example of:
+- NPX-based MCP server integration
+- **Skill-based intelligent activation** (recommended approach)
+- Optional API key configuration
+- Upstream PR contribution
+
+Reference documentation: `docs/lessons-learned/context7.md`
+
+**Note**: Context7 was migrated from SessionStart hooks to Skills for better token efficiency. See the lessons learned doc for the evolution and comparison.
+
+### Vendor-Synced Skills (Read-Only)
+
+Skills in `plugins/*/skills/` that contain a `SYNC.md` file are vendor-synced and **must not be modified directly** — changes will be overwritten on the next `bun run skills:sync`.
+```bash
+# Check before editing
+cat plugins/<plugin>/skills/<skill>/SYNC.md
+```
+Skip any code review suggestions targeting vendor-synced skill files.
+
+### Skills.sh Installed Skills (Read-Only)
+
+Skills installed via `bunx skills add` live under `plugins/*/.agents/skills/` and are tracked by `skills-lock.json`. These are also vendor-managed — do not modify directly. Fix upstream instead.
+
+## Development Standards
+
+Read these documents **only when relevant to the current task** — do not load them all upfront:
+
+| Document | When to read |
+|----------|-------------|
+| `docs/commit-convention.md` | Before creating a commit |
+| `docs/STANDARDS.md` | Before writing or reviewing code |
+| `docs/TDD.md` | Before writing tests or implementing features |
+| `docs/TESTING.md` | Before writing or reviewing tests |
+| `docs/plugins.md` | When developing or modifying plugins |
+| `docs/skills-generator.md` | When generating or updating skills (`/generate-skill`) |
+| `docs/lessons-learned/` | When working on a topic covered by a lessons-learned doc |
+
+## Plugin Installation
+
+Users can add this marketplace and install plugins:
+
+```bash
+# Add marketplace
+/plugin marketplace add pleaseai/claude-code-plugins
+
+# Install a plugin
+/plugin install nanobanana@pleaseai
+/plugin install gemini-cli-security@pleaseai
+```
+
+## Testing Commands
+
+```bash
+# For plugins with tests
+cd external-plugins/<plugin-name>
+bun run test
+
+# Type checking across plugins
+bun run typecheck
+```
+
+## Plugin Validation
+
+Validate a plugin manifest or marketplace manifest using the Claude CLI:
+
+```bash
+# Validate a plugin
+claude plugin validate <path-to-plugin-dir>
+
+# Validate marketplace manifest
+claude plugin validate .claude-plugin/marketplace.json
+```
+
+Run this before committing new plugins or after modifying `plugin.json`.
+
+## Key Files
+
+- `.claude-plugin/marketplace.json` - Marketplace configuration and plugin registry
+- `apps/web/nuxt.config.ts` - Nuxt application configuration
+- `external-plugins/*/gemini-extension.json` - Plugin manifests (legacy)
+- `external-plugins/*/.claude-plugin/plugin.json` - Plugin manifests (Claude Code)
+- `hooks/hooks.json` - Session start hooks
+- `scripts/meta.ts` - Registry for Type 1/2/3/4 plugin sources (submodules, vendors, extensions)
+- `scripts/cli.ts` - CLI tool: `init` (add submodules) and `sync` (generate plugin artifacts)
+- `docs/commit-convention.md` - Commit message guidelines
+- `docs/TDD.md` - Test-driven development methodology
+- `.nvmrc` - Node.js version specification (v22)
+
+## Notes
+
+- This repository serves as both a plugin marketplace and a collection of plugin implementations
+- Each plugin can be independently versioned and released
+- MCP servers provide the runtime interface between Claude Code and plugin functionality
+- Plugins are designed to be easily toggled on/off by users
+
+## Design Context
+
+See `.impeccable.md` for full design context. Key principles for the marketplace web app (`apps/web/`):
+
+1. **Content-first clarity** -- Plugin name, description, and install action should be instantly scannable.
+2. **Trust through polish** -- Consistent spacing, aligned elements, and refined details.
+3. **Efficient discovery** -- Users should find what they need in seconds.
+4. **Inclusive by default** -- WCAG AA, reduced motion, light/dark mode, Korean + English.
+5. **Design system loyalty** -- Use Nuxt UI components and Tailwind as intended. Consistency > novelty.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/pleaseai)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/pleaseai)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
