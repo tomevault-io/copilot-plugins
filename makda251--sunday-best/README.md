@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Makda251/sunday-best](https://github.com/Makda2
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Makda251](https://tomevault.io/claim/Makda251)
 
