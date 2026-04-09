@@ -15,6 +15,7 @@ Original source: `AGENTS.md` in [rendis/surveygo](https://github.com/rendis/surv
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rendis](https://tomevault.io/claim/rendis)
 
