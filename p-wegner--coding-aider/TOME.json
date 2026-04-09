@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -42,5 +47,5 @@
   ],
   "claim_url": "https://tomevault.io/claim/p-wegner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T01:51:20Z"
+  "distributed_at": "2026-04-09T16:13:59Z"
 }
