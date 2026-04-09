@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -42,5 +47,5 @@
   ],
   "claim_url": "https://tomevault.io/claim/nold-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T19:55:48Z"
+  "distributed_at": "2026-04-09T16:07:59Z"
 }
