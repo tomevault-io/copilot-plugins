@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [carrotwaxr/stashapp-api](https://github.com/car
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/carrotwaxr](https://tomevault.io/claim/carrotwaxr)
 
