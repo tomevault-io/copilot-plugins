@@ -1,0 +1,22 @@
+{
+  "name": "getsentry--sentry",
+  "displayName": "sentry",
+  "description": "AI instruction files for sentry by getsentry",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://tomevault.io/claim/getsentry",
+  "skills": [
+    {
+      "name": "sentry-code-review",
+      "description": ""
+    },
+    {
+      "name": "sentry-setup-ai-monitoring",
+      "description": ""
+    },
+    {
+      "name": "sentry-cli",
+      "description": ""
+    }
+  ]
+}
