@@ -1,0 +1,58 @@
+{
+  "name": "unifi-mcp-server",
+  "owner": "enuno",
+  "repo": "unifi-mcp-server",
+  "description": "AI instruction files for unifi-mcp-server by enuno",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fastmcp",
+      "path": ".claude/skills/fastmcp",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.claude/skills/fastmcp",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": ".claude/skills/mcp-builder",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.claude/skills/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-tool-builder",
+      "path": ".claude/skills/unifi-mcp-tool-builder",
+      "github_url": "https://github.com/enuno/unifi-mcp-server/tree/main/.claude/skills/unifi-mcp-tool-builder",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/enuno",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:49:50Z"
+}
