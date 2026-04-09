@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [flowcore-io/my-tasks-planner](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/flowcore-io](https://tomevault.io/claim/flowcore-io)
 
