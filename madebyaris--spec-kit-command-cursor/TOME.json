@@ -1,0 +1,70 @@
+{
+  "name": "spec-kit-command-cursor",
+  "owner": "madebyaris",
+  "repo": "spec-kit-command-cursor",
+  "description": "AI instruction files for spec-kit-command-cursor by madebyaris",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sdd-audit",
+      "path": ".cursor/skills/sdd-audit",
+      "github_url": "https://github.com/madebyaris/spec-kit-command-cursor/tree/main/.cursor/skills/sdd-audit",
+      "description": ""
+    },
+    {
+      "name": "sdd-evolve",
+      "path": ".cursor/skills/sdd-evolve",
+      "github_url": "https://github.com/madebyaris/spec-kit-command-cursor/tree/main/.cursor/skills/sdd-evolve",
+      "description": ""
+    },
+    {
+      "name": "sdd-implementation",
+      "path": ".cursor/skills/sdd-implementation",
+      "github_url": "https://github.com/madebyaris/spec-kit-command-cursor/tree/main/.cursor/skills/sdd-implementation",
+      "description": ""
+    },
+    {
+      "name": "sdd-planning",
+      "path": ".cursor/skills/sdd-planning",
+      "github_url": "https://github.com/madebyaris/spec-kit-command-cursor/tree/main/.cursor/skills/sdd-planning",
+      "description": ""
+    },
+    {
+      "name": "sdd-research",
+      "path": ".cursor/skills/sdd-research",
+      "github_url": "https://github.com/madebyaris/spec-kit-command-cursor/tree/main/.cursor/skills/sdd-research",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/madebyaris",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:50:37Z"
+}
