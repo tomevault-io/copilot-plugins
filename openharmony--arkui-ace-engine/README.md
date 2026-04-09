@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [openharmony/arkui_ace_engine](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/openharmony](https://tomevault.io/claim/openharmony)
 
