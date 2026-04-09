@@ -1,0 +1,70 @@
+{
+  "name": "qbittorrent-web",
+  "owner": "jianxcao",
+  "repo": "qbittorrent-web",
+  "description": "AI instruction files for qbittorrent-web by jianxcao",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "i18n-checker",
+      "path": ".cursor/skills/i18n-checker",
+      "github_url": "https://github.com/jianxcao/qbittorrent-web/tree/main/.cursor/skills/i18n-checker",
+      "description": ""
+    },
+    {
+      "name": "pinia-best-practices",
+      "path": ".agents/skills/pinia-best-practices",
+      "github_url": "https://github.com/jianxcao/qbittorrent-web/tree/main/.agents/skills/pinia-best-practices",
+      "description": ""
+    },
+    {
+      "name": "readme-generator",
+      "path": ".cursor/skills/readme-generator",
+      "github_url": "https://github.com/jianxcao/qbittorrent-web/tree/main/.cursor/skills/readme-generator",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "path": ".agents/skills/vue-best-practices",
+      "github_url": "https://github.com/jianxcao/qbittorrent-web/tree/main/.agents/skills/vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vueuse-best-practices",
+      "path": ".agents/skills/vueuse-best-practices",
+      "github_url": "https://github.com/jianxcao/qbittorrent-web/tree/main/.agents/skills/vueuse-best-practices",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/jianxcao",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:25:57Z"
+}
