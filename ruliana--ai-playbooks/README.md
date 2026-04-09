@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ruliana/ai-playbooks](https://github.com/rulian
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ruliana](https://tomevault.io/claim/ruliana)
 
