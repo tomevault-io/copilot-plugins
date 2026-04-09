@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kiyoka/agent-lisp-paren-aid](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kiyoka](https://tomevault.io/claim/kiyoka)
 
