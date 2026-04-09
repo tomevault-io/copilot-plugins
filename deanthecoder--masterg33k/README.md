@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [deanthecoder/MasterG33k](https://github.com/dea
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/deanthecoder](https://tomevault.io/claim/deanthecoder)
 
