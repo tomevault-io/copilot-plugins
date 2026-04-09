@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [markussandin1/zirk-it](https://github.com/marku
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/markussandin1](https://tomevault.io/claim/markussandin1)
 
