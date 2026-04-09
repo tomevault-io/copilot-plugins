@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -62,9 +67,81 @@
       "path": "testdata/skills/coze-api/coze-api",
       "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/coze-api/coze-api",
       "description": ""
+    },
+    {
+      "name": "crewai-developer",
+      "path": "testdata/skills/crewai-developer/crewai-developer",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/crewai-developer/crewai-developer",
+      "description": ""
+    },
+    {
+      "name": "feature-builder",
+      "path": "testdata/skills/feature-builder",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/feature-builder",
+      "description": ""
+    },
+    {
+      "name": "flutter-api",
+      "path": "testdata/skills/flutter-api/flutter-api",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/flutter-api/flutter-api",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "testdata/skills/frontend-design",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "hello_world",
+      "path": "examples/goskills_example/goskills_example/skills/hello_world",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/examples/goskills_example/goskills_example/skills/hello_world",
+      "description": ""
+    },
+    {
+      "name": "markitdown",
+      "path": "testdata/skills/markitdown",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/markitdown",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "testdata/skills/mcp-builder",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "playwright-skill",
+      "path": "testdata/skills/playwright-skill",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/playwright-skill",
+      "description": ""
+    },
+    {
+      "name": "prompt-optimizer",
+      "path": "testdata/skills/prompt-optimizer",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/prompt-optimizer",
+      "description": ""
+    },
+    {
+      "name": "react-component-generator",
+      "path": "testdata/skills/react-component-generator",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/react-component-generator",
+      "description": ""
+    },
+    {
+      "name": "request-analyzer",
+      "path": "testdata/skills/request-analyzer",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/request-analyzer",
+      "description": ""
+    },
+    {
+      "name": "ui-analyzer",
+      "path": "testdata/skills/ui-analyzer",
+      "github_url": "https://github.com/smallnest/langgraphgo/tree/main/testdata/skills/ui-analyzer",
+      "description": ""
     }
   ],
   "claim_url": "https://tomevault.io/claim/smallnest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T19:53:22Z"
+  "distributed_at": "2026-04-09T16:01:55Z"
 }
