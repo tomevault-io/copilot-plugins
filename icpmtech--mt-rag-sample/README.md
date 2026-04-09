@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [icpmtech/mt-rag-sample](https://github.com/icpm
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/icpmtech](https://tomevault.io/claim/icpmtech)
 
