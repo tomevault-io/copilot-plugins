@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [rehanhaider/AutoSocial](https://github.com/rehanhaider/AutoSocial).
+Original source: `.cursor/rules/*.mdc` in [rehanhaider/AutoSocial](https://github.com/rehanhaider/AutoSocial).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 
 Browse all formats: [https://tomevault.io/claim/rehanhaider](https://tomevault.io/claim/rehanhaider)
 
