@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [lace-cloud/vs-code-extension](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lace-cloud](https://tomevault.io/claim/lace-cloud)
 
