@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [hiveden/toolref](https://github.com/hiveden/too
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hiveden](https://tomevault.io/claim/hiveden)
 
