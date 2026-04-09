@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [janpereira-dev/clipturbo](https://github.com/ja
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/janpereira-dev](https://tomevault.io/claim/janpereira-dev)
 
