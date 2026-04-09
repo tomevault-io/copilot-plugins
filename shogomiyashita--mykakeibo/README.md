@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ShogoMiyashita/MyKakeibo](https://github.com/Sh
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ShogoMiyashita](https://tomevault.io/claim/ShogoMiyashita)
 
