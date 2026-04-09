@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [steveoleary/coffee_run](https://github.com/stev
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/steveoleary](https://tomevault.io/claim/steveoleary)
 
