@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [teknetekne/Mneme](https://github.com/teknetekne
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/teknetekne](https://tomevault.io/claim/teknetekne)
 
