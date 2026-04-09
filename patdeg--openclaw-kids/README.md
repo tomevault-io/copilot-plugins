@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [patdeg/openclaw_kids](https://github.com/patdeg
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/patdeg](https://tomevault.io/claim/patdeg)
 
