@@ -1,0 +1,46 @@
+{
+  "name": "basilic-old",
+  "owner": "blockmatic-icebox",
+  "repo": "basilic-old",
+  "description": "AI instruction files for basilic-old by blockmatic-icebox",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "next-v16",
+      "path": ".cursor/skills/next-v16",
+      "github_url": "https://github.com/blockmatic-icebox/basilic-old/tree/main/.cursor/skills/next-v16",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/blockmatic-icebox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:51:40Z"
+}
