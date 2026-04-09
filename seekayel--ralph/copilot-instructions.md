@@ -15,6 +15,5 @@ There is a Research-Plan-Implement skill defined in `_agents/skills/research-pla
 There is a Code-Review skill defined in `_agents/skills/code-review/skill.md` use it to review code changes
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/seekayel)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/seekayel)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/seekayel) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
