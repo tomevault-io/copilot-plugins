@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [zixindh/shdr](https://github.com/zixindh/shdr).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zixindh](https://tomevault.io/claim/zixindh)
 
