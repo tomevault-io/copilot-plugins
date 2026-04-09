@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [NatLabRockies/r2x-core](https://github.com/NatL
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/NatLabRockies](https://tomevault.io/claim/NatLabRockies)
 
