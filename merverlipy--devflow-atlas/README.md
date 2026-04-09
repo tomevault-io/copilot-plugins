@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [MerverliPy/DevFlow-Atlas](https://github.com/Me
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/MerverliPy](https://tomevault.io/claim/MerverliPy)
 
