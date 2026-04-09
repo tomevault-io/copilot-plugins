@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [FilOzone/synapse-sdk](https://github.com/FilOzo
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/FilOzone](https://tomevault.io/claim/FilOzone)
 
