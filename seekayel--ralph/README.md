@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [seekayel/ralph](https://github.com/seekayel/ral
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/seekayel](https://tomevault.io/claim/seekayel)
 
