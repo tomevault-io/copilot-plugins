@@ -1,0 +1,64 @@
+{
+  "name": "arkui_ace_engine",
+  "owner": "openharmony",
+  "repo": "arkui_ace_engine",
+  "description": "AI instruction files for arkui_ace_engine by openharmony",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arkui-api-design",
+      "path": ".claude/skills/arkui-api-design",
+      "github_url": "https://github.com/openharmony/arkui_ace_engine/tree/main/.claude/skills/arkui-api-design",
+      "description": ""
+    },
+    {
+      "name": "build-error-analyzer",
+      "path": ".claude/skills/build-error-analyzer",
+      "github_url": "https://github.com/openharmony/arkui_ace_engine/tree/main/.claude/skills/build-error-analyzer",
+      "description": ""
+    },
+    {
+      "name": "code-analysis",
+      "path": ".claude/skills/code-analysis",
+      "github_url": "https://github.com/openharmony/arkui_ace_engine/tree/main/.claude/skills/code-analysis",
+      "description": ""
+    },
+    {
+      "name": "compile-analysis",
+      "path": ".claude/skills/compile-analysis",
+      "github_url": "https://github.com/openharmony/arkui_ace_engine/tree/main/.claude/skills/compile-analysis",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/openharmony",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:26:15Z"
+}
