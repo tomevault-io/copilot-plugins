@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [wtyler2505/pdanet-linux](https://github.com/wty
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wtyler2505](https://tomevault.io/claim/wtyler2505)
 
