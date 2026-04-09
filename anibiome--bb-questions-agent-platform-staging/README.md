@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [anibiome/bb-questions-agent-platform-staging](h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/anibiome](https://tomevault.io/claim/anibiome)
 
