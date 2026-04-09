@@ -1,0 +1,39 @@
+{
+  "name": "84000-apps",
+  "owner": "84000",
+  "repo": "84000-apps",
+  "description": "",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [],
+  "claim_url": "https://tomevault.io/claim/84000",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T00:15:22Z"
+}
