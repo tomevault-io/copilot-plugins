@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [ouro-ai-labs/ouro](https://github.com/ouro-ai-l
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ouro-ai-labs](https://tomevault.io/claim/ouro-ai-labs)
 
