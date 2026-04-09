@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [MalachiteN/Mutsumi](https://github.com/Malachit
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/MalachiteN](https://tomevault.io/claim/MalachiteN)
 
