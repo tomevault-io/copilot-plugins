@@ -1,0 +1,64 @@
+{
+  "name": "drill-app",
+  "owner": "jchaselubitz",
+  "repo": "drill-app",
+  "description": "AI instruction files for drill-app by jchaselubitz",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "expo-router",
+      "path": ".claude/skills/expo-router",
+      "github_url": "https://github.com/jchaselubitz/drill-app/tree/main/.claude/skills/expo-router",
+      "description": ""
+    },
+    {
+      "name": "watermelondb",
+      "path": ".claude/skills/watermelondb",
+      "github_url": "https://github.com/jchaselubitz/drill-app/tree/main/.claude/skills/watermelondb",
+      "description": ""
+    },
+    {
+      "name": "expo-audio",
+      "path": ".claude/skills/expo-audio",
+      "github_url": "https://github.com/jchaselubitz/drill-app/tree/main/.claude/skills/expo-audio",
+      "description": ""
+    },
+    {
+      "name": "expo-glass-effect",
+      "path": ".claude/skills/expo-glass-effect",
+      "github_url": "https://github.com/jchaselubitz/drill-app/tree/main/.claude/skills/expo-glass-effect",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/jchaselubitz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T09:25:18Z"
+}
