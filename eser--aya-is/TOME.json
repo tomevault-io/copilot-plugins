@@ -1,0 +1,99 @@
+{
+  "name": "aya.is",
+  "owner": "eser",
+  "repo": "aya.is",
+  "description": "AI instruction files for aya.is by eser",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecture-guidelines",
+      "path": ".claude/skills/architecture-guidelines",
+      "github_url": "https://github.com/eser/aya.is/tree/main/.claude/skills/architecture-guidelines",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-practices",
+      "path": ".claude/skills/ci-cd-practices",
+      "github_url": "https://github.com/eser/aya.is/tree/main/.claude/skills/ci-cd-practices",
+      "description": ""
+    },
+    {
+      "name": "coding-practices",
+      "path": ".claude/skills/coding-practices",
+      "github_url": "https://github.com/eser/aya.is/tree/main/.claude/skills/coding-practices",
+      "description": ""
+    },
+    {
+      "name": "eser-rules-manager",
+      "path": ".claude/skills/eser-rules-manager",
+      "github_url": "https://github.com/eser/aya.is/tree/main/.claude/skills/eser-rules-manager",
+      "description": ""
+    },
+    {
+      "name": "go-practices",
+      "path": ".claude/skills/go-practices",
+      "github_url": "https://github.com/eser/aya.is/tree/main/.claude/skills/go-practices",
+      "description": ""
+    },
+    {
+      "name": "javascript-practices",
+      "path": ".claude/skills/javascript-practices",
+      "github_url": "https://github.com/eser/aya.is/tree/main/.claude/skills/javascript-practices",
+      "description": ""
+    },
+    {
+      "name": "requirement-clarification",
+      "path": ".claude/skills/requirement-clarification",
+      "github_url": "https://github.com/eser/aya.is/tree/main/.claude/skills/requirement-clarification",
+      "description": ""
+    },
+    {
+      "name": "tooling-standards",
+      "path": ".claude/skills/tooling-standards",
+      "github_url": "https://github.com/eser/aya.is/tree/main/.claude/skills/tooling-standards",
+      "description": ""
+    },
+    {
+      "name": "workflow-practices",
+      "path": ".claude/skills/workflow-practices",
+      "github_url": "https://github.com/eser/aya.is/tree/main/.claude/skills/workflow-practices",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/eser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T18:32:33Z"
+}
