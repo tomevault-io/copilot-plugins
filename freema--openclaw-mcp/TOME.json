@@ -1,0 +1,46 @@
+{
+  "name": "openclaw-mcp",
+  "owner": "freema",
+  "repo": "openclaw-mcp",
+  "description": "AI instruction files for openclaw-mcp by freema",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openclaw-management",
+      "path": "plugins/claude/openclaw/skills/openclaw-management",
+      "github_url": "https://github.com/freema/openclaw-mcp/tree/main/plugins/claude/openclaw/skills/openclaw-management",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/freema",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:27:05Z"
+}
