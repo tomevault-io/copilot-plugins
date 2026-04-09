@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [AdventDevInc/kudu](https://github.com/AdventDev
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/AdventDevInc](https://tomevault.io/claim/AdventDevInc)
 
