@@ -1,0 +1,39 @@
+{
+  "name": "wakti-bilingual-assistant",
+  "owner": "alfadlyqtr",
+  "repo": "wakti-bilingual-assistant",
+  "description": "",
+  "type": "config",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [],
+  "claim_url": "https://tomevault.io/claim/alfadlyqtr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T03:25:52Z"
+}
