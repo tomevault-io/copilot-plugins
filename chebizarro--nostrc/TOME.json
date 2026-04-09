@@ -1,0 +1,64 @@
+{
+  "name": "nostrc",
+  "owner": "chebizarro",
+  "repo": "nostrc",
+  "description": "AI instruction files for nostrc by chebizarro",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "broadway-debug",
+      "path": "skills/broadway-debug",
+      "github_url": "https://github.com/chebizarro/nostrc/tree/main/skills/broadway-debug",
+      "description": ""
+    },
+    {
+      "name": "closed-loop-debug",
+      "path": "skills/closed-loop-debug",
+      "github_url": "https://github.com/chebizarro/nostrc/tree/main/skills/closed-loop-debug",
+      "description": ""
+    },
+    {
+      "name": "gdb-debug",
+      "path": "skills/gdb-debug",
+      "github_url": "https://github.com/chebizarro/nostrc/tree/main/skills/gdb-debug",
+      "description": ""
+    },
+    {
+      "name": "gtk-inspector",
+      "path": "skills/gtk-inspector",
+      "github_url": "https://github.com/chebizarro/nostrc/tree/main/skills/gtk-inspector",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/chebizarro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:48:49Z"
+}
