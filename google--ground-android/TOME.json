@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -60,5 +65,5 @@
   ],
   "claim_url": "https://tomevault.io/claim/google",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T19:47:52Z"
+  "distributed_at": "2026-04-09T15:01:54Z"
 }
