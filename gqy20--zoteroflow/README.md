@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [gqy20/ZoteroFlow](https://github.com/gqy20/Zote
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/gqy20](https://tomevault.io/claim/gqy20)
 
