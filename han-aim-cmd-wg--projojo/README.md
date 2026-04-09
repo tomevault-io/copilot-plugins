@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [HAN-AIM-CMD-WG/Projojo](https://github.com/HAN-
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/HAN-AIM-CMD-WG](https://tomevault.io/claim/HAN-AIM-CMD-WG)
 
