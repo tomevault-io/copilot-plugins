@@ -1,0 +1,58 @@
+{
+  "name": "gemini-superpowers",
+  "owner": "barretstorck",
+  "repo": "gemini-superpowers",
+  "description": "AI instruction files for gemini-superpowers by barretstorck",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "path": "skills/code-reviewer",
+      "github_url": "https://github.com/barretstorck/gemini-superpowers/tree/main/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": "skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/barretstorck/gemini-superpowers/tree/main/skills/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "path": "skills/receiving-code-review",
+      "github_url": "https://github.com/barretstorck/gemini-superpowers/tree/main/skills/receiving-code-review",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/barretstorck",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:48:40Z"
+}
