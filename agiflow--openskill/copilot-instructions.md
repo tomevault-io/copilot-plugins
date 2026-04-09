@@ -25,6 +25,5 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 <!-- AICODE:END -->
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/AgiFlow)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/AgiFlow)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/AgiFlow) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
