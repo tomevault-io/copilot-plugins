@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [yalab/Andromitron](https://github.com/yalab/And
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/yalab](https://tomevault.io/claim/yalab)
 
