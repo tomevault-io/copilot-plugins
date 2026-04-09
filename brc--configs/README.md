@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [brc/configs](https://github.com/brc/configs).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/brc](https://tomevault.io/claim/brc)
 
