@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ajfriend/h3c2p_bench](https://github.com/ajfrie
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ajfriend](https://tomevault.io/claim/ajfriend)
 
