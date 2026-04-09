@@ -15,6 +15,7 @@ Original source: `GEMINI.md` in [toanpv-0639/claudekit-engineer](https://github.
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/toanpv-0639](https://tomevault.io/claim/toanpv-0639)
 
