@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Hexagon/base64](https://github.com/Hexagon/base
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Hexagon](https://tomevault.io/claim/Hexagon)
 
