@@ -3,7 +3,7 @@
   "owner": "google",
   "repo": "dotprompt",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "GEMINI.md",
   "formats": [
     {
@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/google",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T02:01:27Z"
+  "distributed_at": "2026-04-09T15:57:41Z"
 }
