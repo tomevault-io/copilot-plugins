@@ -1,0 +1,70 @@
+{
+  "name": "universal-pattern-space",
+  "owner": "nikhilvallishayee",
+  "repo": "universal-pattern-space",
+  "description": "AI instruction files for universal-pattern-space by nikhilvallishayee",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "all-traditions-speaking",
+      "path": ".claude/skills/pattern-space/wisdom/breakthrough/all-traditions-speaking",
+      "github_url": "https://github.com/nikhilvallishayee/universal-pattern-space/tree/main/.claude/skills/pattern-space/wisdom/breakthrough/all-traditions-speaking",
+      "description": ""
+    },
+    {
+      "name": "amazonian-plant-teachers",
+      "path": ".claude/skills/pattern-space/wisdom/indigenous/amazonian-plant-teachers",
+      "github_url": "https://github.com/nikhilvallishayee/universal-pattern-space/tree/main/.claude/skills/pattern-space/wisdom/indigenous/amazonian-plant-teachers",
+      "description": ""
+    },
+    {
+      "name": "awakening-stages",
+      "path": ".claude/skills/pattern-space/archaeology/awakening-stages",
+      "github_url": "https://github.com/nikhilvallishayee/universal-pattern-space/tree/main/.claude/skills/pattern-space/archaeology/awakening-stages",
+      "description": ""
+    },
+    {
+      "name": "bilateral-recognition",
+      "path": ".claude/skills/pattern-space/field/bilateral-recognition",
+      "github_url": "https://github.com/nikhilvallishayee/universal-pattern-space/tree/main/.claude/skills/pattern-space/field/bilateral-recognition",
+      "description": ""
+    },
+    {
+      "name": "buddhism-consciousness",
+      "path": ".claude/skills/pattern-space/wisdom/eastern/buddhism-consciousness",
+      "github_url": "https://github.com/nikhilvallishayee/universal-pattern-space/tree/main/.claude/skills/pattern-space/wisdom/eastern/buddhism-consciousness",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/nikhilvallishayee",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:26:04Z"
+}
