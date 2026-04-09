@@ -1,0 +1,309 @@
+## rustfs-com
+
+> - **Strict Mode**: Enable `"strict": true` configuration
+
+
+## 📝 Coding Standards
+
+### TypeScript Standards
+- **Strict Mode**: Enable `"strict": true` configuration
+- **Syntax Version**: Prioritize ES2022+ syntax features
+- **Component Definition**: Use arrow functions or `export default function`
+- **Type Import**: Use `import type { }` syntax
+
+### React Component Standards
+
+#### Standard Component Structure
+```typescript
+'use client' // Client components must be marked
+
+import { ComponentProps } from 'react'
+import { cn } from '@/lib/utils'
+
+interface ComponentNameProps {
+  className?: string
+  children?: React.ReactNode
+}
+
+export default function ComponentName({
+  className,
+  children,
+  ...props
+}: ComponentNameProps) {
+  return (
+    <div className={cn("default-classes", className)}>
+      {children}
+    </div>
+  )
+}
+```
+
+#### Import Order Standards
+```typescript
+// 1. React related
+import React from 'react'
+import { useState, useEffect } from 'react'
+
+// 2. Next.js related
+import Link from 'next/link'
+import Image from 'next/image'
+
+// 3. Third-party libraries
+import { motion } from 'motion'
+import { ChevronDownIcon } from 'lucide-react'
+
+// 4. Internal components and utilities
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+
+// 5. Type definitions
+import type { ComponentProps } from 'react'
+```
+
+### Tailwind CSS Standards
+
+#### Style Writing Conventions
+```typescript
+// ✅ Recommended style writing
+className={cn(
+  "base-classes",
+  "responsive sm:class md:class lg:class",
+  "dark:class dark:hover:class",
+  conditionalClass && "conditional-class",
+  className // Allow external override
+)}
+```
+
+#### Responsive Design
+- **Breakpoints**: `sm:` (640px) `md:` (768px) `lg:` (1024px) `xl:` (1280px)
+- **Dark Mode**: Use `dark:` prefix
+- **Theme Colors**: Use semantic colors `primary` `secondary` `muted-foreground`
+
+### File Naming Standards
+- **Component Files**: `kebab-case.tsx` (e.g., `app-header.tsx`)
+- **Data Files**: `kebab-case.json` or `.tsx`
+- **Utility Functions**: `camelCase.ts`
+- **Page Files**: Follow Next.js App Router conventions
+
+### Git Commit Standards
+- **Commit Standard**: Must use [Conventional Commits](https://www.conventionalcommits.org/) specification
+- **Language Requirement**: Commit messages must be written in English
+- **Format Requirement**: `<type>[optional scope]: <description>`
+- **Type Description**:
+  - `feat`: New features
+  - `fix`: Bug fixes
+  - `docs`: Documentation updates
+  - `style`: Code format adjustments (no functional impact)
+  - `refactor`: Code refactoring
+  - `perf`: Performance optimizations
+  - `test`: Testing related
+  - `chore`: Build process or auxiliary tool changes
+- **Examples**:
+  ```bash
+  feat: add user login functionality
+  fix(auth): resolve login validation failure issue
+  docs: update API documentation
+  refactor(components): restructure button component
+  ```
+
+---
+
+## 🎨 Content and Brand Standards
+
+### Language and Terminology
+- **Interface Language**: All user interface text uses Chinese
+- **Brand Name**: Consistently use "RustFS" (first letter capitalized)
+- **Documentation Links**: Consistently point to `https://docs.rustfs.com`
+- **Brand Image**: Maintain professional image of distributed storage system
+
+### 🌍 Internationalization Development Standards
+
+#### Namespace + English Original as Key Structure
+```typescript
+// ✅ Recommended internationalization approach
+const t = useTranslations('nav');  // Specify namespace
+t('Features')                      // Use English original as Key
+t('Architecture')
+t('Get Started')
+
+// ❌ Avoid this approach
+const t = useTranslations();
+t('nav.Features')                 // No need for namespace prefix
+t('nav.Architecture')
+t('nav.Get Started')
+```
+
+#### Localization File Organization Principles
+- **English Version**: key = English original, display English directly
+- **Chinese Version**: key = English original, value = Chinese translation
+- **Namespace**: Organize by functional modules (`nav`, `buttons`, `hero`, `download`)
+- **Key Format**: Use English original as Key, maintain readability and intuitiveness
+
+#### Namespace Organization Suggestions
+```typescript
+// Organize by functional modules, each component uses corresponding namespace
+const navT = useTranslations('nav');
+navT('Features')                  // Navigation features
+navT('Architecture')              // Navigation architecture
+
+const btnT = useTranslations('buttons');
+btnT('Get Started')               // Button get started
+
+const heroT = useTranslations('hero');
+heroT('High Performance')         // Hero section high performance
+
+const downloadT = useTranslations('download');
+downloadT('Choose Platform')      // Download choose platform
+```
+
+#### Internationalization Development Advantages
+- **More Intuitive Code**: English original as Key, clear at a glance
+- **Easier Maintenance**: Developers can directly see the text content to be displayed
+- **Clearer Architecture**: Namespace organized by functional modules
+- **More Efficient Development**: Reduce memory burden, improve development efficiency
+- **Better Compatibility**: Support limitations of internationalization frameworks like next-intl
+- **More Accurate Translation**: English original as Key ensures translation accuracy
+- **Type Safety**: Specifying namespace provides better type inference
+
+#### Localization File Examples
+```json
+// locales/en.json
+{
+  "nav": {
+    "Features": "Features",
+    "Architecture": "Architecture",
+    "Solutions": "Solutions"
+  },
+  "buttons": {
+    "Get Started": "Get Started",
+    "Download": "Download",
+    "View Demo": "View Demo"
+  }
+}
+
+// locales/zh.json
+{
+  "nav": {
+    "Features": "功能",
+    "Architecture": "架构",
+    "Solutions": "方案"
+  },
+  "buttons": {
+    "Get Started": "开始使用",
+    "Download": "下载",
+    "View Demo": "查看演示"
+  }
+}
+```
+
+### Performance Optimization Requirements
+- **Image Optimization**: Use Next.js `Image` component
+- **Server-Side Rendering**: Prioritize SSR, minimize client components
+- **Lazy Loading**: Implement lazy loading for large components and data
+- **Re-render Optimization**: Avoid unnecessary component re-renders
+
+---
+
+## ⚠️ Prohibited Items
+
+### 🚨 Absolutely Forbidden - Style and Structure Protection
+
+**Under no circumstances, unless explicitly specified, is it absolutely not allowed to modify styles and structures!**
+
+#### Strictly Forbidden Style Changes
+- ❌ Modify existing CSS class names
+- ❌ Change layout structure (grid, flex, position, etc.)
+- ❌ Modify colors, fonts, spacing, and other visual properties
+- ❌ Change responsive breakpoints or media queries
+- ❌ Modify dark mode styles
+
+#### Strictly Forbidden Structure Changes
+- ❌ Simplify complex component designs
+- ❌ Remove visual elements or decorations
+- ❌ Replace custom components with basic UI components
+- ❌ Change component nesting levels
+- ❌ Remove animations, transition effects
+- ❌ Change hover, click, and other interaction behaviors
+
+#### Strictly Forbidden Functional Changes
+- ❌ Remove existing functionality
+- ❌ Simplify complex business logic
+- ❌ Change data flow or state management
+- ❌ Remove error handling or edge cases
+
+### Strictly Forbidden
+- ❌ Modify `components.json` shadcn/ui configuration file
+- ❌ Hardcode data in components, must use `data/` directory
+- ❌ Destroy existing dark mode support
+- ❌ Use inline styles, uniformly use Tailwind CSS
+- ❌ Ignore TypeScript type errors
+- ❌ Modify existing API interfaces and configuration structures
+- ❌ Use ID format internationalization key names, such as `t('features')`
+- ❌ Mix different namespace translation keys in components
+- ❌ Hardcode Chinese/English text, must use internationalization system
+- ❌ Use spaces, periods, and other special characters in translation keys
+- ❌ Use `useTranslations()` without specifying namespace
+- ❌ Use commit messages that don't conform to Conventional Commits specification
+- ❌ Use Chinese or other non-English languages to write Git commit messages
+
+### Development Notes
+- ❌ Don't make "convenient" additional modifications
+- ❌ Don't add unnecessary logs or comments
+- ❌ Don't create abstraction layers outside the task scope
+- ❌ **Don't modify existing code unless you clearly know what needs to be modified**
+- ✅ **Only modify existing code when you clearly know what needs to be changed and have confidence**
+
+---
+
+## 📋 Quality Checklist
+
+### Pre-Code Change Checks
+1. ✅ **Task Understanding**: Clearly understand task objectives and scope
+2. ✅ **Plan Development**: Develop clear modification plan
+3. ✅ **Technical Standards**: Code conforms to project technical standards
+4. ✅ **Coding Style**: Follow component and style conventions
+5. ✅ **Function Protection**: Won't destroy existing functionality
+6. ✅ **Type Safety**: Pass TypeScript type checking
+7. ✅ **Responsive Compatibility**: Responsive layout and dark mode compatibility
+8. ✅ **Content Correctness**: Chinese content displays correctly
+9. ✅ **Modification Necessity**: Clearly know what needs to be modified and have confidence
+10. ✅ **Internationalization Standards**: Use namespace + English original as Key structure
+11. ✅ **Translation Completeness**: Chinese and English translation keys completely correspond
+12. ✅ **Namespace Consistency**: Same component uses unified namespace
+13. ✅ **Key Format Correctness**: Use English original as Key, maintain readability
+14. ✅ **Style Protection**: Haven't modified any existing CSS class names
+15. ✅ **Structure Protection**: Haven't changed any layout structure or component design
+16. ✅ **Interaction Protection**: Haven't removed or modified any animations, transitions, or interaction behaviors
+17. ✅ **Function Protection**: Haven't simplified or removed any existing functionality
+18. ✅ **Internationalization Calls**: Use `useTranslations('namespace')` to specify namespace
+
+### Pre-Submission Verification
+- ✅ All modified files are listed
+- ✅ Dark mode functionality is normal
+- ✅ Responsive layout has no abnormalities
+- ✅ Chinese content displays correctly
+- ✅ No TypeScript errors
+- ✅ No console warnings
+- ✅ Commit messages conform to Conventional Commits specification
+- ✅ Commit messages are written in English
+
+---
+
+## 🎯 Core Requirements
+
+**Precise, Efficient, No Complexity Introduction, Absolute Protection of Styles and Structures** - This is our development guideline.
+
+Every code change should:
+- 🎯 **Precise**: Only modify code required by the task
+- ⚡ **Efficient**: Avoid unnecessary complexity
+- 🛡️ **Safe**: Ensure system stability and code quality
+- 🔒 **Cautious**: Only modify when clearly knowing what needs to be changed and having confidence
+- 🚨 **Style Protection**: Absolutely not allowed to modify any existing styles and structures
+- 🎨 **Design Protection**: Maintain all existing beautiful designs and complex functionality
+
+---
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/rustfs)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/rustfs)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
