@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [geokoko/StudySync](https://github.com/geokoko/S
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/geokoko](https://tomevault.io/claim/geokoko)
 
