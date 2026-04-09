@@ -1,0 +1,58 @@
+{
+  "name": "autonomous-dev",
+  "owner": "akaszubski",
+  "repo": "autonomous-dev",
+  "description": "AI instruction files for autonomous-dev by akaszubski",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-design",
+      "path": "plugins/autonomous-dev/skills/api-design",
+      "github_url": "https://github.com/akaszubski/autonomous-dev/tree/main/plugins/autonomous-dev/skills/api-design",
+      "description": ""
+    },
+    {
+      "name": "api-integration-patterns",
+      "path": "plugins/autonomous-dev/skills/api-integration-patterns",
+      "github_url": "https://github.com/akaszubski/autonomous-dev/tree/main/plugins/autonomous-dev/skills/api-integration-patterns",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": "plugins/autonomous-dev/skills/architecture-patterns",
+      "github_url": "https://github.com/akaszubski/autonomous-dev/tree/main/plugins/autonomous-dev/skills/architecture-patterns",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/akaszubski",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T10:25:04Z"
+}
