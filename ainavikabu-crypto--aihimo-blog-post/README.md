@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ainavikabu-crypto/AIhimo_blog_post](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ainavikabu-crypto](https://tomevault.io/claim/ainavikabu-crypto)
 
