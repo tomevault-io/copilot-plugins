@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [timedreamer/jhblogv2](https://github.com/timedr
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/timedreamer](https://tomevault.io/claim/timedreamer)
 
