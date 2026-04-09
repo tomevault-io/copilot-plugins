@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -62,9 +67,21 @@
       "path": ".claude/skills/smoke-test",
       "github_url": "https://github.com/peteonrails/voxtype/tree/main/.claude/skills/smoke-test",
       "description": ""
+    },
+    {
+      "name": "triage",
+      "path": ".claude/skills/triage",
+      "github_url": "https://github.com/peteonrails/voxtype/tree/main/.claude/skills/triage",
+      "description": ""
+    },
+    {
+      "name": "update-docs",
+      "path": ".claude/skills/update-docs",
+      "github_url": "https://github.com/peteonrails/voxtype/tree/main/.claude/skills/update-docs",
+      "description": ""
     }
   ],
   "claim_url": "https://tomevault.io/claim/peteonrails",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T19:52:42Z"
+  "distributed_at": "2026-04-09T15:58:54Z"
 }
