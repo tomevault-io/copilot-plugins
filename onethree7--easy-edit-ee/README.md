@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [onethree7/Easy-Edit-ee](https://github.com/onet
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/onethree7](https://tomevault.io/claim/onethree7)
 
