@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [dxe/adb](https://github.com/dxe/adb).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dxe](https://tomevault.io/claim/dxe)
 
