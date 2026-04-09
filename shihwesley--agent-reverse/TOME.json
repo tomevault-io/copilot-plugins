@@ -1,0 +1,52 @@
+{
+  "name": "agent-reverse",
+  "owner": "shihwesley",
+  "repo": "agent-reverse",
+  "description": "AI instruction files for agent-reverse by shihwesley",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-reverse",
+      "path": "skills/agent-reverse",
+      "github_url": "https://github.com/shihwesley/agent-reverse/tree/main/skills/agent-reverse",
+      "description": ""
+    },
+    {
+      "name": "agent-reverse-update",
+      "path": "skills/agent-reverse-update",
+      "github_url": "https://github.com/shihwesley/agent-reverse/tree/main/skills/agent-reverse-update",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/shihwesley",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T10:25:24Z"
+}
