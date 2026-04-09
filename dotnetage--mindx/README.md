@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [DotNetAge/mindx](https://github.com/DotNetAge/m
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/DotNetAge](https://tomevault.io/claim/DotNetAge)
 
