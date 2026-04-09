@@ -1,0 +1,58 @@
+{
+  "name": "extractum-skills",
+  "owner": "extractumio",
+  "repo": "extractum-skills",
+  "description": "AI instruction files for extractum-skills by extractumio",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-orphan-cleanup",
+      "path": "devops/claude-orphan-cleanup",
+      "github_url": "https://github.com/extractumio/extractum-skills/tree/main/devops/claude-orphan-cleanup",
+      "description": ""
+    },
+    {
+      "name": "create-claude-agent",
+      "path": "general-purpose/create-claude-agent",
+      "github_url": "https://github.com/extractumio/extractum-skills/tree/main/general-purpose/create-claude-agent",
+      "description": ""
+    },
+    {
+      "name": "gh-repo-create",
+      "path": "devops/gh-repo-create",
+      "github_url": "https://github.com/extractumio/extractum-skills/tree/main/devops/gh-repo-create",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/extractumio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T07:25:47Z"
+}
