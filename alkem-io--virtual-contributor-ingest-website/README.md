@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [alkem-io/virtual-contributor-ingest-website](ht
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/alkem-io](https://tomevault.io/claim/alkem-io)
 
