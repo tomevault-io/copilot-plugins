@@ -7,14 +7,14 @@ AI instruction files for unifi-mcp-server by enuno
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [enuno/unifi-mcp-server](https://github.com/enuno/unifi-mcp-server).
+Original source: `.cursor/rules/*.mdc` in [enuno/unifi-mcp-server](https://github.com/enuno/unifi-mcp-server).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 
 Browse all formats: [https://tomevault.io/claim/enuno](https://tomevault.io/claim/enuno)
 
