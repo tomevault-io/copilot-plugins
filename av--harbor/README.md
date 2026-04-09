@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [av/harbor](https://github.com/av/harbor).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/av](https://tomevault.io/claim/av)
 
