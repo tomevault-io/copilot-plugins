@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/tungbt94",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T20:52:29Z"
+  "distributed_at": "2026-04-09T19:00:53Z"
 }
