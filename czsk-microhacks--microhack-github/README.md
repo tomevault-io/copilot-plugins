@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [CZSK-MicroHacks/MicroHack-GitHub](https://githu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/CZSK-MicroHacks](https://tomevault.io/claim/CZSK-MicroHacks)
 
