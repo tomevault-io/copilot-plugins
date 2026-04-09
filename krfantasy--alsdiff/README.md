@@ -15,6 +15,7 @@ Original source: `AGENTS.md` in [krfantasy/alsdiff](https://github.com/krfantasy
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/krfantasy](https://tomevault.io/claim/krfantasy)
 
