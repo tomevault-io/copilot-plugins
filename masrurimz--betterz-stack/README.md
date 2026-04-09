@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [masrurimz/betterz-stack](https://github.com/mas
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/masrurimz](https://tomevault.io/claim/masrurimz)
 
