@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [gordonwatts/sx_training_fetch](https://github.c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/gordonwatts](https://tomevault.io/claim/gordonwatts)
 
