@@ -15,16 +15,19 @@ Original source: `.cursor/rules/*.mdc` in [doccker/cc-use-exp](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/doccker](https://tomevault.io/claim/doccker)
 
-## Bundled Skills (5)
+## Bundled Skills (7)
 
 - [bash-style](https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/bash-style)
 - [frontend-dev](https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/frontend-dev)
 - [go-dev](https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/go-dev)
 - [java-dev](https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/java-dev)
 - [ops-safety](https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/ops-safety)
+- [python-dev](https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/python-dev)
+- [ruanzhu](https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/ruanzhu)
 
 ---
 
