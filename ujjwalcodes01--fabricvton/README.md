@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [UjjwalCodes01/fabricvton](https://github.com/Uj
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/UjjwalCodes01](https://tomevault.io/claim/UjjwalCodes01)
 
