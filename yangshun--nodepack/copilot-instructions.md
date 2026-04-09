@@ -1,0 +1,44 @@
+## nodepack
+
+> This file contains project-specific coding standards, conventions, and architectural decisions for the Nodepack project.
+
+# Claude Instructions for Nodepack
+
+This file contains project-specific coding standards, conventions, and architectural decisions for the Nodepack project.
+
+## Project overview
+
+Nodepack is a browser-based Node.js runtime that allows running Node.js code directly in the browser using QuickJS WASM.
+
+## Coding style & conventions
+
+### General
+
+- File naming: Use kebab-case for all file names
+- Avoid single-character variables
+- NEVER ever use emojis
+
+### Text and headings
+
+- Use sentence case for any UI headings, labels, titles, etc.
+
+### JavaScript
+
+- Implement functions as function declarations
+
+### TypeScript
+
+- Use TypeScript for all new code
+- Define interfaces for component props
+- Use type imports when importing only types: `import type { ExecutionResult } from '@nodepack/client'`
+- Prefer explicit typing over implicit `any`
+
+### React
+
+- Use named exports for all JavaScript/TypeScript files
+- Implement functions within components as function declarations
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/yangshun)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/yangshun)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
