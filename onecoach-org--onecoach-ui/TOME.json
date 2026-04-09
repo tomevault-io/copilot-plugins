@@ -4,7 +4,7 @@
   "repo": "onecoach-ui",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/OneCoach-org",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T22:04:01Z"
+  "distributed_at": "2026-04-09T20:33:27Z"
 }
