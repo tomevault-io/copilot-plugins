@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bikeNomad/RemoteKeyboard](https://github.com/bi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bikeNomad](https://tomevault.io/claim/bikeNomad)
 
