@@ -15,6 +15,7 @@ Original source: `AGENTS.md` in [mark-friedman/scheme-js](https://github.com/mar
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mark-friedman](https://tomevault.io/claim/mark-friedman)
 
