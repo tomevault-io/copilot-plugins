@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [ltong03/Reconciled](https://github.com/ltong03/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ltong03](https://tomevault.io/claim/ltong03)
 
