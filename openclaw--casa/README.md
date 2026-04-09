@@ -1,6 +1,6 @@
 # casa
 
-> Config by [openclaw](https://github.com/openclaw/casa) — distributed by [TomeVault](https://tomevault.io/claim/openclaw)
+> Tome by [openclaw](https://github.com/openclaw/casa) — distributed by [TomeVault](https://tomevault.io/claim/openclaw)
 
 ## GitHub Copilot Config
 
@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [openclaw/casa](https://github.com/openclaw/casa
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/openclaw](https://tomevault.io/claim/openclaw)
 
