@@ -15,6 +15,7 @@ Original source: `AGENTS.md` in [muqsitnawaz/mq](https://github.com/muqsitnawaz/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/muqsitnawaz](https://tomevault.io/claim/muqsitnawaz)
 
