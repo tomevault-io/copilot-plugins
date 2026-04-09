@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/petems",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T20:10:42Z"
+  "distributed_at": "2026-04-09T17:08:30Z"
 }
