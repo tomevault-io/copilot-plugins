@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kimlimjustin/xplorer](https://github.com/kimlim
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kimlimjustin](https://tomevault.io/claim/kimlimjustin)
 
