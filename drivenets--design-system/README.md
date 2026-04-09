@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [drivenets/design-system](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/drivenets](https://tomevault.io/claim/drivenets)
 
