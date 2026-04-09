@@ -15,6 +15,7 @@ Original source: `AGENTS.md` in [pingcap/tidb](https://github.com/pingcap/tidb).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pingcap](https://tomevault.io/claim/pingcap)
 
