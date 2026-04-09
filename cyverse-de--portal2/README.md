@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [cyverse-de/portal2](https://github.com/cyverse-
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cyverse-de](https://tomevault.io/claim/cyverse-de)
 
