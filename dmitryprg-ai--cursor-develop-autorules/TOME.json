@@ -1,0 +1,69 @@
+{
+  "name": "cursor-develop-autorules",
+  "owner": "dmitryprg-ai",
+  "repo": "cursor-develop-autorules",
+  "description": "AI instruction files for cursor-develop-autorules by dmitryprg-ai",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-testing",
+      "path": ".cursor/skills/api-testing",
+      "github_url": "https://github.com/dmitryprg-ai/cursor-develop-autorules/tree/main/.cursor/skills/api-testing",
+      "description": ""
+    },
+    {
+      "name": "backlog-to-rules",
+      "path": ".cursor/skills/backlog-to-rules",
+      "github_url": "https://github.com/dmitryprg-ai/cursor-develop-autorules/tree/main/.cursor/skills/backlog-to-rules",
+      "description": ""
+    },
+    {
+      "name": "bugfix",
+      "path": ".cursor/skills/bugfix",
+      "github_url": "https://github.com/dmitryprg-ai/cursor-develop-autorules/tree/main/.cursor/skills/bugfix",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".cursor/skills/code-review",
+      "github_url": "https://github.com/dmitryprg-ai/cursor-develop-autorules/tree/main/.cursor/skills/code-review",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/dmitryprg-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T18:31:31Z"
+}
