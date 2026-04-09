@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [andrew-pa/cavern](https://github.com/andrew-pa/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/andrew-pa](https://tomevault.io/claim/andrew-pa)
 
