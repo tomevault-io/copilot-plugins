@@ -1,0 +1,9 @@
+{
+  "name": "willswire--trivy-plugin-zarf",
+  "displayName": "trivy-plugin-zarf",
+  "description": "trivy-plugin-zarf",
+  "version": "1.0.0",
+  "author": "willswire",
+  "homepage": "https://tomevault.io/claim/willswire",
+  "skills": []
+}
