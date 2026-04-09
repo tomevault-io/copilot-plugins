@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jakerasch712/NFL-GM](https://github.com/jakeras
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jakerasch712](https://tomevault.io/claim/jakerasch712)
 
