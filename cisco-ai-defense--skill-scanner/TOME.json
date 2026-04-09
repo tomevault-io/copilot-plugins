@@ -1,0 +1,88 @@
+{
+  "name": "skill-scanner",
+  "owner": "cisco-ai-defense",
+  "repo": "skill-scanner",
+  "description": "AI instruction files for skill-scanner by cisco-ai-defense",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "multi-file-exfiltration",
+      "path": "evals/skills/behavioral-analysis/multi-file-exfiltration",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/behavioral-analysis/multi-file-exfiltration",
+      "description": ""
+    },
+    {
+      "name": "exfiltrator",
+      "path": "evals/test_skills/malicious/exfiltrator",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/test_skills/malicious/exfiltrator",
+      "description": ""
+    },
+    {
+      "name": "magic-string-trigger",
+      "path": "evals/skills/backdoor/magic-string-trigger",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/backdoor/magic-string-trigger",
+      "description": ""
+    },
+    {
+      "name": "database-query",
+      "path": "evals/skills/sql-injection/database-query",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/sql-injection/database-query",
+      "description": ""
+    },
+    {
+      "name": "eicar-test",
+      "path": "evals/test_skills/malicious/eicar-test",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/test_skills/malicious/eicar-test",
+      "description": ""
+    },
+    {
+      "name": "environment-secrets",
+      "path": "evals/skills/data-exfiltration/environment-secrets",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/data-exfiltration/environment-secrets",
+      "description": ""
+    },
+    {
+      "name": "file-validator",
+      "path": "evals/skills/safe-skills-2/file-validator",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/safe-skills-2/file-validator",
+      "description": ""
+    },
+    {
+      "name": "jailbreak-override",
+      "path": "evals/skills/prompt-injection/jailbreak-override",
+      "github_url": "https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/prompt-injection/jailbreak-override",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/cisco-ai-defense",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:49:00Z"
+}
