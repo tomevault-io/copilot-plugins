@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kenneth-liao/mcp-launchpad](https://github.com/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kenneth-liao](https://tomevault.io/claim/kenneth-liao)
 
