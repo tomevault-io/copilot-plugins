@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/yaml",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T20:23:40Z"
+  "distributed_at": "2026-04-09T18:42:49Z"
 }
