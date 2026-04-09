@@ -1,0 +1,52 @@
+{
+  "name": "lago-front",
+  "owner": "getlago",
+  "repo": "lago-front",
+  "description": "AI instruction files for lago-front by getlago",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "migrate-dialog",
+      "path": ".claude/skills/migrate-dialog",
+      "github_url": "https://github.com/getlago/lago-front/tree/main/.claude/skills/migrate-dialog",
+      "description": ""
+    },
+    {
+      "name": "migrate-formik-to-tanstack",
+      "path": ".claude/skills/migrate-formik-to-tanstack",
+      "github_url": "https://github.com/getlago/lago-front/tree/main/.claude/skills/migrate-formik-to-tanstack",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/getlago",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T08:25:07Z"
+}
