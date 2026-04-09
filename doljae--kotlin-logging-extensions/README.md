@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [doljae/kotlin-logging-extensions](htt
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/doljae](https://tomevault.io/claim/doljae)
 
