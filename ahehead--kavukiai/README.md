@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [ahehead/Kavukiai](https://github.com/ahehead/Ka
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ahehead](https://tomevault.io/claim/ahehead)
 
