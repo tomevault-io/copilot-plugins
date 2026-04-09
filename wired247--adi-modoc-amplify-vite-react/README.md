@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [wired247/adi-modoc-amplify-vite-react](https://
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wired247](https://tomevault.io/claim/wired247)
 
