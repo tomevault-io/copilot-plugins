@@ -1,0 +1,46 @@
+{
+  "name": "azu",
+  "owner": "azutoolkit",
+  "repo": "azu",
+  "description": "AI instruction files for azu by azutoolkit",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azu-cli-refactor",
+      "path": ".claude/skills/azu-cli-refactor",
+      "github_url": "https://github.com/azutoolkit/azu/tree/main/.claude/skills/azu-cli-refactor",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/azutoolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T08:25:27Z"
+}
