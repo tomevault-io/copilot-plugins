@@ -1,0 +1,39 @@
+{
+  "name": "AI-Expo-Supabase-Superwall-Starter",
+  "owner": "peter-mach",
+  "repo": "AI-Expo-Supabase-Superwall-Starter",
+  "description": "",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [],
+  "claim_url": "https://tomevault.io/claim/peter-mach",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T04:08:51Z"
+}
