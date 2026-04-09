@@ -1,0 +1,46 @@
+{
+  "name": "sveltest",
+  "owner": "spences10",
+  "repo": "sveltest",
+  "description": "AI instruction files for sveltest by spences10",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "svelte-testing",
+      "path": ".claude/skills/svelte-testing",
+      "github_url": "https://github.com/spences10/sveltest/tree/main/.claude/skills/svelte-testing",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/spences10",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T13:30:07Z"
+}
