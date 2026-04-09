@@ -1,0 +1,64 @@
+{
+  "name": "coolify-docs",
+  "owner": "coollabsio",
+  "repo": "coolify-docs",
+  "description": "AI instruction files for coolify-docs by coollabsio",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adding-documentation-pages",
+      "path": ".claude/skills/adding-documentation-pages",
+      "github_url": "https://github.com/coollabsio/coolify-docs/tree/main/.claude/skills/adding-documentation-pages",
+      "description": ""
+    },
+    {
+      "name": "adding-service-documentation",
+      "path": ".claude/skills/adding-service-documentation",
+      "github_url": "https://github.com/coollabsio/coolify-docs/tree/main/.claude/skills/adding-service-documentation",
+      "description": ""
+    },
+    {
+      "name": "disabling-services",
+      "path": ".claude/skills/disabling-services",
+      "github_url": "https://github.com/coollabsio/coolify-docs/tree/main/.claude/skills/disabling-services",
+      "description": ""
+    },
+    {
+      "name": "renaming-services",
+      "path": ".claude/skills/renaming-services",
+      "github_url": "https://github.com/coollabsio/coolify-docs/tree/main/.claude/skills/renaming-services",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/coollabsio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:49:09Z"
+}
