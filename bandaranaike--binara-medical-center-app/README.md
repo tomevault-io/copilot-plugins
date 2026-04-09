@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [bandaranaike/binara-medical-center-app](https:/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bandaranaike](https://tomevault.io/claim/bandaranaike)
 
