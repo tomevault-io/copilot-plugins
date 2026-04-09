@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [androsovm/clorch](https://github.com/androsovm/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/androsovm](https://tomevault.io/claim/androsovm)
 
