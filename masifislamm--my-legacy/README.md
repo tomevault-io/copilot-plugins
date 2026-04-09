@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [masifislamm/MY-LEGACY](https://github.com/masif
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/masifislamm](https://tomevault.io/claim/masifislamm)
 
