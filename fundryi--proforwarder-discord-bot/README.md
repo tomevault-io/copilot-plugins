@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Fundryi/PROFORWARDER-Discord-Bot](https://githu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Fundryi](https://tomevault.io/claim/Fundryi)
 
