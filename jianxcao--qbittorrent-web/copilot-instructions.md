@@ -1,381 +1,363 @@
 ## qbittorrent-web
 
-> Vue 组件开发规范
+> Pinia Store 开发规范
 
 
-# Vue 组件开发规范
+# Pinia Store 规范
 
-## 组件结构
+## Store 结构
 
-### 推荐的 SFC 顺序
-
-```vue
-<script setup lang="ts">
-// 1. 导入语句
-// 2. Props 定义
-// 3. Emits 定义
-// 4. 响应式状态
-// 5. Computed 属性
-// 6. 方法定义
-// 7. 生命周期钩子
-</script>
-
-<template>
-  <!-- 组件模板 -->
-</template>
-
-<style scoped lang="less">
-/* 组件样式 */
-</style>
-```
-
-### 完整示例
-
-```vue
-<script setup lang="ts">
-// 1. 导入
-import { ref, computed, onMounted } from 'vue'
-import { useTorrentStore } from '@/store'
-import type { Torrent } from '@/api/types'
-
-// 2. Props
-interface Props {
-  torrent: Torrent
-  showActions?: boolean
-}
-const props = withDefaults(defineProps<Props>(), {
-  showActions: true
-})
-
-// 3. Emits
-interface Emits {
-  (e: 'delete', hash: string): void
-  (e: 'pause', hash: string): void
-}
-const emit = defineEmits<Emits>()
-
-// 4. 状态
-const store = useTorrentStore()
-const isLoading = ref(false)
-
-// 5. Computed
-const progress = computed(() => `${(props.torrent.progress * 100).toFixed(1)}%`)
-
-// 6. 方法
-function handleDelete() {
-  emit('delete', props.torrent.hash)
-}
-
-// 7. 生命周期
-onMounted(() => {
-  console.log('Component mounted')
-})
-</script>
-
-<template>
-  <div class="torrent-item">
-    <div class="name">{{ torrent.name }}</div>
-    <div class="progress">{{ progress }}</div>
-  </div>
-</template>
-
-<style scoped lang="less">
-.torrent-item {
-  padding: 12px;
-  border-radius: 4px;
-}
-</style>
-```
-
-## Composition API 规范
-
-### 使用 `<script setup>`
-
-```vue
-<!-- ✅ 推荐：使用 script setup -->
-<script setup lang="ts">
-const count = ref(0)
-const double = computed(() => count.value * 2)
-</script>
-
-<!-- ❌ 避免：传统 setup 函数 -->
-<script lang="ts">
-export default {
-  setup() {
-    const count = ref(0)
-    return { count }
-  }
-}
-</script>
-```
-
-### 提取复杂逻辑到 Composables
+### 使用 Setup Store 模式
 
 ```typescript
-// src/composables/useTorrentActions.ts
-export function useTorrentActions() {
-  const store = useTorrentStore()
+// ✅ 推荐：Setup Store（类似 Composition API）
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
+import type { Torrent } from '@/api/types'
+import { torrentApi } from '@/api'
 
-  const pause = async (hash: string) => {
+export const useTorrentStore = defineStore('torrent', () => {
+  // State
+  const torrents = ref<Torrent[]>([])
+  const isLoading = ref(false)
+  const error = ref<Error | null>(null)
+  
+  // Getters
+  const activeTorrents = computed(() => 
+    torrents.value.filter(t => t.state === 'downloading')
+  )
+  
+  const totalSize = computed(() =>
+    torrents.value.reduce((sum, t) => sum + t.size, 0)
+  )
+  
+  // Actions
+  async function fetchTorrents() {
+    isLoading.value = true
+    error.value = null
+    
     try {
-      await store.pauseTorrent(hash)
-      window.$message?.success('暂停成功')
-    } catch (error) {
-      window.$message?.error('暂停失败')
+      const data = await torrentApi.getTorrents()
+      torrents.value = data
+    } catch (e) {
+      error.value = e as Error
+      console.error('Failed to fetch torrents:', e)
+      window.$message?.error('获取种子列表失败')
+      throw e
+    } finally {
+      isLoading.value = false
     }
   }
-
+  
+  async function pauseTorrent(hash: string) {
+    try {
+      await torrentApi.pauseTorrent(hash)
+      
+      // 更新本地状态
+      const torrent = torrents.value.find(t => t.hash === hash)
+      if (torrent) {
+        torrent.state = 'pausedDL'
+      }
+      
+      window.$message?.success('暂停成功')
+    } catch (e) {
+      console.error('Failed to pause torrent:', e)
+      window.$message?.error('暂停失败')
+      throw e
+    }
+  }
+  
   return {
-    pause,
-    resume,
-    delete: deleteTorrent
+    // State
+    torrents,
+    isLoading,
+    error,
+    // Getters
+    activeTorrents,
+    totalSize,
+    // Actions
+    fetchTorrents,
+    pauseTorrent
   }
-}
+})
 ```
 
-```vue
-<!-- 在组件中使用 -->
-<script setup lang="ts">
-import { useTorrentActions } from '@/composables/useTorrentActions'
+## 命名规范
 
-const { pause, resume, delete: deleteTorrent } = useTorrentActions()
-</script>
-```
-
-## Props 和 Emits
-
-### Props 类型定义
+### Store 命名
 
 ```typescript
-// ✅ 使用 interface 定义 Props
-interface Props {
-  torrent: Torrent
-  showActions?: boolean
-  size?: 'small' | 'medium' | 'large'
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  showActions: true,
-  size: 'medium'
-})
+// ✅ 使用 use + 名词 + Store
+export const useTorrentStore = defineStore('torrent', () => { })
+export const useSettingStore = defineStore('setting', () => { })
+export const useSessionStore = defineStore('session', () => { })
 ```
 
-### Emits 类型定义
+### State 命名
 
 ```typescript
-// ✅ 使用 interface 定义 Emits
-interface Emits {
-  (e: 'update:modelValue', value: string): void
-  (e: 'delete', id: string): void
-  (e: 'change', oldValue: string, newValue: string): void
+// ✅ 使用描述性名称
+const torrents = ref<Torrent[]>([])
+const isLoading = ref(false)
+const error = ref<Error | null>(null)
+const selectedHashes = ref<Set<string>>(new Set())
+
+// ❌ 避免过于简短
+const data = ref([])
+const loading = ref(false)
+```
+
+### Getter 命名
+
+```typescript
+// ✅ 使用形容词或名词
+const activeTorrents = computed(() => { })
+const downloadingCount = computed(() => { })
+const hasError = computed(() => error.value !== null)
+
+// ❌ 避免使用 get 前缀（computed 已经是 getter）
+const getActiveTorrents = computed(() => { })
+```
+
+### Action 命名
+
+```typescript
+// ✅ 使用动词开头
+async function fetchTorrents() { }
+async function pauseTorrent() { }
+async function deleteTorrent() { }
+function updateFilter() { }
+
+// ❌ 避免 get/set 前缀（使用更具体的动词）
+async function getTorrents() { } // 使用 fetchTorrents
+function setFilter() { }         // 使用 updateFilter
+```
+
+## 错误处理
+
+### 标准错误处理模式
+
+```typescript
+async function fetchTorrents() {
+  isLoading.value = true
+  error.value = null
+  
+  try {
+    const data = await torrentApi.getTorrents()
+    torrents.value = data
+  } catch (e) {
+    error.value = e as Error
+    console.error('Failed to fetch torrents:', e)
+    window.$message?.error('获取种子列表失败')
+    throw e // 重新抛出以便调用方处理
+  } finally {
+    isLoading.value = false
+  }
+}
+```
+
+### 乐观更新模式
+
+```typescript
+// ✅ 乐观更新：先更新 UI，失败后回滚
+async function toggleTorrentPause(hash: string) {
+  const torrent = torrents.value.find(t => t.hash === hash)
+  if (!torrent) {
+    return
+  }
+  
+  // 保存原始状态
+  const originalState = torrent.state
+  
+  // 乐观更新
+  torrent.state = originalState === 'downloading' ? 'pausedDL' : 'downloading'
+  
+  try {
+    if (originalState === 'downloading') {
+      await torrentApi.pauseTorrent(hash)
+    } else {
+      await torrentApi.resumeTorrent(hash)
+    }
+  } catch (e) {
+    // 回滚
+    torrent.state = originalState
+    console.error('Failed to toggle pause:', e)
+    window.$message?.error('操作失败')
+    throw e
+  }
+}
+```
+
+## State 管理最佳实践
+
+### 1. 避免冗余状态
+
+```typescript
+// ❌ 错误：存储可计算的值
+const torrents = ref<Torrent[]>([])
+const torrentCount = ref(0) // 冗余！
+
+// ✅ 正确：使用 computed
+const torrents = ref<Torrent[]>([])
+const torrentCount = computed(() => torrents.value.length)
+```
+
+### 2. 使用规范化状态
+
+```typescript
+// ✅ 对于大型列表，使用 Map 存储
+const torrentsMap = ref<Map<string, Torrent>>(new Map())
+
+// Getter 返回数组
+const torrents = computed(() => Array.from(torrentsMap.value.values()))
+
+// 快速查找
+function getTorrent(hash: string) {
+  return torrentsMap.value.get(hash)
 }
 
-const emit = defineEmits<Emits>()
+// 快速更新
+function updateTorrent(hash: string, updates: Partial<Torrent>) {
+  const torrent = torrentsMap.value.get(hash)
+  if (torrent) {
+    Object.assign(torrent, updates)
+  }
+}
 ```
 
-## 模板规范
+### 3. 分离加载状态
 
-### 指令顺序
+```typescript
+// ✅ 区分不同操作的加载状态
+const isLoadingList = ref(false)
+const isLoadingDetail = ref(false)
+const isDeletingTorrent = ref(false)
 
-```vue
-<!-- ✅ 推荐的指令顺序 -->
-<div v-if="isVisible" v-for="item in items" :key="item.id" :class="itemClass" @click="handleClick">
-  {{ item.name }}
-</div>
+// ❌ 避免单一加载状态
+const isLoading = ref(false) // 无法区分具体操作
 ```
 
-### 条件渲染
+## Store 组合
 
-```vue
-<!-- ✅ 简单条件使用 v-if/v-else -->
-<div v-if="isLoading">
-  加载中...
-</div>
-<div v-else>
-  {{ content }}
-</div>
+### 在 Store 中使用其他 Store
 
-<!-- ✅ 多条件使用 computed -->
-<script setup lang="ts">
-const statusText = computed(() => {
-  if (isLoading.value) {
-    return '加载中...'
+```typescript
+export const useTorrentStore = defineStore('torrent', () => {
+  const settingStore = useSettingStore()
+  const sessionStore = useSessionStore()
+  
+  // 使用其他 store 的状态
+  const sortedTorrents = computed(() => {
+    const { sortBy, sortOrder } = settingStore
+    return sortTorrents(torrents.value, sortBy, sortOrder)
+  })
+  
+  return {
+    torrents,
+    sortedTorrents
   }
-  if (hasError.value) {
-    return '加载失败'
-  }
-  return content.value
 })
-</script>
-
-<template>
-  <div>{{ statusText }}</div>
-</template>
 ```
 
-### 列表渲染
+## 持久化
 
-```vue
-<!-- ✅ 始终使用 key -->
-<div v-for="torrent in torrents" :key="torrent.hash" class="torrent-item">
-  {{ torrent.name }}
-</div>
+### 使用 pinia-plugin-persistedstate
 
-<!-- ❌ 避免使用 index 作为 key -->
-<div v-for="(item, index) in items" :key="index">
-  {{ item.name }}
-</div>
-```
+```typescript
+import { defineStore } from 'pinia'
 
-## 样式规范
-
-### 使用 Scoped 样式
-
-```vue
-<!-- ✅ 使用 scoped 避免样式污染 -->
-<style scoped lang="less">
-.torrent-item {
-  padding: 12px;
-
-  .name {
-    font-size: 14px;
-    font-weight: 500;
+export const useSettingStore = defineStore('setting', () => {
+  const theme = ref<'light' | 'dark'>('light')
+  const language = ref<'zh-CN' | 'en-US'>('zh-CN')
+  
+  return {
+    theme,
+    language
   }
-}
-</style>
-```
-
-### 使用 UnoCSS 工具类
-
-```vue
-<!-- ✅ 优先使用 UnoCSS 工具类 -->
-<template>
-  <div class="flex items-center gap-2 p-4">
-    <span class="text-sm font-medium">{{ name }}</span>
-  </div>
-</template>
-
-<!-- ✅ 复杂样式使用 scoped style -->
-<style scoped lang="less">
-.custom-component {
-  background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}, {
+  // ✅ 配置持久化
+  persist: {
+    key: 'qb-web-settings',
+    storage: localStorage,
+    paths: ['theme', 'language'] // 只持久化特定字段
   }
-}
-</style>
-```
-
-## 组件命名
-
-### 文件命名
-
-```bash
-# ✅ 使用 PascalCase
-CanvasList.vue
-AppHeader.vue
-TorrentItem.vue
-
-# ❌ 避免
-canvas-list.vue
-torrent_item.vue
-```
-
-### 组件引用
-
-```vue
-<template>
-  <!-- ✅ 在模板中使用 PascalCase -->
-  <TorrentItem :torrent="torrent" />
-
-  <!-- ✅ 或使用 kebab-case -->
-  <torrent-item :torrent="torrent" />
-</template>
-
-<script setup lang="ts">
-// ✅ 组件会自动注册（unplugin-vue-components）
-// ✅ 手动导入时使用 PascalCase
-import TorrentItem from '@/components/TorrentItem.vue'
-</script>
-```
-
-## 性能优化
-
-### 使用 v-memo 优化列表
-
-```vue
-<template>
-  <div v-for="torrent in torrents" :key="torrent.hash" v-memo="[torrent.progress, torrent.state]">
-    <!-- 只有 progress 或 state 变化时才重新渲染 -->
-    <TorrentItem :torrent="torrent" />
-  </div>
-</template>
-```
-
-### 使用虚拟滚动
-
-```vue
-<script setup lang="ts">
-import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
-import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
-</script>
-
-<template>
-  <DynamicScroller :items="torrents" :min-item-size="60" class="scroller">
-    <template #default="{ item, index, active }">
-      <DynamicScrollerItem :item="item" :active="active" :data-index="index">
-        <TorrentItem :torrent="item" />
-      </DynamicScrollerItem>
-    </template>
-  </DynamicScroller>
-</template>
-```
-
-## 最佳实践
-
-### 1. 保持组件精简
-
-- 单个组件不超过 300 行
-- 复杂逻辑提取到 composables
-- 复杂组件拆分为子组件
-
-### 2. 避免直接修改 Props
-
-```vue
-<script setup lang="ts">
-interface Props {
-  modelValue: string
-}
-const props = defineProps<Props>()
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
-
-// ✅ 使用 computed 处理 v-model
-const value = computed({
-  get: () => props.modelValue,
-  set: (val) => emit('update:modelValue', val)
 })
-</script>
 ```
 
-### 3. 使用 defineExpose 暴露组件方法
+## 类型安全
 
-```vue
-<script setup lang="ts">
-const inputRef = ref<HTMLInputElement>()
+### 定义完整的类型
 
-function focus() {
-  inputRef.value?.focus()
+```typescript
+// ✅ 为复杂状态定义类型
+interface FilterState {
+  category: string | null
+  tag: string | null
+  state: TorrentState | null
+  searchText: string
 }
 
-// ✅ 暴露给父组件调用
-defineExpose({
-  focus
+export const useTorrentStore = defineStore('torrent', () => {
+  const filter = ref<FilterState>({
+    category: null,
+    tag: null,
+    state: null,
+    searchText: ''
+  })
+  
+  function updateFilter(updates: Partial<FilterState>) {
+    Object.assign(filter.value, updates)
+  }
+  
+  return {
+    filter,
+    updateFilter
+  }
 })
-</script>
+```
+
+## 测试友好
+
+### 导出可测试的 Store
+
+```typescript
+// ✅ 使用 setup store 便于测试
+export const useTorrentStore = defineStore('torrent', () => {
+  // ... store 实现
+  
+  // ✅ 导出重置函数便于测试
+  function $reset() {
+    torrents.value = []
+    isLoading.value = false
+    error.value = null
+  }
+  
+  return {
+    torrents,
+    isLoading,
+    error,
+    fetchTorrents,
+    $reset
+  }
+})
+```
+
+## Store 文件组织
+
+```
+src/store/
+├── index.ts              # Store 统一导出
+├── torrent.ts           # 种子管理 Store
+├── setting.ts           # 设置 Store
+├── session.ts           # 会话 Store
+└── types.ts             # Store 相关类型定义
+```
+
+```typescript
+// src/store/index.ts
+export { useTorrentStore } from './torrent'
+export { useSettingStore } from './setting'
+export { useSessionStore } from './session'
 ```
 
 ---
