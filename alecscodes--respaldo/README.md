@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [alecscodes/respaldo](https://github.com/alecsco
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/alecscodes](https://tomevault.io/claim/alecscodes)
 
