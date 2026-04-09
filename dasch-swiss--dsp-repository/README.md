@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [dasch-swiss/dsp-repository](https://github.com/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dasch-swiss](https://tomevault.io/claim/dasch-swiss)
 
