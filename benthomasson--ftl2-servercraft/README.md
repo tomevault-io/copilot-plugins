@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [benthomasson/ftl2-servercraft](https://github.c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/benthomasson](https://tomevault.io/claim/benthomasson)
 
