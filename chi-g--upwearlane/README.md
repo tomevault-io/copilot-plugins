@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Chi-G/UPWEARLANE](https://github.com/Chi-G/UPWEARLANE).
+Original source: `CLAUDE.md` in [Chi-G/UPWEARLANE](https://github.com/Chi-G/UPWEARLANE).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 
 Browse all formats: [https://tomevault.io/claim/Chi-G](https://tomevault.io/claim/Chi-G)
 
