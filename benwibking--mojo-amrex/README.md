@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [BenWibking/mojo-amrex](https://github.com/BenWi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/BenWibking](https://tomevault.io/claim/BenWibking)
 
