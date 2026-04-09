@@ -1,0 +1,22 @@
+# ozon-tracker
+
+> Config by [viapip](https://github.com/viapip/ozon-tracker) — distributed by [TomeVault](https://tomevault.io/claim/viapip)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [viapip/ozon-tracker](https://github.com/viapip/ozon-tracker).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+
+Browse all formats: [https://tomevault.io/claim/viapip](https://tomevault.io/claim/viapip)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/viapip) to manage distribution.
