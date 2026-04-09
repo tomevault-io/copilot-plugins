@@ -1,0 +1,75 @@
+## eduhub
+
+> Apply when working with translations or i18n in EduHub. German MUST use informal 'Du' form.
+
+
+# Translations (next-intl)
+
+## CRITICAL: German "Du" Form
+
+**ALWAYS use informal "Du" in German translations:**
+- ✅ `"Du kannst..."` / `"Bitte gib..."` / `"Deine Bewerbung..."`
+- ❌ `"Sie können..."` / `"Bitte geben Sie..."` / `"Ihre Bewerbung..."`
+
+## File Structure
+
+- Location: `frontend-nx/apps/edu-hub/locales/`
+- Files: `de.json`, `en.json`
+- Structure: `namespace.ComponentName.translation_key`
+
+## Usage
+
+```typescript
+import { useTranslations, useLocale } from 'next-intl';
+
+const t = useTranslations('course');
+const locale = useLocale(); // 'de' or 'en'
+
+// Access translations
+t('Sessions.show_all_sessions');
+t('RegistrationModal.errors.motivation_letter_required');
+
+// Multiple namespaces
+const tCommon = useTranslations('common');
+tCommon('TableGrid.pagination_text');
+```
+
+## Naming Conventions
+
+| Level | Convention | Example |
+|-------|------------|---------|
+| Namespace | camelCase | `course`, `common`, `auth` |
+| Component group | PascalCase | `Sessions`, `RegistrationModal` |
+| Translation key | snake_case | `show_all_sessions` |
+| Database ENUM values | ALL_CAPS (matching DB) | `CONFIRMED`, `UNIVERSITY_STUDENT` |
+
+### Database ENUM Translation Keys
+
+When translation keys correspond to values from PostgreSQL ENUM tables (e.g., `CourseEnrollmentStatus`, `UserOccupation`, `LocationOption`), they keep their **ALL_CAPS** format as keys. This ensures a direct 1:1 mapping between the database value and the translation key.
+
+```typescript
+// Status enums (common namespace)
+tCommon('CONFIRMED');     // → "bestätigt"
+tCommon('APPLIED');       // → "beworben"
+
+// Occupation enums (profile namespace)
+t('occupation.UNIVERSITY_STUDENT');  // → "Student:in"
+t('occupation.SELF_EMPLOYED');       // → "Selbstständig"
+
+// Location enums
+t('location.ONLINE');  // → "Online"
+t('location.KIEL');    // → "Kiel"
+```
+
+When displaying ENUM values, always translate them using the correct namespace — do **not** pass them raw to `t()` without ensuring the key exists in that namespace.
+
+## Adding Translations
+
+1. Add to both `de.json` and `en.json`
+2. Use snake_case for keys (except ENUM values — see above)
+3. German: Use "Du" form (mandatory)
+4. Group under component name (PascalCase)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/eduhub-org) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
