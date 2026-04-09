@@ -1,0 +1,63 @@
+{
+  "name": "sentry",
+  "owner": "getsentry",
+  "repo": "sentry",
+  "description": "AI instruction files for sentry by getsentry",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sentry-code-review",
+      "path": "skills/sentry-code-review",
+      "github_url": "https://github.com/getsentry/sentry/tree/main/skills/sentry-code-review",
+      "description": ""
+    },
+    {
+      "name": "sentry-setup-ai-monitoring",
+      "path": "skills/sentry-setup-ai-monitoring",
+      "github_url": "https://github.com/getsentry/sentry/tree/main/skills/sentry-setup-ai-monitoring",
+      "description": ""
+    },
+    {
+      "name": "sentry-cli",
+      "path": "plugins/sentry-cli/skills/sentry-cli",
+      "github_url": "https://github.com/getsentry/sentry/tree/main/plugins/sentry-cli/skills/sentry-cli",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/getsentry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T20:30:05Z"
+}
