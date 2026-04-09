@@ -1,0 +1,58 @@
+{
+  "name": "cursor_rules_1c",
+  "owner": "comol",
+  "repo": "cursor_rules_1c",
+  "description": "AI instruction files for cursor_rules_1c by comol",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "1c-metadata-manage",
+      "path": ".cursor/skills/1c-metadata-manage",
+      "github_url": "https://github.com/comol/cursor_rules_1c/tree/main/.cursor/skills/1c-metadata-manage",
+      "description": ""
+    },
+    {
+      "name": "mermaid-diagrams",
+      "path": ".cursor/skills/mermaid-diagrams",
+      "github_url": "https://github.com/comol/cursor_rules_1c/tree/main/.cursor/skills/mermaid-diagrams",
+      "description": ""
+    },
+    {
+      "name": "powershell-windows",
+      "path": ".cursor/skills/powershell-windows",
+      "github_url": "https://github.com/comol/cursor_rules_1c/tree/main/.cursor/skills/powershell-windows",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/comol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T09:25:07Z"
+}
