@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [zvirb/songnodes](https://github.com/zvirb/songn
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zvirb](https://tomevault.io/claim/zvirb)
 
