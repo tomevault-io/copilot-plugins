@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mferretti/SeedStream](https://github.com/mferre
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mferretti](https://tomevault.io/claim/mferretti)
 
