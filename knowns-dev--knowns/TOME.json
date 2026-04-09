@@ -1,0 +1,58 @@
+{
+  "name": "knowns",
+  "owner": "knowns-dev",
+  "repo": "knowns",
+  "description": "AI instruction files for knowns by knowns-dev",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kn-commit",
+      "path": ".agent/skills/kn-commit",
+      "github_url": "https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-commit",
+      "description": ""
+    },
+    {
+      "name": "kn-doc",
+      "path": ".agent/skills/kn-doc",
+      "github_url": "https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-doc",
+      "description": ""
+    },
+    {
+      "name": "kn-extract",
+      "path": ".agent/skills/kn-extract",
+      "github_url": "https://github.com/knowns-dev/knowns/tree/main/.agent/skills/kn-extract",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/knowns-dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-09T01:50:27Z"
+}
