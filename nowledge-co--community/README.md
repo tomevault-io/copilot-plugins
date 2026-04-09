@@ -15,6 +15,7 @@ Original source: `CLAUDE.md` in [nowledge-co/community](https://github.com/nowle
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nowledge-co](https://tomevault.io/claim/nowledge-co)
 
