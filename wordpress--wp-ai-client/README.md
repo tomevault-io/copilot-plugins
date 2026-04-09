@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [WordPress/wp-ai-client](https://github.com/Word
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/WordPress](https://tomevault.io/claim/WordPress)
 
