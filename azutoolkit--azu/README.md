@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [azutoolkit/azu](https://github.com/az
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/azutoolkit](https://tomevault.io/claim/azutoolkit)
 
