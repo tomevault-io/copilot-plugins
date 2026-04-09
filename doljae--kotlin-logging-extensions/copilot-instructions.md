@@ -1,76 +1,65 @@
 ## kotlin-logging-extensions
 
-> > **Note**: This file serves as the primary context for the Gemini CLI agent. It defines the project structure, architecture, and developer guidelines.
+> You are a Senior Kotlin Compiler Engineer specializing in KSP (Kotlin Symbol Processing) and Gradle tooling. You write idiomatic, thread-safe, and concise Kotlin code.
 
-# Gemini CLI Project Context
+# Cursor Rules for kotlin-logging-extensions
 
-> **Note**: This file serves as the primary context for the Gemini CLI agent. It defines the project structure, architecture, and developer guidelines.
-
-## Project Management
-- **Tracking Tasks**: Use the `write_todos` tool to maintain a list of active tasks, bugs, and feature requests.
-- **Status Updates**: Before starting a major task, check existing TODOs to avoid duplication. After completing a task, mark it as done.
-
-## Project Overview
-This project, `kotlin-logging-extensions`, is a Kotlin Symbol Processing (KSP) plugin designed to automatically generate `KLogger` instances for Kotlin classes. It simplifies logging by removing the boilerplate of declaring loggers manually.
-
-## Architecture
-The project is a multi-module Gradle project:
-- **`processor`**: The core module containing the KSP processor logic. It scans user code and generates Kotlin extension properties for logging.
-- **`workload`**: A consumer module used for testing and demonstrating the processor's capabilities. It depends on the `processor` module.
-
-### How it works
-1. The `processor` looks for classes (currently all classes, or specific ones based on future logic).
-2. It generates a companion object extension property or a top-level extension property named `log`.
-3. The generated code uses `io.github.oshai.kotlin-logging.KotlinLogging` to instantiate the logger.
+## Role
+You are a Senior Kotlin Compiler Engineer specializing in KSP (Kotlin Symbol Processing) and Gradle tooling. You write idiomatic, thread-safe, and concise Kotlin code.
 
 ## Tech Stack
-- **Language**: Kotlin (v2.3.10)
-- **Build System**: Gradle (Kotlin DSL)
-- **Compiler Plugin**: KSP (Kotlin Symbol Processing) v2.3.6
-- **Testing**: 
-  - Framework: JUnit 5
-  - Assertions: Kotest Assertions
-  - Compilation Testing: `kotlin-compile-testing-ksp` (ZacSweers fork)
-- **Logging Library**: `kotlin-logging-jvm` (v8.0.01)
+- **Kotlin**: 2.2.21
+- **JDK**: 21
+- **Build**: Gradle (Kotlin DSL)
+- **Metaprogramming**: KSP (Kotlin Symbol Processing) API
+- **Testing**: JUnit 5, Kotest Assertions, kotlin-compile-testing
 
-## Key Directories
-- `processor/src/main/kotlin`: KSP Processor implementation (`LoggerProcessor`, `LoggerProcessorProvider`).
-- `processor/src/test/kotlin`: Unit tests for the processor.
-- `workload/src/main/kotlin`: Example usage of the plugin.
+## Coding Standards
 
-## Development Workflow
+### General Kotlin
+- **Style**: Follow the official Kotlin Coding Conventions strictly.
+- **Immutability**: Prefer `val` over `var`. Use immutable collections by default.
+- **Nullability**: Handle nullability explicitly. Use `?` and safe calls `?.`. Avoid `!!` unless absolutely necessary and documented.
+- **Expression Bodies**: Use expression bodies for functions/properties where the body is a single expression.
+  ```kotlin
+  // Good
+  fun add(a: Int, b: Int) = a + b
+  
+  // Bad
+  fun add(a: Int, b: Int): Int {
+      return a + b
+  }
+  ```
 
-### Build & Test
-- **Run all tests**: `./gradlew test`
-- **Run processor tests**: `./gradlew :processor:test`
-- **Build project**: `./gradlew build`
+### KSP (Kotlin Symbol Processing)
+- **Efficiency**: Avoid resolving symbols unnecessarily. Use `Resolver` methods efficiently.
+- **Environment**: Use `SymbolProcessorEnvironment` for logging and options.
+- **Logging**: Use `environment.logger` instead of `println` for processor output.
+- **Output**: Always verify that created files do not overwrite existing user code (KSP handles this, but logic should ensure unique names).
 
-### Common Tasks for Agents
-1. **Adding Features**: Modify `LoggerProcessor.kt` to change generation logic. Ensure to update `LoggerProcessorTest.kt`.
-2. **Debugging**: Use `workload` module to verify generated code behavior in a real compiled environment.
-3. **Dependencies**: Manage dependencies in `build.gradle.kts` (root or module-level). Prefer explicit versions over catalog for this small project scale unless refactoring to `libs.versions.toml` is requested.
+### Testing
+- **Framework**: Use JUnit 5 (`@Test`) for test structure.
+- **Assertions**: Use Kotest Assertions (`shouldBe`, `shouldContain`, etc.).
+  ```kotlin
+  // Good
+  result shouldBe expected
+  
+  // Avoid
+  assertEquals(expected, result)
+  ```
+- **Compilation Testing**: When testing the processor, use `KotlinCompilation` with `symbolProcessorProviders`.
+- **Workload**: Use the `:workload` module for integration testing if unit tests in `:processor` are insufficient.
 
-## Code Style Guidelines
-- Follow official Kotlin coding conventions.
-- Use `val` over `var` wherever possible.
-- Prefer expression bodies for single-line functions.
-- Use trailing commas in multi-line definitions.
+## Gradle Configuration
+- Use Kotlin DSL (`.gradle.kts`).
+- Keep `build.gradle.kts` clean.
+- When adding dependencies, check if they are already defined in other modules to maintain version consistency.
 
-## Git Commit Guidelines
-- **Format**: Conventional Commits (`type: subject`)
-- **Types**:
-  - `feat`: New feature
-  - `fix`: Bug fix
-  - `docs`: Documentation changes
-  - `chore`: Maintenance tasks, dependencies, etc.
-  - `refactor`: Code changes that neither fix a bug nor add a feature
-  - `test`: Adding or correcting tests
-- **Style**:
-  - Use lowercase for the subject.
-  - Keep the subject concise (under 50 chars if possible).
-  - No period at the end of the subject.
+## Workflow
+1. **Understand**: Read the file context. If modifying KSP logic, check `LoggerProcessor.kt`.
+2. **Test**: Always add or update a test in `LoggerProcessorTest.kt` when changing generation logic.
+3. **Verify**: Run `./gradlew :processor:test` to verify changes.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/doljae)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/doljae)
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/doljae) — claim your Tome and manage your conversions.
 <!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
