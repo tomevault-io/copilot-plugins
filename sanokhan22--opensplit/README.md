@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [SanoKhan22/OpenSplit](https://github.com/SanoKh
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/SanoKhan22](https://tomevault.io/claim/SanoKhan22)
 
