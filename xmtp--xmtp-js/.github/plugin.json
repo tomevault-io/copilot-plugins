@@ -1,0 +1,14 @@
+{
+  "name": "xmtp--xmtp-js",
+  "displayName": "xmtp-js",
+  "description": "AI instruction files for xmtp-js by xmtp",
+  "version": "1.0.0",
+  "author": "xmtp",
+  "homepage": "https://tomevault.io/claim/xmtp",
+  "skills": [
+    {
+      "name": "xmtp-cli",
+      "description": ""
+    }
+  ]
+}
