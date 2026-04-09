@@ -15,6 +15,7 @@ Original source: `AGENTS.md` in [aiko-atami/effectorjs-skills](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/aiko-atami](https://tomevault.io/claim/aiko-atami)
 
