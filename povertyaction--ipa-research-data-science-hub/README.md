@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [PovertyAction/ipa-research-data-science-hub](ht
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/PovertyAction](https://tomevault.io/claim/PovertyAction)
 
