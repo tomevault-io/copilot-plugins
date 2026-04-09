@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [KazanderDad/agent-context-seed-files](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/KazanderDad](https://tomevault.io/claim/KazanderDad)
 
