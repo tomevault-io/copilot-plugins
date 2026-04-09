@@ -15,6 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [nolly-studio/cult-ui](https://github.
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nolly-studio](https://tomevault.io/claim/nolly-studio)
 
