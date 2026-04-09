@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [susumutomita/Hackathon-AI](https://github.com/s
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/susumutomita](https://tomevault.io/claim/susumutomita)
 
