@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [joshuarg007/quanta](https://github.com/joshuarg
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/joshuarg007](https://tomevault.io/claim/joshuarg007)
 
