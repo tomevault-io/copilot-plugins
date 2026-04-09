@@ -1,0 +1,22 @@
+{
+  "name": "dandedotdev--dotfiles",
+  "displayName": "dotfiles",
+  "description": "AI instruction files for dotfiles by dandedotdev",
+  "version": "1.0.0",
+  "author": "dandedotdev",
+  "homepage": "https://tomevault.io/claim/dandedotdev",
+  "skills": [
+    {
+      "name": "ab-test-setup",
+      "description": ""
+    },
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "analytics-tracking",
+      "description": ""
+    }
+  ]
+}
