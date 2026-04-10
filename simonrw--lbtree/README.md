@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [simonrw/lbtree](https://github.com/simonrw/lbtr
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/simonrw](https://tomevault.io/claim/simonrw)
 
