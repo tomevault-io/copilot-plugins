@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [Lovelace-AI/tob-test-01-yottagraph](h
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Lovelace-AI](https://tomevault.io/claim/Lovelace-AI)
 
