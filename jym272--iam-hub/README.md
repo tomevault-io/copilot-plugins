@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jym272/iam-hub](https://github.com/jym272/iam-h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jym272](https://tomevault.io/claim/jym272)
 
