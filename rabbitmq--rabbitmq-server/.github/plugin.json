@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq--rabbitmq-server",
+  "displayName": "rabbitmq-server",
+  "description": "rabbitmq-server",
+  "version": "1.0.0",
+  "author": "rabbitmq",
+  "homepage": "https://tomevault.io/claim/rabbitmq",
+  "skills": []
+}
