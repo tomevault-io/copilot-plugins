@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [j0ruge/eb-analytics](https://github.com/j0ruge/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/j0ruge](https://tomevault.io/claim/j0ruge)
 
