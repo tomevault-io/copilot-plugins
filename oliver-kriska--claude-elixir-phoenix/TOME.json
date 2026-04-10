@@ -1,0 +1,237 @@
+{
+  "name": "claude-elixir-phoenix",
+  "owner": "oliver-kriska",
+  "repo": "claude-elixir-phoenix",
+  "description": "AI instruction files for claude-elixir-phoenix by oliver-kriska",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "compound-docs",
+      "path": "plugins/elixir-phoenix/skills/compound-docs",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/compound-docs",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "path": "plugins/elixir-phoenix/skills/deploy",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/deploy",
+      "description": ""
+    },
+    {
+      "name": "docs-check",
+      "path": ".claude/skills/docs-check",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/.claude/skills/docs-check",
+      "description": ""
+    },
+    {
+      "name": "ecto-patterns",
+      "path": "plugins/elixir-phoenix/skills/ecto-patterns",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/ecto-patterns",
+      "description": ""
+    },
+    {
+      "name": "n1-check",
+      "path": "plugins/elixir-phoenix/skills/n1-check",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/n1-check",
+      "description": ""
+    },
+    {
+      "name": "elixir-idioms",
+      "path": "plugins/elixir-phoenix/skills/elixir-idioms",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/elixir-idioms",
+      "description": ""
+    },
+    {
+      "name": "hexdocs-fetcher",
+      "path": "plugins/elixir-phoenix/skills/hexdocs-fetcher",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/hexdocs-fetcher",
+      "description": ""
+    },
+    {
+      "name": "intent-detection",
+      "path": "plugins/elixir-phoenix/skills/intent-detection",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/intent-detection",
+      "description": ""
+    },
+    {
+      "name": "liveview-patterns",
+      "path": "plugins/elixir-phoenix/skills/liveview-patterns",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/liveview-patterns",
+      "description": ""
+    },
+    {
+      "name": "oban",
+      "path": "plugins/elixir-phoenix/skills/oban",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/oban",
+      "description": ""
+    },
+    {
+      "name": "phoenix-contexts",
+      "path": "plugins/elixir-phoenix/skills/phoenix-contexts",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/phoenix-contexts",
+      "description": ""
+    },
+    {
+      "name": "audit",
+      "path": "plugins/elixir-phoenix/skills/audit",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/audit",
+      "description": ""
+    },
+    {
+      "name": "brief",
+      "path": "plugins/elixir-phoenix/skills/brief",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/brief",
+      "description": ""
+    },
+    {
+      "name": "challenge",
+      "path": "plugins/elixir-phoenix/skills/challenge",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/challenge",
+      "description": ""
+    },
+    {
+      "name": "compound",
+      "path": "plugins/elixir-phoenix/skills/compound",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/compound",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "path": "plugins/elixir-phoenix/skills/document",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/document",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "plugins/elixir-phoenix/skills/examples",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/examples",
+      "description": ""
+    },
+    {
+      "name": "full",
+      "path": "plugins/elixir-phoenix/skills/full",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/full",
+      "description": ""
+    },
+    {
+      "name": "investigate",
+      "path": "plugins/elixir-phoenix/skills/investigate",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/investigate",
+      "description": ""
+    },
+    {
+      "name": "perf",
+      "path": "plugins/elixir-phoenix/skills/perf",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/perf",
+      "description": ""
+    },
+    {
+      "name": "plan",
+      "path": "plugins/elixir-phoenix/skills/plan",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/plan",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "path": "plugins/elixir-phoenix/skills/pr-review",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/pr-review",
+      "description": ""
+    },
+    {
+      "name": "quick",
+      "path": "plugins/elixir-phoenix/skills/quick",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/quick",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "plugins/elixir-phoenix/skills/research",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/research",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "plugins/elixir-phoenix/skills/review",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/review",
+      "description": ""
+    },
+    {
+      "name": "techdebt",
+      "path": "plugins/elixir-phoenix/skills/techdebt",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/techdebt",
+      "description": ""
+    },
+    {
+      "name": "triage",
+      "path": "plugins/elixir-phoenix/skills/triage",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/triage",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "path": "plugins/elixir-phoenix/skills/verify",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/verify",
+      "description": ""
+    },
+    {
+      "name": "work",
+      "path": "plugins/elixir-phoenix/skills/work",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/work",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": "plugins/elixir-phoenix/skills/security",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/security",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "plugins/elixir-phoenix/skills/testing",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "tidewave-integration",
+      "path": "plugins/elixir-phoenix/skills/tidewave-integration",
+      "github_url": "https://github.com/oliver-kriska/claude-elixir-phoenix/tree/main/plugins/elixir-phoenix/skills/tidewave-integration",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/oliver-kriska",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-10T03:31:56Z"
+}
