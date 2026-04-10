@@ -4,7 +4,7 @@
   "repo": "UPWEARLANE",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/Chi-G",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T02:47:31Z"
+  "distributed_at": "2026-04-10T14:43:09Z"
 }
