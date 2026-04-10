@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [gab3-dev/api-pj-georef](https://github.com/gab3
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/gab3-dev](https://tomevault.io/claim/gab3-dev)
 
