@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [EmbedBuild/specbox-engine](https://github.com/E
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/EmbedBuild](https://tomevault.io/claim/EmbedBuild)
 
