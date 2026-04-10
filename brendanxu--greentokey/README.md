@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [brendanxu/greentokey](https://github.com/brenda
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/brendanxu](https://tomevault.io/claim/brendanxu)
 
