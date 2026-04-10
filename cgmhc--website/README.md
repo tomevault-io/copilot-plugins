@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [cgmhc/website](https://github.com/cgmhc/website
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cgmhc](https://tomevault.io/claim/cgmhc)
 
