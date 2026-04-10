@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [julesChu12/voice-memory](https://github.com/jul
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/julesChu12](https://tomevault.io/claim/julesChu12)
 
