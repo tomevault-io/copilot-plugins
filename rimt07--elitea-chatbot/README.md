@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rimt07/elitea-chatbot](https://github.com/rimt0
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rimt07](https://tomevault.io/claim/rimt07)
 
