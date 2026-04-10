@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ekil1100/claude-markplace](https://github.com/e
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ekil1100](https://tomevault.io/claim/ekil1100)
 
