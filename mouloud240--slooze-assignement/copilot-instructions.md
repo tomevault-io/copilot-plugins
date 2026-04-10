@@ -67,6 +67,5 @@ other. Pay attention to the structure of modules, services, and controllers.
 7. **Follow Best Practices**: Adhere to best practices in coding, such as writing clean, maintainable code, using meaningful variable names, and following the project's coding standards.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/mouloud240)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/mouloud240)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/mouloud240) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
