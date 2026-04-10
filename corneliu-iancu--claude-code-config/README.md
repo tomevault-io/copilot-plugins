@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [corneliu-iancu/claude-code-config](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/corneliu-iancu](https://tomevault.io/claim/corneliu-iancu)
 
