@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Mashu-wq/Hybrid-decentralized-AML-framework-int
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Mashu-wq](https://tomevault.io/claim/Mashu-wq)
 
