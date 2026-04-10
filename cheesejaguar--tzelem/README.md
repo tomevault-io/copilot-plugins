@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [cheesejaguar/tzelem](https://github.com/cheesej
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cheesejaguar](https://tomevault.io/claim/cheesejaguar)
 
