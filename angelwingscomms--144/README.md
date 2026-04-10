@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [angelwingscomms/144](https://github.com/angelwi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/angelwingscomms](https://tomevault.io/claim/angelwingscomms)
 
