@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [endaaman/bt2](https://github.com/endaaman/bt2).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/endaaman](https://tomevault.io/claim/endaaman)
 
