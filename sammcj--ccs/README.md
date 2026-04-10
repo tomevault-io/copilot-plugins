@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sammcj/ccs](https://github.com/sammcj/ccs).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sammcj](https://tomevault.io/claim/sammcj)
 
