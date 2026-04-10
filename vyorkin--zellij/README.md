@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [vyorkin/zellij](https://github.com/vyorkin/zell
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vyorkin](https://tomevault.io/claim/vyorkin)
 
