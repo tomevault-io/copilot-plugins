@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [chenzhan4321/life-management](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/chenzhan4321](https://tomevault.io/claim/chenzhan4321)
 
