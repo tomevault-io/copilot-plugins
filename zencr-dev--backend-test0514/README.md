@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [ZENCR-dev/backend_test0514](https://g
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ZENCR-dev](https://tomevault.io/claim/ZENCR-dev)
 
