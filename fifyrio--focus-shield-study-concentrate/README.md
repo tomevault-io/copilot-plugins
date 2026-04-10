@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [fifyrio/Focus-Shield-Study-Concentrat
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/fifyrio](https://tomevault.io/claim/fifyrio)
 
