@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [shipbase/ui](https://github.com/shipbase/ui).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/shipbase](https://tomevault.io/claim/shipbase)
 
