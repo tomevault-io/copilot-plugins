@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [keiya/s2t](https://github.com/keiya/s2t).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/keiya](https://tomevault.io/claim/keiya)
 
