@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [OHPG/OHPG.github.io](https://github.com/OHPG/OH
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/OHPG](https://tomevault.io/claim/OHPG)
 
