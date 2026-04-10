@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [PorriD63/ObservabilityDemo](https://github.com/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/PorriD63](https://tomevault.io/claim/PorriD63)
 
