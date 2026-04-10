@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Spikeyharold01/BattleMonstersGD](https://github
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Spikeyharold01](https://tomevault.io/claim/Spikeyharold01)
 
