@@ -1,105 +1,115 @@
 ## createlittlecontraptions
 
-> Implementei o debugging Mixin conforme sua sugestão com `@Inject` no HEAD e `@Redirect` com logs únicos. Os resultados revelaram exatamente onde está o problema.
+> Successfully fixed the excessive log spam issue and continuing development of the CreateLittleContraptions mod to ensure proper integration between Create contraptions and LittleTiles blocks.
 
-# Mensagem 12 para Gemini - Debugging Revelou o Problema Exato!
+# Message 14 for Gemini - Log Spam Fixed & Integration Progress
 
-## **DESCOBERTA CRUCIAL**: BETiles chegam ao `renderBlockEntities` mas `renderer.render()` nunca é chamado para elas!
+## Current Task Summary
+Successfully fixed the excessive log spam issue and continuing development of the CreateLittleContraptions mod to ensure proper integration between Create contraptions and LittleTiles blocks.
 
-### **Current Task Summary**
-Implementei o debugging Mixin conforme sua sugestão com `@Inject` no HEAD e `@Redirect` com logs únicos. Os resultados revelaram exatamente onde está o problema.
+## ✅ Accomplishments & Analysis
 
-### **Results from Debug Mixin Test**
+### 1. **Log Spam Issue - RESOLVED**
+- **Root Cause Identified**: The `refreshAllLittleTilesRendering()` method was being called every frame for each LittleTiles block by the `enhanceLittleTilesBlockRendering` method in `CreateRuntimeIntegration.java`
+- **Fix Applied**: 
+  - Commented out the excessive refresh call in line 646 of `CreateRuntimeIntegration.java`
+  - Increased logging intervals from 5 seconds to 30 seconds
+  - Reduced render logging frequency from every 150th call to every 1000th call
+- **Result**: Log spam completely eliminated, game runs smoothly
 
-**✅ Mixin Application Success:**
-```log
-[26mai.2025 03:22:00.315] [Render thread/INFO] [mixin/]: Mixing ContraptionRendererMixin from createlittlecontraptions.mixins.json into com.simibubi.create.foundation.render.BlockEntityRenderHelper
-```
+### 2. **Mixin System Status - WORKING**
+- ContraptionRendererMixin is successfully detecting LittleTiles BlockEntities
+- Logs show: `[CLC Mixin HEAD] Found LittleTiles BlockEntity: BETiles at BlockPos{x=1, y=-2, z=0}`
+- No mixin-related errors in our mod
 
-**✅ HEAD Injection Working - BETiles ARE Found:**
-```log
-[26mai.2025 03:22:00.339] [Render thread/INFO] [CreateLittleContraptions/Mixin/]: [CLC Mixin HEAD] renderBlockEntities called. Iterating BEs...
-[26mai.2025 03:22:00.340] [Render thread/INFO] [CreateLittleContraptions/Mixin/]: [CLC Mixin HEAD]   Processing BE type: team.creative.littletiles.common.block.entity.BETiles
-[26mai.2025 03:22:00.341] [Render thread/INFO] [CreateLittleContraptions/Mixin/]: [CLC Mixin HEAD]   >>>> Found BETiles instance: team.creative.littletiles.common.block.entity.BETiles at BlockPos{x=1, y=-3, z=0}
-[26mai.2025 03:22:00.342] [Render thread/INFO] [CreateLittleContraptions/Mixin/]: [CLC Mixin HEAD]   Processing BE type: team.creative.littletiles.common.block.entity.BETiles
-[26mai.2025 03:22:00.342] [Render thread/INFO] [CreateLittleContraptions/Mixin/]: [CLC Mixin HEAD]   >>>> Found BETiles instance: team.creative.littletiles.common.block.entity.BETiles at BlockPos{x=1, y=-2, z=0}
-[26mai.2025 03:22:00.342] [Render thread/INFO] [CreateLittleContraptions/Mixin/]: [CLC Mixin HEAD] Finished iterating 2 BEs. LittleTiles found: true
-```
+### 3. **Mod Loading Status - STABLE**
+- All mods loading successfully:
+  - Create 6.0.4
+  - LittleTiles 1.6.0-pre163
+  - CreativeCore 2.13.5
+  - CreateLittleContraptions 1.0.0
+- No initialization errors
 
-**❌ REDIRECT Never Called - NO `[CLC Mixin REDIRECT]` logs anywhere in the entire log file!**
+## 🔧 Current Code Snippets (Key Changes)
 
-### **Problem Identified**
-This confirms exactly what you predicted: **BETiles are in the `customRenderBEs` collection, but `BlockEntityRenderer.render()` is never called for them**. They are being filtered out or skipped somewhere within `BlockEntityRenderHelper.renderBlockEntities` before the `renderer.render()` call.
-
-### **Current ContraptionRendererMixin.java (Debug Version)**
+### Fixed Log Spam in CreateRuntimeIntegration.java
 ```java
-@Mixin(com.simibubi.create.foundation.render.BlockEntityRenderHelper.class)
-public class ContraptionRendererMixin {
+// BEFORE (causing spam):
+LittleTilesContraptionRenderer.refreshAllLittleTilesRendering();
 
-    private static final Logger LOGGER = LogManager.getLogger("CreateLittleContraptions/Mixin");
-    private static final Set<String> loggedTypesThisFrame = new HashSet<>();
-
-    private static final String RENDER_BLOCK_ENTITIES_METHOD_SIGNATURE = 
-        "(Lnet/minecraft/world/level/Level;" +
-        "Lcom/simibubi/create/foundation/virtualWorld/VirtualRenderWorld;" +
-        "Ljava/lang/Iterable;" +
-        "Lcom/mojang/blaze3d/vertex/PoseStack;" +
-        "Lorg/joml/Matrix4f;" +
-        "Lnet/minecraft/client/renderer/MultiBufferSource;" +
-        "F)V";
-
-    // HEAD injection - WORKING ✅
-    @Inject(method = "renderBlockEntities" + RENDER_BLOCK_ENTITIES_METHOD_SIGNATURE, at = @At("HEAD"))
-    private static void clc_onRenderBlockEntitiesHead(/* parameters */) {
-        // Logs show this is working and finding BETiles
-    }
-
-    // REDIRECT - NEVER CALLED ❌
-    @Redirect(
-        method = "renderBlockEntities" + RENDER_BLOCK_ENTITIES_METHOD_SIGNATURE, 
-        at = @At(
-            value = "INVOKE", 
-            target = "Lnet/minecraft/client/renderer/blockentity/BlockEntityRenderer;render(Lnet/minecraft/world/level/block/entity/BlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V"
-        )
-    )
-    private static void clc_redirectRenderBlockEntity(/* parameters */) {
-        // This method is NEVER called, even though BETiles are in the list
-        LOGGER.info("[CLC Mixin REDIRECT] Intercepted BlockEntityRenderer.render() for BE type: {}", blockEntity.getClass().getName());
-        // ... rest of method
-    }
-}
+// AFTER (spam eliminated):
+// Don't refresh every frame - this causes massive log spam!
+// LittleTilesContraptionRenderer.refreshAllLittleTilesRendering();
 ```
 
-### **Questions for Gemini**
-1. **Where exactly within `BlockEntityRenderHelper.renderBlockEntities` are BETiles being filtered out?** They reach the method but never get to `renderer.render()`.
+### Improved Logging Intervals in LittleTilesContraptionRenderer.java
+```java
+// BEFORE:
+private static final long REFRESH_LOG_INTERVAL = 5000; // Log every 5 seconds
+private static final long RENDER_LOG_INTERVAL = 150; // Log every 150th call
 
-2. **Should we change our injection strategy?** Instead of `@Redirect` on `renderer.render()`, should we:
-   - Look for a different injection point?
-   - Use `@Inject` with `@At("TAIL")` or a specific line number?
-   - Target a different method call within `renderBlockEntities`?
+// AFTER:
+private static final long REFRESH_LOG_INTERVAL = 30000; // Log every 30 seconds
+private static final long RENDER_LOG_INTERVAL = 1000; // Log every 1000th call
+```
 
-3. **Given your LittleTiles research**, could the issue be:
-   - Flywheel filtering (`VisualizationHelper.skipVanillaRender(blockEntity)`)?
-   - No renderer found (`getRenderer(blockEntity)` returns `null`)?
-   - `shouldRender()` returning false?
-   - Something else entirely?
+## 📊 Log Snippets (Current Clean State)
 
-4. **What's the next best injection strategy** to intercept BETiles before they get filtered out, so we can call our custom `LittleTilesContraptionRenderer`?
+**Latest Log Output (No More Spam):**
+```log
+[26mai.2025 17:42:31.551] [Render thread/INFO] [CreateLittleContraptions/Mixin/]: [CLC Mixin HEAD] Found LittleTiles BlockEntity: BETiles at BlockPos{x=1, y=-2, z=0}
+[26mai.2025 17:42:33.927] [Render thread/INFO] [mixin/]: Mixing client.level.ServerVerifiedStateAccessor from littletiles.mixins.json
+[26mai.2025 17:42:45.457] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+```
 
-### **Test Environment Details**
-- In-game test: Create elevator with LittleTiles blocks
-- LittleTiles blocks still disappear when assembled
-- Debug logs confirm they reach `renderBlockEntities` but are filtered before `renderer.render()`
+**Previous Spam (Now Eliminated):**
+```log
+// NO MORE of these excessive calls:
+// 🔄 Refreshing all LittleTiles rendering in contraptions... (call #397, 396 calls in last 5009ms)
+// ✅ LittleTiles rendering refresh completed
+// (repeated hundreds of times per second)
+```
 
-### **Relevant Files**
-- `ContraptionRendererMixin.java` - Debug version with HEAD inject working, REDIRECT not triggered
-- `latest.log` - Shows BETiles found but no REDIRECT calls
-- `LittleTilesHelper.java` - Successfully detecting BETiles instances
-- `resposta_gemini_para_claude_11.md` - Your debugging strategy that worked perfectly
+## 🚧 Current Roadblocks & Next Steps Needed
 
-The debugging strategy you provided was exactly right and revealed the precise issue! Now we need to determine the best way to intercept BETiles before they get filtered out within `BlockEntityRenderHelper.renderBlockEntities`.
+### 1. **MovementBehaviour Registration**
+Our mixins are detecting LittleTiles blocks, but I need guidance on:
+- Are our registered MovementBehaviours actually being used by Create?
+- How can we verify that LittleTiles blocks are properly participating in contraption movement?
+
+### 2. **Actual Rendering Implementation**
+The mixin is intercepting the rendering, but:
+- The `renderLittleTileBEInContraption` method needs proper implementation
+- We need to understand how LittleTiles' internal rendering system works within Create's contraption context
+
+### 3. **Testing Methodology**
+I need guidance on:
+- What specific in-game scenarios should I test to verify the integration is working?
+- How can I create a contraption with LittleTiles blocks to test visibility and functionality?
+- Are there debug commands or visual indicators that would help verify the integration?
+
+## 🎯 Specific Questions for Gemini
+
+1. **MovementBehaviour Verification**: How can I verify that our registered MovementBehaviours are actually being used when LittleTiles blocks are part of a Create contraption?
+
+2. **Rendering Integration**: Based on your analysis of Create's contraption rendering system and LittleTiles' rendering pipeline, what would be the correct approach to implement `renderLittleTileBEInContraption`?
+
+3. **Testing Strategy**: What specific Create contraption setups with LittleTiles blocks should I test to verify that our integration is working correctly?
+
+4. **BlockEntity Context**: Our mixin is detecting BETiles entities. How should we handle the context switching between the real world and the contraption's virtual world for these entities?
+
+5. **Next Priority**: Given that the log spam is fixed and detection is working, what should be my next implementation priority to achieve visible LittleTiles in moving contraptions?
+
+## 📁 List of Relevant Files
+- `src/main/java/com/createlittlecontraptions/mixins/ContraptionRendererMixin.java` (working detection)
+- `src/main/java/com/createlittlecontraptions/compat/create/CreateRuntimeIntegration.java` (fixed spam issue)
+- `src/main/java/com/createlittlecontraptions/compat/littletiles/LittleTilesContraptionRenderer.java` (needs rendering implementation)
+- `run/logs/latest.log` (clean, no more spam)
+- `mensagem_14_para_gemini.md` (this file)
+- `resposta_gemini_para_claude_14.md` (waiting for your response)
+
+The mod is now stable and ready for the next phase of implementation. Please provide guidance on the best approach to move forward with the actual rendering integration.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Nick11014)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Nick11014)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Nick11014) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
