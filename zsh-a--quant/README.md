@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [zsh-a/quant](https://github.com/zsh-a/quant).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zsh-a](https://tomevault.io/claim/zsh-a)
 
