@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [connormcloughlin/valuations-app-v1](h
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/connormcloughlin](https://tomevault.io/claim/connormcloughlin)
 
