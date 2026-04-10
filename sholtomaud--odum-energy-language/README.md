@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [sholtomaud/odum-energy-language](https://github
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sholtomaud](https://tomevault.io/claim/sholtomaud)
 
