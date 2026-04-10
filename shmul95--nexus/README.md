@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [shmul95/nexus](https://github.com/shmul95/nexus
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/shmul95](https://tomevault.io/claim/shmul95)
 
