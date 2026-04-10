@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [karis-ai/karis](https://github.com/karis-ai/kar
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/karis-ai](https://tomevault.io/claim/karis-ai)
 
