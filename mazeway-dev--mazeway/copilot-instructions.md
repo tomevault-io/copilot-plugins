@@ -1,100 +1,71 @@
 ## mazeway
 
-> - MUST: Implement user accounts with:
+> - MUST: Structure form components hierarchically with `AuthForm` as parent and specialized validation components as children
 
-# data-models
+# component-architecture
 
-### Core Data Models
+### Component Structure & Dependencies
+- MUST: Structure form components hierarchically with `AuthForm` as parent and specialized validation components as children
+- AVOID: Direct API calls in form components - use hooks for data fetching/mutations
+- WHY: Separates form UI from business logic, enables reuse of validation patterns
+- EXAMPLE: `src/components/auth-form.tsx` coordinates child components like `2fa-methods.tsx`
 
-#### User Account Model
-- MUST: Implement user accounts with:
-  - Unique identifier (UUID)
-  - Email address (verified status)
-  - Password hash (bcrypt)
-  - Account status (active/disabled)
-  - Creation timestamp
-  - Last login timestamp
-- AVOID: Storing sensitive data in plain text
-- WHY: Core identity model for authentication and access control
-- EXAMPLE: `src/types/auth.ts`
+### Authentication Flow Components 
+- MUST: Use hook-based state management for auth flows (login, signup, 2FA)
+- AVOID: Mixing auth state across components, keeping auth logic in UI components
+- WHY: Centralizes auth state management, simplifies testing
+- EXAMPLE: `src/components/user-provider.tsx` handles global auth state
 
-#### Device Sessions
-- MUST: Track device sessions with:
-  - Session ID
-  - User ID (foreign key)
-  - Device info (browser, OS, IP)
-  - Trust score (0-100)
-  - Last active timestamp
-  - Verification status
-- AVOID: Storing raw IP addresses without hashing
-- WHY: Required for security monitoring and session management
-- EXAMPLE: `src/utils/auth/device-sessions/server.ts`
+### Form Validation
+- MUST: Implement field-level validation using `useFormField` hook pattern
+- AVOID: Custom validation logic inside form components
+- WHY: Consistent validation behaviors across forms
+- EXAMPLE: `src/components/ui/form.tsx` FormFieldContext pattern
 
-#### Account Events
-- MUST: Log security events with:
-  - Event ID
-  - User ID
-  - Event type (enum)
-  - Metadata (JSON)
-  - Device session ID (foreign key)
-  - Timestamp
-- AVOID: Including PII in metadata
-- WHY: Audit trail for security and compliance
-- EXAMPLE: `src/utils/account-events/server.ts`
+### Toast Notifications
+- MUST: Use centralized toast system via `useToast` hook for all user feedback
+- AVOID: Multiple toast implementations or direct toast calls
+- WHY: Consistent notification styling and behavior
+- EXAMPLE: `src/components/ui/toast.tsx` provides toast primitives
 
-### Authentication Methods
+### Data Loading States
+- MUST: Implement skeleton loading components during data fetches
+- AVOID: Showing empty states or spinners
+- WHY: Provides visual continuity during loading
+- EXAMPLE: `src/components/ui/skeleton.tsx` skeleton components
 
-#### Two-Factor Authentication
-- MUST: Store 2FA configuration:
-  - Method type (authenticator/SMS)
-  - Backup codes (hashed)
-  - Phone number (E.164 format)
-  - Verification status
-  - Setup timestamp
-- AVOID: Storing TOTP secrets in plain text
-- WHY: Required for multi-factor security
-- EXAMPLE: `src/types/auth.ts`
+### Device Session Management
+- MUST: Use `DeviceSessionsList` component for managing active sessions
+- AVOID: Direct session manipulation outside session components
+- WHY: Centralizes session management UI/logic
+- EXAMPLE: `src/components/device-sessions-list.tsx`
 
-#### Social Providers
-- MUST: Track OAuth connections:
-  - Provider type (Google/GitHub)
-  - Provider user ID
-  - Access tokens (encrypted)
-  - Connection status
-  - Last sync timestamp
-- AVOID: Storing refresh tokens in database
-- WHY: Enables social login integration
-- EXAMPLE: `src/utils/auth/index.ts`
+### Two-Factor Authentication
+- MUST: Use `2FASetupDialog` for all 2FA enrollment flows
+- AVOID: Custom 2FA setup implementations
+- WHY: Consistent 2FA setup experience
+- EXAMPLE: `src/components/2fa-setup-dialog.tsx`
 
-### Data Export Models
+### Export Data Workflow
+- MUST: Use `DataExport` component for handling user data exports
+- AVOID: Custom export implementations
+- WHY: Standardizes export process and UI
+- EXAMPLE: `src/components/data-export.tsx`
 
-#### Export Requests
-- MUST: Track export jobs with:
-  - Request ID
-  - User ID
-  - Status (pending/processing/complete)
-  - File path
-  - Created timestamp
-  - Expiry timestamp
-- AVOID: Storing exported data in database
-- WHY: Manages user data export workflow
-- EXAMPLE: `src/utils/data-export/server.ts`
+### Account Management
+- MUST: Use `DeleteAccount` component for account deletion flows
+- AVOID: Custom deletion implementations
+- WHY: Ensures proper verification and cleanup
+- EXAMPLE: `src/components/delete-account.tsx`
 
-### Relationships and Constraints
-- MUST: Implement cascading deletes for:
-  - User → Device Sessions
-  - User → Account Events
-  - User → 2FA Methods
-  - User → Social Providers
-- MUST: Enforce unique constraints on:
-  - User email addresses
-  - Device session IDs
-  - Export request IDs
-- WHY: Maintains data integrity and prevents orphaned records
+### Social Provider Integration
+- MUST: Use `SocialProviders` component for OAuth integration
+- AVOID: Direct OAuth provider implementation
+- WHY: Centralizes social auth handling
+- EXAMPLE: `src/components/social-providers.tsx`
 
 $END$
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/mazeway-dev)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/mazeway-dev)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/mazeway-dev) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
