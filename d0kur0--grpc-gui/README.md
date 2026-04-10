@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [d0kur0/grpc-gui](https://github.com/d
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/d0kur0](https://tomevault.io/claim/d0kur0)
 
