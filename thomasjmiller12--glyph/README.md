@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [thomasjmiller12/glyph](https://github.com/thoma
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/thomasjmiller12](https://tomevault.io/claim/thomasjmiller12)
 
