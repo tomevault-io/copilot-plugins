@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Bikatr7/Kai](https://github.com/Bikatr7/Kai).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Bikatr7](https://tomevault.io/claim/Bikatr7)
 
