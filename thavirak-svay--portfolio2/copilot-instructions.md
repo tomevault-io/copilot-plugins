@@ -1,226 +1,200 @@
 ## portfolio2
 
-> description: This rule file provides comprehensive guidance on Docker best practices, covering Dockerfile construction, image optimization, and security considerations. It aims to improve the efficiency, maintainability, and security of Docker-based projects.
+> description: This rule provides comprehensive best practices for developing with Shadcn UI, covering code organization, performance, security, and testing.
 
 ---
-description: This rule file provides comprehensive guidance on Docker best practices, covering Dockerfile construction, image optimization, and security considerations. It aims to improve the efficiency, maintainability, and security of Docker-based projects.
-globs: Dockerfile,docker-compose.yml,*.dockerfile
+description: This rule provides comprehensive best practices for developing with Shadcn UI, covering code organization, performance, security, and testing.
+globs: *.js,*.jsx,*.ts,*.tsx
 ---
-# Docker Best Practices
+# Shadcn UI Best Practices
 
-This document provides comprehensive guidance on Docker best practices, covering Dockerfile construction, image optimization, security considerations, and more. It aims to improve the efficiency, maintainability, and security of Docker-based projects.
+This document outlines best practices for developing with Shadcn UI, covering code organization, common patterns, performance considerations, security, testing, common pitfalls, and tooling.
 
 ## 1. Code Organization and Structure
 
-- **Directory Structure Best Practices:**
-    - Organize your project with a clear separation of concerns.  For example:
-        
-        project-root/
-        ├── Dockerfile            # Dockerfile for building the image
-        ├── docker-compose.yml    # Docker Compose file for multi-container setup
-        ├── .dockerignore         # Specifies intentionally untracked files that Docker should ignore
-        ├── app/                  # Application source code
-        │   ├── ...
-        ├── config/               # Configuration files
-        │   ├── ...
-        ├── data/                 # Data files (if any, though consider volumes)
-        │   ├── ...
-        ├── scripts/              # Scripts for building, deploying, or managing the container
-        │   ├── ...
-        
-    - Keep the `Dockerfile` and `docker-compose.yml` at the root of your project for easy access.
+- **Directory Structure:**
+    - Organize components into logical directories based on functionality or domain. For example, place form-related components in a `components/forms` directory.
+    - Separate components into their own files.  Each component should have a dedicated file named after the component (e.g., `Button.tsx`).
+    - Consider using an `index.ts` file within each directory to export all components from that directory, simplifying imports.
+    - Structure directories to reflect the UI hierarchy.  For example, `/components/layout` for layout related components and `/components/ui` for reusable UI elements.
 
 - **File Naming Conventions:**
-    - Use descriptive names for your Dockerfiles (e.g., `Dockerfile.web`, `Dockerfile.api`).
-    - Follow a consistent naming convention for all files and directories.
+    - Use PascalCase for component file names (e.g., `MyComponent.tsx`).
+    - Use camelCase for variable and function names (e.g., `handleClick`).
+    - Use descriptive names that clearly indicate the purpose of the component or function.
 
 - **Module Organization:**
-    - Structure your application into modular components to improve reusability and maintainability. This directly affects what goes into a docker image.
-    - Use appropriate build tools (e.g., Maven, Gradle, npm) to manage dependencies and package your application.
+    - Break down complex components into smaller, reusable modules.
+    - Keep components focused on a single responsibility.
+    - Utilize shared utility functions and constants to avoid code duplication.  Create a `utils` directory for helper functions.
+    - Use `components` directory to store UI components.
 
 - **Component Architecture:**
-    - Design your application as a set of microservices or components, each running in its own container, when appropriate.
-    - Use Docker Compose to orchestrate multi-container applications.
+    - Favor composition over inheritance. Create flexible components that can be customized through props.
+    - Design components with clear separation of concerns: presentational components (UI) and container components (logic).
+    - Use functional components with hooks for managing state and side effects.
 
 - **Code Splitting Strategies:**
-    - Break down large applications into smaller, more manageable parts to reduce image size and improve build times.
-    - Consider multi-stage builds to include build-time dependencies in one stage and only the runtime dependencies in the final image.
+    - Implement lazy loading for non-critical components to improve initial load time.
+    - Utilize React.lazy and Suspense for code splitting at the component level.
+    - Configure your bundler (e.g., Webpack, Parcel) to automatically split code into smaller chunks.
+    - Consider route-based code splitting for larger applications.
 
 ## 2. Common Patterns and Anti-patterns
 
-- **Design Patterns Specific to Docker:**
-    - **Sidecar Pattern:** Run a utility container alongside your main application container (e.g., for logging, monitoring).
-    - **Ambassador Pattern:** Proxy requests to a service running outside the container.
-    - **Adapter Pattern:** Adapt the interface of a service to match the expected interface of a client.
-    - **Init Container Pattern:** Run initialization tasks before the main application container starts.  Often used to set up configuration, prepare databases, etc.
+- **Design Patterns Specific to Shadcn UI:**
+    - Leverage the existing components provided by Shadcn UI whenever possible.
+    - Customize components using styling solutions like Tailwind CSS's utility classes or CSS variables.
+    - Create compound components by combining existing Shadcn UI components to build more complex UI elements.
 
 - **Recommended Approaches for Common Tasks:**
-    - **Configuration Management:** Use environment variables to configure your application.
-    - **Logging:** Centralize logging using a logging driver or a dedicated logging container (e.g., Fluentd, Logstash).
-    - **Health Checks:** Implement health checks to ensure that your services are running correctly.
-    - **Process Management:** Use a process manager (e.g., `tini`, `dumb-init`) to handle signal forwarding and zombie process reaping.
+    - Use Shadcn UI's form components (e.g., `Input`, `Select`) for handling user input.
+    - Implement accessible components by following ARIA guidelines and using appropriate HTML semantics.
+    - Use the `cn` utility (classnames library) provided by Shadcn UI to manage CSS class names effectively.
 
 - **Anti-patterns and Code Smells to Avoid:**
-    - **Storing secrets in Dockerfile or images:** Never hardcode passwords or API keys in your Dockerfile.
-    - **Running services as root:** Avoid running your application as the root user.
-    - **Installing unnecessary packages:** Keep your images lean by only installing the required dependencies.
-    - **Ignoring `.dockerignore`:** Make sure to use `.dockerignore` to exclude unnecessary files from the build context, reducing image size and build time.
-    - **Using `ADD` instead of `COPY` unnecessarily:** `COPY` is usually more transparent and predictable.
+    - Directly modifying the Shadcn UI component code.
+    - Overusing custom CSS, as Shadcn UI is built with Tailwind CSS.
+    - Neglecting accessibility considerations.
+    - Creating overly complex components with too many responsibilities.
 
 - **State Management Best Practices:**
-    - **Stateless Applications:** Design your application to be stateless whenever possible.
-    - **Volumes:** Use volumes for persistent storage (e.g., databases, logs).
-    - **Bind Mounts:** Use bind mounts for development to allow code changes to be reflected immediately in the container.
+    - Use React's built-in `useState` hook for simple component-level state.
+    - Consider using a state management library like Zustand, Redux, or Recoil for more complex application state.
+    - Avoid mutating state directly; always use the setState function or a state management library's update methods.
 
 - **Error Handling Patterns:**
-    - Implement robust error handling in your application.
-    - Use appropriate logging levels to capture errors and warnings.
-    - Implement retry mechanisms for transient errors.
-    - Monitor your application for errors and take corrective actions.
+    - Implement error boundaries to catch errors in components and prevent the entire application from crashing.
+    - Use try-catch blocks to handle errors in asynchronous operations and API calls.
+    - Provide informative error messages to users.
+    - Log errors to a monitoring service for debugging and analysis.
 
 ## 3. Performance Considerations
 
 - **Optimization Techniques:**
-    - **Multi-stage builds:** Use multi-stage builds to create smaller, more efficient images.
-    - **Minimize layers:** Combine multiple commands into a single layer using `&&`.
-    - **Use a lightweight base image:** Choose a minimal base image like Alpine Linux.
-    - **Optimize caching:** Order your Dockerfile commands to maximize cache reuse.
+    - Minimize re-renders by using `React.memo` for functional components and `shouldComponentUpdate` for class components.
+    - Optimize event handlers by using useCallback to prevent unnecessary re-creation of functions.
+    - Debounce or throttle expensive operations to reduce the frequency of execution.
 
 - **Memory Management:**
-    - Set memory limits for your containers to prevent them from consuming excessive resources.
-    - Monitor memory usage and optimize your application accordingly.
+    - Avoid memory leaks by properly cleaning up event listeners and timers in the `useEffect` hook.
+    - Release unused resources, such as large data structures, when they are no longer needed.
 
-- **Rendering Optimization (if applicable):**
-    - If your application involves rendering, optimize the rendering process (e.g., using caching, lazy loading).
+- **Rendering Optimization:**
+    - Use virtualized lists or grids for rendering large datasets.
+    - Batch DOM updates to minimize reflows and repaints.
+    - Use CSS containment to isolate rendering changes to specific parts of the DOM.
 
 - **Bundle Size Optimization:**
-    - Minimize the size of your application bundle by removing unnecessary dependencies and assets.
-    - Use tools like webpack or Parcel to optimize your bundle.
+    - Remove unused code and dependencies using tree shaking.
+    - Minify JavaScript and CSS files to reduce their size.
+    - Compress images using tools like ImageOptim or TinyPNG.
 
 - **Lazy Loading Strategies:**
-    - Implement lazy loading for resources that are not immediately needed.
+    - Implement lazy loading for images and other media assets.
+    - Use the Intersection Observer API to detect when elements are visible in the viewport and load them on demand.
 
 ## 4. Security Best Practices
 
 - **Common Vulnerabilities and How to Prevent Them:**
-    - **Image vulnerabilities:** Regularly scan your images for vulnerabilities using tools like Clair or Trivy.
-    - **Configuration vulnerabilities:** Secure your container configurations to prevent unauthorized access.
-    - **Network vulnerabilities:** Limit network exposure and use network policies to isolate containers.
-    - **Privilege escalation:** Avoid running containers with unnecessary privileges.
+    - Prevent cross-site scripting (XSS) attacks by sanitizing user input and escaping HTML entities.
+    - Protect against cross-site request forgery (CSRF) attacks by using anti-CSRF tokens.
+    - Avoid storing sensitive information, such as API keys or passwords, in client-side code.
 
 - **Input Validation:**
-    - Validate all input data to prevent injection attacks.
+    - Validate user input on both the client-side and server-side.
+    - Use a validation library like Zod or Yup to define data schemas and enforce validation rules.
+    - Sanitize user input to remove potentially harmful characters or code.
 
 - **Authentication and Authorization Patterns:**
-    - Implement robust authentication and authorization mechanisms.
-    - Use secure protocols like HTTPS.
-    - Store secrets securely using tools like HashiCorp Vault or Kubernetes Secrets.
+    - Use a secure authentication protocol, such as OAuth 2.0 or OpenID Connect.
+    - Implement role-based access control (RBAC) to restrict access to sensitive resources.
+    - Store user credentials securely using hashing and salting.
 
 - **Data Protection Strategies:**
     - Encrypt sensitive data at rest and in transit.
-    - Use appropriate access control mechanisms to protect data.
+    - Use HTTPS to protect data transmitted between the client and server.
+    - Implement data masking to hide sensitive information from unauthorized users.
 
 - **Secure API Communication:**
-    - Use secure protocols like HTTPS for API communication.
-    - Implement authentication and authorization for API endpoints.
-    - Rate limit API requests to prevent abuse.
+    - Use HTTPS for all API requests.
+    - Implement rate limiting to prevent abuse and denial-of-service attacks.
+    - Validate API responses to ensure data integrity.
 
 ## 5. Testing Approaches
 
 - **Unit Testing Strategies:**
-    - Write unit tests to verify the functionality of individual components.
-    - Use mocking and stubbing to isolate components during testing.
+    - Write unit tests for individual components and functions.
+    - Use a testing framework like Jest or Mocha.
+    - Test component behavior with different props and inputs.
 
 - **Integration Testing:**
-    - Write integration tests to verify the interaction between different components.
-    - Test the integration with external services and databases.
+    - Write integration tests to verify that components work together correctly.
+    - Test the interaction between components and APIs.
 
-- **End-to-end Testing:**
-    - Write end-to-end tests to verify the entire application flow.
-    - Use tools like Selenium or Cypress to automate end-to-end tests.
+- **End-to-End Testing:**
+    - Write end-to-end tests to simulate user interactions and verify that the application functions as expected.
+    - Use a testing framework like Cypress or Playwright.
 
 - **Test Organization:**
-    - Organize your tests into a clear and maintainable structure.
-    - Use descriptive names for your test cases.
+    - Organize tests into separate files based on the component or feature being tested.
+    - Use descriptive test names that clearly indicate the purpose of the test.
 
 - **Mocking and Stubbing:**
-    - Use mocking and stubbing to isolate components during testing.
-    - Mock external services and databases to simulate different scenarios.
+    - Use mocking and stubbing to isolate components and functions during testing.
+    - Mock external dependencies, such as APIs or third-party libraries.
 
 ## 6. Common Pitfalls and Gotchas
 
 - **Frequent Mistakes Developers Make:**
-    - **Not using `.dockerignore`:** This can lead to large image sizes and slow build times.
-    - **Not pinning package versions:** This can lead to unexpected build failures due to dependency updates.
-    - **Exposing unnecessary ports:** This can increase the attack surface of your application.
-    - **Not cleaning up after installing packages:** This can lead to larger image sizes.
-    - **Using the shell form of `CMD` or `ENTRYPOINT`:** Use the exec form (`["executable", "param1", "param2"]`) to avoid shell injection vulnerabilities and signal handling issues.
+    - Forgetting to handle edge cases.
+    - Overcomplicating components.
+    - Neglecting accessibility.
+    - Ignoring performance considerations.
 
 - **Edge Cases to Be Aware Of:**
-    - **File permissions:** Ensure that your application has the correct file permissions.
-    - **Timezone configuration:** Configure the correct timezone for your container.
-    - **Resource limits:** Set appropriate resource limits for your containers.
+    - Handling different screen sizes and devices.
+    - Dealing with slow network connections.
+    - Handling invalid or unexpected user input.
 
 - **Version-Specific Issues:**
-    - Be aware of version-specific issues and compatibility concerns.
-    - Test your application with different Docker versions to ensure compatibility.
+    - Be aware of breaking changes between Shadcn UI versions.
+    - Consult the Shadcn UI changelog for migration instructions.
 
 - **Compatibility Concerns:**
-    - Ensure that your application is compatible with the base image you are using.
-    - Test your application on different platforms to ensure cross-platform compatibility.
+    - Ensure that your application is compatible with the target browsers and devices.
+    - Test your application on different browsers and devices.
 
 - **Debugging Strategies:**
-    - Use `docker logs` to view container logs.
-    - Use `docker exec` to execute commands inside a running container.
-    - Use `docker inspect` to inspect container metadata.
-    - Use a debugger to debug your application code.
+    - Use browser developer tools to inspect the DOM and debug JavaScript code.
+    - Use console logging to track the flow of execution and identify errors.
+    - Use a debugger to step through code and inspect variables.
 
 ## 7. Tooling and Environment
 
 - **Recommended Development Tools:**
-    - **Docker Desktop:** For local development and testing.
-    - **Docker Compose:** For orchestrating multi-container applications.
-    - **Visual Studio Code with Docker extension:** For enhanced Docker development experience.
-    - **Container image scanners (e.g., Trivy, Clair):** For identifying vulnerabilities in container images.
+    - Visual Studio Code (VS Code) with extensions for React, TypeScript, and Tailwind CSS.
+    - A browser with developer tools (e.g., Chrome DevTools, Firefox Developer Tools).
+    - A terminal for running commands and scripts.
 
 - **Build Configuration:**
-    - Use a consistent build configuration for all your images.
-    - Automate the build process using a build tool (e.g., Make, Gradle).
+    - Use a build tool like Webpack, Parcel, or Rollup to bundle your application.
+    - Configure your build tool to optimize code for production.
 
 - **Linting and Formatting:**
-    - Use a linter to enforce code style and best practices.
-    - Use a formatter to automatically format your code.
+    - Use ESLint to enforce code style and identify potential errors.
+    - Use Prettier to automatically format code.
+    - Configure your editor to automatically lint and format code on save.
 
 - **Deployment Best Practices:**
-    - Use a container orchestration platform like Kubernetes or Docker Swarm.
-    - Implement rolling updates and rollbacks.
-    - Monitor your application for performance and availability.
+    - Deploy your application to a reliable hosting provider.
+    - Use a content delivery network (CDN) to serve static assets.
+    - Configure your server to serve compressed files.
 
 - **CI/CD Integration:**
-    - Integrate Docker into your CI/CD pipeline.
-    - Automate the build, test, and deployment process.
-    - Use tools like Jenkins, GitLab CI, or CircleCI.
+    - Use a continuous integration and continuous deployment (CI/CD) pipeline to automate the build, test, and deployment process.
+    - Integrate your CI/CD pipeline with your version control system.
 
 ---
-
-## Additional Notes:
-
--  Always use a specific tag for the base image (e.g., `ubuntu:20.04`) instead of `latest` to ensure reproducibility.
-- Use `.dockerignore` to exclude files and directories that are not needed in the image. This reduces the image size and improves build performance.
-- When possible, use the official Docker images from Docker Hub. They are usually well-maintained and optimized.
-- Consider using a tool like `docker-slim` to further reduce the size of your Docker images by removing unnecessary files and dependencies after the build process.
-- Understand the Docker build context and ensure you're only including necessary files and directories. A large build context slows down builds and increases image sizes.
-- Regularly update your base images to patch security vulnerabilities.
-- Use environment variables to configure your application, making it more flexible and portable.
-- Implement health checks in your Dockerfiles to ensure that your containers are running correctly. This can be done using the `HEALTHCHECK` instruction.
-- Consider using a private Docker registry to store your images securely.
-- Document your Dockerfiles and images to make them easier to understand and maintain.
-- Review your Dockerfiles regularly to ensure they are up-to-date and following best practices.
-- Consider using a Dockerfile linter like `hadolint` to identify potential issues and enforce best practices.
-
-By following these guidelines, you can create efficient, maintainable, and secure Docker-based applications.
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/thavirak-svay)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/thavirak-svay)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/thavirak-svay) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
