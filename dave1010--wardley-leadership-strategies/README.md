@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [dave1010/wardley-leadership-strategies](https:/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dave1010](https://tomevault.io/claim/dave1010)
 
