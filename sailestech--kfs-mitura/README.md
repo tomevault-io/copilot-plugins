@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [SailesTech/KFS-Mitura](https://github.com/Saile
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/SailesTech](https://tomevault.io/claim/SailesTech)
 
