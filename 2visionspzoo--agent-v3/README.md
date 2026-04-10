@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [2visionspzoo/agent.v3](https://github.com/2visi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/2visionspzoo](https://tomevault.io/claim/2visionspzoo)
 
