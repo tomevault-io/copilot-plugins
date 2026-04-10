@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [noshiro-pf/ts-type-forge](https://github.com/no
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/noshiro-pf](https://tomevault.io/claim/noshiro-pf)
 
