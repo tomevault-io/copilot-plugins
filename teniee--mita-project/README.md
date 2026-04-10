@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [teniee/mita_project](https://github.com/teniee/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/teniee](https://tomevault.io/claim/teniee)
 
