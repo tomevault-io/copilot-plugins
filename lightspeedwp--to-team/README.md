@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [lightspeedwp/to-team](https://github.com/lights
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lightspeedwp](https://tomevault.io/claim/lightspeedwp)
 
