@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [stefvw93/std-nodejs-ts](https://github.com/stef
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/stefvw93](https://tomevault.io/claim/stefvw93)
 
