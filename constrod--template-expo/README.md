@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [constROD/template-expo](https://github.com/cons
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/constROD](https://tomevault.io/claim/constROD)
 
