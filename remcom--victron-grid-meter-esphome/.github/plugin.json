@@ -1,0 +1,9 @@
+{
+  "name": "remcom--victron-grid-meter-esphome",
+  "displayName": "victron-grid-meter-esphome",
+  "description": "victron-grid-meter-esphome",
+  "version": "1.0.0",
+  "author": "remcom",
+  "homepage": "https://tomevault.io/claim/remcom",
+  "skills": []
+}
