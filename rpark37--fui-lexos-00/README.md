@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rpark37/fui-lexos-00](https://github.com/rpark3
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rpark37](https://tomevault.io/claim/rpark37)
 
