@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [swapnil233/ai-with-ai](https://github.com/swapn
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/swapnil233](https://tomevault.io/claim/swapnil233)
 
