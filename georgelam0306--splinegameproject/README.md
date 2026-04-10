@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [georgelam0306/SplineGameProject](https://github
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/georgelam0306](https://tomevault.io/claim/georgelam0306)
 
