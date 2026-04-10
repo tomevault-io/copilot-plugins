@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [neurodesk/neurodesktop](https://github.com/neur
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/neurodesk](https://tomevault.io/claim/neurodesk)
 
