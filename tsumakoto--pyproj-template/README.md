@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [TsuMakoto/pyproj-template](https://github.com/T
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/TsuMakoto](https://tomevault.io/claim/TsuMakoto)
 
