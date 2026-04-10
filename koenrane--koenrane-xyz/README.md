@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [koenrane/koenrane.xyz](https://github.com/koenr
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/koenrane](https://tomevault.io/claim/koenrane)
 
