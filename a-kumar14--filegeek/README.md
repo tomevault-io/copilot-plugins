@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [A-Kumar14/FileGeek](https://github.com/A-Kumar1
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/A-Kumar14](https://tomevault.io/claim/A-Kumar14)
 
