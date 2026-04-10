@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [qqharry21/project-management-informat
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/qqharry21](https://tomevault.io/claim/qqharry21)
 
