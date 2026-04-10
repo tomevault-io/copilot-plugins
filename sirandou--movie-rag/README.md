@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sirandou/movie-rag](https://github.com/sirandou
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sirandou](https://tomevault.io/claim/sirandou)
 
