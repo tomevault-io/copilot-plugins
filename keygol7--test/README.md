@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [keygol7/test](https://github.com/keygol7/test).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/keygol7](https://tomevault.io/claim/keygol7)
 
