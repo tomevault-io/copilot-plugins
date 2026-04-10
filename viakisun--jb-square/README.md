@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [viakisun/jb_square](https://github.com/viakisun
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/viakisun](https://tomevault.io/claim/viakisun)
 
