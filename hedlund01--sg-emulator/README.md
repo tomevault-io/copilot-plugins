@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Hedlund01/sg-emulator](https://github.com/Hedlu
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Hedlund01](https://tomevault.io/claim/Hedlund01)
 
