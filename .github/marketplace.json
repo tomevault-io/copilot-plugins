@@ -11317,6 +11317,506 @@
       "name": "straordinaryas--preventivatore-ristrutturazioni",
       "source": "./straordinaryas--preventivatore-ristrutturazioni",
       "description": "Preventivatore_Ristrutturazioni"
+    },
+    {
+      "name": "adairrr--lingq-mcp",
+      "source": "./adairrr--lingq-mcp",
+      "description": "lingq-mcp"
+    },
+    {
+      "name": "ephes--podcast-pipeline",
+      "source": "./ephes--podcast-pipeline",
+      "description": "podcast-pipeline"
+    },
+    {
+      "name": "andreinakagawa--agentic-ai-basic-cli",
+      "source": "./andreinakagawa--agentic-ai-basic-cli",
+      "description": "agentic-ai-basic-cli"
+    },
+    {
+      "name": "mdubourg001--fast-check-frontend",
+      "source": "./mdubourg001--fast-check-frontend",
+      "description": "fast-check-frontend"
+    },
+    {
+      "name": "caryden--ncssm-hu4010",
+      "source": "./caryden--ncssm-hu4010",
+      "description": "ncssm-hu4010"
+    },
+    {
+      "name": "seanchenr--sdd-login-page",
+      "source": "./seanchenr--sdd-login-page",
+      "description": "sdd-login-page"
+    },
+    {
+      "name": "slavakharchenko--e2e-cypress",
+      "source": "./slavakharchenko--e2e-cypress",
+      "description": "e2e-cypress"
+    },
+    {
+      "name": "bsvibe--bsgateway",
+      "source": "./bsvibe--bsgateway",
+      "description": "BSGateway"
+    },
+    {
+      "name": "rbancroft--artharvest",
+      "source": "./rbancroft--artharvest",
+      "description": "artharvest"
+    },
+    {
+      "name": "web2integrators--react-partytown-app",
+      "source": "./web2integrators--react-partytown-app",
+      "description": "react-partytown-app"
+    },
+    {
+      "name": "epieczko--claude-code-riskexec",
+      "source": "./epieczko--claude-code-riskexec",
+      "description": "claude-code-riskexec"
+    },
+    {
+      "name": "hugodelhaye--select-scene",
+      "source": "./hugodelhaye--select-scene",
+      "description": "select_scene"
+    },
+    {
+      "name": "twmahjong147--test-dfine-count",
+      "source": "./twmahjong147--test-dfine-count",
+      "description": "TEST_DFINE_COUNT"
+    },
+    {
+      "name": "aarshrpatel--reachify",
+      "source": "./aarshrpatel--reachify",
+      "description": "reachify"
+    },
+    {
+      "name": "avillegasa--tics-web",
+      "source": "./avillegasa--tics-web",
+      "description": "tics_web"
+    },
+    {
+      "name": "actonbp--deep",
+      "source": "./actonbp--deep",
+      "description": "deep"
+    },
+    {
+      "name": "tagarner25--claudesetup",
+      "source": "./tagarner25--claudesetup",
+      "description": "ClaudeSetup"
+    },
+    {
+      "name": "adamtc007--data-designer",
+      "source": "./adamtc007--data-designer",
+      "description": "data-designer"
+    },
+    {
+      "name": "ferreiraluc--erp-eleven",
+      "source": "./ferreiraluc--erp-eleven",
+      "description": "erp-eleven"
+    },
+    {
+      "name": "hiro8ma--ft",
+      "source": "./hiro8ma--ft",
+      "description": "ft"
+    },
+    {
+      "name": "luanbatistadev--rb-site",
+      "source": "./luanbatistadev--rb-site",
+      "description": "rb-site"
+    },
+    {
+      "name": "swyp-web-11-team-4--airoad-frontend",
+      "source": "./swyp-web-11-team-4--airoad-frontend",
+      "description": "airoad-frontend"
+    },
+    {
+      "name": "lawrns--community-platform",
+      "source": "./lawrns--community-platform",
+      "description": "community-platform"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "hasansezertasan--awesome-python-html",
+      "source": "./hasansezertasan--awesome-python-html",
+      "description": "awesome-python-html"
+    },
+    {
+      "name": "fluidgroup--fluidinterfacekit",
+      "source": "./fluidgroup--fluidinterfacekit",
+      "description": "FluidInterfaceKit"
+    },
+    {
+      "name": "yosshi4486--emojipickerviewcontroller",
+      "source": "./yosshi4486--emojipickerviewcontroller",
+      "description": "EmojiPickerViewController"
+    },
+    {
+      "name": "icpcsec--livesite",
+      "source": "./icpcsec--livesite",
+      "description": "livesite"
+    },
+    {
+      "name": "soar-robotics-lab--openprism",
+      "source": "./soar-robotics-lab--openprism",
+      "description": "OpenPrism"
+    },
+    {
+      "name": "shuymn--brewdock",
+      "source": "./shuymn--brewdock",
+      "description": "brewdock"
+    },
+    {
+      "name": "nodetool-ai--nodetool-lib-image",
+      "source": "./nodetool-ai--nodetool-lib-image",
+      "description": "nodetool-lib-image"
+    },
+    {
+      "name": "project-serve--ricl-openpi-libero",
+      "source": "./project-serve--ricl-openpi-libero",
+      "description": "ricl_openpi_libero"
+    },
+    {
+      "name": "matheme-justyn--my-vibe-scaffolding",
+      "source": "./matheme-justyn--my-vibe-scaffolding",
+      "description": "my-vibe-scaffolding"
+    },
+    {
+      "name": "dimasmufid--astro-paper",
+      "source": "./dimasmufid--astro-paper",
+      "description": "astro-paper"
+    },
+    {
+      "name": "klab365--klabdotnettoolkit",
+      "source": "./klab365--klabdotnettoolkit",
+      "description": "KlabDotnetToolkit"
+    },
+    {
+      "name": "mirage335-colossus--llama-3-virtuoso",
+      "source": "./mirage335-colossus--llama-3-virtuoso",
+      "description": "Llama-3-virtuoso"
+    },
+    {
+      "name": "qqzhangyanhua--chat-prd2",
+      "source": "./qqzhangyanhua--chat-prd2",
+      "description": "chat-prd2"
+    },
+    {
+      "name": "milton761--openshelf",
+      "source": "./milton761--openshelf",
+      "description": "openshelf"
+    },
+    {
+      "name": "javascripto--ai-skills",
+      "source": "./javascripto--ai-skills",
+      "description": "ai-skills"
+    },
+    {
+      "name": "zer0x25--mini-crm-tickets",
+      "source": "./zer0x25--mini-crm-tickets",
+      "description": "mini-crm-tickets"
+    },
+    {
+      "name": "dtun--cafe-listo",
+      "source": "./dtun--cafe-listo",
+      "description": "cafe-listo"
+    },
+    {
+      "name": "fujikotide--parking-space-simulator",
+      "source": "./fujikotide--parking-space-simulator",
+      "description": "parking-space-simulator"
+    },
+    {
+      "name": "magnarem--metsis-drupal",
+      "source": "./magnarem--metsis-drupal",
+      "description": "metsis_drupal"
+    },
+    {
+      "name": "joshrotenberg--agent-workshop",
+      "source": "./joshrotenberg--agent-workshop",
+      "description": "agent_workshop"
+    },
+    {
+      "name": "elementastro--cobalt-skymap",
+      "source": "./elementastro--cobalt-skymap",
+      "description": "cobalt-skymap"
+    },
+    {
+      "name": "rmuraix--template-latex",
+      "source": "./rmuraix--template-latex",
+      "description": "template-latex"
+    },
+    {
+      "name": "sah-nikhil--namakh-in",
+      "source": "./sah-nikhil--namakh-in",
+      "description": "namakh.in"
+    },
+    {
+      "name": "jhonyalex--compusum",
+      "source": "./jhonyalex--compusum",
+      "description": "compusum"
+    },
+    {
+      "name": "hannanmiah--product-management-api-task",
+      "source": "./hannanmiah--product-management-api-task",
+      "description": "product-management-api-task"
+    },
+    {
+      "name": "leslieo2--agent-atlas",
+      "source": "./leslieo2--agent-atlas",
+      "description": "agent-atlas"
+    },
+    {
+      "name": "cannalyze--cannalyze",
+      "source": "./cannalyze--cannalyze",
+      "description": "Cannalyze"
+    },
+    {
+      "name": "jfreedman0212--wook-status-article-data",
+      "source": "./jfreedman0212--wook-status-article-data",
+      "description": "wook-status-article-data"
+    },
+    {
+      "name": "8dionysus--aoa-sdk",
+      "source": "./8dionysus--aoa-sdk",
+      "description": "aoa-sdk"
+    },
+    {
+      "name": "takashisasaki--purl-moukaeritai-work",
+      "source": "./takashisasaki--purl-moukaeritai-work",
+      "description": "purl.moukaeritai.work"
+    },
+    {
+      "name": "donj63000--demo2-0",
+      "source": "./donj63000--demo2-0",
+      "description": "Demo2.0"
+    },
+    {
+      "name": "hoanngocle--nova",
+      "source": "./hoanngocle--nova",
+      "description": "nova"
+    },
+    {
+      "name": "do-ops885--dermatology-goap-orchestrator",
+      "source": "./do-ops885--dermatology-goap-orchestrator",
+      "description": "dermatology-goap-orchestrator"
+    },
+    {
+      "name": "nevolemarek--mareknevole-bloodwork",
+      "source": "./nevolemarek--mareknevole-bloodwork",
+      "description": "mareknevole-bloodwork"
+    },
+    {
+      "name": "intrusive-memory--swiftverificar-validation",
+      "source": "./intrusive-memory--swiftverificar-validation",
+      "description": "SwiftVerificar-validation"
+    },
+    {
+      "name": "rainbowkillah--cloudflare-mono-repo",
+      "source": "./rainbowkillah--cloudflare-mono-repo",
+      "description": "cloudflare-mono-repo"
+    },
+    {
+      "name": "eph--path-perturb-pf-2",
+      "source": "./eph--path-perturb-pf-2",
+      "description": "path-perturb-pf-2"
+    },
+    {
+      "name": "generalpiston--qimg",
+      "source": "./generalpiston--qimg",
+      "description": "qimg"
+    },
+    {
+      "name": "dornad--kiteboardingkit",
+      "source": "./dornad--kiteboardingkit",
+      "description": "KiteboardingKit"
+    },
+    {
+      "name": "howmanysmall--pullhook",
+      "source": "./howmanysmall--pullhook",
+      "description": "pullhook"
+    },
+    {
+      "name": "chichha--auto-dev-agent-template",
+      "source": "./chichha--auto-dev-agent-template",
+      "description": "auto-dev-agent-template"
+    },
+    {
+      "name": "minocys--ralph",
+      "source": "./minocys--ralph",
+      "description": "ralph"
+    },
+    {
+      "name": "bbuchsbaum--fmrismooth",
+      "source": "./bbuchsbaum--fmrismooth",
+      "description": "fmrismooth"
+    },
+    {
+      "name": "jparrott-sts--bejeweled-solver",
+      "source": "./jparrott-sts--bejeweled-solver",
+      "description": "Bejeweled-Solver"
+    },
+    {
+      "name": "nosmoht--talos-mcp-server",
+      "source": "./nosmoht--talos-mcp-server",
+      "description": "talos-mcp-server"
+    },
+    {
+      "name": "zwldarren--codesnap",
+      "source": "./zwldarren--codesnap",
+      "description": "CodeSnap"
+    },
+    {
+      "name": "homeputers--opentab",
+      "source": "./homeputers--opentab",
+      "description": "opentab"
+    },
+    {
+      "name": "alexvansteenhoven--tenancy-starter",
+      "source": "./alexvansteenhoven--tenancy-starter",
+      "description": "tenancy-starter"
+    },
+    {
+      "name": "ahmadfarhan1981--you-have-to-deliver",
+      "source": "./ahmadfarhan1981--you-have-to-deliver",
+      "description": "you-have-to-deliver"
+    },
+    {
+      "name": "maltide--practice-tasks",
+      "source": "./maltide--practice-tasks",
+      "description": "Practice-Tasks"
+    },
+    {
+      "name": "lepao1--yt-download-demo",
+      "source": "./lepao1--yt-download-demo",
+      "description": "yt-download-demo"
+    },
+    {
+      "name": "mkkp--oevk-data",
+      "source": "./mkkp--oevk-data",
+      "description": "oevk-data"
+    },
+    {
+      "name": "liida--agents-rule",
+      "source": "./liida--agents-rule",
+      "description": "agents-rule"
+    },
+    {
+      "name": "narumiruna--listenr",
+      "source": "./narumiruna--listenr",
+      "description": "listenr"
+    },
+    {
+      "name": "rishabhcli--qagent",
+      "source": "./rishabhcli--qagent",
+      "description": "QAgent"
+    },
+    {
+      "name": "nrmshaw100--mur-system-controller",
+      "source": "./nrmshaw100--mur-system-controller",
+      "description": "MUR-system-controller"
+    },
+    {
+      "name": "jasonmustafa--dotfiles",
+      "source": "./jasonmustafa--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "baguspanji--jimpitan-app",
+      "source": "./baguspanji--jimpitan-app",
+      "description": "jimpitan-app"
+    },
+    {
+      "name": "abelini--spcradiouas",
+      "source": "./abelini--spcradiouas",
+      "description": "SPCRadioUAS"
+    },
+    {
+      "name": "diablowu--clawface",
+      "source": "./diablowu--clawface",
+      "description": "clawface"
+    },
+    {
+      "name": "cr330326--opencodeagent",
+      "source": "./cr330326--opencodeagent",
+      "description": "OpenCodeAgent"
+    },
+    {
+      "name": "filipelagrenade--trainingapp",
+      "source": "./filipelagrenade--trainingapp",
+      "description": "TrainingApp"
+    },
+    {
+      "name": "jujinkim--jujin-kim-web",
+      "source": "./jujinkim--jujin-kim-web",
+      "description": "jujin-kim-web"
+    },
+    {
+      "name": "blackroad-archive--roaddocs",
+      "source": "./blackroad-archive--roaddocs",
+      "description": "roaddocs"
+    },
+    {
+      "name": "jonathanconway--conwy",
+      "source": "./jonathanconway--conwy",
+      "description": "conwy"
+    },
+    {
+      "name": "cortexa-llc--sourcerer",
+      "source": "./cortexa-llc--sourcerer",
+      "description": "sourcerer"
+    },
+    {
+      "name": "alexsilgidzhiyan--agent-commerce",
+      "source": "./alexsilgidzhiyan--agent-commerce",
+      "description": "agent-commerce"
+    },
+    {
+      "name": "maphew--kautil",
+      "source": "./maphew--kautil",
+      "description": "kautil"
+    },
+    {
+      "name": "mochadwi--gummy-apps",
+      "source": "./mochadwi--gummy-apps",
+      "description": "gummy-apps"
+    },
+    {
+      "name": "nodetool-ai--nodetool-lib-file",
+      "source": "./nodetool-ai--nodetool-lib-file",
+      "description": "nodetool-lib-file"
+    },
+    {
+      "name": "af-researchanddevelopment--azure-search-openai-demo",
+      "source": "./af-researchanddevelopment--azure-search-openai-demo",
+      "description": "azure-search-openai-demo"
+    },
+    {
+      "name": "lopeviakochis--azure-search-openai-demo",
+      "source": "./lopeviakochis--azure-search-openai-demo",
+      "description": "azure-search-openai-demo"
+    },
+    {
+      "name": "hieu-ntp--ai-research",
+      "source": "./hieu-ntp--ai-research",
+      "description": "AI-research-"
+    },
+    {
+      "name": "keenmate--pure-admin-icons",
+      "source": "./keenmate--pure-admin-icons",
+      "description": "pure-admin-icons"
+    },
+    {
+      "name": "rabbitmq--rabbitmq-server",
+      "source": "./rabbitmq--rabbitmq-server",
+      "description": "rabbitmq-server"
+    },
+    {
+      "name": "itwanger--tobebetterjavaer",
+      "source": "./itwanger--tobebetterjavaer",
+      "description": "toBeBetterJavaer"
     }
   ]
 }
