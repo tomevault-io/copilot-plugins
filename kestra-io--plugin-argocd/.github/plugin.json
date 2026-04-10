@@ -1,0 +1,9 @@
+{
+  "name": "kestra-io--plugin-argocd",
+  "displayName": "plugin-argocd",
+  "description": "plugin-argocd",
+  "version": "1.0.0",
+  "author": "kestra-io",
+  "homepage": "https://tomevault.io/claim/kestra-io",
+  "skills": []
+}
