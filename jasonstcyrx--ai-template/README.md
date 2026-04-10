@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [jasonstcyrx/ai-template](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jasonstcyrx](https://tomevault.io/claim/jasonstcyrx)
 
