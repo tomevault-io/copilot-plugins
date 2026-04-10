@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [ezmiller/humanscodes](https://github.com/ezmill
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ezmiller](https://tomevault.io/claim/ezmiller)
 
