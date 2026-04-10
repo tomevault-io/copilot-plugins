@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [feliperazeek/mypine](https://github.com/feliper
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/feliperazeek](https://tomevault.io/claim/feliperazeek)
 
