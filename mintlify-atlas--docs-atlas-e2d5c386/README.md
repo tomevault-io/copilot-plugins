@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mintlify-atlas/docs-atlas-e2d5c386](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mintlify-atlas](https://tomevault.io/claim/mintlify-atlas)
 
