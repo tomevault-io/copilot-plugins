@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Kaptensanders/skolmat](https://github.com/Kapte
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Kaptensanders](https://tomevault.io/claim/Kaptensanders)
 
