@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rstover-fo/cfb-database](https://github.com/rst
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rstover-fo](https://tomevault.io/claim/rstover-fo)
 
