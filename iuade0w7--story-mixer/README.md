@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [IUADE0W7/story-mixer](https://github.com/IUADE0
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/IUADE0W7](https://tomevault.io/claim/IUADE0W7)
 
