@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bytebase/gomongo](https://github.com/bytebase/g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bytebase](https://tomevault.io/claim/bytebase)
 
