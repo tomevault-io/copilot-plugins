@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Inkedup1114/POLYMARKET-INKEDUP](https://github.
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Inkedup1114](https://tomevault.io/claim/Inkedup1114)
 
