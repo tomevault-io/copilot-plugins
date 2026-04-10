@@ -1,0 +1,9 @@
+{
+  "name": "agent-blueprint--agent-blueprint-website",
+  "displayName": "agent-blueprint-website",
+  "description": "agent-blueprint-website",
+  "version": "1.0.0",
+  "author": "agent-blueprint",
+  "homepage": "https://tomevault.io/claim/agent-blueprint",
+  "skills": []
+}
