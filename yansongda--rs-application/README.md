@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [yansongda/rs-application](https://github.com/ya
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/yansongda](https://tomevault.io/claim/yansongda)
 
