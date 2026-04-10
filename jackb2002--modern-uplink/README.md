@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Jackb2002/modern-uplink](https://github.com/Jac
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Jackb2002](https://tomevault.io/claim/Jackb2002)
 
