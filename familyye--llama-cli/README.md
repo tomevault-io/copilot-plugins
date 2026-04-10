@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Familyye/Llama-CLI](https://github.com/Familyye
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Familyye](https://tomevault.io/claim/Familyye)
 
