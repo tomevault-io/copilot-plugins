@@ -4,7 +4,7 @@
   "repo": "rice",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/RICE-Rob-Inn-Com-Ent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T07:39:00Z"
+  "distributed_at": "2026-04-10T10:48:30Z"
 }
