@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [0xNebulaLumina/tron-foundry-proxy](ht
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/0xNebulaLumina](https://tomevault.io/claim/0xNebulaLumina)
 
