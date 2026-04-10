@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [lsj5031/Vesper](https://github.com/lsj5031/Vesp
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lsj5031](https://tomevault.io/claim/lsj5031)
 
