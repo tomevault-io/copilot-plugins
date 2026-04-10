@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sjalloq/pytest-cocotb](https://github.com/sjall
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sjalloq](https://tomevault.io/claim/sjalloq)
 
