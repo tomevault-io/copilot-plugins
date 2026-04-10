@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kristofer/ZipCodeReader](https://github.com/kri
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kristofer](https://tomevault.io/claim/kristofer)
 
