@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [blackpiratelive/blackpiratelive.github.io](http
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/blackpiratelive](https://tomevault.io/claim/blackpiratelive)
 
