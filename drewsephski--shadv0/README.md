@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [drewsephski/shadv0](https://github.com/drewseph
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/drewsephski](https://tomevault.io/claim/drewsephski)
 
