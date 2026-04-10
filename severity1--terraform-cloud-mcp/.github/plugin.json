@@ -1,0 +1,9 @@
+{
+  "name": "severity1--terraform-cloud-mcp",
+  "displayName": "terraform-cloud-mcp",
+  "description": "terraform-cloud-mcp",
+  "version": "1.0.0",
+  "author": "severity1",
+  "homepage": "https://tomevault.io/claim/severity1",
+  "skills": []
+}
