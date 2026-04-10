@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sezaiarda/Matrix](https://github.com/sezaiarda/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sezaiarda](https://tomevault.io/claim/sezaiarda)
 
