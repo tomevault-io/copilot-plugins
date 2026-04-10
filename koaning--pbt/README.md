@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [koaning/pbt](https://github.com/koaning/pbt).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/koaning](https://tomevault.io/claim/koaning)
 
