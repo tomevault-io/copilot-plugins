@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [joelrader-google/mermaid-chart-samples](https:/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/joelrader-google](https://tomevault.io/claim/joelrader-google)
 
