@@ -1,11 +1,10 @@
 ## serverpilot
 
-> When add any react form or listview us UI Material
+> Don't run the frontend or api application becouse this alows running
 
 
-When add any react form or listview us UI Material
+Don't run the frontend or api application becouse this alows running
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Sherif-khaled)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Sherif-khaled)
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Sherif-khaled) — claim your Tome and manage your conversions.
 <!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
