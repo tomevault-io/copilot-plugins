@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Work-m8/ag-ui-4j](https://github.com/Work-m8/ag
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Work-m8](https://tomevault.io/claim/Work-m8)
 
