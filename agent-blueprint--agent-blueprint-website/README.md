@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [agent-blueprint/agent-blueprint-website](https:
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/agent-blueprint](https://tomevault.io/claim/agent-blueprint)
 
