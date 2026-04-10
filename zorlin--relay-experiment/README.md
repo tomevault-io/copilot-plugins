@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [Zorlin/relay-experiment](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Zorlin](https://tomevault.io/claim/Zorlin)
 
