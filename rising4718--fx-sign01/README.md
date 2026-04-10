@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rising4718/fx-sign01](https://github.com/rising
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rising4718](https://tomevault.io/claim/rising4718)
 
