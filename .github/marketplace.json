@@ -14,11 +14,6 @@
       "description": "hash"
     },
     {
-      "name": "bborn--taskyou",
-      "source": "./bborn--taskyou",
-      "description": "taskyou"
-    },
-    {
       "name": "accomputing--claude-anthropic-jailbreak-catsan-12-16-25",
       "source": "./accomputing--claude-anthropic-jailbreak-catsan-12-16-25",
       "description": "claude-anthropic-jailbreak-catsan-12.16.25-"
@@ -12817,6 +12812,501 @@
       "name": "virtengine--virtengine",
       "source": "./virtengine--virtengine",
       "description": "virtengine"
+    },
+    {
+      "name": "dirnbauer--webconsulting-skills",
+      "source": "./dirnbauer--webconsulting-skills",
+      "description": "webconsulting-skills"
+    },
+    {
+      "name": "kmorrill--op-xy-vibing",
+      "source": "./kmorrill--op-xy-vibing",
+      "description": "op-xy-vibing"
+    },
+    {
+      "name": "netboxlabs--netbox-best-practices",
+      "source": "./netboxlabs--netbox-best-practices",
+      "description": "netbox-best-practices"
+    },
+    {
+      "name": "sawyerhood--gitclaw",
+      "source": "./sawyerhood--gitclaw",
+      "description": "gitclaw"
+    },
+    {
+      "name": "davidcforbes--beads-kanban",
+      "source": "./davidcforbes--beads-kanban",
+      "description": "Beads-Kanban"
+    },
+    {
+      "name": "0xmiden--tutorials",
+      "source": "./0xmiden--tutorials",
+      "description": "tutorials"
+    },
+    {
+      "name": "alecdotdev--markpad",
+      "source": "./alecdotdev--markpad",
+      "description": "Markpad"
+    },
+    {
+      "name": "ayush-that--lvyougroup",
+      "source": "./ayush-that--lvyougroup",
+      "description": "lvyougroup"
+    },
+    {
+      "name": "abhinavchoudhary24167--error-code-correction",
+      "source": "./abhinavchoudhary24167--error-code-correction",
+      "description": "Error-Code-Correction"
+    },
+    {
+      "name": "kiwamizamurai--dotfiles",
+      "source": "./kiwamizamurai--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "wollax--assay",
+      "source": "./wollax--assay",
+      "description": "assay"
+    },
+    {
+      "name": "mrunreal--haivemind",
+      "source": "./mrunreal--haivemind",
+      "description": "hAIvemind"
+    },
+    {
+      "name": "codervisor--lean-spec-docs",
+      "source": "./codervisor--lean-spec-docs",
+      "description": "lean-spec-docs"
+    },
+    {
+      "name": "zero-waste-team-03--backend",
+      "source": "./zero-waste-team-03--backend",
+      "description": "Backend"
+    },
+    {
+      "name": "skowt--medusa",
+      "source": "./skowt--medusa",
+      "description": "medusa"
+    },
+    {
+      "name": "nanotinydev--tat",
+      "source": "./nanotinydev--tat",
+      "description": "tat"
+    },
+    {
+      "name": "frushanto--telegram-weather-bot-pub",
+      "source": "./frushanto--telegram-weather-bot-pub",
+      "description": "telegram-weather-bot-pub"
+    },
+    {
+      "name": "ajibaji--smug-faced-git",
+      "source": "./ajibaji--smug-faced-git",
+      "description": "smug-faced-git"
+    },
+    {
+      "name": "trudbot--trudbot-github-io",
+      "source": "./trudbot--trudbot-github-io",
+      "description": "trudbot.github.io"
+    },
+    {
+      "name": "lucasew--lucasew-github-io",
+      "source": "./lucasew--lucasew-github-io",
+      "description": "lucasew.github.io"
+    },
+    {
+      "name": "sashi0034--filepathstudio",
+      "source": "./sashi0034--filepathstudio",
+      "description": "FilepathStudio"
+    },
+    {
+      "name": "francescopuglia--life-tracker",
+      "source": "./francescopuglia--life-tracker",
+      "description": "life-tracker"
+    },
+    {
+      "name": "grahampaasch--metronome",
+      "source": "./grahampaasch--metronome",
+      "description": "metronome"
+    },
+    {
+      "name": "bubbleptr--concerto",
+      "source": "./bubbleptr--concerto",
+      "description": "concerto"
+    },
+    {
+      "name": "wwwyo--slide",
+      "source": "./wwwyo--slide",
+      "description": "slide"
+    },
+    {
+      "name": "hl--epona",
+      "source": "./hl--epona",
+      "description": "epona"
+    },
+    {
+      "name": "russell-henderson--adaptech-design-meta",
+      "source": "./russell-henderson--adaptech-design-meta",
+      "description": "adaptech-design-meta"
+    },
+    {
+      "name": "matamaru--pu-excel-to-csv",
+      "source": "./matamaru--pu-excel-to-csv",
+      "description": "pu_excel_to_csv"
+    },
+    {
+      "name": "codaengii2--inje-uri",
+      "source": "./codaengii2--inje-uri",
+      "description": "Inje_uri"
+    },
+    {
+      "name": "oleh-kazaiev--blog",
+      "source": "./oleh-kazaiev--blog",
+      "description": "blog"
+    },
+    {
+      "name": "acoyfellow--ralph-fleet",
+      "source": "./acoyfellow--ralph-fleet",
+      "description": "ralph-fleet"
+    },
+    {
+      "name": "narduk-enterprises--flashcard-pro",
+      "source": "./narduk-enterprises--flashcard-pro",
+      "description": "flashcard-pro"
+    },
+    {
+      "name": "sanketk3058-bit--weather-app-1",
+      "source": "./sanketk3058-bit--weather-app-1",
+      "description": "weather-app-1"
+    },
+    {
+      "name": "knarayanareddy--rocketboard-ai-guide",
+      "source": "./knarayanareddy--rocketboard-ai-guide",
+      "description": "rocketboard-ai-guide"
+    },
+    {
+      "name": "juancruzrossi--visualgit",
+      "source": "./juancruzrossi--visualgit",
+      "description": "visualgit"
+    },
+    {
+      "name": "yuanhsunliu--eqp-parameter-spec-api",
+      "source": "./yuanhsunliu--eqp-parameter-spec-api",
+      "description": "eqp-parameter-spec-api"
+    },
+    {
+      "name": "shadowwalker2014--open-sunsama",
+      "source": "./shadowwalker2014--open-sunsama",
+      "description": "open-sunsama"
+    },
+    {
+      "name": "brookcs3--fileorganizer",
+      "source": "./brookcs3--fileorganizer",
+      "description": "FileOrganizer"
+    },
+    {
+      "name": "hankhsu1996--vscode-better-systemverilog-syntax",
+      "source": "./hankhsu1996--vscode-better-systemverilog-syntax",
+      "description": "vscode-better-systemverilog-syntax"
+    },
+    {
+      "name": "szktty--plough",
+      "source": "./szktty--plough",
+      "description": "plough"
+    },
+    {
+      "name": "aa-io--site",
+      "source": "./aa-io--site",
+      "description": "site"
+    },
+    {
+      "name": "rxtech-lab--hk-transportation-mcp",
+      "source": "./rxtech-lab--hk-transportation-mcp",
+      "description": "hk-transportation-mcp"
+    },
+    {
+      "name": "webmaven--lodum",
+      "source": "./webmaven--lodum",
+      "description": "lodum"
+    },
+    {
+      "name": "frankaging--lite-research-agents",
+      "source": "./frankaging--lite-research-agents",
+      "description": "lite-research-agents"
+    },
+    {
+      "name": "watzon--neocode",
+      "source": "./watzon--neocode",
+      "description": "NeoCode"
+    },
+    {
+      "name": "mucsi96--learn-language",
+      "source": "./mucsi96--learn-language",
+      "description": "learn-language"
+    },
+    {
+      "name": "benjaminjnoack--crypto-tools",
+      "source": "./benjaminjnoack--crypto-tools",
+      "description": "crypto-tools"
+    },
+    {
+      "name": "luxcium--fantastic-system-k22a",
+      "source": "./luxcium--fantastic-system-k22a",
+      "description": "fantastic-system-k22a"
+    },
+    {
+      "name": "marcelo5444--mlp-megakernel",
+      "source": "./marcelo5444--mlp-megakernel",
+      "description": "mlp-megakernel"
+    },
+    {
+      "name": "kestra-io--plugin-argocd",
+      "source": "./kestra-io--plugin-argocd",
+      "description": "plugin-argocd"
+    },
+    {
+      "name": "tomnagengast--revurb",
+      "source": "./tomnagengast--revurb",
+      "description": "revurb"
+    },
+    {
+      "name": "drugoi--nic-tracker",
+      "source": "./drugoi--nic-tracker",
+      "description": "nic-tracker"
+    },
+    {
+      "name": "bborn--taskyou",
+      "source": "./bborn--taskyou",
+      "description": "taskyou"
+    },
+    {
+      "name": "onexodus--dotcube",
+      "source": "./onexodus--dotcube",
+      "description": "dotcube"
+    },
+    {
+      "name": "sagorislamofficial--crm",
+      "source": "./sagorislamofficial--crm",
+      "description": "crm"
+    },
+    {
+      "name": "amanhigh--go-fun",
+      "source": "./amanhigh--go-fun",
+      "description": "go-fun"
+    },
+    {
+      "name": "shooebill--unified-mcp",
+      "source": "./shooebill--unified-mcp",
+      "description": "unified-mcp"
+    },
+    {
+      "name": "pvormste--certgen",
+      "source": "./pvormste--certgen",
+      "description": "certgen"
+    },
+    {
+      "name": "bruceasu--asu-jobs",
+      "source": "./bruceasu--asu-jobs",
+      "description": "asu-jobs"
+    },
+    {
+      "name": "iyerdiv--decisiontreetool",
+      "source": "./iyerdiv--decisiontreetool",
+      "description": "DecisionTreeTool"
+    },
+    {
+      "name": "ahmedalamoussa--tutech",
+      "source": "./ahmedalamoussa--tutech",
+      "description": "tutech"
+    },
+    {
+      "name": "d0ublecl1ck--obsidian-external-sync-bridge",
+      "source": "./d0ublecl1ck--obsidian-external-sync-bridge",
+      "description": "obsidian-external-sync-bridge"
+    },
+    {
+      "name": "presedo93--rooms",
+      "source": "./presedo93--rooms",
+      "description": "rooms"
+    },
+    {
+      "name": "camelliarui--scientific-statgen-playbook",
+      "source": "./camelliarui--scientific-statgen-playbook",
+      "description": "scientific-statgen-playbook"
+    },
+    {
+      "name": "kaimingguo--kaimingguo-github-io",
+      "source": "./kaimingguo--kaimingguo-github-io",
+      "description": "kaimingguo.github.io"
+    },
+    {
+      "name": "lehai0609--planning-agent-ndd",
+      "source": "./lehai0609--planning-agent-ndd",
+      "description": "Planning_Agent_NDD"
+    },
+    {
+      "name": "venuslippe99--brew-companion",
+      "source": "./venuslippe99--brew-companion",
+      "description": "brew-companion"
+    },
+    {
+      "name": "fancyflame--tespat-engine",
+      "source": "./fancyflame--tespat-engine",
+      "description": "tespat-engine"
+    },
+    {
+      "name": "jakub-m--clops",
+      "source": "./jakub-m--clops",
+      "description": "clops"
+    },
+    {
+      "name": "mikea--piccolo",
+      "source": "./mikea--piccolo",
+      "description": "piccolo"
+    },
+    {
+      "name": "blackroad-archive--blackroadquantum-info",
+      "source": "./blackroad-archive--blackroadquantum-info",
+      "description": "blackroadquantum.info"
+    },
+    {
+      "name": "banagale--natural-selection",
+      "source": "./banagale--natural-selection",
+      "description": "natural-selection"
+    },
+    {
+      "name": "samir-atra--zenodo-zenith-dashboard",
+      "source": "./samir-atra--zenodo-zenith-dashboard",
+      "description": "zenodo-zenith-dashboard"
+    },
+    {
+      "name": "innosquadcorp--innonetwork",
+      "source": "./innosquadcorp--innonetwork",
+      "description": "InnoNetwork"
+    },
+    {
+      "name": "votai0--svoria-nasa",
+      "source": "./votai0--svoria-nasa",
+      "description": "svoria_nasa"
+    },
+    {
+      "name": "filippetroviccc--catalog",
+      "source": "./filippetroviccc--catalog",
+      "description": "catalog"
+    },
+    {
+      "name": "xian-technology--xian-abci",
+      "source": "./xian-technology--xian-abci",
+      "description": "xian-abci"
+    },
+    {
+      "name": "scrawndotdev--scrawn",
+      "source": "./scrawndotdev--scrawn",
+      "description": "Scrawn"
+    },
+    {
+      "name": "senliangwang--renderengine",
+      "source": "./senliangwang--renderengine",
+      "description": "RenderEngine"
+    },
+    {
+      "name": "prodotes--gosling2",
+      "source": "./prodotes--gosling2",
+      "description": "Gosling2"
+    },
+    {
+      "name": "bobbintb--unraid-dirt-ag-grid",
+      "source": "./bobbintb--unraid-dirt-ag-grid",
+      "description": "UnRAID-DiRT-ag-grid"
+    },
+    {
+      "name": "timsteuer--hackday-carcassone-backend",
+      "source": "./timsteuer--hackday-carcassone-backend",
+      "description": "hackday-carcassone-backend"
+    },
+    {
+      "name": "barrar--powder-meter",
+      "source": "./barrar--powder-meter",
+      "description": "powder-meter"
+    },
+    {
+      "name": "lukasz-karolewski--default-site",
+      "source": "./lukasz-karolewski--default-site",
+      "description": "default-site"
+    },
+    {
+      "name": "peculiarnewbie--p4client-ts",
+      "source": "./peculiarnewbie--p4client-ts",
+      "description": "p4client-ts"
+    },
+    {
+      "name": "martinfaisant--my-coaching-app",
+      "source": "./martinfaisant--my-coaching-app",
+      "description": "my-coaching-app"
+    },
+    {
+      "name": "markcallen--ses-receiving-terraform",
+      "source": "./markcallen--ses-receiving-terraform",
+      "description": "ses-receiving-terraform"
+    },
+    {
+      "name": "francost15--la-pape",
+      "source": "./francost15--la-pape",
+      "description": "La-Pape"
+    },
+    {
+      "name": "not-manu--hack-the-globe",
+      "source": "./not-manu--hack-the-globe",
+      "description": "hack-the-globe"
+    },
+    {
+      "name": "neuthos--pingintripv2",
+      "source": "./neuthos--pingintripv2",
+      "description": "pingintripv2"
+    },
+    {
+      "name": "electblake--nunchaku-zit-lora",
+      "source": "./electblake--nunchaku-zit-lora",
+      "description": "nunchaku-zit-lora"
+    },
+    {
+      "name": "im4codes--imcodes",
+      "source": "./im4codes--imcodes",
+      "description": "imcodes"
+    },
+    {
+      "name": "lautaroroldan--milanesa",
+      "source": "./lautaroroldan--milanesa",
+      "description": "milanesa"
+    },
+    {
+      "name": "noutonai--ui",
+      "source": "./noutonai--ui",
+      "description": "ui"
+    },
+    {
+      "name": "paul2234--spacex-launches-cli",
+      "source": "./paul2234--spacex-launches-cli",
+      "description": "spacex-launches-cli"
+    },
+    {
+      "name": "arafatamim--blogpoint",
+      "source": "./arafatamim--blogpoint",
+      "description": "blogpoint"
+    },
+    {
+      "name": "galjoentopper--betterbot",
+      "source": "./galjoentopper--betterbot",
+      "description": "BetterBot"
+    },
+    {
+      "name": "utilitywarehouse--kafka-data-keep",
+      "source": "./utilitywarehouse--kafka-data-keep",
+      "description": "kafka-data-keep"
+    },
+    {
+      "name": "alpaylan--pi-etna",
+      "source": "./alpaylan--pi-etna",
+      "description": "pi-etna"
     }
   ]
 }
