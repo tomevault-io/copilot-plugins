@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Lilaizhen/acl2026](https://github.com/Lilaizhen
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Lilaizhen](https://tomevault.io/claim/Lilaizhen)
 
