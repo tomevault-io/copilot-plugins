@@ -1,89 +1,77 @@
 ## ai-coding-template
 
-> Defines error handling standards and best practices for the application
+> Defines performance standards and optimization practices
 
 
-# Error Handling Guidelines
+# Application Performance Requirements
 
-This document outlines consistent error handling practices to ensure robust, user-friendly, and maintainable applications.
+This document outlines requirements for application performance to ensure optimal user experience and system efficiency. All development **MUST** strive to meet these.
 
-## Core Principles
+## 1. Frontend Performance
 
-1.  **Clarity and Consistency**:
-    *   Error messages shown to users **MUST** be clear, concise, and easy to understand, avoiding technical jargon.
-    *   Internal error logs **MUST** contain detailed technical information for debugging.
-    *   Error responses from APIs **MUST** follow a consistent format.
+### 1.1. Efficient Component Rendering (React)
+*   Components **MUST** be optimized to prevent unnecessary re-renders (e.g., `React.memo`, `useMemo`, `useCallback`, efficient state updates).
+*   Large lists/datasets **MUST** be rendered performantly (e.g., virtualization/windowing, stable keys for list items).
+*   Avoid expensive computations directly within the render path; memoize or move to effects if possible.
+*   Avoid expensive computations directly within the render path; memoize or move to effects if possible.
 
-2.  **Fail Gracefully**:
-    *   Applications **MUST** handle errors gracefully, preventing crashes and data corruption.
-    *   Provide fallback mechanisms or degraded functionality where appropriate.
+*   Static assets (images, fonts, videos) **MUST** be optimized for web delivery:
+    *   Use appropriate formats (e.g., WebP for images, WOFF2 for fonts).
+    *   Compress assets without significant quality loss.
+    *   Implement responsive images (`<picture>` element or `srcset` attribute).
+*   Build processes **SHOULD** automatically minify CSS and JavaScript.
+*   Lazy loading for offscreen images and non-critical components **MUST** be implemented.
+    *   Use appropriate formats (e.g., WebP for images, WOFF2 for fonts).
+    *   Compress assets without significant quality loss.
+*   Applications **MUST** utilize code-splitting (e.g., route-based splitting) to reduce the initial JavaScript payload and improve Time to Interactive (TTI).
+*   Minimize blocking JavaScript; defer or load asynchronously where possible.
+*   Analyze bundle sizes regularly and remove unused code or dependencies.
+*   Consider prefetching/preloading critical resources for key user flows.
 
-3.  **Security**:
-    *   Error messages **MUST NOT** expose sensitive information (e.g., stack traces in production, internal system details, PII).
-    *   Validate and sanitize all inputs to prevent errors caused by malicious data.
+### 1.3. Code Delivery and Execution
+*   Applications **MUST** utilize code-splitting (e.g., route-based splitting) to reduce the initial JavaScript payload and improve Time to Interactive (TTI).
+*   Minimize blocking JavaScript; defer or load asynchronously where possible.
+*   Analyze bundle sizes regularly and remove unused code or dependencies.
+*   Consider prefetching/preloading critical resources for key user flows.
 
-4.  **Log Effectively**:
-    *   All significant errors **MUST** be logged with sufficient context (see `logging_guidelines.md`).
-    *   Distinguish between client-side and server-side errors in logs.
+## 2. Backend and Data Performance
 
-## Frontend Error Handling (React)
+### 2.1. API Efficiency (Hono)
+*   API endpoints **MUST** respond efficiently with minimal latency. Target p95/p99 latencies based on service criticality.
+*   Data fetching from APIs **MUST** minimize redundant data transfer (e.g., use GraphQL if appropriate, pagination, filtering, return only necessary fields).
+*   API responses **SHOULD** be compressed (e.g., Gzip, Brotli).
+*   Optimize JSON serialization/deserialization if it becomes a bottleneck.
+*   Optimize JSON serialization/deserialization if it becomes a bottleneck.
+### 2.2. Database Optimization (Drizzle ORM & PostgreSQL)
+*   Database queries **MUST** be efficient and optimized. Analyze slow queries (e.g., using `EXPLAIN ANALYZE`).
+*   Appropriate database indexing (e.g., on foreign keys, frequently filtered columns) **MUST** be implemented.
+*   Avoid N+1 query problems; use eager loading or batching.
+*   Connection pooling **MUST** be used effectively.
+*   For write-heavy workloads, consider optimizing transaction handling.
+*   Avoid N+1 query problems; use eager loading or batching.
+*   Connection pooling **MUST** be used effectively.
+*   For write-heavy workloads, consider optimizing transaction handling.
 
-1.  **React Error Boundaries**:
-    *   Implement Error Boundaries at appropriate levels in the component tree to catch JavaScript errors in their child component tree, log those errors, and display a fallback UI.
-    *   Use Error Boundaries for sections of the UI that are not critical to the entire application's function.
+## 3. General Performance Practices
 
-2.  **Async Operations and Promises**:
-    *   Always handle promise rejections. Use `async/await` with `try/catch` blocks for asynchronous operations (e.g., API calls).
-    *   Update UI state to reflect loading, success, and error states of async operations.
+### 3.1. Performance Monitoring
+*   Applications **SHOULD** integrate Application Performance Monitoring (APM) tools (e.g., Sentry, Datadog, New Relic) to track key metrics (response times, error rates, resource usage).
+*   Frontend **SHOULD** monitor Core Web Vitals.
+*   Establish performance baselines and set alerts for regressions.
+*   Frontend **SHOULD** monitor Core Web Vitals.
+*   Establish performance baselines and set alerts for regressions.
+*   Performance testing (load, stress, soak) **SHOULD** be part of the development lifecycle for critical user flows and APIs.
+*   Identify and test against expected peak loads.
+*   Automate performance tests in CI/CD pipelines where feasible.
+### 3.2. Performance Testing
+*   Performance testing (load, stress, soak) **SHOULD** be part of the development lifecycle for critical user flows and APIs.
+*   Identify and test against expected peak loads.
+*   Automate performance tests in CI/CD pipelines where feasible.
 
-3.  **User Feedback**:
-    *   Provide non-intrusive user feedback for errors (e.g., toast notifications, inline messages).
-    *   For form submissions, display validation errors clearly next to the respective fields.
+## 4. AI-Assisted Performance Enhancement
 
-4.  **Client-Side Logging**:
-    *   Log unexpected client-side errors to a remote logging service to help diagnose issues encountered by users.
-    *   Include context such as browser version, user actions leading to the error, and component state.
-
-## Backend Error Handling (Hono API)
-
-1.  **Consistent HTTP Status Codes**:
-    *   Use appropriate HTTP status codes to indicate the nature of the error (e.g., `400` for client errors, `401` for authentication, `403` for authorization, `404` for not found, `500` for server errors).
-
-2.  **Standardized Error Response Format**:
-    *   APIs **MUST** return error responses in a consistent JSON format, as defined in `backend_guidelines.md` (e.g., `{ error: { code: "ERROR_CODE", message: "User-friendly message", details?: any } }`).
-    *   `code` should be a machine-readable error identifier.
-    *   `message` should be a human-readable explanation.
-    *   `details` can provide additional context for specific errors (e.g., validation failures).
-
-3.  **Custom Error Classes**:
-    *   Create custom error classes (e.g., `NotFoundError`, `ValidationError`, `AuthenticationError`) that extend the base `Error` class.
-    *   These classes can encapsulate specific status codes and error codes.
-
-4.  **Hono Error Handling Middleware**:
-    *   Utilize Hono's built-in error handling or implement custom error handling middleware.
-    *   This middleware should catch errors, log them, and transform them into the standard error response format.
-    *   Ensure it's one of the last middleware to be registered.
-
-5.  **Input Validation Errors**:
-    *   Validate all incoming data (body, params, query). Libraries like Zod are recommended.
-    *   Return a `400 Bad Request` status with detailed validation errors in the response body.
-
-6.  **Server-Side Logging**:
-    *   Log all unhandled exceptions and significant operational errors at `ERROR` level.
-    *   Include correlation ID, request details (path, method, redacted parameters/body), and stack trace (in non-production environments).
-
-## Specific Error Types
-
-1.  **Validation Errors**: Provide clear messages indicating which fields are invalid and why.
-2.  **Authentication/Authorization Errors**: Return `401 Unauthorized` or `403 Forbidden`. Avoid revealing whether a user exists or not on failed login.
-3.  **Not Found Errors**: Return `404 Not Found` for resources that don't exist.
-4.  **Service Unavailable/Third-Party Errors**: Handle errors from external services gracefully. Consider retries with backoff or circuit breaker patterns. Log these and, if appropriate, inform the user of a temporary issue.
-
-## Testing Error Handling
-*   Write unit and integration tests specifically for error conditions.
-*   Verify that the correct error messages are displayed/logged and the system behaves as expected.
+AI can help identify and address performance issues. Refer to `prompt_engineering_guidelines.md`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Shamail)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Shamail)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Shamail) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
