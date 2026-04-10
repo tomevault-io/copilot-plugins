@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [fujiwara/homebrew-tap](https://github.com/fujiw
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/fujiwara](https://tomevault.io/claim/fujiwara)
 
