@@ -1,84 +1,107 @@
 ## wellspring-directory
 
-> - **Headers**: Dark blue or gold (no black headers)
+> "Make sure that the quote is relevant to the chapter and so you we want to make sure that we want to have it identified the parts that are relevant, and then if there's not enough relevance, we might want to either change the probably want to change the quote."
 
-# Typography & Design Rules
+# Research & Verification Rules
 
-## Color Scheme
-- **Headers**: Dark blue or gold (no black headers)
-- **Body Text**: Standard black on white
-- **Accents**: Gold metallic for signatures and special elements
+## Quote Verification Protocol
 
-## Typography Standards
+### Primary Task
+"Make sure that the quote is relevant to the chapter and so you we want to make sure that we want to have it identified the parts that are relevant, and then if there's not enough relevance, we might want to either change the probably want to change the quote."
 
-### Title Page
-- **Main Title**: "Wellspring"
-- **Subtitle**: "Best practices for rapid delivery of behavioral health continuum infrastructure"
-- **Author**: "Brian V Jones"
-- **Date**: "November 1, 2024" (in gold metallic)
+### Verification Process
+1. **Extract All Quotes**: Identify every quote from historical figures
+2. **Analyze Relevance**: Map quote content to chapter themes
+3. **Document Connections**: List specific relevant elements
+4. **Flag Issues**: Identify quotes with insufficient relevance
+5. **Suggest Alternatives**: Propose better-aligned quotes if needed
 
-### Table of Contents
-- **Title**: "Wellspring Table of Contents" (not just "Contents")
-- **Line Spacing**: Reduce between all rows
-- **Text Size**: Reduce by 2 points
-- **Hierarchy**:
-  - H2 for parts (Part One, Part Two, Part Three) - larger font
-  - H3 for chapters - bold
-  - Paragraph style for sections/pages
+### Quote Analysis Format
+```
+Chapter: [Number and Title]
+Quote: "[Full quote text]"
+Attribution: "[Author/Source]"
+Relevance Score: [1-10]
+Relevant Elements:
+- [Element 1 that connects to chapter]
+- [Element 2 that connects to chapter]
+- [etc.]
+Recommendation: [Keep/Replace/Modify]
+Alternative: [If replacement suggested]
+```
 
-### Headers Throughout Book
-- **Chapter Headers**: Blue/gold color scheme instead of black
-- **Consistency**: Same formatting throughout all 300+ pages
-- **Hierarchy**: Clear H1, H2, H3 structure
+## Content Research Standards
 
-## Layout Standards
+### Statistical Claims
+- **Verify Accuracy**: Check all statistics and data claims
+- **Update Currency**: Ensure data reflects current California 2025 standards
+- **Source Attribution**: Proper citation for all claims
+- **Context Relevance**: Statistics must support chapter arguments
 
-### Margins
-- **All Sides**: Increase by 3 points from current
-- **Purpose**: Better readability and professional appearance
+### Visual Research Opportunities
 
-### Page Layout
-- **Section Breaks**: Always leave blank left page before new sections
-- **Blank Page Use**: Artwork, contact info, marketing materials
-- **New Sections**: Always start on right page after artwork
+### Infographic Candidates
+- Statistical data that can be visualized
+- Process flows and workflows
+- Comparison charts
+- Timeline information
+- Budget breakdowns
 
-### Design Elements
-- **Corner Features**: Architectural corner anchors (not full borders)
-- **Position**: Top right corner of right-hand pages
-- **Style**: Simple, architectural, not decorative
-- **Purpose**: Eye marker/navigation aid
+### Icon Opportunities  
+- Chapter section breaks
+- Key concept highlights
+- Process step indicators
+- Category classifications
 
-## Content Formatting
+## Fact-Checking Protocol
 
-### Lists and Numbering
-- **Numbered Lists**: 1, 2, 3, etc.
-- **Lettered Lists**: A, B, C, etc. (for project success factors)
-- **Consistency**: Use appropriate format for content hierarchy
-- **Visual Separation**: Icons/spacing to break up dense text
+### Project Information
+- **Grant Requirements**: Verify current California 2025 standards
+- **Regulatory Compliance**: Check latest behavioral health regulations
+- **Best Practices**: Confirm industry standard practices
+- **Case Studies**: Verify accuracy of project examples
 
-### Quotes
-- **Styling**: Visually distinct from body text
-- **Attribution**: Proper formatting for historical quotes
-- **Relevance**: Must be verified as relevant to chapter content
+### Technical Accuracy
+- **Development Budget Components**: Soft costs, hard costs, FFE definitions
+- **Project Phases**: Verify phase descriptions and timelines
+- **Legal Requirements**: Current permitting and compliance standards
+- **Professional Roles**: Accurate job descriptions and responsibilities
 
-### Data Presentation
-- **Statistics**: Consider infographic treatment
-- **Lists**: Convert dense paragraphs to readable bullet points
-- **Checklists**: Make actionable for readers
+## Research Methodology
 
-## Adult Learning Considerations
-- **Visual Breaks**: Icons, infographics, white space
-- **Chunk Information**: Avoid dense paragraph blocks
-- **Multiple Learning Styles**: Visual, auditory, kinesthetic elements
-- **User-Friendly**: Professional but accessible format
+### Source Hierarchy
+1. **Primary Sources**: Government regulations, official guidelines
+2. **Industry Standards**: Professional association publications
+3. **Expert Consultation**: BHSME.org subject matter experts
+4. **Academic Sources**: Peer-reviewed research
+5. **Trade Publications**: Industry news and best practices
 
-## Quality Standards
-- **Consistency**: All formatting rules applied throughout entire document
-- **Readability**: Adult learning principles prioritized
-- **Professional**: Manual/textbook quality standards
-- **Brand Aligned**: Dark royal blue and gold color scheme maintained
+### Documentation Requirements
+- **Source URLs**: Full links for all online sources
+- **Access Dates**: When information was verified
+- **Version Control**: Track updates and changes
+- **Confidence Levels**: Rate reliability of each source
+
+## Output Deliverables
+
+### Research Reports
+- **Quote Relevance Report**: Chapter-by-chapter analysis
+- **Fact-Check Summary**: Verified claims and corrections needed
+- **Visual Opportunity Map**: Suggested infographic locations
+- **Source Bibliography**: Complete reference list
+
+### Recommendations
+- **Content Updates**: Specific text changes needed
+- **Visual Enhancements**: Infographic and icon suggestions  
+- **Quote Replacements**: Better-aligned alternatives
+- **Fact Corrections**: Accurate data and statistics
+
+## Quality Assurance
+- **Cross-Reference**: Multiple sources for critical claims
+- **Expert Review**: Brian Jones approval for major changes
+- **Currency Check**: Information current as of 2025
+- **Relevance Verification**: All content serves book's purpose
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/JeromyJSmith)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/JeromyJSmith)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/JeromyJSmith) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
