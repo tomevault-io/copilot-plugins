@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [raythx98/go-zap](https://github.com/raythx98/go
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/raythx98](https://tomevault.io/claim/raythx98)
 
