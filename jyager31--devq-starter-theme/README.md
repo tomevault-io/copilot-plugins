@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Jyager31/devq-starter-theme](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Jyager31](https://tomevault.io/claim/Jyager31)
 
