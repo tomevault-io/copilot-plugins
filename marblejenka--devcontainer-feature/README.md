@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [marblejenka/devcontainer-feature](https://githu
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/marblejenka](https://tomevault.io/claim/marblejenka)
 
