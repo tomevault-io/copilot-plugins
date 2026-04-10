@@ -19,11 +19,12 @@ Original source: `.cursor/rules/*.mdc` in [dirnbauer/webconsulting-skills](https
 
 Browse all formats: [https://tomevault.io/claim/dirnbauer](https://tomevault.io/claim/dirnbauer)
 
-## Bundled Skills (3)
+## Bundled Skills (4)
 
 - [ai-search-optimization](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/ai-search-optimization)
 - [typo3-ddev](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-ddev)
 - [typo3-extension-upgrade](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-extension-upgrade)
+- [webconsulting-branding](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/webconsulting-branding)
 
 ---
 
