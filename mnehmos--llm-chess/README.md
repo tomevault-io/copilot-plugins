@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Mnehmos/LLM-Chess](https://github.com/Mnehmos/L
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Mnehmos](https://tomevault.io/claim/Mnehmos)
 
