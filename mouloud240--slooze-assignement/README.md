@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [mouloud240/Slooze-assignement](https://github.c
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mouloud240](https://tomevault.io/claim/mouloud240)
 
