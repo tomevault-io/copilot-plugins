@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [gixi404/lymbrarie](https://github.com/gixi404/l
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/gixi404](https://tomevault.io/claim/gixi404)
 
