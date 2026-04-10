@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Ishit-Parikh/CareerOS](https://github.com/Ishit
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Ishit-Parikh](https://tomevault.io/claim/Ishit-Parikh)
 
