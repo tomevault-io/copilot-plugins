@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [sashiko-dev/sashiko](https://github.com/sashiko
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sashiko-dev](https://tomevault.io/claim/sashiko-dev)
 
