@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [markoonakic/milutin](https://github.com/markoon
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/markoonakic](https://tomevault.io/claim/markoonakic)
 
