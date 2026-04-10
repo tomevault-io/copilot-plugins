@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [AzureCosmosDB/cosmosdb-cursor-plugin]
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/AzureCosmosDB](https://tomevault.io/claim/AzureCosmosDB)
 
