@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [lakhi/health_in_society_research_network](https
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lakhi](https://tomevault.io/claim/lakhi)
 
