@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [flechilla/website-template](https://g
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/flechilla](https://tomevault.io/claim/flechilla)
 
