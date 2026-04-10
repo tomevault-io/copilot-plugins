@@ -1,8 +1,6 @@
 # taskyou
 
-> Tome by [bborn](https://github.com/bborn/taskyou) — distributed by [TomeVault](https://tomevault.io/claim/bborn)
-
-AI instruction files for taskyou by bborn
+> Config by [bborn](https://github.com/bborn/taskyou) — distributed by [TomeVault](https://tomevault.io/claim/bborn)
 
 ## GitHub Copilot Config
 
@@ -15,12 +13,9 @@ Original source: `AGENTS.md` in [bborn/taskyou](https://github.com/bborn/taskyou
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bborn](https://tomevault.io/claim/bborn)
-
-## Bundled Skills (1)
-
-- [taskyou](https://github.com/bborn/taskyou/tree/main/skills/taskyou)
 
 ---
 
