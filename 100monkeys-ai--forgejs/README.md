@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [100monkeys-ai/forgejs](https://github.com/100mo
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/100monkeys-ai](https://tomevault.io/claim/100monkeys-ai)
 
