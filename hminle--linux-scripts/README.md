@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [hminle/linux-scripts](https://github.
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hminle](https://tomevault.io/claim/hminle)
 
