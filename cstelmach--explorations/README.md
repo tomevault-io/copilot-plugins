@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [cstelmach/explorations](https://github.com/cste
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cstelmach](https://tomevault.io/claim/cstelmach)
 
