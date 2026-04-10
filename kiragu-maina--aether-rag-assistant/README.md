@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Kiragu-Maina/aether-rag-assistant](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Kiragu-Maina](https://tomevault.io/claim/Kiragu-Maina)
 
