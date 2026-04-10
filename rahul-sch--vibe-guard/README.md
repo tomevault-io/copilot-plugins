@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Rahul-sch/Vibe-Guard](https://github.com/Rahul-
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Rahul-sch](https://tomevault.io/claim/Rahul-sch)
 
