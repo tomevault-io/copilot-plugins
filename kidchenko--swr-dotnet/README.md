@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kidchenko/swr-dotnet](https://github.com/kidche
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kidchenko](https://tomevault.io/claim/kidchenko)
 
