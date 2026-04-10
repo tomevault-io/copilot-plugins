@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Walton-Viking-Scouts/VikingsEventMgmtAPI](https
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Walton-Viking-Scouts](https://tomevault.io/claim/Walton-Viking-Scouts)
 
