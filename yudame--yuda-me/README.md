@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [yudame/yuda.me](https://github.com/yudame/yuda.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/yudame](https://tomevault.io/claim/yudame)
 
