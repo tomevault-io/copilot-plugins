@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [tkys/sublime-sync](https://github.com/tkys/subl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tkys](https://tomevault.io/claim/tkys)
 
