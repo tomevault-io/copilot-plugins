@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [zif91/jmagency_fb_bot](https://github.com/zif91
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zif91](https://tomevault.io/claim/zif91)
 
