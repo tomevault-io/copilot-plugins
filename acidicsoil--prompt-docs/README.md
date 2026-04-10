@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [AcidicSoil/prompt-docs](https://github.com/Acid
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/AcidicSoil](https://tomevault.io/claim/AcidicSoil)
 
