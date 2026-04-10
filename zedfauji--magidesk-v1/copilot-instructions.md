@@ -1,232 +1,274 @@
 ## magidesk-v1
 
-> - **Domain Layer**: Zero dependencies on other layers. No EF Core, no HTTP, no file I/O.
+> - Entities contain behavior, not just data
 
-# Architecture Rules
+# Domain Model Rules
 
-## Clean Architecture Enforcement
+## Entity Design Principles
 
-### Layer Dependencies
-- **Domain Layer**: Zero dependencies on other layers. No EF Core, no HTTP, no file I/O.
-- **Application Layer**: Depends ONLY on Domain. No infrastructure dependencies.
-- **Infrastructure Layer**: Depends on Application and Domain. Implements interfaces defined in Application/Domain.
-- **Presentation Layer**: Depends ONLY on Application. Never directly accesses Domain or Infrastructure.
+### Rich Domain Model
+- Entities contain behavior, not just data
+- Business logic lives in entities and domain services
+- Entities enforce their own invariants
+- Use domain events for important state changes
 
-### Dependency Direction
-```
-Presentation → Application → Domain
-Infrastructure → Application → Domain
-```
+### Aggregate Roots
+- **Ticket**: Aggregate root for order management
+- **CashSession**: Aggregate root for cash management
+- **Shift**: Aggregate root for shift management
+- Only aggregate roots are accessed via repositories
+- Child entities accessed through aggregate root
 
-**VIOLATION**: If any layer depends on a layer further out, this is an architectural violation.
+### Value Objects
+- **Money**: Immutable, enforces 2 decimal places, currency support
+- **UserId**: Strongly-typed identifier
+- Value objects are immutable
+- Use value objects to prevent primitive obsession
 
-### Project References
-- Domain: No project references
-- Application: References Domain only
-- Infrastructure: References Application and Domain
-- Presentation: References Application only
-- Tests: Reference their respective projects
+## Ticket Entity Rules
 
-## Domain Layer Rules
+### Properties
+- Use `TicketStatus` enum (not multiple booleans)
+- Support multiple payments (collection, not single)
+- Support multiple order lines
+- Support discounts (item and ticket level)
+- Support gratuity (optional)
+- Version field for optimistic concurrency
 
-### Pure Business Logic
-- Domain entities contain business logic, not just data
-- All business rules enforced in Domain layer
-- No external dependencies (no EF Core, no HTTP, no file I/O)
-- Language-agnostic business rules
+### State Transitions
+- Draft → Open (when first item added)
+- Open → Paid (when PaidAmount >= TotalAmount)
+- Paid → Closed (when settled)
+- Any → Voided (if no payments)
+- Closed → Refunded (via refund workflow)
 
-### Entity Design
-- Use rich domain model (entities have behavior)
-- Aggregate roots: Ticket, CashSession, Shift
-- Value objects: Money, UserId (immutable)
-- Domain events for important state changes
-- Invariants enforced at construction and mutation
+### Invariants
+- Cannot add items to Closed/Voided/Refunded tickets
+- Cannot void ticket with payments
+- Cannot close ticket with DueAmount > 0
+- TotalAmount = Subtotal + Tax + ServiceCharge + DeliveryCharge + Adjustment - Discount + Gratuity
+- PaidAmount = Sum of all payment amounts
+- DueAmount = TotalAmount - PaidAmount
 
-### Domain Services
-- Complex business logic that doesn't belong in a single entity
-- Stateless services
-- Examples: TicketDomainService, PaymentDomainService, DiscountDomainService
+### Methods
+- `CalculateTotals()`: Recalculates all amounts
+- `CanAddPayment(Payment)`: Validates payment
+- `CanClose()`: Validates closing
+- `CanVoid()`: Validates voiding
+- `CanRefund(Money)`: Validates refund
+- `CanSplit()`: Validates splitting
 
-## Application Layer Rules
+## OrderLine Entity Rules
 
-### Use Cases
-- One use case per file
-- Commands for write operations
-- Queries for read operations
-- Use cases orchestrate domain logic
-- Transaction boundaries defined here
+### Properties
+- Support fractional quantities (for weight-based items)
+- Support discrete quantities (ItemCount)
+- Support modifiers and add-ons
+- Support item-level discounts
+- Snapshot menu item data (name, price, tax rate)
 
-### DTOs
-- All communication with Presentation layer uses DTOs
-- Never expose domain entities to UI
-- DTOs are data containers only (no behavior)
-- Use mapping (AutoMapper or manual) between entities and DTOs
+### Invariants
+- Quantity > 0 OR ItemCount > 0
+- UnitPrice >= 0
+- DiscountAmount <= SubtotalAmount
+- All calculated amounts >= 0
+- Cannot modify if parent ticket is finalized
 
-### Interfaces
-- Repository interfaces defined here
-- Application service interfaces defined here
-- Infrastructure implements these interfaces
+### Methods
+- `CalculatePrice()`: Recalculates line totals
+- `CanMerge(OrderLine)`: Checks if items can be merged
+- `Merge(OrderLine)`: Merges identical items
 
-## Infrastructure Layer Rules
+## Payment Entity Rules
 
-### Repository Pattern
-- Implement repository interfaces from Application layer
-- Use EF Core for data access
-- No business logic in repositories
-- Return domain entities, not DTOs
+### Base Payment
+- Abstract base class or interface
+- Common properties: Id, Amount, TransactionType, PaymentType, etc.
+- Type-specific properties in derived classes
 
-### EF Core Configuration
-- Entity configurations in separate files
-- Value object mappings configured here
-- Optimistic concurrency with Version fields
-- Database constraints as last line of defense
+### Payment Types
+- **CashTransaction**: TenderAmount, ChangeAmount
+- **CreditCardTransaction**: Card details, AuthCode, etc.
+- **DebitCardTransaction**: Card details
+- **GiftCertificateTransaction**: CertNumber, FaceValue, CashBack
+- **CustomPaymentTransaction**: Custom fields
 
-### External Services
-- Payment gateway implementations
-- Printer service implementations
-- All external integrations here
+### Invariants
+- Amount > 0
+- For cash: TenderAmount >= Amount
+- For cash: ChangeAmount = TenderAmount - Amount
+- Cannot void if already voided
+- Cannot refund if not completed
+- Gift cert cash back <= (FaceValue - PaidAmount)
 
-## Presentation Layer Rules
+### Split Payments
+- Multiple payments per ticket supported
+- Partial payments allowed
+- Ticket closes when PaidAmount >= TotalAmount
+- Each payment is independent
 
-### MVVM Pattern
-- Views: XAML only, code-behind minimal (event handlers only)
-- ViewModels: Thin coordinators, delegate to Application layer
-- Models: DTOs from Application layer
+## CashSession Entity Rules
 
-### Zero Business Logic
-- ViewModels contain NO business logic
-- ViewModels call Application layer use cases
-- ViewModels handle UI state and user input only
-- All validation through Application layer
+### Properties
+- OpeningBalance (cash at start)
+- ExpectedCash (calculated)
+- ActualCash (counted at close)
+- Difference (ActualCash - ExpectedCash)
+- Status (Open/Closed)
 
-### No Direct Database Access
-- ViewModels never use DbContext
-- ViewModels never use repositories directly
-- All data through Application layer interfaces
+### Invariants
+- OpeningBalance >= 0
+- Cannot close with open tickets for user
+- ExpectedCash = OpeningBalance + CashReceipts - CashRefunds - Payouts - CashDrops - Bleeds
+- Cannot modify once Closed
+- Only one open session per user
 
-## Database Rules
+### Methods
+- `CalculateExpectedCash()`: Calculates expected amount
+- `CanClose()`: Validates closing
+- `Close(actualCash)`: Closes session
 
-### PostgreSQL
-- Database: `magidesk_pos`
-- Schema: `magidesk` (use this schema for all tables)
-- Connection: Local passwordless PostgreSQL
-- EF Core migrations for all schema changes
+## Discount Entity Rules
 
-### Naming Conventions
-- Tables: PascalCase (e.g., `Tickets`, `OrderLines`)
-- Columns: PascalCase (e.g., `Id`, `TicketNumber`, `CreatedAt`)
-- Foreign Keys: `{Entity}Id` (e.g., `TicketId`, `UserId`)
-- Indexes: `IX_{Table}_{Columns}`
-- Primary Keys: `PK_{Table}`
+### Discount Definition
+- Reference data (can change over time)
+- Multiple discount types supported
+- Minimum buy/quantity requirements
+- Auto-apply option
 
-### Migrations
-- All schema changes via EF Core migrations
-- Never modify database directly
-- Migrations must be reversible
-- Test migrations on development database first
+### Applied Discounts
+- **TicketDiscount**: Snapshot of discount applied to ticket
+- **OrderLineDiscount**: Snapshot of discount applied to item
+- Immutable once created
+- Only one discount applies (max discount selected)
 
-## State Management
+### Invariants
+- Discount amount cannot exceed subtotal
+- Discount eligibility checked before application
+- Applied discounts are immutable snapshots
 
-### Ticket State Machine
-- Use enum for TicketStatus (not multiple booleans)
-- Valid transitions only:
-  - Draft → Open
-  - Open → Paid
-  - Paid → Closed
-  - Any → Voided (if no payments)
-  - Closed → Refunded
-- State transitions enforced in domain
+## Gratuity Entity Rules
 
-### Payment State
-- Use enum for PaymentStatus
-- Card payments: Pending → Authorized → Captured
-- Cash payments: Pending → Completed
-- All payments can be Voided or Refunded
+### Properties
+- Amount (tips/gratuity)
+- Paid (separate from ticket payment)
+- Refunded (if ticket refunded)
+- Belongs to ticket
 
-## Error Handling
+### Invariants
+- Amount >= 0
+- Can be paid separately from ticket
+- If ticket refunded, gratuity may be refunded
 
-### Domain Exceptions
-- BusinessRuleViolationException: Invariant violation
-- InvalidOperationException: Operation not allowed in current state
-- ConcurrencyException: Optimistic concurrency conflict
+## Domain Events
 
-### Application Exceptions
-- ValidationException: Use case validation failed
-- NotFoundException: Entity not found
-- UnauthorizedException: Permission denied
+### Event Design
+- Immutable events
+- Contain entity state snapshots
+- Timestamped
+- User attribution
+- Correlation ID for related events
 
-### Presentation Exceptions
-- Display user-friendly error messages
-- Log technical details
-- Never expose stack traces to users
+### Required Events
+- TicketCreated, TicketOpened, TicketClosed, TicketVoided, TicketRefunded
+- PaymentProcessed, PaymentAuthorized, PaymentCaptured, PaymentVoided, PaymentRefunded
+- CashSessionOpened, CashSessionClosed
+- OrderLineAdded, OrderLineRemoved, OrderLineModified
+- DiscountApplied
 
-## Testing Requirements
+## Domain Services
 
-### Domain Layer
-- >90% test coverage required
-- All invariants must have unit tests
-- Domain services must be tested
-- Value objects must be tested
+### TicketDomainService
+- Complex ticket operations
+- CalculateTotals, CanAddPayment, CanClose, CanVoid, CanRefund, CanSplit
+- Stateless service
 
-### Application Layer
-- >80% test coverage required
-- All use cases must be tested
-- Mock repositories in tests
-- Test validation logic
+### PaymentDomainService
+- Payment operations
+- CalculateChange, CanVoid, CanRefund, CanCapture
+- Stateless service
 
-### Integration Tests
-- Test repository implementations
-- Test EF Core configurations
-- Test database constraints
+### DiscountDomainService
+- Discount calculations
+- GetMaxDiscount, CalculateDiscountAmount, IsEligible
+- Stateless service
 
-## Code Organization
+### CashSessionDomainService
+- Cash session operations
+- CalculateExpectedCash, CanClose
+- Stateless service
 
-### Folder Structure
-```
-Domain/
-  Entities/
-  ValueObjects/
-  DomainServices/
-  DomainEvents/
-  Enumerations/
-  Exceptions/
+## Enumerations
 
-Application/
-  Commands/
-  Queries/
-  DTOs/
-  Interfaces/
-  Services/
+### Use Enums, Not Strings
+- TicketStatus enum (not string)
+- PaymentType enum (not string)
+- PaymentStatus enum (not string)
+- TransactionType enum (Credit/Debit)
+- CashSessionStatus enum
+- TableStatus enum
+- KitchenStatus enum
 
-Infrastructure/
-  Persistence/
-    Configurations/
-    Repositories/
-    DbContext/
-  Services/
-  External/
+### Enum Rules
+- Strongly typed
+- Cannot have invalid values
+- Easy to validate
+- IntelliSense support
 
-Presentation/
-  Views/
-  ViewModels/
-  Converters/
-  Resources/
-```
+## Immutability Rules
 
-## Prohibited Patterns
+### Immutable Entities
+- AuditEvent: Immutable once created
+- Applied discounts: Immutable snapshots
+- Closed tickets: Immutable (use reopen if needed)
+- Closed cash sessions: Immutable
+- Completed payments: Immutable (use refund instead)
 
-### NEVER:
-- Put business logic in ViewModels
-- Access database from Presentation layer
-- Use domain entities in ViewModels
-- Skip invariant enforcement
-- Modify closed/voided/refunded tickets
-- Hard delete financial records
-- Use string-based status (use enums)
-- Use multiple boolean flags for state (use state machine)
-- Copy code from FloreantPOS (reference only)
+### Immutable Value Objects
+- Money: Immutable
+- UserId: Immutable
+
+## Relationships
+
+### One-to-Many
+- Ticket → OrderLines
+- Ticket → Payments
+- Ticket → TicketDiscounts
+- OrderLine → OrderLineModifiers
+- OrderLine → OrderLineDiscounts
+- CashSession → Payments (cash only)
+
+### Many-to-One
+- OrderLine → Ticket
+- Payment → Ticket
+- Payment → CashSession (if cash)
+- Ticket → Shift
+- Ticket → OrderType
+- Ticket → User (owner)
+
+### Optional Relationships
+- Ticket → Customer (optional)
+- Ticket → Gratuity (optional)
+- Ticket → AssignedDriver (optional)
+- OrderLine → SizeModifier (optional)
+
+## Validation Rules
+
+### Construction Validation
+- All required properties must be provided
+- Invariants checked at construction
+- Invalid state cannot be created
+
+### Mutation Validation
+- State transitions validated
+- Invariants checked before mutation
+- Invalid operations throw exceptions
+
+### Business Rule Validation
+- Domain services validate complex rules
+- Cannot bypass validation
+- Validation is part of domain logic
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/zedfauji)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/zedfauji)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/zedfauji) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
