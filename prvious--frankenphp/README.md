@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [prvious/frankenphp](https://github.com/prvious/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/prvious](https://tomevault.io/claim/prvious)
 
