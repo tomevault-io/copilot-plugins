@@ -1,0 +1,14 @@
+{
+  "name": "grandinh--claude-chaos-express",
+  "displayName": "claude-chaos-express",
+  "description": "AI instruction files for claude-chaos-express by grandinh",
+  "version": "1.0.0",
+  "author": "grandinh",
+  "homepage": "https://tomevault.io/claim/grandinh",
+  "skills": [
+    {
+      "name": "cc-sessions-api",
+      "description": ""
+    }
+  ]
+}
