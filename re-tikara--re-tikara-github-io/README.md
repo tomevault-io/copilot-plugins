@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [RE-TikaRa/RE-TikaRa.github.io](https://github.c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/RE-TikaRa](https://tomevault.io/claim/RE-TikaRa)
 
