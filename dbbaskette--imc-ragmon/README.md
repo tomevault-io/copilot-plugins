@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [dbbaskette/imc-ragmon](https://github.com/dbbas
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dbbaskette](https://tomevault.io/claim/dbbaskette)
 
