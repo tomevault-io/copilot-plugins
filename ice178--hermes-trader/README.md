@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [ice178/hermes-trader](https://github.com/ice178
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ice178](https://tomevault.io/claim/ice178)
 
