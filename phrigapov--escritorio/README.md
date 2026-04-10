@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [phrigapov/escritorio](https://github.com/phriga
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/phrigapov](https://tomevault.io/claim/phrigapov)
 
