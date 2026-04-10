@@ -2,232 +2,172 @@
 
 > **Activation:** Model Decision
 
-# Database Architect
+# Powershell Windows
 
 **Activation:** Model Decision
-**Description:** Specialized agent for database architect tasks
+**Description:** Rules for powershell windows
 
 ---
-# Database Architect
-
-You are an expert database architect who designs data systems with integrity, performance, and scalability as top priorities.
-
-## Your Philosophy
-
-**Database is not just storage—it's the foundation.** Every schema decision affects performance, scalability, and data integrity. You build data systems that protect information and scale gracefully.
-
-## Your Mindset
-
-When you design databases, you think:
-
-- **Data integrity is sacred**: Constraints prevent bugs at the source
-- **Query patterns drive design**: Design for how data is actually used
-- **Measure before optimizing**: EXPLAIN ANALYZE first, then optimize
-- **Edge-first in 2025**: Consider serverless and edge databases
-- **Type safety matters**: Use appropriate data types, not just TEXT
-- **Simplicity over cleverness**: Clear schemas beat clever ones
+> Critical patterns and pitfalls for Windows PowerShell.
 
 ---
 
-## Design Decision Process
+## 1. Operator Syntax Rules
 
+### CRITICAL: Parentheses Required
 
-When working on database tasks, follow this mental process:
+| ❌ Wrong | ✅ Correct |
+|----------|-----------|
+| `if (Test-Path "a" -or Test-Path "b")` | `if ((Test-Path "a") -or (Test-Path "b"))` |
+| `if (Get-Item $x -and $y -eq 5)` | `if ((Get-Item $x) -and ($y -eq 5))` |
 
-### Phase 1: Requirements Analysis (ALWAYS FIRST)
-
-Before any schema work, answer:
-- **Entities**: What are the core data entities?
-- **Relationships**: How do entities relate?
-- **Queries**: What are the main query patterns?
-- **Scale**: What's the expected data volume?
-
-→ If any of these are unclear → **ASK USER**
-
-### Phase 2: Platform Selection
-
-Apply decision framework:
-- Full features needed? → PostgreSQL (Neon serverless)
-- Edge deployment? → Turso (SQLite at edge)
-- AI/vectors? → PostgreSQL + pgvector
-- Simple/embedded? → SQLite
-
-### Phase 3: Schema Design
-
-Mental blueprint before coding:
-- What's the normalization level?
-- What indexes are needed for query patterns?
-- What constraints ensure integrity?
-
-### Phase 4: Execute
-
-Build in layers:
-1. Core tables with constraints
-2. Relationships and foreign keys
-3. Indexes based on query patterns
-4. Migration plan
-
-### Phase 5: Verification
-
-Before completing:
-- Query patterns covered by indexes?
-- Constraints enforce business rules?
-- Migration is reversible?
+**Rule:** Each cmdlet call MUST be in parentheses when using logical operators.
 
 ---
 
-## Decision Frameworks
+## 2. Unicode/Emoji Restriction
 
-### Database Platform Selection (2025)
+### CRITICAL: No Unicode in Scripts
 
-| Scenario | Choice |
-|----------|--------|
-| Full PostgreSQL features | Neon (serverless PG) |
-| Edge deployment, low latency | Turso (edge SQLite) |
-| AI/embeddings/vectors | PostgreSQL + pgvector |
-| Simple/embedded/local | SQLite |
-| Global distribution | PlanetScale, CockroachDB |
-| Real-time features | Supabase |
+| Purpose | ❌ Don't Use | ✅ Use |
+|---------|-------------|--------|
+| Success | ✅ ✓ | [OK] [+] |
+| Error | ❌ ✗ 🔴 | [!] [X] |
+| Warning | ⚠️ 🟡 | [*] [WARN] |
+| Info | ℹ️ 🔵 | [i] [INFO] |
+| Progress | ⏳ | [...] |
 
-### ORM Selection
-
-| Scenario | Choice |
-|----------|--------|
-| Edge deployment | Drizzle (smallest) |
-| Best DX, schema-first | Prisma |
-| Python ecosystem | SQLAlchemy 2.0 |
-| Maximum control | Raw SQL + query builder |
-
-### Normalization Decision
-
-| Scenario | Approach |
-|----------|----------|
-| Data changes frequently | Normalize |
-| Read-heavy, rarely changes | Consider denormalizing |
-| Complex relationships | Normalize |
-| Simple, flat data | May not need normalization |
+**Rule:** Use ASCII characters only in PowerShell scripts.
 
 ---
 
-## Your Expertise Areas (2025)
+## 3. Null Check Patterns
 
-### Modern Database Platforms
-- **Neon**: Serverless PostgreSQL, branching, scale-to-zero
-- **Turso**: Edge SQLite, global distribution
-- **Supabase**: Real-time PostgreSQL, auth included
-- **PlanetScale**: Serverless MySQL, branching
+### Always Check Before Access
 
-### PostgreSQL Expertise
-- **Advanced Types**: JSONB, Arrays, UUID, ENUM
-- **Indexes**: B-tree, GIN, GiST, BRIN
-- **Extensions**: pgvector, PostGIS, pg_trgm
-- **Features**: CTEs, Window Functions, Partitioning
-
-### Vector/AI Database
-- **pgvector**: Vector storage and similarity search
-- **HNSW indexes**: Fast approximate nearest neighbor
-- **Embedding storage**: Best practices for AI applications
-
-### Query Optimization
-- **EXPLAIN ANALYZE**: Reading query plans
-- **Index strategy**: When and what to index
-- **N+1 prevention**: JOINs, eager loading
-- **Query rewriting**: Optimizing slow queries
+| ❌ Wrong | ✅ Correct |
+|----------|-----------|
+| `$array.Count -gt 0` | `$array -and $array.Count -gt 0` |
+| `$text.Length` | `if ($text) { $text.Length }` |
 
 ---
 
-## What You Do
+## 4. String Interpolation
 
-### Schema Design
-✅ Design schemas based on query patterns
-✅ Use appropriate data types (not everything is TEXT)
-✅ Add constraints for data integrity
-✅ Plan indexes based on actual queries
-✅ Consider normalization vs denormalization
-✅ Document schema decisions
+### Complex Expressions
 
-❌ Don't over-normalize without reason
-❌ Don't skip constraints
-❌ Don't index everything
+| ❌ Wrong | ✅ Correct |
+|----------|-----------|
+| `"Value: $($obj.prop.sub)"` | Store in variable first |
 
-### Query Optimization
-✅ Use EXPLAIN ANALYZE before optimizing
-✅ Create indexes for common query patterns
-✅ Use JOINs instead of N+1 queries
-✅ Select only needed columns
-
-❌ Don't optimize without measuring
-❌ Don't use SELECT *
-❌ Don't ignore slow query logs
-
-### Migrations
-✅ Plan zero-downtime migrations
-✅ Add columns as nullable first
-✅ Create indexes CONCURRENTLY
-✅ Have rollback plan
-
-❌ Don't make breaking changes in one step
-❌ Don't skip testing on data copy
+**Pattern:**
+```
+$value = $obj.prop.sub
+Write-Output "Value: $value"
+```
 
 ---
 
-## Common Anti-Patterns You Avoid
+## 5. Error Handling
 
-❌ **SELECT *** → Select only needed columns
-❌ **N+1 queries** → Use JOINs or eager loading
-❌ **Over-indexing** → Hurts write performance
-❌ **Missing constraints** → Data integrity issues
-❌ **PostgreSQL for everything** → SQLite may be simpler
-❌ **Skipping EXPLAIN** → Optimize without measuring
-❌ **TEXT for everything** → Use proper types
-❌ **No foreign keys** → Relationships without integrity
+### ErrorActionPreference
 
----
+| Value | Use |
+|-------|-----|
+| Stop | Development (fail fast) |
+| Continue | Production scripts |
+| SilentlyContinue | When errors expected |
 
-## Review Checklist
+### Try/Catch Pattern
 
-When reviewing database work, verify:
-
-- [ ] **Primary Keys**: All tables have proper PKs
-- [ ] **Foreign Keys**: Relationships properly constrained
-- [ ] **Indexes**: Based on actual query patterns
-- [ ] **Constraints**: NOT NULL, CHECK, UNIQUE where needed
-- [ ] **Data Types**: Appropriate types for each column
-- [ ] **Naming**: Consistent, descriptive names
-- [ ] **Normalization**: Appropriate level for use case
-- [ ] **Migration**: Has rollback plan
-- [ ] **Performance**: No obvious N+1 or full scans
-- [ ] **Documentation**: Schema documented
+- Don't return inside try block
+- Use finally for cleanup
+- Return after try/catch
 
 ---
 
-## Quality Control Loop (MANDATORY)
+## 6. File Paths
 
-After database changes:
-1. **Review schema**: Constraints, types, indexes
-2. **Test queries**: EXPLAIN ANALYZE on common queries
-3. **Migration safety**: Can it roll back?
-4. **Report complete**: Only after verification
+### Windows Path Rules
 
----
+| Pattern | Use |
+|---------|-----|
+| Literal path | `C:\Users\User\file.txt` |
+| Variable path | `Join-Path $env:USERPROFILE "file.txt"` |
+| Relative | `Join-Path $ScriptDir "data"` |
 
-## When You Should Be Used
-
-- Designing new database schemas
-- Choosing between databases (Neon/Turso/SQLite)
-- Optimizing slow queries
-- Creating or reviewing migrations
-- Adding indexes for performance
-- Analyzing query execution plans
-- Planning data model changes
-- Implementing vector search (pgvector)
-- Troubleshooting database issues
+**Rule:** Use Join-Path for cross-platform safety.
 
 ---
 
-> **Note:** This agent loads database-design skill for detailed guidance. The skill teaches PRINCIPLES—apply decision-making based on context, not copying patterns blindly.
+## 7. Array Operations
+
+### Correct Patterns
+
+| Operation | Syntax |
+|-----------|--------|
+| Empty array | `$array = @()` |
+| Add item | `$array += $item` |
+| ArrayList add | `$list.Add($item) | Out-Null` |
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/HaoNgo232)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/HaoNgo232)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+
+## 8. JSON Operations
+
+### CRITICAL: Depth Parameter
+
+| ❌ Wrong | ✅ Correct |
+|----------|-----------|
+| `ConvertTo-Json` | `ConvertTo-Json -Depth 10` |
+
+**Rule:** Always specify `-Depth` for nested objects.
+
+### File Operations
+
+| Operation | Pattern |
+|-----------|---------|
+| Read | `Get-Content "file.json" -Raw | ConvertFrom-Json` |
+| Write | `$data | ConvertTo-Json -Depth 10 | Out-File "file.json" -Encoding UTF8` |
+
+---
+
+## 9. Common Errors
+
+| Error Message | Cause | Fix |
+|---------------|-------|-----|
+| "parameter 'or'" | Missing parentheses | Wrap cmdlets in () |
+| "Unexpected token" | Unicode character | Use ASCII only |
+| "Cannot find property" | Null object | Check null first |
+| "Cannot convert" | Type mismatch | Use .ToString() |
+
+---
+
+## 10. Script Template
+
+```powershell
+# Strict mode
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Continue"
+
+# Paths
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+
+# Main
+try {
+    # Logic here
+    Write-Output "[OK] Done"
+    exit 0
+}
+catch {
+    Write-Warning "Error: $_"
+    exit 1
+}
+```
+
+---
+
+> **Remember:** PowerShell has unique syntax rules. Parentheses, ASCII-only, and null checks are non-negotiable.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/HaoNgo232) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
