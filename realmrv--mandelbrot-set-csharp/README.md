@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [realmrv/mandelbrot-set-csharp](https:
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/realmrv](https://tomevault.io/claim/realmrv)
 
