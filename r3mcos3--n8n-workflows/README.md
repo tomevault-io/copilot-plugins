@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [r3mcos3/n8n_workflows](https://github.com/r3mco
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/r3mcos3](https://tomevault.io/claim/r3mcos3)
 
