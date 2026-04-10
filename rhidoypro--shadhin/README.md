@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [RhidoyPro/Shadhin](https://github.com/RhidoyPro
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/RhidoyPro](https://tomevault.io/claim/RhidoyPro)
 
