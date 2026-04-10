@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [ndtp/android-testify](https://github.com/ndtp/a
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ndtp](https://tomevault.io/claim/ndtp)
 
