@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [uzulla/pod-tenuki](https://github.com/uzulla/po
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/uzulla](https://tomevault.io/claim/uzulla)
 
