@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [paidinesh7/onepager](https://github.com/paidine
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/paidinesh7](https://tomevault.io/claim/paidinesh7)
 
