@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ertu92/kd-car](https://github.com/ertu92/kd-car
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ertu92](https://tomevault.io/claim/ertu92)
 
