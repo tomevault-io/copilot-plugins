@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [drumnation/djentronome](https://githu
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/drumnation](https://tomevault.io/claim/drumnation)
 
