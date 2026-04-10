@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [fr4iser90/FoundryCord](https://github
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/fr4iser90](https://tomevault.io/claim/fr4iser90)
 
