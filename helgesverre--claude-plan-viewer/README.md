@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [HelgeSverre/claude-plan-viewer](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/HelgeSverre](https://tomevault.io/claim/HelgeSverre)
 
