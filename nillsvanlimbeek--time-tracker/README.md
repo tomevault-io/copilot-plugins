@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [NillsvanLimbeek/time-tracker](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/NillsvanLimbeek](https://tomevault.io/claim/NillsvanLimbeek)
 
