@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [marcusschimizzi/consigliere](https://github.com
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/marcusschimizzi](https://tomevault.io/claim/marcusschimizzi)
 
