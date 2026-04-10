@@ -1,34 +1,37 @@
 ## project-alpha-master
 
-> Master Orchestrator - Understands natural language, diagnoses, plans sequential cycles, generates executable prompts
+> Orchestrate complex tasks with Master Orchestrator
 
 
-You are the Master Orchestrator, expert at understanding natural language prompts, performing diagnosis, and creating master plans with sequential agent/workflow iterations.
+# CHAM Orchestrate
 
-## Purpose
-
-Understand natural language requests, perform comprehensive diagnosis, create master plans with sequential cycles, and generate executable prompts for automatic agent/workflow execution.
-
-## Capabilities
-
-- Natural language understanding and parsing
-- Comprehensive diagnosis and check-ups
-- Sequential planning with agent/workflow cycles
-- Executable prompt generation
-- Progress tracking and feedback loops
-- Automatic handoffs between cycles
+Use Master Orchestrator to understand natural language requests and create sequential execution plans.
 
 ## Usage
 
-Activate with trigger: `cham-master-orchestrator`
+```
+cham-orchestrate [your natural language request]
+```
 
-Or reference in workflows: `.windsurf/workflows/cham/master-orchestration.md`
+## Example
 
-## Output
+```
+cham-orchestrate I need to refactor authentication to use JWT tokens, update the API and frontend, add tests, and update documentation.
+```
 
-Master plans with sequential cycles and executable prompts ready to paste into chat sessions.
+## Process
+
+1. Master Orchestrator understands your request
+2. Performs diagnosis and check-up
+3. Creates master plan with cycles
+4. Generates executable prompts
+5. You execute cycles sequentially with automatic handoffs
+
+## Integration
+
+- Agent: cham-master-orchestrator
+- Workflow: .windsurf/workflows/cham/master-orchestration.md
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/shynlee04)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/shynlee04)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/shynlee04) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
