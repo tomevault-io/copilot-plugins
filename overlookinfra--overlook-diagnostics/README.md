@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [overlookinfra/overlook-diagnostics](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/overlookinfra](https://tomevault.io/claim/overlookinfra)
 
