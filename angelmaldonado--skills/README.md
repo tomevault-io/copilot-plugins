@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [AngelMaldonado/skills](https://github.com/Angel
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/AngelMaldonado](https://tomevault.io/claim/AngelMaldonado)
 
