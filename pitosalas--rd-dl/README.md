@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [pitosalas/rd_dl](https://github.com/pitosalas/r
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pitosalas](https://tomevault.io/claim/pitosalas)
 
