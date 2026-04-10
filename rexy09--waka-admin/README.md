@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rexy09/waka_admin](https://github.com/rexy09/wa
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rexy09](https://tomevault.io/claim/rexy09)
 
