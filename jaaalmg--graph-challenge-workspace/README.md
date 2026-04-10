@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [JaaaLmg/Graph-Challenge-Workspace](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/JaaaLmg](https://tomevault.io/claim/JaaaLmg)
 
