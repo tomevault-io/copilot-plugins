@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [bouzuya/rust-hatena-blog-api](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bouzuya](https://tomevault.io/claim/bouzuya)
 
