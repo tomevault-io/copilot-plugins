@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [Zorlin/veda](https://github.com/Zorli
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Zorlin](https://tomevault.io/claim/Zorlin)
 
