@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [tomacheese/watch-follow-follower](https://githu
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tomacheese](https://tomevault.io/claim/tomacheese)
 
