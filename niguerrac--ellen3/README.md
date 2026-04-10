@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [niguerrac/Ellen3](https://github.com/niguerrac/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/niguerrac](https://tomevault.io/claim/niguerrac)
 
