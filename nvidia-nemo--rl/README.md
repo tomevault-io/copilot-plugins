@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [NVIDIA-NeMo/RL](https://github.com/NVIDIA-NeMo/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/NVIDIA-NeMo](https://tomevault.io/claim/NVIDIA-NeMo)
 
