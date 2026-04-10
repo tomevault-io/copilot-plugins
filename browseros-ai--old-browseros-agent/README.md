@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [browseros-ai/old-browseros-agent](htt
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/browseros-ai](https://tomevault.io/claim/browseros-ai)
 
