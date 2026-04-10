@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [threatner/SnapTabs](https://github.com/threatne
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/threatner](https://tomevault.io/claim/threatner)
 
