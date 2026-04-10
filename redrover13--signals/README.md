@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [redrover13/signals](https://github.com/redrover
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/redrover13](https://tomevault.io/claim/redrover13)
 
