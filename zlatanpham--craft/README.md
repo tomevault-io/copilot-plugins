@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [zlatanpham/craft](https://github.com/zlatanpham
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zlatanpham](https://tomevault.io/claim/zlatanpham)
 
