@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jerrita/kanami](https://github.com/jerrita/kana
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jerrita](https://tomevault.io/claim/jerrita)
 
