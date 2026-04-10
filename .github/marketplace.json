@@ -99,56 +99,6 @@
       "description": "kachuful"
     },
     {
-      "name": "guynachshon--zorro",
-      "source": "./guynachshon--zorro",
-      "description": "zorro"
-    },
-    {
-      "name": "gfxjef--ssh-nexjs",
-      "source": "./gfxjef--ssh-nexjs",
-      "description": "ssh_nexjs"
-    },
-    {
-      "name": "pierrelux--mlbook",
-      "source": "./pierrelux--mlbook",
-      "description": "mlbook"
-    },
-    {
-      "name": "mbadawy1--aymb-whatsapp",
-      "source": "./mbadawy1--aymb-whatsapp",
-      "description": "AYMB_WhatsApp"
-    },
-    {
-      "name": "guitaristforever--simple-calculator-demo",
-      "source": "./guitaristforever--simple-calculator-demo",
-      "description": "simple-calculator-demo"
-    },
-    {
-      "name": "mid417--xrift-world-shooting-game",
-      "source": "./mid417--xrift-world-shooting-game",
-      "description": "xrift-world-shooting-game"
-    },
-    {
-      "name": "artemave--mini-meet",
-      "source": "./artemave--mini-meet",
-      "description": "mini-meet"
-    },
-    {
-      "name": "warzrag--linktracker",
-      "source": "./warzrag--linktracker",
-      "description": "Linktracker"
-    },
-    {
-      "name": "zif91--jmagency-fb-bot",
-      "source": "./zif91--jmagency-fb-bot",
-      "description": "jmagency_fb_bot"
-    },
-    {
-      "name": "khandrew1--chatgpt-app-testbench",
-      "source": "./khandrew1--chatgpt-app-testbench",
-      "description": "chatgpt-app-testbench"
-    },
-    {
       "name": "nebullii--health-iot-monitor",
       "source": "./nebullii--health-iot-monitor",
       "description": "health-iot-monitor"
@@ -11102,6 +11052,81 @@
       "name": "jarvis1704--portfolio",
       "source": "./jarvis1704--portfolio",
       "description": "portfolio"
+    },
+    {
+      "name": "dirnbauer--webconsulting-skills",
+      "source": "./dirnbauer--webconsulting-skills",
+      "description": "webconsulting-skills"
+    },
+    {
+      "name": "duongductrong--cursor-kit",
+      "source": "./duongductrong--cursor-kit",
+      "description": "cursor-kit"
+    },
+    {
+      "name": "legacybridge-tech--claude-plugins",
+      "source": "./legacybridge-tech--claude-plugins",
+      "description": "claude-plugins"
+    },
+    {
+      "name": "neo4j-graphacademy--courses",
+      "source": "./neo4j-graphacademy--courses",
+      "description": "courses"
+    },
+    {
+      "name": "oliver-kriska--claude-elixir-phoenix",
+      "source": "./oliver-kriska--claude-elixir-phoenix",
+      "description": "claude-elixir-phoenix"
+    },
+    {
+      "name": "guynachshon--zorro",
+      "source": "./guynachshon--zorro",
+      "description": "zorro"
+    },
+    {
+      "name": "gfxjef--ssh-nexjs",
+      "source": "./gfxjef--ssh-nexjs",
+      "description": "ssh_nexjs"
+    },
+    {
+      "name": "pierrelux--mlbook",
+      "source": "./pierrelux--mlbook",
+      "description": "mlbook"
+    },
+    {
+      "name": "mbadawy1--aymb-whatsapp",
+      "source": "./mbadawy1--aymb-whatsapp",
+      "description": "AYMB_WhatsApp"
+    },
+    {
+      "name": "guitaristforever--simple-calculator-demo",
+      "source": "./guitaristforever--simple-calculator-demo",
+      "description": "simple-calculator-demo"
+    },
+    {
+      "name": "mid417--xrift-world-shooting-game",
+      "source": "./mid417--xrift-world-shooting-game",
+      "description": "xrift-world-shooting-game"
+    },
+    {
+      "name": "artemave--mini-meet",
+      "source": "./artemave--mini-meet",
+      "description": "mini-meet"
+    },
+    {
+      "name": "warzrag--linktracker",
+      "source": "./warzrag--linktracker",
+      "description": "Linktracker"
+    },
+    {
+      "name": "zif91--jmagency-fb-bot",
+      "source": "./zif91--jmagency-fb-bot",
+      "description": "jmagency_fb_bot"
+    },
+    {
+      "name": "khandrew1--chatgpt-app-testbench",
+      "source": "./khandrew1--chatgpt-app-testbench",
+      "description": "chatgpt-app-testbench"
     }
   ]
 }
