@@ -1,0 +1,22 @@
+{
+  "name": "legacybridge-tech--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "AI instruction files for claude-plugins by legacybridge-tech",
+  "version": "1.0.0",
+  "author": "legacybridge-tech",
+  "homepage": "https://tomevault.io/claim/legacybridge-tech",
+  "skills": [
+    {
+      "name": "tailwindplus",
+      "description": ""
+    },
+    {
+      "name": "cross-domain-thinking",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "description": ""
+    }
+  ]
+}
