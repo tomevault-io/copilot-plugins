@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [SpinyOwl/Deck-Studio](https://github.com/SpinyO
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/SpinyOwl](https://tomevault.io/claim/SpinyOwl)
 
