@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kashyapm94/bibliotracker](https://github.com/ka
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kashyapm94](https://tomevault.io/claim/kashyapm94)
 
