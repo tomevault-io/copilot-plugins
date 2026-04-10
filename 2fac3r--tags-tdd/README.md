@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [2Fac3R/tags-tdd](https://github.com/2Fac3R/tags
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/2Fac3R](https://tomevault.io/claim/2Fac3R)
 
