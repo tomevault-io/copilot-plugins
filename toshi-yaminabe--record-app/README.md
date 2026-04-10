@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [toshi-yaminabe/record-app](https://github.com/t
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/toshi-yaminabe](https://tomevault.io/claim/toshi-yaminabe)
 
