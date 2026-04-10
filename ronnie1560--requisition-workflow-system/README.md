@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Ronnie1560/requisition-workflow-system](https:/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Ronnie1560](https://tomevault.io/claim/Ronnie1560)
 
