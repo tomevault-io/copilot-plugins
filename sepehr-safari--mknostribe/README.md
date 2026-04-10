@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sepehr-safari/mknostribe](https://github.com/se
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sepehr-safari](https://tomevault.io/claim/sepehr-safari)
 
