@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jxcross/english-practice-pwa](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jxcross](https://tomevault.io/claim/jxcross)
 
