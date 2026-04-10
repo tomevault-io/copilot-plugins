@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Peiiii/AgentVerse](https://github.com/Peiiii/Ag
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Peiiii](https://tomevault.io/claim/Peiiii)
 
