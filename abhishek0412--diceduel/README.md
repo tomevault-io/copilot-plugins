@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [abhishek0412/DiceDuel](https://github.com/abhis
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/abhishek0412](https://tomevault.io/claim/abhishek0412)
 
