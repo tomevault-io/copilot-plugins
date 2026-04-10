@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [OnoSendae/agentic-design-pattern](https://githu
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/OnoSendae](https://tomevault.io/claim/OnoSendae)
 
