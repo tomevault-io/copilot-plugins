@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [Graffino/N8n-Eloquent](https://github
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Graffino](https://tomevault.io/claim/Graffino)
 
