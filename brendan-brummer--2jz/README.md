@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Brendan-Brummer/2jz](https://github.com/Brendan
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Brendan-Brummer](https://tomevault.io/claim/Brendan-Brummer)
 
