@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Karalix/karalix-page](https://github.com/Karali
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Karalix](https://tomevault.io/claim/Karalix)
 
