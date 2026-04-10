@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ppf/resymf-cms](https://github.com/ppf/resymf-c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ppf](https://tomevault.io/claim/ppf)
 
