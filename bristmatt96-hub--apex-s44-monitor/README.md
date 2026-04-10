@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bristmatt96-hub/apex-s44-monitor](https://githu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bristmatt96-hub](https://tomevault.io/claim/bristmatt96-hub)
 
