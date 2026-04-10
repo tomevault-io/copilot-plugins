@@ -207,6 +207,5 @@ The `scripts/sanity_checks.sh` script runs all validation steps before deploymen
 This script is called directly by CI (not through package.json) and orchestrates the individual package.json scripts.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/cfogelklou)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/cfogelklou)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/cfogelklou) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
