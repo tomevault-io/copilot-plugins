@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [pegasus-isi/pegasus](https://github.com/pegasus
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pegasus-isi](https://tomevault.io/claim/pegasus-isi)
 
