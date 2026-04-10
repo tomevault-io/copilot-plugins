@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kw-lee/llm-agent-template](https://github.com/k
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kw-lee](https://tomevault.io/claim/kw-lee)
 
