@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [qwtm/bookmarkit](https://github.com/qwtm/bookma
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/qwtm](https://tomevault.io/claim/qwtm)
 
