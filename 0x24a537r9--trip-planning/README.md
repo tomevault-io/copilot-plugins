@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [0x24a537r9/trip-planning](https://github.com/0x
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/0x24a537r9](https://tomevault.io/claim/0x24a537r9)
 
