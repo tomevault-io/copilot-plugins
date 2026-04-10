@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [NAME0x0/SMNTC](https://github.com/NAME0x0/SMNTC
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/NAME0x0](https://tomevault.io/claim/NAME0x0)
 
