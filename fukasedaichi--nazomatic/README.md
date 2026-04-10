@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [FukaseDaichi/nazomatic](https://github.com/Fuka
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/FukaseDaichi](https://tomevault.io/claim/FukaseDaichi)
 
