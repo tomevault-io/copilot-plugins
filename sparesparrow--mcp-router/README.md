@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [sparesparrow/mcp-router](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sparesparrow](https://tomevault.io/claim/sparesparrow)
 
