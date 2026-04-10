@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [SynaestheticSynthesis/CompAnIon](https://github
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/SynaestheticSynthesis](https://tomevault.io/claim/SynaestheticSynthesis)
 
