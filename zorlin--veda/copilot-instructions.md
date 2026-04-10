@@ -1,37 +1,33 @@
 ## veda
 
-> Rust implementation approach and validation
+> Rust safety guidelines and best practices
 
 
-# Implementation Approach
+# Safety Guidelines
 
-## Implementation Philosophy
+## Unsafe Code
 
-- Implement over remove: prefer fixing unused code rather than deleting
-- Use small changes where possible
-- Focus on error resolution rather than code removal
-- Preserve existing functionality while fixing issues
-- Maintain code organization and structure
+- Justify any unsafe code with explicit safety guarantees
+- Document invariants and risks for unsafe blocks
+- Prefer safe alternatives whenever possible
+- Include review requirements for unsafe code
 
-## Validation Requirements
+## Safe Practices
 
-- Validate changes with:
-  - cargo check: Ensure code compiles
-  - cargo clippy: Check for lints and common issues
-  - cargo test: Verify functionality works as expected
-  - cargo fmt: Maintain code style
-- Ensure no regressions after changes
-- Verify no new errors are introduced
+- Avoid unwrap() and expect() in production code
+- Use checked operations instead of operations that can panic
+- Properly handle integer overflow
+- Validate input data
+- Follow ownership and borrowing rules
+- Test edge cases thoroughly
 
-## Priority-Based Fixing
+## Error Handling Safety
 
-Fix issues in this order:
-1. Build errors (compilation failures)
-2. Safety issues (unsafe code, panics)
-3. Test failures (broken functionality)
-4. Style issues (formatting, naming) 
+- Prefer Result over panic for error handling
+- Document all possible error cases
+- Use ? operator for clean error propagation
+- Create custom error types for domain-specific errors 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Zorlin)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Zorlin)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Zorlin) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
