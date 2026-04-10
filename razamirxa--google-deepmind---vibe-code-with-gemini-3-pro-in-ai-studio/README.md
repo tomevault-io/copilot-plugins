@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Razamirxa/Google-DeepMind---Vibe-Code-with-Gemi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Razamirxa](https://tomevault.io/claim/Razamirxa)
 
