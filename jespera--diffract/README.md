@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [jespera/diffract](https://github.com/jespera/di
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jespera](https://tomevault.io/claim/jespera)
 
