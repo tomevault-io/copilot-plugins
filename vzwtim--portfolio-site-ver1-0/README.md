@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [vzwtim/portfolio-site_ver1.0](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vzwtim](https://tomevault.io/claim/vzwtim)
 
