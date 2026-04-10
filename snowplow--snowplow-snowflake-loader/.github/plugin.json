@@ -1,0 +1,9 @@
+{
+  "name": "snowplow--snowplow-snowflake-loader",
+  "displayName": "snowplow-snowflake-loader",
+  "description": "snowplow-snowflake-loader",
+  "version": "1.0.0",
+  "author": "snowplow",
+  "homepage": "https://tomevault.io/claim/snowplow",
+  "skills": []
+}
