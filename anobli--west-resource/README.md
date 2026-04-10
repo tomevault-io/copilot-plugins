@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [anobli/west-resource](https://github.com/anobli
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/anobli](https://tomevault.io/claim/anobli)
 
