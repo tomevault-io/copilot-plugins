@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [aebonlee/Nong-View](https://github.com/aebonlee
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/aebonlee](https://tomevault.io/claim/aebonlee)
 
