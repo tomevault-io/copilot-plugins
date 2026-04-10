@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Tayeb-hamidi/pronote-pour-skillbeam](https://gi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Tayeb-hamidi](https://tomevault.io/claim/Tayeb-hamidi)
 
