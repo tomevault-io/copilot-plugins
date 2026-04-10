@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [shipstone-labs/min-fhe](https://github.com/ship
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/shipstone-labs](https://tomevault.io/claim/shipstone-labs)
 
