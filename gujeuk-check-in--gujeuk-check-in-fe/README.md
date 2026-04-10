@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [GuJeuk-Check-in/GuJeuk-Check-in-FE](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/GuJeuk-Check-in](https://tomevault.io/claim/GuJeuk-Check-in)
 
