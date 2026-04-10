@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [DarinelEscobar/LARAVEL-LADING-TEMPLATE-SWISS](h
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/DarinelEscobar](https://tomevault.io/claim/DarinelEscobar)
 
