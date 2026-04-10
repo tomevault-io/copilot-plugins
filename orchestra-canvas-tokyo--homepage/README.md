@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [orchestra-canvas-tokyo/homepage](https://github
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/orchestra-canvas-tokyo](https://tomevault.io/claim/orchestra-canvas-tokyo)
 
