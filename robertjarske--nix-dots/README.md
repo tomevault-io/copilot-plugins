@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [robertjarske/nix-dots](https://github.com/rober
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/robertjarske](https://tomevault.io/claim/robertjarske)
 
