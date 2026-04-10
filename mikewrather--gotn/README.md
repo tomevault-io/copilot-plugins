@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mikewrather/gotn](https://github.com/mikewrathe
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mikewrather](https://tomevault.io/claim/mikewrather)
 
