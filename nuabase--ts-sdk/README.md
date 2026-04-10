@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [nuabase/ts-sdk](https://github.com/nuabase/ts-s
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nuabase](https://tomevault.io/claim/nuabase)
 
