@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jxdai2007/FocusLock](https://github.com/jxdai20
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jxdai2007](https://tomevault.io/claim/jxdai2007)
 
