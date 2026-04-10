@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [Common-ka/ai-agent-unity-rules](https
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Common-ka](https://tomevault.io/claim/Common-ka)
 
