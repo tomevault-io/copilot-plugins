@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [julsmindsas/Seller.Katuq](https://git
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/julsmindsas](https://tomevault.io/claim/julsmindsas)
 
