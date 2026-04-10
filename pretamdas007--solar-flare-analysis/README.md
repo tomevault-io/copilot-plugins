@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [pretamdas007/solar_flare_analysis](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pretamdas007](https://tomevault.io/claim/pretamdas007)
 
