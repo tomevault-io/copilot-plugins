@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [vx-daniel/barf-docker](https://github.com/vx-da
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vx-daniel](https://tomevault.io/claim/vx-daniel)
 
