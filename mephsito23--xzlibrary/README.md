@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Mephsito23/XZLibrary](https://github.com/Mephsi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Mephsito23](https://tomevault.io/claim/Mephsito23)
 
