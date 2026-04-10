@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [mikko-kohtala/nextjs-convex-template]
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mikko-kohtala](https://tomevault.io/claim/mikko-kohtala)
 
