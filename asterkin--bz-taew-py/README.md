@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [asterkin/bz-taew-py](https://github.com/asterki
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/asterkin](https://tomevault.io/claim/asterkin)
 
