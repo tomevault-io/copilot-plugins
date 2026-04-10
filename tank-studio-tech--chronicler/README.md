@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [tank-studio-tech/chronicler](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tank-studio-tech](https://tomevault.io/claim/tank-studio-tech)
 
