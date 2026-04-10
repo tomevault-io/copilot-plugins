@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [MARUCIE/09-data-wings](https://github.com/MARUC
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/MARUCIE](https://tomevault.io/claim/MARUCIE)
 
