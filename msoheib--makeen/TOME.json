@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/msoheib",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T02:49:05Z"
+  "distributed_at": "2026-04-10T07:35:13Z"
 }
