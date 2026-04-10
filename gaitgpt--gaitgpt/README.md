@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [GaitGPT/GaitGPT](https://github.com/GaitGPT/Gai
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/GaitGPT](https://tomevault.io/claim/GaitGPT)
 
