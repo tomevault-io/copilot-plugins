@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [HyperSoWeak/mdprev](https://github.com/HyperSoW
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/HyperSoWeak](https://tomevault.io/claim/HyperSoWeak)
 
