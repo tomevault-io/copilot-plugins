@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nsimhaprasad/finplanner.ai](https://github.com/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nsimhaprasad](https://tomevault.io/claim/nsimhaprasad)
 
