@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [stibiums/terminator_task_manager](https://githu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/stibiums](https://tomevault.io/claim/stibiums)
 
