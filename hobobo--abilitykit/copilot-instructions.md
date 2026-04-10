@@ -1,47 +1,77 @@
 ## abilitykit
 
-> - **TriggerStrong（强类型触发器）**：`ActionEditorConfigBase` / `ConditionEditorConfigBase` 的派生类（例如 `GiveDamageActionEditorConfig`）。
+> 本文用于说明 `com.abilitykit.host` 的架构意图，以及 World Blueprints 的推荐使用方式。
 
 
-# Trigger Plan 导出规则（ability_trigger_plans.json）
+# Host + WorldBlueprints 规则
 
-## 1) 术语
+## 0. 目标
 
-- **TriggerStrong（强类型触发器）**：`ActionEditorConfigBase` / `ConditionEditorConfigBase` 的派生类（例如 `GiveDamageActionEditorConfig`）。
-- **JsonActionEditorConfig（弱类型/兜底节点）**：仅包含 `TypeValue + Args(Dictionary)` 的节点，用于无法匹配强类型配置时兜底。
-- **Plan 导出产物**：`Assets/Resources/ability/ability_trigger_plans.json`
+本文用于说明 `com.abilitykit.host` 的架构意图，以及 World Blueprints 的推荐使用方式。
 
-## 2) 核心不变量
+## 1. 包层级与依赖方向
 
-- **运行时 PlanActionModule 的签名必须与导出 Arity 对齐**
-  - 例如 `GiveDamagePlanActionModule` 仅实现 `Action2(value, reasonParam)`，所以 plan 中必须导出 `Arity=2`。
-- **强类型参数必须能在导出时稳定读取**
-  - 如果导出器读到 `Args=null`/`Args empty`，则参数一定丢失，最终 `ConstValue` 会是 0。
+- `com.abilitykit.host` 属于 **框架/运行时基础设施**。
+- Host 包不得依赖任何 gameplay 包（例如 `com.abilitykit.demo.*`, `com.abilitykit.game.*`）。
+- Gameplay 包可以依赖 `com.abilitykit.host`。
 
-## 3) 高风险点（会导致 value=50 导出为 0）
+## 2. Host 应该包含什么
 
-- **节点不是强类型**：实际节点为 `JsonActionEditorConfig` 且 `Args=null`。
-  - 典型表现：Unity Inspector 里只看到 `Args`，看不到 `伤害值` 等字段。
-- **导出链路中使用对象池容器**：`PooledDefArgs` / `PooledTriggerArgs` 这类 `Dictionary` 在 Release 时会 `Clear()`。
-  - 规则：导出阶段如需长期使用 args，必须 copy（或直接从强类型节点取值）。
+Host 的职责：
+- world 生命周期 + tick 驱动 + 路由
+- 基于 world capability 的 driver 选择
+- 横切型 host module（time/rollback/record/metrics）
+- 传输抽象（connection + message）
 
-## 4) 推荐工作流
+Host 不应：
+- 写死任何 gameplay 规则
+- 包含 gameplay 特有的 world 组装/初始化逻辑
 
-- 修改触发器后：
-  - 立刻执行 `AbilityKit/Ability/Export Trigger Plan Json`
-  - 立刻打开 `ability_trigger_plans.json` 校验 `TriggerId` 下对应 `Actions` 的 `Arity/ConstValue`
+## 3. WorldType 是 gameplay 合同
 
-## 5) 定位指南（当只输出日志不造成伤害）
+- 不同玩法/世界的差异应通过以下方式表达：
+  - `WorldType` 字符串（合同/协议）
+  - `WorldCreateOptions` 的组合（modules + services + extensions）
 
-- **先看导出**：
-  - `give_damage` 是否为 `Arity=2` 且 `Arg0.ConstValue` 为期望伤害值
-- **再看运行时注册**：
-  - `GiveDamagePlanActionModule` 是否被注册（`PlanActionModuleRegistry`）
-  - `ActionRegistry` 是否能同时存多 arity delegate
-- **最后看上下文解析**：
-  - `PlanContextValueResolver.TryGetCasterActorId/TryGetTargetActorId` 是否能从 payload（如 `ProjectileHitArgs`）解析出 attacker/target
+## 4. World Blueprints
+
+### 4.1 目的
+
+Blueprints 用于避免在各个创建 world 的调用点散落“临时装配代码”。
+
+`IWorldBlueprint.Configure(WorldCreateOptions)` 通常负责：
+- `options.ServiceBuilder` 的默认构建/补齐
+- `options.Modules.Add(...)`
+- `options.Extensions[...]`（例如 Entitas contexts factory）
+
+### 4.2 注册风格
+
+推荐 **应用侧显式注册**：
+
+- 每个 gameplay 应用包提供一个唯一入口：
+  - `RegisterAll(WorldBlueprintRegistry registry)`
+
+Host 不做反射扫描（避免隐式全局状态与不可控的装配）。
+
+### 4.3 Factory 接线（wiring）
+
+使用 blueprints 时，world factory 推荐按如下组合：
+
+- `WorldTypeRegistry`（runtime world 实现选择：Entitas/其他）
+- `RegistryWorldFactory`（基础工厂）
+- `WorldBlueprintWorldFactory`（创建前应用 blueprint）
+- `WorldManager`（管理多个 world）
+
+## 5. Capabilities
+
+Host 与 gameplay 的交互必须通过 `world.Services` 中解析出来的 capability：
+
+- `IWorldInputSink`
+- `IWorldStateSnapshotProvider`
+- `IWorldPlayerLifecycle`
+
+除非存在明确的 Host↔World 交互需求，否则不要随意新增 capability。
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/HOBOBO)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/HOBOBO)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/HOBOBO) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
