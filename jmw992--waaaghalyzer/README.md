@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [jmw992/WAAAGHalyzer](https://github.com/jmw992/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jmw992](https://tomevault.io/claim/jmw992)
 
