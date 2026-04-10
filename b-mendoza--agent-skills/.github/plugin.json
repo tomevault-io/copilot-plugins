@@ -1,0 +1,14 @@
+{
+  "name": "b-mendoza--agent-skills",
+  "displayName": "agent-skills",
+  "description": "AI instruction files for agent-skills by b-mendoza",
+  "version": "1.0.0",
+  "author": "b-mendoza",
+  "homepage": "https://tomevault.io/claim/b-mendoza",
+  "skills": [
+    {
+      "name": "validate-implementation-plan",
+      "description": ""
+    }
+  ]
+}
