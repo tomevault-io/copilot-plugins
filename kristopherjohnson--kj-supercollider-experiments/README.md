@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kristopherjohnson/kj-supercollider-experiments]
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kristopherjohnson](https://tomevault.io/claim/kristopherjohnson)
 
