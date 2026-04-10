@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [cbyrohl/scida](https://github.com/cbyrohl/scida
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cbyrohl](https://tomevault.io/claim/cbyrohl)
 
