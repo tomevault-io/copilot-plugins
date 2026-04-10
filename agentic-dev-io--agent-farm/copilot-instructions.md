@@ -1,242 +1,354 @@
 ## agent-farm
 
-> This file provides context and instructions for AI agents (Claude, Copilot, etc.) working with the Agent Farm codebase.
+> You are a specialized GitHub Copilot agent for this repository. Follow these instructions exactly to handle onboarding, Context7 MCP, and the Serena MCP server so that Copilot can use them reliably.
 
-# Claude Code Instructions
+# Agent-Farm: GitHub Copilot Instructions
 
-This file provides context and instructions for AI agents (Claude, Copilot, etc.) working with the Agent Farm codebase.
+You are a specialized GitHub Copilot agent for this repository. Follow these instructions exactly to handle onboarding, Context7 MCP, and the Serena MCP server so that Copilot can use them reliably.
 
-## Project Overview
+## Quick Reference: Agent-Farm Technical Overview
 
-**Agent Farm** is a DuckDB-powered MCP server with a central **Spec Engine** that manages specifications for LLM agents. It provides:
+**agent-farm** is a DuckDB-powered MCP Server providing SQL macros for LLM agents (web search, Python execution, RAG via SQL).
 
-- Unified specification storage (agents, skills, templates, schemas, workflows, orgs, APIs, protocols, UI, MCP servers)
-- 280+ SQL macros (LLM calls, web search, shell, Python, file ops, git, RAG, agent harness)
-- Multi-org agent swarm (5 orgs with security policies, tool permissions, denial rules)
-- MCP Apps system (24 MiniJinja UI templates)
-- Agent harness with Ollama + Anthropic backends
-- Meta-learning (feedback, adaptations, confidence tracking, learning insights)
-- Intelligence layer (embeddings, org-specific knowledge bases, hybrid search)
-- Smart extensions (JSONata, DuckPGQ, Radio nativ; Bitfilters, Lindel hybrid/Python-fallback)
-- Template rendering via MiniJinja
-- JSON Schema validation
-- MCP protocol integration via `duckdb_mcp`
-- Optional HTTP API via `httpserver`
+**Key Facts:**
+- **Language:** Python 3.11+, Package Manager: **uv** (NOT pip), Database: DuckDB ≥1.1.0
+- **Structure:** 190 lines main.py, 551 lines SQL macros, 2 test files (188 lines total)
 
-## Architecture
+---
+
+## 1. Repository Onboarding Behavior
+
+- On first use in this repo, always read:
+  - `README.md`
+  - `CONTRIBUTING.md`
+  - Everything under `.github/` (especially `copilot-instructions.md`, `prompts/`, workflows).
+- Prefer existing scripts and tasks for setup and builds:
+  - Look for `Makefile`, `justfile`, `Taskfile.yml`, `package.json` scripts, or similar, and use those commands instead of inventing new ones.
+- Before creating new files, services, MCP configs, or complex code:
+  - Search the codebase for existing patterns and conventions.
+  - Match the existing architecture, folder structure, naming, and coding style.
+- When something is unclear in the repo:
+  - State your assumptions briefly.
+  - Propose concrete follow-up actions (for example "we should add X to `README.md`" or "this should be documented in `.github/copilot-instructions.md`").
+
+## 2. Copilot Prompt Files for Onboarding
+
+- This repo contains an onboarding prompt file based on GitHub's `onboarding-plan.prompt.md` pattern.
+- **Location:** `.github/prompts/onboarding-plan.prompt.md`
+- **The file contains:**
+  - YAML front matter with `mode: 'agent'` and a descriptive `description`.
+  - A Markdown body describing how to generate a phased onboarding plan for new contributors.
+- **How to use:**
+  - Open GitHub Copilot Chat in VS Code or JetBrains.
+  - Invoke it with `/onboarding-plan` (or the actual filename prefix).
+- **If adding new prompt files:**
+  - Reuse and extend existing prompt files instead of creating overlapping ones.
+  - Keep each file focused on a specific workflow (for example onboarding, refactoring, test strategy).
+
+## 3. Repository-Level Copilot Instructions
+
+- This file (`.github/copilot-instructions.md`) is the **governing configuration** for how you should behave in this repo (architecture, stack, coding standards, tools).
+- Follow all constraints and instructions in this file unless the user explicitly overrides them.
+- Content includes:
+  - Tech stack description.
+  - Coding conventions.
+  - How to use MCP servers (Context7, Serena) in this repo.
+  - Project-specific workflows that should be standardized.
+
+## 4. Setting Up Context7 MCP for Copilot
+
+The Context7 MCP server is configured **per editor/user**, not per repo. You should expect the following setup and guide the user when it is missing.
+
+### 4.1 Editor-Level MCP Configuration
+
+- VS Code stores MCP configuration in a dedicated `mcp.json` file, not in `settings.json`.
+- **Typical locations:**
+  - Windows: `C:\Users\<USERNAME>\AppData\Roaming\Code\User\mcp.json`
+  - macOS / Linux: `~/.config/Code/User/mcp.json`
+- The user must add a Context7 server entry, for example:
+  ```json
+  {
+    "servers": {
+      "Context7": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["-y", "@upstash/context7-mcp@latest"]
+      }
+    }
+  }
+  ```
+- With API key:
+  ```json
+  {
+    "servers": {
+      "Context7": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["-y", "@upstash/context7-mcp@latest", "--api-key", "YOUR_CONTEXT7_API_KEY"]
+      }
+    }
+  }
+  ```
+
+### 4.2 Enabling Context7 as a Tool in Copilot
+
+- After editing `mcp.json`, the user must:
+  - Reload VS Code.
+  - Open GitHub Copilot Chat, click the **Tools** icon, and enable **Context7** so its tools are available.
+
+### 4.3 Repo-Level Instructions for Context7
+
+- In this repository, you are expected to follow these guidelines:
+  ```
+  Always use Context7 to retrieve current documentation when working with frameworks, libraries, or APIs.
+  Automatically invoke the Context7 MCP tools without being asked.
+  Prefer current documentation from Context7 over model training data if there is a conflict.
+  ```
+- As the Copilot agent, do the following when Context7 is available:
+  - For questions about frameworks, libraries, SDKs, or APIs, **internally** append `use context7` to the user's request so Context7 is invoked.
+  - Be as explicit as possible about:
+    - Library or framework name (for example, React, Next.js, Supabase, Express).
+    - Version if known (for example, Next.js 13, React 18).
+  - Use the retrieved documentation to:
+    - Align with current APIs and signatures.
+    - Avoid deprecated patterns.
+    - Follow recommended best practices.
+
+### 4.4 Example Internal Prompt Adjustments (Not Shown to the User)
+
+- User: "Implement a Next.js route to call our Supabase backend and stream results."
+  - Internal adjustment: `Implement a Next.js 13 App Router route that calls Supabase and streams results, use context7 for Next.js and Supabase docs`.
+- User: "Set up Passport.js login in an Express server."
+  - Internal adjustment: `Set up Passport.js local strategy for login in an Express server, use context7 for passport and express docs`.
+
+## 5. Setting Up the Serena MCP Server
+
+You should assume that the Serena MCP server is configured similarly to other MCP servers using `mcp.json`. When it is missing, guide the user using the standard MCP setup flow.
+
+### 5.1 Editor-Level Configuration Pattern
+
+- MCP servers for Copilot generally follow this pattern in `mcp.json`:
+  ```json
+  {
+    "servers": {
+      "serena": {
+        "command": "serena-mcp",
+        "args": [],
+        "type": "stdio"
+      }
+    }
+  }
+  ```
+- If Serena is distributed as an npm package, it might look like:
+  ```json
+  {
+    "servers": {
+      "serena": {
+        "command": "npx",
+        "args": ["-y", "@serena/mcp-server"],
+        "type": "stdio"
+      }
+    }
+  }
+  ```
+- If Serena needs a token or configuration file, you should:
+  - Ask the user where Serena's binary/config lives.
+  - Suggest adding the appropriate `args` or environment variables to `mcp.json`.
+
+### 5.2 Enabling Serena in Copilot Chat
+
+- After Serena is added to `mcp.json`, the user must:
+  - Reload the editor.
+  - Open Copilot Chat, click the **Tools** icon, and ensure the **Serena** tools are enabled.
+
+### 5.3 How You Should Use Serena as the Agent
+
+- Use Serena when:
+  - You need structured project analysis beyond simple text search (for example "find all call sites of function X across services").
+  - You need to run complex repo-specific tools provided by Serena (for example project graph inspection, build diagnostics, domain-specific analyzers).
+- When defining tasks that Serena should perform, think in terms of generic tool names so they can be mapped to Serena's implementation, for example:
+  - "serena-read_file" – read files or file fragments.
+  - "serena-search_code" – perform codebase-wide search.
+  - "serena-analyze_graph" – run a structural or dependency analysis.
+- If Serena is not available:
+  - Say that explicitly.
+  - Fall back to standard file search and pattern matching in the repo.
+
+## 6. Using MCP with Copilot Agent Mode
+
+- Copilot agent mode can use multiple MCP servers (Context7, Serena, GitHub MCP server, etc.) at the same time.
+- Decision logic you should follow:
+  - If the question is answerable purely from the current repo, prioritize reading the repo first.
+  - If external documentation or API references are needed, use Context7.
+  - If deeper structural analysis or repo-specific tools are needed, delegate those subtasks conceptually to Serena.
+
+## 7. Repository-Specific Onboarding Workflow
+
+- On first use in this repo, perform an internal onboarding pass:
+  - Read `README.md`, `CONTRIBUTING.md`, and key files under `.github/`.
+  - Build an internal mental model of:
+    - Main services/modules.
+    - Primary tech stack.
+    - Expected development workflows (build, test, deploy).
+- Offer to generate (if missing):
+  - A short architecture and onboarding overview for new contributors.
+  - A tailored `.github/copilot-instructions.md` describing how Copilot should behave here.
+  - One or more `.github/prompts/*.prompt.md` files for recurring workflows (for example `/bugfix-guide`, `/refactor-module`, `/test-strategy`).
+
+## 8. Answering Style
+
+- Assume the user is a senior / lead engineer or software architect.
+- Prefer:
+  - Precise, concise technical language.
+  - Concrete code examples and command lines.
+  - Clear indication of assumptions and configuration requirements.
+- If MCP servers (Context7 or Serena) appear misconfigured or unavailable:
+  - Say what is missing (for example "Context7 MCP server is not listed in mcp.json").
+  - Provide exact steps to fix it (file path, JSON snippet, and how to enable the tool in Copilot Chat).
+
+---
+
+## CRITICAL: Run These Commands (Validated, ~60sec first run)
+
+```bash
+# 1. ALWAYS FIRST: Install dependencies (if uv not found: pip install uv)
+uv sync --dev
+
+# 2. BEFORE COMMITTING: Lint and format (instant)
+uv run ruff check --fix src/ tests/
+uv run ruff format src/ tests/
+
+# 3. BEFORE COMMITTING: Test (~4sec, expect tests to pass with warnings)
+uv run pytest tests/ -v
+
+# 4. Run server (optional)
+uv run agent-farm  # or: uv run python -m agent_farm
+
+# 5. Docker (may fail in sandboxed envs with cert errors - expected)
+docker build -t agent-farm .
+```
+
+## Project Structure
 
 ```
 agent-farm/
-├── src/agent_farm/             # Main Python package
-│   ├── cli.py                  # Typer CLI (mcp, status, spec, app, sql)
-│   ├── repl.py                 # Interactive REPL with slash-commands
-│   ├── main.py                 # DuckDB init, extension loading, SQL macros
-│   ├── spec_engine.py          # Spec Engine class (central component)
-│   ├── orgs.py                 # Organization configurations (5 orgs)
-│   ├── schemas.py              # Data models, enums, SQL table definitions
-│   ├── udfs.py                 # Python UDFs (agent_chat, agent_tools, etc.)
-│   └── sql/                    # Modular SQL macros (280+)
-│       ├── base.sql            # Base utilities (url_encode, timestamps) (4 macros)
-│       ├── ollama.sql          # LLM model macros (28 macros)
-│       ├── tools.sql           # Web search, shell, Python, fetch, file, git (48 macros)
-│       ├── agent.sql           # Security policies, audit, secure ops, injection detection (23 macros)
-│       ├── harness.sql         # Agent harness, Anthropic + Ollama routing (13 macros)
-│       ├── orgs.sql            # Org tables, permissions, orchestrator routing (16 macros)
-│       ├── org_tools.sql       # SearXNG, CI/CD, notes board, render jobs (25 macros)
-│       ├── ui.sql              # MCP Apps, 24 templates, onboarding, settings (35 macros)
-│       ├── extensions.sql      # JSONata, DuckPGQ, Radio, Bitfilters, Lindel (33 macros)
-│       └── spec/               # Spec Engine SQL files
-│           ├── schema.sql      # Core schema (7 tables, 19 views, 7 sequences)
-│           ├── macros.sql      # 39 spec query/mutation/template/validation macros
-│           ├── seed.sql        # Seed data (agents, skills, templates, schemas, orgs, workflows)
-│           ├── intelligence.sql # Intelligence layer (embeddings, org knowledge bases)
-│           ├── rag.sql         # RAG/hybrid search macros (16 macros)
-│           ├── http.sql        # HTTP API views
-│           └── init.sql        # Extension loading
-├── scripts/                    # Utility scripts
-│   ├── install_extensions.py
-│   └── test_extensions.py
-├── tests/                      # Test suite
-├── docs/                       # Documentation
-├── mcp.json                    # MCP server configuration
-├── Dockerfile                  # Docker build
-└── pyproject.toml              # Project config (uv_build)
+├── .github/
+│   ├── workflows/          # CI/CD pipelines
+│   │   ├── ci.yml         # Main CI: lint, test, docker, validate-macros
+│   │   ├── security.yml   # CodeQL + dependency scan
+│   │   ├── code-quality.yml
+│   │   ├── dependencies.yml  # Weekly dependency updates
+│   │   └── release.yml    # PyPI + Docker publish on tags
+│   ├── instructions/       # File-specific coding guidelines
+│   │   ├── python-source.instructions.md
+│   │   ├── python-tests.instructions.md
+│   │   ├── sql-macros.instructions.md
+│   │   ├── docker.instructions.md
+│   │   └── github-workflows.instructions.md
+│   ├── agents/
+│   │   └── devops-agent.md  # Specialized DevOps agent
+│   ├── CONTRIBUTING.md
+│   ├── WORKFLOWS.md        # Detailed workflow documentation
+│   └── copilot-instructions.md  # This file
+├── src/agent_farm/
+│   ├── __init__.py
+│   ├── main.py            # 190 lines: Entry point, extension loading, MCP server
+│   ├── macros.sql         # 551 lines: SQL macros for LLM integration
+│   └── py.typed
+├── tests/
+│   ├── test_macros.py     # 137 lines: Main test with SQL parser helper
+│   └── verify_farm.py     # 51 lines: Verification script
+├── scripts/
+│   ├── install_extensions.py  # Pre-install DuckDB extensions
+│   └── test_extensions.py     # Test extension availability
+├── pyproject.toml         # Project metadata, dependencies, ruff config
+├── uv.lock               # Locked dependencies
+├── Dockerfile            # Multi-stage Python 3.11-slim build
+├── mcp.json              # MCP server configuration
+└── README.md             # User-facing documentation
 ```
 
-## Key Components
+## Key Files by Purpose
 
-### 1. Spec Engine (`src/agent_farm/spec_engine.py`)
+### Making Code Changes
+- **Python code:** `src/agent_farm/main.py` (extensions, MCP tables, server startup)
+- **SQL macros:** `src/agent_farm/macros.sql` (Ollama, web search, shell, RAG, etc.)
+- **Tests:** `tests/test_macros.py` (uses `split_sql_statements()` helper)
 
-The central specification management system. Key methods:
+### Configuration
+- **Dependencies:** `pyproject.toml` (requires-python = ">=3.11", line-length = 100)
+- **Linter config:** `[tool.ruff]` section in pyproject.toml (target-version = "py311")
+- **Package manager:** `uv.lock` (locked versions, don't edit manually)
+- **Docker:** `Dockerfile` (Python 3.11-slim, uv for package management)
 
-```python
-# Query operations
-spec_list(kind, status, limit)      # List specs by kind
-spec_get(id, kind, name, version)   # Get single spec
-spec_search(query, limit)           # Search specs
+### Documentation
+- **User guide:** `README.md` (features, installation, usage examples)
+- **Contributing:** `.github/CONTRIBUTING.md` (dev setup, branching, commit messages)
+- **Workflows:** `.github/WORKFLOWS.md` (detailed CI/CD documentation)
+- **Instructions:** `.github/instructions/*.instructions.md` (file-type-specific rules)
 
-# Template rendering
-render_from_template(template_name, context)
+## CI/CD Pipelines (GitHub Actions)
 
-# Validation
-validate_payload_against_spec(kind, name, payload)
+### CI Workflow (`.github/workflows/ci.yml`)
+**Triggers:** Push to main/master, PRs, manual dispatch
+**Jobs:**
+1. **lint:** Ruff check + format check (uses uv cache)
+2. **test:** pytest on Python 3.11 & 3.12 (matrix build, uses uv cache)
+3. **docker:** Docker build (uses GitHub Actions cache)
+4. **validate-macros:** Run test_macros.py (uses uv cache)
 
-# CRUD operations
-spec_create(kind, name, summary, ...)
-spec_update(id, status, summary, doc, payload)
-spec_delete(id)
+**Critical:** All jobs use uv dependency caching with `uv.lock` hash as key. Cache path: `~/.cache/uv`
 
-# Meta-learning
-record_usage(spec_id, was_success)
-record_feedback(spec_id, feedback_type, score, context, outcome, notes)
-record_adaptation(spec_id, adaptation_type, reason, changes)
-record_learning(learning_type, category, description, evidence, confidence)
-get_specs_needing_improvement(min_usage, max_success_rate)
-get_spec_performance(spec_id)
-get_top_learnings(limit)
+### Security Workflow (`.github/workflows/security.yml`)
+**Triggers:** Push, PR, weekly (Monday 00:00 UTC), manual
+**Jobs:**
+1. **codeql:** Static analysis (skips PRs to reduce redundancy)
+2. **dependency-scan:** pip-audit on dependencies
+3. **docker-scan:** Trivy scan (skips PRs unless labeled 'security')
 
-# Relationships & provenance
-create_relationship(from_id, to_id, rel_type, metadata)
-get_related_specs(spec_id)
-set_upstream_source(spec_id, source_url, upstream_version, source_ref)
-get_specs_needing_sync()
+### Other Workflows
+- **code-quality.yml:** Radon complexity, coverage, markdown links, file structure
+- **dependencies.yml:** Weekly updates (Monday 08:00 UTC), creates PRs
+- **release.yml:** Triggered by tags matching `v*.*.*`, publishes to PyPI + GHCR
 
-# Intelligence layer
-store_embedding(content, embedding, content_type, spec_id, org_id, metadata)
-search_similar(query_embedding, k, content_type)
-hybrid_search(text_query, query_embedding, k, content_type, keyword_weight)
-store_conversation_memory(session_id, role, content, embedding, importance)
-get_conversation_context(session_id, k)
-store_org_knowledge(org, content, embedding, **kwargs)
-get_knowledge_stats()
+## Common Pitfalls
 
-# Utilities
-get_stats()
-get_loaded_extensions()
-get_spec_kinds()
+1. **"Command 'uv' not found"** → `pip install uv` first
+2. **"No module named 'ruff'"** → Run `uv sync --dev` (NOT just `uv sync`)
+3. **Docker cert errors** → Expected in sandboxed envs, don't fix
+4. **Extension load failures** → Normal for `radio`, `shellfs`; tests auto-skip
+5. **Test warning "returning non-None"** → Harmless, tests still pass
 
-# HTTP server
-start_http_server(port, api_key)
-stop_http_server()
-```
+## Coding Standards (CRITICAL)
 
-### 2. SQL Macros (`src/agent_farm/sql/`)
+**Python** (`src/agent_farm/*.py`): 100 char lines (STRICT), Ruff E/F/I/W rules, type hints for public APIs, print errors to stderr
+**SQL Macros** (`src/agent_farm/macros.sql`): Always `CREATE OR REPLACE MACRO`, use `TRY()` for safety, `http_get()`/`http_post()` for HTTP, `json_extract_string()` for JSON
+**Tests** (`tests/*.py`): pytest with `:memory:` DB, try-except for extensions, mock external APIs
+**Workflows** (`.github/workflows/*.yml`): Cache uv deps with `uv.lock` hash, cancel in-progress runs, minimal permissions
 
-280+ SQL macros organized across 9 modular files + spec engine:
-
-- **base.sql**: `get_secret`, `url_encode`, `now_iso`, `now_unix`
-- **ollama.sql**: `ollama_chat`, `deepseek`, `kimi`, `kimi_think`, `gemini`, `qwen3_coder`, `glm`, `minimax`, `gpt_oss`, `embed`, `semantic_score`, `rag_query`, `cosine_sim`, tool-calling variants
-- **tools.sql**: `ddg_instant`, `brave_search`, `searxng`, `shell`, `cmd`, `pwsh`, `py`, `py_with`, `fetch`, `fetch_json`, `post_json`, `read_file`, `ls`, `git_status`, `git_log`, `git_diff`, `load_csv_url`, `search_and_summarize`, `review_code`, `explain_code`, `generate_py`
-- **agent.sql**: `secure_read`, `secure_write`, `secure_shell`, `detect_injection`, `log_tool_call`, `is_allowed_path`, `requires_approval`
-- **harness.sql**: `model_call`, `agent_step`, `quick_agent`, `anthropic_chat`, `agent_tools_schema`, `execute_tool_safe`
-- **orgs.sql**: `get_org_prompt`, `is_org_tool_allowed`, `call_org`, `orchestrator_tools_schema`
-- **org_tools.sql**: `searxng_search`, `ci_trigger`, `deploy_service`, `notes_board_create`, `test_run`, `git_patch`, `execute_org_tool`
-- **ui.sql**: `render_app`, `open_app`, `studio_present_choices`, `dev_open_vibe_coder`, `open_approval_ui`, `open_model_selector`, `smart_execute_tool`
-- **extensions.sql**: `json_transform`, `orchestrator_find_path`, `ops_is_duplicate`, `research_find_similar_docs`, `orchestrator_broadcast`, `smart_route`
-
-Spec Engine macros (`src/agent_farm/sql/spec/macros.sql` + `spec/rag.sql`):
-- `spec_list_by_kind`, `spec_search`, `spec_get`, `spec_get_payload`, `spec_get_doc`
-- `spec_render_template`, `spec_render`, `spec_validate`, `spec_is_valid`
-- `mcp_list_remote`, `mcp_call_remote_tool`
-- `spec_performance`, `spec_needs_improvement`, `spec_top_learnings`, `spec_related_to`
-- `spec_http_start`, `spec_http_stop`, `spec_stats`
-
-### 3. Organizations (`src/agent_farm/orgs.py`)
-
-5 specialized organizations:
-
-| Org | Primary Model | Secondary Model | Security | Role |
-|-----|--------------|-----------------|----------|------|
-| **DevOrg** | glm-5:cloud | qwen3-coder-next:cloud | standard | Code, reviews, tests |
-| **OpsOrg** | kimi-k2.5:cloud | minimax-m2.5:cloud | power | CI/CD, deploy, render |
-| **ResearchOrg** | gpt-oss:20b-cloud | minimax-m2.5:cloud | conservative | SearXNG search, analysis |
-| **StudioOrg** | kimi-k2.5:cloud | gemma3:4b-cloud | standard | Specs, docs, DCC briefings |
-| **OrchestratorOrg** | kimi-k2.5:cloud | glm-5:cloud | conservative | Task routing, coordination |
-
-Each org has: dedicated workspaces, allowed/denied tool lists, approval requirements, smart extension integrations, system prompts.
-
-### 4. Python UDFs (`src/agent_farm/udfs.py`)
-
-- `agent_chat(model, prompt, system_prompt)` - Chat via Ollama or Anthropic
-- `agent_tools(model, prompt, tools_json, system_prompt)` - Chat with tool calling
-- `detect_injection_udf(content)` - Prompt injection detection
-- `safe_json_extract(json_str, path)` - Safe JSON extraction
-
-### 5. DuckDB Extensions
-
-Required: `json`, `minijinja`, `json_schema`, `duckdb_mcp`, `httpfs`, `http_client`, `icu`
-
-Optional (nativ): `httpserver`, `ducklake`, `vss`, `fts`, `jsonata`, `duckpgq`, `htmlstringify`, `shellfs`, `zipfs`, `radio`
-Optional (hybrid/Python-fallback): `bitfilters`, `lindel`
-
-### 6. Spec Kinds
-
-`agent`, `skill`, `schema`, `task_template`, `prompt_template`, `api`, `protocol`, `org`, `workflow`, `ui`, `mcp_server`
-
-## Development Guidelines
-
-### Code Style
-
-- Python 3.11+ with type hints
-- 100 character line limit (ruff)
-- Use uv for all package management
-- Follow existing patterns in codebase
-- No god classes - split into focused modules
-
-### SQL Macros
-
-- Use `CREATE OR REPLACE MACRO` for all macros
-- Include clear comments
-- Use parameterized queries to prevent injection
-- Handle NULL cases appropriately
-
-### Testing
+## Making Changes (Pre-Commit Checklist)
 
 ```bash
-uv run pytest tests/ -v
-uv run pytest tests/test_spec_engine.py -v
-uv run pytest tests/ --cov=src/agent_farm
+uv sync --dev                              # 1. Update deps
+uv run ruff format src/ tests/             # 2. Format
+uv run ruff check --fix src/ tests/        # 3. Lint
+uv run pytest tests/ -v                    # 4. Test (ensure all tests pass)
+# Then commit - CI will run same checks
 ```
 
-### Adding New Features
+**SQL Macro:** Edit `src/agent_farm/macros.sql` → Use `CREATE OR REPLACE MACRO` → Test → Update README if user-facing
+**Python Code:** Edit `src/agent_farm/main.py` → 100 char lines, type hints, try-except → Test → Lint → Format
+**Workflow:** Edit `.github/workflows/*.yml` → Add concurrency + caching + manual trigger → Update `.github/WORKFLOWS.md`
 
-1. **New Spec Kind**: Add to seed data in `src/agent_farm/sql/spec/seed.sql`
-2. **New SQL Macro**: Add to appropriate file in `src/agent_farm/sql/`
-3. **New Spec Engine Method**: Add to `src/agent_farm/spec_engine.py`
-4. **New MCP Tool**: Register in `register_spec_engine_tools()`
-5. **New Smart Extension**: Add to `src/agent_farm/sql/extensions.sql`
-6. **New MCP App**: Add template + macros to `src/agent_farm/sql/ui.sql`
+## Quick Reference
 
-## Environment Variables
+**Deps:** `uv sync --dev` | **Lint:** `uv run ruff check --fix src/ tests/` | **Format:** `uv run ruff format src/ tests/`
+**Test:** `uv run pytest tests/ -v` | **Run:** `uv run agent-farm` | **Add pkg:** `uv add pkg-name`
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `DUCKDB_DATABASE` | Database path | `:memory:` |
-| `SPEC_ENGINE_HTTP_PORT` | HTTP server port | None |
-| `SPEC_ENGINE_API_KEY` | HTTP API key | None |
-| `OLLAMA_BASE_URL` | Ollama API endpoint | `http://localhost:11434` |
-| `BRAVE_API_KEY` | Brave Search API key | None |
+**Remember:** (1) Run `uv sync --dev` first, (2) Use uv not pip, (3) 100 char line limit, (4) Python 3.11+, (5) Test before commit
 
-## Important Notes
-
-1. **Spec Engine is the core** - All specifications go through the Spec Engine
-2. **Extensions may fail** - Handle extension loading errors gracefully (required vs optional)
-3. **JSON stored as VARCHAR** - For DuckDB compatibility
-4. **MiniJinja syntax** - Templates use Jinja2-like syntax via MiniJinja
-5. **Schema validation** - Use `json_schema` extension for validation
-6. **Meta-learning** - The system tracks usage, feedback, and adaptations
-7. **Org security** - Each org has strict tool permissions and denial rules
-8. **Build system** - Uses `uv_build`, not setuptools
-
-## Links
-
-- [Spec Engine Documentation](docs/spec_engine.md)
-- [DuckDB Documentation](https://duckdb.org/docs/)
-- [MiniJinja Documentation](https://docs.rs/minijinja/latest/minijinja/)
-- [JSON Schema](https://json-schema.org/)
-- [MCP Protocol](https://modelcontextprotocol.io/)
+**More info:** `.github/CONTRIBUTING.md`, `.github/WORKFLOWS.md`, `.github/instructions/*.instructions.md`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/agentic-dev-io)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/agentic-dev-io)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/agentic-dev-io) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
