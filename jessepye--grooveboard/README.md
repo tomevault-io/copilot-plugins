@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jessepye/grooveboard](https://github.com/jessep
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jessepye](https://tomevault.io/claim/jessepye)
 
