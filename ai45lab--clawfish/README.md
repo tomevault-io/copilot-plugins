@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [AI45Lab/clawfish](https://github.com/AI45Lab/cl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/AI45Lab](https://tomevault.io/claim/AI45Lab)
 
