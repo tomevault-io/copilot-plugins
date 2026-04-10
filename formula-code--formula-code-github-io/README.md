@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [formula-code/formula-code.github.io](https://gi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/formula-code](https://tomevault.io/claim/formula-code)
 
