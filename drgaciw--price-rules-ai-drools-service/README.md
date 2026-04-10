@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [drgaciw/price-rules-ai-drools-service](https://
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/drgaciw](https://tomevault.io/claim/drgaciw)
 
