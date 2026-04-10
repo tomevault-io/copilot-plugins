@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [chris-moreton/my-claude-agents](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/chris-moreton](https://tomevault.io/claim/chris-moreton)
 
