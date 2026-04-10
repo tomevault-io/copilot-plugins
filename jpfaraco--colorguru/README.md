@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jpfaraco/colorguru](https://github.com/jpfaraco
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jpfaraco](https://tomevault.io/claim/jpfaraco)
 
