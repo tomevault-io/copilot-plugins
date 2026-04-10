@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [majkel1987/Orbito](https://github.com
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/majkel1987](https://tomevault.io/claim/majkel1987)
 
