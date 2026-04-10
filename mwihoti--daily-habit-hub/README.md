@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mwihoti/daily-habit-hub](https://github.com/mwi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mwihoti](https://tomevault.io/claim/mwihoti)
 
