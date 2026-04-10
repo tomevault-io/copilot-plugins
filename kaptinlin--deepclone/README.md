@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kaptinlin/deepclone](https://github.com/kaptinl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kaptinlin](https://tomevault.io/claim/kaptinlin)
 
