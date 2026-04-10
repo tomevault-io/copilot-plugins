@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Jhasas/spring-mastery-lab](https://github.com/J
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Jhasas](https://tomevault.io/claim/Jhasas)
 
