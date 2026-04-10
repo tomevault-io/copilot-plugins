@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [DICKY1987/R_PIPELINE](https://github.com/DICKY1
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/DICKY1987](https://tomevault.io/claim/DICKY1987)
 
