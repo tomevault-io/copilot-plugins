@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [puyols/flowers-belka](https://github.com/puyols
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/puyols](https://tomevault.io/claim/puyols)
 
