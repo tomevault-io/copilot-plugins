@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [agerpk/jupyter-estructural-v2](https://github.c
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/agerpk](https://tomevault.io/claim/agerpk)
 
