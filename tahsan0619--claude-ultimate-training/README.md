@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Tahsan0619/Claude_Ultimate_Training](https://gi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Tahsan0619](https://tomevault.io/claim/Tahsan0619)
 
