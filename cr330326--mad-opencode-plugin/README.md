@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [cr330326/mad-opencode-plugin](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cr330326](https://tomevault.io/claim/cr330326)
 
