@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [dbgnvan2/trans-summary](https://github.com/dbgn
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dbgnvan2](https://tomevault.io/claim/dbgnvan2)
 
