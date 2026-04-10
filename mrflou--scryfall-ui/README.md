@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [MrFlou/ScryFall-UI](https://github.com/MrFlou/S
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/MrFlou](https://tomevault.io/claim/MrFlou)
 
