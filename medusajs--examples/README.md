@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [medusajs/examples](https://github.com
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/medusajs](https://tomevault.io/claim/medusajs)
 
