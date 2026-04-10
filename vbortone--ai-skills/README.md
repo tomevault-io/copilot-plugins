@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [vbortone/ai-skills](https://github.com/vbortone
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vbortone](https://tomevault.io/claim/vbortone)
 
