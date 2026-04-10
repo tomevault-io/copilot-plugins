@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Akhil325/knowledge_base](https://github.com/Akh
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Akhil325](https://tomevault.io/claim/Akhil325)
 
