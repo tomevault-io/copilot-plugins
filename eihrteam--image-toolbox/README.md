@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [EIHRTeam/image-toolbox](https://github.com/EIHR
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/EIHRTeam](https://tomevault.io/claim/EIHRTeam)
 
