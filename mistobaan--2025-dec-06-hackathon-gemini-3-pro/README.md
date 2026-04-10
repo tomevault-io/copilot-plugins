@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Mistobaan/2025-dec-06-hackathon-gemini-3-pro](h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Mistobaan](https://tomevault.io/claim/Mistobaan)
 
