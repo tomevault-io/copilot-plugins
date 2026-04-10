@@ -1,142 +1,178 @@
 ## telegram-ai-trade
 
-> Core trading system rules for AI-powered automated trading bot with MT5 integration
-
+> Comprehensive rules for maintaining project architecture, including detailed guidelines for modularity, extensibility, and documentation.
 
 {
-  "trading_system": {
-    "core_components": {
-      "ai_analyzer": {
-        "input_sources": ["OHLCV_data", "news_sentiment", "market_session", "liquidity_data"],
-        "output_format": "JSON matching app-code-prompt.json signal_schema",
-        "confidence_threshold": 60,
-        "analysis_timeout_ms": 5000,
-        "required_fields": ["symbol", "bias", "setups", "entry_zone", "sl", "tp", "confidence"]
-      },
-      "signal_processor": {
-        "validation_rules": [
-          "Schema compliance check",
-          "Confidence threshold validation",
-          "Risk parameter validation",
-          "Market hours validation"
-        ],
-        "deduplication": {
-          "enabled": true,
-          "ttl_minutes": 90,
-          "key_fields": ["symbol", "bias", "entry_zone"]
+  "architecture_principles": {
+    "modularity": {
+      "rules": [
+        "Each module must have a single responsibility",
+        "Modules must communicate through defined interfaces only",
+        "No direct database access from business logic",
+        "Use dependency injection for components"
+      ],
+      "folder_structure": {
+        "src/": {
+          "analysis/": "Market analysis and signal generation",
+          "data/": "Data collection and processing",
+          "execution/": "Trade execution and management",
+          "risk/": "Risk management and monitoring",
+          "common/": "Shared utilities and interfaces"
+        },
+        "tests/": {
+          "unit/": "Unit tests for each module",
+          "integration/": "Integration tests",
+          "e2e/": "End-to-end tests"
+        },
+        "config/": {
+          "dev/": "Development configuration",
+          "prod/": "Production configuration",
+          "test/": "Test configuration"
         }
-      },
-      "risk_manager": {
-        "position_sizing": "risk_percent_of_equity_based_on_SL_distance",
-        "max_risk_per_trade_pct": 2.0,
-        "max_daily_drawdown_pct": 6.0,
-        "consecutive_loss_rules": [
-          {"losses": 2, "action": "reduce_size_50_percent"},
-          {"losses": 3, "action": "pause_and_review"}
-        ],
-        "session_filters": ["avoid_high_impact_news", "prefer_London_NY_overlap"]
-      },
-      "execution_engine": {
-        "platform": "MT5",
-        "order_types": ["limit", "market", "stop"],
-        "magic_number": 1001,
-        "slippage_points": 10,
-        "execution_rules": [
-          "Never widen stop loss",
-          "Move to breakeven at R1",
-          "Partial TP at RR 1.5/3.0",
-          "Trailing stop enabled"
-        ]
       }
     },
-    "data_requirements": {
-      "timeframes": ["H4", "H1", "M15", "M5", "M1"],
-      "data_sources": ["MT4/MT5", "Binance", "Bybit", "News_API"],
-      "real_time_requirements": "true",
-      "historical_context": "minimum_1000_candles",
-      "timezone": "Asia/Jakarta"
+    "interfaces": {
+      "required_interfaces": [
+        "IDataCollector",
+        "IAnalyzer",
+        "ITradeExecutor",
+        "IRiskManager",
+        "IMessageBroker"
+      ],
+      "interface_rules": [
+        "Must define clear input/output contracts",
+        "Must include error handling",
+        "Must be versioned",
+        "Must have documentation"
+      ]
     },
-    "performance_targets": {
-      "signal_generation": "< 500ms",
-      "execution_latency": "< 100ms",
-      "system_uptime": "> 99.5%",
-      "max_memory_usage": "2GB",
-      "max_cpu_usage": "70%"
+    "communication": {
+      "patterns": [
+        "Event-driven for asynchronous operations",
+        "Request-response for synchronous operations",
+        "Publisher-subscriber for notifications"
+      ],
+      "message_format": {
+        "type": "JSON",
+        "required_fields": ["timestamp", "version", "source", "payload"],
+        "validation": "JSON Schema"
+      }
     }
   },
-  "mt5_integration": {
-    "connection": {
-      "retry_attempts": 3,
-      "connection_timeout": 30,
-      "heartbeat_interval": 60,
-      "auto_reconnect": true
+  "extensibility": {
+    "plugin_system": {
+      "areas": [
+        "Data sources",
+        "Analysis strategies",
+        "Execution adapters",
+        "Risk rules"
+      ],
+      "requirements": [
+        "Must implement base interface",
+        "Must include configuration schema",
+        "Must provide documentation",
+        "Must include tests"
+      ]
     },
-    "order_management": {
-      "position_tracking": true,
-      "real_time_updates": true,
-      "order_modification": true,
-      "partial_close": true
-    },
-    "risk_controls": {
-      "max_positions": 10,
-      "max_daily_trades": 50,
-      "emergency_stop": true,
-      "circuit_breaker": true
+    "configuration": {
+      "format": "YAML",
+      "validation": "JSON Schema",
+      "environment_specific": true,
+      "hot_reload_support": true
     }
   },
-  "ai_analysis_workflow": {
-    "input_processing": [
-      "Market data normalization",
-      "News sentiment scoring",
-      "Session timing validation",
-      "Liquidity zone identification"
-    ],
-    "analysis_steps": [
-      "H4 big picture analysis",
-      "H1 structure confirmation",
-      "M15 entry zone refinement",
-      "M5 execution timing",
-      "M1 trigger confirmation"
-    ],
-    "output_validation": [
-      "Schema compliance",
-      "Confidence scoring",
-      "Risk parameter check",
-      "Execution feasibility"
-    ]
-  },
-  "error_handling": {
-    "critical_errors": ["MT5_connection_lost", "signal_validation_failed", "execution_failed"],
-    "recovery_actions": {
-      "MT5_connection_lost": "auto_reconnect_with_exponential_backoff",
-      "signal_validation_failed": "log_and_skip",
-      "execution_failed": "retry_with_reduced_size"
+  "security": {
+    "authentication": {
+      "required": true,
+      "methods": ["API key", "OAuth2"],
+      "token_validation": true
     },
-    "logging": {
-      "level": "INFO",
-      "format": "JSON",
-      "required_fields": ["timestamp", "level", "component", "message", "trace_id"]
+    "authorization": {
+      "role_based": true,
+      "action_based": true,
+      "audit_logging": true
+    },
+    "data_protection": {
+      "encryption": {
+        "in_transit": true,
+        "at_rest": true
+      },
+      "sensitive_data": {
+        "api_keys": "encrypted",
+        "credentials": "encrypted",
+        "trade_data": "encrypted"
+      }
+    }
+  },
+  "performance": {
+    "requirements": {
+      "latency": {
+        "analysis": "< 500ms",
+        "execution": "< 100ms",
+        "data_collection": "real-time"
+      },
+      "throughput": {
+        "trades_per_second": 10,
+        "analysis_per_second": 100
+      },
+      "resource_usage": {
+        "cpu": "< 70%",
+        "memory": "< 2GB",
+        "disk": "< 80%"
+      }
+    },
+    "optimization": {
+      "caching": true,
+      "connection_pooling": true,
+      "batch_processing": true
     }
   },
   "monitoring": {
     "metrics": [
-      "trades_per_hour",
-      "win_rate",
-      "profit_factor",
-      "max_drawdown",
-      "system_latency",
-      "error_rate"
+      "System health",
+      "Trading performance",
+      "Error rates",
+      "Resource usage"
     ],
+    "logging": {
+      "levels": ["DEBUG", "INFO", "WARN", "ERROR"],
+      "format": "JSON",
+      "required_fields": [
+        "timestamp",
+        "level",
+        "service",
+        "message",
+        "trace_id"
+      ]
+    },
     "alerts": {
-      "error_rate_threshold": "1%",
-      "latency_threshold": "1000ms",
-      "drawdown_threshold": "5%",
-      "connection_failure_threshold": "3"
+      "conditions": [
+        "Error rate > 1%",
+        "Latency > 1s",
+        "Memory > 80%",
+        "Failed trades > 0"
+      ]
+    }
+  },
+  "documentation": {
+    "required_docs": [
+      "API documentation",
+      "Architecture overview",
+      "Setup guide",
+      "Deployment guide",
+      "Testing guide"
+    ],
+    "code_documentation": {
+      "requirements": [
+        "All public APIs documented",
+        "Example usage provided",
+        "Error cases documented",
+        "Configuration documented"
+      ]
     }
   }
 }
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/oyi77)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/oyi77)
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/oyi77) — claim your Tome and manage your conversions.
 <!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
