@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [0xeb/useful-scripts](https://github.com/0xeb/us
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/0xeb](https://tomevault.io/claim/0xeb)
 
