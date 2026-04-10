@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ja-ba/rjk-website](https://github.com/ja-ba/rjk
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ja-ba](https://tomevault.io/claim/ja-ba)
 
