@@ -1,0 +1,9 @@
+{
+  "name": "seamapi--seam-agent",
+  "displayName": "seam-agent",
+  "description": "seam-agent",
+  "version": "1.0.0",
+  "author": "seamapi",
+  "homepage": "https://tomevault.io/claim/seamapi",
+  "skills": []
+}
