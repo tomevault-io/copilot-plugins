@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [rockkoca/codedeck](https://github.com/rockkoca/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rockkoca](https://tomevault.io/claim/rockkoca)
 
