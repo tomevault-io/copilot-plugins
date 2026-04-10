@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [mgfood/Tm-Work](https://github.com/mgfood/Tm-Wo
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mgfood](https://tomevault.io/claim/mgfood)
 
