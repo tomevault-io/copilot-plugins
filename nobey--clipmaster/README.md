@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [NoBey/ClipMaster](https://github.com/NoBey/Clip
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/NoBey](https://tomevault.io/claim/NoBey)
 
