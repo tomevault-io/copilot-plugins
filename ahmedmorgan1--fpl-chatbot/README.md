@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [AhmedMorgan1/FPL_ChatBot](https://github.com/Ah
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/AhmedMorgan1](https://tomevault.io/claim/AhmedMorgan1)
 
