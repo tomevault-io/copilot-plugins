@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rshade/finfocus-mcp](https://github.com/rshade/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rshade](https://tomevault.io/claim/rshade)
 
