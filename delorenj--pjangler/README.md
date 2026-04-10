@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [delorenj/pjangler](https://github.com/delorenj/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/delorenj](https://tomevault.io/claim/delorenj)
 
