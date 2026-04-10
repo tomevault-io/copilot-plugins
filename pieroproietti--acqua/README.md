@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [pieroproietti/acqua](https://github.com/pieropr
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pieroproietti](https://tomevault.io/claim/pieroproietti)
 
