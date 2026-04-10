@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/browseros-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T02:32:46Z"
+  "distributed_at": "2026-04-10T07:15:44Z"
 }
