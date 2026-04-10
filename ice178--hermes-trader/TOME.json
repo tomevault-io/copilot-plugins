@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/ice178",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T01:53:08Z"
+  "distributed_at": "2026-04-10T05:37:51Z"
 }
