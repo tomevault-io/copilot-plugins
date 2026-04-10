@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jungmarker/fitness-app](https://github.com/jung
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jungmarker](https://tomevault.io/claim/jungmarker)
 
