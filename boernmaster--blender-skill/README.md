@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [boernmaster/blender_skill](https://github.com/b
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/boernmaster](https://tomevault.io/claim/boernmaster)
 
