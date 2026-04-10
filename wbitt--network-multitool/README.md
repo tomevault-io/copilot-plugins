@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [wbitt/Network-MultiTool](https://github.com/wbi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wbitt](https://tomevault.io/claim/wbitt)
 
