@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bmcszk/ustawka](https://github.com/bmcszk/ustaw
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bmcszk](https://tomevault.io/claim/bmcszk)
 
