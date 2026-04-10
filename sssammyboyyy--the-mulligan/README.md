@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [sssammyboyyy/The-Mulligan](https://github.com/s
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sssammyboyyy](https://tomevault.io/claim/sssammyboyyy)
 
