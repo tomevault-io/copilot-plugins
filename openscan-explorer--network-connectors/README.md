@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [openscan-explorer/network-connectors](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/openscan-explorer](https://tomevault.io/claim/openscan-explorer)
 
