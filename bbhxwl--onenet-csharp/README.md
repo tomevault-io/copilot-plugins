@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bbhxwl/OneNet-CSharp](https://github.com/bbhxwl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bbhxwl](https://tomevault.io/claim/bbhxwl)
 
