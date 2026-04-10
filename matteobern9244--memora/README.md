@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [matteobern9244/Memora](https://github.com/matte
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/matteobern9244](https://tomevault.io/claim/matteobern9244)
 
