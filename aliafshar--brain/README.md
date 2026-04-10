@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [aliafshar/brain](https://github.com/aliafshar/b
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/aliafshar](https://tomevault.io/claim/aliafshar)
 
