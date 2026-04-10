@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [mattjefferson/template-nextjs-1](http
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mattjefferson](https://tomevault.io/claim/mattjefferson)
 
