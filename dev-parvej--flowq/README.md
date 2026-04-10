@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [dev-parvej/FlowQ](https://github.com/dev-parvej
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dev-parvej](https://tomevault.io/claim/dev-parvej)
 
