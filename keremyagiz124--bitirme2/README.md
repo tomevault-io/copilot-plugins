@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [KeremYagiz124/Bitirme2](https://github.com/Kere
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/KeremYagiz124](https://tomevault.io/claim/KeremYagiz124)
 
