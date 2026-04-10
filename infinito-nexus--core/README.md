@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [infinito-nexus/core](https://github.com/infinit
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/infinito-nexus](https://tomevault.io/claim/infinito-nexus)
 
