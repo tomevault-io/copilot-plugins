@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [franverona/planr](https://github.com/franverona
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/franverona](https://tomevault.io/claim/franverona)
 
