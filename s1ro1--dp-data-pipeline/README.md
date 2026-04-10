@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [S1ro1/dp-data-pipeline](https://github.com/S1ro
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/S1ro1](https://tomevault.io/claim/S1ro1)
 
