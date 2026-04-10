@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [aiwolfdial/aiwolf-nlp-llm-judge](https://github
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/aiwolfdial](https://tomevault.io/claim/aiwolfdial)
 
