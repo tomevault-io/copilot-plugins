@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [haroRT/qlsv-kotlin](https://github.com/haroRT/q
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/haroRT](https://tomevault.io/claim/haroRT)
 
