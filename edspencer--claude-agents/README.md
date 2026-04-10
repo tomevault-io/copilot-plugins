@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [edspencer/claude-agents](https://github.com/eds
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/edspencer](https://tomevault.io/claim/edspencer)
 
