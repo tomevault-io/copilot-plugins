@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [itsurkan/TT_Coach](https://github.com/itsurkan/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/itsurkan](https://tomevault.io/claim/itsurkan)
 
