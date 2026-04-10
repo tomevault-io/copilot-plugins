@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ajcates/spaceshooter](https://github.com/ajcate
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ajcates](https://tomevault.io/claim/ajcates)
 
