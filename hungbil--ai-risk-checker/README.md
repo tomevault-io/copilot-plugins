@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [HungBil/ai-risk-checker](https://github.com/Hun
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/HungBil](https://tomevault.io/claim/HungBil)
 
