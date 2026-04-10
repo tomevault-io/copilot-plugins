@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [devlibx/gox-helix](https://github.com/devlibx/g
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/devlibx](https://tomevault.io/claim/devlibx)
 
