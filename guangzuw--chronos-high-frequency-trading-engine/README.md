@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [GuangzuW/Chronos_High_Frequency_Trading_Engine]
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/GuangzuW](https://tomevault.io/claim/GuangzuW)
 
