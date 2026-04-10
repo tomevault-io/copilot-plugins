@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [joaocarmo/bloodfang](https://github.com/joaocar
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/joaocarmo](https://tomevault.io/claim/joaocarmo)
 
