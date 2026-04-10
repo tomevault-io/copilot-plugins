@@ -1,0 +1,9 @@
+{
+  "name": "snowplow--snowplow-php-tracker",
+  "displayName": "snowplow-php-tracker",
+  "description": "snowplow-php-tracker",
+  "version": "1.0.0",
+  "author": "snowplow",
+  "homepage": "https://tomevault.io/claim/snowplow",
+  "skills": []
+}
