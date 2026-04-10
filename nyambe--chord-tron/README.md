@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nyambe/chord-tron](https://github.com/nyambe/ch
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nyambe](https://tomevault.io/claim/nyambe)
 
