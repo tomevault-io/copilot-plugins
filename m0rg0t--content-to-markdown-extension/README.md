@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [m0rg0t/content-to-markdown-extension](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/m0rg0t](https://tomevault.io/claim/m0rg0t)
 
