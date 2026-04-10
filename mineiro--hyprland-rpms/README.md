@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [mineiro/hyprland-rpms](https://github.com/minei
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mineiro](https://tomevault.io/claim/mineiro)
 
