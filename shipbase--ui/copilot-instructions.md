@@ -1,71 +1,53 @@
 ## ui
 
-> This is a monorepo for a UI component library similar to shadcn/ui, built with Ark UI instead of Radix UI. It provides accessible, customizable components for React and Vue.
+> This is a modern UI component library that provides beautiful, accessible, and customizable components. It supports both React and Vue frameworks, built with Ark UI and Tailwind CSS, inspired by shadcn/ui style.
 
-# CLAUDE.md
+# shipbase/ui Project Overview
 
-## Project Overview
+## Project Introduction
+This is a modern UI component library that provides beautiful, accessible, and customizable components. It supports both React and Vue frameworks, built with Ark UI and Tailwind CSS, inspired by shadcn/ui style.
 
-This is a monorepo for a UI component library similar to shadcn/ui, built with Ark UI instead of Radix UI. It provides accessible, customizable components for React and Vue.
+## Related Rule Documentation
+- [Project Structure Guide](mdc:.cursor/rules/project-structure.mdc) - Understanding project organization and tech stack
+- [Development Workflow Guide](mdc:.cursor/rules/development-workflow.mdc) - Development environment setup and common commands  
+- [Component Development Guide](mdc:.cursor/rules/component-development.mdc) - Component architecture and development standards
+- [Code Standards Guide](mdc:.cursor/rules/code-standards.mdc) - Code quality and style standards
 
-## Architecture
+## Quick Navigation
 
-### Tech Stack
+### Key Configuration Files
+- [package.json](mdc:package.json) - Main package configuration and scripts
+- [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml) - Workspace and dependency configuration
+- [turbo.json](mdc:turbo.json) - Build task configuration
+- [biome.jsonc](mdc:biome.jsonc) - Code quality tool configuration
 
-- pnpm for package management
-- turborepo for monorepo tasks management
-- oxlint for linting, oxfmt for formatting
-- typescript for type checking
-- vitest for testing
-- changesets for version management
-- ark-ui for primitive components
-- tailwindcss v4 for styling
-- lucide-react for icons
-- xstate for state management
-- astro for documentation site
-- mdx for documentation
+### Main Package Directories
+- [apps/www/](mdc:apps/www) - Documentation website (Astro)
+- [packages/react/](mdc:packages/react) - React component package
+- [packages/vue/](mdc:packages/vue) - Vue component package
+- [packages/lib/](mdc:packages/lib) - Shared utility library
+- [packages/cli/](mdc:packages/cli) - CLI tools
 
-### Directory Structure
+### Component Directories
+- [packages/react/src/components/ui/](mdc:packages/react/src/components/ui) - React component implementations
+- [packages/vue/src/components/ui/](mdc:packages/vue/src/components/ui) - Vue component implementations
 
-```
-ui/
-├── apps/
-│   └── www/                # Documentation site built with Astro, MDX, and Tailwind CSS v4
-├── packages/
-│   ├── react/              # React primitive component implementations, examples, stories
-│   ├── vue/                # Vue primitive component implementations, examples, stories
-│   └── lib/                # Shared utilities
-└── tools/                  # Shared configurations (Tailwind, TypeScript)
-```
+## Core Features
+- **Framework Agnostic**: Supports both React and Vue
+- **Type Safe**: Complete TypeScript support
+- **Accessible**: Built on Ark UI ensuring accessibility
+- **Customizable**: Flexible customization with Tailwind CSS and CVA
+- **Modern**: Uses latest toolchain and best practices
 
-## Development Workflow
+## Development Environment
+- **Node.js**: Requires v20+ version
+- **Package Manager**: pnpm v9.15.9
+- **Build Tools**: Turbo + Vite
+- **Code Quality**: Biome
+- **Version Management**: Changesets
 
-### Component Development Workflow
-
-Components are built on top of Ark UI, with primitive component, examples, stories, and documentation.
-
-- Each component has framework-specific implementations in `packages/react` and `packages/vue`
-- Examples live in `src/examples/` within each framework package
-- Stories live in `src/stories/` within each framework package
-- Documentation MDX files are in `apps/www/content`
-
-### Commands that you can use
-
-- !`pnpm run test` for testing, use `--filter={package_path}` to run tests for a specific package.
-- !`pnpm run build` for building, use `--filter={package_path}` to build a specific package.
-- !`pnpm run typecheck` for type checking, use `--filter={package_path}` to type check a specific package.
-- !`pnpm run check` for linting.
-- !`pnpm run format` for formatting.
-
-> don't use any stub, dev to run this project for testing, the dev server is running before i work with you.
-
-## Specific Rules
-
-### Code Quality
-
-- use mcp**ide**getDiagnostics to diagnostics of every file edited.
+Visit http://shipbase-ui.pages.dev to view the complete documentation.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/shipbase)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/shipbase)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/shipbase) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
