@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [constROD/template-hono-prisma-kysely]
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/constROD](https://tomevault.io/claim/constROD)
 
