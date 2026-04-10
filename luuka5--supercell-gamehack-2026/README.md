@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Luuka5/supercell-gamehack-2026](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Luuka5](https://tomevault.io/claim/Luuka5)
 
