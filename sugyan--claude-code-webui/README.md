@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sugyan/claude-code-webui](https://github.com/su
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sugyan](https://tomevault.io/claim/sugyan)
 
