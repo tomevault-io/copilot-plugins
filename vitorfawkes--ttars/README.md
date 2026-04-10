@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [VitorFawkes/ttars](https://github.com/VitorFawk
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/VitorFawkes](https://tomevault.io/claim/VitorFawkes)
 
