@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [organvm-vi-koinonia/adaptive-personal-syllabus]
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/organvm-vi-koinonia](https://tomevault.io/claim/organvm-vi-koinonia)
 
