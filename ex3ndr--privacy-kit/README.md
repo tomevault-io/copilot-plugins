@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ex3ndr/privacy-kit](https://github.com/ex3ndr/p
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ex3ndr](https://tomevault.io/claim/ex3ndr)
 
