@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kkoba0925/DEMO-fun-gile](https://github.com/kko
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kkoba0925](https://tomevault.io/claim/kkoba0925)
 
