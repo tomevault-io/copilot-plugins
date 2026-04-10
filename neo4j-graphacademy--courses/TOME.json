@@ -1,0 +1,87 @@
+{
+  "name": "courses",
+  "owner": "neo4j-graphacademy",
+  "repo": "courses",
+  "description": "AI instruction files for courses by neo4j-graphacademy",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "challenge-author",
+      "path": ".claude/skills/challenge-author",
+      "github_url": "https://github.com/neo4j-graphacademy/courses/tree/main/.claude/skills/challenge-author",
+      "description": ""
+    },
+    {
+      "name": "lesson-author",
+      "path": ".claude/skills/lesson-author",
+      "github_url": "https://github.com/neo4j-graphacademy/courses/tree/main/.claude/skills/lesson-author",
+      "description": ""
+    },
+    {
+      "name": "overview-author",
+      "path": ".claude/skills/overview-author",
+      "github_url": "https://github.com/neo4j-graphacademy/courses/tree/main/.claude/skills/overview-author",
+      "description": ""
+    },
+    {
+      "name": "practice-author",
+      "path": ".claude/skills/practice-author",
+      "github_url": "https://github.com/neo4j-graphacademy/courses/tree/main/.claude/skills/practice-author",
+      "description": ""
+    },
+    {
+      "name": "quiz-author",
+      "path": ".claude/skills/quiz-author",
+      "github_url": "https://github.com/neo4j-graphacademy/courses/tree/main/.claude/skills/quiz-author",
+      "description": ""
+    },
+    {
+      "name": "validation-author",
+      "path": ".claude/skills/validation-author",
+      "github_url": "https://github.com/neo4j-graphacademy/courses/tree/main/.claude/skills/validation-author",
+      "description": ""
+    },
+    {
+      "name": "workshop-authoring-coordinator",
+      "path": ".claude/skills/workshop-authoring-coordinator",
+      "github_url": "https://github.com/neo4j-graphacademy/courses/tree/main/.claude/skills/workshop-authoring-coordinator",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/neo4j-graphacademy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-10T03:31:38Z"
+}
