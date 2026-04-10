@@ -4,7 +4,7 @@
   "repo": "p4client-ts",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/peculiarnewbie",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T13:32:25Z"
+  "distributed_at": "2026-04-10T21:49:30Z"
 }
