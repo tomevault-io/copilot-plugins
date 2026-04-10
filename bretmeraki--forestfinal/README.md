@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [BretMeraki/ForestFInal](https://githu
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/BretMeraki](https://tomevault.io/claim/BretMeraki)
 
