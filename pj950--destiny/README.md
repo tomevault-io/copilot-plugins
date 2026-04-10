@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [pj950/Destiny-](https://github.com/pj950/Destin
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pj950](https://tomevault.io/claim/pj950)
 
