@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [anonymort/wardwestminster](https://github.com/a
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/anonymort](https://tomevault.io/claim/anonymort)
 
