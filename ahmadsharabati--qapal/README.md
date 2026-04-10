@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ahmadsharabati/QAPAL](https://github.com/ahmads
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ahmadsharabati](https://tomevault.io/claim/ahmadsharabati)
 
