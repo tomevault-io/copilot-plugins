@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [zivl/sentry-testkit](https://github.com/zivl/se
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zivl](https://tomevault.io/claim/zivl)
 
