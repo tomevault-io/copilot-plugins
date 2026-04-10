@@ -1,0 +1,18 @@
+{
+  "name": "upstat-io--ori-lang",
+  "displayName": "ori-lang",
+  "description": "AI instruction files for ori-lang by upstat-io",
+  "version": "1.0.0",
+  "author": "upstat-io",
+  "homepage": "https://tomevault.io/claim/upstat-io",
+  "skills": [
+    {
+      "name": "design-pattern-review",
+      "description": ""
+    },
+    {
+      "name": "ori-syntax",
+      "description": ""
+    }
+  ]
+}
