@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [danilotorrisi/claude-session-manager](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/danilotorrisi](https://tomevault.io/claim/danilotorrisi)
 
