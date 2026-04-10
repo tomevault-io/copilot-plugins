@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [slavakukuyev/elevator-go](https://git
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/slavakukuyev](https://tomevault.io/claim/slavakukuyev)
 
