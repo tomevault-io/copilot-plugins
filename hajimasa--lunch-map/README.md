@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [hajimasa/lunch-map](https://github.com/hajimasa
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hajimasa](https://tomevault.io/claim/hajimasa)
 
