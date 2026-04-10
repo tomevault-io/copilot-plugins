@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [Tracer-Cloud/opensre](https://github.
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Tracer-Cloud](https://tomevault.io/claim/Tracer-Cloud)
 
