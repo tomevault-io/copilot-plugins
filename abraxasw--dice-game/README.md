@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [abraxasw/Dice-Game](https://github.com/abraxasw
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/abraxasw](https://tomevault.io/claim/abraxasw)
 
