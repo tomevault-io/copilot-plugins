@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [RMWinslow/JTD-RMW](https://github.com/RMWinslow
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/RMWinslow](https://tomevault.io/claim/RMWinslow)
 
