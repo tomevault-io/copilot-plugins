@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [MacPhobos/article-mind-ui](https://github.com/M
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/MacPhobos](https://tomevault.io/claim/MacPhobos)
 
