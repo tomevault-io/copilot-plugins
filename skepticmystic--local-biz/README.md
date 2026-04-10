@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [SkepticMystic/local-biz](https://github.com/Ske
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/SkepticMystic](https://tomevault.io/claim/SkepticMystic)
 
