@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [zeroslashagency/zeroslash](https://github.com/z
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zeroslashagency](https://tomevault.io/claim/zeroslashagency)
 
