@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [bherila/2025-website](https://github.com/bheril
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bherila](https://tomevault.io/claim/bherila)
 
