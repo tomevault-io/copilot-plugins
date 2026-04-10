@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [fabianzink/resnet_cifar10](https://github.com/f
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/fabianzink](https://tomevault.io/claim/fabianzink)
 
