@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [ykob/byte-sized-games](https://github.com/ykob/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ykob](https://tomevault.io/claim/ykob)
 
