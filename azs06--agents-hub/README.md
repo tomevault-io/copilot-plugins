@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [azs06/agents-hub](https://github.com/azs06/agen
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/azs06](https://tomevault.io/claim/azs06)
 
