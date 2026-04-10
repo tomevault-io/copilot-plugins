@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [lybic/lybic-sdk-go](https://github.com/lybic/ly
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lybic](https://tomevault.io/claim/lybic)
 
