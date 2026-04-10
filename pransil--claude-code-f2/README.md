@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [pransil/claude-code-f2](https://github.com/pran
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pransil](https://tomevault.io/claim/pransil)
 
