@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [maxjeffwell/bookmarks-react-hooks](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/maxjeffwell](https://tomevault.io/claim/maxjeffwell)
 
