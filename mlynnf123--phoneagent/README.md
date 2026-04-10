@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mlynnf123/phoneagent](https://github.com/mlynnf
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mlynnf123](https://tomevault.io/claim/mlynnf123)
 
