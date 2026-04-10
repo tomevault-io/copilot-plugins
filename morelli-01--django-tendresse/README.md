@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Morelli-01/django_tendresse](https://github.com
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Morelli-01](https://tomevault.io/claim/Morelli-01)
 
