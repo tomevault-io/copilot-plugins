@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [shuddl/bigquerycostopt](https://github.com/shud
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/shuddl](https://tomevault.io/claim/shuddl)
 
