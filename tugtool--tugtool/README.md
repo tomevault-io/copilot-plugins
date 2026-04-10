@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [tugtool/tugtool](https://github.com/tugtool/tug
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tugtool](https://tomevault.io/claim/tugtool)
 
