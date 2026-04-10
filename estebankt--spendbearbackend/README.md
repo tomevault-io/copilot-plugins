@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [estebankt/SpendBearBackEnd](https://github.com/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/estebankt](https://tomevault.io/claim/estebankt)
 
