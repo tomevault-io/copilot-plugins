@@ -1,721 +1,399 @@
 ## watchtower
 
-> // app/dashboard/[projectId]/page.tsx
+> - **ALWAYS** use JWT sessions (`strategy: "jwt"`)
 
-# Frontend Development Rules
+# Security Rules
 
-## Component Architecture
+## Authentication
 
-### Server Components (DEFAULT)
+### Session Management
+
+- **ALWAYS** use JWT sessions (`strategy: "jwt"`)
+- Check session in every Server Action
+- Check session in every API route
+- Never trust client-side session data
 
 ```typescript
-// app/dashboard/[projectId]/page.tsx
-import { getCampaigns } from '@/app/actions/happiness/getCampaigns'
-import { CampaignList } from './CampaignList'
+// ✅ CORRECT - Verify session server-side
+export async function deleteProject(projectId: string) {
+  const session = await getAuthSession()
+  if (!session?.user?.id) {
+    return { error: 'Unauthorized' }
+  }
+  // Continue...
+}
+```
 
-export default async function CampaignsPage({ 
-  params 
-}: { 
-  params: { projectId: string } 
-}) {
-  // Fetch data in Server Component
-  const result = await getCampaigns(params.projectId)
+### Session Validation Pattern
+
+```typescript
+// lib/auth.ts
+export async function requireAuth() {
+  const session = await getAuthSession()
+  if (!session?.user?.id) {
+    redirect('/api/auth/signin')
+  }
+  return session
+}
+
+// Usage in Server Actions
+const session = await requireAuth()
+```
+
+## Authorization
+
+### ALWAYS Check Project Membership
+
+```typescript
+// ✅ CORRECT - Verify user is project member
+export async function createRisk(projectId: string, data: RiskInput) {
+  const session = await requireAuth()
   
-  if (!result.success) {
-    return <ErrorState message={result.error} />
-  }
-
-  // Pass DTOs to Client Component
-  return <CampaignList campaigns={result.data} />
-}
-```
-
-### Client Components (When Needed)
-
-```typescript
-'use client'
-
-import { useState } from 'react'
-import { submitAnswer } from '@/app/actions/happiness/submitAnswer'
-import { toast } from 'sonner'
-import type { HappinessCampaignDTO } from '@/types/happiness'
-
-interface Props {
-  campaign: HappinessCampaignDTO
-}
-
-export function AnswerForm({ campaign }: Props) {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  async function handleSubmit(formData: FormData) {
-    setIsSubmitting(true)
-    
-    const result = await submitAnswer({
-      campaignId: campaign.id,
-      answers: extractAnswers(formData)
-    })
-
-    setIsSubmitting(false)
-
-    if (!result.success) {
-      toast.error(result.error)
-      return
-    }
-
-    toast.success('Answer submitted')
-    // Handle success (e.g., redirect)
-  }
-
-  return (
-    <form action={handleSubmit}>
-      {/* Form fields */}
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Submitting...' : 'Submit'}
-      </button>
-    </form>
-  )
-}
-```
-
-## Component Organization
-
-### File Structure
-
-```
-components/
-├─ ui/                    # shadcn/ui or base components
-│  ├─ button.tsx
-│  ├─ card.tsx
-│  ├─ dialog.tsx
-│  └─ form.tsx
-├─ happiness/             # Domain-specific components
-│  ├─ CampaignCard.tsx
-│  ├─ AnswerForm.tsx
-│  ├─ ResultsChart.tsx
-│  └─ AIAnalysisView.tsx
-├─ risks/
-│  ├─ RiskList.tsx
-│  ├─ RiskForm.tsx
-│  └─ RiskCard.tsx
-└─ layout/               # Layout components
-   ├─ Header.tsx
-   ├─ Sidebar.tsx
-   └─ Footer.tsx
-```
-
-### Component Naming
-
-- **PascalCase** for component files: `CampaignCard.tsx`
-- **Descriptive names**: `CreateCampaignDialog.tsx` not `Dialog.tsx`
-- **Domain prefix** when needed: `HappinessCampaignList.tsx`
-
-## Props & Types
-
-### Always Use Typed Props
-
-```typescript
-// ✅ CORRECT - Explicit type
-interface CampaignCardProps {
-  campaign: HappinessCampaignDTO
-  onActivate?: (id: string) => void
-  showActions?: boolean
-}
-
-export function CampaignCard({ 
-  campaign, 
-  onActivate,
-  showActions = true 
-}: CampaignCardProps) {
-  // Component logic
-}
-
-// ❌ WRONG - No types
-export function CampaignCard({ campaign, onActivate }) {
-  // TypeScript can't help you here
-}
-```
-
-### Use DTOs, Not Prisma Types
-
-```typescript
-// ❌ WRONG
-import type { HappinessCampaign } from '@prisma/client'
-interface Props {
-  campaign: HappinessCampaign
-}
-
-// ✅ CORRECT
-import type { HappinessCampaignDTO } from '@/types/happiness'
-interface Props {
-  campaign: HappinessCampaignDTO
-}
-```
-
-## Forms & Server Actions
-
-### Form Handling with Server Actions
-
-```typescript
-'use client'
-
-import { useFormState, useFormStatus } from 'react-dom'
-import { createRisk } from '@/app/actions/risks/createRisk'
-
-export function CreateRiskForm({ projectId }: { projectId: string }) {
-  const [state, formAction] = useFormState(createRisk, null)
-
-  return (
-    <form action={formAction}>
-      <input type="hidden" name="projectId" value={projectId} />
-      
-      <div>
-        <label htmlFor="title">Title</label>
-        <input 
-          id="title" 
-          name="title" 
-          required 
-          minLength={3}
-          maxLength={200}
-        />
-      </div>
-
-      <div>
-        <label htmlFor="severity">Severity</label>
-        <select id="severity" name="severity" required>
-          <option value="LOW">Low</option>
-          <option value="MEDIUM">Medium</option>
-          <option value="HIGH">High</option>
-          <option value="CRITICAL">Critical</option>
-        </select>
-      </div>
-
-      {state?.error && (
-        <div className="text-red-500">{state.error}</div>
-      )}
-
-      <SubmitButton />
-    </form>
-  )
-}
-
-function SubmitButton() {
-  const { pending } = useFormStatus()
-  return (
-    <button type="submit" disabled={pending}>
-      {pending ? 'Creating...' : 'Create Risk'}
-    </button>
-  )
-}
-```
-
-### Progressive Enhancement
-
-```typescript
-// Form works without JavaScript
-export async function createRisk(
-  prevState: any,
-  formData: FormData
-): Promise<{ success?: boolean; error?: string }> {
-  const data = {
-    projectId: formData.get('projectId') as string,
-    title: formData.get('title') as string,
-    severity: formData.get('severity') as string
-  }
-
-  const result = await createRiskAction(data)
-  
-  if (!result.success) {
-    return { error: result.error }
-  }
-
-  redirect(`/dashboard/${data.projectId}/risks`)
-}
-```
-
-## State Management
-
-### Local State (useState)
-
-```typescript
-'use client'
-
-export function CampaignFilters() {
-  const [status, setStatus] = useState<'ALL' | 'ACTIVE' | 'CLOSED'>('ALL')
-  const [search, setSearch] = useState('')
-
-  return (
-    <div>
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search campaigns..."
-      />
-      <select value={status} onChange={(e) => setStatus(e.target.value)}>
-        <option value="ALL">All</option>
-        <option value="ACTIVE">Active</option>
-        <option value="CLOSED">Closed</option>
-      </select>
-    </div>
-  )
-}
-```
-
-### URL State (useSearchParams)
-
-```typescript
-'use client'
-
-import { useSearchParams, useRouter } from 'next/navigation'
-
-export function CampaignFilters() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  
-  const status = searchParams.get('status') || 'ALL'
-
-  function setStatus(newStatus: string) {
-    const params = new URLSearchParams(searchParams)
-    params.set('status', newStatus)
-    router.push(`?${params.toString()}`)
-  }
-
-  return (
-    <select value={status} onChange={(e) => setStatus(e.target.value)}>
-      <option value="ALL">All</option>
-      <option value="ACTIVE">Active</option>
-      <option value="CLOSED">Closed</option>
-    </select>
-  )
-}
-```
-
-### Server State (Server Components)
-
-```typescript
-// Use searchParams in Server Components
-export default async function CampaignsPage({
-  params,
-  searchParams
-}: {
-  params: { projectId: string }
-  searchParams: { status?: string; search?: string }
-}) {
-  const result = await getCampaigns(
-    params.projectId,
-    searchParams.status,
-    searchParams.search
-  )
-
-  return <CampaignList campaigns={result.data} />
-}
-```
-
-## Data Fetching
-
-### Server Components (Preferred)
-
-```typescript
-// ✅ Fetch in Server Component
-export default async function ProjectPage({ 
-  params 
-}: { 
-  params: { id: string } 
-}) {
-  const project = await getProject(params.id)
-  return <ProjectView project={project} />
-}
-```
-
-### Client Components (When Needed)
-
-```typescript
-'use client'
-
-import { useEffect, useState } from 'react'
-
-export function LiveCampaignStatus({ campaignId }: { campaignId: string }) {
-  const [status, setStatus] = useState<CampaignStatusDTO | null>(null)
-
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      const result = await getCampaignStatus(campaignId)
-      if (result.success) {
-        setStatus(result.data)
+  // Check membership
+  const member = await db.projectMember.findUnique({
+    where: {
+      projectId_userId: {
+        projectId,
+        userId: session.user.id
       }
-    }, 5000) // Poll every 5 seconds
-
-    return () => clearInterval(interval)
-  }, [campaignId])
-
-  return <StatusBadge status={status} />
-}
-```
-
-## Styling
-
-### TailwindCSS Best Practices
-
-```typescript
-// ✅ Use semantic class names
-export function CampaignCard({ campaign }: Props) {
-  return (
-    <div className="rounded-lg border bg-card p-6 shadow-sm">
-      <h3 className="text-xl font-semibold">{campaign.title}</h3>
-      <p className="mt-2 text-muted-foreground">{campaign.description}</p>
-      
-      <div className="mt-4 flex items-center gap-2">
-        <StatusBadge status={campaign.status} />
-        <span className="text-sm text-muted-foreground">
-          {campaign.responseCount} responses
-        </span>
-      </div>
-    </div>
-  )
-}
-
-// ✅ Extract repeated patterns
-const statusStyles = {
-  DRAFT: 'bg-gray-100 text-gray-800',
-  ACTIVE: 'bg-green-100 text-green-800',
-  CLOSED: 'bg-blue-100 text-blue-800'
-} as const
-
-export function StatusBadge({ status }: { status: keyof typeof statusStyles }) {
-  return (
-    <span className={`rounded-full px-2 py-1 text-xs font-medium ${statusStyles[status]}`}>
-      {status}
-    </span>
-  )
-}
-```
-
-### CSS Modules (Alternative)
-
-```typescript
-// components/CampaignCard.module.css
-.card {
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
-  padding: 1.5rem;
-}
-
-// components/CampaignCard.tsx
-import styles from './CampaignCard.module.css'
-
-export function CampaignCard({ campaign }: Props) {
-  return <div className={styles.card}>{/* ... */}</div>
-}
-```
-
-## Error Handling
-
-### Error Boundaries
-
-```typescript
-// app/error.tsx
-'use client'
-
-export default function Error({
-  error,
-  reset
-}: {
-  error: Error & { digest?: string }
-  reset: () => void
-}) {
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold">Something went wrong!</h2>
-        <p className="mt-2 text-muted-foreground">{error.message}</p>
-        <button
-          onClick={reset}
-          className="mt-4 rounded bg-primary px-4 py-2 text-primary-foreground"
-        >
-          Try again
-        </button>
-      </div>
-    </div>
-  )
-}
-```
-
-### Loading States
-
-```typescript
-// app/dashboard/[projectId]/loading.tsx
-export default function Loading() {
-  return (
-    <div className="space-y-4">
-      <div className="h-8 w-48 animate-pulse rounded bg-muted" />
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {[...Array(6)].map((_, i) => (
-          <div key={i} className="h-32 animate-pulse rounded bg-muted" />
-        ))}
-      </div>
-    </div>
-  )
-}
-```
-
-### Toast Notifications
-
-```typescript
-'use client'
-
-import { toast } from 'sonner'
-
-export function DeleteRiskButton({ riskId }: { riskId: string }) {
-  async function handleDelete() {
-    const result = await deleteRisk(riskId)
-    
-    if (!result.success) {
-      toast.error(result.error)
-      return
     }
-
-    toast.success('Risk deleted successfully')
-    router.refresh() // Refresh Server Component data
-  }
-
-  return (
-    <button onClick={handleDelete} className="text-destructive">
-      Delete
-    </button>
-  )
-}
-```
-
-## Accessibility
-
-### Semantic HTML
-
-```typescript
-// ✅ CORRECT - Semantic elements
-export function CampaignList({ campaigns }: Props) {
-  return (
-    <section aria-labelledby="campaigns-heading">
-      <h2 id="campaigns-heading" className="sr-only">
-        Happiness Campaigns
-      </h2>
-      <ul className="space-y-4">
-        {campaigns.map((campaign) => (
-          <li key={campaign.id}>
-            <CampaignCard campaign={campaign} />
-          </li>
-        ))}
-      </ul>
-    </section>
-  )
-}
-
-// ❌ WRONG - Divs everywhere
-export function CampaignList({ campaigns }: Props) {
-  return (
-    <div>
-      <div>Happiness Campaigns</div>
-      <div>
-        {campaigns.map((campaign) => (
-          <div key={campaign.id}>
-            <CampaignCard campaign={campaign} />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-```
-
-### Form Labels & ARIA
-
-```typescript
-export function AnswerForm() {
-  return (
-    <form>
-      {/* Always associate labels */}
-      <div>
-        <label htmlFor="happiness-rating">
-          How happy are you with the project?
-        </label>
-        <input
-          id="happiness-rating"
-          type="range"
-          min="1"
-          max="5"
-          aria-describedby="rating-description"
-        />
-        <p id="rating-description" className="text-sm text-muted-foreground">
-          1 = Very unhappy, 5 = Very happy
-        </p>
-      </div>
-
-      {/* Accessible buttons */}
-      <button
-        type="submit"
-        aria-label="Submit happiness survey"
-      >
-        Submit
-      </button>
-    </form>
-  )
-}
-```
-
-### Keyboard Navigation
-
-```typescript
-'use client'
-
-export function CampaignCard({ campaign, onSelect }: Props) {
-  return (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={() => onSelect(campaign.id)}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          onSelect(campaign.id)
-        }
-      }}
-      className="cursor-pointer rounded-lg border p-4 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary"
-    >
-      {campaign.title}
-    </div>
-  )
-}
-```
-
-## Performance Optimization
-
-### Image Optimization
-
-```typescript
-import Image from 'next/image'
-
-export function UserAvatar({ user }: { user: { image: string; name: string } }) {
-  return (
-    <Image
-      src={user.image}
-      alt={`${user.name}'s avatar`}
-      width={40}
-      height={40}
-      className="rounded-full"
-      priority={false} // Don't prioritize unless above fold
-    />
-  )
-}
-```
-
-### Dynamic Imports
-
-```typescript
-// Lazy load heavy components
-import dynamic from 'next/dynamic'
-
-const AIAnalysisChart = dynamic(
-  () => import('./AIAnalysisChart'),
-  {
-    loading: () => <ChartSkeleton />,
-    ssr: false // Don't render on server
-  }
-)
-
-export function CampaignResults({ campaign }: Props) {
-  return (
-    <div>
-      <ResultsSummary campaign={campaign} />
-      {campaign.aiStatus === 'COMPLETED' && (
-        <AIAnalysisChart analysis={campaign.aiSummary} />
-      )}
-    </div>
-  )
-}
-```
-
-### Memoization
-
-```typescript
-'use client'
-
-import { useMemo } from 'react'
-
-export function CampaignStats({ answers }: { answers: AnswerDTO[] }) {
-  // Expensive calculation - memoize it
-  const stats = useMemo(() => {
-    return {
-      average: answers.reduce((sum, a) => sum + a.value, 0) / answers.length,
-      median: calculateMedian(answers),
-      distribution: calculateDistribution(answers)
-    }
-  }, [answers])
-
-  return <StatsDisplay stats={stats} />
-}
-```
-
-## Data Visualization
-
-### Chart Libraries
-
-```typescript
-'use client'
-
-import { Bar } from 'react-chartjs-2'
-import type { HappinessSummaryDTO } from '@/types/happiness'
-
-export function HappinessChart({ summary }: { summary: HappinessSummaryDTO }) {
-  const data = {
-    labels: ['Very Unhappy', 'Unhappy', 'Neutral', 'Happy', 'Very Happy'],
-    datasets: [{
-      label: 'Responses',
-      data: summary.distribution,
-      backgroundColor: 'rgba(59, 130, 246, 0.5)'
-    }]
-  }
-
-  return (
-    <div className="h-64">
-      <Bar data={data} options={{ maintainAspectRatio: false }} />
-    </div>
-  )
-}
-```
-
-## Testing
-
-### Component Tests
-
-```typescript
-// __tests__/components/CampaignCard.test.tsx
-import { render, screen } from '@testing-library/react'
-import { CampaignCard } from '@/components/happiness/CampaignCard'
-
-describe('CampaignCard', () => {
-  const mockCampaign = {
-    id: '1',
-    title: 'Q1 Happiness Survey',
-    status: 'ACTIVE' as const,
-    responseCount: 15
-  }
-
-  it('renders campaign title', () => {
-    render(<CampaignCard campaign={mockCampaign} />)
-    expect(screen.getByText('Q1 Happiness Survey')).toBeInTheDocument()
   })
+  
+  if (!member) {
+    return { error: 'Forbidden' }
+  }
+  
+  // Check role if needed
+  if (requiresPM && member.role !== 'PM') {
+    return { error: 'Requires PM role' }
+  }
+  
+  // Continue...
+}
+```
 
-  it('displays response count', () => {
-    render(<CampaignCard campaign={mockCampaign} />)
-    expect(screen.getByText(/15 responses/i)).toBeInTheDocument()
-  })
+### Permission Checks (MANDATORY)
 
-  it('shows correct status badge', () => {
-    render(<CampaignCard campaign={mockCampaign} />)
-    expect(screen.getByText('ACTIVE')).toBeInTheDocument()
-  })
+Every operation must verify:
+1. **Authentication** - Is user logged in?
+2. **Project Access** - Is user member of this project?
+3. **Role Permission** - Does user role allow this action?
+
+### Authorization Matrix
+
+| Action | Global Role | Project Role | Additional Checks |
+|--------|-------------|--------------|-------------------|
+| Create Project | USER | - | - |
+| Add Member | - | PM | Project exists |
+| Create Risk | - | MEMBER or PM | Project active |
+| Create Campaign | - | PM | Project active |
+| Activate Campaign | - | PM | Campaign is DRAFT |
+| Submit Answer | - | MEMBER or PM | Campaign ACTIVE, not expired, one per user |
+| View Results | - | PM | Campaign CLOSED |
+| Delete Project | - | PM | - |
+
+## Input Validation
+
+### Use Zod for Validation
+
+```typescript
+import { z } from 'zod'
+
+const createRiskSchema = z.object({
+  title: z.string().min(3).max(200),
+  description: z.string().max(2000),
+  severity: z.enum(['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']),
+  projectId: z.string().uuid(),
+})
+
+export async function createRisk(input: unknown) {
+  // Validate first
+  const validated = createRiskSchema.safeParse(input)
+  if (!validated.success) {
+    return { error: 'Invalid input', details: validated.error.flatten() }
+  }
+  
+  const data = validated.data
+  // Continue with validated data...
+}
+```
+
+### Validation Rules
+
+- **Validate ALL user input** - Never trust client data
+- **Sanitize text** - Prevent XSS via proper escaping (React does this by default)
+- **Limit lengths** - Prevent DoS via large payloads
+- **Validate UUIDs** - Ensure proper format for IDs
+- **Validate enums** - Only allow defined values
+
+## SQL Injection Prevention
+
+### Use Prisma Parameterized Queries (DEFAULT)
+
+```typescript
+// ✅ Prisma automatically parameterizes
+const user = await db.user.findUnique({
+  where: { email: userInput }  // Safe - parameterized
+})
+
+// ❌ NEVER use raw SQL with user input
+const users = await db.$queryRaw`SELECT * FROM users WHERE email = ${userInput}`
+// Only use $queryRaw with hardcoded queries or properly sanitized inputs
+```
+
+## Anonymization & Privacy
+
+### Critical Privacy Rules
+
+1. **NEVER expose `userId` in responses/reports**
+2. **NEVER send identifying data to AI**
+3. **Always use `anonymousHash` internally**
+4. **Hide open text if team size < threshold**
+5. **Aggregate data server-side only**
+
+### Anonymization Implementation
+
+```typescript
+// ✅ CORRECT - Generate anonymous hash
+import { generateAnonymousHash } from '@/lib/hashing'
+
+const anonymousHash = generateAnonymousHash(userId, campaignId, secret)
+
+// Store with hash, not userId
+await db.happinessAnswer.create({
+  data: {
+    campaignId,
+    questionId,
+    textValue: answer,
+    anonymousHash,  // ✅ Hash stored
+    // userId NOT stored in answers table
+  }
 })
 ```
 
+### Text Response Privacy
+
+```typescript
+// domain/happiness/openTextPolicy.ts
+export function canShowOpenText(teamSize: number, minThreshold = 3): boolean {
+  return teamSize >= minThreshold
+}
+
+// Usage in aggregation
+if (!canShowOpenText(memberCount)) {
+  return {
+    ...summary,
+    openTextResponses: [],
+    notice: 'Text responses hidden due to small team size'
+  }
+}
+```
+
+## Campaign Expiry Validation
+
+### Prevent Late Submissions
+
+```typescript
+export async function submitAnswer(campaignId: string, answers: Answer[]) {
+  const campaign = await db.happinessCampaign.findUnique({
+    where: { id: campaignId }
+  })
+  
+  // Check status
+  if (campaign.status !== 'ACTIVE') {
+    return { error: 'Campaign not active' }
+  }
+  
+  // Check expiry
+  if (campaign.endsAt && new Date() > campaign.endsAt) {
+    return { error: 'Campaign has ended' }
+  }
+  
+  // Continue...
+}
+```
+
+## Rate Limiting (RECOMMENDED)
+
+### Prevent Answer Spam
+
+```typescript
+// Check one answer per user per campaign
+const existingAnswer = await db.happinessAnswer.findFirst({
+  where: {
+    campaignId,
+    anonymousHash: generateAnonymousHash(userId, campaignId, secret)
+  }
+})
+
+if (existingAnswer) {
+  return { error: 'Already submitted' }
+}
+```
+
+## Secrets Management
+
+### Environment Variables
+
+```typescript
+// ✅ CORRECT - Use env vars
+const openAiKey = process.env.OPENAI_API_KEY
+const hashSecret = process.env.ANONYMOUS_HASH_SECRET
+
+// ❌ NEVER hardcode secrets
+const openAiKey = 'sk-...'  // NEVER DO THIS
+```
+
+### Secret Rotation Support
+
+```typescript
+// lib/hashing.ts
+const HASH_SECRETS = [
+  process.env.ANONYMOUS_HASH_SECRET!,
+  process.env.ANONYMOUS_HASH_SECRET_OLD // For rotation
+].filter(Boolean)
+
+export function generateAnonymousHash(
+  userId: string,
+  campaignId: string
+): string {
+  const secret = HASH_SECRETS[0]  // Use current secret
+  return crypto
+    .createHmac('sha256', secret)
+    .update(`${userId}:${campaignId}`)
+    .digest('hex')
+}
+```
+
+## Data Exposure Prevention
+
+### DTO Pattern (MANDATORY)
+
+```typescript
+// ❌ WRONG - Exposes internal fields
+export async function getCampaign(id: string) {
+  const campaign = await db.happinessCampaign.findUnique({
+    where: { id },
+    include: { answers: true }  // Includes anonymousHash!
+  })
+  return campaign  // Exposes sensitive data
+}
+
+// ✅ CORRECT - Use DTO mapper
+export async function getCampaign(id: string) {
+  const campaign = await db.happinessCampaign.findUnique({
+    where: { id },
+    include: { answers: true }
+  })
+  return campaignToDTO(campaign)  // Filters sensitive fields
+}
+```
+
+## AI Safety
+
+### Never Send PII to AI
+
+```typescript
+// ✅ CORRECT - Remove identifying info
+const aiInput = {
+  responses: answers.map(a => ({
+    text: a.textValue,
+    rating: a.numericValue,
+    // NO userId, NO anonymousHash, NO names
+  }))
+}
+
+const analysis = await openai.chat.completions.create({
+  messages: [{
+    role: 'system',
+    content: 'Analyze team happiness. Do not identify individuals.'
+  }, {
+    role: 'user',
+    content: JSON.stringify(aiInput)
+  }]
+})
+```
+
+### Validate AI Responses
+
+- Don't trust AI output blindly
+- Validate JSON structure
+- Sanitize before storing
+- Handle errors gracefully
+
+## CORS & API Security
+
+### API Routes Protection
+
+```typescript
+// app/api/cron/close-campaigns/route.ts
+export async function GET(request: Request) {
+  // Verify cron secret
+  const authHeader = request.headers.get('authorization')
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+  
+  // Continue...
+}
+```
+
+## Audit Logging (RECOMMENDED)
+
+### Log Critical Actions
+
+- User login/logout
+- Campaign activation
+- Campaign closure
+- AI analysis triggers
+- Permission changes
+- Project deletions
+
+```typescript
+// Example audit log
+await db.auditLog.create({
+  data: {
+    action: 'CAMPAIGN_CLOSED',
+    userId: session.user.id,
+    projectId,
+    campaignId,
+    timestamp: new Date(),
+    metadata: { reason: 'auto' }
+  }
+})
+```
+
+## Error Messages
+
+### Safe Error Handling
+
+```typescript
+// ❌ WRONG - Exposes internal details
+catch (error) {
+  return { error: error.message }  // May leak DB structure
+}
+
+// ✅ CORRECT - Generic message
+catch (error) {
+  console.error('Failed to create risk:', error)  // Log server-side
+  return { error: 'Failed to create risk' }  // Generic to client
+}
+```
+
+## Dependencies
+
+### Regular Updates
+- Keep dependencies updated
+- Monitor for security advisories
+- Use `npm audit` regularly
+- Pin versions in production
+
+### Minimal Dependencies
+- Only add necessary packages
+- Audit package permissions
+- Prefer maintained packages
+- Avoid deprecated libraries
+
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/zacol)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/zacol)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/zacol) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
