@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [CaptainPhantasy/Floyd-tui-rebuild-v2](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/CaptainPhantasy](https://tomevault.io/claim/CaptainPhantasy)
 
