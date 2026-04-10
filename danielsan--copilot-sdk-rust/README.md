@@ -1,0 +1,23 @@
+# copilot-sdk-rust
+
+> Config by [danielsan](https://github.com/danielsan/copilot-sdk-rust) — distributed by [TomeVault](https://tomevault.io/claim/danielsan)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [danielsan/copilot-sdk-rust](https://github.com/danielsan/copilot-sdk-rust).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Browse all formats: [https://tomevault.io/claim/danielsan](https://tomevault.io/claim/danielsan)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/danielsan) to manage distribution.
