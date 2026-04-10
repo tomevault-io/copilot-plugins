@@ -1,0 +1,14 @@
+{
+  "name": "vfarcic--dot-ai-demo",
+  "displayName": "dot-ai-demo",
+  "description": "AI instruction files for dot-ai-demo by vfarcic",
+  "version": "1.0.0",
+  "author": "vfarcic",
+  "homepage": "https://tomevault.io/claim/vfarcic",
+  "skills": [
+    {
+      "name": "dot-ai",
+      "description": ""
+    }
+  ]
+}
