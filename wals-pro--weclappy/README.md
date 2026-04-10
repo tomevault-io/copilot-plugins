@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [Wals-pro/weclappy](https://github.com
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Wals-pro](https://tomevault.io/claim/Wals-pro)
 
