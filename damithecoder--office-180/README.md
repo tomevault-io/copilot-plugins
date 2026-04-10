@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [damiTheCoder/Office-180](https://github.com/dam
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/damiTheCoder](https://tomevault.io/claim/damiTheCoder)
 
