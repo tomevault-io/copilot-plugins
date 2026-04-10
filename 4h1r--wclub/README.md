@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [4H1R/wclub](https://github.com/4H1R/wclub).
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/4H1R](https://tomevault.io/claim/4H1R)
 
