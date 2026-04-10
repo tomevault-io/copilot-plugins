@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [alexezh/reminora](https://github.com/alexezh/re
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/alexezh](https://tomevault.io/claim/alexezh)
 
