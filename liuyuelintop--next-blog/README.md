@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [liuyuelintop/next-blog](https://github.com/liuy
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/liuyuelintop](https://tomevault.io/claim/liuyuelintop)
 
