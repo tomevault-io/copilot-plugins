@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [neutral/idd](https://github.com/neutral/idd).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/neutral](https://tomevault.io/claim/neutral)
 
