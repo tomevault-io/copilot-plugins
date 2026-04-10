@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rodenp/crawler](https://github.com/rodenp/crawl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rodenp](https://tomevault.io/claim/rodenp)
 
