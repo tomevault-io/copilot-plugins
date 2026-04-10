@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bellx2/raspbian-ca-update](https://github.com/b
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bellx2](https://tomevault.io/claim/bellx2)
 
