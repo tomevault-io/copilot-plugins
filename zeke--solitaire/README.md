@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [zeke/solitaire](https://github.com/zeke/solitai
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zeke](https://tomevault.io/claim/zeke)
 
