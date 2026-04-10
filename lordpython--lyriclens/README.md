@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [lordpython/lyriclens](https://github.com/lordpy
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lordpython](https://tomevault.io/claim/lordpython)
 
