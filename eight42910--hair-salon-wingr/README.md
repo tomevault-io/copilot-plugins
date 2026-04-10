@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [eight42910/hair-salon-wingr](https://github.com
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/eight42910](https://tomevault.io/claim/eight42910)
 
