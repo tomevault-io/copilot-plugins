@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jhd3197/AgentSite](https://github.com/jhd3197/A
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jhd3197](https://tomevault.io/claim/jhd3197)
 
