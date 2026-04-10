@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [marctjones/idlergear](https://github.com/marctj
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/marctjones](https://tomevault.io/claim/marctjones)
 
