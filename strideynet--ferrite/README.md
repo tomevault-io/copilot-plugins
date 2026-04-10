@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [strideynet/ferrite](https://github.com/strideyn
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/strideynet](https://tomevault.io/claim/strideynet)
 
