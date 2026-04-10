@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [vincent7q/GodViewActivation](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vincent7q](https://tomevault.io/claim/vincent7q)
 
