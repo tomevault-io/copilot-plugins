@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rajnandan1/kener](https://github.com/rajnandan1
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rajnandan1](https://tomevault.io/claim/rajnandan1)
 
