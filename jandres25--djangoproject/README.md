@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Jandres25/DjangoProject](https://github.com/Jan
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Jandres25](https://tomevault.io/claim/Jandres25)
 
