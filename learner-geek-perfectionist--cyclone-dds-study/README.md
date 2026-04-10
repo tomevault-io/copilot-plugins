@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Learner-Geek-Perfectionist/Cyclone-DDS-Study](h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Learner-Geek-Perfectionist](https://tomevault.io/claim/Learner-Geek-Perfectionist)
 
