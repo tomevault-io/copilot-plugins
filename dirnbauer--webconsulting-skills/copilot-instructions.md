@@ -3,350 +3,1149 @@
 > >-
 
 
-# CRO Funnel Optimization
+# TYPO3 Content Blocks Development
 
-> **Source:** This skill is adapted from **[AgentKits Marketing](https://github.com/aitytech/agentkits-marketing)** 
-> by AITYTech. Enterprise-grade AI marketing automation (MIT License).
+> **Compatibility:** This skill targets **TYPO3 v14.x** with **Content Blocks 2.x**. Always match the [Packagist `friendsoftypo3/content-blocks`](https://packagist.org/packages/friendsoftypo3/content-blocks) constraint to your Core version.
+> For **Content Blocks 1.x on TYPO3 v13**, upstream typically requires **TYPO3 ≥ 13.1** (not plain 13.0) — confirm on Packagist.
+> Examples use TYPO3 v14 APIs and CB 2.x; adjust `composer.json` if upstream constraints differ.
 
-Full-funnel Conversion Rate Optimization covering every stage from page visit to paid conversion:
+> **TYPO3 API First:** Always use TYPO3's built-in APIs, core features, and established conventions before creating custom implementations. Do not reinvent what TYPO3 already provides. Always verify that the APIs and methods you use exist and are not deprecated in TYPO3 v14 by checking the official TYPO3 documentation.
+
+## 1. The Single Source of Truth Principle
+
+Content Blocks is the **modern approach** to creating custom content types in TYPO3. It eliminates redundancy by providing a **single YAML configuration** that generates:
+
+- TCA (Table Configuration Array)
+- Database schema (SQL)
+- TypoScript rendering
+- Backend forms and previews
+- Labels and translations
+
+### Why Content Blocks?
+
+| Traditional Approach | Content Blocks Approach |
+|---------------------|------------------------|
+| Multiple TCA files | One `config.yaml` |
+| Manual SQL definitions | Auto-generated schema |
+| Separate TypoScript | Auto-registered rendering |
+| Scattered translations | Single `labels.xlf` |
+| Complex setup | Simple folder structure |
+
+## 2. Installation
+
+```bash
+# Install via Composer (DDEV recommended)
+ddev composer require friendsoftypo3/content-blocks
+
+# After installation, clear caches
+ddev typo3 cache:flush
+```
+
+### Security Configuration (Classic Mode)
+
+For non-composer installations, deny web access to ContentBlocks folder:
+
+```apache
+# .htaccess addition
+RewriteRule (?:typo3conf/ext|typo3/sysext|typo3/ext)/[^/]+/(?:Configuration|ContentBlocks|Resources/Private|Tests?|Documentation|docs?)/ - [F]
+```
+
+## 3. Content Types Overview
+
+Content Blocks supports four content types:
+
+| Type | Folder | Table | Use Case |
+|------|--------|-------|----------|
+| `ContentElements` | `ContentBlocks/ContentElements/` | `tt_content` | Frontend content (hero, accordion, CTA) |
+| `RecordTypes` | `ContentBlocks/RecordTypes/` | Custom/existing | Structured records (news, products, team) |
+| `PageTypes` | `ContentBlocks/PageTypes/` | `pages` | Custom page types (blog, landing page) |
+| `FileTypes` | `ContentBlocks/FileTypes/` | `sys_file_reference` | Extended file references (photographer, copyright) |
+
+## 4. Folder Structure
 
 ```
-Visitor → Page CRO → Form CRO → Signup CRO
-     ↓
-  Popup CRO (capture abandoners)
-     ↓
-New User → Onboarding CRO → Activation
-     ↓
-Free User → Paywall CRO → Paid Customer
+EXT:my_sitepackage/
+└── ContentBlocks/
+    ├── ContentElements/
+    │   └── my-hero/
+    │       ├── assets/
+    │       │   └── icon.svg
+    │       ├── language/
+    │       │   └── labels.xlf
+    │       ├── templates/
+    │       │   ├── backend-preview.fluid.html
+    │       │   ├── frontend.fluid.html
+    │       │   └── partials/
+    │       └── config.yaml
+    ├── RecordTypes/
+    │   └── my-record/
+    │       ├── assets/
+    │       │   └── icon.svg
+    │       ├── language/
+    │       │   └── labels.xlf
+    │       └── config.yaml
+    ├── PageTypes/
+    │   └── blog-article/
+    │       ├── assets/
+    │       │   ├── icon.svg
+    │       │   ├── icon-hide-in-menu.svg
+    │       │   └── icon-root.svg
+    │       ├── language/
+    │       │   └── labels.xlf
+    │       ├── templates/
+    │       │   └── backend-preview.fluid.html
+    │       └── config.yaml
+    └── FileTypes/
+        └── image-extended/
+            ├── language/
+            │   └── labels.xlf
+            └── config.yaml
+```
+
+## 5. Creating Content Elements
+
+### Kickstart Command (Recommended)
+
+```bash
+# Interactive mode
+ddev typo3 make:content-block
+
+# One-liner
+ddev typo3 make:content-block \
+  --content-type="content-element" \
+  --vendor="myvendor" \
+  --name="hero-banner" \
+  --title="Hero Banner" \
+  --extension="my_sitepackage"
+
+# After creation, update database
+ddev typo3 cache:flush -g system
+ddev typo3 extension:setup --extension=my_sitepackage
+```
+
+### Predefined Basics (content elements)
+
+List under `basics:` to pull in Core field groups: **`TYPO3/Header`**, **`TYPO3/Appearance`**, **`TYPO3/Links`**, **`TYPO3/Categories`**. See the [Content Blocks basics reference](https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/API/Basics/Index.html).
+
+### Minimal Content Element
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/ContentElements/hero-banner/config.yaml
+name: myvendor/hero-banner
+fields:
+  - identifier: header
+    useExistingField: true
+  - identifier: bodytext
+    useExistingField: true
+```
+
+### Full Content Element Example
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/ContentElements/hero-banner/config.yaml
+name: myvendor/hero-banner
+group: default
+description: "A full-width hero banner with image and CTA"
+prefixFields: true
+prefixType: full
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+fields:
+  - identifier: header
+    useExistingField: true
+  - identifier: subheadline
+    type: Text
+    label: Subheadline
+  - identifier: hero_image
+    type: File
+    minitems: 1
+    maxitems: 1
+    allowed: common-image-types
+  - identifier: cta_link
+    type: Link
+    label: Call to Action Link
+  - identifier: cta_text
+    type: Text
+    label: Button Text
+```
+
+### Frontend Template
+
+```html
+<!-- templates/frontend.fluid.html -->
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="hero-banner-css" href="{cb:assetPath()}/frontend.css"/>
+
+<section class="hero-banner">
+    <f:if condition="{data.hero_image}">
+        <f:for each="{data.hero_image}" as="image">
+            <f:image image="{image}" alt="{data.header}" class="hero-image"/>
+        </f:for>
+    </f:if>
+    
+    <div class="hero-content">
+        <h1>{data.header}</h1>
+        <f:if condition="{data.subheadline}">
+            <p class="subheadline">{data.subheadline}</p>
+        </f:if>
+        
+        <f:if condition="{data.cta_link}">
+            <f:link.typolink parameter="{data.cta_link}" class="btn btn-primary">
+                {data.cta_text -> f:or(default: 'Learn more')}
+            </f:link.typolink>
+        </f:if>
+    </div>
+</section>
+</html>
+```
+
+### Backend Preview Template
+
+```html
+<!-- templates/backend-preview.fluid.html -->
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="content-block-preview">
+    <strong>{data.header}</strong>
+    <f:if condition="{data.subheadline}">
+        <br/><em>{data.subheadline}</em>
+    </f:if>
+    <f:if condition="{data.hero_image}">
+        <f:for each="{data.hero_image}" as="image">
+            <be:thumbnail image="{image}" width="100" height="100"/>
+        </f:for>
+    </f:if>
+</div>
+</html>
+```
+
+## 6. Creating Record Types (Custom Tables)
+
+Record Types create **custom database tables** for structured data like teams, products, events, etc.
+
+### Extbase-Compatible Table Naming
+
+**IMPORTANT:** For Extbase compatibility, use the `tx_extensionkey_domain_model_*` naming convention:
+
+```yaml
+# ✅ CORRECT - Extbase compatible table name
+name: myvendor/team-member
+table: tx_mysitepackage_domain_model_teammember
+labelField: name
+fields:
+  - identifier: name
+    type: Text
+  - identifier: position
+    type: Text
+  - identifier: email
+    type: Email
+  - identifier: photo
+    type: File
+    allowed: common-image-types
+    maxitems: 1
+```
+
+```yaml
+# ❌ WRONG - Short table names don't work with Extbase
+name: myvendor/team-member
+table: team_member  # Won't work with Extbase!
+```
+
+### Minimal Record Type
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/RecordTypes/team-member/config.yaml
+name: myvendor/team-member
+table: tx_mysitepackage_domain_model_teammember
+labelField: name
+fields:
+  - identifier: name
+    type: Text
+```
+
+### Full Record Type Example
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/RecordTypes/team-member/config.yaml
+name: myvendor/team-member
+table: tx_mysitepackage_domain_model_teammember
+labelField: name
+fallbackLabelFields:
+  - email
+languageAware: true
+workspaceAware: true
+sortable: true
+softDelete: true
+trackCreationDate: true
+trackUpdateDate: true
+internalDescription: true
+restriction:
+  disabled: true
+  startTime: true
+  endTime: true
+  userGroup: true  # fe_group visibility fields when applicable
+security:
+  ignorePageTypeRestriction: true  # Allow on normal pages
+fields:
+  - identifier: name
+    type: Text
+    required: true
+  - identifier: position
+    type: Text
+  - identifier: email
+    type: Email
+  - identifier: phone
+    type: Text
+  - identifier: bio
+    type: Textarea
+    enableRichtext: true
+  - identifier: photo
+    type: File
+    allowed: common-image-types
+    maxitems: 1
+  - identifier: social_links
+    type: Collection
+    labelField: platform
+    fields:
+      - identifier: platform
+        type: Select
+        items:
+          - label: LinkedIn
+            value: linkedin
+          - label: Twitter/X
+            value: twitter
+          - label: GitHub
+            value: github
+      - identifier: url
+        type: Link
+```
+
+### Record Type options (reference)
+
+Content Blocks exposes many **optional** root keys on record types — always confirm names against the current [Record Types YAML reference](https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/YamlReference/ContentTypes/RecordTypes/Index.html). Commonly used flags include:
+
+| Option | Role |
+|--------|------|
+| `editLocking` | Editor locking behaviour |
+| `sortField` / `sortable` | Manual sorting (`sorting` column) |
+| `rootLevelType` | Allow records at PID 0 |
+| `readOnly` | Read-only in FormEngine |
+| `adminOnly` | Visible to admins only |
+| `hideAtCopy` / `appendLabelAtCopy` | Copy behaviour |
+| `group` | Backend selector grouping |
+
+### Multi-Type Records (Single Table Inheritance)
+
+Create multiple types for one table:
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/RecordTypes/person-employee/config.yaml
+name: myvendor/person-employee
+table: tx_mysitepackage_domain_model_person
+typeField: person_type
+typeName: employee
+priority: 0  # Integer ordering; higher values load first (higher priority)
+labelField: name
+languageAware: false
+workspaceAware: false
+fields:
+  - identifier: name
+    type: Text
+  - identifier: department
+    type: Text
+```
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/RecordTypes/person-contractor/config.yaml
+name: myvendor/person-contractor
+table: tx_mysitepackage_domain_model_person
+typeName: contractor
+fields:
+  - identifier: name
+    type: Text
+  - identifier: company
+    type: Text
+  - identifier: contract_end
+    type: DateTime
+```
+
+### Record Types as Collection Children
+
+Define a record that can be used in IRRE collections:
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/RecordTypes/slide/config.yaml
+name: myvendor/slide
+table: tx_mysitepackage_domain_model_slide
+labelField: title
+fields:
+  - identifier: title
+    type: Text
+  - identifier: image
+    type: File
+    maxitems: 1
+  - identifier: link
+    type: Link
+```
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/ContentElements/slider/config.yaml
+name: myvendor/slider
+fields:
+  - identifier: slides
+    type: Collection
+    foreign_table: tx_mysitepackage_domain_model_slide
+    shareAcrossTables: true
+    shareAcrossFields: true
+    minitems: 1
+```
+
+## 7. Creating Page Types (Custom doktypes)
+
+Page Types extend the `pages` table with custom page types – ideal for blog articles, landing pages, news pages, or other page variants with special properties.
+
+### When to Use Page Types
+
+| Use Case | Example |
+|----------|---------|
+| Structured page properties | Blog with author, teaser image, publish date |
+| Plugin integration | News lists, event calendars reading page properties |
+| Different page behavior | Landing pages without navigation |
+| SEO-specific fields | Custom meta fields per page type |
+
+### Minimal Page Type
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/PageTypes/blog-article/config.yaml
+name: myvendor/blog-article
+typeName: 1705234567
+fields:
+  - identifier: author_name
+    type: Text
+```
+
+### Full Page Type Example
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/PageTypes/blog-article/config.yaml
+name: myvendor/blog-article
+typeName: 1705234567   # Unix timestamp (unique identifier)
+group: default         # Options: default, link, special
+fields:
+  - identifier: author_name
+    type: Text
+    label: Author
+    required: true
+  - identifier: teaser_text
+    type: Textarea
+    label: Teaser
+  - identifier: hero_image
+    type: File
+    allowed: common-image-types
+    maxitems: 1
+  - identifier: publish_date
+    type: DateTime
+    label: Publish Date
+  - identifier: reading_time
+    type: Number
+    label: Reading Time (minutes)
+```
+
+### Page Type Options
+
+| Option | Type | Required | Description |
+|--------|------|----------|-------------|
+| `typeName` | integer | ✓ | Unique doktype number (use Unix timestamp) |
+| `group` | string | | Group in selector: `default`, `link`, `special` |
+| `allowedRecordTypes` | array | | Record types allowed on this doktype (default includes pages, `sys_category`, `sys_file_reference`, `sys_file_collection`; `*` wildcard possible — see official Page Types API) |
+
+**Reserved typeName values:** 199, 254 (cannot be used)
+
+### Icons for Page States
+
+Page Types support state-specific icons. Add these to your assets folder:
+
+```
+ContentBlocks/PageTypes/blog-article/
+├── assets/
+│   ├── icon.svg              # Default icon
+│   ├── icon-hide-in-menu.svg # Hidden in menu state
+│   └── icon-root.svg         # Site root state
+└── config.yaml
+```
+
+### Backend Preview
+
+Create a `backend-preview.fluid.html` to preview custom page properties:
+
+```html
+<!-- templates/backend-preview.fluid.html -->
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="card card-size-medium">
+    <div class="card-body">
+        <be:link.editRecord uid="{data.uid}" table="{data.mainType}" fields="author_name">
+            <strong>Author:</strong> {data.author_name}
+        </be:link.editRecord>
+        <f:if condition="{data.publish_date}">
+            <br/><small>Published: <f:format.date format="d.m.Y">{data.publish_date}</f:format.date></small>
+        </f:if>
+    </div>
+</div>
+</html>
+```
+
+### Frontend Integration
+
+Page Types have **no automatic frontend rendering**. Add the ContentBlocksDataProcessor to your TypoScript:
+
+```typoscript
+# Configuration/TypoScript/setup.typoscript
+page = PAGE
+page {
+    10 = FLUIDTEMPLATE
+    10 {
+        templateName = Default
+        templateRootPaths.10 = EXT:my_sitepackage/Resources/Private/Templates/
+        
+        dataProcessing {
+            # Process Content Blocks page data
+            1 = record-transformation
+        }
+    }
+}
+```
+
+Then access fields in your Fluid template:
+
+```html
+<!-- Resources/Private/Templates/Default.html -->
+<f:if condition="{data.author_name}">
+    <p class="author">By {data.author_name}</p>
+</f:if>
+
+<f:if condition="{data.hero_image}">
+    <f:for each="{data.hero_image}" as="image">
+        <f:image image="{image}" class="hero-image"/>
+    </f:for>
+</f:if>
+```
+
+### Remove from Page Tree Drag Area
+
+To hide your page type from the "Create new page" drag area:
+
+```typoscript
+# Configuration/user.tsconfig
+options {
+    pageTree {
+        doktypesToShowInNewPageDragArea := removeFromList(1705234567)
+    }
+}
+```
+
+## 8. Creating File Types (Extended Metadata)
+
+> New in version 1.2
+
+File Types extend the `sys_file_reference` table with custom fields – perfect for photographer credits, copyright notices, or additional reference-level options.
+
+### Available File Type Names
+
+| typeName | File Types |
+|----------|------------|
+| `image` | JPEG, PNG, GIF, WebP, SVG |
+| `video` | MP4, WebM, OGG |
+| `audio` | MP3, WAV, OGG |
+| `text` | TXT, PDF, Markdown |
+| `application` | ZIP, Office formats |
+
+### Minimal File Type
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/FileTypes/image-extended/config.yaml
+name: myvendor/image-extended
+typeName: image
+fields:
+  - identifier: photographer
+    type: Text
+    label: Photographer
+```
+
+### Full File Type Example
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/FileTypes/image-extended/config.yaml
+name: myvendor/image-extended
+typeName: image
+prefixFields: false  # Keep original column names
+fields:
+  - identifier: image_overlay_palette
+    type: Palette
+    label: 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette'
+    fields:
+      # Reuse existing TYPO3 core fields
+      - identifier: alternative
+        useExistingField: true
+      - identifier: description
+        useExistingField: true
+      - type: Linebreak
+      - identifier: link
+        useExistingField: true
+      - identifier: title
+        useExistingField: true
+      - type: Linebreak
+      # Custom fields
+      - identifier: photographer
+        type: Text
+        label: Photographer
+      - identifier: copyright
+        type: Text
+        label: Copyright Notice
+      - identifier: source_url
+        type: Link
+        label: Source URL
+      - type: Linebreak
+      - identifier: crop
+        useExistingField: true
+```
+
+### File Type Options
+
+| Option | Type | Required | Description |
+|--------|------|----------|-------------|
+| `typeName` | string | ✓ | One of: `text`, `image`, `audio`, `video`, `application` |
+| `prefixFields` | boolean | | Common root option inherited by File Types; not File-Type-specific (often `false` for shared field names) |
+
+### Use Cases for File Types
+
+| Use Case | Fields to Add |
+|----------|---------------|
+| Photography agency | `photographer`, `copyright`, `license_type`, `expiry_date` |
+| Video platform | `director`, `duration`, `transcript`, `subtitles` |
+| Document management | `document_version`, `author`, `confidentiality` |
+| E-commerce | `product_sku`, `variant_color`, `variant_size` |
+
+### Accessing File Type Fields
+
+In Fluid templates, access custom metadata through FAL references:
+
+```html
+<f:for each="{data.images}" as="image">
+    <figure>
+        <f:image image="{image}" alt="{image.alternative}"/>
+        <f:if condition="{image.properties.photographer}">
+            <figcaption>
+                Photo: {image.properties.photographer}
+                <f:if condition="{image.properties.copyright}">
+                    | © {image.properties.copyright}
+                </f:if>
+            </figcaption>
+        </f:if>
+    </figure>
+</f:for>
+```
+
+## 9. Field Types Reference
+
+### Simple Fields
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `Text` | Single line text | `type: Text` |
+| `Textarea` | Multi-line text | `type: Textarea` |
+| `Email` | Email address | `type: Email` |
+| `Link` | Link/URL | `type: Link` |
+| `Number` | Integer/Float | `type: Number` (+ `format: integer` or `format: decimal` as needed; legacy YAML sometimes used a non-existent `Integer` type — use `Number`) |
+| `DateTime` | Date and/or time | `type: DateTime` |
+| `Color` | Color picker | `type: Color` |
+| `Checkbox` | Boolean checkbox | `type: Checkbox` |
+| `Radio` | Radio buttons | `type: Radio` |
+| `Slug` | URL slug | `type: Slug` |
+| `Password` | Password field | `type: Password` |
+| `Basic` | Shared “basic” field helper | `type: Basic` |
+| `Country` | Country selection (aligns with TCA `country` where supported) | `type: Country` |
+| `Pass` | Pass-through / display field | `type: Pass` |
+| `SelectNumber` | Select with numeric values | `type: SelectNumber` |
+| `Uuid` | UUID string | `type: Uuid` |
+
+### Relational Fields
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `File` | File references (FAL) | `type: File` |
+| `Relation` | Record relations | `type: Relation` |
+| `Select` | Dropdown selection | `type: Select` |
+| `Category` | System categories | `type: Category` |
+| `Collection` | Inline records (IRRE) | `type: Collection` |
+| `Folder` | Folder reference | `type: Folder` |
+| `Language` | Language selector | `type: Language` |
+
+### Structural Fields
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `Tab` | Tab separator | `type: Tab` |
+| `Palette` | Group fields | `type: Palette` |
+| `Linebreak` | Line break in palette | `type: Linebreak` |
+| `FlexForm` | FlexForm container | `type: FlexForm` |
+| `Json` | JSON field | `type: Json` |
+
+### Common Field Options
+
+```yaml
+fields:
+  - identifier: my_field
+    type: Text
+    label: My Field Label           # Static label (or use labels.xlf)
+    description: Help text          # Field description
+    required: true                  # Make field required
+    default: "Default value"        # Default value
+    placeholder: "Enter text..."    # Placeholder text
+    prefixField: false              # Disable prefixing for this field
+    useExistingField: true          # Reuse existing TCA field
+    displayCond: 'FIELD:other:=:1'  # Conditional display
+    onChange: reload                # Reload form on change
+```
+
+### File Field Example
+
+> **TCA-only options:** Keys like `appearance` / `behaviour` belong in generated TCA, not always in Content Blocks YAML. If the schema rejects them, add a **TCA override** for that field after generation (see Content Blocks docs on extending TCA).
+
+```yaml
+fields:
+  - identifier: gallery_images
+    type: File
+    allowed: common-image-types
+    minitems: 1
+    maxitems: 10
+```
+
+### Select Field Example
+
+```yaml
+fields:
+  - identifier: layout
+    type: Select
+    renderType: selectSingle
+    default: default
+    items:
+      - label: Default Layout
+        value: default
+      - label: Wide Layout
+        value: wide
+      - label: Compact Layout
+        value: compact
+```
+
+### Collection Field Example (Inline IRRE)
+
+```yaml
+fields:
+  - identifier: accordion_items
+    type: Collection
+    labelField: title
+    minitems: 1
+    maxitems: 20
+    appearance:
+      collapseAll: true
+      levelLinksPosition: both
+    fields:
+      - identifier: title
+        type: Text
+        required: true
+      - identifier: content
+        type: Textarea
+        enableRichtext: true
+      - identifier: is_open
+        type: Checkbox
+        label: Initially Open
+```
+
+## 10. Field Prefixing
+
+Content Blocks automatically prefixes field identifiers to avoid collisions.
+
+### Prefixing Types
+
+```yaml
+# Full prefix (default): myvendor_myblock_fieldname
+name: myvendor/my-block
+prefixFields: true
+prefixType: full
+
+# Vendor prefix only: myvendor_fieldname
+name: myvendor/my-block
+prefixFields: true
+prefixType: vendor
+
+# Custom vendor prefix: tx_custom_fieldname
+name: myvendor/my-block
+prefixFields: true
+prefixType: vendor
+vendorPrefix: tx_custom
+
+# No prefix (use with caution!)
+name: myvendor/my-block
+prefixFields: false
+```
+
+### Disable Prefixing per Field
+
+```yaml
+fields:
+  - identifier: my_custom_field
+    type: Text
+    prefixField: false  # This field won't be prefixed
+```
+
+## 11. Templating Features
+
+### Accessing Data in Fluid
+
+```html
+<!-- Basic field access -->
+{data.header}
+{data.my_field}
+
+<!-- Record metadata -->
+{data.uid}
+{data.pid}
+{data.languageId}
+{data.mainType}      <!-- Table name: tt_content -->
+{data.recordType}    <!-- CType: myvendor_heroblock -->
+{data.fullType}      <!-- tt_content.myvendor_heroblock -->
+
+<!-- Raw database values -->
+{data.rawRecord.some_field}
+
+<!-- System properties -->
+{data.systemProperties.createdAt}
+{data.systemProperties.lastUpdatedAt}
+{data.systemProperties.sorting}
+{data.systemProperties.disabled}
+
+<!-- Language info -->
+{data.languageInfo.translationParent}
+{data.languageInfo.translationSource}
+
+<!-- Relations are auto-resolved! -->
+<f:for each="{data.gallery_images}" as="image">
+    <f:image image="{image}" width="400"/>
+</f:for>
+
+<!-- Nested collections -->
+<f:for each="{data.accordion_items}" as="item">
+    <h3>{item.title}</h3>
+    <f:format.html>{item.content}</f:format.html>
+</f:for>
+```
+
+### Asset ViewHelpers
+
+```html
+<!-- Include CSS from assets folder -->
+<f:asset.css identifier="my-block-css" href="{cb:assetPath()}/frontend.css"/>
+
+<!-- Include JS from assets folder -->
+<f:asset.script identifier="my-block-js" src="{cb:assetPath()}/frontend.js"/>
+
+<!-- Cross-block asset reference -->
+<f:asset.css identifier="shared-css" href="{cb:assetPath(name: 'vendor/other-block')}/shared.css"/>
+```
+
+### Translation ViewHelper
+
+```html
+<!-- Access labels.xlf translations -->
+<f:translate key="{cb:languagePath()}:my_label"/>
+
+<!-- Cross-block translation -->
+<f:translate key="{cb:languagePath(name: 'vendor/other-block')}:shared_label"/>
+```
+
+## 12. Extending Existing Tables
+
+Add custom types to existing tables (like `tx_news`):
+
+```yaml
+# EXT:my_sitepackage/ContentBlocks/RecordTypes/custom-news/config.yaml
+name: myvendor/custom-news
+table: tx_news_domain_model_news
+typeName: custom_news
+fields:
+  - identifier: title
+    useExistingField: true
+  - identifier: custom_field
+    type: Text
+```
+
+## 13. Workflow with DDEV
+
+### Standard Development Workflow
+
+```bash
+# 1. Create new Content Block
+ddev typo3 make:content-block
+
+# 2. Clear system caches
+ddev typo3 cache:flush -g system
+
+# 3. Update database schema
+ddev typo3 extension:setup --extension=my_sitepackage
+
+# Alternative: Use Database Analyzer in TYPO3 Backend
+# Admin Tools > Maintenance > Analyze Database Structure
+```
+
+### Using webprofil/make Extension
+
+If `webprofil/make` is installed:
+
+```bash
+# Create Content Block with webprofil/make
+ddev make:content_blocks
+
+# Clear caches and update database (prefer Core CLI)
+ddev typo3 cache:flush
+ddev typo3 extension:setup --extension=my_sitepackage
+# `database:updateschema` exists only with helhum/typo3-console — do not assume it in plain Core projects
+```
+
+### Integration with Extbase
+
+After creating Record Types with proper table names, generate Extbase models:
+
+```bash
+# If typo3:make:model is available
+ddev typo3 make:model --extension=my_sitepackage
+
+# Generate repository
+ddev typo3 make:repository --extension=my_sitepackage
+```
+
+## 14. Defaults Configuration
+
+Create a `content-blocks.yaml` in project root for default settings:
+
+```yaml
+# content-blocks.yaml
+vendor: myvendor
+extension: my_sitepackage
+content-type: content-element
+skeleton-path: content-blocks-skeleton
+
+config:
+  content-element:
+    basics:
+      - TYPO3/Header
+      - TYPO3/Appearance
+      - TYPO3/Links
+      - TYPO3/Categories
+    group: default
+    prefixFields: true
+    prefixType: full
+  
+  record-type:
+    prefixFields: true
+    prefixType: vendor
+    vendorPrefix: tx_mysitepackage
+```
+
+## 15. Best Practices
+
+### DO ✅
+
+1. **Use Extbase-compatible table names** for Record Types:
+   ```yaml
+   table: tx_myextension_domain_model_myrecord
+   ```
+
+2. **Reuse existing fields** when possible:
+   ```yaml
+   - identifier: header
+     useExistingField: true
+   ```
+
+3. **Group related fields** with Tabs and Palettes:
+   ```yaml
+   - identifier: settings_tab
+     type: Tab
+     label: Settings
+   ```
+
+4. **Use meaningful identifiers** (snake_case):
+   ```yaml
+   - identifier: hero_background_image
+   ```
+
+5. **Clear caches after changes**:
+   ```bash
+   ddev typo3 cache:flush -g system
+   ddev typo3 extension:setup --extension=my_sitepackage
+   ```
+
+6. **Use labels.xlf** for all user-facing labels
+
+### DON'T ❌
+
+1. **Don't use raw SQL** - Content Blocks generates schema automatically
+
+2. **Don't duplicate TCA** - Config.yaml is the single source of truth
+
+3. **Don't use short table names** for Extbase integration:
+   ```yaml
+   # ❌ Wrong
+   table: team_member
+   
+   # ✅ Correct
+   table: tx_mysitepackage_domain_model_teammember
+   ```
+
+4. **Don't use dashes in identifiers**:
+   ```yaml
+   # ❌ Wrong
+   identifier: hero-image
+   
+   # ✅ Correct
+   identifier: hero_image
+   ```
+
+5. **Don't forget shareAcross options** when using foreign_table in multiple places
+
+## 16. Troubleshooting
+
+### Content Block Not Appearing
+
+```bash
+# Clear all caches
+ddev typo3 cache:flush
+
+# Rebuild class loading
+ddev composer dump-autoload
+
+# Check extension setup
+ddev typo3 extension:setup --extension=my_sitepackage
+```
+
+### Database Errors
+
+```bash
+# Update database schema (Core)
+ddev typo3 extension:setup --extension=my_sitepackage
+# With typo3-console only: ddev typo3 database:updateschema
+
+# Or use Compare Tool
+# Admin Tools > Maintenance > Analyze Database Structure
+```
+
+### Field Not Saving
+
+- Check field identifier is unique (use prefixing)
+- Verify field type is correct
+- Check for typos in config.yaml
+- Ensure labels.xlf has matching keys
+
+## 17. Version constraints
+
+Use **TYPO3 v14.1+** with **Content Blocks 2.x** (`friendsoftypo3/content-blocks` currently requires `typo3/cms-core: ^14.1` — confirm on [Packagist](https://packagist.org/packages/friendsoftypo3/content-blocks)).
+
+```php
+// ext_emconf.php — TYPO3 v14.1+ + Content Blocks 2.x
+'depends' => [
+    'typo3' => '14.1.0-14.99.99',
+    'content_blocks' => '2.0.0-2.99.99',
+],
 ```
 
 ---
 
-## 1. Form CRO
+## Related Skills
 
-Optimize lead capture forms, contact forms, demo requests, and quote forms (not signup/registration).
+For migration between classic TYPO3 extensions and Content Blocks, see the dedicated migration skill:
 
-### Core Principles
-
-1. **Every Field Has a Cost** - Each field reduces completion by 10-25%
-2. **Value Must Exceed Effort** - Clear value proposition above form
-3. **Reduce Cognitive Load** - One question per field, logical grouping
-
-### The 5-Field Rule
-
-| Fields | Typical Impact |
-|--------|---------------|
-| 3 fields | Baseline |
-| 4-6 fields | 10-25% reduction |
-| 7+ fields | 25-50%+ reduction |
-
-For each field, ask:
-- Is this absolutely necessary before we can help them?
-- Can we get this information another way?
-- Can we ask this later?
-
-### Field Optimization
-
-**Email**: Single field, inline validation, typo detection
-
-**Name**: Test single "Name" vs. First/Last split
-
-**Phone**: Make optional if possible, explain why if required
-
-**Message**: Make optional, expand on focus
-
-### Multi-Step Forms
-
-Use when:
-- More than 5-6 fields needed
-- Logically distinct sections
-- Conditional paths based on answers
-
-Best practices:
-- Progress indicator (step X of Y)
-- Start with easy, end with sensitive
-- Allow back navigation
-- Save progress
-
-### Submit Button Copy
-
-**Weak**: "Submit", "Send"
-
-**Strong**: "[Action] + [What they get]"
-- "Get My Free Quote"
-- "Download the Guide"
-- "Request Demo"
+- **[typo3-content-blocks-migration](./SKILL-MIGRATION.md)** - Bidirectional migration guide with:
+  - TCA → Content Blocks field mapping
+  - Content Blocks → TCA reverse mapping
+  - Data migration scripts
+  - Step-by-step examples
+  - Checklists for both directions
 
 ---
 
-## 2. Signup Flow CRO
+## 18. Package Management for v14 Compatibility
 
-Optimize registration, account creation, and trial activation flows.
+If extensions don't support TYPO3 v14 yet, fork and update:
 
-### Core Principles
+```bash
+# Add private fork as VCS repository in composer.json
+# Then update extension for v14 using typo3-rector and typo3-update skills
+```
 
-1. **Minimize Required Fields** - Email + Password minimum
-2. **Show Value Before Asking** - Can they experience product first?
-3. **Reduce Perceived Effort** - "Takes 30 seconds"
-
-### Field Priority
-
-| Priority | Fields |
-|----------|--------|
-| Essential | Email, Password |
-| Often needed | Name |
-| Usually deferrable | Company, Role, Team size, Phone |
-
-### Social Auth Options
-
-- B2C: Google, Apple, Facebook
-- B2B: Google, Microsoft, SSO
-- Consider "Sign up with Google" as primary
-
-### Single-Step vs. Multi-Step
-
-**Single-step works**: 3 or fewer fields, simple B2C, high-intent visitors
-
-**Multi-step works**: More than 3-4 fields, B2B needing segmentation
-
-**Progressive commitment pattern**:
-1. Email only (lowest barrier)
-2. Password + name
-3. Customization questions (optional)
-
-### Trust Elements
-
-- "No credit card required" (if true)
-- "Free forever" or "14-day free trial"
-- Privacy note: "We'll never share your email"
-- Testimonial near signup form
+Required private forks for webconsulting stack:
+- `webprofil/wp-t3monitoring-client` (^13 → ^14)
+- `webprofil/deployer` (^13 → ^14)
+- `webprofil/crawler` (^1.0 → compatible with v14)
+- `webprofil/make` (^1.1 → compatible with v14)
 
 ---
 
-## 3. Onboarding CRO
+## References
 
-Optimize post-signup user activation and time-to-value.
+- [Content Blocks Documentation](https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/)
+- [YAML Reference](https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/YamlReference/Index.html)
+- [Field Types](https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/YamlReference/FieldTypes/Index.html)
+- [Content Elements API](https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/API/ContentElements/Index.html)
+- [Record Types API](https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/API/RecordTypes/Index.html)
+- [Page Types API](https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/API/PageTypes/Index.html)
+- [File Types YAML Reference](https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/YamlReference/ContentTypes/FileTypes/Index.html)
+- [Migration Skill](./SKILL-MIGRATION.md)
+- [Packagist: friendsoftypo3/content-blocks](https://packagist.org/packages/friendsoftypo3/content-blocks)
 
-### Core Principles
+## v14-Only Changes
 
-1. **Time-to-Value Is Everything** - How quickly can someone experience core value?
-2. **One Goal Per Session** - Don't teach everything at once
-3. **Do, Don't Show** - Interactive > Tutorial
-4. **Progress Creates Motivation** - Show advancement, celebrate completions
+> The following changes affect Content Blocks development on **TYPO3 v14 only**.
 
-### Define Your Aha Moment
+### New TCA Type `country` **[v14 only]**
 
-The action that correlates most strongly with retention:
+TYPO3 v14 introduces a native `country` TCA type (#99911). Content Blocks can use this for country selection fields. Check Content Blocks YAML documentation for support of this field type.
 
-| Product Type | Aha Moment |
-|-------------|------------|
-| Project management | Create first project + add team member |
-| Analytics | Install tracking + see first report |
-| Design tool | Create first design + export/share |
-| Collaboration | Invite first teammate |
-| Marketplace | Complete first transaction |
+### TCA `itemsProcessors` **[v14 only]**
 
-### Onboarding Checklist Pattern
+New `itemsProcessors` option (#107889) enables dynamic item generation for select fields. Content Blocks may expose this via YAML configuration for advanced select field customization.
 
-Best practices:
-- 3-7 items (not overwhelming)
-- Order by value (most impactful first)
-- Start with quick wins
-- Progress bar/completion %
-- Celebration on completion
+### Type-Specific TCA Properties **[v14 only]**
 
-Example item:
-```
-☐ Connect your first data source (2 min)
-  Get real-time insights from your existing tools
-  [Connect Now]
-```
+- **Type-specific `ctrl` properties** (#108027) — `title`, `label`, and other ctrl properties can now be overridden per record type in the `types` section.
+- **Type-specific TCA defaults** (#107281) — default values can differ per record type.
 
-### Empty States
+### Fluid 5.0 Strict Types **[v14 only]**
 
-Empty states are onboarding opportunities:
-- Explain what this area is for
-- Show what it looks like with data
-- Clear primary action to add first item
-- Optional: Pre-populate with example data
+Content Block Fluid templates must comply with Fluid 5.0 strict typing:
+- ViewHelper arguments are strictly typed. Ensure correct types (int vs string).
+- No underscore-prefixed variable names (`_myVar`).
+- CDATA sections are preserved (not stripped).
 
-### Handling Stalled Users
+### Content Element Restrictions per Column **[v14.1+ only]**
 
-1. **Detection**: Define "stalled" criteria (X days inactive)
-2. **Email sequence**: Reminder of value, address blockers, offer help
-3. **In-app recovery**: Welcome back message, pick up where left off
-4. **Human touch**: Personal outreach for high-value accounts
-
----
-
-## 4. Popup CRO
-
-Optimize popups, modals, overlays, slide-ins, and banners.
-
-### Core Principles
-
-1. **Timing Is Everything** - Too early = annoying, too late = missed opportunity
-2. **Value Must Be Obvious** - Clear, immediate benefit
-3. **Respect the User** - Easy to dismiss, remember preferences
-
-### Trigger Strategies
-
-| Trigger | When to Use | Example |
-|---------|-------------|---------|
-| Scroll-based (25-50%) | Blog posts, long-form content | "You're halfway through—get more" |
-| Exit intent | E-commerce, lead gen | "Wait! Before you go..." |
-| Click-triggered | Lead magnets, demos | Zero annoyance |
-| Time-based (30-60s) | Proven engagement | General site visitors |
-
-### Popup Types
-
-**Email Capture**: Newsletter subscription
-- Clear value prop (not just "Subscribe")
-- Single field (email only)
-- Consider incentive
-
-**Lead Magnet**: Exchange content for email
-- Show what they get (cover image)
-- Minimal fields
-
-**Exit Intent**: Last-chance conversion
-- Acknowledge they're leaving
-- Different offer than entry popup
-
-**Announcement Banner**: Site-wide communication
-- Top of page, dismissable
-- Time-limited
-
-### Headline Formulas
-
-- Benefit: "Get [result] in [timeframe]"
-- Question: "Want [desired outcome]?"
-- Social proof: "Join [X] people who..."
-- Curiosity: "The one thing [audience] always get wrong"
-
-### Decline Options
-
-**Good**: "No thanks", "Maybe later"
-
-**Avoid**: "No, I don't want to save money" (manipulative)
-
-### Frequency Rules
-
-- Show maximum once per session
-- Remember dismissals (7-30 days before showing again)
-- Exclude converted users
-- Exclude checkout/conversion flows
-
----
-
-## 5. Paywall & Upgrade CRO
-
-Optimize in-app paywalls, upgrade screens, and freemium conversion.
-
-### Core Principles
-
-1. **Value Before Ask** - User should have experienced value first
-2. **Show, Don't Just Tell** - Demonstrate the value of paid features
-3. **Friction-Free Path** - Easy to upgrade when ready
-4. **Respect the No** - Don't trap or pressure
-
-### Paywall Trigger Points
-
-| Trigger | Example |
-|---------|---------|
-| Feature gates | Click paid-only feature |
-| Usage limits | Hit storage/project limit |
-| Trial expiration | 7, 3, 1 day warnings |
-| Context-triggered | Power user behavior |
-
-### Paywall Screen Components
-
-1. **Headline**: Focus on benefit, not price
-   - "Unlock [Feature] to [Benefit]"
-   - NOT: "Upgrade to Pro for $X/month"
-
-2. **Value Demonstration**: Preview the feature in action
-
-3. **Social Proof**: "X teams use this feature"
-
-4. **CTA**: "Upgrade to Pro" (specific)
-
-5. **Escape Hatch**: "Continue with Free" (respectful)
-
-### Feature Lock Paywall Template
-
-```
-[Lock Icon]
-This feature is available on Pro
-
-[Feature preview/screenshot]
-
-[Feature name] helps you [benefit]:
-• [Specific capability]
-• [Specific capability]
-
-[Upgrade to Pro - $X/mo]
-[Maybe Later]
-```
-
-### Trial Expiration Template
-
-```
-Your trial ends in 3 days
-
-What you'll lose:
-• [Feature they've used]
-• [Data they've created]
-
-What you've accomplished:
-• Created X projects
-
-[Continue with Pro - $X/mo]
-[Remind me later] [Downgrade to Free]
-```
-
-### Anti-Patterns to Avoid
-
-- Hiding the close button
-- Confusing plan selection
-- Guilt-trip copy
-- Asking before value delivered
-- Too frequent prompts
-- Surprise charges
-
----
-
-## Quick Reference: CRO by Funnel Stage
-
-| Stage | Key Metric | Primary Focus |
-|-------|-----------|---------------|
-| Page | Bounce rate, CTA clicks | Value prop clarity, visual hierarchy |
-| Form | Completion rate | Reduce fields, clear labels |
-| Signup | Signup completion | Minimize friction, social auth |
-| Onboarding | Activation rate | Time to aha moment |
-| Popup | Conversion rate | Timing, value exchange |
-| Paywall | Upgrade rate | Value demonstration |
-
----
-
-## Measurement
-
-### Key Metrics by Stage
-
-- **Form start rate**: Page views → Started form
-- **Completion rate**: Started → Submitted
-- **Field drop-off**: Which fields lose people
-- **Activation rate**: % reaching aha moment
-- **Time to activation**: Days to first value
-- **Upgrade rate**: Free → Paid conversion
+TYPO3 v14.1 integrates `content_defender` functionality into Core. Backend layouts can now restrict which Content Elements (including Content Blocks) are allowed per `colPos` without third-party extensions.
 
 ---
 
 ## Credits & Attribution
 
-This skill is adapted from **[AgentKits Marketing](https://github.com/aitytech/agentkits-marketing)** by AITYTech.
+This skill incorporates information from the official Content Blocks documentation maintained by the **TYPO3 Content Types Team** and **Friends of TYPO3**.
 
-**Copyright (c) AITYTech** - MIT License  
+Original documentation: https://docs.typo3.org/p/friendsoftypo3/content-blocks/
+
 Adapted by webconsulting.at for this skill collection
 
 Thanks to [Netresearch DTT GmbH](https://www.netresearch.de/) for their contributions to the TYPO3 community.
