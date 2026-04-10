@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [pantavisor/meta-pantavisor](https://github.com/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pantavisor](https://tomevault.io/claim/pantavisor)
 
