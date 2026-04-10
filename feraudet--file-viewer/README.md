@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [feraudet/file-viewer](https://github.com/feraud
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/feraudet](https://tomevault.io/claim/feraudet)
 
