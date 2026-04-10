@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Danielinh0/PruebITA](https://github.com/Danieli
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Danielinh0](https://tomevault.io/claim/Danielinh0)
 
