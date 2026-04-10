@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [trash-panda-v91-beta/nebular-grid](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/trash-panda-v91-beta](https://tomevault.io/claim/trash-panda-v91-beta)
 
