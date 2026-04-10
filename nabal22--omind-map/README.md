@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Nabal22/omind-map](https://github.com/Nabal22/o
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Nabal22](https://tomevault.io/claim/Nabal22)
 
