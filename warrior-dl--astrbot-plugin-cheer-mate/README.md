@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [warrior-dl/astrbot_plugin_cheer_mate](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/warrior-dl](https://tomevault.io/claim/warrior-dl)
 
