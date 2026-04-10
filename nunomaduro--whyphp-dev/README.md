@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nunomaduro/whyphp.dev](https://github.com/nunom
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nunomaduro](https://tomevault.io/claim/nunomaduro)
 
