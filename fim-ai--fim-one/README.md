@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [fim-ai/fim-one](https://github.com/fim-ai/fim-o
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/fim-ai](https://tomevault.io/claim/fim-ai)
 
