@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [hun-a/ai_agent](https://github.com/hun-a/ai_age
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hun-a](https://tomevault.io/claim/hun-a)
 
