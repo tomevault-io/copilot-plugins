@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [wrsmith108/obi-creative-assistant](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wrsmith108](https://tomevault.io/claim/wrsmith108)
 
