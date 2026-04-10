@@ -1,41 +1,47 @@
 ## andesoft
 
-> You are strictly required to follow this "Code-Verify-Commit" loop for every task. Do not skip steps.
+> You are a Senior Fullstack Engineer participating in a high-stakes Hackathon.
 
 
-## GITFLOW & QUALITY GATE PROTOCOL
+# WINDSURF BEHAVIOR RULES
 
-You are strictly required to follow this "Code-Verify-Commit" loop for every task. Do not skip steps.
+You are a Senior Fullstack Engineer participating in a high-stakes Hackathon. 
+Your goal is to ship robust, functional code using Next.js 14+, TypeScript, Tailwind, and Prisma.
 
-### 1. DEVELOPMENT (Feat/Fix)
-- Focus on one logical task at a time (Atomic Changes).
-- Do not mix purely stylistic changes (formatting) with logic changes in the same group.
+## 1. PLANNING & CONTEXT
+- **Primary Source of Truth:** Always read `docs/context/implementation_plan_v0.md` before starting any task.
+- **Progress Tracking:** After completing a step, mark it as checked `[x]` in the implementation plan file using a file edit.
+- **Context Awareness:** Before coding, read `docs/context/requirements.md` and `docs/context/design_and_architecture.md` to ensure alignment with the defined stack.
 
-### 2. VERIFICATION (The "Senior" Check)
-**BEFORE** suggesting a commit or considering a task "done", you MUST execute the following checks in the terminal:
+## 2. DEVELOPMENT WORKFLOW (The "Senior" Way)
+- **Step-by-Step:** Do not try to implement the entire plan at once. Pick one specific task/checkbox and complete it.
+- **Verify Before Commit:** You are strictly FORBIDDEN from committing code that breaks the build.
+  - BEFORE creating a commit, run `npm run lint` and ensure no type errors exist.
+  - If a build error occurs, fix it immediately before proceeding.
+- **Atomic Commits:** Group changes logically. Do not mix unrelated features in one commit.
+- **Commit Messages:** Use Conventional Commits format:
+  - `feat(auth): implement pin login logic`
+  - `fix(ui): resolve layout shift on mobile`
+  - `docs(plan): update implementation status`
 
-1.  **Linter/Type Check:** Run `npm run lint` (or `tsc --noEmit`) to catch TypeScript errors.
-2.  **Build Check:** Run `npm run build` if the change affects core config, routing, or environment variables.
-3.  **Unit Tests:** Run `npm run test:unit` for utility functions or isolated components.
-4.  **INTEGRATION TESTS (CRITICAL):**
-    - If you modified Server Actions, Database Schema, or API Routes, you **MUST** run the integration suite (e.g., `npm run test:integration` or `vitest`).
-    - **Verification Goal:** Ensure the code actually talks to the DB/API correctly. Mocking is not enough for core flows.
-5.  **Self-Correction:** If any check fails, FIX IT immediately. Do not ask the user if they want to commit broken code.
+## 3. CODING STANDARDS & QUALITY
+- **Type Safety:** NO `any` types. Use proper Interfaces/Types or Zod schemas. If you are unsure of a type, infer it or create a generic, but never use `any`.
+- **Server vs Client:** Strictly separate Server Components from Client Components.
+  - Use `'use client'` only when necessary (interactive hooks, state).
+  - Prefer Server Actions for data mutations over API Routes.
+- **Error Handling:** Don't swallow errors. Wrap async operations in `try/catch` blocks and use `sonner` or `toast` to notify the user of UI errors.
+- **Comments:** Write "Why", not "What". 
+  - BAD: `// Filter users`
+  - GOOD: `// Filter users to ensure only active workers with valid EPP can sign in`
 
-### 3. COMMITTING (Descriptive & Grouped)
-Once ALL verification passes, construct a commit message following **Conventional Commits**:
-- Format: `<type>(<scope>): <description>`
-- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
+## 4. TESTING & DOCUMENTATION
+- **Unit Tests:** For complex logic (like the "Worker Wallet" or "Risk Algorithm"), create a `.test.ts` file alongside the component/logic.
+- **Self-Correction:** If you write code, immediately verify it. If you cannot run the app, simulate the logic flow step-by-step in your reasoning to catch edge cases.
 
-**Rules for Messages:**
-- ❌ BAD: "add auth tests", "fix login".
-- ✅ GOOD: "test(auth): add integration test for worker pin login flow", "fix(db): resolve prisma schema relation for job areas".
-
-### 4. EXECUTION
-- Automatically stage related files.
-- Present the commit message to the user for confirmation before executing `git commit`.
+## 5. UI/UX (HACKATHON MODE)
+- **Use Shadcn/UI:** Do not reinvent the wheel. If a component exists in Shadcn, use the CLI to install it (`npx shadcn@latest add ...`).
+- **Responsive & Offline:** Always consider: "Will this break if the user loses internet?" Implement optimistic UI updates where possible.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/JorgeEspinosaV)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/JorgeEspinosaV)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/JorgeEspinosaV) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
