@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [ManasesLovera/bank-agent](https://github.com/Ma
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ManasesLovera](https://tomevault.io/claim/ManasesLovera)
 
