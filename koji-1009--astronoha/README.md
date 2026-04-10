@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [koji-1009/astronoha](https://github.com/koji-10
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/koji-1009](https://tomevault.io/claim/koji-1009)
 
