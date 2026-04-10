@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [romaingyh/zen_iptv_web](https://github.com/roma
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/romaingyh](https://tomevault.io/claim/romaingyh)
 
