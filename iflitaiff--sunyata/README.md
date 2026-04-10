@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [iflitaiff/SUNYATA](https://github.com/iflitaiff
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/iflitaiff](https://tomevault.io/claim/iflitaiff)
 
