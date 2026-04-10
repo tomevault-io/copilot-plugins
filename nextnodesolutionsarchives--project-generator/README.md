@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [NextNodeSolutionsArchives/project-generator](ht
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/NextNodeSolutionsArchives](https://tomevault.io/claim/NextNodeSolutionsArchives)
 
