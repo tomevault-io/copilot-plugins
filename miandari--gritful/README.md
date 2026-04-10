@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Miandari/gritful](https://github.com/Miandari/g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Miandari](https://tomevault.io/claim/Miandari)
 
