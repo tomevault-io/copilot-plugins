@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [zae-hyeong/google-search-assistant-extension](h
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zae-hyeong](https://tomevault.io/claim/zae-hyeong)
 
