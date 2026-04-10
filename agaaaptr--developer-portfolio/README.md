@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [agaaaptr/developer-portfolio](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/agaaaptr](https://tomevault.io/claim/agaaaptr)
 
