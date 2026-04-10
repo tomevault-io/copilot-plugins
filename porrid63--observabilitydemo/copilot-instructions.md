@@ -252,6 +252,5 @@ cd dotnet-demo && dotnet run
 - **服務初始化：** 啟動基礎設施後，請等待約 30 秒讓所有服務初始化完成
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/PorriD63)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/PorriD63)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/PorriD63) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
