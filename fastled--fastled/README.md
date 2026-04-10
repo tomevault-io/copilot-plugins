@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [FastLED/FastLED](https://github.com/FastLED/Fas
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/FastLED](https://tomevault.io/claim/FastLED)
 
