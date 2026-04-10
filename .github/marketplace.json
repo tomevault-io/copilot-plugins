@@ -184,79 +184,14 @@
       "description": "SecureBackup"
     },
     {
-      "name": "wolffiex--cmux",
-      "source": "./wolffiex--cmux",
-      "description": "cmux"
-    },
-    {
-      "name": "mirxa01--voice-browser",
-      "source": "./mirxa01--voice-browser",
-      "description": "voice-browser"
-    },
-    {
       "name": "erazemk--cursor",
       "source": "./erazemk--cursor",
       "description": "cursor"
     },
     {
-      "name": "seanivore--docker-transcription",
-      "source": "./seanivore--docker-transcription",
-      "description": "docker-transcription"
-    },
-    {
-      "name": "pa-penajam--buku-tamu",
-      "source": "./pa-penajam--buku-tamu",
-      "description": "buku_tamu"
-    },
-    {
-      "name": "kubonsang--testplay-runner",
-      "source": "./kubonsang--testplay-runner",
-      "description": "testplay-runner"
-    },
-    {
       "name": "dairui1--cc-notifier",
       "source": "./dairui1--cc-notifier",
       "description": "cc-notifier"
-    },
-    {
-      "name": "wiktorjl--turbulence",
-      "source": "./wiktorjl--turbulence",
-      "description": "turbulence"
-    },
-    {
-      "name": "sscarduzio--ror-studio",
-      "source": "./sscarduzio--ror-studio",
-      "description": "ror-studio"
-    },
-    {
-      "name": "kristofer--zipcodereader",
-      "source": "./kristofer--zipcodereader",
-      "description": "ZipCodeReader"
-    },
-    {
-      "name": "hiteshmakvana--personal-finance",
-      "source": "./hiteshmakvana--personal-finance",
-      "description": "personal-finance"
-    },
-    {
-      "name": "iuade0w7--story-mixer",
-      "source": "./iuade0w7--story-mixer",
-      "description": "story-mixer"
-    },
-    {
-      "name": "liadgez--postwriter",
-      "source": "./liadgez--postwriter",
-      "description": "PostWriter"
-    },
-    {
-      "name": "vbortone--ai-skills",
-      "source": "./vbortone--ai-skills",
-      "description": "ai-skills"
-    },
-    {
-      "name": "dragosv--testcontainers-perl5",
-      "source": "./dragosv--testcontainers-perl5",
-      "description": "testcontainers-perl5"
     },
     {
       "name": "jianxcao--qbittorrent-web",
@@ -267,441 +202,6 @@
       "name": "jacob-bd--universal-skills-manager",
       "source": "./jacob-bd--universal-skills-manager",
       "description": "universal-skills-manager"
-    },
-    {
-      "name": "sujeethjinesh--apex-research",
-      "source": "./sujeethjinesh--apex-research",
-      "description": "APEX_Research"
-    },
-    {
-      "name": "mihaelamj--codeweaver",
-      "source": "./mihaelamj--codeweaver",
-      "description": "CodeWeaver"
-    },
-    {
-      "name": "colbych--reconn-wave-power",
-      "source": "./colbych--reconn-wave-power",
-      "description": "reconn-wave-power"
-    },
-    {
-      "name": "kristopherjohnson--kj-supercollider-experiments",
-      "source": "./kristopherjohnson--kj-supercollider-experiments",
-      "description": "kj-supercollider-experiments"
-    },
-    {
-      "name": "mossein--whispr",
-      "source": "./mossein--whispr",
-      "description": "Whispr"
-    },
-    {
-      "name": "chucklezt--gcp-rag-enterprise",
-      "source": "./chucklezt--gcp-rag-enterprise",
-      "description": "gcp-rag-enterprise"
-    },
-    {
-      "name": "markoonakic--milutin",
-      "source": "./markoonakic--milutin",
-      "description": "milutin"
-    },
-    {
-      "name": "zivl--sentry-testkit",
-      "source": "./zivl--sentry-testkit",
-      "description": "sentry-testkit"
-    },
-    {
-      "name": "yanceyofficial--talon",
-      "source": "./yanceyofficial--talon",
-      "description": "talon"
-    },
-    {
-      "name": "alonronin--orbit",
-      "source": "./alonronin--orbit",
-      "description": "orbit"
-    },
-    {
-      "name": "razamirxa--google-deepmind---vibe-code-with-gemini-3-pro-in-ai-studio",
-      "source": "./razamirxa--google-deepmind---vibe-code-with-gemini-3-pro-in-ai-studio",
-      "description": "Google-DeepMind---Vibe-Code-with-Gemini-3-Pro-in-AI-Studio"
-    },
-    {
-      "name": "ai-shifu--markdown-flow",
-      "source": "./ai-shifu--markdown-flow",
-      "description": "markdown-flow"
-    },
-    {
-      "name": "hodgesmr--hodgesmr-github-io",
-      "source": "./hodgesmr--hodgesmr-github-io",
-      "description": "hodgesmr.github.io"
-    },
-    {
-      "name": "ipoly--mosaic3d",
-      "source": "./ipoly--mosaic3d",
-      "description": "mosaic3d"
-    },
-    {
-      "name": "cwage--dotfiles",
-      "source": "./cwage--dotfiles",
-      "description": "dotfiles"
-    },
-    {
-      "name": "javatarz--roacm",
-      "source": "./javatarz--roacm",
-      "description": "roacm"
-    },
-    {
-      "name": "ajcates--spaceshooter",
-      "source": "./ajcates--spaceshooter",
-      "description": "spaceshooter"
-    },
-    {
-      "name": "jc-hm--jigs",
-      "source": "./jc-hm--jigs",
-      "description": "jigs"
-    },
-    {
-      "name": "montoyaedu--trish",
-      "source": "./montoyaedu--trish",
-      "description": "Trish"
-    },
-    {
-      "name": "santosrai--santosrai-github-io",
-      "source": "./santosrai--santosrai-github-io",
-      "description": "santosrai.github.io"
-    },
-    {
-      "name": "tsumakoto--pyproj-template",
-      "source": "./tsumakoto--pyproj-template",
-      "description": "pyproj-template"
-    },
-    {
-      "name": "masonrhodesdev--dotfiles",
-      "source": "./masonrhodesdev--dotfiles",
-      "description": "dotfiles"
-    },
-    {
-      "name": "hindman--hindman-github-io",
-      "source": "./hindman--hindman-github-io",
-      "description": "hindman.github.io"
-    },
-    {
-      "name": "mephsito23--xzlibrary",
-      "source": "./mephsito23--xzlibrary",
-      "description": "XZLibrary"
-    },
-    {
-      "name": "ddsteed--hugo-blog",
-      "source": "./ddsteed--hugo-blog",
-      "description": "Hugo-blog"
-    },
-    {
-      "name": "xiguang182--noxire",
-      "source": "./xiguang182--noxire",
-      "description": "NoXiRe"
-    },
-    {
-      "name": "finleysg--bhmc-admin",
-      "source": "./finleysg--bhmc-admin",
-      "description": "bhmc-admin"
-    },
-    {
-      "name": "cerulin--chell-relay",
-      "source": "./cerulin--chell-relay",
-      "description": "Chell-Relay"
-    },
-    {
-      "name": "jym272--iam-hub",
-      "source": "./jym272--iam-hub",
-      "description": "iam-hub"
-    },
-    {
-      "name": "chi-g--upwearlane",
-      "source": "./chi-g--upwearlane",
-      "description": "UPWEARLANE"
-    },
-    {
-      "name": "ralleyd--just-ears-receptionist",
-      "source": "./ralleyd--just-ears-receptionist",
-      "description": "just_ears_receptionist"
-    },
-    {
-      "name": "azhundev--oversight-alpr-app",
-      "source": "./azhundev--oversight-alpr-app",
-      "description": "oversight-alpr-app"
-    },
-    {
-      "name": "teniee--mita-project",
-      "source": "./teniee--mita-project",
-      "description": "mita_project"
-    },
-    {
-      "name": "davidrajnoha--jm-orderbook-analysis",
-      "source": "./davidrajnoha--jm-orderbook-analysis",
-      "description": "JM-orderbook-analysis"
-    },
-    {
-      "name": "kashyapm94--bibliotracker",
-      "source": "./kashyapm94--bibliotracker",
-      "description": "bibliotracker"
-    },
-    {
-      "name": "aenfield--mlb-watchability",
-      "source": "./aenfield--mlb-watchability",
-      "description": "mlb-watchability"
-    },
-    {
-      "name": "14-david-06--sirius-financiero",
-      "source": "./14-david-06--sirius-financiero",
-      "description": "sirius_financiero"
-    },
-    {
-      "name": "redwood-mobility--rangeway-research",
-      "source": "./redwood-mobility--rangeway-research",
-      "description": "rangeway-research"
-    },
-    {
-      "name": "abraxasw--dice-game",
-      "source": "./abraxasw--dice-game",
-      "description": "Dice-Game"
-    },
-    {
-      "name": "dev-parvej--flowq",
-      "source": "./dev-parvej--flowq",
-      "description": "FlowQ"
-    },
-    {
-      "name": "griffinm--budgeting2",
-      "source": "./griffinm--budgeting2",
-      "description": "budgeting2"
-    },
-    {
-      "name": "leftonbo--eel-rpg-game",
-      "source": "./leftonbo--eel-rpg-game",
-      "description": "eel-rpg-game"
-    },
-    {
-      "name": "jhasas--spring-mastery-lab",
-      "source": "./jhasas--spring-mastery-lab",
-      "description": "spring-mastery-lab"
-    },
-    {
-      "name": "thibaut-sauavger--vibro-masseur-flutter",
-      "source": "./thibaut-sauavger--vibro-masseur-flutter",
-      "description": "vibro_masseur_flutter"
-    },
-    {
-      "name": "chimexy8alluvial--farmfolio",
-      "source": "./chimexy8alluvial--farmfolio",
-      "description": "Farmfolio"
-    },
-    {
-      "name": "nomhiro--interviewai",
-      "source": "./nomhiro--interviewai",
-      "description": "InterviewAI"
-    },
-    {
-      "name": "climbingblake--unifiedthreadtheory",
-      "source": "./climbingblake--unifiedthreadtheory",
-      "description": "unifiedthreadtheory"
-    },
-    {
-      "name": "nsmith--markpost",
-      "source": "./nsmith--markpost",
-      "description": "markpost"
-    },
-    {
-      "name": "ekil1100--claude-markplace",
-      "source": "./ekil1100--claude-markplace",
-      "description": "claude-markplace"
-    },
-    {
-      "name": "ober--gerbil-awk",
-      "source": "./ober--gerbil-awk",
-      "description": "gerbil-awk"
-    },
-    {
-      "name": "vics-dev-br--site",
-      "source": "./vics-dev-br--site",
-      "description": "site"
-    },
-    {
-      "name": "gdeed--medvr-claudeconfig",
-      "source": "./gdeed--medvr-claudeconfig",
-      "description": "MedVR-ClaudeConfig"
-    },
-    {
-      "name": "gennitdev--open-forum-backend",
-      "source": "./gennitdev--open-forum-backend",
-      "description": "open-forum-backend"
-    },
-    {
-      "name": "jeffallan--claude-skills",
-      "source": "./jeffallan--claude-skills",
-      "description": "claude-skills"
-    },
-    {
-      "name": "mattpocock--ts-reset",
-      "source": "./mattpocock--ts-reset",
-      "description": "ts-reset"
-    },
-    {
-      "name": "nvidia-nemo--rl",
-      "source": "./nvidia-nemo--rl",
-      "description": "RL"
-    },
-    {
-      "name": "portkey-ai--portkey-python-sdk",
-      "source": "./portkey-ai--portkey-python-sdk",
-      "description": "portkey-python-sdk"
-    },
-    {
-      "name": "dapperdivers--dapper-cluster",
-      "source": "./dapperdivers--dapper-cluster",
-      "description": "dapper-cluster"
-    },
-    {
-      "name": "bitwarden--self-host",
-      "source": "./bitwarden--self-host",
-      "description": "self-host"
-    },
-    {
-      "name": "naga-satish--interview-preparation",
-      "source": "./naga-satish--interview-preparation",
-      "description": "interview-preparation"
-    },
-    {
-      "name": "2visionspzoo--agent-v3",
-      "source": "./2visionspzoo--agent-v3",
-      "description": "agent.v3"
-    },
-    {
-      "name": "tinyhttp--tinyhttp",
-      "source": "./tinyhttp--tinyhttp",
-      "description": "tinyhttp"
-    },
-    {
-      "name": "petrasvestartas--wood-nano",
-      "source": "./petrasvestartas--wood-nano",
-      "description": "wood_nano"
-    },
-    {
-      "name": "jonyardley--intrada-old",
-      "source": "./jonyardley--intrada-old",
-      "description": "Intrada-old"
-    },
-    {
-      "name": "assassin29092005--edubot",
-      "source": "./assassin29092005--edubot",
-      "description": "EduBot"
-    },
-    {
-      "name": "skoomy--artometrix-yolia",
-      "source": "./skoomy--artometrix-yolia",
-      "description": "artometrix-yolia"
-    },
-    {
-      "name": "igor-kan--bookreader",
-      "source": "./igor-kan--bookreader",
-      "description": "bookreader"
-    },
-    {
-      "name": "aiotnetwork--aiotaiagentskills",
-      "source": "./aiotnetwork--aiotaiagentskills",
-      "description": "AIOTAIAgentSkills"
-    },
-    {
-      "name": "dilgerma--node-apps-with-eventsourcing-and-ralph-loop",
-      "source": "./dilgerma--node-apps-with-eventsourcing-and-ralph-loop",
-      "description": "node-apps-with-eventsourcing-and-ralph-loop"
-    },
-    {
-      "name": "gscandelari--curva-mestra-system",
-      "source": "./gscandelari--curva-mestra-system",
-      "description": "curva_mestra_system"
-    },
-    {
-      "name": "bristmatt96-hub--apex-s44-monitor",
-      "source": "./bristmatt96-hub--apex-s44-monitor",
-      "description": "apex-s44-monitor"
-    },
-    {
-      "name": "muhammadcaeed--aegis",
-      "source": "./muhammadcaeed--aegis",
-      "description": "aegis"
-    },
-    {
-      "name": "jerrita--kanami",
-      "source": "./jerrita--kanami",
-      "description": "kanami"
-    },
-    {
-      "name": "jhonma82--claude-code-docs-spa",
-      "source": "./jhonma82--claude-code-docs-spa",
-      "description": "claude-code-docs-spa"
-    },
-    {
-      "name": "brendanxu--greentokey",
-      "source": "./brendanxu--greentokey",
-      "description": "greentokey"
-    },
-    {
-      "name": "accomputing--cat-santhropicopus4-5-jailbreak",
-      "source": "./accomputing--cat-santhropicopus4-5-jailbreak",
-      "description": "cat-santhropicopus4.5-jailbreak"
-    },
-    {
-      "name": "snowplow--snowplow-snowflake-loader",
-      "source": "./snowplow--snowplow-snowflake-loader",
-      "description": "snowplow-snowflake-loader"
-    },
-    {
-      "name": "elliotxie--cassia",
-      "source": "./elliotxie--cassia",
-      "description": "CASSIA"
-    },
-    {
-      "name": "mendixlabs--mxcli",
-      "source": "./mendixlabs--mxcli",
-      "description": "mxcli"
-    },
-    {
-      "name": "sguys99--link-digest",
-      "source": "./sguys99--link-digest",
-      "description": "link-digest"
-    },
-    {
-      "name": "kcanamar--cannanote",
-      "source": "./kcanamar--cannanote",
-      "description": "cannanote"
-    },
-    {
-      "name": "beany-vu--michi-vz",
-      "source": "./beany-vu--michi-vz",
-      "description": "michi-vz"
-    },
-    {
-      "name": "payne--net2",
-      "source": "./payne--net2",
-      "description": "net2"
-    },
-    {
-      "name": "jonymusky--agents",
-      "source": "./jonymusky--agents",
-      "description": "agents"
-    },
-    {
-      "name": "omairqazi29--grokforge",
-      "source": "./omairqazi29--grokforge",
-      "description": "grokforge"
-    },
-    {
-      "name": "jprofessionals--url-shortener",
-      "source": "./jprofessionals--url-shortener",
-      "description": "url-shortener"
-    },
-    {
-      "name": "mtunique--vibehub",
-      "source": "./mtunique--vibehub",
-      "description": "VibeHub"
     },
     {
       "name": "skunk-tech--aismush",
@@ -11152,6 +10652,506 @@
       "name": "reopt-ai--dev-proxy",
       "source": "./reopt-ai--dev-proxy",
       "description": "dev-proxy"
+    },
+    {
+      "name": "wolffiex--cmux",
+      "source": "./wolffiex--cmux",
+      "description": "cmux"
+    },
+    {
+      "name": "mirxa01--voice-browser",
+      "source": "./mirxa01--voice-browser",
+      "description": "voice-browser"
+    },
+    {
+      "name": "seanivore--docker-transcription",
+      "source": "./seanivore--docker-transcription",
+      "description": "docker-transcription"
+    },
+    {
+      "name": "pa-penajam--buku-tamu",
+      "source": "./pa-penajam--buku-tamu",
+      "description": "buku_tamu"
+    },
+    {
+      "name": "kubonsang--testplay-runner",
+      "source": "./kubonsang--testplay-runner",
+      "description": "testplay-runner"
+    },
+    {
+      "name": "wiktorjl--turbulence",
+      "source": "./wiktorjl--turbulence",
+      "description": "turbulence"
+    },
+    {
+      "name": "sscarduzio--ror-studio",
+      "source": "./sscarduzio--ror-studio",
+      "description": "ror-studio"
+    },
+    {
+      "name": "kristofer--zipcodereader",
+      "source": "./kristofer--zipcodereader",
+      "description": "ZipCodeReader"
+    },
+    {
+      "name": "hiteshmakvana--personal-finance",
+      "source": "./hiteshmakvana--personal-finance",
+      "description": "personal-finance"
+    },
+    {
+      "name": "iuade0w7--story-mixer",
+      "source": "./iuade0w7--story-mixer",
+      "description": "story-mixer"
+    },
+    {
+      "name": "liadgez--postwriter",
+      "source": "./liadgez--postwriter",
+      "description": "PostWriter"
+    },
+    {
+      "name": "vbortone--ai-skills",
+      "source": "./vbortone--ai-skills",
+      "description": "ai-skills"
+    },
+    {
+      "name": "dragosv--testcontainers-perl5",
+      "source": "./dragosv--testcontainers-perl5",
+      "description": "testcontainers-perl5"
+    },
+    {
+      "name": "sujeethjinesh--apex-research",
+      "source": "./sujeethjinesh--apex-research",
+      "description": "APEX_Research"
+    },
+    {
+      "name": "mihaelamj--codeweaver",
+      "source": "./mihaelamj--codeweaver",
+      "description": "CodeWeaver"
+    },
+    {
+      "name": "colbych--reconn-wave-power",
+      "source": "./colbych--reconn-wave-power",
+      "description": "reconn-wave-power"
+    },
+    {
+      "name": "kristopherjohnson--kj-supercollider-experiments",
+      "source": "./kristopherjohnson--kj-supercollider-experiments",
+      "description": "kj-supercollider-experiments"
+    },
+    {
+      "name": "mossein--whispr",
+      "source": "./mossein--whispr",
+      "description": "Whispr"
+    },
+    {
+      "name": "chucklezt--gcp-rag-enterprise",
+      "source": "./chucklezt--gcp-rag-enterprise",
+      "description": "gcp-rag-enterprise"
+    },
+    {
+      "name": "markoonakic--milutin",
+      "source": "./markoonakic--milutin",
+      "description": "milutin"
+    },
+    {
+      "name": "zivl--sentry-testkit",
+      "source": "./zivl--sentry-testkit",
+      "description": "sentry-testkit"
+    },
+    {
+      "name": "yanceyofficial--talon",
+      "source": "./yanceyofficial--talon",
+      "description": "talon"
+    },
+    {
+      "name": "alonronin--orbit",
+      "source": "./alonronin--orbit",
+      "description": "orbit"
+    },
+    {
+      "name": "razamirxa--google-deepmind---vibe-code-with-gemini-3-pro-in-ai-studio",
+      "source": "./razamirxa--google-deepmind---vibe-code-with-gemini-3-pro-in-ai-studio",
+      "description": "Google-DeepMind---Vibe-Code-with-Gemini-3-Pro-in-AI-Studio"
+    },
+    {
+      "name": "ai-shifu--markdown-flow",
+      "source": "./ai-shifu--markdown-flow",
+      "description": "markdown-flow"
+    },
+    {
+      "name": "hodgesmr--hodgesmr-github-io",
+      "source": "./hodgesmr--hodgesmr-github-io",
+      "description": "hodgesmr.github.io"
+    },
+    {
+      "name": "ipoly--mosaic3d",
+      "source": "./ipoly--mosaic3d",
+      "description": "mosaic3d"
+    },
+    {
+      "name": "cwage--dotfiles",
+      "source": "./cwage--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "javatarz--roacm",
+      "source": "./javatarz--roacm",
+      "description": "roacm"
+    },
+    {
+      "name": "ajcates--spaceshooter",
+      "source": "./ajcates--spaceshooter",
+      "description": "spaceshooter"
+    },
+    {
+      "name": "jc-hm--jigs",
+      "source": "./jc-hm--jigs",
+      "description": "jigs"
+    },
+    {
+      "name": "montoyaedu--trish",
+      "source": "./montoyaedu--trish",
+      "description": "Trish"
+    },
+    {
+      "name": "santosrai--santosrai-github-io",
+      "source": "./santosrai--santosrai-github-io",
+      "description": "santosrai.github.io"
+    },
+    {
+      "name": "tsumakoto--pyproj-template",
+      "source": "./tsumakoto--pyproj-template",
+      "description": "pyproj-template"
+    },
+    {
+      "name": "masonrhodesdev--dotfiles",
+      "source": "./masonrhodesdev--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "hindman--hindman-github-io",
+      "source": "./hindman--hindman-github-io",
+      "description": "hindman.github.io"
+    },
+    {
+      "name": "mephsito23--xzlibrary",
+      "source": "./mephsito23--xzlibrary",
+      "description": "XZLibrary"
+    },
+    {
+      "name": "ddsteed--hugo-blog",
+      "source": "./ddsteed--hugo-blog",
+      "description": "Hugo-blog"
+    },
+    {
+      "name": "xiguang182--noxire",
+      "source": "./xiguang182--noxire",
+      "description": "NoXiRe"
+    },
+    {
+      "name": "finleysg--bhmc-admin",
+      "source": "./finleysg--bhmc-admin",
+      "description": "bhmc-admin"
+    },
+    {
+      "name": "cerulin--chell-relay",
+      "source": "./cerulin--chell-relay",
+      "description": "Chell-Relay"
+    },
+    {
+      "name": "jym272--iam-hub",
+      "source": "./jym272--iam-hub",
+      "description": "iam-hub"
+    },
+    {
+      "name": "chi-g--upwearlane",
+      "source": "./chi-g--upwearlane",
+      "description": "UPWEARLANE"
+    },
+    {
+      "name": "ralleyd--just-ears-receptionist",
+      "source": "./ralleyd--just-ears-receptionist",
+      "description": "just_ears_receptionist"
+    },
+    {
+      "name": "azhundev--oversight-alpr-app",
+      "source": "./azhundev--oversight-alpr-app",
+      "description": "oversight-alpr-app"
+    },
+    {
+      "name": "teniee--mita-project",
+      "source": "./teniee--mita-project",
+      "description": "mita_project"
+    },
+    {
+      "name": "davidrajnoha--jm-orderbook-analysis",
+      "source": "./davidrajnoha--jm-orderbook-analysis",
+      "description": "JM-orderbook-analysis"
+    },
+    {
+      "name": "kashyapm94--bibliotracker",
+      "source": "./kashyapm94--bibliotracker",
+      "description": "bibliotracker"
+    },
+    {
+      "name": "aenfield--mlb-watchability",
+      "source": "./aenfield--mlb-watchability",
+      "description": "mlb-watchability"
+    },
+    {
+      "name": "14-david-06--sirius-financiero",
+      "source": "./14-david-06--sirius-financiero",
+      "description": "sirius_financiero"
+    },
+    {
+      "name": "redwood-mobility--rangeway-research",
+      "source": "./redwood-mobility--rangeway-research",
+      "description": "rangeway-research"
+    },
+    {
+      "name": "abraxasw--dice-game",
+      "source": "./abraxasw--dice-game",
+      "description": "Dice-Game"
+    },
+    {
+      "name": "dev-parvej--flowq",
+      "source": "./dev-parvej--flowq",
+      "description": "FlowQ"
+    },
+    {
+      "name": "griffinm--budgeting2",
+      "source": "./griffinm--budgeting2",
+      "description": "budgeting2"
+    },
+    {
+      "name": "leftonbo--eel-rpg-game",
+      "source": "./leftonbo--eel-rpg-game",
+      "description": "eel-rpg-game"
+    },
+    {
+      "name": "jhasas--spring-mastery-lab",
+      "source": "./jhasas--spring-mastery-lab",
+      "description": "spring-mastery-lab"
+    },
+    {
+      "name": "thibaut-sauavger--vibro-masseur-flutter",
+      "source": "./thibaut-sauavger--vibro-masseur-flutter",
+      "description": "vibro_masseur_flutter"
+    },
+    {
+      "name": "chimexy8alluvial--farmfolio",
+      "source": "./chimexy8alluvial--farmfolio",
+      "description": "Farmfolio"
+    },
+    {
+      "name": "nomhiro--interviewai",
+      "source": "./nomhiro--interviewai",
+      "description": "InterviewAI"
+    },
+    {
+      "name": "climbingblake--unifiedthreadtheory",
+      "source": "./climbingblake--unifiedthreadtheory",
+      "description": "unifiedthreadtheory"
+    },
+    {
+      "name": "nsmith--markpost",
+      "source": "./nsmith--markpost",
+      "description": "markpost"
+    },
+    {
+      "name": "ekil1100--claude-markplace",
+      "source": "./ekil1100--claude-markplace",
+      "description": "claude-markplace"
+    },
+    {
+      "name": "ober--gerbil-awk",
+      "source": "./ober--gerbil-awk",
+      "description": "gerbil-awk"
+    },
+    {
+      "name": "vics-dev-br--site",
+      "source": "./vics-dev-br--site",
+      "description": "site"
+    },
+    {
+      "name": "gdeed--medvr-claudeconfig",
+      "source": "./gdeed--medvr-claudeconfig",
+      "description": "MedVR-ClaudeConfig"
+    },
+    {
+      "name": "gennitdev--open-forum-backend",
+      "source": "./gennitdev--open-forum-backend",
+      "description": "open-forum-backend"
+    },
+    {
+      "name": "jeffallan--claude-skills",
+      "source": "./jeffallan--claude-skills",
+      "description": "claude-skills"
+    },
+    {
+      "name": "mattpocock--ts-reset",
+      "source": "./mattpocock--ts-reset",
+      "description": "ts-reset"
+    },
+    {
+      "name": "nvidia-nemo--rl",
+      "source": "./nvidia-nemo--rl",
+      "description": "RL"
+    },
+    {
+      "name": "portkey-ai--portkey-python-sdk",
+      "source": "./portkey-ai--portkey-python-sdk",
+      "description": "portkey-python-sdk"
+    },
+    {
+      "name": "dapperdivers--dapper-cluster",
+      "source": "./dapperdivers--dapper-cluster",
+      "description": "dapper-cluster"
+    },
+    {
+      "name": "bitwarden--self-host",
+      "source": "./bitwarden--self-host",
+      "description": "self-host"
+    },
+    {
+      "name": "naga-satish--interview-preparation",
+      "source": "./naga-satish--interview-preparation",
+      "description": "interview-preparation"
+    },
+    {
+      "name": "2visionspzoo--agent-v3",
+      "source": "./2visionspzoo--agent-v3",
+      "description": "agent.v3"
+    },
+    {
+      "name": "tinyhttp--tinyhttp",
+      "source": "./tinyhttp--tinyhttp",
+      "description": "tinyhttp"
+    },
+    {
+      "name": "petrasvestartas--wood-nano",
+      "source": "./petrasvestartas--wood-nano",
+      "description": "wood_nano"
+    },
+    {
+      "name": "jonyardley--intrada-old",
+      "source": "./jonyardley--intrada-old",
+      "description": "Intrada-old"
+    },
+    {
+      "name": "assassin29092005--edubot",
+      "source": "./assassin29092005--edubot",
+      "description": "EduBot"
+    },
+    {
+      "name": "skoomy--artometrix-yolia",
+      "source": "./skoomy--artometrix-yolia",
+      "description": "artometrix-yolia"
+    },
+    {
+      "name": "igor-kan--bookreader",
+      "source": "./igor-kan--bookreader",
+      "description": "bookreader"
+    },
+    {
+      "name": "aiotnetwork--aiotaiagentskills",
+      "source": "./aiotnetwork--aiotaiagentskills",
+      "description": "AIOTAIAgentSkills"
+    },
+    {
+      "name": "dilgerma--node-apps-with-eventsourcing-and-ralph-loop",
+      "source": "./dilgerma--node-apps-with-eventsourcing-and-ralph-loop",
+      "description": "node-apps-with-eventsourcing-and-ralph-loop"
+    },
+    {
+      "name": "gscandelari--curva-mestra-system",
+      "source": "./gscandelari--curva-mestra-system",
+      "description": "curva_mestra_system"
+    },
+    {
+      "name": "bristmatt96-hub--apex-s44-monitor",
+      "source": "./bristmatt96-hub--apex-s44-monitor",
+      "description": "apex-s44-monitor"
+    },
+    {
+      "name": "muhammadcaeed--aegis",
+      "source": "./muhammadcaeed--aegis",
+      "description": "aegis"
+    },
+    {
+      "name": "jerrita--kanami",
+      "source": "./jerrita--kanami",
+      "description": "kanami"
+    },
+    {
+      "name": "jhonma82--claude-code-docs-spa",
+      "source": "./jhonma82--claude-code-docs-spa",
+      "description": "claude-code-docs-spa"
+    },
+    {
+      "name": "brendanxu--greentokey",
+      "source": "./brendanxu--greentokey",
+      "description": "greentokey"
+    },
+    {
+      "name": "accomputing--cat-santhropicopus4-5-jailbreak",
+      "source": "./accomputing--cat-santhropicopus4-5-jailbreak",
+      "description": "cat-santhropicopus4.5-jailbreak"
+    },
+    {
+      "name": "snowplow--snowplow-snowflake-loader",
+      "source": "./snowplow--snowplow-snowflake-loader",
+      "description": "snowplow-snowflake-loader"
+    },
+    {
+      "name": "elliotxie--cassia",
+      "source": "./elliotxie--cassia",
+      "description": "CASSIA"
+    },
+    {
+      "name": "mendixlabs--mxcli",
+      "source": "./mendixlabs--mxcli",
+      "description": "mxcli"
+    },
+    {
+      "name": "sguys99--link-digest",
+      "source": "./sguys99--link-digest",
+      "description": "link-digest"
+    },
+    {
+      "name": "kcanamar--cannanote",
+      "source": "./kcanamar--cannanote",
+      "description": "cannanote"
+    },
+    {
+      "name": "beany-vu--michi-vz",
+      "source": "./beany-vu--michi-vz",
+      "description": "michi-vz"
+    },
+    {
+      "name": "payne--net2",
+      "source": "./payne--net2",
+      "description": "net2"
+    },
+    {
+      "name": "jonymusky--agents",
+      "source": "./jonymusky--agents",
+      "description": "agents"
+    },
+    {
+      "name": "omairqazi29--grokforge",
+      "source": "./omairqazi29--grokforge",
+      "description": "grokforge"
+    },
+    {
+      "name": "jprofessionals--url-shortener",
+      "source": "./jprofessionals--url-shortener",
+      "description": "url-shortener"
+    },
+    {
+      "name": "mtunique--vibehub",
+      "source": "./mtunique--vibehub",
+      "description": "VibeHub"
     }
   ]
 }
