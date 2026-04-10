@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [elxphaz/todoapp-go](https://github.com/elxphaz/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/elxphaz](https://tomevault.io/claim/elxphaz)
 
