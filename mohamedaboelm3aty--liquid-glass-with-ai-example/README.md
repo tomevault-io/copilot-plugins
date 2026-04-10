@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [MohamedAboElM3aTy/liquid_glass_with_ai_example]
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/MohamedAboElM3aTy](https://tomevault.io/claim/MohamedAboElM3aTy)
 
