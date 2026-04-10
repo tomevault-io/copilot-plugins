@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sohosai/sos26](https://github.com/sohosai/sos26
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sohosai](https://tomevault.io/claim/sohosai)
 
