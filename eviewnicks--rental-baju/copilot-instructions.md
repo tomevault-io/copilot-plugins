@@ -1,14 +1,15 @@
 ## rental-baju
 
-> Dokumen ini berisi panduan standar untuk format dokumentasi hasil implementasi task setup di project Maguru. Task setup berbeda dengan task implementasi fitur karena fokusnya pada konfigurasi, integrasi, dan persiapan infrastruktur. Panduan ini mengacu pada best practice JIRA Agile Scrum dan memastikan konsistensi pelaporan hasil setup.
+> Dokumen ini berisi panduan standar untuk format dokumentasi hasil implementasi task di project Maguru. Panduan ini mengacu pada best practice JIRA Agile Scrum dan memastikan konsistensi pelaporan hasil pengembangan.
 
-# Panduan Dokumentasi Hasil Setup (result-setup-xxx.md)
+
+# Panduan Dokumentasi Hasil (result-ops-xxx.md)
 
 ## Tujuan Panduan
 
-Dokumen ini berisi panduan standar untuk format dokumentasi hasil implementasi task setup di project Maguru. Task setup berbeda dengan task implementasi fitur karena fokusnya pada konfigurasi, integrasi, dan persiapan infrastruktur. Panduan ini mengacu pada best practice JIRA Agile Scrum dan memastikan konsistensi pelaporan hasil setup.
+Dokumen ini berisi panduan standar untuk format dokumentasi hasil implementasi task di project Maguru. Panduan ini mengacu pada best practice JIRA Agile Scrum dan memastikan konsistensi pelaporan hasil pengembangan.
 
-# [TSK-XXX] Hasil Setup [Nama Setup/Integrasi]
+# [OPS-XXX] Hasil Implementasi [Nama Fitur]
 
 **Status**: [🟢 Complete | 🟡 Partial | 🔴 Blocked]  
 **Diimplementasikan**: [Tanggal Mulai] - [Tanggal Selesai]  
@@ -20,112 +21,110 @@ Dokumen ini berisi panduan standar untuk format dokumentasi hasil implementasi t
 
 ## Daftar Isi
 
-1. @Technoloy Detail
-2. [Ringkasan Setup](mdc:#ringkasan-setup)
+1. [Ringkasan Implementasi](mdc:#ringkasan-implementasi)
 2. [Perubahan dari Rencana Awal](mdc:#perubahan-dari-rencana-awal)
 3. [Status Acceptance Criteria](mdc:#status-acceptance-criteria)
-4. [Detail Setup](mdc:#detail-setup)
+4. [Detail Implementasi](mdc:#detail-implementasi)
 5. [Kendala dan Solusi](mdc:#kendala-dan-solusi)
 6. [Rekomendasi Selanjutnya](mdc:#rekomendasi-selanjutnya)
 
-## Technology Detail
+## Ringkasan Implementasi (opsional Jika berhbungan dengan pembuatan fitur)
 
-[Penjelasan terkait technologi atau library yang digunakan apa itu, fungsi untuk project kegunaan dan detail lainnya  ]
-
-## Ringkasan Setup
-
-[Ringkasan singkat (3-5 kalimat) tentang setup/integrasi yang dilakukan, highlight utama, dan nilai infrastruktur yang dihasilkan]
-
-**Highlight Utama:**
-
-- [Highlight 1]: [Deskripsi singkat]
-- [Highlight 2]: [Deskripsi singkat]
-- [Highlight 3]: [Deskripsi singkat]
-
-**Nilai Infrastruktur:**
-[Penjelasan nilai yang dihasilkan untuk development workflow, testing, atau operational efficiency]
+[Ringkasan singkat (3-5 kalimat) tentang fitur yang diimplementasikan, highlight utama, dan nilai bisnis yang dihasilkan]
 
 ### Ruang Lingkup
 
-[Deskripsi singkat tentang apa yang tercakup dalam setup dan apa yang tidak, termasuk batasan scope]
+[Deskripsi singkat tentang apa yang tercakup dalam implementasi dan apa yang tidak]
 
-#### 1. Konfigurasi dan Dependencies
+#### 1. React Components
 
-**Package Dependencies**:
+**Server Components**:
 
-- [Nama Package]: [Versi] - [Tujuan penggunaan]
+- [Nama Komponen]: [Deskripsi singkat]
 - ...
 
-**Configuration Files**:
+**Client Components**:
 
-- [Nama File]: [Deskripsi konfigurasi]
+- [Nama Komponen]: [Deskripsi singkat]
 - ...
 
-#### 2. Infrastructure Setup
+#### 2. State Management
 
-**Development Tools**:
+**Context Providers**:
 
-- [Nama Tool]: [Deskripsi setup]
+- [Nama Context]: [Deskripsi singkat]
 - ...
 
-**Environment Configuration**:
+**React Query/State**:
 
-- [Environment Variable]: [Deskripsi dan nilai]
+- [Nama Hook/Query]: [Deskripsi singkat]
 - ...
 
-#### 3. Integration Points
+#### 3. Custom Hooks
 
-**External Services**:
+**Feature Hooks**:
 
-- [Nama Service]: [Deskripsi integrasi]
+- [Nama Hook]: [Deskripsi singkat]
 - ...
 
-**Internal Systems**:
+**Utility Hooks**:
 
-- [Nama System]: [Deskripsi koneksi]
+- [Nama Hook]: [Deskripsi singkat]
 - ...
 
-#### 4. Scripts dan Automation
+#### 4. Data Access
 
-**Package Scripts**:
+**Adapters**:
 
-- `[script-name]`: [Deskripsi fungsi]
+- [Nama Adapter]: [Deskripsi singkat]
 - ...
 
-**Automation Setup**:
+**API Endpoints**:
 
-- [Nama Automation]: [Deskripsi proses]
+- `[METHOD] /api/[path]` - [Deskripsi singkat]
 - ...
 
-#### 5. Verification dan Testing
+#### 5. Server-side
 
-**Setup Verification**:
+**Services**:
 
-- [Verification Method]: [Deskripsi cara verifikasi]
+- [Nama Service]: [Deskripsi singkat]
 - ...
 
-**Test Infrastructure**:
+**Database Schema**:
 
-- [Test Component]: [Deskripsi setup testing]
+- [Nama Model/Perubahan]: [Deskripsi singkat]
+- ...
+
+#### 6. Cross-cutting Concerns
+
+**Types**:
+
+- [Nama Type]: [Deskripsi singkat]
+- ...
+
+**Utils**:
+
+- [Nama Util]: [Deskripsi singkat]
 - ...
 
 ## Perubahan dari Rencana Awal
 
-[Deskripsi perubahan signifikan dari rencana awal (task-setup-xxx.md) dan justifikasinya]
+[Deskripsi perubahan signifikan dari rencana awal (task-ops-xxx.md) dan justifikasinya]
 
-### Perubahan Konfigurasi
+### Perubahan Desain
 
-| Komponen/Tool   | Rencana Awal | Implementasi Aktual | Justifikasi |
+| Komponen/Fitur  | Rencana Awal | Implementasi Aktual | Justifikasi |
 | --------------- | ------------ | ------------------- | ----------- |
-| [Nama Tool]     | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
-| [Configuration] | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
+| [Nama Komponen] | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
+| [API Endpoint]  | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
 
 ### Perubahan Teknis
 
-| Aspek              | Rencana Awal | Implementasi Aktual | Justifikasi |
-| ------------------ | ------------ | ------------------- | ----------- |
-| [Struktur Setup]   | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
-| [Integration Flow] | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
+| Aspek           | Rencana Awal | Implementasi Aktual | Justifikasi |
+| --------------- | ------------ | ------------------- | ----------- |
+| [Struktur Data] | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
+| [Teknologi]     | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
 
 ## Status Acceptance Criteria
 
@@ -135,92 +134,97 @@ Dokumen ini berisi panduan standar untuk format dokumentasi hasil implementasi t
 | [Kriteria 2] | ⚠️     | [Keterangan keterbatasan]   |
 | [Kriteria 3] | ❌     | [Alasan tidak implementasi] |
 
-## Detail Setup
+## Detail Implementasi
 
-> **⚠️ PENTING**: Dokumentasi ini harus fokus pada detail setup yang jelas dan ringkas. **HINDARI MENAMPILKAN KONFIGURASI LENGKAP ATAU KODE YANG RUMIT**. Berikan penjelasan tingkat tinggi tentang pendekatan setup, pattern yang digunakan, dan alasan di balik keputusan teknis. Pengecualian hanya untuk Configuration Files dan Environment Variables yang perlu ditampilkan sebagaimana dikonfigurasi.
+> **⚠️ PENTING**: Dokumentasi ini harus fokus pada detail implementasi yang jelas dan ringkas. **HINDARI MENAMPILKAN PSEUDOCODE ATAU IMPLEMENTASI KODE YANG RUMIT**. Berikan penjelasan tingkat tinggi tentang pendekatan yang diambil, pola yang digunakan, dan alasan di balik keputusan teknis. Pengecualian hanya untuk Schema Database dan TypeScript Interface yang perlu ditampilkan sebagaimana diimplementasikan.
 
-### Arsitektur Setup
+### Arsitektur Folder
 
-Setup mengikuti best practices dan standar industry untuk [nama teknologi/tool]:
+Implementasi mengikuti struktur folder standar yang didefinisikan dalam arsitektur Maguru:
 
 ```
-/project-root/
-├── [config-file]           # Konfigurasi utama
-├── [setup-directory]/      # Directory setup khusus
-│   ├── [sub-config]/       # Sub-konfigurasi
-│   └── [utilities]/        # Utilities setup
-└── [integration-points]/   # Titik integrasi dengan existing system
+/features/[feature-name]/
+├── components/         # Komponen React
+│   ├── ComponentName/  # Komponen dengan sub-komponen
+│   │   └── ...
+│   └── ...
+├── context/            # React Context Providers
+│   └── ...
+├── hooks/              # Custom React Hooks
+│   ├── feature/        # Feature-specific hooks
+│   └── shared/         # Shared hooks
+├── adapters/           # Data access adapters (API calls)
+│   └── ...
+├── services/           # Business logic
+│   └── ...
+├── types/              # TypeScript type definitions
+│   └── ...
+└── utils/              # Utility functions
+    └── ...
 ```
 
-> **Catatan**: Jika setup menyimpang dari struktur standar, jelaskan alasannya di sini.
+> **Catatan**: Jika implementasi Anda menyimpang dari struktur standar di atas, jelaskan alasannya di sini.
 
-### Komponen Setup Utama
+### Komponen Utama
 
-#### [Nama Komponen Setup]
+#### [Nama Komponen]
 
-**File**: `/path/to/config-file`
+**File**: `/path/to/component.tsx`
 
 **Deskripsi**:
-[Deskripsi fungsi dan tujuan komponen setup]
+[Deskripsi fungsi dan tanggung jawab komponen]
 
 **Pattern yang Digunakan**:
 
 - [Pattern 1]: [Deskripsi]
 - [Pattern 2]: [Deskripsi]
 
-### Alur Setup
+### Alur Data
 
-[Jelaskan alur setup dari instalasi hingga verifikasi dengan fokus pada:
+[Jelaskan alur data dari API ke UI atau sebaliknya dengan fokus pada:
 
-1. Bagaimana dependencies diinstall dan dikonfigurasi
-2. Bagaimana integrasi dengan existing system dilakukan
-3. Bagaimana verification dan testing setup dilakukan
-4. Bagaimana maintenance dan update akan dilakukan]
+1. Bagaimana data dimuat dari backend
+2. Bagaimana state dikelola (React Query, Context, dll)
+3. Bagaimana state mempengaruhi UI
+4. Bagaimana mutasi/update data dilakukan]
 
-### Configuration Files
+### Database Schema
 
-[Jika ada konfigurasi penting yang perlu didokumentasikan, jelaskan di sini]
+[Jika ada perubahan skema database, jelaskan di sini]
 
-```typescript
-// Contoh konfigurasi penting
-export default {
-  // Konfigurasi yang diimplementasikan
+```prisma
+model UpdatedModel {
+  // Skema yang diimplementasikan
 }
 ```
 
-### Environment Setup
+### API Implementation
 
-#### Development Environment
+#### [Endpoint URL]
 
-**Required Variables**:
+**File**: `/path/to/api/file`
 
-```bash
-VARIABLE_NAME=value_description
-ANOTHER_VAR=another_value_description
-```
+**Method**: [GET/POST/PUT/DELETE]
 
-**Optional Variables**:
+**Authentication**: [Required/Optional]
 
-```bash
-OPTIONAL_VAR=optional_value_description
-```
+**Error Handling**:
 
-#### Production Considerations
-
-[Jelaskan perbedaan konfigurasi untuk production environment jika ada]
+- [Status Code]: [Deskripsi kondisi]
+- [Status Code]: [Deskripsi kondisi]
 
 ## Kendala dan Solusi
 
 ### Kendala 1: [Judul Kendala]
 
 **Deskripsi**:
-[Penjelasan detail kendala yang dihadapi selama setup]
+[Penjelasan detail kendala yang dihadapi]
 
 **Solusi**:
 [Bagaimana kendala diselesaikan, atau workaround yang diterapkan]
 
 **Pembelajaran**:
-[Pelajaran yang bisa diambil untuk setup serupa di masa depan]
+[Pelajaran yang bisa diambil untuk implementasi di masa depan]
 
 ### Kendala 2: [Judul Kendala]
 
@@ -228,63 +232,62 @@ OPTIONAL_VAR=optional_value_description
 
 ## Rekomendasi Selanjutnya
 
-### Peningkatan Setup
+### Peningkatan Fitur
 
 1. [Rekomendasi 1]: [Deskripsi dan justifikasi]
 2. [Rekomendasi 2]: [Deskripsi dan justifikasi]
 
-### Maintenance dan Monitoring
+### Technical Debt
 
-1. [Maintenance Task 1]: [Deskripsi dan frekuensi]
-2. [Monitoring Setup 1]: [Deskripsi dan threshold]
+1. [Technical Debt 1]: [Deskripsi dan dampak]
+2. [Technical Debt 2]: [Deskripsi dan dampak]
 
-### Potensi Optimisasi
+### Potensi Refactoring
 
-1. [Optimisasi 1]: [Deskripsi dan manfaat]
-2. [Optimisasi 2]: [Deskripsi dan manfaat]
+1. [Refactoring 1]: [Deskripsi dan manfaat]
+2. [Refactoring 2]: [Deskripsi dan manfaat]
 
 ## Lampiran
 
-- [Link dokumentasi setup tambahan]
+- [Link dokumen teknis tambahan]
 - [Link PR review]
-- [Link ke verification report]
-- [Link ke external documentation]
+- [Link ke test report]
 
-> **Catatan**: Untuk detail verification dan testing setup, silakan merujuk ke dokumen verification report di `features/[feature-name]/docs/report-test/setup-verification.md`. Dokumen ini berfokus pada setup, bukan hasil testing.
+> **Catatan**: Untuk detail pengujian (Unit, Integration, E2E, Performance), silakan merujuk ke dokumen test report di `features/[feature-name]/docs/report-test/test-report.md`. Dokumen ini berfokus pada implementasi, bukan hasil pengujian.
 
 ## Panduan Penggunaan
 
 ### Penamaan File
 
-- Format: `result-setup-[ID].md` (contoh: `result-setup-38.md`)
+- Format: `result-ops-[ID].md` (contoh: `result-ops-173.md`)
 - Simpan di direktori `features/[feature-name]/docs/result-docs/`
 
 ### Waktu Penulisan
 
-Dokumentasi hasil setup harus dibuat langsung setelah setup selesai dan verifikasi berhasil, sebelum code review.
+Dokumentasi hasil harus dibuat langsung setelah implementasi fitur selesai dan sebelum code review, dengan update tambahan setelah code review jika diperlukan.
 
 ### Panduan Penulisan
 
-1. **Faktual dan Objektif**: Tuliskan hasil setup secara faktual, tidak hanya rencana atau harapan.
-2. **Tunjukkan Verifikasi**: Selalu sertakan bukti bahwa setup berfungsi dengan benar.
-3. **Dokumentasikan Keputusan**: Jelaskan alasan di balik pilihan konfigurasi atau pendekatan setup.
-4. **Lengkap dan Detil**: Berikan informasi yang cukup untuk developer lain dapat memahami dan maintain setup.
-5. **Reproducible**: Pastikan informasi cukup untuk reproduce setup di environment lain.
-6. **Hindari Raw Config**: Jangan menampilkan konfigurasi mentah yang panjang, fokus pada penjelasan pendekatan.
+1. **Faktual dan Objektif**: Tuliskan hasil implementasi secara faktual, tidak hanya rencana atau harapan.
+2. **Tunjukkan Perbandingan**: Selalu bandingkan hasil aktual dengan rencana awal yang didokumentasikan di task-ops.
+3. **Dokumentasikan Keputusan**: Jelaskan alasan di balik perubahan rencana atau pendekatan alternatif yang diambil.
+4. **Lengkap dan Detil**: Berikan informasi yang cukup untuk developer lain dapat memahami keseluruhan implementasi.
+5. **Visual**: Sertakan screenshot, diagram, atau video demo jika memungkinkan.
+6. **Hindari Pseudocode**: Jangan menampilkan implementasi kode yang rumit, fokus pada penjelasan pendekatan dan pola yang digunakan.
 
 ### Integrasi dengan JIRA dan GitHub
 
 1. Lampirkan link ke dokumen hasil di komentar task JIRA
 2. Sertakan link dalam deskripsi Pull Request
-3. Referensikan nomor issue/task menggunakan format TSK-XXX di commit messages
+3. Referensikan nomor issue/task menggunakan format OPS-XXX di commit messages
 
-### Status Setup
+### Status Implementasi
 
 Gunakan format status berikut untuk kejelasan:
 
-- 🟢 **Complete**: Semua acceptance criteria terpenuhi, setup berfungsi sempurna
-- 🟡 **Partial**: Setup berfungsi dengan beberapa keterbatasan yang sudah disetujui
-- 🔴 **Blocked**: Setup terhambat oleh kendala yang memerlukan diskusi lebih lanjut
+- 🟢 **Complete**: Semua acceptance criteria terpenuhi tanpa kompromi
+- 🟡 **Partial**: Sebagian besar AC terpenuhi, dengan beberapa keterbatasan yang sudah disetujui
+- 🔴 **Blocked**: Implementasi terhambat oleh kendala yang memerlukan diskusi lebih lanjut
 
 ## Template Sections
 
@@ -293,13 +296,12 @@ Gunakan format status berikut untuk kejelasan:
 ```markdown
 ## Status Acceptance Criteria
 
-| Kriteria                                | Status | Keterangan                                        |
-| --------------------------------------- | ------ | ------------------------------------------------- |
-| Tool dapat diinstall tanpa error        | ✅     | Instalasi berhasil di semua environment           |
-| Konfigurasi terintegrasi dengan project | ✅     | Integration berjalan sesuai ekspektasi            |
-| Verification test berhasil dijalankan   | ⚠️     | Beberapa test perlu environment variable tambahan |
-| Documentation setup lengkap             | ✅     | Semua konfigurasi terdokumentasi                  |
-| CI/CD integration berfungsi             | ❌     | Dipindahkan ke task terpisah karena kompleksitas  |
+| Kriteria                                      | Status | Keterangan                                           |
+| --------------------------------------------- | ------ | ---------------------------------------------------- |
+| Pengguna dapat membuat folder baru            | ✅     | Implementasi sesuai rencana                          |
+| Pengguna dapat mengedit judul page            | ✅     | UI lebih sederhana dari rencana awal                 |
+| Pengguna dapat menghapus folder dan kontennya | ⚠️     | Konfirmasi hanya 1 level, tidak recursive            |
+| Drag & drop untuk reordering                  | ❌     | Dipindahkan ke sprint berikutnya karena kompleksitas |
 ```
 
 ### Template Kendala dan Solusi
@@ -307,88 +309,87 @@ Gunakan format status berikut untuk kejelasan:
 ```markdown
 ## Kendala dan Solusi
 
-### Kendala 1: Version Compatibility Issue
+### Kendala 1: Integrasi Library X dengan Component Y
 
 **Deskripsi**:
-Library X versi terbaru tidak kompatibel dengan Next.js versi yang digunakan project, menyebabkan build error.
+Library X ternyata tidak mendukung fitur Z yang kita butuhkan untuk implementasi sesuai rencana awal.
 
 **Solusi**:
-Downgrade ke versi library yang kompatibel dan lock versi di package.json untuk mencegah automatic update.
+Membuat wrapper custom yang menambahkan fungsionalitas yang diperlukan, dengan trade-off performa yang sedikit menurun.
 
 **Pembelajaran**:
-Selalu check compatibility matrix sebelum upgrade dependencies, terutama untuk major version changes.
+Untuk fitur kompleks, lakukan spike/research lebih mendalam terhadap kapabilitas library sebelum finalisasi desain.
 
-### Kendala 2: Environment Variable Configuration
+### Kendala 2: Performance Issue saat Large Dataset
 
 **Deskripsi**:
-Setup memerlukan environment variables yang berbeda untuk development vs production, menyebabkan confusion.
+Terjadi lag signifikan saat loading dan rendering data lebih dari 1000 items.
 
 **Solusi**:
-Buat file .env.example yang jelas dan dokumentasikan perbedaan environment variables untuk setiap environment.
+
+- Implementasi virtualized list untuk menampilkan hanya items yang visible
+- Tambahkan pagination di API level
+- Cache hasil query dengan React Query
 
 **Pembelajaran**:
-Environment configuration harus didokumentasikan dengan jelas dan provide template untuk easy setup.
+Selalu pertimbangkan edge cases dengan dataset besar sejak awal desain.
 ```
 
-## Contoh Dokumentasi Hasil Setup
+## Contoh Dokumentasi Hasil
 
-Untuk melihat contoh dokumentasi hasil setup yang baik:
+Untuk melihat contoh dokumentasi hasil yang baik:
 
-- [result-setup-38.md](mdc:features/auth/docs/result-docs/story-27/result-tsk-38.md)
+- [result-ops-173.md](mdc:docs/result-docs/result-ops-173.md)
 
 ## Integrasi dengan Task Documentation
 
-Dokumentasi hasil setup harus memiliki hubungan yang jelas dengan dokumentasi task setup asli:
+Dokumentasi hasil harus memiliki hubungan yang jelas dengan dokumentasi task asli. Praktik terbaik untuk memastikan integrasi ini adalah:
 
-1. **Cross-referencing**: Selalu referensikan task-setup-xxx.md di result-setup-xxx.md
-2. **Verification Focus**: Dokumentasikan bukti bahwa setup berfungsi sesuai requirement
-3. **Configuration Diff**: Jelaskan perbedaan konfigurasi aktual vs yang direncanakan
+1. **Cross-referencing**: Selalu referensikan task-ops-xxx.md di result-ops-xxx.md dan sebaliknya
+2. **Shared Structure**: Gunakan struktur yang paralel antara task dan result untuk memudahkan perbandingan
+3. **Explicit Diff**: Jelaskan secara eksplisit perbedaan antara rencana dan implementasi aktual
 4. **Shared Terminology**: Gunakan istilah yang konsisten antara task dan result documentation
 
-## Keterkaitan dengan Dokumentasi Verification
+## Keterkaitan dengan Dokumentasi Pengujian
 
-Dokumentasi hasil setup dapat mereferensikan dokumentasi verification terpisah:
+Dokumentasi hasil tidak perlu mencantumkan detail testing secara lengkap karena sudah didokumentasikan dalam format terpisah:
 
-1. **Setup Verification**: Hasil verifikasi setup didokumentasikan dalam `features/[feature-name]/docs/report-test/setup-verification.md`
-2. **Cross-reference**: Referensikan dokumen verification dalam bagian lampiran
-3. **Highlight Issues**: Jika ada temuan penting dari verification, rangkum di bagian kendala
+1. **Test Report**: Hasil pengujian didokumentasikan dalam `features/[feature-name]/docs/report-test/test-report.md`
+2. **Cross-reference**: Cukup referensikan dokumen test report dalam bagian lampiran jika diperlukan
+3. **Highlight Issues**: Jika ada temuan penting dari pengujian yang perlu diketahui, cukup rangkum di bagian kendala
 
 ## Review Guidelines
 
 ### Developer Self-Review Checklist
 
 - [ ] Semua acceptance criteria didokumentasikan dengan status yang akurat
-- [ ] Setup dapat direproduce berdasarkan dokumentasi
-- [ ] Verification evidence disertakan dan jelas
+- [ ] Perubahan dari rencana awal dijelaskan dengan justifikasi
+- [ ] Struktur dan pola yang digunakan dijelaskan dengan jelas
 - [ ] Kendala dan solusi didokumentasikan secara komprehensif
-- [ ] Konfigurasi dan environment setup dijelaskan dengan jelas
+- [ ] Arsitektur folder diuraikan dengan jelas sesuai implementasi
 
 ### Reviewer Checklist
 
-- [ ] Dokumentasi hasil akurat dan sesuai dengan setup aktual
-- [ ] Setup dapat direproduce di environment reviewer
+- [ ] Dokumentasi hasil akurat dan sesuai dengan implementasi aktual
+- [ ] Justifikasi untuk perubahan dari rencana masuk akal dan didokumentasikan
 - [ ] Status acceptance criteria transparan dan realistis
-- [ ] Maintenance dan monitoring considerations masuk akal
+- [ ] Technical debt dan rekomendasi selanjutnya masuk akal
 - [ ] Referensi ke task asli dan dokumentasi pendukung tersedia
 
 ## FAQ
 
-**Q: Kapan sebaiknya menulis result documentation untuk setup?**  
-A: Segera setelah setup selesai dan verification berhasil, sebelum code review.
+**Q: Kapan sebaiknya menulis result documentation?**  
+A: Mulailah menulis draft sejak implementasi dimulai, dan finalisasi segera setelah implementasi selesai sebelum code review.
 
-**Q: Bagaimana jika setup gagal atau partial?**  
-A: Dokumentasikan dengan status yang sesuai (🔴 atau 🟡) dan jelaskan kendala yang dihadapi serta rencana resolution.
+**Q: Bagaimana jika implementasi sangat berbeda dari rencana?**  
+A: Dokumentasikan perbedaan dengan jelas, berikan justifikasi yang kuat, dan lakukan cross-reference ke diskusi atau keputusan yang menyebabkan perubahan.
 
-**Q: Apakah perlu mendokumentasikan configuration files secara lengkap?**  
-A: Tidak perlu menampilkan konfigurasi lengkap, fokus pada penjelasan pattern dan keputusan konfigurasi penting.
+**Q: Apakah perlu mendokumentasikan implementasi yang gagal?**  
+A: Ya, dokumentasikan semua upaya implementasi termasuk yang gagal, karena ini menjadi pembelajaran berharga untuk tim dan mencegah pengulangan kesalahan.
 
-**Q: Siapa yang harus membaca dokumentasi hasil setup?**  
-A: Developer yang melakukan setup untuk self-check, reviewer untuk validasi, dan developer lain yang mungkin perlu maintain atau extend setup tersebut.
-
-**Q: Bagaimana handle setup yang memerlukan external dependencies?**  
-A: Dokumentasikan semua external dependencies, versi yang diperlukan, dan cara setup/konfigurasinya. Sertakan fallback atau alternative jika ada.
+**Q: Siapa yang harus membaca dokumentasi hasil?**  
+A: Developer yang mengimplementasi untuk self-check, reviewer untuk validasi, product owner untuk verifikasi hasil, dan developer lain yang mungkin bekerja dengan kode tersebut di masa depan.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/EviewNicks)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/EviewNicks)
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/EviewNicks) — claim your Tome and manage your conversions.
 <!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
