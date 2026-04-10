@@ -1,84 +1,51 @@
 ## llama-rs-example
 
-> Rust coding standards and best practices for modern development
+> Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
 
+# Code Quality Guidelines
 
-# Rust Best Practices
+## Verify Information
+Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
 
-## Crates and Modules
-- Use meaningful crate names that reflect their purpose (e.g., `auth`, `config`).
-- Organize code into modules using the `mod` keyword and separate files.
-- Use `pub` to expose items to other modules or crates when necessary.
-- Manage dependencies with Cargo, specifying versions in `Cargo.toml` (e.g., `serde = "1.0"`).
+## File-by-File Changes
+Make changes file by file and give me a chance to spot mistakes.
 
-## Type System
-- Use `struct` for product types to group related data (e.g., `struct User { id: u32 }`).
-- Use `enum` for sum types to represent variants (e.g., `enum Status { Active, Inactive }`).
-- Define `trait` to specify behavior and enable polymorphism (e.g., `trait Display`).
-- Use type aliases for clarity with complex types (e.g., `type Id = u32`).
-- Leverage Rust’s ownership and borrowing system for memory safety (e.g., `&str` vs `String`).
-- Use smart pointers like `Box`, `Rc`, or `Arc` for heap allocation and shared ownership.
-- Avoid unnecessary `unsafe` code; isolate it when required.
+## No Apologies
+Never use apologies.
 
-## Naming Conventions
-- Use `snake_case` for variables and functions (e.g., `get_user`).
-- Use `PascalCase` for types and traits (e.g., `UserService`).
-- Use `SCREAMING_SNAKE_CASE` for constants (e.g., `MAX_RETRIES`).
-- Be descriptive yet concise in naming (e.g., `user_count` over `cnt`).
+## No Understanding Feedback
+Avoid giving feedback about understanding in comments or documentation.
 
-## Code Organization
-- Follow the standard Rust project layout: `src/` for source, `tests/` for integration tests, `examples/` for examples.
-- Include modules with `mod` in `lib.rs` or `main.rs` (e.g., `mod utils;`).
-- Use workspaces for multi-crate projects via `Cargo.toml` (e.g., `[workspace]`).
+## No Whitespace Suggestions
+Don't suggest whitespace changes.
 
-## Functions and Methods
-- Keep functions short and focused on a single responsibility.
-- Use early returns with `Result` or `Option` for error handling (e.g., `if let Some(x) = opt { return x; }`).
-- Avoid side effects to improve predictability and testability.
+## No Summaries
+Don't summarize changes made.
 
-## Best Practices
-- Prefer immutable bindings (`let`) over mutable ones (`let mut`) unless mutation is required.
-- Use pattern matching for concise, expressive code (e.g., `match option { Some(v) => v, None => 0 }`).
-- Leverage the type system to catch errors at compile time (e.g., via traits and generics).
-- Use generics for type-safe, reusable code (e.g., `fn process<T: Display>(item: T)`).
-- Utilize iterators and closures for functional programming (e.g., `vec.iter().map(|x| x * 2)`).
-- Use macros to reduce boilerplate (e.g., `macro_rules! log`).
-- Embrace memory safety features like ownership to prevent bugs.
-- Run `rustfmt` for consistent formatting and `clippy` for linting (e.g., `cargo fmt`, `cargo clippy`).
-- Avoid global variables; use `lazy_static` or `once_cell` if needed for thread-safe initialization.
-- Optimize allocations in performance-critical code with tools like `perf` or `heaptrack`.
-- Use `const fn` for compile-time evaluation (e.g., `const fn max(a: u32, b: u32) -> u32`).
-- Check dependencies for vulnerabilities with `cargo audit`.
+## No Inventions
+Don't invent changes other than what's explicitly requested.
 
-## Error Handling
-- Use `Result<T, E>` for recoverable errors and `Option<T>` for optional values.
-- Propagate errors with the `?` operator (e.g., `let data = read_file()?;
-- Handle errors with `match` for explicit control (e.g., `match result { Ok(v) => v, Err(e) => ... }`).
-- Avoid panics in library code; reserve them for unrecoverable errors in applications (e.g., `panic!("crash")`).
+## No Unnecessary Confirmations
+Don't ask for confirmation of information already provided in the context.
 
-## Concurrency
-- Use `std::thread` for concurrent tasks (e.g., `thread::spawn(|| { ... })`).
-- Use channels for safe communication between threads (e.g., `let (tx, rx) = mpsc::channel()`).
-- Use `async/await` for I/O-bound concurrency (e.g., `async fn fetch_data()`).
-- Leverage libraries like `Rayon` for data parallelism (e.g., `par_iter()`).
-- Ensure thread safety with Rust’s ownership model (e.g., `Arc<Mutex<T>>`).
+## Preserve Existing Code
+Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.
 
-## Testing
-- Write unit tests with the `#[test]` attribute (e.g., `#[test] fn test_add() { assert_eq!(2 + 2, 4); }`).
-- Place integration tests in the `tests/` directory.
-- Run tests with `cargo test` and aim for high coverage (e.g., `cargo test -- --nocapture`).
+## Single Chunk Edits
+Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
 
-## Documentation
-- Write doc comments for public items with `///` (e.g., `/// Adds two numbers`).
-- Include examples in doc comments (e.g., `/// # Examples\n/// assert_eq!(add(2, 3), 5);`).
-- Generate documentation with `cargo doc` (e.g., `cargo doc --open`).
+## No Implementation Checks
+Don't ask the user to verify implementations that are visible in the provided context.
 
-## Patterns
-- Use traits for dependency injection and mocking (e.g., `trait Logger` for testing).
-- Implement the builder pattern for complex structs (e.g., `UserBuilder::new().name("Alice").build()`).
-- Use the visitor pattern with enums for extensible behavior (e.g., `enum Event { Click, KeyPress }`).
+## No Unnecessary Updates
+Don't suggest updates or changes to files when there are no actual modifications needed.
+
+## Provide Real File Links
+Always provide links to the real files, not x.md.
+
+## No Current Implementation
+Don't show or discuss the current implementation unless specifically requested.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/chand1012)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/chand1012)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/chand1012) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
