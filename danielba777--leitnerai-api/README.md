@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [danielba777/leitnerai-api](https://github.com/d
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/danielba777](https://tomevault.io/claim/danielba777)
 
