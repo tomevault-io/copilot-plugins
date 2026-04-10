@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ignatov/sem-search](https://github.com/ignatov/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ignatov](https://tomevault.io/claim/ignatov)
 
