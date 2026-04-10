@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [ehoneahobed/koowerk](https://github.c
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ehoneahobed](https://tomevault.io/claim/ehoneahobed)
 
