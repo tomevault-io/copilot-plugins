@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [joungwonlim/nextjs-shadcn-dashboard-090701](htt
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/joungwonlim](https://tomevault.io/claim/joungwonlim)
 
