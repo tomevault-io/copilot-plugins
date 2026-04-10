@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [aydabd/glens](https://github.com/ayda
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/aydabd](https://tomevault.io/claim/aydabd)
 
