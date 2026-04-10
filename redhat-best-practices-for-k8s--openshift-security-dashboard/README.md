@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [redhat-best-practices-for-k8s/openshift-securit
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/redhat-best-practices-for-k8s](https://tomevault.io/claim/redhat-best-practices-for-k8s)
 
