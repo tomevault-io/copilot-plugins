@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Wlong34243/investment_portfolio_manager](https:
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Wlong34243](https://tomevault.io/claim/Wlong34243)
 
