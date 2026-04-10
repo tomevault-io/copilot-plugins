@@ -1,0 +1,9 @@
+{
+  "name": "snowflakedb--gosnowflake",
+  "displayName": "gosnowflake",
+  "description": "gosnowflake",
+  "version": "1.0.0",
+  "author": "snowflakedb",
+  "homepage": "https://tomevault.io/claim/snowflakedb",
+  "skills": []
+}
