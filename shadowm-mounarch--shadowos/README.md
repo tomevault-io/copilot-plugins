@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [shadowm-mounarch/shadowos](https://github.com/s
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/shadowm-mounarch](https://tomevault.io/claim/shadowm-mounarch)
 
