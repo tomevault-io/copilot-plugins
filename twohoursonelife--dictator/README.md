@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [twohoursonelife/dictator](https://github.com/tw
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/twohoursonelife](https://tomevault.io/claim/twohoursonelife)
 
