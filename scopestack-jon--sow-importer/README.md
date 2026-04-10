@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [scopestack-jon/sow-importer](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/scopestack-jon](https://tomevault.io/claim/scopestack-jon)
 
