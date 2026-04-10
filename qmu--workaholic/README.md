@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [qmu/workaholic](https://github.com/qmu/workahol
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/qmu](https://tomevault.io/claim/qmu)
 
