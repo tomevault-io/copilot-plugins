@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [dtmsyi/About_Me](https://github.com/dtmsyi/Abou
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dtmsyi](https://tomevault.io/claim/dtmsyi)
 
