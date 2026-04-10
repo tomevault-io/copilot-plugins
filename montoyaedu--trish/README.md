@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [montoyaedu/Trish](https://github.com/montoyaedu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/montoyaedu](https://tomevault.io/claim/montoyaedu)
 
