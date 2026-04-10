@@ -1,40 +1,41 @@
 ## callers
 
-> These guidelines apply when writing code that consumes (calls) external or internal APIs.
+> *   **Naming Convention (e.g., BEM, SUIT CSS, or similar):**
 
-# API Client Coding Guidelines
+# CSS Coding Guidelines
 
-These guidelines apply when writing code that consumes (calls) external or internal APIs.
+*   **Naming Convention (e.g., BEM, SUIT CSS, or similar):**
+    *   **Principle:** Use a consistent and predictable naming convention for classes to avoid conflicts, improve readability, and make CSS more maintainable.
+    *   **Application:** Choose a methodology like BEM (Block, Element, Modifier) (e.g., `.block__element--modifier`) or another systematic approach. Be consistent throughout the project. Avoid overly generic names and ID selectors for styling.
 
-*   **Clear and Intentional Client Functions:**
-    *   **Principle:** Wrapper functions or methods for API calls should clearly state their purpose and the specific endpoint they interact with.
-    *   **Application:** Name functions descriptively, e.g., `getUserDetails(userId)` or `createProduct(productData)`. Abstract away the underlying HTTP request details (method, headers, URL construction) within these functions.
+*   **Modularity and Scalability (e.g., ITCSS, SMACSS):**
+    *   **Principle:** Structure CSS in a way that is modular, scalable, and easy to manage, especially in larger projects.
+    *   **Application:** Consider architectural approaches like ITCSS (Inverted Triangle CSS) or SMACSS (Scalable and Modular Architecture for CSS). Break CSS into logical components/modules. Use preprocessors (Sass, Less) to enhance organization with variables, mixins, and nesting (used judiciously).
 
-*   **Robust Error Handling & Retries:**
-    *   **Principle:** Anticipate and handle potential API errors gracefully, including network issues, rate limits, and server-side errors.
-    *   **Application:** Check HTTP status codes and handle common ones explicitly (e.g., 400, 401, 403, 404, 429, 500, 503). Implement retry mechanisms with exponential backoff for transient errors (like 429 or 5xx), but avoid retrying client errors (4xx) unless appropriate for the specific API.
+*   **Readability and Formatting:**
+    *   **Principle:** Write CSS that is easy to read and understand.
+    *   **Application:** Be consistent with formatting (e.g., indentation, spacing, one property per line or multi-line). Logically order properties (e.g., positioning, box model, typography, visual). Comment non-obvious sections or complex selectors.
 
-*   **Data Validation (Request Payloads):**
-    *   **Principle:** Validate data before sending it in an API request to catch errors early and ensure the payload conforms to the API's schema.
-    *   **Application:** Before making an API call that includes a payload, ensure required fields are present and data types are correct. This can prevent unnecessary API calls and provide better error messages to the user or calling code.
+*   **Performance and Selectors:**
+    *   **Principle:** Write efficient CSS that doesn't negatively impact page rendering performance.
+    *   **Application:** Avoid overly complex or qualified selectors. Minimize the use of the universal selector (`*`) and descendant selectors where class-based selectors are more efficient. Avoid using `!important` unless absolutely necessary for overriding external styles or utility classes.
 
-*   **Secure Handling of Credentials & Sensitive Data:**
-    *   **Principle:** Never hardcode API keys, tokens, or other sensitive credentials. Avoid logging sensitive request or response data.
-    *   **Application:** Use environment variables, configuration files, or secure secret management systems for API credentials. When logging, sanitize or omit sensitive information from payloads and headers.
+*   **Responsiveness and Units:**
+    *   **Principle:** Design CSS to be responsive and adaptable to different screen sizes and devices.
+    *   **Application:** Use relative units (e.g., `em`, `rem`, `%`, `vw`, `vh`) for flexible layouts and typography where appropriate. Employ media queries for responsive adjustments. Consider a mobile-first or desktop-first approach consistently.
 
-*   **Efficient Data Fetching & Payload Management:**
-    *   **Principle:** Request only the data you need and be mindful of payload sizes.
-    *   **Application:** Utilize API features like field selection (e.g., GraphQL, or REST APIs supporting `fields` parameters) if available. For APIs that return large datasets, implement pagination. Avoid sending excessively large payloads in POST/PUT requests.
+*   **Separation of Concerns:**
+    *   **Principle:** Keep CSS focused on presentation, separate from HTML structure and JavaScript behavior.
+    *   **Application:** Avoid inline styles in HTML. JavaScript should primarily toggle classes to change styling, rather than directly manipulating CSS properties.
 
-*   **Idempotency Awareness:**
-    *   **Principle:** Understand and leverage API idempotency where available, especially for operations that modify data.
-    *   **Application:** For non-idempotent POST requests that create resources, be cautious about retries to avoid creating duplicate resources. If an API supports idempotency keys, use them to safely retry requests.
+*   **Conciseness (Shorthand Properties):**
+    *   **Principle:** Use shorthand properties where appropriate to reduce code verbosity, but ensure readability is maintained.
+    *   **Application:** Use properties like `margin`, `padding`, `font`, `background` shorthand when setting multiple related values. For example, `margin: 10px 15px;` instead of `margin-top: 10px; margin-right: 15px; margin-bottom: 10px; margin-left: 15px;` (if all sides are symmetrical or paired).
 
-*   **Configuration and Abstraction:**
-    *   **Principle:** Abstract API base URLs and other configurations to allow for easy changes (e.g., switching between staging and production environments).
-    *   **Application:** Store base URLs, timeouts, and other API client settings in configuration files or environment variables. An API client class or module can encapsulate these settings. 
+*   **Accessibility:**
+    *   **Principle:** Ensure CSS choices support accessibility.
+    *   **Application:** Ensure sufficient color contrast. Avoid relying solely on color to convey information. Make sure focus states (`:focus`) are clearly visible. Use `prefers-reduced-motion` media query for users sensitive to animations. 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/andreasalomone)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/andreasalomone)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/andreasalomone) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
