@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [giaUllilen/is-cr-sdlc-ai-api-reposito
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/giaUllilen](https://tomevault.io/claim/giaUllilen)
 
