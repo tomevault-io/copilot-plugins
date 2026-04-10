@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [system32miro/mcp-template](https://gi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/system32miro](https://tomevault.io/claim/system32miro)
 
