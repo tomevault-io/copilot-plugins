@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [adamlyttleapps/claude-skill-aso-appstore-screen
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/adamlyttleapps](https://tomevault.io/claim/adamlyttleapps)
 
