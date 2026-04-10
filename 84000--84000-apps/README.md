@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [84000/84000-apps](https://github.com/84000/8400
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/84000](https://tomevault.io/claim/84000)
 
