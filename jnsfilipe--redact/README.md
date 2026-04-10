@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [JNSFilipe/redact](https://github.com/JNSFilipe/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/JNSFilipe](https://tomevault.io/claim/JNSFilipe)
 
