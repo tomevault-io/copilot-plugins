@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [julianoczkowski/modus-next-app](https://github.
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/julianoczkowski](https://tomevault.io/claim/julianoczkowski)
 
