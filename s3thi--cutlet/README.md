@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [s3thi/cutlet](https://github.com/s3thi/cutlet).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/s3thi](https://tomevault.io/claim/s3thi)
 
