@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [cspraggett/ToolingTs](https://github.com/csprag
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cspraggett](https://tomevault.io/claim/cspraggett)
 
