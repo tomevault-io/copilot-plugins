@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [hota911/ai-rules-bank](https://github.com/hota9
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hota911](https://tomevault.io/claim/hota911)
 
