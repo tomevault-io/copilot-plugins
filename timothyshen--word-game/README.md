@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [timothyshen/word-game](https://github.com/timot
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/timothyshen](https://tomevault.io/claim/timothyshen)
 
