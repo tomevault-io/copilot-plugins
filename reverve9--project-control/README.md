@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [reverve9/project_control](https://github.com/re
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/reverve9](https://tomevault.io/claim/reverve9)
 
