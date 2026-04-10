@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [14-David-06/sirius_financiero](https://github.c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/14-David-06](https://tomevault.io/claim/14-David-06)
 
