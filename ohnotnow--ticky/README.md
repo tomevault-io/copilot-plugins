@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [ohnotnow/ticky](https://github.com/ohnotnow/tic
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ohnotnow](https://tomevault.io/claim/ohnotnow)
 
