@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jonymusky/agents](https://github.com/jonymusky/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jonymusky](https://tomevault.io/claim/jonymusky)
 
