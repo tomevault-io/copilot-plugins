@@ -204,506 +204,6 @@
       "description": "universal-skills-manager"
     },
     {
-      "name": "nsimhaprasad--finplanner-ai",
-      "source": "./nsimhaprasad--finplanner-ai",
-      "description": "finplanner.ai"
-    },
-    {
-      "name": "supachaidev--cs-senior-project",
-      "source": "./supachaidev--cs-senior-project",
-      "description": "cs-senior-project"
-    },
-    {
-      "name": "capitalinvestingpartners--statsedge",
-      "source": "./capitalinvestingpartners--statsedge",
-      "description": "statsedge"
-    },
-    {
-      "name": "ignatov--sem-search",
-      "source": "./ignatov--sem-search",
-      "description": "sem-search"
-    },
-    {
-      "name": "syeeel--cs-study-marp",
-      "source": "./syeeel--cs-study-marp",
-      "description": "cs-study-marp"
-    },
-    {
-      "name": "skepticmystic--local-biz",
-      "source": "./skepticmystic--local-biz",
-      "description": "local-biz"
-    },
-    {
-      "name": "taikisakaguchi--komon-sop-manual",
-      "source": "./taikisakaguchi--komon-sop-manual",
-      "description": "komon-sop-manual"
-    },
-    {
-      "name": "exqbit--riftr",
-      "source": "./exqbit--riftr",
-      "description": "Riftr"
-    },
-    {
-      "name": "mikegilchrist--canvas-api",
-      "source": "./mikegilchrist--canvas-api",
-      "description": "Canvas.API"
-    },
-    {
-      "name": "dainburo--groov",
-      "source": "./dainburo--groov",
-      "description": "Groov"
-    },
-    {
-      "name": "polarjack--keycloak-fe-ssr-nextjs",
-      "source": "./polarjack--keycloak-fe-ssr-nextjs",
-      "description": "keycloak-fe-ssr-nextjs"
-    },
-    {
-      "name": "gordolio--next-websocket-chat",
-      "source": "./gordolio--next-websocket-chat",
-      "description": "next-websocket-chat"
-    },
-    {
-      "name": "gunnysis--supabase-hermit",
-      "source": "./gunnysis--supabase-hermit",
-      "description": "supabase-hermit"
-    },
-    {
-      "name": "leesinliang--janus",
-      "source": "./leesinliang--janus",
-      "description": "Janus"
-    },
-    {
-      "name": "chenzhan4321--life-management",
-      "source": "./chenzhan4321--life-management",
-      "description": "life-management"
-    },
-    {
-      "name": "infinitybowman--repohub",
-      "source": "./infinitybowman--repohub",
-      "description": "repohub"
-    },
-    {
-      "name": "ivanball--mmca-common",
-      "source": "./ivanball--mmca-common",
-      "description": "MMCA.Common"
-    },
-    {
-      "name": "davidelka--gis-whatsup-helper",
-      "source": "./davidelka--gis-whatsup-helper",
-      "description": "gis_whatsup_helper"
-    },
-    {
-      "name": "iflitaiff--sunyata",
-      "source": "./iflitaiff--sunyata",
-      "description": "SUNYATA"
-    },
-    {
-      "name": "wrsmith108--obi-creative-assistant",
-      "source": "./wrsmith108--obi-creative-assistant",
-      "description": "obi-creative-assistant"
-    },
-    {
-      "name": "cyrup-ai--codeskew",
-      "source": "./cyrup-ai--codeskew",
-      "description": "codeskew"
-    },
-    {
-      "name": "shimpei1494--slide-web-app",
-      "source": "./shimpei1494--slide-web-app",
-      "description": "slide-web-app"
-    },
-    {
-      "name": "kamalyunus--season",
-      "source": "./kamalyunus--season",
-      "description": "season"
-    },
-    {
-      "name": "easily-amused--ea-gaming-engine",
-      "source": "./easily-amused--ea-gaming-engine",
-      "description": "ea-gaming-engine"
-    },
-    {
-      "name": "jefferyhhhhhhh--etgy-web",
-      "source": "./jefferyhhhhhhh--etgy-web",
-      "description": "etgy_web"
-    },
-    {
-      "name": "telmobelsuzarri--oipet-saude",
-      "source": "./telmobelsuzarri--oipet-saude",
-      "description": "Oipet-saude"
-    },
-    {
-      "name": "naokirin--room-based-multiplayer-poc",
-      "source": "./naokirin--room-based-multiplayer-poc",
-      "description": "room-based-multiplayer-poc"
-    },
-    {
-      "name": "pieberrykinnie--pieberrykinnie-github-io",
-      "source": "./pieberrykinnie--pieberrykinnie-github-io",
-      "description": "pieberrykinnie.github.io"
-    },
-    {
-      "name": "rodenp--crawler",
-      "source": "./rodenp--crawler",
-      "description": "crawler"
-    },
-    {
-      "name": "allra-fintech--mdv",
-      "source": "./allra-fintech--mdv",
-      "description": "mdv"
-    },
-    {
-      "name": "chrischaps--scratcher",
-      "source": "./chrischaps--scratcher",
-      "description": "Scratcher"
-    },
-    {
-      "name": "jaaalmg--graph-challenge-workspace",
-      "source": "./jaaalmg--graph-challenge-workspace",
-      "description": "Graph-Challenge-Workspace"
-    },
-    {
-      "name": "katzgov--katzgov-web",
-      "source": "./katzgov--katzgov-web",
-      "description": "katzgov-web"
-    },
-    {
-      "name": "jordiparracrespo--tickr",
-      "source": "./jordiparracrespo--tickr",
-      "description": "tickr"
-    },
-    {
-      "name": "jianyuezhexue--thinkingmodels",
-      "source": "./jianyuezhexue--thinkingmodels",
-      "description": "thinkingModels"
-    },
-    {
-      "name": "jackb2002--modern-uplink",
-      "source": "./jackb2002--modern-uplink",
-      "description": "modern-uplink"
-    },
-    {
-      "name": "joebling--fcstlabpro",
-      "source": "./joebling--fcstlabpro",
-      "description": "FcstLabPro"
-    },
-    {
-      "name": "yuyakinjo--set-object-utils",
-      "source": "./yuyakinjo--set-object-utils",
-      "description": "set-object-utils"
-    },
-    {
-      "name": "danielba777--leitnerai-api",
-      "source": "./danielba777--leitnerai-api",
-      "description": "leitnerai-api"
-    },
-    {
-      "name": "samth--mred-format-viewer",
-      "source": "./samth--mred-format-viewer",
-      "description": "mred-format-viewer"
-    },
-    {
-      "name": "samisaf--preceptorials-tracker-streamlit",
-      "source": "./samisaf--preceptorials-tracker-streamlit",
-      "description": "preceptorials-tracker-streamlit"
-    },
-    {
-      "name": "adumat--paradox-dgp-mqtt",
-      "source": "./adumat--paradox-dgp-mqtt",
-      "description": "paradox-dgp-mqtt"
-    },
-    {
-      "name": "sepehr-safari--mknostribe",
-      "source": "./sepehr-safari--mknostribe",
-      "description": "mknostribe"
-    },
-    {
-      "name": "yanqirenshi--tm-js",
-      "source": "./yanqirenshi--tm-js",
-      "description": "TM.js"
-    },
-    {
-      "name": "therealchrisrock--agentic-applications",
-      "source": "./therealchrisrock--agentic-applications",
-      "description": "agentic-applications"
-    },
-    {
-      "name": "stefvw93--std-nodejs-ts",
-      "source": "./stefvw93--std-nodejs-ts",
-      "description": "std-nodejs-ts"
-    },
-    {
-      "name": "jucor--mlconf-dlp",
-      "source": "./jucor--mlconf-dlp",
-      "description": "mlconf-dlp"
-    },
-    {
-      "name": "digitalrebelz--arbitrage-app",
-      "source": "./digitalrebelz--arbitrage-app",
-      "description": "arbitrage-app"
-    },
-    {
-      "name": "bellx2--raspbian-ca-update",
-      "source": "./bellx2--raspbian-ca-update",
-      "description": "raspbian-ca-update"
-    },
-    {
-      "name": "icathian-rain--wwqy-app",
-      "source": "./icathian-rain--wwqy-app",
-      "description": "wwqy-app"
-    },
-    {
-      "name": "agent-blueprint--agent-blueprint-website",
-      "source": "./agent-blueprint--agent-blueprint-website",
-      "description": "agent-blueprint-website"
-    },
-    {
-      "name": "hrdmtr--prompthub",
-      "source": "./hrdmtr--prompthub",
-      "description": "prompthub"
-    },
-    {
-      "name": "love4yzp--xiao-ble-motion",
-      "source": "./love4yzp--xiao-ble-motion",
-      "description": "xiao-ble-motion"
-    },
-    {
-      "name": "rstover-fo--cfb-database",
-      "source": "./rstover-fo--cfb-database",
-      "description": "cfb-database"
-    },
-    {
-      "name": "legalize-kr--legalize-pipeline",
-      "source": "./legalize-kr--legalize-pipeline",
-      "description": "legalize-pipeline"
-    },
-    {
-      "name": "shuhaiyu--openmat",
-      "source": "./shuhaiyu--openmat",
-      "description": "openmat"
-    },
-    {
-      "name": "hiraaaken--vue-architecture-test",
-      "source": "./hiraaaken--vue-architecture-test",
-      "description": "vue-architecture-test"
-    },
-    {
-      "name": "fabianzink--resnet-cifar10",
-      "source": "./fabianzink--resnet-cifar10",
-      "description": "resnet_cifar10"
-    },
-    {
-      "name": "rickwiltsie--wrestling",
-      "source": "./rickwiltsie--wrestling",
-      "description": "wrestling"
-    },
-    {
-      "name": "kakerunishimotovega--goods-naming-app",
-      "source": "./kakerunishimotovega--goods-naming-app",
-      "description": "goods-naming-app"
-    },
-    {
-      "name": "dilgerma--webinar20260218",
-      "source": "./dilgerma--webinar20260218",
-      "description": "webinar20260218"
-    },
-    {
-      "name": "sepehr-safari--mkgroups",
-      "source": "./sepehr-safari--mkgroups",
-      "description": "mkgroups"
-    },
-    {
-      "name": "sepehr-safari--mkauction",
-      "source": "./sepehr-safari--mkauction",
-      "description": "mkauction"
-    },
-    {
-      "name": "jedisct1--libsodium",
-      "source": "./jedisct1--libsodium",
-      "description": "libsodium"
-    },
-    {
-      "name": "javascript-obfuscator--javascript-obfuscator",
-      "source": "./javascript-obfuscator--javascript-obfuscator",
-      "description": "javascript-obfuscator"
-    },
-    {
-      "name": "xintaofei--nextbb",
-      "source": "./xintaofei--nextbb",
-      "description": "nextbb"
-    },
-    {
-      "name": "s3thi--cutlet",
-      "source": "./s3thi--cutlet",
-      "description": "cutlet"
-    },
-    {
-      "name": "bitsandbytes-foundation--bitsandbytes",
-      "source": "./bitsandbytes-foundation--bitsandbytes",
-      "description": "bitsandbytes"
-    },
-    {
-      "name": "wyldphyre--omnitrack",
-      "source": "./wyldphyre--omnitrack",
-      "description": "OmniTrack"
-    },
-    {
-      "name": "juleschu12--voice-memory",
-      "source": "./juleschu12--voice-memory",
-      "description": "voice-memory"
-    },
-    {
-      "name": "slinkter--myprojectapi02",
-      "source": "./slinkter--myprojectapi02",
-      "description": "myprojectapi02"
-    },
-    {
-      "name": "applegrew--fire-hose",
-      "source": "./applegrew--fire-hose",
-      "description": "fire-hose"
-    },
-    {
-      "name": "brendan-brummer--2jz",
-      "source": "./brendan-brummer--2jz",
-      "description": "2jz"
-    },
-    {
-      "name": "jxnl--systematically-improving-rag",
-      "source": "./jxnl--systematically-improving-rag",
-      "description": "systematically-improving-rag"
-    },
-    {
-      "name": "myspacecornelius--noetic2-0",
-      "source": "./myspacecornelius--noetic2-0",
-      "description": "Noetic2.0"
-    },
-    {
-      "name": "mister-scott--claude-code-clipboard",
-      "source": "./mister-scott--claude-code-clipboard",
-      "description": "claude-code-clipboard"
-    },
-    {
-      "name": "alisamadiii--portfolio",
-      "source": "./alisamadiii--portfolio",
-      "description": "Portfolio"
-    },
-    {
-      "name": "digital-chemistry-laboratory--smiles-transformer",
-      "source": "./digital-chemistry-laboratory--smiles-transformer",
-      "description": "SMILES-Transformer"
-    },
-    {
-      "name": "rmwinslow--jtd-rmw",
-      "source": "./rmwinslow--jtd-rmw",
-      "description": "JTD-RMW"
-    },
-    {
-      "name": "jon-chun--ai-conferences-and-events",
-      "source": "./jon-chun--ai-conferences-and-events",
-      "description": "ai-conferences-and-events"
-    },
-    {
-      "name": "linzhe001--harness-research",
-      "source": "./linzhe001--harness-research",
-      "description": "Harness-Research"
-    },
-    {
-      "name": "liulei-jm--legend2tool",
-      "source": "./liulei-jm--legend2tool",
-      "description": "Legend2Tool"
-    },
-    {
-      "name": "aszabo314--skytesty3-dommy",
-      "source": "./aszabo314--skytesty3-dommy",
-      "description": "skytesty3-dommy"
-    },
-    {
-      "name": "nordeim--the-scent-php",
-      "source": "./nordeim--the-scent-php",
-      "description": "The-Scent-php"
-    },
-    {
-      "name": "konstantin-uvarov--my-ip-widget",
-      "source": "./konstantin-uvarov--my-ip-widget",
-      "description": "my-ip-widget"
-    },
-    {
-      "name": "shmul95--nexus",
-      "source": "./shmul95--nexus",
-      "description": "nexus"
-    },
-    {
-      "name": "claruai--claru-landing",
-      "source": "./claruai--claru-landing",
-      "description": "claru-landing"
-    },
-    {
-      "name": "zaccarrico--nof1",
-      "source": "./zaccarrico--nof1",
-      "description": "nof1"
-    },
-    {
-      "name": "yusukeiwaki--puppeteer-bidi",
-      "source": "./yusukeiwaki--puppeteer-bidi",
-      "description": "puppeteer-bidi"
-    },
-    {
-      "name": "jungmarker--fitness-app",
-      "source": "./jungmarker--fitness-app",
-      "description": "fitness-app"
-    },
-    {
-      "name": "akazdayo--llm-speaker-test",
-      "source": "./akazdayo--llm-speaker-test",
-      "description": "llm-speaker-test"
-    },
-    {
-      "name": "bravegeek--theaiglet",
-      "source": "./bravegeek--theaiglet",
-      "description": "theaiglet"
-    },
-    {
-      "name": "iterable--iterable-swift-sdk",
-      "source": "./iterable--iterable-swift-sdk",
-      "description": "iterable-swift-sdk"
-    },
-    {
-      "name": "sudam-shrestha--falgun13-newsportal",
-      "source": "./sudam-shrestha--falgun13-newsportal",
-      "description": "falgun13_newsportal"
-    },
-    {
-      "name": "kay-zhang1625--goodtime-calendar-subscription-2026",
-      "source": "./kay-zhang1625--goodtime-calendar-subscription-2026",
-      "description": "goodtime_calendar_subscription_2026"
-    },
-    {
-      "name": "aarunbala--kana",
-      "source": "./aarunbala--kana",
-      "description": "kana"
-    },
-    {
-      "name": "cmumulle--chainmatch",
-      "source": "./cmumulle--chainmatch",
-      "description": "chainmatch"
-    },
-    {
-      "name": "f-lab-edu--running-diary",
-      "source": "./f-lab-edu--running-diary",
-      "description": "Running-Diary"
-    },
-    {
-      "name": "alexford--twilito",
-      "source": "./alexford--twilito",
-      "description": "twilito"
-    },
-    {
-      "name": "alchaincyf--huasheng-editor",
-      "source": "./alchaincyf--huasheng-editor",
-      "description": "huasheng_editor"
-    },
-    {
       "name": "hellobanora--claude-code-banora",
       "source": "./hellobanora--claude-code-banora",
       "description": "Claude-Code-Banora"
@@ -11162,6 +10662,506 @@
       "name": "cellfusion--zk-mcp",
       "source": "./cellfusion--zk-mcp",
       "description": "zk-mcp"
+    },
+    {
+      "name": "nsimhaprasad--finplanner-ai",
+      "source": "./nsimhaprasad--finplanner-ai",
+      "description": "finplanner.ai"
+    },
+    {
+      "name": "supachaidev--cs-senior-project",
+      "source": "./supachaidev--cs-senior-project",
+      "description": "cs-senior-project"
+    },
+    {
+      "name": "capitalinvestingpartners--statsedge",
+      "source": "./capitalinvestingpartners--statsedge",
+      "description": "statsedge"
+    },
+    {
+      "name": "ignatov--sem-search",
+      "source": "./ignatov--sem-search",
+      "description": "sem-search"
+    },
+    {
+      "name": "syeeel--cs-study-marp",
+      "source": "./syeeel--cs-study-marp",
+      "description": "cs-study-marp"
+    },
+    {
+      "name": "skepticmystic--local-biz",
+      "source": "./skepticmystic--local-biz",
+      "description": "local-biz"
+    },
+    {
+      "name": "taikisakaguchi--komon-sop-manual",
+      "source": "./taikisakaguchi--komon-sop-manual",
+      "description": "komon-sop-manual"
+    },
+    {
+      "name": "exqbit--riftr",
+      "source": "./exqbit--riftr",
+      "description": "Riftr"
+    },
+    {
+      "name": "mikegilchrist--canvas-api",
+      "source": "./mikegilchrist--canvas-api",
+      "description": "Canvas.API"
+    },
+    {
+      "name": "dainburo--groov",
+      "source": "./dainburo--groov",
+      "description": "Groov"
+    },
+    {
+      "name": "polarjack--keycloak-fe-ssr-nextjs",
+      "source": "./polarjack--keycloak-fe-ssr-nextjs",
+      "description": "keycloak-fe-ssr-nextjs"
+    },
+    {
+      "name": "gordolio--next-websocket-chat",
+      "source": "./gordolio--next-websocket-chat",
+      "description": "next-websocket-chat"
+    },
+    {
+      "name": "gunnysis--supabase-hermit",
+      "source": "./gunnysis--supabase-hermit",
+      "description": "supabase-hermit"
+    },
+    {
+      "name": "leesinliang--janus",
+      "source": "./leesinliang--janus",
+      "description": "Janus"
+    },
+    {
+      "name": "chenzhan4321--life-management",
+      "source": "./chenzhan4321--life-management",
+      "description": "life-management"
+    },
+    {
+      "name": "infinitybowman--repohub",
+      "source": "./infinitybowman--repohub",
+      "description": "repohub"
+    },
+    {
+      "name": "ivanball--mmca-common",
+      "source": "./ivanball--mmca-common",
+      "description": "MMCA.Common"
+    },
+    {
+      "name": "davidelka--gis-whatsup-helper",
+      "source": "./davidelka--gis-whatsup-helper",
+      "description": "gis_whatsup_helper"
+    },
+    {
+      "name": "iflitaiff--sunyata",
+      "source": "./iflitaiff--sunyata",
+      "description": "SUNYATA"
+    },
+    {
+      "name": "wrsmith108--obi-creative-assistant",
+      "source": "./wrsmith108--obi-creative-assistant",
+      "description": "obi-creative-assistant"
+    },
+    {
+      "name": "cyrup-ai--codeskew",
+      "source": "./cyrup-ai--codeskew",
+      "description": "codeskew"
+    },
+    {
+      "name": "shimpei1494--slide-web-app",
+      "source": "./shimpei1494--slide-web-app",
+      "description": "slide-web-app"
+    },
+    {
+      "name": "kamalyunus--season",
+      "source": "./kamalyunus--season",
+      "description": "season"
+    },
+    {
+      "name": "easily-amused--ea-gaming-engine",
+      "source": "./easily-amused--ea-gaming-engine",
+      "description": "ea-gaming-engine"
+    },
+    {
+      "name": "jefferyhhhhhhh--etgy-web",
+      "source": "./jefferyhhhhhhh--etgy-web",
+      "description": "etgy_web"
+    },
+    {
+      "name": "telmobelsuzarri--oipet-saude",
+      "source": "./telmobelsuzarri--oipet-saude",
+      "description": "Oipet-saude"
+    },
+    {
+      "name": "naokirin--room-based-multiplayer-poc",
+      "source": "./naokirin--room-based-multiplayer-poc",
+      "description": "room-based-multiplayer-poc"
+    },
+    {
+      "name": "pieberrykinnie--pieberrykinnie-github-io",
+      "source": "./pieberrykinnie--pieberrykinnie-github-io",
+      "description": "pieberrykinnie.github.io"
+    },
+    {
+      "name": "rodenp--crawler",
+      "source": "./rodenp--crawler",
+      "description": "crawler"
+    },
+    {
+      "name": "allra-fintech--mdv",
+      "source": "./allra-fintech--mdv",
+      "description": "mdv"
+    },
+    {
+      "name": "chrischaps--scratcher",
+      "source": "./chrischaps--scratcher",
+      "description": "Scratcher"
+    },
+    {
+      "name": "jaaalmg--graph-challenge-workspace",
+      "source": "./jaaalmg--graph-challenge-workspace",
+      "description": "Graph-Challenge-Workspace"
+    },
+    {
+      "name": "katzgov--katzgov-web",
+      "source": "./katzgov--katzgov-web",
+      "description": "katzgov-web"
+    },
+    {
+      "name": "jordiparracrespo--tickr",
+      "source": "./jordiparracrespo--tickr",
+      "description": "tickr"
+    },
+    {
+      "name": "jianyuezhexue--thinkingmodels",
+      "source": "./jianyuezhexue--thinkingmodels",
+      "description": "thinkingModels"
+    },
+    {
+      "name": "jackb2002--modern-uplink",
+      "source": "./jackb2002--modern-uplink",
+      "description": "modern-uplink"
+    },
+    {
+      "name": "joebling--fcstlabpro",
+      "source": "./joebling--fcstlabpro",
+      "description": "FcstLabPro"
+    },
+    {
+      "name": "yuyakinjo--set-object-utils",
+      "source": "./yuyakinjo--set-object-utils",
+      "description": "set-object-utils"
+    },
+    {
+      "name": "danielba777--leitnerai-api",
+      "source": "./danielba777--leitnerai-api",
+      "description": "leitnerai-api"
+    },
+    {
+      "name": "samth--mred-format-viewer",
+      "source": "./samth--mred-format-viewer",
+      "description": "mred-format-viewer"
+    },
+    {
+      "name": "samisaf--preceptorials-tracker-streamlit",
+      "source": "./samisaf--preceptorials-tracker-streamlit",
+      "description": "preceptorials-tracker-streamlit"
+    },
+    {
+      "name": "adumat--paradox-dgp-mqtt",
+      "source": "./adumat--paradox-dgp-mqtt",
+      "description": "paradox-dgp-mqtt"
+    },
+    {
+      "name": "sepehr-safari--mknostribe",
+      "source": "./sepehr-safari--mknostribe",
+      "description": "mknostribe"
+    },
+    {
+      "name": "yanqirenshi--tm-js",
+      "source": "./yanqirenshi--tm-js",
+      "description": "TM.js"
+    },
+    {
+      "name": "therealchrisrock--agentic-applications",
+      "source": "./therealchrisrock--agentic-applications",
+      "description": "agentic-applications"
+    },
+    {
+      "name": "stefvw93--std-nodejs-ts",
+      "source": "./stefvw93--std-nodejs-ts",
+      "description": "std-nodejs-ts"
+    },
+    {
+      "name": "jucor--mlconf-dlp",
+      "source": "./jucor--mlconf-dlp",
+      "description": "mlconf-dlp"
+    },
+    {
+      "name": "digitalrebelz--arbitrage-app",
+      "source": "./digitalrebelz--arbitrage-app",
+      "description": "arbitrage-app"
+    },
+    {
+      "name": "bellx2--raspbian-ca-update",
+      "source": "./bellx2--raspbian-ca-update",
+      "description": "raspbian-ca-update"
+    },
+    {
+      "name": "icathian-rain--wwqy-app",
+      "source": "./icathian-rain--wwqy-app",
+      "description": "wwqy-app"
+    },
+    {
+      "name": "agent-blueprint--agent-blueprint-website",
+      "source": "./agent-blueprint--agent-blueprint-website",
+      "description": "agent-blueprint-website"
+    },
+    {
+      "name": "hrdmtr--prompthub",
+      "source": "./hrdmtr--prompthub",
+      "description": "prompthub"
+    },
+    {
+      "name": "love4yzp--xiao-ble-motion",
+      "source": "./love4yzp--xiao-ble-motion",
+      "description": "xiao-ble-motion"
+    },
+    {
+      "name": "rstover-fo--cfb-database",
+      "source": "./rstover-fo--cfb-database",
+      "description": "cfb-database"
+    },
+    {
+      "name": "legalize-kr--legalize-pipeline",
+      "source": "./legalize-kr--legalize-pipeline",
+      "description": "legalize-pipeline"
+    },
+    {
+      "name": "shuhaiyu--openmat",
+      "source": "./shuhaiyu--openmat",
+      "description": "openmat"
+    },
+    {
+      "name": "hiraaaken--vue-architecture-test",
+      "source": "./hiraaaken--vue-architecture-test",
+      "description": "vue-architecture-test"
+    },
+    {
+      "name": "fabianzink--resnet-cifar10",
+      "source": "./fabianzink--resnet-cifar10",
+      "description": "resnet_cifar10"
+    },
+    {
+      "name": "rickwiltsie--wrestling",
+      "source": "./rickwiltsie--wrestling",
+      "description": "wrestling"
+    },
+    {
+      "name": "kakerunishimotovega--goods-naming-app",
+      "source": "./kakerunishimotovega--goods-naming-app",
+      "description": "goods-naming-app"
+    },
+    {
+      "name": "dilgerma--webinar20260218",
+      "source": "./dilgerma--webinar20260218",
+      "description": "webinar20260218"
+    },
+    {
+      "name": "sepehr-safari--mkgroups",
+      "source": "./sepehr-safari--mkgroups",
+      "description": "mkgroups"
+    },
+    {
+      "name": "sepehr-safari--mkauction",
+      "source": "./sepehr-safari--mkauction",
+      "description": "mkauction"
+    },
+    {
+      "name": "jedisct1--libsodium",
+      "source": "./jedisct1--libsodium",
+      "description": "libsodium"
+    },
+    {
+      "name": "javascript-obfuscator--javascript-obfuscator",
+      "source": "./javascript-obfuscator--javascript-obfuscator",
+      "description": "javascript-obfuscator"
+    },
+    {
+      "name": "xintaofei--nextbb",
+      "source": "./xintaofei--nextbb",
+      "description": "nextbb"
+    },
+    {
+      "name": "s3thi--cutlet",
+      "source": "./s3thi--cutlet",
+      "description": "cutlet"
+    },
+    {
+      "name": "bitsandbytes-foundation--bitsandbytes",
+      "source": "./bitsandbytes-foundation--bitsandbytes",
+      "description": "bitsandbytes"
+    },
+    {
+      "name": "wyldphyre--omnitrack",
+      "source": "./wyldphyre--omnitrack",
+      "description": "OmniTrack"
+    },
+    {
+      "name": "juleschu12--voice-memory",
+      "source": "./juleschu12--voice-memory",
+      "description": "voice-memory"
+    },
+    {
+      "name": "slinkter--myprojectapi02",
+      "source": "./slinkter--myprojectapi02",
+      "description": "myprojectapi02"
+    },
+    {
+      "name": "applegrew--fire-hose",
+      "source": "./applegrew--fire-hose",
+      "description": "fire-hose"
+    },
+    {
+      "name": "brendan-brummer--2jz",
+      "source": "./brendan-brummer--2jz",
+      "description": "2jz"
+    },
+    {
+      "name": "jxnl--systematically-improving-rag",
+      "source": "./jxnl--systematically-improving-rag",
+      "description": "systematically-improving-rag"
+    },
+    {
+      "name": "myspacecornelius--noetic2-0",
+      "source": "./myspacecornelius--noetic2-0",
+      "description": "Noetic2.0"
+    },
+    {
+      "name": "mister-scott--claude-code-clipboard",
+      "source": "./mister-scott--claude-code-clipboard",
+      "description": "claude-code-clipboard"
+    },
+    {
+      "name": "alisamadiii--portfolio",
+      "source": "./alisamadiii--portfolio",
+      "description": "Portfolio"
+    },
+    {
+      "name": "digital-chemistry-laboratory--smiles-transformer",
+      "source": "./digital-chemistry-laboratory--smiles-transformer",
+      "description": "SMILES-Transformer"
+    },
+    {
+      "name": "rmwinslow--jtd-rmw",
+      "source": "./rmwinslow--jtd-rmw",
+      "description": "JTD-RMW"
+    },
+    {
+      "name": "jon-chun--ai-conferences-and-events",
+      "source": "./jon-chun--ai-conferences-and-events",
+      "description": "ai-conferences-and-events"
+    },
+    {
+      "name": "linzhe001--harness-research",
+      "source": "./linzhe001--harness-research",
+      "description": "Harness-Research"
+    },
+    {
+      "name": "liulei-jm--legend2tool",
+      "source": "./liulei-jm--legend2tool",
+      "description": "Legend2Tool"
+    },
+    {
+      "name": "aszabo314--skytesty3-dommy",
+      "source": "./aszabo314--skytesty3-dommy",
+      "description": "skytesty3-dommy"
+    },
+    {
+      "name": "nordeim--the-scent-php",
+      "source": "./nordeim--the-scent-php",
+      "description": "The-Scent-php"
+    },
+    {
+      "name": "konstantin-uvarov--my-ip-widget",
+      "source": "./konstantin-uvarov--my-ip-widget",
+      "description": "my-ip-widget"
+    },
+    {
+      "name": "shmul95--nexus",
+      "source": "./shmul95--nexus",
+      "description": "nexus"
+    },
+    {
+      "name": "claruai--claru-landing",
+      "source": "./claruai--claru-landing",
+      "description": "claru-landing"
+    },
+    {
+      "name": "zaccarrico--nof1",
+      "source": "./zaccarrico--nof1",
+      "description": "nof1"
+    },
+    {
+      "name": "yusukeiwaki--puppeteer-bidi",
+      "source": "./yusukeiwaki--puppeteer-bidi",
+      "description": "puppeteer-bidi"
+    },
+    {
+      "name": "jungmarker--fitness-app",
+      "source": "./jungmarker--fitness-app",
+      "description": "fitness-app"
+    },
+    {
+      "name": "akazdayo--llm-speaker-test",
+      "source": "./akazdayo--llm-speaker-test",
+      "description": "llm-speaker-test"
+    },
+    {
+      "name": "bravegeek--theaiglet",
+      "source": "./bravegeek--theaiglet",
+      "description": "theaiglet"
+    },
+    {
+      "name": "iterable--iterable-swift-sdk",
+      "source": "./iterable--iterable-swift-sdk",
+      "description": "iterable-swift-sdk"
+    },
+    {
+      "name": "sudam-shrestha--falgun13-newsportal",
+      "source": "./sudam-shrestha--falgun13-newsportal",
+      "description": "falgun13_newsportal"
+    },
+    {
+      "name": "kay-zhang1625--goodtime-calendar-subscription-2026",
+      "source": "./kay-zhang1625--goodtime-calendar-subscription-2026",
+      "description": "goodtime_calendar_subscription_2026"
+    },
+    {
+      "name": "aarunbala--kana",
+      "source": "./aarunbala--kana",
+      "description": "kana"
+    },
+    {
+      "name": "cmumulle--chainmatch",
+      "source": "./cmumulle--chainmatch",
+      "description": "chainmatch"
+    },
+    {
+      "name": "f-lab-edu--running-diary",
+      "source": "./f-lab-edu--running-diary",
+      "description": "Running-Diary"
+    },
+    {
+      "name": "alexford--twilito",
+      "source": "./alexford--twilito",
+      "description": "twilito"
+    },
+    {
+      "name": "alchaincyf--huasheng-editor",
+      "source": "./alchaincyf--huasheng-editor",
+      "description": "huasheng_editor"
     }
   ]
 }
