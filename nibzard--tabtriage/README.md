@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [nibzard/tabtriage](https://github.com/nibzard/t
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nibzard](https://tomevault.io/claim/nibzard)
 
