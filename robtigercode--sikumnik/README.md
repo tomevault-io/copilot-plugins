@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [RobTigerCode/Sikumnik](https://github.com/RobTi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/RobTigerCode](https://tomevault.io/claim/RobTigerCode)
 
