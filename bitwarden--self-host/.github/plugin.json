@@ -1,0 +1,9 @@
+{
+  "name": "bitwarden--self-host",
+  "displayName": "self-host",
+  "description": "self-host",
+  "version": "1.0.0",
+  "author": "bitwarden",
+  "homepage": "https://tomevault.io/claim/bitwarden",
+  "skills": []
+}
