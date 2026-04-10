@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [MALIEV-Co-Ltd/Maliev.MessagingContracts](https:
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/MALIEV-Co-Ltd](https://tomevault.io/claim/MALIEV-Co-Ltd)
 
