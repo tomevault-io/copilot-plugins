@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [petrasvestartas/wood_nano](https://github.com/p
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/petrasvestartas](https://tomevault.io/claim/petrasvestartas)
 
