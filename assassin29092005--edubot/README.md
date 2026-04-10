@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Assassin29092005/EduBot](https://github.com/Ass
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Assassin29092005](https://tomevault.io/claim/Assassin29092005)
 
