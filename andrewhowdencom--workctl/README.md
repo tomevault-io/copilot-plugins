@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [andrewhowdencom/workctl](https://github.com/and
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/andrewhowdencom](https://tomevault.io/claim/andrewhowdencom)
 
