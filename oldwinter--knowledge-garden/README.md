@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [oldwinter/knowledge-garden](https://github.com/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/oldwinter](https://tomevault.io/claim/oldwinter)
 
