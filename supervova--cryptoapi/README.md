@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [supervova/cryptoapi](https://github.com/supervo
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/supervova](https://tomevault.io/claim/supervova)
 
