@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [jtama/jtama.github.io](https://github.com/jtama
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jtama](https://tomevault.io/claim/jtama)
 
