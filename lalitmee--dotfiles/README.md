@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [lalitmee/dotfiles](https://github.com/lalitmee/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lalitmee](https://tomevault.io/claim/lalitmee)
 
