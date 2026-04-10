@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [simm-is/partial-cps](https://github.com/simm-is
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/simm-is](https://tomevault.io/claim/simm-is)
 
