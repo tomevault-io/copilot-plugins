@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sjm42/esp32temp](https://github.com/sjm42/esp32
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sjm42](https://tomevault.io/claim/sjm42)
 
