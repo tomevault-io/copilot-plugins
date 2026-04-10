@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [donbeckcode/task-r](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/donbeckcode](https://tomevault.io/claim/donbeckcode)
 
