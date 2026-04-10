@@ -1,0 +1,9 @@
+{
+  "name": "home-assistant--companion-home-assistant",
+  "displayName": "companion.home-assistant",
+  "description": "companion.home-assistant",
+  "version": "1.0.0",
+  "author": "home-assistant",
+  "homepage": "https://tomevault.io/claim/home-assistant",
+  "skills": []
+}
