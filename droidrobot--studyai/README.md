@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [DroidRobot/StudyAI](https://github.com/DroidRob
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/DroidRobot](https://tomevault.io/claim/DroidRobot)
 
