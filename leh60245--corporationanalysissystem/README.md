@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [leh60245/CorporationAnalysisSystem](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/leh60245](https://tomevault.io/claim/leh60245)
 
