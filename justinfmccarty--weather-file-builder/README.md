@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [justinfmccarty/Weather-File-Builder](
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/justinfmccarty](https://tomevault.io/claim/justinfmccarty)
 
