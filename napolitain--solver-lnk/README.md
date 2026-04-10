@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Napolitain/solver-lnk](https://github.com/Napol
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Napolitain](https://tomevault.io/claim/Napolitain)
 
