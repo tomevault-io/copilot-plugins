@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Telmobelsuzarri/Oipet-saude](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Telmobelsuzarri](https://tomevault.io/claim/Telmobelsuzarri)
 
