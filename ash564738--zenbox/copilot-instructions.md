@@ -1,57 +1,105 @@
 ## zenbox
 
-> Guidelines for testing the application with Vitest
+> Guidelines for implementing Next.js server actions
 
-# Testing Guidelines
+# Server Actions
 
-## Testing Framework
-- `vitest` is used for testing
-- Tests are colocated next to the tested file
-  - Example: `dir/format.ts` and `dir/format.test.ts`
-- AI tests are placed in the `__tests__` directory and are not run by default (they use a real LLM)
+## Format and Structure
+Server actions should follow this format:
 
-## Common Mocks
+Files:
+- `apps/web/utils/actions/NAME.validation.ts`
+- `apps/web/utils/actions/NAME.ts`
 
-### Server-Only Mock
-```ts
-vi.mock("server-only", () => ({}));
-```
+For `apps/web/utils/actions/NAME.validation.ts`:
 
-### Prisma Mock
-```ts
-import { beforeEach } from "vitest";
-import prisma from "@/utils/__mocks__/prisma";
+```typescript
+import { z } from "zod";
 
-vi.mock("@/utils/prisma");
-
-describe("example", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("test", async () => {
-    prisma.group.findMany.mockResolvedValue([]);
-  });
+// Example: Schema for updating AI settings
+export const saveAiSettingsBody = z.object({
+  aiProvider: z.string().optional(), // Adjust types as needed
+  aiModel: z.string().optional(),
+  aiApiKey: z.string().optional(),
 });
+export type SaveAiSettingsBody = z.infer<typeof saveAiSettingsBody>;
+
+// Example: Schema for updating email settings (requires emailAccountId binding)
+export const saveEmailUpdateSettingsBody = z.object({
+  statsEmailFrequency: z.string().optional(), // Use specific enum/types if applicable
+  summaryEmailFrequency: z.string().optional(),
+});
+export type SaveEmailUpdateSettingsBody = z.infer<
+  typeof saveEmailUpdateSettingsBody
+>;
+
 ```
 
-### Helpers
+For `apps/web/utils/actions/NAME.ts`:
 
-You can get mocks for emails, accounts, and rules here:
+```typescript
+"use server";
 
-```tsx
-import { getEmail, getEmailAccount, getRule } from "@/__tests__/helpers";
+import { actionClient, actionClientUser } from "@/utils/actions/safe-action";
+import {
+  saveAiSettingsBody,
+  saveEmailUpdateSettingsBody,
+} from "@/utils/actions/settings.validation"; // Adjust path
+import prisma from "@/utils/prisma";
+import { revalidatePath } from "next/cache"; // Import if needed for cache invalidation
+
+// Example using actionClientUser (requires authenticated user context)
+export const updateAiSettingsAction = actionClientUser
+  .metadata({ name: "updateAiSettings" }) // For logging/instrumentation
+  .schema(saveAiSettingsBody) // Zod schema for input validation
+  .action(
+    async ({
+      ctx: { userId }, // Access context provided by the safe-action client
+      parsedInput: { aiProvider, aiModel, aiApiKey }, // Validated and typed input
+    }) => {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { aiProvider, aiModel, aiApiKey },
+      });
+    },
+  );
+
+// Example using actionClient (requires authenticated user + bound emailAccountId)
+export const updateEmailSettingsAction = actionClient
+  .metadata({ name: "updateEmailSettings" })
+  .schema(saveEmailUpdateSettingsBody)
+  // Note: emailAccountId is bound when calling this action from the client
+  .action(
+    async ({
+      ctx: { emailAccountId }, // Access context (includes userId, email etc.)
+      parsedInput: { statsEmailFrequency, summaryEmailFrequency },
+    }) => {
+      await prisma.emailAccount.update({
+        where: { id: emailAccountId },
+        data: {
+          statsEmailFrequency,
+          summaryEmailFrequency,
+        },
+      });
+    },
+  );
+
 ```
 
-## Best Practices
-- Each test should be independent
-- Use descriptive test names
-- Mock external dependencies
-- Clean up mocks between tests
-- Avoid testing implementation details
-- Do not mock the Logger
+## Implementation Guidelines
+- **Use `next-safe-action`:** Implement all server actions using the `next-safe-action` library for type safety, input validation, context management, and error handling. Refer to `apps/web/utils/actions/safe-action.ts` for client definitions (`actionClient`, `actionClientUser`, `adminActionClient`).
+- **Choose the Right Client:**
+    - `actionClientUser`: Use when only authenticated user context (`userId`) is needed.
+    - `actionClient`: Use when both authenticated user context *and* a specific `emailAccountId` are needed. The `emailAccountId` must be bound when calling the action from the client.
+    - `adminActionClient`: Use for actions restricted to admin users.
+- **Input Validation:** Define input validation schemas using Zod in the corresponding `.validation.ts` file. These schemas are used by `next-safe-action` (`.schema()`) and can also be reused on the client for form validation.
+- **Context (`ctx`):** Access necessary context (like `userId`, `emailAccountId`, etc.) provided by the safe action client via the `ctx` object in the `.action()` handler.
+- **Mutations Only:** Server Actions are **strictly for mutations** (operations that change data, e.g., creating, updating, deleting). **Do NOT use Server Actions for data fetching (GET operations).**
+    - For data fetching, use dedicated [GET API Routes](mdc:.cursor/rules/get-api-route.mdc) combined with [SWR Hooks](mdc:.cursor/rules/data-fetching.mdc).
+- **Error Handling:** `next-safe-action` provides centralized error handling. Use `SafeError` for expected/handled errors within actions if needed (see `apps/web/utils/actions/safe-action.ts`).
+- **Instrumentation:** Sentry instrumentation is automatically applied via `withServerActionInstrumentation` within the safe action clients. Use the `.metadata({ name: "actionName" })` method to provide a meaningful name for monitoring.
+- **Cache Invalidation:** If an action modifies data displayed elsewhere, use `revalidatePath` or `revalidateTag` from `next/cache` within the action handler as needed.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Ash564738)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Ash564738)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Ash564738) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
