@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [YanceyOfficial/talon](https://github.com/Yancey
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/YanceyOfficial](https://tomevault.io/claim/YanceyOfficial)
 
