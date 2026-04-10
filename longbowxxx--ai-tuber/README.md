@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [LongbowXXX/ai-tuber](https://github.com/Longbow
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/LongbowXXX](https://tomevault.io/claim/LongbowXXX)
 
