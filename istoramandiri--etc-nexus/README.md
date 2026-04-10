@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [IstoraMandiri/etc-nexus](https://github.com/Ist
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/IstoraMandiri](https://tomevault.io/claim/IstoraMandiri)
 
