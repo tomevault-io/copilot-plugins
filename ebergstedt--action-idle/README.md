@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ebergstedt/action-idle](https://github.com/eber
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ebergstedt](https://tomevault.io/claim/ebergstedt)
 
