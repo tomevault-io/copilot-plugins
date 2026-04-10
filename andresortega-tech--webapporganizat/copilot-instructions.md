@@ -1,151 +1,44 @@
 ## webapporganizat
 
-> cuando se modifique tarea, revisamos las reglas
+> Guía para mantener la calidad y consistencia del código.
 
-# Reglas de Tasks
+# Estándares de Desarrollo
 
-Este documento define el funcionamiento del módulo de tareas, incluyendo reglas de filtrado, ordenamiento y contratos de request/response. Mantenerlo actualizado con cualquier cambio en `tasks/api.py` y `tasks/schemas.py`.
+Guía para mantener la calidad y consistencia del código.
 
-## 1. Endpoints (Tasks)
+## Separación de Responsabilidades (SoC)
+Evitar "God Components". Dividir lógica y vista.
 
-### Crear tarea
-**POST** `/api/tasks/`
+### 1. Custom Hooks (`src/hooks/`)
+- Toda la lógica de estado (`useState`, `useEffect`), llamadas a API y handlers debe ir aquí.
+- **Ejemplo:** `useTaskDetail.ts` maneja la carga, edición y borrado de tareas.
 
-**Request:**
-```json
-{
-  "title": "Nueva tarea",
-  "description": "Detalle opcional",
-  "priority": "alta",
-  "due_date": "2026-02-19T10:00:00Z",
-  "reminders": [
-    { "unit": "minutes", "value": 30 }
-  ]
-}
-```
+### 2. Componentes UI (`src/components/`)
+- Componentes "tontos" (presentacionales) que reciben props.
+- Deben ser reutilizables y pequeños.
+- **Modales:** Preferir modales unificados para Crear/Editar (ej. `TagModal`) controlados por props (`initialData`).
+- **Listas:** Usar componentes específicos para items (ej. `TaskCard`) y contenedores con espaciado (`space-y-4`).
 
-**Response (201 Created):**
-```json
-{
-  "id": "uuid-task",
-  "title": "Nueva tarea",
-  "description": "Detalle opcional",
-  "due_date": "2026-02-19T10:00:00Z",
-  "is_completed": false,
-  "priority": "alta",
-  "user_id": "uuid-user",
-  "calendar_event_id": "uuid-task",
-  "media_url": null,
-  "created_at": "2026-02-18T10:00:00Z",
-  "updated_at": "2026-02-18T10:00:00Z",
-  "reminders_data": [
-    { "id": "uuid-reminder", "remind_at": "2026-02-19T09:30:00Z", "status": "pending" }
-  ],
-  "has_reminder": true
-}
-```
+### 3. Páginas (`src/app/`)
+- Actúan como "Controladores".
+- Llaman a servicios/hooks para obtener datos.
+- Manejan el routing (`useRouter`) y Feature Flags globales.
+- **Suspense:** Envolver componentes que usen `useSearchParams` en `<Suspense>` para evitar errores de build en componentes cliente.
 
-### Listar tareas (paginado)
-**GET** `/api/tasks/`
+### 4. Servicios y API (`src/services/`)
+- **Server-side Filtering:** Preferir filtrar, ordenar y paginar en el backend.
+- Enviar parámetros de filtro como query params (ej. `?tag_ids=1&sort_by=date`).
+- Mantener interfaces de TypeScript (`Task`, `Tag`, `TaskFilters`) sincronizadas con la respuesta del backend.
 
-**Query params:**
-- `view`: `home` | `tasks`
-- `tab`: `pending` | `completed` (solo en `view=tasks`, default `pending`)
-- `tag_ids`: array de UUID (AND, solo en `view=tasks`)
-- `priority`: `baja` | `media` | `alta` (solo en `view=tasks`)
-- `end_date`: ISO 8601 (solo en `view=tasks`)
-- `limit`: 1–50 (default 10)
-- `cursor`: ISO 8601 (due_date del último item recibido)
-
-**Response (200 OK):**
-```json
-{
-  "data": [],
-  "next_cursor": null,
-  "has_more": false
-}
-```
-
-### Reglas de `view=home`
-- Ventana: `hoy` → `hoy + 7 días`.
-- Se muestran:
-  - Pendientes atrasadas.
-  - Pendientes dentro de la ventana.
-  - Completadas dentro de la ventana.
-- No se muestran:
-  - Completadas atrasadas.
-  - Tareas sin `due_date`.
-- Orden:
-  - Pendientes atrasadas → `due_date` asc.
-  - Pendientes futuras → `due_date` asc.
-  - Completadas dentro de ventana → `due_date` asc, al final.
-
-### Reglas de `view=tasks`
-- Tab `pending`:
-  - Solo tareas pendientes (`is_completed=false`).
-  - Atrasadas primero (por `due_date` asc).
-  - Luego futuras (`due_date` >= hoy, asc).
-  - Tareas sin `due_date` al final.
-- Tab `completed`:
-  - Solo tareas completadas (`is_completed=true`).
-  - Orden por `due_date` desc (más recientes primero).
-  - Tareas sin `due_date` al final.
-
-### Obtener tarea por ID
-**GET** `/api/tasks/{id}`
-
-**Response (200 OK):**
-```json
-{
-  "title": "Integration Test Task",
-  "description": "Testing full flow",
-  "due_date": "2026-02-08T21:35:25.777257Z",
-  "is_completed": false,
-  "priority": "alta",
-  "id": "uuid-task",
-  "reminders_data": [],
-  "has_reminder": false
-}
-```
-
-### Obtener relaciones de una tarea
-**GET** `/api/tasks/{id}/related`
- 
-**Response (200 OK):**
-```json
-{
-  "tags": [
-    { "id": "uuid-tag", "name": "Tag", "color": "#FF5733", "icon": "star" }
-  ],
-  "notes": [
-    { "id": "uuid-note", "title": "Nota", "content": "Contenido completo" }
-  ],
-  "events": [
-    { "id": "uuid-event", "title": "Evento", "start_time": "2026-02-20T10:00:00Z" }
-  ]
-}
-```
-
-> Las relaciones entre tareas, notas y eventos se crean y eliminan ahora desde el módulo `Relations`.
-
-### Vincular etiqueta a tarea
-**POST** `/api/tasks/{id}/tags`
-
-**Request:**
-```json
-{ "tag_id": "uuid-tag" }
-```
-
-**Response (200 OK):**
-```json
-{ "message": "Etiqueta asignada correctamente", "assigned": 1 }
-```
-
-## 2. Notas de implementación
-- `calendar_event_id` se iguala al `id` de la tarea al crearla.
-- `reminders_data` se calcula desde `reminders` cuando hay `due_date`.
+## Convenciones
+- **Archivos:** `PascalCase` para componentes, `camelCase` para hooks/utils.
+- **Imports:** Usar alias `@/` para rutas absolutas.
+- **Iconos:** Usar `lucide-react`.
+- **Estilos:** Tailwind CSS con diseño "soft" (`rounded-3xl`, `bg-gray-50`).
+- **Modo Oscuro:** Usar prefijo `dark:` (ej. `bg-white dark:bg-gray-900`). Mantener contraste accesible.
+- **Markdown:** Usar `ReactMarkdown` con `remark-gfm` para renderizado seguro.
+  - Personalizar componentes (ej. `strong`, `ul`) para soportar estilos Tailwind y Dark Mode.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/AndresOrtega-tech)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/AndresOrtega-tech)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/AndresOrtega-tech) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
