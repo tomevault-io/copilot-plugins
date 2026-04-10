@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rick-liyue-huang/Comprehensive-Microservices-We
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rick-liyue-huang](https://tomevault.io/claim/rick-liyue-huang)
 
