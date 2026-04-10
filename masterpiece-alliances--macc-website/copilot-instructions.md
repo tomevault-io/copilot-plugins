@@ -1,209 +1,207 @@
 ## macc-website
 
-> This rule provides comprehensive best practices for developing Qwik applications, covering code organization, performance, security, testing, and common pitfalls. It aims to guide developers in writing maintainable, efficient, and secure Qwik code.
+> This rule provides comprehensive best practices for developing React applications with Mobx, covering code organization, performance, testing, and security considerations. It aims to guide developers in building robust and maintainable applications using React-Mobx.
 
-# Qwik Library Best Practices
+# React-Mobx Best Practices
 
-This document outlines the best practices for developing Qwik applications. Adhering to these guidelines will help you write maintainable, efficient, and secure code.
+This document outlines best practices for developing React applications with Mobx. Following these guidelines will help you build robust, maintainable, and performant applications.
 
-## 1. Code Organization and Structure
+## 1. Core Principles
+
+- **Model observable state:**  Define the source of truth in your Mobx stores and make them observable.
+- **Use derived state (computed properties):**  Derive data from your observable state using `computed` properties to avoid unnecessary re-renders and ensure data consistency.
+- **Embrace mutability:** Mobx encourages direct mutation of observable state within actions.
+- **Use strict mode:** Enforce predictable state changes by using `use strict` or enabling strict mode in Mobx to ensure all state modifications happen within actions.
+- **Keep actions in MobX stores:** Encapsulate state mutations within Mobx actions to ensure data integrity and simplify debugging.
+- **Prefer class vs object syntax:** Use class syntax for creating stores as it offers better structure, inheritance, and maintainability.
+- **Inject store rather than importing:**  Use dependency injection (e.g., React Context) to provide stores to components instead of importing them directly to improve testability and reduce tight coupling.
+
+## 2. Code Organization and Structure
 
 - **Directory Structure:**
-    - `src/`: Contains the source code of your application.
-        - `components/`: Reusable UI components.
-        - `routes/`: Defines the application's routes and pages.  Use the file system routing for easy setup. Each file under `routes` will become a route based on the filename.
-        - `services/`: Contains business logic and data fetching services.
-        - `utils/`: Utility functions and helpers.
-        - `styles/`: Global styles and themes.
-        - `types/`: Type definitions used throughout the application.
-    - `public/`: Static assets like images, fonts, and favicons.
-    - `vite.config.ts`: Vite configuration file.
-    - `tsconfig.json`: TypeScript configuration file.
-    - `.eslintrc.js`: ESLint configuration file.
+    - `/src`:
+        - `/components`: React components (presentational and container components).
+        - `/stores`: Mobx stores containing observable state and actions.
+        - `/models`: Data models and types definitions.
+        - `/services`: API clients and other services.
+        - `/utils`: Utility functions.
+        - `/hooks`: Custom React hooks.
+        - `/constants`: Application-wide constants.
+    - `/test`: Unit, integration, and end-to-end tests.
 
 - **File Naming Conventions:**
-    - Components: `ComponentName.tsx` (e.g., `MyButton.tsx`).
-    - Services: `serviceName.ts` (e.g., `userService.ts`).
-    - Utilities: `utilityName.ts` (e.g., `dateUtils.ts`).
-    - Styles: `componentName.css` or `componentName.module.css`.
-    - Routes: Filename dictates the route path (e.g., `index.tsx` for `/`, `about.tsx` for `/about`).
+    - Components: `ComponentName.jsx` or `ComponentName.tsx`
+    - Stores: `StoreName.store.js` or `StoreName.store.ts`
+    - Models: `ModelName.model.js` or `ModelName.model.ts`
+    - Services: `ServiceName.service.js` or `ServiceName.service.ts`
+    - Hooks: `useHookName.js` or `useHookName.ts`
 
 - **Module Organization:**
-    - Group related components, services, and utilities into modules.
-    - Use `index.ts` files to re-export members from a module for cleaner imports.
-    - Keep modules focused and avoid creating large, monolithic modules.
+    - Group related components, stores, and models into modules.
+    - Use clear and descriptive module names.
+    - Avoid circular dependencies between modules.
 
 - **Component Architecture:**
-    - Favor small, reusable components.
-    - Use a component-based architecture for building UIs.
-    - Separate concerns: presentational components and container components.
-        - Presentational components: Focus on rendering UI elements based on props.
-        - Container components: Handle data fetching, state management, and business logic.
-    - Use Qwik's `component$` and `use*` APIs for creating and managing components.
+    - **Presentational Components:**  Responsible for rendering UI and receiving data via props.
+    - **Container Components:**  Connect presentational components to Mobx stores and manage state updates.
+    - Use the `observer` decorator/function from `mobx-react-lite` to make components react to observable changes.
 
 - **Code Splitting Strategies:**
-    - Use Qwik's automatic code splitting capabilities.
-    - Ensure routes are lazily loaded by their nature in Qwik.
-    - For larger components or modules, consider manually triggering lazy loading.
+    - Use React's `lazy` and `Suspense` components for lazy loading routes or components.
+    - Implement route-based code splitting to load only necessary code for the current route.
+    - Consider using `dynamic imports` for on-demand loading of modules.
 
-## 2. Common Patterns and Anti-patterns
+## 3. Common Patterns and Anti-patterns
 
 - **Design Patterns:**
-    - **Composition:** Build complex components by composing smaller, reusable components.
-    - **Provider Pattern:** Use Context to share state or services across multiple components.
-    - **Hooks:** Use Qwik's `use*` hooks to manage state, effects, and other side effects.
-    - **Factories:** For complex object creation, consider using factory functions.
+    - **Observer Pattern:** Mobx uses the observer pattern to automatically update components when observable state changes.
+    - **Dependency Injection:** Use React Context to inject stores into components, making them more testable and reusable.
+    - **Provider Pattern:** Use a Provider component to make stores available to the component tree.
 
 - **Recommended Approaches:**
-    - Use Qwik's state management features (`useStore`, `useSignal`) for managing component state.
-    - Use Qwik City's routing capabilities for defining routes and navigation.
-    - Use Qwik's optimizer and server rendering for performance.
+    - **Form Handling:** Use Mobx to manage form state and validation.
+    - **Asynchronous Operations:** Use Mobx actions to handle asynchronous operations and update the state accordingly.
+    - **List Rendering:** Optimize list rendering using `key` props and `React.memo`.
 
 - **Anti-patterns and Code Smells:**
-    - **Large Components:** Avoid creating overly large components. Break them down into smaller, more manageable pieces.
-    - **Tight Coupling:** Reduce dependencies between components and modules.
-    - **Mutating Props:** Never directly modify props passed to a component.
-    - **Global State Abuse:** Avoid using global state excessively. Prefer component-level state management.
-    - **Ignoring Server Rendering:** Ensure your components are server-renderable for initial page load performance.
+    - **Modifying State Outside Actions:** Always modify observable state within Mobx actions to ensure data consistency.
+    - **Deeply Nested Observables:** Avoid deeply nested observable objects as they can impact performance.
+    - **Computing Data in Components:**  Use `computed` properties in stores to derive data instead of computing it directly in components.
+    - **Over-Observing:** Only observe the specific parts of the store that a component needs.
 
 - **State Management Best Practices:**
-    - Use Qwik's `useStore` for reactive state management.
-    - Consider `useSignal` for simpler reactive values.
-    - Avoid direct DOM manipulation; rely on Qwik's component rendering.
+    - **Single Source of Truth:** Keep the application state in Mobx stores and avoid duplicating data.
+    - **Normalization:** Normalize data to reduce redundancy and improve data consistency.
+    - **Immutability (with Mutation):**  While Mobx encourages mutation, treat observable state as immutable from the perspective of components (i.e., components shouldn't directly mutate the store).
 
 - **Error Handling Patterns:**
-    - Use `try...catch` blocks to handle errors gracefully.
-    - Display user-friendly error messages.
-    - Log errors for debugging and monitoring.
-    - Consider using error boundary components to prevent entire application crashes.
+    - Implement centralized error handling using a dedicated error store.
+    - Use try-catch blocks within actions to handle potential errors.
+    - Display user-friendly error messages to the user.
 
-## 3. Performance Considerations
+## 4. Performance Considerations
 
 - **Optimization Techniques:**
-    - Use Qwik's optimizer to minimize bundle size and improve performance.
-    - Leverage server rendering to improve initial page load time.
-    - Optimize images and other assets.
-    - Use Qwik's built-in lazy loading features.
+    - **`React.memo`:**  Wrap components with `React.memo` to prevent unnecessary re-renders when props haven't changed.
+    - **`useMemo` and `useCallback`:**  Use `useMemo` and `useCallback` hooks to memoize values and callbacks, preventing unnecessary re-renders of child components.
+    - **Computed Properties:**  Use `computed` properties to derive data from observable state and cache the results.
+    - **Optimize List Rendering:**  Use `key` props when rendering lists and consider using virtualized lists for large datasets.
 
 - **Memory Management:**
-    - Avoid memory leaks by properly cleaning up resources.
-    - Unsubscribe from subscriptions and event listeners when components unmount.
+    - **Dispose of Observers:**  Dispose of observers when components unmount to prevent memory leaks.
+    - **Avoid Retaining Large Data Sets:**  Remove or release references to large data sets when they are no longer needed.
 
 - **Rendering Optimization:**
-    - Use `track` property in `useStore` to selectively trigger updates.
-    - Memoize expensive computations using `useComputed$()`
-    - Avoid unnecessary re-renders by ensuring component props are stable.
+    - **Minimize Re-renders:**  Optimize component rendering by using `React.memo` and avoiding unnecessary state updates.
+    - **Use ShouldComponentUpdate (if needed):** In class components, use `shouldComponentUpdate` lifecycle method to control when a component should re-render.  This is less common with `observer`.  Be careful, can lead to bugs.
 
 - **Bundle Size Optimization:**
-    - Use code splitting to reduce the initial bundle size.
-    - Remove unused code and dependencies.
-    - Use tree shaking to eliminate dead code.
+    - **Code Splitting:** Implement code splitting to reduce the initial bundle size.
+    - **Tree Shaking:**  Use a bundler that supports tree shaking to remove unused code.
+    - **Minification:**  Minify your code to reduce the bundle size.
 
 - **Lazy Loading Strategies:**
-    - Use Qwik's built-in lazy loading features for components and routes.
-    - Consider using dynamic imports for loading modules on demand.
+    - **React.lazy and Suspense:** Use React's built-in lazy loading mechanism.
+    - **Dynamic Imports:** Use dynamic imports to load modules on demand.
 
-## 4. Security Best Practices
+## 5. Security Best Practices
 
 - **Common Vulnerabilities:**
-    - **Cross-Site Scripting (XSS):** Prevent XSS attacks by sanitizing user inputs and using Qwik's built-in escaping mechanisms.
-    - **Cross-Site Request Forgery (CSRF):** Implement CSRF protection by using tokens and validating requests.
-    - **Injection Attacks:** Prevent SQL injection and other injection attacks by using parameterized queries and escaping user inputs.
+    - **Cross-Site Scripting (XSS):** Sanitize user inputs to prevent XSS attacks.
+    - **Cross-Site Request Forgery (CSRF):** Implement CSRF protection mechanisms.
+    - **Injection Attacks:**  Validate user inputs to prevent SQL injection and other injection attacks.
 
 - **Input Validation:**
-    - Validate all user inputs on both the client and server sides.
-    - Use appropriate data types and formats.
-    - Sanitize user inputs to prevent XSS attacks.
+    - **Server-Side Validation:**  Always validate user inputs on the server-side.
+    - **Client-Side Validation:**  Implement client-side validation to provide immediate feedback to the user.
 
 - **Authentication and Authorization Patterns:**
-    - Use a secure authentication mechanism, such as OAuth or JWT.
-    - Implement proper authorization checks to ensure users only have access to the resources they are authorized to access.
+    - **JSON Web Tokens (JWT):**  Use JWTs for authentication and authorization.
+    - **Role-Based Access Control (RBAC):**  Implement RBAC to control access to different parts of the application.
 
 - **Data Protection Strategies:**
-    - Encrypt sensitive data at rest and in transit.
-    - Use HTTPS to secure communication between the client and server.
-    - Implement proper access controls to protect data from unauthorized access.
+    - **Encryption:**  Encrypt sensitive data both in transit and at rest.
+    - **Data Masking:**  Mask sensitive data to protect user privacy.
 
 - **Secure API Communication:**
-    - Use HTTPS for all API requests.
-    - Validate API responses.
-    - Implement rate limiting to prevent abuse.
+    - **HTTPS:**  Use HTTPS for all API communication.
+    - **Rate Limiting:**  Implement rate limiting to prevent abuse.
 
-## 5. Testing Approaches
+## 6. Testing Approaches
 
 - **Unit Testing Strategies:**
-    - Write unit tests for individual components, services, and utilities.
-    - Use a testing framework like Jest or Vitest.
-    - Mock dependencies to isolate units under test.
+    - Test individual components and stores in isolation.
+    - Mock dependencies to isolate the unit under test.
+    - Use testing libraries like Jest and React Testing Library.
 
 - **Integration Testing:**
-    - Write integration tests to verify interactions between different parts of the application.
-    - Test the integration of components, services, and routes.
+    - Test the interaction between different components and stores.
+    - Use a testing environment that closely resembles the production environment.
 
-- **End-to-end Testing:**
-    - Write end-to-end tests to verify the entire application flow.
-    - Use a testing framework like Playwright or Cypress.
-    - Test user interactions and navigation.
+- **End-to-End Testing:**
+    - Test the entire application flow from the user's perspective.
+    - Use testing frameworks like Cypress or Selenium.
 
 - **Test Organization:**
-    - Organize tests into separate directories based on the type of test.
+    - Organize tests into separate directories for unit, integration, and end-to-end tests.
     - Use descriptive test names.
-    - Follow a consistent testing style.
 
 - **Mocking and Stubbing:**
-    - Use mocking and stubbing to isolate units under test.
-    - Mock external dependencies, such as APIs and databases.
+    - Use mocking libraries to mock dependencies in unit tests.
+    - Use stubbing to replace complex dependencies with simpler implementations.
 
-## 6. Common Pitfalls and Gotchas
+## 7. Common Pitfalls and Gotchas
 
 - **Frequent Mistakes:**
-    - Forgetting to use Qwik's `component$` for creating components.
-    - Not using `use*` hooks for managing state and effects.
-    - Over-reliance on `globalThis`.
+    - Forgetting to decorate components with `observer`.
+    - Modifying state outside of actions.
+    - Not disposing of observers properly.
+    - Over-observing state.
 
 - **Edge Cases:**
-    - Handling errors during server rendering.
-    - Dealing with different browser environments.
-    - Managing application state across multiple pages.
+    - Handling large datasets efficiently.
+    - Dealing with complex asynchronous operations.
+    - Managing nested observable objects.
 
 - **Version-Specific Issues:**
-    - Be aware of breaking changes between Qwik versions.
-    - Consult the Qwik changelog for migration instructions.
+    - Be aware of breaking changes in Mobx and React versions.
+    - Consult the Mobx and React documentation for migration guides.
 
 - **Compatibility Concerns:**
-    - Ensure your application is compatible with different browsers and devices.
-    - Use polyfills to support older browsers.
+    - Ensure compatibility with different browsers and devices.
+    - Test your application on different platforms.
 
 - **Debugging Strategies:**
-    - Use browser developer tools for debugging.
-    - Use Qwik's built-in debugging features.
-    - Log errors and warnings.
+    - Use the Mobx devtools to inspect observable state and track changes.
+    - Use browser developer tools to debug React components.
+    - Add logging statements to track the flow of data and execution.
 
-## 7. Tooling and Environment
+## 8. Tooling and Environment
 
 - **Recommended Development Tools:**
-    - Visual Studio Code with the Qwik extension.
-    - Node.js and npm.
-    - A modern web browser.
+    - **VS Code:**  A popular code editor with excellent support for React and Mobx.
+    - **Mobx Devtools:**  A browser extension for inspecting Mobx state.
+    - **React Devtools:**  A browser extension for inspecting React components.
 
 - **Build Configuration:**
-    - Use Vite for building and bundling Qwik applications.
-    - Configure Vite to optimize the build for production.
+    - **Webpack:**  A popular module bundler for React applications.
+    - **Parcel:**  A zero-configuration bundler that's easy to use.
+    - **Rollup:** A bundler focused on creating libraries and smaller bundles.
 
 - **Linting and Formatting:**
-    - Use ESLint and Prettier for linting and formatting code.
-    - Configure ESLint and Prettier to follow Qwik's coding style.
+    - **ESLint:**  A JavaScript linter for enforcing code style and preventing errors.
+    - **Prettier:**  A code formatter for automatically formatting code.
+    - **Husky/lint-staged:** Tools to automatically lint code before commits
 
 - **Deployment Best Practices:**
-    - Deploy your application to a serverless environment, such as Netlify or Vercel.
-    - Configure your server to serve static assets efficiently.
-    - Use a CDN to cache static assets.
+    - **Continuous Integration/Continuous Deployment (CI/CD):** Automate the build, test, and deployment process.
+    - **Caching:**  Use caching to improve performance.
+    - **Content Delivery Network (CDN):**  Use a CDN to serve static assets.
 
 - **CI/CD Integration:**
-    - Integrate your application with a CI/CD pipeline.
-    - Automate testing, building, and deployment.
+    - Integrate your application with a CI/CD pipeline to automate the build, test, and deployment process.
+    - Use tools like Jenkins, Travis CI, or CircleCI.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/masterpiece-alliances)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/masterpiece-alliances)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/masterpiece-alliances) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
