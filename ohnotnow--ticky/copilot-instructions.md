@@ -549,6 +549,5 @@ $pages->assertNoJavascriptErrors()->assertNoConsoleLogs();
 </laravel-boost-guidelines>
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ohnotnow)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ohnotnow)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ohnotnow) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
