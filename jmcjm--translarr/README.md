@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jmcjm/Translarr](https://github.com/jmcjm/Trans
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jmcjm](https://tomevault.io/claim/jmcjm)
 
