@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [huiyi9420/claude-code-i18n](https://github.com/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/huiyi9420](https://tomevault.io/claim/huiyi9420)
 
