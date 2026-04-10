@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [RobbyMo81/assistantrobby](https://github.com/Ro
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/RobbyMo81](https://tomevault.io/claim/RobbyMo81)
 
