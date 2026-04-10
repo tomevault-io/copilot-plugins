@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Portkey-AI/portkey-python-sdk](https://github.c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Portkey-AI](https://tomevault.io/claim/Portkey-AI)
 
