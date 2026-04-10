@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [phamhung075/cursor-agentic-ai](https:
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/phamhung075](https://tomevault.io/claim/phamhung075)
 
