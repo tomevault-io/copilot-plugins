@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [WebSurfinMurf/gitlab](https://github.com/WebSur
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/WebSurfinMurf](https://tomevault.io/claim/WebSurfinMurf)
 
