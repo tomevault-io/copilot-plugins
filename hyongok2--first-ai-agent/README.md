@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [hyongok2/first-ai-agent](https://github.com/hyo
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hyongok2](https://tomevault.io/claim/hyongok2)
 
