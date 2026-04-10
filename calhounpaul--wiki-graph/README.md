@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [calhounpaul/wiki-graph](https://github.com/calh
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/calhounpaul](https://tomevault.io/claim/calhounpaul)
 
