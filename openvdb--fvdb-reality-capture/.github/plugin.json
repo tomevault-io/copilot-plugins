@@ -1,0 +1,9 @@
+{
+  "name": "openvdb--fvdb-reality-capture",
+  "displayName": "fvdb-reality-capture",
+  "description": "fvdb-reality-capture",
+  "version": "1.0.0",
+  "author": "openvdb",
+  "homepage": "https://tomevault.io/claim/openvdb",
+  "skills": []
+}
