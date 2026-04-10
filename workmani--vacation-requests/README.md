@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [workmani/vacation-requests](https://github.com/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/workmani](https://tomevault.io/claim/workmani)
 
