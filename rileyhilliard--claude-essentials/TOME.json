@@ -1,0 +1,147 @@
+{
+  "name": "claude-essentials",
+  "owner": "rileyhilliard",
+  "repo": "claude-essentials",
+  "description": "AI instruction files for claude-essentials by rileyhilliard",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecting-systems",
+      "path": "plugins/ce/skills/architecting-systems",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/architecting-systems",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "path": "plugins/ce/skills/condition-based-waiting",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": "plugins/ce/skills/design",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/design",
+      "description": ""
+    },
+    {
+      "name": "fixing-flaky-tests",
+      "path": "plugins/ce/skills/fixing-flaky-tests",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/fixing-flaky-tests",
+      "description": ""
+    },
+    {
+      "name": "handling-errors",
+      "path": "plugins/ce/skills/handling-errors",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/handling-errors",
+      "description": ""
+    },
+    {
+      "name": "managing-databases",
+      "path": "plugins/ce/skills/managing-databases",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/managing-databases",
+      "description": ""
+    },
+    {
+      "name": "migrating-code",
+      "path": "plugins/ce/skills/migrating-code",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/migrating-code",
+      "description": ""
+    },
+    {
+      "name": "optimizing-performance",
+      "path": "plugins/ce/skills/optimizing-performance",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/optimizing-performance",
+      "description": ""
+    },
+    {
+      "name": "post-mortem",
+      "path": "plugins/ce/skills/post-mortem",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/post-mortem",
+      "description": ""
+    },
+    {
+      "name": "reading-logs",
+      "path": "plugins/ce/skills/reading-logs",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/reading-logs",
+      "description": ""
+    },
+    {
+      "name": "refactoring-code",
+      "path": "plugins/ce/skills/refactoring-code",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/refactoring-code",
+      "description": ""
+    },
+    {
+      "name": "strategy-writer",
+      "path": "plugins/ce/skills/strategy-writer",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/strategy-writer",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": "plugins/ce/skills/systematic-debugging",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "verification-before-completion",
+      "path": "plugins/ce/skills/verification-before-completion",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/verification-before-completion",
+      "description": ""
+    },
+    {
+      "name": "writer",
+      "path": "plugins/ce/skills/writer",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/writer",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "plugins/ce/skills/writing-plans",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-tests",
+      "path": "plugins/ce/skills/writing-tests",
+      "github_url": "https://github.com/rileyhilliard/claude-essentials/tree/main/plugins/ce/skills/writing-tests",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/rileyhilliard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-10T11:30:03Z"
+}
