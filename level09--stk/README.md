@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [level09/stk](https://github.com/level09/stk).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/level09](https://tomevault.io/claim/level09)
 
