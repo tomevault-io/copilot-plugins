@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [bin2aa/SmartDoc-AI](https://github.com/bin2aa/S
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bin2aa](https://tomevault.io/claim/bin2aa)
 
