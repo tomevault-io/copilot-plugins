@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [GvHarish9894/1TamilMvTelegramBot](https://githu
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/GvHarish9894](https://tomevault.io/claim/GvHarish9894)
 
