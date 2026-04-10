@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [kait0-0/PasyariProject](https://github.com/kait
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kait0-0](https://tomevault.io/claim/kait0-0)
 
