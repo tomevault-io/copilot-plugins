@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ZacCarrico/nof1](https://github.com/ZacCarrico/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ZacCarrico](https://tomevault.io/claim/ZacCarrico)
 
