@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [derrick-nuby/flutterwave_nextjs](https://github
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/derrick-nuby](https://tomevault.io/claim/derrick-nuby)
 
