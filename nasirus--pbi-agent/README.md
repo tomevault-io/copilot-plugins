@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nasirus/pbi-agent](https://github.com/nasirus/p
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nasirus](https://tomevault.io/claim/nasirus)
 
