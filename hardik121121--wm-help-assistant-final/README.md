@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [hardik121121/wm_help_assistant_final](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hardik121121](https://tomevault.io/claim/hardik121121)
 
