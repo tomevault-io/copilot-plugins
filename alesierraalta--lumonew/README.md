@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [alesierraalta/LUMONEW](https://github
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/alesierraalta](https://tomevault.io/claim/alesierraalta)
 
