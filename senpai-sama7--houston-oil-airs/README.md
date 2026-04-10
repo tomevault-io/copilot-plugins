@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Senpai-Sama7/Houston-Oil-Airs](https://github.c
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Senpai-Sama7](https://tomevault.io/claim/Senpai-Sama7)
 
