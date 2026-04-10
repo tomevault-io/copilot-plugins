@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [adumat/paradox-dgp-mqtt](https://github.com/adu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/adumat](https://tomevault.io/claim/adumat)
 
