@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [nannipy/nannipy.com](https://github.com/nannipy
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nannipy](https://tomevault.io/claim/nannipy)
 
