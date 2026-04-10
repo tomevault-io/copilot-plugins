@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [carlospereira5/Blue](https://github.com/carlosp
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/carlospereira5](https://tomevault.io/claim/carlospereira5)
 
