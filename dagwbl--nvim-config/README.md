@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Dagwbl/nvim-config](https://github.com/Dagwbl/n
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Dagwbl](https://tomevault.io/claim/Dagwbl)
 
