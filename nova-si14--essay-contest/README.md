@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nova-si14/essay-contest](https://github.com/nov
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nova-si14](https://tomevault.io/claim/nova-si14)
 
