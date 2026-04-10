@@ -70,6 +70,5 @@ You sit between human intent (directives) and deterministic execution (Python sc
 Be pragmatic. Be reliable. Self-anneal.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/mitchelldschafer)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/mitchelldschafer)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/mitchelldschafer) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
