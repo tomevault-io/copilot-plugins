@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jw41784/meridian](https://github.com/jw41784/me
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jw41784](https://tomevault.io/claim/jw41784)
 
