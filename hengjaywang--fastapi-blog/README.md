@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [HengJayWang/fastapi-blog](https://github.com/He
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/HengJayWang](https://tomevault.io/claim/HengJayWang)
 
