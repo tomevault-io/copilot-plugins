@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [YuanyuanMa03/ClassBrainAI](https://github.com/Y
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/YuanyuanMa03](https://tomevault.io/claim/YuanyuanMa03)
 
