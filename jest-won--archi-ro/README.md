@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [jest-won/archi-ro](https://github.com/jest-won/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jest-won](https://tomevault.io/claim/jest-won)
 
