@@ -1,222 +1,79 @@
 ## template-hono-prisma-kysely
 
-> Guidelines for Service Layer
+> This is a Hono + Prisma + Kysely backend project with TypeScript and PostgreSQL. When working on this codebase, you must adhere to the established conventions and patterns.
 
-# Guidelines for Service Layer
+# Claude AI Assistant Guidelines
 
-## Purpose and Overview
-The service layer is responsible for orchestrating business logic and coordinating data access operations. It sits between the UI (components, hooks) and the data access layer, providing a clear separation of concerns. Services should handle:
+## Project Context
+This is a Hono + Prisma + Kysely backend project with TypeScript and PostgreSQL. When working on this codebase, you must adhere to the established conventions and patterns.
 
-1. Orchestration of multiple data operations
-2. Business logic implementation
-3. Data transformation and validation
-4. Error handling and logging
+## Important Instructions
 
-## Structure and Organization
+### 0. Running Tests
+**ALWAYS** do `pnpm test run <file_path>` or `pnpm test run` for all.
 
-### Service Layer Module Structure
-```
-src/
-├── services/                       # Shared service layer module
-│   └── [entity]
-        └── [operation-entity-name].ts  # Shared service implementations
-└── features/
-    └── [feature-name]/
-        └── _services/              # Feature-specific services
-            └── [operation-entity-name].ts  # Feature-specific service implementations
-```
+### 1. Project Structure Compliance
+**ALWAYS** follow the structure and conventions defined in `README.project-structure.md` when:
+- Creating new files or folders
+- Organizing code modules
+- Naming files, folders, functions, types, etc.
+- Implementing features or API routes
 
-## Naming Conventions
+### 2. Rules and Patterns
+**ALWAYS** check the `rules/` folder for specific implementation patterns before:
+- Creating controllers → See `rules/controllers-and-routes.md`
+- Implementing data access → See `rules/data-access-via-db.md` or `rules/data-access-via-api.md`
+- Creating service layers → See `rules/service-layer.md`
+- Writing tests → See `rules/testing-data-access-layer.md`
+- Implementing any feature that might have established patterns
 
-### Functions
-- `[operation][Entity]Service`: For service functions (e.g., `getFeatureFlagService`, `createUserService`)
+### 3. Code Generation Guidelines
+When generating or modifying code:
+1. First, understand the existing patterns in the codebase
+2. Check if there are similar implementations to reference
+3. Follow the established naming conventions strictly
+4. Place files in the correct folders according to the project structure
+5. Use appropriate workflow patterns (Pattern 1, 2, or 3) based on complexity
 
-### Types
-- `[Operation][Entity]ServiceArgs`: Arguments for service functions
-- `[Operation][Entity]ServiceDependencies`: Dependencies for service functions
-- `[Operation][Entity]ServiceResult`: Return type for service functions (if needed)
+### 4. Key Conventions Summary
+- **File/Folder naming**: `kebab-case` (use `_kebab-case` for feature-specific modules)
+- **Types/Classes**: `PascalCase`
+- **Functions/Variables/Zod Schemas**: `camelCase`
+- **Database**: `snake_case` for tables, columns, query params, and request body
+- **Package Manager**: Always use `pnpm`
+- **API Framework**: Hono
+- **Database ORM**: Prisma (schema) + Kysely (queries)
+- **Validation**: Zod
+- **Testing**: Vitest
 
-## Implementation Guidelines
+### 5. Before Making Changes
+Always:
+1. Read the relevant documentation in `README.project-structure.md`
+2. Check for existing patterns in `rules/` folder
+3. Look for similar implementations in the codebase
+4. Maintain consistency with existing code style
+5. Run all checks for TypeScript, Lint & Check Spell: `pnpm check:all`
 
-### Service Layer
-- Services should receive data access functions as dependencies
-- Dependencies should be injected with default values
-- Services should be pure functions that don't manage state
-- Services should handle error cases and transformations
-- Services should be testable by allowing dependency injection
+### 6. When Creating New Features
+Follow this checklist:
+- [ ] Determine if it's a shared module or feature domain
+- [ ] Create the appropriate folder structure as defined in the project structure
+- [ ] Follow the naming conventions for all files and exports
+- [ ] Check rules folder for implementation patterns
+- [ ] Use existing utilities and shared modules when possible
+- [ ] Only create service layers when business logic is complex
+- [ ] Write type-safe code using TypeScript
+- [ ] Implement proper DTOs for request/response validation
+- [ ] Ensure proper error handling in data access and controllers
 
-### Example Service Function
-```typescript
-import { getFeatureFlagData } from '@/data/feature-flags/get-feature-flag';
-import { getUserData } from '@/data/users/get-user';
-import { type DbClient } from '@/db/create-db-client';
-import { type Session } from '@/types/auth';
+### 7. Checks Commands
+- `pnpm build` - Build for production
+- `pnpm test` - Run tests
+- `pnpm format` - Format code with Prettier
+- `pnpm check:all` - Run all checks concurrently for TypeScript, Lint and Check Spell
 
-export type GetFeatureFlagServiceDependencies = {
-  getUserData: typeof getUserData;
-  getFeatureFlagData: typeof getFeatureFlagData;
-};
-
-export type GetFeatureFlagServiceArgs = {
-  dbClient: DbClient;
-  payload: { session: Session };
-  dependencies?: GetFeatureFlagServiceDependencies;
-};
-
-export async function getFeatureFlagService({
-  dbClient,
-  payload,
-  dependencies = {
-    getUserData,
-    getFeatureFlagData,
-  },
-}: GetFeatureFlagServiceArgs) {
-  const userData = await dependencies.getUserData({
-    dbClient,
-    id: payload.session.accountId,
-  });
-
-  const featureFlagData = await dependencies.getFeatureFlagData({
-    dbClient,
-    role: userData.role,
-  });
-
-  return featureFlagData;
-}
-
-export type GetFeatureFlagServiceResponse = Awaited<ReturnType<typeof getFeatureFlagService>>;
-```
-
-### Example Service Testing
-```typescript
-import { makeFakeUser } from '@/data/users/__test-utils__/make-fake-user';
-import { mockDbClient } from '@/db/__test-utils__/mock-db-client';
-import { UserRoleType } from '@/db/types';
-import { mockSession } from '@/middlewares/__test-utils__/openapi-hono';
-import { NotFoundError } from '@/utils/errors';
-import { faker } from '@faker-js/faker';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { getFeatureFlagService } from './get-feature-flag';
-
-const { dbClient, dbClientTransaction } = mockDbClient;
-
-const mockDependencies = {
-  getUserData: vi.fn(),
-  getFeatureFlagData: vi.fn(),
-};
-
-const mockUser = makeFakeUser({
-  email: 'test@example.com',
-  role: UserRoleType.USER,
-  first_name: 'Test',
-  last_name: 'User',
-});
-
-const mockFeatureFlag = {
-  id: faker.string.uuid(),
-  role: UserRoleType.USER,
-  json: { feature1: true, feature2: false },
-};
-
-describe('getFeatureFlagService', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('should successfully get feature flags for user', async () => {
-    const payload = {
-      session: mockSession,
-    };
-
-    mockDependencies.getUserData.mockResolvedValue(mockUser);
-    mockDependencies.getFeatureFlagData.mockResolvedValue(mockFeatureFlag);
-
-    const result = await getFeatureFlagService({
-      dbClient,
-      payload,
-      dependencies: mockDependencies,
-    });
-
-    expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient,
-      id: payload.session.accountId,
-    });
-
-    expect(mockDependencies.getFeatureFlagData).toHaveBeenCalledWith({
-      dbClient,
-      role: mockUser.role,
-    });
-
-    expect(result).toEqual(mockFeatureFlag);
-  });
-
-  it('should throw NotFoundError when user is not found', async () => {
-    const payload = {
-      session: mockSession,
-    };
-
-    mockDependencies.getUserData.mockRejectedValue(new NotFoundError('User not found.'));
-
-    await expect(
-      getFeatureFlagService({
-        dbClient,
-        payload,
-        dependencies: mockDependencies,
-      })
-    ).rejects.toThrow(new NotFoundError('User not found.'));
-
-    expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient,
-      id: payload.session.accountId,
-    });
-
-    expect(mockDependencies.getFeatureFlagData).not.toHaveBeenCalled();
-  });
-
-  it('should throw NotFoundError when feature flag is not found', async () => {
-    const payload = {
-      session: mockSession,
-    };
-
-    mockDependencies.getUserData.mockResolvedValue(mockUser);
-    mockDependencies.getFeatureFlagData.mockRejectedValue(
-      new NotFoundError('Feature flag not found.')
-    );
-
-    await expect(
-      getFeatureFlagService({
-        dbClient,
-        payload,
-        dependencies: mockDependencies,
-      })
-    ).rejects.toThrow(new NotFoundError('Feature flag not found.'));
-
-    expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient,
-      id: payload.session.accountId,
-    });
-
-    expect(mockDependencies.getFeatureFlagData).toHaveBeenCalledWith({
-      dbClient,
-      role: mockUser.role,
-    });
-  });
-});
-```
-
-## When to Use Service Layer
-
-Services should be used when:
-
-1. You need to coordinate multiple data access operations
-2. There is complex business logic to implement
-3. You need to transform or validate data before returning it
-4. You need to handle specific error cases or implement retry logic
-5. You want to make the code more testable through dependency injection
-
-If an operation is simple and only involves a single data access call with minimal transformation, it might not need a service layer.
+Remember: Consistency and adherence to established patterns is crucial for maintaining a clean, scalable codebase.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/constROD)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/constROD)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/constROD) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
