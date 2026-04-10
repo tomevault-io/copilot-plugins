@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nickhusan/portfolio](https://github.com/nickhus
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nickhusan](https://tomevault.io/claim/nickhusan)
 
