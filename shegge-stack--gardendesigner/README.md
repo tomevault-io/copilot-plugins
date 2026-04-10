@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [shegge-stack/gardenDesigner](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/shegge-stack](https://tomevault.io/claim/shegge-stack)
 
