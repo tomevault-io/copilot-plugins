@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [andgineer/hrcomparison](https://github.com/andg
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/andgineer](https://tomevault.io/claim/andgineer)
 
