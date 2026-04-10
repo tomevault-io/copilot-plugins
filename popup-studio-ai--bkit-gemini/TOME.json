@@ -1,0 +1,219 @@
+{
+  "name": "bkit-gemini",
+  "owner": "popup-studio-ai",
+  "repo": "bkit-gemini",
+  "description": "AI instruction files for bkit-gemini by popup-studio-ai",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bkend-auth",
+      "path": "skills/bkend-auth",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkend-auth",
+      "description": ""
+    },
+    {
+      "name": "bkend-cookbook",
+      "path": "skills/bkend-cookbook",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkend-cookbook",
+      "description": ""
+    },
+    {
+      "name": "bkend-data",
+      "path": "skills/bkend-data",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkend-data",
+      "description": ""
+    },
+    {
+      "name": "bkend-guides",
+      "path": "skills/bkend-guides",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkend-guides",
+      "description": ""
+    },
+    {
+      "name": "bkend-mcp",
+      "path": "skills/bkend-mcp",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkend-mcp",
+      "description": ""
+    },
+    {
+      "name": "bkend-quickstart",
+      "path": "skills/bkend-quickstart",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkend-quickstart",
+      "description": ""
+    },
+    {
+      "name": "bkend-security",
+      "path": "skills/bkend-security",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkend-security",
+      "description": ""
+    },
+    {
+      "name": "bkend-storage",
+      "path": "skills/bkend-storage",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkend-storage",
+      "description": ""
+    },
+    {
+      "name": "bkit-rules",
+      "path": "skills/bkit-rules",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkit-rules",
+      "description": ""
+    },
+    {
+      "name": "bkit-templates",
+      "path": "skills/bkit-templates",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/bkit-templates",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "desktop-app",
+      "path": "skills/desktop-app",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/desktop-app",
+      "description": ""
+    },
+    {
+      "name": "development-pipeline",
+      "path": "skills/development-pipeline",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/development-pipeline",
+      "description": ""
+    },
+    {
+      "name": "dynamic",
+      "path": "skills/dynamic",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/dynamic",
+      "description": ""
+    },
+    {
+      "name": "enterprise",
+      "path": "skills/enterprise",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/enterprise",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli-learning",
+      "path": "skills/gemini-cli-learning",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/gemini-cli-learning",
+      "description": ""
+    },
+    {
+      "name": "mobile-app",
+      "path": "skills/mobile-app",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/mobile-app",
+      "description": ""
+    },
+    {
+      "name": "pdca",
+      "path": "skills/pdca",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/pdca",
+      "description": ""
+    },
+    {
+      "name": "phase-1-schema",
+      "path": "skills/phase-1-schema",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/phase-1-schema",
+      "description": ""
+    },
+    {
+      "name": "phase-2-convention",
+      "path": "skills/phase-2-convention",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/phase-2-convention",
+      "description": ""
+    },
+    {
+      "name": "phase-3-mockup",
+      "path": "skills/phase-3-mockup",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/phase-3-mockup",
+      "description": ""
+    },
+    {
+      "name": "phase-4-api",
+      "path": "skills/phase-4-api",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/phase-4-api",
+      "description": ""
+    },
+    {
+      "name": "phase-5-design-system",
+      "path": "skills/phase-5-design-system",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/phase-5-design-system",
+      "description": ""
+    },
+    {
+      "name": "phase-6-ui-integration",
+      "path": "skills/phase-6-ui-integration",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/phase-6-ui-integration",
+      "description": ""
+    },
+    {
+      "name": "phase-7-seo-security",
+      "path": "skills/phase-7-seo-security",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/phase-7-seo-security",
+      "description": ""
+    },
+    {
+      "name": "phase-8-review",
+      "path": "skills/phase-8-review",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/phase-8-review",
+      "description": ""
+    },
+    {
+      "name": "phase-9-deployment",
+      "path": "skills/phase-9-deployment",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/phase-9-deployment",
+      "description": ""
+    },
+    {
+      "name": "starter",
+      "path": "skills/starter",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/starter",
+      "description": ""
+    },
+    {
+      "name": "zero-script-qa",
+      "path": "skills/zero-script-qa",
+      "github_url": "https://github.com/popup-studio-ai/bkit-gemini/tree/main/skills/zero-script-qa",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/popup-studio-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-10T01:30:06Z"
+}
