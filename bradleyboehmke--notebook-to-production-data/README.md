@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bradleyboehmke/notebook-to-production-data](htt
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bradleyboehmke](https://tomevault.io/claim/bradleyboehmke)
 
