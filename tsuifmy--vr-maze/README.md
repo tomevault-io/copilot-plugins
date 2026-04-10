@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [tsuifmy/vr-maze](https://github.com/tsuifmy/vr-
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tsuifmy](https://tomevault.io/claim/tsuifmy)
 
