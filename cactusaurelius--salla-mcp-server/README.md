@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [cactusaurelius/salla-mcp-server](http
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cactusaurelius](https://tomevault.io/claim/cactusaurelius)
 
