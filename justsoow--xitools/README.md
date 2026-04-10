@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [JustSOOw/XItools](https://github.com/JustSOOw/X
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/JustSOOw](https://tomevault.io/claim/JustSOOw)
 
