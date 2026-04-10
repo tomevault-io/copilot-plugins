@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jucor/mlconf-dlp](https://github.com/jucor/mlco
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jucor](https://tomevault.io/claim/jucor)
 
