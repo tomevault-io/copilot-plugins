@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [aenfield/mlb-watchability](https://github.com/a
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/aenfield](https://tomevault.io/claim/aenfield)
 
