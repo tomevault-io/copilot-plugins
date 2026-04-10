@@ -1,0 +1,9 @@
+{
+  "name": "dazzleml--claude-session-logger",
+  "displayName": "claude-session-logger",
+  "description": "claude-session-logger",
+  "version": "1.0.0",
+  "author": "DazzleML",
+  "homepage": "https://tomevault.io/claim/DazzleML",
+  "skills": []
+}
