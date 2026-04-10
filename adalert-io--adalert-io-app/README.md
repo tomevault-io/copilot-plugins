@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [adalert-io/adalert-io-app](https://gi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/adalert-io](https://tomevault.io/claim/adalert-io)
 
