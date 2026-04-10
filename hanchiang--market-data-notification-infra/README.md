@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [hanchiang/market-data-notification-infra](https
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hanchiang](https://tomevault.io/claim/hanchiang)
 
