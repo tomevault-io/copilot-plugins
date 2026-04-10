@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [beany-vu/michi-vz](https://github.com/beany-vu/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/beany-vu](https://tomevault.io/claim/beany-vu)
 
