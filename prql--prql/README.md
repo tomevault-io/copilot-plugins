@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [PRQL/prql](https://github.com/PRQL/prql).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/PRQL](https://tomevault.io/claim/PRQL)
 
