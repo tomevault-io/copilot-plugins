@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jasper9w/HeTangTTS](https://github.com/jasper9w
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jasper9w](https://tomevault.io/claim/jasper9w)
 
