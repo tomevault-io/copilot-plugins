@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [noinil/CubeTimer](https://github.com/noinil/Cub
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/noinil](https://tomevault.io/claim/noinil)
 
