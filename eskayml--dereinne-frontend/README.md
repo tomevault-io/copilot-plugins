@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [eskayML/dereinne-frontend](https://github.com/e
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/eskayML](https://tomevault.io/claim/eskayML)
 
