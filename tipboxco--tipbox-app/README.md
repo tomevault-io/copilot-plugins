@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [tipboxco/tipbox-app](https://github.c
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tipboxco](https://tomevault.io/claim/tipboxco)
 
