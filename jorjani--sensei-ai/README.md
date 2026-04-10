@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jorjani/sensei-ai](https://github.com/jorjani/s
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jorjani](https://tomevault.io/claim/jorjani)
 
