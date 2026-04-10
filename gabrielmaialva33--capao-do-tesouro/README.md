@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [gabrielmaialva33/capao-do-tesouro](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/gabrielmaialva33](https://tomevault.io/claim/gabrielmaialva33)
 
