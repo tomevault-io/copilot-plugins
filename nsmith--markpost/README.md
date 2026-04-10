@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nsmith/markpost](https://github.com/nsmith/mark
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nsmith](https://tomevault.io/claim/nsmith)
 
