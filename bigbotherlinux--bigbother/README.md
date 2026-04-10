@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [BigBotherLinux/BigBother](https://github.com/Bi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/BigBotherLinux](https://tomevault.io/claim/BigBotherLinux)
 
