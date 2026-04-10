@@ -1,0 +1,718 @@
+{
+  "name": "secondsky--claude-skills",
+  "displayName": "claude-skills",
+  "description": "AI instruction files for claude-skills by secondsky",
+  "version": "1.0.0",
+  "author": "secondsky",
+  "homepage": "https://tomevault.io/claim/secondsky",
+  "skills": [
+    {
+      "name": "aceternity-ui",
+      "description": ""
+    },
+    {
+      "name": "tailwind-v4-shadcn",
+      "description": ""
+    },
+    {
+      "name": "zod",
+      "description": ""
+    },
+    {
+      "name": "access-control-rbac",
+      "description": ""
+    },
+    {
+      "name": "ai-elements-chatbot",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-core",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-ui",
+      "description": ""
+    },
+    {
+      "name": "api-authentication",
+      "description": ""
+    },
+    {
+      "name": "api-changelog-versioning",
+      "description": ""
+    },
+    {
+      "name": "api-contract-testing",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "api-error-handling",
+      "description": ""
+    },
+    {
+      "name": "api-filtering-sorting",
+      "description": ""
+    },
+    {
+      "name": "api-gateway-configuration",
+      "description": ""
+    },
+    {
+      "name": "api-pagination",
+      "description": ""
+    },
+    {
+      "name": "api-rate-limiting",
+      "description": ""
+    },
+    {
+      "name": "api-reference-documentation",
+      "description": ""
+    },
+    {
+      "name": "api-response-optimization",
+      "description": ""
+    },
+    {
+      "name": "api-security-hardening",
+      "description": ""
+    },
+    {
+      "name": "api-testing",
+      "description": ""
+    },
+    {
+      "name": "api-versioning-strategy",
+      "description": ""
+    },
+    {
+      "name": "app-store-deployment",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "auto-animate",
+      "description": ""
+    },
+    {
+      "name": "base-ui-react",
+      "description": ""
+    },
+    {
+      "name": "better-auth",
+      "description": ""
+    },
+    {
+      "name": "better-chatbot",
+      "description": ""
+    },
+    {
+      "name": "better-chatbot-patterns",
+      "description": ""
+    },
+    {
+      "name": "bun-bundler",
+      "description": ""
+    },
+    {
+      "name": "bun-cloudflare-workers",
+      "description": ""
+    },
+    {
+      "name": "bun-docker",
+      "description": ""
+    },
+    {
+      "name": "bun-ffi",
+      "description": ""
+    },
+    {
+      "name": "bun-hono-integration",
+      "description": ""
+    },
+    {
+      "name": "bun-hot-reloading",
+      "description": ""
+    },
+    {
+      "name": "bun-http-server",
+      "description": ""
+    },
+    {
+      "name": "bun-jest-migration",
+      "description": ""
+    },
+    {
+      "name": "bun-macros",
+      "description": ""
+    },
+    {
+      "name": "bun-nextjs",
+      "description": ""
+    },
+    {
+      "name": "bun-nuxt",
+      "description": ""
+    },
+    {
+      "name": "bun-react-ssr",
+      "description": ""
+    },
+    {
+      "name": "bun-runtime",
+      "description": ""
+    },
+    {
+      "name": "bun-sveltekit",
+      "description": ""
+    },
+    {
+      "name": "bun-tanstack-start",
+      "description": ""
+    },
+    {
+      "name": "bun-test-basics",
+      "description": ""
+    },
+    {
+      "name": "bun-test-coverage",
+      "description": ""
+    },
+    {
+      "name": "bun-test-lifecycle",
+      "description": ""
+    },
+    {
+      "name": "bun-test-mocking",
+      "description": ""
+    },
+    {
+      "name": "bun-websocket-server",
+      "description": ""
+    },
+    {
+      "name": "bun-workers",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "claude-api",
+      "description": ""
+    },
+    {
+      "name": "claude-code-bash-patterns",
+      "description": ""
+    },
+    {
+      "name": "claude-hook-writer",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-agents",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-browser-rendering",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-durable-objects",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-images",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-manager",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-nextjs",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-queues",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-sandbox",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-turnstile",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-ai",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-zero-trust-access",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "content-collections",
+      "description": ""
+    },
+    {
+      "name": "csrf-protection",
+      "description": ""
+    },
+    {
+      "name": "database-schema-design",
+      "description": ""
+    },
+    {
+      "name": "dependency-upgrade",
+      "description": ""
+    },
+    {
+      "name": "design-review",
+      "description": ""
+    },
+    {
+      "name": "design-system-creation",
+      "description": ""
+    },
+    {
+      "name": "drizzle-orm-d1",
+      "description": ""
+    },
+    {
+      "name": "elevenlabs-agents",
+      "description": ""
+    },
+    {
+      "name": "fastmcp",
+      "description": ""
+    },
+    {
+      "name": "feature-dev",
+      "description": ""
+    },
+    {
+      "name": "firecrawl-scraper",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli",
+      "description": ""
+    },
+    {
+      "name": "github-project-automation",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-api",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-embeddings",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-file-search",
+      "description": ""
+    },
+    {
+      "name": "graphql-implementation",
+      "description": ""
+    },
+    {
+      "name": "hono-routing",
+      "description": ""
+    },
+    {
+      "name": "hugo",
+      "description": ""
+    },
+    {
+      "name": "idempotency-handling",
+      "description": ""
+    },
+    {
+      "name": "image-optimization",
+      "description": ""
+    },
+    {
+      "name": "inspira-ui",
+      "description": ""
+    },
+    {
+      "name": "interaction-design",
+      "description": ""
+    },
+    {
+      "name": "internationalization-i18n",
+      "description": ""
+    },
+    {
+      "name": "jest-generator",
+      "description": ""
+    },
+    {
+      "name": "kpi-dashboard-design",
+      "description": ""
+    },
+    {
+      "name": "logging-best-practices",
+      "description": ""
+    },
+    {
+      "name": "maz-ui",
+      "description": ""
+    },
+    {
+      "name": "mcp-dynamic-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "microservices-patterns",
+      "description": ""
+    },
+    {
+      "name": "mobile-app-debugging",
+      "description": ""
+    },
+    {
+      "name": "mobile-app-testing",
+      "description": ""
+    },
+    {
+      "name": "mobile-first-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-offline-support",
+      "description": ""
+    },
+    {
+      "name": "model-deployment",
+      "description": ""
+    },
+    {
+      "name": "motion",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-consultant",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-prompts",
+      "description": ""
+    },
+    {
+      "name": "neon-vercel-postgres",
+      "description": ""
+    },
+    {
+      "name": "nextjs",
+      "description": ""
+    },
+    {
+      "name": "nuxt-content",
+      "description": ""
+    },
+    {
+      "name": "nuxt-core",
+      "description": ""
+    },
+    {
+      "name": "nuxt-data",
+      "description": ""
+    },
+    {
+      "name": "nuxt-production",
+      "description": ""
+    },
+    {
+      "name": "nuxt-seo",
+      "description": ""
+    },
+    {
+      "name": "nuxt-server",
+      "description": ""
+    },
+    {
+      "name": "nuxt-studio",
+      "description": ""
+    },
+    {
+      "name": "nuxt-ui-v4",
+      "description": ""
+    },
+    {
+      "name": "oauth-implementation",
+      "description": ""
+    },
+    {
+      "name": "openai-agents",
+      "description": ""
+    },
+    {
+      "name": "openai-api",
+      "description": ""
+    },
+    {
+      "name": "openai-assistants",
+      "description": ""
+    },
+    {
+      "name": "openai-responses",
+      "description": ""
+    },
+    {
+      "name": "payment-gateway-integration",
+      "description": ""
+    },
+    {
+      "name": "pinia-colada",
+      "description": ""
+    },
+    {
+      "name": "pinia-v3",
+      "description": ""
+    },
+    {
+      "name": "plan-interview",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "progressive-web-app",
+      "description": ""
+    },
+    {
+      "name": "push-notification-setup",
+      "description": ""
+    },
+    {
+      "name": "react-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-hook-form-zod",
+      "description": ""
+    },
+    {
+      "name": "react-native-skills",
+      "description": ""
+    },
+    {
+      "name": "recommendation-engine",
+      "description": ""
+    },
+    {
+      "name": "recommendation-system",
+      "description": ""
+    },
+    {
+      "name": "responsive-web-design",
+      "description": ""
+    },
+    {
+      "name": "rest-api-design",
+      "description": ""
+    },
+    {
+      "name": "security-headers-configuration",
+      "description": ""
+    },
+    {
+      "name": "sequential-thinking",
+      "description": ""
+    },
+    {
+      "name": "session-management",
+      "description": ""
+    },
+    {
+      "name": "shadcn-vue",
+      "description": ""
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "sveltia-cms",
+      "description": ""
+    },
+    {
+      "name": "swift-best-practices",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "tanstack-ai",
+      "description": ""
+    },
+    {
+      "name": "tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "tanstack-router",
+      "description": ""
+    },
+    {
+      "name": "tanstack-start",
+      "description": ""
+    },
+    {
+      "name": "technical-specification",
+      "description": ""
+    },
+    {
+      "name": "test-quality-analysis",
+      "description": ""
+    },
+    {
+      "name": "thesys-generative-ui",
+      "description": ""
+    },
+    {
+      "name": "threejs",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "description": ""
+    },
+    {
+      "name": "typescript-mcp",
+      "description": ""
+    },
+    {
+      "name": "ultracite",
+      "description": ""
+    },
+    {
+      "name": "vercel-blob",
+      "description": ""
+    },
+    {
+      "name": "vercel-kv",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vitest-testing",
+      "description": ""
+    },
+    {
+      "name": "vulnerability-scanning",
+      "description": ""
+    },
+    {
+      "name": "web-performance-audit",
+      "description": ""
+    },
+    {
+      "name": "web-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "websocket-implementation",
+      "description": ""
+    },
+    {
+      "name": "woocommerce-backend-dev",
+      "description": ""
+    },
+    {
+      "name": "woocommerce-code-review",
+      "description": ""
+    },
+    {
+      "name": "woocommerce-copy-guidelines",
+      "description": ""
+    },
+    {
+      "name": "woocommerce-dev-cycle",
+      "description": ""
+    },
+    {
+      "name": "wordpress-plugin-core",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-ci-cd",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-dev-experience",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-frameworks",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-migration",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-multi-lang",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-runtime-apis",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-security",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-testing",
+      "description": ""
+    },
+    {
+      "name": "xss-prevention",
+      "description": ""
+    },
+    {
+      "name": "zustand-state-management",
+      "description": ""
+    }
+  ]
+}
