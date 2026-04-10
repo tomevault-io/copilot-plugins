@@ -1,13 +1,10 @@
 ## risus-companion
 
-> Each model should have its own file.
+> All methods should be have a docstring explaining what they do.  Include parameter descriptions.
 
 
-Rules for Models
-
-Each model should have its own file.
+All methods should be have a docstring explaining what they do.  Include parameter descriptions.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/joewdriver)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/joewdriver)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/joewdriver) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
