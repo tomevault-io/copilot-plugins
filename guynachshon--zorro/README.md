@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [GuyNachshon/zorro](https://github.com/GuyNachsh
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/GuyNachshon](https://tomevault.io/claim/GuyNachshon)
 
