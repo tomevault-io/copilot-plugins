@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ShuhaiYu/openmat](https://github.com/ShuhaiYu/o
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ShuhaiYu](https://tomevault.io/claim/ShuhaiYu)
 
