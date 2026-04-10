@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [stytchauth/stytch-browser](https://gi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/stytchauth](https://tomevault.io/claim/stytchauth)
 
