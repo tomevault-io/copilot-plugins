@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [BRPRAKASH2104/AI_TC_Generator_v04_w_Trainer](ht
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/BRPRAKASH2104](https://tomevault.io/claim/BRPRAKASH2104)
 
