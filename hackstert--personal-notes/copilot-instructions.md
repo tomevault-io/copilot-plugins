@@ -1,167 +1,186 @@
 ## personal-notes
 
-> To guide an AI assistant in creating a comprehensive Project Overview Product Requirements Document (PRD) that outlines the entire project scope, architecture, and feature relationships. This document serves as the foundation and reference point for all feature-specific PRDs.
+> To guide an AI assistant in effectively managing task lists and implementing tasks from a PRD in a structured, incremental manner with regular user feedback and quality control.
 
 
-# Rule: Generating a Project Overview PRD
+# Rule: Task Management and Implementation
 
 ## Goal
 
-To guide an AI assistant in creating a comprehensive Project Overview Product Requirements Document (PRD) that outlines the entire project scope, architecture, and feature relationships. This document serves as the foundation and reference point for all feature-specific PRDs.
-
-## Process
-
-1. **Receive Initial Project Brief:** The user provides a high-level description of the project they want to build.
-2. **Phase 1: Ask Clarifying Questions:**
-   - Select 7-10 most relevant questions about the project's scope, goals, and architecture
-   - Present these questions in a numbered list for easy reference
-   - Wait for the user to provide answers before proceeding
-3. **Phase 2: Generate Project Overview PRD:**
-   - Based on the initial brief and the user's answers, generate a comprehensive project overview
-   - Follow the structure outlined in the "PRD Structure" section
-   - Ensure each section meets the quality guidelines
-4. **Save PRD:** Save the generated document as `project-overview.prd` inside the `/tasks` directory.
-
-## Clarifying Questions (Examples)
-
-The AI should adapt its questions based on the project brief, but here are key areas to explore:
-
-- **Project Vision:** "What is the overall vision and purpose of this project?"
-- **Target Users:** "Who are the primary and secondary users of this system?"
-- **Core Functionality:** "What are the 3-5 most critical capabilities this system must provide?"
-- **Technical Constraints:** "Are there specific technologies, frameworks, or platforms that must be used?"
-- **Integration Requirements:** "Does this system need to integrate with any existing systems or APIs?"
-- **Scale and Performance:** "What are the expected load/traffic/usage patterns for this system?"
-- **Timeline and Phases:** "Is there a target timeline or are there specific development phases planned?"
-- **Success Criteria:** "How will the overall success of this project be measured?"
-- **Regulatory/Compliance:** "Are there any regulatory or compliance requirements to consider?"
-- **Existing Systems:** "Is this replacing an existing system? If so, what are its limitations?"
-
-## PRD Structure
-
-The generated Project Overview PRD should include the following sections:
-
-1. **Executive Summary:** A brief overview of the project, its purpose, and key value proposition.
-
-2. **Project Vision and Goals:**
-
-   - High-level vision statement
-   - Strategic goals and objectives
-   - Key success metrics for the overall project
-
-3. **User Personas:**
-
-   - Description of primary and secondary users
-   - Key user needs and pain points addressed by the system
-
-4. **System Architecture Overview:**
-
-   - High-level architecture diagram (described in text)
-   - Key components and their relationships
-   - External system integrations
-   - Data flow overview
-
-5. **Feature Inventory:**
-
-   - List of all major features grouped by functional area
-   - Priority level for each feature (Must-have, Should-have, Could-have, Won't-have)
-   - Dependencies between features
-
-6. **Technical Requirements:**
-
-   - Technology stack and platform requirements
-   - Performance requirements
-   - Security requirements
-   - Scalability considerations
-   - Compliance requirements
-
-7. **Development Roadmap:**
-
-   - Proposed development phases
-   - Feature allocation to phases
-   - Key milestones
-
-8. **Risks and Mitigations:**
-
-   - Identified technical risks
-   - Business risks
-   - Proposed mitigation strategies
-
-9. **Open Questions and Decisions:**
-   - Key architectural decisions to be made
-   - Areas requiring further research or validation
-
-## PRD Quality Guidelines
-
-When creating each section of the Project Overview PRD, ensure they meet these quality criteria:
-
-1. **System Architecture Should:**
-
-   - Clearly identify all major components
-   - Show relationships and dependencies between components
-   - Identify integration points with external systems
-   - Address scalability and performance considerations
-
-2. **Feature Inventory Should:**
-
-   - Provide clear, concise descriptions of each feature
-   - Indicate priority using a consistent system
-   - Identify dependencies between features
-   - Group related features logically
-
-3. **Technical Requirements Should:**
-
-   - Be specific and measurable where possible
-   - Address all aspects of the system (frontend, backend, data, etc.)
-   - Consider security, performance, and scalability
-   - Align with the overall project goals
-
-4. **Development Roadmap Should:**
-   - Propose logical phases based on feature dependencies
-   - Prioritize must-have features in earlier phases
-   - Consider technical dependencies in sequencing
-   - Allow for feedback and iteration
-
-## Target Audience
-
-Assume the primary readers of the Project Overview PRD are:
-
-1. **Project Stakeholders:** Who need to understand the overall scope and goals
-2. **Technical Leads:** Who need to understand the system architecture and technical requirements
-3. **Developers:** Who need context for how their feature work fits into the larger system
-
-Requirements should be clear, unambiguous, and provide sufficient technical detail while remaining accessible to non-technical stakeholders.
-
-## Interaction Model
-
-The process requires user confirmation between phases:
-
-1. After presenting clarifying questions, wait for the user to provide answers
-2. Only proceed to generating the PRD after receiving sufficient information
-3. If answers are incomplete or unclear, ask focused follow-up questions before proceeding
+To guide an AI assistant in effectively managing task lists and implementing tasks from a PRD in a structured, incremental manner with regular user feedback and quality control.
 
 ## Output
 
-- **Format:** Markdown (`.md`)
-- **Location:** `/tasks/`
-- **Filename:** `project-overview.prd`
+- **Implemented Code**: Working, tested code that fulfills the requirements of the task
+- **Updated Task List**: Task list with completed items marked and new tasks added
+- **Documentation**: Updated or new documentation as required by the task
+- **Commit History**: Clean, descriptive commits for completed parent tasks
 
-## Relationship with Feature PRDs
+## Process
 
-The Project Overview PRD serves as the foundation for all feature-specific PRDs:
+1. **Phase 1: Task Selection and Planning**
 
-1. Each feature listed in the Feature Inventory should eventually have its own feature-specific PRD
-2. Feature PRDs should reference the Project Overview PRD for context
-3. The Project Overview PRD should be updated if significant changes occur during feature development
+   - Review the task list and identify the next parent task to work on
+   - Identify the specific subtask to implement next
+   - Outline the implementation approach for the subtask
+   - Present the plan to the user and ask for confirmation to proceed
 
-## Final Instructions
+2. **Phase 2: Implementation and Verification**
+   - Implement the subtask according to the implementation quality guidelines
+   - Run appropriate tests to verify the implementation
+   - Update the task list to mark the subtask as completed
+   - Commit changes if all subtasks for a parent task are complete
+   - Present the completed work to the user and wait for approval before proceeding to the next subtask
 
-1. Do NOT start implementing the project
-2. Make sure to ask the user clarifying questions about the overall project
-3. Take the user's answers to the clarifying questions and create a comprehensive project overview
-4. Emphasize how features will work together as a cohesive system
+## Task Implementation Quality Guidelines
+
+When implementing tasks, ensure the code meets these quality criteria:
+
+1. **Code Quality**:
+
+   - Follow language-specific style guides and conventions
+   - Include appropriate error handling and logging
+   - Write clean, readable, and well-commented code
+   - Follow DRY (Don't Repeat Yourself) principles
+
+2. **Testing**:
+
+   - Write unit tests for new functionality
+   - Ensure tests cover edge cases and error conditions
+   - Verify that all tests pass before marking a task complete
+
+3. **Documentation**:
+   - Add inline documentation for complex logic
+   - Update README or other documentation as needed
+   - Document any API changes or new endpoints
+
+## Implementation Examples
+
+### Example of Good Code Implementation:
+
+```python
+def process_payment(payment_data: Dict[str, Any]) -> PaymentResult:
+    """
+    Process a payment transaction with validation and error handling.
+
+    Args:
+        payment_data: Dictionary containing payment details
+
+    Returns:
+        PaymentResult object with status and transaction ID
+
+    Raises:
+        ValidationError: If payment data is invalid
+        PaymentProcessingError: If payment processing fails
+    """
+    try:
+        # Validate payment data
+        validate_payment_data(payment_data)
+
+        # Process the payment
+        result = payment_gateway.process(payment_data)
+
+        # Log successful transaction
+        logger.info(f"Payment processed successfully: {result.transaction_id}")
+
+        return result
+    except ValidationError as e:
+        logger.error(f"Payment validation failed: {str(e)}")
+        raise
+    except Exception as e:
+        logger.error(f"Payment processing failed: {str(e)}")
+        raise PaymentProcessingError(f"Failed to process payment: {str(e)}")
+```
+
+### Example of Good Commit Message:
+
+```bash
+git commit -m "feat: implement payment processing workflow
+
+- Add validation for payment data
+- Integrate with payment gateway
+- Add comprehensive error handling
+- Write unit tests for validation and processing
+
+Closes task 2.3 from payment-system PRD"
+```
+
+## Task List Maintenance
+
+1. **Update the task list as you work:**
+
+   - Mark tasks and subtasks as completed (`[x]`) per the protocol above.
+   - Add new tasks as they emerge.
+
+2. **Maintain the "Relevant Files" section:**
+   - List every file created or modified.
+   - Give each file a one‑line description of its purpose.
+
+## Completion Protocol
+
+When implementing tasks from the task list, follow this structured protocol:
+
+1. **Subtask Completion:**
+
+   - When a subtask is finished, immediately mark it as completed by changing `[ ]` to `[x]`
+   - Run appropriate tests to verify the implementation works as expected
+   - Present the completed work to the user with a summary of changes
+   - Wait for user approval before proceeding to the next subtask
+
+2. **Parent Task Completion:**
+
+   - When **all** subtasks under a parent task are marked complete `[x]`, follow this sequence:
+     a. **Test**: Run the full test suite (`pytest`, `npm test`, etc.) to ensure all tests pass
+     b. **Stage**: Stage all changes with `git add .`
+     c. **Clean up**: Remove any temporary files and debug code
+     d. **Commit**: Create a descriptive commit using the conventional format:
+     ```
+     git commit -m "feat: add payment validation logic" -m "- Validates card type and expiry" -m "- Adds unit tests for edge cases" -m "Related to T123 in PRD"
+     ```
+     e. **Mark Complete**: Only after successful commit, mark the parent task as completed `[x]`
+
+3. **Documentation Updates:**
+
+   - Update any relevant documentation to reflect the completed work
+   - Ensure the "Relevant Files" section in the task list is current and accurate
+   - Add any new tasks or subtasks that were discovered during implementation
+
+4. **Progress Reporting:**
+   - After each completed subtask, provide a brief progress update
+   - After completing a parent task, provide a summary of all changes made
+   - Include any challenges encountered and how they were resolved
+
+## Interaction Model
+
+The process requires user confirmation at multiple points:
+
+1. Before implementing a subtask: Present the implementation plan and wait for approval
+2. After implementing a subtask: Present the completed work and wait for approval to proceed
+3. After completing all subtasks for a parent task: Present the final result and wait for approval before marking the parent task complete
+
+## AI Instructions
+
+When working with task lists, the AI must:
+
+1. Regularly update the task list file after finishing any significant work.
+2. Follow the completion protocol:
+   - Mark each finished **sub‑task** `[x]`.
+   - Mark the **parent task** `[x]` once **all** its subtasks are `[x]`.
+3. Add newly discovered tasks.
+4. Keep "Relevant Files" accurate and up to date.
+5. Before starting work, check which sub‑task is next.
+6. After implementing a sub‑task, update the file and then pause for user approval.
+
+## Target Audience
+
+This rule is intended for AI assistants working with developers to implement tasks from a PRD. The primary users are:
+
+1. **Junior Developers**: Who need clear guidance on implementation standards and processes
+2. **Project Managers**: Who need visibility into task progress and completion status
+3. **Team Leads**: Who need to ensure code quality and consistent implementation practices
+
+The rule assumes basic familiarity with version control, testing practices, and software development workflows.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/HacksterT)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/HacksterT)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/HacksterT) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
