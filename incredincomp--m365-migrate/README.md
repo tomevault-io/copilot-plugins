@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [incredincomp/m365-migrate](https://github.com/i
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/incredincomp](https://tomevault.io/claim/incredincomp)
 
