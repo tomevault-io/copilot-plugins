@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mhylle/fullstack-template](https://github.com/m
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mhylle](https://tomevault.io/claim/mhylle)
 
