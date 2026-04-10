@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [araujodgdev/clica-seguros-v2](https:/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/araujodgdev](https://tomevault.io/claim/araujodgdev)
 
