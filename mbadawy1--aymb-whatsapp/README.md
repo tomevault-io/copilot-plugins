@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mbadawy1/AYMB_WhatsApp](https://github.com/mbad
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mbadawy1](https://tomevault.io/claim/mbadawy1)
 
