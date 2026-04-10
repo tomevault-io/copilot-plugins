@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [digital-chemistry-laboratory/SMILES-Transformer
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/digital-chemistry-laboratory](https://tomevault.io/claim/digital-chemistry-laboratory)
 
