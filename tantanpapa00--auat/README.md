@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [tantanpapa00/AUAT](https://github.com/tantanpap
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tantanpapa00](https://tomevault.io/claim/tantanpapa00)
 
