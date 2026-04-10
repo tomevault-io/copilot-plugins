@@ -1,0 +1,63 @@
+{
+  "name": "claude-plugins",
+  "owner": "legacybridge-tech",
+  "repo": "claude-plugins",
+  "description": "AI instruction files for claude-plugins by legacybridge-tech",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tailwindplus",
+      "path": "tailwindplus/skills/tailwindplus",
+      "github_url": "https://github.com/legacybridge-tech/claude-plugins/tree/main/tailwindplus/skills/tailwindplus",
+      "description": ""
+    },
+    {
+      "name": "cross-domain-thinking",
+      "path": "akashicrecords/skills/cross-domain-thinking",
+      "github_url": "https://github.com/legacybridge-tech/claude-plugins/tree/main/akashicrecords/skills/cross-domain-thinking",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": "gemini-api/skills/gemini",
+      "github_url": "https://github.com/legacybridge-tech/claude-plugins/tree/main/gemini-api/skills/gemini",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/legacybridge-tech",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-10T03:31:16Z"
+}
