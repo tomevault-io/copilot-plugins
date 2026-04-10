@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nbbaier/wrkflw](https://github.com/nbbaier/wrkf
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nbbaier](https://tomevault.io/claim/nbbaier)
 
