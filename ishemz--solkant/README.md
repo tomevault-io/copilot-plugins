@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [IshemZ/solkant](https://github.com/IshemZ/solka
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/IshemZ](https://tomevault.io/claim/IshemZ)
 
