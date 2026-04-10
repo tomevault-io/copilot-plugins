@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [daigotanaka0714/glimpse](https://github.com/dai
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/daigotanaka0714](https://tomevault.io/claim/daigotanaka0714)
 
