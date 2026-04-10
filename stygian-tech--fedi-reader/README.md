@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Stygian-Tech/fedi-reader](https://github.com/St
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Stygian-Tech](https://tomevault.io/claim/Stygian-Tech)
 
