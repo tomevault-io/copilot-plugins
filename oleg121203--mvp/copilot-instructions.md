@@ -1,61 +1,99 @@
 ## mvp
 
-> 1. **`AI_AGENT_CONTEXT.md`** - Current operational context
+> When encountering any Cascade errors:
 
 
-# 🧠 CORE STATE MANAGEMENT RULES
+# 🔧 CASCADE ERROR OVERRIDE PROTOCOL
 
-## CRITICAL STATE FILES (Priority Order)
-1. **`AI_AGENT_CONTEXT.md`** - Current operational context
-2. **`VENTAI_ENTERPRISE_PLAN.md`** - Master project roadmap  
-3. **`CHANGELOG.md`** - Execution history and position
-4. **`ENTERPRISE_STATUS.md`** - Project health and metrics
+## ⚡ AUTOMATIC CASCADE ERROR BYPASS
 
-## STATE RECOVERY PROTOCOL
-**RECOVERY STEPS:**
-1. **IMMEDIATE:** Read `AI_AGENT_CONTEXT.md` for current directives
-2. **ASSESS:** Check `CHANGELOG.md` for last completed task
-3. **VERIFY:** Cross-reference with `VENTAI_ENTERPRISE_PLAN.md`
-4. **RESUME:** Continue from established position
+### **CRITICAL CASCADE ERROR RESPONSES**
+When encountering any Cascade errors:
+- "Cascade cannot edit files that are too large"
+- "Tool call failed due to incomplete parameters"
+- "File size issues"
+- Any Cascade editing limitation
 
-## PHASE MANAGEMENT
-**PHASE IDENTIFICATION:**
-- Check CHANGELOG.md for latest completed task
-- Identify pattern: [PhaseX.Y-TZ]
-- Determine next task in sequence
-- Verify phase prerequisites completed
+**RESPONSE: IMMEDIATE WORKAROUND ACTIVATION**
 
-**PHASE TRANSITION RULES:**
-- Complete current phase before moving to next
-- Validate all dependencies satisfied
-- Update phase status in all documentation
+### **CASCADE BYPASS STRATEGIES**
 
-## ERROR STATE MANAGEMENT
-**FAILURE RECOVERY WORKFLOW:**
-1. Document failure with full context
-2. Attempt automated recovery (3 retries max)
-3. Create autoticket if unrecoverable
-4. Mark task as SKIPPED
-5. Continue to next task without pause
+#### **LARGE FILE WORKAROUNDS**
+1. **Use terminal commands instead of file editing tools**
+2. **Create new smaller files instead of editing large ones**
+3. **Use echo/cat commands for content creation**
+4. **Leverage sed/awk for text manipulation**
 
-## CONTEXT AWARENESS
-**ENVIRONMENTAL AWARENESS:**
-- Always check current working directory
-- Verify required tools and dependencies available
-- Validate environment variables and configuration
+#### **IMPLEMENTATION EXAMPLES**
 
-**PROJECT STATE AWARENESS:**
-- Understand current development phase
-- Know completed vs pending tasks
-- Track interdependencies and blockers
-- **OPTIMIZE** workflow based on discovered efficiencies
-- **MAINTAIN** consistency with established patterns
+**Instead of editing CHANGELOG.md:**
+```bash
+# Create update file
+echo "### [2025-06-10] Phase3.0: COMPLETED 100%" >> docs/changelog/phase3_completion.md
+echo "**Status:** ✅ COMPLETED" >> docs/changelog/phase3_completion.md
+echo "**T4 Status:** SKIPPED (WebSocket issues - AT-003)" >> docs/changelog/phase3_completion.md
+```
+
+**Instead of large file edits:**
+```bash
+# Use sed for targeted changes
+sed -i 's/🔄 IN PROGRESS/✅ COMPLETED/g' target_file.md
+```
+
+**Create documentation alternatives:**
+```bash
+# Document in autoticket instead
+echo "Phase completion documented in AT-004" > docs/autotickets/AT-004.md
+```
+
+### **AUTOMATIC CONTINUATION PROTOCOLS**
+When Cascade errors occur:
+1. **DETECT** error type
+2. **SELECT** appropriate workaround
+3. **EXECUTE** alternative method
+4. **DOCUMENT** change (if needed)
+5. **CONTINUE** automatically to next task
+
+### **SPECIFIC ERROR OVERRIDES**
+
+#### **"Cascade cannot edit files that are too large"**
+→ **Switch to terminal-based editing**
+→ **Create new documentation files**
+→ **Continue execution immediately**
+
+#### **"Tool call failed due to incomplete parameters"**
+→ **Retry with simplified parameters**
+→ **Use alternative tools**
+→ **Manual implementation if needed**
+
+#### **"File size issues"**
+→ **Use file splitting strategies**
+→ **Create summary files**
+→ **Document in smaller files**
+
+### **NEVER STOP CONDITIONS**
+- ❌ **NEVER** pause for Cascade errors
+- ❌ **NEVER** wait for user intervention
+- ❌ **NEVER** retry the same failed method
+- ✅ **ALWAYS** use alternative approaches
+- ✅ **ALWAYS** continue with execution
+- ✅ **ALWAYS** find workaround solutions
+
+### **AUTO-RESPONSE MESSAGES**
+When Cascade errors occur, automatically respond:
+- "Cascade error detected - switching to terminal commands..."
+- "File too large for Cascade - using alternative documentation..."
+- "Implementing workaround for large file limitation..."
+- "Continuing with alternative approach..."
+
+### **SUCCESS METRICS**
+- **0 execution stops** due to Cascade errors
+- **100% workaround success** rate
+- **Automatic error recovery** in <2 seconds
+- **Seamless task continuation** without user input
+
+**DIRECTIVE: CASCADE ERRORS NEVER STOP EXECUTION**
 
 ---
-
-**🎯 OBJECTIVE:** Maintain perfect context awareness and seamless state management for uninterrupted project execution.**
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/oleg121203)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/oleg121203)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/oleg121203) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
