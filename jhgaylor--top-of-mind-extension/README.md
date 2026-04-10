@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jhgaylor/top-of-mind-extension](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jhgaylor](https://tomevault.io/claim/jhgaylor)
 
