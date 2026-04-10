@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nukopy/linux-kernel-6.16.2-code-reading](https:
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nukopy](https://tomevault.io/claim/nukopy)
 
