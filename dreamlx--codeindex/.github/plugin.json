@@ -1,0 +1,22 @@
+{
+  "name": "dreamlx--codeindex",
+  "displayName": "codeindex",
+  "description": "AI instruction files for codeindex by dreamlx",
+  "version": "1.0.0",
+  "author": "dreamlx",
+  "homepage": "https://tomevault.io/claim/dreamlx",
+  "skills": [
+    {
+      "name": "mo-arch",
+      "description": ""
+    },
+    {
+      "name": "mo-hooks",
+      "description": ""
+    },
+    {
+      "name": "mo-index",
+      "description": ""
+    }
+  ]
+}
