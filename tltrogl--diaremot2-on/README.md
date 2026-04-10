@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [tltrogl/diaremot2-on](https://github.com/tltrog
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tltrogl](https://tomevault.io/claim/tltrogl)
 
