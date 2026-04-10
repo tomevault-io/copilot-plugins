@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Xcdify/xarchgen](https://github.com/Xcdify/xarc
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Xcdify](https://tomevault.io/claim/Xcdify)
 
