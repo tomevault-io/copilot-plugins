@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [sunny-chung/hello-http](https://github.com/sunn
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sunny-chung](https://tomevault.io/claim/sunny-chung)
 
