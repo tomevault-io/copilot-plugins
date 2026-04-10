@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ahmad-luqman/build-your-own-os](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ahmad-luqman](https://tomevault.io/claim/ahmad-luqman)
 
