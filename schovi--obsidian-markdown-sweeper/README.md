@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [schovi/obsidian-markdown-sweeper](https://githu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/schovi](https://tomevault.io/claim/schovi)
 
