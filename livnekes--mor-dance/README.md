@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [livnekes/mor-dance](https://github.com/livnekes
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/livnekes](https://tomevault.io/claim/livnekes)
 
