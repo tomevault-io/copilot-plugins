@@ -1,107 +1,85 @@
 ## render-signal-server
 
-> Applied when creating Git commit messages. Format rules for Conventional Commits-based Prefix + English summary + bulleted body
+> Applied when creating Pull Requests. Format rules for Prefix + English summary + structured body (overview, changes, test content)
 
 
-# Git Commit Message Format Rules
+# PR Message Format Rules
 
-This rule is a guideline for commit messages that applies to all commits.
+This rule is a guideline that applies to Pull Request (PR) titles and bodies.
 
 ## Position of This Rule
 
-- This rule is a commit message convention based on Conventional Commits.
-- While adhering to basic formats like `Prefix` and `BREAKING CHANGE` from Conventional Commits, it adds guidelines specific to this repository such as `language` specification and bulleted body.
-- When reusing in other projects, adjust `language` and the list of Prefixes according to each project's policy.
+- This rule defines the PR message format in a way that aligns with the commit message convention based on Conventional Commits (`commit-message-format.md`).
+- While recommending the same style for title `Prefix` and summary as commit messages, it requires structured descriptions in the PR body such as "Overview," "Changes," and "Test Content."
+- When reusing in other projects, adjust `language` and required sections (e.g., "Technical Details") according to each project's policy.
 
 ## Language Specification
 
-- In this rule file, `language` is used as a logical name representing the language used in commit messages.
+- In this rule file, `language` is used as a logical name representing the language used in PR messages.
 - `language = "en"`
-- Summary and body should be written in the language specified by `language` as a rule.
+- Title and body should be written in the language specified by `language` as a rule.
 
-## Basic Format (Required)
+## Title (First Line)
 
-```
+### Format (Required)
+
+```text
 <Prefix>: <Summary (imperative/concise)>
-
-- Change 1 (bullet point)
-- Change 2 (bullet point)
-- ...
-
-Refs: #<Issue number> (optional)
-BREAKING CHANGE: <content> (optional)
 ```
 
-## Prefix (Leading Prefix)
-
-Prefix corresponds to `type` in Conventional Commits and uses lowercase English words.
-
-- feat: Add new feature
-- fix: Bug fix
-- refactor: Refactoring (no behavior change)
-- perf: Performance improvement
-- test: Add/modify tests
-- docs: Documentation update
-- build: Build/dependency changes
-- ci: CI-related changes
-- chore: Miscellaneous tasks (tool settings/scripts, etc.)
-- style: Style-only changes (unrelated to code logic)
-- revert: Revert
-
-As with Conventional Commits, the format `<Prefix>(scope):` is also allowed as needed (e.g., `fix(translation): ...`).
-- For detailed specifications, also refer to the official [Conventional Commits](https://www.conventionalcommits.org/) documentation.
-
-## Summary (First Line)
-
+- `Prefix` is recommended to use `type` from Conventional Commits, same as commit messages (e.g., `feat`, `fix`, `refactor`, `docs`, `chore`, etc.).
 - Write concisely in the language specified by `language`. No period at the end.
-- Briefly express what and why (if necessary).
-- Aim for approximately 50 characters or less.
+- Briefly express what and why (if necessary), aiming for approximately 50 characters or less.
+
+## Body (Structured Format)
+
+### Recommended Template
+
+PR body is recommended to have the following structured sections.
+
+```markdown
+## Overview
+
+Summary of what was implemented/fixed in this PR
+
+## Changes
+
+- Description of change 1
+- Description of change 2
+- Description of change 3
+
+## Technical Details (Optional)
+
+- Implementation details and design intentions as needed
+
+## Test Content
+
+- Types of tests performed (unit tests, E2E tests, manual verification, etc.)
+- Results of main behavior verification
+
+## Related Issues
+
+- Closes #123
+- Refs #456
+```
+
+- "Overview" and "Changes" are required in principle; "Technical Details," "Test Content," and "Related Issues" may be made required according to project operation rules.
+- Write bullet points with enough granularity to understand "what," "where," and "why" changes were made.
 
 ## Principles for Message Generation
 
-- Commit messages must always be generated from uncommitted diffs (e.g., `git diff` / `git diff --cached`) after reviewing their content.
-- Do not guess from issue titles or branch names alone; summarize and enumerate the actual changes contained in the diff.
-- Even for automatic generation by AI or scripts, use uncommitted diffs as input.
-- When bots or automation tools commit, follow this rule and always generate messages based on diffs.
-
-## Body (Bullet Points)
-
-- List changes as bullet points starting with "- ".
-- Write in the same language as the summary (the `language` defined in this rule file) as a rule. Technical terms in English are acceptable as needed.
-- If possible, also add bullet points for "impact scope," "migration steps," "risks," "rollback method," etc.
-
-## Footer (Optional)
-
-- Refs/Closes: Specify related Issues or PRs with `Refs: #123` / `Closes: #123`.
-- BREAKING CHANGE: If there are backward-incompatible changes, clearly state the content (or use the `!` notation with Prefix like `fix!: ...`).
-
-## Examples
-
-```
-fix: Remove unnecessary debug log output
-
-- Remove verbose log lines from user info retrieval process
-- Reduce log volume while keeping necessary information
-
-Refs: #123
-```
-
-```
-refactor: Consolidate duplicate validation logic into common function
-
-- Extract duplicate form input check code to utility function
-- Remove duplicate logic from callers to improve readability
-- No behavior changes
-```
+- PR title and body must always be generated from **actual diffs and commit history** (e.g., `git diff`, `git log`) after reviewing their content.
+- Do not guess from issue titles or branch names alone; clearly state change content, impact scope, and test content in the body.
+- Even for automatic generation by AI or scripts, use diffs, commit history, and related Issue information as input.
+- Determine Prefix and summary to align with the commit message convention (`commit-message-format.md`) (avoid semantic inconsistency between commits and PR).
 
 ## Prohibited
 
-- Writing summary only in a language different from that specified by `language`
-- Ambiguous summaries that don't convey meaning (e.g., abstract expressions like "update", "fix bug")
-- Body with only long text without bullet points that makes content hard to grasp
-- Commits that only disable or bypass static analysis or checks without substantial improvement (e.g., configuration changes that only relax check rules)
+- Writing title or body only in a language different from that specified by `language`
+- Ambiguous titles that don't convey meaning (e.g., abstract expressions like "update", "fix issue", "changes")
+- Body with only unstructured long text (without section headings or bullet points, making content hard to grasp)
+- Descriptions that differ from actual diffs or intentionally omit important changes, impacts, or test results
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ki2pixel)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ki2pixel)
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ki2pixel) — claim your Tome and manage your conversions.
 <!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
