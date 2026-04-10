@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [baiyongping/cowork-platform](https://
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/baiyongping](https://tomevault.io/claim/baiyongping)
 
