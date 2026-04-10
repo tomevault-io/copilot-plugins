@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [dilgerma/webinar20260218](https://github.com/di
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dilgerma](https://tomevault.io/claim/dilgerma)
 
