@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [pavelbyles/our_places_rs](https://github.com/pa
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pavelbyles](https://tomevault.io/claim/pavelbyles)
 
