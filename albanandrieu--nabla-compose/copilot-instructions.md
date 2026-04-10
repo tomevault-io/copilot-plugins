@@ -1,20 +1,32 @@
 ## nabla-compose
 
-> This rule explains FastAPI conventions and best practices for high-performance Python APIs.
+> Pre-commit hooks configuration and usage guide
 
 
-# FastAPI rules
+# GitHooks & Pre-Commit
 
-- Use type hints for all function parameters and return values
-- Use Pydantic models for request and response validation
-- Use appropriate HTTP methods with path operation decorators (@app.get, @app.post, etc.)
-- Use dependency injection for shared logic like database connections and authentication
-- Use background tasks for non-blocking operations
-- Use proper status codes for responses (201 for creation, 404 for not found, etc.)
-- Use APIRouter for organizing routes by feature or resource
-- Use path parameters, query parameters, and request bodies appropriately
+This project makes use of `pre-commit` for quality assurance. If pre-commit changes any files, it is okay to re-add and re-commit. If there are any errors, you should fix them before doing so.
+
+## Useful Commands
+
+```bash
+# Test hooks without committing
+pre-commit run --all-files
+
+# Commit without running a hook
+SKIP=<hook-id> git commit
+```
+
+## Hook Categories
+
+The pre-commit configuration includes several categories of hooks:
+
+- Security Tools
+- Code Quality Tools
+- Filesystem tools
+- Git quality
+- Tests
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/AlbanAndrieu)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/AlbanAndrieu)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/AlbanAndrieu) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
