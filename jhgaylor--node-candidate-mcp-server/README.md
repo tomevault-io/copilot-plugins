@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [jhgaylor/node-candidate-mcp-server](h
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jhgaylor](https://tomevault.io/claim/jhgaylor)
 
