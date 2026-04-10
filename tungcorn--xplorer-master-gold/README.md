@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [tungcorn/xplorer-master-gold](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/tungcorn](https://tomevault.io/claim/tungcorn)
 
