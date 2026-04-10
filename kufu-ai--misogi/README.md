@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kufu-ai/misogi](https://github.com/kufu-ai/miso
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kufu-ai](https://tomevault.io/claim/kufu-ai)
 
