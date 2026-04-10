@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [b-open-io/bitcoinschema](https://github.com/b-o
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/b-open-io](https://tomevault.io/claim/b-open-io)
 
