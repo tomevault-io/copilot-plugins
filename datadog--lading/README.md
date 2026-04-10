@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [DataDog/lading](https://github.com/DataDog/ladi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/DataDog](https://tomevault.io/claim/DataDog)
 
