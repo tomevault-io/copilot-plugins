@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [slovymovy/slovy-movy-app](https://github.com/sl
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/slovymovy](https://tomevault.io/claim/slovymovy)
 
