@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [KekwanuLabs/crayfish](https://github.com/Kekwan
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/KekwanuLabs](https://tomevault.io/claim/KekwanuLabs)
 
