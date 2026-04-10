@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kejadlen/ketchup](https://github.com/kejadlen/k
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kejadlen](https://tomevault.io/claim/kejadlen)
 
