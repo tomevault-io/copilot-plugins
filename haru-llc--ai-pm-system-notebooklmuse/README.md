@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [HaRu-LLC/ai-pm_system_notebooklmuse](https://gi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/HaRu-LLC](https://tomevault.io/claim/HaRu-LLC)
 
