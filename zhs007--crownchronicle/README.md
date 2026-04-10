@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [zhs007/crownchronicle](https://github.com/zhs00
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zhs007](https://tomevault.io/claim/zhs007)
 
