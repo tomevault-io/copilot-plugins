@@ -1,33 +1,27 @@
 ## my-daily-coffee
 
-> description: This rule explains Next.js conventions and best practices for fullstack development.
+> description: This rule explains React component patterns, hooks usage, and best practices.
 
 
 ---
 
 trigger: glob
-description: This rule explains Next.js conventions and best practices for fullstack development.
-globs: **/\*.js,**/_.jsx,\*\*/_.ts,\*_/_.tsx
+description: This rule explains React component patterns, hooks usage, and best practices.
+globs: **/\*.jsx,**/\*.tsx
 
 ---
 
-# Next.js rules
+# React rules
 
-- Use the App Router structure with `page.tsx` files in route directories.
-- Client components must be explicitly marked with `'use client'` at the top of the file.
-- Use kebab-case for directory names (e.g., `components/auth-form`) and PascalCase for component files.
-- Prefer named exports over default exports, i.e. `export function Button() { /* ... */ }` instead of `export default function Button() { /* ... */ }`.
-- Minimize `'use client'` directives:
-  - Keep most components as React Server Components (RSC)
-  - Only use client components when you need interactivity and wrap in `Suspense` with fallback UI
-  - Create small client component wrappers around interactive elements
-- Avoid unnecessary `useState` and `useEffect` when possible:
-  - Use server components for data fetching
-  - Use React Server Actions for form handling
-  - Use URL search params for shareable state
-- Use `nuqs` for URL search param state management
+- Use functional components with hooks instead of class components
+- Use custom hooks for reusable logic
+- Use the Context API for state management when needed
+- Use proper prop validation with PropTypes
+- Use React.memo for performance optimization when necessary
+- Use fragments to avoid unnecessary DOM elements
+- Use proper list rendering with keys
+- Prefer composition over inheritance
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/rivailJunior)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/rivailJunior)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/rivailJunior) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
