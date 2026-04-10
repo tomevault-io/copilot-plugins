@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [manat0912/Sam3video-pinokio](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/manat0912](https://tomevault.io/claim/manat0912)
 
