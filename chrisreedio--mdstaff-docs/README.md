@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [chrisreedio/mdstaff-docs](https://github.com/ch
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/chrisreedio](https://tomevault.io/claim/chrisreedio)
 
