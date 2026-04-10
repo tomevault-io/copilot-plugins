@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Tamoghna12/Optimeal_AI](https://github.com/Tamo
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Tamoghna12](https://tomevault.io/claim/Tamoghna12)
 
