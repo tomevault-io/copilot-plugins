@@ -55,9 +55,15 @@
       "path": "skills/typo3-extension-upgrade",
       "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-extension-upgrade",
       "description": ""
+    },
+    {
+      "name": "webconsulting-branding",
+      "path": "skills/webconsulting-branding",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/webconsulting-branding",
+      "description": ""
     }
   ],
   "claim_url": "https://tomevault.io/claim/dirnbauer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T14:39:04Z"
+  "distributed_at": "2026-04-10T03:30:11Z"
 }
