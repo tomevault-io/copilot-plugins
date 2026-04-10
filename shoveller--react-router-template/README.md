@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [shoveller/react-router-template](http
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/shoveller](https://tomevault.io/claim/shoveller)
 
