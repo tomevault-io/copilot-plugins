@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [Jylhis/marchyo](https://github.com/Jylhis/march
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Jylhis](https://tomevault.io/claim/Jylhis)
 
