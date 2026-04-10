@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Kurigi/github-folders](https://github.com/Kurig
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Kurigi](https://tomevault.io/claim/Kurigi)
 
