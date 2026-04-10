@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [aguileraz/crowbar-mobile](https://github.com/ag
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/aguileraz](https://tomevault.io/claim/aguileraz)
 
