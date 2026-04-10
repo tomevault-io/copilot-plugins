@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [getzerocard/zerocard-infra](https://g
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/getzerocard](https://tomevault.io/claim/getzerocard)
 
