@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [pablogeokar/flutter-dashboard-ui](https://githu
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pablogeokar](https://tomevault.io/claim/pablogeokar)
 
