@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [almiab1/portfolio](https://github.com/almiab1/p
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/almiab1](https://tomevault.io/claim/almiab1)
 
