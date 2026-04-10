@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [engseclabs/graphgrc](https://github.com/engsecl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/engseclabs](https://tomevault.io/claim/engseclabs)
 
