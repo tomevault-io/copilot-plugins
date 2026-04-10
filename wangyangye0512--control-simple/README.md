@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [WangyangYe0512/Control-Simple](https:
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/WangyangYe0512](https://tomevault.io/claim/WangyangYe0512)
 
