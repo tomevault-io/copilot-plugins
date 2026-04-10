@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [stho32/website-validator](https://github.com/st
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/stho32](https://tomevault.io/claim/stho32)
 
