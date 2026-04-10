@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [KBLLR/code-smart-campus](https://github.com/KBL
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/KBLLR](https://tomevault.io/claim/KBLLR)
 
