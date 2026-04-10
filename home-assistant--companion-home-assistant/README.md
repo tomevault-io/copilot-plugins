@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [home-assistant/companion.home-assistant](https:
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/home-assistant](https://tomevault.io/claim/home-assistant)
 
