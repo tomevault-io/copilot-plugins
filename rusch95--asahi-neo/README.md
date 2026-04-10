@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [rusch95/asahi_neo](https://github.com/rusch95/a
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/rusch95](https://tomevault.io/claim/rusch95)
 
