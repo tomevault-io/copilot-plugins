@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [openann19/sentinelmusic](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/openann19](https://tomevault.io/claim/openann19)
 
