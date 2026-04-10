@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [LeeSinLiang/Janus](https://github.com/LeeSinLia
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/LeeSinLiang](https://tomevault.io/claim/LeeSinLiang)
 
