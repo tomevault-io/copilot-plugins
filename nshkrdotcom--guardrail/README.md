@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [nshkrdotcom/GUARDRAIL](https://github.com/nshkr
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nshkrdotcom](https://tomevault.io/claim/nshkrdotcom)
 
