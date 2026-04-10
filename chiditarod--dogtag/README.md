@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [chiditarod/dogtag](https://github.com/chiditaro
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/chiditarod](https://tomevault.io/claim/chiditarod)
 
