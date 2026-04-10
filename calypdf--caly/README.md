@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [CalyPdf/Caly](https://github.com/CalyPdf/Caly).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/CalyPdf](https://tomevault.io/claim/CalyPdf)
 
