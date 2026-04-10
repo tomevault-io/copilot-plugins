@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [katzgov/katzgov-web](https://github.com/katzgov
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/katzgov](https://tomevault.io/claim/katzgov)
 
