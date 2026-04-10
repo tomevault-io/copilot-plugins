@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Harsh-2002/Clarity](https://github.com/Harsh-20
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Harsh-2002](https://tomevault.io/claim/Harsh-2002)
 
