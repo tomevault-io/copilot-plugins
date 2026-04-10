@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [chew-z/good](https://github.com/chew-z/good).
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/chew-z](https://tomevault.io/claim/chew-z)
 
