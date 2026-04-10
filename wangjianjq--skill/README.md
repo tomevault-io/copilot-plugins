@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [wangjianjq/Skill](https://github.com/wangjianjq
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wangjianjq](https://tomevault.io/claim/wangjianjq)
 
