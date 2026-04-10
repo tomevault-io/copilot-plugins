@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [eloidieme/slides-gen](https://github.com/eloidi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/eloidieme](https://tomevault.io/claim/eloidieme)
 
