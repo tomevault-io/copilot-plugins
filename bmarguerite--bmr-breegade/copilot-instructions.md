@@ -1,392 +1,277 @@
 ## bmr-breegade
 
-> **MUST** use Elasticsearch for full-text search functionality.
+> **MUST** use Trigger.dev for event processing and background tasks.
 
 
-# Search Rules
+# Events Rules
 
-## Search Service Architecture
+## Event Processing Framework
 
-**MUST** use Elasticsearch for full-text search functionality.
+**MUST** use Trigger.dev for event processing and background tasks.
 
-**Search Service Structure:**
-
-```typescript
-// src/services/elasticsearch/search.ts
-import elastic from "./elastic";
-import CustomerSearchIndex from "./indexes/CustomerSearchIndex";
-
-class search {
-  static customers() {
-    return new CustomerSearchIndex(elastic);
-  }
-}
-
-export default search;
-```
-
-## Elasticsearch Client Configuration
-
-**MUST** configure Elasticsearch client in dedicated file:
+**Event Definition Pattern:**
 
 ```typescript
-// src/services/elasticsearch/elastic.ts
-import { Client } from "@elastic/elasticsearch";
+// src/services/trigger/events/UserCreatedEvent.ts
+import { logger, task } from "@trigger.dev/sdk";
+import User from "@/domain/entities/User";
 
-const elastic = new Client({
-  node: process.env.ELASTICSEARCH_URL,
-  auth: {
-    username: process.env.ELASTICSEARCH_USERNAME,
-    password: process.env.ELASTICSEARCH_PASSWORD,
+export const UserCreatedEvent = task({
+  id: "UserCreatedEvent",
+  maxDuration: 300, // Stop after 300 secs (5 mins)
+  run: async (payload: Partial<User>, { ctx }) => {
+    logger.log("Processing user creation", { payload, ctx });
+
+    // Event processing logic here
+    await processUserCreation(payload);
   },
 });
 
-export default elastic;
+export default UserCreatedEvent;
 ```
 
-## Search Index Pattern
+## Event Organization
 
-**MUST** create dedicated search index classes for each searchable entity:
+**MUST** place event definitions in `src/services/trigger/events/` directory.
+
+**MUST** use PascalCase for event names ending with "Event":
+
+- `UserCreatedEvent.ts`
+- `OrderProcessedEvent.ts`
+- `PaymentCompletedEvent.ts`
+
+## Event Structure Requirements
+
+**MUST** include these properties in every event:
 
 ```typescript
-// src/services/elasticsearch/indexes/CustomerSearchIndex.ts
-import { Client } from "@elastic/elasticsearch";
-import Customer from "@/domain/entities/Customer";
-
-class CustomerSearchIndex {
-  private client: Client;
-  private indexName = "customers";
-
-  constructor(client: Client) {
-    this.client = client;
-  }
-
-  async index(customer: Customer) {
-    await this.client.index({
-      index: this.indexName,
-      id: customer.id,
-      document: {
-        id: customer.id,
-        firstName: customer.firstName,
-        lastName: customer.lastName,
-        email: customer.email,
-        legalStatuts: customer.legalStatuts,
-      },
-    });
-  }
-
-  async search(query: string) {
-    const response = await this.client.search({
-      index: this.indexName,
-      query: {
-        multi_match: {
-          query,
-          fields: ["firstName", "lastName", "email"],
-        },
-      },
-    });
-
-    return response.hits.hits.map((hit) => hit._source);
-  }
-}
-
-export default CustomerSearchIndex;
-```
-
-## Search Index Naming
-
-**MUST** use lowercase, singular names for index names:
-
-- `"customers"` (not `"Customers"` or `"customer"`)
-- `"products"` (not `"Products"` or `"product"`)
-- `"orders"` (not `"Orders"` or `"order"`)
-
-## Domain Search Interface
-
-**MUST** define search interfaces in domain layer:
-
-```typescript
-// src/domain/search/SearchIndex.ts
-interface SearchIndex<T> {
-  index(entity: T): Promise<void>;
-  search(query: string): Promise<T[]>;
-  delete(id: string): Promise<void>;
-  update(entity: T): Promise<void>;
-}
-
-export default SearchIndex;
-```
-
-**MUST** implement domain interfaces in service layer:
-
-```typescript
-// src/services/elasticsearch/indexes/CustomerSearchIndex.ts
-import SearchIndex from "@/domain/search/SearchIndex";
-import Customer from "@/domain/entities/Customer";
-
-class CustomerSearchIndex implements SearchIndex<Customer> {
-  // Implementation here
-}
-```
-
-## Search Query Patterns
-
-**MUST** use appropriate Elasticsearch query types:
-
-**Multi-field search:**
-
-```typescript
-async search(query: string) {
-  const response = await this.client.search({
-    index: this.indexName,
-    query: {
-      multi_match: {
-        query,
-        fields: ["firstName", "lastName", "email"],
-        type: "best_fields",
-      },
-    },
-  });
-
-  return response.hits.hits.map(hit => hit._source);
-}
-```
-
-**Filtered search:**
-
-```typescript
-async searchByStatus(query: string, status: string) {
-  const response = await this.client.search({
-    index: this.indexName,
-    query: {
-      bool: {
-        must: [
-          {
-            multi_match: {
-              query,
-              fields: ["firstName", "lastName", "email"],
-            },
-          },
-        ],
-        filter: [
-          {
-            term: {
-              status,
-            },
-          },
-        ],
-      },
-    },
-  });
-
-  return response.hits.hits.map(hit => hit._source);
-}
-```
-
-## Index Management
-
-**MUST** provide index management methods:
-
-```typescript
-class CustomerSearchIndex {
-  async createIndex() {
-    const exists = await this.client.indices.exists({
-      index: this.indexName,
-    });
-
-    if (!exists) {
-      await this.client.indices.create({
-        index: this.indexName,
-        settings: {
-          number_of_shards: 1,
-          number_of_replicas: 0,
-        },
-        mappings: {
-          properties: {
-            firstName: { type: "text" },
-            lastName: { type: "text" },
-            email: { type: "keyword" },
-            legalStatuts: { type: "keyword" },
-          },
-        },
-      });
-    }
-  }
-
-  async deleteIndex() {
-    await this.client.indices.delete({
-      index: this.indexName,
-    });
-  }
-}
-```
-
-## Document Operations
-
-**MUST** provide CRUD operations for search documents:
-
-```typescript
-class CustomerSearchIndex {
-  async index(customer: Customer) {
-    await this.client.index({
-      index: this.indexName,
-      id: customer.id,
-      document: customer,
-    });
-  }
-
-  async update(customer: Customer) {
-    await this.client.update({
-      index: this.indexName,
-      id: customer.id,
-      doc: customer,
-    });
-  }
-
-  async delete(id: string) {
-    await this.client.delete({
-      index: this.indexName,
-      id,
-    });
-  }
-
-  async get(id: string) {
-    const response = await this.client.get({
-      index: this.indexName,
-      id,
-    });
-
-    return response._source;
-  }
-}
-```
-
-## Error Handling
-
-**MUST** handle Elasticsearch errors appropriately:
-
-```typescript
-async search(query: string) {
-  try {
-    const response = await this.client.search({
-      index: this.indexName,
-      query: {
-        multi_match: {
-          query,
-          fields: ["firstName", "lastName", "email"],
-        },
-      },
-    });
-
-    return response.hits.hits.map(hit => hit._source);
-  } catch (error) {
-    if (error.meta?.statusCode === 404) {
-      // Index doesn't exist
-      return [];
-    }
-    throw error;
-  }
-}
-```
-
-## Search Synchronization
-
-**MUST** synchronize database changes with search index:
-
-```typescript
-// In service layer after database operations
-class CustomerService {
-  async createCustomer(data: Partial<Customer>): Promise<Customer> {
-    const customer = await customerRepository.create(data);
-
-    // Sync with search index
-    await search.customers().index(customer);
-
-    return customer;
-  }
-
-  async updateCustomer(id: string, data: Partial<Customer>): Promise<Customer> {
-    const customer = await customerRepository.update(id, data);
-
-    // Sync with search index
-    await search.customers().update(customer);
-
-    return customer;
-  }
-
-  async deleteCustomer(id: string): Promise<void> {
-    await customerRepository.delete(id);
-
-    // Remove from search index
-    await search.customers().delete(id);
-  }
-}
-```
-
-## Environment Variables
-
-**MUST** use environment variables for Elasticsearch configuration:
-
-```env
-ELASTICSEARCH_URL=https://your-elasticsearch-cluster.com
-ELASTICSEARCH_USERNAME=your-username
-ELASTICSEARCH_PASSWORD=your-password
-```
-
-## Search Response Format
-
-**MUST** return consistent response format:
-
-```typescript
-interface SearchResult<T> {
-  results: T[];
-  total: number;
-  page?: number;
-  pageSize?: number;
-}
-
-async search(query: string, page = 1, size = 10): Promise<SearchResult<Customer>> {
-  const response = await this.client.search({
-    index: this.indexName,
-    query: { /* query */ },
-    from: (page - 1) * size,
-    size,
-  });
-
-  return {
-    results: response.hits.hits.map(hit => hit._source),
-    total: response.hits.total.value,
-    page,
-    pageSize: size,
-  };
-}
-```
-
-## Index Mapping Best Practices
-
-**MUST** define appropriate field mappings:
-
-```typescript
-mappings: {
-  properties: {
-    // Use "text" for full-text search fields
-    firstName: { type: "text" },
-    lastName: { type: "text" },
-
-    // Use "keyword" for exact match fields
-    email: { type: "keyword" },
-    status: { type: "keyword" },
-
-    // Use "date" for timestamp fields
-    createdAt: { type: "date" },
-
-    // Use "long" for numeric fields
-    age: { type: "long" },
+export const EventName = task({
+  id: "EventName", // Unique identifier matching the export name
+  maxDuration: 300, // Timeout in seconds
+  run: async (payload: PayloadType, { ctx }) => {
+    // Event processing logic
   },
+});
+```
+
+**MUST** use typed payload parameters based on domain entities:
+
+```typescript
+run: async (payload: Partial<User>, { ctx }) => {
+  // payload is properly typed
+};
+```
+
+## Event Payload Rules
+
+**MUST** use domain entity types or Partial<Entity> for payloads:
+
+```typescript
+// Good: Uses domain entity
+run: async (payload: Partial<User>, { ctx }) => { ... }
+
+// Good: Uses specific type
+interface OrderPayload {
+  orderId: string;
+  userId: string;
+  amount: number;
 }
+run: async (payload: OrderPayload, { ctx }) => { ... }
+```
+
+**MUST NOT** use `any` or overly generic types for payloads.
+
+## Logging Requirements
+
+**MUST** use Trigger.dev logger for all event logging:
+
+```typescript
+import { logger } from "@trigger.dev/sdk";
+
+// Log event start
+logger.log("Event started", { payload, ctx });
+
+// Log progress
+logger.info("Processing step completed", { step: "validation" });
+
+// Log errors
+logger.error("Event failed", { error: error.message });
+
+// Log completion
+logger.log("Event completed successfully", { result });
+```
+
+## Error Handling in Events
+
+**MUST** handle errors gracefully in event processors:
+
+```typescript
+run: async (payload: Partial<User>, { ctx }) => {
+  try {
+    await processUserCreation(payload);
+    logger.log("User creation processed successfully");
+  } catch (error) {
+    logger.error("Failed to process user creation", {
+      error: error.message,
+      userId: payload.id,
+    });
+    throw error; // Re-throw to trigger retry mechanism
+  }
+};
+```
+
+## Event Triggers
+
+**MUST** trigger events from service layer, not directly from controllers:
+
+```typescript
+// src/services/auth/AuthService.ts
+import UserCreatedEvent from "@/services/trigger/events/UserCreatedEvent";
+
+class AuthService {
+  async createUser(userData: Partial<User>): Promise<User> {
+    const user = await userRepository.create(userData);
+
+    // Trigger event after successful creation
+    await UserCreatedEvent.trigger(user);
+
+    return user;
+  }
+}
+```
+
+## Integration with External Services
+
+**MUST** handle external service integrations within event handlers:
+
+```typescript
+// Integration with email service
+export const UserCreatedEvent = task({
+  id: "UserCreatedEvent",
+  maxDuration: 300,
+  run: async (payload: Partial<User>, { ctx }) => {
+    logger.log("Sending welcome email", { userId: payload.id });
+
+    const { data, error } = await resend.emails.send({
+      from: "no-reply@yourapp.com",
+      to: [payload.email!],
+      subject: "Welcome to our platform",
+      html: `<h1>Welcome ${payload.firstName}!</h1>`,
+    });
+
+    if (error) {
+      logger.error("Failed to send welcome email", {
+        error,
+        userId: payload.id,
+      });
+      throw new Error(`Email sending failed: ${error.message}`);
+    }
+
+    logger.log("Welcome email sent successfully", {
+      messageId: data?.id,
+      userId: payload.id,
+    });
+  },
+});
+```
+
+## Event Configuration
+
+**MUST** configure Trigger.dev in project configuration:
+
+```typescript
+// trigger.config.ts
+import { defineConfig } from "@trigger.dev/sdk";
+
+export default defineConfig({
+  project: "your-project-id",
+  // other configuration
+});
+```
+
+**MUST** include trigger script in package.json:
+
+```json
+{
+  "scripts": {
+    "trigger": "npx trigger.dev@latest dev"
+  }
+}
+```
+
+## Event Naming Conventions
+
+**Event IDs MUST** match the export name:
+
+```typescript
+export const UserCreatedEvent = task({
+  id: "UserCreatedEvent", // Must match export name
+  // ...
+});
+```
+
+**Event files MUST** use PascalCase with "Event" suffix:
+
+- File: `UserCreatedEvent.ts`
+- Export: `UserCreatedEvent`
+- ID: `"UserCreatedEvent"`
+
+## Event Dependencies
+
+**MUST** import required services and repositories at the top:
+
+```typescript
+import { logger, task } from "@trigger.dev/sdk";
+import User from "@/domain/entities/User";
+import resend from "@/services/resend";
+import db from "@/persistance/db";
+```
+
+**MUST** avoid circular dependencies between events and services.
+
+## Event Timeouts
+
+**MUST** set appropriate `maxDuration` based on event complexity:
+
+- Simple events: 60-300 seconds
+- Complex processing: 300-900 seconds
+- Long-running tasks: 900+ seconds
+
+**Example timeout guidelines:**
+
+```typescript
+// Email sending
+maxDuration: 60,
+
+// Data processing
+maxDuration: 300,
+
+// File uploads/downloads
+maxDuration: 900,
+```
+
+## Event Testing
+
+**MUST** create testable event handlers by extracting logic:
+
+```typescript
+// Testable business logic
+export const processUserCreation = async (user: Partial<User>) => {
+  // Business logic here
+  return await sendWelcomeEmail(user);
+};
+
+// Event handler delegates to business logic
+export const UserCreatedEvent = task({
+  id: "UserCreatedEvent",
+  maxDuration: 300,
+  run: async (payload: Partial<User>, { ctx }) => {
+    logger.log("Processing user creation", { payload });
+    return await processUserCreation(payload);
+  },
+});
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/bmarguerite)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/bmarguerite)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/bmarguerite) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
