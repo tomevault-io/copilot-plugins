@@ -1,0 +1,26 @@
+{
+  "name": "duongductrong--cursor-kit",
+  "displayName": "cursor-kit",
+  "description": "AI instruction files for cursor-kit by duongductrong",
+  "version": "1.0.0",
+  "author": "duongductrong",
+  "homepage": "https://tomevault.io/claim/duongductrong",
+  "skills": [
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-development",
+      "description": ""
+    },
+    {
+      "name": "swiftui-design",
+      "description": ""
+    },
+    {
+      "name": "ui-styling",
+      "description": ""
+    }
+  ]
+}
