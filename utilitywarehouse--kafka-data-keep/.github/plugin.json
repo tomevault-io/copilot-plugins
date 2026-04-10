@@ -1,0 +1,9 @@
+{
+  "name": "utilitywarehouse--kafka-data-keep",
+  "displayName": "kafka-data-keep",
+  "description": "kafka-data-keep",
+  "version": "1.0.0",
+  "author": "utilitywarehouse",
+  "homepage": "https://tomevault.io/claim/utilitywarehouse",
+  "skills": []
+}
