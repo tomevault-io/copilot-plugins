@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [omilli/hellajs-docs](https://github.com/omilli/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/omilli](https://tomevault.io/claim/omilli)
 
