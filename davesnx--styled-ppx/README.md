@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [davesnx/styled-ppx](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/davesnx](https://tomevault.io/claim/davesnx)
 
