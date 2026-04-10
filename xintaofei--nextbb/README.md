@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [xintaofei/nextbb](https://github.com/xintaofei/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/xintaofei](https://tomevault.io/claim/xintaofei)
 
