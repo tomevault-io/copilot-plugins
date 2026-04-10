@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Mirxa01/voice-browser](https://github.com/Mirxa
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Mirxa01](https://tomevault.io/claim/Mirxa01)
 
