@@ -1,129 +1,147 @@
 ## brillprime-expo
 
-> 04 auxly file change logging
+> 06 auxly aiworkingon flag
 
 
 ---
-description: Auxly Rule #4 - Log every file change immediately after modification
+description: Auxly Rule #6 - Always update aiWorkingOn flag using mcp_extension-auxly_auxly_update_task
 alwaysApply: true
 priority: 1
 ---
 
-# 🔒 AUXLY RULE #4: FILE CHANGE LOGGING
+# 🔒 AUXLY RULE #6: UPDATE aiWorkingOn FLAG
 
-**MANDATORY: Log file changes IMMEDIATELY after each modification using `mcp_extension-auxly_auxly_log_file_change`**
+**MANDATORY: Set aiWorkingOn flag correctly using `mcp_extension-auxly_auxly_update_task`**
 
 ---
 
-## ✅ CORRECT PATTERN:
+## ✅ WHEN STARTING WORK:
 
 ```typescript
-// 1. Create/modify/delete file
-// ... write code ...
-
-// 2. IMMEDIATELY log the change
-await mcp_extension-auxly_auxly_log_file_change({
+await mcp_extension-auxly_auxly_update_task({
   taskId: "X",
-  filePath: "extension/src/webview/TaskPanelProvider.ts",
-  changeType: "modified", // or "created" or "deleted"
-  description: "Added trial badge to header with yellow styling to match 'Change Status' button. Includes celebration emoji and days remaining countdown.",
-  linesAdded: 45,
-  linesDeleted: 3
+  status: "in_progress",
+  aiWorkingOn: true  // ✅ SET TO TRUE
 });
 ```
 
 ---
 
-## 📋 CHANGE TYPES:
-
-- `created` - New file created
-- `modified` - Existing file modified
-- `deleted` - File deleted
-
----
-
-## ✅ GOOD DESCRIPTIONS:
+## ✅ WHEN STOPPING/PAUSING/COMPLETING:
 
 ```typescript
-// ✅ GOOD - Specific and clear
-"Added trial badge to header with yellow styling"
-
-// ✅ GOOD - Explains what and why
-"Refactored syncTrialWithBackend() to use 1-hour sync interval"
-
-// ✅ GOOD - Details the change
-"Created database migration adding trial_start, trial_end, trial_status columns"
+await mcp_extension-auxly_auxly_update_task({
+  taskId: "X",
+  status: "review", // or "done"
+  aiWorkingOn: false  // ✅ SET TO FALSE
+});
 ```
 
 ---
 
-## ❌ BAD DESCRIPTIONS:
+## 📋 FLAG RULES:
+
+| Action | aiWorkingOn Value | Tool |
+|--------|------------------|------|
+| Starting work | ✅ `true` | `mcp_extension-auxly_auxly_update_task` |
+| Pausing work | ✅ `false` | `mcp_extension-auxly_auxly_update_task` |
+| Moving to review | ✅ `false` | `mcp_extension-auxly_auxly_update_task` |
+| Marking done | ✅ `false` | `mcp_extension-auxly_auxly_update_task` |
+| Stopping for any reason | ✅ `false` | `mcp_extension-auxly_auxly_update_task` |
+
+**⚠️ Only ONE task should have `aiWorkingOn: true` at a time**
+
+---
+
+## 🎨 VISUAL INDICATOR:
+
+When `aiWorkingOn: true`:
+- Task card shows animated gradient border
+- User can see which task AI is working on
+- Provides visual feedback of active work
+
+---
+
+## Complete Work Cycle:
 
 ```typescript
-// ❌ BAD - Too vague
-"Updated file"
+// STEP 1: Starting work
+await mcp_extension-auxly_auxly_update_task({
+  taskId: "15",
+  status: "in_progress",
+  aiWorkingOn: true  // ✅ Start indicator
+});
 
-// ❌ BAD - No detail
-"Changes"
+// ... do work ...
 
-// ❌ BAD - Not clear
-"Fixed stuff"
+// STEP 2: Ask if done
+await mcp_extension-auxly_auxly_ask_question({
+  taskId: "15",
+  questionText: "Task complete. Mark as 'done'?",
+  category: "APPROVAL REQUEST",
+  // ...
+});
+
+// STEP 3: User approves
+
+// STEP 4: Mark done and STOP indicator
+await mcp_extension-auxly_auxly_update_task({
+  taskId: "15",
+  status: "done",
+  aiWorkingOn: false  // ✅ Stop indicator
+});
+```
+
+---
+
+## Pausing Example:
+
+```typescript
+// Currently working on task 10
+await mcp_extension-auxly_auxly_update_task({
+  taskId: "10",
+  status: "in_progress",
+  aiWorkingOn: true
+});
+
+// User asks to work on different task
+
+// STEP 1: Stop current task
+await mcp_extension-auxly_auxly_update_task({
+  taskId: "10",
+  aiWorkingOn: false  // ✅ Stop indicator
+});
+
+// STEP 2: Start new task
+await mcp_extension-auxly_auxly_update_task({
+  taskId: "11",
+  status: "in_progress",
+  aiWorkingOn: true  // ✅ Start new indicator
+});
 ```
 
 ---
 
 ## ❌ FORBIDDEN:
 
-- Modifying files without calling `mcp_extension-auxly_auxly_log_file_change`
-- Logging all changes at end of task (log immediately!)
-- Vague descriptions
-
----
-
-## Complete Example:
-
-```typescript
-// STEP 1: Modify first file
-// (edit extension/src/config/local-config.ts)
-
-// STEP 2: IMMEDIATELY log
-await mcp_extension-auxly_auxly_log_file_change({
-  taskId: "14",
-  filePath: "extension/src/config/local-config.ts",
-  changeType: "modified",
-  description: "Added syncTrialWithBackend() method with 1-hour periodic sync, 24-hour grace period tracking, and getTrialInfoHybrid() for local-first trial access.",
-  linesAdded: 155,
-  linesDeleted: 0
-});
-
-// STEP 3: Modify second file
-// (edit extension/src/tasks/task-service.ts)
-
-// STEP 4: IMMEDIATELY log again
-await mcp_extension-auxly_auxly_log_file_change({
-  taskId: "14",
-  filePath: "extension/src/tasks/task-service.ts",
-  changeType: "modified",
-  description: "Added read-only mode enforcement: canWriteTasks() checks trial status, showReadOnlyError() displays upgrade prompt.",
-  linesAdded: 55,
-  linesDeleted: 0
-});
-```
+- Starting work without setting `aiWorkingOn: true`
+- Marking done without setting `aiWorkingOn: false`
+- Having multiple tasks with `aiWorkingOn: true`
+- Forgetting to call `mcp_extension-auxly_auxly_update_task` to update flag
 
 ---
 
 ## Why This Rule Exists:
 
-✅ **Complete audit trail** - Know what changed  
-✅ **Easy review** - User sees all modifications  
-✅ **Debugging help** - Track when issues introduced  
-✅ **Professional** - Proper documentation
+✅ **Visual feedback** - User sees active work  
+✅ **Clear status** - Know which task is current  
+✅ **Professional UI** - Animated indicator  
+✅ **Single focus** - One task at a time
 
 ---
 
-**ENFORCEMENT: Call `mcp_extension-auxly_auxly_log_file_change` IMMEDIATELY after each file operation. NO batch logging.**
+**ENFORCEMENT: ALWAYS call `mcp_extension-auxly_auxly_update_task` to set aiWorkingOn. Start = true, Stop = false.**
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Brill-Prime)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Brill-Prime)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Brill-Prime) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
