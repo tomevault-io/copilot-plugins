@@ -1,0 +1,69 @@
+{
+  "name": "cursor-kit",
+  "owner": "duongductrong",
+  "repo": "cursor-kit",
+  "description": "AI instruction files for cursor-kit by duongductrong",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": "templates/skills/frontend-design",
+      "github_url": "https://github.com/duongductrong/cursor-kit/tree/main/templates/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-development",
+      "path": "templates/skills/frontend-development",
+      "github_url": "https://github.com/duongductrong/cursor-kit/tree/main/templates/skills/frontend-development",
+      "description": ""
+    },
+    {
+      "name": "swiftui-design",
+      "path": "templates/skills/swiftui-design",
+      "github_url": "https://github.com/duongductrong/cursor-kit/tree/main/templates/skills/swiftui-design",
+      "description": ""
+    },
+    {
+      "name": "ui-styling",
+      "path": "templates/skills/ui-styling",
+      "github_url": "https://github.com/duongductrong/cursor-kit/tree/main/templates/skills/ui-styling",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/duongductrong",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-10T03:30:42Z"
+}
