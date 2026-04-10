@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [applegrew/fire-hose](https://github.com/applegr
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/applegrew](https://tomevault.io/claim/applegrew)
 
