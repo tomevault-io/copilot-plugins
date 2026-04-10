@@ -159,289 +159,9 @@
       "description": "crosswalk"
     },
     {
-      "name": "geohussain--crowdfunding",
-      "source": "./geohussain--crowdfunding",
-      "description": "crowdfunding"
-    },
-    {
-      "name": "fukasedaichi--nazomatic",
-      "source": "./fukasedaichi--nazomatic",
-      "description": "nazomatic"
-    },
-    {
-      "name": "myoshi2891--the-wild-oasis-for-user",
-      "source": "./myoshi2891--the-wild-oasis-for-user",
-      "description": "The-Wild-Oasis-For-User"
-    },
-    {
-      "name": "rhidoypro--shadhin",
-      "source": "./rhidoypro--shadhin",
-      "description": "Shadhin"
-    },
-    {
-      "name": "hsnsaboor--repurpose-api",
-      "source": "./hsnsaboor--repurpose-api",
-      "description": "repurpose-api"
-    },
-    {
-      "name": "felixzink96--unicornstudio",
-      "source": "./felixzink96--unicornstudio",
-      "description": "UnicornStudio"
-    },
-    {
-      "name": "dokotela--bw-amr-ig",
-      "source": "./dokotela--bw-amr-ig",
-      "description": "bw-amr-ig"
-    },
-    {
-      "name": "masdevid--smartcash",
-      "source": "./masdevid--smartcash",
-      "description": "smartcash"
-    },
-    {
-      "name": "rojamahorse--voice-vault-api-for-tts",
-      "source": "./rojamahorse--voice-vault-api-for-tts",
-      "description": "voice-vault-api-for-tts"
-    },
-    {
-      "name": "stibiums--terminator-task-manager",
-      "source": "./stibiums--terminator-task-manager",
-      "description": "terminator_task_manager"
-    },
-    {
-      "name": "yangshun--nodepack",
-      "source": "./yangshun--nodepack",
-      "description": "nodepack"
-    },
-    {
-      "name": "calhounpaul--wiki-graph",
-      "source": "./calhounpaul--wiki-graph",
-      "description": "wiki-graph"
-    },
-    {
-      "name": "hun-a--ai-agent",
-      "source": "./hun-a--ai-agent",
-      "description": "ai_agent"
-    },
-    {
-      "name": "nukopy--linux-kernel-6-16-2-code-reading",
-      "source": "./nukopy--linux-kernel-6-16-2-code-reading",
-      "description": "linux-kernel-6.16.2-code-reading"
-    },
-    {
-      "name": "mikewrather--gotn",
-      "source": "./mikewrather--gotn",
-      "description": "gotn"
-    },
-    {
-      "name": "peter-mach--ai-expo-supabase-superwall-starter",
-      "source": "./peter-mach--ai-expo-supabase-superwall-starter",
-      "description": "AI-Expo-Supabase-Superwall-Starter"
-    },
-    {
-      "name": "danilotorrisi--claude-session-manager",
-      "source": "./danilotorrisi--claude-session-manager",
-      "description": "claude-session-manager"
-    },
-    {
-      "name": "sztanko--hexalife",
-      "source": "./sztanko--hexalife",
-      "description": "hexalife"
-    },
-    {
-      "name": "aebonlee--nong-view",
-      "source": "./aebonlee--nong-view",
-      "description": "Nong-View"
-    },
-    {
-      "name": "camdenwebster--portfolio",
-      "source": "./camdenwebster--portfolio",
-      "description": "portfolio"
-    },
-    {
-      "name": "thekgiga--spanish-class",
-      "source": "./thekgiga--spanish-class",
-      "description": "spanish-class"
-    },
-    {
-      "name": "nabal22--omind-map",
-      "source": "./nabal22--omind-map",
-      "description": "omind-map"
-    },
-    {
-      "name": "jxcross--english-practice-streamlit",
-      "source": "./jxcross--english-practice-streamlit",
-      "description": "english-practice-streamlit"
-    },
-    {
-      "name": "tsuifmy--vr-maze",
-      "source": "./tsuifmy--vr-maze",
-      "description": "vr-maze"
-    },
-    {
-      "name": "toshi-yaminabe--record-app",
-      "source": "./toshi-yaminabe--record-app",
-      "description": "record-app"
-    },
-    {
-      "name": "delorenj--pjangler",
-      "source": "./delorenj--pjangler",
-      "description": "pjangler"
-    },
-    {
-      "name": "danielrosehill--notebooklm-custom-prompts",
-      "source": "./danielrosehill--notebooklm-custom-prompts",
-      "description": "NotebookLM-Custom-Prompts"
-    },
-    {
-      "name": "vyorkin--zellij",
-      "source": "./vyorkin--zellij",
-      "description": "zellij"
-    },
-    {
-      "name": "noshiro-pf--ts-type-forge",
-      "source": "./noshiro-pf--ts-type-forge",
-      "description": "ts-type-forge"
-    },
-    {
-      "name": "switchboard-sdk--switchboard-voice-changer-demo",
-      "source": "./switchboard-sdk--switchboard-voice-changer-demo",
-      "description": "switchboard-voice-changer-demo"
-    },
-    {
-      "name": "carosellagiuliano-max--claudeapp",
-      "source": "./carosellagiuliano-max--claudeapp",
-      "description": "ClaudeAPP"
-    },
-    {
-      "name": "jxcross--english-practice-pwa",
-      "source": "./jxcross--english-practice-pwa",
-      "description": "english-practice-pwa"
-    },
-    {
-      "name": "fastled--fastled",
-      "source": "./fastled--fastled",
-      "description": "FastLED"
-    },
-    {
-      "name": "sniffsec-dev--sniffsec",
-      "source": "./sniffsec-dev--sniffsec",
-      "description": "sniffsec"
-    },
-    {
-      "name": "sirandou--movie-rag",
-      "source": "./sirandou--movie-rag",
-      "description": "movie-rag"
-    },
-    {
-      "name": "marcomq--mq-bridge-mcp",
-      "source": "./marcomq--mq-bridge-mcp",
-      "description": "mq-bridge-mcp"
-    },
-    {
-      "name": "3motibot--ram-dump",
-      "source": "./3motibot--ram-dump",
-      "description": "ram-dump"
-    },
-    {
-      "name": "edwardrosenberg--template-base",
-      "source": "./edwardrosenberg--template-base",
-      "description": "template-base"
-    },
-    {
-      "name": "whereismyguts--agentic-task-manager",
-      "source": "./whereismyguts--agentic-task-manager",
-      "description": "agentic-task-manager"
-    },
-    {
-      "name": "franverona--planr",
-      "source": "./franverona--planr",
-      "description": "planr"
-    },
-    {
       "name": "fjourdren--theatrum",
       "source": "./fjourdren--theatrum",
       "description": "Theatrum"
-    },
-    {
-      "name": "lanreadetola--study-tracker",
-      "source": "./lanreadetola--study-tracker",
-      "description": "study-tracker"
-    },
-    {
-      "name": "bobbyhiddn--pauldar",
-      "source": "./bobbyhiddn--pauldar",
-      "description": "PaulDar"
-    },
-    {
-      "name": "sugyan--claude-code-webui",
-      "source": "./sugyan--claude-code-webui",
-      "description": "claude-code-webui"
-    },
-    {
-      "name": "yuni-shinogami--engineermeetupannouncementgas",
-      "source": "./yuni-shinogami--engineermeetupannouncementgas",
-      "description": "EngineerMeetupAnnouncementGas"
-    },
-    {
-      "name": "picofuture--website",
-      "source": "./picofuture--website",
-      "description": "website"
-    },
-    {
-      "name": "pdugan20--passant-prototype",
-      "source": "./pdugan20--passant-prototype",
-      "description": "passant-prototype"
-    },
-    {
-      "name": "itsacoyote--zksync-nuxt-starter",
-      "source": "./itsacoyote--zksync-nuxt-starter",
-      "description": "zksync-nuxt-starter"
-    },
-    {
-      "name": "borkeszmate--system-design-lab",
-      "source": "./borkeszmate--system-design-lab",
-      "description": "system-design-lab"
-    },
-    {
-      "name": "giovanneluna--poke-survivors",
-      "source": "./giovanneluna--poke-survivors",
-      "description": "poke-survivors"
-    },
-    {
-      "name": "jbum--zigzag",
-      "source": "./jbum--zigzag",
-      "description": "zigzag"
-    },
-    {
-      "name": "robertjarske--nix-dots",
-      "source": "./robertjarske--nix-dots",
-      "description": "nix-dots"
-    },
-    {
-      "name": "thesimonho--warden",
-      "source": "./thesimonho--warden",
-      "description": "warden"
-    },
-    {
-      "name": "dig1t--civic-ledger",
-      "source": "./dig1t--civic-ledger",
-      "description": "civic-ledger"
-    },
-    {
-      "name": "nikolasmarkou--iterative-planner",
-      "source": "./nikolasmarkou--iterative-planner",
-      "description": "iterative-planner"
-    },
-    {
-      "name": "ahmedmorgan1--fpl-chatbot",
-      "source": "./ahmedmorgan1--fpl-chatbot",
-      "description": "FPL_ChatBot"
-    },
-    {
-      "name": "brettlechtenbrerg--the-spot-catering",
-      "source": "./brettlechtenbrerg--the-spot-catering",
-      "description": "the-spot-catering"
     },
     {
       "name": "jeandelphonse--queries",
@@ -449,224 +169,9 @@
       "description": "queries"
     },
     {
-      "name": "almiab1--portfolio",
-      "source": "./almiab1--portfolio",
-      "description": "portfolio"
-    },
-    {
-      "name": "arunperiyal--arunperiyal-github-io",
-      "source": "./arunperiyal--arunperiyal-github-io",
-      "description": "arunperiyal.github.io"
-    },
-    {
-      "name": "ishemz--solkant",
-      "source": "./ishemz--solkant",
-      "description": "solkant"
-    },
-    {
-      "name": "guzman109--dotfiles",
-      "source": "./guzman109--dotfiles",
-      "description": "dotfiles"
-    },
-    {
-      "name": "rretzko--choirtrends",
-      "source": "./rretzko--choirtrends",
-      "description": "choirTrends"
-    },
-    {
-      "name": "larsgr--gene-id-mapping",
-      "source": "./larsgr--gene-id-mapping",
-      "description": "gene-id-mapping"
-    },
-    {
-      "name": "omkargade04--sentinel-agent",
-      "source": "./omkargade04--sentinel-agent",
-      "description": "sentinel-agent"
-    },
-    {
-      "name": "vitorfawkes--ttars",
-      "source": "./vitorfawkes--ttars",
-      "description": "ttars"
-    },
-    {
-      "name": "pnarciso1--healthcareagentic",
-      "source": "./pnarciso1--healthcareagentic",
-      "description": "HealthcareAgentic"
-    },
-    {
-      "name": "jobo0o--message-database",
-      "source": "./jobo0o--message-database",
-      "description": "message-database"
-    },
-    {
-      "name": "workmani--vacation-requests",
-      "source": "./workmani--vacation-requests",
-      "description": "vacation-requests"
-    },
-    {
-      "name": "christianmthomas--timenest",
-      "source": "./christianmthomas--timenest",
-      "description": "Timenest"
-    },
-    {
-      "name": "allenlee820202--exif-editor",
-      "source": "./allenlee820202--exif-editor",
-      "description": "exif-editor"
-    },
-    {
-      "name": "cybersoulja--aetherrpg",
-      "source": "./cybersoulja--aetherrpg",
-      "description": "AetherRPG"
-    },
-    {
-      "name": "tihlde--proton",
-      "source": "./tihlde--proton",
-      "description": "Proton"
-    },
-    {
-      "name": "sharathannaiah--shivlink",
-      "source": "./sharathannaiah--shivlink",
-      "description": "shivlink"
-    },
-    {
       "name": "tranchida--spahtmx",
       "source": "./tranchida--spahtmx",
       "description": "spahtmx"
-    },
-    {
-      "name": "vzwjustin--kernel-mapper",
-      "source": "./vzwjustin--kernel-mapper",
-      "description": "kernel-mapper"
-    },
-    {
-      "name": "anobli--west-resource",
-      "source": "./anobli--west-resource",
-      "description": "west-resource"
-    },
-    {
-      "name": "victorvanpelt--literature-search-example",
-      "source": "./victorvanpelt--literature-search-example",
-      "description": "literature_search_example"
-    },
-    {
-      "name": "dtmsyi--about-me",
-      "source": "./dtmsyi--about-me",
-      "description": "About_Me"
-    },
-    {
-      "name": "ai45lab--clawfish",
-      "source": "./ai45lab--clawfish",
-      "description": "clawfish"
-    },
-    {
-      "name": "jorgemcga--projeto-aplicado-pos",
-      "source": "./jorgemcga--projeto-aplicado-pos",
-      "description": "projeto-aplicado-pos"
-    },
-    {
-      "name": "lufernando100--agrosmart",
-      "source": "./lufernando100--agrosmart",
-      "description": "AgroSmart"
-    },
-    {
-      "name": "jessepye--grooveboard",
-      "source": "./jessepye--grooveboard",
-      "description": "grooveboard"
-    },
-    {
-      "name": "laravel-gtm--render-image",
-      "source": "./laravel-gtm--render-image",
-      "description": "render-image"
-    },
-    {
-      "name": "m0rg0t--content-to-markdown-extension",
-      "source": "./m0rg0t--content-to-markdown-extension",
-      "description": "content-to-markdown-extension"
-    },
-    {
-      "name": "hwangdozz--ix-container-toolkit",
-      "source": "./hwangdozz--ix-container-toolkit",
-      "description": "ix-container-toolkit"
-    },
-    {
-      "name": "lismondbernard--appstore-analytics-cli",
-      "source": "./lismondbernard--appstore-analytics-cli",
-      "description": "appstore-analytics-cli"
-    },
-    {
-      "name": "blue-frog-dm--hubspot-developer-extension-by-avidly",
-      "source": "./blue-frog-dm--hubspot-developer-extension-by-avidly",
-      "description": "Hubspot-Developer-Extension-by-Avidly"
-    },
-    {
-      "name": "kejadlen--ketchup",
-      "source": "./kejadlen--ketchup",
-      "description": "ketchup"
-    },
-    {
-      "name": "franciscoclavero--email",
-      "source": "./franciscoclavero--email",
-      "description": "Email"
-    },
-    {
-      "name": "dzivkovi--mcp-server-browser-auth",
-      "source": "./dzivkovi--mcp-server-browser-auth",
-      "description": "MCP-Server-Browser-Auth"
-    },
-    {
-      "name": "lai3d--sigma",
-      "source": "./lai3d--sigma",
-      "description": "sigma"
-    },
-    {
-      "name": "rhernaus--borg",
-      "source": "./rhernaus--borg",
-      "description": "borg"
-    },
-    {
-      "name": "hardik121121--wm-help-assistant-final",
-      "source": "./hardik121121--wm-help-assistant-final",
-      "description": "wm_help_assistant_final"
-    },
-    {
-      "name": "wstewarttennes--hass-beeminder",
-      "source": "./wstewarttennes--hass-beeminder",
-      "description": "hass-beeminder"
-    },
-    {
-      "name": "work-m8--ag-ui-4j",
-      "source": "./work-m8--ag-ui-4j",
-      "description": "ag-ui-4j"
-    },
-    {
-      "name": "kahwaipd--trendtrader",
-      "source": "./kahwaipd--trendtrader",
-      "description": "trendtrader"
-    },
-    {
-      "name": "vincentlaucsb--csv-parser",
-      "source": "./vincentlaucsb--csv-parser",
-      "description": "csv-parser"
-    },
-    {
-      "name": "kevinmarquette--pwsh-mcp-sdk",
-      "source": "./kevinmarquette--pwsh-mcp-sdk",
-      "description": "pwsh.mcp.sdk"
-    },
-    {
-      "name": "calypdf--caly",
-      "source": "./calypdf--caly",
-      "description": "Caly"
-    },
-    {
-      "name": "sw1029--vuldocker",
-      "source": "./sw1029--vuldocker",
-      "description": "vulDocker"
-    },
-    {
-      "name": "adrianjiga--webqualityanalyzer",
-      "source": "./adrianjiga--webqualityanalyzer",
-      "description": "WebQualityAnalyzer"
     },
     {
       "name": "asterkin--bz-taew-py",
@@ -11132,6 +10637,506 @@
       "name": "danielangelo1--smart-training-api",
       "source": "./danielangelo1--smart-training-api",
       "description": "smart-training-api"
+    },
+    {
+      "name": "rileyhilliard--claude-essentials",
+      "source": "./rileyhilliard--claude-essentials",
+      "description": "claude-essentials"
+    },
+    {
+      "name": "geohussain--crowdfunding",
+      "source": "./geohussain--crowdfunding",
+      "description": "crowdfunding"
+    },
+    {
+      "name": "fukasedaichi--nazomatic",
+      "source": "./fukasedaichi--nazomatic",
+      "description": "nazomatic"
+    },
+    {
+      "name": "myoshi2891--the-wild-oasis-for-user",
+      "source": "./myoshi2891--the-wild-oasis-for-user",
+      "description": "The-Wild-Oasis-For-User"
+    },
+    {
+      "name": "rhidoypro--shadhin",
+      "source": "./rhidoypro--shadhin",
+      "description": "Shadhin"
+    },
+    {
+      "name": "hsnsaboor--repurpose-api",
+      "source": "./hsnsaboor--repurpose-api",
+      "description": "repurpose-api"
+    },
+    {
+      "name": "felixzink96--unicornstudio",
+      "source": "./felixzink96--unicornstudio",
+      "description": "UnicornStudio"
+    },
+    {
+      "name": "dokotela--bw-amr-ig",
+      "source": "./dokotela--bw-amr-ig",
+      "description": "bw-amr-ig"
+    },
+    {
+      "name": "masdevid--smartcash",
+      "source": "./masdevid--smartcash",
+      "description": "smartcash"
+    },
+    {
+      "name": "rojamahorse--voice-vault-api-for-tts",
+      "source": "./rojamahorse--voice-vault-api-for-tts",
+      "description": "voice-vault-api-for-tts"
+    },
+    {
+      "name": "stibiums--terminator-task-manager",
+      "source": "./stibiums--terminator-task-manager",
+      "description": "terminator_task_manager"
+    },
+    {
+      "name": "yangshun--nodepack",
+      "source": "./yangshun--nodepack",
+      "description": "nodepack"
+    },
+    {
+      "name": "calhounpaul--wiki-graph",
+      "source": "./calhounpaul--wiki-graph",
+      "description": "wiki-graph"
+    },
+    {
+      "name": "hun-a--ai-agent",
+      "source": "./hun-a--ai-agent",
+      "description": "ai_agent"
+    },
+    {
+      "name": "nukopy--linux-kernel-6-16-2-code-reading",
+      "source": "./nukopy--linux-kernel-6-16-2-code-reading",
+      "description": "linux-kernel-6.16.2-code-reading"
+    },
+    {
+      "name": "mikewrather--gotn",
+      "source": "./mikewrather--gotn",
+      "description": "gotn"
+    },
+    {
+      "name": "peter-mach--ai-expo-supabase-superwall-starter",
+      "source": "./peter-mach--ai-expo-supabase-superwall-starter",
+      "description": "AI-Expo-Supabase-Superwall-Starter"
+    },
+    {
+      "name": "danilotorrisi--claude-session-manager",
+      "source": "./danilotorrisi--claude-session-manager",
+      "description": "claude-session-manager"
+    },
+    {
+      "name": "sztanko--hexalife",
+      "source": "./sztanko--hexalife",
+      "description": "hexalife"
+    },
+    {
+      "name": "aebonlee--nong-view",
+      "source": "./aebonlee--nong-view",
+      "description": "Nong-View"
+    },
+    {
+      "name": "camdenwebster--portfolio",
+      "source": "./camdenwebster--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "thekgiga--spanish-class",
+      "source": "./thekgiga--spanish-class",
+      "description": "spanish-class"
+    },
+    {
+      "name": "nabal22--omind-map",
+      "source": "./nabal22--omind-map",
+      "description": "omind-map"
+    },
+    {
+      "name": "jxcross--english-practice-streamlit",
+      "source": "./jxcross--english-practice-streamlit",
+      "description": "english-practice-streamlit"
+    },
+    {
+      "name": "tsuifmy--vr-maze",
+      "source": "./tsuifmy--vr-maze",
+      "description": "vr-maze"
+    },
+    {
+      "name": "toshi-yaminabe--record-app",
+      "source": "./toshi-yaminabe--record-app",
+      "description": "record-app"
+    },
+    {
+      "name": "delorenj--pjangler",
+      "source": "./delorenj--pjangler",
+      "description": "pjangler"
+    },
+    {
+      "name": "danielrosehill--notebooklm-custom-prompts",
+      "source": "./danielrosehill--notebooklm-custom-prompts",
+      "description": "NotebookLM-Custom-Prompts"
+    },
+    {
+      "name": "vyorkin--zellij",
+      "source": "./vyorkin--zellij",
+      "description": "zellij"
+    },
+    {
+      "name": "noshiro-pf--ts-type-forge",
+      "source": "./noshiro-pf--ts-type-forge",
+      "description": "ts-type-forge"
+    },
+    {
+      "name": "switchboard-sdk--switchboard-voice-changer-demo",
+      "source": "./switchboard-sdk--switchboard-voice-changer-demo",
+      "description": "switchboard-voice-changer-demo"
+    },
+    {
+      "name": "carosellagiuliano-max--claudeapp",
+      "source": "./carosellagiuliano-max--claudeapp",
+      "description": "ClaudeAPP"
+    },
+    {
+      "name": "jxcross--english-practice-pwa",
+      "source": "./jxcross--english-practice-pwa",
+      "description": "english-practice-pwa"
+    },
+    {
+      "name": "fastled--fastled",
+      "source": "./fastled--fastled",
+      "description": "FastLED"
+    },
+    {
+      "name": "sniffsec-dev--sniffsec",
+      "source": "./sniffsec-dev--sniffsec",
+      "description": "sniffsec"
+    },
+    {
+      "name": "sirandou--movie-rag",
+      "source": "./sirandou--movie-rag",
+      "description": "movie-rag"
+    },
+    {
+      "name": "marcomq--mq-bridge-mcp",
+      "source": "./marcomq--mq-bridge-mcp",
+      "description": "mq-bridge-mcp"
+    },
+    {
+      "name": "3motibot--ram-dump",
+      "source": "./3motibot--ram-dump",
+      "description": "ram-dump"
+    },
+    {
+      "name": "edwardrosenberg--template-base",
+      "source": "./edwardrosenberg--template-base",
+      "description": "template-base"
+    },
+    {
+      "name": "whereismyguts--agentic-task-manager",
+      "source": "./whereismyguts--agentic-task-manager",
+      "description": "agentic-task-manager"
+    },
+    {
+      "name": "franverona--planr",
+      "source": "./franverona--planr",
+      "description": "planr"
+    },
+    {
+      "name": "lanreadetola--study-tracker",
+      "source": "./lanreadetola--study-tracker",
+      "description": "study-tracker"
+    },
+    {
+      "name": "bobbyhiddn--pauldar",
+      "source": "./bobbyhiddn--pauldar",
+      "description": "PaulDar"
+    },
+    {
+      "name": "sugyan--claude-code-webui",
+      "source": "./sugyan--claude-code-webui",
+      "description": "claude-code-webui"
+    },
+    {
+      "name": "yuni-shinogami--engineermeetupannouncementgas",
+      "source": "./yuni-shinogami--engineermeetupannouncementgas",
+      "description": "EngineerMeetupAnnouncementGas"
+    },
+    {
+      "name": "picofuture--website",
+      "source": "./picofuture--website",
+      "description": "website"
+    },
+    {
+      "name": "pdugan20--passant-prototype",
+      "source": "./pdugan20--passant-prototype",
+      "description": "passant-prototype"
+    },
+    {
+      "name": "itsacoyote--zksync-nuxt-starter",
+      "source": "./itsacoyote--zksync-nuxt-starter",
+      "description": "zksync-nuxt-starter"
+    },
+    {
+      "name": "borkeszmate--system-design-lab",
+      "source": "./borkeszmate--system-design-lab",
+      "description": "system-design-lab"
+    },
+    {
+      "name": "giovanneluna--poke-survivors",
+      "source": "./giovanneluna--poke-survivors",
+      "description": "poke-survivors"
+    },
+    {
+      "name": "jbum--zigzag",
+      "source": "./jbum--zigzag",
+      "description": "zigzag"
+    },
+    {
+      "name": "robertjarske--nix-dots",
+      "source": "./robertjarske--nix-dots",
+      "description": "nix-dots"
+    },
+    {
+      "name": "thesimonho--warden",
+      "source": "./thesimonho--warden",
+      "description": "warden"
+    },
+    {
+      "name": "dig1t--civic-ledger",
+      "source": "./dig1t--civic-ledger",
+      "description": "civic-ledger"
+    },
+    {
+      "name": "nikolasmarkou--iterative-planner",
+      "source": "./nikolasmarkou--iterative-planner",
+      "description": "iterative-planner"
+    },
+    {
+      "name": "ahmedmorgan1--fpl-chatbot",
+      "source": "./ahmedmorgan1--fpl-chatbot",
+      "description": "FPL_ChatBot"
+    },
+    {
+      "name": "brettlechtenbrerg--the-spot-catering",
+      "source": "./brettlechtenbrerg--the-spot-catering",
+      "description": "the-spot-catering"
+    },
+    {
+      "name": "almiab1--portfolio",
+      "source": "./almiab1--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "arunperiyal--arunperiyal-github-io",
+      "source": "./arunperiyal--arunperiyal-github-io",
+      "description": "arunperiyal.github.io"
+    },
+    {
+      "name": "ishemz--solkant",
+      "source": "./ishemz--solkant",
+      "description": "solkant"
+    },
+    {
+      "name": "guzman109--dotfiles",
+      "source": "./guzman109--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "rretzko--choirtrends",
+      "source": "./rretzko--choirtrends",
+      "description": "choirTrends"
+    },
+    {
+      "name": "larsgr--gene-id-mapping",
+      "source": "./larsgr--gene-id-mapping",
+      "description": "gene-id-mapping"
+    },
+    {
+      "name": "omkargade04--sentinel-agent",
+      "source": "./omkargade04--sentinel-agent",
+      "description": "sentinel-agent"
+    },
+    {
+      "name": "vitorfawkes--ttars",
+      "source": "./vitorfawkes--ttars",
+      "description": "ttars"
+    },
+    {
+      "name": "pnarciso1--healthcareagentic",
+      "source": "./pnarciso1--healthcareagentic",
+      "description": "HealthcareAgentic"
+    },
+    {
+      "name": "jobo0o--message-database",
+      "source": "./jobo0o--message-database",
+      "description": "message-database"
+    },
+    {
+      "name": "workmani--vacation-requests",
+      "source": "./workmani--vacation-requests",
+      "description": "vacation-requests"
+    },
+    {
+      "name": "christianmthomas--timenest",
+      "source": "./christianmthomas--timenest",
+      "description": "Timenest"
+    },
+    {
+      "name": "allenlee820202--exif-editor",
+      "source": "./allenlee820202--exif-editor",
+      "description": "exif-editor"
+    },
+    {
+      "name": "cybersoulja--aetherrpg",
+      "source": "./cybersoulja--aetherrpg",
+      "description": "AetherRPG"
+    },
+    {
+      "name": "tihlde--proton",
+      "source": "./tihlde--proton",
+      "description": "Proton"
+    },
+    {
+      "name": "sharathannaiah--shivlink",
+      "source": "./sharathannaiah--shivlink",
+      "description": "shivlink"
+    },
+    {
+      "name": "vzwjustin--kernel-mapper",
+      "source": "./vzwjustin--kernel-mapper",
+      "description": "kernel-mapper"
+    },
+    {
+      "name": "anobli--west-resource",
+      "source": "./anobli--west-resource",
+      "description": "west-resource"
+    },
+    {
+      "name": "victorvanpelt--literature-search-example",
+      "source": "./victorvanpelt--literature-search-example",
+      "description": "literature_search_example"
+    },
+    {
+      "name": "dtmsyi--about-me",
+      "source": "./dtmsyi--about-me",
+      "description": "About_Me"
+    },
+    {
+      "name": "ai45lab--clawfish",
+      "source": "./ai45lab--clawfish",
+      "description": "clawfish"
+    },
+    {
+      "name": "jorgemcga--projeto-aplicado-pos",
+      "source": "./jorgemcga--projeto-aplicado-pos",
+      "description": "projeto-aplicado-pos"
+    },
+    {
+      "name": "lufernando100--agrosmart",
+      "source": "./lufernando100--agrosmart",
+      "description": "AgroSmart"
+    },
+    {
+      "name": "jessepye--grooveboard",
+      "source": "./jessepye--grooveboard",
+      "description": "grooveboard"
+    },
+    {
+      "name": "laravel-gtm--render-image",
+      "source": "./laravel-gtm--render-image",
+      "description": "render-image"
+    },
+    {
+      "name": "m0rg0t--content-to-markdown-extension",
+      "source": "./m0rg0t--content-to-markdown-extension",
+      "description": "content-to-markdown-extension"
+    },
+    {
+      "name": "hwangdozz--ix-container-toolkit",
+      "source": "./hwangdozz--ix-container-toolkit",
+      "description": "ix-container-toolkit"
+    },
+    {
+      "name": "lismondbernard--appstore-analytics-cli",
+      "source": "./lismondbernard--appstore-analytics-cli",
+      "description": "appstore-analytics-cli"
+    },
+    {
+      "name": "blue-frog-dm--hubspot-developer-extension-by-avidly",
+      "source": "./blue-frog-dm--hubspot-developer-extension-by-avidly",
+      "description": "Hubspot-Developer-Extension-by-Avidly"
+    },
+    {
+      "name": "kejadlen--ketchup",
+      "source": "./kejadlen--ketchup",
+      "description": "ketchup"
+    },
+    {
+      "name": "franciscoclavero--email",
+      "source": "./franciscoclavero--email",
+      "description": "Email"
+    },
+    {
+      "name": "dzivkovi--mcp-server-browser-auth",
+      "source": "./dzivkovi--mcp-server-browser-auth",
+      "description": "MCP-Server-Browser-Auth"
+    },
+    {
+      "name": "lai3d--sigma",
+      "source": "./lai3d--sigma",
+      "description": "sigma"
+    },
+    {
+      "name": "rhernaus--borg",
+      "source": "./rhernaus--borg",
+      "description": "borg"
+    },
+    {
+      "name": "hardik121121--wm-help-assistant-final",
+      "source": "./hardik121121--wm-help-assistant-final",
+      "description": "wm_help_assistant_final"
+    },
+    {
+      "name": "wstewarttennes--hass-beeminder",
+      "source": "./wstewarttennes--hass-beeminder",
+      "description": "hass-beeminder"
+    },
+    {
+      "name": "work-m8--ag-ui-4j",
+      "source": "./work-m8--ag-ui-4j",
+      "description": "ag-ui-4j"
+    },
+    {
+      "name": "kahwaipd--trendtrader",
+      "source": "./kahwaipd--trendtrader",
+      "description": "trendtrader"
+    },
+    {
+      "name": "vincentlaucsb--csv-parser",
+      "source": "./vincentlaucsb--csv-parser",
+      "description": "csv-parser"
+    },
+    {
+      "name": "kevinmarquette--pwsh-mcp-sdk",
+      "source": "./kevinmarquette--pwsh-mcp-sdk",
+      "description": "pwsh.mcp.sdk"
+    },
+    {
+      "name": "calypdf--caly",
+      "source": "./calypdf--caly",
+      "description": "Caly"
+    },
+    {
+      "name": "sw1029--vuldocker",
+      "source": "./sw1029--vuldocker",
+      "description": "vulDocker"
+    },
+    {
+      "name": "adrianjiga--webqualityanalyzer",
+      "source": "./adrianjiga--webqualityanalyzer",
+      "description": "WebQualityAnalyzer"
     }
   ]
 }
