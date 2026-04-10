@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [theproject-commits/crypto-dashboard](https://gi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/theproject-commits](https://tomevault.io/claim/theproject-commits)
 
