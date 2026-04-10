@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kaveriC/claude-setup](https://github.com/kaveri
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kaveriC](https://tomevault.io/claim/kaveriC)
 
