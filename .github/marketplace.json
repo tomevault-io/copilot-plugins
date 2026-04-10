@@ -94,349 +94,9 @@
       "description": "campus-career-system"
     },
     {
-      "name": "sholtomaud--odum-energy-language",
-      "source": "./sholtomaud--odum-energy-language",
-      "description": "odum-energy-language"
-    },
-    {
-      "name": "santiaranda--ecommerce",
-      "source": "./santiaranda--ecommerce",
-      "description": "ecommerce"
-    },
-    {
-      "name": "paiml--depyler",
-      "source": "./paiml--depyler",
-      "description": "depyler"
-    },
-    {
-      "name": "goreckis6--hook3",
-      "source": "./goreckis6--hook3",
-      "description": "hook3"
-    },
-    {
-      "name": "wbitt--network-multitool",
-      "source": "./wbitt--network-multitool",
-      "description": "Network-MultiTool"
-    },
-    {
-      "name": "nick11014--createlittlecontraptions",
-      "source": "./nick11014--createlittlecontraptions",
-      "description": "CreateLittleContraptions"
-    },
-    {
-      "name": "alliu60--ai-training",
-      "source": "./alliu60--ai-training",
-      "description": "ai-training"
-    },
-    {
       "name": "dhawalhost--kachuful",
       "source": "./dhawalhost--kachuful",
       "description": "kachuful"
-    },
-    {
-      "name": "aklofas--kicad-happy",
-      "source": "./aklofas--kicad-happy",
-      "description": "kicad-happy"
-    },
-    {
-      "name": "herman-adu--animated-websites",
-      "source": "./herman-adu--animated-websites",
-      "description": "animated-websites"
-    },
-    {
-      "name": "nonatobin--camino-pilgrim-app",
-      "source": "./nonatobin--camino-pilgrim-app",
-      "description": "Camino-Pilgrim-App"
-    },
-    {
-      "name": "hwanyoungchoi--tongue-twister",
-      "source": "./hwanyoungchoi--tongue-twister",
-      "description": "tongue-twister"
-    },
-    {
-      "name": "pieroproietti--acqua",
-      "source": "./pieroproietti--acqua",
-      "description": "acqua"
-    },
-    {
-      "name": "theproject-commits--crypto-dashboard",
-      "source": "./theproject-commits--crypto-dashboard",
-      "description": "crypto-dashboard"
-    },
-    {
-      "name": "jacobkayembekazadi--sloe-campus-landing-page",
-      "source": "./jacobkayembekazadi--sloe-campus-landing-page",
-      "description": "sloe-campus-landing-page"
-    },
-    {
-      "name": "smarttoken101--1",
-      "source": "./smarttoken101--1",
-      "description": "1"
-    },
-    {
-      "name": "ayovl--we-buy-houses-newjersey-copy",
-      "source": "./ayovl--we-buy-houses-newjersey-copy",
-      "description": "we-buy-houses-newjersey-copy"
-    },
-    {
-      "name": "vinhnx--vtchat",
-      "source": "./vinhnx--vtchat",
-      "description": "vtchat"
-    },
-    {
-      "name": "redhat-performance--opl",
-      "source": "./redhat-performance--opl",
-      "description": "opl"
-    },
-    {
-      "name": "lalitmee--dotfiles",
-      "source": "./lalitmee--dotfiles",
-      "description": "dotfiles"
-    },
-    {
-      "name": "jarodise--language-transfer",
-      "source": "./jarodise--language-transfer",
-      "description": "Language-Transfer"
-    },
-    {
-      "name": "synaestheticsynthesis--companion",
-      "source": "./synaestheticsynthesis--companion",
-      "description": "CompAnIon"
-    },
-    {
-      "name": "wangjianjq--skill",
-      "source": "./wangjianjq--skill",
-      "description": "Skill"
-    },
-    {
-      "name": "alchaincyf--huasheng-editor",
-      "source": "./alchaincyf--huasheng-editor",
-      "description": "huasheng_editor"
-    },
-    {
-      "name": "twohoursonelife--dictator",
-      "source": "./twohoursonelife--dictator",
-      "description": "dictator"
-    },
-    {
-      "name": "palladius--genai-googlecloud-scripts",
-      "source": "./palladius--genai-googlecloud-scripts",
-      "description": "genai-googlecloud-scripts"
-    },
-    {
-      "name": "leepeffer--pluggy-ofx-export",
-      "source": "./leepeffer--pluggy-ofx-export",
-      "description": "pluggy-ofx-export"
-    },
-    {
-      "name": "wlong34243--investment-portfolio-manager",
-      "source": "./wlong34243--investment-portfolio-manager",
-      "description": "investment_portfolio_manager"
-    },
-    {
-      "name": "tgabecar--claudemcpcodeautomation",
-      "source": "./tgabecar--claudemcpcodeautomation",
-      "description": "ClaudeMCPCodeAutomation"
-    },
-    {
-      "name": "rehanhaider--autosocial",
-      "source": "./rehanhaider--autosocial",
-      "description": "AutoSocial"
-    },
-    {
-      "name": "dotkebi--morphie",
-      "source": "./dotkebi--morphie",
-      "description": "morphie"
-    },
-    {
-      "name": "marblejenka--devcontainer-feature",
-      "source": "./marblejenka--devcontainer-feature",
-      "description": "devcontainer-feature"
-    },
-    {
-      "name": "slovymovy--slovy-movy-app",
-      "source": "./slovymovy--slovy-movy-app",
-      "description": "slovy-movy-app"
-    },
-    {
-      "name": "kaaariyaaa--mcbeaddontemplate",
-      "source": "./kaaariyaaa--mcbeaddontemplate",
-      "description": "MCBEAddonTemplate"
-    },
-    {
-      "name": "lybic--lybic-sdk-go",
-      "source": "./lybic--lybic-sdk-go",
-      "description": "lybic-sdk-go"
-    },
-    {
-      "name": "eihrteam--image-toolbox",
-      "source": "./eihrteam--image-toolbox",
-      "description": "image-toolbox"
-    },
-    {
-      "name": "guangzuw--chronos-high-frequency-trading-engine",
-      "source": "./guangzuw--chronos-high-frequency-trading-engine",
-      "description": "Chronos_High_Frequency_Trading_Engine"
-    },
-    {
-      "name": "rogerallen--snowpack",
-      "source": "./rogerallen--snowpack",
-      "description": "snowpack"
-    },
-    {
-      "name": "jespera--diffract",
-      "source": "./jespera--diffract",
-      "description": "diffract"
-    },
-    {
-      "name": "robbymo81--assistantrobby",
-      "source": "./robbymo81--assistantrobby",
-      "description": "assistantrobby"
-    },
-    {
-      "name": "chew-z--good",
-      "source": "./chew-z--good",
-      "description": "good"
-    },
-    {
-      "name": "onosendae--agentic-design-pattern",
-      "source": "./onosendae--agentic-design-pattern",
-      "description": "agentic-design-pattern"
-    },
-    {
-      "name": "kiragu-maina--aether-rag-assistant",
-      "source": "./kiragu-maina--aether-rag-assistant",
-      "description": "aether-rag-assistant"
-    },
-    {
-      "name": "jonas0o0--dotfile",
-      "source": "./jonas0o0--dotfile",
-      "description": "dotfile"
-    },
-    {
-      "name": "mouloud240--slooze-assignement",
-      "source": "./mouloud240--slooze-assignement",
-      "description": "Slooze-assignement"
-    },
-    {
-      "name": "yamayuski--lami",
-      "source": "./yamayuski--lami",
-      "description": "lami"
-    },
-    {
-      "name": "pretamdas007--solar-flare-analysis",
-      "source": "./pretamdas007--solar-flare-analysis",
-      "description": "solar_flare_analysis"
-    },
-    {
-      "name": "oshliaer--tp-link-td-w8961n-telnet-client",
-      "source": "./oshliaer--tp-link-td-w8961n-telnet-client",
-      "description": "tp-link-td-w8961n-telnet-client"
-    },
-    {
-      "name": "debugtheworldbot--ai-credit",
-      "source": "./debugtheworldbot--ai-credit",
-      "description": "ai-credit"
-    },
-    {
-      "name": "marcusschimizzi--consigliere",
-      "source": "./marcusschimizzi--consigliere",
-      "description": "consigliere"
-    },
-    {
-      "name": "wibbydashboard-code--kontify-brain",
-      "source": "./wibbydashboard-code--kontify-brain",
-      "description": "kontify-brain"
-    },
-    {
-      "name": "douglassilv--cake-manager-app",
-      "source": "./douglassilv--cake-manager-app",
-      "description": "cake-manager-app"
-    },
-    {
-      "name": "2fac3r--tags-tdd",
-      "source": "./2fac3r--tags-tdd",
-      "description": "tags-tdd"
-    },
-    {
-      "name": "romaingyh--zen-iptv-web",
-      "source": "./romaingyh--zen-iptv-web",
-      "description": "zen_iptv_web"
-    },
-    {
-      "name": "napolitain--solver-lnk",
-      "source": "./napolitain--solver-lnk",
-      "description": "solver-lnk"
-    },
-    {
-      "name": "hadleyliao--fcu-iosappdev-tarotmate",
-      "source": "./hadleyliao--fcu-iosappdev-tarotmate",
-      "description": "FCU_iOSAppDev_TarotMate"
-    },
-    {
-      "name": "vzwtim--portfolio-site-ver1-0",
-      "source": "./vzwtim--portfolio-site-ver1-0",
-      "description": "portfolio-site_ver1.0"
-    },
-    {
-      "name": "krosebrook--nextjs-with-supabase",
-      "source": "./krosebrook--nextjs-with-supabase",
-      "description": "nextjs-with-supabase"
-    },
-    {
-      "name": "exemoumen--comercila-app",
-      "source": "./exemoumen--comercila-app",
-      "description": "comercila-app"
-    },
-    {
-      "name": "haru-llc--ai-pm-system-notebooklmuse",
-      "source": "./haru-llc--ai-pm-system-notebooklmuse",
-      "description": "ai-pm_system_notebooklmuse"
-    },
-    {
-      "name": "cfogelklou--measured-munch",
-      "source": "./cfogelklou--measured-munch",
-      "description": "measured-munch"
-    },
-    {
-      "name": "excelwang--fustor-data-platform",
-      "source": "./excelwang--fustor-data-platform",
-      "description": "fustor-data-platform"
-    },
-    {
-      "name": "hayashi-ay--horse-position-2d-animation",
-      "source": "./hayashi-ay--horse-position-2d-animation",
-      "description": "horse-position-2d-animation"
-    },
-    {
-      "name": "ronnie1560--requisition-workflow-system",
-      "source": "./ronnie1560--requisition-workflow-system",
-      "description": "requisition-workflow-system"
-    },
-    {
-      "name": "chi-g--upwearlane",
-      "source": "./chi-g--upwearlane",
-      "description": "UPWEARLANE"
-    },
-    {
-      "name": "yongseokjo--aitimestepper",
-      "source": "./yongseokjo--aitimestepper",
-      "description": "AITimeStepper"
-    },
-    {
-      "name": "devlibx--gox-helix",
-      "source": "./devlibx--gox-helix",
-      "description": "gox-helix"
-    },
-    {
-      "name": "krosebrook--aetheragentsos",
-      "source": "./krosebrook--aetheragentsos",
-      "description": "AetherAgentsOS"
-    },
-    {
-      "name": "jarvis1704--portfolio",
-      "source": "./jarvis1704--portfolio",
-      "description": "portfolio"
     },
     {
       "name": "guynachshon--zorro",
@@ -11102,6 +10762,346 @@
       "name": "a-kumar14--filegeek",
       "source": "./a-kumar14--filegeek",
       "description": "FileGeek"
+    },
+    {
+      "name": "sholtomaud--odum-energy-language",
+      "source": "./sholtomaud--odum-energy-language",
+      "description": "odum-energy-language"
+    },
+    {
+      "name": "santiaranda--ecommerce",
+      "source": "./santiaranda--ecommerce",
+      "description": "ecommerce"
+    },
+    {
+      "name": "paiml--depyler",
+      "source": "./paiml--depyler",
+      "description": "depyler"
+    },
+    {
+      "name": "goreckis6--hook3",
+      "source": "./goreckis6--hook3",
+      "description": "hook3"
+    },
+    {
+      "name": "wbitt--network-multitool",
+      "source": "./wbitt--network-multitool",
+      "description": "Network-MultiTool"
+    },
+    {
+      "name": "nick11014--createlittlecontraptions",
+      "source": "./nick11014--createlittlecontraptions",
+      "description": "CreateLittleContraptions"
+    },
+    {
+      "name": "alliu60--ai-training",
+      "source": "./alliu60--ai-training",
+      "description": "ai-training"
+    },
+    {
+      "name": "aklofas--kicad-happy",
+      "source": "./aklofas--kicad-happy",
+      "description": "kicad-happy"
+    },
+    {
+      "name": "herman-adu--animated-websites",
+      "source": "./herman-adu--animated-websites",
+      "description": "animated-websites"
+    },
+    {
+      "name": "nonatobin--camino-pilgrim-app",
+      "source": "./nonatobin--camino-pilgrim-app",
+      "description": "Camino-Pilgrim-App"
+    },
+    {
+      "name": "hwanyoungchoi--tongue-twister",
+      "source": "./hwanyoungchoi--tongue-twister",
+      "description": "tongue-twister"
+    },
+    {
+      "name": "pieroproietti--acqua",
+      "source": "./pieroproietti--acqua",
+      "description": "acqua"
+    },
+    {
+      "name": "theproject-commits--crypto-dashboard",
+      "source": "./theproject-commits--crypto-dashboard",
+      "description": "crypto-dashboard"
+    },
+    {
+      "name": "jacobkayembekazadi--sloe-campus-landing-page",
+      "source": "./jacobkayembekazadi--sloe-campus-landing-page",
+      "description": "sloe-campus-landing-page"
+    },
+    {
+      "name": "smarttoken101--1",
+      "source": "./smarttoken101--1",
+      "description": "1"
+    },
+    {
+      "name": "ayovl--we-buy-houses-newjersey-copy",
+      "source": "./ayovl--we-buy-houses-newjersey-copy",
+      "description": "we-buy-houses-newjersey-copy"
+    },
+    {
+      "name": "vinhnx--vtchat",
+      "source": "./vinhnx--vtchat",
+      "description": "vtchat"
+    },
+    {
+      "name": "redhat-performance--opl",
+      "source": "./redhat-performance--opl",
+      "description": "opl"
+    },
+    {
+      "name": "lalitmee--dotfiles",
+      "source": "./lalitmee--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "jarodise--language-transfer",
+      "source": "./jarodise--language-transfer",
+      "description": "Language-Transfer"
+    },
+    {
+      "name": "synaestheticsynthesis--companion",
+      "source": "./synaestheticsynthesis--companion",
+      "description": "CompAnIon"
+    },
+    {
+      "name": "wangjianjq--skill",
+      "source": "./wangjianjq--skill",
+      "description": "Skill"
+    },
+    {
+      "name": "alchaincyf--huasheng-editor",
+      "source": "./alchaincyf--huasheng-editor",
+      "description": "huasheng_editor"
+    },
+    {
+      "name": "twohoursonelife--dictator",
+      "source": "./twohoursonelife--dictator",
+      "description": "dictator"
+    },
+    {
+      "name": "palladius--genai-googlecloud-scripts",
+      "source": "./palladius--genai-googlecloud-scripts",
+      "description": "genai-googlecloud-scripts"
+    },
+    {
+      "name": "leepeffer--pluggy-ofx-export",
+      "source": "./leepeffer--pluggy-ofx-export",
+      "description": "pluggy-ofx-export"
+    },
+    {
+      "name": "wlong34243--investment-portfolio-manager",
+      "source": "./wlong34243--investment-portfolio-manager",
+      "description": "investment_portfolio_manager"
+    },
+    {
+      "name": "tgabecar--claudemcpcodeautomation",
+      "source": "./tgabecar--claudemcpcodeautomation",
+      "description": "ClaudeMCPCodeAutomation"
+    },
+    {
+      "name": "rehanhaider--autosocial",
+      "source": "./rehanhaider--autosocial",
+      "description": "AutoSocial"
+    },
+    {
+      "name": "dotkebi--morphie",
+      "source": "./dotkebi--morphie",
+      "description": "morphie"
+    },
+    {
+      "name": "marblejenka--devcontainer-feature",
+      "source": "./marblejenka--devcontainer-feature",
+      "description": "devcontainer-feature"
+    },
+    {
+      "name": "slovymovy--slovy-movy-app",
+      "source": "./slovymovy--slovy-movy-app",
+      "description": "slovy-movy-app"
+    },
+    {
+      "name": "kaaariyaaa--mcbeaddontemplate",
+      "source": "./kaaariyaaa--mcbeaddontemplate",
+      "description": "MCBEAddonTemplate"
+    },
+    {
+      "name": "lybic--lybic-sdk-go",
+      "source": "./lybic--lybic-sdk-go",
+      "description": "lybic-sdk-go"
+    },
+    {
+      "name": "eihrteam--image-toolbox",
+      "source": "./eihrteam--image-toolbox",
+      "description": "image-toolbox"
+    },
+    {
+      "name": "guangzuw--chronos-high-frequency-trading-engine",
+      "source": "./guangzuw--chronos-high-frequency-trading-engine",
+      "description": "Chronos_High_Frequency_Trading_Engine"
+    },
+    {
+      "name": "rogerallen--snowpack",
+      "source": "./rogerallen--snowpack",
+      "description": "snowpack"
+    },
+    {
+      "name": "jespera--diffract",
+      "source": "./jespera--diffract",
+      "description": "diffract"
+    },
+    {
+      "name": "robbymo81--assistantrobby",
+      "source": "./robbymo81--assistantrobby",
+      "description": "assistantrobby"
+    },
+    {
+      "name": "chew-z--good",
+      "source": "./chew-z--good",
+      "description": "good"
+    },
+    {
+      "name": "onosendae--agentic-design-pattern",
+      "source": "./onosendae--agentic-design-pattern",
+      "description": "agentic-design-pattern"
+    },
+    {
+      "name": "kiragu-maina--aether-rag-assistant",
+      "source": "./kiragu-maina--aether-rag-assistant",
+      "description": "aether-rag-assistant"
+    },
+    {
+      "name": "jonas0o0--dotfile",
+      "source": "./jonas0o0--dotfile",
+      "description": "dotfile"
+    },
+    {
+      "name": "mouloud240--slooze-assignement",
+      "source": "./mouloud240--slooze-assignement",
+      "description": "Slooze-assignement"
+    },
+    {
+      "name": "yamayuski--lami",
+      "source": "./yamayuski--lami",
+      "description": "lami"
+    },
+    {
+      "name": "pretamdas007--solar-flare-analysis",
+      "source": "./pretamdas007--solar-flare-analysis",
+      "description": "solar_flare_analysis"
+    },
+    {
+      "name": "oshliaer--tp-link-td-w8961n-telnet-client",
+      "source": "./oshliaer--tp-link-td-w8961n-telnet-client",
+      "description": "tp-link-td-w8961n-telnet-client"
+    },
+    {
+      "name": "debugtheworldbot--ai-credit",
+      "source": "./debugtheworldbot--ai-credit",
+      "description": "ai-credit"
+    },
+    {
+      "name": "marcusschimizzi--consigliere",
+      "source": "./marcusschimizzi--consigliere",
+      "description": "consigliere"
+    },
+    {
+      "name": "wibbydashboard-code--kontify-brain",
+      "source": "./wibbydashboard-code--kontify-brain",
+      "description": "kontify-brain"
+    },
+    {
+      "name": "douglassilv--cake-manager-app",
+      "source": "./douglassilv--cake-manager-app",
+      "description": "cake-manager-app"
+    },
+    {
+      "name": "2fac3r--tags-tdd",
+      "source": "./2fac3r--tags-tdd",
+      "description": "tags-tdd"
+    },
+    {
+      "name": "romaingyh--zen-iptv-web",
+      "source": "./romaingyh--zen-iptv-web",
+      "description": "zen_iptv_web"
+    },
+    {
+      "name": "napolitain--solver-lnk",
+      "source": "./napolitain--solver-lnk",
+      "description": "solver-lnk"
+    },
+    {
+      "name": "hadleyliao--fcu-iosappdev-tarotmate",
+      "source": "./hadleyliao--fcu-iosappdev-tarotmate",
+      "description": "FCU_iOSAppDev_TarotMate"
+    },
+    {
+      "name": "vzwtim--portfolio-site-ver1-0",
+      "source": "./vzwtim--portfolio-site-ver1-0",
+      "description": "portfolio-site_ver1.0"
+    },
+    {
+      "name": "krosebrook--nextjs-with-supabase",
+      "source": "./krosebrook--nextjs-with-supabase",
+      "description": "nextjs-with-supabase"
+    },
+    {
+      "name": "exemoumen--comercila-app",
+      "source": "./exemoumen--comercila-app",
+      "description": "comercila-app"
+    },
+    {
+      "name": "haru-llc--ai-pm-system-notebooklmuse",
+      "source": "./haru-llc--ai-pm-system-notebooklmuse",
+      "description": "ai-pm_system_notebooklmuse"
+    },
+    {
+      "name": "cfogelklou--measured-munch",
+      "source": "./cfogelklou--measured-munch",
+      "description": "measured-munch"
+    },
+    {
+      "name": "excelwang--fustor-data-platform",
+      "source": "./excelwang--fustor-data-platform",
+      "description": "fustor-data-platform"
+    },
+    {
+      "name": "hayashi-ay--horse-position-2d-animation",
+      "source": "./hayashi-ay--horse-position-2d-animation",
+      "description": "horse-position-2d-animation"
+    },
+    {
+      "name": "ronnie1560--requisition-workflow-system",
+      "source": "./ronnie1560--requisition-workflow-system",
+      "description": "requisition-workflow-system"
+    },
+    {
+      "name": "chi-g--upwearlane",
+      "source": "./chi-g--upwearlane",
+      "description": "UPWEARLANE"
+    },
+    {
+      "name": "yongseokjo--aitimestepper",
+      "source": "./yongseokjo--aitimestepper",
+      "description": "AITimeStepper"
+    },
+    {
+      "name": "devlibx--gox-helix",
+      "source": "./devlibx--gox-helix",
+      "description": "gox-helix"
+    },
+    {
+      "name": "krosebrook--aetheragentsos",
+      "source": "./krosebrook--aetheragentsos",
+      "description": "AetherAgentsOS"
+    },
+    {
+      "name": "jarvis1704--portfolio",
+      "source": "./jarvis1704--portfolio",
+      "description": "portfolio"
     }
   ]
 }
