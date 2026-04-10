@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [wisteriahuman/wisteria-io](https://github.com/w
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wisteriahuman](https://tomevault.io/claim/wisteriahuman)
 
