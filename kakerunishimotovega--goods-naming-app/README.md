@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [KakeruNishimotoVega/goods-naming-app](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/KakeruNishimotoVega](https://tomevault.io/claim/KakeruNishimotoVega)
 
