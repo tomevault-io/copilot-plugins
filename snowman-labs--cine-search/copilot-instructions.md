@@ -1,125 +1,84 @@
 ## cine-search
 
-> 🎨 **Design & UI Rules - CineSearch**
+> 🏗️ Clean Architecture Structure
 
 
-🎨 **Design & UI Rules - CineSearch**
+🏗️ Clean Architecture Structure
+Data Layer
 
-**📱 Multi-Platform Responsiveness**
+All data access must be in core/data/datasources/
+All models must be in core/data/models/
+All repository implementations must be in core/data/repositories/
+Separate datasources by responsibility (local, remote)
+Implement abstract interfaces for each datasource
 
-**Mandatory Platform Structure:**
-- `mobile/` - Widgets optimized for smartphones (< 768px)
-- `tablet/` - Widgets optimized for tablets (768px - 1024px) 
-- `web/` - Widgets optimized for browsers (> 1024px)
-- `shared/` - Reusable widgets across platforms
+Domain Layer
 
-**Responsive Layout:**
-- Always use [ResponsiveLayout](cci:2://file:///Users/glaidsonmontanhini/CascadeProjects/cine_search/lib/features/movies/presentation/layouts/responsive_layout.dart:3:0-26:1) to switch between platforms
-- Use [ResponsiveContainer](cci:2://file:///Users/glaidsonmontanhini/CascadeProjects/cine_search/lib/features/movies/presentation/layouts/responsive_layout.dart:28:0-51:1) for containers with max width
-- Apply [ResponsiveUtils](cci:2://file:///Users/glaidsonmontanhini/CascadeProjects/cine_search/lib/shared/utils/responsive_utils.dart:4:0-58:1) for paddings, grids and breakpoints
+All abstract repositories must be in core/domain/repositories/
+All entities must be in core/domain/entities/
+All use cases must be in core/domain/usecases/
+Repositories must define only method signatures
+Use Either<Failure, Success> return types in repositories and use cases
 
-**🏗️ Separation of Concerns**
+Presentation Layer
 
-**Pages (Screens):**
-- Only structure and navigation logic
-- **FORBIDDEN**: Business logic in pages
-- **MANDATORY**: Use specific widgets for each section
+All controllers must be in features/{feature}/presentation/controllers/
+All pages must be in features/{feature}/presentation/pages/
+All feature-specific widgets in features/{feature}/presentation/widgets/
+Reusable widgets in core/presentation/widgets/
 
-**Widgets:**
-- All visual logic must be in dedicated widgets
-- Widgets should be **stateless** whenever possible
-- Separate widgets by responsibility (e.g., `MovieCard`, `SearchBar`)
+📁 Core Services
 
-**📁 Widget Organization**
+Any external services must be in core/services/
+Examples: HttpService, StorageService, NotificationService
+Always implement interfaces for easier testing
+Register in dependency injection container
 
-**Core Widgets** (`core/presentation/widgets/`):
-- Reusable widgets across multiple features
-- Design system components (buttons, cards, inputs)
-- Base layouts and containers
+🎯 Model Requirements
 
-**Feature Widgets** (`features/{feature}/presentation/widgets/`):
-- Feature-specific widgets
-- Organized by platform when necessary
-- Shared widgets in `shared/` folder
+Models must extend their respective entity
+Must implement: fromMap(), toMap(), fromJson(), toJson()
+Models handle serialization/deserialization
+Keep entities pure (no external dependencies)
 
-**🎨 Design System**
+🔧 Use Case Pattern
 
-**Centralized Theme:**
-- Use only [AppTheme](cci:2://file:///Users/glaidsonmontanhini/CascadeProjects/cine_search/lib/core/presentation/theme/app_theme.dart:3:0-118:1) for colors and styles
-- **FORBIDDEN**: Hardcoded colors in widgets
-- Apply Material Design 3 consistently
+One use case = one responsibility
+Must implement UseCase<Type, Params> interface
+Controllers call use cases, never repositories directly
+Handle business logic validation
 
-**Standardized Components:**
-- Reuse theme components (cards, buttons, inputs)
-- Maintain visual consistency across platforms
-- Use `BorderRadius.circular(12)` for cards
-- Use `BorderRadius.circular(8)` for buttons/inputs
+📦 Dependency Injection
 
-**📐 Responsiveness**
+Use GetIt for dependency injection
+Register dependencies in core/injection/injection.dart
+Follow order: datasources → repositories → usecases → controllers
+Use interfaces for loose coupling
 
-**Standard Breakpoints:**
-- Mobile: < 768px (padding: 16px, grid: 2 columns)
-- Tablet: 768px - 1024px (padding: 32px, grid: 3 columns)  
-- Web: > 1024px (padding: 64px, grid: 4 columns, max-width: 1200px)
+🚨 Error Handling
 
-**Implementation:**
-```dart
-// ✅ CORRECT
-ResponsiveLayout(
-  mobile: MobileMovieList(),
-  tablet: TabletMovieList(), 
-  web: WebMovieList(),
-)
+Create core/errors/failures.dart with error types
+Use Either<Failure, Success> pattern
+Implement global error handling
+Never throw exceptions in domain layer
 
-// ❌ INCORRECT - logic in page
-class HomePage extends StatelessWidget {
-  Widget build(context) {
-    return Column(
-      children: [
-        // UI logic here
-      ],
-    );
-  }
-}
-undefined
-🚫 Restrictive Rules
+🧪 Testing Structure
 
-Pages CANNOT:
+test/unit/ - Unit tests (usecases, repositories)
+test/widget/ - Widget tests
+test/integration/ - Integration tests
+All use cases must have unit tests
+Mock external dependencies
 
-Contain complex presentation logic
-Have extensive inline widgets
-Make direct calls to controllers/providers
-Widgets MUST:
+🔍 Naming Conventions
 
-Have single, well-defined responsibility
-Be reusable when possible
-Follow clear naming ({Purpose}Widget)
-Implement proper keys for performance
-✅ Best Practices
-
-Performance:
-
-Use const constructors whenever possible
-Implement keys in list widgets
-Avoid unnecessary rebuilds
-Maintainability:
-
-Document complex widgets
-Use descriptive names for widgets
-Keep widgets small (< 100 lines)
-Accessibility:
-
-Implement semanticsLabel on images
-Use Tooltip on action buttons
-Ensure adequate contrast
-Testing:
-
-All custom widgets must have widget tests
-Test responsive behavior across breakpoints
-Mock external dependencies in widget tests
-Validate accessibility features
+Controllers: {Feature}Controller
+UseCases: {Action}{Entity}UseCase
+Repositories: {Entity}Repository (interface) / {Entity}RepositoryImpl
+Models: {Entity}Model
+Entities: {Entity}Entity or just {Entity}
+Datasources: {Entity}{Type}DataSource
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Snowman-Labs)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Snowman-Labs)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Snowman-Labs) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
