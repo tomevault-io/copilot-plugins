@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [AB-IN-lsy/Prompt-Gen](https://github.com/AB-IN-
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/AB-IN-lsy](https://tomevault.io/claim/AB-IN-lsy)
 
