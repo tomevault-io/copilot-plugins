@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [buzzxu/bbg](https://github.com/buzzxu/bbg).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/buzzxu](https://tomevault.io/claim/buzzxu)
 
