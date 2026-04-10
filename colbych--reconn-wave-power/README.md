@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [colbych/reconn-wave-power](https://github.com/c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/colbych](https://tomevault.io/claim/colbych)
 
