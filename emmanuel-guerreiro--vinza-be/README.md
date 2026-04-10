@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [Emmanuel-Guerreiro/vinza-be](https://
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Emmanuel-Guerreiro](https://tomevault.io/claim/Emmanuel-Guerreiro)
 
