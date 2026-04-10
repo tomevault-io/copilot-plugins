@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [chiefhoser/water-tracker-v2](https://github.com
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/chiefhoser](https://tomevault.io/claim/chiefhoser)
 
