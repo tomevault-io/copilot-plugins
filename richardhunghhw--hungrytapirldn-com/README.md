@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [richardhunghhw/hungrytapirldn.com](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/richardhunghhw](https://tomevault.io/claim/richardhunghhw)
 
