@@ -1,0 +1,138 @@
+{
+  "name": "oliver-kriska--claude-elixir-phoenix",
+  "displayName": "claude-elixir-phoenix",
+  "description": "AI instruction files for claude-elixir-phoenix by oliver-kriska",
+  "version": "1.0.0",
+  "author": "oliver-kriska",
+  "homepage": "https://tomevault.io/claim/oliver-kriska",
+  "skills": [
+    {
+      "name": "compound-docs",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "description": ""
+    },
+    {
+      "name": "docs-check",
+      "description": ""
+    },
+    {
+      "name": "ecto-patterns",
+      "description": ""
+    },
+    {
+      "name": "n1-check",
+      "description": ""
+    },
+    {
+      "name": "elixir-idioms",
+      "description": ""
+    },
+    {
+      "name": "hexdocs-fetcher",
+      "description": ""
+    },
+    {
+      "name": "intent-detection",
+      "description": ""
+    },
+    {
+      "name": "liveview-patterns",
+      "description": ""
+    },
+    {
+      "name": "oban",
+      "description": ""
+    },
+    {
+      "name": "phoenix-contexts",
+      "description": ""
+    },
+    {
+      "name": "audit",
+      "description": ""
+    },
+    {
+      "name": "brief",
+      "description": ""
+    },
+    {
+      "name": "challenge",
+      "description": ""
+    },
+    {
+      "name": "compound",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "description": ""
+    },
+    {
+      "name": "full",
+      "description": ""
+    },
+    {
+      "name": "investigate",
+      "description": ""
+    },
+    {
+      "name": "perf",
+      "description": ""
+    },
+    {
+      "name": "plan",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "description": ""
+    },
+    {
+      "name": "quick",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "techdebt",
+      "description": ""
+    },
+    {
+      "name": "triage",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "description": ""
+    },
+    {
+      "name": "work",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "tidewave-integration",
+      "description": ""
+    }
+  ]
+}
