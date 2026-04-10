@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [jdx/mise](https://github.com/jdx/mise
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jdx](https://tomevault.io/claim/jdx)
 
