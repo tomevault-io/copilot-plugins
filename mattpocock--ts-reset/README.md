@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mattpocock/ts-reset](https://github.com/mattpoc
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mattpocock](https://tomevault.io/claim/mattpocock)
 
