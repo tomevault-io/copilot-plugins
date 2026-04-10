@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [drshailesh88/Dora](https://github.com/drshailes
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/drshailesh88](https://tomevault.io/claim/drshailesh88)
 
