@@ -4,7 +4,7 @@
   "repo": "huasheng_editor",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
   "claim_url": "https://tomevault.io/claim/alchaincyf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T13:32:59Z"
+  "distributed_at": "2026-04-10T02:36:13Z"
 }
