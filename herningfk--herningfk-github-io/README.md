@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [herningfk/herningfk.github.io](https://github.c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/herningfk](https://tomevault.io/claim/herningfk)
 
