@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [C0chett0/radio-francine](https://github.com/C0c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/C0chett0](https://tomevault.io/claim/C0chett0)
 
