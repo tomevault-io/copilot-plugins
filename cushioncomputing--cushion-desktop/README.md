@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [cushioncomputing/cushion-desktop](https://githu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/cushioncomputing](https://tomevault.io/claim/cushioncomputing)
 
