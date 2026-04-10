@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [k15z/hexchess-zero](https://github.com/k15z/hex
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/k15z](https://tomevault.io/claim/k15z)
 
