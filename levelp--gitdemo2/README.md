@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [levelp/GitDemo2](https://github.com/levelp/GitD
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/levelp](https://tomevault.io/claim/levelp)
 
