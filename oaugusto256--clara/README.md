@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [oaugusto256/clara](https://github.com/oaugusto2
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/oaugusto256](https://tomevault.io/claim/oaugusto256)
 
