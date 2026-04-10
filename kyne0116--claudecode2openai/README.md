@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kyne0116/ClaudeCode2OpenAi](https://github.com/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kyne0116](https://tomevault.io/claim/kyne0116)
 
