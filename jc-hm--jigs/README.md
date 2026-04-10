@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jc-hm/jigs](https://github.com/jc-hm/jigs).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jc-hm](https://tomevault.io/claim/jc-hm)
 
