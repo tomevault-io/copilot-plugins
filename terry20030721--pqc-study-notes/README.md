@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Terry20030721/PQC-study-notes](https://github.c
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Terry20030721](https://tomevault.io/claim/Terry20030721)
 
