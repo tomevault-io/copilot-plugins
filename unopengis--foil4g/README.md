@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [UNopenGIS/foil4g](https://github.com/UNopenGIS/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/UNopenGIS](https://tomevault.io/claim/UNopenGIS)
 
