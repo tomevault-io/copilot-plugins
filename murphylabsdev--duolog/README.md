@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [MurphyLabsDev/duolog](https://github.com/Murphy
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/MurphyLabsDev](https://tomevault.io/claim/MurphyLabsDev)
 
