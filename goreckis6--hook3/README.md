@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [goreckis6/hook3](https://github.com/goreckis6/h
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/goreckis6](https://tomevault.io/claim/goreckis6)
 
