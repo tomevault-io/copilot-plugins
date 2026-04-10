@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [YmzknA/chiikusa-nikki](https://github.com/Ymzkn
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/YmzknA](https://tomevault.io/claim/YmzknA)
 
