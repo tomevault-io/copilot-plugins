@@ -1,83 +1,85 @@
 ## praetor
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Praetor is a modern, AI-enhanced ERP (Enterprise Resource Planning) application designed for simplicity and efficiency. It features a comprehensive suite of modules for business management, with a focus on smart time tracking and productivity insights powered by Google Gemini AI.
 
-# CLAUDE.md
+# Praetor - Project Overview
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project Overview
-
-Praetor is an AI-enhanced ERP application for time tracking, project management, CRM, and financial operations. React 19 + Vite frontend with Fastify + PostgreSQL backend.
-
-## Development Commands
-
-### Frontend (root directory)
-```bash
-bun run dev          # Start dev server (port 3000)
-bun run build        # Production build
-bun run lint         # Biome check
-bun run lint:fix     # Auto-fix lint issues
-bun run format       # Biome formatting
-```
-
-### Backend (server directory)
-```bash
-cd server
-bun run dev          # Dev server with hot reload (port 3001)
-bun run build        # TypeScript compilation
-bun run start        # Run compiled server
-```
+Praetor is a modern, AI-enhanced ERP (Enterprise Resource Planning) application designed for simplicity and efficiency. It features a comprehensive suite of modules for business management, with a focus on smart time tracking and productivity insights powered by Google Gemini AI.
 
 ## Architecture
 
-### State Management
-- No Redux/MobX - uses React hooks with centralized state in `App.tsx`
-- `App.tsx` (~83KB) manages all application state and passes via props
-- Components receive data through props, not global stores
+The project follows a full-stack architecture with a React-based frontend and a Fastify-based backend.
 
-### API Layer
-- `/services/api.ts` - Custom fetch wrapper with token management
-- RESTful endpoints at `/api/*`
-- Sliding window JWT auth (30min idle timeout, 8hr max session)
-- Server returns new token in `x-auth-token` header on each request
+- **Frontend:** A Single Page Application (SPA) built with React 19, TypeScript, and Vite. Styling is handled via Tailwind CSS, and data visualization uses Recharts.
+- **Backend:** An API server built with Fastify, using PostgreSQL as the primary relational database.
+- **AI Integration:** Supports AI Reporting (Gemini/OpenRouter, server-side provider calls) for generating insights from business data.
+- **Deployment:** Containerized using Docker and Orchestrated via Docker Compose.
 
-### Database
-- Direct PostgreSQL via `pg` driver (no ORM)
-- Raw SQL queries with parameterized inputs
-- Snake_case in DB → camelCase in API responses
+## Key Modules
 
-### Authentication
-- JWT (HS256) with optional LDAP/AD fallback
-- Roles: admin (full access), manager (CRM/reports), user (personal tracking)
+- **Timesheets:** 
+    - **Tracker:** Manual time logging.
+    - **Recurring Manager:** Automation for recurring tasks.
+- **CRM (Customer Relationship Management):** 
+    - **Clients:** Manage client details and associations.
+    - **Suppliers:** Manage vendor information.
+- **Sales & Catalog:**
+    - **Client Quotes:** Create and manage sales quotations.
+    - **Special Bids:** Client-specific pricing and discounts.
+    - **Products Catalog:** Internal and external product listings.
+- **Accounting:**
+    - **Clients Orders:** Track orders from clients.
+    - **Invoices:** Manage billing and payment status.
+- **HR (Human Resources):**
+    - **Workforce:** Manage internal and external employees.
+    - **Work Units:** Hierarchical organizational structure with manager assignments.
+- **Administration:**
+    - **User Management:** RBAC (Role-Based Access Control) with Admin, Manager, and User roles.
+    - **Authentication:** Local credentials and LDAP/Active Directory integration.
+    - **Settings:** General system settings, Email configuration (SMTP), and AI provider settings.
 
-### Internationalization
-- i18next with English (en) and Italian (it)
+## Technology Stack
 
-## Key Patterns
+- **Frontend:** React 19, Vite, TypeScript, Tailwind CSS, Recharts, i18next, Biome.
+- **Backend:** Fastify, PostgreSQL (`pg`), Bun, JWT.
+- **Infrastructure:** Docker, Caddy (for serving frontend).
 
-### Route Organization
-Backend routes in `/server/routes/` with prefix-based registration:
-- `auth.ts` → `/api/auth`
-- `clients.ts` → `/api/clients`
-- Pattern: `fastify.get('/', { onRequest: [authenticateToken, requireRole('manager')] }, handler)`
+## Development Commands
 
-### Component Naming
-- Views: PascalCase `*View.tsx` (e.g., `ClientsView.tsx`, `SalesView.tsx`)
-- Utilities: camelCase (e.g., `geminiService.ts`)
-- Routes: kebab-case (e.g., `general-settings.ts`)
+### Frontend (Root Directory)
+- `bun install`: Install dependencies.
+- `bun run dev`: Start the Vite development server.
+- `bun run build`: Build for production.
+- `bun run lint`: Run Biome linter/formatter.
+- `bun run docs`: Generate TSDoc and OpenAPI documentation.
 
-## Important Notes
+### Backend (`server/` Directory)
+- `cd server && bun install`: Install backend dependencies.
+- `cd server && bun run dev`: Start the Fastify server with hot-reload.
+- `cd server && bun run build`: Compile TypeScript to JavaScript.
 
-- **Path aliases**: `@/` maps to project root (Vite + TypeScript config)
-- **CDN dependencies**: React, Recharts
-- **Test accounts**: admin/password, manager/password, user/password
-- **No automated tests**: Manual testing only
-- **Ports**: Frontend 3000, Backend 3001, PostgreSQL 5432
-- **Remote Testing**: App runs on remote Docker containers - do not run commands locally for testing
-- **Docs**: Always use Context7 MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
+### Docker
+- `docker compose up -d --build`: Build and start the entire stack (Postgres, Backend, Frontend).
+
+## Key Files & Directories
+
+- `App.tsx`: Main frontend entry point and routing.
+- `types.ts`: Shared TypeScript interfaces and types.
+- `components/`: UI components organized by functional module (Accounting, CRM, Timesheet, etc.).
+- `server/index.ts`: Backend entry point, handling migrations and server startup.
+- `server/app.ts`: Fastify application configuration and route registration.
+- `server/db/`: SQL schema, seeds, and migration scripts.
+- `locales/`: Translation files for Internationalization (English/Italian).
+
+## Development Conventions
+
+- **Typing:** Strict TypeScript usage is encouraged. Common types are centralized in the root `types.ts`.
+- **Styling:** Tailwind CSS is used for all UI components.
+- **Linting:** Biome is the preferred tool for linting and formatting.
+- **Migrations:** Database migrations are handled programmatically on server startup in `server/index.ts`.
+- **API:** RESTful API with documentation generated via Swagger.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/xBounceIT)
 > This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/xBounceIT)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
