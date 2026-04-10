@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mufarrah/context-engineering-template](https://
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mufarrah](https://tomevault.io/claim/mufarrah)
 
