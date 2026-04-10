@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [mumu-lhl/Ciyue](https://github.com/mumu-lhl/Ciy
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mumu-lhl](https://tomevault.io/claim/mumu-lhl)
 
