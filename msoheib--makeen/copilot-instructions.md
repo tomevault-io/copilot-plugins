@@ -1,502 +1,586 @@
 ## makeen
 
-> -- WARNING: This schema is for context only and is not meant to be run.
+> - **Supabase Project ID**: `fbabpaorcvatejkrelrf`
 
+# Real Estate Management Database Schema Documentation
 
-## this what the current supabase schema looks like
--- WARNING: This schema is for context only and is not meant to be run.
--- Table order and constraints may not be valid for execution.
+## Project Information
+- **Supabase Project ID**: `fbabpaorcvatejkrelrf`
+- **Project Name**: `property-management` 
+- **Region**: `eu-central-1`
+- **Database Version**: PostgreSQL 15.8.1.093
+- **Status**: ACTIVE_HEALTHY
+- **Host**: `db.fbabpaorcvatejkrelrf.supabase.co`
 
-CREATE TABLE public.accounts (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  account_code text NOT NULL UNIQUE,
-  account_name text NOT NULL,
-  account_type text NOT NULL CHECK (account_type = ANY (ARRAY['asset'::text, 'liability'::text, 'equity'::text, 'revenue'::text, 'expense'::text])),
-  parent_account_id uuid,
-  is_active boolean DEFAULT true,
-  description text,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT accounts_pkey PRIMARY KEY (id),
-  CONSTRAINT accounts_parent_account_id_fkey FOREIGN KEY (parent_account_id) REFERENCES public.accounts(id)
-);
-CREATE TABLE public.bids (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid NOT NULL,
-  bidder_id uuid NOT NULL,
-  bid_type text NOT NULL CHECK (bid_type = ANY (ARRAY['rental'::text, 'purchase'::text])),
-  bid_amount numeric NOT NULL CHECK (bid_amount > 0::numeric),
-  bid_status text DEFAULT 'pending'::text CHECK (bid_status = ANY (ARRAY['pending'::text, 'manager_approved'::text, 'owner_approved'::text, 'rejected'::text, 'withdrawn'::text, 'expired'::text, 'accepted'::text])),
-  message text,
-  expires_at timestamp with time zone NOT NULL,
-  manager_approved boolean DEFAULT false,
-  manager_approval_date timestamp with time zone,
-  manager_id uuid,
-  manager_notes text,
-  owner_approved boolean DEFAULT false,
-  owner_approval_date timestamp with time zone,
-  owner_response_message text,
-  rental_duration_months integer,
-  security_deposit_amount numeric DEFAULT 0,
-  utilities_included boolean DEFAULT false,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT bids_pkey PRIMARY KEY (id),
-  CONSTRAINT bids_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT bids_bidder_id_fkey FOREIGN KEY (bidder_id) REFERENCES public.profiles(id),
-  CONSTRAINT bids_manager_id_fkey FOREIGN KEY (manager_id) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.budgets (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  budget_year integer NOT NULL,
-  property_id uuid,
-  account_id uuid,
-  budgeted_amount numeric NOT NULL,
-  budget_type text NOT NULL CHECK (budget_type = ANY (ARRAY['revenue'::text, 'expense'::text, 'capex'::text])),
-  description text,
-  is_active boolean DEFAULT true,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT budgets_pkey PRIMARY KEY (id),
-  CONSTRAINT budgets_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT budgets_account_id_fkey FOREIGN KEY (account_id) REFERENCES public.accounts(id)
-);
-CREATE TABLE public.clients (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  client_type text NOT NULL CHECK (client_type = ANY (ARRAY['buyer'::text, 'supplier'::text, 'vendor'::text, 'contractor'::text])),
-  company_name text,
-  contact_person text,
-  email text UNIQUE,
-  phone text,
-  address text,
-  city text,
-  country text,
-  tax_id text,
-  status text DEFAULT 'active'::text CHECK (status = ANY (ARRAY['active'::text, 'inactive'::text])),
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT clients_pkey PRIMARY KEY (id)
-);
-CREATE TABLE public.contracts (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid,
-  tenant_id uuid,
-  start_date timestamp with time zone NOT NULL,
-  end_date timestamp with time zone NOT NULL,
-  rent_amount numeric NOT NULL,
-  payment_frequency text DEFAULT 'monthly'::text CHECK (payment_frequency = ANY (ARRAY['monthly'::text, 'quarterly'::text, 'biannually'::text, 'annually'::text])),
-  security_deposit numeric NOT NULL,
-  is_foreign_tenant boolean DEFAULT false,
-  status text DEFAULT 'active'::text CHECK (status = ANY (ARRAY['active'::text, 'expired'::text, 'terminated'::text, 'renewal'::text])),
-  documents ARRAY,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  contract_number text,
-  contract_type text DEFAULT 'rental'::text CHECK (contract_type = ANY (ARRAY['rental'::text, 'sale'::text, 'management'::text])),
-  auto_renewal boolean DEFAULT false,
-  notice_period_days integer DEFAULT 30,
-  late_fee_percentage numeric DEFAULT 0,
-  utilities_included boolean DEFAULT false,
-  CONSTRAINT contracts_pkey PRIMARY KEY (id),
-  CONSTRAINT contracts_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT contracts_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.cost_centers (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  code text NOT NULL UNIQUE,
-  name text NOT NULL,
-  description text,
-  is_active boolean DEFAULT true,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT cost_centers_pkey PRIMARY KEY (id)
-);
-CREATE TABLE public.documents (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  document_type text NOT NULL CHECK (document_type = ANY (ARRAY['contract'::text, 'invoice'::text, 'receipt'::text, 'legal'::text, 'insurance'::text, 'maintenance'::text, 'photo'::text, 'other'::text])),
-  title text NOT NULL,
-  file_path text NOT NULL,
-  file_size bigint,
-  mime_type text,
-  related_entity_type text CHECK (related_entity_type = ANY (ARRAY['property'::text, 'tenant'::text, 'contract'::text, 'maintenance'::text, 'work_order'::text])),
-  related_entity_id uuid,
-  uploaded_by uuid,
-  tags ARRAY,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT documents_pkey PRIMARY KEY (id),
-  CONSTRAINT documents_uploaded_by_fkey FOREIGN KEY (uploaded_by) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.fixed_assets (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid,
-  asset_name text NOT NULL,
-  asset_type text NOT NULL,
-  purchase_date date NOT NULL,
-  purchase_price numeric NOT NULL,
-  depreciation_method text DEFAULT 'straight_line'::text CHECK (depreciation_method = ANY (ARRAY['straight_line'::text, 'declining_balance'::text])),
-  useful_life_years integer NOT NULL,
-  salvage_value numeric DEFAULT 0,
-  current_value numeric,
-  status text DEFAULT 'active'::text CHECK (status = ANY (ARRAY['active'::text, 'disposed'::text, 'sold'::text])),
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT fixed_assets_pkey PRIMARY KEY (id),
-  CONSTRAINT fixed_assets_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id)
-);
-CREATE TABLE public.invoices (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  invoice_number text NOT NULL UNIQUE,
-  property_id uuid,
-  tenant_id uuid,
-  amount numeric NOT NULL,
-  vat_amount numeric DEFAULT 0,
-  total_amount numeric NOT NULL,
-  issue_date timestamp with time zone NOT NULL,
-  due_date timestamp with time zone NOT NULL,
-  status text DEFAULT 'draft'::text CHECK (status = ANY (ARRAY['draft'::text, 'sent'::text, 'paid'::text, 'overdue'::text, 'cancelled'::text])),
-  description text,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  tax_rate numeric DEFAULT 0,
-  discount_amount numeric DEFAULT 0,
-  payment_terms text DEFAULT '30 days'::text,
-  reference_number text,
-  CONSTRAINT invoices_pkey PRIMARY KEY (id),
-  CONSTRAINT invoices_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT invoices_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.issues (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid,
-  reported_by uuid,
-  issue_type text CHECK (issue_type = ANY (ARRAY['complaint'::text, 'dispute'::text, 'legal'::text, 'administrative'::text])),
-  title text NOT NULL,
-  description text NOT NULL,
-  priority text DEFAULT 'medium'::text CHECK (priority = ANY (ARRAY['low'::text, 'medium'::text, 'high'::text, 'urgent'::text])),
-  status text DEFAULT 'open'::text CHECK (status = ANY (ARRAY['open'::text, 'investigating'::text, 'resolved'::text, 'closed'::text])),
-  resolution text,
-  resolved_date timestamp with time zone,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT issues_pkey PRIMARY KEY (id),
-  CONSTRAINT issues_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT issues_reported_by_fkey FOREIGN KEY (reported_by) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.letters (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  recipient_type text NOT NULL CHECK (recipient_type = ANY (ARRAY['tenant'::text, 'owner'::text, 'client'::text, 'supplier'::text])),
-  recipient_id uuid,
-  sender_id uuid,
-  subject text NOT NULL,
-  content text NOT NULL,
-  letter_type text CHECK (letter_type = ANY (ARRAY['notice'::text, 'reminder'::text, 'legal'::text, 'general'::text])),
-  status text DEFAULT 'draft'::text CHECK (status = ANY (ARRAY['draft'::text, 'sent'::text, 'delivered'::text, 'read'::text])),
-  sent_date timestamp with time zone,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT letters_pkey PRIMARY KEY (id),
-  CONSTRAINT letters_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.maintenance_requests (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid,
-  tenant_id uuid,
-  title text NOT NULL,
-  description text NOT NULL,
-  status text DEFAULT 'pending'::text CHECK (status = ANY (ARRAY['pending'::text, 'approved'::text, 'in_progress'::text, 'completed'::text, 'cancelled'::text])),
-  priority text DEFAULT 'medium'::text CHECK (priority = ANY (ARRAY['low'::text, 'medium'::text, 'high'::text, 'urgent'::text])),
-  images ARRAY,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT maintenance_requests_pkey PRIMARY KEY (id),
-  CONSTRAINT maintenance_requests_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT maintenance_requests_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.notifications (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  recipient_id uuid NOT NULL,
-  sender_id uuid,
-  notification_type text NOT NULL CHECK (notification_type = ANY (ARRAY['bid_submitted'::text, 'bid_approved'::text, 'bid_rejected'::text, 'contract_created'::text, 'maintenance_request'::text, 'payment_due'::text, 'general'::text])),
-  title text NOT NULL,
-  message text NOT NULL,
-  related_entity_type text CHECK (related_entity_type = ANY (ARRAY['bid'::text, 'contract'::text, 'property'::text, 'maintenance_request'::text, 'voucher'::text, 'invoice'::text])),
-  related_entity_id uuid,
-  is_read boolean DEFAULT false,
-  priority text DEFAULT 'normal'::text CHECK (priority = ANY (ARRAY['low'::text, 'normal'::text, 'high'::text, 'urgent'::text])),
-  action_url text,
-  expires_at timestamp with time zone,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT notifications_pkey PRIMARY KEY (id),
-  CONSTRAINT notifications_recipient_id_fkey FOREIGN KEY (recipient_id) REFERENCES public.profiles(id),
-  CONSTRAINT notifications_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.profiles (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  first_name text,
-  last_name text,
-  email text UNIQUE,
-  role text DEFAULT 'tenant'::text CHECK (role = ANY (ARRAY['admin'::text, 'manager'::text, 'owner'::text, 'tenant'::text, 'buyer'::text, 'employee'::text, 'contractor'::text])),
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  phone text,
-  address text,
-  city text,
-  country text,
-  nationality text,
-  id_number text,
-  is_foreign boolean DEFAULT false,
-  profile_type text CHECK (profile_type = ANY (ARRAY['owner'::text, 'tenant'::text, 'buyer'::text, 'employee'::text, 'admin'::text])),
-  status text DEFAULT 'active'::text CHECK (status = ANY (ARRAY['active'::text, 'inactive'::text, 'suspended'::text])),
-  approval_status text DEFAULT 'approved'::text CHECK (approval_status = ANY (ARRAY['pending'::text, 'approved'::text, 'rejected'::text, 'suspended'::text])),
-  approved_by uuid,
-  approval_date timestamp with time zone DEFAULT now(),
-  rejection_reason text,
-  verification_documents ARRAY,
-  kyc_status text DEFAULT 'pending'::text CHECK (kyc_status = ANY (ARRAY['pending'::text, 'verified'::text, 'rejected'::text])),
-  credit_score integer CHECK (credit_score >= 300 AND credit_score <= 850),
-  can_bid boolean DEFAULT false,
-  CONSTRAINT profiles_pkey PRIMARY KEY (id),
-  CONSTRAINT profiles_approved_by_fkey FOREIGN KEY (approved_by) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.properties (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  title text NOT NULL,
-  description text,
-  property_type text NOT NULL CHECK (property_type = ANY (ARRAY['apartment'::text, 'villa'::text, 'office'::text, 'retail'::text, 'warehouse'::text])),
-  status text DEFAULT 'available'::text CHECK (status = ANY (ARRAY['available'::text, 'rented'::text, 'maintenance'::text, 'reserved'::text])),
-  address text NOT NULL,
-  city text NOT NULL,
-  country text NOT NULL,
-  neighborhood text,
-  area_sqm numeric NOT NULL,
-  bedrooms integer,
-  bathrooms integer,
-  price numeric NOT NULL,
-  payment_method text DEFAULT 'cash'::text CHECK (payment_method = ANY (ARRAY['cash'::text, 'installment'::text])),
-  owner_id uuid,
-  images ARRAY,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  property_code text,
-  floor_number integer,
-  building_name text,
-  parking_spaces integer DEFAULT 0,
-  amenities ARRAY,
-  is_furnished boolean DEFAULT false,
-  annual_rent numeric,
-  service_charge numeric DEFAULT 0,
-  listing_type text DEFAULT 'rent'::text CHECK (listing_type = ANY (ARRAY['rent'::text, 'sale'::text, 'both'::text])),
-  approval_status text DEFAULT 'pending'::text CHECK (approval_status = ANY (ARRAY['pending'::text, 'approved'::text, 'rejected'::text])),
-  approved_by uuid,
-  approval_date timestamp with time zone,
-  is_accepting_bids boolean DEFAULT true,
-  minimum_bid_amount numeric,
-  maximum_bid_amount numeric,
-  bid_increment numeric DEFAULT 1000,
-  auto_accept_threshold numeric,
-  listing_expires_at timestamp with time zone,
-  CONSTRAINT properties_pkey PRIMARY KEY (id),
-  CONSTRAINT properties_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.profiles(id),
-  CONSTRAINT properties_approved_by_fkey FOREIGN KEY (approved_by) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.property_metrics (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid,
-  metric_date date NOT NULL,
-  occupancy_rate numeric CHECK (occupancy_rate >= 0::numeric AND occupancy_rate <= 100::numeric),
-  rental_yield numeric,
-  maintenance_cost_ratio numeric,
-  net_operating_income numeric,
-  gross_rental_income numeric,
-  total_expenses numeric,
-  vacancy_days integer DEFAULT 0,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT property_metrics_pkey PRIMARY KEY (id),
-  CONSTRAINT property_metrics_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id)
-);
-CREATE TABLE public.property_reservations (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid,
-  client_id uuid,
-  reservation_date timestamp with time zone NOT NULL,
-  expiry_date timestamp with time zone NOT NULL,
-  deposit_amount numeric NOT NULL,
-  status text DEFAULT 'active'::text CHECK (status = ANY (ARRAY['active'::text, 'expired'::text, 'converted'::text, 'cancelled'::text])),
-  notes text,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT property_reservations_pkey PRIMARY KEY (id),
-  CONSTRAINT property_reservations_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT property_reservations_client_id_fkey FOREIGN KEY (client_id) REFERENCES public.clients(id)
-);
-CREATE TABLE public.property_transactions (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid NOT NULL,
-  transaction_type text NOT NULL CHECK (transaction_type = ANY (ARRAY['sale'::text, 'rental'::text])),
-  transaction_amount numeric NOT NULL CHECK (transaction_amount > 0::numeric),
-  buyer_id uuid,
-  tenant_id uuid,
-  previous_owner_id uuid,
-  bid_id uuid,
-  contract_id uuid,
-  transaction_status text DEFAULT 'pending'::text CHECK (transaction_status = ANY (ARRAY['pending'::text, 'in_progress'::text, 'completed'::text, 'cancelled'::text])),
-  transaction_date timestamp with time zone NOT NULL DEFAULT now(),
-  completion_date timestamp with time zone,
-  commission_amount numeric DEFAULT 0,
-  commission_recipient_id uuid,
-  notes text,
-  documents ARRAY,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT property_transactions_pkey PRIMARY KEY (id),
-  CONSTRAINT property_transactions_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT property_transactions_buyer_id_fkey FOREIGN KEY (buyer_id) REFERENCES public.profiles(id),
-  CONSTRAINT property_transactions_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES public.profiles(id),
-  CONSTRAINT property_transactions_previous_owner_id_fkey FOREIGN KEY (previous_owner_id) REFERENCES public.profiles(id),
-  CONSTRAINT property_transactions_bid_id_fkey FOREIGN KEY (bid_id) REFERENCES public.bids(id),
-  CONSTRAINT property_transactions_contract_id_fkey FOREIGN KEY (contract_id) REFERENCES public.contracts(id),
-  CONSTRAINT property_transactions_commission_recipient_id_fkey FOREIGN KEY (commission_recipient_id) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.property_valuations (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid,
-  valuation_date date NOT NULL,
-  market_value numeric NOT NULL CHECK (market_value > 0::numeric),
-  rental_value numeric,
-  valuation_method text CHECK (valuation_method = ANY (ARRAY['appraisal'::text, 'market_analysis'::text, 'cost_approach'::text, 'income_approach'::text])),
-  appraiser_name text,
-  appraiser_notes text,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT property_valuations_pkey PRIMARY KEY (id),
-  CONSTRAINT property_valuations_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id)
-);
-CREATE TABLE public.rental_payment_schedules (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  contract_id uuid,
-  due_date date NOT NULL,
-  amount numeric NOT NULL CHECK (amount > 0::numeric),
-  payment_status text DEFAULT 'pending'::text CHECK (payment_status = ANY (ARRAY['pending'::text, 'paid'::text, 'overdue'::text, 'partial'::text])),
-  paid_amount numeric DEFAULT 0,
-  late_fees numeric DEFAULT 0,
-  payment_date date,
-  voucher_id uuid,
-  notes text,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT rental_payment_schedules_pkey PRIMARY KEY (id),
-  CONSTRAINT rental_payment_schedules_contract_id_fkey FOREIGN KEY (contract_id) REFERENCES public.contracts(id),
-  CONSTRAINT rental_payment_schedules_voucher_id_fkey FOREIGN KEY (voucher_id) REFERENCES public.vouchers(id)
-);
-CREATE TABLE public.report_definitions (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  report_name text NOT NULL,
-  report_type text NOT NULL CHECK (report_type = ANY (ARRAY['financial'::text, 'property'::text, 'tenant'::text, 'maintenance'::text, 'custom'::text])),
-  report_config jsonb NOT NULL,
-  created_by uuid,
-  is_public boolean DEFAULT false,
-  schedule_frequency text CHECK (schedule_frequency = ANY (ARRAY['daily'::text, 'weekly'::text, 'monthly'::text, 'quarterly'::text, 'annually'::text])),
-  last_generated_at timestamp with time zone,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT report_definitions_pkey PRIMARY KEY (id),
-  CONSTRAINT report_definitions_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.user_approvals (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  approval_type text NOT NULL CHECK (approval_type = ANY (ARRAY['user_signup'::text, 'property_listing'::text, 'transaction_approval'::text, 'role_change'::text])),
-  approval_status text DEFAULT 'pending'::text CHECK (approval_status = ANY (ARRAY['pending'::text, 'approved'::text, 'rejected'::text, 'expired'::text])),
-  requested_by uuid NOT NULL,
-  approved_by uuid,
-  approval_date timestamp with time zone,
-  rejection_reason text,
-  approval_notes text,
-  priority_level text DEFAULT 'normal'::text CHECK (priority_level = ANY (ARRAY['low'::text, 'normal'::text, 'high'::text, 'urgent'::text])),
-  related_entity_type text CHECK (related_entity_type = ANY (ARRAY['property'::text, 'transaction'::text, 'bid'::text, 'profile'::text])),
-  related_entity_id uuid,
-  expires_at timestamp with time zone,
-  auto_approve_after timestamp with time zone,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT user_approvals_pkey PRIMARY KEY (id),
-  CONSTRAINT user_approvals_requested_by_fkey FOREIGN KEY (requested_by) REFERENCES public.profiles(id),
-  CONSTRAINT user_approvals_approved_by_fkey FOREIGN KEY (approved_by) REFERENCES public.profiles(id)
-);
-CREATE TABLE public.utility_payments (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  property_id uuid,
-  utility_type text NOT NULL CHECK (utility_type = ANY (ARRAY['electricity'::text, 'water'::text, 'gas'::text, 'internet'::text, 'sewage'::text])),
-  meter_number text,
-  previous_reading numeric DEFAULT 0,
-  current_reading numeric NOT NULL,
-  consumption numeric DEFAULT (current_reading - previous_reading),
-  rate_per_unit numeric NOT NULL DEFAULT 0.18,
-  amount numeric DEFAULT ((current_reading - previous_reading) * rate_per_unit),
-  reading_date date NOT NULL,
-  due_date date,
-  payment_status text DEFAULT 'pending'::text CHECK (payment_status = ANY (ARRAY['pending'::text, 'paid'::text, 'overdue'::text])),
-  payment_date date,
-  payment_method text CHECK (payment_method = ANY (ARRAY['cash'::text, 'bank_transfer'::text, 'cheque'::text, 'card'::text])),
-  payment_reference text,
-  notes text,
-  uploaded_by uuid,
-  voucher_id uuid,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT utility_payments_pkey PRIMARY KEY (id),
-  CONSTRAINT utility_payments_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT utility_payments_uploaded_by_fkey FOREIGN KEY (uploaded_by) REFERENCES public.profiles(id),
-  CONSTRAINT utility_payments_voucher_id_fkey FOREIGN KEY (voucher_id) REFERENCES public.vouchers(id)
-);
-CREATE TABLE public.vouchers (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  voucher_type text NOT NULL CHECK (voucher_type = ANY (ARRAY['receipt'::text, 'payment'::text, 'journal'::text])),
-  voucher_number text NOT NULL UNIQUE,
-  amount numeric NOT NULL,
-  currency text DEFAULT 'USD'::text,
-  status text DEFAULT 'draft'::text CHECK (status = ANY (ARRAY['draft'::text, 'posted'::text, 'cancelled'::text])),
-  description text,
-  property_id uuid,
-  tenant_id uuid,
-  created_by uuid,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  payment_method text CHECK (payment_method = ANY (ARRAY['cash'::text, 'bank_transfer'::text, 'cheque'::text, 'card'::text])),
-  cheque_number text,
-  bank_reference text,
-  account_id uuid,
-  cost_center_id uuid,
-  CONSTRAINT vouchers_pkey PRIMARY KEY (id),
-  CONSTRAINT vouchers_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id),
-  CONSTRAINT vouchers_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES public.profiles(id),
-  CONSTRAINT vouchers_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id),
-  CONSTRAINT vouchers_account_id_fkey FOREIGN KEY (account_id) REFERENCES public.accounts(id),
-  CONSTRAINT vouchers_cost_center_id_fkey FOREIGN KEY (cost_center_id) REFERENCES public.cost_centers(id)
-);
-CREATE TABLE public.work_orders (
-  id uuid NOT NULL DEFAULT gen_random_uuid(),
-  maintenance_request_id uuid,
-  assigned_to uuid,
-  description text NOT NULL,
-  estimated_cost numeric NOT NULL,
-  actual_cost numeric,
-  start_date timestamp with time zone NOT NULL,
-  completion_date timestamp with time zone,
-  status text DEFAULT 'assigned'::text CHECK (status = ANY (ARRAY['assigned'::text, 'in_progress'::text, 'completed'::text, 'cancelled'::text])),
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  CONSTRAINT work_orders_pkey PRIMARY KEY (id),
-  CONSTRAINT work_orders_maintenance_request_id_fkey FOREIGN KEY (maintenance_request_id) REFERENCES public.maintenance_requests(id),
-  CONSTRAINT work_orders_assigned_to_fkey FOREIGN KEY (assigned_to) REFERENCES public.profiles(id)
+## Schema Overview
 
+The database is designed for a comprehensive real estate management system supporting property management, tenant/owner relationships, financial transactions, maintenance tracking, document management, and accounting functions.
 
-
-);
+### Core Business Entities
+1. **People Management** - `profiles`, `clients`
+2. **Property Management** - `properties`, `property_reservations`
+3. **Contract Management** - `contracts` 
+4. **Maintenance Operations** - `maintenance_requests`, `work_orders`
+5. **Financial Management** - `vouchers`, `invoices`, `accounts`, `cost_centers`
+6. **Communications** - `letters`, `issues`
+7. **Document Management** - `documents`
+8. **Asset Management** - `fixed_assets`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/msoheib)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/msoheib)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+
+## Table Definitions
+
+### 1. PROFILES
+**Purpose**: Central table for all people in the system (users, tenants, owners, employees, contractors)
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `first_name` | text | YES | NULL | |
+| `last_name` | text | YES | NULL | |
+| `email` | text | YES | NULL | Unique |
+| `role` | text | YES | `'tenant'` | CHECK: admin, manager, owner, tenant, buyer, employee, contractor |
+| `phone` | text | YES | NULL | |
+| `address` | text | YES | NULL | |
+| `city` | text | YES | NULL | |
+| `country` | text | YES | NULL | |
+| `nationality` | text | YES | NULL | |
+| `id_number` | text | YES | NULL | |
+| `is_foreign` | boolean | YES | `false` | |
+| `profile_type` | text | YES | NULL | CHECK: owner, tenant, buyer, employee, admin |
+| `status` | text | YES | `'active'` | CHECK: active, inactive, suspended |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Referenced By
+- `properties.owner_id` → `profiles.id`
+- `contracts.tenant_id` → `profiles.id`
+- `maintenance_requests.tenant_id` → `profiles.id`
+- `work_orders.assigned_to` → `profiles.id`
+- `vouchers.tenant_id` → `profiles.id`
+- `vouchers.created_by` → `profiles.id`
+- `invoices.tenant_id` → `profiles.id`
+- `letters.sender_id` → `profiles.id`
+- `issues.reported_by` → `profiles.id`
+- `documents.uploaded_by` → `profiles.id`
+
+---
+
+### 2. PROPERTIES
+**Purpose**: Property listings and management information
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `title` | text | NO | NULL | |
+| `description` | text | YES | NULL | |
+| `property_type` | text | NO | NULL | CHECK: apartment, villa, office, retail, warehouse |
+| `status` | text | YES | `'available'` | CHECK: available, rented, maintenance, reserved |
+| `address` | text | NO | NULL | |
+| `city` | text | NO | NULL | |
+| `country` | text | NO | NULL | |
+| `neighborhood` | text | YES | NULL | |
+| `area_sqm` | numeric | NO | NULL | |
+| `bedrooms` | integer | YES | NULL | |
+| `bathrooms` | integer | YES | NULL | |
+| `price` | numeric | NO | NULL | |
+| `payment_method` | text | YES | `'cash'` | CHECK: cash, installment |
+| `owner_id` | uuid | YES | NULL | FK to profiles.id |
+| `images` | text[] | YES | NULL | |
+| `property_code` | text | YES | NULL | |
+| `floor_number` | integer | YES | NULL | |
+| `building_name` | text | YES | NULL | |
+| `parking_spaces` | integer | YES | `0` | |
+| `amenities` | text[] | YES | NULL | |
+| `is_furnished` | boolean | YES | `false` | |
+| `annual_rent` | numeric | YES | NULL | |
+| `service_charge` | numeric | YES | `0` | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `owner_id` → `profiles.id` (ON DELETE RESTRICT)
+
+#### Referenced By
+- `contracts.property_id` → `properties.id`
+- `maintenance_requests.property_id` → `properties.id`
+- `vouchers.property_id` → `properties.id`
+- `invoices.property_id` → `properties.id`
+- `property_reservations.property_id` → `properties.id`
+- `issues.property_id` → `properties.id`
+- `fixed_assets.property_id` → `properties.id`
+
+---
+
+### 3. CONTRACTS
+**Purpose**: Rental, sales, and management contracts
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `property_id` | uuid | YES | NULL | FK to properties.id |
+| `tenant_id` | uuid | YES | NULL | FK to profiles.id |
+| `start_date` | timestamptz | NO | NULL | |
+| `end_date` | timestamptz | NO | NULL | |
+| `rent_amount` | numeric | NO | NULL | |
+| `payment_frequency` | text | YES | `'monthly'` | CHECK: monthly, quarterly, biannually, annually |
+| `security_deposit` | numeric | NO | NULL | |
+| `is_foreign_tenant` | boolean | YES | `false` | |
+| `status` | text | YES | `'active'` | CHECK: active, expired, terminated, renewal |
+| `documents` | text[] | YES | NULL | |
+| `contract_number` | text | YES | NULL | |
+| `contract_type` | text | YES | `'rental'` | CHECK: rental, sale, management |
+| `auto_renewal` | boolean | YES | `false` | |
+| `notice_period_days` | integer | YES | `30` | |
+| `late_fee_percentage` | numeric | YES | `0` | |
+| `utilities_included` | boolean | YES | `false` | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `property_id` → `properties.id` (ON DELETE RESTRICT)
+- `tenant_id` → `profiles.id` (ON DELETE RESTRICT)
+
+---
+
+### 4. MAINTENANCE_REQUESTS
+**Purpose**: Maintenance requests submitted by tenants or property managers
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `property_id` | uuid | YES | NULL | FK to properties.id |
+| `tenant_id` | uuid | YES | NULL | FK to profiles.id |
+| `title` | text | NO | NULL | |
+| `description` | text | NO | NULL | |
+| `status` | text | YES | `'pending'` | CHECK: pending, approved, in_progress, completed, cancelled |
+| `priority` | text | YES | `'medium'` | CHECK: low, medium, high, urgent |
+| `images` | text[] | YES | NULL | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `property_id` → `properties.id` (ON DELETE RESTRICT)
+- `tenant_id` → `profiles.id` (ON DELETE RESTRICT)
+
+#### Referenced By
+- `work_orders.maintenance_request_id` → `maintenance_requests.id`
+
+---
+
+### 5. WORK_ORDERS
+**Purpose**: Work orders assigned to contractors/employees for maintenance
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `maintenance_request_id` | uuid | YES | NULL | FK to maintenance_requests.id |
+| `assigned_to` | uuid | YES | NULL | FK to profiles.id |
+| `description` | text | NO | NULL | |
+| `estimated_cost` | numeric | NO | NULL | |
+| `actual_cost` | numeric | YES | NULL | |
+| `start_date` | timestamptz | NO | NULL | |
+| `completion_date` | timestamptz | YES | NULL | |
+| `status` | text | YES | `'assigned'` | CHECK: assigned, in_progress, completed, cancelled |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `maintenance_request_id` → `maintenance_requests.id` (ON DELETE RESTRICT)
+- `assigned_to` → `profiles.id` (ON DELETE RESTRICT)
+
+---
+
+### 6. VOUCHERS
+**Purpose**: Financial vouchers (receipt, payment, journal entries)
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `voucher_type` | text | NO | NULL | CHECK: receipt, payment, journal |
+| `voucher_number` | text | NO | NULL | Unique |
+| `amount` | numeric | NO | NULL | |
+| `currency` | text | YES | `'USD'` | |
+| `status` | text | YES | `'draft'` | CHECK: draft, posted, cancelled |
+| `description` | text | YES | NULL | |
+| `property_id` | uuid | YES | NULL | FK to properties.id |
+| `tenant_id` | uuid | YES | NULL | FK to profiles.id |
+| `created_by` | uuid | YES | NULL | FK to profiles.id |
+| `payment_method` | text | YES | NULL | CHECK: cash, bank_transfer, cheque, card |
+| `cheque_number` | text | YES | NULL | |
+| `bank_reference` | text | YES | NULL | |
+| `account_id` | uuid | YES | NULL | FK to accounts.id |
+| `cost_center_id` | uuid | YES | NULL | FK to cost_centers.id |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `property_id` → `properties.id` (ON DELETE RESTRICT)
+- `tenant_id` → `profiles.id` (ON DELETE RESTRICT)
+- `created_by` → `profiles.id` (ON DELETE RESTRICT)
+- `account_id` → `accounts.id` (ON DELETE RESTRICT)
+- `cost_center_id` → `cost_centers.id` (ON DELETE RESTRICT)
+
+---
+
+### 7. INVOICES
+**Purpose**: VAT invoices and billing management
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `invoice_number` | text | NO | NULL | Unique |
+| `property_id` | uuid | YES | NULL | FK to properties.id |
+| `tenant_id` | uuid | YES | NULL | FK to profiles.id |
+| `amount` | numeric | NO | NULL | |
+| `vat_amount` | numeric | YES | `0` | |
+| `total_amount` | numeric | NO | NULL | |
+| `issue_date` | timestamptz | NO | NULL | |
+| `due_date` | timestamptz | NO | NULL | |
+| `status` | text | YES | `'draft'` | CHECK: draft, sent, paid, overdue, cancelled |
+| `description` | text | YES | NULL | |
+| `tax_rate` | numeric | YES | `0` | |
+| `discount_amount` | numeric | YES | `0` | |
+| `payment_terms` | text | YES | `'30 days'` | |
+| `reference_number` | text | YES | NULL | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `property_id` → `properties.id` (ON DELETE RESTRICT)
+- `tenant_id` → `profiles.id` (ON DELETE RESTRICT)
+
+---
+
+### 8. ACCOUNTS
+**Purpose**: Chart of accounts for accounting system
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `account_code` | text | NO | NULL | Unique |
+| `account_name` | text | NO | NULL | |
+| `account_type` | text | NO | NULL | CHECK: asset, liability, equity, revenue, expense |
+| `parent_account_id` | uuid | YES | NULL | FK to accounts.id (self-reference) |
+| `is_active` | boolean | YES | `true` | |
+| `description` | text | YES | NULL | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `parent_account_id` → `accounts.id` (self-referencing, ON DELETE RESTRICT)
+
+#### Referenced By
+- `vouchers.account_id` → `accounts.id`
+
+#### Sample Data (Chart of Accounts)
+```
+1000 - ASSETS
+  1100 - Current Assets
+    1110 - Cash and Cash Equivalents
+    1120 - Accounts Receivable
+    1130 - Inventory
+  1200 - Fixed Assets
+    1210 - Property, Plant & Equipment
+    1220 - Accumulated Depreciation
+
+2000 - LIABILITIES
+  2100 - Current Liabilities
+    2110 - Accounts Payable
+    2120 - Accrued Expenses
+  2200 - Long-term Liabilities
+    2210 - Long-term Debt
+
+3000 - EQUITY
+  3100 - Owner's Equity
+    3110 - Capital
+    3120 - Retained Earnings
+
+4000 - REVENUE
+  4100 - Rental Income
+  4200 - Service Income
+
+5000 - EXPENSES
+  5100 - Operating Expenses
+    5110 - Maintenance Expenses
+    5120 - Administrative Expenses
+```
+
+---
+
+### 9. COST_CENTERS
+**Purpose**: Cost center management for expense allocation
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `code` | text | NO | NULL | Unique |
+| `name` | text | NO | NULL | |
+| `description` | text | YES | NULL | |
+| `is_active` | boolean | YES | `true` | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Referenced By
+- `vouchers.cost_center_id` → `cost_centers.id`
+
+#### Sample Data
+```
+CC001 - Property Management
+CC002 - Maintenance Operations  
+CC003 - Administrative
+CC004 - Marketing
+CC005 - Legal and Compliance
+```
+
+---
+
+### 10. CLIENTS
+**Purpose**: External clients, suppliers, vendors, contractors
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `client_type` | text | NO | NULL | CHECK: buyer, supplier, vendor, contractor |
+| `company_name` | text | YES | NULL | |
+| `contact_person` | text | YES | NULL | |
+| `email` | text | YES | NULL | Unique |
+| `phone` | text | YES | NULL | |
+| `address` | text | YES | NULL | |
+| `city` | text | YES | NULL | |
+| `country` | text | YES | NULL | |
+| `tax_id` | text | YES | NULL | |
+| `status` | text | YES | `'active'` | CHECK: active, inactive |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Referenced By
+- `property_reservations.client_id` → `clients.id`
+
+---
+
+### 11. PROPERTY_RESERVATIONS
+**Purpose**: Property booking and reservation system
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `property_id` | uuid | YES | NULL | FK to properties.id |
+| `client_id` | uuid | YES | NULL | FK to clients.id |
+| `reservation_date` | timestamptz | NO | NULL | |
+| `expiry_date` | timestamptz | NO | NULL | |
+| `deposit_amount` | numeric | NO | NULL | |
+| `status` | text | YES | `'active'` | CHECK: active, expired, converted, cancelled |
+| `notes` | text | YES | NULL | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `property_id` → `properties.id` (ON DELETE RESTRICT)
+- `client_id` → `clients.id` (ON DELETE RESTRICT)
+
+---
+
+### 12. LETTERS
+**Purpose**: Document and letter management system
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `recipient_type` | text | NO | NULL | CHECK: tenant, owner, client, supplier |
+| `recipient_id` | uuid | YES | NULL | |
+| `sender_id` | uuid | YES | NULL | FK to profiles.id |
+| `subject` | text | NO | NULL | |
+| `content` | text | NO | NULL | |
+| `letter_type` | text | YES | NULL | CHECK: notice, reminder, legal, general |
+| `status` | text | YES | `'draft'` | CHECK: draft, sent, delivered, read |
+| `sent_date` | timestamptz | YES | NULL | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `sender_id` → `profiles.id` (ON DELETE RESTRICT)
+
+---
+
+### 13. ISSUES
+**Purpose**: Issue tracking and complaint management
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `property_id` | uuid | YES | NULL | FK to properties.id |
+| `reported_by` | uuid | YES | NULL | FK to profiles.id |
+| `issue_type` | text | YES | NULL | CHECK: complaint, dispute, legal, administrative |
+| `title` | text | NO | NULL | |
+| `description` | text | NO | NULL | |
+| `priority` | text | YES | `'medium'` | CHECK: low, medium, high, urgent |
+| `status` | text | YES | `'open'` | CHECK: open, investigating, resolved, closed |
+| `resolution` | text | YES | NULL | |
+| `resolved_date` | timestamptz | YES | NULL | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `property_id` → `properties.id` (ON DELETE RESTRICT)
+- `reported_by` → `profiles.id` (ON DELETE RESTRICT)
+
+---
+
+### 14. DOCUMENTS
+**Purpose**: Document archive and file management
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `document_type` | text | NO | NULL | CHECK: contract, invoice, receipt, legal, insurance, maintenance, photo, other |
+| `title` | text | NO | NULL | |
+| `file_path` | text | NO | NULL | |
+| `file_size` | bigint | YES | NULL | |
+| `mime_type` | text | YES | NULL | |
+| `related_entity_type` | text | YES | NULL | CHECK: property, tenant, contract, maintenance, work_order |
+| `related_entity_id` | uuid | YES | NULL | |
+| `uploaded_by` | uuid | YES | NULL | FK to profiles.id |
+| `tags` | text[] | YES | NULL | |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `uploaded_by` → `profiles.id` (ON DELETE RESTRICT)
+
+---
+
+### 15. FIXED_ASSETS
+**Purpose**: Fixed asset tracking and depreciation
+
+#### Columns
+| Column | Type | Nullable | Default | Constraints |
+|--------|------|----------|---------|-------------|
+| `id` | uuid | NO | `gen_random_uuid()` | Primary Key |
+| `property_id` | uuid | YES | NULL | FK to properties.id |
+| `asset_name` | text | NO | NULL | |
+| `asset_type` | text | NO | NULL | |
+| `purchase_date` | date | NO | NULL | |
+| `purchase_price` | numeric | NO | NULL | |
+| `depreciation_method` | text | YES | `'straight_line'` | CHECK: straight_line, declining_balance |
+| `useful_life_years` | integer | NO | NULL | |
+| `salvage_value` | numeric | YES | `0` | |
+| `current_value` | numeric | YES | NULL | |
+| `status` | text | YES | `'active'` | CHECK: active, disposed, sold |
+| `created_at` | timestamptz | YES | `now()` | |
+| `updated_at` | timestamptz | YES | `now()` | |
+
+#### Foreign Keys
+- `property_id` → `properties.id` (ON DELETE RESTRICT)
+
+---
+
+## Database Migrations
+
+### Migration History
+1. **20250610030118_add_missing_core_tables**: Initial creation of additional tables
+2. **20250610030220_enhance_existing_tables_fixed**: Enhanced existing tables with additional fields
+3. **20250610030308_add_default_chart_of_accounts**: Seeded default chart of accounts data
+
+---
+
+## PostgreSQL Extensions
+
+### Active Extensions
+- **pgcrypto** (v1.3): Cryptographic functions
+- **uuid-ossp** (v1.1): UUID generation
+- **pg_stat_statements** (v1.10): Query performance tracking
+- **pg_graphql** (v1.5.11): GraphQL support
+- **supabase_vault** (v0.3.1): Vault extension
+- **plpgsql** (v1.0): PL/pgSQL procedural language
+
+### Available Extensions (Not Installed)
+Available but not currently activated: postgis, vector, pgjwt, http, wrappers, pg_net, timescaledb, pg_cron, and many others for advanced functionality.
+
+---
+
+## Entity Relationship Summary
+
+### Core Relationships
+```
+profiles (1) ←→ (M) properties [owner_id]
+properties (1) ←→ (M) contracts [property_id]
+profiles (1) ←→ (M) contracts [tenant_id]
+properties (1) ←→ (M) maintenance_requests [property_id]
+maintenance_requests (1) ←→ (M) work_orders [maintenance_request_id]
+profiles (1) ←→ (M) work_orders [assigned_to]
+properties (1) ←→ (M) vouchers [property_id]
+profiles (1) ←→ (M) vouchers [tenant_id, created_by]
+accounts (1) ←→ (M) vouchers [account_id]
+cost_centers (1) ←→ (M) vouchers [cost_center_id]
+properties (1) ←→ (M) invoices [property_id]
+profiles (1) ←→ (M) invoices [tenant_id]
+clients (1) ←→ (M) property_reservations [client_id]
+properties (1) ←→ (M) property_reservations [property_id]
+profiles (1) ←→ (M) letters [sender_id]
+properties (1) ←→ (M) issues [property_id]
+profiles (1) ←→ (M) issues [reported_by]
+profiles (1) ←→ (M) documents [uploaded_by]
+properties (1) ←→ (M) fixed_assets [property_id]
+accounts (1) ←→ (M) accounts [parent_account_id] (self-referencing)
+```
+
+### Business Logic Constraints
+- Properties can have multiple contracts over time but typically one active contract
+- Maintenance requests can generate multiple work orders
+- Financial vouchers must be linked to valid accounts from chart of accounts
+- All monetary transactions require proper account code classification
+- Document management supports tagging and categorization
+- Fixed assets track depreciation and current values
+- Cost centers enable expense allocation across business units
+
+---
+
+## Database Statistics
+- **Total Tables**: 15
+- **Total Columns**: 247
+- **Total Foreign Key Relationships**: 25
+- **Total Check Constraints**: 48
+- **Total Unique Constraints**: 6
+
+---
+
+## Performance Considerations
+- All tables use UUID primary keys for distributed system compatibility
+- Automatic timestamps (created_at, updated_at) on all entities
+- Foreign key constraints ensure referential integrity
+- Check constraints enforce business rules at database level
+- Text arrays used for flexible multi-value fields (images, amenities, tags)
+- Hierarchical account structure supports complex financial reporting
+
+---
+
+## Data Security
+- Row Level Security (RLS) is currently disabled on all tables
+- Supabase authentication system integration available
+- PostgreSQL role-based security can be implemented
+- Audit trail maintained through timestamp fields
+- Foreign key constraints prevent orphaned records
+
+---
+
+*Last Updated: December 2024*  
+*Database Schema Version: 3 migrations applied*
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/msoheib) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
