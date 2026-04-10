@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [xiii-123/My-rpc-cc](https://github.com/xiii-123
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/xiii-123](https://tomevault.io/claim/xiii-123)
 
