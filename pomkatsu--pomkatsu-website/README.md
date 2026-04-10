@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [pomkatsu/pomkatsu-website](https://github.com/p
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/pomkatsu](https://tomevault.io/claim/pomkatsu)
 
