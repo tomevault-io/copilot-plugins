@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mrab54/sleeper-db](https://github.com/mrab54/sl
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mrab54](https://tomevault.io/claim/mrab54)
 
