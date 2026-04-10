@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [benjaS357/ia](https://github.com/benjaS357/ia).
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/benjaS357](https://tomevault.io/claim/benjaS357)
 
