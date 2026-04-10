@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [heilingbrunner/tiaportal-mcp](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/heilingbrunner](https://tomevault.io/claim/heilingbrunner)
 
