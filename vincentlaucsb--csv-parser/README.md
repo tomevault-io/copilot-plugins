@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [vincentlaucsb/csv-parser](https://github.com/vi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vincentlaucsb](https://tomevault.io/claim/vincentlaucsb)
 
