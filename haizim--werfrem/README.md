@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [haizim/werfrem](https://github.com/haizim/werfr
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/haizim](https://tomevault.io/claim/haizim)
 
