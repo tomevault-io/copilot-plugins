@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [eXemoumen/comercila-app](https://github.com/eXe
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/eXemoumen](https://tomevault.io/claim/eXemoumen)
 
