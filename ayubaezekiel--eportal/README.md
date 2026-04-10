@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [ayubaezekiel/Eportal](https://github.com/ayubae
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ayubaezekiel](https://tomevault.io/claim/ayubaezekiel)
 
