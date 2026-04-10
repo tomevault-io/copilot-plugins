@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Gokulas108/birnagar](https://github.com/Gokulas
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Gokulas108](https://tomevault.io/claim/Gokulas108)
 
