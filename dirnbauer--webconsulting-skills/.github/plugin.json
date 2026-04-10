@@ -1,0 +1,26 @@
+{
+  "name": "dirnbauer--webconsulting-skills",
+  "displayName": "webconsulting-skills",
+  "description": "AI instruction files for webconsulting-skills by dirnbauer",
+  "version": "1.0.0",
+  "author": "dirnbauer",
+  "homepage": "https://tomevault.io/claim/dirnbauer",
+  "skills": [
+    {
+      "name": "ai-search-optimization",
+      "description": ""
+    },
+    {
+      "name": "typo3-ddev",
+      "description": ""
+    },
+    {
+      "name": "typo3-extension-upgrade",
+      "description": ""
+    },
+    {
+      "name": "webconsulting-branding",
+      "description": ""
+    }
+  ]
+}
