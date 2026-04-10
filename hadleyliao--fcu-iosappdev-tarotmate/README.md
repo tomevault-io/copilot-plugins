@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [hadleyliao/FCU_iOSAppDev_TarotMate](https://git
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hadleyliao](https://tomevault.io/claim/hadleyliao)
 
