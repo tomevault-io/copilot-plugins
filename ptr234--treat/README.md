@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Ptr234/treat](https://github.com/Ptr234/treat).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Ptr234](https://tomevault.io/claim/Ptr234)
 
