@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [puzzle404/portfolioManu](https://github.com/puz
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/puzzle404](https://tomevault.io/claim/puzzle404)
 
