@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Love4yzp/xiao-ble-motion](https://github.com/Lo
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Love4yzp](https://tomevault.io/claim/Love4yzp)
 
