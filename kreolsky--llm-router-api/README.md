@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kreolsky/llm-router-api](https://github.com/kre
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kreolsky](https://tomevault.io/claim/kreolsky)
 
