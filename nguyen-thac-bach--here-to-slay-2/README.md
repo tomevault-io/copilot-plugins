@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Nguyen-Thac-Bach/Here-To-Slay-2](https://github
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Nguyen-Thac-Bach](https://tomevault.io/claim/Nguyen-Thac-Bach)
 
