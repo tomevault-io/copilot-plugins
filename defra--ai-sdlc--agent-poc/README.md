@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [DEFRA/ai-sdlc--agent-poc](https://git
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/DEFRA](https://tomevault.io/claim/DEFRA)
 
