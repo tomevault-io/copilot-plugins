@@ -1,0 +1,9 @@
+{
+  "name": "redhat-best-practices-for-k8s--openshift-security-dashboard",
+  "displayName": "openshift-security-dashboard",
+  "description": "openshift-security-dashboard",
+  "version": "1.0.0",
+  "author": "redhat-best-practices-for-k8s",
+  "homepage": "https://tomevault.io/claim/redhat-best-practices-for-k8s",
+  "skills": []
+}
