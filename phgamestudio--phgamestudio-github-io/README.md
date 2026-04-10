@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [PHGameStudio/phgamestudio.github.io](https://gi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/PHGameStudio](https://tomevault.io/claim/PHGameStudio)
 
