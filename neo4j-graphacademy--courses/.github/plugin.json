@@ -1,0 +1,38 @@
+{
+  "name": "neo4j-graphacademy--courses",
+  "displayName": "courses",
+  "description": "AI instruction files for courses by neo4j-graphacademy",
+  "version": "1.0.0",
+  "author": "neo4j-graphacademy",
+  "homepage": "https://tomevault.io/claim/neo4j-graphacademy",
+  "skills": [
+    {
+      "name": "challenge-author",
+      "description": ""
+    },
+    {
+      "name": "lesson-author",
+      "description": ""
+    },
+    {
+      "name": "overview-author",
+      "description": ""
+    },
+    {
+      "name": "practice-author",
+      "description": ""
+    },
+    {
+      "name": "quiz-author",
+      "description": ""
+    },
+    {
+      "name": "validation-author",
+      "description": ""
+    },
+    {
+      "name": "workshop-authoring-coordinator",
+      "description": ""
+    }
+  ]
+}
