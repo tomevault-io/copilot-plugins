@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [vputz/cuetiepy](https://github.com/vputz/cuetie
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vputz](https://tomevault.io/claim/vputz)
 
