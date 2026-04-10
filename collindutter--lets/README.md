@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [collindutter/lets](https://github.com/collindut
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/collindutter](https://tomevault.io/claim/collindutter)
 
