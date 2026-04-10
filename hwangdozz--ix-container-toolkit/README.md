@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [HwangDozz/ix-container-toolkit](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/HwangDozz](https://tomevault.io/claim/HwangDozz)
 
