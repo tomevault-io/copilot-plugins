@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [vics-dev-br/site](https://github.com/vics-dev-b
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/vics-dev-br](https://tomevault.io/claim/vics-dev-br)
 
