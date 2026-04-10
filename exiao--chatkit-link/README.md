@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [exiao/chatkit-link](https://github.com/exiao/ch
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/exiao](https://tomevault.io/claim/exiao)
 
