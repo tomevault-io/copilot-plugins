@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [hindman/hindman.github.io](https://github.com/h
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hindman](https://tomevault.io/claim/hindman)
 
