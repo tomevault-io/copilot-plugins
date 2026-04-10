@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Hengjian2026/hospital-operations-llm-wiki](http
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Hengjian2026](https://tomevault.io/claim/Hengjian2026)
 
