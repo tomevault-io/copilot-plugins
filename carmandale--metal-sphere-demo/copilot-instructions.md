@@ -1,34 +1,34 @@
 ## metal-sphere-demo
 
-> This project follows a clear organizational structure for visionOS development.
+> This project follows Apple's latest best practices for visionOS 2 development.
 
-# Project Structure
+# visionOS 2 Best Practices
 
-This project follows a clear organizational structure for visionOS development.
+This project follows Apple's latest best practices for visionOS 2 development.
 
-## Directory Organization
-- `MetalSphereDemo/` - Main project directory
-  - `Compute/` - Metal compute systems and utilities
-    - [ComputeSystem.swift](mdc:MetalSphereDemo/Compute/ComputeSystem.swift) - Base class for compute systems
-    - [ComputeUtilities.swift](mdc:MetalSphereDemo/Compute/ComputeUtilities.swift) - Utility functions
-    - [SphereFractal.metal](mdc:MetalSphereDemo/Compute/SphereFractal.metal) - Compute shader for fractal generation
-  - `Shaders/` - Metal shader code
-    - [SphereParams.h](mdc:MetalSphereDemo/Shaders/SphereParams.h) - Shader parameters header
-    - [SphereShader.metal](mdc:MetalSphereDemo/Shaders/SphereShader.metal) - Main shader code
+## Key Files and Components
+- [ImmersiveView.swift](mdc:MetalSphereDemo/ImmersiveView.swift) - Main immersive experience
+- [FractalSystem.swift](mdc:MetalSphereDemo/FractalSystem.swift) - Custom compute system
 
-## Component Separation
-- Separate immersive experiences, volumes, and standard SwiftUI views into distinct files
-- Keep Metal shaders in the dedicated `Shaders` directory
-- Store compute systems in the `Compute` directory for clear separation of concerns
-- Use Swift packages for reusable components
+## Important Guidelines
 
-## File Naming Conventions
-- Use descriptive names that indicate functionality
-- Suffix Swift files with their primary type (View, System, etc.)
-- Suffix Metal shader files with `.metal`
-- Use `.h` for Metal header files
+### RealityKit Integration
+- Use `RealityView` for 3D content integration with SwiftUI
+- Initialize heavy resources once in `init()` rather than recreating each frame
+- Register compute systems with `ComputeSystemComponent` for efficient GPU processing
+- Use `LowLevelTexture` for direct GPU texture access when needed
+
+### SwiftUI Patterns
+- Use `@MainActor` for view structs interacting with RealityKit
+- Use `@Observable` macro for modern state management
+- Implement the latest `.onChange(of:)` modifier with both old and new values
+- Keep the update closure in RealityView minimal; leverage systems for per-frame updates
+- Use `.ornament()` for floating windows and `.glassBackgroundEffect()` for UI blending
+
+### Asset Management
+- Use USDC format for 3D models in Reality Composer Pro
+- Employ Reality Composer Pro for scene composition and asset management
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/carmandale)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/carmandale)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/carmandale) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
