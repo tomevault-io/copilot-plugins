@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [kennethkoontz/chronos](https://github.com/kenne
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kennethkoontz](https://tomevault.io/claim/kennethkoontz)
 
