@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [0xMiden/para-sdk](https://github.com/0xMiden/pa
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/0xMiden](https://tomevault.io/claim/0xMiden)
 
