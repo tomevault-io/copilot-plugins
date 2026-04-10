@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bravegeek/theaiglet](https://github.com/bravege
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bravegeek](https://tomevault.io/claim/bravegeek)
 
