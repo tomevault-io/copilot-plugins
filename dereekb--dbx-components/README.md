@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [dereekb/dbx-components](https://github.com/dere
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dereekb](https://tomevault.io/claim/dereekb)
 
