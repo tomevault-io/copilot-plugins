@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [shimpei1494/slide-web-app](https://github.com/s
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/shimpei1494](https://tomevault.io/claim/shimpei1494)
 
