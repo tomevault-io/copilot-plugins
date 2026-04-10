@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [laravel-gtm/render-image](https://github.com/la
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/laravel-gtm](https://tomevault.io/claim/laravel-gtm)
 
