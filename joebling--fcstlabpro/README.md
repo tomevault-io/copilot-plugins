@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [joebling/FcstLabPro](https://github.com/joeblin
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/joebling](https://tomevault.io/claim/joebling)
 
