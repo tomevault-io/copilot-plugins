@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [palios-taey/taeys-hands](https://github.com/pal
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/palios-taey](https://tomevault.io/claim/palios-taey)
 
