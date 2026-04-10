@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [reopt-ai/dev-proxy](https://github.com/reopt-ai
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/reopt-ai](https://tomevault.io/claim/reopt-ai)
 
