@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [NVIDIA-AI-Blueprints/retail-shopping-
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/NVIDIA-AI-Blueprints](https://tomevault.io/claim/NVIDIA-AI-Blueprints)
 
