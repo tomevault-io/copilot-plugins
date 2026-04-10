@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [UnlitStudio/UnlitStudio.github.io](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/UnlitStudio](https://tomevault.io/claim/UnlitStudio)
 
