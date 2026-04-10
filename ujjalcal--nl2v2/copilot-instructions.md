@@ -1,13 +1,12 @@
 ## nl2v2
 
-> always use a "test" folder for test files
+> This is an agentic application which primarily uses LLM to make decision.
 
 
-always use a "test" folder for test files
-always use a "temp" folder for all uploads and generated files.
-time to time checkin code to github
+This is an agentic application which primarily uses LLM to make decision.
+Donot create fallback mechanisms and create custom code. 
+If ther is an error - throw the error
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ujjalcal)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ujjalcal)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ujjalcal) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
