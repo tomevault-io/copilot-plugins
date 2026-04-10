@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [RalleyD/just_ears_receptionist](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/RalleyD](https://tomevault.io/claim/RalleyD)
 
