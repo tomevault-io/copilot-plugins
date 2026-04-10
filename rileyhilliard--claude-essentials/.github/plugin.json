@@ -1,0 +1,78 @@
+{
+  "name": "rileyhilliard--claude-essentials",
+  "displayName": "claude-essentials",
+  "description": "AI instruction files for claude-essentials by rileyhilliard",
+  "version": "1.0.0",
+  "author": "rileyhilliard",
+  "homepage": "https://tomevault.io/claim/rileyhilliard",
+  "skills": [
+    {
+      "name": "architecting-systems",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "fixing-flaky-tests",
+      "description": ""
+    },
+    {
+      "name": "handling-errors",
+      "description": ""
+    },
+    {
+      "name": "managing-databases",
+      "description": ""
+    },
+    {
+      "name": "migrating-code",
+      "description": ""
+    },
+    {
+      "name": "optimizing-performance",
+      "description": ""
+    },
+    {
+      "name": "post-mortem",
+      "description": ""
+    },
+    {
+      "name": "reading-logs",
+      "description": ""
+    },
+    {
+      "name": "refactoring-code",
+      "description": ""
+    },
+    {
+      "name": "strategy-writer",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "verification-before-completion",
+      "description": ""
+    },
+    {
+      "name": "writer",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-tests",
+      "description": ""
+    }
+  ]
+}
