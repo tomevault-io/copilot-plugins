@@ -1,0 +1,1107 @@
+{
+  "name": "claude-skills",
+  "owner": "secondsky",
+  "repo": "claude-skills",
+  "description": "AI instruction files for claude-skills by secondsky",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aceternity-ui",
+      "path": "plugins/aceternity-ui/skills/aceternity-ui",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/aceternity-ui/skills/aceternity-ui",
+      "description": ""
+    },
+    {
+      "name": "tailwind-v4-shadcn",
+      "path": "plugins/tailwind-v4-shadcn/skills/tailwind-v4-shadcn",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/tailwind-v4-shadcn/skills/tailwind-v4-shadcn",
+      "description": ""
+    },
+    {
+      "name": "zod",
+      "path": "plugins/zod/skills/zod",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/zod/skills/zod",
+      "description": ""
+    },
+    {
+      "name": "access-control-rbac",
+      "path": "plugins/access-control-rbac/skills/access-control-rbac",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/access-control-rbac/skills/access-control-rbac",
+      "description": ""
+    },
+    {
+      "name": "ai-elements-chatbot",
+      "path": "plugins/ai-elements-chatbot/skills/ai-elements-chatbot",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/ai-elements-chatbot/skills/ai-elements-chatbot",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-core",
+      "path": "plugins/ai-sdk-core/skills/ai-sdk-core",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/ai-sdk-core/skills/ai-sdk-core",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-ui",
+      "path": "plugins/ai-sdk-ui/skills/ai-sdk-ui",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/ai-sdk-ui/skills/ai-sdk-ui",
+      "description": ""
+    },
+    {
+      "name": "api-authentication",
+      "path": "plugins/api-authentication/skills/api-authentication",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-authentication/skills/api-authentication",
+      "description": ""
+    },
+    {
+      "name": "api-changelog-versioning",
+      "path": "plugins/api-changelog-versioning/skills/api-changelog-versioning",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-changelog-versioning/skills/api-changelog-versioning",
+      "description": ""
+    },
+    {
+      "name": "api-contract-testing",
+      "path": "plugins/api-contract-testing/skills/api-contract-testing",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-contract-testing/skills/api-contract-testing",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "path": "plugins/api-design-principles/skills/api-design-principles",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-design-principles/skills/api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "api-error-handling",
+      "path": "plugins/api-error-handling/skills/api-error-handling",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-error-handling/skills/api-error-handling",
+      "description": ""
+    },
+    {
+      "name": "api-filtering-sorting",
+      "path": "plugins/api-filtering-sorting/skills/api-filtering-sorting",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-filtering-sorting/skills/api-filtering-sorting",
+      "description": ""
+    },
+    {
+      "name": "api-gateway-configuration",
+      "path": "plugins/api-gateway-configuration/skills/api-gateway-configuration",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-gateway-configuration/skills/api-gateway-configuration",
+      "description": ""
+    },
+    {
+      "name": "api-pagination",
+      "path": "plugins/api-pagination/skills/api-pagination",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-pagination/skills/api-pagination",
+      "description": ""
+    },
+    {
+      "name": "api-rate-limiting",
+      "path": "plugins/api-rate-limiting/skills/api-rate-limiting",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-rate-limiting/skills/api-rate-limiting",
+      "description": ""
+    },
+    {
+      "name": "api-reference-documentation",
+      "path": "plugins/api-reference-documentation/skills/api-reference-documentation",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-reference-documentation/skills/api-reference-documentation",
+      "description": ""
+    },
+    {
+      "name": "api-response-optimization",
+      "path": "plugins/api-response-optimization/skills/api-response-optimization",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-response-optimization/skills/api-response-optimization",
+      "description": ""
+    },
+    {
+      "name": "api-security-hardening",
+      "path": "plugins/api-security-hardening/skills/api-security-hardening",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-security-hardening/skills/api-security-hardening",
+      "description": ""
+    },
+    {
+      "name": "api-testing",
+      "path": "plugins/api-testing/skills/api-testing",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-testing/skills/api-testing",
+      "description": ""
+    },
+    {
+      "name": "api-versioning-strategy",
+      "path": "plugins/api-versioning-strategy/skills/api-versioning-strategy",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/api-versioning-strategy/skills/api-versioning-strategy",
+      "description": ""
+    },
+    {
+      "name": "app-store-deployment",
+      "path": "plugins/app-store-deployment/skills/app-store-deployment",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/app-store-deployment/skills/app-store-deployment",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": "plugins/architecture-patterns/skills/architecture-patterns",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/architecture-patterns/skills/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "auto-animate",
+      "path": "plugins/auto-animate/skills/auto-animate",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/auto-animate/skills/auto-animate",
+      "description": ""
+    },
+    {
+      "name": "base-ui-react",
+      "path": "plugins/base-ui-react/skills/base-ui-react",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/base-ui-react/skills/base-ui-react",
+      "description": ""
+    },
+    {
+      "name": "better-auth",
+      "path": "plugins/better-auth/skills/better-auth",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/better-auth/skills/better-auth",
+      "description": ""
+    },
+    {
+      "name": "better-chatbot",
+      "path": "plugins/better-chatbot/skills/better-chatbot",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/better-chatbot/skills/better-chatbot",
+      "description": ""
+    },
+    {
+      "name": "better-chatbot-patterns",
+      "path": "plugins/better-chatbot-patterns/skills/better-chatbot-patterns",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/better-chatbot-patterns/skills/better-chatbot-patterns",
+      "description": ""
+    },
+    {
+      "name": "bun-bundler",
+      "path": "plugins/bun/skills/bun-bundler",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-bundler",
+      "description": ""
+    },
+    {
+      "name": "bun-cloudflare-workers",
+      "path": "plugins/bun/skills/bun-cloudflare-workers",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-cloudflare-workers",
+      "description": ""
+    },
+    {
+      "name": "bun-docker",
+      "path": "plugins/bun/skills/bun-docker",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-docker",
+      "description": ""
+    },
+    {
+      "name": "bun-ffi",
+      "path": "plugins/bun/skills/bun-ffi",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-ffi",
+      "description": ""
+    },
+    {
+      "name": "bun-hono-integration",
+      "path": "plugins/bun/skills/bun-hono-integration",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-hono-integration",
+      "description": ""
+    },
+    {
+      "name": "bun-hot-reloading",
+      "path": "plugins/bun/skills/bun-hot-reloading",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-hot-reloading",
+      "description": ""
+    },
+    {
+      "name": "bun-http-server",
+      "path": "plugins/bun/skills/bun-http-server",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-http-server",
+      "description": ""
+    },
+    {
+      "name": "bun-jest-migration",
+      "path": "plugins/bun/skills/bun-jest-migration",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-jest-migration",
+      "description": ""
+    },
+    {
+      "name": "bun-macros",
+      "path": "plugins/bun/skills/bun-macros",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-macros",
+      "description": ""
+    },
+    {
+      "name": "bun-nextjs",
+      "path": "plugins/bun/skills/bun-nextjs",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-nextjs",
+      "description": ""
+    },
+    {
+      "name": "bun-nuxt",
+      "path": "plugins/bun/skills/bun-nuxt",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-nuxt",
+      "description": ""
+    },
+    {
+      "name": "bun-react-ssr",
+      "path": "plugins/bun/skills/bun-react-ssr",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-react-ssr",
+      "description": ""
+    },
+    {
+      "name": "bun-runtime",
+      "path": "plugins/bun/skills/bun-runtime",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-runtime",
+      "description": ""
+    },
+    {
+      "name": "bun-sveltekit",
+      "path": "plugins/bun/skills/bun-sveltekit",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-sveltekit",
+      "description": ""
+    },
+    {
+      "name": "bun-tanstack-start",
+      "path": "plugins/bun/skills/bun-tanstack-start",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-tanstack-start",
+      "description": ""
+    },
+    {
+      "name": "bun-test-basics",
+      "path": "plugins/bun/skills/bun-test-basics",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-test-basics",
+      "description": ""
+    },
+    {
+      "name": "bun-test-coverage",
+      "path": "plugins/bun/skills/bun-test-coverage",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-test-coverage",
+      "description": ""
+    },
+    {
+      "name": "bun-test-lifecycle",
+      "path": "plugins/bun/skills/bun-test-lifecycle",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-test-lifecycle",
+      "description": ""
+    },
+    {
+      "name": "bun-test-mocking",
+      "path": "plugins/bun/skills/bun-test-mocking",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-test-mocking",
+      "description": ""
+    },
+    {
+      "name": "bun-websocket-server",
+      "path": "plugins/bun/skills/bun-websocket-server",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-websocket-server",
+      "description": ""
+    },
+    {
+      "name": "bun-workers",
+      "path": "plugins/bun/skills/bun-workers",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/bun/skills/bun-workers",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "path": "plugins/chrome-devtools/skills/chrome-devtools",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/chrome-devtools/skills/chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk",
+      "path": "plugins/claude-agent-sdk/skills/claude-agent-sdk",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/claude-agent-sdk/skills/claude-agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "claude-api",
+      "path": "plugins/claude-api/skills/claude-api",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/claude-api/skills/claude-api",
+      "description": ""
+    },
+    {
+      "name": "claude-code-bash-patterns",
+      "path": "plugins/claude-code-bash-patterns/skills/claude-code-bash-patterns",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/claude-code-bash-patterns/skills/claude-code-bash-patterns",
+      "description": ""
+    },
+    {
+      "name": "claude-hook-writer",
+      "path": "plugins/claude-hook-writer/skills/claude-hook-writer",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/claude-hook-writer/skills/claude-hook-writer",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-agents",
+      "path": "plugins/cloudflare-agents/skills/cloudflare-agents",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-agents/skills/cloudflare-agents",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-browser-rendering",
+      "path": "plugins/cloudflare-browser-rendering/skills/cloudflare-browser-rendering",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-browser-rendering/skills/cloudflare-browser-rendering",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-durable-objects",
+      "path": "plugins/cloudflare-durable-objects/skills/cloudflare-durable-objects",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-durable-objects/skills/cloudflare-durable-objects",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-images",
+      "path": "plugins/cloudflare-images/skills/cloudflare-images",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-images/skills/cloudflare-images",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-manager",
+      "path": "plugins/cloudflare-manager/skills/cloudflare-manager",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-manager/skills/cloudflare-manager",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-nextjs",
+      "path": "plugins/cloudflare-nextjs/skills/cloudflare-nextjs",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-nextjs/skills/cloudflare-nextjs",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-queues",
+      "path": "plugins/cloudflare-queues/skills/cloudflare-queues",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-queues/skills/cloudflare-queues",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-sandbox",
+      "path": "plugins/cloudflare-sandbox/skills/cloudflare-sandbox",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-sandbox/skills/cloudflare-sandbox",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-turnstile",
+      "path": "plugins/cloudflare-turnstile/skills/cloudflare-turnstile",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-turnstile/skills/cloudflare-turnstile",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-ai",
+      "path": "plugins/cloudflare-workers-ai/skills/cloudflare-workers-ai",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-workers-ai/skills/cloudflare-workers-ai",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-zero-trust-access",
+      "path": "plugins/cloudflare-zero-trust-access/skills/cloudflare-zero-trust-access",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-zero-trust-access/skills/cloudflare-zero-trust-access",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "plugins/code-review/skills/code-review",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/code-review/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "content-collections",
+      "path": "plugins/content-collections/skills/content-collections",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/content-collections/skills/content-collections",
+      "description": ""
+    },
+    {
+      "name": "csrf-protection",
+      "path": "plugins/csrf-protection/skills/csrf-protection",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/csrf-protection/skills/csrf-protection",
+      "description": ""
+    },
+    {
+      "name": "database-schema-design",
+      "path": "plugins/database-schema-design/skills/database-schema-design",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/database-schema-design/skills/database-schema-design",
+      "description": ""
+    },
+    {
+      "name": "dependency-upgrade",
+      "path": "plugins/dependency-upgrade/skills/dependency-upgrade",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/dependency-upgrade/skills/dependency-upgrade",
+      "description": ""
+    },
+    {
+      "name": "design-review",
+      "path": "plugins/design-review/skills/design-review",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/design-review/skills/design-review",
+      "description": ""
+    },
+    {
+      "name": "design-system-creation",
+      "path": "plugins/design-system-creation/skills/design-system-creation",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/design-system-creation/skills/design-system-creation",
+      "description": ""
+    },
+    {
+      "name": "drizzle-orm-d1",
+      "path": "plugins/drizzle-orm-d1/skills/drizzle-orm-d1",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/drizzle-orm-d1/skills/drizzle-orm-d1",
+      "description": ""
+    },
+    {
+      "name": "elevenlabs-agents",
+      "path": "plugins/elevenlabs-agents/skills/elevenlabs-agents",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/elevenlabs-agents/skills/elevenlabs-agents",
+      "description": ""
+    },
+    {
+      "name": "fastmcp",
+      "path": "plugins/fastmcp/skills/fastmcp",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/fastmcp/skills/fastmcp",
+      "description": ""
+    },
+    {
+      "name": "feature-dev",
+      "path": "plugins/feature-dev/skills/feature-dev",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/feature-dev/skills/feature-dev",
+      "description": ""
+    },
+    {
+      "name": "firecrawl-scraper",
+      "path": "plugins/firecrawl-scraper/skills/firecrawl-scraper",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/firecrawl-scraper/skills/firecrawl-scraper",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "plugins/frontend-design/skills/frontend-design",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/frontend-design/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli",
+      "path": "plugins/gemini-cli/skills/gemini-cli",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/gemini-cli/skills/gemini-cli",
+      "description": ""
+    },
+    {
+      "name": "github-project-automation",
+      "path": "plugins/github-project-automation/skills/github-project-automation",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/github-project-automation/skills/github-project-automation",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-api",
+      "path": "plugins/google-gemini-api/skills/google-gemini-api",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/google-gemini-api/skills/google-gemini-api",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-embeddings",
+      "path": "plugins/google-gemini-embeddings/skills/google-gemini-embeddings",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/google-gemini-embeddings/skills/google-gemini-embeddings",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-file-search",
+      "path": "plugins/google-gemini-file-search/skills/google-gemini-file-search",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/google-gemini-file-search/skills/google-gemini-file-search",
+      "description": ""
+    },
+    {
+      "name": "graphql-implementation",
+      "path": "plugins/graphql-implementation/skills/graphql-implementation",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/graphql-implementation/skills/graphql-implementation",
+      "description": ""
+    },
+    {
+      "name": "hono-routing",
+      "path": "plugins/hono-routing/skills/hono-routing",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/hono-routing/skills/hono-routing",
+      "description": ""
+    },
+    {
+      "name": "hugo",
+      "path": "plugins/hugo/skills/hugo",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/hugo/skills/hugo",
+      "description": ""
+    },
+    {
+      "name": "idempotency-handling",
+      "path": "plugins/idempotency-handling/skills/idempotency-handling",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/idempotency-handling/skills/idempotency-handling",
+      "description": ""
+    },
+    {
+      "name": "image-optimization",
+      "path": "plugins/image-optimization/skills/image-optimization",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/image-optimization/skills/image-optimization",
+      "description": ""
+    },
+    {
+      "name": "inspira-ui",
+      "path": "plugins/inspira-ui/skills/inspira-ui",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/inspira-ui/skills/inspira-ui",
+      "description": ""
+    },
+    {
+      "name": "interaction-design",
+      "path": "plugins/interaction-design/skills/interaction-design",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/interaction-design/skills/interaction-design",
+      "description": ""
+    },
+    {
+      "name": "internationalization-i18n",
+      "path": "plugins/internationalization-i18n/skills/internationalization-i18n",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/internationalization-i18n/skills/internationalization-i18n",
+      "description": ""
+    },
+    {
+      "name": "jest-generator",
+      "path": "plugins/jest-generator/skills/jest-generator",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/jest-generator/skills/jest-generator",
+      "description": ""
+    },
+    {
+      "name": "kpi-dashboard-design",
+      "path": "plugins/kpi-dashboard-design/skills/kpi-dashboard-design",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/kpi-dashboard-design/skills/kpi-dashboard-design",
+      "description": ""
+    },
+    {
+      "name": "logging-best-practices",
+      "path": "plugins/logging-best-practices/skills/logging-best-practices",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/logging-best-practices/skills/logging-best-practices",
+      "description": ""
+    },
+    {
+      "name": "maz-ui",
+      "path": "plugins/maz-ui/skills/maz-ui",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/maz-ui/skills/maz-ui",
+      "description": ""
+    },
+    {
+      "name": "mcp-dynamic-orchestrator",
+      "path": "plugins/mcp-dynamic-orchestrator/skills/mcp-dynamic-orchestrator",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/mcp-dynamic-orchestrator/skills/mcp-dynamic-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "microservices-patterns",
+      "path": "plugins/microservices-patterns/skills/microservices-patterns",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/microservices-patterns/skills/microservices-patterns",
+      "description": ""
+    },
+    {
+      "name": "mobile-app-debugging",
+      "path": "plugins/mobile-app-debugging/skills/mobile-app-debugging",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/mobile-app-debugging/skills/mobile-app-debugging",
+      "description": ""
+    },
+    {
+      "name": "mobile-app-testing",
+      "path": "plugins/mobile-app-testing/skills/mobile-app-testing",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/mobile-app-testing/skills/mobile-app-testing",
+      "description": ""
+    },
+    {
+      "name": "mobile-first-design",
+      "path": "plugins/mobile-first-design/skills/mobile-first-design",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/mobile-first-design/skills/mobile-first-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-offline-support",
+      "path": "plugins/mobile-offline-support/skills/mobile-offline-support",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/mobile-offline-support/skills/mobile-offline-support",
+      "description": ""
+    },
+    {
+      "name": "model-deployment",
+      "path": "plugins/model-deployment/skills/model-deployment",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/model-deployment/skills/model-deployment",
+      "description": ""
+    },
+    {
+      "name": "motion",
+      "path": "plugins/motion/skills/motion",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/motion/skills/motion",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-consultant",
+      "path": "plugins/multi-ai-consultant/skills/multi-ai-consultant",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/multi-ai-consultant/skills/multi-ai-consultant",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "path": "plugins/mutation-testing/skills/mutation-testing",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/mutation-testing/skills/mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-prompts",
+      "path": "plugins/nano-banana-prompts/skills/nano-banana-prompts",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nano-banana-prompts/skills/nano-banana-prompts",
+      "description": ""
+    },
+    {
+      "name": "neon-vercel-postgres",
+      "path": "plugins/neon-vercel-postgres/skills/neon-vercel-postgres",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/neon-vercel-postgres/skills/neon-vercel-postgres",
+      "description": ""
+    },
+    {
+      "name": "nextjs",
+      "path": "plugins/nextjs/skills/nextjs",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nextjs/skills/nextjs",
+      "description": ""
+    },
+    {
+      "name": "nuxt-content",
+      "path": "plugins/nuxt-content/skills/nuxt-content",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nuxt-content/skills/nuxt-content",
+      "description": ""
+    },
+    {
+      "name": "nuxt-core",
+      "path": "plugins/nuxt-v4/skills/nuxt-core",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nuxt-v4/skills/nuxt-core",
+      "description": ""
+    },
+    {
+      "name": "nuxt-data",
+      "path": "plugins/nuxt-v4/skills/nuxt-data",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nuxt-v4/skills/nuxt-data",
+      "description": ""
+    },
+    {
+      "name": "nuxt-production",
+      "path": "plugins/nuxt-v4/skills/nuxt-production",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nuxt-v4/skills/nuxt-production",
+      "description": ""
+    },
+    {
+      "name": "nuxt-seo",
+      "path": "plugins/nuxt-seo/skills/nuxt-seo",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nuxt-seo/skills/nuxt-seo",
+      "description": ""
+    },
+    {
+      "name": "nuxt-server",
+      "path": "plugins/nuxt-v4/skills/nuxt-server",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nuxt-v4/skills/nuxt-server",
+      "description": ""
+    },
+    {
+      "name": "nuxt-studio",
+      "path": "plugins/nuxt-studio/skills/nuxt-studio",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nuxt-studio/skills/nuxt-studio",
+      "description": ""
+    },
+    {
+      "name": "nuxt-ui-v4",
+      "path": "plugins/nuxt-ui-v4/skills/nuxt-ui-v4",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/nuxt-ui-v4/skills/nuxt-ui-v4",
+      "description": ""
+    },
+    {
+      "name": "oauth-implementation",
+      "path": "plugins/oauth-implementation/skills/oauth-implementation",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/oauth-implementation/skills/oauth-implementation",
+      "description": ""
+    },
+    {
+      "name": "openai-agents",
+      "path": "plugins/openai-agents/skills/openai-agents",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/openai-agents/skills/openai-agents",
+      "description": ""
+    },
+    {
+      "name": "openai-api",
+      "path": "plugins/openai-api/skills/openai-api",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/openai-api/skills/openai-api",
+      "description": ""
+    },
+    {
+      "name": "openai-assistants",
+      "path": "plugins/openai-assistants/skills/openai-assistants",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/openai-assistants/skills/openai-assistants",
+      "description": ""
+    },
+    {
+      "name": "openai-responses",
+      "path": "plugins/openai-responses/skills/openai-responses",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/openai-responses/skills/openai-responses",
+      "description": ""
+    },
+    {
+      "name": "payment-gateway-integration",
+      "path": "plugins/payment-gateway-integration/skills/payment-gateway-integration",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/payment-gateway-integration/skills/payment-gateway-integration",
+      "description": ""
+    },
+    {
+      "name": "pinia-colada",
+      "path": "plugins/pinia-colada/skills/pinia-colada",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/pinia-colada/skills/pinia-colada",
+      "description": ""
+    },
+    {
+      "name": "pinia-v3",
+      "path": "plugins/pinia-v3/skills/pinia-v3",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/pinia-v3/skills/pinia-v3",
+      "description": ""
+    },
+    {
+      "name": "plan-interview",
+      "path": "plugins/plan-interview/skills/plan-interview",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/plan-interview/skills/plan-interview",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "path": "plugins/playwright/skills/playwright",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/playwright/skills/playwright",
+      "description": ""
+    },
+    {
+      "name": "progressive-web-app",
+      "path": "plugins/progressive-web-app/skills/progressive-web-app",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/progressive-web-app/skills/progressive-web-app",
+      "description": ""
+    },
+    {
+      "name": "push-notification-setup",
+      "path": "plugins/push-notification-setup/skills/push-notification-setup",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/push-notification-setup/skills/push-notification-setup",
+      "description": ""
+    },
+    {
+      "name": "react-composition-patterns",
+      "path": "plugins/react-composition-patterns/skills/react-composition-patterns",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/react-composition-patterns/skills/react-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-hook-form-zod",
+      "path": "plugins/react-hook-form-zod/skills/react-hook-form-zod",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/react-hook-form-zod/skills/react-hook-form-zod",
+      "description": ""
+    },
+    {
+      "name": "react-native-skills",
+      "path": "plugins/react-native-skills/skills/react-native-skills",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/react-native-skills/skills/react-native-skills",
+      "description": ""
+    },
+    {
+      "name": "recommendation-engine",
+      "path": "plugins/recommendation-engine/skills/recommendation-engine",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/recommendation-engine/skills/recommendation-engine",
+      "description": ""
+    },
+    {
+      "name": "recommendation-system",
+      "path": "plugins/recommendation-system/skills/recommendation-system",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/recommendation-system/skills/recommendation-system",
+      "description": ""
+    },
+    {
+      "name": "responsive-web-design",
+      "path": "plugins/responsive-web-design/skills/responsive-web-design",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/responsive-web-design/skills/responsive-web-design",
+      "description": ""
+    },
+    {
+      "name": "rest-api-design",
+      "path": "plugins/rest-api-design/skills/rest-api-design",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/rest-api-design/skills/rest-api-design",
+      "description": ""
+    },
+    {
+      "name": "security-headers-configuration",
+      "path": "plugins/security-headers-configuration/skills/security-headers-configuration",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/security-headers-configuration/skills/security-headers-configuration",
+      "description": ""
+    },
+    {
+      "name": "sequential-thinking",
+      "path": "plugins/sequential-thinking/skills/sequential-thinking",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/sequential-thinking/skills/sequential-thinking",
+      "description": ""
+    },
+    {
+      "name": "session-management",
+      "path": "plugins/session-management/skills/session-management",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/session-management/skills/session-management",
+      "description": ""
+    },
+    {
+      "name": "shadcn-vue",
+      "path": "plugins/shadcn-vue/skills/shadcn-vue",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/shadcn-vue/skills/shadcn-vue",
+      "description": ""
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "path": "plugins/supabase-postgres-best-practices/skills/supabase-postgres-best-practices",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/supabase-postgres-best-practices/skills/supabase-postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "sveltia-cms",
+      "path": "plugins/sveltia-cms/skills/sveltia-cms",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/sveltia-cms/skills/sveltia-cms",
+      "description": ""
+    },
+    {
+      "name": "swift-best-practices",
+      "path": "plugins/swift-best-practices/skills/swift-best-practices",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/swift-best-practices/skills/swift-best-practices",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": "plugins/systematic-debugging/skills/systematic-debugging",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/systematic-debugging/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "tanstack-ai",
+      "path": "plugins/tanstack-ai/skills/tanstack-ai",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/tanstack-ai/skills/tanstack-ai",
+      "description": ""
+    },
+    {
+      "name": "tanstack-query",
+      "path": "plugins/tanstack-query/skills/tanstack-query",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/tanstack-query/skills/tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "tanstack-router",
+      "path": "plugins/tanstack-router/skills/tanstack-router",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/tanstack-router/skills/tanstack-router",
+      "description": ""
+    },
+    {
+      "name": "tanstack-start",
+      "path": "plugins/tanstack-start/skills/tanstack-start",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/tanstack-start/skills/tanstack-start",
+      "description": ""
+    },
+    {
+      "name": "technical-specification",
+      "path": "plugins/technical-specification/skills/technical-specification",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/technical-specification/skills/technical-specification",
+      "description": ""
+    },
+    {
+      "name": "test-quality-analysis",
+      "path": "plugins/test-quality-analysis/skills/test-quality-analysis",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/test-quality-analysis/skills/test-quality-analysis",
+      "description": ""
+    },
+    {
+      "name": "thesys-generative-ui",
+      "path": "plugins/thesys-generative-ui/skills/thesys-generative-ui",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/thesys-generative-ui/skills/thesys-generative-ui",
+      "description": ""
+    },
+    {
+      "name": "threejs",
+      "path": "plugins/threejs/skills/threejs",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/threejs/skills/threejs",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "path": "plugins/turborepo/skills/turborepo",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/turborepo/skills/turborepo",
+      "description": ""
+    },
+    {
+      "name": "typescript-mcp",
+      "path": "plugins/typescript-mcp/skills/typescript-mcp",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/typescript-mcp/skills/typescript-mcp",
+      "description": ""
+    },
+    {
+      "name": "ultracite",
+      "path": "plugins/ultracite/skills/ultracite",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/ultracite/skills/ultracite",
+      "description": ""
+    },
+    {
+      "name": "vercel-blob",
+      "path": "plugins/vercel-blob/skills/vercel-blob",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/vercel-blob/skills/vercel-blob",
+      "description": ""
+    },
+    {
+      "name": "vercel-kv",
+      "path": "plugins/vercel-kv/skills/vercel-kv",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/vercel-kv/skills/vercel-kv",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "plugins/react-best-practices/skills/react-best-practices",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/react-best-practices/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vitest-testing",
+      "path": "plugins/vitest-testing/skills/vitest-testing",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/vitest-testing/skills/vitest-testing",
+      "description": ""
+    },
+    {
+      "name": "vulnerability-scanning",
+      "path": "plugins/vulnerability-scanning/skills/vulnerability-scanning",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/vulnerability-scanning/skills/vulnerability-scanning",
+      "description": ""
+    },
+    {
+      "name": "web-performance-audit",
+      "path": "plugins/web-performance-audit/skills/web-performance-audit",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/web-performance-audit/skills/web-performance-audit",
+      "description": ""
+    },
+    {
+      "name": "web-performance-optimization",
+      "path": "plugins/web-performance-optimization/skills/web-performance-optimization",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/web-performance-optimization/skills/web-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "websocket-implementation",
+      "path": "plugins/websocket-implementation/skills/websocket-implementation",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/websocket-implementation/skills/websocket-implementation",
+      "description": ""
+    },
+    {
+      "name": "woocommerce-backend-dev",
+      "path": "plugins/woocommerce-backend-dev/skills/woocommerce-backend-dev",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/woocommerce-backend-dev/skills/woocommerce-backend-dev",
+      "description": ""
+    },
+    {
+      "name": "woocommerce-code-review",
+      "path": "plugins/woocommerce-code-review/skills/woocommerce-code-review",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/woocommerce-code-review/skills/woocommerce-code-review",
+      "description": ""
+    },
+    {
+      "name": "woocommerce-copy-guidelines",
+      "path": "plugins/woocommerce-copy-guidelines/skills/woocommerce-copy-guidelines",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/woocommerce-copy-guidelines/skills/woocommerce-copy-guidelines",
+      "description": ""
+    },
+    {
+      "name": "woocommerce-dev-cycle",
+      "path": "plugins/woocommerce-dev-cycle/skills/woocommerce-dev-cycle",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/woocommerce-dev-cycle/skills/woocommerce-dev-cycle",
+      "description": ""
+    },
+    {
+      "name": "wordpress-plugin-core",
+      "path": "plugins/wordpress-plugin-core/skills/wordpress-plugin-core",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/wordpress-plugin-core/skills/wordpress-plugin-core",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-ci-cd",
+      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-ci-cd",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-workers/skills/cloudflare-workers-ci-cd",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-dev-experience",
+      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-dev-experience",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-workers/skills/cloudflare-workers-dev-experience",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-frameworks",
+      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-frameworks",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-workers/skills/cloudflare-workers-frameworks",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-migration",
+      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-migration",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-workers/skills/cloudflare-workers-migration",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-multi-lang",
+      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-multi-lang",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-workers/skills/cloudflare-workers-multi-lang",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-runtime-apis",
+      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-runtime-apis",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-workers/skills/cloudflare-workers-runtime-apis",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-security",
+      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-security",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-workers/skills/cloudflare-workers-security",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers-testing",
+      "path": "plugins/cloudflare-workers/skills/cloudflare-workers-testing",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/cloudflare-workers/skills/cloudflare-workers-testing",
+      "description": ""
+    },
+    {
+      "name": "xss-prevention",
+      "path": "plugins/xss-prevention/skills/xss-prevention",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/xss-prevention/skills/xss-prevention",
+      "description": ""
+    },
+    {
+      "name": "zustand-state-management",
+      "path": "plugins/zustand-state-management/skills/zustand-state-management",
+      "github_url": "https://github.com/secondsky/claude-skills/tree/main/plugins/zustand-state-management/skills/zustand-state-management",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/secondsky",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-10T15:30:28Z"
+}
