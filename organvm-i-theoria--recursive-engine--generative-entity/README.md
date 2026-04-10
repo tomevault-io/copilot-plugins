@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [organvm-i-theoria/recursive-engine--generative-
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/organvm-i-theoria](https://tomevault.io/claim/organvm-i-theoria)
 
