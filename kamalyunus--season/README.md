@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Kamalyunus/season](https://github.com/Kamalyunu
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Kamalyunus](https://tomevault.io/claim/Kamalyunus)
 
