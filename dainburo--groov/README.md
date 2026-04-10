@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [DainBuro/Groov](https://github.com/DainBuro/Gro
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/DainBuro](https://tomevault.io/claim/DainBuro)
 
