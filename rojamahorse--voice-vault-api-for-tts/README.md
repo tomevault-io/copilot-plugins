@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Rojamahorse/voice-vault-api-for-tts](https://gi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Rojamahorse](https://tomevault.io/claim/Rojamahorse)
 
