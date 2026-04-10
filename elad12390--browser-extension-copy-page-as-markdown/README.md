@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [elad12390/browser-extension-copy-page
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/elad12390](https://tomevault.io/claim/elad12390)
 
