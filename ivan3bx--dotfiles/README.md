@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ivan3bx/dotfiles](https://github.com/ivan3bx/do
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ivan3bx](https://tomevault.io/claim/ivan3bx)
 
