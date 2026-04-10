@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Shimmy0530/critter-vision](https://github.com/S
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Shimmy0530](https://tomevault.io/claim/Shimmy0530)
 
