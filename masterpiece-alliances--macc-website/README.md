@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [masterpiece-alliances/macc-website](h
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/masterpiece-alliances](https://tomevault.io/claim/masterpiece-alliances)
 
