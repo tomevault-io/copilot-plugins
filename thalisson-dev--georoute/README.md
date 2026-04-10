@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Thalisson-DEV/georoute](https://github.com/Thal
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Thalisson-DEV](https://tomevault.io/claim/Thalisson-DEV)
 
