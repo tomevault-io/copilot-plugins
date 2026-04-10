@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [guzman109/dotfiles](https://github.com/guzman10
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/guzman109](https://tomevault.io/claim/guzman109)
 
