@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Redwood-Mobility/rangeway-research](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Redwood-Mobility](https://tomevault.io/claim/Redwood-Mobility)
 
