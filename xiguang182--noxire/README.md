@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [xiguang182/NoXiRe](https://github.com/xiguang18
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/xiguang182](https://tomevault.io/claim/xiguang182)
 
