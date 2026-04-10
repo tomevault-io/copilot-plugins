@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [purplepalmdash/LinuxPrinterMaster](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/purplepalmdash](https://tomevault.io/claim/purplepalmdash)
 
