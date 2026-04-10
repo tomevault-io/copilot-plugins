@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [yangshun/nodepack](https://github.com/yangshun/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/yangshun](https://tomevault.io/claim/yangshun)
 
