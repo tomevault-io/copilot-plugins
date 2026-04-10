@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Zate/dotfiles](https://github.com/Zate/dotfiles
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Zate](https://tomevault.io/claim/Zate)
 
