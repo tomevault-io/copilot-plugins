@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [viapip/ozon-tracker](https://github.com/viapip/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/viapip](https://tomevault.io/claim/viapip)
 
