@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [bonitasoft/bonita-documentation-site](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/bonitasoft](https://tomevault.io/claim/bonitasoft)
 
