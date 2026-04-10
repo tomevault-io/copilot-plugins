@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [hop-proto/hop-go](https://github.com/hop-proto/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/hop-proto](https://tomevault.io/claim/hop-proto)
 
