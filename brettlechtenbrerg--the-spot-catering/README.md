@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [BrettLechtenbrerg/the-spot-catering](https://gi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/BrettLechtenbrerg](https://tomevault.io/claim/BrettLechtenbrerg)
 
