@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [kursjan/dorfromantik](https://github.com/kursja
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kursjan](https://tomevault.io/claim/kursjan)
 
