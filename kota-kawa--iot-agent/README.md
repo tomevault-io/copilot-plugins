@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [kota-kawa/IoT-Agent](https://github.com/kota-ka
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kota-kawa](https://tomevault.io/claim/kota-kawa)
 
