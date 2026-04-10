@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Jobo0o/message-database](https://github.com/Job
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Jobo0o](https://tomevault.io/claim/Jobo0o)
 
