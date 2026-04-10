@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [dustinober1/Adria_Cross_Edit](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dustinober1](https://tomevault.io/claim/dustinober1)
 
