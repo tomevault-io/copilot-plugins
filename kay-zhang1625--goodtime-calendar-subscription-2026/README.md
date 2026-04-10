@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Kay-Zhang1625/goodtime_calendar_subscription_20
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Kay-Zhang1625](https://tomevault.io/claim/Kay-Zhang1625)
 
