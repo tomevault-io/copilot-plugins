@@ -1,76 +1,80 @@
 ## booklyapp
 
-> El sistema debe permitir a los usuarios registrar su feedback sobre la calidad del servicio recibido al utilizar un recurso, proporcionando información valiosa para la mejora continua del sistema de reservas y la gestión de los recursos disponibles.
+> El sistema debe permitir a los usuarios realizar reservas periódicas para un recurso específico dentro de un rango de fechas definido. Esto significa que un usuario podrá agendar una reserva recurrente en días específicos (ejemplo: todos los viernes de una fecha a otra) sin necesidad de registrar manualmente cada instancia. La funcionalidad debe incluir opciones de configuración como la selección de frecuencia (diaria, semanal, mensual) y la posibilidad de editar o cancelar reservas futuras sin afectar las ya realizadas. El objetivo de esta funcionalidad es facilitar la planificación a largo plazo de recursos que requieren uso recurrente, optimizando la administración y reduciendo la carga operativa de los usuarios.
 
 
-## RF-34: Registro de feedback por parte de los usuarios sobre la calidad del servicio
+## RF-12: Permitir reservas periódicas
 
-El sistema debe permitir a los usuarios registrar su feedback sobre la calidad del servicio recibido al utilizar un recurso, proporcionando información valiosa para la mejora continua del sistema de reservas y la gestión de los recursos disponibles.
-
-Los usuarios podrán calificar y dejar comentarios sobre aspectos como:
-
-- Disponibilidad y estado del recurso.
-- Facilidad en el proceso de reserva.
-- Condiciones del recurso al momento del uso.
-- Atención y soporte recibido (si aplica).
-
-El objetivo de esta funcionalidad es evaluar la satisfacción de los usuarios, identificar áreas de mejora y optimizar la experiencia de uso de los recursos.
+El sistema debe permitir a los usuarios realizar reservas periódicas para un recurso específico dentro de un rango de fechas definido. Esto significa que un usuario podrá agendar una reserva recurrente en días específicos (ejemplo: todos los viernes de una fecha a otra) sin necesidad de registrar manualmente cada instancia. La funcionalidad debe incluir opciones de configuración como la selección de frecuencia (diaria, semanal, mensual) y la posibilidad de editar o cancelar reservas futuras sin afectar las ya realizadas. El objetivo de esta funcionalidad es facilitar la planificación a largo plazo de recursos que requieren uso recurrente, optimizando la administración y reduciendo la carga operativa de los usuarios.
 
 ### Criterios de Aceptación
 
-- El sistema debe permitir a los usuarios registrar su feedback después de finalizar su reserva.
-- La evaluación debe incluir:
-  - Calificación numérica o por estrellas (1-5).
-  - Campo de comentarios opcional para describir problemas o sugerencias.
-- El sistema debe mostrar un recordatorio automático para completar la evaluación una vez finalizada la reserva.
-- Los administradores deben poder visualizar, filtrar y exportar los reportes de feedback para análisis.
-- Se debe permitir la generación de reportes de satisfacción por tipo de recurso, materia, programa académico, periodo de tiempo y usuario.
-- El usuario solo podrá registrar feedback en reservas que realmente haya utilizado.
-- Los comentarios ofensivos o inapropiados deben poder ser marcados, reportados y revisados por administradores.
+- El usuario debe poder seleccionar la opción de reserva periódica al momento de realizar una nueva reserva.
+- Debe permitir definir el rango de fechas en el que se aplicará la periodicidad.
+- El usuario podrá elegir la frecuencia de repetición, con opciones como:
+  - Diaria (ej., todos los días hábiles de la semana).
+  - Semanal (ej., todos los lunes y miércoles).
+  - Mensual (ej., el primer martes de cada mes).
+- El sistema debe verificar automáticamente la disponibilidad del recurso en todas las fechas seleccionadas.
+- Si alguna de las fechas seleccionadas ya tiene una reserva en conflicto, el sistema debe notificar al usuario las fechas no disponibles.
+- Los usuarios deben poder editar o cancelar la serie completa de reservas o solo una fecha específica dentro de la serie.
+- El sistema debe actualizar la disponibilidad de los recursos en la vista de calendario.
+- Se deben generar notificaciones automáticas a los usuarios sobre sus reservas periódicas y cualquier cambio o cancelación.
 
 ### Flujo de Uso
 
-#### Finalización de la reserva y solicitud de feedback
+#### Inicio de la reserva
 
-- Una vez que el usuario finaliza su reserva (hace check-out o el tiempo de la reserva expira), el sistema muestra una notificación automática solicitando su evaluación.
-- Si el usuario no evalúa inmediatamente, se enviará un recordatorio por correo o notificación en la plataforma.
+- El usuario accede al módulo de reservas y selecciona un recurso disponible.
+- Marca la opción "Reserva Periódica".
 
-#### Registro del feedback
+#### Configuración de la periodicidad
 
-- El usuario accede al formulario de evaluación.
-- Selecciona una calificación (de 1 a 5 estrellas o un puntaje).
-- (Opcional) Ingresa un comentario describiendo su experiencia o señalando problemas encontrados.
-- Confirma el envío del feedback.
+- Define el rango de fechas (ejemplo: del 1 de marzo al 30 de junio).
+- Selecciona la frecuencia de repetición (diaria, semanal, mensual).
+- Ajusta los días específicos si es necesario (ejemplo: todos los viernes).
 
-#### Análisis del feedback por los administradores
+#### Verificación de disponibilidad
 
-- Los administradores pueden acceder a un panel de reportes con las calificaciones y comentarios recibidos.
-- Pueden filtrar feedback por fecha, tipo de recurso o usuario.
-- Tienen la opción de exportar reportes para análisis detallado.
-- Si detectan comentarios ofensivos, pueden reportarlos y eliminarlos según las políticas de uso del sistema.
+- El sistema revisa automáticamente si el recurso está disponible en todas las fechas seleccionadas.
+- Si hay conflictos, muestra un aviso con opciones de reprogramación o selección de otro recurso.
+
+#### Confirmación de reserva
+
+- Si todas las fechas están disponibles, el usuario confirma la reserva.
+- El sistema registra todas las instancias de la reserva y envía notificaciones de confirmación.
+
+#### Gestión de la reserva periódica
+
+- El usuario puede ver su lista de reservas periódicas desde su panel de control.
+- Tiene opciones para editar (cambiar horario, modificar periodicidad) o cancelar reservas individuales o toda la serie.
+- Si una reserva es cancelada, se notifica a los usuarios afectados y se actualiza la disponibilidad del recurso.
 
 ### Restricciones y Consideraciones
 
-- **Feedback opcional**
-  - No debe ser obligatorio, pero el sistema debe incentivar su uso mediante recordatorios.
-- **Prevención de abuso**
-  - Un usuario no puede registrar múltiples evaluaciones para la misma reserva.
-- **Moderación de contenido**
-  - Se debe contar con un sistema de revisión para evitar comentarios ofensivos o irrelevantes.
-- **Accesibilidad**
-  - La interfaz debe ser simple e intuitiva, permitiendo que cualquier usuario pueda dejar su feedback sin dificultad.
-- **Período de validez del feedback**
-  - Se debe definir cuánto tiempo después de finalizada la reserva se podrá registrar la evaluación.
+- **Manejo de excepciones en la disponibilidad:**
+  - Si el recurso no está disponible en una de las fechas seleccionadas (por mantenimiento o feriado), el sistema debe notificarlo y sugerir alternativas.
+
+- **Límites de reservas periódicas:**
+  - Se deben establecer restricciones sobre cuántas reservas periódicas puede hacer un usuario y hasta cuánto tiempo en el futuro se pueden programar.
+
+- **Conflictos con cambios de horario:**
+  - Si un recurso cambia su disponibilidad después de que se programaron reservas periódicas, se debe notificar a los usuarios afectados.
+
+- **Autorización de reservas recurrentes:**
+  - Dependiendo de las políticas, puede requerirse la aprobación de un administrador para reservas periódicas de largo plazo.
+
+- **Cancelaciones parciales:**
+  - Si un usuario cancela una sola instancia de una reserva periódica, el sistema debe diferenciarlo claramente en los registros.
 
 ### Requerimientos No Funcionales Relacionados
 
-- **Escalabilidad**: Debe permitir el almacenamiento de grandes volúmenes de feedback sin afectar el rendimiento del sistema.
-- **Rendimiento**: La carga y visualización de los reportes de feedback debe ser rápida y eficiente.
-- **Seguridad**: Solo los administradores deben poder gestionar y moderar comentarios inadecuados.
-- **Usabilidad**: La interfaz de registro de feedback debe ser fácil de usar y accesible en dispositivos móviles y de escritorio.
-- **Disponibilidad**: Debe estar operativa 24/7, permitiendo a los usuarios registrar su evaluación en cualquier momento después de su reserva.
+- **Escalabilidad:** El sistema debe ser capaz de manejar múltiples reservas periódicas sin afectar el rendimiento.
+- **Rendimiento:** La verificación de disponibilidad en múltiples fechas debe realizarse de manera eficiente sin afectar la velocidad de respuesta del sistema.
+- **Usabilidad:** La interfaz para gestionar reservas periódicas debe ser intuitiva, permitiendo cambios y cancelaciones con facilidad.
+- **Seguridad:** Solo los usuarios con los permisos adecuados deben poder realizar reservas periódicas o modificarlas.
+- **Disponibilidad:** La funcionalidad debe estar accesible en todo momento, asegurando una tasa de uptime superior al 99.9%.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/HenderOrlando)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/HenderOrlando)
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/HenderOrlando) — claim your Tome and manage your conversions.
 <!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
