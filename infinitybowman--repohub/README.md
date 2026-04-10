@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [InfinityBowman/repohub](https://github.com/Infi
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/InfinityBowman](https://tomevault.io/claim/InfinityBowman)
 
