@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [EpamerNikolas/uigen](https://github.com/EpamerN
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/EpamerNikolas](https://tomevault.io/claim/EpamerNikolas)
 
