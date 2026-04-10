@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Solvro/web-eventownik-v2](https://github.com/So
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Solvro](https://tomevault.io/claim/Solvro)
 
