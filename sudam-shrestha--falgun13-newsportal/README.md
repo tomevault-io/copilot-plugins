@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sudam-shrestha/falgun13_newsportal](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sudam-shrestha](https://tomevault.io/claim/sudam-shrestha)
 
