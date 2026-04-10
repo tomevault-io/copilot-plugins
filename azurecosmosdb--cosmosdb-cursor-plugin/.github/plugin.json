@@ -1,0 +1,9 @@
+{
+  "name": "azurecosmosdb--cosmosdb-cursor-plugin",
+  "displayName": "cosmosdb-cursor-plugin",
+  "description": "cosmosdb-cursor-plugin",
+  "version": "1.0.0",
+  "author": "AzureCosmosDB",
+  "homepage": "https://tomevault.io/claim/AzureCosmosDB",
+  "skills": []
+}
