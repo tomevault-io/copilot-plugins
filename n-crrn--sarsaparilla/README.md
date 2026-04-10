@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [n-crrn/Sarsaparilla](https://github.com/n-crrn/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/n-crrn](https://tomevault.io/claim/n-crrn)
 
