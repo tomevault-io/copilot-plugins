@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [kmransom56/enhanced-network-api-corporate](http
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kmransom56](https://tomevault.io/claim/kmransom56)
 
