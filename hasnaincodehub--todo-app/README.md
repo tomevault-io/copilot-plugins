@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [HasnainCodeHub/todo-app](https://github.com/Has
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/HasnainCodeHub](https://tomevault.io/claim/HasnainCodeHub)
 
