@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [wachi-yoshitaka-11-dev/11-matsu-p](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wachi-yoshitaka-11-dev](https://tomevault.io/claim/wachi-yoshitaka-11-dev)
 
