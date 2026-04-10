@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [virtualguard101/wiki](https://github.com/virtua
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/virtualguard101](https://tomevault.io/claim/virtualguard101)
 
