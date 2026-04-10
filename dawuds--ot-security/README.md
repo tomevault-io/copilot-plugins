@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [dawuds/OT-Security](https://github.com/dawuds/O
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dawuds](https://tomevault.io/claim/dawuds)
 
