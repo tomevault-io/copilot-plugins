@@ -1,0 +1,9 @@
+{
+  "name": "snyk--snyk-intellij-plugin",
+  "displayName": "snyk-intellij-plugin",
+  "description": "snyk-intellij-plugin",
+  "version": "1.0.0",
+  "author": "snyk",
+  "homepage": "https://tomevault.io/claim/snyk",
+  "skills": []
+}
