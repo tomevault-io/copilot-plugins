@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [sharathannaiah/shivlink](https://github.com/sha
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/sharathannaiah](https://tomevault.io/claim/sharathannaiah)
 
