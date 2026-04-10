@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [kelvin262292/flow](https://github.com
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/kelvin262292](https://tomevault.io/claim/kelvin262292)
 
