@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [nccirtu/Stratify](https://github.com/nccirtu/St
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/nccirtu](https://tomevault.io/claim/nccirtu)
 
