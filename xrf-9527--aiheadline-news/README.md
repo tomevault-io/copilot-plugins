@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [xrf-9527/AIHeadline.news](https://github.com/xr
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/xrf-9527](https://tomevault.io/claim/xrf-9527)
 
