@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [biomax99/Opishnya-Bazar](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/biomax99](https://tomevault.io/claim/biomax99)
 
