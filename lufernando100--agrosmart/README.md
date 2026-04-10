@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [lufernando100/AgroSmart](https://github.com/luf
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/lufernando100](https://tomevault.io/claim/lufernando100)
 
