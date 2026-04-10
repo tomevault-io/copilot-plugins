@@ -1,86 +1,172 @@
 ## oh-my-ai-docs
 
-> - Apply this rule when the user asks to create a new agent/character for Cursor or modify an existing one
+> This rule governs testing patterns for FastMCP context functionality. It should be applied whenever: (1) Writing tests for tools that use context injection, (2) Testing context-related features like logging or resource access, (3) Testing async context behavior, or (4) Testing context lifecycle and error handling. The rule ensures consistent and thorough testing of context functionality across FastMCP implementations.
 
 
-# Cursor Mode Update Agent
-
-## Context
-
-- Apply this rule when the user asks to create a new agent/character for Cursor or modify an existing one
-- This rule provides guidance for adding or updating entries in the .cursor/modes.json file
-- Follows the format specified in .cursor/templates/mode-format.md
+#  tests/**/*test*.py
+# FastMCP Context Testing Patterns
 
 ## Critical Rules
 
-- Read the current .cursor/modes.json file to understand existing modes
-- Read .cursor/templates/mode-format.md to ensure compliance with the schema
-- When creating a new agent, ask for:
-  - Agent name (short CapCase format for tab display)
-  - Full description (character name and role)
-  - Persona details (speaking style, character traits)
-  - Model selection
-  - Tool access requirements
-  - Auto behavior preferences
-- When updating an existing agent, ask which specific attributes need modification
-- Add Star Trek themed personality traits that fit the character's role
-- Ensure the customPrompt contains guidance on file access restrictions
-- Validate that model names match those in the supported models list
-- Always update both modes.json and also add or update the character in docs/custom-agents.md
-- Follow the standard format in docs/custom-agents.md for consistency
+- ALWAYS use `@pytest.mark.anyio` for all context-related tests
+- ALWAYS test both sync and async context injection scenarios
+- ALWAYS verify context attributes (request_id, etc.) when injected
+- ALWAYS test context logging methods (debug, info, warning, error)
+- ALWAYS test context resource access when relevant
+- ALWAYS test error handling for context-related operations
+- ALWAYS test optional context scenarios (tools without context)
+- ALWAYS test context lifecycle (lifespan) when implementing server features
+- NEVER skip testing error cases for context operations
+- NEVER mix sync and async code incorrectly in context tests
 
 ## Examples
 
 <example>
-User: "Create a new agent based on Lwaxana Troi who specializes in UX design with a flamboyant personality"
+```python
+# Basic Context Detection Test
+@pytest.mark.anyio
+async def test_context_detection():
+    mcp = FastMCP()
 
-AI: I'll help you create a new Cursor agent based on Lwaxana Troi. Let me first check the current modes.json and format requirements.
+    def tool_with_context(x: int, ctx: Context) -> str:
+        return f"Request {ctx.request_id}: {x}"
 
-[AI reads .cursor/modes.json and .cursor/templates/mode-format.md]
+    tool = mcp.add_tool(tool_with_context)
+    assert tool.context_kwarg == "ctx"
 
-Here's what I propose for this new agent:
+# Context Injection Test
+@pytest.mark.anyio
+async def test_context_injection():
+    mcp = FastMCP()
 
-Name: LwaxanaUX
-Description: UX Designer - Lwaxana Troi
-Model: claude-3.7-sonnet
-Persona: Flamboyant, theatrical, outspoken, and telepathically intuitive about user needs
+    def tool_with_context(x: int, ctx: Context) -> str:
+        assert ctx.request_id is not None
+        return f"Request {ctx.request_id}: {x}"
 
-Would you like me to proceed with adding this agent? I'll need to update both the modes.json file and the custom-agents.md documentation.
+    mcp.add_tool(tool_with_context)
+    async with client_session(mcp._mcp_server) as client:
+        result = await client.call_tool("tool_with_context", {"x": 42})
+        assert len(result.content) == 1
+        assert "Request" in result.content[0].text
+        assert "42" in result.content[0].text
 
-User: Yes, please add her with access to all cursor tools and Tavily for research.
+# Async Context Test
+@pytest.mark.anyio
+async def test_async_context():
+    mcp = FastMCP()
 
-[AI updates both .cursor/modes.json and docs/custom-agents.md with the new agent]
-</example>
+    async def async_tool(x: int, ctx: Context) -> str:
+        assert ctx.request_id is not None
+        return f"Async request {ctx.request_id}: {x}"
 
-<example>
-User: "Update Picard to have a more stern personality"
+    mcp.add_tool(async_tool)
+    async with client_session(mcp._mcp_server) as client:
+        result = await client.call_tool("async_tool", {"x": 42})
+        assert "Async request" in result.content[0].text
 
-AI: I'll help you update Captain Picard's agent personality. Let me check his current configuration.
+# Context Logging Test
+@pytest.mark.anyio
+async def test_context_logging():
+    mcp = FastMCP()
 
-[AI reads the current modes.json entry for PicardPM]
+    async def logging_tool(msg: str, ctx: Context) -> str:
+        await ctx.debug("Debug message")
+        await ctx.info("Info message")
+        await ctx.warning("Warning message")
+        await ctx.error("Error message")
+        return f"Logged messages for {msg}"
 
-I can modify his customPrompt to reflect a more stern personality while maintaining his core role as Project Manager. I'll need to update both the modes.json file and the custom-agents.md documentation. Would you like to see a preview of the changes before I make them?
+    with patch("mcp.server.session.ServerSession.send_log_message") as mock_log:
+        async with client_session(mcp._mcp_server) as client:
+            result = await client.call_tool("logging_tool", {"msg": "test"})
+            assert mock_log.call_count == 4
+            mock_log.assert_any_call(level="debug", data="Debug message", logger=None)
 
-User: Yes, show me the changes first.
+# Resource Access Test
+@pytest.mark.anyio
+async def test_context_resource_access():
+    mcp = FastMCP()
 
-[AI displays the proposed changes to both files]
+    @mcp.resource("test://data")
+    def test_resource() -> str:
+        return "resource data"
+
+    @mcp.tool()
+    async def tool_with_resource(ctx: Context) -> str:
+        r_iter = await ctx.read_resource("test://data")
+        r_list = list(r_iter)
+        assert len(r_list) == 1
+        return f"Read resource: {r_list[0].content}"
+
+    async with client_session(mcp._mcp_server) as client:
+        result = await client.call_tool("tool_with_resource", {})
+        assert "resource data" in result.content[0].text
+
+# Optional Context Test
+@pytest.mark.anyio
+async def test_optional_context():
+    mcp = FastMCP()
+
+    def no_context(x: int) -> int:
+        return x * 2
+
+    mcp.add_tool(no_context)
+    async with client_session(mcp._mcp_server) as client:
+        result = await client.call_tool("no_context", {"x": 21})
+        assert result.content[0].text == "42"
+```
 </example>
 
 <example type="invalid">
-User: "Create a new agent based on Homer Simpson"
+```python
+# ❌ Bad practices to avoid
 
-AI: I notice your request is to create an agent based on Homer Simpson. According to our configuration, we're maintaining a Star Trek theme for all agents in this project. Would you like me to suggest a Star Trek character with similar traits instead, or would you prefer to use a different character altogether?
-</example>
+# Missing anyio marker
+def test_context_bad():
+    mcp = FastMCP()
+    def tool(ctx: Context):
+        pass
 
-<example type="invalid">
-User: "Add a new agent that can delete any file in the project"
+# Incorrect async/sync mixing
+@pytest.mark.anyio
+async def test_context_bad_async():
+    mcp = FastMCP()
+    result = mcp.do_something()  # Missing await
+    assert result
 
-AI: I need to be careful about creating an agent with unrestricted deletion capabilities. Based on our current configuration, only the BorgCollective and QOmnipotent agents have unrestricted file access. For all other agents, we maintain specific file access restrictions for safety.
+# Missing context verification
+@pytest.mark.anyio
+async def test_context_no_verify():
+    mcp = FastMCP()
+    def tool(ctx: Context):
+        return "ok"  # Not verifying context attributes
 
-I can create a new agent for you, but I recommend maintaining some file access restrictions, particularly for critical project files like those in the .ai folder. Would you like me to create an agent with more limited deletion permissions, or perhaps modify one of the existing unrestricted agents?
+# Incomplete error handling
+@pytest.mark.anyio
+async def test_context_incomplete_error():
+    mcp = FastMCP()
+    try:
+        result = await mcp.do_something()
+    except:  # Too broad exception handling
+        pass  # No assertions on error
+
+# Missing cleanup
+@pytest.mark.anyio
+async def test_context_no_cleanup():
+    mcp = FastMCP()
+    client = await mcp._mcp_server.connect()  # No context manager
+    result = await client.call_tool("tool", {})
+    # Missing client cleanup
+
+# Incorrect context type hints
+@pytest.mark.anyio
+async def test_context_bad_types():
+    mcp = FastMCP()
+    def tool(ctx) -> str:  # Missing type hint
+        return "test"
+```
 </example>
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/bossjones)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/bossjones)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/bossjones) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
