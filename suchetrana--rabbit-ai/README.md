@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [suchetrana/Rabbit-AI](https://github.com/suchet
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/suchetrana](https://tomevault.io/claim/suchetrana)
 
