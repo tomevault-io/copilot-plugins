@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Braulio27/user-inv](https://github.com/Braulio2
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Braulio27](https://tomevault.io/claim/Braulio27)
 
