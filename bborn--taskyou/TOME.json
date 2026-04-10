@@ -2,8 +2,8 @@
   "name": "taskyou",
   "owner": "bborn",
   "repo": "taskyou",
-  "description": "AI instruction files for taskyou by bborn",
-  "type": "tome",
+  "description": "",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -30,17 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
-    }
-  ],
-  "skills": [
+    },
     {
-      "name": "taskyou",
-      "path": "skills/taskyou",
-      "github_url": "https://github.com/bborn/taskyou/tree/main/skills/taskyou",
-      "description": ""
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
+  "skills": [],
   "claim_url": "https://tomevault.io/claim/bborn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-08T19:56:20Z"
+  "distributed_at": "2026-04-10T21:42:29Z"
 }
