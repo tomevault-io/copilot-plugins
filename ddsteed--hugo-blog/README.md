@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ddsteed/Hugo-blog](https://github.com/ddsteed/H
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ddsteed](https://tomevault.io/claim/ddsteed)
 
