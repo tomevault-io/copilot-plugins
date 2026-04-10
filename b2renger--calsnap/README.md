@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [b2renger/CalSnap](https://github.com/b2renger/C
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/b2renger](https://tomevault.io/claim/b2renger)
 
