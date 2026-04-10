@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [dennislee928/Ethic-Latex](https://git
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dennislee928](https://tomevault.io/claim/dennislee928)
 
