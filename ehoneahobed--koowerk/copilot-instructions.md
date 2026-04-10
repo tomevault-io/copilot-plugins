@@ -1,32 +1,25 @@
 ## koowerk
 
-> Use import type whenever you are importing a type.
+> Use JSDoc comments to annotate functions and types.
 
-Use import type whenever you are importing a type.
+Use JSDoc comments to annotate functions and types.
 
-Prefer top-level `import type` over inline `import { type ... }`.
+Be concise in JSDoc comments, and only provide JSDoc comments if the function's behaviour is not self-evident.
 
-```ts
-// BAD
-import { type User } from "./user";
-```
+Use the JSDoc inline `@link` tag to link to other functions and types within the same file.
 
 ```ts
-// GOOD
-import type { User } from "./user";
-```
+/**
+ * Subtracts two numbers
+ */
+const subtract = (a: number, b: number) => a - b;
 
-The reason for this is that in certain environments, the first version's import will not be erased. So you'll be left with:
-
-```ts
-// Before transpilation
-import { type User } from "./user";
-
-// After transpilation
-import "./user";
+/**
+ * Does the opposite to {@link subtract}
+ */
+const add = (a: number, b: number) => a + b;
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ehoneahobed)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ehoneahobed)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ehoneahobed) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
