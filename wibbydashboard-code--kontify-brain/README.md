@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [wibbydashboard-code/kontify-brain](https://gith
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wibbydashboard-code](https://tomevault.io/claim/wibbydashboard-code)
 
