@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [f-lab-edu/Running-Diary](https://github.com/f-l
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/f-lab-edu](https://tomevault.io/claim/f-lab-edu)
 
