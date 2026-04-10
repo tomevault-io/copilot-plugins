@@ -346,6 +346,5 @@ if (GitHubClient.isAvailable()) {
   `TEST_DB_DIR`; it kills any existing listener on the port and tails logs at `build/test-server.log`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/slovymovy)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/slovymovy)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/slovymovy) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
