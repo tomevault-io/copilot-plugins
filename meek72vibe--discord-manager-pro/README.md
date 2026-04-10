@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [Meek72vibe/discord-manager-pro](https://github.
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/Meek72vibe](https://tomevault.io/claim/Meek72vibe)
 
