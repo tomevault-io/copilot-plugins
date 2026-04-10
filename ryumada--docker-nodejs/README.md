@@ -13,6 +13,7 @@ Original source: `AGENTS.md` in [ryumada/docker-nodejs](https://github.com/ryuma
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ryumada](https://tomevault.io/claim/ryumada)
 
