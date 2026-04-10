@@ -1,560 +1,641 @@
 ## agentic-workflow
 
-> > ⛔ **CONSTITUTIONAL FLOOR — READ FIRST**
+> **Layer**: Windsurf (AI-time behavioral)
 
-# Agentic Workflow — Sovereign Architecture Rules (Constitutional)
+# HITL (Human-In-The-Loop) Enforcement Rule
 
-> ⛔ **CONSTITUTIONAL FLOOR — READ FIRST**
-> 0. **No PowerShell.** All commands via `subprocess.run(argv, shell=False)`. §3.2.
-> 1. **No test skipping.** No `pytest.mark.skip`, no `xfail` without `strict=True`, no weakening assertions. §1.4.
-> 2. **No editing while exploring.** All five repair gates (§8.1) must pass before any edit.
-> 3. **No agent deletion without authorization.** Deleting *Agent.py files requires AGENT-DELETION-AUTHORIZED marker, justification, replacement, deprecation period (90 days), and zero references. §1.6.
-> 4. **CI enforces all of this.** `python ops_scripts/ci/run_contract_gates.py`
-> 5. **ADG ARTIFACTS MUST BE FULLY INGESTED BEFORE ANY QUERY OR REFACTORING.** The directory `artifacts/adg` contains the canonical ADG artifacts. ALL operating modes MUST ingest these before any query, analysis, or code change: (1) `adg_indexed_<timestamp>.sqlite` — PRIMARY queryable DB; (2) `adg_snapshot_<timestamp>.json` — metrics/counts; (3) `adg_file_graph_<timestamp>.json` + `adg_symbol_graph_<timestamp>.json` — import/call chains; (4) `adg_governance_graph_<timestamp>.json` — layer violations. NEVER begin work without loading these. Regenerate after refactoring: `python tools/generate_full_adg.py`.
-> 6. **HITL (Human-In-The-Loop) DISCIPLINE.** When facing decisions with multiple valid approaches, STOP and present 2-4 concrete options with trade-offs. Wait for explicit user selection (A/B/C/D) before proceeding. NEVER assume defaults, proceed with "best" option, or ask for permission instead of choice. Workflow: `/hitl-decision-gate`. Rule: `.windsurf/rules/hitl-enforcement.md`.
-> 7. **RCA AUTO-CLOSURE.** When creating an RCA document, AUTOMATICALLY execute corrective actions and update RCA status to RESOLVED with evidence artifacts. NEVER create RCA and leave it unresolved. User should not have to ask for closure.
-> 8. **GUARDIAN EXEMPTION DISCIPLINE.** NEVER add `# guardian: allow-*` to silence the anti-pattern scanner without a real, specific justification. The format is `# guardian: allow-<type> -- <specific justification>`. Generic words ("needed", "required", "temporary", "legacy") are FORBIDDEN as justifications. Every new exemption in production code (`agentic_core/`, `apps_*/`, `system_learning/`) requires explicit HITL approval before the comment is added. The `guardian_exemption_gate.py` ratchet enforces this at commit time — new exemptions that exceed the ceiling will BLOCK the commit. Cascade MUST present a HITL prompt before adding any guardian comment. Gate: `ops_scripts/ci/guardian_exemption_gate.py`. Init after approval: `ADG_EXEMPTION_INIT=1 python ops_scripts/ci/guardian_exemption_gate.py`.
-> 9. **SVP ENGINEERING PERSONA — ARCHITECTURAL DECISIONS.** When facing high-level design choices (technology selection, dependency reduction, infrastructure consolidation, migration strategies), explicitly invoke the "SVP Engineering" persona. This persona prioritizes: (a) operational simplicity — reduce moving parts, (b) dependency hygiene — eliminate redundant libraries, (c) archival over deletion — preserve history in `tools/archive/`, (d) documentation — ADRs in `docs/architecture/adr/`, (e) zero-regression validation — full test pass before commit. Apply this lens to all T3 architectural decisions.
-> 10. **ZERO-LOSS REFACTOR DISCIPLINE.** When removing `_emit_*` boilerplate, trace instrumentation, or synthetic scaffolding from a file, the resulting file MUST be checked by the hollow file detector. If the file has zero behavioral FunctionDefs/ClassDefs after the removal, the file MUST be deleted entirely — not left as an empty shell. Gate: `ops_scripts/ci/zero_loss_refactor_verifier.py`. Pre-commit hook: T25 hollow-file-gate.
-> 11. **TERMINAL PROCESS LIFECYCLE MANAGEMENT.** All terminal processes spawned via `run_command` or `subprocess` MUST be explicitly terminated when the query completes. Non-blocking commands MUST set `WaitMsBeforeAsync` or implement explicit process cleanup. Hanging terminal processes after query finish = CONSTITUTIONAL VIOLATION. Gate: `ops_scripts/ci/check_terminal_cleanup.py`.
-> 12. **NO IMPORTS FROM ARCHIVES/ IN PRODUCTION CODE.** The `archives/` directory is a backup graveyard — imports from it are FORBIDDEN in production code (`agentic_core/`, `apps_*/`, `system_learning/`). During module migration, imports MUST be updated to canonical locations, not left pointing to archived copies. CI blocks any commit with active `from archives.` or `import archives.` statements. Gate: `ops_scripts/ci/check_no_archives_imports.py`.
-> 13. **MCP GREEN LIGHT PREREQUISITE.** Before beginning ANY T2/T3 work, call `mcp1_adg_health`. If the result is unhealthy or stale (>30 min), run `/mcp-failure-rca` and wait for recovery. NEVER begin multi-file work with unhealthy MCPs. Hard gate enforced at session start by `pre_user_prompt` hook (exits 2 for T2/T3 with absent/stale ADG) and at ADG tool call time by `pre_mcp_tool_use` hook.
-> 14. **SUBPROCESS TIMEOUT DISCIPLINE.** ALL subprocess calls MUST include `timeout=`. No exceptions. `subprocess.run(argv, shell=False, timeout=30)` is the REQUIRED pattern. Omitting `timeout=` is a constitutional violation — runaway subprocesses are PP-9 zombie sources. PowerShell (`powershell`, `pwsh`) is FORBIDDEN — use `subprocess.run(argv, shell=False)`. Reinforced at runtime by `pre_run_command` hook (Wave 1 Phase 1.1). Policy SSOT: `global_rules.md` Section Subprocess Timeout Discipline.
-> 15. **EXCEPTION HANDLING — COLUMN 5 PRECISE EXCEPTIONS.** Catch specific exception types with specific recovery. `except:` (bare) is FORBIDDEN. `except Exception` without `# guardian: allow-broad-exception -- <specific justification>` is FORBIDDEN. Guardian exemptions require HITL approval (§8). Enforced by `pre_write_gate.py` (Wave 1 Phase 1.2). Reference: `docs/reference/Python/Error & Exception Handling.md`.
-
-## §0. DEFAULT ANALYSIS MODE — Tier-Aware
-
-**DEFAULT = AST DEPENDENCY GRAPH, scaled to change complexity.**
-
-### Tier Classification
-
-| Tier | Scope | ADG Requirement | Evidence |
-|------|-------|----------------|----------|
-| **T0 — Question** | No code changes (explain, review, advise) | Use ADG hot cache if available. No ceremony. | None required |
-| **T1 — Trivial** | ≤1 file, ≤20 lines, obvious scope (typo, docstring, config value, add assertion) | Verify with scoped tests. ADG cache query optional. | No `DEPENDENCY_GRAPH` section needed |
-| **T2 — Scoped** | 2–5 files, single layer | Query ADG cache for blast radius. Run scoped tests. | Brief scope note with graph justification |
-| **T3 — Architectural** | >5 files, cross-layer, governance, or new feature | Full AST dependency graph protocol. Invoke skill `graph-analysis`. | Full `## DEPENDENCY_GRAPH` section mandatory |
-
-### Core Principle (all tiers)
-
-AST dependency graph is the **PRIMARY** analysis primitive. Text search is secondary confirmation only.
-
-### T2/T3 Protocol
-
-1. **Build/query AST dependency graph FIRST** — invoke skill `graph-analysis`
-2. **Use graph as PRIMARY evidence** — text search only for literal/constant confirmation
-3. **Block work if graph cannot be built** — fail-closed, record errors, mark conclusions partial, STOP
-4. **Document graph in evidence** — `## DEPENDENCY_GRAPH` section mandatory for T3; brief scope note for T2
-
-### FORBIDDEN (all tiers)
-
-- ❌ Assuming relationships without graph proof (T2/T3: hard fail; T0/T1: best-effort cache query)
-- ❌ Silent fallback from AST failure to text search (§2.3)
-- ❌ Claiming "no dependencies" without graph analysis
-
-### Tier Override
-
-User may explicitly override tier: "this is just a simple fix" → T1. "full analysis please" → T3. When in doubt, default to T2.
+**Layer**: Windsurf (AI-time behavioral)
+**Type**: Behavioural
+**Priority**: Constitutional
 
 ---
 
-## §1. TESTING FRAMEWORK
+## §HITL-0: Core Principle
 
-**ENFORCEMENT:** skill `testing-framework` for ALL code generation.
+**HITL (Human-In-The-Loop) means Cascade MUST surface only high-signal, confidence-gated options rather than manufacturing choices to fill a minimum count.**
 
-### 1.1 Coverage Requirements
+When facing a decision point, Cascade MUST run the following pipeline:
+1. **STOP before taking action**
+2. **Generate candidates** — identify all plausible approaches
+3. **Score each candidate** — assign `confidence_score ∈ [0.00, 1.00]`
+4. **Filter by confidence** — suppress any candidate below `surface_threshold = 0.72`
+5. **Apply dominance rule** — if top option scores ≥ 0.85 AND gap to next ≥ 0.12 (or no other option clears threshold), surface only the top option
+6. **Apply material-distinctness rule** — collapse cosmetic variants; only surface options that differ on execution path, risk profile, reversibility, expected outcome, dependency set, time/cost tradeoff, or governance consequence
+7. **Surface 1–N options** to the user — where N is however many survive filtering (may be 1)
+8. **Wait for explicit user selection**
+9. **Execute only the chosen option**
 
-**Zero-tolerance coverage:** Every changed line of logic MUST have deterministic tests. Use dependency graph to find existing coverage edges and identify gaps. No exceptions.
+**If no candidate clears the threshold:** emit a `LOW_CONFIDENCE_AMBIGUITY` packet. Do not fabricate options. Route to clarify / replan / abstain.
 
-**Required test dimensions (mandatory for every changed surface):**
-- **Edge cases:** null/None/missing field, empty input, malformed structure, boundary values, unauthorized input, stale/replay state, dependency failure, negative and recovery paths
-- **State transitions:** valid→valid, invalid→attempted, repeated, interrupted, replayed
-- **Determinism:** identical input → identical output; replay independence from wall clock, randomness, execution order
-- **Fail-closed:** invalid preconditions block operation; no side-effects before block
-- **Matrix:** test all interacting gates (feature flag × input validity, retry × confidence, policy × mutation, etc.)
+**If policy requires approval and only one option survives:** surface that option plus Reject / Ask-for-revision control actions. Do not invent weak alternatives to populate the menu.
 
-**Regression testing:** Every bug fix MUST include a minimal reproducer and an adjacent near-miss case. Mutation-sensitive tests MUST fail if guard clauses are removed or comparisons flip.
+### §HITL-0.1: Continuous Execution Mandate
 
-### 1.2 Quality Standards
+**Cascade MUST execute continuously without stopping UNLESS a genuine HITL decision point is reached.**
 
-**Test-first discipline:** Tests MUST exist before logic changes are committed. Write them first.
+**FORBIDDEN BEHAVIORS**:
+- ❌ Stopping after every tool call to "check in"
+- ❌ Asking permission for deterministic actions
+- ❌ Presenting options when there's only one correct path
+- ❌ Breaking work into artificial "phases" to ask for approval
+- ❌ Stopping to summarize progress when work is incomplete
 
-**Deterministic tests only:** No random inputs, no time-dependent behavior, no external mutable state. Fix seeds and inject timestamps.
+**REQUIRED BEHAVIORS**:
+- ✅ Execute all deterministic steps continuously
+- ✅ Chain tool calls without interruption when path is clear
+- ✅ Only stop when genuine decision ambiguity exists after scoring
+- ✅ Present clickable options via `ask_user_question` tool
+- ✅ Include executive-grade decision analysis in option descriptions (see §HITL-10)
+- ✅ Surface 1 option when dominance rule fires — do not pad
 
-**Mock discipline:** Mocks ONLY for: external services that cannot run locally, hardware interfaces, filesystem permissions in CI. Mocks MUST NOT bypass validation, signature checks, routing gates, replay enforcement, or side-effect guards.
+**CLICKABLE CASCADE OPTIONS FORMAT**:
+When HITL is required, use `ask_user_question` tool with:
+- **Question**: Clear decision point description + header packet (see below)
+- **Options** (1–N, confidence-filtered): Each with label + description using the §HITL-10 option shape
+- **allowMultiple**: false (single selection required)
 
-**Permission Testing Guidelines (Cross-Platform):**
-- **NO platform-specific skips** — `@pytest.mark.skipif(os.name == 'nt')` or `pytest.skip("Unix only")` are FORBIDDEN for permission tests
-- **Use mocking for permission errors** — Mock `builtins.open`, `pathlib.Path.mkdir`, or `os.chmod` to simulate permission denied scenarios
-- **Verify graceful error handling** — Tests should verify that implementation returns error metadata (e.g., `{"error": "Permission denied"}`) rather than crashing
-- **Cross-platform permission simulation:**
-  - File read permission denied: `patch("builtins.open", side_effect=PermissionError(13, "Permission denied"))`
-  - Directory creation denied: `patch.object(Path, "mkdir", side_effect=PermissionError(13, "Permission denied"))`
-  - Disk full simulation: `patch.object(Path, "mkdir", side_effect=OSError(28, "No space left on device"))`
-- **Required assertions:** Verify that error metadata contains permission-related keywords; verify system continues operating after permission errors; verify recovery works after permissions are restored
-
-**Ingress-path rule:** Tests MUST target the real entrypoint or enforcement choke point. Test doubles MUST NOT bypass validation, routing gates, replay enforcement, or side-effect guards.
-
-**Three quality gates (enforced in priority order):**
-1. **No silent errors** — every error path must have test coverage that verifies explicit error metadata
-2. **Cross-platform compatibility** — tests MUST NOT assume Unix-only features or skip on Windows
-3. **Deterministic replay** — identical inputs → identical outputs, always
-
----
-
-## §2. ADG FRAMEWORK
-
-### 2.1 Graph-First Evidence
-
-All T2/T3 decisions MUST use ADG as primary evidence. Plain text search is FORBIDDEN as primary evidence (may be used for confirmation only).
-
-**MANDATORY ADG MCP TOOLS — use these, not grep:**
-
-| Query Need | Required Tool | FORBIDDEN Alternative |
-|------------|---------------|-----------------------|
-| Find nodes by layer | `mcp0_adg_nodes_by_layer` | `grep_search`, `find_by_name` |
-| Find nodes by file | `mcp0_adg_nodes_by_file` | `grep_search`, `read_file` scan |
-| Outgoing dependencies | `mcp0_adg_edge_fanout` | `grep_search` for imports |
-| Incoming dependents | `mcp0_adg_edge_fanin` | `grep_search` for references |
-| Node details | `mcp0_adg_node` | `grep_search` for class/def |
-| ADG health | `mcp0_adg_health` | any text fallback |
-
-`grep_search` is **CATEGORICALLY FORBIDDEN** for dependency analysis, import tracing, or call-site discovery. It may only be used for literal string confirmation of a fact already established by ADG.
-
-### 2.2 Scope Determination
-
-Before any edit: query ADG for upstream/downstream. Declare exact file list with graph justification.
-
-Required sequence:
-1. `mcp0_adg_health` — confirm MCP is healthy
-2. `mcp0_adg_nodes_by_file` or `mcp0_adg_nodes_by_layer` — locate entry points
-3. `mcp0_adg_edge_fanout` / `mcp0_adg_edge_fanin` — trace blast radius
-4. Declare exact file list with node IDs as evidence
-
-### 2.3 Fail-Closed Rule
-
-If ADG MCP returns an error or is unavailable:
-1. **STOP immediately** — do not proceed with the work
-2. Run `/mcp-failure-rca` workflow to diagnose and fix the MCP
-3. Record the MCP failure as UNRESOLVED in evidence
-4. **NEVER silently fall back to `grep_search` or text search**
-5. Wait for MCP to be healthy before continuing
-
-**The correct response to a broken MCP is to fix the MCP, not to use grep.**
-
-MCP-down escalation steps:
+**PACKET HEADER** — include at the top of the `question` field:
 ```
-1. python ops_scripts/ci/mcp_health_monitor.py --probe
-2. Check ~/adg_mcp_server.log for errors
-3. Remove-Item -Recurse -Force tools/adg/core/__pycache__
-4. Restart ADG MCP server in Windsurf (Ctrl+Shift+P → Restart MCP)
-5. Re-run mcp0_adg_health to confirm recovery
+Recommended: <option_title>
+Why it wins: <one sentence — case-specific, not generic>
+What you are optimizing for: <the actual goal this decision serves>
+What is being traded off: <the precise cost of the winning path>
+Candidates evaluated: <N total> | Surfaced: <M> | Suppressed (low confidence): <X> | Suppressed (non-distinct): <Y>
+```
+
+**⚠️ CRITICAL ANTI-PATTERN — FORBIDDEN**:
+```
+# WRONG: presenting analysis in chat prose, then sending a bare ask_user_question
+chat: "Option A pros: X. Option B pros: Y. ⭐ Recommended: A"
+ask_user_question(options=[{label:"A", description:"short summary"}, ...])  ← BARE
+```
+**The `ask_user_question` call IS the HITL prompt. ALL analysis MUST be inside the description field — never in surrounding chat prose.**
+
+**ALSO FORBIDDEN — padding options to reach a count:**
+```
+# WRONG: inventing a weak third option because two feel like too few
+options=[
+  {label: "A", ...},   ← genuine
+  {label: "B", ...},   ← genuine
+  {label: "C — Keep current", description: "No change. Pros: Safe. Cons: Issue persists."}  ← FILLER
+]
+```
+
+**SINGLE-OPTION EXAMPLE** (dominance rule fired — score 0.91, gap 0.19):
+```
+ask_user_question(
+  question="""Recommended: Root-cause ADG detection fix
+Why it wins: Only path that eliminates the 11-pattern detection gap at its source rather than treating symptoms at call sites.
+What you are optimizing for: Accurate blast-radius analysis before Wave 3 begins.
+What is being traded off: ~45 min of investigation before Wave 3 can start.
+Candidates evaluated: 3 | Surfaced: 1 | Suppressed (low confidence): 2 | Suppressed (non-distinct): 0""",
+  options=[
+    {
+      label: "⭐ Investigate ADG detection patterns [0.91 HIGH]",
+      description: "decision_thesis: Traces why the AST scanner returns 11 matches where ADG returns 0, fixing the graph source rather than patching downstream call sites. value_to_goal: Wave 3 clock-elimination scope depends on accurate getattr attribution; proceeding on stale data risks misjudging blast radius by ~2,900 sites. key_tradeoffs: Gains accurate dependency graph for all subsequent waves, but delays Wave 3 start by one investigation session. execution_impact: Read-only analysis phase; no production edits until root cause confirmed. risk_profile: Primary failure mode is inconclusive probe — blast radius is zero because no code changes occur until root cause is established; fully reversible. time_to_value: Immediate graph quality improvement; Wave 3 scope becomes trustworthy within one session. ⭐ RECOMMENDED"
+    }
+  ],
+  allowMultiple=false
+)
+```
+
+**TWO-OPTION EXAMPLE** (both above threshold, materially distinct, no dominance):
+```
+ask_user_question(
+  question="""Recommended: Filter-only refactor
+Why it wins: Delivers user-visible HITL quality improvement in one session without touching the planner or candidate generator.
+What you are optimizing for: Immediate review-surface quality with minimal regression surface.
+What is being traded off: Candidate over-generation upstream persists; threshold tuning will require a second pass.
+Candidates evaluated: 3 | Surfaced: 2 | Suppressed (low confidence): 1 | Suppressed (non-distinct): 0""",
+  options=[
+    {
+      label: "⭐ Filter-only refactor [0.84 HIGH]",
+      description: "decision_thesis: Inserts confidence filtering and new option shape at packet-build time only, leaving the candidate generator and planner untouched. value_to_goal: Suppresses weak HITL options immediately with no upstream risk. key_tradeoffs: Gains immediate review-surface improvement but leaves upstream generation overhead in place; minimizes blast radius to serializer + tests only but delays full pipeline cleanness. execution_impact: Changes limited to HITL packet assembly; planner, routing, and L1 inference untouched. risk_profile: Primary failure mode is partial compliance where scores are assigned but threshold logic has an off-by-one; blast radius is one file plus its test; detectable via acceptance test suite. time_to_value: Immediate — surfaced within one coding session. ⭐ RECOMMENDED"
+    },
+    {
+      label: "Full pipeline refactor [0.76 HIGH]",
+      description: "decision_thesis: Restructures the entire candidate path into generate → score → filter → surface stages, eliminating over-generation at the source. value_to_goal: Creates a clean, auditable pipeline where threshold tuning in §HITL-9 config propagates automatically to all generation sites. key_tradeoffs: Gains architectural cleanliness and future tunability, but requires touching planner, scorer, serializer, and tests in one session — higher regression surface. execution_impact: Cross-cutting change affecting candidate generation, scoring, filtering, and packet serialization; requires schema migration for new option fields. risk_profile: Primary failure mode is partial refactor leaving some generation sites unpatched; blast radius spans 4–6 files; regression detectable via existing HITL tests. time_to_value: Near-term — requires a full session plus test updates before improvement is visible. recommendation_delta: Ranks below the filter-only option because the architectural cleanness gain does not justify the wider blast radius in a single session; cleanest as a follow-on wave."
+    }
+  ],
+  allowMultiple=false
+)
 ```
 
 ---
 
-## §3. EVIDENCE AND DOCUMENTATION
+## §HITL-1: Mandatory HITL Decision Points
 
-### 3.1 Evidence Files
+### 1.1 Code Architecture Decisions
 
-Every phase produces one evidence file under `docs/reports/plans/`. Evidence files are raw captures, not summaries. Format: `YYYYMMDD-HHMMSS-<phase>.md`.
+**TRIGGER**: When multiple architectural approaches are viable AND at least one candidate clears `surface_threshold = 0.72`
 
-### 3.2 Fact Classification
+**REQUIRED PIPELINE**:
+1. Generate candidate architectural approaches
+2. Score each: weigh SVP priorities (operational simplicity, dependency hygiene, zero-regression) against blast radius, reversibility, and test surface
+3. Filter by `surface_threshold = 0.72`; apply dominance rule
+4. Present surviving options using the §HITL-10 option shape with §HITL-0 packet header
 
-| Classification | Meaning |
-|---------------|---------|
-| `DIRECTLY_OBSERVED` | You ran the command, saw the output |
-| `DERIVED` | Computed from direct observations |
-| `INFERRED` | Logical consequence, no direct observation |
-| `EXTERNAL` | Provided by user/external system |
-| `ASSUMED` | Working hypothesis, explicitly flagged |
-| `UNRESOLVED` | Known gap, explicitly listed |
+**If only one approach survives scoring:** surface it alone. Do not append a strawman "keep current" option.
 
-**MANDATORY:** Every phase artifact MUST include `FACT_CLASSIFICATION` section with all six categories. Empty `UNRESOLVED` = claim of completeness.
+**Example of correctly scored single-option HITL (dominance rule fired)**:
 
-### 3.3 Required Evidence Sections
+```
+ask_user_question(
+  question="""Recommended: Composition over inheritance for <component>
+Why it wins: Inheritance would couple <SubClass> to <BaseClass> internal state, which is mutated by three other callers in L3; composition isolates the change to one new wrapper.
+What you are optimizing for: Zero blast-radius addition that does not touch existing callers.
+What is being traded off: Slightly more boilerplate in the new wrapper vs a one-line subclass declaration.
+Candidates evaluated: 2 | Surfaced: 1 | Suppressed (low confidence): 1 | Suppressed (non-distinct): 0""",
+  options=[
+    {
+      label: "⭐ Composition — new wrapper class [0.88 HIGH]",
+      description: "decision_thesis: Wraps <target> without modifying its interface, leaving all three existing callers in L3 untouched. value_to_goal: Implements the feature in one file with zero ripple to existing routing logic. key_tradeoffs: Gains full caller isolation, but adds one new class to maintain; the class will be trivial if <target> interface is stable. execution_impact: One new file in L<X>; no changes to existing callers; test surface is the wrapper only. risk_profile: Primary failure mode is interface drift in <target> breaking the wrapper silently; detectable via wrapper unit tests; fully reversible by deleting the wrapper. time_to_value: Immediate — single session. ⭐ RECOMMENDED"
+    }
+  ],
+  allowMultiple=false
+)
+```
 
-Every evidence file MUST include:
-- `## EXECUTION_SUMMARY` — What was done, tool calls made, files touched
-- `## FACT_CLASSIFICATION` — Directly observed facts, derived facts, inferred facts, external inputs, assumptions, unresolved gaps
-- `## ARTIFACTS` — Generated files, modified files, with absolute paths
-- `## UNRESOLVED` — Explicit gaps that remain (empty if none)
+**EXAMPLES**:
+- Choosing between inheritance vs composition
+- Deciding layer placement (L0-L6) for new module
+- Selecting between factory pattern vs direct instantiation
+- Choosing test strategy (unit vs integration vs both)
 
-**VIOLATIONS:**
-- ❌ Omitting UNRESOLVED facts — silence is not proof of absence
-- ❌ Upgrading DERIVED to DIRECTLY OBSERVED without re-running primary source
-- ❌ Claiming phase complete while UNRESOLVED items remain
+### 1.2 Refactoring Scope
 
-### 3.4 Artifact Links
+**TRIGGER**: When refactoring could affect multiple files and scope genuinely varies in risk/coverage
 
-Every artifact reference in a response MUST use backtick citation format: `` `@<absolute_path>` ``. Plain text paths = CONSTITUTIONAL VIOLATION.
+**REQUIRED PIPELINE**:
+1. Generate scope candidates (minimal / moderate / comprehensive) only where each is a *genuinely different risk profile*
+2. Score each by: blast radius, reversibility, test surface change, dependencies to update, and time to validate
+3. Filter and apply dominance rule — if minimal scope clearly dominates (score ≥ 0.85, gap ≥ 0.12), surface only minimal
+4. Do not fabricate a "keep current" option — if refactoring is already decided, the scope question is between real candidates only
 
-### 3.5 Artifact Location
+**Scoring guidance for scope candidates**:
+- Minimal scope: penalize if it leaves the root cause intact; reward if blast radius is verifiably contained
+- Comprehensive scope: penalize proportionally to cross-layer coupling and test surface expansion
+- If two scope options have the same risk profile with different file counts, collapse into one — they are not materially distinct
 
-- **Plans** MUST be saved to `.windsurf/plans/<name>-<6hex>.md` (SSOT — see `plan-location.md`)
-- **Evidence and phase reports** MUST be saved to `docs/reports/plans/`
-- `docs/reports/plans/` is for evidence/reports ONLY — never for execution plans
-- The archived history of `plan-location.md` is preserved in `tools/archive/.windsurf/rules/plan-location.md` for reference; the active rule remains `.windsurf/rules/plan-location.md`
+**EXAMPLES**:
+- Renaming widely-used function (scope = single call site vs all callers vs full rename + shim)
+- Moving module between layers (scope = move only vs move + update all imports vs move + shim + update)
+- Consolidating duplicate code (scope = one instance vs all instances in one layer vs all instances cross-layer)
 
-All Python file I/O MUST use `encoding="utf-8"`. Evidence files are raw execution captures, ASCII-only.
+### 1.3 Anti-Pattern Introduction
 
-### 3.6 RCA Auto-Closure Discipline
+**TRIGGER**: Before introducing any anti-pattern instance (pre_write_gate has already blocked; this HITL determines the resolution path)
 
-**When creating an RCA document, Cascade MUST:**
+**REQUIRED PIPELINE**:
+1. Assess whether the specific anti-pattern can be narrowed without a guardian comment (e.g., replace `except Exception` with the 1-2 actual exception types that can occur here)
+2. If narrowing is feasible — score it at ≥ 0.85 (no guardian debt, no ratchet impact, passes scanner) — dominance rule will fire; surface only that option
+3. If narrowing is genuinely infeasible (e.g., third-party interface raises undocumented exceptions) — then `guardian: allow-*` becomes a scored candidate
+4. Do NOT generate all four historical options reflexively; generate only the candidates that are actually viable for this specific call site
 
-1. **Document the violation** — incident summary, root cause, impact
-2. **Execute corrective actions IMMEDIATELY** — do not wait for user prompt
-3. **Update RCA status** — mark as RESOLVED with timestamp
-4. **Document evidence artifacts** — specific files changed, tests added
-5. **Mark preventive measures** — completed items with [x]
+**If narrowing is feasible** (dominance rule fires — score 0.90, next best 0.62): surface only the narrow-exception option.
 
-**RCA Status Lifecycle:**
-- ❌ OPEN — violation documented, corrective actions NOT executed
-- 🔄 IN PROGRESS — corrective actions partially executed  
-- ✅ RESOLVED — all immediate corrective actions completed with evidence
+**If narrowing is not feasible** (two candidates above threshold): surface guardian-comment vs restructure, with restructure scored lower if it requires significant redesign that is out of scope.
 
-**FORBIDDEN:** Creating RCA and leaving it unresolved. User should never have to ask for closure.
+**EXAMPLES**:
+- New `except Exception` block at a specific call site
+- New `os.path.*` call in a module that already uses `pathlib`
+- Silent exception swallower in a utility function
+
+### 1.4 Test Modification Strategy
+
+**TRIGGER**: When a test failure has two or more genuinely credible repair paths with different correctness implications
+
+**REQUIRED PIPELINE**:
+1. Identify the failure root cause first (read the test, read the production code, read the diff)
+2. Classify the root cause — is this a production bug, a stale reference, a semantic test update, or a policy regression?
+3. In most cases, root cause classification resolves the ambiguity — only one repair class will be correct; surface only that one
+4. HITL is only warranted when two repair classes are *both* plausible given the evidence (e.g., assertion mismatch where the correct value is genuinely ambiguous)
+5. Score each plausible repair class: weight by correctness confidence, regression risk, and reversibility
+
+**If root cause is unambiguous:** do not HITL. Fix it. One correct answer does not warrant a choice menu.
+
+**If two repair classes are both plausible** (e.g., score 0.81 vs 0.77): surface both with the §HITL-10 shape, explaining precisely why the ambiguity exists for *this specific test and failure*.
+
+**EXAMPLES**:
+- Assertion mismatch where expected value change may reflect intentional behavior change vs regression
+- Import path changed: update callers vs restore old path (only ambiguous if the rename was undocumented)
+- Threshold drift where the old value may have been wrong to begin with
+
+### 1.5 Dependency Addition
+
+**TRIGGER**: Before adding a new external dependency where in-house implementation is non-trivial or where an existing alternative may serve
+
+**REQUIRED PIPELINE**:
+1. Check whether an existing dependency or in-repo utility already covers the need
+2. If an existing alternative fully covers the need — that is the answer; no HITL required
+3. If the capability gap is genuine, score: external package vs in-house implementation
+4. Score external package lower if: the feature surface used is narrow (wrapping a 3-line call), the package introduces transitive dependencies, or version conflicts exist
+5. Score in-house lower if: the capability requires cryptographic, protocol, or ML complexity that would take >1 session to implement safely
+6. Surface only the candidates that survive the `surface_threshold`; if in-house clearly dominates, surface only that
+
+**EXAMPLES**:
+- New PyPI package where only one function is used (in-house likely dominates)
+- New MCP server where existing MCP already partially covers the capability
+- New system dependency where the alternative requires significant in-house work (both may survive threshold)
+
+### 1.6 File/Module Deletion
+
+**TRIGGER**: Before deleting or archiving any production file
+
+**REQUIRED PIPELINE**:
+1. Run reference check: any import, mention in CI gate, test fixture, or shim pointing to this file?
+2. Check deprecation status: has a 90-day deprecation period elapsed?
+3. Score disposition candidates based on reference count and deprecation state:
+   - If references remain: archive-with-shim or deprecate-first will score higher than immediate delete
+   - If zero references and deprecation elapsed: immediate archive/delete will score ≥ 0.85 (dominance likely fires)
+   - If zero references but no deprecation period: archive scores higher than delete (SVP archival priority)
+4. Do not generate all four dispositions reflexively — only generate the candidates that are plausible given reference count and deprecation state
+
+**If zero references + deprecation elapsed:** dominance rule will typically fire for archive. Surface only that option.
+
+**If active references remain:** HITL between deprecate-first and keep-as-shim; delete is not a credible candidate and should not be generated.
+
+**EXAMPLES**:
+- Agent deletion (§1.6 requirements — additional authorization gate applies)
+- Utility module consolidation after migration
+- Dead code removal post-refactor
+
+### 1.7 Configuration Changes
+
+**TRIGGER**: Before modifying governance/policy configuration where the change scope is genuinely ambiguous
+
+**REQUIRED PIPELINE**:
+1. Determine if the change is already decided (user specified the new value) — if so, no HITL; just apply it
+2. If the scope or value is ambiguous, generate only the candidates that represent materially different values or rollout strategies
+3. Do not add a reflexive "keep current" option — if config change is the stated goal, keeping current is not a credible candidate
+4. Score by: gate coverage impact, backward compatibility, test surface affected, and rollback complexity
+
+**EXAMPLES**:
+- Confidence threshold change where the optimal value is unclear from available data
+- Retry limit change where two values have different operational tradeoffs
+- Layer boundary rule addition that may affect existing imports
+
+### 1.8 Error Handling Strategy
+
+**TRIGGER**: When the error handling strategy is genuinely ambiguous (fail-closed vs retry vs escalate each have credible arguments for this specific call site)
+
+**REQUIRED PIPELINE**:
+1. Classify the error type: transient infrastructure error, invalid input, missing configuration, resource exhaustion, or external API fault
+2. Apply the constitutional default: fail-closed scores highest by default unless the specific error type is demonstrably transient
+3. Transient errors (network timeouts, rate limits): retry-with-backoff becomes a credible second candidate — score both, surface if both clear threshold
+4. Invalid input / missing config: fail-closed dominates; do not generate retry or escalate as candidates
+5. Do not generate all four options reflexively — only generate candidates that are credible for this specific error type
+
+**EXAMPLES**:
+- External API failure: transient (retry credible) vs permanent (fail-closed dominates)
+- Missing configuration at startup: fail-closed dominates; single option HITL or no HITL
+- Resource exhaustion: fail-closed vs escalate (both credible if human intervention has value)
+
+### 1.9 Performance Optimization Trade-offs
+
+**TRIGGER**: Only when a performance optimization materially changes correctness risk or operational complexity, AND when two approaches have meaningfully different risk profiles
+
+**REQUIRED PIPELINE**:
+1. Check whether the optimization is already clearly superior (measured speedup with no correctness risk) — if so, no HITL; implement it
+2. Generate candidates only when: trade-offs are non-trivial (e.g., caching introduces staleness risk, parallelism introduces ordering risk)
+3. Score by: speedup magnitude, correctness risk, added complexity, reversibility, and test surface change
+4. Do not generate "keep current" as a candidate unless deferring the optimization is a genuinely credible choice for the session
+
+**EXAMPLES**:
+- Caching a computation that is called ×1000/request: cache vs recompute (staleness risk is the differentiator)
+- Parallelizing a pipeline stage: parallel vs sequential (ordering correctness is the differentiator)
+- Index optimization: only HITL if two index strategies have meaningfully different read/write tradeoffs
+
+### 1.10 ADG Regeneration Timing
+
+**TRIGGER**: When ADG staleness creates a genuine risk of incorrect blast-radius analysis for the current task
+
+**REQUIRED PIPELINE**:
+1. Check staleness: compare `adg_indexed_*.sqlite` mtime against most recent `git commit` mtime
+2. If ADG is fresh (newer than HEAD): no HITL — proceed
+3. If ADG is stale AND the current task requires accurate blast-radius analysis (T2/T3 refactoring, cross-layer scope): regenerate now without HITL — this is the only correct answer
+4. HITL is only warranted if regeneration would consume significant time AND the task can proceed safely with a known-stale graph (e.g., adding a new leaf file with no existing fanout)
+5. Do not generate "Skip" as a candidate — skip is not an acceptable option for T2/T3 work
+
+**Default behavior**: If ADG is stale during T2/T3 work, regenerate immediately. No HITL.
+
+**EXAMPLES**:
+- After refactoring imports across multiple files (stale → regenerate now, no HITL)
+- After adding a single new leaf file with no callers (stale → may defer, HITL only if regeneration cost > 5 min)
 
 ---
 
-## §4. SCOPE AND DETERMINISM
+## §HITL-2: Option Presentation Format
 
-### 4.1 Scope Discipline
+### 2.1 Required Elements
 
-Scope expansion mid-phase = STOP and produce plan artifact. No implicit scope creep.
+Every HITL prompt MUST include:
+1. **Packet header** — recommended option, why it wins, optimization target, cost of winning path, suppression telemetry
+2. **Options**: 1 to N surviving candidates (N is confidence-gated, NOT a fixed floor)
+3. **Executive-grade analysis** for each option using the §HITL-10 shape (not generic pros/cons)
+4. **Confidence score and band** on every option label
 
-### 4.2 Determinism Requirements
+### 2.2 Forbidden Patterns
 
-Every operation MUST be reproducible. Required:
-- Fixed seeds for any randomness
-- Explicit timestamps (injected, not wall-clock dependent)
-- No dependency on execution order
-- No external mutable state
+**NEVER**:
+- Generate a minimum of 2, 3, or 4 options to satisfy a count
+- Add a "keep current" option when the action is already decided
+- Pad with options that are cosmetically different but operationally identical
+- Use generic pros/cons ("more flexible", "higher risk", "easier to maintain") without tying the claim to the specific code path, architecture, or governance consequence
+- Proceed with "default" option without user selection (when HITL is required by policy)
+- Make the decision and then ask for approval
+- Use the same tradeoff language across multiple options
+- Label multiple options as Recommended
 
-**Side-effect discipline:** All side effects (file writes, network calls, state mutations) MUST be:
-1. Explicitly declared in phase evidence
-2. Reversible (rollback plan documented)
-3. Idempotent (re-running produces same result)
+### 2.3 Option Quality Standards
 
----
+Each surfaced option MUST:
+- Clear `surface_threshold = 0.72`
+- Be **materially distinct** from every other surfaced option (different on ≥1 of: execution path, risk profile, reversibility, expected outcome, dependency set, time/cost tradeoff, governance consequence)
+- Use the **§HITL-10 option shape** — no generic pros/cons
+- Have **case-specific analysis** — every claim tied to this repo, this packet, this routing path, or this specific decision
 
-## §5. CI ENFORCEMENT
+### 2.4 LOW\_CONFIDENCE\_AMBIGUITY Packet
 
-### 5.1 Pre-Commit Gates
+When no candidate clears `surface_threshold = 0.72`:
 
-All commits MUST pass:
-- T1: Testing framework gates
-- T2: ADG build verification
-- T3: Fact classification completeness
-- T4: Scope drift detection
-- T5: Determinism checks
+```
+LOW_CONFIDENCE_AMBIGUITY
+Best candidate: <option_title> [<score> <band>]
+Rationale: <why no option is surfaced>
+Recommended action: clarify / replan / abstain
+Blocking question: <what information would resolve the ambiguity>
+```
 
-### 5.2 CI Pipeline
-
-`python ops_scripts/ci/run_contract_gates.py` enforces all constitutional rules.
-
-### 5.3 Gate Failure Response
-
-Gate failure = STOP. No bypass, no "just this once". Fix the violation, re-run gates.
-
----
-
-## §6. GOVERNANCE FRAMEWORK
-
-### 6.1 Layer Sovereignty
-
-L0-L6 semantics are locked. Cross-layer violations = HARD FAIL. See `structure_blueprint.py` for canonical definitions.
-
-### 6.2 Agent Governance
-
-One canonical agent class per file. Semantic duplicate agents forbidden. Agents invoked via canonical Python functions only.
-
-### 6.3 Registry Hygiene
-
-Agent registry SSOT: `agent_discovery_full.json`. Conflicting sources = execution BLOCKED.
+Do not fabricate options to fill this packet. Do not surface the best candidate as a real option. Route to clarify/replan/abstain.
 
 ---
 
-## §7. ACCEPTANCE DISCIPLINE
+## §HITL-3: Execution Discipline
 
-### 7.1 Repair Class Taxonomy
+### 3.1 Wait for Selection
 
-| Class | When to Use | Evidence Required |
-|-------|-------------|-------------------|
-| `production_bug_fix` | Logic error in code under test | Failing test + root cause + fix verification |
-| `stale_reference_fix` | Test references outdated symbol/path | ADG showing reference no longer exists |
-| `broken_test_fix` | Test itself is broken (not code) | Test intent preserved, mechanics fixed |
-| `policy_regression_fix` | Threshold/policy drift | Policy change justification + ADG impact |
+After presenting options:
+1. **STOP** — do not proceed with any option
+2. **WAIT** — user must explicitly select A, B, C, or D
+3. **CONFIRM** — acknowledge selection before executing
+4. **EXECUTE** — only the chosen option
 
-### 7.2 Scoped Convergence
+### 3.2 No Assumptions
 
-For any repair targeting specific failures:
+**FORBIDDEN**:
+- "I'll proceed with Option A unless you object"
+- "Option B seems best, so I'll do that"
+- "Let me know if you want something different"
+- Implementing multiple options "to give you choices"
 
-1. Gather all failures in the scoped surface (use ADG, not naive collection)
-2. Cluster by root cause (not symptom)
-3. Target highest-fan-out fixes first
-4. Verify each fix with scoped re-run
-5. Iterate until scoped surface is green
-6. Document convergence: what was fixed, what remains, why
+### 3.3 Clarification Protocol
 
-**Convergence is NOT complete when:**
-- Fixed the one failure you looked at, but others remain
-- Scoped re-run wasn't performed
-- Root cause wasn't addressed (just patched the symptom)
-
-### 7.3 Repair Run Completion (Six Conditions)
-
-1. All §7.2 scoped convergence conditions met
-2. Every ADG-reachable dependent of repaired surface executed and passed
-3. Full pytest suite green — zero failures, errors, unexpected skips
-4. Full-suite run timestamp LATER THAN last repair commit timestamp
-5. No new failures introduced (count ≤ pre-repair baseline)
-6. Final summary artifact in `docs/reports/plans/` (evidence artifact) with empty `Unresolved`
+If user response is ambiguous:
+1. Restate the options
+2. Ask for explicit A/B/C/D selection
+3. Do not guess intent
 
 ---
 
-## §8. ARCHITECTURE LOCKS
+## §HITL-4: Bypass Conditions
 
-### 8.1 Canonical Semantics and SSOT
+HITL may be bypassed ONLY when:
 
-L0–L6 semantics MUST match repository SSOT (`structure_blueprint.py`). Agent registry SSOT: `agent_discovery_full.json`. Conflicting SSOT sources = execution BLOCKED.
+1. **Trivial changes** — fixing typos, formatting, whitespace
+2. **Deterministic fixes** — single correct solution (syntax errors, import errors)
+3. **Explicit user directive** — user said "just do X" with no ambiguity
+4. **Emergency rollback** — reverting broken commit
+5. **Auto-fixable violations** — ruff, trailing whitespace, etc.
+6. **Dominance rule fires** — one candidate scores ≥ 0.85 with gap ≥ 0.12 to next; surface that single option, do not treat as bypass (still requires user acknowledgment if policy-required)
 
-### 8.2 Boundary Enforcement
-
-Layer inversion detection MUST be AST-based. Cycles = HARD FAIL. Duplicate mixins forbidden. Cross-layer mutation violating sovereignty = HARD FAIL. Path shape alone is insufficient evidence.
-
-### 8.3 Tooling/Runtime Boundary
-
-`tools/evidence/` and `ops_scripts/ci/` MUST NOT import `apps_*`.
-
-### 8.4 Agent Discipline
-
-Agents invoked via canonical Python functions only. One canonical agent class per file. Semantic duplicate agents forbidden.
+**HITL is NOT required when**: scoring produces one clear answer. In that case, surface a single-option HITL packet rather than proceeding without user acknowledgment (if the decision has meaningful governance or irreversibility consequences), or proceed directly (if the action is low-risk and reversible).
 
 ---
 
-## §9. EXECUTION MODALITY
+## §HITL-5: Evidence Requirements
 
-Execution occurs strictly by defined phase. Each phase produces one evidence file. Scope expansion → STOP and produce plan artifact.
+When HITL is invoked, evidence file MUST include:
 
-### 9.1 Repair Gate — No Editing While Exploring
-
-**Editing is FORBIDDEN until ALL five gates pass:**
-
-| Gate | Requirement |
-|---|---|
-| G1 | Failure capture exists for every failing test (§2.5) |
-| G2 | Root cause clusters exist (`adg_failure_clusters.json` is fresh) |
-| G3 | Each proposed repair maps to one or more exact failing nodeids |
-| G4 | Repair class declared (§2.5) |
-| G5 | No UNRESOLVED facts in phase evidence for targeted cluster |
-
-Mixing exploration and repair in the same step = HARD FAIL.
-
-### 9.2 Stabilize Before Refactor
-
-Structural refactors FORBIDDEN while: active scoped failures > 0, UNRESOLVED facts exist, registered skips have expired/missing resolution plans, full-suite not green.
-
-**Priority order:** Correctness → Determinism → Governance integrity → Reproducible green scoped runs → Structural refactors.
-
----
-
-## §10. PLAN DOCUMENTATION STANDARDS
-
-**ENFORCEMENT:** All plan documents in `.windsurf/plans/` MUST follow this structure.
-
-### 10.1 Required Plan Header Table
-
-Every plan MUST include a waves table at the top with the following columns:
-
-| Column | Requirement |
-|--------|-------------|
-| **Wave** | Sequential wave number (1, 2, 3...) |
-| **Phase IDs** | Comma-separated phase identifiers (P0, P1, P2...) |
-| **Focus** | Brief description of wave's primary objective |
-| **Est. Tokens** | Token estimate from ContextWindowEstimator |
-| **Assumptions** | Key assumptions driving the estimate |
-| **Status** | 🟢 GREEN (≤150K), 🟡 YELLOW (150-175K), 🔴 RED (>175K) |
-| **Success Criteria** | Measurable outcomes for the wave |
-
-**Table Format Example:**
 ```markdown
-| Wave | Phase IDs | Focus | Est. Tokens | Assumptions | Status | Success Criteria |
-|---|---|---|---|---|---|---|
-| **Wave 1** | P0, P1, P2 | Inventory & Archive | 80,285 | 644 files + 90 scripts | 🟢 GREEN | All files inventoried |
-```
+## HITL_DECISION_RECORD
 
-**SSOT Terminology Requirement:**
-- **Waves** = Single source of truth term for execution grouping (Wave 1, Wave 2, etc.)
-- **P0, P1, P2...** = Component identifiers within waves
-- **Phases** = Only used when referring to historical "phase-named" problems
-- All plans MUST use consistent "Waves" terminology throughout
-
-### 10.2 Token Estimation Workflow Requirement
-
-**MANDATORY WORKFLOW:** Every plan MUST run the token estimator workflow before finalization:
-
-```bash
-# Run token optimization analysis
-python tools/evidence/_run_token_optimizer_plan.py
-
-# Run wave packing optimization
-python tools/adg/wave_packer.py
-```
-
-**Requirements:**
-- Token estimates MUST use `ContextWindowEstimator` with conservative 1.1× bias
-- Each wave MUST target 150-160K tokens maximum
-- Total tokens per wave MUST include: input + 12K output + 8K safety buffer
-- Status colors MUST reflect: GREEN (≤150K), YELLOW (150-175K), RED (>175K)
-
-### 10.3 Plan Validation Checklist
-
-Before committing any plan document:
-- ✅ Waves table present at top with all required columns
-- ✅ Token estimator workflow executed with results included
-- ✅ All waves have GREEN status (YELLOW requires HITL approval, RED forbidden)
-- ✅ Success criteria are measurable and specific
-- ✅ Assumptions are clearly documented
-- ✅ Consistent "Waves" terminology used throughout (SSOT compliance)
-
-**Enforcement:** Plans missing required table or token estimation will be rejected during review.
-
----
-
-## §13. MCP GREEN LIGHT PREREQUISITE
-
-### 13.1 Rule
-
-Before beginning ANY T2/T3 work, the MCP health check MUST pass:
-
-```
-1. Call mcp1_adg_health
-2. If result is unhealthy or last_check > 30 minutes ago → STOP
-3. Run /mcp-failure-rca
-4. Wait for recovery confirmation before proceeding
-```
-
-**NEVER begin multi-file work with unhealthy MCPs.** Silent MCP failures cascade into broken analysis, corrupt ADG queries, and wasted repair sessions.
-
-### 13.2 Scope
-
-| Tier | MCP Green Light Required? |
-|------|--------------------------|
-| T0 — Question | ❌ Not required (no code changes) |
-| T1 — Trivial | ⚠️ Recommended (ADG cache query optional) |
-| T2 — Scoped | ✅ **REQUIRED** before any file edits |
-| T3 — Architectural | ✅ **REQUIRED** before any analysis or edits |
-
-### 13.3 Runtime Enforcement
-
-This behavioral rule is reinforced at runtime by:
-- **Wave 1 Phase 1.3**: `pre_mcp_tool_use` hook blocks ADG calls when SQLite is locked or health is stale (>30 min)
-- **Wave 1 Phase 1.8**: `post_cascade_response` hook attempts `adg_close_connections` as response-tail cleanup
-
-### 13.4 Recovery Escalation
-
-If `mcp1_adg_health` is unhealthy:
-```
-1. python ops_scripts/ci/mcp_health_monitor.py --probe
-2. Check ~/adg_mcp_server.log for errors
-3. Run /mcp-failure-rca workflow
-4. Re-run mcp1_adg_health to confirm recovery before proceeding
+**Decision Point**: <description>
+**Options Presented**: A, B, C, D
+**User Selection**: <A|B|C|D>
+**Rationale**: <user's stated reason, if provided>
+**Executed Action**: <what Cascade did>
 ```
 
 ---
 
-## §14. SUBPROCESS TIMEOUT DISCIPLINE
+## §HITL-6: Enforcement
 
-### 14.1 Rule
+### 6.1 Windsurf Layer
 
-ALL subprocess calls MUST include `timeout=`. No exceptions.
+This is a **behavioral rule** enforced during AI execution. No pre-commit hook can verify HITL compliance.
 
-```python
-subprocess.run(argv, shell=False, timeout=30)    # REQUIRED
-subprocess.run(argv, shell=False)                 # FORBIDDEN — no timeout
-subprocess.run(cmd, shell=True)                   # FORBIDDEN — shell=True
-subprocess.run(["powershell", ...])               # FORBIDDEN — PowerShell
-```
+### 6.2 Audit Trail
 
-Omitting `timeout=` creates zombie processes (PP-9) and session hangs.
+All HITL decisions MUST be recorded with:
+- **Decision Point**: Clear description of the decision
+- **Timestamp**: ISO8601 timestamp of decision
+- **Options Presented**: All options A/B/C/D with pros/cons
+- **User Selection**: Which option was selected
+- **Rationale**: User's stated rationale (if provided)
+- **Impact**: Expected impact of the decision
+- **Evidence File**: Path to evidence file containing this record
 
-### 14.2 Recommended Timeouts
+Audit trail MUST be stored in evidence files under `docs/reports/plans/`.
+Missing audit trail = constitutional violation.
+- Evidence files (`docs/reports/plans/`)
+- Commit messages (when applicable)
+- Plan updates (when scope changes)
 
-| Operation | Recommended Timeout |
-|-----------|-------------------|
-| Quick validation / health check | 10s |
-| File operations, git commands | 30s |
-| Test runs (single file) | 60s |
-| ADG generation, full scans | 180s |
-| Network / MCP calls | 30s |
+### 6.3 Violation Consequences
 
-### 14.3 Runtime Enforcement
+Proceeding without HITL when required:
+- Violates user trust
+- May result in wasted work
+- Requires rollback and re-execution with HITL
 
-- **Wave 1 Phase 1.1**: `pre_run_command` hook blocks PowerShell commands
-- **Policy SSOT**: `global_rules.md` Section Subprocess Timeout Discipline
-- **CI gate**: `ops_scripts/ci/check_terminal_cleanup.py` (Constitutional §11)
+---
+
+## §HITL-7: Quick Reference
+
+| Scenario | HITL Required? | Bypass Allowed? |
+|----------|----------------|-----------------|
+| Multiple architectural approaches | ✅ YES | ❌ NO |
+| Refactoring >3 files | ✅ YES | ❌ NO |
+| Adding anti-pattern | ✅ YES | ❌ NO |
+| Test failure with multiple fixes | ✅ YES | ❌ NO |
+| Adding external dependency | ✅ YES | ❌ NO |
+| Deleting production file | ✅ YES | ❌ NO |
+| Changing governance config | ✅ YES | ❌ NO |
+| Error handling strategy | ✅ YES | ❌ NO |
+| Performance vs complexity | ✅ YES | ❌ NO |
+| ADG regeneration timing | ✅ YES | ✅ YES (if clearly no impact) |
+| Fixing typo | ❌ NO | ✅ YES |
+| Auto-formatting | ❌ NO | ✅ YES |
+| Syntax error fix | ❌ NO | ✅ YES (if single correct solution) |
+| User said "just do X" | ❌ NO | ✅ YES (if unambiguous) |
 
 ---
 
-## §15. EXCEPTION HANDLING — COLUMN 5 PRECISE EXCEPTIONS
+## §HITL-8: Integration with Existing Rules
 
-### 15.1 Rule
+HITL complements but does not replace:
+- **§0 DEFAULT ANALYSIS MODE** — still build ADG first, then present options
+- **§1 TESTING FRAMEWORK** — still require tests, but let user choose test strategy
+- **§2 ADG FRAMEWORK** — still use graph, but let user choose scope
+- **§9 EXECUTION MODALITY** — still work in phases, but let user choose phase boundaries
 
-All exception handling MUST catch **specific** exception types with **specific** recovery actions.
-
-```python
-# REQUIRED — precise exception type, explicit recovery
-try:
-    data = json.loads(raw)
-except json.JSONDecodeError as exc:
-    log.error("Malformed JSON payload: %s", exc)
-    return default_value
-
-# FORBIDDEN — bare except (catches KeyboardInterrupt, SystemExit, etc.)
-except:
-    pass
-
-# FORBIDDEN — broad except without guardian
-except Exception:
-    pass
-
-# ALLOWED — broad except WITH explicit guardian and specific justification
-except Exception as exc:  # guardian: allow-broad-exception -- third-party plugin raises unknown types
-    log.warning("Plugin error (untyped): %s", exc)
-```
-
-### 15.2 Exception Vocabulary
-
-Use these standard exception types. Never invent custom exceptions for standard conditions:
-
-| Condition | Use |
-|-----------|-----|
-| File not found | `FileNotFoundError` |
-| Invalid JSON | `json.JSONDecodeError` |
-| Missing dict key | `KeyError` |
-| Type mismatch | `TypeError`, `ValueError` |
-| Subprocess failure | `subprocess.CalledProcessError`, `subprocess.TimeoutExpired` |
-| Network error | `OSError`, `ConnectionError` |
-| Permission denied | `PermissionError` |
-| Import failure | `ImportError`, `ModuleNotFoundError` |
-
-### 15.3 Guardian Exemption Protocol
-
-When `except Exception` is genuinely unavoidable:
-
-1. Add `# guardian: allow-broad-exception -- <specific justification>` on the same line
-2. Justification MUST be specific — generic words ("needed", "temporary") are FORBIDDEN
-3. HITL approval required before adding any guardian comment (Constitutional §8)
-4. Gate: `ops_scripts/ci/guardian_exemption_gate.py` enforces the ratchet ceiling
-
-### 15.4 Enforcement
-
-- **Wave 1 Phase 1.2**: `pre_write_gate.py` blocks bare `except:` and `except Exception` without guardian
-- **Policy SSOT**: `global_rules.md` §Exception Handling: Column 5 Precise Exceptions
-- **Reference**: `docs/reference/Python/Error & Exception Handling.md`
+**HITL adds**: User choice at decision points
+**HITL does not remove**: Technical requirements and quality gates
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Siamese001)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Siamese001)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+
+## §HITL-9: Confidence Policy Configuration
+
+All HITL thresholds are centralized here. Do not hardcode these values elsewhere.
+
+```yaml
+hitl_option_policy:
+  surface_threshold: 0.72          # minimum confidence to surface any option
+  high_confidence_band: 0.85       # threshold for HIGH band label
+  medium_confidence_band: 0.72     # threshold for MEDIUM band label (>= 0.72 and < 0.85)
+  low_confidence_band: 0.00        # anything below surface_threshold is suppressed
+  dominance_score_threshold: 0.85  # top option must score >= this to trigger dominance rule
+  dominance_delta: 0.12            # top - next_best must be >= this for dominance to fire
+  max_surface_options: 4           # hard cap; never show more than this
+  require_material_distinctness: true
+  allow_single_option_hitl: true   # single-option surface is explicitly allowed
+  telemetry_emission: true         # emit scoring/suppression stats in packet header
+```
+
+### Confidence Band Labels
+
+| Score | Band | Label in option title |
+|-------|------|-----------------------|
+| ≥ 0.85 | HIGH | `[0.87 HIGH]` |
+| 0.72–0.84 | MEDIUM | `[0.76 MEDIUM]` |
+| < 0.72 | LOW | suppressed — do not surface |
+
+### Scoring Guidance
+
+Confidence scores are not arbitrary. Anchor them to concrete evidence:
+- **≥ 0.85**: The approach is clearly correct for this situation, reversible, blast radius is contained, and SVP priorities align
+- **0.72–0.84**: The approach is credible and defensible but has non-trivial tradeoffs or unknowns
+- **< 0.72**: The approach has significant unknowns, high blast radius, or conflicts with constitutional constraints
+- **0.50 and below**: Do not generate this as a surfaced option; include in suppression telemetry only
+
+---
+
+## §HITL-10: Option Shape Contract
+
+Every surfaced HITL option MUST use the following fields. Generic pros/cons are FORBIDDEN.
+
+```
+option_title: <short imperative title>
+confidence_score: <float, e.g. 0.84>
+confidence_band: HIGH | MEDIUM
+recommendation_status: RECOMMENDED | ALTERNATIVE
+
+decision_thesis:
+  One sentence. What this option actually does and why someone would rationally choose it.
+  Must reference the actual system, component, or workflow being changed.
+
+value_to_goal:
+  What concrete value does this create for the stated objective?
+  Tie it to the current request, repo state, or execution path.
+
+key_tradeoffs:
+  3 to 5 precise tradeoffs, each framed as:
+  - Gains X, but increases Y because Z
+  - Reduces A, but constrains B in this part of the workflow
+  - Improves C now, but creates D follow-on work later
+  Every claim must be tied to this specific architecture, code path, or governance consequence.
+
+execution_impact:
+  What changes operationally if this option is chosen:
+  - which files/layers are touched
+  - localized vs cross-cutting
+  - test surface expansion
+  - config migration requirement
+  - backward compatibility considerations
+
+risk_profile:
+  Do not say only low/medium/high. State:
+  - primary failure mode (what specifically breaks or degrades)
+  - blast radius (which files, layers, callers are affected)
+  - detectability (how quickly would a regression surface)
+  - reversibility (what it takes to undo)
+
+dependencies_and_prereqs:
+  Only list prerequisites that materially matter:
+  - schema migration
+  - config centralization
+  - packet serializer change
+  - eval telemetry update
+  - backward-compat handling
+  No filler.
+
+time_to_value:
+  State whether value is immediate, near-term, or delayed and why:
+  - immediate: visible in this session
+  - near-term: requires test/consumer updates before improvement is live
+  - delayed: requires evaluation data before the change pays off
+
+why_not_default:
+  (Required for non-top options only)
+  Why this option should not automatically be chosen if it is not the top recommendation.
+
+recommendation_delta:
+  (Required for non-top options only)
+  Relative to the top option, explain precisely why this option ranks lower.
+  Do not repeat the same wording from the top option's analysis.
+```
+
+### Banned Weak Phrasing
+
+Do not use any of the following unless immediately followed by a *concrete, architecture-specific explanation*:
+- more flexible, more scalable, simpler, more robust, easier to maintain
+- higher effort, lower risk, better long-term, more extensible, cleaner
+- faster to implement (without specifying what implementation it replaces and why)
+
+**Instead, force specificity:**
+- centralizes threshold policy in one config surface, which reduces drift across hook generators
+- preserves backward compatibility for existing HITL packet consumers, but delays schema cleanup by one wave
+- minimizes code churn by changing only the option-filtering stage, but leaves candidate-generation inefficiency untouched
+
+---
+
+## §HITL-11: Telemetry for Evaluation Spine
+
+Every HITL invocation MUST emit structured telemetry in the packet header (not stored externally; included in the `question` field so it is visible in the audit trail):
+
+```
+Candidates evaluated: <N>
+Suppressed (low confidence): <X> (scored below 0.72)
+Suppressed (non-distinct): <Y> (collapsed into surviving option)
+Surfaced: <M>
+Top confidence score: <score>
+Confidence delta (top vs next): <delta or N/A if single option>
+```
+
+This telemetry is for future threshold tuning. It is logged but does not mutate live policy.
+
+---
+
+## MAXIM
+
+- **Signal over count.** One strong option beats three padded alternatives.
+- **Dominance fires cleanly.** When the answer is clear, surface it and say so.
+- **Threshold gates confidence.** Below 0.72 means clarify, replan, or abstain — not fabricate.
+- **Distinctness is required.** Cosmetic variants do not warrant separate options.
+- **Analysis is executive-grade.** Every claim tied to the actual architecture, not generic software advice.
+- **Wait for choice.** When HITL fires, do not proceed without user selection.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Siamese001) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
