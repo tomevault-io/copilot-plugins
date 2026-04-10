@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [jarvis1704/portfolio](https://github.com/jarvis
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jarvis1704](https://tomevault.io/claim/jarvis1704)
 
