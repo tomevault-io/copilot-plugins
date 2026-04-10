@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [mendixlabs/mxcli](https://github.com/mendixlabs
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/mendixlabs](https://tomevault.io/claim/mendixlabs)
 
