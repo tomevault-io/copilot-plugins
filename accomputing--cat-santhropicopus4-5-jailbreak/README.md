@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [ACComputing/cat-santhropicopus4.5-jailbreak](ht
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/ACComputing](https://tomevault.io/claim/ACComputing)
 
