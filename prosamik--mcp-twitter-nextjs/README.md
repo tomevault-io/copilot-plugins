@@ -13,6 +13,7 @@ Original source: `.cursor/rules/*.mdc` in [proSamik/mcp-twitter-nextjs](https://
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/proSamik](https://tomevault.io/claim/proSamik)
 
