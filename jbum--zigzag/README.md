@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [jbum/zigzag](https://github.com/jbum/zigzag).
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/jbum](https://tomevault.io/claim/jbum)
 
