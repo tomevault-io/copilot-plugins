@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [zigfridExe/tanqueFacil](https://github.com/zigf
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/zigfridExe](https://tomevault.io/claim/zigfridExe)
 
