@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [JacobKayembekazadi/sloe-campus-landing-page](ht
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/JacobKayembekazadi](https://tomevault.io/claim/JacobKayembekazadi)
 
