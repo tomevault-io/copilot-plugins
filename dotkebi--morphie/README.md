@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [dotkebi/morphie](https://github.com/dotkebi/mor
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/dotkebi](https://tomevault.io/claim/dotkebi)
 
