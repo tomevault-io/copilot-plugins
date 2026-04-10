@@ -13,6 +13,7 @@ Original source: `CLAUDE.md` in [wolffiex/cmux](https://github.com/wolffiex/cmux
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Browse all formats: [https://tomevault.io/claim/wolffiex](https://tomevault.io/claim/wolffiex)
 
