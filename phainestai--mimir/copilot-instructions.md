@@ -1,17 +1,14 @@
 ## mimir
 
-> When encountering missing parts of the file.
+> When implementing or runninh tests
 
+# Rule: Test Runners
 
-# Rule: Check Previous Commits
-
-When you encounter missing imports, parts of the files missing, or files missing - always check:
-1. Previous commit.
-2. Commit from which branch originates.
-
-Likely you will find it there and can restore from there.
+Use the following runners:
+- **Unit and integration tests**: pytest
+- **API view tests**: Django test client
+- **Acceptance (end-to-end) tests**: Playwright
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/phainestai)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/phainestai)
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/phainestai) — claim your Tome and manage your conversions.
 <!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
