@@ -1,0 +1,9 @@
+{
+  "name": "nextrouter--tcp-traffic-scan",
+  "displayName": "tcp-traffic-scan",
+  "description": "tcp-traffic-scan",
+  "version": "1.0.0",
+  "author": "NextRouter",
+  "homepage": "https://tomevault.io/claim/NextRouter",
+  "skills": []
+}
