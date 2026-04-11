@@ -1,0 +1,18 @@
+{
+  "name": "philoserf--claude-code-setup",
+  "displayName": "claude-code-setup",
+  "description": "AI instruction files for claude-code-setup by philoserf",
+  "version": "1.0.0",
+  "author": "philoserf",
+  "homepage": "https://tomevault.io/claim/philoserf",
+  "skills": [
+    {
+      "name": "session-review",
+      "description": ""
+    },
+    {
+      "name": "vc-ship",
+      "description": ""
+    }
+  ]
+}
