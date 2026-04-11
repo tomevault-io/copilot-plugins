@@ -18907,6 +18907,16 @@
       "name": "philoserf--claude-code-setup",
       "source": "./philoserf--claude-code-setup",
       "description": "claude-code-setup"
+    },
+    {
+      "name": "hyperlane-xyz--v4-docs",
+      "source": "./hyperlane-xyz--v4-docs",
+      "description": "v4-docs"
+    },
+    {
+      "name": "ramzxy--ctf",
+      "source": "./ramzxy--ctf",
+      "description": "CTF"
     }
   ]
 }
