@@ -16807,6 +16807,506 @@
       "name": "sprint-ct--sprint-hub",
       "source": "./sprint-ct--sprint-hub",
       "description": "sprint-hub"
+    },
+    {
+      "name": "ssdeanx--gemini-langgraph",
+      "source": "./ssdeanx--gemini-langgraph",
+      "description": "gemini-langgraph"
+    },
+    {
+      "name": "ssdeanx--gemini-cli-web",
+      "source": "./ssdeanx--gemini-cli-web",
+      "description": "Gemini-CLI-Web"
+    },
+    {
+      "name": "loadguardinc--loadguard-dashboard",
+      "source": "./loadguardinc--loadguard-dashboard",
+      "description": "loadguard-dashboard"
+    },
+    {
+      "name": "mallocobject--koro",
+      "source": "./mallocobject--koro",
+      "description": "Koro"
+    },
+    {
+      "name": "manojpalanki--loving-sai-clinc",
+      "source": "./manojpalanki--loving-sai-clinc",
+      "description": "Loving-Sai-Clinc"
+    },
+    {
+      "name": "akhilnaidu1994--copilot",
+      "source": "./akhilnaidu1994--copilot",
+      "description": "copilot"
+    },
+    {
+      "name": "maulishak--proyek3-perpustakaan-polban",
+      "source": "./maulishak--proyek3-perpustakaan-polban",
+      "description": "proyek3-perpustakaan-polban"
+    },
+    {
+      "name": "siddhartha1310--local-assistant-p-grade",
+      "source": "./siddhartha1310--local-assistant-p-grade",
+      "description": "Local-Assistant-P-Grade"
+    },
+    {
+      "name": "dysa-devlmer--chatbot-devlmer-prueba",
+      "source": "./dysa-devlmer--chatbot-devlmer-prueba",
+      "description": "Chatbot-Devlmer-Prueba"
+    },
+    {
+      "name": "joehehe0426--eb-rescue-app",
+      "source": "./joehehe0426--eb-rescue-app",
+      "description": "eb-rescue-app"
+    },
+    {
+      "name": "abyssdigest--personal-alert",
+      "source": "./abyssdigest--personal-alert",
+      "description": "Personal-Alert"
+    },
+    {
+      "name": "thomas-chu123--finance-dashboard",
+      "source": "./thomas-chu123--finance-dashboard",
+      "description": "finance_dashboard"
+    },
+    {
+      "name": "nickbarfuss--brutal-worlds",
+      "source": "./nickbarfuss--brutal-worlds",
+      "description": "brutal-worlds"
+    },
+    {
+      "name": "pakkio--es",
+      "source": "./pakkio--es",
+      "description": "es"
+    },
+    {
+      "name": "cdilash--echofy",
+      "source": "./cdilash--echofy",
+      "description": "Echofy"
+    },
+    {
+      "name": "yassine-devdev--growgrow",
+      "source": "./yassine-devdev--growgrow",
+      "description": "growgrow"
+    },
+    {
+      "name": "axel-meyrek--api-curso",
+      "source": "./axel-meyrek--api-curso",
+      "description": "API-CURSO"
+    },
+    {
+      "name": "wht222--mechcad-mllm",
+      "source": "./wht222--mechcad-mllm",
+      "description": "MechCAD-MLLM"
+    },
+    {
+      "name": "xamircastel--lp-creator",
+      "source": "./xamircastel--lp-creator",
+      "description": "lp-creator"
+    },
+    {
+      "name": "scnusujun--political-common-sense",
+      "source": "./scnusujun--political-common-sense",
+      "description": "political-common-sense"
+    },
+    {
+      "name": "dance934--jcoco",
+      "source": "./dance934--jcoco",
+      "description": "jcoco"
+    },
+    {
+      "name": "nirholas--defi-agents",
+      "source": "./nirholas--defi-agents",
+      "description": "defi-agents"
+    },
+    {
+      "name": "newpush-labs--newpush-labs",
+      "source": "./newpush-labs--newpush-labs",
+      "description": "newpush-labs"
+    },
+    {
+      "name": "widoriezebos--descartes-mcp",
+      "source": "./widoriezebos--descartes-mcp",
+      "description": "descartes-mcp"
+    },
+    {
+      "name": "morooka-akira--aicm",
+      "source": "./morooka-akira--aicm",
+      "description": "aicm"
+    },
+    {
+      "name": "bassamalsaqqa--dental-saas",
+      "source": "./bassamalsaqqa--dental-saas",
+      "description": "dental-saas"
+    },
+    {
+      "name": "phoenix-chen-git--autoproteinmpnn",
+      "source": "./phoenix-chen-git--autoproteinmpnn",
+      "description": "autoProteinMPNN"
+    },
+    {
+      "name": "m8a-io--nestjs-cacheable",
+      "source": "./m8a-io--nestjs-cacheable",
+      "description": "nestjs-cacheable"
+    },
+    {
+      "name": "devlocke-acsad--bathala",
+      "source": "./devlocke-acsad--bathala",
+      "description": "bathala"
+    },
+    {
+      "name": "hyoilll--waitingapp-nuxt",
+      "source": "./hyoilll--waitingapp-nuxt",
+      "description": "waitingApp_nuxt"
+    },
+    {
+      "name": "suraj292--resume-builder",
+      "source": "./suraj292--resume-builder",
+      "description": "resume-builder"
+    },
+    {
+      "name": "pod3codeclouds--luckyrx",
+      "source": "./pod3codeclouds--luckyrx",
+      "description": "luckyrx"
+    },
+    {
+      "name": "alextavares--10000",
+      "source": "./alextavares--10000",
+      "description": "10000"
+    },
+    {
+      "name": "luk036--physdes-rs",
+      "source": "./luk036--physdes-rs",
+      "description": "physdes-rs"
+    },
+    {
+      "name": "mejares-jamesmichael--project-pawsight",
+      "source": "./mejares-jamesmichael--project-pawsight",
+      "description": "project-pawsight"
+    },
+    {
+      "name": "akhilesh-w--gemini-design-plugin",
+      "source": "./akhilesh-w--gemini-design-plugin",
+      "description": "gemini-design-plugin"
+    },
+    {
+      "name": "jscraik--agent-skills",
+      "source": "./jscraik--agent-skills",
+      "description": "Agent-Skills"
+    },
+    {
+      "name": "mikaelkara--notebooks",
+      "source": "./mikaelkara--notebooks",
+      "description": "notebooks"
+    },
+    {
+      "name": "sacahan--casualtrader",
+      "source": "./sacahan--casualtrader",
+      "description": "CasualTrader"
+    },
+    {
+      "name": "oyo-lol--lc-go",
+      "source": "./oyo-lol--lc-go",
+      "description": "lc-go"
+    },
+    {
+      "name": "ezerangel--personal-website",
+      "source": "./ezerangel--personal-website",
+      "description": "personal-website"
+    },
+    {
+      "name": "jahsef--yolo-target-assistant",
+      "source": "./jahsef--yolo-target-assistant",
+      "description": "YOLO-Target-Assistant"
+    },
+    {
+      "name": "kamuyin--manim-template",
+      "source": "./kamuyin--manim-template",
+      "description": "manim-template"
+    },
+    {
+      "name": "spacetelescope--nb-wrangler",
+      "source": "./spacetelescope--nb-wrangler",
+      "description": "nb-wrangler"
+    },
+    {
+      "name": "eliniperd--medical-inventory",
+      "source": "./eliniperd--medical-inventory",
+      "description": "medical-inventory"
+    },
+    {
+      "name": "novadev315--lua-mini-games",
+      "source": "./novadev315--lua-mini-games",
+      "description": "lua_mini_games"
+    },
+    {
+      "name": "stanfordspezi--spezistudyplatform-infrastructure",
+      "source": "./stanfordspezi--spezistudyplatform-infrastructure",
+      "description": "SpeziStudyPlatform-Infrastructure"
+    },
+    {
+      "name": "aramesh-aria--ml-in-iot",
+      "source": "./aramesh-aria--ml-in-iot",
+      "description": "ML-In-IOT"
+    },
+    {
+      "name": "filmil--futility",
+      "source": "./filmil--futility",
+      "description": "futility"
+    },
+    {
+      "name": "citricguy--filament-flatpickr",
+      "source": "./citricguy--filament-flatpickr",
+      "description": "filament-flatpickr"
+    },
+    {
+      "name": "yevrap--kamekostudio",
+      "source": "./yevrap--kamekostudio",
+      "description": "KamekoStudio"
+    },
+    {
+      "name": "markenjaden--pretix-map",
+      "source": "./markenjaden--pretix-map",
+      "description": "pretix-map"
+    },
+    {
+      "name": "kezhick--krolique",
+      "source": "./kezhick--krolique",
+      "description": "krolique"
+    },
+    {
+      "name": "prettyinpurple2021--solosuccess-ai",
+      "source": "./prettyinpurple2021--solosuccess-ai",
+      "description": "SoloSuccess_AI"
+    },
+    {
+      "name": "mirenqinggege--local-music-player",
+      "source": "./mirenqinggege--local-music-player",
+      "description": "local-music-player"
+    },
+    {
+      "name": "organvm-iii-ergon--my--father-mother",
+      "source": "./organvm-iii-ergon--my--father-mother",
+      "description": "my--father-mother"
+    },
+    {
+      "name": "chayanonmon--lazyhr",
+      "source": "./chayanonmon--lazyhr",
+      "description": "lazyhr"
+    },
+    {
+      "name": "zweien--scheduling",
+      "source": "./zweien--scheduling",
+      "description": "scheduling"
+    },
+    {
+      "name": "involvex--newworld-dailycraft-calc",
+      "source": "./involvex--newworld-dailycraft-calc",
+      "description": "newworld-dailycraft-calc"
+    },
+    {
+      "name": "krbysn--pickit",
+      "source": "./krbysn--pickit",
+      "description": "pickit"
+    },
+    {
+      "name": "suii00--lean-experiments",
+      "source": "./suii00--lean-experiments",
+      "description": "lean-experiments"
+    },
+    {
+      "name": "gubii--finmg",
+      "source": "./gubii--finmg",
+      "description": "Finmg"
+    },
+    {
+      "name": "kashyaphegdekota--innovation-hack",
+      "source": "./kashyaphegdekota--innovation-hack",
+      "description": "innovation-hack"
+    },
+    {
+      "name": "yutaofr--qqq-buyer-monitor",
+      "source": "./yutaofr--qqq-buyer-monitor",
+      "description": "qqq-buyer-monitor"
+    },
+    {
+      "name": "anthuanvasquez--vision-night-vscode",
+      "source": "./anthuanvasquez--vision-night-vscode",
+      "description": "vision-night-vscode"
+    },
+    {
+      "name": "depau--balong-oled-emulator",
+      "source": "./depau--balong-oled-emulator",
+      "description": "balong-oled-emulator"
+    },
+    {
+      "name": "shinchven--video-screenshot-cli",
+      "source": "./shinchven--video-screenshot-cli",
+      "description": "video-screenshot-cli"
+    },
+    {
+      "name": "twn39--pylibjxl",
+      "source": "./twn39--pylibjxl",
+      "description": "pylibjxl"
+    },
+    {
+      "name": "sarielgil--webagentbot",
+      "source": "./sarielgil--webagentbot",
+      "description": "WebAgentBot"
+    },
+    {
+      "name": "ridermw--marietta-gemini",
+      "source": "./ridermw--marietta-gemini",
+      "description": "Marietta-Gemini"
+    },
+    {
+      "name": "ikhwanzubir--pdftomd",
+      "source": "./ikhwanzubir--pdftomd",
+      "description": "pdftomd"
+    },
+    {
+      "name": "wasabina67--zen-slug-cleaner",
+      "source": "./wasabina67--zen-slug-cleaner",
+      "description": "zen-slug-cleaner"
+    },
+    {
+      "name": "danielwjohnston--the-lab",
+      "source": "./danielwjohnston--the-lab",
+      "description": "the-lab"
+    },
+    {
+      "name": "nabole05--mytrip-guru",
+      "source": "./nabole05--mytrip-guru",
+      "description": "mytrip-guru"
+    },
+    {
+      "name": "asaftzarfati--rusthackathon",
+      "source": "./asaftzarfati--rusthackathon",
+      "description": "rustHackathon"
+    },
+    {
+      "name": "pluggedtmap--mountain-giants",
+      "source": "./pluggedtmap--mountain-giants",
+      "description": "Mountain-Giants"
+    },
+    {
+      "name": "n0nki--dotfiles",
+      "source": "./n0nki--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "alefesouza--travelwithalefe-com",
+      "source": "./alefesouza--travelwithalefe-com",
+      "description": "travelwithalefe.com"
+    },
+    {
+      "name": "isantolin--arduino-yun-bridge2",
+      "source": "./isantolin--arduino-yun-bridge2",
+      "description": "arduino-yun-bridge2"
+    },
+    {
+      "name": "kzk03--multiproject-research",
+      "source": "./kzk03--multiproject-research",
+      "description": "multiproject_research"
+    },
+    {
+      "name": "leminhkhoa117--cramer",
+      "source": "./leminhkhoa117--cramer",
+      "description": "Cramer"
+    },
+    {
+      "name": "juandis12--my-auto-guide",
+      "source": "./juandis12--my-auto-guide",
+      "description": "my_auto_guide"
+    },
+    {
+      "name": "vasyaqwe--unfiddle",
+      "source": "./vasyaqwe--unfiddle",
+      "description": "unfiddle"
+    },
+    {
+      "name": "zamblauskas--gym-tracker",
+      "source": "./zamblauskas--gym-tracker",
+      "description": "gym-tracker"
+    },
+    {
+      "name": "evilbuck--coding-prompts-tui",
+      "source": "./evilbuck--coding-prompts-tui",
+      "description": "coding-prompts-tui"
+    },
+    {
+      "name": "dersual--edgar-haystack",
+      "source": "./dersual--edgar-haystack",
+      "description": "EDGAR-Haystack"
+    },
+    {
+      "name": "kuldeep-bhadouriya--zero-error",
+      "source": "./kuldeep-bhadouriya--zero-error",
+      "description": "Zero-Error"
+    },
+    {
+      "name": "3pillars-projects--mujdn-frontend",
+      "source": "./3pillars-projects--mujdn-frontend",
+      "description": "mujdn-frontend"
+    },
+    {
+      "name": "shockwav3--multifunctionalknob",
+      "source": "./shockwav3--multifunctionalknob",
+      "description": "MultifunctionalKnob"
+    },
+    {
+      "name": "dankerizer--donasai",
+      "source": "./dankerizer--donasai",
+      "description": "donasai"
+    },
+    {
+      "name": "mohsseha--www-chbird-ai",
+      "source": "./mohsseha--www-chbird-ai",
+      "description": "www-chbird-ai"
+    },
+    {
+      "name": "uchilaka--cami-ritv",
+      "source": "./uchilaka--cami-ritv",
+      "description": "cami-ritv"
+    },
+    {
+      "name": "tchiphuong--unimanage",
+      "source": "./tchiphuong--unimanage",
+      "description": "UniManage"
+    },
+    {
+      "name": "janbkrejci--tswebui",
+      "source": "./janbkrejci--tswebui",
+      "description": "TSWebUI"
+    },
+    {
+      "name": "etienne-gn--arcane-majesty",
+      "source": "./etienne-gn--arcane-majesty",
+      "description": "Arcane_Majesty"
+    },
+    {
+      "name": "austinrtn--prescient",
+      "source": "./austinrtn--prescient",
+      "description": "Prescient"
+    },
+    {
+      "name": "francois-mugorozi--kounta",
+      "source": "./francois-mugorozi--kounta",
+      "description": "kounta"
+    },
+    {
+      "name": "angelo0217--python-ai-learn",
+      "source": "./angelo0217--python-ai-learn",
+      "description": "python_ai_learn"
+    },
+    {
+      "name": "sonpt-afk--todolist-dtd",
+      "source": "./sonpt-afk--todolist-dtd",
+      "description": "todolist-dtd"
+    },
+    {
+      "name": "saimambayao--transcriptions",
+      "source": "./saimambayao--transcriptions",
+      "description": "transcriptions"
     }
   ]
 }
