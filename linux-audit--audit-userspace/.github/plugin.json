@@ -1,0 +1,9 @@
+{
+  "name": "linux-audit--audit-userspace",
+  "displayName": "audit-userspace",
+  "description": "audit-userspace",
+  "version": "1.0.0",
+  "author": "linux-audit",
+  "homepage": "https://tomevault.io/claim/linux-audit",
+  "skills": []
+}
