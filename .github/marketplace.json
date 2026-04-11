@@ -18807,6 +18807,96 @@
       "name": "akshay-k-a-dev--se-exam",
       "source": "./akshay-k-a-dev--se-exam",
       "description": "se-exam"
+    },
+    {
+      "name": "modu-ai--moai-adk",
+      "source": "./modu-ai--moai-adk",
+      "description": "moai-adk"
+    },
+    {
+      "name": "community-access--accessibility-agents",
+      "source": "./community-access--accessibility-agents",
+      "description": "accessibility-agents"
+    },
+    {
+      "name": "selfheavenly--pwr-si",
+      "source": "./selfheavenly--pwr-si",
+      "description": "pwr_si"
+    },
+    {
+      "name": "havilandtuff--nalewka",
+      "source": "./havilandtuff--nalewka",
+      "description": "nalewka"
+    },
+    {
+      "name": "mooumari--unity-pilot-windsurf",
+      "source": "./mooumari--unity-pilot-windsurf",
+      "description": "unity-pilot-windsurf"
+    },
+    {
+      "name": "sepehrbayat--hooshex-website",
+      "source": "./sepehrbayat--hooshex-website",
+      "description": "hooshex-website"
+    },
+    {
+      "name": "ankittomar9--cpjavalearning",
+      "source": "./ankittomar9--cpjavalearning",
+      "description": "CPJavaLearning"
+    },
+    {
+      "name": "altairdaxxel--fluydo-ia",
+      "source": "./altairdaxxel--fluydo-ia",
+      "description": "Fluydo-IA"
+    },
+    {
+      "name": "hardisgroupcom--sfdx-hardis",
+      "source": "./hardisgroupcom--sfdx-hardis",
+      "description": "sfdx-hardis"
+    },
+    {
+      "name": "altaflux--agent-mimir",
+      "source": "./altaflux--agent-mimir",
+      "description": "agent-mimir"
+    },
+    {
+      "name": "yhy0--chying-agent",
+      "source": "./yhy0--chying-agent",
+      "description": "CHYing-agent"
+    },
+    {
+      "name": "lowcg-labs--rust-royale",
+      "source": "./lowcg-labs--rust-royale",
+      "description": "rust_royale"
+    },
+    {
+      "name": "jassimga4--jga4-com",
+      "source": "./jassimga4--jga4-com",
+      "description": "jga4.com"
+    },
+    {
+      "name": "geaspar--renovation",
+      "source": "./geaspar--renovation",
+      "description": "Renovation"
+    },
+    {
+      "name": "cnmzsjbz199328--gomoku-multiplayer",
+      "source": "./cnmzsjbz199328--gomoku-multiplayer",
+      "description": "gomoku-multiplayer"
+    },
+    {
+      "name": "soham-prajapati--valentines-site",
+      "source": "./soham-prajapati--valentines-site",
+      "description": "valentines_site"
+    },
+    {
+      "name": "socks5-sniffer--picklepi",
+      "source": "./socks5-sniffer--picklepi",
+      "description": "picklePi"
+    },
+    {
+      "name": "coreshock--chrome-netflix-parallel-translation-extension",
+      "source": "./coreshock--chrome-netflix-parallel-translation-extension",
+      "description": "Chrome-Netflix-parallel-translation-extension"
     }
   ]
 }
