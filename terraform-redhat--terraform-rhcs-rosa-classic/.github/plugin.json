@@ -1,0 +1,9 @@
+{
+  "name": "terraform-redhat--terraform-rhcs-rosa-classic",
+  "displayName": "terraform-rhcs-rosa-classic",
+  "description": "terraform-rhcs-rosa-classic",
+  "version": "1.0.0",
+  "author": "terraform-redhat",
+  "homepage": "https://tomevault.io/claim/terraform-redhat",
+  "skills": []
+}
