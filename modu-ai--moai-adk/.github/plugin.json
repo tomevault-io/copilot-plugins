@@ -1,0 +1,218 @@
+{
+  "name": "modu-ai--moai-adk",
+  "displayName": "moai-adk",
+  "description": "AI instruction files for moai-adk by modu-ai",
+  "version": "1.0.0",
+  "author": "modu-ai",
+  "homepage": "https://tomevault.io/claim/modu-ai",
+  "skills": [
+    {
+      "name": "moai",
+      "description": ""
+    },
+    {
+      "name": "moai-design-tools",
+      "description": ""
+    },
+    {
+      "name": "moai-docs-generation",
+      "description": ""
+    },
+    {
+      "name": "moai-domain-backend",
+      "description": ""
+    },
+    {
+      "name": "moai-domain-database",
+      "description": ""
+    },
+    {
+      "name": "moai-domain-frontend",
+      "description": ""
+    },
+    {
+      "name": "moai-domain-uiux",
+      "description": ""
+    },
+    {
+      "name": "moai-formats-data",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-claude",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-context",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-core",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-philosopher",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-quality",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-thinking",
+      "description": ""
+    },
+    {
+      "name": "moai-framework-electron",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-cpp",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-csharp",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-elixir",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-flutter",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-go",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-java",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-javascript",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-kotlin",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-php",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-python",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-r",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-ruby",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-rust",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-scala",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-swift",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-typescript",
+      "description": ""
+    },
+    {
+      "name": "moai-library-mermaid",
+      "description": ""
+    },
+    {
+      "name": "moai-library-nextra",
+      "description": ""
+    },
+    {
+      "name": "moai-library-shadcn",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-auth",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-chrome-extension",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-database-cloud",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-deployment",
+      "description": ""
+    },
+    {
+      "name": "moai-tool-ast-grep",
+      "description": ""
+    },
+    {
+      "name": "moai-tool-svg",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-ddd",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-jit-docs",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-loop",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-project",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-spec",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-tdd",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-templates",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-testing",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-thinking",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-worktree",
+      "description": ""
+    },
+    {
+      "name": "moai",
+      "description": ""
+    },
+    {
+      "name": "moai",
+      "description": ""
+    }
+  ]
+}
