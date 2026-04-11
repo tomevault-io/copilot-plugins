@@ -1,0 +1,57 @@
+{
+  "name": "CTF",
+  "owner": "ramzxy",
+  "repo": "CTF",
+  "description": "AI instruction files for CTF by ramzxy",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ctf-reverse",
+      "path": ".agents/skills/ctf-reverse",
+      "github_url": "https://github.com/ramzxy/CTF/tree/main/.agents/skills/ctf-reverse",
+      "description": ""
+    },
+    {
+      "name": "ctf-web",
+      "path": ".agents/skills/ctf-web",
+      "github_url": "https://github.com/ramzxy/CTF/tree/main/.agents/skills/ctf-web",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/ramzxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-11T23:30:42Z"
+}
