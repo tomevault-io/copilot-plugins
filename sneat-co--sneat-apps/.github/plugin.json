@@ -1,0 +1,14 @@
+{
+  "name": "sneat-co--sneat-apps",
+  "displayName": "sneat-apps",
+  "description": "AI instruction files for sneat-apps by sneat-co",
+  "version": "1.0.0",
+  "author": "sneat-co",
+  "homepage": "https://tomevault.io/claim/sneat-co",
+  "skills": [
+    {
+      "name": "generate-test-coverage-report",
+      "description": ""
+    }
+  ]
+}
