@@ -4,7 +4,7 @@
   "repo": "codedeck",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/rockkoca",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T06:15:21Z"
+  "distributed_at": "2026-04-11T00:45:40Z"
 }
