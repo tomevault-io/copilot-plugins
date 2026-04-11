@@ -1,6 +1,6 @@
 # CreateLittleContraptions
 
-> Config by [Nick11014](https://github.com/Nick11014/CreateLittleContraptions) — distributed by [TomeVault](https://tomevault.io/claim/Nick11014)
+> Tome by [Nick11014](https://github.com/Nick11014/CreateLittleContraptions) — distributed by [TomeVault](https://tomevault.io/claim/Nick11014)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `GEMINI.md` in [Nick11014/CreateLittleContraptions](https://git
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Nick11014](https://tomevault.io/claim/Nick11014)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Nick11014)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Nick11014) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
