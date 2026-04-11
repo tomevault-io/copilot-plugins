@@ -1,0 +1,9 @@
+{
+  "name": "google-github-actions--run-gemini-cli",
+  "displayName": "run-gemini-cli",
+  "description": "run-gemini-cli",
+  "version": "1.0.0",
+  "author": "google-github-actions",
+  "homepage": "https://tomevault.io/claim/google-github-actions",
+  "skills": []
+}
