@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--k8s-config-connector",
+  "displayName": "k8s-config-connector",
+  "description": "k8s-config-connector",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://tomevault.io/claim/GoogleCloudPlatform",
+  "skills": []
+}
