@@ -1,0 +1,55 @@
+## autoproteinmpnn
+
+> use conda env: mlfold.
+
+use conda env: mlfold.
+This device is using M5 silicon of apple.
+test data: is under test/ folder
+test input: test/origin_pdb/design4.pdb
+test output: test/pdbs
+
+Auto Run MPNN Usage:
+
+Method 1: Direct Python Call (Auto-detect unaligned GGGs)
+```bash
+python auto_run_mpnn.py \
+    --original_pdb design4/original/design4.pdb \
+    --generated_pdbs_folder design4/pdbs_test \
+    --output_dir test_output \
+    --grouped_pdbs_dir test_output_grouped \
+    --sampling_temp 0.1 \
+    --num_seq_per_target 10
+```
+
+Method 2: Direct Python Call (Specify fixed sequences)
+```bash
+python auto_run_mpnn.py --generated_pdbs_folder design4/pdbs_test --output_dir test_output --grouped_pdbs_dir test_output_grouped --fixed_sequences \
+    "MDSLLMNRREFLYQFKNVRWAKGRRETYLCYVVKRRDSATSFSLDFGYLRNKNGCHVELLFLRYISDWDLDPGRCYRVTWFISWSPCYDCARHVADFLRGNPNLSLRIFTARLYFCEDRKAEPEGLRRLHRAGVQIAIMTFKDYFYCWNTFVENHGRTFKAWEGLHENSVRLSRQLRRILLPLYEVDDLRDAFRT" \
+    "MNFLSEQLLAHLNKEQQEAVRTTEGPLLIMAGAGSGKTRVLTHRIAYLMAEKHVAPWNILAITFTNKAAREMRERVQSLLGGAAEDVWISTFASMAVRILRRDIDRIGINRNFSILDPTDQLSVMKTILKEKNIDPKKFEPRTILGTISAAKNELLPPEQFAKRASTYYEKVVSDVYQEYQQRLLRCHSLDFDDLIMTTIQLFDRVPDVLHYYQYKFQYIHIDEYQDTNRAQYTLVKKLAERFQNIAAVGDADQSIYRWRGADIQNILSFERDYPNAKVILLEQNYRSTKRILQAANEVIEHNVNRKPKRIWTENPEGKPILYYEAMNEADEAQFVAGRIREAVERGERRYRDFAVLYRTNAQSRVMEEMLLKANIPYQIVGGVKFYDRKEIKDILAYLRVIANPDDDCSLLRIINVPKRGIGASTIDKLVRYAADHELSLFEALGELEMIGLGAKAAGALAAFRSQLEQWTQLQEYVSVTELVEEVLDKSGYREMLKAERTIEAQSRLENLDEFLSVTKHFENVSDDKSLIAFLTDLALISDLDELDGTEQAAEGDAVMLMTLHAAKGLEFPVVFLIGMEEGIFPHNRSLEDDDEMEEERRLAYVGITRAEEELVLTSAQMRTLFGNIQMDPPSRFLNEIPAHLLETA"
+```
+Provide a space-separated list of amino acid sequences you wish to keep fixed. The script will identify all occurrences of these sequences in the generated PDBs and keep those positions fixed during redesign. All other positions will be designed.
+
+SLURM Wrapper Usage:
+```bash
+sbatch run_autoProteinMPNN.srp [-t SAMPLING_TEMP] [-n NUM_SEQ_PER_TARGET] <generated_pdbs_folder> <output_dir> [original_pdb_path_or_fixed_seq1] [fixed_seq2] ...
+```
+
+Examples:
+1. With Original PDB (Auto-detect):
+   ```bash
+    sbatch run_autoProteinMPNN.srp -t 0.1 -n 10 design4/pdbs_test test_output design4/original/design4.pdb
+   ```
+   (Note: The script detects that the 3rd argument is a file)
+
+2. With Fixed Sequences:
+   ```bash
+   sbatch run_autoProteinMPNN.srp design4/pdbs_test test_output \
+       "MDSLLMNRREFLYQFKNVRWAKGRRETYLCYVVKRRDSATSFSLDFGYLRNKNGCHVELLFLRYISDWDLDPGRCYRVTWFISWSPCYDCARHVADFLRGNPNLSLRIFTARLYFCEDRKAEPEGLRRLHRAGVQIAIMTFKDYFYCWNTFVENHGRTFKAWEGLHENSVRLSRQLRRILLPLYEVDDLRDAFRT" \
+       "MNFLSEQLLAHLNKEQQEAVRTTEGPLLIMAGAGSGKTRVLTHRIAYLMAEKHVAPWNILAITFTNKAAREMRERVQSLLGGAAEDVWISTFASMAVRILRRDIDRIGINRNFSILDPTDQLSVMKTILKEKNIDPKKFEPRTILGTISAAKNELLPPEQFAKRASTYYEKVVSDVYQEYQQRLLRCHSLDFDDLIMTTIQLFDRVPDVLHYYQYKFQYIHIDEYQDTNRAQYTLVKKLAERFQNIAAVGDADQSIYRWRGADIQNILSFERDYPNAKVILLEQNYRSTKRILQAANEVIEHNVNRKPKRIWTENPEGKPILYYEAMNEADEAQFVAGRIREAVERGERRYRDFAVLYRTNAQSRVMEEMLLKANIPYQIVGGVKFYDRKEIKDILAYLRVIANPDDDCSLLRIINVPKRGIGASTIDKLVRYAADHELSLFEALGELEMIGLGAKAAGALAAFRSQLEQWTQLQEYVSVTELVEEVLDKSGYREMLKAERTIEAQSRLENLDEFLSVTKHFENVSDDKSLIAFLTDLALISDLDELDGTEQAAEGDAVMLMTLHAAKGLEFPVVFLIGMEEGIFPHNRSLEDDDEMEEERRLAYVGITRAEEELVLTSAQMRTLFGNIQMDPPSRFLNEIPAHLLETA"
+   ```
+   (Note: Since these are not files, they are treated as fixed sequences)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Phoenix-Chen-Git)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Phoenix-Chen-Git)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
