@@ -4,7 +4,7 @@
   "repo": "nostr-compass-podcast",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/andotherstuff",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T04:31:15Z"
+  "distributed_at": "2026-04-11T09:48:14Z"
 }
