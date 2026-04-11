@@ -4,7 +4,7 @@
   "repo": "laser-init-mirror",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/clorton",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T13:56:07Z"
+  "distributed_at": "2026-04-11T06:05:05Z"
 }
