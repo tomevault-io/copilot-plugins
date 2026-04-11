@@ -16307,6 +16307,506 @@
       "name": "prof-ramos--assinafy-api-docs",
       "source": "./prof-ramos--assinafy-api-docs",
       "description": "assinafy-api-docs"
+    },
+    {
+      "name": "neroserv--dashboard",
+      "source": "./neroserv--dashboard",
+      "description": "dashboard"
+    },
+    {
+      "name": "nickdev8--pre-flight",
+      "source": "./nickdev8--pre-flight",
+      "description": "pre-flight"
+    },
+    {
+      "name": "diegofornalha--gemini-flow",
+      "source": "./diegofornalha--gemini-flow",
+      "description": "gemini-flow"
+    },
+    {
+      "name": "claudioceppi83--markdown-reader",
+      "source": "./claudioceppi83--markdown-reader",
+      "description": "markdown_reader"
+    },
+    {
+      "name": "winfred666--lightfield-linearsys",
+      "source": "./winfred666--lightfield-linearsys",
+      "description": "lightfield_linearsys"
+    },
+    {
+      "name": "silva12code--sistema-gestion-escolar",
+      "source": "./silva12code--sistema-gestion-escolar",
+      "description": "Sistema_Gestion_Escolar"
+    },
+    {
+      "name": "yellowepic--gemfactory",
+      "source": "./yellowepic--gemfactory",
+      "description": "gemfactory"
+    },
+    {
+      "name": "wjy-ador--salesforce-side-project",
+      "source": "./wjy-ador--salesforce-side-project",
+      "description": "salesforce-side-project"
+    },
+    {
+      "name": "vladimirstempel--ng-builders",
+      "source": "./vladimirstempel--ng-builders",
+      "description": "ng-builders"
+    },
+    {
+      "name": "akxlarre--autoescuela",
+      "source": "./akxlarre--autoescuela",
+      "description": "Autoescuela"
+    },
+    {
+      "name": "rachk02--omnia-conseil",
+      "source": "./rachk02--omnia-conseil",
+      "description": "omnia-conseil"
+    },
+    {
+      "name": "doddy70--gofishi",
+      "source": "./doddy70--gofishi",
+      "description": "gofishi"
+    },
+    {
+      "name": "cerry0524--tclock",
+      "source": "./cerry0524--tclock",
+      "description": "TClock"
+    },
+    {
+      "name": "sun2141--agent-hub",
+      "source": "./sun2141--agent-hub",
+      "description": "agent-hub"
+    },
+    {
+      "name": "beeean17--stockchart-renewal",
+      "source": "./beeean17--stockchart-renewal",
+      "description": "Stockchart_Renewal"
+    },
+    {
+      "name": "luna-v0--hole-arena",
+      "source": "./luna-v0--hole-arena",
+      "description": "hole-arena"
+    },
+    {
+      "name": "kevinten10--esp32-ai-projects",
+      "source": "./kevinten10--esp32-ai-projects",
+      "description": "esp32-ai-projects"
+    },
+    {
+      "name": "victor070656--food-ordering",
+      "source": "./victor070656--food-ordering",
+      "description": "food-ordering"
+    },
+    {
+      "name": "muwinuddin--yt-gemini-summarizer",
+      "source": "./muwinuddin--yt-gemini-summarizer",
+      "description": "yt-gemini-summarizer"
+    },
+    {
+      "name": "codeexplorer430--everlume",
+      "source": "./codeexplorer430--everlume",
+      "description": "everlume"
+    },
+    {
+      "name": "ronanhevenor--legendarypotato",
+      "source": "./ronanhevenor--legendarypotato",
+      "description": "legendarypotato"
+    },
+    {
+      "name": "nsomnia--aurora-projectm-visualizer",
+      "source": "./nsomnia--aurora-projectm-visualizer",
+      "description": "aurora-projectm-visualizer"
+    },
+    {
+      "name": "sargupta--sahayakai",
+      "source": "./sargupta--sahayakai",
+      "description": "sahayakai"
+    },
+    {
+      "name": "nshen--nn-stack",
+      "source": "./nshen--nn-stack",
+      "description": "nn-stack"
+    },
+    {
+      "name": "mapperidea--freemapper",
+      "source": "./mapperidea--freemapper",
+      "description": "freemapper"
+    },
+    {
+      "name": "shingoku2--omnix-all-knowing-gaming-companion",
+      "source": "./shingoku2--omnix-all-knowing-gaming-companion",
+      "description": "Omnix-All-knowing-gaming-companion"
+    },
+    {
+      "name": "thorsten-l--signature-pad-demo",
+      "source": "./thorsten-l--signature-pad-demo",
+      "description": "signature-pad-demo"
+    },
+    {
+      "name": "openrelik--openrelik-ui",
+      "source": "./openrelik--openrelik-ui",
+      "description": "openrelik-ui"
+    },
+    {
+      "name": "terraform-redhat--terraform-rhcs-rosa-classic",
+      "source": "./terraform-redhat--terraform-rhcs-rosa-classic",
+      "description": "terraform-rhcs-rosa-classic"
+    },
+    {
+      "name": "shigenagahamaguchi--jobs",
+      "source": "./shigenagahamaguchi--jobs",
+      "description": "jobs"
+    },
+    {
+      "name": "sjasoft--uop-workspace",
+      "source": "./sjasoft--uop-workspace",
+      "description": "uop-workspace"
+    },
+    {
+      "name": "aini-p--prompt-generator-py",
+      "source": "./aini-p--prompt-generator-py",
+      "description": "prompt-generator-py"
+    },
+    {
+      "name": "howdoiusekeyboard--ros2-navigation-project",
+      "source": "./howdoiusekeyboard--ros2-navigation-project",
+      "description": "ros2_navigation_project"
+    },
+    {
+      "name": "papag57--mama-esther-v5",
+      "source": "./papag57--mama-esther-v5",
+      "description": "mama-esther-v5"
+    },
+    {
+      "name": "lihuel-web--points-pwa",
+      "source": "./lihuel-web--points-pwa",
+      "description": "points-pwa"
+    },
+    {
+      "name": "harukisugimoto--harukisugimoto-github-io",
+      "source": "./harukisugimoto--harukisugimoto-github-io",
+      "description": "HarukiSugimoto.github.io"
+    },
+    {
+      "name": "maybeenang--book-library-management",
+      "source": "./maybeenang--book-library-management",
+      "description": "book-library-management"
+    },
+    {
+      "name": "andytechcastro--lazykube",
+      "source": "./andytechcastro--lazykube",
+      "description": "lazykube"
+    },
+    {
+      "name": "santhosh1982--learning",
+      "source": "./santhosh1982--learning",
+      "description": "Learning"
+    },
+    {
+      "name": "ops-pivers--omsagendasync",
+      "source": "./ops-pivers--omsagendasync",
+      "description": "OMSAgendaSync"
+    },
+    {
+      "name": "dima-salang--sjlshs-saturn",
+      "source": "./dima-salang--sjlshs-saturn",
+      "description": "sjlshs-saturn"
+    },
+    {
+      "name": "davidtielke--terrapersonmanagerapp",
+      "source": "./davidtielke--terrapersonmanagerapp",
+      "description": "TerraPersonManagerApp"
+    },
+    {
+      "name": "alerrandr0z0--comandafacil",
+      "source": "./alerrandr0z0--comandafacil",
+      "description": "ComandaFacil"
+    },
+    {
+      "name": "sihan-son--terran",
+      "source": "./sihan-son--terran",
+      "description": "terran"
+    },
+    {
+      "name": "maxxheth--ciwg-token-merchant",
+      "source": "./maxxheth--ciwg-token-merchant",
+      "description": "ciwg-token-merchant"
+    },
+    {
+      "name": "justinhj--interactivesorts",
+      "source": "./justinhj--interactivesorts",
+      "description": "interactivesorts"
+    },
+    {
+      "name": "jeanprovost--nvim",
+      "source": "./jeanprovost--nvim",
+      "description": "nvim"
+    },
+    {
+      "name": "faiz9102--bookany",
+      "source": "./faiz9102--bookany",
+      "description": "BookAny"
+    },
+    {
+      "name": "bensoer--terris-cloud-api",
+      "source": "./bensoer--terris-cloud-api",
+      "description": "terris-cloud-api"
+    },
+    {
+      "name": "sumanin5--sealclaw",
+      "source": "./sumanin5--sealclaw",
+      "description": "SealClaw"
+    },
+    {
+      "name": "ahernek--az900project",
+      "source": "./ahernek--az900project",
+      "description": "AZ900project"
+    },
+    {
+      "name": "tim72117--card",
+      "source": "./tim72117--card",
+      "description": "card"
+    },
+    {
+      "name": "michael-bodo--lt-mission-control",
+      "source": "./michael-bodo--lt-mission-control",
+      "description": "LT-MISSION-CONTROL"
+    },
+    {
+      "name": "dhanifudin--lemini",
+      "source": "./dhanifudin--lemini",
+      "description": "lemini"
+    },
+    {
+      "name": "meiwata--googleextension3-20250814",
+      "source": "./meiwata--googleextension3-20250814",
+      "description": "GoogleExtension3-20250814"
+    },
+    {
+      "name": "anushkrishnav--ecom-poc",
+      "source": "./anushkrishnav--ecom-poc",
+      "description": "ecom-poc"
+    },
+    {
+      "name": "coleridge113--location-tracking-poc",
+      "source": "./coleridge113--location-tracking-poc",
+      "description": "location-tracking-poc"
+    },
+    {
+      "name": "tarcisioads--trade-nb-members",
+      "source": "./tarcisioads--trade-nb-members",
+      "description": "trade_nb_members"
+    },
+    {
+      "name": "ccrp-dev--ccrp",
+      "source": "./ccrp-dev--ccrp",
+      "description": "ccrp"
+    },
+    {
+      "name": "aldebaraanmkii--gallery-downloader-scripts",
+      "source": "./aldebaraanmkii--gallery-downloader-scripts",
+      "description": "Gallery-Downloader-Scripts"
+    },
+    {
+      "name": "hkopenai--hk-climate-mcp-server",
+      "source": "./hkopenai--hk-climate-mcp-server",
+      "description": "hk-climate-mcp-server"
+    },
+    {
+      "name": "jimyoshida--dx-devops-landscape",
+      "source": "./jimyoshida--dx-devops-landscape",
+      "description": "dx-devops-landscape"
+    },
+    {
+      "name": "korniychuk--ankor-shell",
+      "source": "./korniychuk--ankor-shell",
+      "description": "ankor-shell"
+    },
+    {
+      "name": "luchfilip--flint-standalone-android-mcp",
+      "source": "./luchfilip--flint-standalone-android-mcp",
+      "description": "FLINT-Standalone-Android-MCP"
+    },
+    {
+      "name": "jacazul-ai--jacazul-ai-cli",
+      "source": "./jacazul-ai--jacazul-ai-cli",
+      "description": "jacazul-ai-cli"
+    },
+    {
+      "name": "ritian96--surfhelper",
+      "source": "./ritian96--surfhelper",
+      "description": "SurfHelper"
+    },
+    {
+      "name": "apiad--harp",
+      "source": "./apiad--harp",
+      "description": "harp"
+    },
+    {
+      "name": "apiad--cs-tutor",
+      "source": "./apiad--cs-tutor",
+      "description": "cs-tutor"
+    },
+    {
+      "name": "chikiak--loadbalancer",
+      "source": "./chikiak--loadbalancer",
+      "description": "LoadBalancer"
+    },
+    {
+      "name": "apiad--gc",
+      "source": "./apiad--gc",
+      "description": "gc"
+    },
+    {
+      "name": "jtdowney--tapestry",
+      "source": "./jtdowney--tapestry",
+      "description": "tapestry"
+    },
+    {
+      "name": "knittala--sample-pirate-website",
+      "source": "./knittala--sample-pirate-website",
+      "description": "sample-pirate-website"
+    },
+    {
+      "name": "robpurdue--test-dumb-pirate-website",
+      "source": "./robpurdue--test-dumb-pirate-website",
+      "description": "TEST-dumb-pirate-website"
+    },
+    {
+      "name": "firebase--firebaseui-web",
+      "source": "./firebase--firebaseui-web",
+      "description": "firebaseui-web"
+    },
+    {
+      "name": "nshkrdotcom--guardrail",
+      "source": "./nshkrdotcom--guardrail",
+      "description": "GUARDRAIL"
+    },
+    {
+      "name": "tai-dt--mcp-tailwind-gemini",
+      "source": "./tai-dt--mcp-tailwind-gemini",
+      "description": "mcp-tailwind-gemini"
+    },
+    {
+      "name": "fogydes--wifikeycontrol",
+      "source": "./fogydes--wifikeycontrol",
+      "description": "wifikeycontrol"
+    },
+    {
+      "name": "henrikwarf--ca-output-01-customers",
+      "source": "./henrikwarf--ca-output-01-customers",
+      "description": "ca-output-01-customers"
+    },
+    {
+      "name": "shandutta--homematch-v2",
+      "source": "./shandutta--homematch-v2",
+      "description": "homematch-v2"
+    },
+    {
+      "name": "borlag--translator",
+      "source": "./borlag--translator",
+      "description": "translator"
+    },
+    {
+      "name": "kozak809--xtrustvpn",
+      "source": "./kozak809--xtrustvpn",
+      "description": "XTrustVPN"
+    },
+    {
+      "name": "slategraydev--leylinevirtualaudiodevicerust",
+      "source": "./slategraydev--leylinevirtualaudiodevicerust",
+      "description": "LeylineVirtualAudioDeviceRust"
+    },
+    {
+      "name": "nick11014--createlittlecontraptions",
+      "source": "./nick11014--createlittlecontraptions",
+      "description": "CreateLittleContraptions"
+    },
+    {
+      "name": "ankush454575-sketch--feriwala",
+      "source": "./ankush454575-sketch--feriwala",
+      "description": "feriwala"
+    },
+    {
+      "name": "kevin120509--festeasylogin",
+      "source": "./kevin120509--festeasylogin",
+      "description": "festeasylogin"
+    },
+    {
+      "name": "joeshi--ai-coding-tool-benchmark",
+      "source": "./joeshi--ai-coding-tool-benchmark",
+      "description": "ai-coding-tool-benchmark"
+    },
+    {
+      "name": "jordy33--autoresearch",
+      "source": "./jordy33--autoresearch",
+      "description": "autoresearch"
+    },
+    {
+      "name": "junin27--sistema-administrativo-financeiro",
+      "source": "./junin27--sistema-administrativo-financeiro",
+      "description": "Sistema-Administrativo-Financeiro"
+    },
+    {
+      "name": "memoriahuu--pw-pw",
+      "source": "./memoriahuu--pw-pw",
+      "description": "pw-pw"
+    },
+    {
+      "name": "mathewjoseph2005--botify",
+      "source": "./mathewjoseph2005--botify",
+      "description": "botify"
+    },
+    {
+      "name": "envision-construction--gemini-memory",
+      "source": "./envision-construction--gemini-memory",
+      "description": "gemini-memory"
+    },
+    {
+      "name": "brunoaffonso--tutoriais",
+      "source": "./brunoaffonso--tutoriais",
+      "description": "tutoriais"
+    },
+    {
+      "name": "anthony-maio--stop-llm-bullshit",
+      "source": "./anthony-maio--stop-llm-bullshit",
+      "description": "stop-llm-bullshit"
+    },
+    {
+      "name": "svitorz--teste-lumiun",
+      "source": "./svitorz--teste-lumiun",
+      "description": "teste-lumiun"
+    },
+    {
+      "name": "david2928--lengolf-booking-new",
+      "source": "./david2928--lengolf-booking-new",
+      "description": "lengolf-booking-new"
+    },
+    {
+      "name": "accomputing--samsoft-gemini-jailbreak-12-23-25",
+      "source": "./accomputing--samsoft-gemini-jailbreak-12-23-25",
+      "description": "samsoft-gemini-jailbreak-12-23.25"
+    },
+    {
+      "name": "zjcz--petjournal",
+      "source": "./zjcz--petjournal",
+      "description": "petjournal"
+    },
+    {
+      "name": "kaifujiwara55--ai-girlfriend-game",
+      "source": "./kaifujiwara55--ai-girlfriend-game",
+      "description": "ai-girlfriend-game"
+    },
+    {
+      "name": "notdoncitron--citywhisper",
+      "source": "./notdoncitron--citywhisper",
+      "description": "citywhisper"
+    },
+    {
+      "name": "sprint-ct--sprint-hub",
+      "source": "./sprint-ct--sprint-hub",
+      "description": "sprint-hub"
     }
   ]
 }
