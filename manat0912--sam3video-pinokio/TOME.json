@@ -4,7 +4,7 @@
   "repo": "Sam3video-pinokio",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/manat0912",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T05:35:52Z"
+  "distributed_at": "2026-04-11T09:45:48Z"
 }
