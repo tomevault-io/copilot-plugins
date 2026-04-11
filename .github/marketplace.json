@@ -18902,6 +18902,11 @@
       "name": "gmickel--outlookctl",
       "source": "./gmickel--outlookctl",
       "description": "outlookctl"
+    },
+    {
+      "name": "philoserf--claude-code-setup",
+      "source": "./philoserf--claude-code-setup",
+      "description": "claude-code-setup"
     }
   ]
 }
