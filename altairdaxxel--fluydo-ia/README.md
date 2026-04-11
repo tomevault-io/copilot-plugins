@@ -1,6 +1,6 @@
-# Fluydo-IA
+# Fluydo-IA — distributed by TomeVault
 
-> Config by [AltairDaxxel](https://github.com/AltairDaxxel/Fluydo-IA) — distributed by [TomeVault](https://tomevault.io/claim/AltairDaxxel)
+> Originally from [AltairDaxxel/Fluydo-IA](https://github.com/AltairDaxxel/Fluydo-IA). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `GEMINI.md` in [AltairDaxxel/Fluydo-IA](https://github.com/Alta
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/AltairDaxxel](https://tomevault.io/claim/AltairDaxxel)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/AltairDaxxel)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AltairDaxxel) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/AltairDaxxel) to manage distribution and track installs.
+
+<!-- genome:d-c-s -->
