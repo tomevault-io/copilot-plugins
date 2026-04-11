@@ -1,0 +1,463 @@
+## protoc-gen-go-meta
+
+> This document provides comprehensive information for AI agents and LLMs working with this codebase.
+
+# AI Agent Guide for protoc-gen-go-meta
+
+This document provides comprehensive information for AI agents and LLMs working with this codebase.
+
+## IMPORTANT: Documentation Maintenance
+
+**LLMs and AI agents MUST update this document when making significant changes to the plugin.**
+
+Significant changes include:
+- New features or capabilities
+- Changes to code generation logic
+- New output formats or patterns
+- Bug fixes that change behavior
+- New test patterns or testing approaches
+- Changes to the generated output format
+
+When updating this document:
+1. Update the relevant sections with new information
+2. Add new sections if needed
+3. Update the "File Locations Quick Reference" table
+4. Update the "Common Issues and Solutions" section if applicable
+5. Keep examples and code snippets current
+
+**This document is the single source of truth for understanding how the plugin works.**
+
+## Project Overview
+
+**protoc-gen-go-meta** is a Protocol Buffers compiler plugin that generates Go constants containing RPC method descriptions extracted from proto service definitions.
+
+- **Repository**: `github.com/alis-exchange/protoc-gen-go-meta`
+- **Language**: Go
+- **Purpose**: Generate description constants for gRPC service methods
+- **Output**: Go constants with method descriptions from proto comments
+- **Key Dependency**: `google.golang.org/protobuf/compiler/protogen`
+
+### What This Plugin Does
+
+For each RPC method in a proto service, the plugin generates:
+
+1. **Description constant** - Contains the method's leading comments
+
+```go
+// Generated code example
+const (
+    // UserService_CreateUser_FullMethodDescription returns the description of the users.v1.UserService.CreateUser method.
+    UserService_CreateUser_FullMethodDescription = "CreateUser creates a new user account.\n Returns the created user with assigned ID."
+)
+```
+
+---
+
+## Project Structure
+
+```
+protoc-gen-go-meta/
+├── cmd/
+│   └── protoc-gen-go-meta/
+│       └── main.go              # Plugin entry point, handles CLI flags
+├── plugin/
+│   ├── plugin.go                # Generate() function - main entry point
+│   ├── functions.go             # Core generation logic
+│   ├── suite_test.go            # Base test suite with shared fixtures
+│   ├── integration_test.go      # End-to-end integration tests
+│   ├── plugin_test.go           # Generator and plugin tests
+│   ├── functions_test.go        # Unit tests for helper functions
+│   └── testutil_test.go         # Test utility functions
+├── testdata/
+│   ├── protos/                  # Sample proto files for testing
+│   │   ├── users/v1/user.proto  # Main test proto with UserService
+│   ├── descriptors/             # Generated FileDescriptorSet files
+│   │   └── user.pb
+│   └── golden/                  # Expected output for golden file tests
+│       └── user_grpc.meta.pb.go.golden
+├── debug/                       # Debug test directory (gitignored)
+│   └── debug_test.go            # Manual development testing
+├── go.mod
+├── go.sum
+├── LICENSE
+├── README.md
+└── AGENTS.md                    # This file
+```
+
+---
+
+## Core Concepts
+
+### Generation Flow
+
+```
+protoc invokes plugin
+         │
+         ▼
+   plugin.Generate()
+         │
+         ▼
+ Generator.generateMetaFile()
+         │
+         ├─── For each service in file:
+         │         │
+         │         ▼
+         │    For each method in service:
+         │         │
+         │         ▼
+         │    RPCMetaGenerator.generateRPCDescription()
+         │         │
+         │         ├─── getDescription()  ──► Extracts leading comments
+         │         │
+         │         ▼
+         │    Emit constant declaration
+         │
+         ▼
+   Generated *_grpc.meta.pb.go file
+```
+
+### Key Types
+
+#### `Generator` (plugin/functions.go)
+
+Stateless coordinator for file-level generation:
+- `Version` - Plugin version for header comments
+- `generateMetaFile()` - Creates output file, iterates services and methods
+- `escapeGoString()` - Escapes strings for Go source code
+
+#### `RPCMetaGenerator` (plugin/functions.go)
+
+Per-method metadata generator:
+- `gr` - Reference to parent Generator
+- `g` - Output file writer (`*protogen.GeneratedFile`)
+- `method` - The RPC method being processed
+
+Key methods:
+- `generateRPCDescription()` - Generates the description constant
+- `getDescription()` - Extracts description from leading comments
+- `getNameAndDescription()` - Returns snake_case name and description
+
+---
+
+## Code Style and Conventions
+
+### Block Scopes
+
+The codebase uses Go block scopes `{}` to group related functionality within functions.
+This improves readability by clearly delineating different phases of processing:
+
+```go
+func (gr *Generator) generateMetaFile(...) {
+    // --- Create Output File ---
+    filename := ...
+    g := gen.NewGeneratedFile(...)
+
+    // --- Write File Header ---
+    {
+        g.P("// Code generated by ...")
+        g.P("// Source: ...")
+    }
+
+    // --- Write Package Declaration ---
+    {
+        g.P()
+        g.P("package ...")
+    }
+
+    // --- Generate Constants Block ---
+    {
+        g.P("const (")
+        // ... iterate services and methods
+        g.P(")")
+    }
+}
+```
+
+### Documentation Comments
+
+All exported types, functions, and methods have comprehensive documentation:
+- Package-level documentation explains the overall purpose
+- Type documentation describes the role and fields
+- Method documentation includes parameters, return values, and examples
+
+---
+
+## Code Generation Details
+
+### Output File Format
+
+Each generated file follows this structure:
+
+```go
+// Code generated by https://github.com/alis-exchange/protoc-gen-go-meta. DO NOT EDIT.
+//
+// Source: {proto_file_path}
+// Plugin version: {version}
+//
+// Generated on: {timestamp} UTC
+
+package {go_package_name}
+
+const (
+    // {ServiceName}_{MethodName}_FullMethodDescription returns the description of the {full_method_name} method.
+    {ServiceName}_{MethodName}_FullMethodDescription = "{escaped_description}"
+    // ... more constants
+)
+```
+
+### Constant Naming Convention
+
+Constants follow the pattern:
+```
+{ServiceGoName}_{MethodGoName}_FullMethodDescription
+```
+
+Where:
+- `ServiceGoName` - The Go name of the service (e.g., `UserService`)
+- `MethodGoName` - The Go name of the method (e.g., `CreateUser`)
+
+### Description Extraction
+
+The `getDescription()` method extracts descriptions from proto comments:
+
+1. Gets source location for the method descriptor
+2. Extracts leading comments
+3. Handles multi-paragraph comments by joining with space
+4. Trims whitespace
+
+```go
+// Example proto comment:
+// CreateUser creates a new user account.
+// Returns the created user with assigned ID.
+
+// Becomes:
+"CreateUser creates a new user account.\n Returns the created user with assigned ID."
+```
+
+### String Escaping
+
+The `escapeGoString()` function handles special characters:
+- Uses `strconv.Quote()` for proper Go string escaping
+- Strips surrounding quotes (caller adds their own)
+- Handles newlines, quotes, backslashes, and unicode
+
+---
+
+## Testing Patterns
+
+### Test Suite Hierarchy
+
+```
+PluginTestSuite (base)
+    │
+    ├── PluginGeneratorTestSuite (plugin_test.go)
+    │   └── Tests for Generator and Generate function
+    │
+    ├── FunctionsTestSuite (functions_test.go)
+    │   └── Unit tests for helper functions
+    │
+    └── IntegrationTestSuite (integration_test.go)
+        └── End-to-end tests with protoc
+```
+
+### Base Test Suite (`PluginTestSuite`)
+
+Located in `plugin/suite_test.go`. Provides:
+
+- **Setup**: Finds workspace root, regenerates descriptor sets from proto files
+- **Fixtures**: `fds` (FileDescriptorSet), `plugin` (protogen.Plugin), `file` (target file)
+- **Helpers**: `FindService()`, `FindMethod()`, `FindMessage()`, `RunGenerate()`, `GetGeneratedContent()`
+
+```go
+// Example test using the suite
+func (s *FunctionsTestSuite) TestSomething() {
+    svc := s.FindService("UserService")
+    method := s.FindMethod(svc, "CreateUser")
+    // ... test logic
+}
+```
+
+### Golden File Testing
+
+Integration tests compare generated output against golden files:
+
+```go
+func (s *IntegrationTestSuite) TestGoldenFile() {
+    contents := s.RunGenerate()
+    for name, content := range contents {
+        goldenPath := filepath.Join(goldenDir(), baseName+".golden")
+        assertGoldenFile(s.T(), content, goldenPath, *updateGolden)
+    }
+}
+```
+
+Update golden files with:
+```shell
+go test ./plugin/... -update
+```
+
+### Test Utilities (`testutil_test.go`)
+
+Common helpers:
+- `loadDescriptorSet()` - Load FileDescriptorSet from .pb file
+- `createTestPlugin()` - Create protogen.Plugin for testing
+- `generateDescriptorSet()` - Run protoc to generate descriptor set
+- `assertGoldenFile()` - Compare against golden file (with timestamp normalization)
+- `mustFindFile()`, `mustFindService()`, `mustFindMethod()` - Find proto elements
+
+### Running Tests
+
+```shell
+# Run all tests
+go test ./...
+
+# Run with verbose output
+go test -v ./...
+
+# Run specific suite
+go test -v ./plugin/... -run TestFunctionsSuite
+
+# Update golden files
+go test ./plugin/... -update
+
+# Skip long-running tests
+go test -short ./...
+```
+
+---
+
+## Development Commands
+
+### Building
+
+```shell
+# Build for current platform
+go build ./...
+
+# Build the plugin binary
+go build -o protoc-gen-go-meta ./cmd/protoc-gen-go-meta
+```
+
+### Testing
+
+```shell
+# Run all tests
+go test ./...
+
+# Run with race detector
+go test -race ./...
+
+# Update golden files
+go test ./plugin/... -update
+
+# Run specific test
+go test -v ./plugin/... -run TestEscapeGoString
+```
+
+### Using the Plugin Locally
+
+```shell
+# Build and install to GOPATH/bin
+go install ./cmd/protoc-gen-go-meta
+
+# Or run protoc with explicit plugin path
+protoc --plugin=protoc-gen-go-meta=./protoc-gen-go-meta \
+       --go-meta_out=. \
+       --go-meta_opt=paths=source_relative \
+       your.proto
+```
+
+### Debug Testing
+
+The `debug/` directory contains a test for manual development:
+
+```shell
+# Run debug test to generate files in debug/generated/
+go test -v ./debug/... -run TestGenerateAll
+```
+
+This generates files in `debug/generated/output/go/` which is gitignored.
+
+---
+
+## Code Patterns and Conventions
+
+### Generated Code Pattern
+
+Each service generates constants for all its methods:
+
+```go
+const (
+    // {Service}_{Method}_FullMethodDescription returns the description of the {full_name} method.
+    {Service}_{Method}_FullMethodDescription = "{description}"
+)
+```
+
+### Adding New Metadata Types
+
+To add new metadata extraction (e.g., method options):
+
+1. Add a new method to `RpcMetaGenerator` (e.g., `generateMethodOptions()`)
+2. Call it from `generateMetaFile()` in the method loop
+3. Add appropriate constant naming
+4. Add tests in `functions_test.go`
+
+### Modifying Output Format
+
+1. Update `generateMetaFile()` in `plugin/functions.go`
+2. Update golden files with `go test ./plugin/... -update`
+3. Update this document's examples
+
+---
+
+## Common Issues and Solutions
+
+### Empty Description
+
+**Problem**: Method has no leading comments, resulting in empty description.
+
+**Current Behavior**: Empty string is generated for the constant value.
+
+**Solution**: The code handles this gracefully - empty descriptions are valid.
+
+### Multi-line Comments
+
+**Problem**: Proto comments span multiple lines/paragraphs.
+
+**Solution**: The `getDescription()` method joins paragraphs with a space, preserving newlines within paragraphs.
+
+### Special Characters in Comments
+
+**Problem**: Comments contain quotes, backslashes, or other special characters.
+
+**Solution**: `escapeGoString()` uses `strconv.Quote()` to properly escape all special characters for Go string literals.
+
+### Proto Without Services
+
+**Problem**: Proto file has no services defined.
+
+**Current Behavior**: File is still generated but with empty const block.
+
+**Solution**: This is expected behavior - the file serves as a placeholder and won't cause compilation errors.
+
+---
+
+## File Locations Quick Reference
+
+| What | Where |
+|------|-------|
+| Plugin entry point | `cmd/protoc-gen-go-meta/main.go` |
+| Generation logic | `plugin/functions.go` |
+| Main Generate function | `plugin/plugin.go` |
+| Description extraction | `plugin/functions.go` -> `getDescription()` |
+| String escaping | `plugin/functions.go` -> `escapeGoString()` |
+| Test fixtures | `testdata/protos/users/v1/user.proto` |
+| Golden files | `testdata/golden/*.golden` |
+| Base test suite | `plugin/suite_test.go` |
+| Test utilities | `plugin/testutil_test.go` |
+| Debug test | `debug/debug_test.go` |
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/alis-exchange)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/alis-exchange)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
