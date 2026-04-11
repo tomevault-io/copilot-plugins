@@ -1,0 +1,44 @@
+{
+  "name": "forge1201-MODED-AIPlayer",
+  "owner": "sigure-0424",
+  "repo": "forge1201-MODED-AIPlayer",
+  "description": "",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "claim_url": "https://tomevault.io/claim/sigure-0424",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-11T08:00:58Z"
+}
