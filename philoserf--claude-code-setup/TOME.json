@@ -1,0 +1,57 @@
+{
+  "name": "claude-code-setup",
+  "owner": "philoserf",
+  "repo": "claude-code-setup",
+  "description": "AI instruction files for claude-code-setup by philoserf",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "session-review",
+      "path": "skills/session-review",
+      "github_url": "https://github.com/philoserf/claude-code-setup/tree/main/skills/session-review",
+      "description": ""
+    },
+    {
+      "name": "vc-ship",
+      "path": "skills/vc-ship",
+      "github_url": "https://github.com/philoserf/claude-code-setup/tree/main/skills/vc-ship",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/philoserf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-11T19:30:04Z"
+}
