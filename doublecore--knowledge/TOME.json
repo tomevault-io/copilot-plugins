@@ -4,7 +4,7 @@
   "repo": "knowledge",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/DoubleCore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T00:44:15Z"
+  "distributed_at": "2026-04-11T09:50:52Z"
 }
