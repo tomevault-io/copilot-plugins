@@ -1,0 +1,23 @@
+# vtt2csv
+
+> Config by [overlobe](https://github.com/overlobe/vtt2csv) — distributed by [TomeVault](https://tomevault.io/claim/overlobe)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [overlobe/vtt2csv](https://github.com/overlobe/vtt2csv).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Browse all formats: [https://tomevault.io/claim/overlobe](https://tomevault.io/claim/overlobe)
+
+---
+
+Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
+Is this your repo? [Claim it](https://tomevault.io/claim/overlobe) to manage distribution.
