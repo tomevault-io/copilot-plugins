@@ -1,0 +1,14 @@
+{
+  "name": "hyperlane-xyz--v4-docs",
+  "displayName": "v4-docs",
+  "description": "AI instruction files for v4-docs by hyperlane-xyz",
+  "version": "1.0.0",
+  "author": "hyperlane-xyz",
+  "homepage": "https://tomevault.io/claim/hyperlane-xyz",
+  "skills": [
+    {
+      "name": "claude-review",
+      "description": ""
+    }
+  ]
+}
