@@ -1,0 +1,14 @@
+{
+  "name": "ssdeanx--gemini-cli-web",
+  "displayName": "Gemini-CLI-Web",
+  "description": "AI instruction files for Gemini-CLI-Web by ssdeanx",
+  "version": "1.0.0",
+  "author": "ssdeanx",
+  "homepage": "https://tomevault.io/claim/ssdeanx",
+  "skills": [
+    {
+      "name": "gemini",
+      "description": ""
+    }
+  ]
+}
