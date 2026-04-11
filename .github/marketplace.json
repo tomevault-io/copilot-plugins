@@ -18897,6 +18897,11 @@
       "name": "coreshock--chrome-netflix-parallel-translation-extension",
       "source": "./coreshock--chrome-netflix-parallel-translation-extension",
       "description": "Chrome-Netflix-parallel-translation-extension"
+    },
+    {
+      "name": "gmickel--outlookctl",
+      "source": "./gmickel--outlookctl",
+      "description": "outlookctl"
     }
   ]
 }
