@@ -1,0 +1,63 @@
+{
+  "name": "video-agent-skill",
+  "owner": "donghaozhang",
+  "repo": "video-agent-skill",
+  "description": "AI instruction files for video-agent-skill by donghaozhang",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-content-pipeline",
+      "path": ".claude/skills/ai-content-pipeline",
+      "github_url": "https://github.com/donghaozhang/video-agent-skill/tree/main/.claude/skills/ai-content-pipeline",
+      "description": ""
+    },
+    {
+      "name": "pr-comments",
+      "path": ".claude/skills/pr-comments",
+      "github_url": "https://github.com/donghaozhang/video-agent-skill/tree/main/.claude/skills/pr-comments",
+      "description": ""
+    },
+    {
+      "name": "project-docs",
+      "path": ".claude/skills/project-docs",
+      "github_url": "https://github.com/donghaozhang/video-agent-skill/tree/main/.claude/skills/project-docs",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/donghaozhang",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-11T00:30:07Z"
+}
