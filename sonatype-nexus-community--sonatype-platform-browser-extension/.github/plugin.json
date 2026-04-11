@@ -1,0 +1,9 @@
+{
+  "name": "sonatype-nexus-community--sonatype-platform-browser-extension",
+  "displayName": "sonatype-platform-browser-extension",
+  "description": "sonatype-platform-browser-extension",
+  "version": "1.0.0",
+  "author": "sonatype-nexus-community",
+  "homepage": "https://tomevault.io/claim/sonatype-nexus-community",
+  "skills": []
+}
