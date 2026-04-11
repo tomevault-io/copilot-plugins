@@ -1,6 +1,8 @@
 # gemini-langgraph
 
-> Config by [ssdeanx](https://github.com/ssdeanx/gemini-langgraph) — distributed by [TomeVault](https://tomevault.io/claim/ssdeanx)
+> Tome by [ssdeanx](https://github.com/ssdeanx/gemini-langgraph) — distributed by [TomeVault](https://tomevault.io/claim/ssdeanx)
+
+AI instruction files for gemini-langgraph by ssdeanx
 
 ## GitHub Copilot Config
 
