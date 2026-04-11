@@ -2,8 +2,8 @@
   "name": "gemini-langgraph",
   "owner": "ssdeanx",
   "repo": "gemini-langgraph",
-  "description": "",
-  "type": "config",
+  "description": "AI instruction files for gemini-langgraph by ssdeanx",
+  "type": "tome",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/ssdeanx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T10:52:09Z"
+  "distributed_at": "2026-04-11T12:30:15Z"
 }
