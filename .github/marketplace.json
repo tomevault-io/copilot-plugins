@@ -13307,6 +13307,506 @@
       "name": "alpaylan--pi-etna",
       "source": "./alpaylan--pi-etna",
       "description": "pi-etna"
+    },
+    {
+      "name": "donghaozhang--video-agent-skill",
+      "source": "./donghaozhang--video-agent-skill",
+      "description": "video-agent-skill"
+    },
+    {
+      "name": "sneat-co--sneat-apps",
+      "source": "./sneat-co--sneat-apps",
+      "description": "sneat-apps"
+    },
+    {
+      "name": "ragan--dotfiles",
+      "source": "./ragan--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "megatherium--reincheck",
+      "source": "./megatherium--reincheck",
+      "description": "reincheck"
+    },
+    {
+      "name": "benzsevern--dqbench",
+      "source": "./benzsevern--dqbench",
+      "description": "dqbench"
+    },
+    {
+      "name": "godsarmy--mlkit-markdown-translator-android",
+      "source": "./godsarmy--mlkit-markdown-translator-android",
+      "description": "mlkit-markdown-translator-android"
+    },
+    {
+      "name": "hasna--contacts",
+      "source": "./hasna--contacts",
+      "description": "contacts"
+    },
+    {
+      "name": "brdloush--livewire",
+      "source": "./brdloush--livewire",
+      "description": "livewire"
+    },
+    {
+      "name": "overlobe--vtt2csv",
+      "source": "./overlobe--vtt2csv",
+      "description": "vtt2csv"
+    },
+    {
+      "name": "aureliusivan--cursor-next-template",
+      "source": "./aureliusivan--cursor-next-template",
+      "description": "cursor-next-template"
+    },
+    {
+      "name": "matsmiersen--travlr-data",
+      "source": "./matsmiersen--travlr-data",
+      "description": "travlr.data"
+    },
+    {
+      "name": "parseen254--template-11-2025",
+      "source": "./parseen254--template-11-2025",
+      "description": "template-11-2025"
+    },
+    {
+      "name": "n1h41--cardputer-prayer-times-display",
+      "source": "./n1h41--cardputer-prayer-times-display",
+      "description": "cardputer-prayer-times-display"
+    },
+    {
+      "name": "jonnyparris--listo",
+      "source": "./jonnyparris--listo",
+      "description": "listo"
+    },
+    {
+      "name": "dotnaos--study-desktop-hydrogen",
+      "source": "./dotnaos--study-desktop-hydrogen",
+      "description": "study-desktop-hydrogen"
+    },
+    {
+      "name": "ykdbontekoe--miru",
+      "source": "./ykdbontekoe--miru",
+      "description": "miru"
+    },
+    {
+      "name": "brennon--timetracker-codex",
+      "source": "./brennon--timetracker-codex",
+      "description": "timetracker-codex"
+    },
+    {
+      "name": "luap2003--schachfuchs",
+      "source": "./luap2003--schachfuchs",
+      "description": "Schachfuchs"
+    },
+    {
+      "name": "painless-software--voice-assistant-demo",
+      "source": "./painless-software--voice-assistant-demo",
+      "description": "voice-assistant-demo"
+    },
+    {
+      "name": "qkerlagunoy-lgtm--pg4-inventory",
+      "source": "./qkerlagunoy-lgtm--pg4-inventory",
+      "description": "pg4-inventory"
+    },
+    {
+      "name": "mcp-ops--homebrew-mcpops",
+      "source": "./mcp-ops--homebrew-mcpops",
+      "description": "homebrew-mcpops"
+    },
+    {
+      "name": "getdagnis--useless-creative",
+      "source": "./getdagnis--useless-creative",
+      "description": "useless-creative"
+    },
+    {
+      "name": "nirmalvg--nova-ai-3d-robot",
+      "source": "./nirmalvg--nova-ai-3d-robot",
+      "description": "nova-ai-3d-robot"
+    },
+    {
+      "name": "viell-dev--project-template-rs",
+      "source": "./viell-dev--project-template-rs",
+      "description": "project-template.rs"
+    },
+    {
+      "name": "lazygophers--utils",
+      "source": "./lazygophers--utils",
+      "description": "utils"
+    },
+    {
+      "name": "blackroad-archive--roadstorage",
+      "source": "./blackroad-archive--roadstorage",
+      "description": "roadstorage"
+    },
+    {
+      "name": "shoejunk--grid-pathing",
+      "source": "./shoejunk--grid-pathing",
+      "description": "grid_pathing"
+    },
+    {
+      "name": "brunseba--template-architecture-agents",
+      "source": "./brunseba--template-architecture-agents",
+      "description": "template-architecture-agents"
+    },
+    {
+      "name": "tim7en--biasdashboard",
+      "source": "./tim7en--biasdashboard",
+      "description": "biasDashboard"
+    },
+    {
+      "name": "caustin--gorogue",
+      "source": "./caustin--gorogue",
+      "description": "gorogue"
+    },
+    {
+      "name": "hasparus--dungeon-motion",
+      "source": "./hasparus--dungeon-motion",
+      "description": "dungeon-motion"
+    },
+    {
+      "name": "dsabalete--udemy-indecision-app",
+      "source": "./dsabalete--udemy-indecision-app",
+      "description": "udemy-indecision-app"
+    },
+    {
+      "name": "taikibansyo--my-lib-reference",
+      "source": "./taikibansyo--my-lib-reference",
+      "description": "my-lib-reference"
+    },
+    {
+      "name": "mauriciomelo--homelab",
+      "source": "./mauriciomelo--homelab",
+      "description": "homelab"
+    },
+    {
+      "name": "izyuumi--navinudge",
+      "source": "./izyuumi--navinudge",
+      "description": "NaviNudge"
+    },
+    {
+      "name": "bullish-design--bullish-ssg",
+      "source": "./bullish-design--bullish-ssg",
+      "description": "bullish-ssg"
+    },
+    {
+      "name": "team8-toyproject4--tai-react-frontend",
+      "source": "./team8-toyproject4--tai-react-frontend",
+      "description": "tai_react_frontend"
+    },
+    {
+      "name": "nicolasfoltzer77-tech--codex",
+      "source": "./nicolasfoltzer77-tech--codex",
+      "description": "Codex"
+    },
+    {
+      "name": "jackmatanky--lithos",
+      "source": "./jackmatanky--lithos",
+      "description": "lithos"
+    },
+    {
+      "name": "ivanshamaev--ai-agent-codex",
+      "source": "./ivanshamaev--ai-agent-codex",
+      "description": "ai-agent-codex"
+    },
+    {
+      "name": "torturado--deep-research-orchestration",
+      "source": "./torturado--deep-research-orchestration",
+      "description": "deep-research-orchestration"
+    },
+    {
+      "name": "allen-mk--git-ai-commit",
+      "source": "./allen-mk--git-ai-commit",
+      "description": "git-ai-commit"
+    },
+    {
+      "name": "reececoakes99--openclaw-brain",
+      "source": "./reececoakes99--openclaw-brain",
+      "description": "openclaw-brain"
+    },
+    {
+      "name": "samrocksc--top",
+      "source": "./samrocksc--top",
+      "description": "top"
+    },
+    {
+      "name": "naga-29--motion-forge-gateway",
+      "source": "./naga-29--motion-forge-gateway",
+      "description": "Motion-Forge-Gateway"
+    },
+    {
+      "name": "crashloopbackcoffee--th-strava-sensor",
+      "source": "./crashloopbackcoffee--th-strava-sensor",
+      "description": "th-strava-sensor"
+    },
+    {
+      "name": "dragosv--testcontainers-zig",
+      "source": "./dragosv--testcontainers-zig",
+      "description": "testcontainers-zig"
+    },
+    {
+      "name": "tjm15--demo",
+      "source": "./tjm15--demo",
+      "description": "demo"
+    },
+    {
+      "name": "mcvelasquez45--ai-markettracker",
+      "source": "./mcvelasquez45--ai-markettracker",
+      "description": "AI-MarketTracker"
+    },
+    {
+      "name": "mauriciobc--milkdrop-extension",
+      "source": "./mauriciobc--milkdrop-extension",
+      "description": "milkdrop-extension"
+    },
+    {
+      "name": "git-hulk--langfuse-go",
+      "source": "./git-hulk--langfuse-go",
+      "description": "langfuse-go"
+    },
+    {
+      "name": "se04-aizu-2025--se04project-team",
+      "source": "./se04-aizu-2025--se04project-team",
+      "description": "se04project-team"
+    },
+    {
+      "name": "robotflow-labs--project-uav-trackvla",
+      "source": "./robotflow-labs--project-uav-trackvla",
+      "description": "project_uav_trackvla"
+    },
+    {
+      "name": "koeppj--kubernetes-sandbox",
+      "source": "./koeppj--kubernetes-sandbox",
+      "description": "kubernetes-sandbox"
+    },
+    {
+      "name": "eliasstepanik--voxel-simulation",
+      "source": "./eliasstepanik--voxel-simulation",
+      "description": "voxel-simulation"
+    },
+    {
+      "name": "kaiye--ailens",
+      "source": "./kaiye--ailens",
+      "description": "ailens"
+    },
+    {
+      "name": "alis-exchange--protoc-gen-go-meta",
+      "source": "./alis-exchange--protoc-gen-go-meta",
+      "description": "protoc-gen-go-meta"
+    },
+    {
+      "name": "nickzhan1001--ai-tools",
+      "source": "./nickzhan1001--ai-tools",
+      "description": "AI-tools"
+    },
+    {
+      "name": "atilafassina--poke-start",
+      "source": "./atilafassina--poke-start",
+      "description": "poke-start"
+    },
+    {
+      "name": "looizinho--alpha1",
+      "source": "./looizinho--alpha1",
+      "description": "alpha1"
+    },
+    {
+      "name": "pentagram-software--ev3ps4controlled",
+      "source": "./pentagram-software--ev3ps4controlled",
+      "description": "ev3PS4Controlled"
+    },
+    {
+      "name": "peterchuatw--student-energy-at-ncku-official-website",
+      "source": "./peterchuatw--student-energy-at-ncku-official-website",
+      "description": "Student-Energy-at-NCKU-Official-Website"
+    },
+    {
+      "name": "cascadinglabs--qscrape",
+      "source": "./cascadinglabs--qscrape",
+      "description": "QScrape"
+    },
+    {
+      "name": "dschwen--openoverdrive",
+      "source": "./dschwen--openoverdrive",
+      "description": "OpenOverdrive"
+    },
+    {
+      "name": "risingtiger--xenserver",
+      "source": "./risingtiger--xenserver",
+      "description": "xenserver"
+    },
+    {
+      "name": "gonzalo-giraldo--crypto-saas",
+      "source": "./gonzalo-giraldo--crypto-saas",
+      "description": "crypto-saas"
+    },
+    {
+      "name": "doublecore--knowledge",
+      "source": "./doublecore--knowledge",
+      "description": "knowledge"
+    },
+    {
+      "name": "calamity10110--gitclawvul",
+      "source": "./calamity10110--gitclawvul",
+      "description": "gitclawVul"
+    },
+    {
+      "name": "mvacoimbra--vimput",
+      "source": "./mvacoimbra--vimput",
+      "description": "vimput"
+    },
+    {
+      "name": "rdmueller--beads-sandbox",
+      "source": "./rdmueller--beads-sandbox",
+      "description": "beads-sandbox"
+    },
+    {
+      "name": "maarco--ambient-fs",
+      "source": "./maarco--ambient-fs",
+      "description": "ambient-fs"
+    },
+    {
+      "name": "abhirup-dev--algopeeps",
+      "source": "./abhirup-dev--algopeeps",
+      "description": "algopeeps"
+    },
+    {
+      "name": "rockkoca--codedeck",
+      "source": "./rockkoca--codedeck",
+      "description": "codedeck"
+    },
+    {
+      "name": "bullish-design--ssg-prep",
+      "source": "./bullish-design--ssg-prep",
+      "description": "ssg-prep"
+    },
+    {
+      "name": "bullish-design--ssg-gen",
+      "source": "./bullish-design--ssg-gen",
+      "description": "ssg-gen"
+    },
+    {
+      "name": "bullish-design--obsidian-ops",
+      "source": "./bullish-design--obsidian-ops",
+      "description": "obsidian-ops"
+    },
+    {
+      "name": "risingtiger--niftyserver",
+      "source": "./risingtiger--niftyserver",
+      "description": "niftyserver"
+    },
+    {
+      "name": "openfeign--feign",
+      "source": "./openfeign--feign",
+      "description": "feign"
+    },
+    {
+      "name": "yao-creative--yao-leetcode",
+      "source": "./yao-creative--yao-leetcode",
+      "description": "yao-leetcode"
+    },
+    {
+      "name": "gsimani--concordbroker",
+      "source": "./gsimani--concordbroker",
+      "description": "ConcordBroker"
+    },
+    {
+      "name": "seungwoo7050--book-task-3",
+      "source": "./seungwoo7050--book-task-3",
+      "description": "book-task-3"
+    },
+    {
+      "name": "otterscan--otterscan",
+      "source": "./otterscan--otterscan",
+      "description": "otterscan"
+    },
+    {
+      "name": "linux-audit--audit-userspace",
+      "source": "./linux-audit--audit-userspace",
+      "description": "audit-userspace"
+    },
+    {
+      "name": "188080501--jqhttpserver",
+      "source": "./188080501--jqhttpserver",
+      "description": "JQHttpServer"
+    },
+    {
+      "name": "markov-kernel--databricks-mcp",
+      "source": "./markov-kernel--databricks-mcp",
+      "description": "databricks-mcp"
+    },
+    {
+      "name": "mscraftsman--generative-ai",
+      "source": "./mscraftsman--generative-ai",
+      "description": "generative-ai"
+    },
+    {
+      "name": "michaelklishin--bunny-swift",
+      "source": "./michaelklishin--bunny-swift",
+      "description": "bunny-swift"
+    },
+    {
+      "name": "newstler--why-ruby",
+      "source": "./newstler--why-ruby",
+      "description": "why_ruby"
+    },
+    {
+      "name": "kader-ai-hub--kader",
+      "source": "./kader-ai-hub--kader",
+      "description": "kader"
+    },
+    {
+      "name": "jandedobbeleer--copilot-ralph",
+      "source": "./jandedobbeleer--copilot-ralph",
+      "description": "copilot-ralph"
+    },
+    {
+      "name": "tuures--litemarkup",
+      "source": "./tuures--litemarkup",
+      "description": "LiteMarkup"
+    },
+    {
+      "name": "devthiagoramon--hallel-mobile",
+      "source": "./devthiagoramon--hallel-mobile",
+      "description": "hallel-mobile"
+    },
+    {
+      "name": "edwinzhancn--lumilio-photos",
+      "source": "./edwinzhancn--lumilio-photos",
+      "description": "Lumilio-Photos"
+    },
+    {
+      "name": "felixanhalt--spotify-playlist-extractor",
+      "source": "./felixanhalt--spotify-playlist-extractor",
+      "description": "spotify-playlist-extractor"
+    },
+    {
+      "name": "g1ddy--raindrop-mcp-dotnet",
+      "source": "./g1ddy--raindrop-mcp-dotnet",
+      "description": "raindrop-mcp-dotnet"
+    },
+    {
+      "name": "sturdy-barnacle--emberdocs",
+      "source": "./sturdy-barnacle--emberdocs",
+      "description": "emberdocs"
+    },
+    {
+      "name": "soma-arc--kaleido-workbook",
+      "source": "./soma-arc--kaleido-workbook",
+      "description": "kaleido-workbook"
+    },
+    {
+      "name": "chrisszeluga--planeage",
+      "source": "./chrisszeluga--planeage",
+      "description": "planeage"
+    },
+    {
+      "name": "toobuntu--homebrew-cask-tools",
+      "source": "./toobuntu--homebrew-cask-tools",
+      "description": "homebrew-cask-tools"
+    },
+    {
+      "name": "saagpatel--battlegrid",
+      "source": "./saagpatel--battlegrid",
+      "description": "BattleGrid"
     }
   ]
 }
