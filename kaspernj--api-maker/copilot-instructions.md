@@ -1,0 +1,80 @@
+## api-maker
+
+> - Use React Native elements only; do not replace them with DOM elements in specs or dummy app code.
+
+# AGENTS
+
+Notes:
+- Use React Native elements only; do not replace them with DOM elements in specs or dummy app code.
+- Prefer React Native components for all new code, including spec/dummy pages.
+- Do not edit `build/` outputs manually; regenerate with the appropriate build command instead.
+- Do not force-add ignored `build/` outputs to git; keep PRs focused on source changes and let release/build workflows regenerate package artifacts.
+- When a debugging or implementation session reveals a reusable lesson, document it before finishing in this repo's README/docs, relevant skills, and the applicable `AGENTS.md` files.
+- Only run builds when releasing a new package; development runs against source files.
+- When using `gh pr create/edit`, pass multi-line bodies with real newlines (not literal `\n`) so GitHub renders them correctly.
+- Avoid unrelated changes (for example, adding placeholder modules in specs) unless they are necessary for the requested change.
+- Before committing, review the current diff and propose commit message(s) grouped by logical change sets.
+- Prefer `describe` over `RSpec.describe` in specs.
+- Do not add `# frozen_string_literal: true` to files.
+- Before adding RuboCop disable directives, check the existing repo RuboCop config first and prefer code that passes under that config without new disables; avoid review-only style churn.
+- Prefer multiple small, individually working commits when possible.
+- Always run Rubocop on changed Ruby files.
+- If a RuboCop config exists for the current Ruby project, run RuboCop on changed Ruby files before pushing or opening a PR.
+- Always run ESLint on changed or new JavaScript files.
+- Add concise comments for non-obvious groups of code so the intent and invariants are clear without reverse-engineering the flow.
+- ESLint `sort-imports` orders import lines by member syntax group (none/all/multiple/single) and then the first local specifier name, not by module specifier; adjust import order accordingly.
+- When creating PRs, choose a sensible branch name and commit messages without prompting.
+- When you fix something in this repo, keep the change on a feature branch and make sure there is a matching PR for that branch before you consider the work complete.
+- For system specs, use `ruby-gem/scripts/run-system-spec.sh [spec/path.rb:line]` (wraps the README system spec command).
+- For Firefox system specs in this repo, prefer the headless Firefox path (`SELENIUM_DRIVER=firefox ruby-gem/scripts/run-system-spec.sh ...`) and do not wrap that path in `xvfb-run`; Chrome still uses the xvfb-backed path.
+- Do not add `Capybara.reset_sessions!` in `before(:each)` hooks here. Capybara RSpec already resets sessions after each example, and duplicate pre-example resets add major Firefox overhead.
+- When installing gems, run `bundle install` in both `ruby-gem/` and `ruby-gem/spec/dummy/` before running specs.
+- If `ruby-gem/scripts/run-system-spec.sh` fails, run the README system spec command manually from `ruby-gem/`.
+- In `ApiMaker::ModelContentGeneratorService`, handle Ransack allowlist runtime errors (`"Ransack needs ..."`) for associations/attributes/scopes by returning `[]` so frontend model generation does not crash on third-party models.
+- Do not “fix” flaky specs by only increasing waits/timeouts. First determine whether behavior regressed (for example, element never rendered) and collect/inspect CI artifacts before adjusting timing.
+- Avoid unnecessary defensive conditions for guaranteed contracts. Prefer failing fast over silently accepting impossible states.
+- In ApiMaker table workplace helpers and commands, `current_user` may legitimately be `nil` for websocket/content-parser requests; return `nil`/empty results for current-workplace lookups instead of dereferencing the user.
+- Before adding fallback logic for hook/context timing, inspect the provider source first; do not assume first-render hydration gaps without source confirmation.
+- Do not add helper methods for simple values or expressions that are only used in one place; inline them at the usage site instead.
+- Keep `testID` values unique within a rendered screen/component so selectors stay unambiguous.
+- In Selenium/spec helpers, do not assume a `testID` selector points at the editable control itself; React Native Web may put the `testID` on a wrapper, so descend to the real `input`/`textarea`/checkbox element before typing or clearing.
+- In JavaScript class method definitions, use `methodName(args)` (no space before parentheses).
+- Keep single-tag JSDoc blocks on one line (for example `/** @returns {boolean} */`).
+- In ShapeHook classes, keep `setup()` as the first instance method.
+- Keep component props ordered alphabetically.
+- To typecheck a single file, run `npm run typecheck:file --file=src/path/to/file.js` from `npm-api-maker/` (you can also pass `npm-api-maker/src/...` or set `FILE=src/path/to/file.js`).
+- Do not "fix" render/update bugs by replacing `useMemo()` with `useEffect()` as a blanket change; preserve hook semantics and debug the underlying state flow first.
+- In `npm-api-maker`, keep the checked-in `.npmrc` with `legacy-peer-deps=true` while the package targets ESLint 10 and `eslint-plugin-react` has not yet published an ESLint 10 peer range; remove that workaround only after the upstream peer support lands.
+- In `npm-api-maker`, keep peer-facing runtime imports that are needed by linked local/CI builds, lint, or tests (for example `react-native-vector-icons`, `flash-notifications`, `history`, and `i18n-on-steroids`) installed in `devDependencies` as well when tooling resolves modules from the package directory itself.
+- In `on-location-changed`, `WithLocationPath` initializes `queryParams` synchronously from `globalThis.location.search` via `useState(params())`; `useQueryParams()` being `undefined` indicates a missing/explicitly-undefined provider, not a normal first-render hydration phase.
+
+## API Maker Usage in Consuming Projects
+- For Peakflow/API Maker-style frontend-model backends, keep resource metadata and authorization abilities co-located in one resource class tree; do not split them into parallel `resources` and `authorization/resources` directories.
+- Prefer ApiMaker commands in `app/api_maker/commands` for new app actions instead of adding custom Rails controllers when ApiMaker can support the flow.
+- In Rails apps using ApiMaker, prefer ApiMaker model/model-class websocket events over custom ActionCable channels when possible; add a custom channel only when ApiMaker events cannot represent the required stream.
+- In ApiMaker realtime UIs, use model-level update subscriptions when the UI needs updated model attributes; model-class events carry event names/args, not serialized updated models.
+- For realtime UI backed by ApiMaker events, do one initial fetch and then rely on websocket/model events; do not add browser polling unless there is a documented hard requirement that events cannot satisfy.
+- Use the Layout `header` prop for screen titles; avoid custom per-screen headers unless explicitly requested.
+- Use `Text` from `@kaspernj/api-maker/build/utils/text` for default styles.
+- Prefer `useBreakpoint()` (responsive-breakpoints via Api Maker dependencies) over `useWindowDimensions()` for responsive logic.
+- When using API Maker `Link` on web (renders as an `<a>`), center content with an inner `View` instead of relying on flex alignment on the anchor itself.
+- Prefer `Form` from `@kaspernj/api-maker/build/form` with uncontrolled inputs to avoid state-driven re-renders.
+- When multiple screens repeat the same label + input form markup, extract a shared form input component (for example a screen-specific base text input) instead of duplicating blocks.
+- Use Api Maker `Form` and `formObjectRef` to track uncontrolled input values instead of manual instance fields.
+- In ShapeComponents using Api Maker `Form`, pass both `formObjectRef` and `setForm`, then read values via `this.formObjectRef.current || this.form` to avoid mount-timing races.
+- Use Api Maker `Icon` for icons instead of raw `<i>` tags or FontAwesome class names on `Text`.
+- In app code, prefer importing frontend models from individual files (for example `models/project.js`) instead of aggregating through `models`.
+- In app code, avoid `import {...} from "models"`; import each frontend model from its dedicated model file path.
+- Prefer link-based navigation (`Link` with `to`) for navigation-only actions so users can open routes in new tabs/windows; use `AppHistory.push`/`Params.changeParams` only when imperative navigation is required by side effects or control flow.
+- For Api Maker `Link` on web (anchor rendering), use mouse events (`onMouseEnter`/`onMouseLeave`) for hover behavior instead of `onHoverIn`/`onHoverOut`.
+- For Link rows that render text, keep visual text styles (for example `color` and underline decoration) on the inner `Text` element rather than the `Link` wrapper.
+- Use `useQueryParams` when building filterable routes in React UI.
+- Layout `controls` props must be callbacks; do not pass React nodes directly.
+- In ShapeComponent routes, pass `controls={this.tt.controls}` and set `controls` on `this.setInstance(...)`.
+- Prefer passing `navbarControls` as a callback and let `Layout` resolve it, rather than pre-rendering.
+- When layout controls depend on a model, pass `cacheKey` (like `model?.id()`) to force re-renders.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/kaspernj)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/kaspernj)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
