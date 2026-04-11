@@ -1,0 +1,14 @@
+{
+  "name": "gmickel--outlookctl",
+  "displayName": "outlookctl",
+  "description": "AI instruction files for outlookctl by gmickel",
+  "version": "1.0.0",
+  "author": "gmickel",
+  "homepage": "https://tomevault.io/claim/gmickel",
+  "skills": [
+    {
+      "name": "outlook-automation",
+      "description": ""
+    }
+  ]
+}
