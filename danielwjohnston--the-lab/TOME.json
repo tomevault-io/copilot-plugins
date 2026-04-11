@@ -4,7 +4,7 @@
   "repo": "the-lab",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/danielwjohnston",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T03:51:27Z"
+  "distributed_at": "2026-04-11T12:49:54Z"
 }
