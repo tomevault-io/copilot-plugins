@@ -1,0 +1,18 @@
+{
+  "name": "ramzxy--ctf",
+  "displayName": "CTF",
+  "description": "AI instruction files for CTF by ramzxy",
+  "version": "1.0.0",
+  "author": "ramzxy",
+  "homepage": "https://tomevault.io/claim/ramzxy",
+  "skills": [
+    {
+      "name": "ctf-reverse",
+      "description": ""
+    },
+    {
+      "name": "ctf-web",
+      "description": ""
+    }
+  ]
+}
