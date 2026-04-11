@@ -1,0 +1,357 @@
+{
+  "name": "moai-adk",
+  "owner": "modu-ai",
+  "repo": "moai-adk",
+  "description": "AI instruction files for moai-adk by modu-ai",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "moai",
+      "path": ".claude/skills/moai",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai",
+      "description": ""
+    },
+    {
+      "name": "moai-design-tools",
+      "path": ".claude/skills/moai-design-tools",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-design-tools",
+      "description": ""
+    },
+    {
+      "name": "moai-docs-generation",
+      "path": "internal/template/templates/.claude/skills/moai-docs-generation",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-docs-generation",
+      "description": ""
+    },
+    {
+      "name": "moai-domain-backend",
+      "path": "internal/template/templates/.claude/skills/moai-domain-backend",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-domain-backend",
+      "description": ""
+    },
+    {
+      "name": "moai-domain-database",
+      "path": "internal/template/templates/.claude/skills/moai-domain-database",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-domain-database",
+      "description": ""
+    },
+    {
+      "name": "moai-domain-frontend",
+      "path": "internal/template/templates/.claude/skills/moai-domain-frontend",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-domain-frontend",
+      "description": ""
+    },
+    {
+      "name": "moai-domain-uiux",
+      "path": ".claude/skills/moai-domain-uiux",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-domain-uiux",
+      "description": ""
+    },
+    {
+      "name": "moai-formats-data",
+      "path": "internal/template/templates/.claude/skills/moai-formats-data",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-formats-data",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-claude",
+      "path": ".claude/skills/moai-foundation-claude",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-foundation-claude",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-context",
+      "path": "internal/template/templates/.claude/skills/moai-foundation-context",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-foundation-context",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-core",
+      "path": ".claude/skills/moai-foundation-core",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-foundation-core",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-philosopher",
+      "path": "internal/template/templates/.claude/skills/moai-foundation-philosopher",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-foundation-philosopher",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-quality",
+      "path": ".claude/skills/moai-foundation-quality",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-foundation-quality",
+      "description": ""
+    },
+    {
+      "name": "moai-foundation-thinking",
+      "path": ".claude/skills/moai-foundation-thinking",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-foundation-thinking",
+      "description": ""
+    },
+    {
+      "name": "moai-framework-electron",
+      "path": "internal/template/templates/.claude/skills/moai-framework-electron",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-framework-electron",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-cpp",
+      "path": "internal/template/templates/.claude/skills/moai-lang-cpp",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-cpp",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-csharp",
+      "path": "internal/template/templates/.claude/skills/moai-lang-csharp",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-csharp",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-elixir",
+      "path": "internal/template/templates/.claude/skills/moai-lang-elixir",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-elixir",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-flutter",
+      "path": ".claude/skills/moai-lang-flutter",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-lang-flutter",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-go",
+      "path": ".claude/skills/moai-lang-go",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-lang-go",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-java",
+      "path": "internal/template/templates/.claude/skills/moai-lang-java",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-java",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-javascript",
+      "path": "internal/template/templates/.claude/skills/moai-lang-javascript",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-javascript",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-kotlin",
+      "path": "internal/template/templates/.claude/skills/moai-lang-kotlin",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-kotlin",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-php",
+      "path": "internal/template/templates/.claude/skills/moai-lang-php",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-php",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-python",
+      "path": "internal/template/templates/.claude/skills/moai-lang-python",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-python",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-r",
+      "path": "internal/template/templates/.claude/skills/moai-lang-r",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-r",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-ruby",
+      "path": "internal/template/templates/.claude/skills/moai-lang-ruby",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-ruby",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-rust",
+      "path": ".claude/skills/moai-lang-rust",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-lang-rust",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-scala",
+      "path": "internal/template/templates/.claude/skills/moai-lang-scala",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-scala",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-swift",
+      "path": "internal/template/templates/.claude/skills/moai-lang-swift",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-swift",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-typescript",
+      "path": "internal/template/templates/.claude/skills/moai-lang-typescript",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-lang-typescript",
+      "description": ""
+    },
+    {
+      "name": "moai-library-mermaid",
+      "path": "internal/template/templates/.claude/skills/moai-library-mermaid",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-library-mermaid",
+      "description": ""
+    },
+    {
+      "name": "moai-library-nextra",
+      "path": ".claude/skills/moai-library-nextra",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-library-nextra",
+      "description": ""
+    },
+    {
+      "name": "moai-library-shadcn",
+      "path": "internal/template/templates/.claude/skills/moai-library-shadcn",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-library-shadcn",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-auth",
+      "path": ".claude/skills/moai-platform-auth",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-platform-auth",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-chrome-extension",
+      "path": "internal/template/templates/.claude/skills/moai-platform-chrome-extension",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-platform-chrome-extension",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-database-cloud",
+      "path": ".claude/skills/moai-platform-database-cloud",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-platform-database-cloud",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-deployment",
+      "path": ".claude/skills/moai-platform-deployment",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-platform-deployment",
+      "description": ""
+    },
+    {
+      "name": "moai-tool-ast-grep",
+      "path": ".claude/skills/moai-tool-ast-grep",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-tool-ast-grep",
+      "description": ""
+    },
+    {
+      "name": "moai-tool-svg",
+      "path": "internal/template/templates/.claude/skills/moai-tool-svg",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-tool-svg",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-ddd",
+      "path": ".claude/skills/moai-workflow-ddd",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-workflow-ddd",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-jit-docs",
+      "path": "internal/template/templates/.claude/skills/moai-workflow-jit-docs",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-workflow-jit-docs",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-loop",
+      "path": ".claude/skills/moai-workflow-loop",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-workflow-loop",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-project",
+      "path": ".claude/skills/moai-workflow-project",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-workflow-project",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-spec",
+      "path": "internal/template/templates/.claude/skills/moai-workflow-spec",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-workflow-spec",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-tdd",
+      "path": ".claude/skills/moai-workflow-tdd",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-workflow-tdd",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-templates",
+      "path": ".claude/skills/moai-workflow-templates",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-workflow-templates",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-testing",
+      "path": ".claude/skills/moai-workflow-testing",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-workflow-testing",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-thinking",
+      "path": "internal/template/templates/.claude/skills/moai-workflow-thinking",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/internal/template/templates/.claude/skills/moai-workflow-thinking",
+      "description": ""
+    },
+    {
+      "name": "moai-workflow-worktree",
+      "path": ".claude/skills/moai-workflow-worktree",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai-workflow-worktree",
+      "description": ""
+    },
+    {
+      "name": "moai",
+      "path": ".claude/skills/moai",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai",
+      "description": ""
+    },
+    {
+      "name": "moai",
+      "path": ".claude/skills/moai",
+      "github_url": "https://github.com/modu-ai/moai-adk/tree/main/.claude/skills/moai",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/modu-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-11T16:30:05Z"
+}
