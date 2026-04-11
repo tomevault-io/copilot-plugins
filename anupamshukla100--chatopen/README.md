@@ -1,0 +1,28 @@
+# AI instruction files for Chatopen
+
+> Sourced from [AnupamShukla100/Chatopen](https://github.com/AnupamShukla100/Chatopen) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [AnupamShukla100/Chatopen](https://github.com/AnupamShukla100/Chatopen).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/AnupamShukla100)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install AnupamShukla100/Chatopen
+```
+Or browse all formats at [https://tomevault.io/claim/AnupamShukla100](https://tomevault.io/claim/AnupamShukla100).
+
+<!-- genome:a-i-s -->
