@@ -18917,6 +18917,401 @@
       "name": "ramzxy--ctf",
       "source": "./ramzxy--ctf",
       "description": "CTF"
+    },
+    {
+      "name": "databricks--cli",
+      "source": "./databricks--cli",
+      "description": "cli"
+    },
+    {
+      "name": "codeguide-dev--codeguide-vite-supabase",
+      "source": "./codeguide-dev--codeguide-vite-supabase",
+      "description": "codeguide-vite-supabase"
+    },
+    {
+      "name": "mazeway-dev--mazeway",
+      "source": "./mazeway-dev--mazeway",
+      "description": "Mazeway"
+    },
+    {
+      "name": "browseros-ai--old-browseros-agent",
+      "source": "./browseros-ai--old-browseros-agent",
+      "description": "old-browseros-agent"
+    },
+    {
+      "name": "michaeldeanrobinson--opine-coding",
+      "source": "./michaeldeanrobinson--opine-coding",
+      "description": "opine-coding"
+    },
+    {
+      "name": "carlospavajeau--cetus",
+      "source": "./carlospavajeau--cetus",
+      "description": "cetus"
+    },
+    {
+      "name": "arcade-cabinet--otter-river-rush",
+      "source": "./arcade-cabinet--otter-river-rush",
+      "description": "otter-river-rush"
+    },
+    {
+      "name": "stytchauth--stytch-browser",
+      "source": "./stytchauth--stytch-browser",
+      "description": "stytch-browser"
+    },
+    {
+      "name": "gewoonseba--animations-dev",
+      "source": "./gewoonseba--animations-dev",
+      "description": "animations-dev"
+    },
+    {
+      "name": "aditya-singh-ai--celcius-voice-assistant",
+      "source": "./aditya-singh-ai--celcius-voice-assistant",
+      "description": "Celcius-Voice-Assistant"
+    },
+    {
+      "name": "qianhou0627--communityweb",
+      "source": "./qianhou0627--communityweb",
+      "description": "Communityweb"
+    },
+    {
+      "name": "cemarta7--agentform",
+      "source": "./cemarta7--agentform",
+      "description": "agentform"
+    },
+    {
+      "name": "mslowiak--job-hop",
+      "source": "./mslowiak--job-hop",
+      "description": "job-hop"
+    },
+    {
+      "name": "chenliangchong--strengthwise",
+      "source": "./chenliangchong--strengthwise",
+      "description": "strengthwise"
+    },
+    {
+      "name": "ismaeljouhariperez--astro-spa",
+      "source": "./ismaeljouhariperez--astro-spa",
+      "description": "astro-spa"
+    },
+    {
+      "name": "chronovyan--nexuscore",
+      "source": "./chronovyan--nexuscore",
+      "description": "NexusCore"
+    },
+    {
+      "name": "dustindoan315--trading-simulation-app",
+      "source": "./dustindoan315--trading-simulation-app",
+      "description": "trading-simulation-app"
+    },
+    {
+      "name": "devanonitos--vietnam-coffee-brands-analysis",
+      "source": "./devanonitos--vietnam-coffee-brands-analysis",
+      "description": "vietnam-coffee-brands-analysis"
+    },
+    {
+      "name": "rzrcat--mobi-mvp-clean",
+      "source": "./rzrcat--mobi-mvp-clean",
+      "description": "MOBI_MVP_CLEAN"
+    },
+    {
+      "name": "puvaanraaj--skillkit",
+      "source": "./puvaanraaj--skillkit",
+      "description": "skillkit"
+    },
+    {
+      "name": "maida-ai--research",
+      "source": "./maida-ai--research",
+      "description": "Research"
+    },
+    {
+      "name": "safe-research--zk-passport",
+      "source": "./safe-research--zk-passport",
+      "description": "zk-passport"
+    },
+    {
+      "name": "inernoro--kc",
+      "source": "./inernoro--kc",
+      "description": "kc"
+    },
+    {
+      "name": "vitalyoborin--evo",
+      "source": "./vitalyoborin--evo",
+      "description": "evo"
+    },
+    {
+      "name": "vitalyoborin--evo",
+      "source": "./vitalyoborin--evo",
+      "description": "evo"
+    },
+    {
+      "name": "easofiati--betmapeas",
+      "source": "./easofiati--betmapeas",
+      "description": "betmapeas"
+    },
+    {
+      "name": "dotneet--bun-mcp-server",
+      "source": "./dotneet--bun-mcp-server",
+      "description": "bun-mcp-server"
+    },
+    {
+      "name": "dpaluy--rails-ai-rules",
+      "source": "./dpaluy--rails-ai-rules",
+      "description": "rails-ai-rules"
+    },
+    {
+      "name": "iginoc--igiwatch",
+      "source": "./iginoc--igiwatch",
+      "description": "igiwatch"
+    },
+    {
+      "name": "luiz-batata-guilherme--gestao-financeira",
+      "source": "./luiz-batata-guilherme--gestao-financeira",
+      "description": "gestao-financeira"
+    },
+    {
+      "name": "yousuf-fahim--leadcleanup",
+      "source": "./yousuf-fahim--leadcleanup",
+      "description": "leadCleanup"
+    },
+    {
+      "name": "bylogos-io--web",
+      "source": "./bylogos-io--web",
+      "description": "web"
+    },
+    {
+      "name": "raseniero--jit-mktg-landing-page",
+      "source": "./raseniero--jit-mktg-landing-page",
+      "description": "jit-mktg-landing-page"
+    },
+    {
+      "name": "syh52--playwright-docs-collection",
+      "source": "./syh52--playwright-docs-collection",
+      "description": "playwright-docs-collection"
+    },
+    {
+      "name": "ff6347--rundgang2025",
+      "source": "./ff6347--rundgang2025",
+      "description": "rundgang2025"
+    },
+    {
+      "name": "mohsin-shaikh--modern-monorepo",
+      "source": "./mohsin-shaikh--modern-monorepo",
+      "description": "modern-monorepo"
+    },
+    {
+      "name": "rvalen1123--msc-woundcare-portal",
+      "source": "./rvalen1123--msc-woundcare-portal",
+      "description": "msc-woundcare-portal"
+    },
+    {
+      "name": "politan--cashy-flow",
+      "source": "./politan--cashy-flow",
+      "description": "cashy-flow"
+    },
+    {
+      "name": "jasonstcyrx--ai-template",
+      "source": "./jasonstcyrx--ai-template",
+      "description": "ai-template"
+    },
+    {
+      "name": "jaypaulb--learninghungarian",
+      "source": "./jaypaulb--learninghungarian",
+      "description": "learninghungarian"
+    },
+    {
+      "name": "d0whc3r--cursor-template",
+      "source": "./d0whc3r--cursor-template",
+      "description": "cursor-template"
+    },
+    {
+      "name": "ubie-oss--mcp-proxy",
+      "source": "./ubie-oss--mcp-proxy",
+      "description": "mcp-proxy"
+    },
+    {
+      "name": "biniyamgetachew1001--hara",
+      "source": "./biniyamgetachew1001--hara",
+      "description": "HARA"
+    },
+    {
+      "name": "kelvin262292--ya1",
+      "source": "./kelvin262292--ya1",
+      "description": "ya1"
+    },
+    {
+      "name": "burrun--bigdata",
+      "source": "./burrun--bigdata",
+      "description": "BigData"
+    },
+    {
+      "name": "kizuna42--philo",
+      "source": "./kizuna42--philo",
+      "description": "philo"
+    },
+    {
+      "name": "jclackett--modular-synth",
+      "source": "./jclackett--modular-synth",
+      "description": "modular-synth"
+    },
+    {
+      "name": "geomis-anonimo--doutor-agenda",
+      "source": "./geomis-anonimo--doutor-agenda",
+      "description": "doutor-agenda"
+    },
+    {
+      "name": "faezmurshidi--goalspace",
+      "source": "./faezmurshidi--goalspace",
+      "description": "goalspace"
+    },
+    {
+      "name": "mohameddev19--cursor-rules",
+      "source": "./mohameddev19--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "crvgilbertson--intentra",
+      "source": "./crvgilbertson--intentra",
+      "description": "intentra"
+    },
+    {
+      "name": "aletheia--cursor-battleship",
+      "source": "./aletheia--cursor-battleship",
+      "description": "cursor-battleship"
+    },
+    {
+      "name": "mwlt--liuyao-desktop-tauri2",
+      "source": "./mwlt--liuyao-desktop-tauri2",
+      "description": "liuyao_desktop_tauri2"
+    },
+    {
+      "name": "shiftregister-vg--card-craft",
+      "source": "./shiftregister-vg--card-craft",
+      "description": "card-craft"
+    },
+    {
+      "name": "michealmueller--base-mcp-server",
+      "source": "./michealmueller--base-mcp-server",
+      "description": "Base-MCP-Server"
+    },
+    {
+      "name": "nareynolds--cloud-seed",
+      "source": "./nareynolds--cloud-seed",
+      "description": "cloud-seed"
+    },
+    {
+      "name": "inzynierka-ai--verse-monorepo",
+      "source": "./inzynierka-ai--verse-monorepo",
+      "description": "verse-monorepo"
+    },
+    {
+      "name": "viktoriakutseva--jewelry-description",
+      "source": "./viktoriakutseva--jewelry-description",
+      "description": "jewelry-description"
+    },
+    {
+      "name": "enuno--tailscale-acl",
+      "source": "./enuno--tailscale-acl",
+      "description": "tailscale-acl"
+    },
+    {
+      "name": "vitalyoborin--evo",
+      "source": "./vitalyoborin--evo",
+      "description": "evo"
+    },
+    {
+      "name": "suyeshbadge--fixin5mins",
+      "source": "./suyeshbadge--fixin5mins",
+      "description": "fixin5mins"
+    },
+    {
+      "name": "ff6347--rundgang2025",
+      "source": "./ff6347--rundgang2025",
+      "description": "rundgang2025"
+    },
+    {
+      "name": "zorlin--relay-experiment",
+      "source": "./zorlin--relay-experiment",
+      "description": "relay-experiment"
+    },
+    {
+      "name": "only4sim--zkweather",
+      "source": "./only4sim--zkweather",
+      "description": "zkweather"
+    },
+    {
+      "name": "oci-ai-architects--cline-oci-ai-architect-skills",
+      "source": "./oci-ai-architects--cline-oci-ai-architect-skills",
+      "description": "cline-oci-ai-architect-skills"
+    },
+    {
+      "name": "shoveller--react-router-template",
+      "source": "./shoveller--react-router-template",
+      "description": "react-router-template"
+    },
+    {
+      "name": "astrogirlnim--lapack-ai",
+      "source": "./astrogirlnim--lapack-ai",
+      "description": "lapack_ai"
+    },
+    {
+      "name": "gnart2k--workplace",
+      "source": "./gnart2k--workplace",
+      "description": "workplace"
+    },
+    {
+      "name": "justinedevs--smc-workshop",
+      "source": "./justinedevs--smc-workshop",
+      "description": "smc-workshop"
+    },
+    {
+      "name": "getzerocard--zerocard-infra",
+      "source": "./getzerocard--zerocard-infra",
+      "description": "zerocard-infra"
+    },
+    {
+      "name": "masterpiece-alliances--macc-website",
+      "source": "./masterpiece-alliances--macc-website",
+      "description": "macc-website"
+    },
+    {
+      "name": "wooson00308--sasha-unity",
+      "source": "./wooson00308--sasha-unity",
+      "description": "sasha-unity"
+    },
+    {
+      "name": "bodote--calendar-app-cursor",
+      "source": "./bodote--calendar-app-cursor",
+      "description": "calendar-app-cursor"
+    },
+    {
+      "name": "yashpanwar1408--athletex",
+      "source": "./yashpanwar1408--athletex",
+      "description": "AthleteX"
+    },
+    {
+      "name": "rexdotsh--valeo",
+      "source": "./rexdotsh--valeo",
+      "description": "valeo"
+    },
+    {
+      "name": "lovelace-ai--leah-mcp-test-yottagraph",
+      "source": "./lovelace-ai--leah-mcp-test-yottagraph",
+      "description": "leah-mcp-test-yottagraph"
+    },
+    {
+      "name": "adshaa--salla-mcp-server",
+      "source": "./adshaa--salla-mcp-server",
+      "description": "salla-mcp-server"
+    },
+    {
+      "name": "databricks--databricks-sdk-go",
+      "source": "./databricks--databricks-sdk-go",
+      "description": "databricks-sdk-go"
+    },
+    {
+      "name": "bhctest123--codeguide-dev-react-vite-supabase",
+      "source": "./bhctest123--codeguide-dev-react-vite-supabase",
+      "description": "codeguide-dev-react-vite-supabase"
     }
   ]
 }
