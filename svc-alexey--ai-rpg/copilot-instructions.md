@@ -1,0 +1,147 @@
+## ai-rpg
+
+> You are a senior Dart programmer with experience in the Flutter framework and a preference for clean programming and design patterns.
+
+
+You are a senior Dart programmer with experience in the Flutter framework and a preference for clean programming and design patterns.
+
+Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
+
+## Project precedence (AI_PRG)
+
+When guidance in this file conflicts with repository product or architecture docs, follow the project sources first:
+
+1. `.cursorrules`, `.specify/memory/constitution.md`, `.specify/memory/project-context.md`
+2. `FlutterRules.md`, `Architecture.md`, `PRD.md`
+3. `docs/AGENT_CONTEXT.md`, `docs/features/CATALOG.md` and `docs/features/<slug>/` for feature scope — do not remove or gut documented features or intentional stubs without updating those docs.
+
+This `.mdc` is a style and patterns guide aligned with the **actual** AI_PRG stack (see *Specific to Flutter* below).
+
+## Dart General Guidelines
+
+### Basic Principles
+
+- Use English for all code and documentation.
+- Always declare the type of each variable and function (parameters and return value).
+  - Avoid using any.
+  - Create necessary types.
+- Don't leave blank lines within a function.
+- One export per file.
+
+### Nomenclature
+
+- Use PascalCase for classes.
+- Use camelCase for variables, functions, and methods.
+- Use underscores_case for file and directory names.
+- Use UPPERCASE for environment variables.
+  - Avoid magic numbers and define constants.
+- Start each function with a verb.
+- Use verbs for boolean variables. Example: isLoading, hasError, canDelete, etc.
+- Use complete words instead of abbreviations and correct spelling.
+  - Except for standard abbreviations like API, URL, etc.
+  - Except for well-known abbreviations:
+    - i, j for loops
+    - err for errors
+    - ctx for contexts
+    - req, res, next for middleware function parameters
+
+### Functions
+
+- In this context, what is understood as a function will also apply to a method.
+- Write short functions with a single purpose. Less than 20 instructions.
+- Name functions with a verb and something else.
+  - If it returns a boolean, use isX or hasX, canX, etc.
+  - If it doesn't return anything, use executeX or saveX, etc.
+- Avoid nesting blocks by:
+  - Early checks and returns.
+  - Extraction to utility functions.
+- Use higher-order functions (map, filter, reduce, etc.) to avoid function nesting.
+  - Use arrow functions for simple functions (less than 3 instructions).
+  - Use named functions for non-simple functions.
+- Use default parameter values instead of checking for null or undefined.
+- Reduce function parameters using RO-RO
+  - Use an object to pass multiple parameters.
+  - Use an object to return results.
+  - Declare necessary types for input arguments and output.
+- Use a single level of abstraction.
+
+### Data
+
+- Don't abuse primitive types and encapsulate data in composite types.
+- Avoid data validations in functions and use classes with internal validation.
+- Prefer immutability for data.
+  - Use readonly for data that doesn't change.
+  - Use as const for literals that don't change.
+
+### Classes
+
+- Follow SOLID principles.
+- Prefer composition over inheritance.
+- Declare interfaces to define contracts.
+- Write small classes with a single purpose.
+  - Target less than 200 instructions, fewer than 10 public methods, fewer than 10 properties.
+  - Legacy large types should be split **incrementally** when touched (e.g. extract helpers into separate libraries), not rewritten in one huge PR unless explicitly requested.
+
+### Exceptions
+
+- Use exceptions to handle errors you don't expect.
+- If you catch an exception, it should be to:
+  - Fix an expected problem.
+  - Add context.
+  - Otherwise, use a global handler.
+
+### Testing
+
+- Follow the Arrange-Act-Assert convention for tests.
+- Name test variables clearly.
+  - Follow the convention: inputX, mockX, actualX, expectedX, etc.
+- Write unit tests for each public function.
+  - Use test doubles to simulate dependencies.
+    - Except for third-party dependencies that are not expensive to execute.
+- Write acceptance tests for each module.
+  - Follow the Given-When-Then convention.
+
+## Specific to Flutter (AI_PRG stack)
+
+### Layers and layout
+
+- **Feature-first:** `lib/src/features/<feature>/` with `presentation/` (widgets, screens) and `application/` (Riverpod controllers, view state).
+- **Shared core:** `lib/src/core/models/`, `repositories/`, `services/`, `data/` — domain models, persistence adapters, orchestration and AI gateway code.
+- **App shell:** `lib/src/app/` — bootstrap, `ProviderScope`, theme, localization, responsive helpers.
+- Use **repository pattern** for persistence (repositories delegate to storage / local data sources).
+- **Controllers:** business and screen orchestration live in Riverpod `StateNotifier` (or similar) classes in `application/`; keep widgets mostly declarative.
+- **Domain models** live under `core/models/` (role similar to "entities" in generic clean-architecture wording).
+
+### Dependency injection (no getIt required)
+
+- **Composition root:** `AiRpgApp` constructs `AppDatabase`, repositories, `AiServiceFactory`, `GameEngine`, `PortraitStorage`, and language `ValueNotifier` as needed.
+- **Riverpod:** expose shared dependencies via `Provider` definitions in `app_providers.dart` and inject them with `ProviderScope(overrides: buildAppProviderOverrides(...))` at startup.
+- **Tests:** override the same providers in tests — do not introduce a second global service locator (e.g. get_it) unless there is a documented team decision.
+
+### State management
+
+- Use **flutter_riverpod** for app and feature state.
+- **View state:** prefer immutable `*ViewState` classes with an explicit `copyWith` (manual is fine). **freezed** is optional — use it to reduce boilerplate if the team adopts codegen, not as a mandatory architecture requirement.
+- Use `ref.keepAlive` / provider keepAlive only when a provider must survive beyond typical auto-dispose scope (document why).
+
+### Navigation
+
+- For the current app size, **imperative navigation** (`Navigator.of(context).push`, `MaterialPageRoute`) is acceptable and expected.
+- Introduce a **declarative router** (e.g. `go_router`, `auto_route`) when there is a concrete need: deep links, web URLs, auth or guard-heavy route trees, or many nested branches. Until then, avoid large router migrations that do not deliver product value.
+
+### UI and theming
+
+- Use **ThemeData** via the app theme module.
+- Use **AppLocalizations** / project l10n for user-visible strings; respect ru/en parity per project rules.
+- Use **extensions** for small reusable context helpers where appropriate.
+- Prefer **const** constructors and flatter widget trees; split large widgets into focused children.
+
+### Testing
+
+- Use Flutter's **widget_test** and project test conventions.
+- Add or extend **integration / API-module tests** when changing HTTP or AI contracts.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/svc-alexey)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/svc-alexey)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
