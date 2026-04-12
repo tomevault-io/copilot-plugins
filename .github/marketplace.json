@@ -23567,6 +23567,256 @@
       "name": "justy6674--studio",
       "source": "./justy6674--studio",
       "description": "studio"
+    },
+    {
+      "name": "tejzpr--rishvan-mcp",
+      "source": "./tejzpr--rishvan-mcp",
+      "description": "rishvan-mcp"
+    },
+    {
+      "name": "jpmarichal--bookgen",
+      "source": "./jpmarichal--bookgen",
+      "description": "bookgen"
+    },
+    {
+      "name": "hassanvfx--statusboardai",
+      "source": "./hassanvfx--statusboardai",
+      "description": "StatusBoardAI"
+    },
+    {
+      "name": "zacharyelston--rrmcpy",
+      "source": "./zacharyelston--rrmcpy",
+      "description": "rrmcpy"
+    },
+    {
+      "name": "areid987--aigency-v1-0-0",
+      "source": "./areid987--aigency-v1-0-0",
+      "description": "aigency-v1.0.0"
+    },
+    {
+      "name": "openann19--pets2",
+      "source": "./openann19--pets2",
+      "description": "pets2"
+    },
+    {
+      "name": "anadreth--multiplayer-goblin-chase",
+      "source": "./anadreth--multiplayer-goblin-chase",
+      "description": "multiplayer-goblin-chase"
+    },
+    {
+      "name": "ssi-automations--documindintelliocr",
+      "source": "./ssi-automations--documindintelliocr",
+      "description": "DocuMindIntelliOCR"
+    },
+    {
+      "name": "yogesh1454--food-app",
+      "source": "./yogesh1454--food-app",
+      "description": "food-app"
+    },
+    {
+      "name": "www-e--trustednext",
+      "source": "./www-e--trustednext",
+      "description": "trustednext"
+    },
+    {
+      "name": "barrelsgd--spiceweather",
+      "source": "./barrelsgd--spiceweather",
+      "description": "spiceweather"
+    },
+    {
+      "name": "mrityunjoy99--go-grpc",
+      "source": "./mrityunjoy99--go-grpc",
+      "description": "go-grpc"
+    },
+    {
+      "name": "iamthebestcodeer--cheakers-engine",
+      "source": "./iamthebestcodeer--cheakers-engine",
+      "description": "cheakers-engine"
+    },
+    {
+      "name": "nguyenhuy158--helper",
+      "source": "./nguyenhuy158--helper",
+      "description": "helper"
+    },
+    {
+      "name": "yunusgungor--tauri-windows-plugin-system",
+      "source": "./yunusgungor--tauri-windows-plugin-system",
+      "description": "tauri-windows-plugin-system"
+    },
+    {
+      "name": "camiloguz23--turismo",
+      "source": "./camiloguz23--turismo",
+      "description": "turismo"
+    },
+    {
+      "name": "luisalfredoestigarribiasosa85--scheduled-tweets",
+      "source": "./luisalfredoestigarribiasosa85--scheduled-tweets",
+      "description": "scheduled-tweets"
+    },
+    {
+      "name": "sigmaott--docs-sigma-video",
+      "source": "./sigmaott--docs-sigma-video",
+      "description": "docs.sigma.video"
+    },
+    {
+      "name": "deinadmin--school",
+      "source": "./deinadmin--school",
+      "description": "School"
+    },
+    {
+      "name": "marta-fret--10xdevs-flashcards",
+      "source": "./marta-fret--10xdevs-flashcards",
+      "description": "10xdevs-flashcards"
+    },
+    {
+      "name": "lighno--dnd-sheet",
+      "source": "./lighno--dnd-sheet",
+      "description": "dnd-sheet"
+    },
+    {
+      "name": "githubhenrykoo--pkc",
+      "source": "./githubhenrykoo--pkc",
+      "description": "PKC"
+    },
+    {
+      "name": "xow--autotrader",
+      "source": "./xow--autotrader",
+      "description": "autotrader"
+    },
+    {
+      "name": "nguyenhuy158--helper",
+      "source": "./nguyenhuy158--helper",
+      "description": "helper"
+    },
+    {
+      "name": "okihara--juiz-mcp",
+      "source": "./okihara--juiz-mcp",
+      "description": "juiz-mcp"
+    },
+    {
+      "name": "openann19--pets",
+      "source": "./openann19--pets",
+      "description": "pets"
+    },
+    {
+      "name": "robonxt--from-web-to-editor",
+      "source": "./robonxt--from-web-to-editor",
+      "description": "from-web-to-editor"
+    },
+    {
+      "name": "blaisecz--sleep-tracker",
+      "source": "./blaisecz--sleep-tracker",
+      "description": "sleep-tracker"
+    },
+    {
+      "name": "volte--fogtracker",
+      "source": "./volte--fogtracker",
+      "description": "fogtracker"
+    },
+    {
+      "name": "marta-fret--10xdevs-flashcards",
+      "source": "./marta-fret--10xdevs-flashcards",
+      "description": "10xdevs-flashcards"
+    },
+    {
+      "name": "dsmarcelo--ferreira-financeiro",
+      "source": "./dsmarcelo--ferreira-financeiro",
+      "description": "ferreira-financeiro"
+    },
+    {
+      "name": "eloura74--jarvispy",
+      "source": "./eloura74--jarvispy",
+      "description": "JARVISpy"
+    },
+    {
+      "name": "grinsteindavid--math-project",
+      "source": "./grinsteindavid--math-project",
+      "description": "math-project"
+    },
+    {
+      "name": "flexx-r-d--advance-fe-assignment-dima",
+      "source": "./flexx-r-d--advance-fe-assignment-dima",
+      "description": "Advance-FE-Assignment-Dima"
+    },
+    {
+      "name": "ma3u--dust-mcp-server-postman-railway",
+      "source": "./ma3u--dust-mcp-server-postman-railway",
+      "description": "dust-mcp-server-postman-railway"
+    },
+    {
+      "name": "randymxd06--nxtesting",
+      "source": "./randymxd06--nxtesting",
+      "description": "NxTesting"
+    },
+    {
+      "name": "halukerenozlu--argus-scanner",
+      "source": "./halukerenozlu--argus-scanner",
+      "description": "Argus-Scanner"
+    },
+    {
+      "name": "box3101--yeonsu-library-web",
+      "source": "./box3101--yeonsu-library-web",
+      "description": "yeonsu-library-web"
+    },
+    {
+      "name": "diazhh--erp-ace",
+      "source": "./diazhh--erp-ace",
+      "description": "erp_ace"
+    },
+    {
+      "name": "1345abhishekkumar--ai-study-buddy",
+      "source": "./1345abhishekkumar--ai-study-buddy",
+      "description": "AI_Study_buddy"
+    },
+    {
+      "name": "alexzavg--maestro-demo",
+      "source": "./alexzavg--maestro-demo",
+      "description": "maestro_demo"
+    },
+    {
+      "name": "nolan-rey--lanno-website",
+      "source": "./nolan-rey--lanno-website",
+      "description": "lanno-website"
+    },
+    {
+      "name": "koncoweb--fisioapp-management-suite",
+      "source": "./koncoweb--fisioapp-management-suite",
+      "description": "fisioapp-management-suite"
+    },
+    {
+      "name": "itisbryan--rama",
+      "source": "./itisbryan--rama",
+      "description": "rama"
+    },
+    {
+      "name": "mrfansi--slacky",
+      "source": "./mrfansi--slacky",
+      "description": "slacky"
+    },
+    {
+      "name": "projekt8--tanstack-r3f-boilerplate",
+      "source": "./projekt8--tanstack-r3f-boilerplate",
+      "description": "tanstack-r3f-boilerplate"
+    },
+    {
+      "name": "bmarguerite--bmr-breegade",
+      "source": "./bmarguerite--bmr-breegade",
+      "description": "bmr-breegade"
+    },
+    {
+      "name": "thanhtoan105--accounting-erp-chatbot",
+      "source": "./thanhtoan105--accounting-erp-chatbot",
+      "description": "Accounting_ERP_Chatbot"
+    },
+    {
+      "name": "nguyenhuy158--helper",
+      "source": "./nguyenhuy158--helper",
+      "description": "helper"
+    },
+    {
+      "name": "margelo--provable-mobile-sdk",
+      "source": "./margelo--provable-mobile-sdk",
+      "description": "provable-mobile-sdk"
     }
   ]
 }
