@@ -1,0 +1,46 @@
+## sub-box
+
+> 这是一个基于 NextJS 14 的订阅管理应用程序，用于管理节点和用户的订阅。
+
+# 项目结构概述
+
+这是一个基于 NextJS 14 的订阅管理应用程序，用于管理节点和用户的订阅。
+
+## 主要技术栈
+
+- NextJS 14 与 NodeJS 22
+- OpenNextJS 用于部署到 Cloudflare Workers
+- UI 组件使用 shadcn 和 tailwindcss
+- 数据库管理使用 drizzle
+- 包管理使用 bun 而非 npm
+
+## 核心目录结构
+
+- `app/` - 主应用目录
+  - `app/(main)/` - 主界面路由
+    - `nodes/` - 节点管理相关组件
+    - `users/` - 用户管理相关组件
+    - `subconverters/` - 订阅转换器相关组件
+    - `export/` - 导出功能
+- `components/` - 共用组件
+- `server/` - 服务器端代码
+  - `api/` - TRPC API 定义
+
+## 开发经验总结
+
+1. 数据更新后务必刷新页面：在使用 TRPC 进行数据操作后，使用 `router.refresh()` 确保页面显示最新数据。
+
+2. 确保列定义中的键是唯一的：避免在表格列定义中使用相同的 `accessorKey`，改用唯一的 `id` 和 `accessorFn`。
+
+3. Select 组件的值处理：处理 null 或空值时，不要使用空字符串，而是使用特殊字符串并在处理函数中转换。
+
+4. 表单状态管理：使用 React Hook Form 并配合 Zod 进行表单验证，确保类型安全和良好的用户体验。
+
+5. 组件重用：合理抽象和重用组件，如 NodeForm、UserForm 等，减少代码重复。
+
+6. 确保业务逻辑位于 server/api 中。如果不了解是否存在相关 api，先查询。如果不存在，考虑是否应该添加 api。
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/kleinrui)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/kleinrui)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
