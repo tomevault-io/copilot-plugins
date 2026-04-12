@@ -22562,6 +22562,256 @@
       "name": "yaguchi-1-9--cursor-rules",
       "source": "./yaguchi-1-9--cursor-rules",
       "description": "cursor-rules"
+    },
+    {
+      "name": "tetsu-is--bullet-shooting",
+      "source": "./tetsu-is--bullet-shooting",
+      "description": "bullet-shooting"
+    },
+    {
+      "name": "ivanildobarauna-dev--site",
+      "source": "./ivanildobarauna-dev--site",
+      "description": "site"
+    },
+    {
+      "name": "inquiryinstitute--imscc-template",
+      "source": "./inquiryinstitute--imscc-template",
+      "description": "imscc_template"
+    },
+    {
+      "name": "srujanpapaiah--backend-boilerplate-python",
+      "source": "./srujanpapaiah--backend-boilerplate-python",
+      "description": "backend-boilerplate-python"
+    },
+    {
+      "name": "dudasdaily--recipe",
+      "source": "./dudasdaily--recipe",
+      "description": "Recipe"
+    },
+    {
+      "name": "tianmuji--figma-restoration-mcp-vue-tools",
+      "source": "./tianmuji--figma-restoration-mcp-vue-tools",
+      "description": "figma-restoration-mcp-vue-tools"
+    },
+    {
+      "name": "twardoch--pdf22png",
+      "source": "./twardoch--pdf22png",
+      "description": "pdf22png"
+    },
+    {
+      "name": "lululau--flo",
+      "source": "./lululau--flo",
+      "description": "flo"
+    },
+    {
+      "name": "ieazie--doc-extract",
+      "source": "./ieazie--doc-extract",
+      "description": "doc-extract"
+    },
+    {
+      "name": "bjornfrierpedersen--it-sikkerhed-notes",
+      "source": "./bjornfrierpedersen--it-sikkerhed-notes",
+      "description": "it_sikkerhed_notes"
+    },
+    {
+      "name": "arucard11--reflex",
+      "source": "./arucard11--reflex",
+      "description": "reflex"
+    },
+    {
+      "name": "manuekle--heymed",
+      "source": "./manuekle--heymed",
+      "description": "heyMed"
+    },
+    {
+      "name": "netanelgilad--luna",
+      "source": "./netanelgilad--luna",
+      "description": "luna"
+    },
+    {
+      "name": "badwinniepooh--flashycardy",
+      "source": "./badwinniepooh--flashycardy",
+      "description": "flashycardy"
+    },
+    {
+      "name": "malakstar786--souqmaria-app",
+      "source": "./malakstar786--souqmaria-app",
+      "description": "souqmaria-app"
+    },
+    {
+      "name": "code-kern-ai--submodule-react-components",
+      "source": "./code-kern-ai--submodule-react-components",
+      "description": "submodule-react-components"
+    },
+    {
+      "name": "kurocado-studio--formkit-public",
+      "source": "./kurocado-studio--formkit-public",
+      "description": "formkit-public"
+    },
+    {
+      "name": "spar65--loanofficerai-mcp-poc",
+      "source": "./spar65--loanofficerai-mcp-poc",
+      "description": "LoanOfficerAI-MCP-POC"
+    },
+    {
+      "name": "pauljphilp--buddy",
+      "source": "./pauljphilp--buddy",
+      "description": "buddy"
+    },
+    {
+      "name": "melnicenkovadik--ai-trading",
+      "source": "./melnicenkovadik--ai-trading",
+      "description": "ai-trading"
+    },
+    {
+      "name": "eq-lab--eliza-for-levva-client",
+      "source": "./eq-lab--eliza-for-levva-client",
+      "description": "eliza-for-levva-client"
+    },
+    {
+      "name": "manhvu1997--mcp-argocd",
+      "source": "./manhvu1997--mcp-argocd",
+      "description": "mcp-argocd"
+    },
+    {
+      "name": "harisharnamm--apna-bazaar",
+      "source": "./harisharnamm--apna-bazaar",
+      "description": "apna-bazaar"
+    },
+    {
+      "name": "arnekv--documentation",
+      "source": "./arnekv--documentation",
+      "description": "documentation"
+    },
+    {
+      "name": "theroyalraj--f-r-i-d-a-y",
+      "source": "./theroyalraj--f-r-i-d-a-y",
+      "description": "F.R.I.D.A.Y"
+    },
+    {
+      "name": "qirh--sala-v3",
+      "source": "./qirh--sala-v3",
+      "description": "sala_v3"
+    },
+    {
+      "name": "freebeiro--project-x",
+      "source": "./freebeiro--project-x",
+      "description": "project-x"
+    },
+    {
+      "name": "dfadler1984--cursor-rules",
+      "source": "./dfadler1984--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "llinfeng--beeminder-on-trmnl",
+      "source": "./llinfeng--beeminder-on-trmnl",
+      "description": "Beeminder-on-TRMNL"
+    },
+    {
+      "name": "outthislife--lat",
+      "source": "./outthislife--lat",
+      "description": "lat"
+    },
+    {
+      "name": "profires--ecom",
+      "source": "./profires--ecom",
+      "description": "eCom"
+    },
+    {
+      "name": "hongxunyang--rixs-pre-toolbox",
+      "source": "./hongxunyang--rixs-pre-toolbox",
+      "description": "rixs_pre_toolbox"
+    },
+    {
+      "name": "abu-bakr-mohamed--ghazali-law-firm",
+      "source": "./abu-bakr-mohamed--ghazali-law-firm",
+      "description": "ghazali-law-firm"
+    },
+    {
+      "name": "yeeehaooo--workspace",
+      "source": "./yeeehaooo--workspace",
+      "description": "WorkSpace"
+    },
+    {
+      "name": "dislovemartin--htpa-ca",
+      "source": "./dislovemartin--htpa-ca",
+      "description": "htpa.ca"
+    },
+    {
+      "name": "laststance--react-next-eslint-plugin",
+      "source": "./laststance--react-next-eslint-plugin",
+      "description": "react-next-eslint-plugin"
+    },
+    {
+      "name": "durandom--b4cli",
+      "source": "./durandom--b4cli",
+      "description": "b4cli"
+    },
+    {
+      "name": "blopit--mantra-demo",
+      "source": "./blopit--mantra-demo",
+      "description": "Mantra-Demo"
+    },
+    {
+      "name": "seoys--escape-room",
+      "source": "./seoys--escape-room",
+      "description": "escape-room"
+    },
+    {
+      "name": "longdang193--anki-scripts",
+      "source": "./longdang193--anki-scripts",
+      "description": "anki_scripts"
+    },
+    {
+      "name": "techapsalwar--envoklear",
+      "source": "./techapsalwar--envoklear",
+      "description": "envoklear"
+    },
+    {
+      "name": "suh4s--dojour",
+      "source": "./suh4s--dojour",
+      "description": "dojour"
+    },
+    {
+      "name": "dancycodes--bree",
+      "source": "./dancycodes--bree",
+      "description": "bree"
+    },
+    {
+      "name": "beeckmanthe1--sint-geertrui-v2",
+      "source": "./beeckmanthe1--sint-geertrui-v2",
+      "description": "sint-geertrui-v2"
+    },
+    {
+      "name": "ej31--toss-fe-fundamentals-study",
+      "source": "./ej31--toss-fe-fundamentals-study",
+      "description": "toss-fe-fundamentals-study"
+    },
+    {
+      "name": "cyberfabric--frontx",
+      "source": "./cyberfabric--frontx",
+      "description": "frontx"
+    },
+    {
+      "name": "cyberfabric--cyber-pilot",
+      "source": "./cyberfabric--cyber-pilot",
+      "description": "cyber-pilot"
+    },
+    {
+      "name": "cyberfabric--insight",
+      "source": "./cyberfabric--insight",
+      "description": "insight"
+    },
+    {
+      "name": "ramzxy--ilia-beer",
+      "source": "./ramzxy--ilia-beer",
+      "description": "ilia.beer"
+    },
+    {
+      "name": "rubenvitt--momentchen-app",
+      "source": "./rubenvitt--momentchen-app",
+      "description": "momentchen-app"
     }
   ]
 }
