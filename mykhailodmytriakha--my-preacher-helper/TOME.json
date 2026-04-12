@@ -4,7 +4,7 @@
   "repo": "my-preacher-helper",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/MykhailoDmytriakha",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T07:54:24Z"
+  "distributed_at": "2026-04-12T05:58:13Z"
 }
