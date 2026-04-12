@@ -1154,11 +1154,6 @@
       "description": "mq"
     },
     {
-      "name": "olijboyd--fiddlybiscuitybits",
-      "source": "./olijboyd--fiddlybiscuitybits",
-      "description": "fiddlybiscuitybits"
-    },
-    {
       "name": "nold-ai--specfact-cli",
       "source": "./nold-ai--specfact-cli",
       "description": "specfact-cli"
@@ -24317,6 +24312,266 @@
       "name": "mariepop13--mivoa",
       "source": "./mariepop13--mivoa",
       "description": "mivoa"
+    },
+    {
+      "name": "microsoft--spec-to-agents",
+      "source": "./microsoft--spec-to-agents",
+      "description": "spec-to-agents"
+    },
+    {
+      "name": "microsoft--mcs-agent-builder",
+      "source": "./microsoft--mcs-agent-builder",
+      "description": "MCS-Agent-Builder"
+    },
+    {
+      "name": "nsafouane--tsukuyomi",
+      "source": "./nsafouane--tsukuyomi",
+      "description": "tsukuyomi"
+    },
+    {
+      "name": "drshailesh88--dora",
+      "source": "./drshailesh88--dora",
+      "description": "Dora"
+    },
+    {
+      "name": "akashkothari2007--focusos",
+      "source": "./akashkothari2007--focusos",
+      "description": "FocusOS"
+    },
+    {
+      "name": "weaties--toar-warehouse",
+      "source": "./weaties--toar-warehouse",
+      "description": "toar-warehouse"
+    },
+    {
+      "name": "paseczkimihaly--minimal-chat",
+      "source": "./paseczkimihaly--minimal-chat",
+      "description": "minimal-chat"
+    },
+    {
+      "name": "toshi-hm--security-robot-be",
+      "source": "./toshi-hm--security-robot-be",
+      "description": "security-robot-be"
+    },
+    {
+      "name": "cocoon-ai--keycloak-cocoon-ai",
+      "source": "./cocoon-ai--keycloak-cocoon-ai",
+      "description": "keycloak-cocoon-ai"
+    },
+    {
+      "name": "curajorge--longevity",
+      "source": "./curajorge--longevity",
+      "description": "longevity"
+    },
+    {
+      "name": "lusiki--church-and-dezinfo",
+      "source": "./lusiki--church-and-dezinfo",
+      "description": "Church-and-dezinfo"
+    },
+    {
+      "name": "revrevrev--libraries-search",
+      "source": "./revrevrev--libraries-search",
+      "description": "Libraries-search"
+    },
+    {
+      "name": "tamaeaston--frontier",
+      "source": "./tamaeaston--frontier",
+      "description": "frontier"
+    },
+    {
+      "name": "joekarow--joekarow-dev",
+      "source": "./joekarow--joekarow-dev",
+      "description": "joekarow.dev"
+    },
+    {
+      "name": "martink-rsa--quickstarter-4-monorepo-nextjs-supabase",
+      "source": "./martink-rsa--quickstarter-4-monorepo-nextjs-supabase",
+      "description": "quickstarter-4-monorepo-nextjs-supabase"
+    },
+    {
+      "name": "outfitter-dev--agents-internal",
+      "source": "./outfitter-dev--agents-internal",
+      "description": "agents-internal"
+    },
+    {
+      "name": "qte77--polyforge-orchestrator",
+      "source": "./qte77--polyforge-orchestrator",
+      "description": "polyforge-orchestrator"
+    },
+    {
+      "name": "jbarlo--ralph",
+      "source": "./jbarlo--ralph",
+      "description": "ralph"
+    },
+    {
+      "name": "accomputing--claude4-5opusjailbreak11-27-25",
+      "source": "./accomputing--claude4-5opusjailbreak11-27-25",
+      "description": "claude4.5opusjailbreak11.27.25"
+    },
+    {
+      "name": "oldwinter--knowledge-garden",
+      "source": "./oldwinter--knowledge-garden",
+      "description": "knowledge-garden"
+    },
+    {
+      "name": "bexai--kalshibot",
+      "source": "./bexai--kalshibot",
+      "description": "KalshiBot"
+    },
+    {
+      "name": "thomppa030--kindertagespflege-hummelgarten",
+      "source": "./thomppa030--kindertagespflege-hummelgarten",
+      "description": "kindertagespflege-hummelgarten"
+    },
+    {
+      "name": "hon-gyu--oyster",
+      "source": "./hon-gyu--oyster",
+      "description": "oyster"
+    },
+    {
+      "name": "adrioui--musiqasik",
+      "source": "./adrioui--musiqasik",
+      "description": "musiqasik"
+    },
+    {
+      "name": "moduly-ai--smartbite-frontend",
+      "source": "./moduly-ai--smartbite-frontend",
+      "description": "smartbite-frontend"
+    },
+    {
+      "name": "dzwei-projects--latticefs",
+      "source": "./dzwei-projects--latticefs",
+      "description": "latticefs"
+    },
+    {
+      "name": "derko510--calendar-ai",
+      "source": "./derko510--calendar-ai",
+      "description": "Calendar-AI"
+    },
+    {
+      "name": "mystery00--sing-box-sub-converter",
+      "source": "./mystery00--sing-box-sub-converter",
+      "description": "sing-box-sub-converter"
+    },
+    {
+      "name": "davidp57--hoard",
+      "source": "./davidp57--hoard",
+      "description": "hoard"
+    },
+    {
+      "name": "byronmcclain--friday",
+      "source": "./byronmcclain--friday",
+      "description": "friday"
+    },
+    {
+      "name": "yone-k--discord-mcp",
+      "source": "./yone-k--discord-mcp",
+      "description": "discord-mcp"
+    },
+    {
+      "name": "baenni-coder--kompetenzenpass-cloud",
+      "source": "./baenni-coder--kompetenzenpass-cloud",
+      "description": "kompetenzenpass-cloud"
+    },
+    {
+      "name": "sokareem--codex-simulator",
+      "source": "./sokareem--codex-simulator",
+      "description": "codex_simulator"
+    },
+    {
+      "name": "mckloony--simpliview",
+      "source": "./mckloony--simpliview",
+      "description": "SimpliView"
+    },
+    {
+      "name": "mit-acl--mighty",
+      "source": "./mit-acl--mighty",
+      "description": "mighty"
+    },
+    {
+      "name": "rijuyuezhu--bib-check",
+      "source": "./rijuyuezhu--bib-check",
+      "description": "bib-check"
+    },
+    {
+      "name": "jo-m--fluffy",
+      "source": "./jo-m--fluffy",
+      "description": "fluffy"
+    },
+    {
+      "name": "yatharthsameer--wispr-flow",
+      "source": "./yatharthsameer--wispr-flow",
+      "description": "Wispr-Flow"
+    },
+    {
+      "name": "dreikanter--notescli",
+      "source": "./dreikanter--notescli",
+      "description": "notescli"
+    },
+    {
+      "name": "mihnin--example1",
+      "source": "./mihnin--example1",
+      "description": "example1"
+    },
+    {
+      "name": "davenicoll---claude",
+      "source": "./davenicoll---claude",
+      "description": ".claude"
+    },
+    {
+      "name": "paiml--mixed-rust-lean-ground-truth",
+      "source": "./paiml--mixed-rust-lean-ground-truth",
+      "description": "mixed-rust-lean-ground-truth"
+    },
+    {
+      "name": "pregum--figma-plugin-for-ui-stack",
+      "source": "./pregum--figma-plugin-for-ui-stack",
+      "description": "figma_plugin_for_ui_stack"
+    },
+    {
+      "name": "jim-jimothy--resume-generator",
+      "source": "./jim-jimothy--resume-generator",
+      "description": "resume-generator"
+    },
+    {
+      "name": "tortillaguy--resolume-mcp",
+      "source": "./tortillaguy--resolume-mcp",
+      "description": "resolume-mcp"
+    },
+    {
+      "name": "projectatlantis-dev--atlantis-open-weather-mcp",
+      "source": "./projectatlantis-dev--atlantis-open-weather-mcp",
+      "description": "atlantis-open-weather-mcp"
+    },
+    {
+      "name": "joesaby--astro-plantuml",
+      "source": "./joesaby--astro-plantuml",
+      "description": "astro-plantuml"
+    },
+    {
+      "name": "gemini-oss--rego",
+      "source": "./gemini-oss--rego",
+      "description": "rego"
+    },
+    {
+      "name": "mister33221--mister33221-github-io",
+      "source": "./mister33221--mister33221-github-io",
+      "description": "mister33221.github.io"
+    },
+    {
+      "name": "kadajett--kindle-rewriter",
+      "source": "./kadajett--kindle-rewriter",
+      "description": "kindle-rewriter"
+    },
+    {
+      "name": "24techdesign--mca-express",
+      "source": "./24techdesign--mca-express",
+      "description": "mca-express"
+    },
+    {
+      "name": "loadingcloud001--loading-minio",
+      "source": "./loadingcloud001--loading-minio",
+      "description": "loading-minio"
     }
   ]
 }
