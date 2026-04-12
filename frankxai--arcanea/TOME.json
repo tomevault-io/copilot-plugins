@@ -1,0 +1,57 @@
+{
+  "name": "arcanea",
+  "owner": "frankxai",
+  "repo": "arcanea",
+  "description": "AI instruction files for arcanea by frankxai",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-implementer",
+      "path": "skills/agent-implementer",
+      "github_url": "https://github.com/frankxai/arcanea/tree/main/skills/agent-implementer",
+      "description": ""
+    },
+    {
+      "name": "arcanea-coding-agent",
+      "path": ".opencode/skills/arcanea-coding-agent",
+      "github_url": "https://github.com/frankxai/arcanea/tree/main/.opencode/skills/arcanea-coding-agent",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/frankxai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-12T05:30:11Z"
+}
