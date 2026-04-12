@@ -1,6 +1,6 @@
-# command-center
+# AI instruction files for command-center
 
-> Config by [TrevorPLam](https://github.com/TrevorPLam/command-center) — distributed by [TomeVault](https://tomevault.io/claim/TrevorPLam)
+> Sourced from [TrevorPLam/command-center](https://github.com/TrevorPLam/command-center) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [TrevorPLam/command-center](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/TrevorPLam](https://tomevault.io/claim/TrevorPLam)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/TrevorPLam#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/TrevorPLam) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/TrevorPLam) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
