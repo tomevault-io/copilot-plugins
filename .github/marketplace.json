@@ -24067,6 +24067,256 @@
       "name": "hillsrion--safespace",
       "source": "./hillsrion--safespace",
       "description": "safespace"
+    },
+    {
+      "name": "zhouyoukang--secondhandbooks",
+      "source": "./zhouyoukang--secondhandbooks",
+      "description": "SecondHandBooks"
+    },
+    {
+      "name": "henderorlando--booklyapp",
+      "source": "./henderorlando--booklyapp",
+      "description": "booklyapp"
+    },
+    {
+      "name": "kblack0610---old-ai-rules",
+      "source": "./kblack0610---old-ai-rules",
+      "description": ".old_ai_rules"
+    },
+    {
+      "name": "trevorplam--command-center",
+      "source": "./trevorplam--command-center",
+      "description": "command-center"
+    },
+    {
+      "name": "drewsephski--cypher",
+      "source": "./drewsephski--cypher",
+      "description": "Cypher"
+    },
+    {
+      "name": "mr-scrpt--pass-electron",
+      "source": "./mr-scrpt--pass-electron",
+      "description": "pass_electron"
+    },
+    {
+      "name": "lewiesnyder--ruleport",
+      "source": "./lewiesnyder--ruleport",
+      "description": "RulePort"
+    },
+    {
+      "name": "trevorplam--command-center",
+      "source": "./trevorplam--command-center",
+      "description": "command-center"
+    },
+    {
+      "name": "amcq-expeed--opnxt",
+      "source": "./amcq-expeed--opnxt",
+      "description": "OPNXT"
+    },
+    {
+      "name": "testcraft-app--api-automation-agent",
+      "source": "./testcraft-app--api-automation-agent",
+      "description": "api-automation-agent"
+    },
+    {
+      "name": "orc-hfg--uploader",
+      "source": "./orc-hfg--uploader",
+      "description": "uploader"
+    },
+    {
+      "name": "dewiweb--audio-accessibility-system",
+      "source": "./dewiweb--audio-accessibility-system",
+      "description": "audio-accessibility-system"
+    },
+    {
+      "name": "strategy11--formidable-forms",
+      "source": "./strategy11--formidable-forms",
+      "description": "formidable-forms"
+    },
+    {
+      "name": "hubevolution--evolutionhub",
+      "source": "./hubevolution--evolutionhub",
+      "description": "EvolutionHub"
+    },
+    {
+      "name": "tan0610--orla-db",
+      "source": "./tan0610--orla-db",
+      "description": "Orla_DB"
+    },
+    {
+      "name": "veecode-platform--devportal-base",
+      "source": "./veecode-platform--devportal-base",
+      "description": "devportal-base"
+    },
+    {
+      "name": "mongilearnstocode--solospark-prototype",
+      "source": "./mongilearnstocode--solospark-prototype",
+      "description": "solospark-prototype"
+    },
+    {
+      "name": "tbeaudouin05--stripe-grpc-http-starter",
+      "source": "./tbeaudouin05--stripe-grpc-http-starter",
+      "description": "stripe-grpc-http-starter"
+    },
+    {
+      "name": "jesse-spevack--gb",
+      "source": "./jesse-spevack--gb",
+      "description": "gb"
+    },
+    {
+      "name": "yezhaocan--vr-management-web",
+      "source": "./yezhaocan--vr-management-web",
+      "description": "vr-management-web"
+    },
+    {
+      "name": "datasilk--collector",
+      "source": "./datasilk--collector",
+      "description": "Collector"
+    },
+    {
+      "name": "verlyn13--dicee",
+      "source": "./verlyn13--dicee",
+      "description": "dicee"
+    },
+    {
+      "name": "andresortega-tech--webapporganizat",
+      "source": "./andresortega-tech--webapporganizat",
+      "description": "WebAppOrganizaT"
+    },
+    {
+      "name": "romandidomizio--space-autonomy",
+      "source": "./romandidomizio--space-autonomy",
+      "description": "space-autonomy"
+    },
+    {
+      "name": "robofox96--deskcoach",
+      "source": "./robofox96--deskcoach",
+      "description": "deskcoach"
+    },
+    {
+      "name": "fatih-developer--focuskey",
+      "source": "./fatih-developer--focuskey",
+      "description": "FocusKey"
+    },
+    {
+      "name": "sanchezgregory--reacttailwindts-layout-grid-flex",
+      "source": "./sanchezgregory--reacttailwindts-layout-grid-flex",
+      "description": "ReactTailwindTS_Layout_grid_flex"
+    },
+    {
+      "name": "mongilearnstocode--solospark-prototype",
+      "source": "./mongilearnstocode--solospark-prototype",
+      "description": "solospark-prototype"
+    },
+    {
+      "name": "boxofcereal--astro-platform-starter",
+      "source": "./boxofcereal--astro-platform-starter",
+      "description": "astro-platform-starter"
+    },
+    {
+      "name": "nqthiep--ba-assistant",
+      "source": "./nqthiep--ba-assistant",
+      "description": "ba-assistant"
+    },
+    {
+      "name": "dfelipegaitanh--echoflow",
+      "source": "./dfelipegaitanh--echoflow",
+      "description": "EchoFlow"
+    },
+    {
+      "name": "sha888--titan-pomade",
+      "source": "./sha888--titan-pomade",
+      "description": "titan-pomade"
+    },
+    {
+      "name": "pauljphilp--effectiveagent",
+      "source": "./pauljphilp--effectiveagent",
+      "description": "EffectiveAgent"
+    },
+    {
+      "name": "trevorplam--cloud-gallery",
+      "source": "./trevorplam--cloud-gallery",
+      "description": "cloud-gallery"
+    },
+    {
+      "name": "thijssvd--sommos",
+      "source": "./thijssvd--sommos",
+      "description": "SommOS"
+    },
+    {
+      "name": "talhadurrani--task-management",
+      "source": "./talhadurrani--task-management",
+      "description": "task-management"
+    },
+    {
+      "name": "ollieb89--ugro",
+      "source": "./ollieb89--ugro",
+      "description": "ugro"
+    },
+    {
+      "name": "mrjw717--ohmydashboard",
+      "source": "./mrjw717--ohmydashboard",
+      "description": "OhMyDashboard"
+    },
+    {
+      "name": "sunfmin--todo-prototype3",
+      "source": "./sunfmin--todo-prototype3",
+      "description": "todo-prototype3"
+    },
+    {
+      "name": "shamail--ai-coding-template",
+      "source": "./shamail--ai-coding-template",
+      "description": "ai-coding-template"
+    },
+    {
+      "name": "sadanandpai--frontend-mini-challenges",
+      "source": "./sadanandpai--frontend-mini-challenges",
+      "description": "frontend-mini-challenges"
+    },
+    {
+      "name": "kuberocketci--kuberocketai",
+      "source": "./kuberocketci--kuberocketai",
+      "description": "kuberocketai"
+    },
+    {
+      "name": "dtecho--ojs",
+      "source": "./dtecho--ojs",
+      "description": "ojs"
+    },
+    {
+      "name": "amcq-expeed--opnxt",
+      "source": "./amcq-expeed--opnxt",
+      "description": "OPNXT"
+    },
+    {
+      "name": "chunterb--viral",
+      "source": "./chunterb--viral",
+      "description": "viral"
+    },
+    {
+      "name": "nova-firefly--movienight",
+      "source": "./nova-firefly--movienight",
+      "description": "movienight"
+    },
+    {
+      "name": "onigetoc--mcp-youtube-transcript",
+      "source": "./onigetoc--mcp-youtube-transcript",
+      "description": "mcp-youtube-transcript"
+    },
+    {
+      "name": "salimomrani--trucktrack",
+      "source": "./salimomrani--trucktrack",
+      "description": "trucktrack"
+    },
+    {
+      "name": "saidabedi--happening-design-system",
+      "source": "./saidabedi--happening-design-system",
+      "description": "happening-design-system"
+    },
+    {
+      "name": "mariepop13--mivoa",
+      "source": "./mariepop13--mivoa",
+      "description": "mivoa"
     }
   ]
 }
