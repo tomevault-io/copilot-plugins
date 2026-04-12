@@ -1,0 +1,523 @@
+## expensemate-tgbot
+
+> Expensemate Telegram Bot project context and architecture
+
+
+# Expensemate Telegram Bot
+
+A personal expense tracking Telegram bot with Google Sheets as the data store. Users can add, view, and report expenses with categorization and grouping.
+
+## Tech Stack
+
+- Go 1.25, tgbotapi (Telegram), Google Sheets API v4
+- OpenAI API (Whisper for speech-to-text, ChatGPT for NLP parsing)
+- JWT service account authentication
+- logrus (structured logging), Viper (config)
+
+## Architecture Overview
+
+```
+cmd/bot/main.go              - Entry point, dependency injection
+internal/
+  bot/bot.go                 - Bot struct, Handle() router
+  handler/
+    expense.go               - Expense command handlers (incl. voice, ask)
+    gsheets.go               - GSheets command handlers
+    start.go                 - Start/help/settings handlers
+  service/
+    expense.go               - Expense business logic
+    voice_expense.go         - Voice expense processing
+    ask.go                   - AI Ask NL query service
+    mapping.go               - User-spreadsheet mapping service
+  repository/
+    openai/client.go         - OpenAI Whisper + ChatGPT client
+    sheets/
+      client.go              - Google Sheets API wrapper
+      expense.go             - Expense CRUD operations
+      mapping.go             - User mapping CRUD operations
+  state/conversation.go      - Conversation state management
+  config/config.go           - Configuration loading
+  log/logger.go              - Structured logging with logrus
+  model/
+    expense.go               - Expense model
+    insights.go              - Insights/average entry models
+    mapping.go               - UserSheetMapping model
+  types/
+    common.go                - Base types (ID, Unsigned, etc.)
+    command.go               - Telegram command constants
+    expense.go               - Expense groups, categories, actions
+    gsheets.go               - GSheets cell references, actions
+  util/
+    currency/currency.go     - Currency parsing and formatting (incl. FormatVNDSigned)
+    time/time.go             - Time parsing and formatting
+    http/http.go             - URL validation utilities
+```
+
+---
+
+## Layered Architecture
+
+```
+[Telegram] -> [Bot Router] -> [Handlers] -> [Services] -> [Repositories] -> [Google Sheets]
+                   |
+            [State Manager]
+```
+
+- **Bot Layer**: Routes updates to appropriate handlers
+- **Handler Layer**: Handles user interactions, formats responses
+- **Service Layer**: Business logic, validation
+- **Repository Layer**: Data access, Google Sheets operations
+
+---
+
+## Google Sheets Structure
+
+### 1. Database Spreadsheet (Central)
+
+Stores user-to-spreadsheet mappings. All users share this single database.
+
+**Sheet: `user_sheet_mappings`**
+
+| Row | A (ID) | B (UserID) | C (Username) | D (FullName) | E (SpreadSheetsURL) | F (CreatedAt) | G (UpdatedAt) | H (Status) |
+|-----|--------|------------|--------------|--------------|---------------------|---------------|---------------|------------|
+| 1 | user_sheet_mappings | [NextID] | | | | | | |
+| 2 | ID | UserID | Username | FullName | SpreadSheets URL | Created At | Updated At | Status |
+| 3 | 1 | 1234567890 | | John Doe | https://docs... | 1/1/2024 | 1/1/2024 | MAPPED |
+
+**Key Cells:**
+- `B1`: Next ID counter
+- Row 2: Header row
+- Row 3+: User data
+
+---
+
+### 2. User Expense Spreadsheet (Per-User)
+
+Each user has their own spreadsheet with monthly sheets.
+
+**Sheet: `Database`**
+- `B2`: Active page name (e.g., "2026_01")
+
+**Monthly Sheets (format: `YYYY_MM`)**
+
+| Row | A (ID) | B (Name) | C (Amount) | D (Group) | E (Category) | F (Date) | G (Note) |
+|-----|--------|----------|------------|-----------|--------------|----------|----------|
+| 3 | ID | Name | Amount | Group | Category | Date | Note |
+| 4 | 1 | lunch | 50,000 d | Food | MUST HAVE | 1/1/2026 | |
+
+**Key Cells:**
+- `B2`: Next expense ID counter
+- Row 3: Header row
+- Rows 4-9: Fixed entries (salary, investments) -- preserved across months
+- Row 10+: Regular expense data
+- `I3:J10`: Group report (8 rows: INCOME, INVESTMENT OUT, INVESTMENT PROFIT, MUST HAVE, NICE TO HAVE, WASTED, FAMILY, LOVER)
+- `K3:K10`: Group budget caps
+- `L3:L10`: Group remaining (formula: budget - spent)
+- `N3:P22`: Category report (20 rows)
+- `Q3:Q22`: Category budget caps
+- `R3:R22`: Category remaining (formula: budget - spent)
+
+**Asset Section (T:U):**
+- `T2:U9`: Current month asset breakdown (Total, Cash, Bank, eWallet, Saving, Investment, Lending, Debt)
+- `T17:U24`: Last month's asset snapshot (copied during new month creation)
+
+**Investment Formulas:**
+- `C5:C9`: Formulas comparing investment values with previous month (e.g., `=AE4-'2026_02'!AE4`)
+- `AF16:AF30`: Investment notes
+
+---
+
+## Cell References (internal/types/gsheets.go)
+
+```go
+// Database Spreadsheet
+UserMappingSheetName  = "user_sheet_mappings"
+UserMappingNextIDCell = "B1"
+UserMappingTopRow     = 2
+
+// User Expense Spreadsheet
+DatabaseSheetName      = "Database"
+DatabaseActivePageCell = "B2"
+ExpensesNextIDCell     = "B2"
+ExpensesTopRow         = 3
+ExpensesReportRange          = "I3:J10"
+ExpensesCategoryRange        = "N3:P22"
+GroupBudgetCol               = "K"
+CategoryBudgetCol            = "Q"
+GroupReportWithBudgetRange    = "I3:L10"
+CategoryReportWithBudgetRange = "N3:R22"
+InsightsGroupAndSummaryRange  = "I3:J13"  // groups + summary rows
+InsightsCategoryRange         = "N3:O22"
+
+// New month sheet creation
+ExpenseDataStartRow    = 10
+NewMonthNextExpenseID  = 10
+SalaryCellRef          = "C4"
+InvestmentFormulaRange = "C5:C9"
+InvestmentNoteRange    = "AF16:AF30"
+AssetCurrentRange      = "T2:U9"
+AssetLastMonthRange    = "T17:U24"
+SheetNameCell          = "A1"
+```
+
+---
+
+## Data Models (internal/model/)
+
+```go
+type Expense struct {
+    ID       types.ID
+    Name     string
+    Amount   types.Unsigned
+    Group    types.Group
+    Category types.Category
+    Date     time.Time
+    Note     string
+}
+
+type BudgetEntry struct {
+    Name       string
+    Spent      int64
+    Percentage string
+    Budget     int64
+    Remaining  int64
+    HasBudget  bool
+    Row        int
+}
+
+type UserSheetMapping struct {
+    ID              types.ID
+    UserID          types.ID
+    Username        string
+    FullName        string
+    SpreadSheetsURL string
+    CreatedAt       time.Time
+    UpdatedAt       time.Time
+    Status          MappingStatus
+}
+
+type AverageEntry struct {
+    Name       string
+    Total      int64
+    Average    int64
+    MonthCount int
+}
+
+type InsightsResult struct {
+    Period                  string
+    MonthsFound             []string
+    MonthsMissing           []string
+    ExcludedCurrent         string
+    GroupAvgs               []AverageEntry
+    CategoryAvgs            []AverageEntry
+    SummaryAvgs             []AverageEntry
+    EmergencyFundMultiplier int
+    EmergencyFund           int64
+}
+```
+
+---
+
+## Expense Groups (7)
+
+| Group | Aliases | Description |
+|-------|---------|-------------|
+| INCOME | i, tn | Thu nhập |
+| INVESTMENT | inv, dt | Đầu tư |
+| MUST HAVE | mh, ty | Thiết yếu |
+| NICE TO HAVE | nth, nc | Nên chi |
+| WASTED | w, lp, waste, wasted | Lãng phí |
+| FAMILY | fam, gd | Gia đình |
+| LOVER | lov, ny | Người yêu |
+
+## Expense Categories (20)
+
+| Category | Aliases | Description |
+|----------|---------|-------------|
+| Unclassified | uc, cpl | Chưa phân loại (default) |
+| Food | f, an | Ăn ngoài |
+| Cafe | cf, caphe | Cafe |
+
+**Note:** Income and Investment Out groups do not require category selection (they are not expense types).
+| Groceries | gr, dc | Đi chợ |
+| Transport | tr, dl | Đi lại |
+| Entertainment | ent, gt | Giải trí |
+| Miscellaneous | mis, lt | Linh tinh |
+| Subscription | sub, dk | Đăng ký |
+| Housing | hou, no | Nhà ở |
+| Personal Care | pc, cs | Chăm sóc |
+| Healthcare | hc, sk | Sức khỏe |
+| Clothing | clo, qa | Quần áo |
+| Education | edu, hoc | Giáo dục |
+| Tech | tech, cn | Công nghệ |
+| Travel | tv, dul | Du lịch |
+| Present | pre, qt | Quà tặng |
+| Life Events | le, hh | Hiếu hỉ |
+| Lover | lov, ny | Người yêu |
+| Family | fam, gd | Gia đình |
+| Lost Money | lm, mat | Mất tiền |
+
+## Group & Category Selection Feature
+
+When an expense is added without category/group, the bot shows inline keyboard buttons for quick selection. The message is edited in place (not new messages) and shows the final expense after completion.
+
+**Input order:** name, amount, group, category, date, note (matches spreadsheet column order D=Group, E=Category)
+
+**Flow:**
+1. User adds expense with only name and amount
+2. If group is default (MUST HAVE), bot edits message to show group selection buttons
+3. User selects group (or skips)
+4. If category is Unclassified, bot edits message to show category selection buttons
+5. User selects category (or skips)
+6. Bot edits message to show final expense record
+
+**Date format:** Uses datetime format (d/m/yyyy HH:mm) when auto-generated. All date parsing uses `time.ParseInLocation` with Asia/Ho_Chi_Minh timezone. Use `timepkg.Now()` instead of `time.Now()` for timezone-aware current time.
+
+**Callback formats:**
+- Group: `expenses:setgrp:{expense_id}:{group_alias}:{needs_category_flag}`
+- Category: `expenses:setcat:{expense_id}:{category_alias}`
+
+**Button layout:** 2 buttons per row + Skip button at bottom
+
+**Report Fields:**
+- Self Expenses / Chi bản thân: Personal spending (excludes Family & Lover)
+- Total Expenses / Tổng chi: Sum of all expenses
+- Net Change / Thay đổi ròng: Income - Total Expenses
+
+---
+
+## Voice Input Feature
+
+The bot supports voice input for adding expenses using OpenAI Whisper and ChatGPT.
+
+**Requirements:**
+- OpenAI API key configured in config
+- User must have Google Sheets configured
+
+**Flow:**
+1. User sends a voice message (in any context)
+2. Bot downloads audio from Telegram
+3. Whisper API transcribes audio to text
+4. ChatGPT parses natural language into expense fields
+5. If parsing is clear, expense is created immediately
+6. If unclear (e.g., missing amount), bot asks for clarification
+7. User responds with clarification
+8. Bot re-parses and creates expense
+
+**Example inputs:**
+- "Lunch meeting 150k must have dining" -> Name: Lunch meeting, Amount: 150,000, Group: mh, Category: din
+- "Grab di Vincom" -> Bot asks: "How much was the Grab ride?"
+- "Mua Spotify subscription 59k" -> Name: Spotify subscription, Amount: 59,000, Category: sub
+
+**Voice parsing:** Today's date is injected into the ChatGPT user message (`"Today is YYYY-MM-DD"`) to prevent date hallucination. The Whisper prompt includes broad Vietnamese expense vocabulary (food, transport, tech, personal care, housing, etc.).
+
+**Configuration (configs/*.yaml):**
+```yaml
+openai:
+  api_key: sk-xxxxxxxx
+  whisper_model: gpt-4o-transcribe  # or whisper-1
+  chat_model: gpt-4o                # used for both voice parsing and AI ask
+```
+
+**Architecture:**
+- `internal/repository/openai/client.go` - Whisper + ChatGPT client (incl. ChatWithHistory for conversations)
+- `internal/service/voice_expense.go` - Voice processing orchestration
+- `internal/handler/expense.go` - HandleVoiceExpense(), HandleVoiceClarification()
+
+---
+
+## AI Ask Feature
+
+Natural language query feature allowing users to ask questions about their expenses in Vietnamese or English, with follow-up conversation support.
+
+**Commands:** `/ask`, `/a`, `/q` (aliases)
+
+**Flow:**
+1. User sends `/ask` (enters conversation state) or `/ask <question>` (inline)
+2. AskService gathers expense context: current month budget overview + 6-month historical per-month data
+3. Builds system prompt with structured data + bot help reference + formatting rules
+4. Sends to GPT via `ChatWithHistory` with conversation history
+5. Returns HTML-formatted answer; conversation stays active for follow-ups
+6. `/cancel` or any other command exits
+
+**Conversation history:** In-memory per chatID, capped at 10 turns (20 messages). Lost on restart.
+
+**System prompt includes:**
+- Current month group/category report with budgets
+- Per-month group/category/summary breakdowns (up to 6 months)
+- Bot command reference (so AI can answer help questions too)
+- Formatting rules (Telegram HTML only, no markdown)
+- Ranking/comparison instructions (show top 3 + average)
+
+**Architecture:**
+- `internal/service/ask.go` - AskService (prompt builder, conversation orchestrator)
+- `internal/repository/openai/client.go` - ChatMessage type, ChatWithHistory method
+- `internal/state/conversation.go` - StateAskConversation, AskPendingData (history storage)
+- `internal/handler/expense.go` - HandleAskCommand(), HandleAskFollowUp()
+
+---
+
+## Expense Insights Feature
+
+Multi-month spending analysis with averages and emergency fund calculation.
+
+**Command:** `/expenses_insights` or Insights button in `/expenses` menu
+
+**Flow:**
+1. Fetches group/category/summary reports from multiple monthly sheets via BatchGet
+2. Computes per-group and per-category monthly averages
+3. Calculates emergency fund target (configurable multiplier x avg MUST HAVE)
+4. Shows period selector (3M/6M/12M/YTD) and EF multiplier buttons (3x/6x/Custom)
+
+**Architecture:**
+- `internal/service/expense.go` - GetInsights(), GetMonthlyReports()
+- `internal/repository/sheets/expense.go` - GetMultiMonthReports(), MonthReport struct
+- `internal/model/insights.go` - InsightsResult, AverageEntry models
+- `internal/types/gsheets.go` - RecentSheetNames(), YTDSheetNames(), SortSheetNames()
+
+---
+
+## Conversation States (internal/state/)
+
+| State | Description |
+|-------|-------------|
+| `expenses:add` | Waiting for expense input |
+| `expenses:voice_clarify` | Waiting for voice expense clarification |
+| `budget:set_group:{row}` | Waiting for group budget amount |
+| `budget:set_category:{row}` | Waiting for category budget amount |
+| `insights:ef_custom` | Waiting for custom emergency fund multiplier |
+| `ask:conversation` | AI ask multi-turn conversation |
+| `gsheets:configure` | Waiting for Google Sheets URL |
+| `gsheets:update_current_page` | Waiting for active page name |
+
+---
+
+## Commands Reference
+
+| Command | Handler | Description |
+|---------|---------|-------------|
+| /start | StartHandler.HandleStart | Greeting |
+| /help | StartHandler.HandleHelp | List commands |
+| /expenses | ExpenseHandler.HandleExpensesCommand | Expense menu |
+| /expenses_add | ExpenseHandler.HandleExpensesAddCommand | Add expense |
+| /expenses_help | ExpenseHandler.HandleExpensesHelp | Groups/categories |
+| /expenses_insights | ExpenseHandler.HandleExpensesInsightsCommand | Multi-month avg insights |
+| /ask, /a, /q | ExpenseHandler.HandleAskCommand | AI NL query (expenses + help) |
+| /budget | ExpenseHandler.HandleBudgetCommand | Budget management menu |
+| /gsheets | GSheetsHandler.HandleGSheetsCommand | Configure sheets, create new month |
+| /settings | StartHandler.HandleSettings | Settings (not impl) |
+| /feedback | StartHandler.HandleFeedback | Feedback (not impl) |
+
+---
+
+## Expense Callback Patterns
+
+| Pattern | Handler | Description |
+|---------|---------|-------------|
+| `expenses:add` | HandleExpensesAdd | Start add flow |
+| `expenses:view` | HandleExpensesView | View recent 5 expenses |
+| `expenses:viewmore:{count}` | handleViewMoreCallback | Load more expenses (up to 25) |
+| `expenses:report` | HandleExpensesReport | Show report |
+| `expenses:setgrp:{id}:{alias}:{needsCat}` | handleSetGroupCallback | Set expense group |
+| `expenses:setcat:{id}:{alias}` | handleSetCategoryCallback | Set expense category |
+| `expenses:qdel:{id}` | handleQuickDeleteCallback | Quick delete expense |
+| `expenses:budget` | handleBudgetCallback | Budget menu |
+| `expenses:budget:view` | handleBudgetView | View budget overview |
+| `expenses:budget:setgrp` | handleBudgetSetGroup | Select group to set budget |
+| `expenses:budget:setgrp:{row}` | handleBudgetSetGroup | Prompt for group budget amount |
+| `expenses:budget:setcat` | handleBudgetSetCategory | Select category to set budget |
+| `expenses:budget:setcat:{row}` | handleBudgetSetCategory | Prompt for category budget amount |
+| `expenses:budget:back` | handleBudgetMenu | Return to budget menu |
+| `expenses:insights` | handleInsightsCallback | Default insights (3M, 3x EF, excl current) |
+| `expenses:insights:{period}:{ef}:{excl}` | handleInsightsCallback | Insights with params |
+
+### Insights Feature
+
+Multi-month average spending analysis accessible via `/expenses_insights` or "Insights" button in expense menu.
+
+**Callback format:** `expenses:insights:{period}:{efMultiplier}:{excludeCurrent}`
+- `{period}` = `3`, `6`, `12`, or `ytd`
+- `{efMultiplier}` = `3`, `6`, or `custom` (triggers conversation state for custom input)
+- `{excludeCurrent}` = `1` (exclude active page, default) or `0` (include)
+
+**Data flow:** Uses `client.BatchGet()` to read group reports (`I3:J13`) and category reports (`N3:O22`) from multiple monthly sheets in a single API call. Results aggregated and averaged.
+
+**Models:**
+- `AverageEntry`: Name, Total, Average, MonthCount
+- `InsightsResult`: Period, MonthsFound, MonthsMissing, ExcludedCurrent, GroupAvgs, CategoryAvgs, SummaryAvgs, EmergencyFundMultiplier, EmergencyFund
+- `MonthReport`: Groups, Categories, Summary (per-sheet parsed data)
+
+**Emergency Fund:** Calculated as `efMultiplier * avg MUST HAVE`. User can pick 3x, 6x, or type custom multiplier.
+
+### Google Sheets Deep Links
+
+All "View in Google Sheets" links use the canonical format `https://docs.google.com/spreadsheets/d/{id}/edit#gid={sheetId}` to navigate directly to the active sheet tab. The `buildSheetURL` helper in `ExpenseService` looks up the sheet's numeric GID and constructs the URL. Falls back to the base URL if lookup fails.
+
+---
+
+## GSheets Callback Patterns
+
+| Pattern | Handler | Description |
+|---------|---------|-------------|
+| `gsheets:configure` | HandleConfigureCallback | Start configure flow |
+| `gsheets:help` | HandleHelpCallback | Show setup help |
+| `gsheets:update_current_page` | HandleUpdateActivePageCallback | Update active page |
+| `gsheets:update_current_page:{name}` | HandleUpdateActivePageCallback | Confirm page selection |
+| `gsheets:update_current_page_manual` | HandleManualPageInputCallback | Manual page input |
+| `gsheets:create_new_month` | HandleCreateNewMonthCallback | Show confirmation |
+| `gsheets:create_new_month:confirm` | HandleCreateNewMonthCallback | Execute sheet creation |
+
+### Create New Month Flow
+
+Automates monthly sheet creation via `/gsheets` > "Create New Month":
+1. Reads current active page from spreadsheet
+2. Shows confirmation: "Create 2026_03 from 2026_02?"
+3. On confirm, executes 13 steps:
+   - Duplicate sheet with new name
+   - Update A1 label
+   - Snapshot assets T2:U9 to T17:U24 (unformatted values)
+   - Clear salary (C4), expense data (rows 10+), investment notes (AF16:AF30)
+   - Reset next expense ID (B2 = 10)
+   - Update investment formulas C5:C9 (replace previous month reference)
+   - Set new sheet as active page
+
+---
+
+## Structured Logging
+
+Uses logrus with consistent context fields:
+
+```go
+log.WithMessage(msg).
+    WithField("action", "expenses_add").
+    Info("starting add expense flow")
+```
+
+**Standard fields:** user_id, username, chat_id, chat_type, action, expense_id
+
+---
+
+## Dependency Injection
+
+All dependencies are injected via constructors in main.go:
+
+```go
+sheetsClient := sheets.NewClient(cfg)
+expenseRepo := sheets.NewExpenseRepository(sheetsClient)
+mappingRepo := sheets.NewMappingRepository(sheetsClient, dbSpreadsheetID)
+mappingService := service.NewMappingService(mappingRepo)
+expenseService := service.NewExpenseService(expenseRepo, mappingService)
+```
+
+---
+
+## Service Account
+
+**Email:** `housematee-gsheets@housematee.iam.gserviceaccount.com`
+
+Users must share their spreadsheet with this email (Editor access).
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/tasszz2k)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/tasszz2k)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
