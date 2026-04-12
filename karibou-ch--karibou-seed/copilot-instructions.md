@@ -1,0 +1,1386 @@
+## karibou-seed
+
+> Règles et conventions pour le projet frontend (@/karibou-seed)
+
+# Règles et Conventions du Projet Frontend (karibou-seed)
+
+Ce document décrit les règles, conventions et bonnes pratiques à suivre pour le développement du projet frontend `karibou-seed`. L'objectif est d'assurer la cohérence, la maintenabilité et la qualité du code.
+* Vérifier la racine du projet `~/nodejs/karibou.ch/karibou-seed` avant un git ou la création de fichiers.
+
+## 1. Objectif du Projet
+
+`karibou-seed` est un projet "white-label" basé sur Angular, conçu pour servir de socle à des plateformes de e-commerce, principalement pour des groupements d'artisans ou des hubs alimentaires. Il est pensé pour être personnalisable via un système de theming et de configuration.
+
+## 2. Structure des Fichiers et Dossiers (`src/`)
+
+La structure du projet suit les conventions d'Angular, avec une organisation orientée par fonctionnalité.
+
+```
+src/
+├── app/
+│   ├── common/         # Composants, services, et directives réutilisables
+│   ├── kng-admin/      # Modules et composants pour la section admin
+│   ├── kng-cart/       # Logique et affichage du panier
+│   ├── kng-home/       # Page d'accueil
+│   ├── kng-user/       # Espace utilisateur (profil, commandes, etc.)
+│   ├── ...             # Autres dossiers de fonctionnalités (kng-*)
+│   ├── app.module.ts   # Module principal de l'application
+│   └── app.routes.ts   # Définition des routes principales
+├── assets/
+│   ├── i18n/           # Fichiers de traduction (fr.json, en.json)
+│   └── ...             # Images, icônes, et autres ressources statiques
+├── environments/
+│   ├── environment.ts
+│   └── environment.prod.ts
+└── styles/
+    ├── colors.scss     # Définition des palettes de couleurs du thème
+    ├── kng-theme.scss  # Fichier principal du thème (variables, mixins)
+    ├── styles.scss     # Styles globaux de l'application
+    └── ...             # Autres fichiers de styles partiels
+```
+
+## 3. Conventions de Nommage et de Codage
+
+### 3.0 🗓️ Règle Absolue — CalendarService comme Proxy Unique pour les Dates
+
+**⚠️ INTERDIT** : Toute manipulation directe de `Date` dans les composants ou pages Angular.
+
+Les calculs de dates, offsets, comparaisons de jours, conversions timezone **doivent toujours passer par `CalendarService`** (`$calendar`). Cette règle s'applique à tous les projets frontend (`karibou-seed`, `kio2-admin`).
+
+#### ❌ Patterns interdits dans les composants
+
+```typescript
+// ❌ Arithmétique directe sur Date
+const d = new Date();
+d.setDate(d.getDate() + 1);
+while (d.getDay() !== target) { d.setDate(d.getDate() + 1); }
+
+// ❌ new Date() sans normalisation hub timezone
+const tomorrow = new Date();
+tomorrow.setHours(0, 0, 0, 0);
+
+// ❌ Comparaisons weekday sans hub context
+if (date.getDay() === 1) { ... }
+```
+
+#### ✅ Patterns obligatoires — déléguer à `$calendar`
+
+```typescript
+// ✅ Prochain jour correspondant à un dayOfWeek (avec startDate optionnel)
+const date = this.$calendar.firstDeliveryDate(dayOfWeek, startDate, hub);
+
+// ✅ Prochaine date de livraison valide (hub weekdays + noshipping)
+const next = this.$calendar.nextShippingDay(hub);
+
+// ✅ Liste des dates disponibles (avec contraintes capacité, noshipping)
+const dates = this.$calendar.getValidShippingDatesForHub(hub, { days: 7 });
+
+// ✅ Conversion UTC → timezone Hub (pour comparaisons business)
+const hubDate = this.$calendar.toHubTime(utcDate, hub);
+
+// ✅ Formatage pour affichage (timezone Swiss automatique)
+const display = this.$calendar.formatForClient(utcDate, hub);
+```
+
+#### Méthodes CalendarService disponibles (kng2-core)
+
+| Méthode | Usage |
+|---|---|
+| `firstDeliveryDate(dayOfWeek, startDate?, hub?)` | Première occurrence d'un jour de semaine |
+| `nextShippingDay(hub?)` | Prochain jour de livraison valide du hub |
+| `getValidShippingDatesForHub(hub?, options?)` | Dates disponibles sur N jours |
+| `timeleftBeforeCollect(hub?, timelimit?, when?)` | Temps restant avant limite de commande |
+| `toHubTime(date, hub?)` | Conversion UTC → timezone hub |
+| `formatForClient(date, hub?)` | Affichage localisé (fr-CH, Europe/Zurich) |
+| `getDefaultTimeByDay(day, hub?)` | Slot horaire par défaut selon le jour |
+| `isDayAvailable(day, availableDays)` | Validation disponibilité d'un jour |
+
+#### Pourquoi cette règle
+
+- **Timezone Swiss** : `new Date()` retourne la timezone du navigateur client (Tokyo, NYC…). `toHubTime()` normalise vers Europe/Zurich pour des calculs cohérents.
+- **Hub weekdays** : un jour "valide" dépend de la config du hub (weekdays, noshipping, currentRanks). Seul `CalendarService` connaît ces contraintes.
+- **Cohérence backend** : `calendar.js` backend et `CalendarService` frontend partagent la même logique. Pas de divergence possible si on passe par le proxy.
+
+### TypeScript / Angular
+
+-   **Modules / Composants / Services :** Les noms de classes utilisent `PascalCase`. Les noms de fichiers utilisent `kebab-case` et sont suffixés par leur type (`.component.ts`, `.service.ts`, `.module.ts`).
+    -   Exemple : Classe `KngHomeComponent` dans le fichier `kng-home.component.ts`.
+
+-   **Préfixe `kng-` :** Ce préfixe est utilisé pour les composants et modules spécifiques à l'application afin d'éviter les conflits de nommage avec des bibliothèques externes.
+
+-   **Variables et Méthodes :** Les noms de variables et de méthodes utilisent `camelCase`.
+    -   Exemple : `currentContract`, `getPaymentErrorMessage()`.
+
+-   **Services et Observables :** Les propriétés qui contiennent une instance de service (injectée via le constructeur) ou un `Observable` important peuvent être préfixées par un `$` pour les identifier rapidement.
+    -   Exemple : `this.$cart`, `this.$user`.
+    Utiliser une approche déclarative pour se désabonner des observables (ex: `pipe(takeUntil(destroyed$))`)
+
+-  **Evénements des composants :** Les noms des méthodes d'événnements sont  préfixées par `on`
+
+### Styles (SCSS)
+
+Cette section détaille l'architecture et les conventions de style du projet. Une adhésion stricte à ces règles est essentielle pour maintenir un design cohérent et faciliter la personnalisation du thème.
+
+#### **Méthodologie Générale**
+
+-   **Encapsulation :** Les styles sont encapsulés au niveau des composants par défaut (`ViewEncapsulation.None` est à éviter). Cela empêche les styles d'un composant de "fuir" et d'affecter d'autres parties de l'application.
+-   **Fichiers Globaux :** Les styles qui doivent s'appliquer à toute l'application (comme les définitions de variables, les resets CSS, etc.) sont placés dans le répertoire `src/styles/`.
+
+#### **Le Système de Theming : Variables CSS (Custom Properties)**
+
+Le cœur du système de theming repose sur les **variables CSS**, aussi appelées "Custom Properties".
+
+-   **Définition :** Toutes les variables de thème globales sont définies dans `src/styles/styles.scss` sous le sélecteur `:root`. Cela les rend disponibles dans l'ensemble de l'application.
+-   **Avantages :**
+    -   **Centralisation :** Toutes les valeurs de design clés (couleurs, dimensions) sont à un seul endroit.
+    -   **Personnalisation Facile :** Modifier une variable dans `:root` met à jour sa valeur partout où elle est utilisée, permettant de "re-skinner" l'application très facilement.
+    -   **Dynamisme :** Les variables CSS peuvent être modifiées à la volée avec JavaScript, ouvrant la voie à des thèmes dynamiques (ex: mode sombre/clair).
+
+#### **Utilisation Pratique**
+
+Pour utiliser une variable de thème dans le fichier SCSS d'un composant, utilisez la fonction `var()` :
+
+```scss
+// Exemple dans un composant
+.mon-bouton-principal {
+  background-color: var(--mdc-theme-primary);
+  color: var(--mdc-theme-primary-text);
+  border: 1px solid var(--mdc-theme-secondary);
+}
+
+.conteneur-page {
+  width: 100%;
+  max-width: var(--mdc-theme-max-width-md);
+  margin: 0 auto;
+}
+```
+
+#### **Variables de Thème Essentielles**
+
+Voici une liste des variables les plus importantes à connaître et à utiliser.
+
+##### **Palette de Couleurs**
+
+| Variable                                   | Rôle                                                                 |
+| ------------------------------------------ | -------------------------------------------------------------------- |
+| `--mdc-theme-primary`                      | **Couleur principale** de la marque. Utilisée pour les en-têtes, les boutons principaux, etc. |
+| `--mdc-theme-secondary`                    | **Couleur d'accentuation**. Utilisée pour les éléments interactifs secondaires, les liens, etc. |
+| `--mdc-theme-primary-light` / `--secondary-light` | Versions éclaircies, souvent générées via `color-mix`, pour les fonds ou les survols (`hover`). |
+| `--mdc-theme-primary-text` / `--secondary-text`   | Couleur du texte à utiliser **par-dessus** les couleurs primaires/secondaires. |
+| `--mdc-theme-text-primary-on-background`   | Couleur du **texte par défaut** sur un fond clair.                   |
+| `--mdc-theme-text-secondary-on-background` | Couleur du texte secondaire, moins important (sous-titres, etc.).  |
+| `--mdc-theme-text-hint-on-background`      | Couleur pour les textes d'aide ou les placeholders.                  |
+| `--mdc-theme-text-icon-on-background`      | Couleur des icônes par défaut.                                       |
+| `--mdc-theme-background-container`         | Couleur de **fond principale** de l'application.                     |
+| `--mdc-theme-appbar`                       | Couleur de fond de la barre de navigation.                           |
+| `--mdc-theme-appbar-text`                  | Couleur du texte et des icônes dans la barre de navigation.          |
+
+##### **Dimensions et Layout**
+
+| Variable                      | Rôle                                                                 |
+| ----------------------------- | -------------------------------------------------------------------- |
+| `--mdc-theme-width-md`        | Largeur fixe du conteneur principal pour les écrans de taille moyenne (desktop). |
+| `--mdc-theme-max-width-md`    | Largeur **maximale** du conteneur principal pour les écrans de taille moyenne. |
+| `--mdc-theme-top-bar`         | **Hauteur de la barre de navigation** (`70px`). Essentiel pour positionner le contenu de la page en dessous avec `padding-top` ou `margin-top`. |
+
+
+## 4. Dépendances Clés
+
+Le projet repose sur un ensemble de dépendances fondamentales.
+
+-   **`@kng2-core` (Dépendance Principale) :**
+    -   **Rôle :** C'est le cœur de l'application. Cette bibliothèque contient la logique métier, les modèles de données, et les services principaux qui ne sont pas liés à l'interface utilisateur.
+    -   **Contenu :**
+        -   **Services :** `CartService`, `UserService`, `ProductService`, `ConfigService`.
+        -   **Modèles :** Interfaces comme `User`, `Product`, `Order`, `CartSubscription`.
+    -   **Convention :** Toute la logique métier (appels API, gestion de l'état du panier, etc.) doit être déléguée aux services de `@kng2-core`. Les composants Angular doivent rester aussi simples que possible et consommer ces services.
+
+-   **`@angular-mdc/web` :** Bibliothèque de composants UI basée sur Material Design (DEPRECATED, il faut supprimer cette dépendance).
+
+-   **`ngx-stripe` :** Intégration pour la gestion des paiements via Stripe.
+
+-   **`@sentry/angular-ivy` :** Suivi et rapport d'erreurs.
+
+## 5. Gestion de l'État (State Management)
+
+L'état de l'application (panier, utilisateur connecté, etc.) est géré de manière réactive à l'aide de **RxJS**. Les services de `@kng2-core` exposent des `Observables` (souvent basés sur des `BehaviorSubject`) auxquels les composants s'abonnent pour recevoir les mises à jour de l'état en temps réel.
+
+-   **Exemple :**
+    ```typescript
+    // Dans un composant, pour suivre les changements de l'utilisateur
+    this.$user.user$.subscribe(user => {
+      this.user = user;
+    });
+    ```
+-   **Convention :** Utiliser le pipe `async` dans les templates autant que possible pour gérer automatiquement les souscriptions et désabonnements, afin d'éviter les fuites de mémoire.
+
+
+## 5.1 Convention
+- utliser  `const $date = new DatePipe('fr-ch');` pour formater une date.
+
+## 6. Stratégie de Routage et de Cache
+
+Le fichier `app.cache.route.ts` implémente une stratégie de réutilisation des routes (`RouteReuseStrategy`) personnalisée. C'est une pièce maîtresse pour la performance et la fluidité de la navigation.
+
+-   **Objectif :** Améliorer l'expérience utilisateur en mettant en cache les vues des composants déjà visités. Cela permet d'éviter de re-détruire et re-créer des composants à chaque navigation, conservant ainsi l'état de la vue (comme la position de défilement) et évitant des appels réseau inutiles.
+
+-   **Fonctionnement :**
+    -   La classe `CacheRouteReuseStrategy` détermine, pour chaque navigation, s'il faut détacher et stocker la vue actuelle ou attacher une vue précédemment stockée.
+    -   La mise en cache est sélective et basée sur le chemin des routes. Par exemple, elle est configurée pour mettre en cache les listes de produits (`category/:category`) lorsque l'utilisateur navigue vers une page de détail produit (`products/:sku`) et revient en arrière.
+    -   Le cache est intelligemment invalidé, notamment lorsque l'utilisateur change de "département" principal (ex: passer de `home` à `cellar`), afin de ne pas conserver un état de cache incohérent.
+
+## 7. Plan d'Intégration Calendar API dans kng2-core
+
+### **Contexte et Problématique**
+
+Le projet nécessite une harmonisation des dates et timezones selon le plan de migration [[memory:5460294]]. L'analyse des sources a révélé des **bugs critiques** dans `kng2-core` par rapport à l'API Calendar backend (testée).
+
+## Résumé de la Stratégie
+
+### **⚠️ DIFFÉRENCE CRITIQUE BACKEND vs FRONTEND**
+
+#### **Backend (calendar.js)** : UTC-First ✅
+- **Principe** : UTC partout, conversion Hub seulement pour calculs business
+- **`new Date()`** → UTC normalisé (serveur contrôlé)
+- **currentRanks indexing** : `day.getUTCDay()` car dates UTC
+- **Transport** : UTC entre services
+
+#### **Frontend (CalendarService)** : **🚨 HUB-CENTRIC-TIMEZONE OBLIGATOIRE** 🚨
+
+## **🎯 SPÉCIFICATIONS CORRECTES VALIDÉES**
+
+### **Configuration Hub (SPEC FINALE)** :
+```typescript
+hub = {
+  timelimit: 12,          // ✅ 12h de préparation par défaut (CORRIGÉ)
+  timelimitH: 10,         // ✅ Collecte à 10h par défaut (CORRIGÉ)
+  weekdays: [1,2,3,4,5,6], // Jours de livraison disponibles
+  timezone: 'Europe/Zurich' // Timezone du marché
+}
+```
+
+### **Logique Métier Correcte** :
+```typescript
+// ✅ EXEMPLE VALIDÉ (Tests 100% réussis) :
+// Hub normal: collecte demain 10h - préparation 12h = deadline aujourd'hui 22h
+// Pain frais: collecte demain 10h - préparation 24h = deadline hier 10h (plus restrictif!)
+
+// product.attributes.timelimit = DURÉE DE PRÉPARATION (remplace hub.timelimit)
+// Si product.timelimit = 24h > hub.timelimit = 12h → utilise 24h (plus restrictif)
+```
+
+### **API CalendarService Simplifiée - 2 FONCTIONS PRINCIPALES** :
+```typescript
+export class CalendarService {
+
+  // ============================================================================
+  // FONCTION PRINCIPALE 1/2 : Dates de livraison disponibles
+  // ============================================================================
+  getValidShippingDatesForHub(hub?: Hub, options?: {
+    days?: number,        // Nombre de jours à chercher (défaut: 7)
+    detailed?: boolean    // Format détaillé avec timezone info
+  }): Date[] | DetailedDate[] {
+    // Retourne les dates de livraison disponibles
+  }
+
+  // ============================================================================
+  // FONCTION PRINCIPALE 2/2 : Temps restant + Interface complète
+  // ============================================================================
+  timeleftBeforeCollect(
+    hub?: Hub,
+    productTimelimit?: number,  // Durée préparation spécifique produit
+    when?: Date,                // Date de livraison choisie
+    options?: { includeInterface?: boolean }
+  ): number | ProductOrderTiming {
+    // Mode number: retourne heures restantes
+    // Mode interface: retourne objet complet pour UI
+  }
+
+  // ============================================================================
+  // AUTRES FONCTIONS : @deprecated (délèguent vers les 2 principales)
+  // ============================================================================
+  // @deprecated Use getValidShippingDatesForHub(...)[0] instead
+  nextShippingDay(hub?: Hub, user?: User): Date | null
+
+  // @deprecated Use timeleftBeforeCollect with { includeInterface: true } instead
+  getProductOrderTiming(product: any, hub?: Hub, options?: any): ProductOrderTiming
+}
+```
+
+### **Interface ProductOrderTiming** :
+```typescript
+export interface ProductOrderTiming {
+  isOutOfTimeLimit: boolean;      // Trop tard pour commander
+  shouldShowCountdown: boolean;   // Afficher le countdown
+  hoursLeft: number;             // Heures restantes (peut être négatif)
+  formattedTimeLeft: string;     // "2 h 30 minutes" ou "45 minutes"
+  formattedDeadline: string;     // "14h30" (heure de la deadline)
+}
+```
+
+### **Principe HUB-CENTRIC Timezone** :
+- **Problème critique** : `new Date()` retourne timezone CLIENT (Tokyo, NYC, Paris...)
+- **Solution obligatoire** : **TOUT normaliser vers timezone Hub IMMÉDIATEMENT**
+- **Principe HUB-FIRST** : Générer dates directement en timezone Hub
+- **currentRanks indexing** : `day.getDay()` car dates déjà en timezone Hub
+- **Règle absolue** : `toHubTime(new Date(), hub)` dès génération
+
+### **🎯 Pourquoi HUB-CENTRIC-TIMEZONE est CRITIQUE**
+
+**Scénario réel** : Client Tokyo commande sur marché Genève
+- ❌ **Sans normalisation** : `new Date()` → JST → calculs incohérents
+- ✅ **Avec HUB-CENTRIC** : `toHubTime(new Date(), hub)` → Swiss → cohérent
+
+**Impact** :
+- ✅ **availableDays** : Toutes en timezone Swiss cohérent
+- ✅ **currentRanks** : Indexé par jour Swiss cohérent
+- ✅ **Validation** : Règles business appliquées timezone marché
+- ✅ **International** : Clients monde entier → même logique Swiss
+
+### **📋 PATTERNS OBLIGATOIRES Frontend HUB-CENTRIC**
+
+#### **✅ CORRECT : Normalisation Hub Immédiate**
+```typescript
+// ✅ OBLIGATOIRE : Normaliser dès génération
+potentialShippingDay(hub?: Hub): Date {
+  const nowHub = this.toHubTime(new Date(), hub); // ✅ Hub timezone immédiat
+  const potentialHub = new Date(nowHub.getTime() + 3600000 * hub.timelimit);
+  return potentialHub; // ✅ Retour Hub timezone
+}
+
+// ✅ OBLIGATOIRE : Comparaisons directes en Hub timezone
+if (hub.weekdays.indexOf(date.getDay()) === -1) { // ✅ getDay() car Hub timezone
+  return false;
+}
+
+// ✅ OBLIGATOIRE : currentRanks avec getDay() (Hub timezone)
+const dayRank = hubRanks[day.getDay()] || 0; // ✅ getDay() car Hub timezone
+```
+
+#### **❌ INTERDIT : Logique UTC côté Frontend**
+```typescript
+// ❌ INTERDIT : UTC direct côté frontend
+const now = new Date(); // ❌ Timezone client imprévisible
+const today = now.getUTCDay(); // ❌ UTC inadapté frontend
+
+// ❌ INTERDIT : Conversion UTC → Hub pour chaque usage
+const dayInHubTz = this.toHubTime(day, hub); // ❌ Inefficace et source d'erreurs
+const dayRank = hubRanks[dayInHubTz.getDay()] || 0; // ❌ Conversion répétée
+```
+
+#### **🎯 RÈGLE D'OR Frontend**
+> **"Generate Hub, Stay Hub, Display Hub"**
+> 1. **Generate** : `toHubTime(new Date(), hub)` dès création
+> 2. **Stay** : Toutes les dates restent en timezone Hub
+> 3. **Display** : `formatForClient()` pour affichage si nécessaire
+
+
+**Objectif** : Centraliser toutes les fonctions de date liées aux livraisons, abonnements et planning.
+
+### **Problèmes Identifiés** ❌
+
+1. **Logic Bug dans `order.ts`** :
+   - `nextShippingDay()` a une logique incorrecte pour les périodes de fermeture
+   - `currentShippingDay()` est incomplète et simpliste
+
+2. **Timezone Bug dans `config.ts`** (RÉSOLU via CalendarService) :
+   - ~~`potentialShippingDay()` utilisait des méthodes incohérentes (mélange UTC/local)~~
+   - ✅ **CORRIGÉ** : Utiliser `CalendarService.toHubTime()` pour normaliser vers timezone Hub
+   - ✅ **PRINCIPE** : Frontend = Hub-Centric (Europe/Zurich), pas UTC
+
+3. **Duplication de Code** :
+   - Logique identique dupliquée entre `config.ts`, `order.ts` et `cart.service.ts`
+   - Maintien difficile et source d'erreurs
+
+### **Architecture de Solution** ✅
+
+#### **7.1 Principe de Convergence**
+
+**TOUT CONVERGE VERS `$calendar`** - Abandon des calculs de dates dans `order.ts`
+
+#### **7.2 CalendarService avec Convention Angular**
+
+**Création de `kng2-core/src/calendar.service.ts`** :
+
+#### **7.4 Migration cart.service.ts**
+
+```typescript
+@Injectable()
+export class CartService {
+
+  constructor(
+    private $http: HttpClient,
+    private $calendar: CalendarService // ✅ Convention Angular
+  ) {}
+
+  getCurrentShippingDay(): Date {
+    if (!this.cache.currentShippingDay) {
+      // ✅ DÉLÉGUER vers $calendar au lieu de Order.nextShippingDay()
+      const hub = this.defaultConfig.shared.hub;
+      return this.$calendar.nextShippingDay(hub);
+    }
+    return this.cache.currentShippingDay;
+  }
+
+  // ✅ Nouvelles méthodes utilisant $calendar
+  validateShippingDay(date: Date, hub?: any): boolean {
+    const targetHub = hub || this.defaultConfig.shared.hub;
+    return this.$calendar.isShippingDayAvailable(targetHub, date);
+  }
+}
+```
+
+### **7.5 Séparation des Rôles et Use Cases** 📋
+
+#### **Principe de Séparation**
+Il faut bien distinguer les différents rôles dans la gestion des dates :
+
+1. **`CalendarService`** : Logique pure de calcul des dates de livraison (business rules)
+2. **`CartService`** : Gestion de l'état et des préférences utilisateur
+3. **Composants** : Interface utilisateur et interactions
+
+#### **Use Cases Principaux**
+
+**UC1 - Première Visite** :
+```typescript
+// 1. Utilisateur arrive sur le site
+// 2. CalendarService calcule nextShippingDay() selon hub
+// 3. CartService stocke comme currentShippingDay par défaut
+this.cache.currentShippingDay = this.$calendar.nextShippingDay(hub);
+```
+
+**UC2 - Commande en Cours** :
+```typescript
+// 1. Utilisateur a une commande authorized/prepaid en cours
+// 2. CartService.setContext() détecte la commande pending
+// 3. Date par défaut = date de la commande existante
+if (!this.currentPendingOrder && order) {
+  this.cache.currentShippingDay = new Date(order.shipping.when);
+}
+```
+
+**UC3 - Changement de Date** :
+```typescript
+// 1. Utilisateur choisit une nouvelle date dans le calendrier
+// 2. Composant appelle CartService.setShippingDay()
+// 3. CartService sauvegarde la nouvelle préférence
+this.$cart.setShippingDay(newDate, hours); // => save() automatique
+```
+
+**UC4 - Validation Business** :
+```typescript
+// 1. Composant vérifie si une date est disponible
+// 2. CalendarService applique les règles métier
+// 3. Retour boolean selon hub.weekdays + noshipping
+const isValid = this.$calendar.isShippingDayAvailable(hub, date);
+```
+
+**UC5 - Multiple Commandes Même Date** :
+```typescript
+// 1. CartService détecte pending order même date
+// 2. Réduction shipping si même adresse + même jour
+// 3. Interface affiche l'économie réalisée
+const hasReduction = this.$cart.hasShippingReductionMultipleOrder(address);
+```
+
+### **7.6 Gestion des Dépendances et Ordre de Chargement** 🔗
+
+#### **Problématique**
+`CalendarService` dépend de `ConfigService` qui doit être initialisé avant utilisation.
+
+#### **Solution : Vérification de Dépendance**
+
+```typescript
+// Dans CalendarService
+private ensureConfigLoaded(): boolean {
+  if (!this.$config.defaultConfig?.shared?.hub) {
+    console.warn('CalendarService: ConfigService non chargé, utilisation impossible');
+    return false;
+  }
+  return true;
+}
+
+// Usage sécurisé avec hub optionnel
+potentialShippingDay(hub?: Hub): Date {
+  const targetHub = hub || this.getDefaultHub(); // ✅ Fallback si pas de hub
+  // ... logique
+}
+```
+
+#### **Patterns d'Usage Recommandés**
+
+```typescript
+// ✅ RECOMMANDÉ : Passer hub explicitement
+this.$calendar.nextShippingDay(this.currentHub)
+
+// ✅ ACCEPTABLE : Hub par défaut (si config chargé)
+this.$calendar.nextShippingDay()
+
+// ❌ ÉVITER : Usage sans vérifier config
+// this.$calendar.nextShippingDay() // Peut échouer si config non chargé
+```
+
+#### **Injection dans app.module.ts**
+
+```typescript
+// S'assurer que CalendarService est fourni après ConfigService
+@NgModule({
+  providers: [
+    ConfigService,      // ✅ Doit être chargé en premier
+    CalendarService,    // ✅ Peut utiliser ConfigService
+    // ... autres services
+  ]
+})
+export class AppModule {}
+```
+
+### **Migration Progressive** 🔄
+
+#### **Étape 1 : Création CalendarService** ✅ **TERMINÉ**
+- ✅ Créé `calendar.service.ts` avec logique exacte de calendar.js testé
+- ✅ **CRITIQUE** : Ajouté vérification dépendance ConfigService
+- ✅ Documentation complète des 7 use cases dans le service
+- ✅ Export dans index.ts et intégration dans kng2-core.module.ts
+- ✅ **CRITIQUE** : Ajout gestion `currentRanks` dans backend et frontend
+- ✅ Support complet `user.isPremium()` pour limites étendues
+- ✅ **Tests validés** : 32/33 tests passent, calendar.js prêt pour production
+
+#### **Étape 2 : Injection dans config.ts et cart.service.ts** ✅ **TERMINÉ**
+- ✅ Méthodes config.ts marquées `@deprecated` avec warnings console
+- ✅ Documentation complète migrée vers CalendarService
+- ✅ Bugs timezone identifiés et documentés dans config.ts
+- ✅ Ajout méthode `noShippingMessage()` dans CalendarService
+- ✅ **CRITIQUE** : Ajout gestion `currentRanks` dans backend et frontend
+- ✅ Support complet `user.isPremium()` pour limites étendues
+- 🔲 Injection `$calendar` dans cart.service.ts à faire
+
+#### **Étape 3 : Abandon order.ts pour les dates**
+- Supprimer `nextShippingDay()`, `currentShippingDay()`, `fullWeekShippingDays()`
+- Redirection vers `$calendar` service
+- Vérifier que tous les appels passent un hub explicite
+
+#### **Étape 4 : Nettoyage**
+- Supprimer méthodes dépréciées
+- Tests de régression complets
+- Documentation mise à jour
+
+### **Avantages** ✅
+
+1. **Correction des Bugs** : Logique testée de calendar.js
+2. **Harmonisation UTC** : Résout les problèmes de timezone
+3. **Single Source of Truth** : Tout converge vers `$calendar`
+4. **Convention Angular** : Respect des patterns `$service`
+5. **Migration Progressive** : Pas de breaking changes
+
+# 8. Plan de Migration Frontend Simplifié 🎯
+
+## **Objectif Principal**
+Assurer l'affichage correct des dates en timezone Europe/Zurich et corriger les bugs de timezone dans le frontend.
+
+## **Architecture Cible**
+- ✅ **Backend Calendar API** : UTC-First (déjà testé et fonctionnel)
+- ✅ **Frontend CalendarService** : Délégation vers backend (déjà implémenté dans kng2-core)
+- 🎯 **Composants Frontend** : Migration vers `$calendar` pour timezone Swiss
+
+## **Principe de Migration**
+**UTC-First avec Affichage Swiss** : Le backend calcule en UTC, le frontend affiche en Europe/Zurich.
+
+---
+
+## **Phase 1 : Migration Prioritaire (Bugs Critiques)**
+
+### **Étape 1.1 : Injection CalendarService**
+Pour les composants prioritaires, ajouter l'injection :
+
+```typescript
+// Pattern standard pour tous les composants
+constructor(
+  private $cart: CartService,
+  private config: Config,
+  private $calendar: CalendarService // ✅ Nouvelle injection
+) {}
+```
+
+### **Étape 1.2 : Remplacement des Appels Buggés**
+
+**Pattern de Migration Simple** :
+
+```typescript
+// ❌ AVANT (bugs timezone)
+Order.nextShippingDay(this.user, this.hub)
+Order.fullWeekShippingDays(this.hub)
+this.config.timeleftBeforeCollect(hub, limit, when) // ← BUG CRITIQUE
+this.config.getDefaultTimeByDay(day) // ← DISPERSÉ
+this.isDayAvailable(day) // ← LOGIQUE DUPLIQUÉE
+
+// ✅ APRÈS (timezone Swiss correct + centralisé)
+this.$calendar.nextShippingDay(this.hub)
+this.$calendar.getValidShippingDatesForHub(this.hub, { days: 7 }) // ← PLUS FLEXIBLE
+this.$calendar.timeleftBeforeCollect(hub, limit, when) // ← CORRIGÉ
+this.$calendar.getDefaultTimeByDay(day, this.hub) // ← CENTRALISÉ
+this.$calendar.isDayAvailable(day, this.hub) // ← LOGIQUE UNIFIÉE
+```
+
+### **Étape 1.3 : Composants Prioritaires à Migrer**
+
+**🔥 CRITIQUE - product.component.ts** :
+```typescript
+// AVANT (affichage countdown incorrect)
+this.config.timeleftBeforeCollect(this.config.shared.hub, this.product.attributes.timelimit, shippingDay)
+
+// APRÈS (timezone Swiss correct)
+this.$calendar.timeleftBeforeCollect(this.config.shared.hub, this.product.attributes.timelimit, shippingDay)
+```
+
+**📅 IMPORTANT - kng-calendar.component.ts** :
+```typescript
+// AVANT (logique dupliquée + limitée)
+this.availableDays = Order.fullWeekShippingDays(this.currentHub);
+const hours = this.config.getDefaultTimeByDay(day);
+if (!this.isDayAvailable(day)) return;
+
+// APRÈS (API complète + timezone Swiss)
+this.availableDays = this.$calendar.getValidShippingDatesForHub(this.currentHub, { days: 7 });
+const hours = this.$calendar.getDefaultTimeByDay(day, this.currentHub);
+if (!this.$calendar.isDayAvailable(day, this.currentHub)) return;
+```
+
+**🏠 ESSENTIEL - kng-home.component.ts** :
+```typescript
+// AVANT (duplication logique)
+get currentShippingDay() {
+  return this.$cart.getCurrentShippingDay() || Order.nextShippingDay(this.user,this.config.shared.hub);
+}
+
+// APRÈS (centralisé)
+get currentShippingDay() {
+  return this.$cart.getCurrentShippingDay() || this.$calendar.nextShippingDay(this.config.shared.hub);
+}
+```
+
+---
+
+## **Phase 2 : Migration Standard (Composants Principaux)**
+
+### **Liste des 7 Composants à Migrer** :
+
+1. **`kng-navbar/kng-navbar.component.ts`** - Status global ouvert/fermé
+2. **`kng-cart/kng-cart-items/kng-cart-items.component.ts`** - Validation panier
+3. **`kng-cart/kng-cart.component.ts`** - État global panier
+4. **`kng-cart/kng-cart-checkout/kng-cart-checkout.component.ts`** - Processus commande
+5. **`kng-product/product-list.component.ts`** - Filtre produits par date
+6. **`common/kng-subscription-option/kng-subscription-option.component.ts`** - Souscriptions
+7. **`shared/kng-ui-bottom-actions/kng-ui-bottom-actions.component.ts`** - Actions recherche
+
+### **Pattern Standard pour Tous** :
+```typescript
+// 1. Injection
+constructor(..., private $calendar: CalendarService) {}
+
+// 2. Remplacement direct
+// AVANT: Order.nextShippingDay(...)
+// APRÈS: this.$calendar.nextShippingDay(...)
+
+// 3. Remplacement Cart
+// AVANT: this.$cart.getCurrentShippingDay()
+// APRÈS: Reste identique (le CartService utilise déjà $calendar)
+```
+
+---
+
+## **Phase 3 : Affichage Timezone Swiss**
+
+### **Méthode d'Affichage Centralisée avec Calendar**
+
+```typescript
+// ✅ UTILISER les fonctions Calendar au lieu de DateDisplayHelper
+export class CalendarService {
+
+  // Fonctions d'affichage Swiss intégrées
+  static formatForClient(utcDate: Date, hub?: Hub): string {
+    const timezone = this.getHubTimezone(hub); // Europe/Zurich par défaut
+    return new Intl.DateTimeFormat('fr-CH', {
+      timeZone: timezone,
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(utcDate);
+  }
+
+  static weekdaysNames(lang = 'fr'): string[] {
+    // Retourne les noms des jours selon la langue
+    return lang === 'fr' ?
+      ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'] :
+      ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+  }
+
+  static monthsNames(lang = 'fr'): string[] {
+    // Retourne les noms des mois selon la langue
+    return lang === 'fr' ?
+      ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] :
+      ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  }
+}
+```
+
+### **Usage dans les Composants** :
+```typescript
+// Dans les composants pour affichage Swiss automatique
+get displayShippingDay(): string {
+  const utcDate = this.$calendar.nextShippingDay(this.hub);
+  return this.$calendar.formatForClient(utcDate, this.hub); // ✅ Swiss formaté
+}
+
+get timeLeft(): string {
+  const hoursLeft = this.$calendar.timeleftBeforeCollect(this.hub, this.product.timelimit, this.shippingDay);
+  return `${Math.floor(hoursLeft)}h ${Math.floor((hoursLeft % 1) * 60)}m`;
+}
+
+// Noms de jours/mois localisés
+get dayNames(): string[] {
+  return this.$calendar.i18n_weekdays(this.locale); // fr/de selon utilisateur
+}
+
+get dayNamesShort(): string[] {
+  return this.$calendar.i18n_weekdaysShort(this.locale); // 'lun.', 'mar.', etc.
+}
+
+get monthNames(): string[] {
+  return this.$calendar.i18n_months(this.locale); // fr/de selon utilisateur
+}
+
+// Helper pour un jour spécifique
+getWeekDay(idx: number): string {
+  return this.$calendar.getWeekDay(idx, this.locale); // 'lun.', 'mar.', etc.
+}
+```
+
+---
+
+## **Tests de Validation** 🧪
+
+### **Tests Critiques Obligatoires** :
+
+1. **Countdown Produit** : Temps restant affiché en heure Swiss ✅
+2. **Calendrier Navigation** : Jours disponibles en timezone Swiss ✅
+3. **Status Navbar** : Ouvert/fermé selon heure Swiss ✅
+4. **Validation Panier** : Dates de livraison cohérentes ✅
+
+### **Scénarios de Test** :
+```typescript
+// Test 1: Client international, affichage Swiss
+// UTC: 2024-01-15T14:00:00.000Z (14h UTC)
+// Swiss: Affichage "15h" (hiver) ou "16h" (été)
+
+// Test 2: Limite de commande
+// Hub timelimitH: 10 (10h Swiss - SPEC CORRECTE)
+// Commande à 09h Swiss → OK
+// Commande à 11h Swiss → KO (trop tard)
+
+// Test 3: Changement DST (été/hiver)
+// Dates consistent entre backend UTC et affichage Swiss
+```
+
+---
+
+## **Checklist de Migration** ✅
+
+### **Phase 1 - Critique (2-3 jours)**
+- [ ] **product.component.ts** : Fix countdown timezone
+- [ ] **kng-calendar.component.ts** : Fix sélection dates
+- [ ] **kng-home.component.ts** : Fix affichage date principale
+
+### **Phase 2 - Standard (3-4 jours)**
+- [ ] **kng-navbar.component.ts** : Migration status
+- [ ] **kng-cart-items.component.ts** : Migration validation
+- [ ] **4 autres composants** : Migration standard
+
+### **Phase 3 - Affichage (1-2 jours)**
+- [ ] **toHubTime/toUTC** : Implémentation conversions timezone
+- [ ] **formatForClient** : Formatage Swiss automatique
+- [ ] **weekdaysNames/monthsNames** : Localisation fr/de
+- [ ] **Tests e2e** : Validation timezone complète
+
+### **Livrable Final**
+- ✅ **Affichage Swiss** : Toutes les dates en Europe/Zurich
+- ✅ **Logique UTC** : Transport et calculs en UTC
+- ✅ **Single Source** : Calendar API backend comme référence
+- ✅ **Zero Bug** : Timezone cohérent partout
+
+---
+
+## **Avantages de ce Plan Simplifié**
+
+1. **Focus Timezone** : Se concentre sur l'objectif principal (affichage Swiss)
+2. **Migration Progressive** : Phase par phase sans breaking changes
+3. **Tests Concrets** : Scénarios timezone spécifiques
+4. **Résultat Mesurable** : Countdown et calendrier justes en heure Swiss
+
+**Durée Estimée** : 6-9 jours de développement avec validation timezone garantie 🇨🇭
+
+---
+
+## **📋 Compléments selon vos Remarques**
+
+### **Fonctions Calendar Essentielles Manquantes**
+
+Votre analyse révèle **5 fonctions critiques** à implémenter dans `CalendarService` :
+
+#### **1. Conversion Timezone (UTC ↔ Swiss)**
+```typescript
+// OBLIGATOIRE pour calculs business Swiss
+static toHubTime(utcDate: Date, hub: Hub): Date {
+  const timezone = hub?.timezone || 'Europe/Zurich';
+  // Convertit UTC vers timezone hub pour comparaisons
+}
+
+static toUTC(hubDate: Date, hub: Hub): Date {
+  const timezone = hub?.timezone || 'Europe/Zurich';
+  // Reconvertit timezone hub vers UTC pour stockage
+}
+```
+
+#### **2. API Flexible pour Dates de Livraison**
+```typescript
+// ✅ REMPLACE fullWeekShippingDays (plus flexible)
+static getValidShippingDatesForHub(hub: Hub, options = {}): Date[] {
+  const { days = 7, limit = 10, offset = 0 } = options;
+  // Logique identique à backend calendar.js
+}
+```
+
+#### **3. Validation et Heure par Défaut**
+```typescript
+// ✅ CENTRALISE la logique de validation
+// availableDays et currentRanks représentent déjà les jours dans timezone du marché
+static isDayAvailable(day: Date, availableDays: Date[]): boolean {
+  // Validation simple: vérifier si le jour est dans la liste disponible
+  return availableDays.some(date => date.equalsDate(day));
+}
+
+// ✅ CENTRALISE la logique d'heure par défaut
+static getDefaultTimeByDay(day: Date, hub: Hub): number {
+  // Retourne l'heure par défaut selon jour (16h normalement, 12h samedi)
+  // day peut être UTC (du backend) ou Hub timezone (frontend)
+  // La fonction utilise toHubTime() pour normaliser avant comparaison
+}
+```
+
+#### **4. Localisation et Internationalisation**
+```typescript
+// ✅ SUPPORT multilingue pour interface
+static weekdaysNames(lang = 'fr'): string[] // ['lundi', 'mardi'...]
+static monthsNames(lang = 'fr'): string[]  // ['janvier', 'février'...]
+
+// ✅ NOUVELLES fonctions i18n centralisées
+static getWeekDay(idx: number, lang = 'fr'): string // 'lun.', 'mar.', etc.
+static i18n_weekdays(lang = 'fr'): string[] // Noms complets des jours
+static i18n_weekdaysShort(lang = 'fr'): string[] // Noms courts des jours
+static i18n_months(lang = 'fr'): string[] // Noms des mois
+```
+
+### **Impact des Fonctions Manquantes**
+
+#### **🔥 CRITIQUE : kng-calendar.component.ts**
+```typescript
+// ❌ ÉTAT ACTUEL (logique dupliquée + bugs)
+this.availableDays = Order.fullWeekShippingDays(this.currentHub); // Limité
+const hours = this.config.getDefaultTimeByDay(day); // Config dispersée
+if (!this.isDayAvailable(day)) return; // Logique incomplète currentRanks
+
+// ✅ APRÈS MIGRATION (API complète avec timezone correct)
+this.availableDays = this.$calendar.getValidShippingDatesForHub(this.currentHub, { days: 7 });
+const hours = this.$calendar.getDefaultTimeByDay(day, this.currentHub);
+// isDayAvailable simplifié: day UTC vs availableDays (timezone marché)
+if (!this.$calendar.isDayAvailable(day, this.availableDays)) return;
+```
+
+#### **📊 IMPACT : Composants Dépendants**
+
+**Fonctions getDefaultTimeByDay** :
+1. **kng-calendar.component.ts** : Composant central de sélection dates
+2. **kng-home.component.ts** : FIXME ligne 564 - getDefaultTimeByDay déprécié
+3. **kng-cart.component.ts** : Ligne 301 - fallback getDefaultTimeByDay
+4. **kng-cart-items.component.ts** : FIXME ligne 556 - getDefaultTimeByDay déprécié
+
+**Fonctions i18n dispersées** :
+1. **kng-nav-marketplace.component.ts** : ligne 144 - getWeekDay dupliqué
+2. **Autres composants** : Utilisation de `this.$i18n.label().weekdays` dispersée
+
+### **Plan Révisé avec Priorités (Migration Progressive - Zero Downtime)**
+
+#### **Phase 0 - COMPLETION CalendarService (kng2-core)**
+- [ ] **Ajouter 10 fonctions manquantes** : toHubTime, toUTC, isDayAvailable (2 params), getDefaultTimeByDay, formatForClient, i18n functions
+- [ ] **Tests CalendarService** : Valider toutes les nouvelles fonctions
+- [ ] **Publication kng2-core** : Version avec API complète (rétrocompatible)
+- [ ] **❌ NE PAS TOUCHER** : cart.service.ts, order.ts, config.ts (gardent anciennes fonctions)
+
+#### **Phase 1 - MIGRATION kng2-core Interne**
+- [ ] **cart.service.ts** : Remplacer Order.* par CalendarService.* (+ injection)
+- [ ] **config.ts** : Migrer getDefaultTimeByDay vers CalendarService
+- [ ] **@deprecated** : Marquer order.ts functions comme dépréciées
+- [ ] **Tests kng2-core** : Valider migration interne
+- [ ] **Publication kng2-core** : Version avec migration interne
+
+#### **Phase 2 - MIGRATION Frontend Progressive**
+- [ ] **Injection CalendarService** : Ajouter dans 17 composants (sans utilisation)
+- [ ] **Migration Composant par Composant** : 1 composant → test → validation → suivant
+- [ ] **Ordre Prioritaire** : Critiques → Principaux → Secondaires
+- [ ] **Tests e2e** : Validation après chaque composant migré
+
+Cette approche garantit **zéro régression** et **timezone Swiss parfait** ! 🇨🇭✅
+
+---
+
+## **🚦 Stratégie Migration Zero Downtime**
+
+### **Principe Fondamental : Compatibilité Ascendante**
+
+**À CHAQUE ÉTAPE** : Le système reste **100% fonctionnel** sans interruption de service.
+
+#### **🔧 Phase 0 : Completion CalendarService (kng2-core)**
+
+**Objectif** : Ajouter les fonctions manquantes **SANS CASSER** l'existant
+
+```typescript
+// ✅ AJOUTER les nouvelles fonctions (statiques)
+export class CalendarService {
+
+  // === NOUVELLES FONCTIONS (n'affectent pas l'existant) ===
+  static toHubTime(utcDate: Date, hub: Hub): Date { /* ... */ }
+  static isDayAvailable(day: Date, availableDays: Date[]): boolean { /* ... */ }
+  static getDefaultTimeByDay(day: Date, hub: Hub): number { /* ... */ }
+  static formatForClient(utcDate: Date, hub?: Hub): string { /* ... */ }
+  static getWeekDay(idx: number, lang: string): string { /* ... */ }
+
+  // === FONCTIONS EXISTANTES (inchangées) ===
+  nextShippingDay(hub?: Hub, user?: any): Date { /* EXISTANT - NO CHANGE */ }
+  fullWeekShippingDays(hub?: Hub, limit?: number, user?: any): Date[] { /* EXISTANT - NO CHANGE */ }
+}
+```
+
+**✅ GARANTIE ZÉRO RÉGRESSION** :
+- ✅ Aucune fonction existante modifiée
+- ✅ Ajout seulement de nouvelles fonctions
+- ✅ Tests passent toujours
+- ✅ Frontend fonctionne encore avec anciennes fonctions
+
+#### **🔄 Phase 1 : Migration kng2-core Interne**
+
+**Objectif** : Migrer cart.service.ts **GRADUELLEMENT**
+
+```typescript
+// ✅ PATTERN : Injection + Fallback Progressif
+@Injectable()
+export class CartService {
+
+  constructor(
+    private $http: HttpClient,
+    private $calendar: CalendarService // ✅ AJOUT : Nouvelle injection
+  ) {}
+
+  // ✅ MIGRATION FONCTION PAR FONCTION
+  getCurrentShippingDay(): Date {
+    if (!this.cache.currentShippingDay) {
+      // ✅ NOUVEAU : Utiliser CalendarService
+      const hub = this.defaultConfig.shared.hub;
+      return this.$calendar.nextShippingDay(hub);
+
+      // ❌ ANCIEN (commenté, mais garde fallback)
+      // return Order.nextShippingDay(this.currentUser, hub);
+    }
+    return this.cache.currentShippingDay;
+  }
+}
+```
+
+**✅ STRATÉGIE GRADUELLE** :
+1. **Semaine 1** : Injection CalendarService (pas d'utilisation)
+2. **Semaine 2** : Migrer 1-2 fonctions + tests
+3. **Semaine 3** : Migrer 2-3 fonctions + tests
+4. **Semaine 4** : Finaliser + @deprecated order.ts
+
+#### **🎯 Phase 2 : Migration Frontend Progressive**
+
+**Objectif** : Migrer **1 composant à la fois** avec validation complète
+
+```typescript
+// ✅ ÉTAPE 2.1 : Injection SANS utilisation (tous composants)
+export class KngCalendarComponent {
+  constructor(
+    private $cart: CartService,
+    private config: Config,
+    private $calendar: CalendarService // ✅ AJOUT : Injection prête
+  ) {}
+
+  // ❌ ANCIEN : Reste inchangé temporairement
+  ngOnInit() {
+    this.availableDays = Order.fullWeekShippingDays(this.currentHub); // PAS ENCORE MIGRÉ
+  }
+}
+
+// ✅ ÉTAPE 2.2 : Migration fonction par fonction
+export class KngCalendarComponent {
+  ngOnInit() {
+    // ✅ NOUVEAU : Migration progressive
+    this.availableDays = this.$calendar.getValidShippingDatesForHub(this.currentHub, { days: 7 });
+
+    // ❌ ANCIEN : Commenté mais disponible pour rollback
+    // this.availableDays = Order.fullWeekShippingDays(this.currentHub);
+  }
+}
+```
+
+**✅ ORDRE DE MIGRATION SÉCURISÉ** :
+
+**Semaine 1 - Injection Préparatoire** :
+- [ ] Ajouter injection CalendarService dans les 17 composants
+- [ ] Tests : Vérifier que rien ne casse
+- [ ] **AUCUNE logique changée**
+
+**Semaine 2 - Composants Critiques** :
+- [ ] **kng-product.component.ts** : Fix timezone countdown (1 ligne)
+- [ ] **Tests e2e** : Vérifier countdown correct
+- [ ] **kng-calendar.component.ts** : Migration complète (3 fonctions)
+- [ ] **Tests e2e** : Vérifier sélection dates
+
+**Semaine 3 - Composants Principaux** :
+- [ ] **kng-home.component.ts** : Migration (1 fonction)
+- [ ] **kng-navbar.component.ts** : Migration (2 fonctions)
+- [ ] **Tests e2e** : Vérifier navigation
+
+**Semaine 4 - Composants Cart** :
+- [ ] **kng-cart*.component.ts** : Migration (5 fonctions)
+- [ ] **Tests e2e** : Vérifier processus commande
+
+**Semaine 5 - Composants Secondaires** :
+- [ ] **8 composants restants** : Migration + i18n
+- [ ] **Tests e2e complets** : Validation globale
+
+### **🛡️ Mécanismes de Sécurité**
+
+#### **Rollback Instantané**
+```typescript
+// ✅ En cas de problème : Rollback immédiat
+ngOnInit() {
+  try {
+    // ✅ NOUVEAU : Logic CalendarService
+    this.availableDays = this.$calendar.getValidShippingDatesForHub(this.currentHub, { days: 7 });
+  } catch (error) {
+    // 🚨 FALLBACK : Ancienne logique en cas d'erreur
+    console.warn('CalendarService error, falling back to Order logic:', error);
+this.availableDays = Order.fullWeekShippingDays(this.currentHub);
+  }
+}
+```
+
+#### **Tests Automatisés à Chaque Étape**
+- ✅ **Tests unitaires** : Chaque fonction CalendarService
+- ✅ **Tests d'intégration** : CartService après migration
+- ✅ **Tests e2e** : Après chaque composant migré
+- ✅ **Tests de régression** : Suite complète avant déploiement
+
+#### **Feature Flags (Optionnel)**
+```typescript
+// ✅ OPTION : Feature flag pour activation progressive
+ngOnInit() {
+  if (this.config.features?.useCalendarService) {
+    this.availableDays = this.$calendar.getValidShippingDatesForHub(this.currentHub, { days: 7 });
+  } else {
+    this.availableDays = Order.fullWeekShippingDays(this.currentHub);
+  }
+}
+```
+
+### **📈 Avantages Migration Progressive**
+
+1. **✅ Zero Downtime** : Service jamais interrompu
+2. **✅ Risk Minimization** : 1 composant = 1 risque isolé
+3. **✅ Quick Rollback** : Retour arrière immédiat si problème
+4. **✅ Incremental Testing** : Validation continue
+5. **✅ Team Confidence** : Équipe rassurée par approche graduelle
+6. **✅ Business Continuity** : Aucun impact utilisateur
+
+**Cette stratégie garantit une migration réussie avec ZÉRO interruption de service !** 🛡️🚀
+
+---
+
+## **🎯 Clarifications Timezone Critiques**
+
+### **Principe Central : UTC-First avec Timezone Marché pour Business**
+
+#### **1. Données en UTC (Transport/Stockage)**
+```typescript
+// ✅ TOUJOURS UTC pour transport et stockage
+const shippingDay = new Date('2024-01-15T16:00:00.000Z'); // UTC
+this.$cart.setShippingDay(shippingDay, hours); // Envoyé UTC au backend
+```
+
+#### **2. availableDays et currentRanks : Timezone Marché**
+```typescript
+// ✅ Les listes disponibles sont déjà dans timezone du marché
+this.availableDays = this.$calendar.getValidShippingDatesForHub(hub, { days: 7 });
+this.currentRanks = config.shared.currentRanks[hub.slug] || {};
+
+// ✅ currentRanks indexé par jour de semaine du marché
+// currentRanks[0] = dimanche Swiss, currentRanks[1] = lundi Swiss, etc.
+```
+
+#### **3. isDayAvailable : Signature Simplifiée**
+```typescript
+// ✅ NOUVEAU : signature simplifiée avec 2 paramètres
+static isDayAvailable(day: Date, availableDays: Date[]): boolean {
+  // day = UTC, availableDays = déjà filtrées timezone marché
+  return availableDays.some(date => date.equalsDate(day));
+}
+
+// ❌ ANCIEN : signature complexe avec hub/currentRanks
+// static isDayAvailable(day: Date, hub: Hub, currentRanks?: any): boolean
+```
+
+#### **4. Comparaisons avec Hub Config : Conversion Needed**
+```typescript
+// ✅ Pour comparer avec hub.timelimitH (heure Swiss)
+const dayHub = this.$calendar.toHubTime(day, hub); // UTC → Swiss
+if (dayHub.getHours() >= hub.timelimitH) { // Swiss vs Swiss ✅
+
+// ✅ Pour getDefaultTimeByDay
+static getDefaultTimeByDay(day: Date, hub: Hub): number {
+  // day est UTC, mais doit être comparé avec config hub Swiss
+  const dayHub = Calendar.toHubTime(day, hub);
+  return (dayHub.getDay() === 6) ? 12 : 16; // Samedi Swiss = 12h
+}
+```
+
+#### **5. currentRanks Indexing : Timezone Marché**
+```typescript
+// ✅ currentRanks utilise les jours de semaine du marché
+const dayOfWeekSwiss = Calendar.toHubTime(day, hub).getDay(); // 0-6 Swiss
+const ordersCount = currentRanks[dayOfWeekSwiss] || 0;
+
+// ❌ INCORRECT : utiliser UTC day directement
+// const ordersCount = currentRanks[day.getUTCDay()] || 0;
+```
+
+### **Impact sur Calendar.js Backend**
+
+#### **Fonctions à Ajouter/Corriger**
+```javascript
+// ✅ isDayAvailable simplifié (2 paramètres)
+static isDayAvailable(day, availableDays) {
+  return availableDays.some(date => date.equalsDate(day));
+}
+
+// ✅ getDefaultTimeByDay avec conversion Hub
+static getDefaultTimeByDay(day, hub) {
+  const dayHub = Calendar.toHubTime(day, hub);
+  // Samedi Swiss = 12h, autres jours = 16h
+  if (!hub?.shippingtimes) {
+    return (dayHub.getDay() === 6) ? 12 : 16;
+  }
+  return hub.shippingtimes[dayHub.getDay()] || 16;
+}
+
+// ✅ Fonctions i18n centralisées
+static getWeekDay(idx, lang = 'fr') {
+  const weekdaysShort = Calendar.i18n_weekdaysShort(lang);
+  return weekdaysShort[idx] || '';
+}
+
+static i18n_weekdays(lang = 'fr') {
+  const i18n = {
+    fr: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+    en: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+    de: ['sonntag', 'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag']
+  };
+  return i18n[lang] || i18n.fr;
+}
+
+static i18n_weekdaysShort(lang = 'fr') {
+  const i18n = {
+    fr: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
+    en: ['sun.', 'mon.', 'tue.', 'wed.', 'thu.', 'fri.', 'sat.'],
+    de: ['so.', 'mo.', 'di.', 'mi.', 'do.', 'fr.', 'sa.']
+  };
+  return i18n[lang] || i18n.fr;
+}
+
+static i18n_months(lang = 'fr') {
+  const i18n = {
+    fr: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+    en: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
+    de: ['januar', 'februar', 'märz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember']
+  };
+  return i18n[lang] || i18n.fr;
+}
+```
+
+### **Migration Frontend : Patterns Corrigés**
+
+```typescript
+// ❌ AVANT (timezone bugs + logique dispersée + i18n dupliquée)
+if (!this.isDayAvailable(day)) return; // currentRanks logic manquante
+const hours = this.config.getDefaultTimeByDay(day); // UTC vs Swiss bug
+this.weekdays[this.locale] = this.$i18n.label().weekdays.split('_').map(day=>day.slice(0,3)+'.'); // ❌ Dispersé
+
+// ✅ APRÈS (timezone correct + centralisé + i18n service)
+if (!this.$calendar.isDayAvailable(day, this.availableDays)) return; // ✅ Simple
+const hours = this.$calendar.getDefaultTimeByDay(day, this.hub); // ✅ UTC→Swiss conversion
+const dayName = this.$calendar.getWeekDay(idx, this.locale); // ✅ i18n centralisé
+```
+
+Cette architecture garantit **cohérence timezone** et **simplicité d'usage** ! 🕐🇨🇭
+
+## 9. 🚨 MIGRATION KARIBOU-WALLET CRITIQUE - ÉLÉMENTS FRONTEND À NE PAS OUBLIER
+
+### 9.1. Stripe v11.18.0 PaymentIntent Status - Breaking Change Frontend
+
+**⚠️ CRITIQUE** : Tous les composants qui testent `PaymentIntent.status` doivent être mis à jour :
+
+```typescript
+// ❌ AVANT Stripe v9:
+if (paymentIntent.status === 'requires_source_action') {
+  // 3DS flow (ancien nom)
+}
+if (paymentIntent.status === 'requires_source') {
+  // Échec initial (ancien nom)
+}
+
+// ✅ APRÈS Stripe v11.18.0:
+if (paymentIntent.status === 'requires_action') {
+  // 3DS flow (nouveau nom)
+}
+if (paymentIntent.status === 'requires_payment_method') {
+  // Échec initial - carte invalide, expirée, etc. (nouveau nom)
+}
+```
+
+### 9.2. Composants Frontend à Auditer - Status PaymentIntent
+
+**⚠️ CRITIQUE** : Fichiers frontend qui gèrent les status de paiement :
+
+```typescript
+// COMPOSANTS À VÉRIFIER/ADAPTER:
+// - kng-payment/*.component.ts : Gestion status PaymentIntent
+// - kng-subscription/*.component.ts : Affichage status abonnements
+// - kng-cart-checkout.component.ts : Flow 3DS et erreurs paiement
+// - kng-subscription-control.component.ts : Filtres abonnements actifs
+
+// PATTERNS À RECHERCHER ET CORRIGER:
+// - if (status === 'requires_source_action') → 'requires_action'
+// - if (status === 'requires_source') → 'requires_payment_method'
+// - switch (paymentIntent.status) → vérifier tous les cas
+// - status.includes('requires_source') → mettre à jour
+// - Toute logique basée sur les anciens status Stripe v9
+```
+
+### 9.3. Subscription Control - Filtres Abonnements
+
+**⚠️ CRITIQUE** : Logique d'affichage des abonnements actifs à corriger :
+
+```typescript
+// kng-subscription-control.component.ts [CRITIQUE]
+// 🔄 AVANT: filter(contract => contract.status=='active')
+// 🔄 APRÈS: filter(contract => contract.status=='active' && latestPaymentIntent?.status=='succeeded')
+
+// NOUVEAUX STATUS À SUPPORTER:
+// - status: 'active' avec pending_setup_intent (abonnements futurs)
+// - metadata.acceptUnpaid pour gestion factures impayées
+// - billing_cycle_anchor pour abonnements programmés
+```
+
+### 9.4. Cart Checkout - Customer Default Payment Method
+
+**⚠️ CRITIQUE** : Intégration de la stratégie Customer Default Payment Method :
+
+```typescript
+// kng-cart-checkout.component.ts [CRITIQUE]
+// 🔄 setPaymentMethod() : Integration customer default payment method
+// 🔄 checkPaymentMethod() : Support cascade automatique Stripe
+// 🔄 FIXME ligne 495 : 'payment.issue crashing' à corriger
+
+// NOUVELLE LOGIQUE:
+// 1. customer.addMethod() configure automatiquement default_payment_method
+// 2. subscription.create() utilise customer.invoice_settings.default_payment_method
+// 3. Cascade automatique si default échoue
+// 4. Plus besoin de gérer manuellement default_payment_method sur subscription
+```
+
+### 9.5. Anti-Double Commande - Synchronisation Frontend/Backend
+
+**⚠️ CRITIQUE** : Robustesse du panier après commande :
+
+```typescript
+// kng-cart.component.ts [À SYNCHRONISER]
+// 🔄 clearAfterOrder() : Synchroniser avec backend clearAfterOrdered
+// 🔄 setTimeout robustesse : Anti-double commande frontend
+
+// PROBLÈME IDENTIFIÉ:
+// - setTimeout peut échouer (navigation, fermeture onglet)
+// - Logique clearAfterOrdered vs clearAfterOrder incohérente
+// - Besoin verrous anti-double commande côté frontend
+```
+
+### 9.6. Gestion Erreurs Paiement - Messages Utilisateur
+
+**⚠️ CRITIQUE** : Messages d'erreur à adapter aux nouveaux status :
+
+```typescript
+// NOUVEAUX MESSAGES À GÉRER:
+// - requires_payment_method: "Méthode de paiement invalide"
+// - incomplete subscription: "Abonnement en attente de validation"
+// - pending_setup_intent: "Abonnement programmé avec succès"
+// - acceptUnpaid metadata: "Factures en attente de paiement"
+
+// COMPOSANTS AFFECTÉS:
+// - Error handling dans tous les composants de paiement
+// - Messages de confirmation d'abonnement
+// - Notifications de status de paiement
+```
+
+### 9.7. Tests Frontend - Validation Required
+
+**⚠️ CRITIQUE** : Tests e2e à adapter aux changements Stripe v11.18.0 :
+
+```typescript
+// TESTS À VÉRIFIER/ADAPTER:
+// - Flow 3DS avec nouveaux status
+// - Création d'abonnements avec customer default payment method
+// - Gestion des abonnements futurs (billing_cycle_anchor)
+// - Anti-double commande après validation
+// - Affichage correct des status d'abonnements
+```
+
+### 9.8. Build et Compilation - Vérifications
+
+**⚠️ CRITIQUE** : S'assurer de la compilation avant tests :
+
+```bash
+# ✅ OBLIGATOIRE avant tout test frontend:
+cd /home/evaleto/nodejs/karibou.ch/karibou-seed
+ng build  # ✅ Build development (PAS npm run build = production)
+
+# ✅ PUIS tests spécifiques:
+ng test --watch=false --browsers=ChromeHeadless
+ng e2e
+```
+
+### 9.9. Checklist Migration Frontend Karibou-Wallet
+
+**⚠️ CRITIQUE** : Éléments à ne pas oublier lors de la migration :
+
+- [ ] **Status PaymentIntent** : Remplacer `requires_source_action` par `requires_action` et `requires_source` par `requires_payment_method`
+- [ ] **Subscription Control** : Filtres abonnements avec nouveaux critères
+- [ ] **Cart Checkout** : Customer Default Payment Method strategy
+- [ ] **Error Messages** : Adapter aux nouveaux status Stripe v11.18.0
+- [ ] **Anti-Double** : Synchroniser clearAfterOrder frontend/backend
+- [ ] **Tests e2e** : Valider tous les flows de paiement
+- [ ] **Build Process** : `ng build` avant tests (pas `npm run build`)
+
+Cette migration frontend est **CRITIQUE** pour assurer la compatibilité avec karibou-wallet v11.18.0+ ! 🚨💳
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/karibou-ch)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/karibou-ch)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
