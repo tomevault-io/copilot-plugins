@@ -1,6 +1,6 @@
-# sanad
+# sanad — distributed by TomeVault
 
-> Config by [mohameddev19](https://github.com/mohameddev19/sanad) — distributed by [TomeVault](https://tomevault.io/claim/mohameddev19)
+> Originally from [mohameddev19/sanad](https://github.com/mohameddev19/sanad). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [mohameddev19/sanad](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/mohameddev19](https://tomevault.io/claim/mohameddev19)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mohameddev19)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mohameddev19) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install mohameddev19/sanad
+```
+Or browse all formats at [https://tomevault.io/claim/mohameddev19](https://tomevault.io/claim/mohameddev19).
+
+<!-- genome:d-i-p -->
