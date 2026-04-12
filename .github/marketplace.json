@@ -24572,6 +24572,256 @@
       "name": "loadingcloud001--loading-minio",
       "source": "./loadingcloud001--loading-minio",
       "description": "loading-minio"
+    },
+    {
+      "name": "chenenpei--astro-md-theme",
+      "source": "./chenenpei--astro-md-theme",
+      "description": "astro-md-theme"
+    },
+    {
+      "name": "max-evinced--vanilla-js-playwright",
+      "source": "./max-evinced--vanilla-js-playwright",
+      "description": "vanilla-js-playwright"
+    },
+    {
+      "name": "patelpratyush--patelpratyush-github-io",
+      "source": "./patelpratyush--patelpratyush-github-io",
+      "description": "patelpratyush.github.io"
+    },
+    {
+      "name": "anayak06--myessel-react",
+      "source": "./anayak06--myessel-react",
+      "description": "myessel-react"
+    },
+    {
+      "name": "stormwings--quake-wallet",
+      "source": "./stormwings--quake-wallet",
+      "description": "quake_wallet"
+    },
+    {
+      "name": "minho83--wikibot-kakao",
+      "source": "./minho83--wikibot-kakao",
+      "description": "wikibot-kakao"
+    },
+    {
+      "name": "doguyilmaz--dotfiles",
+      "source": "./doguyilmaz--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "kreshnik--dagster-boilerplate",
+      "source": "./kreshnik--dagster-boilerplate",
+      "description": "dagster-boilerplate"
+    },
+    {
+      "name": "magic-cabinet--tsuriai",
+      "source": "./magic-cabinet--tsuriai",
+      "description": "tsuriai"
+    },
+    {
+      "name": "mikenac--fhir-web",
+      "source": "./mikenac--fhir-web",
+      "description": "fhir-web"
+    },
+    {
+      "name": "leeotts--hummingbirdfeedercam",
+      "source": "./leeotts--hummingbirdfeedercam",
+      "description": "HummingBirdFeederCam"
+    },
+    {
+      "name": "kalpalevels--amane-kazami",
+      "source": "./kalpalevels--amane-kazami",
+      "description": "Amane-Kazami"
+    },
+    {
+      "name": "flawless--bun-ai-backend-template",
+      "source": "./flawless--bun-ai-backend-template",
+      "description": "bun-ai-backend-template"
+    },
+    {
+      "name": "claberlenk--qa-portfolio-playwright",
+      "source": "./claberlenk--qa-portfolio-playwright",
+      "description": "qa-portfolio-playwright"
+    },
+    {
+      "name": "craigbwagner--gielinor-toolkit",
+      "source": "./craigbwagner--gielinor-toolkit",
+      "description": "gielinor-toolkit"
+    },
+    {
+      "name": "djheksa--workflow-kit",
+      "source": "./djheksa--workflow-kit",
+      "description": "workflow-kit"
+    },
+    {
+      "name": "115shreyas--expense-tracker-app",
+      "source": "./115shreyas--expense-tracker-app",
+      "description": "expense-tracker-app"
+    },
+    {
+      "name": "runeblaze--projpiece",
+      "source": "./runeblaze--projpiece",
+      "description": "projpiece"
+    },
+    {
+      "name": "duongital--project-next-hono-sqlite",
+      "source": "./duongital--project-next-hono-sqlite",
+      "description": "project-next-hono-sqlite"
+    },
+    {
+      "name": "tobiasoberrauch--angular",
+      "source": "./tobiasoberrauch--angular",
+      "description": "angular"
+    },
+    {
+      "name": "mockdeep--claude-session-tracker",
+      "source": "./mockdeep--claude-session-tracker",
+      "description": "claude-session-tracker"
+    },
+    {
+      "name": "jlargs64--largolabs-blog",
+      "source": "./jlargs64--largolabs-blog",
+      "description": "largolabs-blog"
+    },
+    {
+      "name": "tahir-aijaz--uigen",
+      "source": "./tahir-aijaz--uigen",
+      "description": "uigen"
+    },
+    {
+      "name": "kbr-and-co--zarabooks",
+      "source": "./kbr-and-co--zarabooks",
+      "description": "ZaraBooks"
+    },
+    {
+      "name": "devdogfish--flipt",
+      "source": "./devdogfish--flipt",
+      "description": "flipt"
+    },
+    {
+      "name": "dice-floor--dicefloor-preview",
+      "source": "./dice-floor--dicefloor-preview",
+      "description": "dicefloor-preview"
+    },
+    {
+      "name": "couthelloworldendl--demo",
+      "source": "./couthelloworldendl--demo",
+      "description": "DEMO"
+    },
+    {
+      "name": "hoanngocle--nova",
+      "source": "./hoanngocle--nova",
+      "description": "nova"
+    },
+    {
+      "name": "silcfcr--kindle-mcp",
+      "source": "./silcfcr--kindle-mcp",
+      "description": "kindle-mcp"
+    },
+    {
+      "name": "liuqijun--mobile-use",
+      "source": "./liuqijun--mobile-use",
+      "description": "mobile-use"
+    },
+    {
+      "name": "tom-berthoud--mydiary-pco",
+      "source": "./tom-berthoud--mydiary-pco",
+      "description": "mydiary-PCO"
+    },
+    {
+      "name": "dmquant--learning",
+      "source": "./dmquant--learning",
+      "description": "learning"
+    },
+    {
+      "name": "codesandideas--ftp-sync-ci",
+      "source": "./codesandideas--ftp-sync-ci",
+      "description": "ftp-sync-ci"
+    },
+    {
+      "name": "khawajanaqeeb--q4-hackathon-0-personal-ai-employee",
+      "source": "./khawajanaqeeb--q4-hackathon-0-personal-ai-employee",
+      "description": "Q4-Hackathon-0-Personal-AI-Employee"
+    },
+    {
+      "name": "peopleoff--durumu",
+      "source": "./peopleoff--durumu",
+      "description": "durumu"
+    },
+    {
+      "name": "ethan2737--mscoin",
+      "source": "./ethan2737--mscoin",
+      "description": "mscoin"
+    },
+    {
+      "name": "ysj-gif--trally",
+      "source": "./ysj-gif--trally",
+      "description": "trally"
+    },
+    {
+      "name": "stoyicker--autoswipe",
+      "source": "./stoyicker--autoswipe",
+      "description": "autoswipe"
+    },
+    {
+      "name": "naymyatmin--first-principles-ml",
+      "source": "./naymyatmin--first-principles-ml",
+      "description": "First-Principles-ML"
+    },
+    {
+      "name": "hydr0gen1--ksp-relativistic-speed-limit",
+      "source": "./hydr0gen1--ksp-relativistic-speed-limit",
+      "description": "KSP-Relativistic-Speed-Limit"
+    },
+    {
+      "name": "akasharumugamm--banking-transaction-system",
+      "source": "./akasharumugamm--banking-transaction-system",
+      "description": "banking_transaction_system"
+    },
+    {
+      "name": "russbeye--claude-memory-bank",
+      "source": "./russbeye--claude-memory-bank",
+      "description": "claude-memory-bank"
+    },
+    {
+      "name": "richblack--claude-flow-setting",
+      "source": "./richblack--claude-flow-setting",
+      "description": "claude-flow-setting"
+    },
+    {
+      "name": "queelius--jaf",
+      "source": "./queelius--jaf",
+      "description": "jaf"
+    },
+    {
+      "name": "ejirocodes--vite-plugin-asset-manager",
+      "source": "./ejirocodes--vite-plugin-asset-manager",
+      "description": "vite-plugin-asset-manager"
+    },
+    {
+      "name": "ehjacobs--pebble-sky",
+      "source": "./ehjacobs--pebble-sky",
+      "description": "pebble-sky"
+    },
+    {
+      "name": "anipotts--claude-code-tips",
+      "source": "./anipotts--claude-code-tips",
+      "description": "claude-code-tips"
+    },
+    {
+      "name": "xincheng213618--scgd-general-wpf",
+      "source": "./xincheng213618--scgd-general-wpf",
+      "description": "scgd_general_wpf"
+    },
+    {
+      "name": "pdudotdev--ainoc",
+      "source": "./pdudotdev--ainoc",
+      "description": "aiNOC"
+    },
+    {
+      "name": "benkim0414--dotfiles",
+      "source": "./benkim0414--dotfiles",
+      "description": "dotfiles"
     }
   ]
 }
