@@ -1,6 +1,6 @@
-# Accounting_ERP_Chatbot
+# AI instruction files for Accounting_ERP_Chatbot
 
-> Config by [thanhtoan105](https://github.com/thanhtoan105/Accounting_ERP_Chatbot) — distributed by [TomeVault](https://tomevault.io/claim/thanhtoan105)
+> Sourced from [thanhtoan105/Accounting_ERP_Chatbot](https://github.com/thanhtoan105/Accounting_ERP_Chatbot) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [thanhtoan105/Accounting_ERP_Chatbot]
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/thanhtoan105](https://tomevault.io/claim/thanhtoan105)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/thanhtoan105#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/thanhtoan105) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/thanhtoan105) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
