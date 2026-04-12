@@ -4,7 +4,7 @@
   "repo": "xenserver",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/risingtiger",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T00:43:47Z"
+  "distributed_at": "2026-04-12T20:30:44Z"
 }
