@@ -1,6 +1,6 @@
-# equoria
+# AI instruction files for equoria
 
-> Config by [Hopeful4ky](https://github.com/Hopeful4ky/equoria) — distributed by [TomeVault](https://tomevault.io/claim/Hopeful4ky)
+> Sourced from [Hopeful4ky/equoria](https://github.com/Hopeful4ky/equoria) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [Hopeful4ky/equoria](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Hopeful4ky](https://tomevault.io/claim/Hopeful4ky)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Hopeful4ky#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Hopeful4ky) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Hopeful4ky/equoria
+```
+Or browse all formats at [https://tomevault.io/claim/Hopeful4ky](https://tomevault.io/claim/Hopeful4ky).
+
+<!-- genome:a-i-q -->
