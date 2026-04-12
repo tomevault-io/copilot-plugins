@@ -1,0 +1,683 @@
+## design-system
+
+> Testing standards and requirements for Vue components in the Fiscozen Design System
+
+
+# Testing Standards for Fiscozen Design System Components
+
+When creating or modifying Vue components in this design system, you MUST follow these testing standards to ensure industry-standard quality and consistency.
+
+## Overview
+
+This monorepo uses a two-tier testing strategy:
+1. **Unit Tests** with Vitest + Vue Test Utils (fast, jsdom, internal logic)
+2. **Component/Interaction Tests** with Storybook Play Functions (browser-based, user interactions)
+
+## Required Files for Every Component
+
+Every component package MUST include:
+
+```
+packages/component-name/
+└── src/
+    ├── FzComponentName.vue
+    ├── types.ts
+    ├── index.ts
+    └── __tests__/                     # ALWAYS use __tests__ (plural)
+        └── FzComponentName.spec.ts    # ALWAYS use .spec.ts extension
+```
+
+And in storybook:
+
+```
+apps/storybook/src/stories/
+└── category/
+    └── ComponentName.stories.ts       # With play functions
+```
+
+## Unit Test Requirements (Vitest)
+
+### Mandatory Test Categories
+
+Every unit test file MUST include tests for:
+
+1. **Rendering Tests**
+   - Render with default props
+   - Render with label/content
+   - Render slot content
+
+2. **Props Tests**
+   - All public props documented in types.ts
+   - Variant prop (if applicable)
+   - Environment prop (frontoffice/backoffice sizing)
+   - Disabled prop
+
+3. **Events Tests**
+   - All emitted events
+   - Events blocked when disabled
+   - v-model update:modelValue (if applicable)
+
+4. **Accessibility Tests**
+   - aria-disabled attribute
+   - aria-invalid attribute (for form elements)
+   - aria-labelledby linking to label (for form elements)
+   - aria-describedby linking to error/help text
+   - role="alert" on error messages
+   - Keyboard focusability
+
+5. **Edge Cases**
+   - Undefined/null prop handling
+   - Unique ID generation for multiple instances
+
+6. **Snapshots**
+   - Default state
+   - Disabled state
+   - Error state (if applicable)
+
+### Unit Test Code Pattern
+
+```typescript
+import { describe, it, expect, vi } from 'vitest'
+import { mount } from '@vue/test-utils'
+import FzComponentName from '../FzComponentName.vue'
+
+describe('FzComponentName', () => {
+  describe('Rendering', () => {
+    it('should render with default props', () => {
+      const wrapper = mount(FzComponentName)
+      expect(wrapper.exists()).toBe(true)
+    })
+  })
+
+  describe('Props', () => {
+    describe('disabled prop', () => {
+      it('should apply disabled attribute when true', () => {
+        const wrapper = mount(FzComponentName, {
+          props: { disabled: true }
+        })
+        expect(wrapper.find('button').attributes('disabled')).toBeDefined()
+      })
+    })
+  })
+
+  describe('Events', () => {
+    it('should emit click event', async () => {
+      const wrapper = mount(FzComponentName)
+      await wrapper.find('button').trigger('click')
+      expect(wrapper.emitted('click')).toHaveLength(1)
+    })
+
+    it('should not emit click when disabled', async () => {
+      const wrapper = mount(FzComponentName, {
+        props: { disabled: true }
+      })
+      await wrapper.find('button').trigger('click')
+      expect(wrapper.emitted('click')).toBeUndefined()
+    })
+  })
+
+  describe('Accessibility', () => {
+    it('should have aria-disabled matching disabled prop', () => {
+      const wrapper = mount(FzComponentName, {
+        props: { disabled: true }
+      })
+      expect(wrapper.find('button').attributes('aria-disabled')).toBe('true')
+    })
+  })
+
+  describe('Snapshots', () => {
+    it('should match snapshot - default state', () => {
+      const wrapper = mount(FzComponentName)
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+  })
+})
+```
+
+## Storybook Play Function Requirements
+
+### Mandatory Stories with Play Functions
+
+Every stories file MUST include:
+
+1. **Default story** - Basic rendering and ARIA verification
+2. **Environment stories** - Frontoffice and Backoffice sizing
+3. **Disabled story** - Disabled state verification
+4. **User interaction story** - Click/type/select behavior
+5. **Keyboard navigation story** - Tab, Enter, Space, Escape
+6. **Error story** (for form elements) - Error message and aria-invalid
+
+### Play Function Code Pattern
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+import { expect, fn, userEvent, within } from '@storybook/test'
+import { FzComponentName } from '@fiscozen/component-name'
+
+const meta = {
+  title: 'Category/FzComponentName',
+  component: FzComponentName,
+  tags: ['autodocs'],
+  argTypes: {
+    environment: {
+      control: 'select',
+      options: ['backoffice', 'frontoffice']
+    }
+  }
+} satisfies Meta<typeof FzComponentName>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  args: {
+    // 👇 Use fn() to spy on click - accessible via args in play function
+    onClick: fn()
+  },
+  play: async ({ args, canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    
+    await step('Verify component renders', async () => {
+      const element = canvas.getByRole('button')
+      await expect(element).toBeInTheDocument()
+    })
+    
+    await step('Verify ARIA attributes', async () => {
+      const element = canvas.getByRole('button')
+      await expect(element).toHaveAttribute('aria-disabled', 'false')
+    })
+    
+    await step('Verify click handler IS called', async () => {
+      const element = canvas.getByRole('button')
+      await userEvent.click(element)
+      // ROBUST CHECK: Verify the click spy WAS called
+      await expect(args.onClick).toHaveBeenCalledTimes(1)
+    })
+  }
+}
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    // 👇 Define spy in args - it should NOT be called when disabled
+    onClick: fn()
+  },
+  play: async ({ args, canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    const element = canvas.getByRole('button')
+    
+    await step('Verify disabled state', async () => {
+      await expect(element).toBeDisabled()
+      await expect(element).toHaveAttribute('aria-disabled', 'true')
+    })
+    
+    await step('Verify click handler is NOT called when disabled', async () => {
+      await userEvent.click(element)
+      // ROBUST CHECK: Verify the click spy was NOT called
+      await expect(args.onClick).not.toHaveBeenCalled()
+    })
+  }
+}
+
+export const KeyboardNavigation: Story = {
+  args: {
+    onClick: fn()
+  },
+  play: async ({ args, canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    
+    await step('Tab to focus', async () => {
+      await userEvent.tab()
+      await expect(document.activeElement).toBe(canvas.getByRole('button'))
+    })
+    
+    await step('Activate with Enter and verify handler called', async () => {
+      await userEvent.keyboard('{Enter}')
+      await expect(args.onClick).toHaveBeenCalledTimes(1)
+    })
+    
+    await step('Activate with Space and verify handler called', async () => {
+      await userEvent.keyboard(' ')
+      await expect(args.onClick).toHaveBeenCalledTimes(2)
+    })
+  }
+}
+```
+
+## Play Function Best Practices
+
+### Extract Reusable Helper Functions
+
+For components with repetitive setup (e.g., opening dialogs, dropdowns), extract helpers to reduce duplication:
+
+```typescript
+// ✅ GOOD: Reusable helpers at the top of the file
+const openDialog = async (canvas: ReturnType<typeof within>, buttonName: RegExp = /open/i) => {
+  const openButton = canvas.getByRole('button', { name: buttonName })
+  await userEvent.click(openButton)
+  
+  await waitFor(() => {
+    expect(document.querySelector('dialog')).toBeInTheDocument()
+  }, { timeout: 1000 })
+}
+
+const closeDialogWithEscape = async () => {
+  const dialog = document.querySelector('dialog') as HTMLElement
+  dialog?.focus()
+  await userEvent.keyboard('{Escape}')
+  
+  await waitFor(() => {
+    expect(document.querySelector('dialog')).not.toBeInTheDocument()
+  }, { timeout: 1000 })
+}
+
+// Then use in play functions:
+play: async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  await step('Open dialog', async () => await openDialog(canvas))
+  // ... test assertions
+  await step('Close dialog', async () => await closeDialogWithEscape())
+}
+```
+
+### NEVER Use Arbitrary setTimeout
+
+**❌ BAD: Arbitrary timeouts are flaky and unreliable**
+
+```typescript
+// DON'T DO THIS
+await new Promise(resolve => setTimeout(resolve, 300))
+const dialog = document.querySelector('dialog')
+await expect(dialog).toBeInTheDocument()
+```
+
+**✅ GOOD: Use `waitFor` with condition checks**
+
+```typescript
+// For waiting for something to appear:
+await waitFor(() => {
+  expect(document.querySelector('dialog')).toBeInTheDocument()
+}, { timeout: 1000 })
+
+// For verifying something STAYS in a state (e.g., dialog remains open):
+const verifyDialogRemainsOpen = async () => {
+  const dialogBefore = document.querySelector('dialog')
+  
+  await waitFor(
+    () => {
+      const dialogAfter = document.querySelector('dialog')
+      expect(dialogAfter).toBeInTheDocument()
+      expect(dialogAfter).toBe(dialogBefore) // Same instance
+    },
+    { timeout: 500, interval: 100 }
+  )
+}
+```
+
+### Test Behavior, Not Implementation Details
+
+**❌ BAD: Testing CSS class names (brittle, breaks on refactors)**
+
+```typescript
+// DON'T DO THIS - relies on implementation details
+const hasDrawerClasses = dialog?.classList.contains('ml-auto') || 
+                         dialog?.classList.contains('fixed')
+await expect(hasDrawerClasses).toBe(true)
+```
+
+**✅ GOOD: Test observable behavior and computed styles**
+
+```typescript
+// DO THIS - tests actual behavior
+const dialog = document.querySelector('dialog') as HTMLElement
+const rect = dialog.getBoundingClientRect()
+const viewportWidth = window.innerWidth
+
+// Drawer should be positioned at the right edge
+const rightEdgeDistance = Math.abs(rect.right - viewportWidth)
+await expect(rightEdgeDistance).toBeLessThan(10)
+
+// Or verify computed styles
+const computedStyles = window.getComputedStyle(dialog)
+await expect(computedStyles.position).toBe('fixed')
+```
+
+### Focus Trap Testing for Dialogs/Modals
+
+When testing focus trap behavior, actually test the trapping:
+
+```typescript
+await step('Verify focus is trapped within dialog', async () => {
+  const dialog = document.querySelector('dialog')
+  const firstButton = dialog?.querySelector('#first-focusable') as HTMLElement
+  
+  // Focus the first button
+  firstButton?.focus()
+  await expect(document.activeElement).toBe(firstButton)
+  
+  // Tab should cycle within dialog
+  await userEvent.tab()
+  
+  // Focus should still be within the dialog
+  await expect(dialog?.contains(document.activeElement)).toBe(true)
+})
+
+await step('Verify focus is within dialog after opening', async () => {
+  const dialog = document.querySelector('dialog')
+  // After opening, focus should be somewhere within the dialog
+  await expect(
+    dialog?.contains(document.activeElement) || document.activeElement === dialog
+  ).toBe(true)
+})
+```
+
+### Accessibility Testing in Play Functions
+
+Go beyond just checking element existence - verify accessibility semantics:
+
+```typescript
+await step('Verify native dialog element (implicit role="dialog")', async () => {
+  const dialog = document.querySelector('dialog')
+  await expect(dialog?.tagName.toLowerCase()).toBe('dialog')
+})
+
+await step('Verify modal behavior (backdrop blocks interaction)', async () => {
+  const backdrop = document.querySelector('.fz-dialog__backdrop')
+  await expect(backdrop).toBeInTheDocument()
+  
+  // Verify backdrop covers viewport
+  const backdropStyles = window.getComputedStyle(backdrop as Element)
+  await expect(backdropStyles.position).toBe('fixed')
+})
+
+await step('Verify keyboard accessibility (Escape to close)', async () => {
+  await userEvent.keyboard('{Escape}')
+  await waitFor(() => {
+    expect(document.querySelector('dialog')).not.toBeInTheDocument()
+  })
+})
+```
+
+### Consistent `await` Usage with Assertions
+
+Always use `await` with `expect()` in play functions for consistency:
+
+```typescript
+// ✅ GOOD: Consistent await usage
+await expect(dialog).toBeInTheDocument()
+await expect(dialog).toBeVisible()
+await expect(button).not.toBeDisabled()
+
+// ❌ BAD: Inconsistent - some with await, some without
+expect(dialog).toBeInTheDocument()      // missing await
+await expect(dialog).toBeVisible()
+expect(button).not.toBeDisabled()       // missing await
+```
+
+### Spy Functions for Robust Interaction Testing (REQUIRED)
+
+Use `fn()` spies from `@storybook/test` to verify that event handlers are actually called (or NOT called for disabled states). This is the **official Storybook pattern** and MUST be used for all interaction tests.
+
+**Reference:** [Storybook Actions - Via fn() spies](https://storybook.js.org/docs/essentials/actions#via-storybooktest-fn-spies)
+
+**❌ WEAK: Only checking attributes (doesn't verify handler behavior)**
+
+```typescript
+// DON'T DO THIS - only checks UI state, not behavioral correctness
+await step('Verify disabled state', async () => {
+  const button = canvas.getByRole('button')
+  await expect(button).toBeDisabled()
+  await expect(button).toHaveAttribute('aria-disabled', 'true')
+  
+  await userEvent.click(button)
+  // No verification that handler was NOT called!
+})
+```
+
+**✅ ROBUST: Using spy functions in args**
+
+```typescript
+import { expect, fn, userEvent, within } from '@storybook/test'
+
+// For button-like components:
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    // 👇 Define spy in args - accessible via args parameter in play function
+    onClick: fn()
+  },
+  play: async ({ args, canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    
+    await step('Verify disabled state attributes', async () => {
+      const button = canvas.getByRole('button')
+      await expect(button).toBeDisabled()
+      await expect(button).toHaveAttribute('aria-disabled', 'true')
+    })
+    
+    await step('Verify click handler is NOT called when clicking disabled element', async () => {
+      const button = canvas.getByRole('button')
+      await userEvent.click(button)
+      
+      // ROBUST CHECK: Verify the click spy was NOT called
+      await expect(args.onClick).not.toHaveBeenCalled()
+    })
+  }
+}
+
+// For enabled states (contrast):
+export const Default: Story = {
+  args: {
+    onClick: fn()
+  },
+  play: async ({ args, canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    
+    await step('Verify click handler IS called when button is clicked', async () => {
+      const button = canvas.getByRole('button')
+      await userEvent.click(button)
+      
+      // ROBUST CHECK: Verify the click spy WAS called
+      await expect(args.onClick).toHaveBeenCalledTimes(1)
+    })
+    
+    await step('Verify click handler IS called on keyboard activation', async () => {
+      const button = canvas.getByRole('button')
+      button.focus()
+      await userEvent.keyboard('{Enter}')
+      
+      // ROBUST CHECK: Verify the click spy WAS called (twice total)
+      await expect(args.onClick).toHaveBeenCalledTimes(2)
+    })
+  }
+}
+```
+
+**Vue v-model Pattern (for form components):**
+
+```typescript
+// For checkbox, radio, select, input with v-model:
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    // 👇 For Vue v-model, use 'onUpdate:modelValue'
+    'onUpdate:modelValue': fn()
+  },
+  play: async ({ args, canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    
+    await step('Verify update:modelValue is NOT called when clicking disabled checkbox', async () => {
+      const checkbox = canvas.getByRole('checkbox')
+      await userEvent.click(checkbox)
+      
+      // ROBUST CHECK: Verify the update:modelValue spy was NOT called
+      await expect(args['onUpdate:modelValue']).not.toHaveBeenCalled()
+    })
+  }
+}
+
+// For enabled state with v-model:
+export const Default: Story = {
+  args: {
+    'onUpdate:modelValue': fn()
+  },
+  play: async ({ args, canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    
+    await step('Verify update:modelValue IS called when checkbox is clicked', async () => {
+      const checkbox = canvas.getByRole('checkbox')
+      await userEvent.click(checkbox)
+      
+      // ROBUST CHECK: Verify the spy WAS called with expected value
+      await expect(args['onUpdate:modelValue']).toHaveBeenCalledTimes(1)
+      await expect(args['onUpdate:modelValue']).toHaveBeenCalledWith(true)
+    })
+  }
+}
+```
+
+**Event Name Reference for Vue Components:**
+
+| Component Type | Event Binding | Spy Arg Name |
+|---------------|--------------|--------------|
+| Button/Action | `@click` | `onClick: fn()` |
+| Navlink | `@click` | `onClick: fn()` |
+| Input/Textarea | `@blur`, `@focus` | `onBlur: fn()`, `onFocus: fn()` |
+| Checkbox/Radio | `v-model` | `'onUpdate:modelValue': fn()` |
+| Select/Typeahead | `v-model`, `@select` | `'onUpdate:modelValue': fn()` |
+| Dialog | `@close`, `@cancel` | `onClose: fn()`, `onCancel: fn()` |
+| Dropdown | `@toggle` | `onToggle: fn()` |
+| Toast | `@close` | `onClose: fn()` |
+| Action | `@click`, `@keydown` | `onClick: fn()`, `onKeydown: fn()` |
+
+**Anti-patterns to Avoid:**
+
+```typescript
+// ❌ DON'T: Use reactive counters in render functions
+render: (args) => ({
+  setup() {
+    const clickCount = ref(0)
+    const handleClick = () => { clickCount.value++ }
+    return { args, clickCount, handleClick }
+  },
+  template: `<Button @click="handleClick" /><span data-testid="count">{{ clickCount }}</span>`
+})
+
+// ❌ DON'T: Create module-level spies
+const handleClick = fn()
+export const MyStory: Story = {
+  render: (args) => ({
+    setup: () => ({ args, handleClick }),
+    template: `<Button @click="handleClick" />`
+  })
+}
+
+// ✅ DO: Use args-based spies (official pattern)
+export const MyStory: Story = {
+  args: {
+    onClick: fn()
+  },
+  play: async ({ args }) => {
+    await expect(args.onClick).toHaveBeenCalled()
+  }
+}
+```
+
+### Testing "Disabled" Behaviors
+
+When testing that an action should NOT cause a change:
+
+```typescript
+await step('Press Escape - dialog should remain open', async () => {
+  const dialog = document.querySelector('dialog') as HTMLElement
+  
+  dialog.focus()
+  await userEvent.keyboard('{Escape}')
+  
+  // Use verifyDialogRemainsOpen helper instead of setTimeout
+  await verifyDialogRemainsOpen()
+})
+```
+
+## Critical Rules
+
+### DO ✅
+
+- Use `within(canvasElement)` for queries in play functions
+- Use `step()` to organize play function assertions
+- Use semantic queries: `getByRole`, `getByLabelText`, `getByText`
+- Test accessibility attributes in both unit tests AND play functions
+- Use `await` before all userEvent calls AND `expect()` assertions
+- Use `document.querySelector` for teleported content (modals, dropdowns)
+- Use `waitFor()` for async state changes instead of arbitrary delays
+- Extract reusable helper functions for common operations (open/close dialogs, etc.)
+- Test observable behavior (positioning, computed styles) not CSS class names
+- Test actual focus trap behavior in dialogs (Tab cycling within container)
+- **Use `fn()` spies in args for interaction verification (official Storybook pattern)**
+- **Use `args.onClick` / `args['onUpdate:modelValue']` to verify handlers are called**
+- **Use `not.toHaveBeenCalled()` to verify handlers are blocked when disabled**
+
+### DON'T ❌
+
+- Don't use `.test.ts` extension (use `.spec.ts`)
+- Don't use `__test__` folder (use `__tests__` with 's')
+- Don't test implementation details (internal methods, computed caching)
+- Don't skip accessibility tests
+- Don't use brittle CSS selectors (prefer roles and semantic queries)
+- Don't duplicate exact same tests between unit and play functions
+- Don't use `setTimeout` or `new Promise(resolve => setTimeout(...))` in play functions
+- Don't test CSS class names directly (test behavior/computed styles instead)
+- Don't forget `await` before `expect()` assertions in play functions
+- Don't repeat setup code - extract helper functions for common patterns
+- **Don't use reactive counters/refs in render functions for interaction testing**
+- **Don't create module-level spies - always use args-based spies**
+- **Don't test disabled states without verifying handlers are NOT called**
+
+## Accessibility Testing Checklist
+
+### Form Elements MUST have:
+- [ ] `aria-labelledby` linking to visible label
+- [ ] `aria-describedby` linking to help/error text when present
+- [ ] `aria-invalid` reflecting error state
+- [ ] `aria-required` reflecting required state
+- [ ] `aria-disabled` reflecting disabled state
+- [ ] `role="alert"` on error message container
+
+### Interactive Elements MUST have:
+- [ ] Keyboard accessibility (Tab, Enter, Space, Escape where applicable)
+- [ ] `aria-expanded` for expandable elements
+- [ ] `aria-haspopup` for elements that open menus/dialogs
+- [ ] `aria-selected` for selectable options
+- [ ] Decorative icons must have `aria-hidden="true"`
+
+## Test Running Commands
+
+```bash
+# Unit tests (from package directory)
+cd packages/component-name
+pnpm test
+pnpm test -- --watch
+pnpm test -- --coverage
+
+# Storybook tests (from root)
+pnpm test:storybook
+pnpm test:storybook:watch
+pnpm test:storybook:ui
+
+# All tests with nx
+npx nx run-many -t test
+npx nx affected -t test
+```
+
+## Before Submitting Changes
+
+- [ ] All unit tests pass: `pnpm test`
+- [ ] All storybook tests pass: `pnpm test:storybook`
+- [ ] Coverage meets minimum (80% statements, 75% branches)
+- [ ] No new accessibility issues in Storybook A11y panel
+- [ ] Snapshots updated if visual changes: `pnpm test -- -u`
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/fiscozen)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/fiscozen)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
