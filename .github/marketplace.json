@@ -21562,6 +21562,256 @@
       "name": "yanou1976--agentdock-app",
       "source": "./yanou1976--agentdock-app",
       "description": "agentdock-app"
+    },
+    {
+      "name": "zashraf1985--f3-hackathon-team3-salesforce",
+      "source": "./zashraf1985--f3-hackathon-team3-salesforce",
+      "description": "f3-hackathon-team3-salesforce"
+    },
+    {
+      "name": "prasetioad--agentdock",
+      "source": "./prasetioad--agentdock",
+      "description": "agentdock"
+    },
+    {
+      "name": "agentartel--agent-artel",
+      "source": "./agentartel--agent-artel",
+      "description": "agent-artel"
+    },
+    {
+      "name": "lgamila--lgamila",
+      "source": "./lgamila--lgamila",
+      "description": "lgamila"
+    },
+    {
+      "name": "terryso--polyv-live-openapi-tests",
+      "source": "./terryso--polyv-live-openapi-tests",
+      "description": "polyv-live-openapi-tests"
+    },
+    {
+      "name": "industrial--rust-symphony",
+      "source": "./industrial--rust-symphony",
+      "description": "rust-symphony"
+    },
+    {
+      "name": "industrial---project-template",
+      "source": "./industrial---project-template",
+      "description": "_project-template"
+    },
+    {
+      "name": "zh667--person-blog",
+      "source": "./zh667--person-blog",
+      "description": "person-blog"
+    },
+    {
+      "name": "shoshin-labs--phil-game",
+      "source": "./shoshin-labs--phil-game",
+      "description": "phil-game"
+    },
+    {
+      "name": "neetrino--borboraqua-am",
+      "source": "./neetrino--borboraqua-am",
+      "description": "borboraqua.am"
+    },
+    {
+      "name": "sahiljoshi515--socket-sparse-attn",
+      "source": "./sahiljoshi515--socket-sparse-attn",
+      "description": "SOCKET-Sparse-Attn"
+    },
+    {
+      "name": "oy-ga-yeong--vibe-coding-w2-2",
+      "source": "./oy-ga-yeong--vibe-coding-w2-2",
+      "description": "vibe_coding_w2-2"
+    },
+    {
+      "name": "o5sy--vibe-coding-w2-2",
+      "source": "./o5sy--vibe-coding-w2-2",
+      "description": "vibe_coding_w2-2"
+    },
+    {
+      "name": "jeongsehun--cursor-vibe-coding-practice",
+      "source": "./jeongsehun--cursor-vibe-coding-practice",
+      "description": "cursor-vibe-coding-practice"
+    },
+    {
+      "name": "updrytwist--battery-hawk",
+      "source": "./updrytwist--battery-hawk",
+      "description": "battery-hawk"
+    },
+    {
+      "name": "updrytwist--super-simple-kiosk",
+      "source": "./updrytwist--super-simple-kiosk",
+      "description": "super-simple-kiosk"
+    },
+    {
+      "name": "umingming--nexttest",
+      "source": "./umingming--nexttest",
+      "description": "NextTest"
+    },
+    {
+      "name": "tyrchen--depbank",
+      "source": "./tyrchen--depbank",
+      "description": "depbank"
+    },
+    {
+      "name": "tyrchen--dynamodb-tools",
+      "source": "./tyrchen--dynamodb-tools",
+      "description": "dynamodb-tools"
+    },
+    {
+      "name": "tyrchen--todo",
+      "source": "./tyrchen--todo",
+      "description": "todo"
+    },
+    {
+      "name": "brunogama--jekyllactions",
+      "source": "./brunogama--jekyllactions",
+      "description": "jekyllactions"
+    },
+    {
+      "name": "casptone-ar--frontend",
+      "source": "./casptone-ar--frontend",
+      "description": "frontend"
+    },
+    {
+      "name": "shittuay--cursortemplate",
+      "source": "./shittuay--cursortemplate",
+      "description": "Cursortemplate"
+    },
+    {
+      "name": "jonathanpberger--dot-rot",
+      "source": "./jonathanpberger--dot-rot",
+      "description": "dot-rot"
+    },
+    {
+      "name": "launchthatbrand--convex",
+      "source": "./launchthatbrand--convex",
+      "description": "convex"
+    },
+    {
+      "name": "nandajavarma--gitpod-dotfiles",
+      "source": "./nandajavarma--gitpod-dotfiles",
+      "description": "gitpod-dotfiles"
+    },
+    {
+      "name": "shittuay--cursortemplate",
+      "source": "./shittuay--cursortemplate",
+      "description": "Cursortemplate"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "awesome-ai-coding-all-in-one"
+    },
+    {
+      "name": "angga13142--finance-report-whatsapp",
+      "source": "./angga13142--finance-report-whatsapp",
+      "description": "Finance-Report-Whatsapp"
+    },
+    {
+      "name": "guigeng--cursor-template",
+      "source": "./guigeng--cursor-template",
+      "description": "cursor-template"
+    },
+    {
+      "name": "ethantrent--ibcmarketplace",
+      "source": "./ethantrent--ibcmarketplace",
+      "description": "ibcmarketplace"
+    },
+    {
+      "name": "briangmilnes--apas-verus",
+      "source": "./briangmilnes--apas-verus",
+      "description": "APAS-VERUS"
+    },
+    {
+      "name": "shittuay--cursortemplate",
+      "source": "./shittuay--cursortemplate",
+      "description": "Cursortemplate"
+    },
+    {
+      "name": "guardiavault-oss--vibecheck",
+      "source": "./guardiavault-oss--vibecheck",
+      "description": "Vibecheck"
+    },
+    {
+      "name": "afkmoney--nexusos",
+      "source": "./afkmoney--nexusos",
+      "description": "nexusOS"
+    },
+    {
+      "name": "shashankv762--ai-soc",
+      "source": "./shashankv762--ai-soc",
+      "description": "AI-SOC-"
+    },
+    {
+      "name": "neerajupadhayay2004--iilm-web-technology-lab-major-project",
+      "source": "./neerajupadhayay2004--iilm-web-technology-lab-major-project",
+      "description": "IILM-Web-Technology-lab-major-project"
+    },
+    {
+      "name": "superadmin-js--superadmin",
+      "source": "./superadmin-js--superadmin",
+      "description": "superadmin"
+    },
+    {
+      "name": "shittuay--cursortemplate",
+      "source": "./shittuay--cursortemplate",
+      "description": "Cursortemplate"
+    },
+    {
+      "name": "scalefreeus--hanzi",
+      "source": "./scalefreeus--hanzi",
+      "description": "hanzi"
+    },
+    {
+      "name": "atmalone--cursor-rules",
+      "source": "./atmalone--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "falkicon--mcp-server-template",
+      "source": "./falkicon--mcp-server-template",
+      "description": "mcp-server-template"
+    },
+    {
+      "name": "tuntun0609--interview-question",
+      "source": "./tuntun0609--interview-question",
+      "description": "interview-question"
+    },
+    {
+      "name": "tuntun0609--dish-comment-ai",
+      "source": "./tuntun0609--dish-comment-ai",
+      "description": "dish-comment-ai"
+    },
+    {
+      "name": "tuntun0609--awesome-image-prompt",
+      "source": "./tuntun0609--awesome-image-prompt",
+      "description": "awesome-image-prompt"
+    },
+    {
+      "name": "culpable--embeddings",
+      "source": "./culpable--embeddings",
+      "description": "embeddings"
+    },
+    {
+      "name": "solomanibc--soloman-app",
+      "source": "./solomanibc--soloman-app",
+      "description": "soloman-app"
+    },
+    {
+      "name": "romualdp--tengo-stream",
+      "source": "./romualdp--tengo-stream",
+      "description": "tengo-stream"
+    },
+    {
+      "name": "hugoganet--ai-programming-tools-setup",
+      "source": "./hugoganet--ai-programming-tools-setup",
+      "description": "AI_programming_tools_setup"
+    },
+    {
+      "name": "thiez-64--remix-nestjs-monorepo",
+      "source": "./thiez-64--remix-nestjs-monorepo",
+      "description": "remix-nestjs-monorepo"
     }
   ]
 }
