@@ -1,6 +1,6 @@
-# leah-mcp-test-yottagraph
+# AI instruction files for leah-mcp-test-yottagraph
 
-> Config by [Lovelace-AI](https://github.com/Lovelace-AI/leah-mcp-test-yottagraph) — distributed by [TomeVault](https://tomevault.io/claim/Lovelace-AI)
+> Sourced from [Lovelace-AI/leah-mcp-test-yottagraph](https://github.com/Lovelace-AI/leah-mcp-test-yottagraph) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [Lovelace-AI/leah-mcp-test-yottagraph]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Lovelace-AI](https://tomevault.io/claim/Lovelace-AI)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Lovelace-AI#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Lovelace-AI) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Lovelace-AI/leah-mcp-test-yottagraph
+```
+Or browse all formats at [https://tomevault.io/claim/Lovelace-AI](https://tomevault.io/claim/Lovelace-AI).
+
+<!-- genome:a-i-q -->
