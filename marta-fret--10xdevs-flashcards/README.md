@@ -1,6 +1,6 @@
-# 10xdevs-flashcards
+# 10xdevs-flashcards — distributed by TomeVault
 
-> Config by [marta-fret](https://github.com/marta-fret/10xdevs-flashcards) — distributed by [TomeVault](https://tomevault.io/claim/marta-fret)
+> Originally from [marta-fret/10xdevs-flashcards](https://github.com/marta-fret/10xdevs-flashcards). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [marta-fret/10xdevs-flashcards](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/marta-fret](https://tomevault.io/claim/marta-fret)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/marta-fret)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/marta-fret) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-s -->
