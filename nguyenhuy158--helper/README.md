@@ -1,6 +1,6 @@
 # helper
 
-> Config by [nguyenhuy158](https://github.com/nguyenhuy158/helper) — distributed by [TomeVault](https://tomevault.io/claim/nguyenhuy158)
+> Tome by [nguyenhuy158](https://github.com/nguyenhuy158/helper) — distributed by [TomeVault](https://tomevault.io/claim/nguyenhuy158)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [nguyenhuy158/helper](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/nguyenhuy158](https://tomevault.io/claim/nguyenhuy158)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/nguyenhuy158)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/nguyenhuy158) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
