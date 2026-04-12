@@ -21312,6 +21312,256 @@
       "name": "rootscampers--back-office",
       "source": "./rootscampers--back-office",
       "description": "back-office"
+    },
+    {
+      "name": "miel-team--nextmatch",
+      "source": "./miel-team--nextmatch",
+      "description": "NextMatch"
+    },
+    {
+      "name": "tonyoconnell--anubis-chat",
+      "source": "./tonyoconnell--anubis-chat",
+      "description": "anubis.chat"
+    },
+    {
+      "name": "mei0001--tetris",
+      "source": "./mei0001--tetris",
+      "description": "tetris"
+    },
+    {
+      "name": "niklasdob--cookquest",
+      "source": "./niklasdob--cookquest",
+      "description": "cookquest"
+    },
+    {
+      "name": "pulleymath--whirr",
+      "source": "./pulleymath--whirr",
+      "description": "whirr"
+    },
+    {
+      "name": "judasn--chinesetypography-idea-plugin",
+      "source": "./judasn--chinesetypography-idea-plugin",
+      "description": "ChineseTypography-IDEA-Plugin"
+    },
+    {
+      "name": "lawrennd--lynguine",
+      "source": "./lawrennd--lynguine",
+      "description": "lynguine"
+    },
+    {
+      "name": "asaf-kali--pimp-my-repo",
+      "source": "./asaf-kali--pimp-my-repo",
+      "description": "pimp-my-repo"
+    },
+    {
+      "name": "ivancco--blog",
+      "source": "./ivancco--blog",
+      "description": "Blog"
+    },
+    {
+      "name": "cassianwolfe--openwebui-design",
+      "source": "./cassianwolfe--openwebui-design",
+      "description": "OpenWebUI-Design"
+    },
+    {
+      "name": "atebites-hub--mayarbscanner",
+      "source": "./atebites-hub--mayarbscanner",
+      "description": "mayarbscanner"
+    },
+    {
+      "name": "tuntun0609--easy-saas-next",
+      "source": "./tuntun0609--easy-saas-next",
+      "description": "easy-saas-next"
+    },
+    {
+      "name": "chad-syntax--agentsmith",
+      "source": "./chad-syntax--agentsmith",
+      "description": "agentsmith"
+    },
+    {
+      "name": "finehq--vibe-template",
+      "source": "./finehq--vibe-template",
+      "description": "vibe-template"
+    },
+    {
+      "name": "andrzejsydor--knowledge",
+      "source": "./andrzejsydor--knowledge",
+      "description": "knowledge"
+    },
+    {
+      "name": "ridou--omnii-one",
+      "source": "./ridou--omnii-one",
+      "description": "Omnii-One"
+    },
+    {
+      "name": "stevenmih--getgopher",
+      "source": "./stevenmih--getgopher",
+      "description": "getgopher"
+    },
+    {
+      "name": "webxinfotech--carpoollive",
+      "source": "./webxinfotech--carpoollive",
+      "description": "carpoollive"
+    },
+    {
+      "name": "tasszz2k--expensemate-tgbot",
+      "source": "./tasszz2k--expensemate-tgbot",
+      "description": "expensemate-tgbot"
+    },
+    {
+      "name": "levifig--rails-instructions",
+      "source": "./levifig--rails-instructions",
+      "description": "rails-instructions"
+    },
+    {
+      "name": "aiigo-io--web",
+      "source": "./aiigo-io--web",
+      "description": "web"
+    },
+    {
+      "name": "lukefrogger--project-template",
+      "source": "./lukefrogger--project-template",
+      "description": "project-template"
+    },
+    {
+      "name": "dot-soy--ai-healthcare-agent",
+      "source": "./dot-soy--ai-healthcare-agent",
+      "description": "AI_HealthCare_Agent"
+    },
+    {
+      "name": "mtpultz--goal-digger",
+      "source": "./mtpultz--goal-digger",
+      "description": "goal-digger"
+    },
+    {
+      "name": "code-kern-ai--refinery-embedder",
+      "source": "./code-kern-ai--refinery-embedder",
+      "description": "refinery-embedder"
+    },
+    {
+      "name": "honungsburk--honungsburk-github-io",
+      "source": "./honungsburk--honungsburk-github-io",
+      "description": "honungsburk.github.io"
+    },
+    {
+      "name": "jetstreamgg--tarmac",
+      "source": "./jetstreamgg--tarmac",
+      "description": "tarmac"
+    },
+    {
+      "name": "crimson-and-clover--llm-router",
+      "source": "./crimson-and-clover--llm-router",
+      "description": "llm-router"
+    },
+    {
+      "name": "pratejratech--pratejra-n8n",
+      "source": "./pratejratech--pratejra-n8n",
+      "description": "pratejra-n8n"
+    },
+    {
+      "name": "acelest--from-scratch-travel-system",
+      "source": "./acelest--from-scratch-travel-system",
+      "description": "from-scratch-travel-system"
+    },
+    {
+      "name": "salacoste--gedonism-vide-coding-framework",
+      "source": "./salacoste--gedonism-vide-coding-framework",
+      "description": "gedonism-vide-coding-framework"
+    },
+    {
+      "name": "tobontob--convert",
+      "source": "./tobontob--convert",
+      "description": "convert"
+    },
+    {
+      "name": "cyberuni--pyrenees",
+      "source": "./cyberuni--pyrenees",
+      "description": "pyrenees"
+    },
+    {
+      "name": "bhumitthakkar--cursor-kit",
+      "source": "./bhumitthakkar--cursor-kit",
+      "description": "cursor-kit"
+    },
+    {
+      "name": "coljnr9--terminus",
+      "source": "./coljnr9--terminus",
+      "description": "terminus"
+    },
+    {
+      "name": "chapadevs--chapadevs-website",
+      "source": "./chapadevs--chapadevs-website",
+      "description": "Chapadevs-Website"
+    },
+    {
+      "name": "lyissa1928-ai--sunudepot",
+      "source": "./lyissa1928-ai--sunudepot",
+      "description": "sunudepot"
+    },
+    {
+      "name": "vallafederico--solid-ai-rules",
+      "source": "./vallafederico--solid-ai-rules",
+      "description": "solid-ai-rules"
+    },
+    {
+      "name": "growthspace-engineering--gs-squad-mcp",
+      "source": "./growthspace-engineering--gs-squad-mcp",
+      "description": "gs-squad-mcp"
+    },
+    {
+      "name": "krizzo101--arxiv-py-enhanced",
+      "source": "./krizzo101--arxiv-py-enhanced",
+      "description": "arxiv-py-enhanced"
+    },
+    {
+      "name": "joaopedrobelo--bmw-wallbox-ha",
+      "source": "./joaopedrobelo--bmw-wallbox-ha",
+      "description": "bmw-wallbox-ha"
+    },
+    {
+      "name": "tooensureai--agentsystem",
+      "source": "./tooensureai--agentsystem",
+      "description": "AgentSystem"
+    },
+    {
+      "name": "sgainso--securityconsole",
+      "source": "./sgainso--securityconsole",
+      "description": "SecurityConsole"
+    },
+    {
+      "name": "choral--cursor-rules-mdc-files",
+      "source": "./choral--cursor-rules-mdc-files",
+      "description": "cursor-rules-mdc-files"
+    },
+    {
+      "name": "culpable--mineseek-root",
+      "source": "./culpable--mineseek-root",
+      "description": "mineseek-root"
+    },
+    {
+      "name": "a-gis-001--a-gis",
+      "source": "./a-gis-001--a-gis",
+      "description": "a-gis"
+    },
+    {
+      "name": "bkstuudio--2ly",
+      "source": "./bkstuudio--2ly",
+      "description": "2ly"
+    },
+    {
+      "name": "refly-ai--extension",
+      "source": "./refly-ai--extension",
+      "description": "extension"
+    },
+    {
+      "name": "movebrickschi--refly",
+      "source": "./movebrickschi--refly",
+      "description": "refly"
+    },
+    {
+      "name": "yanou1976--agentdock-app",
+      "source": "./yanou1976--agentdock-app",
+      "description": "agentdock-app"
     }
   ]
 }
