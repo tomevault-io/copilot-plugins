@@ -23067,6 +23067,256 @@
       "name": "lbliii--bengal",
       "source": "./lbliii--bengal",
       "description": "bengal"
+    },
+    {
+      "name": "usercentrics--flutter-sdk",
+      "source": "./usercentrics--flutter-sdk",
+      "description": "flutter-sdk"
+    },
+    {
+      "name": "jetbrains-research--the-complexity-trap",
+      "source": "./jetbrains-research--the-complexity-trap",
+      "description": "the-complexity-trap"
+    },
+    {
+      "name": "bpstorestx--myapp",
+      "source": "./bpstorestx--myapp",
+      "description": "MyApp"
+    },
+    {
+      "name": "hebelmx--veriqan",
+      "source": "./hebelmx--veriqan",
+      "description": "Veriqan"
+    },
+    {
+      "name": "abdullah-aa--manicurebomber",
+      "source": "./abdullah-aa--manicurebomber",
+      "description": "ManicureBomber"
+    },
+    {
+      "name": "mn297--workflow-helper",
+      "source": "./mn297--workflow-helper",
+      "description": "workflow-helper"
+    },
+    {
+      "name": "monsieurgui--cafe-des-artiste-reborn",
+      "source": "./monsieurgui--cafe-des-artiste-reborn",
+      "description": "cafe-des-artiste-reborn"
+    },
+    {
+      "name": "kabi10--ratemyemployer",
+      "source": "./kabi10--ratemyemployer",
+      "description": "ratemyemployer"
+    },
+    {
+      "name": "blendfactory--screen-capture-kit",
+      "source": "./blendfactory--screen-capture-kit",
+      "description": "screen-capture-kit"
+    },
+    {
+      "name": "evgenyneu--baiji",
+      "source": "./evgenyneu--baiji",
+      "description": "baiji"
+    },
+    {
+      "name": "klw19980718--imagefusion",
+      "source": "./klw19980718--imagefusion",
+      "description": "ImageFusion"
+    },
+    {
+      "name": "yutaroogura--x2notion",
+      "source": "./yutaroogura--x2notion",
+      "description": "x2notion"
+    },
+    {
+      "name": "kleinrui--sub-box",
+      "source": "./kleinrui--sub-box",
+      "description": "sub-box"
+    },
+    {
+      "name": "markus-lassfolk--autonomy",
+      "source": "./markus-lassfolk--autonomy",
+      "description": "autonomy"
+    },
+    {
+      "name": "zukabri3k--saas-boilerplate",
+      "source": "./zukabri3k--saas-boilerplate",
+      "description": "saas-boilerplate"
+    },
+    {
+      "name": "belforzedse--infinity",
+      "source": "./belforzedse--infinity",
+      "description": "Infinity"
+    },
+    {
+      "name": "blopit--cursor-template-repo",
+      "source": "./blopit--cursor-template-repo",
+      "description": "Cursor-Template-Repo"
+    },
+    {
+      "name": "singletail--btns",
+      "source": "./singletail--btns",
+      "description": "btns"
+    },
+    {
+      "name": "jkarenko--blog-link-extractor-content-handler",
+      "source": "./jkarenko--blog-link-extractor-content-handler",
+      "description": "blog-link-extractor-content-handler"
+    },
+    {
+      "name": "julianarchila--whatrack",
+      "source": "./julianarchila--whatrack",
+      "description": "whatrack"
+    },
+    {
+      "name": "andreaswachs--perhaps",
+      "source": "./andreaswachs--perhaps",
+      "description": "perhaps"
+    },
+    {
+      "name": "neetrino--marco-am-2",
+      "source": "./neetrino--marco-am-2",
+      "description": "marco.am-2"
+    },
+    {
+      "name": "cworld1--health-assistant-ai",
+      "source": "./cworld1--health-assistant-ai",
+      "description": "health-assistant-ai"
+    },
+    {
+      "name": "tjpilant--idse-developer-agent",
+      "source": "./tjpilant--idse-developer-agent",
+      "description": "idse-developer-agent"
+    },
+    {
+      "name": "phamquangtrung4504--e-commerce-website",
+      "source": "./phamquangtrung4504--e-commerce-website",
+      "description": "E-commerce-Website"
+    },
+    {
+      "name": "gurbeh--catcv",
+      "source": "./gurbeh--catcv",
+      "description": "CatCV"
+    },
+    {
+      "name": "meimberg-io--io-meimberg-justforhue",
+      "source": "./meimberg-io--io-meimberg-justforhue",
+      "description": "io.meimberg.justforhue"
+    },
+    {
+      "name": "raafatalmasalmeh21--project-management-app",
+      "source": "./raafatalmasalmeh21--project-management-app",
+      "description": "project-management-app"
+    },
+    {
+      "name": "gwergilius--automountdrives",
+      "source": "./gwergilius--automountdrives",
+      "description": "AutoMountDrives"
+    },
+    {
+      "name": "buddyapplabs--buddy",
+      "source": "./buddyapplabs--buddy",
+      "description": "Buddy"
+    },
+    {
+      "name": "adamziff--padlox",
+      "source": "./adamziff--padlox",
+      "description": "padlox"
+    },
+    {
+      "name": "abdullah2310ishaq--echohabits",
+      "source": "./abdullah2310ishaq--echohabits",
+      "description": "echohabits"
+    },
+    {
+      "name": "iabrahanarley--branlyhelpdesk",
+      "source": "./iabrahanarley--branlyhelpdesk",
+      "description": "branlyHelpDesk"
+    },
+    {
+      "name": "gillesf31--overkill-monorepo",
+      "source": "./gillesf31--overkill-monorepo",
+      "description": "overkill-monorepo"
+    },
+    {
+      "name": "halitkalayci--nextjs-intro",
+      "source": "./halitkalayci--nextjs-intro",
+      "description": "nextjs-intro"
+    },
+    {
+      "name": "blopit--cursor-template-repo",
+      "source": "./blopit--cursor-template-repo",
+      "description": "Cursor-Template-Repo"
+    },
+    {
+      "name": "survivorsunited--minecraft-mods-manager",
+      "source": "./survivorsunited--minecraft-mods-manager",
+      "description": "minecraft-mods-manager"
+    },
+    {
+      "name": "andyhaas--salesforce-project-management",
+      "source": "./andyhaas--salesforce-project-management",
+      "description": "Salesforce_Project_Management"
+    },
+    {
+      "name": "richie305--justkeeptrying",
+      "source": "./richie305--justkeeptrying",
+      "description": "justkeeptrying"
+    },
+    {
+      "name": "deepakkumardewani--review-pilot",
+      "source": "./deepakkumardewani--review-pilot",
+      "description": "review-pilot"
+    },
+    {
+      "name": "oaknational--oak-open-curriculum-ecosystem",
+      "source": "./oaknational--oak-open-curriculum-ecosystem",
+      "description": "oak-open-curriculum-ecosystem"
+    },
+    {
+      "name": "blopit--cursor-template-repo",
+      "source": "./blopit--cursor-template-repo",
+      "description": "Cursor-Template-Repo"
+    },
+    {
+      "name": "haymayndzultra--haymayndzai",
+      "source": "./haymayndzultra--haymayndzai",
+      "description": "haymayndzAI"
+    },
+    {
+      "name": "usorama--last-vt-dump",
+      "source": "./usorama--last-vt-dump",
+      "description": "last-vt-dump"
+    },
+    {
+      "name": "arpit-patel1--token-portal",
+      "source": "./arpit-patel1--token-portal",
+      "description": "token-portal"
+    },
+    {
+      "name": "beckharrisdesign--experiment-hub",
+      "source": "./beckharrisdesign--experiment-hub",
+      "description": "experiment-hub"
+    },
+    {
+      "name": "playalink--chg-unified-ds",
+      "source": "./playalink--chg-unified-ds",
+      "description": "chg-unified-ds"
+    },
+    {
+      "name": "zenray--larkservicecursor",
+      "source": "./zenray--larkservicecursor",
+      "description": "LarkServiceCursor"
+    },
+    {
+      "name": "stampchain-io--stampchain-io",
+      "source": "./stampchain-io--stampchain-io",
+      "description": "stampchain.io"
+    },
+    {
+      "name": "mariacarolk--socratesonline",
+      "source": "./mariacarolk--socratesonline",
+      "description": "socratesonline"
     }
   ]
 }
