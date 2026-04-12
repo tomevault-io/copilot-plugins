@@ -1,6 +1,6 @@
-# akana
+# akana — distributed by TomeVault
 
-> Config by [mrfansi](https://github.com/mrfansi/akana) — distributed by [TomeVault](https://tomevault.io/claim/mrfansi)
+> Originally from [mrfansi/akana](https://github.com/mrfansi/akana). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [mrfansi/akana](https://github.com/mr
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/mrfansi](https://tomevault.io/claim/mrfansi)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/mrfansi#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mrfansi) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
