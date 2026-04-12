@@ -1,6 +1,6 @@
-# agent-bridge-kit
+# agent-bridge-kit — distributed by TomeVault
 
-> Config by [HaoNgo232](https://github.com/HaoNgo232/agent-bridge-kit) — distributed by [TomeVault](https://tomevault.io/claim/HaoNgo232)
+> Originally from [HaoNgo232/agent-bridge-kit](https://github.com/HaoNgo232/agent-bridge-kit). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [HaoNgo232/agent-bridge-kit](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/HaoNgo232](https://tomevault.io/claim/HaoNgo232)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/HaoNgo232#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/HaoNgo232) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
