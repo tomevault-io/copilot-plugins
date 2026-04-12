@@ -1,0 +1,40 @@
+## optimitron
+
+> Core rules for Optimitron development
+
+
+# Optimitron Development Rules
+
+Before making changes, read:
+- `AGENTS.md` — Architecture rules for all AI agents
+- `docs/TYPE_SYSTEM.md` — DB is single source of truth for types
+- `docs/CONVENTIONS.md` — Naming, testing, domain agnosticism
+- `CLAUDE.md` — Detailed algorithm references and paper links
+- `.conductor/product.md` — Product context
+- `.conductor/workflow.md` — Development workflow
+
+## Key Rules
+1. Prisma schema is the single source of truth for data models
+2. Library packages use `import type` from `@optimitron/db` (no Prisma client runtime)
+3. `@optimitron/optimizer` is domain-agnostic — no health/policy/budget terms
+4. No code without tests
+5. Use predictor/outcome terminology (not cause/effect)
+6. FK names match target model (`globalVariableId` not `variableId`)
+7. Enums over magic strings
+8. `deletedAt` on all models (soft deletes)
+
+## Package Dependencies
+```
+optimizer ← nothing
+wishocracy ← nothing
+opg ← optimizer
+obg ← optimizer
+data ← nothing
+db ← nothing
+web ← everything
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/mikepsinn)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/mikepsinn)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
