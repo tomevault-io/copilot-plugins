@@ -1,0 +1,127 @@
+## todo
+
+> main rule
+
+
+# 🔍 ISOLATION-FOCUSED MEMORY BANK SYSTEM
+
+> **TL;DR:** This system is designed to work with Cursor custom modes, where each mode loads only the rules it needs. The system uses visual Mermaid diagrams and selective document loading to optimize context usage.
+
+## 🧭 MODE-SPECIFIC VISUAL MAPS
+
+```mermaid
+graph TD
+    subgraph Modes["Cursor Custom Modes"]
+        VAN["VAN MODE<br>Initialization"] --> PLAN["PLAN MODE<br>Task Planning"]
+        PLAN --> Creative["CREATIVE MODE<br>Design Decisions"]
+        Creative --> Implement["IMPLEMENT MODE<br>Code Implementation"]
+        Implement --> Reflect["REFLECT MODE<br>Task Review"]
+        Reflect --> Archive["ARCHIVE MODE<br>Documentation"]
+    end
+
+    VAN -.->|"Loads"| VANRules["• main.md<br>• platform-awareness.md<br>• file-verification.md<br>• workflow-init.md"]
+    PLAN -.->|"Loads"| PLANRules["• main.md<br>• task-tracking.md<br>• planning-process.md"]
+    Creative -.->|"Loads"| CreativeRules["• main.md<br>• creative-phase.md<br>• design-patterns.md"]
+    Implement -.->|"Loads"| ImplementRules["• main.md<br>• command-execution.md<br>• implementation-guide.md"]
+    Reflect -.->|"Loads"| ReflectRules["• main.md<br>• reflection-format.md"]
+    Archive -.->|"Loads"| ArchiveRules["• main.md<br>• archiving-guide.md"]
+```
+
+## 📚 VISUAL PROCESS MAPS
+
+Each mode has its own visual process map:
+
+- [VAN Mode Map](mdc:visual-maps/van-mode-map.md)
+- [PLAN Mode Map](mdc:visual-maps/plan-mode-map.md)
+- [CREATIVE Mode Map](mdc:visual-maps/creative-mode-map.md)
+- [IMPLEMENT Mode Map](mdc:visual-maps/implement-mode-map.md)
+- [REFLECT Mode Map](mdc:visual-maps/reflect-mode-map.md)
+- [ARCHIVE Mode Map](mdc:visual-maps/archive-mode-map.md)
+
+## 🔄 FILE STATE VERIFICATION
+
+In this isolation-focused approach, Memory Bank files maintain continuity between modes:
+
+```mermaid
+graph TD
+    subgraph "Memory Bank Files"
+        tasks["tasks.md<br>Source of Truth"]
+        active["activeContext.md<br>Current Focus"]
+        creative["creative-*.md<br>Design Decisions"]
+        progress["progress.md<br>Implementation Status"]
+    end
+
+    VAN["VAN MODE"] -->|"Creates/Updates"| tasks
+    VAN -->|"Creates/Updates"| active
+
+    PLAN["PLAN MODE"] -->|"Reads"| tasks
+    PLAN -->|"Reads"| active
+    PLAN -->|"Updates"| tasks
+
+    Creative["CREATIVE MODE"] -->|"Reads"| tasks
+    Creative -->|"Creates"| creative
+    Creative -->|"Updates"| tasks
+
+    Implement["IMPLEMENT MODE"] -->|"Reads"| tasks
+    Implement -->|"Reads"| creative
+    Implement -->|"Updates"| tasks
+    Implement -->|"Updates"| progress
+
+    Reflect["REFLECT MODE"] -->|"Reads"| tasks
+    Reflect -->|"Reads"| progress
+    Reflect -->|"Updates"| tasks
+
+    Archive["ARCHIVE MODE"] -->|"Reads"| tasks
+    Archive -->|"Reads"| progress
+    Archive -->|"Archives"| creative
+```
+
+## 📋 MODE TRANSITION PROTOCOL
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant CurrentMode
+    participant NextMode
+
+    CurrentMode->>CurrentMode: Complete Phase Requirements
+    CurrentMode->>User: "Phase complete. NEXT MODE: [mode name]"
+    User->>CurrentMode: End Current Mode
+    User->>NextMode: Start Next Mode
+    NextMode->>NextMode: Verify Required File State
+
+    alt File State Valid
+        NextMode->>User: "Continuing from previous mode..."
+    else File State Invalid
+        NextMode->>User: "Required files not in expected state"
+        NextMode->>User: "Return to [previous mode] to complete requirements"
+    end
+```
+
+## 💻 PLATFORM-SPECIFIC COMMANDS
+
+| Action | Windows | Mac/Linux |
+|--------|---------|-----------|
+| Create file | `echo. > file.ext` | `touch file.ext` |
+| Create directory | `mkdir directory` | `mkdir -p directory` |
+| Change directory | `cd directory` | `cd directory` |
+| List files | `dir` | `ls` |
+| Show file content | `type file.ext` | `cat file.ext` |
+
+## ⚠️ COMMAND EFFICIENCY GUIDANCE
+
+For optimal performance, use efficient command chaining when appropriate:
+
+```
+# Efficient command chaining examples:
+mkdir -p project/{src,tests,docs} && cd project
+grep "TODO" $(find . -name "*.js")
+npm install && npm start
+```
+
+Refer to [command-execution.md](mdc:Core/command-execution.md) for detailed guidance.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/tyrchen)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/tyrchen)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
