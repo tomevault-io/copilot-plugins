@@ -1,0 +1,47 @@
+## php-workbench
+
+> Technical testing implementation standards
+
+
+# Testing Implementation Standards
+
+## Test Structure Template
+Follow this pattern for consistent, thorough tests:
+
+@templates/test-template.ts
+
+## Test Organization
+- Tests should be in `src/test/` directory
+- Use descriptive test names: `should_execute_php_code_with_composer_autoload`
+- Group related tests in `describe` blocks
+- Use `beforeEach` and `afterEach` for setup/teardown
+
+## Test Structure Principles
+- **Arrange**: Set up test data and dependencies
+- **Act**: Execute the code under test
+- **Assert**: Verify the expected behavior
+- Use meaningful assertions with descriptive messages
+
+## Mocking and Isolation
+- Mock external dependencies (file system, network, VSCode APIs)
+- Test business logic in isolation from side effects
+- Use dependency injection to make code testable
+- Mock VSCode APIs when testing extension commands
+
+## VSCode Extension Testing
+- Use `@vscode/test-electron` for integration tests
+- Test extension activation and command registration
+- Mock VSCode APIs for unit tests
+- Test both success and error scenarios
+
+## Test Coverage Requirements
+- All business logic must have unit tests
+- Error paths must be tested
+- Edge cases should have dedicated tests
+- Integration tests for command registration and activation
+- Test both success and error scenarios
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/aaronjewell)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/aaronjewell)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
