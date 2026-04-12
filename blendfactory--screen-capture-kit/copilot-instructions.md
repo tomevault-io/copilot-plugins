@@ -1,0 +1,50 @@
+## screen-capture-kit
+
+> Documentation and code comments must be written in English, while interactive conversation with the user should generally follow the user's input language.
+
+
+# Language Standards
+
+## Scope
+
+- This rule applies to **all files and all languages** in this repository.
+- It controls **which language to use where**:
+  - **Documentation, comments, commit messages**: English
+  - **Interactive conversation with the user in Cursor**: Generally match the user's input language
+
+## Rules
+
+1. **Documentation language**
+   - All new documentation (e.g. `README.md`, `CONTRIBUTING.md`, API docs) must be written in **English**.
+   - When editing existing docs, **prefer** converting or expanding content in English.
+
+2. **Code comments**
+   - Write all code comments in **English**.
+   - If existing comments are in another language and you need to touch them, convert them to English when reasonable.
+
+3. **Commit messages**
+   - Commit messages must be written in **English**, following the project's Conventional Commits style where applicable.
+
+4. **Conversation with the user**
+   - When responding to the user inside Cursor, **prefer using the same language as the user's input for that message**.
+   - Regardless of the conversation language, when you need to show code, comments, or documentation content, ensure the **content itself** is in English.
+
+## Examples
+
+- ✅ Good (documentation)
+  - `README.md` sections, headings, and prose are in English.
+
+- ✅ Good (code comments)
+  - `// Handle screen capture permission request on macOS 12.3+`
+
+- ✅ Good (conversation)
+  - Explain design decisions and answer questions in the same language as the user's input, but show code and comments in English.
+
+- ❌ Avoid
+  - Writing non-English comments inside source files.
+  - Adding non-English text to documentation files (except where absolutely necessary, such as proper nouns or unavoidable context).
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/blendfactory)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/blendfactory)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
