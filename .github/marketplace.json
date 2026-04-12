@@ -23817,6 +23817,256 @@
       "name": "margelo--provable-mobile-sdk",
       "source": "./margelo--provable-mobile-sdk",
       "description": "provable-mobile-sdk"
+    },
+    {
+      "name": "gaqno-development--gaqno-development-workspace",
+      "source": "./gaqno-development--gaqno-development-workspace",
+      "description": "gaqno-development-workspace"
+    },
+    {
+      "name": "tleifj--project-manager",
+      "source": "./tleifj--project-manager",
+      "description": "project-manager"
+    },
+    {
+      "name": "ozakor--kurban-otomasyon-live-module",
+      "source": "./ozakor--kurban-otomasyon-live-module",
+      "description": "kurban-otomasyon-live-module"
+    },
+    {
+      "name": "julioorozco-mu--insights",
+      "source": "./julioorozco-mu--insights",
+      "description": "insights"
+    },
+    {
+      "name": "yuberalberto--vjobs-landing",
+      "source": "./yuberalberto--vjobs-landing",
+      "description": "vjobs-landing"
+    },
+    {
+      "name": "ruan-cat--11comm",
+      "source": "./ruan-cat--11comm",
+      "description": "11comm"
+    },
+    {
+      "name": "ruan-cat--learn-nitro-starter-with-vercel",
+      "source": "./ruan-cat--learn-nitro-starter-with-vercel",
+      "description": "learn-nitro-starter-with-vercel"
+    },
+    {
+      "name": "mrfansi--akana",
+      "source": "./mrfansi--akana",
+      "description": "akana"
+    },
+    {
+      "name": "jon-chun--documindintelliocr",
+      "source": "./jon-chun--documindintelliocr",
+      "description": "DocuMindIntelliOCR"
+    },
+    {
+      "name": "gacenoinspira--gacenoinspira",
+      "source": "./gacenoinspira--gacenoinspira",
+      "description": "gacenoinspira"
+    },
+    {
+      "name": "unioai--pkc",
+      "source": "./unioai--pkc",
+      "description": "PKC"
+    },
+    {
+      "name": "jashusakhamuri--maestro-demo",
+      "source": "./jashusakhamuri--maestro-demo",
+      "description": "Maestro_demo"
+    },
+    {
+      "name": "mrfansi--akana",
+      "source": "./mrfansi--akana",
+      "description": "akana"
+    },
+    {
+      "name": "herringtondarkholme--megarepo",
+      "source": "./herringtondarkholme--megarepo",
+      "description": "megarepo"
+    },
+    {
+      "name": "yinnohs--ai-made-coffe-api",
+      "source": "./yinnohs--ai-made-coffe-api",
+      "description": "ai-made-coffe-api"
+    },
+    {
+      "name": "copyleftdev--specmint",
+      "source": "./copyleftdev--specmint",
+      "description": "specmint"
+    },
+    {
+      "name": "stctheproducer--kamba",
+      "source": "./stctheproducer--kamba",
+      "description": "kamba"
+    },
+    {
+      "name": "nexamesh--nexamesh-core",
+      "source": "./nexamesh--nexamesh-core",
+      "description": "nexamesh-core"
+    },
+    {
+      "name": "kynoptic--wikipedia-reliable-sources",
+      "source": "./kynoptic--wikipedia-reliable-sources",
+      "description": "wikipedia-reliable-sources"
+    },
+    {
+      "name": "deegupta23--aiworkshop",
+      "source": "./deegupta23--aiworkshop",
+      "description": "aiworkshop"
+    },
+    {
+      "name": "perkyzz999--reactforge",
+      "source": "./perkyzz999--reactforge",
+      "description": "ReactForge"
+    },
+    {
+      "name": "susmita2162--pulseflow",
+      "source": "./susmita2162--pulseflow",
+      "description": "PulseFlow"
+    },
+    {
+      "name": "yezhaocan--vr-management-web",
+      "source": "./yezhaocan--vr-management-web",
+      "description": "vr-management-web"
+    },
+    {
+      "name": "hidontknow--cloudbase-demo",
+      "source": "./hidontknow--cloudbase-demo",
+      "description": "cloudbase-demo"
+    },
+    {
+      "name": "weaveitmeta--eustressengine",
+      "source": "./weaveitmeta--eustressengine",
+      "description": "EustressEngine"
+    },
+    {
+      "name": "copyleftdev--pitfall-or-rtfm",
+      "source": "./copyleftdev--pitfall-or-rtfm",
+      "description": "pitfall_or_rtfm"
+    },
+    {
+      "name": "haongo232--agent-bridge-kit",
+      "source": "./haongo232--agent-bridge-kit",
+      "description": "agent-bridge-kit"
+    },
+    {
+      "name": "reebalsami--portfolio-website",
+      "source": "./reebalsami--portfolio-website",
+      "description": "portfolio-website"
+    },
+    {
+      "name": "trevorplam--cloud-gallery",
+      "source": "./trevorplam--cloud-gallery",
+      "description": "cloud-gallery"
+    },
+    {
+      "name": "kasuboski--remote-work-directory",
+      "source": "./kasuboski--remote-work-directory",
+      "description": "remote-work-directory"
+    },
+    {
+      "name": "happyahluwalia--sourcegrounded10k",
+      "source": "./happyahluwalia--sourcegrounded10k",
+      "description": "SourceGrounded10K"
+    },
+    {
+      "name": "idealinvestse--bullen",
+      "source": "./idealinvestse--bullen",
+      "description": "Bullen"
+    },
+    {
+      "name": "synaptixlabs--scaffold",
+      "source": "./synaptixlabs--scaffold",
+      "description": "scaffold"
+    },
+    {
+      "name": "ahuelsmann--mobaflow",
+      "source": "./ahuelsmann--mobaflow",
+      "description": "MOBAflow"
+    },
+    {
+      "name": "sudachen--eth-partner",
+      "source": "./sudachen--eth-partner",
+      "description": "eth-partner"
+    },
+    {
+      "name": "skrodrigo--nyxai",
+      "source": "./skrodrigo--nyxai",
+      "description": "nyxai"
+    },
+    {
+      "name": "charvibansall--drawingboard-capital",
+      "source": "./charvibansall--drawingboard-capital",
+      "description": "drawingboard-capital"
+    },
+    {
+      "name": "vlobachev--vibecode",
+      "source": "./vlobachev--vibecode",
+      "description": "vibecode"
+    },
+    {
+      "name": "oleg121203--mvp",
+      "source": "./oleg121203--mvp",
+      "description": "MVP"
+    },
+    {
+      "name": "cmnemoi--odyssey",
+      "source": "./cmnemoi--odyssey",
+      "description": "odyssey"
+    },
+    {
+      "name": "satibot--satibot",
+      "source": "./satibot--satibot",
+      "description": "satibot"
+    },
+    {
+      "name": "architects-toolkit--smarthopper",
+      "source": "./architects-toolkit--smarthopper",
+      "description": "SmartHopper"
+    },
+    {
+      "name": "rajat9garg--ecommerce",
+      "source": "./rajat9garg--ecommerce",
+      "description": "ecommerce"
+    },
+    {
+      "name": "vynodepal--dashcraft",
+      "source": "./vynodepal--dashcraft",
+      "description": "DashCraft"
+    },
+    {
+      "name": "alisonbessa--bluemoon",
+      "source": "./alisonbessa--bluemoon",
+      "description": "bluemoon"
+    },
+    {
+      "name": "laveyron--dissect-cf",
+      "source": "./laveyron--dissect-cf",
+      "description": "Dissect-cf"
+    },
+    {
+      "name": "eloura74--jarvispy",
+      "source": "./eloura74--jarvispy",
+      "description": "JARVISpy"
+    },
+    {
+      "name": "trevorplam--cloud-gallery",
+      "source": "./trevorplam--cloud-gallery",
+      "description": "cloud-gallery"
+    },
+    {
+      "name": "artemisai--harness-engineering",
+      "source": "./artemisai--harness-engineering",
+      "description": "Harness_Engineering"
+    },
+    {
+      "name": "hillsrion--safespace",
+      "source": "./hillsrion--safespace",
+      "description": "safespace"
     }
   ]
 }
