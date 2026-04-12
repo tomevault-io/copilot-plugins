@@ -1,6 +1,6 @@
 # zerocard-infra
 
-> Config by [getzerocard](https://github.com/getzerocard/zerocard-infra) — distributed by [TomeVault](https://tomevault.io/claim/getzerocard)
+> Tome by [getzerocard](https://github.com/getzerocard/zerocard-infra) — distributed by [TomeVault](https://tomevault.io/claim/getzerocard)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [getzerocard/zerocard-infra](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/getzerocard](https://tomevault.io/claim/getzerocard)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/getzerocard)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/getzerocard) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install getzerocard/zerocard-infra
+```
+Or browse all formats at [https://tomevault.io/claim/getzerocard](https://tomevault.io/claim/getzerocard).
+
+<!-- genome:t-i-p -->
