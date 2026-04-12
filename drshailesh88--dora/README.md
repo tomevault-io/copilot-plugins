@@ -1,23 +1,24 @@
-# Dora
+# Dora — distributed by TomeVault
 
-> Config by [drshailesh88](https://github.com/drshailesh88/Dora) — distributed by [TomeVault](https://tomevault.io/claim/drshailesh88)
+> Originally from [drshailesh88/Dora](https://github.com/drshailesh88/Dora). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [drshailesh88/Dora](https://github.com/drshailesh88/Dora).
+Original source: `CLAUDE.md` in [drshailesh88/Dora](https://github.com/drshailesh88/Dora).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/drshailesh88](https://tomevault.io/claim/drshailesh88)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/drshailesh88)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/drshailesh88) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-p -->
