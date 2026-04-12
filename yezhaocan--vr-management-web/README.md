@@ -1,6 +1,6 @@
-# vr-management-web
+# AI instruction files for vr-management-web
 
-> Config by [yezhaocan](https://github.com/yezhaocan/vr-management-web) — distributed by [TomeVault](https://tomevault.io/claim/yezhaocan)
+> Sourced from [yezhaocan/vr-management-web](https://github.com/yezhaocan/vr-management-web) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [yezhaocan/vr-management-web](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/yezhaocan](https://tomevault.io/claim/yezhaocan)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/yezhaocan#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/yezhaocan) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-q -->
