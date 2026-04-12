@@ -1,23 +1,24 @@
 # AgentVerse
 
-> Config by [Peiiii](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io/claim/Peiiii)
+> Tome by [Peiiii](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io/claim/Peiiii)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse).
+Original source: `.cursor/rules/*.mdc` in [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Peiiii](https://tomevault.io/claim/Peiiii)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Peiiii)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Peiiii) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/Peiiii) to manage distribution and track installs.
+
+<!-- genome:t-c-s -->
