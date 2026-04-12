@@ -1,6 +1,6 @@
 # solospark-prototype
 
-> Config by [MongiLearnsToCode](https://github.com/MongiLearnsToCode/solospark-prototype) — distributed by [TomeVault](https://tomevault.io/claim/MongiLearnsToCode)
+> Tome by [MongiLearnsToCode](https://github.com/MongiLearnsToCode/solospark-prototype) — distributed by [TomeVault](https://tomevault.io/claim/MongiLearnsToCode)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [MongiLearnsToCode/solospark-prototyp
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/MongiLearnsToCode](https://tomevault.io/claim/MongiLearnsToCode)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/MongiLearnsToCode)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/MongiLearnsToCode) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install MongiLearnsToCode/solospark-prototype
+```
+Or browse all formats at [https://tomevault.io/claim/MongiLearnsToCode](https://tomevault.io/claim/MongiLearnsToCode).
+
+<!-- genome:t-i-p -->
