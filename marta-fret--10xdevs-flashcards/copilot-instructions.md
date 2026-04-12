@@ -1,171 +1,42 @@
 ## 10xdevs-flashcards
 
-> Use this guide to implement authentication in Astro applications with server-side rendering (SSR) support
+> - Use Astro components (.astro) for static content and layout
 
 
-# Supabase Auth Integration with Astro
+## Frontend
 
-Use this guide to implement authentication in Astro applications with server-side rendering (SSR) support
+### General Guidelines
 
-## Core Requirements
+- Use Astro components (.astro) for static content and layout
+- Implement framework components in React only when interactivity is needed
+- If you need a validation schema which is the same as backend API call payload schema, don't duplicate it but move to src/lib/<domainUtilsFile> and reuse.
 
-1. Use `@supabase/ssr` package (NOT auth-helpers)
-2. Use ONLY `getAll` and `setAll` for cookie management
-3. NEVER use individual `get`, `set`, or `remove` cookie methods
-4. Implement proper session management with middleware based on JWT (Supabase Auth)
+### Guidelines for Styling
 
-## Installation
+#### Tailwind
 
-```bash
-npm install @supabase/ssr
-```
+- Use the @layer directive to organize styles into components, utilities, and base layers
+- Use arbitrary values with square brackets (e.g., w-[123px]) for precise one-off designs
+- Implement the Tailwind configuration file for customizing theme, plugins, and variants
+- Leverage the theme() function in CSS for accessing Tailwind theme values
+- Implement dark mode with the dark: variant
+- Use responsive variants (sm:, md:, lg:, etc.) for adaptive designs
+- Leverage state variants (hover:, focus-visible:, active:, etc.) for interactive elements
 
-## Environment Variables
+### Guidelines for Accessibility
 
-When introducing new env variables or values stored on Astro.locals, always update `src/env.d.ts` to reflect these changes.
+#### ARIA Best Practices
 
-Make sure `.env.example` is updated with the correct environment variables.
-
-## Implementation Steps
-
-### 1. Create OR Extend Supabase Server Instance
-
-Update existing Supabase client or create one in `src/db/supabase.client.ts`:
-
-```typescript
-import type { AstroCookies } from "astro";
-import { createServerClient, type CookieOptionsWithName } from "@supabase/ssr";
-import type { Database } from "../db/database.types.ts";
-
-export const cookieOptions: CookieOptionsWithName = {
-  path: "/",
-  secure: true,
-  httpOnly: true,
-  sameSite: "lax",
-};
-
-function parseCookieHeader(cookieHeader: string): { name: string; value: string }[] {
-  return cookieHeader.split(";").map((cookie) => {
-    const [name, ...rest] = cookie.trim().split("=");
-    return { name, value: rest.join("=") };
-  });
-}
-
-export const createSupabaseServerInstance = (context: { headers: Headers; cookies: AstroCookies }) => {
-  const supabase = createServerClient<Database>(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {
-    cookieOptions,
-    cookies: {
-      getAll() {
-        return parseCookieHeader(context.headers.get("Cookie") ?? "");
-      },
-      setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) => context.cookies.set(name, value, options));
-      },
-    },
-  });
-
-  return supabase;
-};
-```
-
-### 2. Implement OR Extend Authentication Middleware
-
-Update existing auth middleware or create one in `src/middleware/index.ts` according to the below template:
-
-```typescript
-import { createSupabaseServerInstance } from "../db/supabase.client.ts";
-import { defineMiddleware } from "astro:middleware";
-
-// Public paths - Auth API endpoints & Server-Rendered Astro Pages
-const PUBLIC_PATHS = [
-  // Here list server-rendered Astro Pages based on other context information you have
-  // Here list Auth API endpoints based on other context information you have
-];
-
-export const onRequest = defineMiddleware(async ({ locals, cookies, url, request, redirect }, next) => {
-  // Skip auth check for public paths
-  if (PUBLIC_PATHS.includes(url.pathname)) {
-    return next();
-  }
-
-  const supabase = createSupabaseServerInstance({
-    cookies,
-    headers: request.headers,
-  });
-
-  // IMPORTANT: Always get user session first before any other operations
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (user) {
-    locals.user = {
-      email: user.email,
-      id: user.id,
-    };
-  } else if (!PUBLIC_PATHS.includes(url.pathname)) {
-    // Redirect to login for protected routes
-    return redirect("/auth/login");
-  }
-
-  return next();
-});
-```
-
-### 3. Create Auth API Endpoints
-
-A simple example of API endpoint:
-
-```typescript
-// src/pages/api/auth/login.ts
-import type { APIRoute } from "astro";
-import { createSupabaseServerInstance } from "../../db/supabase.client.ts";
-
-export const POST: APIRoute = async ({ request, cookies }) => {
-  const { email, password } = await request.json();
-
-  const supabase = createSupabaseServerInstance({ cookies, headers: request.headers });
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 400,
-    });
-  }
-
-  return new Response(JSON.stringify({ user: data.user }), {
-    status: 200,
-  });
-};
-```
-
-### 4. Protect Routes
-
-Protect these routes which require authenticated user with a reusable helper function.
-
-### 5. Verify SSR Configuration
-
-Verify whether auth pages are rendered server-side, either by `export const prerender = false;` or by `output: "server"` in `astro.config.mjs`.
-
-## Security Best Practices
-
-- Set proper cookie options (httpOnly, secure, sameSite)
-- Never expose Supabase integration & keys in client-side components
-- Validate all user input server-side
-- Use proper error handling and logging
-
-## Common Pitfalls
-
-1. DO NOT use individual cookie methods (get/set/remove)
-2. DO NOT import from @supabase/auth-helpers-nextjs
-3. DO NOT skip the auth.getUser() call in middleware
-4. DO NOT modify cookie handling logic
-5. Always handle auth state changes properly
+- Use ARIA landmarks to identify regions of the page (main, navigation, search, etc.)
+- Apply appropriate ARIA roles to custom interface elements that lack semantic HTML equivalents
+- Set aria-expanded and aria-controls for expandable content like accordions and dropdowns
+- Use aria-live regions with appropriate politeness settings for dynamic content updates
+- Implement aria-hidden to hide decorative or duplicative content from screen readers
+- Apply aria-label or aria-labelledby for elements without visible text labels
+- Use aria-describedby to associate descriptive text with form inputs or complex elements
+- Implement aria-current for indicating the current item in a set, navigation, or process
+- Avoid redundant ARIA that duplicates the semantics of native HTML elements
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/marta-fret) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
