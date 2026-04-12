@@ -25322,6 +25322,256 @@
       "name": "dennis-j-carroll--seeded-sphere-search",
       "source": "./dennis-j-carroll--seeded-sphere-search",
       "description": "Seeded-Sphere-Search"
+    },
+    {
+      "name": "tylerschloesser--sim-v30",
+      "source": "./tylerschloesser--sim-v30",
+      "description": "sim-v30"
+    },
+    {
+      "name": "ristik--rugregator",
+      "source": "./ristik--rugregator",
+      "description": "rugregator"
+    },
+    {
+      "name": "tcapelle--mistral-serve",
+      "source": "./tcapelle--mistral-serve",
+      "description": "mistral_serve"
+    },
+    {
+      "name": "alexkibler--spokes-godot",
+      "source": "./alexkibler--spokes-godot",
+      "description": "spokes-godot"
+    },
+    {
+      "name": "xander006--keyboard-cleaner",
+      "source": "./xander006--keyboard-cleaner",
+      "description": "keyboard-cleaner"
+    },
+    {
+      "name": "wibson82--refinatexto",
+      "source": "./wibson82--refinatexto",
+      "description": "RefinaTexto"
+    },
+    {
+      "name": "adamtpang--legends-guide",
+      "source": "./adamtpang--legends-guide",
+      "description": "legends.guide"
+    },
+    {
+      "name": "dotneet--miru",
+      "source": "./dotneet--miru",
+      "description": "miru"
+    },
+    {
+      "name": "naty89--ralli",
+      "source": "./naty89--ralli",
+      "description": "Ralli"
+    },
+    {
+      "name": "baltop--webco",
+      "source": "./baltop--webco",
+      "description": "webco"
+    },
+    {
+      "name": "tdiorio2323--cabanamgmt",
+      "source": "./tdiorio2323--cabanamgmt",
+      "description": "cabanamgmt"
+    },
+    {
+      "name": "malikkotb--infinite-grid-navigation",
+      "source": "./malikkotb--infinite-grid-navigation",
+      "description": "infinite-grid-navigation"
+    },
+    {
+      "name": "jarvis823--astro-50mm",
+      "source": "./jarvis823--astro-50mm",
+      "description": "astro-50mm"
+    },
+    {
+      "name": "ffreemt--effective-context-length",
+      "source": "./ffreemt--effective-context-length",
+      "description": "effective-context-length"
+    },
+    {
+      "name": "nullvoidundefined--ai-research-assistant",
+      "source": "./nullvoidundefined--ai-research-assistant",
+      "description": "ai-research-assistant"
+    },
+    {
+      "name": "knoguchi-ship-it--hirakatacitykyougikaiide",
+      "source": "./knoguchi-ship-it--hirakatacitykyougikaiide",
+      "description": "hirakatacitykyougikaiIDE"
+    },
+    {
+      "name": "openshift-online--rosa-e2e",
+      "source": "./openshift-online--rosa-e2e",
+      "description": "rosa-e2e"
+    },
+    {
+      "name": "sauerbac--wegweiser",
+      "source": "./sauerbac--wegweiser",
+      "description": "Wegweiser"
+    },
+    {
+      "name": "jiyi27--docmind",
+      "source": "./jiyi27--docmind",
+      "description": "DocMind"
+    },
+    {
+      "name": "dissfall--web-portfolio",
+      "source": "./dissfall--web-portfolio",
+      "description": "web-portfolio"
+    },
+    {
+      "name": "cskwork--txtbk-quiz-maker-agent",
+      "source": "./cskwork--txtbk-quiz-maker-agent",
+      "description": "txtbk-quiz-maker-agent"
+    },
+    {
+      "name": "sandeepreddygantla--custom-mcp",
+      "source": "./sandeepreddygantla--custom-mcp",
+      "description": "custom_mcp"
+    },
+    {
+      "name": "goubuliya--openmanus",
+      "source": "./goubuliya--openmanus",
+      "description": "openmanus"
+    },
+    {
+      "name": "jwaes--mybudget",
+      "source": "./jwaes--mybudget",
+      "description": "mybudget"
+    },
+    {
+      "name": "honzaves--bookweaver",
+      "source": "./honzaves--bookweaver",
+      "description": "bookweaver"
+    },
+    {
+      "name": "cloverhsc--try-ngterminal",
+      "source": "./cloverhsc--try-ngterminal",
+      "description": "Try-NgTerminal"
+    },
+    {
+      "name": "nnance--apple-services-cli",
+      "source": "./nnance--apple-services-cli",
+      "description": "apple-services-cli"
+    },
+    {
+      "name": "githipo--vibecheck",
+      "source": "./githipo--vibecheck",
+      "description": "vibecheck"
+    },
+    {
+      "name": "kfnx--bizflow-suite",
+      "source": "./kfnx--bizflow-suite",
+      "description": "bizflow-suite"
+    },
+    {
+      "name": "lsharrous-hash--tri-colis",
+      "source": "./lsharrous-hash--tri-colis",
+      "description": "Tri-Colis"
+    },
+    {
+      "name": "vtbassmatt--menuclock",
+      "source": "./vtbassmatt--menuclock",
+      "description": "MenuClock"
+    },
+    {
+      "name": "thescottyb--flip-card-project",
+      "source": "./thescottyb--flip-card-project",
+      "description": "flip-card-project"
+    },
+    {
+      "name": "md-riaz--jitsi-laravel-admin",
+      "source": "./md-riaz--jitsi-laravel-admin",
+      "description": "Jitsi-Laravel-Admin"
+    },
+    {
+      "name": "kkoma-value--qwen-agent",
+      "source": "./kkoma-value--qwen-agent",
+      "description": "qwen_agent"
+    },
+    {
+      "name": "cadieuxj--developpment-app",
+      "source": "./cadieuxj--developpment-app",
+      "description": "Developpment_App"
+    },
+    {
+      "name": "alexandrec90--carameli",
+      "source": "./alexandrec90--carameli",
+      "description": "carameli"
+    },
+    {
+      "name": "vladimir-maj--site-web-rds",
+      "source": "./vladimir-maj--site-web-rds",
+      "description": "Site-web-RDS"
+    },
+    {
+      "name": "redhatqe--openshift-lp-qe--tools",
+      "source": "./redhatqe--openshift-lp-qe--tools",
+      "description": "OpenShift-LP-QE--Tools"
+    },
+    {
+      "name": "htooayelwinict--lego-langgraph",
+      "source": "./htooayelwinict--lego-langgraph",
+      "description": "lego_langgraph"
+    },
+    {
+      "name": "calebl--sacred-feminine-community",
+      "source": "./calebl--sacred-feminine-community",
+      "description": "sacred-feminine-community"
+    },
+    {
+      "name": "idealase--dc-sim",
+      "source": "./idealase--dc-sim",
+      "description": "dc-sim"
+    },
+    {
+      "name": "lbagga2x--aiapply",
+      "source": "./lbagga2x--aiapply",
+      "description": "AIApply"
+    },
+    {
+      "name": "soyandrestrujillo--sign-language-translator",
+      "source": "./soyandrestrujillo--sign-language-translator",
+      "description": "sign-language-translator"
+    },
+    {
+      "name": "sfbay--datadiver",
+      "source": "./sfbay--datadiver",
+      "description": "datadiver"
+    },
+    {
+      "name": "fredericlam--strapi-csu-cms",
+      "source": "./fredericlam--strapi-csu-cms",
+      "description": "Strapi-CSU-CMS"
+    },
+    {
+      "name": "davidkarpay--chatgpt-sidecar",
+      "source": "./davidkarpay--chatgpt-sidecar",
+      "description": "ChatGPT-Sidecar"
+    },
+    {
+      "name": "eieraso--my-app",
+      "source": "./eieraso--my-app",
+      "description": "my-app"
+    },
+    {
+      "name": "yuurilee--snack-storyteller",
+      "source": "./yuurilee--snack-storyteller",
+      "description": "snack-storyteller"
+    },
+    {
+      "name": "vancuren--izzy",
+      "source": "./vancuren--izzy",
+      "description": "izzy"
+    },
+    {
+      "name": "unfoldingcx--compliance-site",
+      "source": "./unfoldingcx--compliance-site",
+      "description": "compliance-site"
     }
   ]
 }
