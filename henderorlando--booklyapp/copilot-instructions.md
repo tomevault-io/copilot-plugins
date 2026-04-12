@@ -1,80 +1,94 @@
 ## booklyapp
 
-> El sistema debe permitir a los usuarios realizar reservas periódicas para un recurso específico dentro de un rango de fechas definido. Esto significa que un usuario podrá agendar una reserva recurrente en días específicos (ejemplo: todos los viernes de una fecha a otra) sin necesidad de registrar manualmente cada instancia. La funcionalidad debe incluir opciones de configuración como la selección de frecuencia (diaria, semanal, mensual) y la posibilidad de editar o cancelar reservas futuras sin afectar las ya realizadas. El objetivo de esta funcionalidad es facilitar la planificación a largo plazo de recursos que requieren uso recurrente, optimizando la administración y reduciendo la carga operativa de los usuarios.
+> Reglas y estándares para la creación, actualización y mantenimiento de la documentación en Bookly (Frontend, Backend y Global)
 
 
-## RF-12: Permitir reservas periódicas
+# Estándares de Documentación Bookly
 
-El sistema debe permitir a los usuarios realizar reservas periódicas para un recurso específico dentro de un rango de fechas definido. Esto significa que un usuario podrá agendar una reserva recurrente en días específicos (ejemplo: todos los viernes de una fecha a otra) sin necesidad de registrar manualmente cada instancia. La funcionalidad debe incluir opciones de configuración como la selección de frecuencia (diaria, semanal, mensual) y la posibilidad de editar o cancelar reservas futuras sin afectar las ya realizadas. El objetivo de esta funcionalidad es facilitar la planificación a largo plazo de recursos que requieren uso recurrente, optimizando la administración y reduciendo la carga operativa de los usuarios.
+Lineamientos obligatorios para crear, modificar y organizar documentación en Bookly.
 
-### Criterios de Aceptación
+## 1. Estructura de Directorios (Single Source of Truth)
 
-- El usuario debe poder seleccionar la opción de reserva periódica al momento de realizar una nueva reserva.
-- Debe permitir definir el rango de fechas en el que se aplicará la periodicidad.
-- El usuario podrá elegir la frecuencia de repetición, con opciones como:
-  - Diaria (ej., todos los días hábiles de la semana).
-  - Semanal (ej., todos los lunes y miércoles).
-  - Mensual (ej., el primer martes de cada mes).
-- El sistema debe verificar automáticamente la disponibilidad del recurso en todas las fechas seleccionadas.
-- Si alguna de las fechas seleccionadas ya tiene una reserva en conflicto, el sistema debe notificar al usuario las fechas no disponibles.
-- Los usuarios deben poder editar o cancelar la serie completa de reservas o solo una fecha específica dentro de la serie.
-- El sistema debe actualizar la disponibilidad de los recursos en la vista de calendario.
-- Se deben generar notificaciones automáticas a los usuarios sobre sus reservas periódicas y cualquier cambio o cancelación.
+### `docs/` (Global)
 
-### Flujo de Uso
+- `business-requirements/` - PDFs oficiales: requerimientos, HU, flujos, casos de uso, catálogo de errores.
+- `api-alignment/` - Políticas de alineación frontend-backend, mapeo de endpoints, auditorías.
+  - `inventories/` - Inventario de endpoints por servicio (.md y .csv).
+  - `missing-definitions/` - Definiciones faltantes (MD-002 a MD-011).
+- `project-management/` - Progreso, seguridad, planes activos (i18n, waitlist).
+- `qa/` - Smoke tests, auditorías de funciones, mejoras de dashboard, planes E2E.
+- `workflows-guide/` - Guías rápidas y definiciones de workflows de Windsurf.
+- `archive/` - Documentación obsoleta (rules-review, workflows-old, fixes anteriores).
 
-#### Inicio de la reserva
+### `bookly-mock/docs/` (Backend)
 
-- El usuario accede al módulo de reservas y selecciona un recurso disponible.
-- Marca la opción "Reserva Periódica".
+- `adr/` - Architecture Decision Records (ADR-001 a ADR-003).
+- `api/` - Estándar de respuestas, Swagger, AsyncAPI, ejemplos de uso.
+- `architecture/` - Modelo C4, configuración ESM, MongoDB, RabbitMQ.
+- `deployment/` - Guías de despliegue (Local, Docker, GH Actions, Pulumi).
+- `development/` - Contribución, debug, ejecución, seeds, guías de uso, template CSV.
+- `implementation/` - Idempotencia, logging, cache, WebSocket, integración.
+- `operations/` - KPIs operativos.
+- `templates/` - Plantillas estándar (requirement, endpoints, seeds, architecture, database, event bus).
+- `testing/` - Estado de testing y auditoría de dashboard.
+- `archive/` - Planes completados, migraciones, refactorings, verificaciones, rules-review.
 
-#### Configuración de la periodicidad
+### `bookly-mock-frontend/docs/` (Frontend)
 
-- Define el rango de fechas (ejemplo: del 1 de marzo al 30 de junio).
-- Selecciona la frecuencia de repetición (diaria, semanal, mensual).
-- Ajusta los días específicos si es necesario (ejemplo: todos los viernes).
+- `architecture-and-standards/` - ARCHITECTURE, BEST_PRACTICES, PERFORMANCE, TESTING.
+- `api-integration/` - Guías de integración UI-API por servicio (01-06), configuración backend, estructura de respuesta.
+- `project-management/` - Backlog técnico (PENDIENTES.md).
+- `reports/` - Auditorías UX y accesibilidad.
+- `archive/` - Trabajo histórico organizado en subdirectorios:
+  - `sprints/`, `fixes/`, `plans/`, `implementations/`, `migrations/`, `refactoring/`, `design-system/`, `translations/`, `sessions/`.
 
-#### Verificación de disponibilidad
+### Regla de Oro
 
-- El sistema revisa automáticamente si el recurso está disponible en todas las fechas seleccionadas.
-- Si hay conflictos, muestra un aviso con opciones de reprogramación o selección de otro recurso.
+- NO crear documentación técnica del backend en la carpeta global ni en el frontend.
+- NO mezclar reportes de progreso con requerimientos de negocio.
+- NO crear archivos sueltos en la raíz de ningún directorio `docs/` (solo INDEX o DIRECTORIO).
 
-#### Confirmación de reserva
+## 2. Formato y Estilo (Markdown)
 
-- Si todas las fechas están disponibles, el usuario confirma la reserva.
-- El sistema registra todas las instancias de la reserva y envía notificaciones de confirmación.
+1. **Título Principal (H1):** Todo archivo debe comenzar con un único `# Título Descriptivo`.
+2. **Jerarquía de Encabezados:** Usar secuencialmente `##`, `###`, `####`. No saltar niveles.
+3. **Listas y Espaciado:**
+   - Dejar una línea en blanco antes y después de cada encabezado y cada lista o bloque de código.
+   - Usar sangría de 2 o 4 espacios para listas anidadas de forma consistente.
+   - Usar `-` (dash) para listas desordenadas, nunca `*`.
+4. **Enlaces Relativos:** Siempre usar `./ruta/archivo.md` o `../ruta/archivo.md`. NUNCA rutas absolutas.
 
-#### Gestión de la reserva periódica
+## 3. Actualización de Índices
 
-- El usuario puede ver su lista de reservas periódicas desde su panel de control.
-- Tiene opciones para editar (cambiar horario, modificar periodicidad) o cancelar reservas individuales o toda la serie.
-- Si una reserva es cancelada, se notifica a los usuarios afectados y se actualiza la disponibilidad del recurso.
+Cualquier adición, movimiento o eliminación de un archivo de documentación obliga a actualizar:
 
-### Restricciones y Consideraciones
+- `docs/` → `docs/DIRECTORIO_DOCUMENTACION.md`
+- `bookly-mock/docs/` → `bookly-mock/docs/INDEX.md`
+- `bookly-mock-frontend/docs/` → `bookly-mock-frontend/docs/INDEX.md`
 
-- **Manejo de excepciones en la disponibilidad:**
-  - Si el recurso no está disponible en una de las fechas seleccionadas (por mantenimiento o feriado), el sistema debe notificarlo y sugerir alternativas.
+## 4. Archivo de Documentación Obsoleta (Archive)
 
-- **Límites de reservas periódicas:**
-  - Se deben establecer restricciones sobre cuántas reservas periódicas puede hacer un usuario y hasta cuánto tiempo en el futuro se pueden programar.
+**NUNCA ELIMINAR** documentación histórica. Mover a `archive/` correspondiente:
 
-- **Conflictos con cambios de horario:**
-  - Si un recurso cambia su disponibilidad después de que se programaron reservas periódicas, se debe notificar a los usuarios afectados.
+- Planes completados → `archive/plans/`
+- Fixes resueltos → `archive/fixes/`
+- Migraciones completadas → `archive/migrations/`
+- Refactorings terminados → `archive/refactoring/`
+- Sprints/fases completadas → `archive/sprints/`
+- Implementaciones terminadas → `archive/implementations/`
 
-- **Autorización de reservas recurrentes:**
-  - Dependiendo de las políticas, puede requerirse la aprobación de un administrador para reservas periódicas de largo plazo.
+## 5. Plantillas Estándar
 
-- **Cancelaciones parciales:**
-  - Si un usuario cancela una sola instancia de una reserva periódica, el sistema debe diferenciarlo claramente en los registros.
+- **Features frontend:** Estructura `Feature: [Nombre]` → Requerimientos → Implementación → Tests.
+- **Fixes frontend:** Estructura `Fix: [Nombre]` → Problema → Causa Raíz → Solución → Prevención.
+- **Backend:** Usar plantillas de `bookly-mock/docs/templates/` (REQUIREMENT, ENDPOINTS, SEEDS, ARCHITECTURE, DATABASE, EVENT_BUS).
 
-### Requerimientos No Funcionales Relacionados
+## 6. Lenguaje y Tono
 
-- **Escalabilidad:** El sistema debe ser capaz de manejar múltiples reservas periódicas sin afectar el rendimiento.
-- **Rendimiento:** La verificación de disponibilidad en múltiples fechas debe realizarse de manera eficiente sin afectar la velocidad de respuesta del sistema.
-- **Usabilidad:** La interfaz para gestionar reservas periódicas debe ser intuitiva, permitiendo cambios y cancelaciones con facilidad.
-- **Seguridad:** Solo los usuarios con los permisos adecuados deben poder realizar reservas periódicas o modificarlas.
-- **Disponibilidad:** La funcionalidad debe estar accesible en todo momento, asegurando una tasa de uptime superior al 99.9%.
+- **Idioma:** Español neutro.
+- **Tono:** Técnico, directo y conciso.
+- **Formato:** Preferir bullet points, tablas y diagramas Mermaid.js. Evitar textos largos sin estructura.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/HenderOrlando) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
