@@ -1,6 +1,6 @@
-# SmartHopper
+# SmartHopper — distributed by TomeVault
 
-> Config by [architects-toolkit](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io/claim/architects-toolkit)
+> Originally from [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [architects-toolkit/SmartHopper](http
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/architects-toolkit](https://tomevault.io/claim/architects-toolkit)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/architects-toolkit#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/architects-toolkit) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
