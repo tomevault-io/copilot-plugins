@@ -1,0 +1,9 @@
+{
+  "name": "databricks--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "databricks",
+  "homepage": "https://tomevault.io/claim/databricks",
+  "skills": []
+}
