@@ -20312,6 +20312,506 @@
       "name": "neogenz--pulpe",
       "source": "./neogenz--pulpe",
       "description": "pulpe"
+    },
+    {
+      "name": "1hoookkk--artefact-production",
+      "source": "./1hoookkk--artefact-production",
+      "description": "ARTEFACT_Production"
+    },
+    {
+      "name": "mattcknight--cursor-rules-mcp",
+      "source": "./mattcknight--cursor-rules-mcp",
+      "description": "cursor-rules-mcp"
+    },
+    {
+      "name": "codercor--ayva-landing",
+      "source": "./codercor--ayva-landing",
+      "description": "ayva-landing"
+    },
+    {
+      "name": "zbutwialypiernik--cursor-presentation",
+      "source": "./zbutwialypiernik--cursor-presentation",
+      "description": "Cursor-Presentation"
+    },
+    {
+      "name": "tcncloud--sati-go",
+      "source": "./tcncloud--sati-go",
+      "description": "sati-go"
+    },
+    {
+      "name": "hsendeeb--babiindustries",
+      "source": "./hsendeeb--babiindustries",
+      "description": "BabiIndustries"
+    },
+    {
+      "name": "flipbytes-dk--cultureamp",
+      "source": "./flipbytes-dk--cultureamp",
+      "description": "CultureAmp"
+    },
+    {
+      "name": "arkanwolfshade--mythosmud",
+      "source": "./arkanwolfshade--mythosmud",
+      "description": "MythosMUD"
+    },
+    {
+      "name": "rhysmalcolm13--aremcee-main",
+      "source": "./rhysmalcolm13--aremcee-main",
+      "description": "aremcee-main"
+    },
+    {
+      "name": "wdm0006--pygeohash",
+      "source": "./wdm0006--pygeohash",
+      "description": "pygeohash"
+    },
+    {
+      "name": "texarkanine--ai-rizz",
+      "source": "./texarkanine--ai-rizz",
+      "description": "ai-rizz"
+    },
+    {
+      "name": "caocuong2404--mcq-cuong-day",
+      "source": "./caocuong2404--mcq-cuong-day",
+      "description": "mcq.cuong.day"
+    },
+    {
+      "name": "octolus--octobridge",
+      "source": "./octolus--octobridge",
+      "description": "OctoBridge"
+    },
+    {
+      "name": "r4fn0de--kanbanboard",
+      "source": "./r4fn0de--kanbanboard",
+      "description": "kanbanboard"
+    },
+    {
+      "name": "databeforedishonor--cursor-rules",
+      "source": "./databeforedishonor--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "pipenodes--data-steward-ai",
+      "source": "./pipenodes--data-steward-ai",
+      "description": "data-steward-ai"
+    },
+    {
+      "name": "itach1uchiha--evilginx3",
+      "source": "./itach1uchiha--evilginx3",
+      "description": "Evilginx3"
+    },
+    {
+      "name": "evoveotech--microservice-world",
+      "source": "./evoveotech--microservice-world",
+      "description": "microservice-world"
+    },
+    {
+      "name": "guigeng--cursor-template",
+      "source": "./guigeng--cursor-template",
+      "description": "cursor-template"
+    },
+    {
+      "name": "kurocado-studio--systemhaus-public",
+      "source": "./kurocado-studio--systemhaus-public",
+      "description": "systemhaus-public"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "awesome-ai-coding-all-in-one"
+    },
+    {
+      "name": "itach1uchiha--evilginx3",
+      "source": "./itach1uchiha--evilginx3",
+      "description": "Evilginx3"
+    },
+    {
+      "name": "evoveotech--microservice-world",
+      "source": "./evoveotech--microservice-world",
+      "description": "microservice-world"
+    },
+    {
+      "name": "johnpolacek--d20adventures-com",
+      "source": "./johnpolacek--d20adventures-com",
+      "description": "d20adventures.com"
+    },
+    {
+      "name": "itach1uchiha--evilginx3",
+      "source": "./itach1uchiha--evilginx3",
+      "description": "Evilginx3"
+    },
+    {
+      "name": "evoveotech--microservice-world",
+      "source": "./evoveotech--microservice-world",
+      "description": "microservice-world"
+    },
+    {
+      "name": "guigeng--cursor-template",
+      "source": "./guigeng--cursor-template",
+      "description": "cursor-template"
+    },
+    {
+      "name": "ethantrent--ibcmarketplace",
+      "source": "./ethantrent--ibcmarketplace",
+      "description": "ibcmarketplace"
+    },
+    {
+      "name": "ldhdeveloper--blog-automation-backend",
+      "source": "./ldhdeveloper--blog-automation-backend",
+      "description": "blog-automation-backend"
+    },
+    {
+      "name": "peiiii--deploy-your-app",
+      "source": "./peiiii--deploy-your-app",
+      "description": "deploy-your-app"
+    },
+    {
+      "name": "peiiii--template-vite-react-ts-pnpm-shadcn-tailwind",
+      "source": "./peiiii--template-vite-react-ts-pnpm-shadcn-tailwind",
+      "description": "template-vite-react-ts-pnpm-shadcn-tailwind"
+    },
+    {
+      "name": "peiiii--cardos",
+      "source": "./peiiii--cardos",
+      "description": "cardos"
+    },
+    {
+      "name": "inremark--nextjsbe",
+      "source": "./inremark--nextjsbe",
+      "description": "nextjsbe"
+    },
+    {
+      "name": "brunopollarolob--u-clases",
+      "source": "./brunopollarolob--u-clases",
+      "description": "u-clases"
+    },
+    {
+      "name": "jim-schilling--splurge-safe-io",
+      "source": "./jim-schilling--splurge-safe-io",
+      "description": "splurge-safe-io"
+    },
+    {
+      "name": "jim-schilling--splurge-exceptions",
+      "source": "./jim-schilling--splurge-exceptions",
+      "description": "splurge-exceptions"
+    },
+    {
+      "name": "jim-schilling--splurge-typer",
+      "source": "./jim-schilling--splurge-typer",
+      "description": "splurge-typer"
+    },
+    {
+      "name": "jim-schilling--splurge-vendor-sync",
+      "source": "./jim-schilling--splurge-vendor-sync",
+      "description": "splurge-vendor-sync"
+    },
+    {
+      "name": "d0whc3r--cursor-template",
+      "source": "./d0whc3r--cursor-template",
+      "description": "cursor-template"
+    },
+    {
+      "name": "aigragol--llmstart-test-1",
+      "source": "./aigragol--llmstart-test-1",
+      "description": "llmstart_test_1"
+    },
+    {
+      "name": "davidwells--spike-idempotent-requests",
+      "source": "./davidwells--spike-idempotent-requests",
+      "description": "spike-idempotent-requests"
+    },
+    {
+      "name": "shittuay--cursortemplate",
+      "source": "./shittuay--cursortemplate",
+      "description": "Cursortemplate"
+    },
+    {
+      "name": "kubaparol--10x-gym-planner",
+      "source": "./kubaparol--10x-gym-planner",
+      "description": "10x-gym-planner"
+    },
+    {
+      "name": "itach1uchiha--evilginx3",
+      "source": "./itach1uchiha--evilginx3",
+      "description": "Evilginx3"
+    },
+    {
+      "name": "evoveotech--microservice-world",
+      "source": "./evoveotech--microservice-world",
+      "description": "microservice-world"
+    },
+    {
+      "name": "guigeng--cursor-template",
+      "source": "./guigeng--cursor-template",
+      "description": "cursor-template"
+    },
+    {
+      "name": "ethantrent--ibcmarketplace",
+      "source": "./ethantrent--ibcmarketplace",
+      "description": "ibcmarketplace"
+    },
+    {
+      "name": "paths-design--coding-agent-working-standard",
+      "source": "./paths-design--coding-agent-working-standard",
+      "description": "coding-agent-working-standard"
+    },
+    {
+      "name": "kof70--alonu",
+      "source": "./kof70--alonu",
+      "description": "alonu"
+    },
+    {
+      "name": "pipenodes--data-steward-ai",
+      "source": "./pipenodes--data-steward-ai",
+      "description": "data-steward-ai"
+    },
+    {
+      "name": "evoveotech--microservice-world",
+      "source": "./evoveotech--microservice-world",
+      "description": "microservice-world"
+    },
+    {
+      "name": "guigeng--cursor-template",
+      "source": "./guigeng--cursor-template",
+      "description": "cursor-template"
+    },
+    {
+      "name": "ethantrent--ibcmarketplace",
+      "source": "./ethantrent--ibcmarketplace",
+      "description": "ibcmarketplace"
+    },
+    {
+      "name": "industrial--rust-symphony",
+      "source": "./industrial--rust-symphony",
+      "description": "rust-symphony"
+    },
+    {
+      "name": "industrial---project-template",
+      "source": "./industrial---project-template",
+      "description": "_project-template"
+    },
+    {
+      "name": "zh667--person-blog",
+      "source": "./zh667--person-blog",
+      "description": "person-blog"
+    },
+    {
+      "name": "adriancisnerosspeed-hub--cre-signal-engine",
+      "source": "./adriancisnerosspeed-hub--cre-signal-engine",
+      "description": "cre-signal-engine"
+    },
+    {
+      "name": "evoveotech--microservice-world",
+      "source": "./evoveotech--microservice-world",
+      "description": "microservice-world"
+    },
+    {
+      "name": "guigeng--cursor-template",
+      "source": "./guigeng--cursor-template",
+      "description": "cursor-template"
+    },
+    {
+      "name": "ethantrent--ibcmarketplace",
+      "source": "./ethantrent--ibcmarketplace",
+      "description": "ibcmarketplace"
+    },
+    {
+      "name": "michael7736--avatar-live",
+      "source": "./michael7736--avatar-live",
+      "description": "avatar_live"
+    },
+    {
+      "name": "pig-mesh--pig-ui",
+      "source": "./pig-mesh--pig-ui",
+      "description": "pig-ui"
+    },
+    {
+      "name": "paideia-lms--paideia",
+      "source": "./paideia-lms--paideia",
+      "description": "Paideia"
+    },
+    {
+      "name": "shopsys--shopsys",
+      "source": "./shopsys--shopsys",
+      "description": "shopsys"
+    },
+    {
+      "name": "justdoinc--justdo",
+      "source": "./justdoinc--justdo",
+      "description": "justdo"
+    },
+    {
+      "name": "lpenco510--sftw-tempo",
+      "source": "./lpenco510--sftw-tempo",
+      "description": "SFTW-tempo"
+    },
+    {
+      "name": "johuniq--jolyui",
+      "source": "./johuniq--jolyui",
+      "description": "jolyui"
+    },
+    {
+      "name": "phonebid--phonebid",
+      "source": "./phonebid--phonebid",
+      "description": "phonebid"
+    },
+    {
+      "name": "yukimasaki--dotdirs",
+      "source": "./yukimasaki--dotdirs",
+      "description": "dotdirs"
+    },
+    {
+      "name": "sahiixx--agency-agents",
+      "source": "./sahiixx--agency-agents",
+      "description": "agency-agents"
+    },
+    {
+      "name": "ayfri--ai-gd",
+      "source": "./ayfri--ai-gd",
+      "description": "AI-GD"
+    },
+    {
+      "name": "manateeit--hotdog-gram2",
+      "source": "./manateeit--hotdog-gram2",
+      "description": "hotdog-gram2"
+    },
+    {
+      "name": "laserpointlabs--odras",
+      "source": "./laserpointlabs--odras",
+      "description": "ODRAS"
+    },
+    {
+      "name": "linphone2000--lpmz-portfolio-v2",
+      "source": "./linphone2000--lpmz-portfolio-v2",
+      "description": "lpmz-portfolio-v2"
+    },
+    {
+      "name": "mon-amit--doktorabc-redesign",
+      "source": "./mon-amit--doktorabc-redesign",
+      "description": "DoktorABC_Redesign"
+    },
+    {
+      "name": "emilyflocke-pierce--blog",
+      "source": "./emilyflocke-pierce--blog",
+      "description": "blog"
+    },
+    {
+      "name": "miroklose11--mzt-server",
+      "source": "./miroklose11--mzt-server",
+      "description": "mzt-server"
+    },
+    {
+      "name": "gustavo-kuze--ditossauro",
+      "source": "./gustavo-kuze--ditossauro",
+      "description": "ditossauro"
+    },
+    {
+      "name": "izzatfirdaus--ict-serve",
+      "source": "./izzatfirdaus--ict-serve",
+      "description": "ict-serve"
+    },
+    {
+      "name": "sh4pesh1fter--wannabepolymath",
+      "source": "./sh4pesh1fter--wannabepolymath",
+      "description": "wannabepolymath"
+    },
+    {
+      "name": "makfly--contract-tacit-v0",
+      "source": "./makfly--contract-tacit-v0",
+      "description": "contract-tacit-v0"
+    },
+    {
+      "name": "an8bit--smartshop-fontend",
+      "source": "./an8bit--smartshop-fontend",
+      "description": "SmartShop_FontEnd"
+    },
+    {
+      "name": "neetrino--marco-am-2",
+      "source": "./neetrino--marco-am-2",
+      "description": "marco.am-2"
+    },
+    {
+      "name": "brianfabs--prop-v2",
+      "source": "./brianfabs--prop-v2",
+      "description": "prop_V2"
+    },
+    {
+      "name": "lequochung19971--nestjs-microservices",
+      "source": "./lequochung19971--nestjs-microservices",
+      "description": "nestjs-microservices"
+    },
+    {
+      "name": "meeting-baas--meeting-mcp",
+      "source": "./meeting-baas--meeting-mcp",
+      "description": "meeting-mcp"
+    },
+    {
+      "name": "kungbi--wolbu-assignment",
+      "source": "./kungbi--wolbu-assignment",
+      "description": "wolbu-assignment"
+    },
+    {
+      "name": "skylight-org--sparse-attention-hub",
+      "source": "./skylight-org--sparse-attention-hub",
+      "description": "sparse-attention-hub"
+    },
+    {
+      "name": "dfadler1984--cursor-rules",
+      "source": "./dfadler1984--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "diandreruiz--ai-receptionist",
+      "source": "./diandreruiz--ai-receptionist",
+      "description": "ai-receptionist"
+    },
+    {
+      "name": "etienne-tr--team-beletre-apps",
+      "source": "./etienne-tr--team-beletre-apps",
+      "description": "Team-Beletre-Apps"
+    },
+    {
+      "name": "qw1koa0423--antd-pro-templete",
+      "source": "./qw1koa0423--antd-pro-templete",
+      "description": "Antd-pro-Templete"
+    },
+    {
+      "name": "alesanchezr--full-stack-with-ai",
+      "source": "./alesanchezr--full-stack-with-ai",
+      "description": "full-stack-with-ai"
+    },
+    {
+      "name": "kr9268--wanted-vibe-code-practice-week2",
+      "source": "./kr9268--wanted-vibe-code-practice-week2",
+      "description": "wanted_vibe_code_practice_week2"
+    },
+    {
+      "name": "itou-daiki--easy-stat-edu",
+      "source": "./itou-daiki--easy-stat-edu",
+      "description": "easy_stat_edu"
+    },
+    {
+      "name": "open-source-cloud--fuse",
+      "source": "./open-source-cloud--fuse",
+      "description": "fuse"
+    },
+    {
+      "name": "schuttebj--ryvr-alpha",
+      "source": "./schuttebj--ryvr-alpha",
+      "description": "ryvr-alpha"
+    },
+    {
+      "name": "rohitkparida--talarm",
+      "source": "./rohitkparida--talarm",
+      "description": "talarm"
+    },
+    {
+      "name": "akkikumar72--nextjs-convex-starter",
+      "source": "./akkikumar72--nextjs-convex-starter",
+      "description": "nextjs-convex-starter"
+    },
+    {
+      "name": "aifootballab--gattilio27",
+      "source": "./aifootballab--gattilio27",
+      "description": "Gattilio27"
     }
   ]
 }
