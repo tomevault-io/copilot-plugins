@@ -1,6 +1,6 @@
 # ecommerce
 
-> Config by [rajat9garg](https://github.com/rajat9garg/ecommerce) — distributed by [TomeVault](https://tomevault.io/claim/rajat9garg)
+> Tome by [rajat9garg](https://github.com/rajat9garg/ecommerce) — distributed by [TomeVault](https://tomevault.io/claim/rajat9garg)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [rajat9garg/ecommerce](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/rajat9garg](https://tomevault.io/claim/rajat9garg)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/rajat9garg#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/rajat9garg) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
