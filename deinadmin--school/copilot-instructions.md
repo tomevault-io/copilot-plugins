@@ -1,0 +1,111 @@
+## school
+
+> - Always add debug logs & comments in the code for easier debug & readability
+
+
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Important rules you HAVE TO FOLLOW
+
+- Always add debug logs & comments in the code for easier debug & readability
+- Every time you choose to apply a rule(s), explicitly state the rule(s) in the output. You can abbreviate the rule description to a single word or phrase
+- Do not make an changes, until you have 95% confidence that you know what to build. Ask me follow up questions until you have that confidence.
+- When you're done with your code, don't try to build the project via Terminal. I will always build the app myself manually.
+
+# Project structure
+
+- All the files go inside /School
+- The main swift file is SchoolApp.swift
+
+# Tech Stack
+
+- SwiftUI for frontend (Fallback with UIKit if absolutely necessary)
+- Swift for code and logic
+- iOS only
+- Firebase for database
+- RevenueCat for monetization
+- TelemetryDeck for analytics
+
+# Swift specific rules
+
+## 0. General Coding
+
+- Always prefer simple solutions
+- Avoid duplication of code whenever possible, which means checking for other areas of the codebase that might already have similar code and functionality
+- Write code that takes into account the different environments: dev, test, and prod
+- You are careful to only make changes that are requested or you are confident are well understood and related to the change being requested
+- When fixing an issue or bug, do not introduce a new pattern or technology without first exhausting all options for the existing implementation. And if you finally do this, make sure to remove the old implementation afterwards so we don’t have duplicate logic.
+- Keep the codebase very clean and organized
+- Avoid writing scripts in files if possible, especially if the script is likely only to be run once
+- Avoid having files over 200–300 lines of code. Refactor at that point.
+- Mocking data is only needed for tests, never mock data for dev or prod
+- Never add stubbing or fake data patterns to code that affects the dev or prod environments
+- Never overwrite my .env file without first asking and confirming
+
+# 1. State Management
+
+- Use appropriate property wrappers and macros:
+- Annotate view models with `@Observable`, e.g. `@Observable final class MyModel`.
+- Do not use `@State` in the SwiftUI View for model observation. Instead, use `let model: MyModel`.
+- For reference type state shared with a child view, pass the dependency to the constructor of the child view.
+- For value type state shared with a child view, use SwiftUI bindings if and only if the child needs write access to the state.
+- For value type state shared with a child view, pass the value if the child view only needs read access to the state.
+- Use `@Environment` for state that should be shared throughout the entire app, or large pieces of the app.
+- Use `@State` only for local state that is managed by the view itself.
+
+# 2. Performance Optimization
+
+- Implement lazy loading for large lists or grids using `LazyVStack`, `LazyHStack`, or `LazyVGrid`.
+- Optimize ForEach loops by using stable identifiers.
+
+# 5. SwiftUI Lifecycle
+
+- Use `@main` and `App` protocol for the app’s entry point.
+- Implement `Scenes` for managing app structure.
+- Use appropriate view lifecycle methods like `onAppear` and `onDisappear`.
+
+# 6. Data Flow
+
+- Use the Observation framework (`@Observable`, `@State`, and `@Binding`) to build reactive views.
+- Implement proper error handling and propagation.
+
+# 7. Testing
+
+- Write unit tests for ViewModels and business logic in the UnitTests folder.
+- Implement UI tests for critical user flows in the UITests folder.
+- Use Preview providers for rapid UI iteration and testing.
+
+# 8. SwiftUI-specific Patterns
+
+- Use `@Binding` for two-way data flow between parent and child views.
+- Implement custom `PreferenceKey`s for child-to-parent communication.
+- Utilize `@Environment` for dependency injection.
+
+# 9. Security
+
+- Follow best practices to building a secure app.
+- Don’t expose sensitive information in network requests.
+- Don’t store sensitive information insecurely on device.
+
+# 10. Declarations
+
+- Before declaring a new struct or class, make sure it doesn’t already exist in the project.
+
+# 11. No Modules
+
+- Don’t create extra modules or packages. Keep all files in the same target and project.
+
+# 12. Latest Update
+
+- The latest iOS/iPadOS/macOS version is 26
+- Apple Unified the versions making them all the last two digits of the next year.
+- Apple introduced liquid glass, a brand new design language for all operating systems.
+- If you're unsure how to implement liquid glass, use the web tool to gather information
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/deinadmin)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/deinadmin)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
