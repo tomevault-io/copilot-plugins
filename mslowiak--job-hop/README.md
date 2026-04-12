@@ -1,6 +1,6 @@
-# job-hop
+# AI instruction files for job-hop
 
-> Config by [mslowiak](https://github.com/mslowiak/job-hop) — distributed by [TomeVault](https://tomevault.io/claim/mslowiak)
+> Sourced from [mslowiak/job-hop](https://github.com/mslowiak/job-hop) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [mslowiak/job-hop](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/mslowiak](https://tomevault.io/claim/mslowiak)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mslowiak)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mslowiak) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/mslowiak) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
