@@ -1,6 +1,6 @@
 # relay-experiment
 
-> Config by [Zorlin](https://github.com/Zorlin/relay-experiment) — distributed by [TomeVault](https://tomevault.io/claim/Zorlin)
+> Tome by [Zorlin](https://github.com/Zorlin/relay-experiment) — distributed by [TomeVault](https://tomevault.io/claim/Zorlin)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [Zorlin/relay-experiment](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Zorlin](https://tomevault.io/claim/Zorlin)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Zorlin#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Zorlin) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Zorlin/relay-experiment
+```
+Or browse all formats at [https://tomevault.io/claim/Zorlin](https://tomevault.io/claim/Zorlin).
+
+<!-- genome:t-i-q -->
