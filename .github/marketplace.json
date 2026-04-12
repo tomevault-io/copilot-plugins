@@ -23317,6 +23317,256 @@
       "name": "mariacarolk--socratesonline",
       "source": "./mariacarolk--socratesonline",
       "description": "socratesonline"
+    },
+    {
+      "name": "aksuiekbro--unison-ai",
+      "source": "./aksuiekbro--unison-ai",
+      "description": "unison-ai"
+    },
+    {
+      "name": "gsinghjay--hccc-fastapi-sso",
+      "source": "./gsinghjay--hccc-fastapi-sso",
+      "description": "hccc-fastapi-sso"
+    },
+    {
+      "name": "nicolasguelfi--formchat",
+      "source": "./nicolasguelfi--formchat",
+      "description": "formchat"
+    },
+    {
+      "name": "patrickhaahr--run-comp",
+      "source": "./patrickhaahr--run-comp",
+      "description": "run-comp"
+    },
+    {
+      "name": "ionfet--bulovka-digital-mapa-prototyp",
+      "source": "./ionfet--bulovka-digital-mapa-prototyp",
+      "description": "bulovka-digital-mapa-prototyp"
+    },
+    {
+      "name": "davelee-fun--newsletter-frontend",
+      "source": "./davelee-fun--newsletter-frontend",
+      "description": "newsletter-frontend"
+    },
+    {
+      "name": "ngeshlew--fuel-tracker",
+      "source": "./ngeshlew--fuel-tracker",
+      "description": "fuel-tracker"
+    },
+    {
+      "name": "theturker--spendcraft",
+      "source": "./theturker--spendcraft",
+      "description": "SpendCraft"
+    },
+    {
+      "name": "lytv--yamato-saas",
+      "source": "./lytv--yamato-saas",
+      "description": "Yamato-SaaS"
+    },
+    {
+      "name": "palaska--fulleststack",
+      "source": "./palaska--fulleststack",
+      "description": "fulleststack"
+    },
+    {
+      "name": "awaiveera--navafit-stopwatch",
+      "source": "./awaiveera--navafit-stopwatch",
+      "description": "navafit-stopwatch"
+    },
+    {
+      "name": "brendhon--bytebank-pro",
+      "source": "./brendhon--bytebank-pro",
+      "description": "bytebank-pro"
+    },
+    {
+      "name": "mortenostigard--ai-charades",
+      "source": "./mortenostigard--ai-charades",
+      "description": "ai-charades"
+    },
+    {
+      "name": "micahfaulkner75--dice-roller",
+      "source": "./micahfaulkner75--dice-roller",
+      "description": "dice-roller"
+    },
+    {
+      "name": "angry-robot-deals--ace-mcp",
+      "source": "./angry-robot-deals--ace-mcp",
+      "description": "ace-mcp"
+    },
+    {
+      "name": "cmoyates--flee-ai-test",
+      "source": "./cmoyates--flee-ai-test",
+      "description": "flee-ai-test"
+    },
+    {
+      "name": "rileymanderson19--fit-report",
+      "source": "./rileymanderson19--fit-report",
+      "description": "fit-report"
+    },
+    {
+      "name": "lightbridgelab--codecannon",
+      "source": "./lightbridgelab--codecannon",
+      "description": "CodeCannon"
+    },
+    {
+      "name": "masterthepixel--issi-next-js-i18n-dashboard",
+      "source": "./masterthepixel--issi-next-js-i18n-dashboard",
+      "description": "issi-next.js-i18n-dashboard"
+    },
+    {
+      "name": "beautyfree--diff-few-jsons",
+      "source": "./beautyfree--diff-few-jsons",
+      "description": "diff-few-jsons"
+    },
+    {
+      "name": "chenqiu1024--rl-cc-sam",
+      "source": "./chenqiu1024--rl-cc-sam",
+      "description": "RL-CC-SAM"
+    },
+    {
+      "name": "lmraza98--hipaaforms-org",
+      "source": "./lmraza98--hipaaforms-org",
+      "description": "hipaaforms.org"
+    },
+    {
+      "name": "deepakkumarbansal--notion",
+      "source": "./deepakkumarbansal--notion",
+      "description": "notion"
+    },
+    {
+      "name": "jam3gw--agentic-service-bot",
+      "source": "./jam3gw--agentic-service-bot",
+      "description": "agentic-service-bot"
+    },
+    {
+      "name": "yezhaocan--vr-management-web",
+      "source": "./yezhaocan--vr-management-web",
+      "description": "vr-management-web"
+    },
+    {
+      "name": "bramscher--konmashi",
+      "source": "./bramscher--konmashi",
+      "description": "konmashi"
+    },
+    {
+      "name": "linhf123--myblog",
+      "source": "./linhf123--myblog",
+      "description": "MyBlog"
+    },
+    {
+      "name": "noelrohi--testify",
+      "source": "./noelrohi--testify",
+      "description": "testify"
+    },
+    {
+      "name": "lexiecorn--oto-gapo",
+      "source": "./lexiecorn--oto-gapo",
+      "description": "oto-gapo"
+    },
+    {
+      "name": "ngeshlew--fuel-tracker",
+      "source": "./ngeshlew--fuel-tracker",
+      "description": "fuel-tracker"
+    },
+    {
+      "name": "gyuha--hangeul-coding-font",
+      "source": "./gyuha--hangeul-coding-font",
+      "description": "hangeul-coding-font"
+    },
+    {
+      "name": "nnarodytska--e1",
+      "source": "./nnarodytska--e1",
+      "description": "e1"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "cursorrules"
+    },
+    {
+      "name": "smarthausgroup--caio-sdk",
+      "source": "./smarthausgroup--caio-sdk",
+      "description": "caio-sdk"
+    },
+    {
+      "name": "neondatabase--website",
+      "source": "./neondatabase--website",
+      "description": "website"
+    },
+    {
+      "name": "mje43--nonce-lens",
+      "source": "./mje43--nonce-lens",
+      "description": "nonce-lens"
+    },
+    {
+      "name": "shareefhadid--traak",
+      "source": "./shareefhadid--traak",
+      "description": "traak"
+    },
+    {
+      "name": "carlosestebancasado--vending-machine",
+      "source": "./carlosestebancasado--vending-machine",
+      "description": "vending-machine"
+    },
+    {
+      "name": "compassconnections--compass",
+      "source": "./compassconnections--compass",
+      "description": "Compass"
+    },
+    {
+      "name": "ruan-cat--notes",
+      "source": "./ruan-cat--notes",
+      "description": "notes"
+    },
+    {
+      "name": "dataplat--pgmob",
+      "source": "./dataplat--pgmob",
+      "description": "pgmob"
+    },
+    {
+      "name": "k1ym--alicelm",
+      "source": "./k1ym--alicelm",
+      "description": "AliceLM"
+    },
+    {
+      "name": "ntnduc--home-tour",
+      "source": "./ntnduc--home-tour",
+      "description": "Home-Tour"
+    },
+    {
+      "name": "poncegl--hifi-music-vault",
+      "source": "./poncegl--hifi-music-vault",
+      "description": "hifi-music-vault"
+    },
+    {
+      "name": "bonilab--malasim-v6-surf",
+      "source": "./bonilab--malasim-v6-surf",
+      "description": "malasim-v6-SURF"
+    },
+    {
+      "name": "ekson73--vek-pipeline-runner",
+      "source": "./ekson73--vek-pipeline-runner",
+      "description": "vek-pipeline-runner"
+    },
+    {
+      "name": "amrpyt--finance-tracker-for-n8n-simple",
+      "source": "./amrpyt--finance-tracker-for-n8n-simple",
+      "description": "Finance_Tracker_for_n8n-simple"
+    },
+    {
+      "name": "mrfansi--slacky",
+      "source": "./mrfansi--slacky",
+      "description": "slacky"
+    },
+    {
+      "name": "thompsonpayne--svelte-photo",
+      "source": "./thompsonpayne--svelte-photo",
+      "description": "svelte-photo"
+    },
+    {
+      "name": "justy6674--studio",
+      "source": "./justy6674--studio",
+      "description": "studio"
     }
   ]
 }
