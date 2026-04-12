@@ -1,6 +1,6 @@
-# old-browseros-agent
+# old-browseros-agent — distributed by TomeVault
 
-> Config by [browseros-ai](https://github.com/browseros-ai/old-browseros-agent) — distributed by [TomeVault](https://tomevault.io/claim/browseros-ai)
+> Originally from [browseros-ai/old-browseros-agent](https://github.com/browseros-ai/old-browseros-agent). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [browseros-ai/old-browseros-agent](htt
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/browseros-ai](https://tomevault.io/claim/browseros-ai)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/browseros-ai)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/browseros-ai) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-s -->
