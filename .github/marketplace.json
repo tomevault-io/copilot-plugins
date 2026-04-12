@@ -21812,6 +21812,256 @@
       "name": "thiez-64--remix-nestjs-monorepo",
       "source": "./thiez-64--remix-nestjs-monorepo",
       "description": "remix-nestjs-monorepo"
+    },
+    {
+      "name": "nikolays--postgres-dba",
+      "source": "./nikolays--postgres-dba",
+      "description": "postgres_dba"
+    },
+    {
+      "name": "srombauts--sqlitecpp",
+      "source": "./srombauts--sqlitecpp",
+      "description": "SQLiteCpp"
+    },
+    {
+      "name": "toss--frontend-fundamentals",
+      "source": "./toss--frontend-fundamentals",
+      "description": "frontend-fundamentals"
+    },
+    {
+      "name": "4thfever--cultivation-world-simulator",
+      "source": "./4thfever--cultivation-world-simulator",
+      "description": "cultivation-world-simulator"
+    },
+    {
+      "name": "cyberfabric--cyberfabric-core",
+      "source": "./cyberfabric--cyberfabric-core",
+      "description": "cyberfabric-core"
+    },
+    {
+      "name": "asynchronous-x--orbital-ctf",
+      "source": "./asynchronous-x--orbital-ctf",
+      "description": "orbital-ctf"
+    },
+    {
+      "name": "mondaycom--vibe",
+      "source": "./mondaycom--vibe",
+      "description": "vibe"
+    },
+    {
+      "name": "unity-billal-mesloub--htmlhint",
+      "source": "./unity-billal-mesloub--htmlhint",
+      "description": "HTMLHint."
+    },
+    {
+      "name": "lwybzss8924d--deepsearchagents",
+      "source": "./lwybzss8924d--deepsearchagents",
+      "description": "DeepSearchAgents"
+    },
+    {
+      "name": "masterpiece-alliances--macc-website",
+      "source": "./masterpiece-alliances--macc-website",
+      "description": "macc-website"
+    },
+    {
+      "name": "sharpninja--mcpserver",
+      "source": "./sharpninja--mcpserver",
+      "description": "McpServer"
+    },
+    {
+      "name": "modelengine-group--nexent",
+      "source": "./modelengine-group--nexent",
+      "description": "nexent"
+    },
+    {
+      "name": "markbunyevacz--hr-ai-website",
+      "source": "./markbunyevacz--hr-ai-website",
+      "description": "HR-AI-website"
+    },
+    {
+      "name": "sleepy-zuzki--ng-sleepy-zuzki",
+      "source": "./sleepy-zuzki--ng-sleepy-zuzki",
+      "description": "ng-sleepy-zuzki"
+    },
+    {
+      "name": "devopsfactory-io--neptune",
+      "source": "./devopsfactory-io--neptune",
+      "description": "neptune"
+    },
+    {
+      "name": "radical-horizons--dialoguegenerator",
+      "source": "./radical-horizons--dialoguegenerator",
+      "description": "DialogueGenerator"
+    },
+    {
+      "name": "jtbeach--alembic-pilot",
+      "source": "./jtbeach--alembic-pilot",
+      "description": "alembic-pilot"
+    },
+    {
+      "name": "pete-murphy--elm-land-store-pattern",
+      "source": "./pete-murphy--elm-land-store-pattern",
+      "description": "elm-land-store-pattern"
+    },
+    {
+      "name": "albisher--uaibot",
+      "source": "./albisher--uaibot",
+      "description": "UaiBot"
+    },
+    {
+      "name": "thamam--cam-shift-detector",
+      "source": "./thamam--cam-shift-detector",
+      "description": "cam-shift-detector"
+    },
+    {
+      "name": "jeffersonlab--halla-molpol-sim",
+      "source": "./jeffersonlab--halla-molpol-sim",
+      "description": "halla_molpol_sim"
+    },
+    {
+      "name": "chuongdinh2k--market-place-nextjs",
+      "source": "./chuongdinh2k--market-place-nextjs",
+      "description": "market-place-nextjs"
+    },
+    {
+      "name": "ferparra--graph-rag-mcp-server",
+      "source": "./ferparra--graph-rag-mcp-server",
+      "description": "graph-rag-mcp-server"
+    },
+    {
+      "name": "gavin-d26--nano-browser-use",
+      "source": "./gavin-d26--nano-browser-use",
+      "description": "nano-browser-use"
+    },
+    {
+      "name": "xshi19--normix",
+      "source": "./xshi19--normix",
+      "description": "normix"
+    },
+    {
+      "name": "cuhanquoc--dropxlabel-theme",
+      "source": "./cuhanquoc--dropxlabel-theme",
+      "description": "Dropxlabel-Theme"
+    },
+    {
+      "name": "oliyoung--torchlight",
+      "source": "./oliyoung--torchlight",
+      "description": "torchlight"
+    },
+    {
+      "name": "huype1--teamer",
+      "source": "./huype1--teamer",
+      "description": "teamer"
+    },
+    {
+      "name": "nloperena--nexrena",
+      "source": "./nloperena--nexrena",
+      "description": "nexrena"
+    },
+    {
+      "name": "peijingartstudio-pei--work",
+      "source": "./peijingartstudio-pei--work",
+      "description": "Work"
+    },
+    {
+      "name": "fannsonetti--more-npcs",
+      "source": "./fannsonetti--more-npcs",
+      "description": "More-NPCs"
+    },
+    {
+      "name": "compozy--go-orchestrator",
+      "source": "./compozy--go-orchestrator",
+      "description": "go-orchestrator"
+    },
+    {
+      "name": "elmargeerlings--gymapp",
+      "source": "./elmargeerlings--gymapp",
+      "description": "gymapp"
+    },
+    {
+      "name": "china-norm-company--cn-kis-v2-0",
+      "source": "./china-norm-company--cn-kis-v2-0",
+      "description": "cn_kis_v2.0"
+    },
+    {
+      "name": "toqitahamid--base-lab-next",
+      "source": "./toqitahamid--base-lab-next",
+      "description": "base-lab-next"
+    },
+    {
+      "name": "hebelmx--veriqan",
+      "source": "./hebelmx--veriqan",
+      "description": "Veriqan"
+    },
+    {
+      "name": "yasarshaikh--sf-bench",
+      "source": "./yasarshaikh--sf-bench",
+      "description": "SF-bench"
+    },
+    {
+      "name": "muneebhashone--ai-coaches-web-app",
+      "source": "./muneebhashone--ai-coaches-web-app",
+      "description": "ai-coaches-web-app"
+    },
+    {
+      "name": "sparesparrow--cursor-rules",
+      "source": "./sparesparrow--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "cinderblock--practice-field-scheduler",
+      "source": "./cinderblock--practice-field-scheduler",
+      "description": "practice-field-scheduler"
+    },
+    {
+      "name": "savagelysubtle--big-brain-memory-bank",
+      "source": "./savagelysubtle--big-brain-memory-bank",
+      "description": "BIG-BRAIN-Memory-Bank"
+    },
+    {
+      "name": "demetriade--astreo",
+      "source": "./demetriade--astreo",
+      "description": "astreo"
+    },
+    {
+      "name": "domnav--onboardr",
+      "source": "./domnav--onboardr",
+      "description": "onboardr"
+    },
+    {
+      "name": "curtismu7--oauthplayground",
+      "source": "./curtismu7--oauthplayground",
+      "description": "oauthPlayground"
+    },
+    {
+      "name": "anipotts--ani-assistant",
+      "source": "./anipotts--ani-assistant",
+      "description": "ani-assistant"
+    },
+    {
+      "name": "ldrseguros--saas-estetica-automotiva",
+      "source": "./ldrseguros--saas-estetica-automotiva",
+      "description": "saas-estetica-automotiva"
+    },
+    {
+      "name": "cassianwolfe--openwebui-design",
+      "source": "./cassianwolfe--openwebui-design",
+      "description": "OpenWebUI-Design"
+    },
+    {
+      "name": "xsoulspace--xsoulspace-github-io",
+      "source": "./xsoulspace--xsoulspace-github-io",
+      "description": "xsoulspace.github.io"
+    },
+    {
+      "name": "fortunto2--superduperai-landing",
+      "source": "./fortunto2--superduperai-landing",
+      "description": "superduperai-landing"
+    },
+    {
+      "name": "priye--yolo-particle-segmentation",
+      "source": "./priye--yolo-particle-segmentation",
+      "description": "yolo-particle-segmentation"
     }
   ]
 }
