@@ -1,0 +1,25 @@
+## perhaps
+
+> Miscellaneous rules to get the AI to behave
+
+# General rules for AI 
+
+- Use `Current.user` for the current user. Do NOT use `current_user`.
+- Use `Current.family` for the current family. Do NOT use `current_family`.
+- Prior to generating any code, carefully read the project conventions and guidelines
+  - Read [project-design.mdc](mdc:.cursor/rules/project-design.mdc) to understand the codebase
+  - Read [project-conventions.mdc](mdc:.cursor/rules/project-conventions.mdc) to understand _how_ to write code for the codebase
+  - Read [ui-ux-design-guidelines.mdc](mdc:.cursor/rules/ui-ux-design-guidelines.mdc) to understand how to implement frontend code specifically
+- Ignore i18n methods and files. Hardcode strings in English for now to optimize speed of development.
+
+## Prohibited actions
+
+- Do not run `rails server` in your responses.
+- Do not run `touch tmp/restart.txt`
+- Do not run `rails credentials`
+- Do not automatically run migrations
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/andreaswachs)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/andreaswachs)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
