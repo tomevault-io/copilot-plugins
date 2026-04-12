@@ -4,7 +4,7 @@
   "repo": "nexent",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/ModelEngine-Group",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T18:57:53Z"
+  "distributed_at": "2026-04-12T08:38:28Z"
 }
