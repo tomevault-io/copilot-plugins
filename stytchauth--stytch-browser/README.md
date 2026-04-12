@@ -1,6 +1,6 @@
 # stytch-browser
 
-> Config by [stytchauth](https://github.com/stytchauth/stytch-browser) — distributed by [TomeVault](https://tomevault.io/claim/stytchauth)
+> Tome by [stytchauth](https://github.com/stytchauth/stytch-browser) — distributed by [TomeVault](https://tomevault.io/claim/stytchauth)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [stytchauth/stytch-browser](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/stytchauth](https://tomevault.io/claim/stytchauth)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/stytchauth)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/stytchauth) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install stytchauth/stytch-browser
+```
+Or browse all formats at [https://tomevault.io/claim/stytchauth](https://tomevault.io/claim/stytchauth).
+
+<!-- genome:t-i-p -->
