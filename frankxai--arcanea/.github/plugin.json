@@ -1,0 +1,18 @@
+{
+  "name": "frankxai--arcanea",
+  "displayName": "arcanea",
+  "description": "AI instruction files for arcanea by frankxai",
+  "version": "1.0.0",
+  "author": "frankxai",
+  "homepage": "https://tomevault.io/claim/frankxai",
+  "skills": [
+    {
+      "name": "agent-implementer",
+      "description": ""
+    },
+    {
+      "name": "arcanea-coding-agent",
+      "description": ""
+    }
+  ]
+}
