@@ -1,6 +1,6 @@
-# MVP
+# AI instruction files for MVP
 
-> Config by [oleg121203](https://github.com/oleg121203/MVP) — distributed by [TomeVault](https://tomevault.io/claim/oleg121203)
+> Sourced from [oleg121203/MVP](https://github.com/oleg121203/MVP) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [oleg121203/MVP](https://github.com/o
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/oleg121203](https://tomevault.io/claim/oleg121203)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/oleg121203)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/oleg121203) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install oleg121203/MVP
+```
+Or browse all formats at [https://tomevault.io/claim/oleg121203](https://tomevault.io/claim/oleg121203).
+
+<!-- genome:a-i-p -->
