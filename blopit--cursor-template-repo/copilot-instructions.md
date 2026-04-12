@@ -1,8 +1,10 @@
 ## cursor-template-repo
 
-> Sets rules for the part of the project which controls the Ringcon.
+> Ensures TypeScript is used for type safety throughout the project.
 
-- This part of the project involves making a tower defense style game that uses a Nintendo Ringcon as the controller.
+- Use TypeScript for type safety.
+- Implement strict TypeScript checks.
+- Create reusable typed hooks for Redux operations, if applicable.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/blopit) — claim your Tome and manage your conversions.
