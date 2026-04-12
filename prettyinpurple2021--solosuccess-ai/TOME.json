@@ -4,7 +4,7 @@
   "repo": "SoloSuccess_AI",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/prettyinpurple2021",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T12:45:48Z"
+  "distributed_at": "2026-04-12T10:39:13Z"
 }
