@@ -4,7 +4,7 @@
   "repo": "Dora",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/drshailesh88",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T06:13:18Z"
+  "distributed_at": "2026-04-12T18:30:38Z"
 }
