@@ -1,0 +1,9 @@
+{
+  "name": "nmrs--sotd-pipeline",
+  "displayName": "sotd_pipeline",
+  "description": "sotd_pipeline",
+  "version": "1.0.0",
+  "author": "nmrs",
+  "homepage": "https://tomevault.io/claim/nmrs",
+  "skills": []
+}
