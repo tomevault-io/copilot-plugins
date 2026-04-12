@@ -24822,6 +24822,256 @@
       "name": "benkim0414--dotfiles",
       "source": "./benkim0414--dotfiles",
       "description": "dotfiles"
+    },
+    {
+      "name": "tongthanhdat009--python-game",
+      "source": "./tongthanhdat009--python-game",
+      "description": "Python-Game"
+    },
+    {
+      "name": "risingtiger--xenserver",
+      "source": "./risingtiger--xenserver",
+      "description": "xenserver"
+    },
+    {
+      "name": "gitdevaldo--nexclipper",
+      "source": "./gitdevaldo--nexclipper",
+      "description": "nexclipper"
+    },
+    {
+      "name": "youngslim971--maamsfactv3",
+      "source": "./youngslim971--maamsfactv3",
+      "description": "MAAMSFACTV3"
+    },
+    {
+      "name": "qwer555888--wiki",
+      "source": "./qwer555888--wiki",
+      "description": "wiki"
+    },
+    {
+      "name": "doublecore--knowledge",
+      "source": "./doublecore--knowledge",
+      "description": "knowledge"
+    },
+    {
+      "name": "benjamin-kraatz--latticefs",
+      "source": "./benjamin-kraatz--latticefs",
+      "description": "latticefs"
+    },
+    {
+      "name": "risingtiger--niftyserver",
+      "source": "./risingtiger--niftyserver",
+      "description": "niftyserver"
+    },
+    {
+      "name": "alichherawalla--off-grid-mobile-ai",
+      "source": "./alichherawalla--off-grid-mobile-ai",
+      "description": "off-grid-mobile-ai"
+    },
+    {
+      "name": "saminrules--epc-gen2-simulation-progress2",
+      "source": "./saminrules--epc-gen2-simulation-progress2",
+      "description": "EPC-Gen2-Simulation-progress2"
+    },
+    {
+      "name": "bayramannakov--claude-reflect",
+      "source": "./bayramannakov--claude-reflect",
+      "description": "claude-reflect"
+    },
+    {
+      "name": "anthonyo1978--taketwo-ndis",
+      "source": "./anthonyo1978--taketwo-ndis",
+      "description": "taketwo-ndis"
+    },
+    {
+      "name": "hmoriya--consultingtool",
+      "source": "./hmoriya--consultingtool",
+      "description": "consultingTool"
+    },
+    {
+      "name": "tripcreighton--peeky-search",
+      "source": "./tripcreighton--peeky-search",
+      "description": "peeky-search"
+    },
+    {
+      "name": "zxiaoiegw--claudecodeproject",
+      "source": "./zxiaoiegw--claudecodeproject",
+      "description": "claudecodeproject"
+    },
+    {
+      "name": "the-cascade-protocol--cascade-cli",
+      "source": "./the-cascade-protocol--cascade-cli",
+      "description": "cascade-cli"
+    },
+    {
+      "name": "safety-ops--horizonstar-tms",
+      "source": "./safety-ops--horizonstar-tms",
+      "description": "horizonstar-tms"
+    },
+    {
+      "name": "s-soo100--resource-planning-system",
+      "source": "./s-soo100--resource-planning-system",
+      "description": "Resource-Planning-System"
+    },
+    {
+      "name": "fotionorg--fotion",
+      "source": "./fotionorg--fotion",
+      "description": "Fotion"
+    },
+    {
+      "name": "elricstormking--projectconquerer",
+      "source": "./elricstormking--projectconquerer",
+      "description": "ProjectConquerer"
+    },
+    {
+      "name": "qwexvf--mochi",
+      "source": "./qwexvf--mochi",
+      "description": "mochi"
+    },
+    {
+      "name": "axiomantic--bigfoot",
+      "source": "./axiomantic--bigfoot",
+      "description": "bigfoot"
+    },
+    {
+      "name": "lisarigroup--auditor",
+      "source": "./lisarigroup--auditor",
+      "description": "auditor"
+    },
+    {
+      "name": "tholum--eyetraining",
+      "source": "./tholum--eyetraining",
+      "description": "eyetraining"
+    },
+    {
+      "name": "piwi3910--dns-go",
+      "source": "./piwi3910--dns-go",
+      "description": "dns-go"
+    },
+    {
+      "name": "businesswalrus--pupper",
+      "source": "./businesswalrus--pupper",
+      "description": "pupper"
+    },
+    {
+      "name": "nilbora--screeny",
+      "source": "./nilbora--screeny",
+      "description": "Screeny"
+    },
+    {
+      "name": "makercorn--coral-photo-de-duper",
+      "source": "./makercorn--coral-photo-de-duper",
+      "description": "coral-photo-de-duper"
+    },
+    {
+      "name": "alehkot--memory-pressure-generator",
+      "source": "./alehkot--memory-pressure-generator",
+      "description": "memory_pressure_generator"
+    },
+    {
+      "name": "atlanticwave-sdx--sdx-react-app",
+      "source": "./atlanticwave-sdx--sdx-react-app",
+      "description": "sdx-react-app"
+    },
+    {
+      "name": "krmcbride--mcp-grafana",
+      "source": "./krmcbride--mcp-grafana",
+      "description": "mcp-grafana"
+    },
+    {
+      "name": "qdequele--scrapix",
+      "source": "./qdequele--scrapix",
+      "description": "scrapix"
+    },
+    {
+      "name": "commanderfun--gridworld",
+      "source": "./commanderfun--gridworld",
+      "description": "gridworld"
+    },
+    {
+      "name": "lightward--yours",
+      "source": "./lightward--yours",
+      "description": "yours"
+    },
+    {
+      "name": "rjhoffmann--hoff-cluster",
+      "source": "./rjhoffmann--hoff-cluster",
+      "description": "hoff-cluster"
+    },
+    {
+      "name": "raduceuca--wcgw-fun",
+      "source": "./raduceuca--wcgw-fun",
+      "description": "wcgw-fun"
+    },
+    {
+      "name": "talchaimdamri--cod-v01",
+      "source": "./talchaimdamri--cod-v01",
+      "description": "COD_V01"
+    },
+    {
+      "name": "highcrash--tmark-android",
+      "source": "./highcrash--tmark-android",
+      "description": "tmark-android"
+    },
+    {
+      "name": "brunokm--modern-training-lecture",
+      "source": "./brunokm--modern-training-lecture",
+      "description": "modern-training-lecture"
+    },
+    {
+      "name": "bohachu--taide-botrun",
+      "source": "./bohachu--taide-botrun",
+      "description": "taide-botrun"
+    },
+    {
+      "name": "solifugus--linguadrill",
+      "source": "./solifugus--linguadrill",
+      "description": "linguadrill"
+    },
+    {
+      "name": "rivertwilight--kindle-ui",
+      "source": "./rivertwilight--kindle-ui",
+      "description": "kindle-ui"
+    },
+    {
+      "name": "shell909090--pyregex",
+      "source": "./shell909090--pyregex",
+      "description": "pyregex"
+    },
+    {
+      "name": "suparious--suparious-github-io",
+      "source": "./suparious--suparious-github-io",
+      "description": "suparious.github.io"
+    },
+    {
+      "name": "chadlindell--terrascry",
+      "source": "./chadlindell--terrascry",
+      "description": "terrascry"
+    },
+    {
+      "name": "punxworx-holdings-ltd--ltx-overwatch",
+      "source": "./punxworx-holdings-ltd--ltx-overwatch",
+      "description": "ltx-overwatch"
+    },
+    {
+      "name": "openglad--openglad",
+      "source": "./openglad--openglad",
+      "description": "openglad"
+    },
+    {
+      "name": "leyabierta--leyabierta",
+      "source": "./leyabierta--leyabierta",
+      "description": "leyabierta"
+    },
+    {
+      "name": "sakagamitaichi--claude-code",
+      "source": "./sakagamitaichi--claude-code",
+      "description": "claude_code"
+    },
+    {
+      "name": "karuiwhy--karuiwhy-github-io",
+      "source": "./karuiwhy--karuiwhy-github-io",
+      "description": "KaruiWHY.github.io"
     }
   ]
 }
