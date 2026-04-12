@@ -1,0 +1,125 @@
+## deepsearchagents
+
+> DeepSearchAgent uses a flexible configuration system with multiple options for customization.
+
+# DeepSearchAgent Configuration
+
+DeepSearchAgent uses a flexible configuration system with multiple options for customization.
+
+## Configuration Sources
+
+1. **@config.toml** configuration file
+2. **Environment Variables**: Override config file settings
+3. **Command Line Arguments**: Highest precedence overrides
+
+## Key Configuration Sections
+
+### Model Configuration
+
+```yaml
+models:
+  orchestrator_id: "openrouter/openai/o4-mini-high"  # Main LLM orchestration
+  search_id: "openrouter/openai/o4-mini-high"        # Search model (if different)
+  reranker_type: "jina-reranker-m0"                  # Reranker model type
+```
+
+### Common Agent Settings
+
+```yaml
+agents:
+  common:
+    verbose_tool_callbacks: true  # Show full tool inputs/outputs
+```
+
+### ReAct Agent Settings
+
+```yaml
+agents:
+  react:
+    max_steps: 25                # Max reasoning steps
+    enable_streaming: false      # Enable streaming output (recommended: false)
+    planning_interval: 7         # Interval for planning steps
+```
+
+### CodeAct Agent Settings
+
+```yaml
+agents:
+  codact:
+    executor_type: "local"       # Code execution environment
+    max_steps: 25                # Max execution steps
+    verbosity_level: 1           # 0=minimal, 1=normal, 2=verbose
+    enable_streaming: false      # Enable streaming response (recommended: false)
+    planning_interval: 4         # Interval for planning steps
+    # Additional options
+    executor_kwargs: {}          # Additional executor parameters
+    additional_authorized_imports: []  # Additional allowed Python imports
+```
+
+### Service Configuration
+
+```yaml
+service:
+  host: "0.0.0.0"
+  port: 8000
+  version: "0.2.4.dev"
+  deepsearch_agent_mode: "codact"  # Default agent type
+```
+
+### Logging Configuration
+
+```yaml
+logging:
+  litellm_level: "WARNING"        # Reduce INFO logs from LiteLLM
+  filter_repeated_logs: true      # Enable repeated log filtering
+  filter_cost_calculator: true    # Filter cost calculation logs
+  filter_token_counter: true      # Filter token count logs
+  format: "minimal"               # Use simplified format
+```
+
+## API Keys Management
+
+API keys are managed through environment variables or `.env` file:
+
+- `LITELLM_MASTER_KEY`: LLM API access
+- `LITELLM_BASE_URL`: LiteLLM proxy base URL
+- `SERPER_API_KEY`: Web search API
+- `JINA_API_KEY`: Content processing
+- `WOLFRAM_ALPHA_APP_ID`: Computational queries (optional)
+
+## Important Configuration Notes
+
+### Streaming Mode Not Recommended
+
+The current streaming implementation has known issues:
+- Set `enable_streaming: false` for both agent types
+- Exception handling is incomplete
+- May cause stability issues
+
+### New Chunking System
+
+When using the new Jina AI Segmenter for text chunking:
+- No additional configuration needed
+- Works with backward compatibility
+- Performance improvements are automatic
+
+### Improved Logging
+
+The updated logging configuration provides:
+- More granular log filtering options
+- Reduced noise from token counting and cost calculation
+- Cleaner CLI output
+
+## Configuration Loading Logic
+
+The @config_loader.py handles loading and merging configuration from multiple sources with the following precedence:
+
+1. Command line arguments (highest priority)
+2. Environment variables
+3. Configuration file values 
+4. Default values (lowest priority)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/lwyBZss8924d)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/lwyBZss8924d)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
