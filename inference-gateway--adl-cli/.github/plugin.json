@@ -1,0 +1,9 @@
+{
+  "name": "inference-gateway--adl-cli",
+  "displayName": "adl-cli",
+  "description": "adl-cli",
+  "version": "1.0.0",
+  "author": "inference-gateway",
+  "homepage": "https://tomevault.io/claim/inference-gateway",
+  "skills": []
+}
