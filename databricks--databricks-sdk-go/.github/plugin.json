@@ -1,0 +1,9 @@
+{
+  "name": "databricks--databricks-sdk-go",
+  "displayName": "databricks-sdk-go",
+  "description": "databricks-sdk-go",
+  "version": "1.0.0",
+  "author": "databricks",
+  "homepage": "https://tomevault.io/claim/databricks",
+  "skills": []
+}
