@@ -1,6 +1,6 @@
 # Mazeway
 
-> Config by [mazeway-dev](https://github.com/mazeway-dev/Mazeway) — distributed by [TomeVault](https://tomevault.io/claim/mazeway-dev)
+> Tome by [mazeway-dev](https://github.com/mazeway-dev/Mazeway) — distributed by [TomeVault](https://tomevault.io/claim/mazeway-dev)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [mazeway-dev/Mazeway](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/mazeway-dev](https://tomevault.io/claim/mazeway-dev)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/mazeway-dev)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mazeway-dev) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/mazeway-dev) to manage distribution and track installs.
+
+<!-- genome:t-c-s -->
