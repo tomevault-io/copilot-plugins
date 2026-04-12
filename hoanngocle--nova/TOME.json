@@ -4,7 +4,7 @@
   "repo": "nova",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/hoanngocle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T18:43:09Z"
+  "distributed_at": "2026-04-12T19:41:02Z"
 }
