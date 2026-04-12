@@ -19312,6 +19312,506 @@
       "name": "bhctest123--codeguide-dev-react-vite-supabase",
       "source": "./bhctest123--codeguide-dev-react-vite-supabase",
       "description": "codeguide-dev-react-vite-supabase"
+    },
+    {
+      "name": "0xmcc--boltnew-api",
+      "source": "./0xmcc--boltnew-api",
+      "description": "boltnew-api"
+    },
+    {
+      "name": "jhselvik--tpl-codeguide-react-supabase",
+      "source": "./jhselvik--tpl-codeguide-react-supabase",
+      "description": "tpl-codeguide-react-supabase"
+    },
+    {
+      "name": "ridwanfirdaus96--react-supabase-golang-auth",
+      "source": "./ridwanfirdaus96--react-supabase-golang-auth",
+      "description": "react-supabase-golang-auth"
+    },
+    {
+      "name": "pattern-automation-lab--pagentic-search",
+      "source": "./pattern-automation-lab--pagentic-search",
+      "description": "PAgentic-Search"
+    },
+    {
+      "name": "shreyasayyengar--swapparel",
+      "source": "./shreyasayyengar--swapparel",
+      "description": "swapparel"
+    },
+    {
+      "name": "arcade-cabinet--pixels-pygame-palace",
+      "source": "./arcade-cabinet--pixels-pygame-palace",
+      "description": "pixels-pygame-palace"
+    },
+    {
+      "name": "chat-sui-hackathon--chat-web",
+      "source": "./chat-sui-hackathon--chat-web",
+      "description": "chat-web"
+    },
+    {
+      "name": "takuya0206--bigquery-mcp-server",
+      "source": "./takuya0206--bigquery-mcp-server",
+      "description": "bigquery-mcp-server"
+    },
+    {
+      "name": "takuya0206--slack-search-function-mcp",
+      "source": "./takuya0206--slack-search-function-mcp",
+      "description": "slack_search_function_mcp"
+    },
+    {
+      "name": "princegupta1999--graylog-mcp",
+      "source": "./princegupta1999--graylog-mcp",
+      "description": "graylog-mcp"
+    },
+    {
+      "name": "jairosoft-com--jairo-agent-template",
+      "source": "./jairosoft-com--jairo-agent-template",
+      "description": "jairo-agent-template"
+    },
+    {
+      "name": "syh52--studio",
+      "source": "./syh52--studio",
+      "description": "studio"
+    },
+    {
+      "name": "samgriek--snake-dragons",
+      "source": "./samgriek--snake-dragons",
+      "description": "snake-dragons"
+    },
+    {
+      "name": "ff6347--image-prompts-inpyjamas-dev",
+      "source": "./ff6347--image-prompts-inpyjamas-dev",
+      "description": "image-prompts.inpyjamas.dev"
+    },
+    {
+      "name": "ff6347--debateclub-firecrawled",
+      "source": "./ff6347--debateclub-firecrawled",
+      "description": "debateclub-firecrawled"
+    },
+    {
+      "name": "hopeful4ky--equoria",
+      "source": "./hopeful4ky--equoria",
+      "description": "equoria"
+    },
+    {
+      "name": "lytv--yamato-saas",
+      "source": "./lytv--yamato-saas",
+      "description": "Yamato-SaaS"
+    },
+    {
+      "name": "jainprashul--xp-portfolio",
+      "source": "./jainprashul--xp-portfolio",
+      "description": "xp-portfolio"
+    },
+    {
+      "name": "politan--costseer",
+      "source": "./politan--costseer",
+      "description": "costseer"
+    },
+    {
+      "name": "gustavoliranco--clinica-agendamentos",
+      "source": "./gustavoliranco--clinica-agendamentos",
+      "description": "clinica-agendamentos"
+    },
+    {
+      "name": "caioalbert--doutor-agenda",
+      "source": "./caioalbert--doutor-agenda",
+      "description": "doutor-agenda"
+    },
+    {
+      "name": "ascef182--dragenda",
+      "source": "./ascef182--dragenda",
+      "description": "drAgenda"
+    },
+    {
+      "name": "wolfmgf--doutor-agenda",
+      "source": "./wolfmgf--doutor-agenda",
+      "description": "doutor-agenda"
+    },
+    {
+      "name": "bgould132--oaklandcharterreform",
+      "source": "./bgould132--oaklandcharterreform",
+      "description": "oaklandcharterreform"
+    },
+    {
+      "name": "mohameddev19--sanad",
+      "source": "./mohameddev19--sanad",
+      "description": "sanad"
+    },
+    {
+      "name": "chunkoala02--test",
+      "source": "./chunkoala02--test",
+      "description": "test"
+    },
+    {
+      "name": "ff6347--image-prompts-inpyjamas-dev",
+      "source": "./ff6347--image-prompts-inpyjamas-dev",
+      "description": "image-prompts.inpyjamas.dev"
+    },
+    {
+      "name": "ff6347--debateclub-firecrawled",
+      "source": "./ff6347--debateclub-firecrawled",
+      "description": "debateclub-firecrawled"
+    },
+    {
+      "name": "zorlin--veda",
+      "source": "./zorlin--veda",
+      "description": "veda"
+    },
+    {
+      "name": "bbaserdem--snapconnect",
+      "source": "./bbaserdem--snapconnect",
+      "description": "SnapConnect"
+    },
+    {
+      "name": "sainathyai--collabcanva",
+      "source": "./sainathyai--collabcanva",
+      "description": "CollabCanva"
+    },
+    {
+      "name": "haymayndzultra--supertemplate",
+      "source": "./haymayndzultra--supertemplate",
+      "description": "SuperTemplate"
+    },
+    {
+      "name": "ryanmosz--wordwise-ai",
+      "source": "./ryanmosz--wordwise-ai",
+      "description": "wordwise-ai"
+    },
+    {
+      "name": "sangramjeet-kumar--sprintflow---agile-software-management-tool",
+      "source": "./sangramjeet-kumar--sprintflow---agile-software-management-tool",
+      "description": "SprintFlow---Agile-Software-Management-Tool"
+    },
+    {
+      "name": "justinedevs--smc-practices",
+      "source": "./justinedevs--smc-practices",
+      "description": "smc-practices"
+    },
+    {
+      "name": "coollabsio--jean",
+      "source": "./coollabsio--jean",
+      "description": "jean"
+    },
+    {
+      "name": "radzionc--radzionkit",
+      "source": "./radzionc--radzionkit",
+      "description": "radzionkit"
+    },
+    {
+      "name": "craibo--ha-strava",
+      "source": "./craibo--ha-strava",
+      "description": "ha_strava"
+    },
+    {
+      "name": "redhat-developer--rhdh",
+      "source": "./redhat-developer--rhdh",
+      "description": "rhdh"
+    },
+    {
+      "name": "miketromba--shadcn-themer",
+      "source": "./miketromba--shadcn-themer",
+      "description": "shadcn-themer"
+    },
+    {
+      "name": "dikkadev--ai-cli",
+      "source": "./dikkadev--ai-cli",
+      "description": "ai-cli"
+    },
+    {
+      "name": "davidhe137--chess-vlm",
+      "source": "./davidhe137--chess-vlm",
+      "description": "chess-vlm"
+    },
+    {
+      "name": "bbcoelho--read-freestyle-libre",
+      "source": "./bbcoelho--read-freestyle-libre",
+      "description": "read-freestyle-libre"
+    },
+    {
+      "name": "marcoloco23--latex-research-toolkit",
+      "source": "./marcoloco23--latex-research-toolkit",
+      "description": "latex-research-toolkit"
+    },
+    {
+      "name": "chenxingqiang--protein-agent-saas",
+      "source": "./chenxingqiang--protein-agent-saas",
+      "description": "protein-agent-saas"
+    },
+    {
+      "name": "chee86j--ocrrecipegeneratorandingredientsscaler",
+      "source": "./chee86j--ocrrecipegeneratorandingredientsscaler",
+      "description": "OCRRecipeGeneratorandIngredientsScaler"
+    },
+    {
+      "name": "researchhub--web",
+      "source": "./researchhub--web",
+      "description": "web"
+    },
+    {
+      "name": "net-ai-git--rules",
+      "source": "./net-ai-git--rules",
+      "description": "Rules"
+    },
+    {
+      "name": "miniverse-ai--miniverse",
+      "source": "./miniverse-ai--miniverse",
+      "description": "miniverse"
+    },
+    {
+      "name": "wix--interact",
+      "source": "./wix--interact",
+      "description": "interact"
+    },
+    {
+      "name": "talatops--ai-based-verification",
+      "source": "./talatops--ai-based-verification",
+      "description": "AI-BASED-VERIFICATION"
+    },
+    {
+      "name": "ai-whisperers--ai-whisperers-portfolio-website",
+      "source": "./ai-whisperers--ai-whisperers-portfolio-website",
+      "description": "ai-whisperers-portfolio-website"
+    },
+    {
+      "name": "go2go-dev--go2go-front",
+      "source": "./go2go-dev--go2go-front",
+      "description": "go2go-front"
+    },
+    {
+      "name": "maverick-software--agentopia",
+      "source": "./maverick-software--agentopia",
+      "description": "agentopia"
+    },
+    {
+      "name": "databeforedishonor--liquiditycard",
+      "source": "./databeforedishonor--liquiditycard",
+      "description": "liquiditycard"
+    },
+    {
+      "name": "shaunsales--backchannel",
+      "source": "./shaunsales--backchannel",
+      "description": "backchannel"
+    },
+    {
+      "name": "sssssungs--vibe-coding-w2",
+      "source": "./sssssungs--vibe-coding-w2",
+      "description": "vibe-coding-w2"
+    },
+    {
+      "name": "ahmedzahran550--e-pharmacy",
+      "source": "./ahmedzahran550--e-pharmacy",
+      "description": "E-Pharmacy"
+    },
+    {
+      "name": "xoxno--rs-lending",
+      "source": "./xoxno--rs-lending",
+      "description": "rs-lending"
+    },
+    {
+      "name": "r-huijts--guru",
+      "source": "./r-huijts--guru",
+      "description": "guru"
+    },
+    {
+      "name": "yantavares031--nexo-tools",
+      "source": "./yantavares031--nexo-tools",
+      "description": "Nexo-Tools"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "awesome-ai-coding-all-in-one"
+    },
+    {
+      "name": "ayfri--pokecards-collector",
+      "source": "./ayfri--pokecards-collector",
+      "description": "PokeCards-Collector"
+    },
+    {
+      "name": "kurocado-studio--formkit-public",
+      "source": "./kurocado-studio--formkit-public",
+      "description": "formkit-public"
+    },
+    {
+      "name": "johnpolacek--vibecode-party-starter",
+      "source": "./johnpolacek--vibecode-party-starter",
+      "description": "vibecode.party.starter"
+    },
+    {
+      "name": "gordo-v1su4--nocodb-mcp-hybrid",
+      "source": "./gordo-v1su4--nocodb-mcp-hybrid",
+      "description": "nocodb-mcp-hybrid"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "awesome-ai-coding-all-in-one"
+    },
+    {
+      "name": "ldhdeveloper--blog-automation-frontend",
+      "source": "./ldhdeveloper--blog-automation-frontend",
+      "description": "blog-automation-frontend"
+    },
+    {
+      "name": "nowtec--nowcrm",
+      "source": "./nowtec--nowcrm",
+      "description": "nowCRM"
+    },
+    {
+      "name": "peiiii--agentverse",
+      "source": "./peiiii--agentverse",
+      "description": "AgentVerse"
+    },
+    {
+      "name": "savigesystemz--orignym",
+      "source": "./savigesystemz--orignym",
+      "description": "Orignym"
+    },
+    {
+      "name": "valcho--cursor-rules-docs-template",
+      "source": "./valcho--cursor-rules-docs-template",
+      "description": "cursor-rules-docs-template"
+    },
+    {
+      "name": "aron0809--undetectable-ai",
+      "source": "./aron0809--undetectable-ai",
+      "description": "undetectable-ai"
+    },
+    {
+      "name": "teemuso--saas-template-for-ai-lite",
+      "source": "./teemuso--saas-template-for-ai-lite",
+      "description": "saas-template-for-ai-lite"
+    },
+    {
+      "name": "peterjaffray--wp-pdev",
+      "source": "./peterjaffray--wp-pdev",
+      "description": "wp-pdev"
+    },
+    {
+      "name": "esdeveniments--esdeveniments-frontend",
+      "source": "./esdeveniments--esdeveniments-frontend",
+      "description": "esdeveniments-frontend"
+    },
+    {
+      "name": "galygious--n8n-nodes-twitch-comprehensive",
+      "source": "./galygious--n8n-nodes-twitch-comprehensive",
+      "description": "n8n-nodes-twitch-comprehensive"
+    },
+    {
+      "name": "hidenorigoto--personal-news-db",
+      "source": "./hidenorigoto--personal-news-db",
+      "description": "personal-news-db"
+    },
+    {
+      "name": "fouadalabady--admin-osint",
+      "source": "./fouadalabady--admin-osint",
+      "description": "admin.osint"
+    },
+    {
+      "name": "nyankiti--blog-contents",
+      "source": "./nyankiti--blog-contents",
+      "description": "blog-contents"
+    },
+    {
+      "name": "dpaluy--rails-ai-rules",
+      "source": "./dpaluy--rails-ai-rules",
+      "description": "rails-ai-rules"
+    },
+    {
+      "name": "phamminhhaiau-12035071--eiga-movie-app",
+      "source": "./phamminhhaiau-12035071--eiga-movie-app",
+      "description": "eiga-movie-app"
+    },
+    {
+      "name": "henzard--accounting",
+      "source": "./henzard--accounting",
+      "description": "Accounting"
+    },
+    {
+      "name": "samuel-harris--discount-analyst",
+      "source": "./samuel-harris--discount-analyst",
+      "description": "discount-analyst"
+    },
+    {
+      "name": "absolute-space-ghcp--leo-participation-translator",
+      "source": "./absolute-space-ghcp--leo-participation-translator",
+      "description": "leo-participation-translator"
+    },
+    {
+      "name": "oybek-daniyarov--tutorial",
+      "source": "./oybek-daniyarov--tutorial",
+      "description": "tutorial"
+    },
+    {
+      "name": "harshvirani914--reference-1",
+      "source": "./harshvirani914--reference-1",
+      "description": "reference-1"
+    },
+    {
+      "name": "stevenmih--getgopher",
+      "source": "./stevenmih--getgopher",
+      "description": "getgopher"
+    },
+    {
+      "name": "acarbonilla--hirenowpro",
+      "source": "./acarbonilla--hirenowpro",
+      "description": "hirenowpro"
+    },
+    {
+      "name": "monsoft-solutions--website-template",
+      "source": "./monsoft-solutions--website-template",
+      "description": "website-template"
+    },
+    {
+      "name": "pratejratech--pratejra-n8n",
+      "source": "./pratejratech--pratejra-n8n",
+      "description": "pratejra-n8n"
+    },
+    {
+      "name": "adrianistaken--time-tracker",
+      "source": "./adrianistaken--time-tracker",
+      "description": "time-tracker"
+    },
+    {
+      "name": "cardhouse--family-calendar",
+      "source": "./cardhouse--family-calendar",
+      "description": "family-calendar"
+    },
+    {
+      "name": "tobangado69--rohimdev-com-2",
+      "source": "./tobangado69--rohimdev-com-2",
+      "description": "rohimdev.com-2"
+    },
+    {
+      "name": "lsilva5455--sdd1",
+      "source": "./lsilva5455--sdd1",
+      "description": "sdd1"
+    },
+    {
+      "name": "swiftwareco--swiftware-client-site",
+      "source": "./swiftwareco--swiftware-client-site",
+      "description": "SwiftWare-Client-Site"
+    },
+    {
+      "name": "ugho49--wishlist",
+      "source": "./ugho49--wishlist",
+      "description": "wishlist"
+    },
+    {
+      "name": "external-secrets-inc--web-ui",
+      "source": "./external-secrets-inc--web-ui",
+      "description": "web-ui"
+    },
+    {
+      "name": "wrteam-in--common-app-doc",
+      "source": "./wrteam-in--common-app-doc",
+      "description": "common_app_doc"
+    },
+    {
+      "name": "clazychen--bazaar-arena",
+      "source": "./clazychen--bazaar-arena",
+      "description": "bazaar-arena"
     }
   ]
 }
