@@ -1,23 +1,28 @@
 # nova
 
-> Config by [hoanngocle](https://github.com/hoanngocle/nova) — distributed by [TomeVault](https://tomevault.io/claim/hoanngocle)
+> Tome by [hoanngocle](https://github.com/hoanngocle/nova) — distributed by [TomeVault](https://tomevault.io/claim/hoanngocle)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hoanngocle/nova](https://github.com/hoanngocle/nova).
+Original source: `CLAUDE.md` in [hoanngocle/nova](https://github.com/hoanngocle/nova).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/hoanngocle](https://tomevault.io/claim/hoanngocle)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/hoanngocle#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/hoanngocle) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install hoanngocle/nova
+```
+Or browse all formats at [https://tomevault.io/claim/hoanngocle](https://tomevault.io/claim/hoanngocle).
+
+<!-- genome:t-i-q -->
