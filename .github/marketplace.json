@@ -22312,6 +22312,256 @@
       "name": "xirothedev--webdevstudios",
       "source": "./xirothedev--webdevstudios",
       "description": "webdevstudios"
+    },
+    {
+      "name": "tkhongsap--fastapi-imgstory",
+      "source": "./tkhongsap--fastapi-imgstory",
+      "description": "fastapi-imgStory"
+    },
+    {
+      "name": "codesapienbe--deepface-ray-api",
+      "source": "./codesapienbe--deepface-ray-api",
+      "description": "deepface-ray-api"
+    },
+    {
+      "name": "jimmy947788--android-reverse-cursor-rules",
+      "source": "./jimmy947788--android-reverse-cursor-rules",
+      "description": "android-reverse-cursor-rules"
+    },
+    {
+      "name": "jgabriellima--meetinganalyzer",
+      "source": "./jgabriellima--meetinganalyzer",
+      "description": "MeetingAnalyzer"
+    },
+    {
+      "name": "damiloju--fiscaflow",
+      "source": "./damiloju--fiscaflow",
+      "description": "fiscaflow"
+    },
+    {
+      "name": "zandercowboy--multichoice",
+      "source": "./zandercowboy--multichoice",
+      "description": "multichoice"
+    },
+    {
+      "name": "treimaine--brolab-store",
+      "source": "./treimaine--brolab-store",
+      "description": "BroLab-Store"
+    },
+    {
+      "name": "10thfloor--nfractional",
+      "source": "./10thfloor--nfractional",
+      "description": "NFractional"
+    },
+    {
+      "name": "nattothemoon--xano-vibe-template",
+      "source": "./nattothemoon--xano-vibe-template",
+      "description": "xano-vibe-template"
+    },
+    {
+      "name": "igorcitomaciel--socialpy",
+      "source": "./igorcitomaciel--socialpy",
+      "description": "socialPy"
+    },
+    {
+      "name": "goodguyben--mavericksedge",
+      "source": "./goodguyben--mavericksedge",
+      "description": "mavericksedge"
+    },
+    {
+      "name": "ykagesg7--flightems",
+      "source": "./ykagesg7--flightems",
+      "description": "FlightEMS"
+    },
+    {
+      "name": "telepace--nexus",
+      "source": "./telepace--nexus",
+      "description": "nexus"
+    },
+    {
+      "name": "czsayhi--rssia",
+      "source": "./czsayhi--rssia",
+      "description": "RSSia"
+    },
+    {
+      "name": "lazertechnologies--shopify-app-development-course",
+      "source": "./lazertechnologies--shopify-app-development-course",
+      "description": "shopify-app-development-course"
+    },
+    {
+      "name": "lukeswin--jobanalyzer",
+      "source": "./lukeswin--jobanalyzer",
+      "description": "JobAnalyzer"
+    },
+    {
+      "name": "aokitashipro--udemy-cursor-basic",
+      "source": "./aokitashipro--udemy-cursor-basic",
+      "description": "udemy-cursor-basic"
+    },
+    {
+      "name": "sameepv21--guide-ai",
+      "source": "./sameepv21--guide-ai",
+      "description": "guide-ai"
+    },
+    {
+      "name": "riadler89--mkt-1000",
+      "source": "./riadler89--mkt-1000",
+      "description": "mkt-1000"
+    },
+    {
+      "name": "olian04--go-mib-parser",
+      "source": "./olian04--go-mib-parser",
+      "description": "go-mib-parser"
+    },
+    {
+      "name": "prettyinpurple2021--solosuccess-ai",
+      "source": "./prettyinpurple2021--solosuccess-ai",
+      "description": "SoloSuccess_AI"
+    },
+    {
+      "name": "deburky--credit-risk-modeling-on-aws",
+      "source": "./deburky--credit-risk-modeling-on-aws",
+      "description": "credit-risk-modeling-on-aws"
+    },
+    {
+      "name": "jerrybegood--press-review-ai",
+      "source": "./jerrybegood--press-review-ai",
+      "description": "Press-Review-AI"
+    },
+    {
+      "name": "themostlygreat--safeword",
+      "source": "./themostlygreat--safeword",
+      "description": "safeword"
+    },
+    {
+      "name": "iagolast--frontend-architecture-book-en",
+      "source": "./iagolast--frontend-architecture-book-en",
+      "description": "frontend-architecture-book-en"
+    },
+    {
+      "name": "fabiotaroc--tarogpt-2",
+      "source": "./fabiotaroc--tarogpt-2",
+      "description": "tarogpt-2"
+    },
+    {
+      "name": "tcashel--ai-agent-testing",
+      "source": "./tcashel--ai-agent-testing",
+      "description": "ai_agent_testing"
+    },
+    {
+      "name": "stevenpollack--power-tools",
+      "source": "./stevenpollack--power-tools",
+      "description": "power-tools"
+    },
+    {
+      "name": "svc-alexey--ai-rpg",
+      "source": "./svc-alexey--ai-rpg",
+      "description": "AI_RPG"
+    },
+    {
+      "name": "hyperf--odin",
+      "source": "./hyperf--odin",
+      "description": "odin"
+    },
+    {
+      "name": "nglelinh--deep-learning-self-learning",
+      "source": "./nglelinh--deep-learning-self-learning",
+      "description": "deep-learning-self-learning"
+    },
+    {
+      "name": "cmnemoi--python-project-template",
+      "source": "./cmnemoi--python-project-template",
+      "description": "python_project_template"
+    },
+    {
+      "name": "piaoxuemoli--immerseai",
+      "source": "./piaoxuemoli--immerseai",
+      "description": "ImmerseAI"
+    },
+    {
+      "name": "lynkbyte--docs-builder",
+      "source": "./lynkbyte--docs-builder",
+      "description": "docs-builder"
+    },
+    {
+      "name": "benjamin1108--cnetcompspy",
+      "source": "./benjamin1108--cnetcompspy",
+      "description": "cnetCompSpy"
+    },
+    {
+      "name": "prandogabriel--ieee2030-5-mcp",
+      "source": "./prandogabriel--ieee2030-5-mcp",
+      "description": "ieee2030.5-mcp"
+    },
+    {
+      "name": "01esyalebedeva--tsx-view-edit",
+      "source": "./01esyalebedeva--tsx-view-edit",
+      "description": "tsx_view_edit"
+    },
+    {
+      "name": "better-salmon--form",
+      "source": "./better-salmon--form",
+      "description": "form"
+    },
+    {
+      "name": "permitio--opa-nats",
+      "source": "./permitio--opa-nats",
+      "description": "opa-nats"
+    },
+    {
+      "name": "hyperb1iss--hyperbliss-tech",
+      "source": "./hyperb1iss--hyperbliss-tech",
+      "description": "hyperbliss.tech"
+    },
+    {
+      "name": "nmrs--sotd-pipeline",
+      "source": "./nmrs--sotd-pipeline",
+      "description": "sotd_pipeline"
+    },
+    {
+      "name": "igorshadurin--offlinetools-org",
+      "source": "./igorshadurin--offlinetools-org",
+      "description": "offlinetools.org"
+    },
+    {
+      "name": "hoangtvspk--flutter-bloc-architecture",
+      "source": "./hoangtvspk--flutter-bloc-architecture",
+      "description": "flutter_bloc_architecture"
+    },
+    {
+      "name": "rafaelcostaf4--skeleton-django",
+      "source": "./rafaelcostaf4--skeleton-django",
+      "description": "skeleton-django"
+    },
+    {
+      "name": "candleshine--improving-spy",
+      "source": "./candleshine--improving-spy",
+      "description": "improving-spy"
+    },
+    {
+      "name": "punt-labs--punt-kit",
+      "source": "./punt-labs--punt-kit",
+      "description": "punt-kit"
+    },
+    {
+      "name": "n3ur0sis--cursor-memory-engine",
+      "source": "./n3ur0sis--cursor-memory-engine",
+      "description": "cursor-memory-engine"
+    },
+    {
+      "name": "6cubed--216labs",
+      "source": "./6cubed--216labs",
+      "description": "216labs"
+    },
+    {
+      "name": "vibesharing-prototypes--chris-debug-test",
+      "source": "./vibesharing-prototypes--chris-debug-test",
+      "description": "chris-debug-test"
+    },
+    {
+      "name": "yaguchi-1-9--cursor-rules",
+      "source": "./yaguchi-1-9--cursor-rules",
+      "description": "cursor-rules"
     }
   ]
 }
