@@ -1,6 +1,6 @@
-# frontend-mini-challenges
+# frontend-mini-challenges — distributed by TomeVault
 
-> Config by [sadanandpai](https://github.com/sadanandpai/frontend-mini-challenges) — distributed by [TomeVault](https://tomevault.io/claim/sadanandpai)
+> Originally from [sadanandpai/frontend-mini-challenges](https://github.com/sadanandpai/frontend-mini-challenges). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [sadanandpai/frontend-mini-challenges
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/sadanandpai](https://tomevault.io/claim/sadanandpai)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/sadanandpai)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/sadanandpai) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/sadanandpai) to manage distribution and track installs.
+
+<!-- genome:d-c-s -->
