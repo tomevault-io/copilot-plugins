@@ -1,0 +1,9 @@
+{
+  "name": "redhatqe--openshift-lp-qe--tools",
+  "displayName": "OpenShift-LP-QE--Tools",
+  "description": "OpenShift-LP-QE--Tools",
+  "version": "1.0.0",
+  "author": "RedHatQE",
+  "homepage": "https://tomevault.io/claim/RedHatQE",
+  "skills": []
+}
