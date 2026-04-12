@@ -1,0 +1,99 @@
+## ai-app
+
+> Defines clear rules for writing commit messages and pull request descriptions. Optimized for readability, precision, and integration with downstream systems.
+
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Pull Request Conventions
+
+Defines clear rules for writing commit messages and pull request descriptions. Optimized for readability, precision, and integration with downstream systems.
+
+## Inspect the Pull Request
+
+Before generating a commit description, always gather full context:
+
+1. Get the list of commits included in the branch:
+   ```bash
+   git --no-pager log --format=%s --reverse $(git merge-base HEAD main)..HEAD
+
+2. Review the full diff against the main branch:
+
+   `git --no-pager diff main`
+
+3. If the diff doesn’t provide enough context, inspect the full files involved to understand broader structural or logic changes.
+
+# Pull Request Titles and Descriptions
+
+Establishes consistent rules for writing pull request titles and descriptions. These standards improve clarity and enable downstream integration with other systems.
+
+## Writing a Clear Title
+
+Follow these conventions when writing a pull request title:
+
+- Use the **imperative mood** (e.g., `Fix`, `Add`, `Upgrade`, `Refactor`)
+- Write as a plain sentence — avoid Title Case
+- Do **not** end the title with a period
+- Keep it short, focused, and descriptive
+
+> ✅ Example: `Add loading indicator to dashboard chart`
+
+## Writing a Clear Description
+
+Structure all pull request descriptions using the following sections and formatting rules.
+
+### General Conventions
+
+- Use **imperative tone** in all sentences (e.g., `Add`, `Remove`, `Refactor`)
+- Wrap code-related terms in backticks — including filenames, class names, env vars, and CLI commands
+- Avoid personal pronouns (e.g., “we”, “our”, “they”)
+- Never use the terms “Pull Request”, “PR”, or abbreviations
+- Avoid generic statements like “clean up code” or “improve maintainability”
+- Focus on **functional changes** and the reasons behind them
+
+### Required Sections
+
+#### Summary & Motivation
+
+This section should:
+
+- Begin with the primary functional change
+- Use bullet points for multiple related changes
+- Mention smaller or cleanup-related changes last to avoid distraction
+
+#### Downstream Projects (if applicable)
+
+Include this section only if the changes require manual updates in downstream projects. All downstream implementations follow the same structure as `AccountManagement` and `BackOffice`.
+
+This section should:
+
+- Open with a clear note to downstream maintainers
+- Use a **numbered list** for each required change
+- For each item, include:
+  - The exact filename (e.g., `your-self-contained-system/WebApp/Foo.tsx`)
+  - Any code to be added or updated
+  - Git-style diffs when applicable using proper ```diff formatting
+- For large changes, instruct maintainers to mirror changes from `AccountManagement` and `BackOffice`
+- Use the placeholder term `your-self-contained-system` when referencing downstream locations
+
+## Pull Request Description Template
+
+```markdown
+### Summary & motivation
+
+- Describe the main functional change
+- Bullet additional changes if needed
+- Mention cleanup tasks last
+
+## Markdown Requirements
+
+Pull request descriptions must be written in valid Markdown.  
+If the content contains nested code blocks, offer to save the result as a file named `###-branch-name.md` in the root of the repository.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/cortz)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/cortz)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
