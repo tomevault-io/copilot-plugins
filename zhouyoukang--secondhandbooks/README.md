@@ -1,6 +1,6 @@
 # SecondHandBooks
 
-> Config by [zhouyoukang](https://github.com/zhouyoukang/SecondHandBooks) — distributed by [TomeVault](https://tomevault.io/claim/zhouyoukang)
+> Tome by [zhouyoukang](https://github.com/zhouyoukang/SecondHandBooks) — distributed by [TomeVault](https://tomevault.io/claim/zhouyoukang)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [zhouyoukang/SecondHandBooks](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/zhouyoukang](https://tomevault.io/claim/zhouyoukang)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/zhouyoukang)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/zhouyoukang) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/zhouyoukang) to manage distribution and track installs.
+
+<!-- genome:t-c-s -->
