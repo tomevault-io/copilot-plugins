@@ -1,6 +1,6 @@
 # PAgentic-Search
 
-> Config by [PATTERN-AUTOMATION-LAB](https://github.com/PATTERN-AUTOMATION-LAB/PAgentic-Search) — distributed by [TomeVault](https://tomevault.io/claim/PATTERN-AUTOMATION-LAB)
+> Tome by [PATTERN-AUTOMATION-LAB](https://github.com/PATTERN-AUTOMATION-LAB/PAgentic-Search) — distributed by [TomeVault](https://tomevault.io/claim/PATTERN-AUTOMATION-LAB)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [PATTERN-AUTOMATION-LAB/PAgentic-Searc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/PATTERN-AUTOMATION-LAB](https://tomevault.io/claim/PATTERN-AUTOMATION-LAB)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/PATTERN-AUTOMATION-LAB)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/PATTERN-AUTOMATION-LAB) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/PATTERN-AUTOMATION-LAB) to manage distribution and track installs.
+
+<!-- genome:t-c-p -->
