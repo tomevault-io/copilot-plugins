@@ -1,0 +1,55 @@
+## campalyze
+
+> Narzędzie analityczne do kampanii reklamowych to aplikacja webowa zaprojektowana z myślą o specjalistach ds. reklam, którzy potrzebują szybkiego i efektywnego sposobu analizowania danych z różnych platform reklamowych. MVP produktu skupia się na importowaniu i analizie danych z plików CSV/XLSX eksportowanych z Google Ads i Meta Ads, oferując interaktywny dashboard z kluczowymi metrykami oraz możliwość porównania efektywności kampanii. Dodatkowo, już na etapie MVP zaimplementujemy podstawowe funkcje AI do generowania automatycznych podsumowań i prostych rekomendacji.
+
+# AI Rules for campAlyze
+
+Narzędzie analityczne do kampanii reklamowych to aplikacja webowa zaprojektowana z myślą o specjalistach ds. reklam, którzy potrzebują szybkiego i efektywnego sposobu analizowania danych z różnych platform reklamowych. MVP produktu skupia się na importowaniu i analizie danych z plików CSV/XLSX eksportowanych z Google Ads i Meta Ads, oferując interaktywny dashboard z kluczowymi metrykami oraz możliwość porównania efektywności kampanii. Dodatkowo, już na etapie MVP zaimplementujemy podstawowe funkcje AI do generowania automatycznych podsumowań i prostych rekomendacji.
+
+Rozwiązanie to adresuje problem zbyt długiego czasu poświęcanego na manualne zbieranie, łączenie i analizowanie danych reklamowych, co ogranicza zdolność specjalistów do szybkiego reagowania i optymalizowania kampanii. Dzięki narzędziu użytkownicy mogą szybciej podejmować decyzje oparte na danych, co prowadzi do bardziej efektywnego wykorzystania budżetów reklamowych.
+
+## Tech Stack
+
+- Astro 5
+- TypeScript 5
+- React 19
+- Tailwind 4
+- Shadcn/ui
+
+## Project Structure
+
+When introducing changes to the project, always follow the directory structure below:
+
+- `./src` - source code
+- `./src/layouts` - Astro layouts
+- `./src/pages` - Astro pages
+- `./src/pages/api` - API endpoints
+- `./src/middleware/index.ts` - Astro middleware
+- `./src/db` - Supabase clients and types
+- `./src/types.ts` - Shared types for backend and frontend (Entities, DTOs)
+- `./src/components` - Client-side components written in Astro (static) and React (dynamic)
+- `./src/components/ui` - Client-side components from Shadcn/ui
+- `./src/lib` - Services and helpers 
+- `./src/assets` - static internal assets
+- `./public` - public assets
+
+When modifying the directory structure, always update this section.
+
+## Coding practices
+
+### Guidelines for clean code
+
+- Use feedback from linters to improve the code when making changes.
+- Prioritize error handling and edge cases.
+- Handle errors and edge cases at the beginning of functions.
+- Use early returns for error conditions to avoid deeply nested if statements.
+- Place the happy path last in the function for improved readability.
+- Avoid unnecessary else statements; use if-return pattern instead.
+- Use guard clauses to handle preconditions and invalid states early.
+- Implement proper error logging and user-friendly error messages.
+- Consider using custom error types or error factories for consistent error handling.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Miszczo)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Miszczo)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
