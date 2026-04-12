@@ -1,0 +1,457 @@
+## betting-brain-v3
+
+> Code searchability patterns and ast-grep integration
+
+## Overview
+
+This codebase uses **ast-grep** for structural code search and pattern matching. ast-grep provides semantic search beyond simple text matching, understanding TypeScript/JavaScript syntax.
+
+See [sgconfig.yml](mdc:sgconfig.yml) and [rules/](mdc:rules/) for complete configuration.
+
+
+## Quick Reference
+
+### Common Search Commands
+
+```bash
+# Search for specific patterns
+ast-grep --pattern 'async function $NAME' src/
+sg -p 'const $VAR = fetch($$$)' src/
+
+# Filter by specific rules
+ast-grep scan --filter "sql-injection-risk"
+sg scan --filter "unstructured-log"
+
+# Scan all rules in project
+ast-grep scan
+sg scan
+
+# Search in specific files
+ast-grep --pattern 'throw Errors.$METHOD($$$)' src/api/
+```
+
+### Search by Feature
+
+| Feature | Command | Location |
+|---------|---------|----------|
+| **SQL Injection** | `sg scan --filter "sql-injection-risk"` | All TS files |
+| **CORS Missing** | `sg scan --filter "missing-cors-headers"` | All TS files |
+| **Unstructured Logs** | `sg scan --filter "unstructured-log"` | All TS files |
+| **Hardcoded URLs** | `sg scan --filter "hardcoded-url"` | All files |
+| **WORKER_URL Dupe** | `sg scan --filter "worker-url-definition"` | Dashboard files |
+
+
+## Installation
+
+Install ast-grep globally:
+
+```bash
+# Using cargo (recommended)
+cargo install ast-grep
+
+# Using npm
+npm install -g @ast-grep/cli
+
+# Using brew (macOS)
+brew install ast-grep
+```
+
+Verify installation:
+
+```bash
+sg --version
+```
+
+
+## Usage Patterns
+
+### 1. Finding API Endpoints
+
+```bash
+# Find all endpoint handlers
+ast-grep --pattern 'async function $NAME(request: Request, env: Env, requestId: string)' src/
+
+# Find specific endpoint
+sg -p 'async function getEvents' src/api/
+
+# Find endpoints without requestId
+sg scan --filter "missing-request-id"
+```
+
+**Example Output:**
+```
+src/api/routes.ts:45:1
+async function getEvents(request: Request, env: Env, requestId: string): Promise<Response> {
+  // Implementation
+}
+```
+
+### 2. Finding MCP Handlers
+
+```bash
+# Find all MCP tool handlers  
+ast-grep --pattern 'export async function $NAME(params: $PARAMS, env: Env): Promise<MCPToolResult>' src/mcp/
+
+# Find specific handler
+sg -p 'export async function getSteamMoves' src/
+
+# Find handlers returning MCPToolResult
+sg -p 'Promise<MCPToolResult>' src/
+```
+
+### 3. Finding Database Queries
+
+```bash
+# Find all D1 queries
+ast-grep --pattern 'env.$DB.prepare($QUERY)' src/
+
+# Find queries with specific table
+sg -p "env.ANALYTICS.prepare(\`SELECT * FROM line_movements\`)" src/
+
+# Find potential SQL injection risks
+sg scan --filter "sql-injection-risk"
+```
+
+**Anti-Pattern Detection:**
+```typescript
+// ❌ BAD: String interpolation (detected by ast-grep)
+env.ANALYTICS.prepare(`SELECT * FROM table WHERE id = '${id}'`);
+
+// ✅ GOOD: Parameterized query
+env.ANALYTICS.prepare(`SELECT * FROM table WHERE id = ?`).bind(id);
+```
+
+### 4. Finding Validation Calls
+
+```bash
+# Find all validation calls
+ast-grep --pattern 'validateQueryParams($URL, $VALIDATORS)' src/
+
+# Find specific validator
+sg -p 'Validators.agentID' src/
+sg -p 'validateQueryParams' src/
+```
+
+### 5. Finding Error Handling
+
+```bash
+# Find all error throws
+ast-grep --pattern 'throw Errors.$METHOD($$$)' src/
+
+# Find specific error type
+sg -p 'throw Errors.validationError' src/
+sg -p 'throw Errors.notFound' src/
+```
+
+### 6. Finding Console Logs
+
+```bash
+# Find all console logs
+ast-grep --pattern 'console.$METHOD($$$)' src/
+
+# Find unstructured logs (missing requestId)
+sg scan --filter "unstructured-log"
+sg scan --filter "unstructured-log" src/index.ts  # Specific file
+
+# Find specific log level
+sg -p 'console.error' src/
+```
+
+
+## Code Quality Rules
+
+### Security Rules
+
+#### 1. SQL Injection Prevention
+```bash
+sg scan --filter "sql-injection-risk"
+```
+
+**Rule:** Never use string interpolation in SQL queries.
+
+```typescript
+// ❌ WRONG: SQL injection risk
+const query = `SELECT * FROM users WHERE id = '${userId}'`;
+
+// ✅ CORRECT: Parameterized query
+const query = env.ANALYTICS.prepare(`SELECT * FROM users WHERE id = ?`).bind(userId);
+```
+
+#### 2. CORS Headers
+```bash
+sg scan --filter "missing-cors-headers"
+```
+
+**Rule:** All API responses must include CORS headers.
+
+```typescript
+// ❌ WRONG: Missing CORS
+return new Response(JSON.stringify(data));
+
+// ✅ CORRECT: With CORS
+return new Response(JSON.stringify(data), {
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  }
+});
+```
+
+### Observability Rules
+
+#### 1. Request ID Tracking
+```bash
+sg scan --filter "missing-request-id"
+```
+
+**Rule:** All endpoint handlers must generate and use requestId.
+
+```typescript
+// ❌ WRONG: Missing requestId
+async function getEvents(request: Request, env: Env): Promise<Response> {
+  console.log('Fetching events');
+  // ...
+}
+
+// ✅ CORRECT: With requestId
+async function getEvents(request: Request, env: Env, requestId: string): Promise<Response> {
+  console.log(`[${requestId}] Fetching events`);
+  // ...
+}
+```
+
+#### 2. Structured Logging
+```bash
+sg scan --filter "unstructured-log"
+```
+
+**Rule:** All logs should include requestId prefix.
+
+```typescript
+// ❌ WRONG: Unstructured
+console.log('Processing request');
+
+// ✅ CORRECT: Structured
+console.log(`[${requestId}] Processing request`);
+```
+
+
+## Dashboard Refactoring Patterns
+
+### Finding Duplicate Code
+
+```bash
+# Find WORKER_URL definitions (should be 1, in shared/config.js)
+sg scan --filter "worker-url-definition"
+sg scan --filter "worker-url-definition" dashboards/  # Specific directory
+
+# Find Chart.js usage
+ast-grep --pattern 'new Chart($CTX, $$$)' dashboards/
+
+# Find duplicate fetch calls
+sg scan --filter "duplicate-fetch"
+```
+
+### Refactoring Checklist
+
+- [ ] WORKER_URL moved to `dashboards/shared/config.js`
+- [ ] Common functions moved to `dashboards/shared/utils.js`
+- [ ] Styles moved to `dashboards/shared/styles.css`
+- [ ] Chart helpers moved to `dashboards/shared/charts.js`
+- [ ] All dashboards import from `shared/`
+
+
+## Custom Patterns
+
+### Creating Custom Rules
+
+Add rules to `.ast-grep.yml`:
+
+```yaml
+rules:
+  - id: my-custom-rule
+    message: Custom pattern found
+    severity: warning
+    language: TypeScript
+    rule:
+      pattern: |
+        $YOUR_PATTERN_HERE
+```
+
+### Pattern Syntax
+
+**Basic patterns:**
+```yaml
+pattern: const $VAR = $VALUE          # Match any const declaration
+pattern: async function $NAME($$$)    # Match any async function
+pattern: throw new Error($MSG)        # Match error throws
+```
+
+**Meta-variables:**
+- `$VAR` - Match single node
+- `$$$` - Match multiple nodes (ellipsis)
+- `$_` - Match anything, don't capture
+
+**Combinators:**
+```yaml
+all:                                  # All patterns must match
+  - pattern: async function $NAME
+  - pattern: await $CALL
+
+any:                                  # Any pattern matches
+  - pattern: console.log($$$)
+  - pattern: console.error($$$)
+
+not:                                  # Pattern must NOT match
+  pattern: requestId
+```
+
+
+## Integration with Cursor
+
+ast-grep integrates seamlessly with Cursor for inline code search:
+
+1. Open command palette (`Cmd+Shift+P`)
+2. Search for "Run ast-grep"
+3. Enter pattern: `async function $NAME`
+4. Results appear in sidebar
+
+
+## Best Practices
+
+### 1. Regular Scans
+
+Run ast-grep scans before commits:
+
+```bash
+# Add to pre-commit hook
+sg scan --filter "sql-injection-risk"
+sg scan --filter "unstructured-log"
+sg scan --filter "missing-cors"
+```
+
+### 2. Code Reviews
+
+Use ast-grep in PR reviews:
+
+```bash
+# Check for anti-patterns
+sg scan --filter "sql-injection-risk"
+sg scan --filter "missing-error-handling"
+sg scan --filter "hardcoded-urls"
+```
+
+### 3. Refactoring
+
+Use ast-grep to find refactoring opportunities:
+
+```bash
+# Find duplicate patterns
+sg search 'const WORKER_URL = $URL'
+
+# Find functions that can be extracted
+sg search 'async function $NAME'
+```
+
+### 4. Documentation
+
+Document searchable patterns in code:
+
+```typescript
+// @pattern: API endpoint handler
+// @searchable: sg search 'async function getEvents'
+async function getEvents(request: Request, env: Env, requestId: string): Promise<Response> {
+  // Implementation
+}
+```
+
+
+## Common Searches
+
+### Find All API Endpoints
+
+```bash
+ast-grep --pattern 'case "/$PATH":' src/
+```
+
+### Find All MCP Tools
+
+```bash
+sg -p 'tools/call' src/
+```
+
+### Find All Database Tables
+
+```bash
+ast-grep --pattern 'FROM $TABLE' src/
+```
+
+### Find All Validators
+
+```bash
+sg -p 'Validators.$METHOD' src/
+```
+
+### Find All Error Types
+
+```bash
+sg -p 'Errors.$TYPE' src/
+```
+
+
+## Troubleshooting
+
+### ast-grep Not Found
+
+```bash
+# Install with cargo
+cargo install ast-grep
+
+# Or with npm
+npm install -g @ast-grep/cli
+```
+
+### Rules Not Working
+
+1. Check syntax in `.ast-grep.yml`
+2. Verify language is set correctly
+3. Test pattern in playground: https://ast-grep.github.io/playground.html
+
+### Slow Performance
+
+1. Add more specific patterns
+2. Limit file extensions in config
+3. Add paths to ignore list
+
+
+## Related Documentation
+
+- **[sgconfig.yml](mdc:sgconfig.yml)** - Project configuration
+- **[rules/](mdc:rules/)** - Rule definitions
+- **[CODE_QUALITY_AUDIT.md](mdc:docs/CODE_QUALITY_AUDIT.md)** - Code quality report
+- **[CURSOR_RULES.md](mdc:docs/CURSOR_RULES.md)** - All Cursor rules
+- **[ast-grep Documentation](https://ast-grep.github.io/)** - Official docs
+
+
+**Status:** Production patterns established  
+**Last Updated:** 2025-10-07
+
+## Quick Command Reference
+
+```bash
+# Pattern search
+ast-grep --pattern 'PATTERN' PATH
+sg -p 'PATTERN' PATH
+
+# Rule scan (filter by ID)
+sg scan --filter "RULE_ID"
+sg scan --filter "RULE_ID" PATH
+
+# Scan all rules
+ast-grep scan
+sg scan
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/brendadeeznuts1111) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
