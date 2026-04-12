@@ -1,6 +1,6 @@
-# veda
+# veda — distributed by TomeVault
 
-> Config by [Zorlin](https://github.com/Zorlin/veda) — distributed by [TomeVault](https://tomevault.io/claim/Zorlin)
+> Originally from [Zorlin/veda](https://github.com/Zorlin/veda). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Zorlin/veda](https://github.com/Zorli
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Zorlin](https://tomevault.io/claim/Zorlin)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Zorlin)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Zorlin) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/Zorlin) to manage distribution and track installs.
+
+<!-- genome:d-c-p -->
