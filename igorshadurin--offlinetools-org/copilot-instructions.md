@@ -1,0 +1,226 @@
+## offlinetools-org
+
+> - `/landing` - Next.js web application with feature implementations
+
+# Guide for Porting Features from Landing to Desktop App
+
+## Architecture Overview
+- `/landing` - Next.js web application with feature implementations
+- `/desktop` - Electron desktop application, target for new features
+- `/shared` - Common utilities used by both applications
+
+## Implementation Flow
+
+1. **Identify the Landing Page Implementation**
+   - Source feature components are in: `/landing/app/tools/{feature-name}/`
+   - Example: Base64 Encoder at `/landing/app/tools/base64-codec/Base64Codec.tsx`
+   - Example: JSON Formatter at `/landing/app/tools/json-formatter/JsonFormatter.tsx`
+
+2. **Locate Shared Logic**
+   - Core business logic should be in: `/shared/src/{feature-name}/`
+   - Example: Base64 functions at `/shared/src/base64-codec/index.ts`
+   - Example: JSON utilities at `/shared/src/json-formatter/index.ts`
+   - Import in desktop using: `import { ... } from 'shared/{feature-name}'`
+
+3. **Create Desktop Component**
+   - Target path: `/desktop/src/components/{feature-name}.tsx`
+   - Use desktop UI components from: `/desktop/src/components/ui/`
+   - Follow existing patterns like in `/desktop/src/components/json-formatter.tsx`
+   - Adapt Next.js components to match desktop styling
+
+## **MANDATORY Design Standards**
+
+### **Container & Layout Requirements (CRITICAL)**
+
+#### **No Border Containers**
+- **NEVER use Card containers** with borders as main component wrapper
+- **Reference**: See `/desktop/src/components/base64-codec.tsx` or `/desktop/src/components/binary-base64-codec.tsx`
+- **Container Pattern**: 
+  ```tsx
+  <div className={`p-6 h-full flex flex-col space-y-6 ${className}`}>
+  ```
+
+#### **Standard Title Structure**
+- **REQUIRED Title Pattern**:
+  ```tsx
+  {/* Title */}
+  <div className="flex items-center gap-2">
+    <IconName className="h-6 w-6" />
+    <h1 className="text-2xl font-bold">Tool Name</h1>
+  </div>
+  ```
+- **Icon Requirements**: 6x6 size (`h-6 w-6`), sourced from `lucide-react`
+- **Title Font**: `text-2xl font-bold` (NOT 3xl or other sizes)
+- **Layout**: Left-aligned with icon, 2-unit gap (`gap-2`)
+
+#### **Input/Output Layout Standards**
+
+##### **Horizontal Side-by-Side Layout (REQUIRED)**
+- **Pattern**: Input and output sections must be on the same horizontal line
+- **Reference**: `/desktop/src/components/base64-codec.tsx` lines 65-120
+- **Structure**:
+  ```tsx
+  <div className="flex gap-4 flex-1">
+    {/* Input Section */}
+    <div className="flex-1 flex flex-col min-h-0">
+      <label className="text-sm font-medium">Input Label</label>
+      <Textarea className="flex-1 min-h-[320px]" />
+    </div>
+    
+    {/* Output Section */}
+    <div className="flex-1 flex flex-col min-h-0">
+      <label className="text-sm font-medium">Output</label>
+      <Textarea className="flex-1 min-h-[320px]" />
+    </div>
+  </div>
+  ```
+
+##### **Equal Height Requirements**
+- **Both sections must have equal minimum heights**: `min-h-[320px]`
+- **Full height utilization**: Use `flex-1` and `min-h-0` for proper flex behavior
+- **Reference**: `/desktop/src/components/binary-base64-codec.tsx` sections alignment
+
+### **File Upload Components**
+
+#### **Drag & Drop Style (REQUIRED)**
+- **NEVER use basic HTML file inputs** with default styling
+- **Pattern Reference**: `/desktop/src/components/steganography.tsx` or `/desktop/src/components/watermark-tool.tsx`
+- **Structure**:
+  ```tsx
+  <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-4 text-center">
+    <input type="file" className="hidden" id="file-upload" />
+    <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
+      <Upload className="h-8 w-8 text-gray-400 mb-2" />
+      <span className="text-sm font-medium">Choose file text</span>
+      <span className="text-xs text-muted-foreground">File type hints</span>
+    </label>
+  </div>
+  ```
+
+### **UI Component Standards**
+
+#### **Buttons**
+- **Always use `Button` component** from `/desktop/src/components/ui/button`
+- **Standard sizing**: `size="sm"` for secondary actions, default for primary
+- **Variants**: `variant="outline"` for secondary, default for primary
+- **Icon spacing**: Use `gap-1` or `gap-2` for icon-text combinations
+- **Reference**: `/desktop/src/components/data-encryptor.tsx` button patterns
+
+#### **Text Areas**
+- **Component**: Use `Textarea` from `/desktop/src/components/ui/textarea`
+- **Code display**: Add `font-mono` class for code/data content
+- **Sizing**: `flex-1` for full height, `min-h-[320px]` for minimum height
+- **Placeholder**: Always provide meaningful placeholder text
+
+#### **Form Inputs**
+- **Component**: Use `Input` from `/desktop/src/components/ui/input`
+- **Labels**: Always use semantic `label` elements with `htmlFor` attributes
+- **Validation**: Implement proper validation feedback
+
+### **Icon Standards**
+- **Source**: Import only from `lucide-react` package
+- **Title Icons**: `h-6 w-6` for main tool title
+- **Button Icons**: `h-4 w-4` for regular buttons, `h-3 w-3` for small buttons
+- **Upload Icons**: `h-8 w-8` for file upload areas
+- **Consistent Naming**: Use descriptive icon names that match tool functionality
+
+### **Spacing & Layout**
+- **Main Container**: `p-6` padding, `space-y-6` vertical spacing
+- **Section Gaps**: `gap-4` for horizontal sections, `gap-2` for button groups
+- **Responsive**: Ensure mobile compatibility with proper flex wrapping
+- **Height Management**: Use `h-full flex flex-col` for full height utilization
+
+### **Typography Standards**
+- **Main Title**: `text-2xl font-bold` (consistent across all tools)
+- **Section Labels**: `text-sm font-medium` for input/output labels
+- **Helper Text**: `text-xs text-muted-foreground` for file size, hints
+- **Error Text**: Use Alert components for error display
+
+### **Implementation References**
+- **Perfect Layout Example**: `/desktop/src/components/base64-codec.tsx`
+- **File Upload Example**: `/desktop/src/components/steganography.tsx`
+- **Complex Layout Example**: `/desktop/src/components/data-encryptor.tsx`
+- **Title Pattern Example**: Any recently updated component
+- **Button Patterns**: `/desktop/src/components/binary-base64-codec.tsx`
+
+4. **Update Desktop App**
+   - Add to tools list in `/desktop/src/App.tsx`:
+     ```tsx
+     const tools: Tool[] = [
+       // ... existing tools
+       { id: '{feature-id}', name: '{Feature Name}', icon: <IconComponent size={16} /> },
+     ]
+     ```
+   - Add conditional rendering in the same file:
+     ```tsx
+     {selectedTool === '{feature-id}' ? (
+       <YourComponent className="min-h-full" />
+     ) : (
+       // ... existing code
+     )}
+     ```
+
+5. **Testing Strategy & Requirements**
+   
+   ### **CRITICAL: Feature-First Testing Approach**
+   **AI agents MUST follow this testing workflow to optimize development speed and resource usage:**
+
+   #### **Phase 1: Feature-Specific Testing (REQUIRED FIRST)**
+   1. **Create tests first** in `/desktop/test/{feature-name}.spec.ts`
+   2. **Run ONLY the feature tests** during development:
+      ```bash
+      # Run specific feature tests only
+      pnpm run test test/{feature-name}.spec.ts
+      
+      # Examples:
+      pnpm run test test/data-encryptor.spec.ts
+      pnpm run test test/json-formatter.spec.ts
+      pnpm run test test/base64.spec.ts
+      ```
+   3. **Fix issues rapidly** by focusing only on the feature being developed
+   4. **Iterate quickly** with faster feedback (1-2s vs 30s+ for all tests)
+
+   #### **Phase 2: Full Test Suite (ONLY AFTER FEATURE TESTS PASS)**
+   ```bash
+   # Run all tests only when feature is complete
+   pnpm run test
+   # Or for headless environments
+   pnpm run test:no-screen
+   ```
+
+   ### **Testing Patterns & Structure**
+   - Follow style patterns from existing tests:
+     - `/desktop/test/base64.spec.ts` - Base64 encoder/decoder tests
+     - `/desktop/test/json-formatter.spec.ts` - JSON formatter tests
+     - `/desktop/test/url-encoder.spec.ts` - URL encoder tests
+   
+   ### **Important Testing Principles**
+   - **Never use arbitrary timeouts** (e.g., `page.waitForTimeout()`)
+   - Always wait for specific elements or conditions instead
+   - Use `waitForVisibleElement()`, `waitForComponentTitle()`, etc.
+   - Start with basic UI tests, then add functionality tests
+   
+   ### **Recommended Test Structure**
+   - Follow the pattern in `/desktop/test/data-encryptor.spec.ts` for clean, focused testing
+   - Start with basic navigation and UI element verification tests
+   - Add functionality tests after basic tests pass
+   - Use proper test isolation and error handling
+
+   ### **Performance Benefits of Feature-First Testing**
+   - **Speed**: 1-2s vs 30s+ (15-30x faster)
+   - **Resource Usage**: Lower CPU/memory consumption
+   - **Focus**: Immediate feedback on specific feature issues
+   - **Debugging**: Easier to isolate and fix problems
+   - **Development Flow**: Faster iteration cycles
+
+   ### **Test Utilities**
+   - Use utilities from `/desktop/test/utils.ts` to handle waiting
+   - Available commands:
+     - `pnpm run test` - Run all tests
+     - `pnpm run test test/specific-file.spec.ts` - Run specific test file
+     - `pnpm run test:no-screen` - Run tests on devices without a screen (wraps Vitest with `xvfb-run`)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/IgorShadurin)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/IgorShadurin)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
