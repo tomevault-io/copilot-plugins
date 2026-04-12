@@ -1,6 +1,6 @@
 # drawingboard-capital
 
-> Config by [CharviBansall](https://github.com/CharviBansall/drawingboard-capital) — distributed by [TomeVault](https://tomevault.io/claim/CharviBansall)
+> Tome by [CharviBansall](https://github.com/CharviBansall/drawingboard-capital) — distributed by [TomeVault](https://tomevault.io/claim/CharviBansall)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [CharviBansall/drawingboard-capital](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/CharviBansall](https://tomevault.io/claim/CharviBansall)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/CharviBansall#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/CharviBansall) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install CharviBansall/drawingboard-capital
+```
+Or browse all formats at [https://tomevault.io/claim/CharviBansall](https://tomevault.io/claim/CharviBansall).
+
+<!-- genome:t-i-q -->
