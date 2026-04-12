@@ -1,6 +1,6 @@
 # veracity
 
-> Config by [briangmilnes](https://github.com/briangmilnes/veracity) — distributed by [TomeVault](https://tomevault.io/claim/briangmilnes)
+> Tome by [briangmilnes](https://github.com/briangmilnes/veracity) — distributed by [TomeVault](https://tomevault.io/claim/briangmilnes)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [briangmilnes/veracity](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/briangmilnes](https://tomevault.io/claim/briangmilnes)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/briangmilnes)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/briangmilnes) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/briangmilnes) to manage distribution and track installs.
+
+<!-- genome:t-c-s -->
