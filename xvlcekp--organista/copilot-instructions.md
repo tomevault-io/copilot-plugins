@@ -1,0 +1,63 @@
+## organista
+
+> BLoC → UseCase → Repository (abstract in domain) → Repository Impl (in data) → DataSource
+
+
+# Repositories, Services, and Data Sources
+
+**Architecture:**
+```
+BLoC → UseCase → Repository (abstract in domain) → Repository Impl (in data) → DataSource
+```
+
+**Key concepts:**
+
+1. **Repositories:**
+   - Implement domain contracts
+   - Coordinate data sources (remote/local)
+   - Map models ↔ entities
+   - Return `Either<Failure, T>` or throw domain exceptions
+
+2. **Data Sources:**
+   - Isolate I/O (network, database, files)
+   - Return models (DTOs), NOT entities
+   - Throw exceptions (caught by repository)
+   - One data source per external dependency
+
+3. **Models vs Entities:**
+   - **Models** (data layer): DTOs with JSON serialization, nullable fields
+   - **Entities** (domain layer): Business objects, non-nullable, immutable, validation
+
+4. **Services:**
+   - Cross-cutting concerns (logging, analytics)
+   - Wrap external SDKs (Firebase, etc.)
+   - Stateless utilities
+
+**Example:**
+```dart
+// Domain: Abstract repository
+abstract class MusicSheetRepository {
+  Future<Either<Failure, List<MusicSheet>>> getMusicSheets();
+}
+
+// Data: Implementation
+class MusicSheetRepositoryImpl implements MusicSheetRepository {
+  final RemoteDataSource _remote;
+  final LocalDataSource _local;
+  
+  Future<Either<Failure, List<MusicSheet>>> getMusicSheets() async {
+    try {
+      final models = await _remote.getMusicSheets();
+      await _local.cache(models);
+      return Right(models.map((m) => m.toEntity()).toList());
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+}
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/xvlcekp)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/xvlcekp)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
