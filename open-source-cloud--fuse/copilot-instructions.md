@@ -1,0 +1,463 @@
+## fuse
+
+> This directory contains modular cursor rules for the FUSE Workflow Engine project. Each file focuses on a specific aspect of development to make the rules easier to navigate and maintain.
+
+
+# FUSE Cursor Rules
+
+This directory contains modular cursor rules for the FUSE Workflow Engine project. Each file focuses on a specific aspect of development to make the rules easier to navigate and maintain.
+
+## Rule Files
+
+### [01-project-overview.mdc](01-project-overview.mdc)
+
+**Project context and architecture overview**
+
+- Project description and goals
+- Key technologies (Go, ergo.services, in-memory repos)
+- Architecture and directory structure
+- Core concepts (Actor Model, Workflows, Nodes)
+- Reference files and external resources
+
+### [02-go-conventions.mdc](02-go-conventions.mdc)
+
+**Go coding standards and conventions**
+
+- General guidelines and Effective Go
+- Naming conventions (PascalCase, camelCase)
+- Error handling patterns
+- Concurrency and thread safety
+- Interface design and modularity
+
+### [03-actor-patterns.mdc](03-actor-patterns.mdc)
+
+**Actor model patterns using ergo.services**
+
+- Actor structure and base types
+- Factory pattern for actors
+- Supervisor and Pool patterns
+- WebWorker for HTTP handlers
+- Message passing and actor naming
+- Logging within actors
+
+### [04-workflow-nodes.mdc](04-workflow-nodes.mdc)
+
+**Workflow and node implementation patterns**
+
+- Node schema and structure
+- Graph construction and computation
+- Edge types (conditional/unconditional)
+- Thread management for execution ordering
+- Function metadata and validation
+- State management and persistence
+
+### [05-repositories.mdc](05-repositories.mdc)
+
+**Repository and service layer patterns**
+
+- Interface-first design
+- In-memory repository implementations
+- Thread-safe in-memory repositories
+- Repository patterns (interfaces + memory)
+- Custom error definitions
+- Service layer architecture
+
+### [06-http-handlers.mdc](06-http-handlers.mdc)
+
+**HTTP handler conventions and patterns**
+
+- Base handler structure with WebWorker
+- Factory pattern for handlers
+- Request/response handling
+- Helper methods (BindJSON, SendJSON, etc.)
+- Error responses and logging
+- Route configuration and CORS
+
+### [07-testing.mdc](07-testing.mdc)
+
+**Testing strategies and patterns**
+
+- Unit test structure (Arrange-Act-Assert)
+- Table-driven tests
+- Mocking with testify
+- Integration tests
+- Actor-specific testing
+- HTTP handler testing
+- Coverage goals and best practices
+
+### [08-documentation.mdc](08-documentation.mdc)
+
+**Documentation standards and guidelines**
+
+- Standard Go doc comments
+- Detailed documentation for complex logic
+- Package-level documentation
+- Examples in documentation
+- Error documentation
+- When to document and when to skip
+
+### [09-dependency-injection.mdc](09-dependency-injection.mdc)
+
+**Dependency injection with uber-go/fx**
+
+- Module structure and organization
+- Constructor naming conventions
+- Providing dependencies
+- Lifecycle management
+- Parameter and result structs
+- Testing with fx
+
+### [10-best-practices.mdc](10-best-practices.mdc)
+
+**Common patterns and best practices**
+
+- Logging with zerolog
+- Configuration with env variables
+- UUID generation
+- JSON handling and validation
+- Mermaid visualization
+- Make commands
+- Error handling and context usage
+
+### [11-development-workflow.mdc](11-development-workflow.mdc)
+
+**Development workflow and Git conventions**
+
+- Branch creation and management
+- Commit message format (Conventional Commits)
+- Testing and linting before PR
+- Code review checklist
+- PR submission process
+- Common Git commands
+- Quality gates enforcement
+
+### [12-quality-gates.mdc](12-quality-gates.mdc)
+
+**Mandatory quality gates for code changes**
+
+- Test-first development enforcement
+- Lint → Build → Test workflow
+- Pre-commit hook integration
+- Coverage threshold requirements
+- CI/CD pipeline gates
+- No-exception policy
+
+### [13-go-concurrency.mdc](13-go-concurrency.mdc)
+
+**Go concurrency patterns and best practices**
+
+- Concurrency vs parallelism
+- Goroutines and channels
+- Select statement patterns
+- Context for cancellation
+- Worker pools
+- Mutexes and RWMutexes
+- Race condition detection
+- Deadlock prevention
+
+## Cursor Skills
+
+Comprehensive Go senior developer skills are available in `.cursor/skills/`:
+
+- **go-senior-developer/** - Go best practices, SOLID principles, clean code
+- **microservices-architecture/** - Microservices patterns and practices
+- **ddd-patterns/** - Domain-Driven Design patterns
+- **clean-hexagonal-architecture/** - Clean and hexagonal architecture
+- **cqrs-event-driven/** - CQRS and event-driven architecture
+- **go-concurrency/** - Go concurrency patterns and best practices
+- **actor-model-patterns/** - Actor model patterns with ergo.services
+
+## Spec-Kit Integration
+
+The project uses spec-kit for spec-driven development:
+
+- `.specify/memory/constitution.md` - Project constitution and governing principles
+- `.specify/templates/` - Spec-kit templates (spec, plan, tasks)
+- `.specify/scripts/` - Spec-kit automation scripts
+- `.cursor/commands/speckit.*` - Spec-kit slash commands
+
+Use `/speckit.constitution`, `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, and `/speckit.implement` commands for structured development.
+
+## Using These Rules
+
+### In Cursor
+
+Cursor will automatically load and index all `.mdc` files in this directory. You can:
+
+1. **Reference specific topics**: Ask about specific patterns (e.g., "Show me the actor factory pattern")
+2. **Get contextual help**: Cursor will provide relevant rules based on your current work
+3. **Follow conventions**: AI suggestions will align with these established patterns
+
+### Quick Reference
+
+For quick lookup, each file is self-contained and can be read independently. Files are numbered to suggest a learning order, but can be referenced in any sequence.
+
+### Updating Rules
+
+When updating rules:
+
+1. Keep each file focused on its specific topic
+2. Update examples to match current code patterns
+3. Add links to related files when concepts overlap
+4. Maintain consistency in formatting and style
+
+## Key Resources
+
+- **Ergo.services**: [https://docs.ergo.services/](https://docs.ergo.services/)
+
+  - [Actor Model Basics](https://docs.ergo.services/basics/actor-model)
+  - [Supervisor Pattern](https://docs.ergo.services/actors/supervisor)
+  - [Pool Pattern](https://docs.ergo.services/actors/pool)
+  - [WebWorker](https://docs.ergo.services/actors/webworker)
+
+- **Go Documentation**: [https://golang.org/doc/effective_go](https://golang.org/doc/effective_go)
+
+- **Project Documentation**:
+  - [CONTRIBUTE.md](../../docs/CONTRIBUTE.md)
+  - [SETUP.md](../../docs/SETUP.md)
+  - [README.md](../../README.md)
+
+## Contributing to Rules
+
+If you find patterns that should be documented or rules that need updating:
+
+1. Identify the appropriate file based on the topic
+2. Add or update the pattern with clear examples
+3. Ensure consistency with existing patterns
+4. Submit a PR with changes to the rule files
+
+---
+
+**Remember**: These rules are here to help, not hinder. Use them as guidelines to maintain consistency and quality, but apply judgment when the situation calls for it.
+
+# FUSE Cursor Rules
+
+This directory contains modular cursor rules for the FUSE Workflow Engine project. Each file focuses on a specific aspect of development to make the rules easier to navigate and maintain.
+
+## Rule Files
+
+### [01-project-overview.mdc](01-project-overview.mdc)
+
+**Project context and architecture overview**
+
+- Project description and goals
+- Key technologies (Go, ergo.services, in-memory repos)
+- Architecture and directory structure
+- Core concepts (Actor Model, Workflows, Nodes)
+- Reference files and external resources
+
+### [02-go-conventions.mdc](02-go-conventions.mdc)
+
+**Go coding standards and conventions**
+
+- General guidelines and Effective Go
+- Naming conventions (PascalCase, camelCase)
+- Error handling patterns
+- Concurrency and thread safety
+- Interface design and modularity
+
+### [03-actor-patterns.mdc](03-actor-patterns.mdc)
+
+**Actor model patterns using ergo.services**
+
+- Actor structure and base types
+- Factory pattern for actors
+- Supervisor and Pool patterns
+- WebWorker for HTTP handlers
+- Message passing and actor naming
+- Logging within actors
+
+### [04-workflow-nodes.mdc](04-workflow-nodes.mdc)
+
+**Workflow and node implementation patterns**
+
+- Node schema and structure
+- Graph construction and computation
+- Edge types (conditional/unconditional)
+- Thread management for execution ordering
+- Function metadata and validation
+- State management and persistence
+
+### [05-repositories.mdc](05-repositories.mdc)
+
+**Repository and service layer patterns**
+
+- Interface-first design
+- In-memory repository implementations
+- Thread-safe in-memory repositories
+- Repository patterns (interfaces + memory)
+- Custom error definitions
+- Service layer architecture
+
+### [06-http-handlers.mdc](06-http-handlers.mdc)
+
+**HTTP handler conventions and patterns**
+
+- Base handler structure with WebWorker
+- Factory pattern for handlers
+- Request/response handling
+- Helper methods (BindJSON, SendJSON, etc.)
+- Error responses and logging
+- Route configuration and CORS
+
+### [07-testing.mdc](07-testing.mdc)
+
+**Testing strategies and patterns**
+
+- Unit test structure (Arrange-Act-Assert)
+- Table-driven tests
+- Mocking with testify
+- Integration tests
+- Actor-specific testing
+- HTTP handler testing
+- Coverage goals and best practices
+
+### [08-documentation.mdc](08-documentation.mdc)
+
+**Documentation standards and guidelines**
+
+- Standard Go doc comments
+- Detailed documentation for complex logic
+- Package-level documentation
+- Examples in documentation
+- Error documentation
+- When to document and when to skip
+
+### [09-dependency-injection.mdc](09-dependency-injection.mdc)
+
+**Dependency injection with uber-go/fx**
+
+- Module structure and organization
+- Constructor naming conventions
+- Providing dependencies
+- Lifecycle management
+- Parameter and result structs
+- Testing with fx
+
+### [10-best-practices.mdc](10-best-practices.mdc)
+
+**Common patterns and best practices**
+
+- Logging with zerolog
+- Configuration with env variables
+- UUID generation
+- JSON handling and validation
+- Mermaid visualization
+- Make commands
+- Error handling and context usage
+
+### [11-development-workflow.mdc](11-development-workflow.mdc)
+
+**Development workflow and Git conventions**
+
+- Branch creation and management
+- Commit message format (Conventional Commits)
+- Testing and linting before PR
+- Code review checklist
+- PR submission process
+- Common Git commands
+- Quality gates enforcement
+
+### [12-quality-gates.mdc](12-quality-gates.mdc)
+
+**Mandatory quality gates for code changes**
+
+- Test-first development enforcement
+- Lint → Build → Test workflow
+- Pre-commit hook integration
+- Coverage threshold requirements
+- CI/CD pipeline gates
+- No-exception policy
+
+### [13-go-concurrency.mdc](13-go-concurrency.mdc)
+
+**Go concurrency patterns and best practices**
+
+- Concurrency vs parallelism
+- Goroutines and channels
+- Select statement patterns
+- Context for cancellation
+- Worker pools
+- Mutexes and RWMutexes
+- Race condition detection
+- Deadlock prevention
+
+## Cursor Skills
+
+Comprehensive Go senior developer skills are available in `.cursor/skills/`:
+
+- **go-senior-developer/** - Go best practices, SOLID principles, clean code
+- **microservices-architecture/** - Microservices patterns and practices
+- **ddd-patterns/** - Domain-Driven Design patterns
+- **clean-hexagonal-architecture/** - Clean and hexagonal architecture
+- **cqrs-event-driven/** - CQRS and event-driven architecture
+- **go-concurrency/** - Go concurrency patterns and best practices
+- **actor-model-patterns/** - Actor model patterns with ergo.services
+
+## Spec-Kit Integration
+
+The project uses spec-kit for spec-driven development:
+
+- `.specify/memory/constitution.md` - Project constitution and governing principles
+- `.specify/templates/` - Spec-kit templates (spec, plan, tasks)
+- `.specify/scripts/` - Spec-kit automation scripts
+- `.cursor/commands/speckit.*` - Spec-kit slash commands
+
+Use `/speckit.constitution`, `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, and `/speckit.implement` commands for structured development.
+
+## Using These Rules
+
+### In Cursor
+
+Cursor will automatically load and index all `.mdc` files in this directory. You can:
+
+1. **Reference specific topics**: Ask about specific patterns (e.g., "Show me the actor factory pattern")
+2. **Get contextual help**: Cursor will provide relevant rules based on your current work
+3. **Follow conventions**: AI suggestions will align with these established patterns
+
+### Quick Reference
+
+For quick lookup, each file is self-contained and can be read independently. Files are numbered to suggest a learning order, but can be referenced in any sequence.
+
+### Updating Rules
+
+When updating rules:
+
+1. Keep each file focused on its specific topic
+2. Update examples to match current code patterns
+3. Add links to related files when concepts overlap
+4. Maintain consistency in formatting and style
+
+## Key Resources
+
+- **Ergo.services**: [https://docs.ergo.services/](https://docs.ergo.services/)
+
+  - [Actor Model Basics](https://docs.ergo.services/basics/actor-model)
+  - [Supervisor Pattern](https://docs.ergo.services/actors/supervisor)
+  - [Pool Pattern](https://docs.ergo.services/actors/pool)
+  - [WebWorker](https://docs.ergo.services/actors/webworker)
+
+- **Go Documentation**: [https://golang.org/doc/effective_go](https://golang.org/doc/effective_go)
+
+- **Project Documentation**:
+  - [CONTRIBUTE.md](../../docs/CONTRIBUTE.md)
+  - [SETUP.md](../../docs/SETUP.md)
+  - [README.md](../../README.md)
+
+## Contributing to Rules
+
+If you find patterns that should be documented or rules that need updating:
+
+1. Identify the appropriate file based on the topic
+2. Add or update the pattern with clear examples
+3. Ensure consistency with existing patterns
+4. Submit a PR with changes to the rule files
+
+---
+
+**Remember**: These rules are here to help, not hinder. Use them as guidelines to maintain consistency and quality, but apply judgment when the situation calls for it.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/open-source-cloud)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/open-source-cloud)
+<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
