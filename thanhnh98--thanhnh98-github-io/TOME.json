@@ -1,0 +1,51 @@
+{
+  "name": "thanhnh98.github.io",
+  "owner": "thanhnh98",
+  "repo": "thanhnh98.github.io",
+  "description": "AI instruction files for thanhnh98.github.io by thanhnh98",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ecommerce-affiliate-shop",
+      "path": ".cursor/skills/ecommerce-affiliate-shop",
+      "github_url": "https://github.com/thanhnh98/thanhnh98.github.io/tree/main/.cursor/skills/ecommerce-affiliate-shop",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/thanhnh98",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T08:30:19Z"
+}
