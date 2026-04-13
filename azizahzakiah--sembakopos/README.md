@@ -1,6 +1,6 @@
-# SembakoPos
+# AI instruction files for SembakoPos
 
-> Config by [azizahzakiah](https://github.com/azizahzakiah/SembakoPos) — distributed by [TomeVault](https://tomevault.io/claim/azizahzakiah)
+> Sourced from [azizahzakiah/SembakoPos](https://github.com/azizahzakiah/SembakoPos) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [azizahzakiah/SembakoPos](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/azizahzakiah](https://tomevault.io/claim/azizahzakiah)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/azizahzakiah)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/azizahzakiah) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/azizahzakiah) to manage distribution and track installs.
+
+<!-- genome:a-c-s -->
