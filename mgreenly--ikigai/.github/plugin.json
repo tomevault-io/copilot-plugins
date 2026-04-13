@@ -1,0 +1,18 @@
+{
+  "name": "mgreenly--ikigai",
+  "displayName": "ikigai",
+  "description": "AI instruction files for ikigai by mgreenly",
+  "version": "1.0.0",
+  "author": "mgreenly",
+  "homepage": "https://tomevault.io/claim/mgreenly",
+  "skills": [
+    {
+      "name": "align",
+      "description": ""
+    },
+    {
+      "name": "coredump",
+      "description": ""
+    }
+  ]
+}
