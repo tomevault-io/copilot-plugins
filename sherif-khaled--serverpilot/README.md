@@ -1,6 +1,6 @@
-# ServerPilot
+# AI instruction files for ServerPilot
 
-> Config by [Sherif-khaled](https://github.com/Sherif-khaled/ServerPilot) — distributed by [TomeVault](https://tomevault.io/claim/Sherif-khaled)
+> Sourced from [Sherif-khaled/ServerPilot](https://github.com/Sherif-khaled/ServerPilot) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Sherif-khaled/ServerPilot](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Sherif-khaled](https://tomevault.io/claim/Sherif-khaled)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Sherif-khaled)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Sherif-khaled) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/Sherif-khaled) to manage distribution and track installs.
+
+<!-- genome:a-c-s -->
