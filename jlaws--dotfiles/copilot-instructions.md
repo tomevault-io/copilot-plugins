@@ -1,0 +1,85 @@
+## dotfiles
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Overview
+
+Personal macOS dotfiles and development environment configuration. Combines traditional Unix dotfile management with a shared agent knowledge base (`.agents/`) and tool-specific configs for Claude Code, Cursor, and Codex.
+
+## Commands
+
+### Setup & Installation
+```bash
+./setup.sh           # Interactive: syncs dotfiles, installs packages, configures macOS
+./setup.sh --force   # Non-interactive: skips all confirmation prompts
+```
+
+### Linting
+```bash
+make check    # ruff check + ty (via .venv)
+make fix      # auto-fix + format
+```
+
+### What setup.sh does:
+1. **Syncs dotfiles** to `~` via rsync (excludes .git, setup.sh, README)
+2. **Installs Homebrew packages**: coreutils, findutils, gnu-sed, moreutils, vim, grep, openssh, screen, wget, git, git-lfs, gh, autojump, mermaid-cli, node, pyright, rust-analyzer
+3. **Configures macOS**: ~200 `defaults write` commands for Finder, Dock, Safari, security, etc.
+
+## Repository Structure
+
+```
+dotfiles/
+├── Root dotfiles (.zshrc, .extra, .gitconfig, .vimrc, .editorconfig, etc.)
+├── ghosty_config.txt  # Ghostty terminal configuration reference
+├── setup.sh           # Main installation script
+├── pyproject.toml     # ruff config, project metadata
+├── Makefile           # lint, format, fix targets
+├── .agents/           # Shared agent KB (agentskills.io spec)
+│   ├── skills/        # agent-*, cmd-*, workflow/*, testing/*, migration/*
+│   └── references/    # Domain knowledge by category
+├── .claude/           # Claude Code (self-contained)
+│   ├── CLAUDE.md, settings.json
+│   ├── agents/, commands/, hooks/, skills/, references/
+├── .codex/            # Codex config + proprietary agents/commands
+│   ├── AGENTS.md, config.toml
+│   ├── agents/, commands/, hooks/, rules/
+└── .cursor/           # Cursor config only
+    ├── cli-config.json, hooks.json
+    ├── hooks/, rules/
+```
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `.zshrc` | Loads Oh My Zsh, sources `.extra` |
+| `.extra` | 60+ aliases, functions, PATH setup (234 lines) |
+| `.gitconfig` | Git aliases (`l`, `s`, `d`, `go`, `dm`, `amend`) |
+| `.vimrc` | Solarized Dark, relative line numbers, centralized backups |
+| `setup.sh` | Main orchestration script (~876 lines) |
+| `ghosty_config.txt` | Ghostty terminal configuration reference |
+
+## Shell Aliases (from .extra)
+
+**Navigation**: `..`, `...`, `dl` (~/Downloads), `dt` (~/Desktop), `p` (~/Workspace)
+**Git shortcuts**: `g`, `ga`, `gm`, `gcf`, `gr`, `gs`, `grmb`, `gitclean`
+**Cleanup**: `rmdd`, `rma`, `rmp`, `emptytrash`, `update`
+**Network**: `ip`, `localip`, `ips`, `flush`
+**macOS**: `show`/`hide` (hidden files), `afk` (lock screen)
+**Swift**: `fm` (format), `fr` (lint), `fp` (format+lint)
+
+## Editing Guidelines
+
+- Shell configs use `#` comments, keep aliases short and documented
+- `.extra` is the primary customization point (not `.zshrc`)
+- macOS `defaults write` commands in setup.sh follow pattern: domain, key, type, value
+- Agent skills follow the [agentskills.io](https://agentskills.io/specification) spec (SKILL.md with YAML frontmatter)
+- Do not hardcode counts of KB assets (agents, commands, references, skills) — they go stale
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jlaws) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-11 -->
