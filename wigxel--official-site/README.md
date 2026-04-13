@@ -1,6 +1,6 @@
-# official-site
+# official-site — distributed by TomeVault
 
-> Config by [wigxel](https://github.com/wigxel/official-site) — distributed by [TomeVault](https://tomevault.io/claim/wigxel)
+> Originally from [wigxel/official-site](https://github.com/wigxel/official-site). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [wigxel/official-site](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/wigxel](https://tomevault.io/claim/wigxel)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/wigxel)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/wigxel) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-s -->
