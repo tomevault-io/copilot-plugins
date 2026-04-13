@@ -1,6 +1,6 @@
 # muein_orders
 
-> Config by [HishamKoptaN](https://github.com/HishamKoptaN/muein_orders) — distributed by [TomeVault](https://tomevault.io/claim/HishamKoptaN)
+> Tome by [HishamKoptaN](https://github.com/HishamKoptaN/muein_orders) — distributed by [TomeVault](https://tomevault.io/claim/HishamKoptaN)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [HishamKoptaN/muein_orders](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/HishamKoptaN](https://tomevault.io/claim/HishamKoptaN)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/HishamKoptaN#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/HishamKoptaN) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
