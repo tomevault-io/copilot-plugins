@@ -1,6 +1,6 @@
 # hashbrown-stuff
 
-> Config by [bmorrisondev](https://github.com/bmorrisondev/hashbrown-stuff) — distributed by [TomeVault](https://tomevault.io/claim/bmorrisondev)
+> Tome by [bmorrisondev](https://github.com/bmorrisondev/hashbrown-stuff) — distributed by [TomeVault](https://tomevault.io/claim/bmorrisondev)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [bmorrisondev/hashbrown-stuff](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/bmorrisondev](https://tomevault.io/claim/bmorrisondev)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/bmorrisondev)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/bmorrisondev) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install bmorrisondev/hashbrown-stuff
+```
+Or browse all formats at [https://tomevault.io/claim/bmorrisondev](https://tomevault.io/claim/bmorrisondev).
+
+<!-- genome:t-i-s -->
