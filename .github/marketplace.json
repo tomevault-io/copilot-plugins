@@ -6639,41 +6639,6 @@
       "description": "oddo_kormmash"
     },
     {
-      "name": "phoenixvc--retort",
-      "source": "./phoenixvc--retort",
-      "description": "retort"
-    },
-    {
-      "name": "safecast--safecast-new-map",
-      "source": "./safecast--safecast-new-map",
-      "description": "safecast-new-map"
-    },
-    {
-      "name": "phoenixvc--retort",
-      "source": "./phoenixvc--retort",
-      "description": "retort"
-    },
-    {
-      "name": "shamail--ai-coding-template",
-      "source": "./shamail--ai-coding-template",
-      "description": "ai-coding-template"
-    },
-    {
-      "name": "brill-prime--brillprime-expo",
-      "source": "./brill-prime--brillprime-expo",
-      "description": "BrillPrime-expo"
-    },
-    {
-      "name": "andresortega-tech--webapporganizat",
-      "source": "./andresortega-tech--webapporganizat",
-      "description": "WebAppOrganizaT"
-    },
-    {
-      "name": "agustinruizdiaz--proyecto-comunicaci-n-de-datos-2025-aula-iot",
-      "source": "./agustinruizdiaz--proyecto-comunicaci-n-de-datos-2025-aula-iot",
-      "description": "Proyecto-Comunicaci-n-de-Datos-2025-Aula-IoT"
-    },
-    {
       "name": "seanwuapps--vue-rules-generator",
       "source": "./seanwuapps--vue-rules-generator",
       "description": "vue-rules-generator"
@@ -29552,6 +29517,221 @@
       "name": "anolasc--freqtrade-rs",
       "source": "./anolasc--freqtrade-rs",
       "description": "freqtrade-rs"
+    },
+    {
+      "name": "zacjones93--sweet-angel-bakery",
+      "source": "./zacjones93--sweet-angel-bakery",
+      "description": "sweet-angel-bakery"
+    },
+    {
+      "name": "davidsoff--regattadesk",
+      "source": "./davidsoff--regattadesk",
+      "description": "regattadesk"
+    },
+    {
+      "name": "shubhamdevs--luma-clone",
+      "source": "./shubhamdevs--luma-clone",
+      "description": "luma-clone"
+    },
+    {
+      "name": "redleaves--context-keeper",
+      "source": "./redleaves--context-keeper",
+      "description": "context-keeper"
+    },
+    {
+      "name": "utensils--essex",
+      "source": "./utensils--essex",
+      "description": "essex"
+    },
+    {
+      "name": "jdu211171--recursion",
+      "source": "./jdu211171--recursion",
+      "description": "recursion"
+    },
+    {
+      "name": "phoenixvc--retort",
+      "source": "./phoenixvc--retort",
+      "description": "retort"
+    },
+    {
+      "name": "muhrobby--dropboard",
+      "source": "./muhrobby--dropboard",
+      "description": "dropboard"
+    },
+    {
+      "name": "kim-company--membrane-mpeg-ts-plugin",
+      "source": "./kim-company--membrane-mpeg-ts-plugin",
+      "description": "membrane_mpeg_ts_plugin"
+    },
+    {
+      "name": "aplietexe--mongo",
+      "source": "./aplietexe--mongo",
+      "description": "mongo"
+    },
+    {
+      "name": "vinhky123--portfolio-kyyy",
+      "source": "./vinhky123--portfolio-kyyy",
+      "description": "portfolio-kyyy"
+    },
+    {
+      "name": "alexaundre--mycc",
+      "source": "./alexaundre--mycc",
+      "description": "mycc"
+    },
+    {
+      "name": "safecast--safecast-new-map",
+      "source": "./safecast--safecast-new-map",
+      "description": "safecast-new-map"
+    },
+    {
+      "name": "fredydomingus22-wq--smartlab",
+      "source": "./fredydomingus22-wq--smartlab",
+      "description": "SmartLab"
+    },
+    {
+      "name": "kaileh57--sandengine",
+      "source": "./kaileh57--sandengine",
+      "description": "SandEngine"
+    },
+    {
+      "name": "hayversson--dscreservation-backend",
+      "source": "./hayversson--dscreservation-backend",
+      "description": "DSCreservation-backend"
+    },
+    {
+      "name": "nakoliss--loi25radarwebsite",
+      "source": "./nakoliss--loi25radarwebsite",
+      "description": "Loi25RadarWebSite"
+    },
+    {
+      "name": "clixsensehamilton--barcode-generator",
+      "source": "./clixsensehamilton--barcode-generator",
+      "description": "barcode-generator"
+    },
+    {
+      "name": "phoenixvc--retort",
+      "source": "./phoenixvc--retort",
+      "description": "retort"
+    },
+    {
+      "name": "lubirge777-star--malipula-mobile",
+      "source": "./lubirge777-star--malipula-mobile",
+      "description": "malipula-mobile"
+    },
+    {
+      "name": "constrod--template-hono-prisma-kysely",
+      "source": "./constrod--template-hono-prisma-kysely",
+      "description": "template-hono-prisma-kysely"
+    },
+    {
+      "name": "strange-hour--void-chaos",
+      "source": "./strange-hour--void-chaos",
+      "description": "Void_Chaos"
+    },
+    {
+      "name": "nakoliss--loi25radartool",
+      "source": "./nakoliss--loi25radartool",
+      "description": "Loi25RadarTool"
+    },
+    {
+      "name": "cetres--oidc-auth",
+      "source": "./cetres--oidc-auth",
+      "description": "oidc-auth"
+    },
+    {
+      "name": "shamail--ai-coding-template",
+      "source": "./shamail--ai-coding-template",
+      "description": "ai-coding-template"
+    },
+    {
+      "name": "hellodit--linkinbio",
+      "source": "./hellodit--linkinbio",
+      "description": "linkinbio"
+    },
+    {
+      "name": "yeheng--chatroom-rust",
+      "source": "./yeheng--chatroom-rust",
+      "description": "chatroom_rust"
+    },
+    {
+      "name": "victordaz07--xthegospel",
+      "source": "./victordaz07--xthegospel",
+      "description": "XtheGospel"
+    },
+    {
+      "name": "aabrius--neov0-aa",
+      "source": "./aabrius--neov0-aa",
+      "description": "neov0-aa"
+    },
+    {
+      "name": "gkmngrgn--dosh",
+      "source": "./gkmngrgn--dosh",
+      "description": "dosh"
+    },
+    {
+      "name": "brill-prime--brillprime-expo",
+      "source": "./brill-prime--brillprime-expo",
+      "description": "BrillPrime-expo"
+    },
+    {
+      "name": "shakenfist--clingwrap",
+      "source": "./shakenfist--clingwrap",
+      "description": "clingwrap"
+    },
+    {
+      "name": "vqt123--twclone",
+      "source": "./vqt123--twclone",
+      "description": "twclone"
+    },
+    {
+      "name": "maccman--ai-monorepo-scaffold",
+      "source": "./maccman--ai-monorepo-scaffold",
+      "description": "ai-monorepo-scaffold"
+    },
+    {
+      "name": "steven-the-qa--cursorrules-playwright",
+      "source": "./steven-the-qa--cursorrules-playwright",
+      "description": "cursorrules-playwright"
+    },
+    {
+      "name": "jaichangpark--open-codelabs",
+      "source": "./jaichangpark--open-codelabs",
+      "description": "open-codelabs"
+    },
+    {
+      "name": "andresortega-tech--webapporganizat",
+      "source": "./andresortega-tech--webapporganizat",
+      "description": "WebAppOrganizaT"
+    },
+    {
+      "name": "nab0y--hassio-addons",
+      "source": "./nab0y--hassio-addons",
+      "description": "hassio-addons"
+    },
+    {
+      "name": "dashdoc--dashmap",
+      "source": "./dashdoc--dashmap",
+      "description": "dashmap"
+    },
+    {
+      "name": "stefnba--accntu",
+      "source": "./stefnba--accntu",
+      "description": "accntu"
+    },
+    {
+      "name": "corptrainer--agency-swarm",
+      "source": "./corptrainer--agency-swarm",
+      "description": "Agency-Swarm"
+    },
+    {
+      "name": "tim72117--imagine",
+      "source": "./tim72117--imagine",
+      "description": "imagine"
+    },
+    {
+      "name": "agustinruizdiaz--proyecto-comunicaci-n-de-datos-2025-aula-iot",
+      "source": "./agustinruizdiaz--proyecto-comunicaci-n-de-datos-2025-aula-iot",
+      "description": "Proyecto-Comunicaci-n-de-Datos-2025-Aula-IoT"
     }
   ]
 }
