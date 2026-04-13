@@ -1,6 +1,6 @@
-# home-ops
+# home-ops — distributed by TomeVault
 
-> Tome by [damacus](https://github.com/damacus/home-ops) — distributed by [TomeVault](https://tomevault.io/claim/damacus)
+> Originally from [damacus/home-ops](https://github.com/damacus/home-ops). Converted and distributed by [TomeVault](https://tomevault.io)
 
 AI instruction files for home-ops by damacus
 
@@ -17,14 +17,15 @@ Original source: `.windsurf/rules/*.md` in [damacus/home-ops](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/damacus](https://tomevault.io/claim/damacus)
-
 ## Bundled Skills (2)
 
 - [failing-deployments](https://github.com/damacus/home-ops/tree/main/.gemini/new-skills/failing-deployments)
 - [grafana-alerts](https://github.com/damacus/home-ops/tree/main/.gemini/new-skills/grafana-alerts)
 
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/damacus)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/damacus) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-p -->
