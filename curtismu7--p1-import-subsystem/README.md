@@ -1,6 +1,6 @@
-# P1-import-Subsystem
+# AI instruction files for P1-import-Subsystem
 
-> Config by [curtismu7](https://github.com/curtismu7/P1-import-Subsystem) — distributed by [TomeVault](https://tomevault.io/claim/curtismu7)
+> Sourced from [curtismu7/P1-import-Subsystem](https://github.com/curtismu7/P1-import-Subsystem) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [curtismu7/P1-import-Subsystem](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/curtismu7](https://tomevault.io/claim/curtismu7)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/curtismu7)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/curtismu7) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-p -->
