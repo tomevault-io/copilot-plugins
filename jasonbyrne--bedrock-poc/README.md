@@ -1,6 +1,6 @@
-# bedrock-poc
+# bedrock-poc — distributed by TomeVault
 
-> Config by [jasonbyrne](https://github.com/jasonbyrne/bedrock-poc) — distributed by [TomeVault](https://tomevault.io/claim/jasonbyrne)
+> Originally from [jasonbyrne/bedrock-poc](https://github.com/jasonbyrne/bedrock-poc). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [jasonbyrne/bedrock-poc](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/jasonbyrne](https://tomevault.io/claim/jasonbyrne)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/jasonbyrne#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jasonbyrne) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
