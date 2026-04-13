@@ -43,6 +43,5 @@ Warning Signs in Your Code:
 You must always explain how this rule was applied and why it was applied.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/cisco-ai-defense)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/cisco-ai-defense)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/cisco-ai-defense) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
