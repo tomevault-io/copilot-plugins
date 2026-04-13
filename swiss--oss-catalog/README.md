@@ -1,6 +1,6 @@
-# oss-catalog
+# oss-catalog — distributed by TomeVault
 
-> Config by [swiss](https://github.com/swiss/oss-catalog) — distributed by [TomeVault](https://tomevault.io/claim/swiss)
+> Originally from [swiss/oss-catalog](https://github.com/swiss/oss-catalog). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [swiss/oss-catalog](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/swiss](https://tomevault.io/claim/swiss)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/swiss)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/swiss) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/swiss) to manage distribution and track installs.
+
+<!-- genome:d-c-s -->
