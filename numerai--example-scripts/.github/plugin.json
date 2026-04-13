@@ -1,0 +1,30 @@
+{
+  "name": "numerai--example-scripts",
+  "displayName": "example-scripts",
+  "description": "AI instruction files for example-scripts by numerai",
+  "version": "1.0.0",
+  "author": "numerai",
+  "homepage": "https://tomevault.io/claim/numerai",
+  "skills": [
+    {
+      "name": "numerai-experiment-design",
+      "description": ""
+    },
+    {
+      "name": "numerai-model-implementation",
+      "description": ""
+    },
+    {
+      "name": "numerai-model-upload",
+      "description": ""
+    },
+    {
+      "name": "numerai-research",
+      "description": ""
+    },
+    {
+      "name": "report-research",
+      "description": ""
+    }
+  ]
+}
