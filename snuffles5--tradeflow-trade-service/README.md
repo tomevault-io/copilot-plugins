@@ -1,6 +1,6 @@
-# tradeflow-trade-service
+# AI instruction files for tradeflow-trade-service
 
-> Config by [snuffles5](https://github.com/snuffles5/tradeflow-trade-service) — distributed by [TomeVault](https://tomevault.io/claim/snuffles5)
+> Sourced from [snuffles5/tradeflow-trade-service](https://github.com/snuffles5/tradeflow-trade-service) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [snuffles5/tradeflow-trade-service](h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/snuffles5](https://tomevault.io/claim/snuffles5)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/snuffles5)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/snuffles5) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-s -->
