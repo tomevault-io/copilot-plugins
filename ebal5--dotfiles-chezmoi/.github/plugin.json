@@ -1,0 +1,14 @@
+{
+  "name": "ebal5--dotfiles-chezmoi",
+  "displayName": "dotfiles-chezmoi",
+  "description": "AI instruction files for dotfiles-chezmoi by ebal5",
+  "version": "1.0.0",
+  "author": "ebal5",
+  "homepage": "https://tomevault.io/claim/ebal5",
+  "skills": [
+    {
+      "name": "markdown-check",
+      "description": ""
+    }
+  ]
+}
