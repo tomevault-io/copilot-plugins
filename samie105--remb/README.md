@@ -1,6 +1,6 @@
-# remb
+# remb — distributed by TomeVault
 
-> Config by [samie105](https://github.com/samie105/remb) — distributed by [TomeVault](https://tomevault.io/claim/samie105)
+> Originally from [samie105/remb](https://github.com/samie105/remb). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [samie105/remb](https://github.com/sa
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/samie105](https://tomevault.io/claim/samie105)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/samie105#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/samie105) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/samie105) to manage distribution and track installs.
+
+<!-- genome:d-c-q -->
