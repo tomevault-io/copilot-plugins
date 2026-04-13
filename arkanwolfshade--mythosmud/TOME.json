@@ -2,8 +2,8 @@
   "name": "MythosMUD",
   "owner": "arkanwolfshade",
   "repo": "MythosMUD",
-  "description": "",
-  "type": "config",
+  "description": "AI instruction files for MythosMUD by arkanwolfshade",
+  "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,8 +37,69 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "mythosmud-adr-authoring",
+      "path": ".cursor/skills/mythosmud-adr-authoring",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-adr-authoring",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-code-quality-ai",
+      "path": ".cursor/skills/mythosmud-code-quality-ai",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-code-quality-ai",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-commit-messages",
+      "path": ".cursor/skills/mythosmud-commit-messages",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-commit-messages",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-coppa-checklist",
+      "path": ".cursor/skills/mythosmud-coppa-checklist",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-coppa-checklist",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-database-placement",
+      "path": ".cursor/skills/mythosmud-database-placement",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-database-placement",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-full-stack-feature",
+      "path": ".cursor/skills/mythosmud-full-stack-feature",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-full-stack-feature",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-logging-standards",
+      "path": ".cursor/skills/mythosmud-logging-standards",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-logging-standards",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-openapi-workflow",
+      "path": ".cursor/skills/mythosmud-openapi-workflow",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-openapi-workflow",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-pre-commit-checklist",
+      "path": ".cursor/skills/mythosmud-pre-commit-checklist",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-pre-commit-checklist",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-test-writing",
+      "path": ".cursor/skills/mythosmud-test-writing",
+      "github_url": "https://github.com/arkanwolfshade/MythosMUD/tree/main/.cursor/skills/mythosmud-test-writing",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/arkanwolfshade",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T09:32:31Z"
+  "distributed_at": "2026-04-13T13:30:44Z"
 }
