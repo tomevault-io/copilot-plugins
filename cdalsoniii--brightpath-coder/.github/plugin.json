@@ -1,9 +1,14 @@
 {
   "name": "cdalsoniii--brightpath-coder",
   "displayName": "brightpath-coder",
-  "description": "brightpath-coder",
+  "description": "AI instruction files for brightpath-coder by cdalsoniii",
   "version": "1.0.0",
   "author": "cdalsoniii",
   "homepage": "https://tomevault.io/claim/cdalsoniii",
-  "skills": []
+  "skills": [
+    {
+      "name": "agent-evaluation",
+      "description": ""
+    }
+  ]
 }
