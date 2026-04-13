@@ -1,6 +1,6 @@
-# knowledge-mcp
+# AI instruction files for knowledge-mcp
 
-> Config by [olafgeibig](https://github.com/olafgeibig/knowledge-mcp) — distributed by [TomeVault](https://tomevault.io/claim/olafgeibig)
+> Sourced from [olafgeibig/knowledge-mcp](https://github.com/olafgeibig/knowledge-mcp) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [olafgeibig/knowledge-mcp](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/olafgeibig](https://tomevault.io/claim/olafgeibig)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/olafgeibig)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/olafgeibig) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/olafgeibig) to manage distribution and track installs.
+
+<!-- genome:a-c-s -->
