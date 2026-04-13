@@ -1,0 +1,51 @@
+{
+  "name": "ai-workflow-cursor-config",
+  "owner": "pmagnomuller",
+  "repo": "ai-workflow-cursor-config",
+  "description": "AI instruction files for ai-workflow-cursor-config by pmagnomuller",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pr-with-docs",
+      "path": ".cursor/skills/pr-with-docs",
+      "github_url": "https://github.com/pmagnomuller/ai-workflow-cursor-config/tree/main/.cursor/skills/pr-with-docs",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/pmagnomuller",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T15:30:54Z"
+}
