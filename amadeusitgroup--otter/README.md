@@ -1,6 +1,6 @@
-# otter
+# AI instruction files for otter
 
-> Config by [AmadeusITGroup](https://github.com/AmadeusITGroup/otter) — distributed by [TomeVault](https://tomevault.io/claim/AmadeusITGroup)
+> Sourced from [AmadeusITGroup/otter](https://github.com/AmadeusITGroup/otter) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [AmadeusITGroup/otter](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/AmadeusITGroup](https://tomevault.io/claim/AmadeusITGroup)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/AmadeusITGroup)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AmadeusITGroup) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/AmadeusITGroup) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
