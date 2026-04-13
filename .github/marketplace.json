@@ -6639,41 +6639,6 @@
       "description": "oddo_kormmash"
     },
     {
-      "name": "superworldsavior--kuzueventbus",
-      "source": "./superworldsavior--kuzueventbus",
-      "description": "KuzuEventBus"
-    },
-    {
-      "name": "ahmedjguirim--iam-server",
-      "source": "./ahmedjguirim--iam-server",
-      "description": "iam-server"
-    },
-    {
-      "name": "sevwren--muellereuchre",
-      "source": "./sevwren--muellereuchre",
-      "description": "MuellerEuchre"
-    },
-    {
-      "name": "salah-rashad--haris",
-      "source": "./salah-rashad--haris",
-      "description": "haris"
-    },
-    {
-      "name": "jonhygg99--watching",
-      "source": "./jonhygg99--watching",
-      "description": "watching"
-    },
-    {
-      "name": "trevorplam--command-center",
-      "source": "./trevorplam--command-center",
-      "description": "command-center"
-    },
-    {
-      "name": "linogiovanoli--hello-bystronic",
-      "source": "./linogiovanoli--hello-bystronic",
-      "description": "hello_bystronic"
-    },
-    {
       "name": "mrfansi--akana",
       "source": "./mrfansi--akana",
       "description": "akana"
@@ -28667,6 +28632,226 @@
       "name": "claudemyburgh--tokern-forge",
       "source": "./claudemyburgh--tokern-forge",
       "description": "tokern-forge"
+    },
+    {
+      "name": "pmagnomuller--ai-workflow-cursor-config",
+      "source": "./pmagnomuller--ai-workflow-cursor-config",
+      "description": "ai-workflow-cursor-config"
+    },
+    {
+      "name": "felixzhu97--finpulse",
+      "source": "./felixzhu97--finpulse",
+      "description": "finpulse"
+    },
+    {
+      "name": "intel-agency--workflow-orchestration-queue-india38-b",
+      "source": "./intel-agency--workflow-orchestration-queue-india38-b",
+      "description": "workflow-orchestration-queue-india38-b"
+    },
+    {
+      "name": "johnhkchen--solar-sim",
+      "source": "./johnhkchen--solar-sim",
+      "description": "solar-sim"
+    },
+    {
+      "name": "piotrgrobelak--techno-ambassador",
+      "source": "./piotrgrobelak--techno-ambassador",
+      "description": "techno-ambassador"
+    },
+    {
+      "name": "savancode--cusor1portfolio",
+      "source": "./savancode--cusor1portfolio",
+      "description": "cusor1portfolio"
+    },
+    {
+      "name": "youhyuksoo--ohsung-linestop",
+      "source": "./youhyuksoo--ohsung-linestop",
+      "description": "Ohsung-LIneStop"
+    },
+    {
+      "name": "superworldsavior--kuzueventbus",
+      "source": "./superworldsavior--kuzueventbus",
+      "description": "KuzuEventBus"
+    },
+    {
+      "name": "thelegendtubaguy--qidi-max-4-optimized",
+      "source": "./thelegendtubaguy--qidi-max-4-optimized",
+      "description": "Qidi-Max-4-Optimized"
+    },
+    {
+      "name": "agent-sh--sync-docs",
+      "source": "./agent-sh--sync-docs",
+      "description": "sync-docs"
+    },
+    {
+      "name": "imelon2--passkey-generator",
+      "source": "./imelon2--passkey-generator",
+      "description": "passkey-generator"
+    },
+    {
+      "name": "mickkhaw1981--1-rn-starter-kit",
+      "source": "./mickkhaw1981--1-rn-starter-kit",
+      "description": "1_rn_starter_kit"
+    },
+    {
+      "name": "na0927s--caravanshare",
+      "source": "./na0927s--caravanshare",
+      "description": "CaravanShare"
+    },
+    {
+      "name": "ahmedjguirim--iam-server",
+      "source": "./ahmedjguirim--iam-server",
+      "description": "iam-server"
+    },
+    {
+      "name": "jgravano--magicui-juan-software",
+      "source": "./jgravano--magicui-juan-software",
+      "description": "magicui-juan.software"
+    },
+    {
+      "name": "karakuriagent--agent-sdk-chat",
+      "source": "./karakuriagent--agent-sdk-chat",
+      "description": "agent-sdk-chat"
+    },
+    {
+      "name": "keen-wugui--ui-miniverse-agentics",
+      "source": "./keen-wugui--ui-miniverse-agentics",
+      "description": "UI_miniverse_agentics"
+    },
+    {
+      "name": "zaiyong--alergy",
+      "source": "./zaiyong--alergy",
+      "description": "alergy"
+    },
+    {
+      "name": "hazimmaulana--bio-esign-elysiajs",
+      "source": "./hazimmaulana--bio-esign-elysiajs",
+      "description": "Bio-eSign-ElysiaJs"
+    },
+    {
+      "name": "sevwren--muellereuchre",
+      "source": "./sevwren--muellereuchre",
+      "description": "MuellerEuchre"
+    },
+    {
+      "name": "artbred--connection-machine",
+      "source": "./artbred--connection-machine",
+      "description": "connection-machine"
+    },
+    {
+      "name": "velocity-bpa--n8n-nodes-monero",
+      "source": "./velocity-bpa--n8n-nodes-monero",
+      "description": "n8n-nodes-monero"
+    },
+    {
+      "name": "mrpaolosarino--quiz-from-json",
+      "source": "./mrpaolosarino--quiz-from-json",
+      "description": "quiz-from-json"
+    },
+    {
+      "name": "cskcvarma--voice-transcriber",
+      "source": "./cskcvarma--voice-transcriber",
+      "description": "voice_transcriber"
+    },
+    {
+      "name": "azusachino--harus-charts",
+      "source": "./azusachino--harus-charts",
+      "description": "harus-charts"
+    },
+    {
+      "name": "salah-rashad--haris",
+      "source": "./salah-rashad--haris",
+      "description": "haris"
+    },
+    {
+      "name": "muaddibco--realworldproblems",
+      "source": "./muaddibco--realworldproblems",
+      "description": "RealWorldProblems"
+    },
+    {
+      "name": "monoflow-ayvu--sscmex",
+      "source": "./monoflow-ayvu--sscmex",
+      "description": "sscmex"
+    },
+    {
+      "name": "jasonstcyrx--ai-template",
+      "source": "./jasonstcyrx--ai-template",
+      "description": "ai-template"
+    },
+    {
+      "name": "nicolopez603--nico-ai-dashboard",
+      "source": "./nicolopez603--nico-ai-dashboard",
+      "description": "nico-ai-dashboard"
+    },
+    {
+      "name": "hannanmiah--product-management-api-task",
+      "source": "./hannanmiah--product-management-api-task",
+      "description": "product-management-api-task"
+    },
+    {
+      "name": "jonhygg99--watching",
+      "source": "./jonhygg99--watching",
+      "description": "watching"
+    },
+    {
+      "name": "joseenriquw--lineaf-horrorgame",
+      "source": "./joseenriquw--lineaf-horrorgame",
+      "description": "lineaf-horrorgame"
+    },
+    {
+      "name": "atrawog--r2d-pytorch-notebook",
+      "source": "./atrawog--r2d-pytorch-notebook",
+      "description": "r2d-pytorch-notebook"
+    },
+    {
+      "name": "telepace--quick-forge-ai",
+      "source": "./telepace--quick-forge-ai",
+      "description": "quick-forge-ai"
+    },
+    {
+      "name": "neuxxkk--projeto-website",
+      "source": "./neuxxkk--projeto-website",
+      "description": "Projeto-WebSite"
+    },
+    {
+      "name": "julianshen--konnyaku",
+      "source": "./julianshen--konnyaku",
+      "description": "konnyaku"
+    },
+    {
+      "name": "trevorplam--command-center",
+      "source": "./trevorplam--command-center",
+      "description": "command-center"
+    },
+    {
+      "name": "exglade--exglade-github-io",
+      "source": "./exglade--exglade-github-io",
+      "description": "exglade.github.io"
+    },
+    {
+      "name": "goldbar123467--the-lords-ledger",
+      "source": "./goldbar123467--the-lords-ledger",
+      "description": "The-Lords-Ledger"
+    },
+    {
+      "name": "sanjayshreeyans--subnet-calculator-mcp",
+      "source": "./sanjayshreeyans--subnet-calculator-mcp",
+      "description": "subnet-calculator-mcp"
+    },
+    {
+      "name": "knuurr--kiepskie-tv",
+      "source": "./knuurr--kiepskie-tv",
+      "description": "kiepskie-tv"
+    },
+    {
+      "name": "kazijehangir--tasaveer",
+      "source": "./kazijehangir--tasaveer",
+      "description": "tasaveer"
+    },
+    {
+      "name": "linogiovanoli--hello-bystronic",
+      "source": "./linogiovanoli--hello-bystronic",
+      "description": "hello_bystronic"
     }
   ]
 }
