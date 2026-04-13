@@ -1,6 +1,6 @@
 # veeda-wallet
 
-> Config by [veedaisme](https://github.com/veedaisme/veeda-wallet) — distributed by [TomeVault](https://tomevault.io/claim/veedaisme)
+> Tome by [veedaisme](https://github.com/veedaisme/veeda-wallet) — distributed by [TomeVault](https://tomevault.io/claim/veedaisme)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [veedaisme/veeda-wallet](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/veedaisme](https://tomevault.io/claim/veedaisme)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/veedaisme#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/veedaisme) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
