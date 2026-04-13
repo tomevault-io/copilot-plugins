@@ -1,6 +1,6 @@
-# llm-from-scratch
+# AI instruction files for llm-from-scratch
 
-> Config by [andrewpollack](https://github.com/andrewpollack/llm-from-scratch) — distributed by [TomeVault](https://tomevault.io/claim/andrewpollack)
+> Sourced from [andrewpollack/llm-from-scratch](https://github.com/andrewpollack/llm-from-scratch) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [andrewpollack/llm-from-scratch](http
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/andrewpollack](https://tomevault.io/claim/andrewpollack)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/andrewpollack)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/andrewpollack) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/andrewpollack) to manage distribution and track installs.
+
+<!-- genome:a-c-s -->
