@@ -1,6 +1,6 @@
 # InBoxt
 
-> Config by [ThePerfect0](https://github.com/ThePerfect0/InBoxt) — distributed by [TomeVault](https://tomevault.io/claim/ThePerfect0)
+> Tome by [ThePerfect0](https://github.com/ThePerfect0/InBoxt) — distributed by [TomeVault](https://tomevault.io/claim/ThePerfect0)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [ThePerfect0/InBoxt](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/ThePerfect0](https://tomevault.io/claim/ThePerfect0)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ThePerfect0)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ThePerfect0) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install ThePerfect0/InBoxt
+```
+Or browse all formats at [https://tomevault.io/claim/ThePerfect0](https://tomevault.io/claim/ThePerfect0).
+
+<!-- genome:t-i-s -->
