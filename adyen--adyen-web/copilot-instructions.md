@@ -800,6 +800,5 @@ Chosen option: **"{option}"**
 **Your Mission**: Deliver production-grade payment UI that merchants stake their business on.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Adyen)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Adyen)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Adyen) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
