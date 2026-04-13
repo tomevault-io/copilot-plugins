@@ -6629,41 +6629,6 @@
       "description": "dot-ai-demo"
     },
     {
-      "name": "kedhareswer--interviewai-navigator",
-      "source": "./kedhareswer--interviewai-navigator",
-      "description": "interviewai-navigator"
-    },
-    {
-      "name": "ggedeveloper--idea",
-      "source": "./ggedeveloper--idea",
-      "description": "idea"
-    },
-    {
-      "name": "hishamkoptan--muein-orders",
-      "source": "./hishamkoptan--muein-orders",
-      "description": "muein_orders"
-    },
-    {
-      "name": "luismarrer--gardenlog",
-      "source": "./luismarrer--gardenlog",
-      "description": "gardenLog"
-    },
-    {
-      "name": "voxislabs-crypto--merlin-the-personal-oracle",
-      "source": "./voxislabs-crypto--merlin-the-personal-oracle",
-      "description": "Merlin-the-personal-Oracle"
-    },
-    {
-      "name": "rudnitski--grocery-voice-assistant-2",
-      "source": "./rudnitski--grocery-voice-assistant-2",
-      "description": "grocery-voice-assistant-2"
-    },
-    {
-      "name": "ujjalcal--nl2v2",
-      "source": "./ujjalcal--nl2v2",
-      "description": "nl2v2"
-    },
-    {
       "name": "alexandre-henrique-rp--iselftoken",
       "source": "./alexandre-henrique-rp--iselftoken",
       "description": "iselftoken"
@@ -27687,6 +27652,226 @@
       "name": "dh-unica--asmsa-dog",
       "source": "./dh-unica--asmsa-dog",
       "description": "asmsa_dog"
+    },
+    {
+      "name": "zakisanbaiman--financial-planning-calculator",
+      "source": "./zakisanbaiman--financial-planning-calculator",
+      "description": "financial-planning-calculator"
+    },
+    {
+      "name": "dai---github",
+      "source": "./dai---github",
+      "description": ".github"
+    },
+    {
+      "name": "auspatious--ldn-lulc",
+      "source": "./auspatious--ldn-lulc",
+      "description": "ldn-lulc"
+    },
+    {
+      "name": "a360-tools--toolbox",
+      "source": "./a360-tools--toolbox",
+      "description": "Toolbox"
+    },
+    {
+      "name": "samhot--plex-movie-picker",
+      "source": "./samhot--plex-movie-picker",
+      "description": "plex-movie-picker"
+    },
+    {
+      "name": "jakelit--cash-sync",
+      "source": "./jakelit--cash-sync",
+      "description": "cash-sync"
+    },
+    {
+      "name": "athphane--firefly-parser-bot",
+      "source": "./athphane--firefly-parser-bot",
+      "description": "firefly-parser-bot"
+    },
+    {
+      "name": "kedhareswer--interviewai-navigator",
+      "source": "./kedhareswer--interviewai-navigator",
+      "description": "interviewai-navigator"
+    },
+    {
+      "name": "kaloqnnajdenov--explored",
+      "source": "./kaloqnnajdenov--explored",
+      "description": "explored"
+    },
+    {
+      "name": "blokje00--memvid",
+      "source": "./blokje00--memvid",
+      "description": "memvid"
+    },
+    {
+      "name": "kuria-byte--banana-tracker",
+      "source": "./kuria-byte--banana-tracker",
+      "description": "banana-tracker"
+    },
+    {
+      "name": "asfalots--obsidian-epub-reader",
+      "source": "./asfalots--obsidian-epub-reader",
+      "description": "obsidian-epub-reader"
+    },
+    {
+      "name": "muchstarlight--nixos-config",
+      "source": "./muchstarlight--nixos-config",
+      "description": "nixos-config"
+    },
+    {
+      "name": "ggedeveloper--idea",
+      "source": "./ggedeveloper--idea",
+      "description": "idea"
+    },
+    {
+      "name": "dropwizard-jobs--dropwizard-jobs",
+      "source": "./dropwizard-jobs--dropwizard-jobs",
+      "description": "dropwizard-jobs"
+    },
+    {
+      "name": "inbound-bailey--urban-blue-project",
+      "source": "./inbound-bailey--urban-blue-project",
+      "description": "urban-blue-project"
+    },
+    {
+      "name": "albert-lewinski--expense-tracker-flutter",
+      "source": "./albert-lewinski--expense-tracker-flutter",
+      "description": "expense_tracker_flutter"
+    },
+    {
+      "name": "iamjprowan--obsidian-occurrences",
+      "source": "./iamjprowan--obsidian-occurrences",
+      "description": "obsidian-occurrences"
+    },
+    {
+      "name": "neilli--seedcore",
+      "source": "./neilli--seedcore",
+      "description": "seedcore"
+    },
+    {
+      "name": "hishamkoptan--muein-orders",
+      "source": "./hishamkoptan--muein-orders",
+      "description": "muein_orders"
+    },
+    {
+      "name": "hongyuan007--tapword-translator",
+      "source": "./hongyuan007--tapword-translator",
+      "description": "tapword-translator"
+    },
+    {
+      "name": "d4daveshep--test-fastapi-htmx-long-polling",
+      "source": "./d4daveshep--test-fastapi-htmx-long-polling",
+      "description": "test-fastapi-htmx-long-polling"
+    },
+    {
+      "name": "miloszk9--fap-log-viewer",
+      "source": "./miloszk9--fap-log-viewer",
+      "description": "FAP-log-viewer"
+    },
+    {
+      "name": "mgrossmann--libmyrtx",
+      "source": "./mgrossmann--libmyrtx",
+      "description": "libmyrtx"
+    },
+    {
+      "name": "alfred1137--sg-bank-interest-cal",
+      "source": "./alfred1137--sg-bank-interest-cal",
+      "description": "SG-Bank-Interest-cal"
+    },
+    {
+      "name": "luismarrer--gardenlog",
+      "source": "./luismarrer--gardenlog",
+      "description": "gardenLog"
+    },
+    {
+      "name": "adityac7--codex-chatbot",
+      "source": "./adityac7--codex-chatbot",
+      "description": "codex-chatbot"
+    },
+    {
+      "name": "gongiskhan--family-planner",
+      "source": "./gongiskhan--family-planner",
+      "description": "family-planner"
+    },
+    {
+      "name": "motech-development--platform",
+      "source": "./motech-development--platform",
+      "description": "platform"
+    },
+    {
+      "name": "8bit-wraith--mcp",
+      "source": "./8bit-wraith--mcp",
+      "description": "mcp"
+    },
+    {
+      "name": "organvm-i-theoria--scalable-lore-expert",
+      "source": "./organvm-i-theoria--scalable-lore-expert",
+      "description": "scalable-lore-expert"
+    },
+    {
+      "name": "voxislabs-crypto--merlin-the-personal-oracle",
+      "source": "./voxislabs-crypto--merlin-the-personal-oracle",
+      "description": "Merlin-the-personal-Oracle"
+    },
+    {
+      "name": "zendevve--opentweak",
+      "source": "./zendevve--opentweak",
+      "description": "opentweak"
+    },
+    {
+      "name": "davidewebsites--stackely",
+      "source": "./davidewebsites--stackely",
+      "description": "Stackely"
+    },
+    {
+      "name": "604373854--xiuxian-idle",
+      "source": "./604373854--xiuxian-idle",
+      "description": "xiuxian-idle"
+    },
+    {
+      "name": "panix-develop--panix-incremental",
+      "source": "./panix-develop--panix-incremental",
+      "description": "panix-incremental"
+    },
+    {
+      "name": "kasperience--kaspax",
+      "source": "./kasperience--kaspax",
+      "description": "KaspaX"
+    },
+    {
+      "name": "rudnitski--grocery-voice-assistant-2",
+      "source": "./rudnitski--grocery-voice-assistant-2",
+      "description": "grocery-voice-assistant-2"
+    },
+    {
+      "name": "dkowitz--lowcal-code",
+      "source": "./dkowitz--lowcal-code",
+      "description": "LowCal-Code"
+    },
+    {
+      "name": "shueisha-arts-and-digital--dbdb",
+      "source": "./shueisha-arts-and-digital--dbdb",
+      "description": "dbdb"
+    },
+    {
+      "name": "feyded--my-react-vite-app",
+      "source": "./feyded--my-react-vite-app",
+      "description": "my-react-vite-app"
+    },
+    {
+      "name": "iwanmota--shopping-website",
+      "source": "./iwanmota--shopping-website",
+      "description": "shopping-website"
+    },
+    {
+      "name": "zetlen--console-cowboy",
+      "source": "./zetlen--console-cowboy",
+      "description": "console-cowboy"
+    },
+    {
+      "name": "ujjalcal--nl2v2",
+      "source": "./ujjalcal--nl2v2",
+      "description": "nl2v2"
     }
   ]
 }
