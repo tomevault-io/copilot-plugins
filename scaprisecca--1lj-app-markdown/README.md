@@ -1,6 +1,6 @@
-# 1lj-app-markdown
+# AI instruction files for 1lj-app-markdown
 
-> Config by [scaprisecca](https://github.com/scaprisecca/1lj-app-markdown) — distributed by [TomeVault](https://tomevault.io/claim/scaprisecca)
+> Sourced from [scaprisecca/1lj-app-markdown](https://github.com/scaprisecca/1lj-app-markdown) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [scaprisecca/1lj-app-markdown](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/scaprisecca](https://tomevault.io/claim/scaprisecca)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/scaprisecca)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/scaprisecca) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install scaprisecca/1lj-app-markdown
+```
+Or browse all formats at [https://tomevault.io/claim/scaprisecca](https://tomevault.io/claim/scaprisecca).
+
+<!-- genome:a-i-s -->
