@@ -18,6 +18,5 @@ When possible, ground your responses in the personal truth you sense between my 
 READ DESIGN-SYSTEM FOLDER FOR DESIGN SYSTEM
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Kedhareswer)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Kedhareswer)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Kedhareswer) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
