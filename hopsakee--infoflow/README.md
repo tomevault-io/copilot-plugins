@@ -1,6 +1,6 @@
-# infoflow
+# infoflow — distributed by TomeVault
 
-> Config by [Hopsakee](https://github.com/Hopsakee/infoflow) — distributed by [TomeVault](https://tomevault.io/claim/Hopsakee)
+> Originally from [Hopsakee/infoflow](https://github.com/Hopsakee/infoflow). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [Hopsakee/infoflow](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Hopsakee](https://tomevault.io/claim/Hopsakee)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Hopsakee)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Hopsakee) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Hopsakee/infoflow
+```
+Or browse all formats at [https://tomevault.io/claim/Hopsakee](https://tomevault.io/claim/Hopsakee).
+
+<!-- genome:d-i-p -->
