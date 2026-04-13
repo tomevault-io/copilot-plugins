@@ -1,6 +1,6 @@
-# ai-assets
+# AI instruction files for ai-assets
 
-> Config by [avav25](https://github.com/avav25/ai-assets) — distributed by [TomeVault](https://tomevault.io/claim/avav25)
+> Sourced from [avav25/ai-assets](https://github.com/avav25/ai-assets) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [avav25/ai-assets](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/avav25](https://tomevault.io/claim/avav25)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/avav25)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/avav25) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/avav25) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
