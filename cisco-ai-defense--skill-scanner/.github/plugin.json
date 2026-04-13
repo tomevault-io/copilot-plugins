@@ -1,0 +1,62 @@
+{
+  "name": "cisco-ai-defense--skill-scanner",
+  "displayName": "skill-scanner",
+  "description": "AI instruction files for skill-scanner by cisco-ai-defense",
+  "version": "1.0.0",
+  "author": "cisco-ai-defense",
+  "homepage": "https://tomevault.io/claim/cisco-ai-defense",
+  "skills": [
+    {
+      "name": "multi-file-exfiltration",
+      "description": ""
+    },
+    {
+      "name": "exfiltrator",
+      "description": ""
+    },
+    {
+      "name": "magic-string-trigger",
+      "description": ""
+    },
+    {
+      "name": "database-query",
+      "description": ""
+    },
+    {
+      "name": "eicar-test",
+      "description": ""
+    },
+    {
+      "name": "environment-secrets",
+      "description": ""
+    },
+    {
+      "name": "file-validator",
+      "description": ""
+    },
+    {
+      "name": "jailbreak-override",
+      "description": ""
+    },
+    {
+      "name": "prompt-injection",
+      "description": ""
+    },
+    {
+      "name": "eval-execution",
+      "description": ""
+    },
+    {
+      "name": "file-reader",
+      "description": ""
+    },
+    {
+      "name": "simple-formatter",
+      "description": ""
+    },
+    {
+      "name": "simple-math",
+      "description": ""
+    }
+  ]
+}
