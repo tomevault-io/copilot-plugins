@@ -1,0 +1,14 @@
+{
+  "name": "aebrer--deep-yellow",
+  "displayName": "deep-yellow",
+  "description": "AI instruction files for deep-yellow by aebrer",
+  "version": "1.0.0",
+  "author": "aebrer",
+  "homepage": "https://tomevault.io/claim/aebrer",
+  "skills": [
+    {
+      "name": "generate-texture",
+      "description": ""
+    }
+  ]
+}
