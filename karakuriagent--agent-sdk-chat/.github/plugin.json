@@ -1,0 +1,9 @@
+{
+  "name": "karakuriagent--agent-sdk-chat",
+  "displayName": "agent-sdk-chat",
+  "description": "agent-sdk-chat",
+  "version": "1.0.0",
+  "author": "KarakuriAgent",
+  "homepage": "https://tomevault.io/claim/KarakuriAgent",
+  "skills": []
+}
