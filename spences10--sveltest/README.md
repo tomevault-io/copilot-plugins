@@ -1,6 +1,6 @@
-# sveltest
+# AI instruction files for sveltest
 
-> Tome by [spences10](https://github.com/spences10/sveltest) — distributed by [TomeVault](https://tomevault.io/claim/spences10)
+> Sourced from [spences10/sveltest](https://github.com/spences10/sveltest) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 AI instruction files for sveltest by spences10
 
@@ -17,13 +17,14 @@ Original source: `.windsurf/rules/*.md` in [spences10/sveltest](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/spences10](https://tomevault.io/claim/spences10)
-
 ## Bundled Skills (1)
 
 - [svelte-testing](https://github.com/spences10/sveltest/tree/main/.claude/skills/svelte-testing)
 
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/spences10#quality)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/spences10) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/spences10) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
