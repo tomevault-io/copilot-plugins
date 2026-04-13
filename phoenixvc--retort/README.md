@@ -1,6 +1,6 @@
-# retort
+# retort — distributed by TomeVault
 
-> Config by [phoenixvc](https://github.com/phoenixvc/retort) — distributed by [TomeVault](https://tomevault.io/claim/phoenixvc)
+> Originally from [phoenixvc/retort](https://github.com/phoenixvc/retort). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [phoenixvc/retort](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/phoenixvc](https://tomevault.io/claim/phoenixvc)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/phoenixvc)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/phoenixvc) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-p -->
