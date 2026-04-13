@@ -1,9 +1,14 @@
 {
   "name": "seekayel--ralph",
   "displayName": "ralph",
-  "description": "ralph",
+  "description": "AI instruction files for ralph by seekayel",
   "version": "1.0.0",
   "author": "seekayel",
   "homepage": "https://tomevault.io/claim/seekayel",
-  "skills": []
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
 }
