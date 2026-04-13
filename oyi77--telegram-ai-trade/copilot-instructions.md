@@ -1,178 +1,210 @@
 ## telegram-ai-trade
 
-> Comprehensive rules for maintaining project architecture, including detailed guidelines for modularity, extensibility, and documentation.
+> Comprehensive rules for maintaining high code quality through style, testing, documentation, and best practices.
 
 {
-  "architecture_principles": {
-    "modularity": {
-      "rules": [
-        "Each module must have a single responsibility",
-        "Modules must communicate through defined interfaces only",
-        "No direct database access from business logic",
-        "Use dependency injection for components"
-      ],
-      "folder_structure": {
-        "src/": {
-          "analysis/": "Market analysis and signal generation",
-          "data/": "Data collection and processing",
-          "execution/": "Trade execution and management",
-          "risk/": "Risk management and monitoring",
-          "common/": "Shared utilities and interfaces"
-        },
-        "tests/": {
-          "unit/": "Unit tests for each module",
-          "integration/": "Integration tests",
-          "e2e/": "End-to-end tests"
-        },
-        "config/": {
-          "dev/": "Development configuration",
-          "prod/": "Production configuration",
-          "test/": "Test configuration"
+  "style_guide": {
+    "python": {
+      "base": "PEP 8",
+      "additions": {
+        "line_length": 88,
+        "docstring_style": "Google",
+        "import_order": [
+          "Standard library",
+          "Third party",
+          "Local application"
+        ],
+        "naming": {
+          "classes": "PascalCase",
+          "functions": "snake_case",
+          "variables": "snake_case",
+          "constants": "UPPER_CASE",
+          "private": "_prefix"
         }
       }
     },
-    "interfaces": {
-      "required_interfaces": [
-        "IDataCollector",
-        "IAnalyzer",
-        "ITradeExecutor",
-        "IRiskManager",
-        "IMessageBroker"
-      ],
-      "interface_rules": [
-        "Must define clear input/output contracts",
-        "Must include error handling",
-        "Must be versioned",
-        "Must have documentation"
-      ]
-    },
-    "communication": {
-      "patterns": [
-        "Event-driven for asynchronous operations",
-        "Request-response for synchronous operations",
-        "Publisher-subscriber for notifications"
-      ],
-      "message_format": {
-        "type": "JSON",
-        "required_fields": ["timestamp", "version", "source", "payload"],
-        "validation": "JSON Schema"
+    "typescript": {
+      "base": "Airbnb",
+      "additions": {
+        "semicolons": "always",
+        "quotes": "single",
+        "interface_prefix": "I",
+        "type_prefix": "T"
       }
     }
   },
-  "extensibility": {
-    "plugin_system": {
-      "areas": [
-        "Data sources",
-        "Analysis strategies",
-        "Execution adapters",
-        "Risk rules"
-      ],
+  "testing": {
+    "unit_tests": {
+      "framework": "pytest",
+      "coverage": {
+        "minimum": "80%",
+        "target": "90%",
+        "critical_paths": "100%"
+      },
       "requirements": [
-        "Must implement base interface",
-        "Must include configuration schema",
-        "Must provide documentation",
-        "Must include tests"
+        "Test each function",
+        "Test edge cases",
+        "Test error conditions",
+        "Mock external dependencies"
+      ],
+      "naming": "test_<function_name>_<scenario>"
+    },
+    "integration_tests": {
+      "coverage": {
+        "api_endpoints": "100%",
+        "data_flows": "100%",
+        "critical_paths": "100%"
+      },
+      "requirements": [
+        "Test component interaction",
+        "Test data persistence",
+        "Test error handling",
+        "Test race conditions"
       ]
     },
-    "configuration": {
-      "format": "YAML",
-      "validation": "JSON Schema",
-      "environment_specific": true,
-      "hot_reload_support": true
-    }
-  },
-  "security": {
-    "authentication": {
-      "required": true,
-      "methods": ["API key", "OAuth2"],
-      "token_validation": true
-    },
-    "authorization": {
-      "role_based": true,
-      "action_based": true,
-      "audit_logging": true
-    },
-    "data_protection": {
-      "encryption": {
-        "in_transit": true,
-        "at_rest": true
-      },
-      "sensitive_data": {
-        "api_keys": "encrypted",
-        "credentials": "encrypted",
-        "trade_data": "encrypted"
-      }
-    }
-  },
-  "performance": {
-    "requirements": {
-      "latency": {
-        "analysis": "< 500ms",
-        "execution": "< 100ms",
-        "data_collection": "real-time"
-      },
-      "throughput": {
-        "trades_per_second": 10,
-        "analysis_per_second": 100
-      },
-      "resource_usage": {
-        "cpu": "< 70%",
-        "memory": "< 2GB",
-        "disk": "< 80%"
-      }
-    },
-    "optimization": {
-      "caching": true,
-      "connection_pooling": true,
-      "batch_processing": true
-    }
-  },
-  "monitoring": {
-    "metrics": [
-      "System health",
-      "Trading performance",
-      "Error rates",
-      "Resource usage"
-    ],
-    "logging": {
-      "levels": ["DEBUG", "INFO", "WARN", "ERROR"],
-      "format": "JSON",
-      "required_fields": [
-        "timestamp",
-        "level",
-        "service",
-        "message",
-        "trace_id"
-      ]
-    },
-    "alerts": {
-      "conditions": [
-        "Error rate > 1%",
-        "Latency > 1s",
-        "Memory > 80%",
-        "Failed trades > 0"
+    "performance_tests": {
+      "requirements": [
+        "Load testing",
+        "Stress testing",
+        "Endurance testing",
+        "Spike testing"
+      ],
+      "metrics": [
+        "Response time",
+        "Throughput",
+        "Error rate",
+        "Resource usage"
       ]
     }
   },
   "documentation": {
-    "required_docs": [
-      "API documentation",
-      "Architecture overview",
-      "Setup guide",
-      "Deployment guide",
-      "Testing guide"
-    ],
-    "code_documentation": {
+    "code": {
       "requirements": [
-        "All public APIs documented",
-        "Example usage provided",
-        "Error cases documented",
-        "Configuration documented"
+        "Module documentation",
+        "Class documentation",
+        "Function documentation",
+        "Complex logic explanation"
+      ],
+      "docstring_template": {
+        "function": [
+          "Short description",
+          "Args:",
+          "Returns:",
+          "Raises:",
+          "Example:"
+        ],
+        "class": [
+          "Class description",
+          "Attributes:",
+          "Methods:",
+          "Example:"
+        ]
+      }
+    },
+    "api": {
+      "format": "OpenAPI/Swagger",
+      "requirements": [
+        "Endpoint description",
+        "Request/response schema",
+        "Error responses",
+        "Authentication",
+        "Rate limits"
       ]
+    }
+  },
+  "code_organization": {
+    "structure": {
+      "module_size": "< 500 lines",
+      "function_size": "< 30 lines",
+      "class_size": "< 300 lines",
+      "file_organization": [
+        "Imports",
+        "Constants",
+        "Classes",
+        "Functions",
+        "Main"
+      ]
+    },
+    "patterns": {
+      "required": [
+        "Dependency Injection",
+        "Factory Pattern",
+        "Strategy Pattern",
+        "Observer Pattern"
+      ],
+      "avoided": [
+        "Global state",
+        "Tight coupling",
+        "God objects",
+        "Magic numbers"
+      ]
+    }
+  },
+  "error_handling": {
+    "requirements": {
+      "exceptions": {
+        "custom_hierarchy": true,
+        "meaningful_names": true,
+        "proper_documentation": true
+      },
+      "logging": {
+        "levels": {
+          "debug": "Detailed information",
+          "info": "Normal operations",
+          "warning": "Potential issues",
+          "error": "Runtime errors",
+          "critical": "System failures"
+        },
+        "format": {
+          "timestamp": true,
+          "level": true,
+          "module": true,
+          "message": true,
+          "stack_trace": "if error"
+        }
+      }
+    }
+  },
+  "security": {
+    "requirements": {
+      "input_validation": true,
+      "output_encoding": true,
+      "authentication": true,
+      "authorization": true,
+      "data_protection": true
+    },
+    "practices": [
+      "Secure by default",
+      "Principle of least privilege",
+      "Defense in depth",
+      "Fail securely"
+    ]
+  },
+  "performance": {
+    "guidelines": {
+      "algorithms": "O(n) or better",
+      "database": {
+        "queries": "Optimized",
+        "indices": "Required",
+        "connections": "Pooled"
+      },
+      "caching": {
+        "strategy": "Required",
+        "invalidation": "Documented"
+      }
+    },
+    "monitoring": {
+      "metrics": [
+        "Response time",
+        "Memory usage",
+        "CPU usage",
+        "I/O operations"
+      ],
+      "profiling": "Required for critical paths"
     }
   }
 }
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/oyi77) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
