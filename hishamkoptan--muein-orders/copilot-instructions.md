@@ -14,6 +14,5 @@
 7. ApiResult هو المصدر الوحيد للتعامل مع نتائج الـ API والـ Firebase.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/HishamKoptaN)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/HishamKoptaN)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/HishamKoptaN) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
