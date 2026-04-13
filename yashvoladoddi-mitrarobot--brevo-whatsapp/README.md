@@ -1,6 +1,6 @@
-# brevo-whatsapp
+# AI instruction files for brevo-whatsapp
 
-> Config by [yashvoladoddi-mitrarobot](https://github.com/yashvoladoddi-mitrarobot/brevo-whatsapp) — distributed by [TomeVault](https://tomevault.io/claim/yashvoladoddi-mitrarobot)
+> Sourced from [yashvoladoddi-mitrarobot/brevo-whatsapp](https://github.com/yashvoladoddi-mitrarobot/brevo-whatsapp) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [yashvoladoddi-mitrarobot/brevo-whats
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/yashvoladoddi-mitrarobot](https://tomevault.io/claim/yashvoladoddi-mitrarobot)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/yashvoladoddi-mitrarobot#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/yashvoladoddi-mitrarobot) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/yashvoladoddi-mitrarobot) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
