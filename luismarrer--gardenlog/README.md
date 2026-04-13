@@ -1,6 +1,6 @@
-# gardenLog
+# gardenLog — distributed by TomeVault
 
-> Config by [luismarrer](https://github.com/luismarrer/gardenLog) — distributed by [TomeVault](https://tomevault.io/claim/luismarrer)
+> Originally from [luismarrer/gardenLog](https://github.com/luismarrer/gardenLog). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [luismarrer/gardenLog](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/luismarrer](https://tomevault.io/claim/luismarrer)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/luismarrer)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/luismarrer) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install luismarrer/gardenLog
+```
+Or browse all formats at [https://tomevault.io/claim/luismarrer](https://tomevault.io/claim/luismarrer).
+
+<!-- genome:d-i-s -->
