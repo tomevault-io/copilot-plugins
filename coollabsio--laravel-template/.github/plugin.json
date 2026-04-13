@@ -1,0 +1,14 @@
+{
+  "name": "coollabsio--laravel-template",
+  "displayName": "laravel-template",
+  "description": "AI instruction files for laravel-template by coollabsio",
+  "version": "1.0.0",
+  "author": "coollabsio",
+  "homepage": "https://tomevault.io/claim/coollabsio",
+  "skills": [
+    {
+      "name": "inertia-vue-development",
+      "description": ""
+    }
+  ]
+}
