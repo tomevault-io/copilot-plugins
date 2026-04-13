@@ -1,0 +1,9 @@
+{
+  "name": "iobroker-community-adapters--iobroker-spotify-premium",
+  "displayName": "ioBroker.spotify-premium",
+  "description": "ioBroker.spotify-premium",
+  "version": "1.0.0",
+  "author": "iobroker-community-adapters",
+  "homepage": "https://tomevault.io/claim/iobroker-community-adapters",
+  "skills": []
+}
