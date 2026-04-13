@@ -17,15 +17,16 @@ Original source: `CLAUDE.md` in [olijboyd/fiddlybiscuitybits](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/olijboyd](https://tomevault.io/claim/olijboyd)
-
 ## Bundled Skills (3)
 
-- [react-charts](https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/react-charts/SKILL.md)
-- [dashboard-layout](https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/dashboard-layout/SKILL.md)
-- [data-fetching](https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/data-fetching/SKILL.md)
+- [SKILL](https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/dashboard-layout/SKILL.md)
+- [SKILL](https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/data-fetching/SKILL.md)
+- [SKILL](https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/react-charts/SKILL.md)
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/olijboyd)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/olijboyd) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-p -->
