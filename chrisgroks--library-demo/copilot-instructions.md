@@ -68,6 +68,5 @@ This is indicative of lack of understanding of the intent / impact of the code a
 You should understand the code you are adding and even when following pre-established practices you should understand why those practices exist
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/chrisgroks)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/chrisgroks)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/chrisgroks) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
