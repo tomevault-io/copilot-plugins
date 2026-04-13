@@ -1,6 +1,6 @@
 # prompts
 
-> Config by [funsaized](https://github.com/funsaized/prompts) — distributed by [TomeVault](https://tomevault.io/claim/funsaized)
+> Tome by [funsaized](https://github.com/funsaized/prompts) — distributed by [TomeVault](https://tomevault.io/claim/funsaized)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [funsaized/prompts](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/funsaized](https://tomevault.io/claim/funsaized)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/funsaized#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/funsaized) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install funsaized/prompts
+```
+Or browse all formats at [https://tomevault.io/claim/funsaized](https://tomevault.io/claim/funsaized).
+
+<!-- genome:t-i-q -->
