@@ -1,0 +1,9 @@
+{
+  "name": "immich-app--discord-bot",
+  "displayName": "discord-bot",
+  "description": "discord-bot",
+  "version": "1.0.0",
+  "author": "immich-app",
+  "homepage": "https://tomevault.io/claim/immich-app",
+  "skills": []
+}
