@@ -1,6 +1,6 @@
-# mars-terraform
+# mars-terraform — distributed by TomeVault
 
-> Config by [develforever](https://github.com/develforever/mars-terraform) — distributed by [TomeVault](https://tomevault.io/claim/develforever)
+> Originally from [develforever/mars-terraform](https://github.com/develforever/mars-terraform). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [develforever/mars-terraform](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/develforever](https://tomevault.io/claim/develforever)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/develforever)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/develforever) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install develforever/mars-terraform
+```
+Or browse all formats at [https://tomevault.io/claim/develforever](https://tomevault.io/claim/develforever).
+
+<!-- genome:d-i-p -->
