@@ -1,0 +1,242 @@
+{
+  "name": "sandraschi--advanced-memory-mcp",
+  "displayName": "advanced-memory-mcp",
+  "description": "AI instruction files for advanced-memory-mcp by sandraschi",
+  "version": "1.0.0",
+  "author": "sandraschi",
+  "homepage": "https://tomevault.io/claim/sandraschi",
+  "skills": [
+    {
+      "name": "abstract-algebra-specialist",
+      "description": ""
+    },
+    {
+      "name": "advanced-memory-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "ai-debate-dominator",
+      "description": ""
+    },
+    {
+      "name": "ai-ide-developer",
+      "description": ""
+    },
+    {
+      "name": "api-design-architect",
+      "description": ""
+    },
+    {
+      "name": "applied-mathematics-engineering",
+      "description": ""
+    },
+    {
+      "name": "astrology-interpretation-guide",
+      "description": ""
+    },
+    {
+      "name": "biblical-exegesis-expert",
+      "description": ""
+    },
+    {
+      "name": "biology-comprehensive-guide",
+      "description": ""
+    },
+    {
+      "name": "buddhist-philosophy-teacher",
+      "description": ""
+    },
+    {
+      "name": "calculus-tutor",
+      "description": ""
+    },
+    {
+      "name": "chemistry-lab-techniques",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-pipeline-builder",
+      "description": ""
+    },
+    {
+      "name": "classical-japanese-literature",
+      "description": ""
+    },
+    {
+      "name": "climate-science-explainer",
+      "description": ""
+    },
+    {
+      "name": "code-review-assistant",
+      "description": ""
+    },
+    {
+      "name": "comparative-religion-scholar",
+      "description": ""
+    },
+    {
+      "name": "database-optimization-guru",
+      "description": ""
+    },
+    {
+      "name": "differential-equations-solver",
+      "description": ""
+    },
+    {
+      "name": "discrete-mathematics-expert",
+      "description": ""
+    },
+    {
+      "name": "docker-kubernetes-pro",
+      "description": ""
+    },
+    {
+      "name": "eastern-philosophy-guide",
+      "description": ""
+    },
+    {
+      "name": "ethics-moral-philosophy",
+      "description": ""
+    },
+    {
+      "name": "etymology-word-origins",
+      "description": ""
+    },
+    {
+      "name": "full-stack-developer",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-specialist",
+      "description": ""
+    },
+    {
+      "name": "graphic-design-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "herbalism-folk-magic",
+      "description": ""
+    },
+    {
+      "name": "i-ching-oracle-guide",
+      "description": ""
+    },
+    {
+      "name": "jlpt-preparation-expert",
+      "description": ""
+    },
+    {
+      "name": "kanji-etymology-expert",
+      "description": ""
+    },
+    {
+      "name": "linear-algebra-expert",
+      "description": ""
+    },
+    {
+      "name": "linguistic-anthropology-guide",
+      "description": ""
+    },
+    {
+      "name": "materials-science-specialist",
+      "description": ""
+    },
+    {
+      "name": "mcp-server-developer",
+      "description": ""
+    },
+    {
+      "name": "mexican-cuisine-specialist",
+      "description": ""
+    },
+    {
+      "name": "microservices-architect",
+      "description": ""
+    },
+    {
+      "name": "number-theory-explorer",
+      "description": ""
+    },
+    {
+      "name": "numerical-methods-expert",
+      "description": ""
+    },
+    {
+      "name": "palmistry-chiromancy-guide",
+      "description": ""
+    },
+    {
+      "name": "performance-tuning-expert",
+      "description": ""
+    },
+    {
+      "name": "photography-composition-guide",
+      "description": ""
+    },
+    {
+      "name": "podcast-production-guide",
+      "description": ""
+    },
+    {
+      "name": "presentation-design-expert",
+      "description": ""
+    },
+    {
+      "name": "python-debugging-expert",
+      "description": ""
+    },
+    {
+      "name": "refactoring-specialist",
+      "description": ""
+    },
+    {
+      "name": "runes-divination-expert",
+      "description": ""
+    },
+    {
+      "name": "seance-spiritualism-guide",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "imported-skills",
+      "description": ""
+    },
+    {
+      "name": "spanish-cooking",
+      "description": ""
+    },
+    {
+      "name": "statistics-probability-guide",
+      "description": ""
+    },
+    {
+      "name": "storytelling-narrative-coach",
+      "description": ""
+    },
+    {
+      "name": "technical-writing-editor",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy-guide",
+      "description": ""
+    },
+    {
+      "name": "topology-geometry-guide",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-design-consultant",
+      "description": ""
+    },
+    {
+      "name": "windsurf-ide-integration",
+      "description": ""
+    }
+  ]
+}
