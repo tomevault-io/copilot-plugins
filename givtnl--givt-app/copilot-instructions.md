@@ -1,0 +1,65 @@
+## givt-app
+
+> - Include analytics events for all user interactions
+
+# Analytics Rules
+
+## Event Implementation
+- Include analytics events for all user interactions
+- Use `AnalyticsEvent` class with `AnalyticsEventName` enum values
+- Add `analyticsEvent` parameter to all interactive components
+- Required for FUN components like `FunButton`
+- Don't reuse events for different actions
+
+## Event Naming
+- Use only predefined event names from `AnalyticsEventName` enum
+- Follow naming pattern: `componentNameActionVerb`
+- Add new event types to `AnalyticsEventName` enum
+
+## Event Parameters
+- Use established key names from `AnalyticsHelper` constants
+- Never log sensitive user data
+- Never log personally identifiable information
+- If localized data is logged, also log the technical key
+
+## Component Analytics Integration
+- Components with `analyticsEvent` parameter automatically log events when triggered
+- Examples: `FunButton`, `SummaryRow`, `FunTile`, `FunModal`
+- **No need to call `AnalyticsHelper.logEvent` manually** when using these components
+- The component handles analytics logging internally when the `analyticsEvent` is provided
+- Simply pass the `AnalyticsEvent` and the component will log it automatically
+
+### Example Usage
+```dart
+// ✅ Correct - Component handles analytics automatically
+SummaryRow(
+  icon: FontAwesomeIcons.building,
+  label: 'Organization',
+  value: 'Charity Name',
+  analyticsEvent: AnalyticsEvent(
+    AnalyticsEventName.giveButtonPressed,
+  ),
+  onEdit: () => _cubit.navigateToOrganization(),
+),
+
+// ❌ Incorrect - Don't add manual logEvent calls
+SummaryRow(
+  icon: FontAwesomeIcons.building,
+  label: 'Organization',
+  value: 'Charity Name',
+  analyticsEvent: AnalyticsEvent(
+    AnalyticsEventName.giveButtonPressed,
+  ),
+  onEdit: () {
+    AnalyticsHelper.logEvent( // ← Remove this - redundant!
+      eventName: AnalyticsEventName.giveButtonPressed,
+    );
+    _cubit.navigateToOrganization();
+  },
+),
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/givtnl)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/givtnl)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
