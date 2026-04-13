@@ -1,0 +1,38 @@
+{
+  "name": "rlcurrall--aide",
+  "displayName": "aide",
+  "description": "AI instruction files for aide by rlcurrall",
+  "version": "1.0.0",
+  "author": "rlcurrall",
+  "homepage": "https://tomevault.io/claim/rlcurrall",
+  "skills": [
+    {
+      "name": "pr-comment",
+      "description": ""
+    },
+    {
+      "name": "pr-comments",
+      "description": ""
+    },
+    {
+      "name": "pr-create",
+      "description": ""
+    },
+    {
+      "name": "pr-diff",
+      "description": ""
+    },
+    {
+      "name": "pr-update",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "ticket-comment",
+      "description": ""
+    }
+  ]
+}
