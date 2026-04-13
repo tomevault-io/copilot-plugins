@@ -1,6 +1,6 @@
 # AI-agents-for-cybersecurity
 
-> Config by [santosomar](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io/claim/santosomar)
+> Tome by [santosomar](https://github.com/santosomar/AI-agents-for-cybersecurity) — distributed by [TomeVault](https://tomevault.io/claim/santosomar)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [santosomar/AI-agents-for-cybersecuri
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/santosomar](https://tomevault.io/claim/santosomar)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/santosomar)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/santosomar) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
