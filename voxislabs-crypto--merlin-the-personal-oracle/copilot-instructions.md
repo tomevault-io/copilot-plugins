@@ -28,6 +28,5 @@ Compute: Positions (longitude, sign, degree, minute, house), houses (cusps), asp
 No graphics—pure data.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/voxislabs-crypto)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/voxislabs-crypto)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/voxislabs-crypto) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
