@@ -1,6 +1,6 @@
-# med-tracker
+# AI instruction files for med-tracker
 
-> Config by [damacus](https://github.com/damacus/med-tracker) — distributed by [TomeVault](https://tomevault.io/claim/damacus)
+> Sourced from [damacus/med-tracker](https://github.com/damacus/med-tracker) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [damacus/med-tracker](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/damacus](https://tomevault.io/claim/damacus)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/damacus)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/damacus) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install damacus/med-tracker
+```
+Or browse all formats at [https://tomevault.io/claim/damacus](https://tomevault.io/claim/damacus).
+
+<!-- genome:a-i-s -->
