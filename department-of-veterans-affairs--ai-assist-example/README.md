@@ -1,6 +1,6 @@
-# ai-assist-example
+# ai-assist-example — distributed by TomeVault
 
-> Config by [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs/ai-assist-example) — distributed by [TomeVault](https://tomevault.io/claim/department-of-veterans-affairs)
+> Originally from [department-of-veterans-affairs/ai-assist-example](https://github.com/department-of-veterans-affairs/ai-assist-example). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [department-of-veterans-affairs/ai-as
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/department-of-veterans-affairs](https://tomevault.io/claim/department-of-veterans-affairs)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/department-of-veterans-affairs)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/department-of-veterans-affairs) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install department-of-veterans-affairs/ai-assist-example
+```
+Or browse all formats at [https://tomevault.io/claim/department-of-veterans-affairs](https://tomevault.io/claim/department-of-veterans-affairs).
+
+<!-- genome:d-i-s -->
