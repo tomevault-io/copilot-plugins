@@ -1,9 +1,50 @@
 {
   "name": "arkanwolfshade--mythosmud",
   "displayName": "MythosMUD",
-  "description": "MythosMUD",
+  "description": "AI instruction files for MythosMUD by arkanwolfshade",
   "version": "1.0.0",
   "author": "arkanwolfshade",
   "homepage": "https://tomevault.io/claim/arkanwolfshade",
-  "skills": []
+  "skills": [
+    {
+      "name": "mythosmud-adr-authoring",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-code-quality-ai",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-commit-messages",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-coppa-checklist",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-database-placement",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-full-stack-feature",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-logging-standards",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-openapi-workflow",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-pre-commit-checklist",
+      "description": ""
+    },
+    {
+      "name": "mythosmud-test-writing",
+      "description": ""
+    }
+  ]
 }
