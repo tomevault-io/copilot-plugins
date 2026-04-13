@@ -52,6 +52,5 @@ Follow this protocol in EVERY session. Skipping causes knowledge loss.
 | Ending the session | `remb_conversationLog` with session summary |
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/samie105)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/samie105)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/samie105) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
