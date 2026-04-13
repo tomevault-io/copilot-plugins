@@ -1,6 +1,6 @@
 # nl2v2
 
-> Config by [ujjalcal](https://github.com/ujjalcal/nl2v2) — distributed by [TomeVault](https://tomevault.io/claim/ujjalcal)
+> Tome by [ujjalcal](https://github.com/ujjalcal/nl2v2) — distributed by [TomeVault](https://tomevault.io/claim/ujjalcal)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [ujjalcal/nl2v2](https://github.com/u
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/ujjalcal](https://tomevault.io/claim/ujjalcal)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ujjalcal)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ujjalcal) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/ujjalcal) to manage distribution and track installs.
+
+<!-- genome:t-c-p -->
