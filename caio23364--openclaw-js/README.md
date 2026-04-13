@@ -1,6 +1,6 @@
-# openclaw-js
+# openclaw-js — distributed by TomeVault
 
-> Config by [Caio23364](https://github.com/Caio23364/openclaw-js) — distributed by [TomeVault](https://tomevault.io/claim/Caio23364)
+> Originally from [Caio23364/openclaw-js](https://github.com/Caio23364/openclaw-js). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -13,10 +13,16 @@ Original source: `AGENTS.md` in [Caio23364/openclaw-js](https://github.com/Caio2
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Caio23364](https://tomevault.io/claim/Caio23364)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Caio23364)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Caio23364) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Caio23364/openclaw-js
+```
+Or browse all formats at [https://tomevault.io/claim/Caio23364](https://tomevault.io/claim/Caio23364).
+
+<!-- genome:d-i-s -->
