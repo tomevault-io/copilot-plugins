@@ -1,0 +1,26 @@
+{
+  "name": "study-flamingo--thoughtlab",
+  "displayName": "thoughtlab",
+  "description": "AI instruction files for thoughtlab by study-flamingo",
+  "version": "1.0.0",
+  "author": "study-flamingo",
+  "homepage": "https://tomevault.io/claim/study-flamingo",
+  "skills": [
+    {
+      "name": "api-spec",
+      "description": ""
+    },
+    {
+      "name": "auth",
+      "description": ""
+    },
+    {
+      "name": "changelog",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    }
+  ]
+}
