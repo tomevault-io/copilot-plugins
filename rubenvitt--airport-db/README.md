@@ -1,6 +1,6 @@
-# airport-db
+# airport-db — distributed by TomeVault
 
-> Config by [rubenvitt](https://github.com/rubenvitt/airport-db) — distributed by [TomeVault](https://tomevault.io/claim/rubenvitt)
+> Originally from [rubenvitt/airport-db](https://github.com/rubenvitt/airport-db). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [rubenvitt/airport-db](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/rubenvitt](https://tomevault.io/claim/rubenvitt)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/rubenvitt)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/rubenvitt) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install rubenvitt/airport-db
+```
+Or browse all formats at [https://tomevault.io/claim/rubenvitt](https://tomevault.io/claim/rubenvitt).
+
+<!-- genome:d-i-s -->
