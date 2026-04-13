@@ -2,8 +2,8 @@
   "name": "11comm",
   "owner": "ruan-cat",
   "repo": "11comm",
-  "description": "",
-  "type": "config",
+  "description": "AI instruction files for 11comm by ruan-cat",
+  "type": "tome",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "code-style",
+      "path": ".claude/skills/code-style",
+      "github_url": "https://github.com/ruan-cat/11comm/tree/main/.claude/skills/code-style",
+      "description": ""
+    },
+    {
+      "name": "fix-type-error",
+      "path": ".claude/skills/fix-type-error",
+      "github_url": "https://github.com/ruan-cat/11comm/tree/main/.claude/skills/fix-type-error",
+      "description": ""
+    },
+    {
+      "name": "neon-postgres",
+      "path": ".agents/skills/neon-postgres",
+      "github_url": "https://github.com/ruan-cat/11comm/tree/main/.agents/skills/neon-postgres",
+      "description": ""
+    },
+    {
+      "name": "neon-postgres-zh",
+      "path": ".claude/skills/neon-postgres-zh",
+      "github_url": "https://github.com/ruan-cat/11comm/tree/main/.claude/skills/neon-postgres-zh",
+      "description": ""
+    },
+    {
+      "name": "openspec-apply-change",
+      "path": ".claude/skills/openspec-apply-change",
+      "github_url": "https://github.com/ruan-cat/11comm/tree/main/.claude/skills/openspec-apply-change",
+      "description": ""
+    },
+    {
+      "name": "type-project-organization",
+      "path": ".claude/skills/type-project-organization",
+      "github_url": "https://github.com/ruan-cat/11comm/tree/main/.claude/skills/type-project-organization",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/ruan-cat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T16:33:48Z"
+  "distributed_at": "2026-04-13T05:42:50Z"
 }
