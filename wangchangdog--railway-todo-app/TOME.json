@@ -4,7 +4,7 @@
   "repo": "railway-todo-app",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/wangchangdog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T23:31:20Z"
+  "distributed_at": "2026-04-13T14:55:07Z"
 }
