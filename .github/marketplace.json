@@ -6629,41 +6629,6 @@
       "description": "dot-ai-demo"
     },
     {
-      "name": "alfadlyqtr--wakti-bilingual-assistant",
-      "source": "./alfadlyqtr--wakti-bilingual-assistant",
-      "description": "wakti-bilingual-assistant"
-    },
-    {
-      "name": "timjossund--baptist-cloud",
-      "source": "./timjossund--baptist-cloud",
-      "description": "baptist-cloud"
-    },
-    {
-      "name": "marta-fret--10xdevs-flashcards",
-      "source": "./marta-fret--10xdevs-flashcards",
-      "description": "10xdevs-flashcards"
-    },
-    {
-      "name": "mrfansi--slacky",
-      "source": "./mrfansi--slacky",
-      "description": "slacky"
-    },
-    {
-      "name": "2dice--task-master",
-      "source": "./2dice--task-master",
-      "description": "task-master"
-    },
-    {
-      "name": "aungkomyint222--minai-minterest",
-      "source": "./aungkomyint222--minai-minterest",
-      "description": "minai-minterest"
-    },
-    {
-      "name": "dh-unica--asmsa-dog",
-      "source": "./dh-unica--asmsa-dog",
-      "description": "asmsa_dog"
-    },
-    {
       "name": "kedhareswer--interviewai-navigator",
       "source": "./kedhareswer--interviewai-navigator",
       "description": "interviewai-navigator"
@@ -27507,6 +27472,221 @@
       "name": "mstrar76--db-tinyos",
       "source": "./mstrar76--db-tinyos",
       "description": "DB_tinyOS"
+    },
+    {
+      "name": "thanhnh98--thanhnh98-github-io",
+      "source": "./thanhnh98--thanhnh98-github-io",
+      "description": "thanhnh98.github.io"
+    },
+    {
+      "name": "benzoogataga--fileconverter",
+      "source": "./benzoogataga--fileconverter",
+      "description": "FileConverter"
+    },
+    {
+      "name": "sandeepkbm--deepreach-extended-to-no-dynamics",
+      "source": "./sandeepkbm--deepreach-extended-to-no-dynamics",
+      "description": "Deepreach-extended-to-no-dynamics"
+    },
+    {
+      "name": "a-rebets--arcana",
+      "source": "./a-rebets--arcana",
+      "description": "arcana"
+    },
+    {
+      "name": "olefson--eduplat",
+      "source": "./olefson--eduplat",
+      "description": "EduPlat"
+    },
+    {
+      "name": "iknowmagic--supportdesk-portal",
+      "source": "./iknowmagic--supportdesk-portal",
+      "description": "supportdesk-portal"
+    },
+    {
+      "name": "alfadlyqtr--wakti-bilingual-assistant",
+      "source": "./alfadlyqtr--wakti-bilingual-assistant",
+      "description": "wakti-bilingual-assistant"
+    },
+    {
+      "name": "dreadpiraterobertz--trading-bot",
+      "source": "./dreadpiraterobertz--trading-bot",
+      "description": "trading-bot"
+    },
+    {
+      "name": "bycedric--test-launch-watchos",
+      "source": "./bycedric--test-launch-watchos",
+      "description": "test-launch-watchos"
+    },
+    {
+      "name": "defra--ai-sdlc--agent-poc",
+      "source": "./defra--ai-sdlc--agent-poc",
+      "description": "ai-sdlc--agent-poc"
+    },
+    {
+      "name": "jongchoon580325--webgallery-kim",
+      "source": "./jongchoon580325--webgallery-kim",
+      "description": "webgallery-kim"
+    },
+    {
+      "name": "matejsemancik--tempo-timer",
+      "source": "./matejsemancik--tempo-timer",
+      "description": "tempo-timer"
+    },
+    {
+      "name": "timjossund--baptist-cloud",
+      "source": "./timjossund--baptist-cloud",
+      "description": "baptist-cloud"
+    },
+    {
+      "name": "ai-mindset--config",
+      "source": "./ai-mindset--config",
+      "description": "config"
+    },
+    {
+      "name": "hydpy--pyconfhyd2026",
+      "source": "./hydpy--pyconfhyd2026",
+      "description": "pyconfhyd2026"
+    },
+    {
+      "name": "leomerida15--bunstart",
+      "source": "./leomerida15--bunstart",
+      "description": "bunstart"
+    },
+    {
+      "name": "everycure-org--matrix",
+      "source": "./everycure-org--matrix",
+      "description": "matrix"
+    },
+    {
+      "name": "insight-services-apac--insight-ingenious-for-fabric",
+      "source": "./insight-services-apac--insight-ingenious-for-fabric",
+      "description": "Insight_Ingenious_For_Fabric"
+    },
+    {
+      "name": "marta-fret--10xdevs-flashcards",
+      "source": "./marta-fret--10xdevs-flashcards",
+      "description": "10xdevs-flashcards"
+    },
+    {
+      "name": "geuan666--project-ap-ig",
+      "source": "./geuan666--project-ap-ig",
+      "description": "project-AP-IG"
+    },
+    {
+      "name": "chrismah84--ai-competitor-tracker",
+      "source": "./chrismah84--ai-competitor-tracker",
+      "description": "ai-competitor-tracker"
+    },
+    {
+      "name": "deco-cx--azion-mcp",
+      "source": "./deco-cx--azion-mcp",
+      "description": "azion-mcp"
+    },
+    {
+      "name": "henryallen04--life-kb",
+      "source": "./henryallen04--life-kb",
+      "description": "Life-KB"
+    },
+    {
+      "name": "bikatr7--kai",
+      "source": "./bikatr7--kai",
+      "description": "Kai"
+    },
+    {
+      "name": "mrfansi--slacky",
+      "source": "./mrfansi--slacky",
+      "description": "slacky"
+    },
+    {
+      "name": "ninevastudios--nineva-docs",
+      "source": "./ninevastudios--nineva-docs",
+      "description": "nineva-docs"
+    },
+    {
+      "name": "vikram-bm--helix",
+      "source": "./vikram-bm--helix",
+      "description": "helix"
+    },
+    {
+      "name": "muraaano--cursor-project-rules-on-rails",
+      "source": "./muraaano--cursor-project-rules-on-rails",
+      "description": "cursor-project-rules-on-rails"
+    },
+    {
+      "name": "pataco80--capriati-sa-nextjs",
+      "source": "./pataco80--capriati-sa-nextjs",
+      "description": "capriati-sa-nextjs"
+    },
+    {
+      "name": "michael-dages--camextractor",
+      "source": "./michael-dages--camextractor",
+      "description": "CamExtractor"
+    },
+    {
+      "name": "2dice--task-master",
+      "source": "./2dice--task-master",
+      "description": "task-master"
+    },
+    {
+      "name": "z3z1ma--lookervault",
+      "source": "./z3z1ma--lookervault",
+      "description": "lookervault"
+    },
+    {
+      "name": "apache--skywalking-infra-e2e",
+      "source": "./apache--skywalking-infra-e2e",
+      "description": "skywalking-infra-e2e"
+    },
+    {
+      "name": "kumarpriyanshu09--protocol-pro",
+      "source": "./kumarpriyanshu09--protocol-pro",
+      "description": "Protocol_Pro_"
+    },
+    {
+      "name": "onigetoc--terminalx-experience",
+      "source": "./onigetoc--terminalx-experience",
+      "description": "terminalx-experience"
+    },
+    {
+      "name": "jerryyrrej--portfolio-dashboard",
+      "source": "./jerryyrrej--portfolio-dashboard",
+      "description": "portfolio-dashboard"
+    },
+    {
+      "name": "aungkomyint222--minai-minterest",
+      "source": "./aungkomyint222--minai-minterest",
+      "description": "minai-minterest"
+    },
+    {
+      "name": "gakawarstone--gkbot",
+      "source": "./gakawarstone--gkbot",
+      "description": "gkbot"
+    },
+    {
+      "name": "iobroker-community-adapters--iobroker-spotify-premium",
+      "source": "./iobroker-community-adapters--iobroker-spotify-premium",
+      "description": "ioBroker.spotify-premium"
+    },
+    {
+      "name": "yuzoiwasaki--slack-approval-bot",
+      "source": "./yuzoiwasaki--slack-approval-bot",
+      "description": "slack-approval-bot"
+    },
+    {
+      "name": "iamjprowan--obsidian-simple-icons",
+      "source": "./iamjprowan--obsidian-simple-icons",
+      "description": "obsidian-simple-icons"
+    },
+    {
+      "name": "jamesacres--bubblyclouds-app",
+      "source": "./jamesacres--bubblyclouds-app",
+      "description": "bubblyclouds-app"
+    },
+    {
+      "name": "dh-unica--asmsa-dog",
+      "source": "./dh-unica--asmsa-dog",
+      "description": "asmsa_dog"
     }
   ]
 }
