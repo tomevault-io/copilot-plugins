@@ -1,6 +1,6 @@
 # ai-coding-rules
 
-> Config by [zoxknez](https://github.com/zoxknez/ai-coding-rules) — distributed by [TomeVault](https://tomevault.io/claim/zoxknez)
+> Tome by [zoxknez](https://github.com/zoxknez/ai-coding-rules) — distributed by [TomeVault](https://tomevault.io/claim/zoxknez)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [zoxknez/ai-coding-rules](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/zoxknez](https://tomevault.io/claim/zoxknez)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/zoxknez)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/zoxknez) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install zoxknez/ai-coding-rules
+```
+Or browse all formats at [https://tomevault.io/claim/zoxknez](https://tomevault.io/claim/zoxknez).
+
+<!-- genome:t-i-p -->
