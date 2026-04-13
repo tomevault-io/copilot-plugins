@@ -1,6 +1,6 @@
 # ai-sdlc--agent-poc
 
-> Config by [DEFRA](https://github.com/DEFRA/ai-sdlc--agent-poc) — distributed by [TomeVault](https://tomevault.io/claim/DEFRA)
+> Tome by [DEFRA](https://github.com/DEFRA/ai-sdlc--agent-poc) — distributed by [TomeVault](https://tomevault.io/claim/DEFRA)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [DEFRA/ai-sdlc--agent-poc](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/DEFRA](https://tomevault.io/claim/DEFRA)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/DEFRA)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/DEFRA) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
