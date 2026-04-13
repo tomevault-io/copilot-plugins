@@ -1,6 +1,6 @@
-# playwright-framework-template
+# AI instruction files for playwright-framework-template
 
-> Config by [abhaybharti](https://github.com/abhaybharti/playwright-framework-template) — distributed by [TomeVault](https://tomevault.io/claim/abhaybharti)
+> Sourced from [abhaybharti/playwright-framework-template](https://github.com/abhaybharti/playwright-framework-template) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [abhaybharti/playwright-framework-tem
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/abhaybharti](https://tomevault.io/claim/abhaybharti)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/abhaybharti)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/abhaybharti) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install abhaybharti/playwright-framework-template
+```
+Or browse all formats at [https://tomevault.io/claim/abhaybharti](https://tomevault.io/claim/abhaybharti).
+
+<!-- genome:a-i-p -->
