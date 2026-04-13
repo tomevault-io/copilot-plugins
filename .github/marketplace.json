@@ -6639,36 +6639,6 @@
       "description": "oddo_kormmash"
     },
     {
-      "name": "siamese001--agentic-workflow",
-      "source": "./siamese001--agentic-workflow",
-      "description": "Agentic-Workflow"
-    },
-    {
-      "name": "funsaized--prompts",
-      "source": "./funsaized--prompts",
-      "description": "prompts"
-    },
-    {
-      "name": "ollieb89--ugro",
-      "source": "./ollieb89--ugro",
-      "description": "ugro"
-    },
-    {
-      "name": "furqanagwan--furqanagwan",
-      "source": "./furqanagwan--furqanagwan",
-      "description": "furqanagwan"
-    },
-    {
-      "name": "oleg121203--mvp",
-      "source": "./oleg121203--mvp",
-      "description": "MVP"
-    },
-    {
-      "name": "tmforum-oda--oda-canvas",
-      "source": "./tmforum-oda--oda-canvas",
-      "description": "oda-canvas"
-    },
-    {
       "name": "damacus--med-tracker",
       "source": "./damacus--med-tracker",
       "description": "med-tracker"
@@ -29912,6 +29882,221 @@
       "name": "hokagecv--hokagecv-github-io",
       "source": "./hokagecv--hokagecv-github-io",
       "description": "hokageCV.github.io"
+    },
+    {
+      "name": "cdalsoniii--brightpath-coder",
+      "source": "./cdalsoniii--brightpath-coder",
+      "description": "brightpath-coder"
+    },
+    {
+      "name": "amo-tech-ai--rocket-path-ai",
+      "source": "./amo-tech-ai--rocket-path-ai",
+      "description": "rocket-path-ai"
+    },
+    {
+      "name": "seanogdev--seanogrady-me",
+      "source": "./seanogdev--seanogrady-me",
+      "description": "seanogrady.me"
+    },
+    {
+      "name": "kyzooghost--skills",
+      "source": "./kyzooghost--skills",
+      "description": "skills"
+    },
+    {
+      "name": "oianthony--autodev-hub",
+      "source": "./oianthony--autodev-hub",
+      "description": "autodev-hub"
+    },
+    {
+      "name": "dprabhua--mayuracoirs",
+      "source": "./dprabhua--mayuracoirs",
+      "description": "mayuracoirs"
+    },
+    {
+      "name": "poteto-go--go-alchemy-sdk",
+      "source": "./poteto-go--go-alchemy-sdk",
+      "description": "go-alchemy-sdk"
+    },
+    {
+      "name": "siamese001--agentic-workflow",
+      "source": "./siamese001--agentic-workflow",
+      "description": "Agentic-Workflow"
+    },
+    {
+      "name": "zzgosh--ascii-art-svg",
+      "source": "./zzgosh--ascii-art-svg",
+      "description": "ASCII-ART_SVG"
+    },
+    {
+      "name": "g-kari--tarot",
+      "source": "./g-kari--tarot",
+      "description": "tarot"
+    },
+    {
+      "name": "romkoos--prolixy",
+      "source": "./romkoos--prolixy",
+      "description": "prolixy"
+    },
+    {
+      "name": "hiroky1983--cmd-go",
+      "source": "./hiroky1983--cmd-go",
+      "description": "cmd-go"
+    },
+    {
+      "name": "hkopenai--vtube-studio-plugin-mcp-server",
+      "source": "./hkopenai--vtube-studio-plugin-mcp-server",
+      "description": "vtube-studio-plugin-mcp-server"
+    },
+    {
+      "name": "funsaized--prompts",
+      "source": "./funsaized--prompts",
+      "description": "prompts"
+    },
+    {
+      "name": "limichange--ai-prototype",
+      "source": "./limichange--ai-prototype",
+      "description": "ai-prototype"
+    },
+    {
+      "name": "fhu--cis467-sp26-dad-jokes-app",
+      "source": "./fhu--cis467-sp26-dad-jokes-app",
+      "description": "CIS467-SP26-dad-jokes-app"
+    },
+    {
+      "name": "kevinmgreer--fantasy-baseball-manager",
+      "source": "./kevinmgreer--fantasy-baseball-manager",
+      "description": "fantasy-baseball-manager"
+    },
+    {
+      "name": "netbirdio--addon-netbird",
+      "source": "./netbirdio--addon-netbird",
+      "description": "addon-netbird"
+    },
+    {
+      "name": "ankitchiplunkar--frontend-design",
+      "source": "./ankitchiplunkar--frontend-design",
+      "description": "frontend-design"
+    },
+    {
+      "name": "ollieb89--ugro",
+      "source": "./ollieb89--ugro",
+      "description": "ugro"
+    },
+    {
+      "name": "rsnemmen--pip-select",
+      "source": "./rsnemmen--pip-select",
+      "description": "pip-select"
+    },
+    {
+      "name": "earelin--agora-ui",
+      "source": "./earelin--agora-ui",
+      "description": "agora-ui"
+    },
+    {
+      "name": "frontend-fucker--scheduler-manager",
+      "source": "./frontend-fucker--scheduler-manager",
+      "description": "scheduler-manager"
+    },
+    {
+      "name": "mirix-ai--mirix",
+      "source": "./mirix-ai--mirix",
+      "description": "MIRIX"
+    },
+    {
+      "name": "iml1s--flutter-agent",
+      "source": "./iml1s--flutter-agent",
+      "description": "flutter_agent"
+    },
+    {
+      "name": "furqanagwan--furqanagwan",
+      "source": "./furqanagwan--furqanagwan",
+      "description": "furqanagwan"
+    },
+    {
+      "name": "emreozyoruk--lovie-p2p-payment",
+      "source": "./emreozyoruk--lovie-p2p-payment",
+      "description": "lovie-p2p-payment"
+    },
+    {
+      "name": "xlozinguez--ai-hype-watcher",
+      "source": "./xlozinguez--ai-hype-watcher",
+      "description": "ai-hype-watcher"
+    },
+    {
+      "name": "chrishartline--agentfactory",
+      "source": "./chrishartline--agentfactory",
+      "description": "agentfactory"
+    },
+    {
+      "name": "empathyco--x-archetype",
+      "source": "./empathyco--x-archetype",
+      "description": "x-archetype"
+    },
+    {
+      "name": "carlo-colombo--cashsplitter",
+      "source": "./carlo-colombo--cashsplitter",
+      "description": "CashSplitter"
+    },
+    {
+      "name": "oleg121203--mvp",
+      "source": "./oleg121203--mvp",
+      "description": "MVP"
+    },
+    {
+      "name": "mnem0nic7--diabetes-2025",
+      "source": "./mnem0nic7--diabetes-2025",
+      "description": "diabetes-2025"
+    },
+    {
+      "name": "jonasneves--shipctl",
+      "source": "./jonasneves--shipctl",
+      "description": "shipctl"
+    },
+    {
+      "name": "guyettinger--pourmyfriends",
+      "source": "./guyettinger--pourmyfriends",
+      "description": "PourMyFriends"
+    },
+    {
+      "name": "coinbase--spend-permissions",
+      "source": "./coinbase--spend-permissions",
+      "description": "spend-permissions"
+    },
+    {
+      "name": "48984228328aninha--estudo-rust",
+      "source": "./48984228328aninha--estudo-rust",
+      "description": "estudo_rust"
+    },
+    {
+      "name": "tmforum-oda--oda-canvas",
+      "source": "./tmforum-oda--oda-canvas",
+      "description": "oda-canvas"
+    },
+    {
+      "name": "crozier-kimball--jarvis-public",
+      "source": "./crozier-kimball--jarvis-public",
+      "description": "jarvis-public"
+    },
+    {
+      "name": "galaxy-0--agentsclub2plantsclub",
+      "source": "./galaxy-0--agentsclub2plantsclub",
+      "description": "AgentSClub2PlantSClub"
+    },
+    {
+      "name": "migueldzn2--projetocg",
+      "source": "./migueldzn2--projetocg",
+      "description": "ProjetoCG"
+    },
+    {
+      "name": "lism-css--lism-css",
+      "source": "./lism-css--lism-css",
+      "description": "lism-css"
+    },
+    {
+      "name": "noam-hoze--ecolution",
+      "source": "./noam-hoze--ecolution",
+      "description": "EcoLution"
     }
   ]
 }
