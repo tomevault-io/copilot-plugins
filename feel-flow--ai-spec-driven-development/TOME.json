@@ -1,0 +1,63 @@
+{
+  "name": "ai-spec-driven-development",
+  "owner": "feel-flow",
+  "repo": "ai-spec-driven-development",
+  "description": "AI instruction files for ai-spec-driven-development by feel-flow",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": ".github/skills/code-review",
+      "github_url": "https://github.com/feel-flow/ai-spec-driven-development/tree/main/.github/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review-standards",
+      "path": "docs-template/.github/skills/code-review-standards",
+      "github_url": "https://github.com/feel-flow/ai-spec-driven-development/tree/main/docs-template/.github/skills/code-review-standards",
+      "description": ""
+    },
+    {
+      "name": "code-simplification",
+      "path": ".github/skills/code-simplification",
+      "github_url": "https://github.com/feel-flow/ai-spec-driven-development/tree/main/.github/skills/code-simplification",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/feel-flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T05:46:57Z"
+}
