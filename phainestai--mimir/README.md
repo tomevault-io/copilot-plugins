@@ -1,6 +1,6 @@
-# mimir
+# mimir — distributed by TomeVault
 
-> Config by [phainestai](https://github.com/phainestai/mimir) — distributed by [TomeVault](https://tomevault.io/claim/phainestai)
+> Originally from [phainestai/mimir](https://github.com/phainestai/mimir). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [phainestai/mimir](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/phainestai](https://tomevault.io/claim/phainestai)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/phainestai#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/phainestai) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
