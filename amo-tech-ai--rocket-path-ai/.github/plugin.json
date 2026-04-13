@@ -1,0 +1,14 @@
+{
+  "name": "amo-tech-ai--rocket-path-ai",
+  "displayName": "rocket-path-ai",
+  "description": "AI instruction files for rocket-path-ai by amo-tech-ai",
+  "version": "1.0.0",
+  "author": "amo-tech-ai",
+  "homepage": "https://tomevault.io/claim/amo-tech-ai",
+  "skills": [
+    {
+      "name": "agent-best-practices",
+      "description": ""
+    }
+  ]
+}
