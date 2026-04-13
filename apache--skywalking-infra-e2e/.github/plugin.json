@@ -1,0 +1,9 @@
+{
+  "name": "apache--skywalking-infra-e2e",
+  "displayName": "skywalking-infra-e2e",
+  "description": "skywalking-infra-e2e",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://tomevault.io/claim/apache",
+  "skills": []
+}
