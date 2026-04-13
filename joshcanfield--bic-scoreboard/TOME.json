@@ -1,0 +1,63 @@
+{
+  "name": "bic-scoreboard",
+  "owner": "joshcanfield",
+  "repo": "bic-scoreboard",
+  "description": "AI instruction files for bic-scoreboard by joshcanfield",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "build-validator",
+      "path": ".claude/skills/build-validator",
+      "github_url": "https://github.com/joshcanfield/bic-scoreboard/tree/main/.claude/skills/build-validator",
+      "description": ""
+    },
+    {
+      "name": "full-check",
+      "path": ".claude/skills/full-check",
+      "github_url": "https://github.com/joshcanfield/bic-scoreboard/tree/main/.claude/skills/full-check",
+      "description": ""
+    },
+    {
+      "name": "chrome-debug",
+      "path": ".claude/skills/chrome-debug",
+      "github_url": "https://github.com/joshcanfield/bic-scoreboard/tree/main/.claude/skills/chrome-debug",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/joshcanfield",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T05:44:53Z"
+}
