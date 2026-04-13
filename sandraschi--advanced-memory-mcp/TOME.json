@@ -61,9 +61,333 @@
       "path": "skills/technical/ai-ide-developer",
       "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/ai-ide-developer",
       "description": ""
+    },
+    {
+      "name": "api-design-architect",
+      "path": "skills/technical/api-design-architect",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/api-design-architect",
+      "description": ""
+    },
+    {
+      "name": "applied-mathematics-engineering",
+      "path": "skills/mathematics/applied-mathematics-engineering",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/applied-mathematics-engineering",
+      "description": ""
+    },
+    {
+      "name": "astrology-interpretation-guide",
+      "path": "skills/nonsense/astrology-interpretation-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/nonsense/astrology-interpretation-guide",
+      "description": ""
+    },
+    {
+      "name": "biblical-exegesis-expert",
+      "path": "skills/philosophy/biblical-exegesis-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/philosophy/biblical-exegesis-expert",
+      "description": ""
+    },
+    {
+      "name": "biology-comprehensive-guide",
+      "path": "skills/sciences/biology-comprehensive-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/sciences/biology-comprehensive-guide",
+      "description": ""
+    },
+    {
+      "name": "buddhist-philosophy-teacher",
+      "path": "skills/philosophy/buddhist-philosophy-teacher",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/philosophy/buddhist-philosophy-teacher",
+      "description": ""
+    },
+    {
+      "name": "calculus-tutor",
+      "path": "skills/mathematics/calculus-tutor",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/calculus-tutor",
+      "description": ""
+    },
+    {
+      "name": "chemistry-lab-techniques",
+      "path": "skills/sciences/chemistry-lab-techniques",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/sciences/chemistry-lab-techniques",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-pipeline-builder",
+      "path": "skills/technical/ci-cd-pipeline-builder",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/ci-cd-pipeline-builder",
+      "description": ""
+    },
+    {
+      "name": "classical-japanese-literature",
+      "path": "skills/linguistic/classical-japanese-literature",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/linguistic/classical-japanese-literature",
+      "description": ""
+    },
+    {
+      "name": "climate-science-explainer",
+      "path": "skills/sciences/climate-science-explainer",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/sciences/climate-science-explainer",
+      "description": ""
+    },
+    {
+      "name": "code-review-assistant",
+      "path": "skills/technical/code-review-assistant",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/code-review-assistant",
+      "description": ""
+    },
+    {
+      "name": "comparative-religion-scholar",
+      "path": "skills/philosophy/comparative-religion-scholar",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/philosophy/comparative-religion-scholar",
+      "description": ""
+    },
+    {
+      "name": "database-optimization-guru",
+      "path": "skills/technical/database-optimization-guru",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/database-optimization-guru",
+      "description": ""
+    },
+    {
+      "name": "differential-equations-solver",
+      "path": "skills/mathematics/differential-equations-solver",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/differential-equations-solver",
+      "description": ""
+    },
+    {
+      "name": "discrete-mathematics-expert",
+      "path": "skills/mathematics/discrete-mathematics-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/discrete-mathematics-expert",
+      "description": ""
+    },
+    {
+      "name": "docker-kubernetes-pro",
+      "path": "skills/technical/docker-kubernetes-pro",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/docker-kubernetes-pro",
+      "description": ""
+    },
+    {
+      "name": "eastern-philosophy-guide",
+      "path": "skills/philosophy/eastern-philosophy-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/philosophy/eastern-philosophy-guide",
+      "description": ""
+    },
+    {
+      "name": "ethics-moral-philosophy",
+      "path": "skills/philosophy/ethics-moral-philosophy",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/philosophy/ethics-moral-philosophy",
+      "description": ""
+    },
+    {
+      "name": "etymology-word-origins",
+      "path": "skills/linguistic/etymology-word-origins",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/linguistic/etymology-word-origins",
+      "description": ""
+    },
+    {
+      "name": "full-stack-developer",
+      "path": ".cursor/skills/full-stack-developer",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/.cursor/skills/full-stack-developer",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-specialist",
+      "path": "skills/technical/git-workflow-specialist",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/git-workflow-specialist",
+      "description": ""
+    },
+    {
+      "name": "graphic-design-fundamentals",
+      "path": "skills/creative/graphic-design-fundamentals",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/creative/graphic-design-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "herbalism-folk-magic",
+      "path": "skills/nonsense/herbalism-folk-magic",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/nonsense/herbalism-folk-magic",
+      "description": ""
+    },
+    {
+      "name": "i-ching-oracle-guide",
+      "path": "skills/nonsense/i-ching-oracle-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/nonsense/i-ching-oracle-guide",
+      "description": ""
+    },
+    {
+      "name": "jlpt-preparation-expert",
+      "path": "skills/linguistic/jlpt-preparation-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/linguistic/jlpt-preparation-expert",
+      "description": ""
+    },
+    {
+      "name": "kanji-etymology-expert",
+      "path": "skills/linguistic/kanji-etymology-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/linguistic/kanji-etymology-expert",
+      "description": ""
+    },
+    {
+      "name": "linear-algebra-expert",
+      "path": "skills/mathematics/linear-algebra-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/linear-algebra-expert",
+      "description": ""
+    },
+    {
+      "name": "linguistic-anthropology-guide",
+      "path": "skills/linguistic/linguistic-anthropology-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/linguistic/linguistic-anthropology-guide",
+      "description": ""
+    },
+    {
+      "name": "materials-science-specialist",
+      "path": "skills/sciences/materials-science-specialist",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/sciences/materials-science-specialist",
+      "description": ""
+    },
+    {
+      "name": "mcp-server-developer",
+      "path": ".cursor/skills/mcp-server-developer",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/.cursor/skills/mcp-server-developer",
+      "description": ""
+    },
+    {
+      "name": "mexican-cuisine-specialist",
+      "path": "skills/culinary/mexican-cuisine-specialist",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/culinary/mexican-cuisine-specialist",
+      "description": ""
+    },
+    {
+      "name": "microservices-architect",
+      "path": "skills/technical/microservices-architect",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/microservices-architect",
+      "description": ""
+    },
+    {
+      "name": "number-theory-explorer",
+      "path": "skills/mathematics/number-theory-explorer",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/number-theory-explorer",
+      "description": ""
+    },
+    {
+      "name": "numerical-methods-expert",
+      "path": "skills/mathematics/numerical-methods-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/numerical-methods-expert",
+      "description": ""
+    },
+    {
+      "name": "palmistry-chiromancy-guide",
+      "path": "skills/nonsense/palmistry-chiromancy-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/nonsense/palmistry-chiromancy-guide",
+      "description": ""
+    },
+    {
+      "name": "performance-tuning-expert",
+      "path": "skills/technical/performance-tuning-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/performance-tuning-expert",
+      "description": ""
+    },
+    {
+      "name": "photography-composition-guide",
+      "path": "skills/creative/photography-composition-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/creative/photography-composition-guide",
+      "description": ""
+    },
+    {
+      "name": "podcast-production-guide",
+      "path": "skills/creative/podcast-production-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/creative/podcast-production-guide",
+      "description": ""
+    },
+    {
+      "name": "presentation-design-expert",
+      "path": "skills/creative/presentation-design-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/creative/presentation-design-expert",
+      "description": ""
+    },
+    {
+      "name": "python-debugging-expert",
+      "path": "skills/technical/python-debugging-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/python-debugging-expert",
+      "description": ""
+    },
+    {
+      "name": "refactoring-specialist",
+      "path": "skills/technical/refactoring-specialist",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/refactoring-specialist",
+      "description": ""
+    },
+    {
+      "name": "runes-divination-expert",
+      "path": "skills/nonsense/runes-divination-expert",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/nonsense/runes-divination-expert",
+      "description": ""
+    },
+    {
+      "name": "seance-spiritualism-guide",
+      "path": "skills/nonsense/seance-spiritualism-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/nonsense/seance-spiritualism-guide",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "path": "skills/technical/security-best-practices",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "imported-skills",
+      "path": "imported-skills",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/imported-skills",
+      "description": ""
+    },
+    {
+      "name": "spanish-cooking",
+      "path": "skills/spanish-cooking",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/spanish-cooking",
+      "description": ""
+    },
+    {
+      "name": "statistics-probability-guide",
+      "path": "skills/mathematics/statistics-probability-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/statistics-probability-guide",
+      "description": ""
+    },
+    {
+      "name": "storytelling-narrative-coach",
+      "path": "skills/creative/storytelling-narrative-coach",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/creative/storytelling-narrative-coach",
+      "description": ""
+    },
+    {
+      "name": "technical-writing-editor",
+      "path": "skills/creative/technical-writing-editor",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/creative/technical-writing-editor",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy-guide",
+      "path": "skills/technical/testing-strategy-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/technical/testing-strategy-guide",
+      "description": ""
+    },
+    {
+      "name": "topology-geometry-guide",
+      "path": "skills/mathematics/topology-geometry-guide",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/mathematics/topology-geometry-guide",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-design-consultant",
+      "path": "skills/creative/ui-ux-design-consultant",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/skills/creative/ui-ux-design-consultant",
+      "description": ""
+    },
+    {
+      "name": "windsurf-ide-integration",
+      "path": ".agents/skills/windsurf-ide-integration",
+      "github_url": "https://github.com/sandraschi/advanced-memory-mcp/tree/main/.agents/skills/windsurf-ide-integration",
+      "description": ""
     }
   ],
   "claim_url": "https://tomevault.io/claim/sandraschi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T16:00:56Z"
+  "distributed_at": "2026-04-13T05:38:57Z"
 }
