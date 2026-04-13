@@ -1,0 +1,22 @@
+{
+  "name": "bbrowning--bbrowning-claude-marketplace",
+  "displayName": "bbrowning-claude-marketplace",
+  "description": "AI instruction files for bbrowning-claude-marketplace by bbrowning",
+  "version": "1.0.0",
+  "author": "bbrowning",
+  "homepage": "https://tomevault.io/claim/bbrowning",
+  "skills": [
+    {
+      "name": "plugin-builder",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "description": ""
+    },
+    {
+      "name": "marketplace-builder",
+      "description": ""
+    }
+  ]
+}
