@@ -1,6 +1,6 @@
-# snyk-intellij-plugin
+# AI instruction files for snyk-intellij-plugin
 
-> Config by [snyk](https://github.com/snyk/snyk-intellij-plugin) — distributed by [TomeVault](https://tomevault.io/claim/snyk)
+> Sourced from [snyk/snyk-intellij-plugin](https://github.com/snyk/snyk-intellij-plugin) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [snyk/snyk-intellij-plugin](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/snyk](https://tomevault.io/claim/snyk)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/snyk)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/snyk) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-p -->
