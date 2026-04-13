@@ -1,6 +1,6 @@
-# hello_bystronic
+# AI instruction files for hello_bystronic
 
-> Config by [linogiovanoli](https://github.com/linogiovanoli/hello_bystronic) — distributed by [TomeVault](https://tomevault.io/claim/linogiovanoli)
+> Sourced from [linogiovanoli/hello_bystronic](https://github.com/linogiovanoli/hello_bystronic) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [linogiovanoli/hello_bystronic](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/linogiovanoli](https://tomevault.io/claim/linogiovanoli)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/linogiovanoli)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/linogiovanoli) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/linogiovanoli) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
