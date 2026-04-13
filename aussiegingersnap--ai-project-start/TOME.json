@@ -1,0 +1,57 @@
+{
+  "name": "ai-project-start",
+  "owner": "aussiegingersnap",
+  "repo": "ai-project-start",
+  "description": "AI instruction files for ai-project-start by aussiegingersnap",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "feature-build",
+      "path": ".cursor/skills/feature-build",
+      "github_url": "https://github.com/aussiegingersnap/ai-project-start/tree/main/.cursor/skills/feature-build",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "path": ".cursor/skills/project-setup",
+      "github_url": "https://github.com/aussiegingersnap/ai-project-start/tree/main/.cursor/skills/project-setup",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/aussiegingersnap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T05:44:26Z"
+}
