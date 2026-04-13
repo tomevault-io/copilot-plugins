@@ -1,53 +1,43 @@
 ## seam-agent
 
-> - DO NOT JUMP TO THE NEXT TASK OR START WRITING CODE!
+> This is a rule for how to plan and execute work!
 
 
-# Core Principles
-- DO NOT JUMP TO THE NEXT TASK OR START WRITING CODE!
+# Task List - Single Focus Workflow
 
-## Iterative Development
-- **Work Iteratively:** Start with the smallest possible change and build upon it.
-- **Test Assumptions:** Frequently test your assumptions and understanding.
-- **Don't Jump to Conclusions:** If you're unsure about the next step, ask for human input.
+## 🎯 Focus Rule
+**ONLY WORK ON ONE TASK AT A TIME**
+DO NOT UPDATE THIS FILE UPDATAE task.md for keeping track
 
-## Planning and Execution
-- **Follow the Plan:** Always work from the `task.md` file if it exists.
-- **Refer to PRD** Check in on `docs/customer-suport-agent-prd.md`
-- **Track Progress:** Check off TODOs as they are completed.
+## Workflow
 
-## Simplicity and Focus
-- **Keep it Simple:** Do not overcomplicate solutions.
-- **Stay Focused:** Do not touch files or parts of files that are not directly related to the task at hand.
-- **Be Precise:** Edits should be targeted and precise. Avoid making large, sweeping changes unless explicitly asked to.
-- **Respect Existing Code:** Do not refactor or change code that is unrelated to the current task.
+1. **Select Task:** Choose ONE task from `task.md` with status TODO
+2. **Mark In Progress:** Update the task status to IN_PROGRESS in `task.md`
+3. **Update This File:** Record the active task above
+4. **Work Iteratively:** Make small, focused changes
+5. **Test Frequently:** Verify each change works as expected
+6. **Complete Task:** Mark as COMPLETED when all acceptance criteria are met
+7. **Clean Up:** Update both files before starting the next task
 
-## Communication
-- **Be Proactive:** If you encounter a problem or are unsure how to proceed, communicate this early.
-- **Explain Your Reasoning:** Briefly explain why you are taking a certain action or making a specific change.
-- **Ask Clarifying Questions:** If the request is ambiguous, ask for clarification before proceeding.# Core Principles
+## Quick Commands
 
-## Iterative Development
-- **Work Iteratively:** Start with the smallest possible change and build upon it.
-- **Test Assumptions:** Frequently test your assumptions and understanding.
-- **Don't Jump to Conclusions:** If you're unsure about the next step, ask for human input.
+```bash
+# To check current task status
+grep -A 5 "IN_PROGRESS" task.md
 
-## Planning and Execution
-- **Follow the Plan:** Always work from the `plan.md` file if it exists.
-- **Track Progress:** Check off TODOs as they are completed.
+# To see all TODO tasks
+grep -B 2 -A 10 "Status.*TODO" task.md
+```
 
-## Simplicity and Focus
-- **Keep it Simple:** Do not overcomplicate solutions.
-- **Stay Focused:** Do not touch files or parts of files that are not directly related to the task at hand.
-- **Be Precise:** Edits should be targeted and precise. Avoid making large, sweeping changes unless explicitly asked to.
-- **Respect Existing Code:** Do not refactor or change code that is unrelated to the current task.
+## Reminders
 
-## Communication
-- **Be Proactive:** If you encounter a problem or are unsure how to proceed, communicate this early.
-- **Explain Your Reasoning:** Briefly explain why you are taking a certain action or making a specific change.
-- **Ask Clarifying Questions:** If the request is ambiguous, ask for clarification before proceeding.
+- ✅ Follow the plan in `task.md`
+- ✅ Check `docs/customer-support-agent-prd.md` for requirements
+- ✅ Keep changes small and focused
+- ✅ Don't modify unrelated code
+- ✅ Test assumptions frequently
+- ✅ Ask for help when uncertain
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/seamapi)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/seamapi)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/seamapi) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
