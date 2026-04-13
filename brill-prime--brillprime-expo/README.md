@@ -1,6 +1,6 @@
-# BrillPrime-expo
+# BrillPrime-expo — distributed by TomeVault
 
-> Config by [Brill-Prime](https://github.com/Brill-Prime/BrillPrime-expo) — distributed by [TomeVault](https://tomevault.io/claim/Brill-Prime)
+> Originally from [Brill-Prime/BrillPrime-expo](https://github.com/Brill-Prime/BrillPrime-expo). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Brill-Prime/BrillPrime-expo](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Brill-Prime](https://tomevault.io/claim/Brill-Prime)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Brill-Prime)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Brill-Prime) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/Brill-Prime) to manage distribution and track installs.
+
+<!-- genome:d-c-s -->
