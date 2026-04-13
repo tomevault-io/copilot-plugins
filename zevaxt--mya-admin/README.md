@@ -1,6 +1,6 @@
 # mya-admin
 
-> Config by [zevaxt](https://github.com/zevaxt/mya-admin) — distributed by [TomeVault](https://tomevault.io/claim/zevaxt)
+> Tome by [zevaxt](https://github.com/zevaxt/mya-admin) — distributed by [TomeVault](https://tomevault.io/claim/zevaxt)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [zevaxt/mya-admin](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/zevaxt](https://tomevault.io/claim/zevaxt)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/zevaxt)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/zevaxt) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install zevaxt/mya-admin
+```
+Or browse all formats at [https://tomevault.io/claim/zevaxt](https://tomevault.io/claim/zevaxt).
+
+<!-- genome:t-i-s -->
