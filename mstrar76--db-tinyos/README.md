@@ -1,6 +1,6 @@
-# DB_tinyOS
+# AI instruction files for DB_tinyOS
 
-> Config by [mstrar76](https://github.com/mstrar76/DB_tinyOS) — distributed by [TomeVault](https://tomevault.io/claim/mstrar76)
+> Sourced from [mstrar76/DB_tinyOS](https://github.com/mstrar76/DB_tinyOS) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [mstrar76/DB_tinyOS](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/mstrar76](https://tomevault.io/claim/mstrar76)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/mstrar76)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mstrar76) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/mstrar76) to manage distribution and track installs.
+
+<!-- genome:a-c-s -->
