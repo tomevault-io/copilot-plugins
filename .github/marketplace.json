@@ -6639,41 +6639,6 @@
       "description": "oddo_kormmash"
     },
     {
-      "name": "seanwuapps--vue-rules-generator",
-      "source": "./seanwuapps--vue-rules-generator",
-      "description": "vue-rules-generator"
-    },
-    {
-      "name": "kiaquo981--spalla-dashboard",
-      "source": "./kiaquo981--spalla-dashboard",
-      "description": "spalla-dashboard"
-    },
-    {
-      "name": "mfuentescas--page-2-context",
-      "source": "./mfuentescas--page-2-context",
-      "description": "page-2-context"
-    },
-    {
-      "name": "chris00walker--bmdp-papain-analysis",
-      "source": "./chris00walker--bmdp-papain-analysis",
-      "description": "bmdp-papain-analysis"
-    },
-    {
-      "name": "stokoloko89--t-rex-simplified",
-      "source": "./stokoloko89--t-rex-simplified",
-      "description": "t_rex_simplified"
-    },
-    {
-      "name": "develforever--mars-terraform",
-      "source": "./develforever--mars-terraform",
-      "description": "mars-terraform"
-    },
-    {
-      "name": "avav25--ai-assets",
-      "source": "./avav25--ai-assets",
-      "description": "ai-assets"
-    },
-    {
       "name": "siamese001--agentic-workflow",
       "source": "./siamese001--agentic-workflow",
       "description": "Agentic-Workflow"
@@ -29732,6 +29697,221 @@
       "name": "agustinruizdiaz--proyecto-comunicaci-n-de-datos-2025-aula-iot",
       "source": "./agustinruizdiaz--proyecto-comunicaci-n-de-datos-2025-aula-iot",
       "description": "Proyecto-Comunicaci-n-de-Datos-2025-Aula-IoT"
+    },
+    {
+      "name": "coffeedrunkpanda--lexicoach",
+      "source": "./coffeedrunkpanda--lexicoach",
+      "description": "lexicoach"
+    },
+    {
+      "name": "ferryzhaohui--linear-test-mcp",
+      "source": "./ferryzhaohui--linear-test-mcp",
+      "description": "linear-test-mcp"
+    },
+    {
+      "name": "ianwagers--wikirace",
+      "source": "./ianwagers--wikirace",
+      "description": "WikiRace"
+    },
+    {
+      "name": "mgrillo75--agency-swarm-working-03-24-25",
+      "source": "./mgrillo75--agency-swarm-working-03-24-25",
+      "description": "agency-swarm_working-03-24-25"
+    },
+    {
+      "name": "viniciusviana08--back-end-mvp-tcc",
+      "source": "./viniciusviana08--back-end-mvp-tcc",
+      "description": "Back-End-MVP-TCC"
+    },
+    {
+      "name": "seanwuapps--vue-rules-generator",
+      "source": "./seanwuapps--vue-rules-generator",
+      "description": "vue-rules-generator"
+    },
+    {
+      "name": "infinitebayas--ai-police",
+      "source": "./infinitebayas--ai-police",
+      "description": "ai_police"
+    },
+    {
+      "name": "ahouse2--co-counsel-nexus",
+      "source": "./ahouse2--co-counsel-nexus",
+      "description": "co_counsel_nexus"
+    },
+    {
+      "name": "oyi77--oyi77-github-io",
+      "source": "./oyi77--oyi77-github-io",
+      "description": "oyi77.github.io"
+    },
+    {
+      "name": "coreui--coreui-free-bootstrap-admin-template",
+      "source": "./coreui--coreui-free-bootstrap-admin-template",
+      "description": "coreui-free-bootstrap-admin-template"
+    },
+    {
+      "name": "yoojisoo99--biztalk-gemini-cli",
+      "source": "./yoojisoo99--biztalk-gemini-cli",
+      "description": "BizTalk-gemini-cli"
+    },
+    {
+      "name": "kiaquo981--spalla-dashboard",
+      "source": "./kiaquo981--spalla-dashboard",
+      "description": "spalla-dashboard"
+    },
+    {
+      "name": "yanndrade--finances-app",
+      "source": "./yanndrade--finances-app",
+      "description": "finances-app"
+    },
+    {
+      "name": "jayteealao--pushkit",
+      "source": "./jayteealao--pushkit",
+      "description": "PushKit"
+    },
+    {
+      "name": "plflok--flok-kotlin-mdc-rules",
+      "source": "./plflok--flok-kotlin-mdc-rules",
+      "description": "flok-kotlin-mdc-rules"
+    },
+    {
+      "name": "bigint--hey",
+      "source": "./bigint--hey",
+      "description": "hey"
+    },
+    {
+      "name": "jeffwu0624--20251117-tennisgame",
+      "source": "./jeffwu0624--20251117-tennisgame",
+      "description": "20251117_TennisGame"
+    },
+    {
+      "name": "mfuentescas--page-2-context",
+      "source": "./mfuentescas--page-2-context",
+      "description": "page-2-context"
+    },
+    {
+      "name": "robert-northmind--worktime",
+      "source": "./robert-northmind--worktime",
+      "description": "WorkTime"
+    },
+    {
+      "name": "jayteealao--boxybop",
+      "source": "./jayteealao--boxybop",
+      "description": "BoxyBop"
+    },
+    {
+      "name": "whhe--ai-workshop",
+      "source": "./whhe--ai-workshop",
+      "description": "ai-workshop"
+    },
+    {
+      "name": "heartwise-ai--deepcoro-clip",
+      "source": "./heartwise-ai--deepcoro-clip",
+      "description": "DeepCORO_CLIP"
+    },
+    {
+      "name": "jokerlin135--notepro-viet",
+      "source": "./jokerlin135--notepro-viet",
+      "description": "notepro-viet"
+    },
+    {
+      "name": "chris00walker--bmdp-papain-analysis",
+      "source": "./chris00walker--bmdp-papain-analysis",
+      "description": "bmdp-papain-analysis"
+    },
+    {
+      "name": "cybersonic--lucli",
+      "source": "./cybersonic--lucli",
+      "description": "LuCLI"
+    },
+    {
+      "name": "jayteealao--otterstack",
+      "source": "./jayteealao--otterstack",
+      "description": "OtterStack"
+    },
+    {
+      "name": "sahiixx--agency-agents",
+      "source": "./sahiixx--agency-agents",
+      "description": "agency-agents"
+    },
+    {
+      "name": "vividvvo--retro-skill-panel-dx9-imgui",
+      "source": "./vividvvo--retro-skill-panel-dx9-imgui",
+      "description": "retro-skill-panel-dx9-imgui"
+    },
+    {
+      "name": "gabrielmaialva33--streamix",
+      "source": "./gabrielmaialva33--streamix",
+      "description": "streamix"
+    },
+    {
+      "name": "stokoloko89--t-rex-simplified",
+      "source": "./stokoloko89--t-rex-simplified",
+      "description": "t_rex_simplified"
+    },
+    {
+      "name": "latticehq--latticeregistry",
+      "source": "./latticehq--latticeregistry",
+      "description": "latticeRegistry"
+    },
+    {
+      "name": "lixxz--claude-workflow",
+      "source": "./lixxz--claude-workflow",
+      "description": "claude-workflow"
+    },
+    {
+      "name": "fastlane-labs--battle-nads-frontend",
+      "source": "./fastlane-labs--battle-nads-frontend",
+      "description": "battle-nads-frontend"
+    },
+    {
+      "name": "davew001--margin-calc",
+      "source": "./davew001--margin-calc",
+      "description": "margin-calc"
+    },
+    {
+      "name": "dankkom--tddata",
+      "source": "./dankkom--tddata",
+      "description": "tddata"
+    },
+    {
+      "name": "develforever--mars-terraform",
+      "source": "./develforever--mars-terraform",
+      "description": "mars-terraform"
+    },
+    {
+      "name": "jancschaefer--pymarktools",
+      "source": "./jancschaefer--pymarktools",
+      "description": "pymarktools"
+    },
+    {
+      "name": "joshsmithxrm--ppds-extension-archived",
+      "source": "./joshsmithxrm--ppds-extension-archived",
+      "description": "ppds-extension-archived"
+    },
+    {
+      "name": "aichadigital--laratickets",
+      "source": "./aichadigital--laratickets",
+      "description": "laratickets"
+    },
+    {
+      "name": "fedify-dev--hollo",
+      "source": "./fedify-dev--hollo",
+      "description": "hollo"
+    },
+    {
+      "name": "hnakada123--shogiboardq",
+      "source": "./hnakada123--shogiboardq",
+      "description": "ShogiBoardQ"
+    },
+    {
+      "name": "avav25--ai-assets",
+      "source": "./avav25--ai-assets",
+      "description": "ai-assets"
+    },
+    {
+      "name": "hokagecv--hokagecv-github-io",
+      "source": "./hokagecv--hokagecv-github-io",
+      "description": "hokageCV.github.io"
     }
   ]
 }
