@@ -1,6 +1,6 @@
-# triviabot
+# triviabot — distributed by TomeVault
 
-> Config by [rahul-s-rajput](https://github.com/rahul-s-rajput/triviabot) — distributed by [TomeVault](https://tomevault.io/claim/rahul-s-rajput)
+> Originally from [rahul-s-rajput/triviabot](https://github.com/rahul-s-rajput/triviabot). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [rahul-s-rajput/triviabot](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/rahul-s-rajput](https://tomevault.io/claim/rahul-s-rajput)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/rahul-s-rajput#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/rahul-s-rajput) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/rahul-s-rajput) to manage distribution and track installs.
+
+<!-- genome:d-c-q -->
