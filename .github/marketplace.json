@@ -6634,44 +6634,9 @@
       "description": "bioactivity_data_acquisition"
     },
     {
-      "name": "helfez--karasu-ios",
-      "source": "./helfez--karasu-ios",
-      "description": "Karasu_iOS"
-    },
-    {
-      "name": "tesfayekb--core-base",
-      "source": "./tesfayekb--core-base",
-      "description": "core-base"
-    },
-    {
       "name": "sawko1987--oddo-kormmash",
       "source": "./sawko1987--oddo-kormmash",
       "description": "oddo_kormmash"
-    },
-    {
-      "name": "humdek-unibe-ch--sh-selfhelp-frontend",
-      "source": "./humdek-unibe-ch--sh-selfhelp-frontend",
-      "description": "sh-selfhelp_frontend"
-    },
-    {
-      "name": "chrisgroks--library-demo",
-      "source": "./chrisgroks--library-demo",
-      "description": "library_demo"
-    },
-    {
-      "name": "luismarrer--gardenlog",
-      "source": "./luismarrer--gardenlog",
-      "description": "gardenLog"
-    },
-    {
-      "name": "damacus--med-tracker",
-      "source": "./damacus--med-tracker",
-      "description": "med-tracker"
-    },
-    {
-      "name": "blaisecz--sleep-tracker",
-      "source": "./blaisecz--sleep-tracker",
-      "description": "sleep-tracker"
     },
     {
       "name": "superworldsavior--kuzueventbus",
@@ -28487,6 +28452,221 @@
       "name": "joewdriver--risus-companion",
       "source": "./joewdriver--risus-companion",
       "description": "risus-companion"
+    },
+    {
+      "name": "johanbellander--luma",
+      "source": "./johanbellander--luma",
+      "description": "luma"
+    },
+    {
+      "name": "lessup--bwa-rust",
+      "source": "./lessup--bwa-rust",
+      "description": "bwa-rust"
+    },
+    {
+      "name": "leomerida15--bunstart",
+      "source": "./leomerida15--bunstart",
+      "description": "bunstart"
+    },
+    {
+      "name": "catafal--aura-p-a--agent",
+      "source": "./catafal--aura-p-a--agent",
+      "description": "aura-P.A.-agent"
+    },
+    {
+      "name": "868-anton--credit-card-transaction-ledger-app",
+      "source": "./868-anton--credit-card-transaction-ledger-app",
+      "description": "Credit_Card_Transaction_Ledger_App"
+    },
+    {
+      "name": "helfez--karasu-ios",
+      "source": "./helfez--karasu-ios",
+      "description": "Karasu_iOS"
+    },
+    {
+      "name": "yungseepferd--bulgariangermanlearningapp",
+      "source": "./yungseepferd--bulgariangermanlearningapp",
+      "description": "BulgarianGermanLearningApp"
+    },
+    {
+      "name": "razrinn--depwalker",
+      "source": "./razrinn--depwalker",
+      "description": "depwalker"
+    },
+    {
+      "name": "galakurpi--template",
+      "source": "./galakurpi--template",
+      "description": "template"
+    },
+    {
+      "name": "kingler--neo-v0",
+      "source": "./kingler--neo-v0",
+      "description": "neo_v0"
+    },
+    {
+      "name": "hoschi--python-starter",
+      "source": "./hoschi--python-starter",
+      "description": "python-starter"
+    },
+    {
+      "name": "tesfayekb--core-base",
+      "source": "./tesfayekb--core-base",
+      "description": "core-base"
+    },
+    {
+      "name": "mihaelamj--old-base-project",
+      "source": "./mihaelamj--old-base-project",
+      "description": "old-base-project"
+    },
+    {
+      "name": "thomasmeb--crewdeck",
+      "source": "./thomasmeb--crewdeck",
+      "description": "crewdeck"
+    },
+    {
+      "name": "arekmiszcz--10x-skilldesk",
+      "source": "./arekmiszcz--10x-skilldesk",
+      "description": "10x-skilldesk"
+    },
+    {
+      "name": "steven-the-qa--socialqa-web-ts",
+      "source": "./steven-the-qa--socialqa-web-ts",
+      "description": "socialqa-web-ts"
+    },
+    {
+      "name": "shauncuier--ai-assistent",
+      "source": "./shauncuier--ai-assistent",
+      "description": "ai_assistent"
+    },
+    {
+      "name": "humdek-unibe-ch--sh-selfhelp-frontend",
+      "source": "./humdek-unibe-ch--sh-selfhelp-frontend",
+      "description": "sh-selfhelp_frontend"
+    },
+    {
+      "name": "soumendrak--retirement-planner",
+      "source": "./soumendrak--retirement-planner",
+      "description": "retirement-planner"
+    },
+    {
+      "name": "mytakoyaki--tetris",
+      "source": "./mytakoyaki--tetris",
+      "description": "tetris"
+    },
+    {
+      "name": "jasonstcyrx--ai-template",
+      "source": "./jasonstcyrx--ai-template",
+      "description": "ai-template"
+    },
+    {
+      "name": "deadcoast--docs-templates",
+      "source": "./deadcoast--docs-templates",
+      "description": "Docs_Templates"
+    },
+    {
+      "name": "withered-flowers--apps-hackathon-project-adk",
+      "source": "./withered-flowers--apps-hackathon-project-adk",
+      "description": "apps-hackathon-project-adk"
+    },
+    {
+      "name": "chrisgroks--library-demo",
+      "source": "./chrisgroks--library-demo",
+      "description": "library_demo"
+    },
+    {
+      "name": "masrurimz--tanstack-db-electric",
+      "source": "./masrurimz--tanstack-db-electric",
+      "description": "tanstack-db-electric"
+    },
+    {
+      "name": "hasna--connectors",
+      "source": "./hasna--connectors",
+      "description": "connectors"
+    },
+    {
+      "name": "wigxel--official-site",
+      "source": "./wigxel--official-site",
+      "description": "official-site"
+    },
+    {
+      "name": "yond5413--voice-enabled-browser-agent",
+      "source": "./yond5413--voice-enabled-browser-agent",
+      "description": "voice-enabled-browser-agent"
+    },
+    {
+      "name": "haideralmesaody--isxdailyreportscrapper",
+      "source": "./haideralmesaody--isxdailyreportscrapper",
+      "description": "ISXDailyReportScrapper"
+    },
+    {
+      "name": "luismarrer--gardenlog",
+      "source": "./luismarrer--gardenlog",
+      "description": "gardenLog"
+    },
+    {
+      "name": "baoblackcoal--test-target-calc",
+      "source": "./baoblackcoal--test-target-calc",
+      "description": "test_target_calc"
+    },
+    {
+      "name": "paiml--databricks-scala-ground-truth-corpus",
+      "source": "./paiml--databricks-scala-ground-truth-corpus",
+      "description": "databricks-scala-ground-truth-corpus"
+    },
+    {
+      "name": "mennodevteam--monorepo",
+      "source": "./mennodevteam--monorepo",
+      "description": "monorepo"
+    },
+    {
+      "name": "gentlimani--rock-paper-scissors",
+      "source": "./gentlimani--rock-paper-scissors",
+      "description": "rock-paper-scissors"
+    },
+    {
+      "name": "lukaszzachodni--kombajn",
+      "source": "./lukaszzachodni--kombajn",
+      "description": "Kombajn"
+    },
+    {
+      "name": "damacus--med-tracker",
+      "source": "./damacus--med-tracker",
+      "description": "med-tracker"
+    },
+    {
+      "name": "unstun--rl-sac",
+      "source": "./unstun--rl-sac",
+      "description": "RL_SAC"
+    },
+    {
+      "name": "edgeandnode--amp-templates",
+      "source": "./edgeandnode--amp-templates",
+      "description": "amp-templates"
+    },
+    {
+      "name": "boundlessfi--boundless",
+      "source": "./boundlessfi--boundless",
+      "description": "boundless"
+    },
+    {
+      "name": "heyitsaif--hotelkrona",
+      "source": "./heyitsaif--hotelkrona",
+      "description": "hotelkrona"
+    },
+    {
+      "name": "wangchangdog--railway-todo-app",
+      "source": "./wangchangdog--railway-todo-app",
+      "description": "railway-todo-app"
+    },
+    {
+      "name": "blaisecz--sleep-tracker",
+      "source": "./blaisecz--sleep-tracker",
+      "description": "sleep-tracker"
+    },
+    {
+      "name": "claudemyburgh--tokern-forge",
+      "source": "./claudemyburgh--tokern-forge",
+      "description": "tokern-forge"
     }
   ]
 }
