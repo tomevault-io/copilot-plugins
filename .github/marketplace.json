@@ -6639,41 +6639,6 @@
       "description": "oddo_kormmash"
     },
     {
-      "name": "aojdevstudio--dental-dashboard",
-      "source": "./aojdevstudio--dental-dashboard",
-      "description": "dental-dashboard"
-    },
-    {
-      "name": "thatguycasual--kraken-bot",
-      "source": "./thatguycasual--kraken-bot",
-      "description": "kraken-bot"
-    },
-    {
-      "name": "satorykono--bioactivity-data-acquisition",
-      "source": "./satorykono--bioactivity-data-acquisition",
-      "description": "bioactivity_data_acquisition"
-    },
-    {
-      "name": "jeffrpowell--listaway",
-      "source": "./jeffrpowell--listaway",
-      "description": "listaway"
-    },
-    {
-      "name": "haymayndzultra--ynthmaster-calculator",
-      "source": "./haymayndzultra--ynthmaster-calculator",
-      "description": "ynthmaster-calculator"
-    },
-    {
-      "name": "henderorlando--booklyapp",
-      "source": "./henderorlando--booklyapp",
-      "description": "booklyapp"
-    },
-    {
-      "name": "phainestai--mimir",
-      "source": "./phainestai--mimir",
-      "description": "mimir"
-    },
-    {
       "name": "phoenixvc--retort",
       "source": "./phoenixvc--retort",
       "description": "retort"
@@ -29372,6 +29337,221 @@
       "name": "neolee--mercury",
       "source": "./neolee--mercury",
       "description": "mercury"
+    },
+    {
+      "name": "tokenteam--iwut-app-center",
+      "source": "./tokenteam--iwut-app-center",
+      "description": "iwut-app-center"
+    },
+    {
+      "name": "slava-lu--kafka",
+      "source": "./slava-lu--kafka",
+      "description": "kafka"
+    },
+    {
+      "name": "songuu--ai-rag",
+      "source": "./songuu--ai-rag",
+      "description": "ai-rag"
+    },
+    {
+      "name": "ababac1225--damai",
+      "source": "./ababac1225--damai",
+      "description": "damai"
+    },
+    {
+      "name": "lildocta--novacolony",
+      "source": "./lildocta--novacolony",
+      "description": "NovaColony"
+    },
+    {
+      "name": "aojdevstudio--dental-dashboard",
+      "source": "./aojdevstudio--dental-dashboard",
+      "description": "dental-dashboard"
+    },
+    {
+      "name": "hemants1703--ambitiousyou-notifications-service",
+      "source": "./hemants1703--ambitiousyou-notifications-service",
+      "description": "ambitiousyou-notifications-service"
+    },
+    {
+      "name": "ahouse2--co-counsel-final",
+      "source": "./ahouse2--co-counsel-final",
+      "description": "co-counsel_final"
+    },
+    {
+      "name": "givtnl--givt-app",
+      "source": "./givtnl--givt-app",
+      "description": "givt-app"
+    },
+    {
+      "name": "th3nolo--vibe-game",
+      "source": "./th3nolo--vibe-game",
+      "description": "Vibe-game"
+    },
+    {
+      "name": "futr3t--studio",
+      "source": "./futr3t--studio",
+      "description": "studio"
+    },
+    {
+      "name": "thatguycasual--kraken-bot",
+      "source": "./thatguycasual--kraken-bot",
+      "description": "kraken-bot"
+    },
+    {
+      "name": "07kaustubh--multi-swebench-eval",
+      "source": "./07kaustubh--multi-swebench-eval",
+      "description": "multi-swebench-eval"
+    },
+    {
+      "name": "ilidaniys--slynchyk-portfolio",
+      "source": "./ilidaniys--slynchyk-portfolio",
+      "description": "slynchyk_portfolio"
+    },
+    {
+      "name": "baitianbt--mes-wpf",
+      "source": "./baitianbt--mes-wpf",
+      "description": "MES_WPF"
+    },
+    {
+      "name": "noveum--ai-gateway",
+      "source": "./noveum--ai-gateway",
+      "description": "ai-gateway"
+    },
+    {
+      "name": "dovskyy--fizjociocia",
+      "source": "./dovskyy--fizjociocia",
+      "description": "fizjociocia"
+    },
+    {
+      "name": "satorykono--bioactivity-data-acquisition",
+      "source": "./satorykono--bioactivity-data-acquisition",
+      "description": "bioactivity_data_acquisition"
+    },
+    {
+      "name": "m264921--yavale",
+      "source": "./m264921--yavale",
+      "description": "yavale"
+    },
+    {
+      "name": "nuin--selfspy3",
+      "source": "./nuin--selfspy3",
+      "description": "selfspy3"
+    },
+    {
+      "name": "khaiilnafis--express-gen-typescript",
+      "source": "./khaiilnafis--express-gen-typescript",
+      "description": "express-gen-typescript"
+    },
+    {
+      "name": "melissamcewen--curlsbotsite",
+      "source": "./melissamcewen--curlsbotsite",
+      "description": "CurlsBotSite"
+    },
+    {
+      "name": "rings-s--e-learningsystem",
+      "source": "./rings-s--e-learningsystem",
+      "description": "E-LearningSystem"
+    },
+    {
+      "name": "jeffrpowell--listaway",
+      "source": "./jeffrpowell--listaway",
+      "description": "listaway"
+    },
+    {
+      "name": "sergioarenas98--paleohumans-web",
+      "source": "./sergioarenas98--paleohumans-web",
+      "description": "PaleoHumans_Web"
+    },
+    {
+      "name": "jayteealao--blank-template",
+      "source": "./jayteealao--blank-template",
+      "description": "blank-template"
+    },
+    {
+      "name": "timothyphan2--schedro",
+      "source": "./timothyphan2--schedro",
+      "description": "schedro"
+    },
+    {
+      "name": "zenobia000--ispan-python-fe-dm-cookbooks",
+      "source": "./zenobia000--ispan-python-fe-dm-cookbooks",
+      "description": "iSpan_python-FE_DM-cookbooks"
+    },
+    {
+      "name": "heikoliedtke--gmb-playlist",
+      "source": "./heikoliedtke--gmb-playlist",
+      "description": "GMB-Playlist"
+    },
+    {
+      "name": "haymayndzultra--ynthmaster-calculator",
+      "source": "./haymayndzultra--ynthmaster-calculator",
+      "description": "ynthmaster-calculator"
+    },
+    {
+      "name": "averagejoeslab--averagejoeslab",
+      "source": "./averagejoeslab--averagejoeslab",
+      "description": "averagejoeslab"
+    },
+    {
+      "name": "jaydenleung128--lachlan-leung-website",
+      "source": "./jaydenleung128--lachlan-leung-website",
+      "description": "lachlan-leung-website"
+    },
+    {
+      "name": "drimdrim2002--everyshiftvue",
+      "source": "./drimdrim2002--everyshiftvue",
+      "description": "EveryShiftVue"
+    },
+    {
+      "name": "vrsen--agency-swarm-memory-demo",
+      "source": "./vrsen--agency-swarm-memory-demo",
+      "description": "agency-swarm-memory-demo"
+    },
+    {
+      "name": "berislavlopac--recipes",
+      "source": "./berislavlopac--recipes",
+      "description": "recipes"
+    },
+    {
+      "name": "henderorlando--booklyapp",
+      "source": "./henderorlando--booklyapp",
+      "description": "booklyapp"
+    },
+    {
+      "name": "tuxboa--dndgame-github-io",
+      "source": "./tuxboa--dndgame-github-io",
+      "description": "dndgame.github.io"
+    },
+    {
+      "name": "georgexzeng--ragchatbot",
+      "source": "./georgexzeng--ragchatbot",
+      "description": "ragchatbot"
+    },
+    {
+      "name": "dachou5224--bfb-gasifier",
+      "source": "./dachou5224--bfb-gasifier",
+      "description": "bfb-gasifier"
+    },
+    {
+      "name": "network-goods-institute--negation-game",
+      "source": "./network-goods-institute--negation-game",
+      "description": "negation-game"
+    },
+    {
+      "name": "neobradley--trip-planner",
+      "source": "./neobradley--trip-planner",
+      "description": "trip-planner"
+    },
+    {
+      "name": "phainestai--mimir",
+      "source": "./phainestai--mimir",
+      "description": "mimir"
+    },
+    {
+      "name": "anolasc--freqtrade-rs",
+      "source": "./anolasc--freqtrade-rs",
+      "description": "freqtrade-rs"
     }
   ]
 }
