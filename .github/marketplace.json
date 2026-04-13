@@ -26317,6 +26317,256 @@
       "name": "ladislavsopko--cvm",
       "source": "./ladislavsopko--cvm",
       "description": "cvm"
+    },
+    {
+      "name": "ch1ll0ut1--portfolio-website",
+      "source": "./ch1ll0ut1--portfolio-website",
+      "description": "portfolio-website"
+    },
+    {
+      "name": "charleytrades--arbitrage",
+      "source": "./charleytrades--arbitrage",
+      "description": "arbitrage"
+    },
+    {
+      "name": "rafaleks--claude-db",
+      "source": "./rafaleks--claude-db",
+      "description": "Claude_DB"
+    },
+    {
+      "name": "nerdneilsfield--wenqiao",
+      "source": "./nerdneilsfield--wenqiao",
+      "description": "wenqiao"
+    },
+    {
+      "name": "rappsilber-laboratory--sample-tracker",
+      "source": "./rappsilber-laboratory--sample-tracker",
+      "description": "sample-tracker"
+    },
+    {
+      "name": "seantater--pv",
+      "source": "./seantater--pv",
+      "description": "pv"
+    },
+    {
+      "name": "indiajonathan--sdk-testing",
+      "source": "./indiajonathan--sdk-testing",
+      "description": "sdk-testing"
+    },
+    {
+      "name": "gilbarbara--react-joyride",
+      "source": "./gilbarbara--react-joyride",
+      "description": "react-joyride"
+    },
+    {
+      "name": "immich-app--discord-bot",
+      "source": "./immich-app--discord-bot",
+      "description": "discord-bot"
+    },
+    {
+      "name": "open-dxp--opendxp",
+      "source": "./open-dxp--opendxp",
+      "description": "opendxp"
+    },
+    {
+      "name": "maxbittker--morphogenesis",
+      "source": "./maxbittker--morphogenesis",
+      "description": "morphogenesis"
+    },
+    {
+      "name": "a-mundanilkunathil--home-assistant",
+      "source": "./a-mundanilkunathil--home-assistant",
+      "description": "Home_Assistant"
+    },
+    {
+      "name": "ilenburg1993--chatgpt-docker-puppeteer",
+      "source": "./ilenburg1993--chatgpt-docker-puppeteer",
+      "description": "chatgpt-docker-puppeteer"
+    },
+    {
+      "name": "lingrino--infra",
+      "source": "./lingrino--infra",
+      "description": "infra"
+    },
+    {
+      "name": "ssiertsema--for-the-people--style-library",
+      "source": "./ssiertsema--for-the-people--style-library",
+      "description": "for-the-people__style-library"
+    },
+    {
+      "name": "ayoubben18--report-generator-agent",
+      "source": "./ayoubben18--report-generator-agent",
+      "description": "report-generator-agent"
+    },
+    {
+      "name": "paggarwal2016--movo-hb-ios",
+      "source": "./paggarwal2016--movo-hb-ios",
+      "description": "MOVO_HB_IOS"
+    },
+    {
+      "name": "sky770825--neuxa",
+      "source": "./sky770825--neuxa",
+      "description": "NEUXA-"
+    },
+    {
+      "name": "szaghi--fundal",
+      "source": "./szaghi--fundal",
+      "description": "FUNDAL"
+    },
+    {
+      "name": "callyberz--cally-blog",
+      "source": "./callyberz--cally-blog",
+      "description": "cally-blog"
+    },
+    {
+      "name": "shhashmi--planmycareer",
+      "source": "./shhashmi--planmycareer",
+      "description": "PlanMyCareer"
+    },
+    {
+      "name": "vadzimbelski-sciencesoft--playwright-qa-agent",
+      "source": "./vadzimbelski-sciencesoft--playwright-qa-agent",
+      "description": "playwright-qa-agent"
+    },
+    {
+      "name": "randyhaylor--unity-cpp-test",
+      "source": "./randyhaylor--unity-cpp-test",
+      "description": "unity-cpp-test"
+    },
+    {
+      "name": "ronaldang--quickdoor",
+      "source": "./ronaldang--quickdoor",
+      "description": "quickdoor"
+    },
+    {
+      "name": "poom5741--carbonx",
+      "source": "./poom5741--carbonx",
+      "description": "carbonx"
+    },
+    {
+      "name": "pedro-og--eproc-calendar-extension",
+      "source": "./pedro-og--eproc-calendar-extension",
+      "description": "eproc-calendar-extension"
+    },
+    {
+      "name": "thatsoulyguy--xxmlstudio",
+      "source": "./thatsoulyguy--xxmlstudio",
+      "description": "XXMLStudio"
+    },
+    {
+      "name": "flawchess--flawchess",
+      "source": "./flawchess--flawchess",
+      "description": "flawchess"
+    },
+    {
+      "name": "2093686099--faultagent",
+      "source": "./2093686099--faultagent",
+      "description": "faultagent"
+    },
+    {
+      "name": "uppinote20--ghost-mcp",
+      "source": "./uppinote20--ghost-mcp",
+      "description": "ghost-mcp"
+    },
+    {
+      "name": "kako-jun--sid-note",
+      "source": "./kako-jun--sid-note",
+      "description": "sid-note"
+    },
+    {
+      "name": "kristos80--hook",
+      "source": "./kristos80--hook",
+      "description": "hook"
+    },
+    {
+      "name": "allardvdb--rocinante",
+      "source": "./allardvdb--rocinante",
+      "description": "rocinante"
+    },
+    {
+      "name": "nikiforovall--claude-code-marketplace",
+      "source": "./nikiforovall--claude-code-marketplace",
+      "description": "claude-code-marketplace"
+    },
+    {
+      "name": "switmer--dcp-kit",
+      "source": "./switmer--dcp-kit",
+      "description": "DCP-Kit"
+    },
+    {
+      "name": "lizconlan--claude-code-workflow",
+      "source": "./lizconlan--claude-code-workflow",
+      "description": "claude-code-workflow"
+    },
+    {
+      "name": "luoxiaogan--new-push-pull",
+      "source": "./luoxiaogan--new-push-pull",
+      "description": "new_push_pull"
+    },
+    {
+      "name": "craigtrim--gngram-lookup",
+      "source": "./craigtrim--gngram-lookup",
+      "description": "gngram-lookup"
+    },
+    {
+      "name": "esakat--markdown-kb",
+      "source": "./esakat--markdown-kb",
+      "description": "markdown-kb"
+    },
+    {
+      "name": "praetorian-inc--hadrian",
+      "source": "./praetorian-inc--hadrian",
+      "description": "hadrian"
+    },
+    {
+      "name": "michaelvanlaar--claude-code-config-skills",
+      "source": "./michaelvanlaar--claude-code-config-skills",
+      "description": "claude-code-config-skills"
+    },
+    {
+      "name": "dadlerj--tin",
+      "source": "./dadlerj--tin",
+      "description": "tin"
+    },
+    {
+      "name": "cha0jun--flashcard",
+      "source": "./cha0jun--flashcard",
+      "description": "flashcard"
+    },
+    {
+      "name": "burgrp--go-webglue",
+      "source": "./burgrp--go-webglue",
+      "description": "go-webglue"
+    },
+    {
+      "name": "mainliufeng--dotfiles",
+      "source": "./mainliufeng--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "coreycole--go-webserver",
+      "source": "./coreycole--go-webserver",
+      "description": "go_webserver"
+    },
+    {
+      "name": "jalim--home-operations",
+      "source": "./jalim--home-operations",
+      "description": "home-operations"
+    },
+    {
+      "name": "gllera--srrb",
+      "source": "./gllera--srrb",
+      "description": "srrb"
+    },
+    {
+      "name": "giventadevelop--event-site-manager",
+      "source": "./giventadevelop--event-site-manager",
+      "description": "event-site-manager"
+    },
+    {
+      "name": "lessup--lessup",
+      "source": "./lessup--lessup",
+      "description": "LessUp"
     }
   ]
 }
