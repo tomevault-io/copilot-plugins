@@ -1,6 +1,6 @@
-# nia-rules-for-agents
+# nia-rules-for-agents — distributed by TomeVault
 
-> Tome by [nozomio-labs](https://github.com/nozomio-labs/nia-rules-for-agents) — distributed by [TomeVault](https://tomevault.io/claim/nozomio-labs)
+> Originally from [nozomio-labs/nia-rules-for-agents](https://github.com/nozomio-labs/nia-rules-for-agents). Converted and distributed by [TomeVault](https://tomevault.io)
 
 AI instruction files for nia-rules-for-agents by nozomio-labs
 
@@ -17,13 +17,14 @@ Original source: `.windsurf/rules/*.md` in [nozomio-labs/nia-rules-for-agents](h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/nozomio-labs](https://tomevault.io/claim/nozomio-labs)
-
 ## Bundled Skills (1)
 
 - [nia](https://github.com/nozomio-labs/nia-rules-for-agents/tree/main/.claude/skills/nia)
 
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/nozomio-labs#quality)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/nozomio-labs) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/nozomio-labs) to manage distribution and track installs.
+
+<!-- genome:d-c-q -->
