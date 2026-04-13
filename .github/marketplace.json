@@ -6634,41 +6634,6 @@
       "description": "bioactivity_data_acquisition"
     },
     {
-      "name": "azizahzakiah--sembakopos",
-      "source": "./azizahzakiah--sembakopos",
-      "description": "SembakoPos"
-    },
-    {
-      "name": "officialerictm--llm-stick",
-      "source": "./officialerictm--llm-stick",
-      "description": "llm-stick"
-    },
-    {
-      "name": "jasonbyrne--bedrock-poc",
-      "source": "./jasonbyrne--bedrock-poc",
-      "description": "bedrock-poc"
-    },
-    {
-      "name": "yushiesah7--gold-up",
-      "source": "./yushiesah7--gold-up",
-      "description": "gold_up"
-    },
-    {
-      "name": "charvibansall--drawingboard-capital",
-      "source": "./charvibansall--drawingboard-capital",
-      "description": "drawingboard-capital"
-    },
-    {
-      "name": "rivailjunior--my-daily-coffee",
-      "source": "./rivailjunior--my-daily-coffee",
-      "description": "my-daily-coffee"
-    },
-    {
-      "name": "joewdriver--risus-companion",
-      "source": "./joewdriver--risus-companion",
-      "description": "risus-companion"
-    },
-    {
       "name": "helfez--karasu-ios",
       "source": "./helfez--karasu-ios",
       "description": "Karasu_iOS"
@@ -28307,6 +28272,221 @@
       "name": "danielstriver--rwanda-tour-ai",
       "source": "./danielstriver--rwanda-tour-ai",
       "description": "rwanda-tour-ai"
+    },
+    {
+      "name": "arkanwolfshade--mythosmud",
+      "source": "./arkanwolfshade--mythosmud",
+      "description": "MythosMUD"
+    },
+    {
+      "name": "phamxuankhang--vinfast-ai-assistant",
+      "source": "./phamxuankhang--vinfast-ai-assistant",
+      "description": "VINFAST_AI_assistant"
+    },
+    {
+      "name": "openharmony--graphic-graphic-3d",
+      "source": "./openharmony--graphic-graphic-3d",
+      "description": "graphic_graphic_3d"
+    },
+    {
+      "name": "deepakkumarbansal--notion-clone",
+      "source": "./deepakkumarbansal--notion-clone",
+      "description": "notion-clone"
+    },
+    {
+      "name": "miltondanielhch--template-nuevo",
+      "source": "./miltondanielhch--template-nuevo",
+      "description": "template-nuevo"
+    },
+    {
+      "name": "wakchu--gitreader",
+      "source": "./wakchu--gitreader",
+      "description": "GitReader"
+    },
+    {
+      "name": "azizahzakiah--sembakopos",
+      "source": "./azizahzakiah--sembakopos",
+      "description": "SembakoPos"
+    },
+    {
+      "name": "dgroomes--my-software",
+      "source": "./dgroomes--my-software",
+      "description": "my-software"
+    },
+    {
+      "name": "jayminwest--overstory",
+      "source": "./jayminwest--overstory",
+      "description": "overstory"
+    },
+    {
+      "name": "lovelace-ai--leah-mcp-test-yottagraph",
+      "source": "./lovelace-ai--leah-mcp-test-yottagraph",
+      "description": "leah-mcp-test-yottagraph"
+    },
+    {
+      "name": "bitbyte0110--smart-classroom-iot",
+      "source": "./bitbyte0110--smart-classroom-iot",
+      "description": "smart-classroom-iot"
+    },
+    {
+      "name": "gourraguis--fixer",
+      "source": "./gourraguis--fixer",
+      "description": "fixer"
+    },
+    {
+      "name": "officialerictm--llm-stick",
+      "source": "./officialerictm--llm-stick",
+      "description": "llm-stick"
+    },
+    {
+      "name": "starcitizentools--mediawiki-skins-citizen",
+      "source": "./starcitizentools--mediawiki-skins-citizen",
+      "description": "mediawiki-skins-Citizen"
+    },
+    {
+      "name": "themarkrizkallah--mt-olympus",
+      "source": "./themarkrizkallah--mt-olympus",
+      "description": "mt-olympus"
+    },
+    {
+      "name": "tonybsilva-dev--pegasus-saas-platform",
+      "source": "./tonybsilva-dev--pegasus-saas-platform",
+      "description": "Pegasus-Saas-Platform"
+    },
+    {
+      "name": "alessandrolongo23--atmdm",
+      "source": "./alessandrolongo23--atmdm",
+      "description": "ATMDM"
+    },
+    {
+      "name": "ibianchival--test-tool",
+      "source": "./ibianchival--test-tool",
+      "description": "test-tool"
+    },
+    {
+      "name": "jasonbyrne--bedrock-poc",
+      "source": "./jasonbyrne--bedrock-poc",
+      "description": "bedrock-poc"
+    },
+    {
+      "name": "alexl70--linkshortener",
+      "source": "./alexl70--linkshortener",
+      "description": "linkshortener"
+    },
+    {
+      "name": "superiorsd10--rubberduck-mcp",
+      "source": "./superiorsd10--rubberduck-mcp",
+      "description": "rubberduck-mcp"
+    },
+    {
+      "name": "constrod--template-react-vite",
+      "source": "./constrod--template-react-vite",
+      "description": "template-react-vite"
+    },
+    {
+      "name": "liszo--uae-ds",
+      "source": "./liszo--uae-ds",
+      "description": "UAE-DS"
+    },
+    {
+      "name": "reidlai--virtual-module-core",
+      "source": "./reidlai--virtual-module-core",
+      "description": "virtual-module-core"
+    },
+    {
+      "name": "yushiesah7--gold-up",
+      "source": "./yushiesah7--gold-up",
+      "description": "gold_up"
+    },
+    {
+      "name": "foundry-works--foundry-sandbox",
+      "source": "./foundry-works--foundry-sandbox",
+      "description": "foundry-sandbox"
+    },
+    {
+      "name": "startvibe--startvibe-cc-marketplace",
+      "source": "./startvibe--startvibe-cc-marketplace",
+      "description": "startvibe-cc-marketplace"
+    },
+    {
+      "name": "stytchauth--stytch-browser",
+      "source": "./stytchauth--stytch-browser",
+      "description": "stytch-browser"
+    },
+    {
+      "name": "priscillawal123-ux--videogenius",
+      "source": "./priscillawal123-ux--videogenius",
+      "description": "VideoGenius"
+    },
+    {
+      "name": "yoshi108-102--rag-experiment",
+      "source": "./yoshi108-102--rag-experiment",
+      "description": "rag_experiment"
+    },
+    {
+      "name": "charvibansall--drawingboard-capital",
+      "source": "./charvibansall--drawingboard-capital",
+      "description": "drawingboard-capital"
+    },
+    {
+      "name": "emanuelangel--clinica-angel",
+      "source": "./emanuelangel--clinica-angel",
+      "description": "clinica-angel"
+    },
+    {
+      "name": "shawicx--scx-api-tool",
+      "source": "./shawicx--scx-api-tool",
+      "description": "scx-api-tool"
+    },
+    {
+      "name": "skysheng7--data-science-for-kids",
+      "source": "./skysheng7--data-science-for-kids",
+      "description": "data_science_for_kids"
+    },
+    {
+      "name": "purelyworks--ai-prospect-agent",
+      "source": "./purelyworks--ai-prospect-agent",
+      "description": "ai-prospect-agent"
+    },
+    {
+      "name": "prajanmanojkumarrekha--code-analyzer",
+      "source": "./prajanmanojkumarrekha--code-analyzer",
+      "description": "code-analyzer"
+    },
+    {
+      "name": "rivailjunior--my-daily-coffee",
+      "source": "./rivailjunior--my-daily-coffee",
+      "description": "my-daily-coffee"
+    },
+    {
+      "name": "ks91--loglm",
+      "source": "./ks91--loglm",
+      "description": "loglm"
+    },
+    {
+      "name": "datasophos--nexuslims-cdcs",
+      "source": "./datasophos--nexuslims-cdcs",
+      "description": "NexusLIMS-CDCS"
+    },
+    {
+      "name": "hopeful4ky--equoria",
+      "source": "./hopeful4ky--equoria",
+      "description": "equoria"
+    },
+    {
+      "name": "mickkhaw1981--rn-ryde",
+      "source": "./mickkhaw1981--rn-ryde",
+      "description": "rn_ryde"
+    },
+    {
+      "name": "yussefgafer--chatex",
+      "source": "./yussefgafer--chatex",
+      "description": "ChateX"
+    },
+    {
+      "name": "joewdriver--risus-companion",
+      "source": "./joewdriver--risus-companion",
+      "description": "risus-companion"
     }
   ]
 }
