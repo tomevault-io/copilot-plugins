@@ -1,6 +1,6 @@
-# dinamic_url
+# AI instruction files for dinamic_url
 
-> Config by [DorianLaguna](https://github.com/DorianLaguna/dinamic_url) — distributed by [TomeVault](https://tomevault.io/claim/DorianLaguna)
+> Sourced from [DorianLaguna/dinamic_url](https://github.com/DorianLaguna/dinamic_url) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [DorianLaguna/dinamic_url](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/DorianLaguna](https://tomevault.io/claim/DorianLaguna)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/DorianLaguna#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/DorianLaguna) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/DorianLaguna) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
