@@ -74,6 +74,5 @@ específica (docs/ ou similar).
 Última atualização: 2025-06-04
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/GGEDeveloper)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/GGEDeveloper)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/GGEDeveloper) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
