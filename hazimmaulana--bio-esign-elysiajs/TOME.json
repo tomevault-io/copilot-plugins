@@ -4,7 +4,7 @@
   "repo": "Bio-eSign-ElysiaJs",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/HazimMaulana",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T20:33:43Z"
+  "distributed_at": "2026-04-13T15:43:22Z"
 }
