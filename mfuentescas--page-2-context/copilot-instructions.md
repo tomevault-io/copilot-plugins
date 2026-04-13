@@ -281,6 +281,5 @@ Use `test/example_log_cookies.js` as a ready-to-run sample for `--run-js-file`:
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/mfuentescas)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/mfuentescas)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/mfuentescas) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
