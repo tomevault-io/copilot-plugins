@@ -1,6 +1,6 @@
-# book
+# AI instruction files for book
 
-> Config by [T-Minus-15](https://github.com/T-Minus-15/book) — distributed by [TomeVault](https://tomevault.io/claim/T-Minus-15)
+> Sourced from [T-Minus-15/book](https://github.com/T-Minus-15/book) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [T-Minus-15/book](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/T-Minus-15](https://tomevault.io/claim/T-Minus-15)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/T-Minus-15#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/T-Minus-15) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/T-Minus-15) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
