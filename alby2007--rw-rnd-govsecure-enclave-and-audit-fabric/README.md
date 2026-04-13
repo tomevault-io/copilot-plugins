@@ -1,6 +1,6 @@
-# RW-RnD-GovSecure-Enclave-and-Audit-Fabric
+# AI instruction files for RW-RnD-GovSecure-Enclave-and-Audit-Fabric
 
-> Config by [Alby2007](https://github.com/Alby2007/RW-RnD-GovSecure-Enclave-and-Audit-Fabric) — distributed by [TomeVault](https://tomevault.io/claim/Alby2007)
+> Sourced from [Alby2007/RW-RnD-GovSecure-Enclave-and-Audit-Fabric](https://github.com/Alby2007/RW-RnD-GovSecure-Enclave-and-Audit-Fabric) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Alby2007/RW-RnD-GovSecure-Enclave-an
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Alby2007](https://tomevault.io/claim/Alby2007)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Alby2007)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Alby2007) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-s -->
