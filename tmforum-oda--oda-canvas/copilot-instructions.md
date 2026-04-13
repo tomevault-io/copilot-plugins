@@ -161,6 +161,5 @@ The Canvas supports multiple versions of the ODA Component Specification:
 Always check component version compatibility when making changes to operators or webhooks.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/tmforum-oda)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/tmforum-oda)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/tmforum-oda) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
