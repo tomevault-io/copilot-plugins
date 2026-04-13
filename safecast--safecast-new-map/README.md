@@ -1,6 +1,6 @@
-# safecast-new-map
+# AI instruction files for safecast-new-map
 
-> Config by [Safecast](https://github.com/Safecast/safecast-new-map) — distributed by [TomeVault](https://tomevault.io/claim/Safecast)
+> Sourced from [Safecast/safecast-new-map](https://github.com/Safecast/safecast-new-map) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Safecast/safecast-new-map](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Safecast](https://tomevault.io/claim/Safecast)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Safecast#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Safecast) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-q -->
