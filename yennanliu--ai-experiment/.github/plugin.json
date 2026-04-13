@@ -1,0 +1,18 @@
+{
+  "name": "yennanliu--ai-experiment",
+  "displayName": "ai_experiment",
+  "description": "AI instruction files for ai_experiment by yennanliu",
+  "version": "1.0.0",
+  "author": "yennanliu",
+  "homepage": "https://tomevault.io/claim/yennanliu",
+  "skills": [
+    {
+      "name": "fastapi-master",
+      "description": ""
+    },
+    {
+      "name": "python-code-reviewer",
+      "description": ""
+    }
+  ]
+}
