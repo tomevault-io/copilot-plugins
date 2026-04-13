@@ -6629,41 +6629,6 @@
       "description": "dot-ai-demo"
     },
     {
-      "name": "bmarguerite--bmr-breegade",
-      "source": "./bmarguerite--bmr-breegade",
-      "description": "bmr-breegade"
-    },
-    {
-      "name": "scaprisecca--1lj-app-markdown",
-      "source": "./scaprisecca--1lj-app-markdown",
-      "description": "1lj-app-markdown"
-    },
-    {
-      "name": "yushiesah7--gold-up",
-      "source": "./yushiesah7--gold-up",
-      "description": "gold_up"
-    },
-    {
-      "name": "muhammed2020osman--team-workspace-laravel",
-      "source": "./muhammed2020osman--team-workspace-laravel",
-      "description": "team_workspace_laravel"
-    },
-    {
-      "name": "seamapi--seam-agent",
-      "source": "./seamapi--seam-agent",
-      "description": "seam-agent"
-    },
-    {
-      "name": "sherif-khaled--serverpilot",
-      "source": "./sherif-khaled--serverpilot",
-      "description": "ServerPilot"
-    },
-    {
-      "name": "mstrar76--db-tinyos",
-      "source": "./mstrar76--db-tinyos",
-      "description": "DB_tinyOS"
-    },
-    {
       "name": "alfadlyqtr--wakti-bilingual-assistant",
       "source": "./alfadlyqtr--wakti-bilingual-assistant",
       "description": "wakti-bilingual-assistant"
@@ -27327,6 +27292,221 @@
       "name": "yushiesah7--gold-up",
       "source": "./yushiesah7--gold-up",
       "description": "gold_up"
+    },
+    {
+      "name": "raiich--jumpstarter",
+      "source": "./raiich--jumpstarter",
+      "description": "jumpstarter"
+    },
+    {
+      "name": "b2gdevs--grime-time-site",
+      "source": "./b2gdevs--grime-time-site",
+      "description": "grime_time_site"
+    },
+    {
+      "name": "moellerdi--home-assistant-core-old",
+      "source": "./moellerdi--home-assistant-core-old",
+      "description": "home-assistant-core-old"
+    },
+    {
+      "name": "drillan--j-reit-report",
+      "source": "./drillan--j-reit-report",
+      "description": "j-reit-report"
+    },
+    {
+      "name": "vinhky123--llm-support-study",
+      "source": "./vinhky123--llm-support-study",
+      "description": "LLM-support-study"
+    },
+    {
+      "name": "leonnello--nurse-joy-telmed-app",
+      "source": "./leonnello--nurse-joy-telmed-app",
+      "description": "nurse-joy-telmed-app"
+    },
+    {
+      "name": "bmarguerite--bmr-breegade",
+      "source": "./bmarguerite--bmr-breegade",
+      "description": "bmr-breegade"
+    },
+    {
+      "name": "doist--todoist-ai",
+      "source": "./doist--todoist-ai",
+      "description": "todoist-ai"
+    },
+    {
+      "name": "karlbeecken--ha-core",
+      "source": "./karlbeecken--ha-core",
+      "description": "ha-core"
+    },
+    {
+      "name": "sontallive--mcp-server-python-template",
+      "source": "./sontallive--mcp-server-python-template",
+      "description": "mcp-server-python-template"
+    },
+    {
+      "name": "fredconv--base-react-template",
+      "source": "./fredconv--base-react-template",
+      "description": "base-react-template"
+    },
+    {
+      "name": "alchemist-aloha--resram-ng",
+      "source": "./alchemist-aloha--resram-ng",
+      "description": "ResRam_NG"
+    },
+    {
+      "name": "scaprisecca--1lj-app-markdown",
+      "source": "./scaprisecca--1lj-app-markdown",
+      "description": "1lj-app-markdown"
+    },
+    {
+      "name": "chinazhouwy--advancedjava",
+      "source": "./chinazhouwy--advancedjava",
+      "description": "advancedJava"
+    },
+    {
+      "name": "arowolokehinde--stacks-x402-jobs",
+      "source": "./arowolokehinde--stacks-x402-jobs",
+      "description": "Stacks-X402-jobs"
+    },
+    {
+      "name": "glidea--zenfeed-web",
+      "source": "./glidea--zenfeed-web",
+      "description": "zenfeed-web"
+    },
+    {
+      "name": "kay8723--cookmate-ai",
+      "source": "./kay8723--cookmate-ai",
+      "description": "CookMate-AI"
+    },
+    {
+      "name": "johnb03--piccola-landing-web",
+      "source": "./johnb03--piccola-landing-web",
+      "description": "Piccola-landing-web"
+    },
+    {
+      "name": "yushiesah7--gold-up",
+      "source": "./yushiesah7--gold-up",
+      "description": "gold_up"
+    },
+    {
+      "name": "kobykjackson--sports-score-ticker",
+      "source": "./kobykjackson--sports-score-ticker",
+      "description": "sports-score-ticker"
+    },
+    {
+      "name": "thedev111--stacks-x402-jobs",
+      "source": "./thedev111--stacks-x402-jobs",
+      "description": "Stacks-X402-jobs"
+    },
+    {
+      "name": "juergengeck--lama-ios-alt",
+      "source": "./juergengeck--lama-ios-alt",
+      "description": "lama.ios.alt"
+    },
+    {
+      "name": "rob9206--dynoai-3",
+      "source": "./rob9206--dynoai-3",
+      "description": "DynoAI_3"
+    },
+    {
+      "name": "ngwanatuka--portfolio",
+      "source": "./ngwanatuka--portfolio",
+      "description": "Portfolio"
+    },
+    {
+      "name": "muhammed2020osman--team-workspace-laravel",
+      "source": "./muhammed2020osman--team-workspace-laravel",
+      "description": "team_workspace_laravel"
+    },
+    {
+      "name": "assandev--atum",
+      "source": "./assandev--atum",
+      "description": "ATUM"
+    },
+    {
+      "name": "giventadevelop--md-strikers",
+      "source": "./giventadevelop--md-strikers",
+      "description": "md-strikers"
+    },
+    {
+      "name": "motech-development--platform",
+      "source": "./motech-development--platform",
+      "description": "platform"
+    },
+    {
+      "name": "capnknives--witsv3",
+      "source": "./capnknives--witsv3",
+      "description": "WitsV3"
+    },
+    {
+      "name": "japper2277--micmap",
+      "source": "./japper2277--micmap",
+      "description": "micmap"
+    },
+    {
+      "name": "seamapi--seam-agent",
+      "source": "./seamapi--seam-agent",
+      "description": "seam-agent"
+    },
+    {
+      "name": "aiandbotsgalore--drsnuggles",
+      "source": "./aiandbotsgalore--drsnuggles",
+      "description": "DrSnuggles"
+    },
+    {
+      "name": "giventadevelop--event-site-front-end-template",
+      "source": "./giventadevelop--event-site-front-end-template",
+      "description": "event-site-front-end-template"
+    },
+    {
+      "name": "thepian--record-thing",
+      "source": "./thepian--record-thing",
+      "description": "record-thing"
+    },
+    {
+      "name": "tailwind-ai--patriot-heavy-ops",
+      "source": "./tailwind-ai--patriot-heavy-ops",
+      "description": "patriot-heavy-ops"
+    },
+    {
+      "name": "iknowmagic--business-kpi-dashboard",
+      "source": "./iknowmagic--business-kpi-dashboard",
+      "description": "business-kpi-dashboard"
+    },
+    {
+      "name": "sherif-khaled--serverpilot",
+      "source": "./sherif-khaled--serverpilot",
+      "description": "ServerPilot"
+    },
+    {
+      "name": "tuzichan--aionx",
+      "source": "./tuzichan--aionx",
+      "description": "AionX"
+    },
+    {
+      "name": "giventadevelop--roy-and-bindu-productions",
+      "source": "./giventadevelop--roy-and-bindu-productions",
+      "description": "roy-and-bindu-productions"
+    },
+    {
+      "name": "yang3kc--cursor-latex-template",
+      "source": "./yang3kc--cursor-latex-template",
+      "description": "cursor_latex_template"
+    },
+    {
+      "name": "josedcv--tesissqli",
+      "source": "./josedcv--tesissqli",
+      "description": "TesisSQLi"
+    },
+    {
+      "name": "esaiaswestberg--wco-client",
+      "source": "./esaiaswestberg--wco-client",
+      "description": "wco-client"
+    },
+    {
+      "name": "mstrar76--db-tinyos",
+      "source": "./mstrar76--db-tinyos",
+      "description": "DB_tinyOS"
     }
   ]
 }
