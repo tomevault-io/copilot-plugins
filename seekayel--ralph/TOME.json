@@ -2,9 +2,9 @@
   "name": "ralph",
   "owner": "seekayel",
   "repo": "ralph",
-  "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "description": "AI instruction files for ralph by seekayel",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "_agents/skills/code-review",
+      "github_url": "https://github.com/seekayel/ralph/tree/main/_agents/skills/code-review",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/seekayel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T21:15:05Z"
+  "distributed_at": "2026-04-13T05:40:33Z"
 }
