@@ -1,6 +1,6 @@
-# smartfactory
+# smartfactory — distributed by TomeVault
 
-> Config by [talent-factory](https://github.com/talent-factory/smartfactory) — distributed by [TomeVault](https://tomevault.io/claim/talent-factory)
+> Originally from [talent-factory/smartfactory](https://github.com/talent-factory/smartfactory). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [talent-factory/smartfactory](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/talent-factory](https://tomevault.io/claim/talent-factory)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/talent-factory#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/talent-factory) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
