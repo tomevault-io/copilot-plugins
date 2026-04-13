@@ -1,6 +1,6 @@
-# grap_v2
+# grap_v2 — distributed by TomeVault
 
-> Config by [amaham1](https://github.com/amaham1/grap_v2) — distributed by [TomeVault](https://tomevault.io/claim/amaham1)
+> Originally from [amaham1/grap_v2](https://github.com/amaham1/grap_v2). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [amaham1/grap_v2](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/amaham1](https://tomevault.io/claim/amaham1)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/amaham1)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/amaham1) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/amaham1) to manage distribution and track installs.
+
+<!-- genome:d-c-p -->
