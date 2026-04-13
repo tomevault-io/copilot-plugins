@@ -1,6 +1,6 @@
 # watching
 
-> Config by [jonhygg99](https://github.com/jonhygg99/watching) — distributed by [TomeVault](https://tomevault.io/claim/jonhygg99)
+> Tome by [jonhygg99](https://github.com/jonhygg99/watching) — distributed by [TomeVault](https://tomevault.io/claim/jonhygg99)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [jonhygg99/watching](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/jonhygg99](https://tomevault.io/claim/jonhygg99)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/jonhygg99#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jonhygg99) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/jonhygg99) to manage distribution and track installs.
+
+<!-- genome:t-c-q -->
