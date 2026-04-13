@@ -1,0 +1,14 @@
+{
+  "name": "raiich--jumpstarter",
+  "displayName": "jumpstarter",
+  "description": "AI instruction files for jumpstarter by raiich",
+  "version": "1.0.0",
+  "author": "raiich",
+  "homepage": "https://tomevault.io/claim/raiich",
+  "skills": [
+    {
+      "name": "design-feature",
+      "description": ""
+    }
+  ]
+}
