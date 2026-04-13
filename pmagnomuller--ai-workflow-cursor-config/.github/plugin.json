@@ -1,0 +1,14 @@
+{
+  "name": "pmagnomuller--ai-workflow-cursor-config",
+  "displayName": "ai-workflow-cursor-config",
+  "description": "AI instruction files for ai-workflow-cursor-config by pmagnomuller",
+  "version": "1.0.0",
+  "author": "pmagnomuller",
+  "homepage": "https://tomevault.io/claim/pmagnomuller",
+  "skills": [
+    {
+      "name": "pr-with-docs",
+      "description": ""
+    }
+  ]
+}
