@@ -1,6 +1,6 @@
-# SaleOrderForecast
+# AI instruction files for SaleOrderForecast
 
-> Config by [SecTionXx](https://github.com/SecTionXx/SaleOrderForecast) — distributed by [TomeVault](https://tomevault.io/claim/SecTionXx)
+> Sourced from [SecTionXx/SaleOrderForecast](https://github.com/SecTionXx/SaleOrderForecast) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [SecTionXx/SaleOrderForecast](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/SecTionXx](https://tomevault.io/claim/SecTionXx)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/SecTionXx#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/SecTionXx) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/SecTionXx) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
