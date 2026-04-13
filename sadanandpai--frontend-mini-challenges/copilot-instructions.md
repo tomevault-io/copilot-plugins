@@ -15,6 +15,5 @@ etc. There is no need to handle light and dark mode for any challenges.
 Scope of the changes should be only within apps/react/src
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/sadanandpai)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/sadanandpai)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/sadanandpai) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
