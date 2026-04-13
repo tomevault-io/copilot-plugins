@@ -1,6 +1,6 @@
 # graceful-code-portfolio
 
-> Config by [odhiambo-ed](https://github.com/odhiambo-ed/graceful-code-portfolio) — distributed by [TomeVault](https://tomevault.io/claim/odhiambo-ed)
+> Tome by [odhiambo-ed](https://github.com/odhiambo-ed/graceful-code-portfolio) — distributed by [TomeVault](https://tomevault.io/claim/odhiambo-ed)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [odhiambo-ed/graceful-code-portfolio]
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/odhiambo-ed](https://tomevault.io/claim/odhiambo-ed)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/odhiambo-ed)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/odhiambo-ed) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install odhiambo-ed/graceful-code-portfolio
+```
+Or browse all formats at [https://tomevault.io/claim/odhiambo-ed](https://tomevault.io/claim/odhiambo-ed).
+
+<!-- genome:t-i-s -->
