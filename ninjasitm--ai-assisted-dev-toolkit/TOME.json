@@ -1,0 +1,57 @@
+{
+  "name": "ai-assisted-dev-toolkit",
+  "owner": "ninjasitm",
+  "repo": "ai-assisted-dev-toolkit",
+  "description": "AI instruction files for ai-assisted-dev-toolkit by ninjasitm",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "logging",
+      "path": "src/repo/.agents/skills/logging",
+      "github_url": "https://github.com/ninjasitm/ai-assisted-dev-toolkit/tree/main/src/repo/.agents/skills/logging",
+      "description": ""
+    },
+    {
+      "name": "logging",
+      "path": "src/monorepo/.agents/skills/logging",
+      "github_url": "https://github.com/ninjasitm/ai-assisted-dev-toolkit/tree/main/src/monorepo/.agents/skills/logging",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/ninjasitm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T12:31:50Z"
+}
