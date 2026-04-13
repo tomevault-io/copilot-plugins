@@ -1,6 +1,6 @@
-# minai-minterest
+# minai-minterest — distributed by TomeVault
 
-> Config by [aungkomyint222](https://github.com/aungkomyint222/minai-minterest) — distributed by [TomeVault](https://tomevault.io/claim/aungkomyint222)
+> Originally from [aungkomyint222/minai-minterest](https://github.com/aungkomyint222/minai-minterest). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [aungkomyint222/minai-minterest](http
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/aungkomyint222](https://tomevault.io/claim/aungkomyint222)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/aungkomyint222)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/aungkomyint222) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install aungkomyint222/minai-minterest
+```
+Or browse all formats at [https://tomevault.io/claim/aungkomyint222](https://tomevault.io/claim/aungkomyint222).
+
+<!-- genome:d-i-s -->
