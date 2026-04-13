@@ -1,6 +1,6 @@
-# realm
+# realm — distributed by TomeVault
 
-> Config by [ahargunyllib](https://github.com/ahargunyllib/realm) — distributed by [TomeVault](https://tomevault.io/claim/ahargunyllib)
+> Originally from [ahargunyllib/realm](https://github.com/ahargunyllib/realm). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [ahargunyllib/realm](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/ahargunyllib](https://tomevault.io/claim/ahargunyllib)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ahargunyllib)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ahargunyllib) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install ahargunyllib/realm
+```
+Or browse all formats at [https://tomevault.io/claim/ahargunyllib](https://tomevault.io/claim/ahargunyllib).
+
+<!-- genome:d-i-s -->
