@@ -1,0 +1,9 @@
+{
+  "name": "sparkworx--terraform-provider-keychain",
+  "displayName": "terraform-provider-keychain",
+  "description": "terraform-provider-keychain",
+  "version": "1.0.0",
+  "author": "sparkworx",
+  "homepage": "https://tomevault.io/claim/sparkworx",
+  "skills": []
+}
