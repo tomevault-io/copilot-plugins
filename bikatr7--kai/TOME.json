@@ -4,7 +4,7 @@
   "repo": "Kai",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/Bikatr7",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T13:46:43Z"
+  "distributed_at": "2026-04-13T08:50:51Z"
 }
