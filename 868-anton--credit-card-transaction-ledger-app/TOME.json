@@ -4,7 +4,7 @@
   "repo": "Credit_Card_Transaction_Ledger_App",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/868-Anton",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T00:35:04Z"
+  "distributed_at": "2026-04-13T14:33:24Z"
 }
