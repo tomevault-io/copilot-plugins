@@ -1,0 +1,9 @@
+{
+  "name": "cetres--oidc-auth",
+  "displayName": "oidc-auth",
+  "description": "oidc-auth",
+  "version": "1.0.0",
+  "author": "cetres",
+  "homepage": "https://tomevault.io/claim/cetres",
+  "skills": []
+}
