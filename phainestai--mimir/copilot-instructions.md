@@ -1,14 +1,13 @@
 ## mimir
 
-> When implementing or runninh tests
+> Never mindlessly delete functions, variables, classes etc. - first ask yoursefl "why I do I need to delete it? what will happen if its not there?"
 
-# Rule: Test Runners
 
-Use the following runners:
-- **Unit and integration tests**: pytest
-- **API view tests**: Django test client
-- **Acceptance (end-to-end) tests**: Playwright
+Never mindlessly delete functions, variables, classes etc. - first ask yoursefl "why I do I need to delete it? what will happen if its not there?"
+First check if there are instantions of the class or calls to a function.
+Even when you see that there is not a single instantiation of the class or call to a function - ask user with the proposal to delete it, explain your analysis and tell why you think its safe to delete it.
+Even if user agreed - add a tag "deleted def func_x" on the commit.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/phainestai) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
