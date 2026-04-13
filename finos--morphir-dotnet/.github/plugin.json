@@ -1,0 +1,38 @@
+{
+  "name": "finos--morphir-dotnet",
+  "displayName": "morphir-dotnet",
+  "description": "AI instruction files for morphir-dotnet by finos",
+  "version": "1.0.0",
+  "author": "finos",
+  "homepage": "https://tomevault.io/claim/finos",
+  "skills": [
+    {
+      "name": "aot-guru",
+      "description": ""
+    },
+    {
+      "name": "elm-to-fsharp-guru",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "description": ""
+    },
+    {
+      "name": "morphir-architect",
+      "description": ""
+    },
+    {
+      "name": "qa-tester",
+      "description": ""
+    },
+    {
+      "name": "release-manager",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "description": ""
+    }
+  ]
+}
