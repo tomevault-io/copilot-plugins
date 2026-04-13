@@ -49,9 +49,39 @@
       "path": ".claude/skills/elm-to-fsharp-guru",
       "github_url": "https://github.com/finos/morphir-dotnet/tree/main/.claude/skills/elm-to-fsharp-guru",
       "description": ""
+    },
+    {
+      "name": "template",
+      "path": ".claude/skills/template",
+      "github_url": "https://github.com/finos/morphir-dotnet/tree/main/.claude/skills/template",
+      "description": ""
+    },
+    {
+      "name": "morphir-architect",
+      "path": ".claude/skills/morphir-architect",
+      "github_url": "https://github.com/finos/morphir-dotnet/tree/main/.claude/skills/morphir-architect",
+      "description": ""
+    },
+    {
+      "name": "qa-tester",
+      "path": ".claude/skills/qa-tester",
+      "github_url": "https://github.com/finos/morphir-dotnet/tree/main/.claude/skills/qa-tester",
+      "description": ""
+    },
+    {
+      "name": "release-manager",
+      "path": ".claude/skills/release-manager",
+      "github_url": "https://github.com/finos/morphir-dotnet/tree/main/.claude/skills/release-manager",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "path": ".claude/skills/technical-writer",
+      "github_url": "https://github.com/finos/morphir-dotnet/tree/main/.claude/skills/technical-writer",
+      "description": ""
     }
   ],
   "claim_url": "https://tomevault.io/claim/finos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T15:00:19Z"
+  "distributed_at": "2026-04-13T05:34:57Z"
 }
