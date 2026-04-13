@@ -1,0 +1,75 @@
+{
+  "name": "example-scripts",
+  "owner": "numerai",
+  "repo": "example-scripts",
+  "description": "AI instruction files for example-scripts by numerai",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "numerai-experiment-design",
+      "path": "numerai/agents/skills/numerai-experiment-design",
+      "github_url": "https://github.com/numerai/example-scripts/tree/main/numerai/agents/skills/numerai-experiment-design",
+      "description": ""
+    },
+    {
+      "name": "numerai-model-implementation",
+      "path": "numerai/agents/skills/numerai-model-implementation",
+      "github_url": "https://github.com/numerai/example-scripts/tree/main/numerai/agents/skills/numerai-model-implementation",
+      "description": ""
+    },
+    {
+      "name": "numerai-model-upload",
+      "path": "numerai/agents/skills/numerai-model-upload",
+      "github_url": "https://github.com/numerai/example-scripts/tree/main/numerai/agents/skills/numerai-model-upload",
+      "description": ""
+    },
+    {
+      "name": "numerai-research",
+      "path": "numerai/agents/skills/numerai-research",
+      "github_url": "https://github.com/numerai/example-scripts/tree/main/numerai/agents/skills/numerai-research",
+      "description": ""
+    },
+    {
+      "name": "report-research",
+      "path": "numerai/agents/skills/report-research",
+      "github_url": "https://github.com/numerai/example-scripts/tree/main/numerai/agents/skills/report-research",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/numerai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T05:37:50Z"
+}
