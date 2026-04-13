@@ -1,6 +1,6 @@
 # seam-agent
 
-> Config by [seamapi](https://github.com/seamapi/seam-agent) — distributed by [TomeVault](https://tomevault.io/claim/seamapi)
+> Tome by [seamapi](https://github.com/seamapi/seam-agent) — distributed by [TomeVault](https://tomevault.io/claim/seamapi)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [seamapi/seam-agent](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/seamapi](https://tomevault.io/claim/seamapi)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/seamapi#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/seamapi) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/seamapi) to manage distribution and track installs.
+
+<!-- genome:t-c-q -->
