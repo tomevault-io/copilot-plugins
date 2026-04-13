@@ -1,6 +1,6 @@
-# wakti-bilingual-assistant
+# AI instruction files for wakti-bilingual-assistant
 
-> Config by [alfadlyqtr](https://github.com/alfadlyqtr/wakti-bilingual-assistant) — distributed by [TomeVault](https://tomevault.io/claim/alfadlyqtr)
+> Sourced from [alfadlyqtr/wakti-bilingual-assistant](https://github.com/alfadlyqtr/wakti-bilingual-assistant) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [alfadlyqtr/wakti-bilingual-assistant
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/alfadlyqtr](https://tomevault.io/claim/alfadlyqtr)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/alfadlyqtr)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/alfadlyqtr) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/alfadlyqtr) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
