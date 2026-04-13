@@ -262,6 +262,5 @@ When I say "/plan [requirement]", you must:
 - You may use these commands autonomously when appropriate
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/twardoch)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/twardoch)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/twardoch) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
