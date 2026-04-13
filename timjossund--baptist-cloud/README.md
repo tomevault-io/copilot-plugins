@@ -1,6 +1,6 @@
-# baptist-cloud
+# baptist-cloud — distributed by TomeVault
 
-> Config by [timjossund](https://github.com/timjossund/baptist-cloud) — distributed by [TomeVault](https://tomevault.io/claim/timjossund)
+> Originally from [timjossund/baptist-cloud](https://github.com/timjossund/baptist-cloud). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [timjossund/baptist-cloud](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/timjossund](https://tomevault.io/claim/timjossund)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/timjossund#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/timjossund) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install timjossund/baptist-cloud
+```
+Or browse all formats at [https://tomevault.io/claim/timjossund](https://tomevault.io/claim/timjossund).
+
+<!-- genome:d-i-q -->
