@@ -1,6 +1,6 @@
 # risus-companion
 
-> Config by [joewdriver](https://github.com/joewdriver/risus-companion) — distributed by [TomeVault](https://tomevault.io/claim/joewdriver)
+> Tome by [joewdriver](https://github.com/joewdriver/risus-companion) — distributed by [TomeVault](https://tomevault.io/claim/joewdriver)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [joewdriver/risus-companion](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/joewdriver](https://tomevault.io/claim/joewdriver)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/joewdriver#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/joewdriver) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
