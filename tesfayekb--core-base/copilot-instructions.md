@@ -20,6 +20,5 @@ Rules files will be added here to ensure:
 These rules help Windsurf AI maintain code quality and follow established patterns when making changes or additions to the codebase.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/tesfayekb)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/tesfayekb)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/tesfayekb) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
