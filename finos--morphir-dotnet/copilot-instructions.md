@@ -333,6 +333,5 @@ For every change:
 **Remember**: This file provides Windsurf-specific pointers. For complete guidance, always refer to AGENTS.md and specialized topic guides in .agents/.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/finos)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/finos)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/finos) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
