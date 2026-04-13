@@ -1,6 +1,6 @@
-# ynthmaster-calculator
+# ynthmaster-calculator — distributed by TomeVault
 
-> Config by [HaymayndzUltra](https://github.com/HaymayndzUltra/ynthmaster-calculator) — distributed by [TomeVault](https://tomevault.io/claim/HaymayndzUltra)
+> Originally from [HaymayndzUltra/ynthmaster-calculator](https://github.com/HaymayndzUltra/ynthmaster-calculator). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [HaymayndzUltra/ynthmaster-calculator
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/HaymayndzUltra](https://tomevault.io/claim/HaymayndzUltra)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/HaymayndzUltra#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/HaymayndzUltra) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install HaymayndzUltra/ynthmaster-calculator
+```
+Or browse all formats at [https://tomevault.io/claim/HaymayndzUltra](https://tomevault.io/claim/HaymayndzUltra).
+
+<!-- genome:d-i-q -->
