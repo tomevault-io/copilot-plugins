@@ -1,6 +1,6 @@
 # KuzuEventBus
 
-> Config by [superWorldSavior](https://github.com/superWorldSavior/KuzuEventBus) — distributed by [TomeVault](https://tomevault.io/claim/superWorldSavior)
+> Tome by [superWorldSavior](https://github.com/superWorldSavior/KuzuEventBus) — distributed by [TomeVault](https://tomevault.io/claim/superWorldSavior)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [superWorldSavior/KuzuEventBus](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/superWorldSavior](https://tomevault.io/claim/superWorldSavior)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/superWorldSavior)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/superWorldSavior) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install superWorldSavior/KuzuEventBus
+```
+Or browse all formats at [https://tomevault.io/claim/superWorldSavior](https://tomevault.io/claim/superWorldSavior).
+
+<!-- genome:t-i-p -->
