@@ -26072,6 +26072,251 @@
       "name": "yearn--yearn-insights",
       "source": "./yearn--yearn-insights",
       "description": "yearn-insights"
+    },
+    {
+      "name": "ichikawashota--mitsuraku-app",
+      "source": "./ichikawashota--mitsuraku-app",
+      "description": "mitsuraku-app"
+    },
+    {
+      "name": "serverless-operations--todo-app-using-spec-kit",
+      "source": "./serverless-operations--todo-app-using-spec-kit",
+      "description": "todo-app-using-spec-kit"
+    },
+    {
+      "name": "theatosam--lead-research-agent",
+      "source": "./theatosam--lead-research-agent",
+      "description": "lead-research-agent"
+    },
+    {
+      "name": "guilhermeseckert--govtrace",
+      "source": "./guilhermeseckert--govtrace",
+      "description": "GovTrace"
+    },
+    {
+      "name": "g-hensley--gavins-agent-system",
+      "source": "./g-hensley--gavins-agent-system",
+      "description": "Gavins-Agent-System"
+    },
+    {
+      "name": "agents-digital-enterprise--agency-agents-enterprise",
+      "source": "./agents-digital-enterprise--agency-agents-enterprise",
+      "description": "agency-agents-enterprise"
+    },
+    {
+      "name": "dablon--mcp-tools",
+      "source": "./dablon--mcp-tools",
+      "description": "mcp-tools"
+    },
+    {
+      "name": "dkcharles--2d-game-graphics",
+      "source": "./dkcharles--2d-game-graphics",
+      "description": "2D_Game_Graphics"
+    },
+    {
+      "name": "khalidedaig--transfer-funds",
+      "source": "./khalidedaig--transfer-funds",
+      "description": "transfer-funds"
+    },
+    {
+      "name": "gitlaudiusz--mlx-knowledge-base",
+      "source": "./gitlaudiusz--mlx-knowledge-base",
+      "description": "mlx-knowledge-base"
+    },
+    {
+      "name": "jaygiang--howlo",
+      "source": "./jaygiang--howlo",
+      "description": "howlo"
+    },
+    {
+      "name": "adekabang--digitalid",
+      "source": "./adekabang--digitalid",
+      "description": "DigitalID"
+    },
+    {
+      "name": "weytani--d3-lwc",
+      "source": "./weytani--d3-lwc",
+      "description": "d3-lwc"
+    },
+    {
+      "name": "buddy-lu--paper-trading-bot-2026",
+      "source": "./buddy-lu--paper-trading-bot-2026",
+      "description": "paper-trading-bot-2026"
+    },
+    {
+      "name": "beehiiv--beehiiv-newsletter-advisor-site",
+      "source": "./beehiiv--beehiiv-newsletter-advisor-site",
+      "description": "beehiiv-newsletter-advisor-site"
+    },
+    {
+      "name": "novraux--nov-helper",
+      "source": "./novraux--nov-helper",
+      "description": "nov_helper"
+    },
+    {
+      "name": "zainw--opencode-sync",
+      "source": "./zainw--opencode-sync",
+      "description": "opencode-sync"
+    },
+    {
+      "name": "aicensor--job-bid-automation",
+      "source": "./aicensor--job-bid-automation",
+      "description": "job-bid-automation"
+    },
+    {
+      "name": "naveenramesh987--bytebites-tinker-activity",
+      "source": "./naveenramesh987--bytebites-tinker-activity",
+      "description": "Bytebites-Tinker-Activity"
+    },
+    {
+      "name": "montyanderson--agentd",
+      "source": "./montyanderson--agentd",
+      "description": "agentd"
+    },
+    {
+      "name": "tanisjam--bruno-bot",
+      "source": "./tanisjam--bruno-bot",
+      "description": "bruno-bot"
+    },
+    {
+      "name": "amorites--autonomous-coding-platform",
+      "source": "./amorites--autonomous-coding-platform",
+      "description": "autonomous-coding-platform"
+    },
+    {
+      "name": "fxcircus--twilio-dialbot",
+      "source": "./fxcircus--twilio-dialbot",
+      "description": "twilio-dialbot"
+    },
+    {
+      "name": "joshcoolman-smc--sandbox",
+      "source": "./joshcoolman-smc--sandbox",
+      "description": "sandbox"
+    },
+    {
+      "name": "cskwork--chromegemini-nano-api-test",
+      "source": "./cskwork--chromegemini-nano-api-test",
+      "description": "ChromeGemini-Nano-API-Test"
+    },
+    {
+      "name": "thibautbaissac--training-eval-agent",
+      "source": "./thibautbaissac--training-eval-agent",
+      "description": "training-eval-agent"
+    },
+    {
+      "name": "haochenfa--multi-threaded-web-server",
+      "source": "./haochenfa--multi-threaded-web-server",
+      "description": "Multi-Threaded_Web-Server"
+    },
+    {
+      "name": "balthazarmelkior--cabinet-agent-entretien",
+      "source": "./balthazarmelkior--cabinet-agent-entretien",
+      "description": "Cabinet_Agent_Entretien"
+    },
+    {
+      "name": "ahmedrafed99--tradingterminal",
+      "source": "./ahmedrafed99--tradingterminal",
+      "description": "Tradingterminal"
+    },
+    {
+      "name": "jrine0--sre-gym",
+      "source": "./jrine0--sre-gym",
+      "description": "sre-gym"
+    },
+    {
+      "name": "betcherj--log-profile-population",
+      "source": "./betcherj--log-profile-population",
+      "description": "log_profile_population"
+    },
+    {
+      "name": "emuthmartinez--agent-quality-ratchet",
+      "source": "./emuthmartinez--agent-quality-ratchet",
+      "description": "agent-quality-ratchet"
+    },
+    {
+      "name": "evokateur--ai-coding-pm",
+      "source": "./evokateur--ai-coding-pm",
+      "description": "ai-coding-pm"
+    },
+    {
+      "name": "nova-firefly--nova-config",
+      "source": "./nova-firefly--nova-config",
+      "description": "nova-config"
+    },
+    {
+      "name": "tbrittain--git-analytics",
+      "source": "./tbrittain--git-analytics",
+      "description": "git-analytics"
+    },
+    {
+      "name": "dustypolk--tmux",
+      "source": "./dustypolk--tmux",
+      "description": "tmux"
+    },
+    {
+      "name": "djpieter81--mtgsimmanu",
+      "source": "./djpieter81--mtgsimmanu",
+      "description": "MTGSimManu"
+    },
+    {
+      "name": "zorlin--peerbit-rs2",
+      "source": "./zorlin--peerbit-rs2",
+      "description": "peerbit-rs2"
+    },
+    {
+      "name": "rodrigo-castellano--nesyground",
+      "source": "./rodrigo-castellano--nesyground",
+      "description": "NeSyGround"
+    },
+    {
+      "name": "bortus-ai--claudemem",
+      "source": "./bortus-ai--claudemem",
+      "description": "claudemem"
+    },
+    {
+      "name": "abo-code-1--taptaza",
+      "source": "./abo-code-1--taptaza",
+      "description": "TapTaza"
+    },
+    {
+      "name": "borjampm--rust-learning",
+      "source": "./borjampm--rust-learning",
+      "description": "rust-learning"
+    },
+    {
+      "name": "thejasrao262003--turboquant-lab",
+      "source": "./thejasrao262003--turboquant-lab",
+      "description": "TurboQuant-Lab"
+    },
+    {
+      "name": "drasmusson--sts2-sim",
+      "source": "./drasmusson--sts2-sim",
+      "description": "sts2-sim"
+    },
+    {
+      "name": "ekollof--meshtui",
+      "source": "./ekollof--meshtui",
+      "description": "meshtui"
+    },
+    {
+      "name": "galachain--sdk",
+      "source": "./galachain--sdk",
+      "description": "sdk"
+    },
+    {
+      "name": "ricequant--rqboot",
+      "source": "./ricequant--rqboot",
+      "description": "rqboot"
+    },
+    {
+      "name": "espebra--stupid-simple-s3",
+      "source": "./espebra--stupid-simple-s3",
+      "description": "stupid-simple-s3"
+    },
+    {
+      "name": "ladislavsopko--cvm",
+      "source": "./ladislavsopko--cvm",
+      "description": "cvm"
     }
   ]
 }
