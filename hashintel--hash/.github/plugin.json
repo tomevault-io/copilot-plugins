@@ -1,0 +1,42 @@
+{
+  "name": "hashintel--hash",
+  "displayName": "hash",
+  "description": "AI instruction files for hash by hashintel",
+  "version": "1.0.0",
+  "author": "hashintel",
+  "homepage": "https://tomevault.io/claim/hashintel",
+  "skills": [
+    {
+      "name": "documenting-rust-code",
+      "description": ""
+    },
+    {
+      "name": "exploring-rust-crates",
+      "description": ""
+    },
+    {
+      "name": "handling-rust-errors",
+      "description": ""
+    },
+    {
+      "name": "managing-git-workflow",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "testing-hashql",
+      "description": ""
+    },
+    {
+      "name": "writing-hashql-diagnostics",
+      "description": ""
+    },
+    {
+      "name": "writing-hashql-jexpr",
+      "description": ""
+    }
+  ]
+}
