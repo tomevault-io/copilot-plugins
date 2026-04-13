@@ -1,0 +1,57 @@
+{
+  "name": "ai_experiment",
+  "owner": "yennanliu",
+  "repo": "ai_experiment",
+  "description": "AI instruction files for ai_experiment by yennanliu",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fastapi-master",
+      "path": "claude_code/skills_poc/.claude/skills/fastapi-master",
+      "github_url": "https://github.com/yennanliu/ai_experiment/tree/main/claude_code/skills_poc/.claude/skills/fastapi-master",
+      "description": ""
+    },
+    {
+      "name": "python-code-reviewer",
+      "path": "claude_code/skills_poc/.claude/skills/python-code-reviewer",
+      "github_url": "https://github.com/yennanliu/ai_experiment/tree/main/claude_code/skills_poc/.claude/skills/python-code-reviewer",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/yennanliu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T05:49:05Z"
+}
