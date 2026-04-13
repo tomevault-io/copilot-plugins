@@ -1,0 +1,18 @@
+{
+  "name": "aussiegingersnap--ai-project-start",
+  "displayName": "ai-project-start",
+  "description": "AI instruction files for ai-project-start by aussiegingersnap",
+  "version": "1.0.0",
+  "author": "aussiegingersnap",
+  "homepage": "https://tomevault.io/claim/aussiegingersnap",
+  "skills": [
+    {
+      "name": "feature-build",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "description": ""
+    }
+  ]
+}
