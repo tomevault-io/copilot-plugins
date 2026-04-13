@@ -1,23 +1,28 @@
-# Kai
+# AI instruction files for Kai
 
-> Config by [Bikatr7](https://github.com/Bikatr7/Kai) — distributed by [TomeVault](https://tomevault.io/claim/Bikatr7)
+> Sourced from [Bikatr7/Kai](https://github.com/Bikatr7/Kai) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Bikatr7/Kai](https://github.com/Bikatr7/Kai).
+Original source: `GEMINI.md` in [Bikatr7/Kai](https://github.com/Bikatr7/Kai).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Bikatr7](https://tomevault.io/claim/Bikatr7)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Bikatr7#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Bikatr7) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Bikatr7/Kai
+```
+Or browse all formats at [https://tomevault.io/claim/Bikatr7](https://tomevault.io/claim/Bikatr7).
+
+<!-- genome:a-i-q -->
