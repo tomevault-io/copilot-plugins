@@ -1,6 +1,6 @@
 # watchtower
 
-> Config by [zacol](https://github.com/zacol/watchtower) — distributed by [TomeVault](https://tomevault.io/claim/zacol)
+> Tome by [zacol](https://github.com/zacol/watchtower) — distributed by [TomeVault](https://tomevault.io/claim/zacol)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [zacol/watchtower](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/zacol](https://tomevault.io/claim/zacol)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/zacol)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/zacol) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install zacol/watchtower
+```
+Or browse all formats at [https://tomevault.io/claim/zacol](https://tomevault.io/claim/zacol).
+
+<!-- genome:t-i-s -->
