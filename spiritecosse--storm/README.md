@@ -1,6 +1,6 @@
-# storm
+# storm — distributed by TomeVault
 
-> Config by [spiritEcosse](https://github.com/spiritEcosse/storm) — distributed by [TomeVault](https://tomevault.io/claim/spiritEcosse)
+> Originally from [spiritEcosse/storm](https://github.com/spiritEcosse/storm). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [spiritEcosse/storm](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/spiritEcosse](https://tomevault.io/claim/spiritEcosse)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/spiritEcosse)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/spiritEcosse) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install spiritEcosse/storm
+```
+Or browse all formats at [https://tomevault.io/claim/spiritEcosse](https://tomevault.io/claim/spiritEcosse).
+
+<!-- genome:d-i-p -->
