@@ -1,395 +1,201 @@
 ## rental-baju
 
-> Dokumen ini berisi panduan standar untuk format dokumentasi hasil implementasi task di project Maguru. Panduan ini mengacu pada best practice JIRA Agile Scrum dan memastikan konsistensi pelaporan hasil pengembangan.
+> - Mendefinisikan sistem desain UI/UX utama untuk aplikasi rental software berbasis gaya Flat Modern Minimalist dengan sentuhan soft neumorphism dan aksen gold/yellow.
 
+# UI/UX Design System – Rental Software (v2)
 
-# Panduan Dokumentasi Hasil (result-ops-xxx.md)
+## Rules & Instruksi Utama
 
-## Tujuan Panduan
+**Tugas:**
 
-Dokumen ini berisi panduan standar untuk format dokumentasi hasil implementasi task di project Maguru. Panduan ini mengacu pada best practice JIRA Agile Scrum dan memastikan konsistensi pelaporan hasil pengembangan.
+- Mendefinisikan sistem desain UI/UX utama untuk aplikasi rental software berbasis gaya Flat Modern Minimalist dengan sentuhan soft neumorphism dan aksen gold/yellow.
+- Menjadi acuan utama seluruh tim dalam pengembangan, review, dan evaluasi UI/UX.
+- Menjamin konsistensi, aksesibilitas, dan kemudahan scaling di seluruh aplikasi.
 
-# [OPS-XXX] Hasil Implementasi [Nama Fitur]
+**Instruksi Penggunaan:**
 
-**Status**: [🟢 Complete | 🟡 Partial | 🔴 Blocked]  
-**Diimplementasikan**: [Tanggal Mulai] - [Tanggal Selesai]  
-**Developer**: [Nama Developer]  
-**Reviewer**: [Nama Reviewer]  
-**PR**: [Link Pull Request]
+- first of All selalu gunakan compoentn SHadcn UI terlebih dahulu, kemudian custom sesuai dengan kebutuhan.
+- Selalu rujuk dokumen ini sebelum membuat, mengubah, atau mereview komponen UI/UX.
+- Semua token warna, radius, shadow, dan font WAJIB didefinisikan di Tailwind config.
+- Gunakan Shadcn UI sebagai basis, custom hanya jika tidak tersedia.
+- Lakukan review berkala dan dokumentasikan perubahan besar di dokumen ini.
 
 ---
 
-## Daftar Isi
-
-1. [Ringkasan Implementasi](mdc:#ringkasan-implementasi)
-2. [Perubahan dari Rencana Awal](mdc:#perubahan-dari-rencana-awal)
-3. [Status Acceptance Criteria](mdc:#status-acceptance-criteria)
-4. [Detail Implementasi](mdc:#detail-implementasi)
-5. [Kendala dan Solusi](mdc:#kendala-dan-solusi)
-6. [Rekomendasi Selanjutnya](mdc:#rekomendasi-selanjutnya)
-
-## Ringkasan Implementasi (opsional Jika berhbungan dengan pembuatan fitur)
-
-[Ringkasan singkat (3-5 kalimat) tentang fitur yang diimplementasikan, highlight utama, dan nilai bisnis yang dihasilkan]
-
-### Ruang Lingkup
-
-[Deskripsi singkat tentang apa yang tercakup dalam implementasi dan apa yang tidak]
-
-#### 1. React Components
-
-**Server Components**:
-
-- [Nama Komponen]: [Deskripsi singkat]
-- ...
-
-**Client Components**:
-
-- [Nama Komponen]: [Deskripsi singkat]
-- ...
-
-#### 2. State Management
-
-**Context Providers**:
-
-- [Nama Context]: [Deskripsi singkat]
-- ...
-
-**React Query/State**:
-
-- [Nama Hook/Query]: [Deskripsi singkat]
-- ...
-
-#### 3. Custom Hooks
-
-**Feature Hooks**:
-
-- [Nama Hook]: [Deskripsi singkat]
-- ...
-
-**Utility Hooks**:
-
-- [Nama Hook]: [Deskripsi singkat]
-- ...
-
-#### 4. Data Access
-
-**Adapters**:
-
-- [Nama Adapter]: [Deskripsi singkat]
-- ...
-
-**API Endpoints**:
-
-- `[METHOD] /api/[path]` - [Deskripsi singkat]
-- ...
-
-#### 5. Server-side
-
-**Services**:
-
-- [Nama Service]: [Deskripsi singkat]
-- ...
-
-**Database Schema**:
-
-- [Nama Model/Perubahan]: [Deskripsi singkat]
-- ...
-
-#### 6. Cross-cutting Concerns
-
-**Types**:
-
-- [Nama Type]: [Deskripsi singkat]
-- ...
-
-**Utils**:
-
-- [Nama Util]: [Deskripsi singkat]
-- ...
-
-## Perubahan dari Rencana Awal
-
-[Deskripsi perubahan signifikan dari rencana awal (task-ops-xxx.md) dan justifikasinya]
-
-### Perubahan Desain
-
-| Komponen/Fitur  | Rencana Awal | Implementasi Aktual | Justifikasi |
-| --------------- | ------------ | ------------------- | ----------- |
-| [Nama Komponen] | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
-| [API Endpoint]  | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
-
-### Perubahan Teknis
-
-| Aspek           | Rencana Awal | Implementasi Aktual | Justifikasi |
-| --------------- | ------------ | ------------------- | ----------- |
-| [Struktur Data] | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
-| [Teknologi]     | [Deskripsi]  | [Deskripsi]         | [Alasan]    |
-
-## Status Acceptance Criteria
-
-| Kriteria     | Status | Keterangan                  |
-| ------------ | ------ | --------------------------- |
-| [Kriteria 1] | ✅     | [Keterangan jika perlu]     |
-| [Kriteria 2] | ⚠️     | [Keterangan keterbatasan]   |
-| [Kriteria 3] | ❌     | [Alasan tidak implementasi] |
-
-## Detail Implementasi
-
-> **⚠️ PENTING**: Dokumentasi ini harus fokus pada detail implementasi yang jelas dan ringkas. **HINDARI MENAMPILKAN PSEUDOCODE ATAU IMPLEMENTASI KODE YANG RUMIT**. Berikan penjelasan tingkat tinggi tentang pendekatan yang diambil, pola yang digunakan, dan alasan di balik keputusan teknis. Pengecualian hanya untuk Schema Database dan TypeScript Interface yang perlu ditampilkan sebagaimana diimplementasikan.
-
-### Arsitektur Folder
-
-Implementasi mengikuti struktur folder standar yang didefinisikan dalam arsitektur Maguru:
-
-```
-/features/[feature-name]/
-├── components/         # Komponen React
-│   ├── ComponentName/  # Komponen dengan sub-komponen
-│   │   └── ...
-│   └── ...
-├── context/            # React Context Providers
-│   └── ...
-├── hooks/              # Custom React Hooks
-│   ├── feature/        # Feature-specific hooks
-│   └── shared/         # Shared hooks
-├── adapters/           # Data access adapters (API calls)
-│   └── ...
-├── services/           # Business logic
-│   └── ...
-├── types/              # TypeScript type definitions
-│   └── ...
-└── utils/              # Utility functions
-    └── ...
-```
-
-> **Catatan**: Jika implementasi Anda menyimpang dari struktur standar di atas, jelaskan alasannya di sini.
-
-### Komponen Utama
-
-#### [Nama Komponen]
-
-**File**: `/path/to/component.tsx`
-
-**Deskripsi**:
-[Deskripsi fungsi dan tanggung jawab komponen]
-
-**Pattern yang Digunakan**:
-
-- [Pattern 1]: [Deskripsi]
-- [Pattern 2]: [Deskripsi]
-
-### Alur Data
-
-[Jelaskan alur data dari API ke UI atau sebaliknya dengan fokus pada:
-
-1. Bagaimana data dimuat dari backend
-2. Bagaimana state dikelola (React Query, Context, dll)
-3. Bagaimana state mempengaruhi UI
-4. Bagaimana mutasi/update data dilakukan]
-
-### Database Schema
-
-[Jika ada perubahan skema database, jelaskan di sini]
-
-```prisma
-model UpdatedModel {
-  // Skema yang diimplementasikan
-}
-```
-
-### API Implementation
-
-#### [Endpoint URL]
-
-**File**: `/path/to/api/file`
-
-**Method**: [GET/POST/PUT/DELETE]
-
-**Authentication**: [Required/Optional]
-
-**Error Handling**:
-
-- [Status Code]: [Deskripsi kondisi]
-- [Status Code]: [Deskripsi kondisi]
-
-## Kendala dan Solusi
-
-### Kendala 1: [Judul Kendala]
-
-**Deskripsi**:
-[Penjelasan detail kendala yang dihadapi]
-
-**Solusi**:
-[Bagaimana kendala diselesaikan, atau workaround yang diterapkan]
-
-**Pembelajaran**:
-[Pelajaran yang bisa diambil untuk implementasi di masa depan]
-
-### Kendala 2: [Judul Kendala]
-
-[Dan seterusnya...]
-
-## Rekomendasi Selanjutnya
-
-### Peningkatan Fitur
-
-1. [Rekomendasi 1]: [Deskripsi dan justifikasi]
-2. [Rekomendasi 2]: [Deskripsi dan justifikasi]
-
-### Technical Debt
-
-1. [Technical Debt 1]: [Deskripsi dan dampak]
-2. [Technical Debt 2]: [Deskripsi dan dampak]
-
-### Potensi Refactoring
-
-1. [Refactoring 1]: [Deskripsi dan manfaat]
-2. [Refactoring 2]: [Deskripsi dan manfaat]
-
-## Lampiran
-
-- [Link dokumen teknis tambahan]
-- [Link PR review]
-- [Link ke test report]
-
-> **Catatan**: Untuk detail pengujian (Unit, Integration, E2E, Performance), silakan merujuk ke dokumen test report di `features/[feature-name]/docs/report-test/test-report.md`. Dokumen ini berfokus pada implementasi, bukan hasil pengujian.
-
-## Panduan Penggunaan
-
-### Penamaan File
-
-- Format: `result-ops-[ID].md` (contoh: `result-ops-173.md`)
-- Simpan di direktori `features/[feature-name]/docs/result-docs/`
-
-### Waktu Penulisan
-
-Dokumentasi hasil harus dibuat langsung setelah implementasi fitur selesai dan sebelum code review, dengan update tambahan setelah code review jika diperlukan.
-
-### Panduan Penulisan
-
-1. **Faktual dan Objektif**: Tuliskan hasil implementasi secara faktual, tidak hanya rencana atau harapan.
-2. **Tunjukkan Perbandingan**: Selalu bandingkan hasil aktual dengan rencana awal yang didokumentasikan di task-ops.
-3. **Dokumentasikan Keputusan**: Jelaskan alasan di balik perubahan rencana atau pendekatan alternatif yang diambil.
-4. **Lengkap dan Detil**: Berikan informasi yang cukup untuk developer lain dapat memahami keseluruhan implementasi.
-5. **Visual**: Sertakan screenshot, diagram, atau video demo jika memungkinkan.
-6. **Hindari Pseudocode**: Jangan menampilkan implementasi kode yang rumit, fokus pada penjelasan pendekatan dan pola yang digunakan.
-
-### Integrasi dengan JIRA dan GitHub
-
-1. Lampirkan link ke dokumen hasil di komentar task JIRA
-2. Sertakan link dalam deskripsi Pull Request
-3. Referensikan nomor issue/task menggunakan format OPS-XXX di commit messages
-
-### Status Implementasi
-
-Gunakan format status berikut untuk kejelasan:
-
-- 🟢 **Complete**: Semua acceptance criteria terpenuhi tanpa kompromi
-- 🟡 **Partial**: Sebagian besar AC terpenuhi, dengan beberapa keterbatasan yang sudah disetujui
-- 🔴 **Blocked**: Implementasi terhambat oleh kendala yang memerlukan diskusi lebih lanjut
-
-## Template Sections
-
-### Template Status Acceptance Criteria
-
-```markdown
-## Status Acceptance Criteria
-
-| Kriteria                                      | Status | Keterangan                                           |
-| --------------------------------------------- | ------ | ---------------------------------------------------- |
-| Pengguna dapat membuat folder baru            | ✅     | Implementasi sesuai rencana                          |
-| Pengguna dapat mengedit judul page            | ✅     | UI lebih sederhana dari rencana awal                 |
-| Pengguna dapat menghapus folder dan kontennya | ⚠️     | Konfirmasi hanya 1 level, tidak recursive            |
-| Drag & drop untuk reordering                  | ❌     | Dipindahkan ke sprint berikutnya karena kompleksitas |
-```
-
-### Template Kendala dan Solusi
-
-```markdown
-## Kendala dan Solusi
-
-### Kendala 1: Integrasi Library X dengan Component Y
-
-**Deskripsi**:
-Library X ternyata tidak mendukung fitur Z yang kita butuhkan untuk implementasi sesuai rencana awal.
-
-**Solusi**:
-Membuat wrapper custom yang menambahkan fungsionalitas yang diperlukan, dengan trade-off performa yang sedikit menurun.
-
-**Pembelajaran**:
-Untuk fitur kompleks, lakukan spike/research lebih mendalam terhadap kapabilitas library sebelum finalisasi desain.
-
-### Kendala 2: Performance Issue saat Large Dataset
-
-**Deskripsi**:
-Terjadi lag signifikan saat loading dan rendering data lebih dari 1000 items.
-
-**Solusi**:
-
-- Implementasi virtualized list untuk menampilkan hanya items yang visible
-- Tambahkan pagination di API level
-- Cache hasil query dengan React Query
-
-**Pembelajaran**:
-Selalu pertimbangkan edge cases dengan dataset besar sejak awal desain.
-```
-
-## Contoh Dokumentasi Hasil
-
-Untuk melihat contoh dokumentasi hasil yang baik:
-
-- [result-ops-173.md](mdc:docs/result-docs/result-ops-173.md)
-
-## Integrasi dengan Task Documentation
-
-Dokumentasi hasil harus memiliki hubungan yang jelas dengan dokumentasi task asli. Praktik terbaik untuk memastikan integrasi ini adalah:
-
-1. **Cross-referencing**: Selalu referensikan task-ops-xxx.md di result-ops-xxx.md dan sebaliknya
-2. **Shared Structure**: Gunakan struktur yang paralel antara task dan result untuk memudahkan perbandingan
-3. **Explicit Diff**: Jelaskan secara eksplisit perbedaan antara rencana dan implementasi aktual
-4. **Shared Terminology**: Gunakan istilah yang konsisten antara task dan result documentation
-
-## Keterkaitan dengan Dokumentasi Pengujian
-
-Dokumentasi hasil tidak perlu mencantumkan detail testing secara lengkap karena sudah didokumentasikan dalam format terpisah:
-
-1. **Test Report**: Hasil pengujian didokumentasikan dalam `features/[feature-name]/docs/report-test/test-report.md`
-2. **Cross-reference**: Cukup referensikan dokumen test report dalam bagian lampiran jika diperlukan
-3. **Highlight Issues**: Jika ada temuan penting dari pengujian yang perlu diketahui, cukup rangkum di bagian kendala
-
-## Review Guidelines
-
-### Developer Self-Review Checklist
-
-- [ ] Semua acceptance criteria didokumentasikan dengan status yang akurat
-- [ ] Perubahan dari rencana awal dijelaskan dengan justifikasi
-- [ ] Struktur dan pola yang digunakan dijelaskan dengan jelas
-- [ ] Kendala dan solusi didokumentasikan secara komprehensif
-- [ ] Arsitektur folder diuraikan dengan jelas sesuai implementasi
-
-### Reviewer Checklist
-
-- [ ] Dokumentasi hasil akurat dan sesuai dengan implementasi aktual
-- [ ] Justifikasi untuk perubahan dari rencana masuk akal dan didokumentasikan
-- [ ] Status acceptance criteria transparan dan realistis
-- [ ] Technical debt dan rekomendasi selanjutnya masuk akal
-- [ ] Referensi ke task asli dan dokumentasi pendukung tersedia
-
-## FAQ
-
-**Q: Kapan sebaiknya menulis result documentation?**  
-A: Mulailah menulis draft sejak implementasi dimulai, dan finalisasi segera setelah implementasi selesai sebelum code review.
-
-**Q: Bagaimana jika implementasi sangat berbeda dari rencana?**  
-A: Dokumentasikan perbedaan dengan jelas, berikan justifikasi yang kuat, dan lakukan cross-reference ke diskusi atau keputusan yang menyebabkan perubahan.
-
-**Q: Apakah perlu mendokumentasikan implementasi yang gagal?**  
-A: Ya, dokumentasikan semua upaya implementasi termasuk yang gagal, karena ini menjadi pembelajaran berharga untuk tim dan mencegah pengulangan kesalahan.
-
-**Q: Siapa yang harus membaca dokumentasi hasil?**  
-A: Developer yang mengimplementasi untuk self-check, reviewer untuk validasi, product owner untuk verifikasi hasil, dan developer lain yang mungkin bekerja dengan kode tersebut di masa depan.
+## 1. **Gaya Visual**
+
+**Flat Modern Minimalist dengan Sentuhan Soft Neumorphism**
+
+- **Flat Design:**
+  - Hampir seluruh elemen menggunakan warna solid tanpa efek 3D, emboss, atau glassmorphism.
+  - Tidak ada shadow berat, hanya shadow sangat halus untuk depth minimal.
+- **Minimalist:**
+  - Banyak whitespace, layout sangat bersih, tidak ada elemen dekoratif berlebihan.
+  - Informasi disajikan secara ringkas dan jelas.
+- **Soft Neumorphism Touch:**
+  - Beberapa card memiliki sudut rounded yang sangat lembut, dan ada sedikit efek inner/outer shadow yang sangat subtle, memberi kesan “floating” tanpa berat.
+- **Modern UI:**
+  - Komponen card, button, dan badge tampil dengan bentuk rounded dan outline tipis.
+  - Ikon-ikon minimalis, micro-interaction implied (misal: tombol dengan lingkaran solid, dropdown dengan arrow sederhana).
+
+**Ciri Khas Visual:**
+
+- Sudut membulat (rounded corners) pada semua card dan komponen.
+- Grid modular, setiap informasi dalam card terpisah.
+- Visual hierarchy sangat jelas: judul besar, subjudul kecil, data/statistik menonjol.
+- Penggunaan icon dan avatar untuk memperkuat identitas dan affordance.
+
+---
+
+## B. Palet Warna
+
+| Warna         | Hex Contoh      | Penggunaan Utama                |
+| ------------- | --------------- | ------------------------------- |
+| Gold          | #FFD700         | Highlight, CTA, progress, badge |
+| Putih         | #FFFFFF         | Background utama, card          |
+| Abu-abu muda  | #F8FAFC         | Background sekunder, card       |
+| Abu kehijauan | #E2E8F0         | Background grid, panel          |
+| Hitam         | #111827         | Teks utama, angka, tombol       |
+| Biru/Olive    | #3B82F6/#84CC16 | Status sekunder, badge          |
+
+**Palet Warna:**
+
+- **Dominan:**
+  - Gold (#FFD700 atau sejenis) sebagai warna aksen utama (highlight, progress, CTA).
+  - Putih dan abu-abu muda untuk background card dan area utama.
+  - Abu-abu kehijauan sebagai background utama (bukan putih polos, memberi nuansa modern dan tenang).
+- **Kontras:**
+  - Hitam untuk teks utama dan elemen penting (judul, angka, tombol utama).
+  - Aksen hitam solid pada tombol utama dan beberapa elemen interaktif.
+- **Hierarki Visual:**
+  - Warna aksen digunakan untuk menyorot status, progress, dan elemen penting (misal: tanggal terpilih, progress bar, AI Assistant).
+  - Warna netral untuk background agar konten mudah dibaca.
+
+**Tipografi:**
+
+- **Jenis Huruf:**
+  - Sans-serif modern, kemungkinan besar menggunakan font seperti Inter, Poppins, atau Graphik.
+- **Ukuran & Konsistensi:**
+  - Judul besar, tebal, sangat readable.
+  - Subjudul dan label lebih kecil, tipis, dan konsisten.
+  - Angka/statistik sangat menonjol (besar, bold).
+- **Konsistensi:**
+  - Semua teks rata kiri, spasi antar elemen sangat rapi.
+  - Tidak ada variasi font yang berlebihan, menjaga kesan profesional.
+
+---
+
+## C. Usage Guidelines
+
+- **Primary:** Gold untuk tombol utama, highlight, dan progress.
+- **Secondary:** Biru/olive untuk status sekunder, badge, atau notifikasi.
+- **Background:** Putih/abu-abu muda untuk latar utama dan card.
+- **Accent:** Gunakan warna aksen hanya untuk elemen penting, jangan berlebihan.
+- **Kontras:** Pastikan teks hitam di atas warna terang, dan sebaliknya.
+
+---
+
+## E. Border Radius & Shadow
+
+- **Radius:**
+  - `rounded-lg` untuk card/panel utama
+  - `rounded-full` untuk avatar, icon, dan button bulat
+- **Shadow:**
+  - `shadow-md` untuk card utama (subtle, soft neumorphism)
+  - `shadow-sm`/`shadow-none` untuk data card atau elemen sekunder
+- Semua radius dan shadow didefinisikan sebagai token di Tailwind config.
+
+---
+
+## H. Interactive States
+
+**Interaksi:**
+
+- **Affordance Jelas:**
+  - Button dan dropdown sangat jelas bisa diklik (warna solid, ikon arrow).
+  - Card dengan highlight warna menandakan status aktif/terpilih.
+- **Micro-interaction (Implied):**
+  - Hover state kemungkinan berupa perubahan warna background atau shadow subtle.
+  - Tidak ada animasi berat, menjaga performa dan fokus pada konten.
+
+- **Hover:**
+  - Button: bg-gold-400, scale(1.02), shadow-lg
+  - Card: shadow-xl, border-gold-100
+- **Focus:** Outline 2px solid gold/olive, offset 2px
+- **Active:** scale(0.98), bg-gold-600
+- **Disabled:** opacity-50, cursor-not-allowed
+- Semua state diatur di Tailwind config dan utility class.
+
+---
+
+## J. Komponen Utama
+
+**Struktur Layout:**
+
+- **Grid System Modular:**
+  - Layout menggunakan grid modular, setiap card adalah satu modul informasi.
+  - Spasi antar card besar, memberi ruang napas (breathing space).
+- **Card-Based:**
+  - Semua informasi utama ditempatkan dalam card dengan sudut membulat.
+  - Setiap card punya fungsi spesifik: user info, meetings, roadmap, statistik, AI assistant.
+- **Komponen:**
+  - **Button:**
+    - Bulat, solid, dengan ikon sederhana (arrow, plus).
+    - Ada juga tombol dengan outline tipis.
+  - **Dropdown:**
+    - Sangat minimal, hanya teks dan ikon panah.
+  - **Progress Bar:**
+    - Flat, tipis, warna aksen.
+  - **Avatar & Icon:**
+    - Avatar bulat, icon minimalis (notifikasi, waktu, telepon).
+  - **Form/Selector:**
+    - Dropdown dan date selector sangat sederhana, mudah di-scan.
+  - **Chart:**
+    - Line chart sederhana dengan warna aksen, tanpa grid berat.
+
+- **Card:** Rounded, shadow, padding, grid/list, modular.
+- **Button:** Solid, outline, ghost, icon button, bulat.
+- **Table:** Responsive, zebra, sortable.
+- **Navbar/Sidebar:** Sticky, minimalis, icon + label.
+- **Form/Input:** Large touch target, clear label, error state.
+- **Chart:** Bar, line, pie, status color, minimalis.
+- **Badge/Status:** Gold, olive, biru, merah.
+- Semua komponen diusahakan reusable dan konsisten.
+
+## K. Responsive & Accessibility
+
+- **Kontras Cukup:**
+  - Teks hitam di atas warna terang/putih, mudah dibaca.
+  - Angka/statistik sangat menonjol.
+- **Ukuran Font:**
+  - Cukup besar untuk keterbacaan, baik untuk desktop maupun tablet.
+- **Icon & Label:**
+  - Semua icon didampingi label, memudahkan pemahaman.
+- **Whitespace:**
+  - Spasi antar elemen besar, memudahkan navigasi visual.
+
+## L. Performance & Utility
+
+- **Use Transform:** Untuk animasi
+- **Lazy Loading:** Untuk gambar dan komponen berat
+- **Skeleton:** Untuk loading state
+- **Critical Path:** Prioritaskan konten utama
+
+---
+
+## Inspirasi & Referensi
+
+- **Aplikasi SaaS Modern:** Notion, Asana, Linear, Monday.com (untuk modular card, grid, dan warna aksen).
+- **Google Material Design (versi minimal):** Penggunaan card, shadow subtle, dan icon minimalis.
+- **Apple iOS Dashboard:** Rounded card, modular grid, dan tipografi besar.
+- **Tren Dribbble/Behance 2022-2024:** Flat, soft color, modular dashboard, micro-interaction, dan AI assistant card.
+
+## Ringkasan Akhir
+
+Desain baru ini mengadopsi gaya Flat Modern Minimalist dengan sentuhan soft neumorphism, palet warna netral dengan aksen lime/yellow, tipografi sans-serif besar, layout grid modular, dan komponen card-based yang sangat clean dan profesional. Pendekatan ini sangat sesuai untuk aplikasi bisnis modern, SaaS dashboard, dan rental management yang membutuhkan visual yang hidup, profesional, dan mudah di-scale.
+
+---
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/EviewNicks) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
