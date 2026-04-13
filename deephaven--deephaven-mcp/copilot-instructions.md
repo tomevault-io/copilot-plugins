@@ -60,6 +60,5 @@
 3. **Document placeholder requirements**: When using placeholders, add comments explaining what format is expected (e.g., `"auth_token": "username:password"  // Must be in "user:pass" format`).
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/deephaven)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/deephaven)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/deephaven) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
