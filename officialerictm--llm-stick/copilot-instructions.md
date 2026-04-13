@@ -13,6 +13,5 @@ Deliverables must be path-based and runnable offline by any seasoned dev. No clo
 At the beginning of every query, read docs/STATUS_BOARD.md and the linked docs first.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/officialerictm)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/officialerictm)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/officialerictm) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
