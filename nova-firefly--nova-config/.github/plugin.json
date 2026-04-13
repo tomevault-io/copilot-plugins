@@ -1,0 +1,9 @@
+{
+  "name": "nova-firefly--nova-config",
+  "displayName": "nova-config",
+  "description": "nova-config",
+  "version": "1.0.0",
+  "author": "nova-firefly",
+  "homepage": "https://tomevault.io/claim/nova-firefly",
+  "skills": []
+}
