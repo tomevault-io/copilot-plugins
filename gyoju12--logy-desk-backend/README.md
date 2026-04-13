@@ -1,6 +1,6 @@
 # logy-desk-backend
 
-> Config by [gyoju12](https://github.com/gyoju12/logy-desk-backend) — distributed by [TomeVault](https://tomevault.io/claim/gyoju12)
+> Tome by [gyoju12](https://github.com/gyoju12/logy-desk-backend) — distributed by [TomeVault](https://tomevault.io/claim/gyoju12)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [gyoju12/logy-desk-backend](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/gyoju12](https://tomevault.io/claim/gyoju12)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/gyoju12)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/gyoju12) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install gyoju12/logy-desk-backend
+```
+Or browse all formats at [https://tomevault.io/claim/gyoju12](https://tomevault.io/claim/gyoju12).
+
+<!-- genome:t-i-s -->
