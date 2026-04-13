@@ -2,8 +2,8 @@
   "name": "brightpath-coder",
   "owner": "cdalsoniii",
   "repo": "brightpath-coder",
-  "description": "",
-  "type": "config",
+  "description": "AI instruction files for brightpath-coder by cdalsoniii",
+  "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agent-evaluation",
+      "path": ".cursor/skills/agent-evaluation",
+      "github_url": "https://github.com/cdalsoniii/brightpath-coder/tree/main/.cursor/skills/agent-evaluation",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/cdalsoniii",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T12:41:57Z"
+  "distributed_at": "2026-04-13T23:31:17Z"
 }
