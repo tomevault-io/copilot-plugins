@@ -1,6 +1,6 @@
-# my-react-vite-app
+# AI instruction files for my-react-vite-app
 
-> Config by [Feyded](https://github.com/Feyded/my-react-vite-app) — distributed by [TomeVault](https://tomevault.io/claim/Feyded)
+> Sourced from [Feyded/my-react-vite-app](https://github.com/Feyded/my-react-vite-app) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [Feyded/my-react-vite-app](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Feyded](https://tomevault.io/claim/Feyded)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Feyded)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Feyded) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Feyded/my-react-vite-app
+```
+Or browse all formats at [https://tomevault.io/claim/Feyded](https://tomevault.io/claim/Feyded).
+
+<!-- genome:a-i-p -->
