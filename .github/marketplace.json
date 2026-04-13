@@ -6629,41 +6629,6 @@
       "description": "dot-ai-demo"
     },
     {
-      "name": "alexandre-henrique-rp--iselftoken",
-      "source": "./alexandre-henrique-rp--iselftoken",
-      "description": "iselftoken"
-    },
-    {
-      "name": "andrewpollack--llm-from-scratch",
-      "source": "./andrewpollack--llm-from-scratch",
-      "description": "llm-from-scratch"
-    },
-    {
-      "name": "clockwork-temptation--editor",
-      "source": "./clockwork-temptation--editor",
-      "description": "editor"
-    },
-    {
-      "name": "zacol--watchtower",
-      "source": "./zacol--watchtower",
-      "description": "watchtower"
-    },
-    {
-      "name": "nguyenhuy158--helper",
-      "source": "./nguyenhuy158--helper",
-      "description": "helper"
-    },
-    {
-      "name": "snowman-labs--cine-search",
-      "source": "./snowman-labs--cine-search",
-      "description": "cine_search"
-    },
-    {
-      "name": "snuffles5--tradeflow-trade-service",
-      "source": "./snuffles5--tradeflow-trade-service",
-      "description": "tradeflow-trade-service"
-    },
-    {
       "name": "oyi77--telegram-ai-trade",
       "source": "./oyi77--telegram-ai-trade",
       "description": "telegram-ai-trade"
@@ -27872,6 +27837,221 @@
       "name": "ujjalcal--nl2v2",
       "source": "./ujjalcal--nl2v2",
       "description": "nl2v2"
+    },
+    {
+      "name": "aebrer--deep-yellow",
+      "source": "./aebrer--deep-yellow",
+      "description": "deep-yellow"
+    },
+    {
+      "name": "pedronahum--jactus",
+      "source": "./pedronahum--jactus",
+      "description": "JACTUS"
+    },
+    {
+      "name": "davidjarnold--request-cache",
+      "source": "./davidjarnold--request-cache",
+      "description": "request_cache"
+    },
+    {
+      "name": "dariubs--scaffold",
+      "source": "./dariubs--scaffold",
+      "description": "scaffold"
+    },
+    {
+      "name": "thobenayann--next-contract-builder",
+      "source": "./thobenayann--next-contract-builder",
+      "description": "next-contract-builder"
+    },
+    {
+      "name": "remcostoeten--fync",
+      "source": "./remcostoeten--fync",
+      "description": "fync"
+    },
+    {
+      "name": "alexandre-henrique-rp--iselftoken",
+      "source": "./alexandre-henrique-rp--iselftoken",
+      "description": "iselftoken"
+    },
+    {
+      "name": "mathious6--discord-link-opener",
+      "source": "./mathious6--discord-link-opener",
+      "description": "discord-link-opener"
+    },
+    {
+      "name": "sparkworx--terraform-provider-keychain",
+      "source": "./sparkworx--terraform-provider-keychain",
+      "description": "terraform-provider-keychain"
+    },
+    {
+      "name": "ceferonl--vp-scraping",
+      "source": "./ceferonl--vp-scraping",
+      "description": "vp-scraping"
+    },
+    {
+      "name": "alnwangchi--room-reservation-system",
+      "source": "./alnwangchi--room-reservation-system",
+      "description": "room-reservation-system"
+    },
+    {
+      "name": "zerodice0--recipelabo-flutter",
+      "source": "./zerodice0--recipelabo-flutter",
+      "description": "recipelabo_flutter"
+    },
+    {
+      "name": "andrewpollack--llm-from-scratch",
+      "source": "./andrewpollack--llm-from-scratch",
+      "description": "llm-from-scratch"
+    },
+    {
+      "name": "djav1985--v-chatgpt-social-status-feeds",
+      "source": "./djav1985--v-chatgpt-social-status-feeds",
+      "description": "v-chatgpt-social-status-feeds"
+    },
+    {
+      "name": "ariejan--gitmop",
+      "source": "./ariejan--gitmop",
+      "description": "gitmop"
+    },
+    {
+      "name": "joel-thompson--terminag",
+      "source": "./joel-thompson--terminag",
+      "description": "terminag"
+    },
+    {
+      "name": "thomasandersen77--cloudberries-candidate-match",
+      "source": "./thomasandersen77--cloudberries-candidate-match",
+      "description": "cloudberries-candidate-match"
+    },
+    {
+      "name": "smhmayboudi--effect-app-telegram",
+      "source": "./smhmayboudi--effect-app-telegram",
+      "description": "effect-app-telegram"
+    },
+    {
+      "name": "clockwork-temptation--editor",
+      "source": "./clockwork-temptation--editor",
+      "description": "editor"
+    },
+    {
+      "name": "taiyi747--bamboo-shoot-soup",
+      "source": "./taiyi747--bamboo-shoot-soup",
+      "description": "bamboo_shoot_soup"
+    },
+    {
+      "name": "gabrielkilly--nayeli-perez-dotcom",
+      "source": "./gabrielkilly--nayeli-perez-dotcom",
+      "description": "nayeli-perez-dotcom"
+    },
+    {
+      "name": "guilhermekaua1--doutor-agenda",
+      "source": "./guilhermekaua1--doutor-agenda",
+      "description": "doutor-agenda"
+    },
+    {
+      "name": "sarah-zou--economist",
+      "source": "./sarah-zou--economist",
+      "description": "economist"
+    },
+    {
+      "name": "t4toh--la-cueva-de-tatoh",
+      "source": "./t4toh--la-cueva-de-tatoh",
+      "description": "la-cueva-de-tatoh"
+    },
+    {
+      "name": "zacol--watchtower",
+      "source": "./zacol--watchtower",
+      "description": "watchtower"
+    },
+    {
+      "name": "tteggel---dotfiles",
+      "source": "./tteggel---dotfiles",
+      "description": ".dotfiles"
+    },
+    {
+      "name": "peuqui--aifred-intelligence",
+      "source": "./peuqui--aifred-intelligence",
+      "description": "AIfred-Intelligence"
+    },
+    {
+      "name": "ergonmanagement--ergon",
+      "source": "./ergonmanagement--ergon",
+      "description": "ergon"
+    },
+    {
+      "name": "kriruo--whiz-v2",
+      "source": "./kriruo--whiz-v2",
+      "description": "Whiz-v2"
+    },
+    {
+      "name": "boanerges20297--st-gcn-jules",
+      "source": "./boanerges20297--st-gcn-jules",
+      "description": "st-gcn_Jules"
+    },
+    {
+      "name": "nguyenhuy158--helper",
+      "source": "./nguyenhuy158--helper",
+      "description": "helper"
+    },
+    {
+      "name": "sethrylan--readis",
+      "source": "./sethrylan--readis",
+      "description": "readis"
+    },
+    {
+      "name": "aki-0517--hyperevm-tx-simulator",
+      "source": "./aki-0517--hyperevm-tx-simulator",
+      "description": "hyperevm-tx-simulator"
+    },
+    {
+      "name": "jasonstcyrx--ai-template",
+      "source": "./jasonstcyrx--ai-template",
+      "description": "ai-template"
+    },
+    {
+      "name": "mueltech--pharmacy-pos",
+      "source": "./mueltech--pharmacy-pos",
+      "description": "Pharmacy-POS"
+    },
+    {
+      "name": "shou-dev19--shou-portfolio",
+      "source": "./shou-dev19--shou-portfolio",
+      "description": "shou-portfolio"
+    },
+    {
+      "name": "snowman-labs--cine-search",
+      "source": "./snowman-labs--cine-search",
+      "description": "cine_search"
+    },
+    {
+      "name": "dotnetdevsaustria--dotnetdevsaustria-github-io",
+      "source": "./dotnetdevsaustria--dotnetdevsaustria-github-io",
+      "description": "dotnetdevsaustria.github.io"
+    },
+    {
+      "name": "as90555--apex-trading-bot",
+      "source": "./as90555--apex-trading-bot",
+      "description": "apex-trading-bot"
+    },
+    {
+      "name": "zccrs--git-commit-helper",
+      "source": "./zccrs--git-commit-helper",
+      "description": "git-commit-helper"
+    },
+    {
+      "name": "cmartinsgyn--adv-calc",
+      "source": "./cmartinsgyn--adv-calc",
+      "description": "adv-calc"
+    },
+    {
+      "name": "zecacorreia--termo-gemini-cli",
+      "source": "./zecacorreia--termo-gemini-cli",
+      "description": "termo-gemini-cli"
+    },
+    {
+      "name": "snuffles5--tradeflow-trade-service",
+      "source": "./snuffles5--tradeflow-trade-service",
+      "description": "tradeflow-trade-service"
     }
   ]
 }
