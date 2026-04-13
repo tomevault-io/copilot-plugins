@@ -1,6 +1,6 @@
-# apex
+# apex — distributed by TomeVault
 
-> Config by [cennahq](https://github.com/cennahq/apex) — distributed by [TomeVault](https://tomevault.io/claim/cennahq)
+> Originally from [cennahq/apex](https://github.com/cennahq/apex). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [cennahq/apex](https://github.com/cen
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/cennahq](https://tomevault.io/claim/cennahq)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/cennahq)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/cennahq) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install cennahq/apex
+```
+Or browse all formats at [https://tomevault.io/claim/cennahq](https://tomevault.io/claim/cennahq).
+
+<!-- genome:d-i-s -->
