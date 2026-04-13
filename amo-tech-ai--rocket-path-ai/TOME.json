@@ -1,0 +1,51 @@
+{
+  "name": "rocket-path-ai",
+  "owner": "amo-tech-ai",
+  "repo": "rocket-path-ai",
+  "description": "AI instruction files for rocket-path-ai by amo-tech-ai",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-best-practices",
+      "path": ".cursor/skills/agent-best-practices",
+      "github_url": "https://github.com/amo-tech-ai/rocket-path-ai/tree/main/.cursor/skills/agent-best-practices",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/amo-tech-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T23:33:02Z"
+}
