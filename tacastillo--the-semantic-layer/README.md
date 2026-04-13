@@ -1,6 +1,6 @@
 # the-semantic-layer
 
-> Config by [tacastillo](https://github.com/tacastillo/the-semantic-layer) — distributed by [TomeVault](https://tomevault.io/claim/tacastillo)
+> Tome by [tacastillo](https://github.com/tacastillo/the-semantic-layer) — distributed by [TomeVault](https://tomevault.io/claim/tacastillo)
 
 ## GitHub Copilot Config
 
@@ -13,10 +13,12 @@ Original source: `CLAUDE.md` in [tacastillo/the-semantic-layer](https://github.c
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/tacastillo](https://tomevault.io/claim/tacastillo)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/tacastillo#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/tacastillo) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/tacastillo) to manage distribution and track installs.
+
+<!-- genome:t-c-q -->
