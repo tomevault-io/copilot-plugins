@@ -1,6 +1,6 @@
-# hash
+# hash — distributed by TomeVault
 
-> Tome by [hashintel](https://github.com/hashintel/hash) — distributed by [TomeVault](https://tomevault.io/claim/hashintel)
+> Originally from [hashintel/hash](https://github.com/hashintel/hash). Converted and distributed by [TomeVault](https://tomevault.io)
 
 AI instruction files for hash by hashintel
 
@@ -17,8 +17,6 @@ Original source: `.windsurf/rules/*.md` in [hashintel/hash](https://github.com/h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/hashintel](https://tomevault.io/claim/hashintel)
-
 ## Bundled Skills (8)
 
 - [documenting-rust-code](https://github.com/hashintel/hash/tree/main/.claude/skills/documenting-rust-code)
@@ -30,7 +28,14 @@ Browse all formats: [https://tomevault.io/claim/hashintel](https://tomevault.io/
 - [writing-hashql-diagnostics](https://github.com/hashintel/hash/tree/main/.claude/skills/writing-hashql-diagnostics)
 - [writing-hashql-jexpr](https://github.com/hashintel/hash/tree/main/.claude/skills/writing-hashql-jexpr)
 
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/hashintel#quality)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/hashintel) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install hashintel/hash
+```
+Or browse all formats at [https://tomevault.io/claim/hashintel](https://tomevault.io/claim/hashintel).
+
+<!-- genome:d-i-q -->
