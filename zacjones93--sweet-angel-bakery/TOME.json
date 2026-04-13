@@ -1,0 +1,51 @@
+{
+  "name": "sweet-angel-bakery",
+  "owner": "zacjones93",
+  "repo": "sweet-angel-bakery",
+  "description": "AI instruction files for sweet-angel-bakery by zacjones93",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "timezone",
+      "path": ".claude/skills/timezone",
+      "github_url": "https://github.com/zacjones93/sweet-angel-bakery/tree/main/.claude/skills/timezone",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/zacjones93",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T20:30:36Z"
+}
