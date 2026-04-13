@@ -1,6 +1,6 @@
-# bounce-blaster
+# AI instruction files for bounce-blaster
 
-> Config by [2dice](https://github.com/2dice/bounce-blaster) — distributed by [TomeVault](https://tomevault.io/claim/2dice)
+> Sourced from [2dice/bounce-blaster](https://github.com/2dice/bounce-blaster) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [2dice/bounce-blaster](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/2dice](https://tomevault.io/claim/2dice)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/2dice)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/2dice) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/2dice) to manage distribution and track installs.
+
+<!-- genome:a-c-s -->
