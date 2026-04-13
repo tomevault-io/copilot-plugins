@@ -22,6 +22,5 @@ Usa los hooks del Composition API: Utiliza onMounted, onUpdated, onUnmounted, et
 Limpia efectos secundarios: Si creas efectos secundarios como setInterval o addEventListener en onMounted, asegúrate de limpiarlos en onUnmounted para evitar fugas de memoria.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/DorianLaguna)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/DorianLaguna)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/DorianLaguna) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
