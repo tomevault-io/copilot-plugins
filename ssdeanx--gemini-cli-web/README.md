@@ -1,6 +1,6 @@
-# Gemini-CLI-Web
+# AI instruction files for Gemini-CLI-Web
 
-> Tome by [ssdeanx](https://github.com/ssdeanx/Gemini-CLI-Web) — distributed by [TomeVault](https://tomevault.io/claim/ssdeanx)
+> Sourced from [ssdeanx/Gemini-CLI-Web](https://github.com/ssdeanx/Gemini-CLI-Web) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 AI instruction files for Gemini-CLI-Web by ssdeanx
 
@@ -17,13 +17,18 @@ Original source: `.windsurf/rules/*.md` in [ssdeanx/Gemini-CLI-Web](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/ssdeanx](https://tomevault.io/claim/ssdeanx)
-
 ## Bundled Skills (1)
 
 - [gemini](https://github.com/ssdeanx/Gemini-CLI-Web/tree/main/.github/skills/gemini)
 
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ssdeanx#quality)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ssdeanx) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install ssdeanx/Gemini-CLI-Web
+```
+Or browse all formats at [https://tomevault.io/claim/ssdeanx](https://tomevault.io/claim/ssdeanx).
+
+<!-- genome:a-i-q -->
