@@ -1,0 +1,60 @@
+## thoughtlab
+
+> 1. Always ask the user before making potentially breaking changes.
+
+## General Rules
+1. Always ask the user before making potentially breaking changes.
+2. To quickly retrieve context for user requests, refer to the project [docs](../../docs/).
+   - **Comprehensive developer guide**: [DEVELOPMENT_GUIDE.md](../../DEVELOPMENT_GUIDE.md)
+   - **Code structure and file locations**: [PROJECT_MAP.md](../../docs/PROJECT_MAP.md)
+   - **Project quickstart**: [README.md](../../README.md)
+   - **Setup instructions**: [SETUP.md](../../docs/SETUP.md)
+   - **Testing guide**: [TESTING.md](../../docs/TESTING.md)
+   - **Dependency management**: [DEPENDENCIES.md](../../docs/DEPENDENCIES.md)
+3. Current documentation is a priority. When making changes that may impact end-user workflows, be sure to update any relevant documentation, including the [README.md](../../README.md), [PROJECT_MAP.md](../../docs/PROJECT_MAP.md), [DEVELOPMENT_GUIDE.md](../../DEVELOPMENT_GUIDE.md), and [SETUP.md](../../docs/SETUP.md) if appropriate.
+4. Always reference the most current documentation possible for packages, depending on the version we are using. **Use the Context7 MCP server** proactively if available.
+
+## Development Principles
+When writing code, follow these principles:
+
+### Modularity First
+Design every feature with **modularity** in mind to facilitate easy expansion as the project grows, with minimal refactoring necessary. This means:
+
+- **Single Responsibility**: Each module/component does one thing well
+- **Clear Interfaces**: Use Pydantic models (backend) and TypeScript types (frontend) as contracts
+- **Separation of Concerns**: Routes handle HTTP, services handle business logic, connectors handle data access
+- **Minimal Coupling**: Components communicate via props/callbacks, not global state
+- **Easy Extension Points**: New node types, relationship types, and features should require isolated changes
+
+See [DEVELOPMENT_GUIDE.md: Development Principles](../../DEVELOPMENT_GUIDE.md#development-principles) for more detailed guidelines and examples.
+
+### Human-in-the-loop
+The user wants to collaborate with you for design/architecture decisions throughout this project. For decisions that may have a large impact throughout development or may require large refactors to change later, **ask the user for input**.
+
+### Quality Standards
+- Write tests for new features (pytest for backend, vitest for frontend)
+- Use type hints in Python and TypeScript throughout
+- Keep functions small and focused
+- Document non-obvious decisions in code comments
+- Follow existing patterns in the codebase
+
+### Avoid Over-Engineering
+- Don't add features beyond what was requested
+- Don't refactor unrelated code during bug fixes
+- Don't add error handling for impossible scenarios
+- Don't create abstractions for single-use code
+- Three similar lines > premature abstraction
+
+### Keep Documentation Current
+Whenever functionality is added/removed/changed, update the following files where necessary:
+
+1. [CHANGELOG.md](../../CHANGELOG.md)
+2. [DEVELOPMENT_GUIDE.md](../../DEVELOPMENT_GUIDE.md)
+3. [PROJECT_MAP.md](../../docs/PROJECT_MAP.md)
+4. [SETUP.md](../../docs/SETUP.md)
+5. [TESTING.md](../../docs/TESTING.md)
+6. [README.md](../../README.md)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/study-flamingo) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
