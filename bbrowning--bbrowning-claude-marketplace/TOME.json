@@ -1,0 +1,63 @@
+{
+  "name": "bbrowning-claude-marketplace",
+  "owner": "bbrowning",
+  "repo": "bbrowning-claude-marketplace",
+  "description": "AI instruction files for bbrowning-claude-marketplace by bbrowning",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "plugin-builder",
+      "path": "bbrowning-claude/skills/plugin-builder",
+      "github_url": "https://github.com/bbrowning/bbrowning-claude-marketplace/tree/main/bbrowning-claude/skills/plugin-builder",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "path": "bbrowning-claude/skills/skill-builder",
+      "github_url": "https://github.com/bbrowning/bbrowning-claude-marketplace/tree/main/bbrowning-claude/skills/skill-builder",
+      "description": ""
+    },
+    {
+      "name": "marketplace-builder",
+      "path": "bbrowning-claude/skills/marketplace-builder",
+      "github_url": "https://github.com/bbrowning/bbrowning-claude-marketplace/tree/main/bbrowning-claude/skills/marketplace-builder",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/bbrowning",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T06:30:45Z"
+}
