@@ -1206,6 +1206,5 @@ Add [.markdownlint.json](cci:7://file:///d:/Dev/repos/mcp-server-template/.markd
 }
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/sandraschi)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/sandraschi)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/sandraschi) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
