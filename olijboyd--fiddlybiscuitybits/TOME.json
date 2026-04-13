@@ -39,25 +39,25 @@
   ],
   "skills": [
     {
-      "name": "react-charts",
-      "path": ".claude/skills/react-charts/SKILL.md",
-      "github_url": "https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/react-charts/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "dashboard-layout",
+      "name": "SKILL",
       "path": ".claude/skills/dashboard-layout/SKILL.md",
       "github_url": "https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/dashboard-layout/SKILL.md",
       "description": ""
     },
     {
-      "name": "data-fetching",
+      "name": "SKILL",
       "path": ".claude/skills/data-fetching/SKILL.md",
       "github_url": "https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/data-fetching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL",
+      "path": ".claude/skills/react-charts/SKILL.md",
+      "github_url": "https://github.com/olijboyd/fiddlybiscuitybits/tree/main/.claude/skills/react-charts/SKILL.md",
       "description": ""
     }
   ],
   "claim_url": "https://tomevault.io/claim/olijboyd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T16:07:27Z"
+  "distributed_at": "2026-04-13T12:32:20Z"
 }
