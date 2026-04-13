@@ -1,0 +1,87 @@
+{
+  "name": "aide",
+  "owner": "rlcurrall",
+  "repo": "aide",
+  "description": "AI instruction files for aide by rlcurrall",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pr-comment",
+      "path": "skills/pr-comment",
+      "github_url": "https://github.com/rlcurrall/aide/tree/main/skills/pr-comment",
+      "description": ""
+    },
+    {
+      "name": "pr-comments",
+      "path": "skills/pr-comments",
+      "github_url": "https://github.com/rlcurrall/aide/tree/main/skills/pr-comments",
+      "description": ""
+    },
+    {
+      "name": "pr-create",
+      "path": "skills/pr-create",
+      "github_url": "https://github.com/rlcurrall/aide/tree/main/skills/pr-create",
+      "description": ""
+    },
+    {
+      "name": "pr-diff",
+      "path": "skills/pr-diff",
+      "github_url": "https://github.com/rlcurrall/aide/tree/main/skills/pr-diff",
+      "description": ""
+    },
+    {
+      "name": "pr-update",
+      "path": "skills/pr-update",
+      "github_url": "https://github.com/rlcurrall/aide/tree/main/skills/pr-update",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": ".claude/skills/release",
+      "github_url": "https://github.com/rlcurrall/aide/tree/main/.claude/skills/release",
+      "description": ""
+    },
+    {
+      "name": "ticket-comment",
+      "path": "skills/ticket-comment",
+      "github_url": "https://github.com/rlcurrall/aide/tree/main/skills/ticket-comment",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/rlcurrall",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T05:47:36Z"
+}
