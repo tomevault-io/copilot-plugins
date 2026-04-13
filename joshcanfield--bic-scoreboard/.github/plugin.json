@@ -1,0 +1,22 @@
+{
+  "name": "joshcanfield--bic-scoreboard",
+  "displayName": "bic-scoreboard",
+  "description": "AI instruction files for bic-scoreboard by joshcanfield",
+  "version": "1.0.0",
+  "author": "joshcanfield",
+  "homepage": "https://tomevault.io/claim/joshcanfield",
+  "skills": [
+    {
+      "name": "build-validator",
+      "description": ""
+    },
+    {
+      "name": "full-check",
+      "description": ""
+    },
+    {
+      "name": "chrome-debug",
+      "description": ""
+    }
+  ]
+}
