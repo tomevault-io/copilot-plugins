@@ -6639,41 +6639,6 @@
       "description": "oddo_kormmash"
     },
     {
-      "name": "volteryde--volteryde-platform",
-      "source": "./volteryde--volteryde-platform",
-      "description": "volteryde-platform"
-    },
-    {
-      "name": "cennahq--apex",
-      "source": "./cennahq--apex",
-      "description": "apex"
-    },
-    {
-      "name": "hopsakee--infoflow",
-      "source": "./hopsakee--infoflow",
-      "description": "infoflow"
-    },
-    {
-      "name": "ahargunyllib--realm",
-      "source": "./ahargunyllib--realm",
-      "description": "realm"
-    },
-    {
-      "name": "rahul-s-rajput--triviabot",
-      "source": "./rahul-s-rajput--triviabot",
-      "description": "triviabot"
-    },
-    {
-      "name": "laurac8r--python-mac-fan-control",
-      "source": "./laurac8r--python-mac-fan-control",
-      "description": "python-mac-fan-control"
-    },
-    {
-      "name": "rubenvitt--airport-db",
-      "source": "./rubenvitt--airport-db",
-      "description": "airport-db"
-    },
-    {
       "name": "aojdevstudio--dental-dashboard",
       "source": "./aojdevstudio--dental-dashboard",
       "description": "dental-dashboard"
@@ -29192,6 +29157,221 @@
       "name": "department-of-veterans-affairs--ai-assist-example",
       "source": "./department-of-veterans-affairs--ai-assist-example",
       "description": "ai-assist-example"
+    },
+    {
+      "name": "bnema--openai-accounts-cli",
+      "source": "./bnema--openai-accounts-cli",
+      "description": "openai-accounts-cli"
+    },
+    {
+      "name": "kenfdev--devcontainer-feature",
+      "source": "./kenfdev--devcontainer-feature",
+      "description": "devcontainer-feature"
+    },
+    {
+      "name": "dyelsonm--doutor-agenda",
+      "source": "./dyelsonm--doutor-agenda",
+      "description": "doutor-agenda"
+    },
+    {
+      "name": "joaosilva-source--natralha",
+      "source": "./joaosilva-source--natralha",
+      "description": "natralha"
+    },
+    {
+      "name": "chayde--mtg-deck-collection",
+      "source": "./chayde--mtg-deck-collection",
+      "description": "mtg-deck-collection"
+    },
+    {
+      "name": "volteryde--volteryde-platform",
+      "source": "./volteryde--volteryde-platform",
+      "description": "volteryde-platform"
+    },
+    {
+      "name": "k00-kazu--gsplat-simulator",
+      "source": "./k00-kazu--gsplat-simulator",
+      "description": "gsplat-simulator"
+    },
+    {
+      "name": "yuya-takeyama--cchh",
+      "source": "./yuya-takeyama--cchh",
+      "description": "cchh"
+    },
+    {
+      "name": "eric2023--dlogcover",
+      "source": "./eric2023--dlogcover",
+      "description": "dlogcover"
+    },
+    {
+      "name": "vyper-japan--mailhub",
+      "source": "./vyper-japan--mailhub",
+      "description": "mailhub"
+    },
+    {
+      "name": "gheadfirst--texas-hold-em",
+      "source": "./gheadfirst--texas-hold-em",
+      "description": "texas-hold-em"
+    },
+    {
+      "name": "cennahq--apex",
+      "source": "./cennahq--apex",
+      "description": "apex"
+    },
+    {
+      "name": "tylerolson--tylerolson-dev",
+      "source": "./tylerolson--tylerolson-dev",
+      "description": "tylerolson.dev"
+    },
+    {
+      "name": "maximilianpw--rmus",
+      "source": "./maximilianpw--rmus",
+      "description": "rmus"
+    },
+    {
+      "name": "eric2023--smart-downloader",
+      "source": "./eric2023--smart-downloader",
+      "description": "smart-downloader"
+    },
+    {
+      "name": "ngocminh1511--qlda",
+      "source": "./ngocminh1511--qlda",
+      "description": "QLDA"
+    },
+    {
+      "name": "c1r5--learning-google-adk",
+      "source": "./c1r5--learning-google-adk",
+      "description": "learning-google-adk"
+    },
+    {
+      "name": "hopsakee--infoflow",
+      "source": "./hopsakee--infoflow",
+      "description": "infoflow"
+    },
+    {
+      "name": "arach--openscout",
+      "source": "./arach--openscout",
+      "description": "openscout"
+    },
+    {
+      "name": "fitcheckbu--fitcheckbu",
+      "source": "./fitcheckbu--fitcheckbu",
+      "description": "FitcheckBU"
+    },
+    {
+      "name": "luckseeker--clearmindhelper",
+      "source": "./luckseeker--clearmindhelper",
+      "description": "ClearMindHelper"
+    },
+    {
+      "name": "wepublish--wepublish",
+      "source": "./wepublish--wepublish",
+      "description": "wepublish"
+    },
+    {
+      "name": "bookfan97--jira-clone",
+      "source": "./bookfan97--jira-clone",
+      "description": "jira-clone"
+    },
+    {
+      "name": "ahargunyllib--realm",
+      "source": "./ahargunyllib--realm",
+      "description": "realm"
+    },
+    {
+      "name": "huy-bui-tech--mt5-api",
+      "source": "./huy-bui-tech--mt5-api",
+      "description": "mt5_api"
+    },
+    {
+      "name": "shimizumasaru--adaptus-mcp-server",
+      "source": "./shimizumasaru--adaptus-mcp-server",
+      "description": "adaptus-mcp-server"
+    },
+    {
+      "name": "siwulus--ski-spec-surface",
+      "source": "./siwulus--ski-spec-surface",
+      "description": "ski-spec-surface"
+    },
+    {
+      "name": "mmmeff--outline-mcp-server",
+      "source": "./mmmeff--outline-mcp-server",
+      "description": "outline-mcp-server"
+    },
+    {
+      "name": "wayosu--uigu-funrun-2026",
+      "source": "./wayosu--uigu-funrun-2026",
+      "description": "uigu-funrun-2026"
+    },
+    {
+      "name": "rahul-s-rajput--triviabot",
+      "source": "./rahul-s-rajput--triviabot",
+      "description": "triviabot"
+    },
+    {
+      "name": "ducva--awesome-agents",
+      "source": "./ducva--awesome-agents",
+      "description": "awesome-agents"
+    },
+    {
+      "name": "csmarshall--netdata-was110-plugin",
+      "source": "./csmarshall--netdata-was110-plugin",
+      "description": "netdata-was110-plugin"
+    },
+    {
+      "name": "michal-kozlik--10x-project",
+      "source": "./michal-kozlik--10x-project",
+      "description": "10x-project"
+    },
+    {
+      "name": "andotherstuff--chorus",
+      "source": "./andotherstuff--chorus",
+      "description": "chorus"
+    },
+    {
+      "name": "p-prabu--docs-zen",
+      "source": "./p-prabu--docs-zen",
+      "description": "docs-zen"
+    },
+    {
+      "name": "laurac8r--python-mac-fan-control",
+      "source": "./laurac8r--python-mac-fan-control",
+      "description": "python-mac-fan-control"
+    },
+    {
+      "name": "chmouel--nextmeeting",
+      "source": "./chmouel--nextmeeting",
+      "description": "nextmeeting"
+    },
+    {
+      "name": "happy-ryo--renkei",
+      "source": "./happy-ryo--renkei",
+      "description": "renkei"
+    },
+    {
+      "name": "songuu--rag-system",
+      "source": "./songuu--rag-system",
+      "description": "rag-system"
+    },
+    {
+      "name": "aubarkas3--aubarkas-github-io",
+      "source": "./aubarkas3--aubarkas-github-io",
+      "description": "aubarkas.github.io"
+    },
+    {
+      "name": "juansavedra--pong-cpp",
+      "source": "./juansavedra--pong-cpp",
+      "description": "pong-cpp"
+    },
+    {
+      "name": "rubenvitt--airport-db",
+      "source": "./rubenvitt--airport-db",
+      "description": "airport-db"
+    },
+    {
+      "name": "neolee--mercury",
+      "source": "./neolee--mercury",
+      "description": "mercury"
     }
   ]
 }
