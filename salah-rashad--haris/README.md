@@ -1,6 +1,6 @@
-# haris
+# AI instruction files for haris
 
-> Config by [salah-rashad](https://github.com/salah-rashad/haris) — distributed by [TomeVault](https://tomevault.io/claim/salah-rashad)
+> Sourced from [salah-rashad/haris](https://github.com/salah-rashad/haris) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [salah-rashad/haris](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/salah-rashad](https://tomevault.io/claim/salah-rashad)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/salah-rashad#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/salah-rashad) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/salah-rashad) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
