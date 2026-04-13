@@ -1,0 +1,9 @@
+{
+  "name": "coinbase--spend-permissions",
+  "displayName": "spend-permissions",
+  "description": "spend-permissions",
+  "version": "1.0.0",
+  "author": "coinbase",
+  "homepage": "https://tomevault.io/claim/coinbase",
+  "skills": []
+}
