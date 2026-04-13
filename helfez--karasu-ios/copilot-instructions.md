@@ -41,6 +41,5 @@
 6. 当你提供 API 地址、图片、截图等信息时，必须完整、仔细阅读全部内容，严禁中途臆断。
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Helfez)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Helfez)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Helfez) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
