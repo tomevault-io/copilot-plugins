@@ -1,6 +1,8 @@
-# skill-scanner
+# skill-scanner — distributed by TomeVault
 
-> Tome by [cisco-ai-defense](https://github.com/cisco-ai-defense/skill-scanner) — distributed by [TomeVault](https://tomevault.io/claim/cisco-ai-defense)
+> Originally from [cisco-ai-defense/skill-scanner](https://github.com/cisco-ai-defense/skill-scanner). Converted and distributed by [TomeVault](https://tomevault.io)
+
+AI instruction files for skill-scanner by cisco-ai-defense
 
 ## GitHub Copilot Config
 
@@ -14,8 +16,6 @@ Original source: `.windsurf/rules/*.md` in [cisco-ai-defense/skill-scanner](http
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
-
-Browse all formats: [https://tomevault.io/claim/cisco-ai-defense](https://tomevault.io/claim/cisco-ai-defense)
 
 ## Bundled Skills (13)
 
@@ -33,7 +33,14 @@ Browse all formats: [https://tomevault.io/claim/cisco-ai-defense](https://tomeva
 - [simple-formatter](https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/test_skills/safe/simple-formatter)
 - [simple-math](https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/safe-skills/simple-math)
 
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/cisco-ai-defense#quality)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/cisco-ai-defense) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install cisco-ai-defense/skill-scanner
+```
+Or browse all formats at [https://tomevault.io/claim/cisco-ai-defense](https://tomevault.io/claim/cisco-ai-defense).
+
+<!-- genome:d-i-q -->
