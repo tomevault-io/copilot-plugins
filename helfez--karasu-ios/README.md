@@ -1,6 +1,6 @@
-# Karasu_iOS
+# Karasu_iOS — distributed by TomeVault
 
-> Config by [Helfez](https://github.com/Helfez/Karasu_iOS) — distributed by [TomeVault](https://tomevault.io/claim/Helfez)
+> Originally from [Helfez/Karasu_iOS](https://github.com/Helfez/Karasu_iOS). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Helfez/Karasu_iOS](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Helfez](https://tomevault.io/claim/Helfez)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Helfez#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Helfez) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
