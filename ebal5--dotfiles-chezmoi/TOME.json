@@ -1,0 +1,51 @@
+{
+  "name": "dotfiles-chezmoi",
+  "owner": "ebal5",
+  "repo": "dotfiles-chezmoi",
+  "description": "AI instruction files for dotfiles-chezmoi by ebal5",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "markdown-check",
+      "path": "dot_claude/skills/markdown-check",
+      "github_url": "https://github.com/ebal5/dotfiles-chezmoi/tree/main/dot_claude/skills/markdown-check",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/ebal5",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T12:30:12Z"
+}
