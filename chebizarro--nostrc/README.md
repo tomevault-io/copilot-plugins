@@ -1,6 +1,6 @@
-# nostrc
+# nostrc — distributed by TomeVault
 
-> Tome by [chebizarro](https://github.com/chebizarro/nostrc) — distributed by [TomeVault](https://tomevault.io/claim/chebizarro)
+> Originally from [chebizarro/nostrc](https://github.com/chebizarro/nostrc). Converted and distributed by [TomeVault](https://tomevault.io)
 
 AI instruction files for nostrc by chebizarro
 
@@ -17,8 +17,6 @@ Original source: `.windsurf/rules/*.md` in [chebizarro/nostrc](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/chebizarro](https://tomevault.io/claim/chebizarro)
-
 ## Bundled Skills (4)
 
 - [broadway-debug](https://github.com/chebizarro/nostrc/tree/main/skills/broadway-debug)
@@ -26,7 +24,14 @@ Browse all formats: [https://tomevault.io/claim/chebizarro](https://tomevault.io
 - [gdb-debug](https://github.com/chebizarro/nostrc/tree/main/skills/gdb-debug)
 - [gtk-inspector](https://github.com/chebizarro/nostrc/tree/main/skills/gtk-inspector)
 
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/chebizarro#quality)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/chebizarro) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install chebizarro/nostrc
+```
+Or browse all formats at [https://tomevault.io/claim/chebizarro](https://tomevault.io/claim/chebizarro).
+
+<!-- genome:d-i-q -->
