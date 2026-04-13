@@ -41,6 +41,5 @@
 - Validar manejo de errores en todas las funciones
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/nanichainlink)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/nanichainlink)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/nanichainlink) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
