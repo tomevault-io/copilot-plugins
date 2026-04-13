@@ -1,6 +1,6 @@
-# AniListCal
+# AniListCal — distributed by TomeVault
 
-> Config by [birdwell](https://github.com/birdwell/AniListCal) — distributed by [TomeVault](https://tomevault.io/claim/birdwell)
+> Originally from [birdwell/AniListCal](https://github.com/birdwell/AniListCal). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [birdwell/AniListCal](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/birdwell](https://tomevault.io/claim/birdwell)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/birdwell)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/birdwell) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install birdwell/AniListCal
+```
+Or browse all formats at [https://tomevault.io/claim/birdwell](https://tomevault.io/claim/birdwell).
+
+<!-- genome:d-i-s -->
