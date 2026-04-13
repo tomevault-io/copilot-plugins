@@ -1,6 +1,6 @@
-# Proyecto-Comunicaci-n-de-Datos-2025-Aula-IoT
+# AI instruction files for Proyecto-Comunicaci-n-de-Datos-2025-Aula-IoT
 
-> Config by [AgustinRuizDiaz](https://github.com/AgustinRuizDiaz/Proyecto-Comunicaci-n-de-Datos-2025-Aula-IoT) — distributed by [TomeVault](https://tomevault.io/claim/AgustinRuizDiaz)
+> Sourced from [AgustinRuizDiaz/Proyecto-Comunicaci-n-de-Datos-2025-Aula-IoT](https://github.com/AgustinRuizDiaz/Proyecto-Comunicaci-n-de-Datos-2025-Aula-IoT) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [AgustinRuizDiaz/Proyecto-Comunicaci-
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/AgustinRuizDiaz](https://tomevault.io/claim/AgustinRuizDiaz)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/AgustinRuizDiaz#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AgustinRuizDiaz) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/AgustinRuizDiaz) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
