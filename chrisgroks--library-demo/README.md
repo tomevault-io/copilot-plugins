@@ -1,6 +1,6 @@
 # library_demo
 
-> Config by [chrisgroks](https://github.com/chrisgroks/library_demo) — distributed by [TomeVault](https://tomevault.io/claim/chrisgroks)
+> Tome by [chrisgroks](https://github.com/chrisgroks/library_demo) — distributed by [TomeVault](https://tomevault.io/claim/chrisgroks)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [chrisgroks/library_demo](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/chrisgroks](https://tomevault.io/claim/chrisgroks)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/chrisgroks)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/chrisgroks) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-p -->
