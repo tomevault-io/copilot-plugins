@@ -76,6 +76,5 @@ import styles from './component.module.css';
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/department-of-veterans-affairs)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/department-of-veterans-affairs)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/department-of-veterans-affairs) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
