@@ -1,0 +1,51 @@
+{
+  "name": "financial-planning-calculator",
+  "owner": "zakisanbaiman",
+  "repo": "financial-planning-calculator",
+  "description": "AI instruction files for financial-planning-calculator by zakisanbaiman",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "financial-planning",
+      "path": ".claude/skills/financial-planning",
+      "github_url": "https://github.com/zakisanbaiman/financial-planning-calculator/tree/main/.claude/skills/financial-planning",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/zakisanbaiman",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T09:30:08Z"
+}
