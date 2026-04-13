@@ -1,0 +1,657 @@
+## llmlb
+
+> このファイルは、このリポジトリでコードを扱う際のガイダンスを提供します。
+
+# CLAUDE.md
+
+このファイルは、このリポジトリでコードを扱う際のガイダンスを提供します。
+短く「何を・どこを見るか」を示し、詳細は既存ドキュメントに段階的に委譲します
+（参考: [Writing a good CLAUDE.md](https://www.humanlayer.dev/blog/writing-a-good-claude-md)）。
+
+## まず読む 90秒版
+
+- 何を作る: Rust製ロードバランサー（`llmlb/`）＋ llama.cppベースのC++推論エンジン（xLLM: <https://github.com/akiojin/xLLM>）。Ollamaは一切使わない／復活させない。
+- どこを見る: `README.md`（全体像）→ `DEVELOPMENT.md`（セットアップ）→ GitHub Issue（`gwt-spec`ラベル、要件とタスク）。
+- 守る: ブランチ／worktree作成・切替禁止、作業ディレクトリ移動禁止、必ずローカルで全テスト実行。
+- HFカタログ利用時は`HF_TOKEN`（任意）と必要に応じ`HF_BASE_URL`を環境にセットしておく。
+- まず実行: `make quality-checks`（時間がない場合でも個別コマンドを全て回すこと）。
+- 迷ったら: `memory/constitution.md`とこのファイル後半の詳細ルールを再確認。
+- セッション開始時: `memory/lessons.md` を確認し、過去の修正パターンを踏まえて作業する。
+- 回答は日本語で行う。
+
+## ディレクトリ構成
+
+```text
+llmlb/
+├── llmlb/          # Rust製ロードバランサー（APIサーバー・管理UI・共通型定義）
+├── xLLM (external)  # <https://github.com/akiojin/xLLM>
+├── scripts/         # プロジェクトスクリプト（checks等）
+├── memory/          # プロジェクト憲章・メモリファイル
+├── docs/            # ドキュメント
+├── .claude-plugin/   # Claude Codeプラグイン定義（skills含む）
+├── poc/             # 概念実証・実験コード
+└── vendor/          # サードパーティ依存（サブモジュール）
+```
+
+## 用語定義
+
+| 用語 | 説明 |
+|------|------|
+| **llmlb（ロードバランサー）** | Rust製のAPIゲートウェイ。OpenAI互換APIを提供し、リクエストを適切なエンドポイントに振り分ける。ダッシュボード（管理UI）も内蔵。 |
+| **エンドポイント** | llmlbが管理する推論サービスの接続先。xLLM、Ollama、vLLM、その他OpenAI互換APIなど多様なバックエンドを統一的に扱う。 |
+| **xLLM** | 本プロジェクト独自のC++製推論エンジン。llama.cpp/whisper.cpp/stable-diffusion.cppなどを統合し、GPUを活用したローカル推論を提供。vLLM/Ollamaと同列のエンドポイントタイプとして扱う。 |
+
+## システムアーキテクチャ
+
+### ロードバランサー（`llmlb/` - Rust製）
+
+リクエストの受付・振り分け・管理を担当するコンポーネント。
+
+- **OpenAI互換APIの提供**: `/v1/chat/completions`, `/v1/embeddings`等のエンドポイント
+- **認証**: JWT認証（ダッシュボード）、APIキー認証（API）
+- **エンドポイント管理**: 複数エンドポイントの登録・ヘルスチェック・負荷分散
+- **モデルカタログ**: HuggingFaceカタログとの連携、モデルメタデータ管理
+- **リクエストルーティング**: 適切なエンドポイントへのリクエスト転送
+- **ダッシュボード**: 管理UI（SPA）の提供
+
+### xLLM（external repo - C++製、llama.cppベース）
+
+実際のLLM推論を担当するコンポーネント。vLLM/Ollamaと同列のエンドポイントタイプ。
+
+- **モデルロード**: GGUFファイルのロード・VRAM管理
+- **推論実行**: テキスト生成、埋め込み計算
+- **GPU管理**: VRAM監視、モデルのロード/アンロード
+- **ストリーミング**: トークン単位のレスポンス
+
+### 動作モード
+
+**xLLM単体モード（スタンドアロン）**:
+
+```text
+[クライアント] → [xLLM (GPU)]
+```
+
+- Ollamaサーバーと同様のスタンドアロン動作
+- 単一マシン・単一GPUでのシンプルな運用
+- ローカル開発や小規模利用に適している
+
+**llmlb + エンドポイント モード（分散構成）**:
+
+```text
+[クライアント] → [llmlb] → [xLLM1 (GPU)]
+                       → [xLLM2 (GPU)]
+                       → [Ollama]
+                       → [vLLM]
+```
+
+- 複数エンドポイントの統合管理
+- 負荷分散・スケールアウト
+- 異種バックエンド（xLLM/Ollama/vLLM等）の混在運用
+- 大規模運用・本番環境向け
+
+### ゲートウェイ設計方針
+
+llmlbは**APIゲートウェイ**として機能し、エンドポイントを**ブラックボックス**として扱います。
+
+- エンドポイントの内部状態（VRAM状況、モデルロード状態等）は把握しない
+- 内部リソース管理はエンドポイント側の責任
+- モデル一覧はエンドポイントの`/v1/models`をポーリングして自動取得
+- ヘルスチェックはエンドポイント単位のみ（モデル単位は確認しない）
+
+詳細は [docs/architecture.md](docs/architecture.md) を参照。
+
+### 負荷分散戦略: TPS優先
+
+負荷分散は**TPS（Tokens Per Second）優先**です。
+
+- 推論リクエスト成功時にトークン生成速度（TPS）を計測
+- 指数移動平均（EMA、α=0.2）でTPSを更新
+- エンドポイント選択時はTPS降順でソート（高TPS優先）
+- 同一TPSの場合はラウンドロビンでタイブレーク
+- TPS未計測の新規エンドポイントはTPS=0.0（最低優先）で開始
+- オフライン時はTPSを0.0にリセット
+- レイテンシは補助指標として維持（ダッシュボード表示・デバッグ用、SQLiteに永続化）
+
+## 絶対原則（Kaguyaワークフロー準拠）
+
+> **要件・仕様がない状態での実装は絶対にNG**
+>
+> GitHub Issue（`gwt-spec`ラベル）で仕様が完成するまで、TDD RED（テスト作成）に進んではならない。
+> **修正（バグ修正・挙動変更・UI調整）でも例外なし**
+>
+> 1. 既存仕様（GitHub Issueの`gwt-spec`ラベル付きIssue）を必ず先に確認する
+> 2. 実装内容に対して仕様が不足・不整合なら、先にIssueを更新する
+> 3. 仕様更新後にTDD RED（失敗するテスト作成）を行う
+> 4. その後に実装（GREEN/REFACTOR）へ進む
+
+## 参照リンク（詳細はここで確認）
+
+- プロジェクト概要とセットアップ: `README.md`, `README.ja.md`, `DEVELOPMENT.md`
+- 仕様とタスク: GitHub Issue（`gwt-spec`ラベル）
+- 品質基準と憲章: `memory/constitution.md`
+- CLI とモデル管理: `llmlb/src/cli/`
+- テスト＆CIワークフロー: `scripts/checks/`, `make quality-checks`, `make openai-tests`
+
+## よくあるNG（必ず回避）
+- サブモジュールの修正は基本的にNG（必要時は事前に明示的な承認を取る）
+
+- Ollama を再導入する変更
+- ブランチ／worktree操作・`cd` での作業ディレクトリ移動
+- テストをスキップしたコミット／プッシュ
+- GitHub Issue（`gwt-spec`ラベル）で仕様を定義せずに新機能を実装すること
+- OSS をベンダー取り込みして編集すること（原則サブモジュール運用）
+- 廃止機能を「後方互換」名目でコードやテストに残すこと（廃止が決まったら完全削除する）
+- ダミー/フェイク/モック実装を本番コードに含めること（テスト専用コードは例外）
+- 検証やチェックをスキップするための環境変数やフラグを使用すること
+- Task toolやTaskOutputで`cargo fmt --check`、`make quality-checks`等の長時間実行コマンドを実行すること（コンテキストを大量消費しLLMがクラッシュするため、直接Bashツールで出力制限付きで実行すること。詳細は「ローカル検証」セクション参照）
+
+## 現在の目的
+
+- GitHub Issue（`gwt-spec`ラベル）で定義された要件・タスクの未完了項目を洗い出し、順次完了させることを最優先とする
+- 作業中は最新のIssue仕様と整合するようにテスト・ドキュメント・実装を更新し、完了後は必ずチェックリストを更新する
+
+## 開発指針
+
+### 🧱 コア原則（常時適用）
+
+- **Think hard**: 実装に入る前に、目的・制約・完了条件を文章で明確化する
+- **Plan before action**: 変更順序・影響範囲・検証手順を先に `PLANS.md` へ記載する
+- **No shortcuts**: 一時しのぎではなく、根本原因を解消する
+- **Proof before done**: テスト・差分確認・挙動確認の証跡なしに完了宣言しない
+- **Self-improve**: 指摘事項を `memory/lessons.md` に反映し、次回のチェック項目へ昇格させる
+
+### 🛠️ 技術実装指針
+
+- **設計・実装は複雑にせずに、シンプルさの極限を追求してください**
+- **ただし、ユーザビリティと開発者体験の品質は決して妥協しない**
+- 実装はシンプルに、開発者体験は最高品質に
+- CLI操作の直感性と効率性を技術的複雑さより優先
+- CPU推論エンドポイントも許容する。デバイス情報は`/v0/system`で自動取得（対応エンドポイントのみ）
+- 要件を満たすOSSライブラリが存在する場合は、車輪の再発明を避け、優先的に採用する
+- OSSはサブモジュールとして管理し、原則変更しない（変更が必要ならフォーク運用）
+
+### 🧭 Plan Mode活用方針
+
+- **3ステップ以上のタスク**や**アーキテクチャ判断を伴う作業**には、必ずPlan Modeを使用する
+- 障害に遭遇したら力押しせず、即座に立ち止まって再計画する
+- 検証フェーズにもplanningを適用する（実装だけでなくテスト設計にも計画を立てる）
+- 仕様を事前に詳細化し、曖昧さを最小限にしてから実装に入る
+
+### 🤖 サブエージェント活用方針
+
+- **メインコンテキストをクリーンに保つ**ため、リサーチ・探索・並列分析はサブエージェントに委譲する
+- 1サブエージェント＝1タスクを原則とし、集中的に実行させる
+- 複雑な課題にはサブエージェントを追加投入して計算リソースを確保する
+- ただし長時間実行コマンド（`cargo test`、`make quality-checks`等）はサブエージェントに委譲せず、直接Bashで出力制限付きで実行する（「ローカル検証」セクション参照）
+
+### ✨ エレガンスの追求
+
+- 大きな変更を実装する際は、一度立ち止まって「より洗練されたアプローチがないか」を検討する
+- 解決策がハック的だと感じたら、フルコンテキストで再設計する
+- 単純で明白な修正には適用不要（過剰設計の回避）
+- 提出前に自己批評を行い、品質を自己検証する
+
+### 📝 設計ガイドライン
+
+- 設計に関するドキュメントには、ソースコードを書かないこと
+
+### 🔐 開発モードの認証方針
+
+開発モード（デバッグビルド）でも認証フローをスキップせず、正規の認証処理を通す。
+
+- **JWT認証（ダッシュボード）**: `admin` / `test` でログイン
+- **APIキー認証（OpenAI互換API）**: `sk_debug` を使用
+
+これらのデバッグ用認証情報は `#[cfg(debug_assertions)]` で保護され、リリースビルドでは無効化される。認証チェックをスキップする環境変数やフラグは禁止。
+
+## 開発品質
+
+### 完了条件
+
+- エラーが発生している状態で完了としないこと。必ずエラーが解消された時点で完了とする
+- **動作実証なしにタスクを完了としない**: テスト実行、ログ確認、実際の動作確認で正しさを証明する
+- 変更がある場合は、mainブランチの挙動と比較し、デグレードがないことを確認する
+- 品質基準: **「シニアエンジニアがこのコードを承認するか？」** を自問し、妥協しない
+
+## 開発ワークフロー
+
+### Kaguya準拠の作業手順（本プロジェクト向けに調整）
+
+#### Step 0: 作業確認（必須）
+1. `PLANS.md` を確認し、このブランチで対応すべき内容を把握する（差分があれば更新）
+2. GitHub Issue（`gwt-spec`ラベル）を確認し、仕様・計画・タスクの現状を確認する
+
+#### Step 1: 仕様策定（TDD RED の前に必須）
+
+`/gwt-issue-spec-ops` を使用してGitHub Issue上で仕様を定義する。
+
+**仕様Issueが完成して初めて Step 2 に進める。**
+
+#### Step 2: 実装（TDD）
+1. Worktree/ブランチの作成・切替は行わない（この環境は既に準備済み）
+2. `PLANS.md` を作成/更新し、目的・対応SPECを明記する
+3. TDD サイクル:
+   - **RED**: テスト作成・失敗確認
+   - **GREEN**: 最小実装
+   - **REFACTOR**: 品質向上
+4. `PLANS.md` を進捗に応じて更新する
+
+#### Step 3: 完了
+1. ユーザー承認
+2. マージはリポジトリメンテナが実施（必要に応じて指示を仰ぐ）
+
+### 自律的バグ解決
+
+- バグ報告を受けたら、追加の質問や手取り足取りの指示を求めず、ログ・エラーメッセージ・失敗テストから自力で診断・修正する
+- ユーザーのコンテキストスイッチを最小化することを意識する
+- CIテストが失敗した場合は、明示的な指示がなくても自発的に修正に着手する
+- 根本原因を特定し、一時的な回避策ではなく本質的な修正を行う
+
+### 自己改善メカニズム（lessons.md）
+
+- ユーザーから修正指示を受けたら、その修正パターンを `memory/lessons.md` に記録する
+- 同じ間違いの再発を防ぐ明示的なルールを策定する
+- セッション開始時に関連するlessonsを確認し、過去の教訓を活かす
+- エラー率が低下するまでlessonsを継続的に更新・精練する
+- 記録は「事象 / 原因 / 再発防止ルール / 次回チェック方法」の4点セットで残す
+
+### 基本ルール
+
+- 作業（タスク）を完了したら、変更点を日本語でコミットログに追加して、コミット＆プッシュを必ず行う
+- コミットメッセージは commitlint (Conventional Commits) に準拠した形式で記述する（例: `feat(core): add new api`）
+- featureブランチからのPRは必ず`develop`ブランチをベースに作成する（`main`への直接PRは禁止）
+- **作業開始前に `PLANS.md` に今後の対応を書き出し、作業中に変更があれば随時更新する**
+- **`PLANS.md` はブランチ単位のローカル作業メモとして運用し、Git管理対象外（.gitignore）とする**
+- 作業（タスク）は、最大限の並列化をして進める
+- 作業（タスク）は、最大限の細分化をしてToDoに登録する
+- 作業（タスク）の開始前には、必ずToDoを登録した後に作業を開始する
+- 作業（タスク）は、忖度なしで進める
+- 作業開始前に `PLANS.md` を確認し、差分があれば更新してから着手する
+- `PLANS.md` はGit管理外（ローカル運用）のため、コミット対象に含めない
+
+### PLANS.md 運用手順（作業開始前の必須手順）
+
+1. 作業を始める前に `PLANS.md` を開き、当日の日付に「今後の対応」を箇条書きで追記する
+   - 未記入の場合は作業を開始しない
+2. 着手前にToDoへ分解し、`PLANS.md` の項目と対応関係が分かるように保つ
+3. 作業中に優先度や方針が変わったら、必ず `PLANS.md` を更新する
+4. タスク完了後は、完了済みの更新内容が `PLANS.md` に反映されていることを確認する
+5. `PLANS.md` はブランチ単位のローカルメモとして扱い、コミットしない（.gitignoreで管理外）
+
+#### タスク管理ループ（スパゲティ化防止）
+
+1. タスク開始前に、対象Spec・対象ファイル・検証コマンドを `PLANS.md` に書く
+2. 実装前に「既存コードのどこを変更するか」を確認し、無関係な変更を抑制する
+3. サブタスク完了ごとに `PLANS.md` のチェックボックスを更新し、進捗を可視化する
+4. タスク完了時に `PLANS.md` の `Review` セクションへ「何を変えたか / なぜ変えたか / どう検証したか」を記録する
+5. 途中で方針変更や追加作業が発生した場合は、実装を続ける前に `PLANS.md` を更新する
+
+#### PLANS.md 推奨テンプレート
+
+```md
+## YYYY-MM-DD 今後の対応
+- [ ] TASK-01: 目的を1行で記述
+  - 対象Spec:
+  - 対象ファイル:
+  - 検証コマンド:
+
+## Review
+- TASK-01:
+  - 変更ファイル:
+  - 変更理由:
+  - 検証結果:
+```
+
+### 作業開始前の確認（PLANS徹底）
+
+- `PLANS.md` の「今後の対応」を更新済みでなければ**作業に着手しない**
+- 更新内容は本日の作業と一致していることを確認する
+- 記載漏れがあれば**先にPLANSを更新**してから作業を進める
+- `PLANS.md` はローカル専用で、Git管理対象外であることを確認する
+
+### 環境固定ルール（プロジェクトカスタム）
+
+- 勝手にブランチ作成やWorktree作成は禁止（`git branch`, `git worktree add` などを実行しない）
+- 作業ディレクトリの変更は禁止（`cd`による移動を行わない）
+- 現在のブランチの切り替えは禁止（`git switch`, `git checkout` などを実行しない）
+- ブランチやWorktreeの作成・切り替えはリポジトリメンテナが必要時に実施する。作業者は現状の環境を維持してタスクを完了させること。
+
+### ダッシュボード静的アセット（重要）
+
+- ダッシュボードのソースは `llmlb/src/web/dashboard/src/`、ビルド成果物は `llmlb/src/web/static/` に出力される（Vite `outDir`）。
+- Rustサーバーは `llmlb/src/web/static/` を **ビルド時にバイナリへ埋め込む**。
+- ダッシュボード（TS/TSX/CSS）を修正したら必ず `pnpm --filter @llm/dashboard build` を実行し、生成物（`llmlb/src/web/static/`）をコミットしてから `llmlb` を再ビルドすること。
+
+### ローカル検証（絶対厳守）
+
+GitHub Actions が実行する検証を**全てローカルで事前に成功させてから**コミットすること。例外は認めない。
+
+- 下記コマンド群を現在の作業環境で順番に実行し、すべて成功（終了コード0）を確認すること
+  - `cargo fmt --check`
+  - `cargo clippy -- -D warnings`
+  - `cargo test`
+  - `pnpm dlx markdownlint-cli2 "**/*.md" "!node_modules" "!.git" "!.github" "!.worktrees"`
+- コミット対象に応じて `scripts/checks/check-commits.sh` やその他ワークフロー相当のスクリプト
+- まとめて実行する場合は `make quality-checks`（OpenAI互換APIテスト `make openai-tests` を内包）を推奨。
+- OpenAI互換APIのみを個別に確認したい場合は `make openai-tests` を実行すること。
+- いずれかが失敗した状態でコミットすることを固く禁止する。失敗原因を解消し、再実行→合格を確認してからコミットせよ。
+- ローカル検証結果を残すため、必要に応じて実行ログをメモし、レビュー時に提示できるようにすること。
+
+#### ⚠️ コンテキスト消費を抑える実行方法（Claude Code向け）
+
+Task toolやバックグラウンドタスクで品質チェックを実行すると、大量の出力がコンテキストに蓄積されLLMがクラッシュする可能性がある。**必ず直接Bashツールで、出力を制限して実行すること。**
+
+```bash
+# ❌ NG: Task toolやバックグラウンドで実行
+# ❌ NG: 出力制限なしで実行
+
+# ✅ OK: 直接Bashで出力制限付き実行（推奨パターン）
+
+# フォーマットチェック（成功/失敗のみ確認）
+cargo fmt --check > /dev/null 2>&1 && echo "✓ fmt OK" || echo "✗ fmt FAIL"
+
+# Clippy（最後の20行のみ表示）
+cargo clippy -- -D warnings 2>&1 | tail -20
+
+# テスト（サマリのみ表示）
+cargo test 2>&1 | grep -E "(test result|FAILED|passed|failed)" | tail -10
+
+# markdownlint（エラー数のみ確認）
+pnpm dlx markdownlint-cli2 "**/*.md" "!node_modules" "!.git" "!.github" "!.worktrees" 2>&1 | tail -10
+
+# 全体を一括確認（出力制限付き）
+make quality-checks 2>&1 | tail -50
+```
+
+#### ⚠️ テスト実行時間の目安（重要）
+
+以下のコマンドは実行に時間がかかるため、タイムアウトを適切に設定すること：
+
+| コマンド | 所要時間 | 推奨timeout |
+|----------|----------|-------------|
+| `cargo test -- --test-threads=1` | **約8-10分**（265テスト） | 600000ms |
+| `make quality-checks` | **約10-15分** | 900000ms |
+
+**絶対禁止事項：**
+
+- ❌ タイムアウトを「ハング」と誤解して `git commit --no-verify` でバイパスする
+- ❌ pre-commitフックの問題を調査せずにスキップする
+
+**正しい対応：**
+
+- ✅ タイムアウトした場合は、より長いtimeoutを設定して再実行
+- ✅ 本当にハングしている場合は、どのテストで止まっているか特定してから対処
+
+### commitlint準拠コミットログ（絶対厳守・SemVer運用）
+
+**🚨 重要: このプロジェクトは SemVer（X.Y.Z）でバージョニングします**
+
+バージョン番号は `chore(release): vX.Y.Z` コミットで明示的に更新します。コミットメッセージの`type`は、変更分類とリリース判断の基準になるため、変更内容に合うものを選択してください。
+
+#### SemVer運用との関係性（推奨）
+
+| Commit Type | 推奨されるバージョン影響 | 例 | 使用場面 |
+|-------------|------------------------|-----|----------|
+| `feat:` | **MINOR** ⬆️ (1.2.0 → 1.3.0) | `feat(api): ユーザー検索機能を追加` | 新機能追加時 |
+| `fix:` | **PATCH** ⬆️ (1.2.0 → 1.2.1) | `fix(auth): ログイン時のタイムアウトを修正` | バグ修正時 |
+| `feat!:` / `fix!:` | **MAJOR** ⬆️ (1.2.0 → 2.0.0) | `feat!: APIエンドポイントを刷新` | 破壊的変更時 |
+| `BREAKING CHANGE:` | **MAJOR** ⬆️ (1.2.0 → 2.0.0) | 本文に記載 | 破壊的変更時 |
+| `docs:`, `chore:`, `test:`, `refactor:`, `ci:`, `build:`, `perf:`, `style:` | **原則変更なし** | `docs: README更新` | ドキュメント・保守変更 |
+
+**誤ったtypeを使用した場合の影響例**:
+
+- ❌ **間違い**: `chore: ユーザー検索機能を追加` → 変更分類が不正確になり、リリース判断を誤る
+- ❌ **間違い**: `feat: typo修正` → 実態より大きい変更として扱われる
+- ❌ **間違い**: `fix: 新機能追加` → 実態より小さい変更として扱われる
+- ✅ **正しい**: `feat: ユーザー検索機能を追加` → 新機能として明確に分類
+- ✅ **正しい**: `fix: ログインエラーを修正` → バグ修正として明確に分類
+- ✅ **正しい**: `docs: インストール手順を更新` → ドキュメント変更として明確に分類
+
+#### Conventional Commits 形式（必須）
+
+```
+type(scope): summary
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**許可されたtype一覧**:
+
+- `feat`: 新機能追加（通常はMINOR）
+- `fix`: バグ修正（通常はPATCH）
+- `docs`: ドキュメントのみの変更（通常はバージョン変更なし）
+- `test`: テストの追加・修正（通常はバージョン変更なし）
+- `chore`: ビルドプロセスやツール変更（通常はバージョン変更なし）
+- `refactor`: リファクタリング（通常はバージョン変更なし）
+- `ci`: CI設定変更（通常はバージョン変更なし）
+- `build`: ビルドシステム変更（通常はバージョン変更なし）
+- `perf`: パフォーマンス改善（通常はバージョン変更なし）
+- `style`: コードスタイル変更（通常はバージョン変更なし）
+
+**破壊的変更の表記**:
+
+- type に `!` を付与: `feat!:`, `fix!:`
+- または本文に `BREAKING CHANGE:` を記載
+
+**ルール**:
+
+- `summary` は50文字以内、語尾に句読点を付けない
+- `scope` はオプションだが、推奨（例: `feat(api):`, `fix(auth):`）
+- 本文が必要な場合は空行を挟んで記述
+- フッターには `BREAKING CHANGE:`, `Closes #123` などを記載可能
+
+#### 検証手順（絶対必須）
+
+**コミット前に必ず実行**:
+
+```bash
+scripts/checks/check-commits.sh --from origin/main --to HEAD
+```
+
+このスクリプトは `npx commitlint` を呼び出し、違反コミットを明示的に列挙します。
+
+**CI検証**:
+
+- Quality Checks ワークフローで commitlint が必ず実行される
+- 違反が検出された場合、**PRマージがブロックされ、リリースが失敗する**
+
+**違反時の修正方法**:
+
+```bash
+# 直前のコミットメッセージを修正
+git commit --amend
+
+# 複数のコミットメッセージを修正
+git rebase -i HEAD~3
+
+# 再検証
+scripts/checks/check-commits.sh --from origin/main --to HEAD
+```
+
+#### 禁止事項（厳格）
+
+- ❌ commitlintが失敗した状態でのプッシュ
+- ❌ commitlintが失敗した状態でのレビュー依頼
+- ❌ commitlintが失敗した状態でのプルリク作成
+- ❌ 適当なtypeの選択（必ず変更内容に応じた正しいtypeを使用）
+- ❌ 破壊的変更を通常のfeatやfixとして記載（必ず`!`または`BREAKING CHANGE:`を使用）
+
+#### リリース時のバージョン更新手順
+
+1. `develop` に修正コミット（`feat` / `fix` など）を積む
+2. リリース時に `Cargo.toml` と `Cargo.lock` の `version` を更新する
+3. `CHANGELOG.md` に対象バージョンのセクションを追加する
+4. `chore(release): vX.Y.Z` を作成して `develop -> main` のPRを作成する
+5. `main` マージ後に `release.yml` がタグ作成とGitHub Releaseを実行し、`publish.yml` が配布物を公開する
+
+**コミットメッセージの品質とリリースノートの整合性**を保つため、typeは必ず実態に合わせて記述してください。
+
+### markdownlint準拠ドキュメント（強制）
+
+- Markdown ファイルは commit 前に `pnpm dlx markdownlint-cli2 "**/*.md" "!node_modules" "!.git" "!.github" "!.worktrees"` を実行して lint を通過させる。対象が限定される場合でもルールに従ったグロブを使用し、必ず全ファイルを検証する。
+- 各ドキュメントは MD013（行長）、MD029（リスト番号）、MD041（見出しタイトル）など既定ルールを満たすよう編集する。必要な場合のみ、`.markdownlint.json` で合意された例外設定を追加する。
+- lint で検出された警告を放置した状態でのコミット・プッシュは禁止。修正が困難な場合は lint ルール変更の提案を issue に記録し、承認なしでローカル例外を入れない。
+- CI の Quality Checks でも markdownlint が実行されるため、ローカルで合格しない限り PR がブロックされる。CLI での改善結果を再チェックし、ゼロ警告を確認してからレビューを依頼する。
+
+### GitHub Issue-first 仕様管理
+
+新機能の開発は、GitHub Issue（`gwt-spec`ラベル）で仕様を管理します：
+
+1. **`/gwt-issue-spec-ops`**: GitHub Issue上で仕様を定義・管理
+   - ビジネス要件とユーザーストーリーを定義
+   - 「何を」「なぜ」に焦点を当てる（「どのように」は含めない）
+   - Issue番号で仕様を一意に識別
+
+2. 実装計画・タスク分解もIssue上で管理
+
+#### 環境固定ルール（プロジェクトカスタム）
+
+本リポジトリではfeatureブランチやWorktreeを自動的に作成する機能は無効化しています。
+
+- 現在割り当てられている作業環境のみを使用する
+- `git branch`, `git checkout`, `git switch`, `git worktree` など環境を変更するコマンドは実行しない
+- ブランチ／Worktreeの新規作成・削除・切り替えが必要な場合は、必ずメンテナに相談する
+
+**自動保護機構（Claude Code PreToolUse Hooks）**:
+
+上記のルールを強制するため、Claude Code PreToolUse Hookスクリプトが自動的に以下の操作をブロックします：
+
+- **Git操作ブロック** (`.claude/hooks/block-git-branch-ops.sh`):
+  - `git checkout`, `git switch`: ブランチ切り替えを防止
+  - `git worktree add`: 新しいWorktree作成を防止
+  - `git branch -d/-D/-m/-M`: ブランチ削除・リネームを防止
+  - 読み取り専用操作（`git branch`, `git branch --list`等）は許可
+
+- **ディレクトリ移動ブロック** (`.claude/hooks/block-cd-command.sh`):
+  - Worktree外へのcd（`cd /`, `cd ~`, `cd ../..`等）を防止
+  - Worktree内のcd（`cd .`, `cd src`等）は許可
+
+これらのHookは、コマンド実行前に自動的にチェックし、違反操作を即座にブロックします。
+
+### TDD遵守（妥協不可）
+
+**絶対遵守事項:**
+
+- **Red-Green-Refactorサイクル必須**:
+  1. **RED**: テストを書く → テスト失敗を確認
+  2. **GREEN**: 最小限の実装でテスト合格
+  3. **REFACTOR**: コードをクリーンアップ
+
+- **禁止事項**:
+  - テストなしでの実装
+  - REDフェーズのスキップ（テストが失敗することを確認せずに実装）
+  - 実装後のテスト作成（テストが実装より後のコミットになる）
+
+- **Git commitの順序**:
+  - テストコミットが実装コミットより先に記録される必要がある
+  - 例: `feat(test): Fooのテスト追加` → `feat: Foo実装`
+
+- **テストカテゴリと順序**:
+  1. Contract tests (統合テスト) → API/インターフェース定義
+  2. Integration tests → クリティカルパス100%
+  3. E2E tests → 主要ユーザーワークフロー
+  4. Unit tests → 個別機能、80%以上のカバレッジ
+
+**詳細は [`memory/constitution.md`](memory/constitution.md) を参照**
+
+### Issue-first 開発規約
+
+**すべての機能開発・要件追加は GitHub Issue（`gwt-spec`ラベル）から開始**
+
+**新規機能開発フロー**:
+
+1. `/gwt-issue-spec-ops` - GitHub Issueでビジネス要件を定義（技術詳細なし）
+2. Issue上で技術設計・タスク分解を実施
+3. タスク実行（TDDサイクル厳守）
+   - 割り当て済みブランチ上で実装し、コミットを積む。ブランチ操作は禁止。
+4. 完了時はメンテナの指示に従う
+
+**仕様作成原則**:
+
+- ビジネス価値とユーザーストーリーに焦点
+- 「何を」「なぜ」のみ記述（「どのように」は禁止）
+- 非技術者が理解できる言葉で記述
+- テスト可能で曖昧さのない要件
+
+**憲章準拠**:
+
+- すべての実装は [`memory/constitution.md`](memory/constitution.md) に準拠
+- TDD、ハンドラーアーキテクチャ、LLM最適化は妥協不可
+
+## コミュニケーションガイドライン
+
+- 回答は必ず日本語
+- 完了報告には「実施内容」「主な変更ファイル」「検証結果」「残課題（あれば）」を含める
+
+## ドキュメント管理
+
+- ドキュメントはREADME.md/README.ja.mdに集約する
+
+## コードクオリティガイドライン
+
+- マークダウンファイルはmarkdownlintでエラー及び警告がない状態にする
+- コミットログはcommitlintに対応する
+
+## 開発ガイドライン
+
+- 既存のファイルのメンテナンスを無視して、新規ファイルばかり作成するのは禁止。既存ファイルを改修することを優先する。
+
+## ドキュメント作成ガイドライン
+
+- README.mdには設計などは書いてはいけない。プロジェクトの説明やディレクトリ構成などの説明のみに徹底する。設計などは、適切なファイルへのリンクを書く。
+
+<!-- BEGIN gwt managed skills -->
+## Available Skills & Commands (gwt)
+
+Skills are located in `.claude/skills/<name>/SKILL.md`.
+Commands can be invoked as `/gwt:<command-name>`.
+
+### Issue & SPEC Management
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| gwt-issue-register | `/gwt:gwt-issue-register` | Register new GitHub work items from a request. Search existing Issues and `gwt-spec` Issues first, reuse a clear existing owner when possible, otherwise create a plain GitHub Issue or continue into the SPEC workflow. Use as the main entrypoint for new Issue/SPEC registration requests. |
+| gwt-issue-resolve | `/gwt:gwt-issue-resolve` | Resolve an existing GitHub Issue end-to-end. Analyze the issue, decide whether it should be fixed directly, merged into an existing gwt-spec issue, or promoted to a new spec issue, and continue toward resolution. Use `gwt-issue-register` for brand-new work registration. |
+| gwt-issue-search | `/gwt:gwt-issue-search` | Semantic search over GitHub gwt-spec Issues using vector embeddings. Use when searching for existing specs, finding related gwt-spec issues, checking for duplicate specs, or determining which spec owns a scope. Mandatory preflight before gwt-spec-register, gwt-spec-ops, gwt-issue-register, and gwt-issue-resolve. |
+| gwt-spec-register | `/gwt:gwt-spec-register` | Create a new GitHub Issue-first SPEC container when no existing canonical SPEC fits. Seed the Issue body as an artifact index plus a `spec.md` comment, then continue into SPEC orchestration unless the user explicitly asks for register-only behavior. |
+| gwt-spec-clarify | `/gwt:gwt-spec-clarify` | Clarify an existing `gwt-spec` by resolving `[NEEDS CLARIFICATION]` markers, tightening user stories, and locking acceptance scenarios before planning. Use directly or through `gwt-spec-ops`. |
+| gwt-spec-plan | `/gwt:gwt-spec-plan` | Generate planning artifacts for an existing `gwt-spec`: `plan.md`, `research.md`, `data-model.md`, `quickstart.md`, and `contracts/*`, including a constitution check against `memory/constitution.md`. Use directly or through `gwt-spec-ops`. |
+| gwt-spec-tasks | `/gwt:gwt-spec-tasks` | Generate `tasks.md` for an existing `gwt-spec` from `spec.md` and `plan.md`, grouped by phase and user story with exact file paths, `[P]` parallel markers, and test-first ordering. Use directly or through `gwt-spec-ops`. |
+| gwt-spec-analyze | `/gwt:gwt-spec-analyze` | Analyze a `gwt-spec` artifact set for completeness and consistency across `spec.md`, `plan.md`, `tasks.md`, and supporting artifacts. Detect missing traceability, unresolved clarifications, and constitution gaps before implementation, and distinguish auto-fixable gaps from true decision blockers. |
+| gwt-spec-ops | — | GitHub Issue-first SPEC orchestration. Use an existing or newly created `gwt-spec` issue to stabilize `spec.md`, `plan.md`, `tasks.md`, analysis gates, and then continue into implementation without stopping at normal handoff boundaries. |
+| gwt-spec-implement | `/gwt:gwt-spec-implement` | Implement an existing `gwt-spec` end-to-end from `tasks.md`. Execute test-first tasks, update progress artifacts, and keep PR work moving until the SPEC is done. |
+
+### PR Management
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| gwt-pr | `/gwt:gwt-pr` | Create or update GitHub Pull Requests with the gh CLI, including deciding whether to create a new PR or only push based on existing PR merge status. Use when the user asks to open/create/edit a PR, generate a PR body/template, or says 'open a PR/create a PR/gh pr'. Defaults: base=develop, head=current branch (same-branch only; never create/switch branches). |
+| gwt-pr-check | `/gwt:gwt-pr-check` | Check GitHub PR status with the gh CLI, including unmerged PR detection and post-merge new-commit detection for the current branch. |
+| gwt-pr-fix | `/gwt:gwt-pr-fix` | Inspect GitHub PR for CI failures, merge conflicts, update-branch requirements, reviewer comments, change requests, and unresolved review threads. Autonomously fix high-confidence blockers, reply to ALL reviewer comments with action taken or reason for not addressing, then resolve threads. Ask the user only for ambiguous conflicts or design decisions. |
+
+### Utilities
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| gwt-project-index | `/gwt:gwt-project-index` | Semantic search over project source files using vector embeddings. Use to find files related to a feature, bug, or concept. |
+| gwt-pty-communication | `/gwt:gwt-pty-communication` | PTY based communication tools for Project Mode orchestration (Lead/Coordinator/Developer). |
+| gwt-spec-to-issue-migration | — | Migrate legacy spec sources to artifact-first GitHub Issue specs. Supports local `specs/SPEC-*` directories and body-canonical `gwt-spec` Issues using the bundled migration script. |
+
+### Recommended Workflow
+
+See each skill's SKILL.md for detailed instructions:
+
+1. **Register work** → `gwt-issue-register`
+2. **Resolve an existing issue** → `gwt-issue-resolve`
+3. **Create or select SPEC** → `gwt-spec-register` / `gwt-spec-ops`
+4. **Clarify / plan / tasks / analyze** → `gwt-spec-ops`
+5. **Implement SPEC tasks** → `gwt-spec-implement`
+6. **Open PR** → `gwt-pr`
+7. **Fix CI / reviews** → `gwt-pr-fix`
+<!-- END gwt managed skills -->
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/akiojin) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
