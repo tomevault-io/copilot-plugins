@@ -1,0 +1,14 @@
+{
+  "name": "yida29--yadon-agents",
+  "displayName": "yadon-agents",
+  "description": "AI instruction files for yadon-agents by yida29",
+  "version": "1.0.0",
+  "author": "yida29",
+  "homepage": "https://tomevault.io/claim/yida29",
+  "skills": [
+    {
+      "name": "llm-backend",
+      "description": ""
+    }
+  ]
+}
