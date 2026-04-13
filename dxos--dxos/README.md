@@ -1,6 +1,6 @@
-# dxos
+# dxos — distributed by TomeVault
 
-> Config by [dxos](https://github.com/dxos/dxos) — distributed by [TomeVault](https://tomevault.io/claim/dxos)
+> Originally from [dxos/dxos](https://github.com/dxos/dxos). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [dxos/dxos](https://github.com/dxos/d
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/dxos](https://tomevault.io/claim/dxos)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/dxos#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/dxos) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/dxos) to manage distribution and track installs.
+
+<!-- genome:d-c-q -->
