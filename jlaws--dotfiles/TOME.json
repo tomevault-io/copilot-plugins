@@ -1,0 +1,57 @@
+{
+  "name": "dotfiles",
+  "owner": "jlaws",
+  "repo": "dotfiles",
+  "description": "AI instruction files for dotfiles by jlaws",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-migration",
+      "path": ".claude/skills/migration/code-migration",
+      "github_url": "https://github.com/jlaws/dotfiles/tree/main/.claude/skills/migration/code-migration",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "path": ".claude/skills/workflow/code-quality",
+      "github_url": "https://github.com/jlaws/dotfiles/tree/main/.claude/skills/workflow/code-quality",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/jlaws",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T05:49:27Z"
+}
