@@ -1,6 +1,6 @@
-# team_workspace_laravel
+# AI instruction files for team_workspace_laravel
 
-> Config by [muhammed2020osman](https://github.com/muhammed2020osman/team_workspace_laravel) — distributed by [TomeVault](https://tomevault.io/claim/muhammed2020osman)
+> Sourced from [muhammed2020osman/team_workspace_laravel](https://github.com/muhammed2020osman/team_workspace_laravel) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [muhammed2020osman/team_workspace_lar
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/muhammed2020osman](https://tomevault.io/claim/muhammed2020osman)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/muhammed2020osman)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/muhammed2020osman) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/muhammed2020osman) to manage distribution and track installs.
+
+<!-- genome:a-c-s -->
