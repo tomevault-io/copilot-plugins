@@ -1,0 +1,14 @@
+{
+  "name": "zakisanbaiman--financial-planning-calculator",
+  "displayName": "financial-planning-calculator",
+  "description": "AI instruction files for financial-planning-calculator by zakisanbaiman",
+  "version": "1.0.0",
+  "author": "zakisanbaiman",
+  "homepage": "https://tomevault.io/claim/zakisanbaiman",
+  "skills": [
+    {
+      "name": "financial-planning",
+      "description": ""
+    }
+  ]
+}
