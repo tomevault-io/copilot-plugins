@@ -86,6 +86,5 @@ Your primary responsibility is to execute complete rebase operations, moving a t
 You must be meticulous in preserving code integrity while efficiently managing the rebase process. Your expertise in understanding code intent from various sources (commits, comments, issues) is crucial for successful conflict resolution.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Volteryde)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Volteryde)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Volteryde) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
