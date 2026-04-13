@@ -1,6 +1,6 @@
 # page-2-context
 
-> Config by [mfuentescas](https://github.com/mfuentescas/page-2-context) — distributed by [TomeVault](https://tomevault.io/claim/mfuentescas)
+> Tome by [mfuentescas](https://github.com/mfuentescas/page-2-context) — distributed by [TomeVault](https://tomevault.io/claim/mfuentescas)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [mfuentescas/page-2-context](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/mfuentescas](https://tomevault.io/claim/mfuentescas)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mfuentescas)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mfuentescas) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/mfuentescas) to manage distribution and track installs.
+
+<!-- genome:t-c-p -->
