@@ -1,6 +1,6 @@
-# job_bidder
+# job_bidder — distributed by TomeVault
 
-> Config by [Kashif56](https://github.com/Kashif56/job_bidder) — distributed by [TomeVault](https://tomevault.io/claim/Kashif56)
+> Originally from [Kashif56/job_bidder](https://github.com/Kashif56/job_bidder). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Kashif56/job_bidder](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Kashif56](https://tomevault.io/claim/Kashif56)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Kashif56)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Kashif56) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-s -->
