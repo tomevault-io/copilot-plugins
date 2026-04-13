@@ -1,6 +1,6 @@
 # llm-stick
 
-> Config by [officialerictm](https://github.com/officialerictm/llm-stick) — distributed by [TomeVault](https://tomevault.io/claim/officialerictm)
+> Tome by [officialerictm](https://github.com/officialerictm/llm-stick) — distributed by [TomeVault](https://tomevault.io/claim/officialerictm)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [officialerictm/llm-stick](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/officialerictm](https://tomevault.io/claim/officialerictm)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/officialerictm)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/officialerictm) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/officialerictm) to manage distribution and track installs.
+
+<!-- genome:t-c-p -->
