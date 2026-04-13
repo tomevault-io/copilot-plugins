@@ -291,6 +291,5 @@ curl -X POST 'http://0.0.0.0:4000/chat/completions' \
 *この分析は Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) によって 2025-11-19 に生成されました*
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/quietsleep)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/quietsleep)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/quietsleep) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
