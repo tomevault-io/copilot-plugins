@@ -6629,39 +6629,9 @@
       "description": "dot-ai-demo"
     },
     {
-      "name": "nanichainlink--vibefactory",
-      "source": "./nanichainlink--vibefactory",
-      "description": "vibefactory"
-    },
-    {
-      "name": "veedaisme--veeda-wallet",
-      "source": "./veedaisme--veeda-wallet",
-      "description": "veeda-wallet"
-    },
-    {
-      "name": "birdwell--anilistcal",
-      "source": "./birdwell--anilistcal",
-      "description": "AniListCal"
-    },
-    {
-      "name": "dorianlaguna--dinamic-url",
-      "source": "./dorianlaguna--dinamic-url",
-      "description": "dinamic_url"
-    },
-    {
-      "name": "oleg121203--mvp",
-      "source": "./oleg121203--mvp",
-      "description": "MVP"
-    },
-    {
       "name": "satorykono--bioactivity-data-acquisition",
       "source": "./satorykono--bioactivity-data-acquisition",
       "description": "bioactivity_data_acquisition"
-    },
-    {
-      "name": "haymayndzultra--ynthmaster-calculator",
-      "source": "./haymayndzultra--ynthmaster-calculator",
-      "description": "ynthmaster-calculator"
     },
     {
       "name": "azizahzakiah--sembakopos",
@@ -28117,6 +28087,226 @@
       "name": "flawstick--lts-csp",
       "source": "./flawstick--lts-csp",
       "description": "lts-csp"
+    },
+    {
+      "name": "ebal5--dotfiles-chezmoi",
+      "source": "./ebal5--dotfiles-chezmoi",
+      "description": "dotfiles-chezmoi"
+    },
+    {
+      "name": "ninjasitm--ai-assisted-dev-toolkit",
+      "source": "./ninjasitm--ai-assisted-dev-toolkit",
+      "description": "ai-assisted-dev-toolkit"
+    },
+    {
+      "name": "olijboyd--fiddlybiscuitybits",
+      "source": "./olijboyd--fiddlybiscuitybits",
+      "description": "fiddlybiscuitybits"
+    },
+    {
+      "name": "martin-ramos--oes",
+      "source": "./martin-ramos--oes",
+      "description": "OES"
+    },
+    {
+      "name": "harshalsoni--xpl",
+      "source": "./harshalsoni--xpl",
+      "description": "xpl"
+    },
+    {
+      "name": "artibella--uniglobe",
+      "source": "./artibella--uniglobe",
+      "description": "uniglobe"
+    },
+    {
+      "name": "hafizbkr--coworking-frontend",
+      "source": "./hafizbkr--coworking-frontend",
+      "description": "Coworking-frontend"
+    },
+    {
+      "name": "justinhj--zigtwitarchiveutil",
+      "source": "./justinhj--zigtwitarchiveutil",
+      "description": "zigtwitarchiveutil"
+    },
+    {
+      "name": "nanichainlink--vibefactory",
+      "source": "./nanichainlink--vibefactory",
+      "description": "vibefactory"
+    },
+    {
+      "name": "urmzd--embed-src",
+      "source": "./urmzd--embed-src",
+      "description": "embed-src"
+    },
+    {
+      "name": "trevortrinh--rust-react-starter",
+      "source": "./trevortrinh--rust-react-starter",
+      "description": "rust-react-starter"
+    },
+    {
+      "name": "karthiknish--aroosi",
+      "source": "./karthiknish--aroosi",
+      "description": "aroosi"
+    },
+    {
+      "name": "realsuperheavy--one-song-v0-1",
+      "source": "./realsuperheavy--one-song-v0-1",
+      "description": "ONE_SONG_V0.1"
+    },
+    {
+      "name": "evb0110--mss-downloader",
+      "source": "./evb0110--mss-downloader",
+      "description": "mss-downloader"
+    },
+    {
+      "name": "veedaisme--veeda-wallet",
+      "source": "./veedaisme--veeda-wallet",
+      "description": "veeda-wallet"
+    },
+    {
+      "name": "unkowny--fun",
+      "source": "./unkowny--fun",
+      "description": "fun"
+    },
+    {
+      "name": "newink--telegram-mcp",
+      "source": "./newink--telegram-mcp",
+      "description": "telegram-mcp"
+    },
+    {
+      "name": "joaquinvaldezzz--ec-solutions-and-enterprise",
+      "source": "./joaquinvaldezzz--ec-solutions-and-enterprise",
+      "description": "ec-solutions-and-enterprise"
+    },
+    {
+      "name": "gitwithravi--filament-hrms",
+      "source": "./gitwithravi--filament-hrms",
+      "description": "filament-hrms"
+    },
+    {
+      "name": "ihistand--claude-plugins",
+      "source": "./ihistand--claude-plugins",
+      "description": "claude-plugins"
+    },
+    {
+      "name": "birdwell--anilistcal",
+      "source": "./birdwell--anilistcal",
+      "description": "AniListCal"
+    },
+    {
+      "name": "mikecubed--m3os",
+      "source": "./mikecubed--m3os",
+      "description": "m3OS"
+    },
+    {
+      "name": "iconidentify--wiretap",
+      "source": "./iconidentify--wiretap",
+      "description": "wiretap"
+    },
+    {
+      "name": "eviewnicks--rental-baju",
+      "source": "./eviewnicks--rental-baju",
+      "description": "rental-baju"
+    },
+    {
+      "name": "repr0bated--operation-dbus-archive",
+      "source": "./repr0bated--operation-dbus-archive",
+      "description": "operation-dbus-archive"
+    },
+    {
+      "name": "spataray--the-bar-signage",
+      "source": "./spataray--the-bar-signage",
+      "description": "The-Bar-Signage"
+    },
+    {
+      "name": "dorianlaguna--dinamic-url",
+      "source": "./dorianlaguna--dinamic-url",
+      "description": "dinamic_url"
+    },
+    {
+      "name": "zhuwei5321--contractoraihub-com",
+      "source": "./zhuwei5321--contractoraihub-com",
+      "description": "contractoraihub.com"
+    },
+    {
+      "name": "angelreyes805--mches-ches-study",
+      "source": "./angelreyes805--mches-ches-study",
+      "description": "MCHES-CHES-STUDY"
+    },
+    {
+      "name": "anbinumer--canvas-fastapi-lti",
+      "source": "./anbinumer--canvas-fastapi-lti",
+      "description": "canvas_fastapi_lti"
+    },
+    {
+      "name": "nakoliss--nakoliss-starter-kit",
+      "source": "./nakoliss--nakoliss-starter-kit",
+      "description": "nakoliss-starter-kit"
+    },
+    {
+      "name": "airclear--conflux",
+      "source": "./airclear--conflux",
+      "description": "conflux"
+    },
+    {
+      "name": "oleg121203--mvp",
+      "source": "./oleg121203--mvp",
+      "description": "MVP"
+    },
+    {
+      "name": "ardeleanlucas--parse-beta-archived",
+      "source": "./ardeleanlucas--parse-beta-archived",
+      "description": "PARSE-beta-archived"
+    },
+    {
+      "name": "arnereabel--claudecode-dev-container",
+      "source": "./arnereabel--claudecode-dev-container",
+      "description": "claudecode_dev_container"
+    },
+    {
+      "name": "itspablomontes--fleming",
+      "source": "./itspablomontes--fleming",
+      "description": "fleming"
+    },
+    {
+      "name": "carleetho--budgetpro",
+      "source": "./carleetho--budgetpro",
+      "description": "budgetpro"
+    },
+    {
+      "name": "mcma123--proffesional-cleaning-company",
+      "source": "./mcma123--proffesional-cleaning-company",
+      "description": "Proffesional-cleaning-company"
+    },
+    {
+      "name": "haymayndzultra--ynthmaster-calculator",
+      "source": "./haymayndzultra--ynthmaster-calculator",
+      "description": "ynthmaster-calculator"
+    },
+    {
+      "name": "agustintdangelo--appointment-template",
+      "source": "./agustintdangelo--appointment-template",
+      "description": "appointment-template"
+    },
+    {
+      "name": "vail-cw--vail-adapter",
+      "source": "./vail-cw--vail-adapter",
+      "description": "vail-adapter"
+    },
+    {
+      "name": "quentinjeon--openclaw-trade",
+      "source": "./quentinjeon--openclaw-trade",
+      "description": "openclaw-trade"
+    },
+    {
+      "name": "pataco80--next-radix-shadcn-theme",
+      "source": "./pataco80--next-radix-shadcn-theme",
+      "description": "next-radix-shadcn-theme"
+    },
+    {
+      "name": "danielstriver--rwanda-tour-ai",
+      "source": "./danielstriver--rwanda-tour-ai",
+      "description": "rwanda-tour-ai"
     }
   ]
 }
