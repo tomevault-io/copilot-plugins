@@ -1,6 +1,6 @@
-# idea
+# AI instruction files for idea
 
-> Config by [GGEDeveloper](https://github.com/GGEDeveloper/idea) — distributed by [TomeVault](https://tomevault.io/claim/GGEDeveloper)
+> Sourced from [GGEDeveloper/idea](https://github.com/GGEDeveloper/idea) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [GGEDeveloper/idea](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/GGEDeveloper](https://tomevault.io/claim/GGEDeveloper)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/GGEDeveloper#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/GGEDeveloper) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/GGEDeveloper) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
