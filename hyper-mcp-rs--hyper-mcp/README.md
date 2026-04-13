@@ -1,6 +1,6 @@
 # hyper-mcp
 
-> Config by [hyper-mcp-rs](https://github.com/hyper-mcp-rs/hyper-mcp) — distributed by [TomeVault](https://tomevault.io/claim/hyper-mcp-rs)
+> Tome by [hyper-mcp-rs](https://github.com/hyper-mcp-rs/hyper-mcp) — distributed by [TomeVault](https://tomevault.io/claim/hyper-mcp-rs)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [hyper-mcp-rs/hyper-mcp](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/hyper-mcp-rs](https://tomevault.io/claim/hyper-mcp-rs)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/hyper-mcp-rs#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/hyper-mcp-rs) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
