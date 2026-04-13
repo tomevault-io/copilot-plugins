@@ -1,21 +1,26 @@
 ## graceful-code-portfolio
 
-> when working with API Routes and Server Actions
+> when you are considering Core Project Standards
 
 
-# API Routes and Server Actions
-- Use Next.js server actions in `src/actions/` for database operations with Supabase.
-- Implement API routes in `app/api/[route]/route.ts` only when server actions are insufficient.
-- Always validate inputs using Zod before processing requests.
-- Return standardized responses:
-  - Success: `{ data: T, error: null }`
-  - Error: `{ data: null, error: string }`
-- Use Supabase server-side clients (`createServerClient`) for database queries.
-- Secure API routes with middleware for authentication (e.g., Supabase auth).
-- Include TypeScript interfaces for request and response payloads.
-- Log errors to the console with context (e.g., `console.error("Failed to fetch user", { userId, error })`).
-- Optimize queries with pagination, filtering, and caching where applicable.
+# Core Project Standards
+
+- Use Next.js 15 with App Router for all routing and rendering.
+- Write all code in TypeScript with strict mode enabled (`tsconfig.json` settings: `"strict": true`).
+- Follow Airbnb TypeScript style guide for code formatting (e.g., 2-space indentation, semicolons).
+- Use Tailwind CSS for styling, avoiding inline styles unless necessary.
+- Organize files in a modular structure:
+  - Pages: `app/[route]/page.tsx`
+  - Components: `src/components/[ComponentName]/[ComponentName].tsx`
+  - Server actions: `src/actions/[action].ts`
+  - Utilities: `src/lib/utils.ts`
+  - Supabase queries: `src/lib/supabase/queries.ts`
+- Prefer functional components and React hooks over class components.
+- Use server components by default; use "use client" only when client-side interactivity is required.
+- Export components and functions with named exports (e.g., `export function ComponentName`).
+- Include JSDoc comments for all public functions and components.
+- Ensure error handling with try-catch for async operations and proper logging.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/odhiambo-ed) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
