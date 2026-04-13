@@ -1,6 +1,6 @@
-# asmsa_dog
+# AI instruction files for asmsa_dog
 
-> Config by [Dh-unica](https://github.com/Dh-unica/asmsa_dog) — distributed by [TomeVault](https://tomevault.io/claim/Dh-unica)
+> Sourced from [Dh-unica/asmsa_dog](https://github.com/Dh-unica/asmsa_dog) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Dh-unica/asmsa_dog](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Dh-unica](https://tomevault.io/claim/Dh-unica)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Dh-unica)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Dh-unica) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/Dh-unica) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
