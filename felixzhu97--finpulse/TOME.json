@@ -1,0 +1,51 @@
+{
+  "name": "finpulse",
+  "owner": "felixzhu97",
+  "repo": "finpulse",
+  "description": "AI instruction files for finpulse by felixzhu97",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "project-standards",
+      "path": ".cursor/skills/project-standards",
+      "github_url": "https://github.com/felixzhu97/finpulse/tree/main/.cursor/skills/project-standards",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/felixzhu97",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T15:32:23Z"
+}
