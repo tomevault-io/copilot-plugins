@@ -1,6 +1,6 @@
-# gold_up
+# AI instruction files for gold_up
 
-> Config by [yushiesah7](https://github.com/yushiesah7/gold_up) — distributed by [TomeVault](https://tomevault.io/claim/yushiesah7)
+> Sourced from [yushiesah7/gold_up](https://github.com/yushiesah7/gold_up) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [yushiesah7/gold_up](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/yushiesah7](https://tomevault.io/claim/yushiesah7)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/yushiesah7)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/yushiesah7) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install yushiesah7/gold_up
+```
+Or browse all formats at [https://tomevault.io/claim/yushiesah7](https://tomevault.io/claim/yushiesah7).
+
+<!-- genome:a-i-s -->
