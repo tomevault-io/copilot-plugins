@@ -1,6 +1,6 @@
-# vue-rules-generator
+# vue-rules-generator — distributed by TomeVault
 
-> Config by [seanwuapps](https://github.com/seanwuapps/vue-rules-generator) — distributed by [TomeVault](https://tomevault.io/claim/seanwuapps)
+> Originally from [seanwuapps/vue-rules-generator](https://github.com/seanwuapps/vue-rules-generator). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [seanwuapps/vue-rules-generator](http
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/seanwuapps](https://tomevault.io/claim/seanwuapps)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/seanwuapps#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/seanwuapps) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install seanwuapps/vue-rules-generator
+```
+Or browse all formats at [https://tomevault.io/claim/seanwuapps](https://tomevault.io/claim/seanwuapps).
+
+<!-- genome:d-i-q -->
