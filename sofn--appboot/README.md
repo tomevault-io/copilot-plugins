@@ -1,6 +1,6 @@
-# AppBoot
+# AppBoot — distributed by TomeVault
 
-> Config by [sofn](https://github.com/sofn/AppBoot) — distributed by [TomeVault](https://tomevault.io/claim/sofn)
+> Originally from [sofn/AppBoot](https://github.com/sofn/AppBoot). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [sofn/AppBoot](https://github.com/sof
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/sofn](https://tomevault.io/claim/sofn)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/sofn)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/sofn) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/sofn) to manage distribution and track installs.
+
+<!-- genome:d-c-p -->
