@@ -1,0 +1,22 @@
+{
+  "name": "feel-flow--ai-spec-driven-development",
+  "displayName": "ai-spec-driven-development",
+  "description": "AI instruction files for ai-spec-driven-development by feel-flow",
+  "version": "1.0.0",
+  "author": "feel-flow",
+  "homepage": "https://tomevault.io/claim/feel-flow",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review-standards",
+      "description": ""
+    },
+    {
+      "name": "code-simplification",
+      "description": ""
+    }
+  ]
+}
