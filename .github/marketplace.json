@@ -59,11 +59,6 @@
       "description": "Dchat"
     },
     {
-      "name": "caio23364--openclaw-js",
-      "source": "./caio23364--openclaw-js",
-      "description": "openclaw-js"
-    },
-    {
       "name": "wallbreakerno4--telegram-timer-bot",
       "source": "./wallbreakerno4--telegram-timer-bot",
       "description": "telegram-timer-bot"
@@ -94,16 +89,6 @@
       "description": "kachuful"
     },
     {
-      "name": "quietsleep--chat-litellm-agent",
-      "source": "./quietsleep--chat-litellm-agent",
-      "description": "chat-litellm-agent"
-    },
-    {
-      "name": "tacastillo--the-semantic-layer",
-      "source": "./tacastillo--the-semantic-layer",
-      "description": "the-semantic-layer"
-    },
-    {
       "name": "sheaksadi--verteilte",
       "source": "./sheaksadi--verteilte",
       "description": "verteilte"
@@ -127,11 +112,6 @@
       "name": "yukim1ya--copilot-shogun",
       "source": "./yukim1ya--copilot-shogun",
       "description": "copilot-shogun"
-    },
-    {
-      "name": "twardoch--marktripy",
-      "source": "./twardoch--marktripy",
-      "description": "marktripy"
     },
     {
       "name": "poorwym--dreamcatcher-client",
@@ -809,16 +789,6 @@
       "description": "kirby-mcp"
     },
     {
-      "name": "chebizarro--nostrc",
-      "source": "./chebizarro--nostrc",
-      "description": "nostrc"
-    },
-    {
-      "name": "cisco-ai-defense--skill-scanner",
-      "source": "./cisco-ai-defense--skill-scanner",
-      "description": "skill-scanner"
-    },
-    {
       "name": "cloudflare--sandbox-sdk",
       "source": "./cloudflare--sandbox-sdk",
       "description": "sandbox-sdk"
@@ -837,16 +807,6 @@
       "name": "coollabsio--coolify-docs",
       "source": "./coollabsio--coolify-docs",
       "description": "coolify-docs"
-    },
-    {
-      "name": "damacus--home-ops",
-      "source": "./damacus--home-ops",
-      "description": "home-ops"
-    },
-    {
-      "name": "devclarityai--devclarity-coding-tutorial",
-      "source": "./devclarityai--devclarity-coding-tutorial",
-      "description": "devclarity-coding-tutorial"
     },
     {
       "name": "dirnbauer--webconsulting-skills",
@@ -894,11 +854,6 @@
       "description": "rust_quant"
     },
     {
-      "name": "finos--morphir-dotnet",
-      "source": "./finos--morphir-dotnet",
-      "description": "morphir-dotnet"
-    },
-    {
       "name": "getlago--lago-front",
       "source": "./getlago--lago-front",
       "description": "lago-front"
@@ -917,11 +872,6 @@
       "name": "hainamchung--agent-assistant",
       "source": "./hainamchung--agent-assistant",
       "description": "agent-assistant"
-    },
-    {
-      "name": "hashintel--hash",
-      "source": "./hashintel--hash",
-      "description": "hash"
     },
     {
       "name": "hiromaily--go-crypto-wallet",
@@ -1084,11 +1034,6 @@
       "description": "claude-code-toolkit"
     },
     {
-      "name": "sandraschi--advanced-memory-mcp",
-      "source": "./sandraschi--advanced-memory-mcp",
-      "description": "advanced-memory-mcp"
-    },
-    {
       "name": "shihwesley--agent-reverse",
       "source": "./shihwesley--agent-reverse",
       "description": "agent-reverse"
@@ -1159,11 +1104,6 @@
       "description": "specfact-cli"
     },
     {
-      "name": "nozomio-labs--nia-rules-for-agents",
-      "source": "./nozomio-labs--nia-rules-for-agents",
-      "description": "nia-rules-for-agents"
-    },
-    {
       "name": "deadlock-mod-manager--deadlock-mod-manager",
       "source": "./deadlock-mod-manager--deadlock-mod-manager",
       "description": "deadlock-mod-manager"
@@ -1207,11 +1147,6 @@
       "name": "rendis--surveygo",
       "source": "./rendis--surveygo",
       "description": "surveygo"
-    },
-    {
-      "name": "spences10--sveltest",
-      "source": "./spences10--sveltest",
-      "description": "sveltest"
     },
     {
       "name": "toanpv-0639--claudekit-engineer",
@@ -6679,99 +6614,9 @@
       "description": "maymai.dev"
     },
     {
-      "name": "snowflakedb--gosnowflake",
-      "source": "./snowflakedb--gosnowflake",
-      "description": "gosnowflake"
-    },
-    {
-      "name": "hyper-mcp-rs--hyper-mcp",
-      "source": "./hyper-mcp-rs--hyper-mcp",
-      "description": "hyper-mcp"
-    },
-    {
-      "name": "snyk--snyk-intellij-plugin",
-      "source": "./snyk--snyk-intellij-plugin",
-      "description": "snyk-intellij-plugin"
-    },
-    {
-      "name": "dxos--dxos",
-      "source": "./dxos--dxos",
-      "description": "dxos"
-    },
-    {
-      "name": "betterrtx--betterrtx-installer",
-      "source": "./betterrtx--betterrtx-installer",
-      "description": "BetterRTX-Installer"
-    },
-    {
-      "name": "abhaybharti--playwright-framework-template",
-      "source": "./abhaybharti--playwright-framework-template",
-      "description": "playwright-framework-template"
-    },
-    {
-      "name": "amadeusitgroup--otter",
-      "source": "./amadeusitgroup--otter",
-      "description": "otter"
-    },
-    {
-      "name": "kuberocketci--kuberocketai",
-      "source": "./kuberocketci--kuberocketai",
-      "description": "kuberocketai"
-    },
-    {
-      "name": "olafgeibig--knowledge-mcp",
-      "source": "./olafgeibig--knowledge-mcp",
-      "description": "knowledge-mcp"
-    },
-    {
-      "name": "bkd-mba-fbi--webapp-schulverwaltung",
-      "source": "./bkd-mba-fbi--webapp-schulverwaltung",
-      "description": "webapp-schulverwaltung"
-    },
-    {
-      "name": "zoxknez--ai-coding-rules",
-      "source": "./zoxknez--ai-coding-rules",
-      "description": "ai-coding-rules"
-    },
-    {
-      "name": "swiss--oss-catalog",
-      "source": "./swiss--oss-catalog",
-      "description": "oss-catalog"
-    },
-    {
-      "name": "tellihatem--little-haffiz",
-      "source": "./tellihatem--little-haffiz",
-      "description": "Little_Haffiz"
-    },
-    {
-      "name": "talent-factory--smartfactory",
-      "source": "./talent-factory--smartfactory",
-      "description": "smartfactory"
-    },
-    {
-      "name": "spiritecosse--storm",
-      "source": "./spiritecosse--storm",
-      "description": "storm"
-    },
-    {
       "name": "valynt--valueos",
       "source": "./valynt--valueos",
       "description": "ValueOS"
-    },
-    {
-      "name": "alby2007--rw-rnd-govsecure-enclave-and-audit-fabric",
-      "source": "./alby2007--rw-rnd-govsecure-enclave-and-audit-fabric",
-      "description": "RW-RnD-GovSecure-Enclave-and-Audit-Fabric"
-    },
-    {
-      "name": "jorgecolonconsulting--govdo",
-      "source": "./jorgecolonconsulting--govdo",
-      "description": "govdo"
-    },
-    {
-      "name": "1345abhishekkumar--ai-study-buddy",
-      "source": "./1345abhishekkumar--ai-study-buddy",
-      "description": "AI_Study_buddy"
     },
     {
       "name": "qcohq--qco",
@@ -6779,79 +6624,9 @@
       "description": "qco"
     },
     {
-      "name": "gyoju12--logy-desk-backend",
-      "source": "./gyoju12--logy-desk-backend",
-      "description": "logy-desk-backend"
-    },
-    {
-      "name": "kashif56--job-bidder",
-      "source": "./kashif56--job-bidder",
-      "description": "job_bidder"
-    },
-    {
-      "name": "sectionxx--saleorderforecast",
-      "source": "./sectionxx--saleorderforecast",
-      "description": "SaleOrderForecast"
-    },
-    {
-      "name": "jonhygg99--watching",
-      "source": "./jonhygg99--watching",
-      "description": "watching"
-    },
-    {
-      "name": "theperfect0--inboxt",
-      "source": "./theperfect0--inboxt",
-      "description": "InBoxt"
-    },
-    {
-      "name": "2dice--task-master",
-      "source": "./2dice--task-master",
-      "description": "task-master"
-    },
-    {
       "name": "vfarcic--dot-ai-demo",
       "source": "./vfarcic--dot-ai-demo",
       "description": "dot-ai-demo"
-    },
-    {
-      "name": "norbu09--smith",
-      "source": "./norbu09--smith",
-      "description": "smith"
-    },
-    {
-      "name": "zevaxt--mya-admin",
-      "source": "./zevaxt--mya-admin",
-      "description": "mya-admin"
-    },
-    {
-      "name": "odhiambo-ed--graceful-code-portfolio",
-      "source": "./odhiambo-ed--graceful-code-portfolio",
-      "description": "graceful-code-portfolio"
-    },
-    {
-      "name": "amaham1--grap-v2",
-      "source": "./amaham1--grap-v2",
-      "description": "grap_v2"
-    },
-    {
-      "name": "mongilearnstocode--solospark-prototype",
-      "source": "./mongilearnstocode--solospark-prototype",
-      "description": "solospark-prototype"
-    },
-    {
-      "name": "ma3u--dust-mcp-server-postman-railway",
-      "source": "./ma3u--dust-mcp-server-postman-railway",
-      "description": "dust-mcp-server-postman-railway"
-    },
-    {
-      "name": "akrista--killua",
-      "source": "./akrista--killua",
-      "description": "Killua"
-    },
-    {
-      "name": "curtismu7--p1-import-subsystem",
-      "source": "./curtismu7--p1-import-subsystem",
-      "description": "P1-import-Subsystem"
     },
     {
       "name": "yashvoladoddi-mitrarobot--brevo-whatsapp",
@@ -16804,16 +16579,6 @@
       "description": "sprint-hub"
     },
     {
-      "name": "ssdeanx--gemini-langgraph",
-      "source": "./ssdeanx--gemini-langgraph",
-      "description": "gemini-langgraph"
-    },
-    {
-      "name": "ssdeanx--gemini-cli-web",
-      "source": "./ssdeanx--gemini-cli-web",
-      "description": "Gemini-CLI-Web"
-    },
-    {
       "name": "loadguardinc--loadguard-dashboard",
       "source": "./loadguardinc--loadguard-dashboard",
       "description": "loadguard-dashboard"
@@ -23839,11 +23604,6 @@
       "description": "vjobs-landing"
     },
     {
-      "name": "ruan-cat--11comm",
-      "source": "./ruan-cat--11comm",
-      "description": "11comm"
-    },
-    {
       "name": "ruan-cat--learn-nitro-starter-with-vercel",
       "source": "./ruan-cat--learn-nitro-starter-with-vercel",
       "description": "learn-nitro-starter-with-vercel"
@@ -27067,6 +26827,321 @@
       "name": "jivkok--dotfiles",
       "source": "./jivkok--dotfiles",
       "description": "dotfiles"
+    },
+    {
+      "name": "chebizarro--nostrc",
+      "source": "./chebizarro--nostrc",
+      "description": "nostrc"
+    },
+    {
+      "name": "cisco-ai-defense--skill-scanner",
+      "source": "./cisco-ai-defense--skill-scanner",
+      "description": "skill-scanner"
+    },
+    {
+      "name": "damacus--home-ops",
+      "source": "./damacus--home-ops",
+      "description": "home-ops"
+    },
+    {
+      "name": "devclarityai--devclarity-coding-tutorial",
+      "source": "./devclarityai--devclarity-coding-tutorial",
+      "description": "devclarity-coding-tutorial"
+    },
+    {
+      "name": "finos--morphir-dotnet",
+      "source": "./finos--morphir-dotnet",
+      "description": "morphir-dotnet"
+    },
+    {
+      "name": "hashintel--hash",
+      "source": "./hashintel--hash",
+      "description": "hash"
+    },
+    {
+      "name": "numerai--example-scripts",
+      "source": "./numerai--example-scripts",
+      "description": "example-scripts"
+    },
+    {
+      "name": "sandraschi--advanced-memory-mcp",
+      "source": "./sandraschi--advanced-memory-mcp",
+      "description": "advanced-memory-mcp"
+    },
+    {
+      "name": "seekayel--ralph",
+      "source": "./seekayel--ralph",
+      "description": "ralph"
+    },
+    {
+      "name": "nozomio-labs--nia-rules-for-agents",
+      "source": "./nozomio-labs--nia-rules-for-agents",
+      "description": "nia-rules-for-agents"
+    },
+    {
+      "name": "ssdeanx--gemini-langgraph",
+      "source": "./ssdeanx--gemini-langgraph",
+      "description": "gemini-langgraph"
+    },
+    {
+      "name": "ruan-cat--11comm",
+      "source": "./ruan-cat--11comm",
+      "description": "11comm"
+    },
+    {
+      "name": "spences10--sveltest",
+      "source": "./spences10--sveltest",
+      "description": "sveltest"
+    },
+    {
+      "name": "aussiegingersnap--ai-project-start",
+      "source": "./aussiegingersnap--ai-project-start",
+      "description": "ai-project-start"
+    },
+    {
+      "name": "joshcanfield--bic-scoreboard",
+      "source": "./joshcanfield--bic-scoreboard",
+      "description": "bic-scoreboard"
+    },
+    {
+      "name": "ssdeanx--gemini-cli-web",
+      "source": "./ssdeanx--gemini-cli-web",
+      "description": "Gemini-CLI-Web"
+    },
+    {
+      "name": "toyamarodrigo--tanstack-router-template",
+      "source": "./toyamarodrigo--tanstack-router-template",
+      "description": "tanstack-router-template"
+    },
+    {
+      "name": "omriariav--slides-copy-url-current-slide",
+      "source": "./omriariav--slides-copy-url-current-slide",
+      "description": "slides-copy-url-current-slide"
+    },
+    {
+      "name": "feel-flow--ai-spec-driven-development",
+      "source": "./feel-flow--ai-spec-driven-development",
+      "description": "ai-spec-driven-development"
+    },
+    {
+      "name": "marcos-abreu--connect-kit",
+      "source": "./marcos-abreu--connect-kit",
+      "description": "connect_kit"
+    },
+    {
+      "name": "rlcurrall--aide",
+      "source": "./rlcurrall--aide",
+      "description": "aide"
+    },
+    {
+      "name": "study-flamingo--thoughtlab",
+      "source": "./study-flamingo--thoughtlab",
+      "description": "thoughtlab"
+    },
+    {
+      "name": "yida29--yadon-agents",
+      "source": "./yida29--yadon-agents",
+      "description": "yadon-agents"
+    },
+    {
+      "name": "mgreenly--ikigai",
+      "source": "./mgreenly--ikigai",
+      "description": "ikigai"
+    },
+    {
+      "name": "yennanliu--ai-experiment",
+      "source": "./yennanliu--ai-experiment",
+      "description": "ai_experiment"
+    },
+    {
+      "name": "jlaws--dotfiles",
+      "source": "./jlaws--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "fturkyilmaz--nest-next-clean-arch",
+      "source": "./fturkyilmaz--nest-next-clean-arch",
+      "description": "nest-next-clean-arch"
+    },
+    {
+      "name": "caio23364--openclaw-js",
+      "source": "./caio23364--openclaw-js",
+      "description": "openclaw-js"
+    },
+    {
+      "name": "quietsleep--chat-litellm-agent",
+      "source": "./quietsleep--chat-litellm-agent",
+      "description": "chat-litellm-agent"
+    },
+    {
+      "name": "tacastillo--the-semantic-layer",
+      "source": "./tacastillo--the-semantic-layer",
+      "description": "the-semantic-layer"
+    },
+    {
+      "name": "twardoch--marktripy",
+      "source": "./twardoch--marktripy",
+      "description": "marktripy"
+    },
+    {
+      "name": "snowflakedb--gosnowflake",
+      "source": "./snowflakedb--gosnowflake",
+      "description": "gosnowflake"
+    },
+    {
+      "name": "hyper-mcp-rs--hyper-mcp",
+      "source": "./hyper-mcp-rs--hyper-mcp",
+      "description": "hyper-mcp"
+    },
+    {
+      "name": "snyk--snyk-intellij-plugin",
+      "source": "./snyk--snyk-intellij-plugin",
+      "description": "snyk-intellij-plugin"
+    },
+    {
+      "name": "dxos--dxos",
+      "source": "./dxos--dxos",
+      "description": "dxos"
+    },
+    {
+      "name": "betterrtx--betterrtx-installer",
+      "source": "./betterrtx--betterrtx-installer",
+      "description": "BetterRTX-Installer"
+    },
+    {
+      "name": "abhaybharti--playwright-framework-template",
+      "source": "./abhaybharti--playwright-framework-template",
+      "description": "playwright-framework-template"
+    },
+    {
+      "name": "amadeusitgroup--otter",
+      "source": "./amadeusitgroup--otter",
+      "description": "otter"
+    },
+    {
+      "name": "kuberocketci--kuberocketai",
+      "source": "./kuberocketci--kuberocketai",
+      "description": "kuberocketai"
+    },
+    {
+      "name": "olafgeibig--knowledge-mcp",
+      "source": "./olafgeibig--knowledge-mcp",
+      "description": "knowledge-mcp"
+    },
+    {
+      "name": "bkd-mba-fbi--webapp-schulverwaltung",
+      "source": "./bkd-mba-fbi--webapp-schulverwaltung",
+      "description": "webapp-schulverwaltung"
+    },
+    {
+      "name": "zoxknez--ai-coding-rules",
+      "source": "./zoxknez--ai-coding-rules",
+      "description": "ai-coding-rules"
+    },
+    {
+      "name": "swiss--oss-catalog",
+      "source": "./swiss--oss-catalog",
+      "description": "oss-catalog"
+    },
+    {
+      "name": "tellihatem--little-haffiz",
+      "source": "./tellihatem--little-haffiz",
+      "description": "Little_Haffiz"
+    },
+    {
+      "name": "talent-factory--smartfactory",
+      "source": "./talent-factory--smartfactory",
+      "description": "smartfactory"
+    },
+    {
+      "name": "spiritecosse--storm",
+      "source": "./spiritecosse--storm",
+      "description": "storm"
+    },
+    {
+      "name": "alby2007--rw-rnd-govsecure-enclave-and-audit-fabric",
+      "source": "./alby2007--rw-rnd-govsecure-enclave-and-audit-fabric",
+      "description": "RW-RnD-GovSecure-Enclave-and-Audit-Fabric"
+    },
+    {
+      "name": "jorgecolonconsulting--govdo",
+      "source": "./jorgecolonconsulting--govdo",
+      "description": "govdo"
+    },
+    {
+      "name": "1345abhishekkumar--ai-study-buddy",
+      "source": "./1345abhishekkumar--ai-study-buddy",
+      "description": "AI_Study_buddy"
+    },
+    {
+      "name": "gyoju12--logy-desk-backend",
+      "source": "./gyoju12--logy-desk-backend",
+      "description": "logy-desk-backend"
+    },
+    {
+      "name": "kashif56--job-bidder",
+      "source": "./kashif56--job-bidder",
+      "description": "job_bidder"
+    },
+    {
+      "name": "sectionxx--saleorderforecast",
+      "source": "./sectionxx--saleorderforecast",
+      "description": "SaleOrderForecast"
+    },
+    {
+      "name": "jonhygg99--watching",
+      "source": "./jonhygg99--watching",
+      "description": "watching"
+    },
+    {
+      "name": "theperfect0--inboxt",
+      "source": "./theperfect0--inboxt",
+      "description": "InBoxt"
+    },
+    {
+      "name": "2dice--task-master",
+      "source": "./2dice--task-master",
+      "description": "task-master"
+    },
+    {
+      "name": "norbu09--smith",
+      "source": "./norbu09--smith",
+      "description": "smith"
+    },
+    {
+      "name": "zevaxt--mya-admin",
+      "source": "./zevaxt--mya-admin",
+      "description": "mya-admin"
+    },
+    {
+      "name": "odhiambo-ed--graceful-code-portfolio",
+      "source": "./odhiambo-ed--graceful-code-portfolio",
+      "description": "graceful-code-portfolio"
+    },
+    {
+      "name": "amaham1--grap-v2",
+      "source": "./amaham1--grap-v2",
+      "description": "grap_v2"
+    },
+    {
+      "name": "mongilearnstocode--solospark-prototype",
+      "source": "./mongilearnstocode--solospark-prototype",
+      "description": "solospark-prototype"
+    },
+    {
+      "name": "ma3u--dust-mcp-server-postman-railway",
+      "source": "./ma3u--dust-mcp-server-postman-railway",
+      "description": "dust-mcp-server-postman-railway"
+    },
+    {
+      "name": "akrista--killua",
+      "source": "./akrista--killua",
+      "description": "Killua"
+    },
+    {
+      "name": "curtismu7--p1-import-subsystem",
+      "source": "./curtismu7--p1-import-subsystem",
+      "description": "P1-import-Subsystem"
     }
   ]
 }
