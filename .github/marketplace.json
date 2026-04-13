@@ -25822,6 +25822,256 @@
       "name": "chuckpr--github-classroom-reinvite",
       "source": "./chuckpr--github-classroom-reinvite",
       "description": "github-classroom-reinvite"
+    },
+    {
+      "name": "blck-snwmn--hello-gen-ai",
+      "source": "./blck-snwmn--hello-gen-ai",
+      "description": "hello-gen-ai"
+    },
+    {
+      "name": "no-yan--wt",
+      "source": "./no-yan--wt",
+      "description": "wt"
+    },
+    {
+      "name": "smallorbit--vorbis-player",
+      "source": "./smallorbit--vorbis-player",
+      "description": "vorbis-player"
+    },
+    {
+      "name": "lynguyenvu--pancake-mcp-server",
+      "source": "./lynguyenvu--pancake-mcp-server",
+      "description": "pancake-mcp-server"
+    },
+    {
+      "name": "nate91117--teamnotes",
+      "source": "./nate91117--teamnotes",
+      "description": "teamnotes"
+    },
+    {
+      "name": "farkk--song",
+      "source": "./farkk--song",
+      "description": "song"
+    },
+    {
+      "name": "dujesa--liquid-staking",
+      "source": "./dujesa--liquid-staking",
+      "description": "liquid-staking"
+    },
+    {
+      "name": "acald-creator--next-rescript-app-router-bun",
+      "source": "./acald-creator--next-rescript-app-router-bun",
+      "description": "next-rescript-app-router-bun"
+    },
+    {
+      "name": "guidorugo--catdetection",
+      "source": "./guidorugo--catdetection",
+      "description": "CatDetection"
+    },
+    {
+      "name": "868-anton--credit-card-transaction-ledger-app",
+      "source": "./868-anton--credit-card-transaction-ledger-app",
+      "description": "Credit_Card_Transaction_Ledger_App"
+    },
+    {
+      "name": "duckdhd--buyorbye",
+      "source": "./duckdhd--buyorbye",
+      "description": "BuyOrBye"
+    },
+    {
+      "name": "alex-macedo--castorworks-ng",
+      "source": "./alex-macedo--castorworks-ng",
+      "description": "CastorWorks-NG"
+    },
+    {
+      "name": "node-develop--ogon2025",
+      "source": "./node-develop--ogon2025",
+      "description": "ogon2025"
+    },
+    {
+      "name": "haasonsaas--kestrel",
+      "source": "./haasonsaas--kestrel",
+      "description": "kestrel"
+    },
+    {
+      "name": "by-mav--vitaai-ios",
+      "source": "./by-mav--vitaai-ios",
+      "description": "vitaai-ios"
+    },
+    {
+      "name": "zenyarn--js-and-ts-study",
+      "source": "./zenyarn--js-and-ts-study",
+      "description": "js-and-ts-study"
+    },
+    {
+      "name": "ohmnow--content-gen",
+      "source": "./ohmnow--content-gen",
+      "description": "content-gen"
+    },
+    {
+      "name": "benxbridges--recdex",
+      "source": "./benxbridges--recdex",
+      "description": "recdex"
+    },
+    {
+      "name": "emung--react-native-house-expense-tracker",
+      "source": "./emung--react-native-house-expense-tracker",
+      "description": "react-native-house-expense-tracker"
+    },
+    {
+      "name": "andrico21--m5airq-rust",
+      "source": "./andrico21--m5airq-rust",
+      "description": "M5AirQ-Rust"
+    },
+    {
+      "name": "luis-keny--template-mv-goodhope",
+      "source": "./luis-keny--template-mv-goodhope",
+      "description": "template-mv-goodhope"
+    },
+    {
+      "name": "efrancalancia--api-ventas",
+      "source": "./efrancalancia--api-ventas",
+      "description": "API_VENTAS"
+    },
+    {
+      "name": "syhstanley--hsuan-pp",
+      "source": "./syhstanley--hsuan-pp",
+      "description": "hsuan_pp"
+    },
+    {
+      "name": "eburke21--debate-rank",
+      "source": "./eburke21--debate-rank",
+      "description": "debate-rank"
+    },
+    {
+      "name": "seanyasno--poke-playbook",
+      "source": "./seanyasno--poke-playbook",
+      "description": "poke-playbook"
+    },
+    {
+      "name": "littlebee--daphbot-due",
+      "source": "./littlebee--daphbot-due",
+      "description": "daphbot-due"
+    },
+    {
+      "name": "mascotai--mascot-agent",
+      "source": "./mascotai--mascot-agent",
+      "description": "mascot-agent"
+    },
+    {
+      "name": "lsl233--trending-topics",
+      "source": "./lsl233--trending-topics",
+      "description": "trending-topics"
+    },
+    {
+      "name": "va034600--saga-orchestration",
+      "source": "./va034600--saga-orchestration",
+      "description": "saga-orchestration"
+    },
+    {
+      "name": "bubbleptr--sinan",
+      "source": "./bubbleptr--sinan",
+      "description": "Sinan"
+    },
+    {
+      "name": "yurukatsu--lseg-transcript-web",
+      "source": "./yurukatsu--lseg-transcript-web",
+      "description": "lseg-transcript-web"
+    },
+    {
+      "name": "emilyeserven--npm-package-guide",
+      "source": "./emilyeserven--npm-package-guide",
+      "description": "npm-package-guide"
+    },
+    {
+      "name": "01republic--8g",
+      "source": "./01republic--8g",
+      "description": "8g"
+    },
+    {
+      "name": "takashi-matsumura--spinach",
+      "source": "./takashi-matsumura--spinach",
+      "description": "spinach"
+    },
+    {
+      "name": "hexanexus28--orion",
+      "source": "./hexanexus28--orion",
+      "description": "Orion"
+    },
+    {
+      "name": "rojosinalma--tools-installer",
+      "source": "./rojosinalma--tools-installer",
+      "description": "tools-installer"
+    },
+    {
+      "name": "dinhvanmy--tanminh-mobile",
+      "source": "./dinhvanmy--tanminh-mobile",
+      "description": "tanminh-mobile"
+    },
+    {
+      "name": "hahacapital--tiktok-roi",
+      "source": "./hahacapital--tiktok-roi",
+      "description": "tiktok-roi"
+    },
+    {
+      "name": "gamma4638--ai-builders-meetup",
+      "source": "./gamma4638--ai-builders-meetup",
+      "description": "ai-builders-meetup"
+    },
+    {
+      "name": "ernestojballon--test-claude-code",
+      "source": "./ernestojballon--test-claude-code",
+      "description": "test-claude-code"
+    },
+    {
+      "name": "hardiksjain--no-bs-sudoku",
+      "source": "./hardiksjain--no-bs-sudoku",
+      "description": "no-bs-sudoku"
+    },
+    {
+      "name": "lordmuffin--beyond-devops-os-factory",
+      "source": "./lordmuffin--beyond-devops-os-factory",
+      "description": "beyond-devops-os-factory"
+    },
+    {
+      "name": "rohanraj0718--odoo-study",
+      "source": "./rohanraj0718--odoo-study",
+      "description": "Odoo-Study"
+    },
+    {
+      "name": "jiangyinzuo--codebase-semantic-search",
+      "source": "./jiangyinzuo--codebase-semantic-search",
+      "description": "codebase-semantic-search"
+    },
+    {
+      "name": "eyedroot--dotfiles",
+      "source": "./eyedroot--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "theonewhoburns--cpoint",
+      "source": "./theonewhoburns--cpoint",
+      "description": "cpoint"
+    },
+    {
+      "name": "roshanj20--podcasthub",
+      "source": "./roshanj20--podcasthub",
+      "description": "podcasthub"
+    },
+    {
+      "name": "crimson206--pyshell",
+      "source": "./crimson206--pyshell",
+      "description": "pyshell"
+    },
+    {
+      "name": "0xbrsm--frikbotnex",
+      "source": "./0xbrsm--frikbotnex",
+      "description": "FrikBotNex"
+    },
+    {
+      "name": "yearn--yearn-insights",
+      "source": "./yearn--yearn-insights",
+      "description": "yearn-insights"
     }
   ]
 }
