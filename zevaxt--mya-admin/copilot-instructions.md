@@ -22,6 +22,5 @@ Cuando respondas sobre desarrollo en Vue.js (código, ejemplos, explicación de 
 8. Evita siempre usar tipos geneticos tantos en lso componentes (.vue) como en los services (.ts)
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/zevaxt)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/zevaxt)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/zevaxt) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
