@@ -1,6 +1,6 @@
-# oda-canvas
+# oda-canvas — distributed by TomeVault
 
-> Config by [tmforum-oda](https://github.com/tmforum-oda/oda-canvas) — distributed by [TomeVault](https://tomevault.io/claim/tmforum-oda)
+> Originally from [tmforum-oda/oda-canvas](https://github.com/tmforum-oda/oda-canvas). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [tmforum-oda/oda-canvas](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/tmforum-oda](https://tomevault.io/claim/tmforum-oda)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/tmforum-oda#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/tmforum-oda) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/tmforum-oda) to manage distribution and track installs.
+
+<!-- genome:d-c-q -->
