@@ -1,0 +1,18 @@
+{
+  "name": "wcygan--raft",
+  "displayName": "raft",
+  "description": "AI instruction files for raft by wcygan",
+  "version": "1.0.0",
+  "author": "wcygan",
+  "homepage": "https://tomevault.io/claim/wcygan",
+  "skills": [
+    {
+      "name": "raft-implementation-guide",
+      "description": ""
+    },
+    {
+      "name": "raft-tui-integration",
+      "description": ""
+    }
+  ]
+}
