@@ -1,6 +1,6 @@
-# interviewai-navigator
+# interviewai-navigator — distributed by TomeVault
 
-> Config by [Kedhareswer](https://github.com/Kedhareswer/interviewai-navigator) — distributed by [TomeVault](https://tomevault.io/claim/Kedhareswer)
+> Originally from [Kedhareswer/interviewai-navigator](https://github.com/Kedhareswer/interviewai-navigator). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [Kedhareswer/interviewai-navigator](h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Kedhareswer](https://tomevault.io/claim/Kedhareswer)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Kedhareswer)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Kedhareswer) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Kedhareswer/interviewai-navigator
+```
+Or browse all formats at [https://tomevault.io/claim/Kedhareswer](https://tomevault.io/claim/Kedhareswer).
+
+<!-- genome:d-i-p -->
