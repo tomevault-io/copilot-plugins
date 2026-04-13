@@ -1,0 +1,148 @@
+## ai-spec-driven-development
+
+> Before generating any code, you MUST read and understand `docs/MASTER.md`.
+
+# Cursor Rules for AI Spec-Driven Development
+
+## 🚨 MANDATORY: Read MASTER.md First
+Before generating any code, you MUST read and understand `docs/MASTER.md`.
+
+## Project Context
+This is an AI-driven development project starting with a core 7-document structure optimized for AI tools, extensible as the project grows. The project emphasizes "less is more" - beginning with fewer, highly-focused documents that AI can effectively parse, then adding documents as needed.
+
+## Key Constraints from MASTER.md
+
+### Type Safety
+- Use TypeScript with strict type safety
+- No `any` types (use `unknown` or proper types)
+- Explicit type definitions for all variables, functions, and API responses
+- Use type guards for runtime type checking
+
+### Code Quality
+- No magic numbers/hardcoded values (use named constants)
+- No `console.log` in production code
+- No unused imports or variables
+- No error swallowing (always handle errors properly)
+- Functions should be under 30 lines (single responsibility principle)
+
+### Naming Conventions
+- Variables: camelCase (e.g., `userName`, `isActive`)
+- Constants: UPPER_SNAKE_CASE (e.g., `MAX_RETRY_COUNT`)
+- Types/Interfaces: PascalCase (e.g., `UserProfile`, `ApiResponse`)
+- Files: PascalCase for components, camelCase for utilities
+
+### Error Handling
+- Use Result pattern for error handling
+- Implement try-catch blocks with proper error messages
+- Log errors with structured logging
+- Return user-friendly error messages
+
+### Testing
+- Generate unit tests for all functions (80%+ coverage target)
+- Use AAA pattern (Arrange-Act-Assert)
+- Mock dependencies appropriately
+- Test both success and error cases
+
+## Architecture Patterns
+- Clean Architecture
+- Repository Pattern
+- CQRS (Command Query Responsibility Segregation)
+- Event-Driven Architecture
+- Dependency Injection
+
+## Security Requirements
+- Input sanitization
+- SQL injection prevention
+- XSS protection
+- CSRF protection
+- Proper authentication/authorization
+- HTTPS usage
+- Environment variable management
+
+## Performance Goals
+- Page load time: < 3 seconds
+- API response time: < 200ms (95th percentile)
+- Concurrent users: 1000
+
+## Implementation Priority
+1. **Phase 1: MVP** - Essential features only
+2. **Phase 2: Extension** - Additional features
+3. **Phase 3: Optimization** - Performance and scalability
+
+## Code Generation Rules
+
+### Before Generating Code
+1. Read `docs/MASTER.md` for project context
+2. Check `docs/03-implementation/PATTERNS.md` for implementation patterns
+3. Verify `docs/02-design/ARCHITECTURE.md` for technical decisions
+4. Review `docs/02-design/DOMAIN.md` for business logic
+
+### During Code Generation
+1. Follow the coding rules from MASTER.md
+2. Use the patterns from PATTERNS.md
+3. Implement proper error handling
+4. Generate corresponding tests
+5. Add appropriate comments
+
+### After Code Generation
+1. Verify no magic numbers are used
+2. Check type safety
+3. Ensure error handling is proper
+4. Validate security requirements
+5. Confirm performance considerations
+
+## Prohibited Patterns
+- ❌ `any` type usage
+- ❌ Magic numbers/hardcoded values
+- ❌ `console.log` in production
+- ❌ Unused imports/variables
+- ❌ Error swallowing
+- ❌ Functions over 30 lines
+- ❌ Inconsistent naming
+
+## Required Patterns
+- ✅ TypeScript with strict types
+- ✅ Named constants for all values
+- ✅ Result pattern for error handling
+- ✅ Comprehensive error handling
+- ✅ Unit tests for all functions
+- ✅ Proper logging
+- ✅ Security best practices
+
+## AI Prompt Assistance
+When generating code, always include this constraint:
+
+```
+制約: マジックナンバー／ハードコード禁止。意味のある値は名前付き定数へ抽出し、環境変数や設定モジュールから注入する。単位（ms, KB など）と有効範囲をコメント/型で明示すること。URL, パス, ヘッダ名, エラーコードは定数化する。
+
+推奨ツール:
+- Playwright MCP統合によりAI駆動のビジュアルデバッグ・自動テスト修復を活用すること。E2Eテストの失敗時は自動的にスクリーンショット分析と修正提案を生成する。
+- Chrome DevTools MCP統合によりリアルタイムのDOM操作・ネットワーク監視・パフォーマンス分析を活用すること。Web開発時のインタラクティブなデバッグに最適。
+```
+
+## Document References
+- `docs/MASTER.md` - Project overview and rules
+- `docs/01-context/PROJECT.md` - Business requirements
+- `docs/02-design/ARCHITECTURE.md` - Technical architecture
+- `docs/02-design/DOMAIN.md` - Business logic
+- `docs/03-implementation/PATTERNS.md` - Implementation patterns
+- `docs/04-quality/TESTING.md` - Testing strategies
+- `docs/05-operations/DEPLOYMENT.md` - Deployment procedures
+- `docs/08-knowledge/` - Knowledge base and best practices
+
+## Code Review Checklist
+- [ ] MASTER.md rules followed
+- [ ] No magic numbers/hardcoded values
+- [ ] Type safety ensured
+- [ ] Error handling implemented
+- [ ] Tests generated
+- [ ] Security requirements met
+- [ ] Performance considerations addressed
+- [ ] Naming conventions followed
+- [ ] Constants properly organized by layer
+
+Remember: Always reference MASTER.md for project-specific requirements and constraints.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/feel-flow) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
