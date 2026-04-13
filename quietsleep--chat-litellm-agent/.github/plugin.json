@@ -1,0 +1,9 @@
+{
+  "name": "quietsleep--chat-litellm-agent",
+  "displayName": "chat-litellm-agent",
+  "description": "chat-litellm-agent",
+  "version": "1.0.0",
+  "author": "quietsleep",
+  "homepage": "https://tomevault.io/claim/quietsleep",
+  "skills": []
+}
