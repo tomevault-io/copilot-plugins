@@ -1,0 +1,14 @@
+{
+  "name": "akiojin--llmlb",
+  "displayName": "llmlb",
+  "description": "AI instruction files for llmlb by akiojin",
+  "version": "1.0.0",
+  "author": "akiojin",
+  "homepage": "https://tomevault.io/claim/akiojin",
+  "skills": [
+    {
+      "name": "claude-opus-4-5-migration",
+      "description": ""
+    }
+  ]
+}
