@@ -13,6 +13,5 @@
 - 同じアプローチが2回失敗したら別の方法を検討すること。
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/2dice)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/2dice)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/2dice) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
