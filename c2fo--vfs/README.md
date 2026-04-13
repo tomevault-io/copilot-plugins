@@ -1,6 +1,6 @@
-# vfs
+# AI instruction files for vfs
 
-> Config by [C2FO](https://github.com/C2FO/vfs) — distributed by [TomeVault](https://tomevault.io/claim/C2FO)
+> Sourced from [C2FO/vfs](https://github.com/C2FO/vfs) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [C2FO/vfs](https://github.com/C2FO/vf
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/C2FO](https://tomevault.io/claim/C2FO)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/C2FO)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/C2FO) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-p -->
