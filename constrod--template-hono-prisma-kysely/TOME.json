@@ -4,7 +4,7 @@
   "repo": "template-hono-prisma-kysely",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/constROD",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T07:17:51Z"
+  "distributed_at": "2026-04-13T20:46:54Z"
 }
