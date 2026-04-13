@@ -1,6 +1,6 @@
-# volteryde-platform
+# AI instruction files for volteryde-platform
 
-> Config by [Volteryde](https://github.com/Volteryde/volteryde-platform) — distributed by [TomeVault](https://tomevault.io/claim/Volteryde)
+> Sourced from [Volteryde/volteryde-platform](https://github.com/Volteryde/volteryde-platform) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [Volteryde/volteryde-platform](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/Volteryde](https://tomevault.io/claim/Volteryde)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Volteryde)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Volteryde) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Volteryde/volteryde-platform
+```
+Or browse all formats at [https://tomevault.io/claim/Volteryde](https://tomevault.io/claim/Volteryde).
+
+<!-- genome:a-i-p -->
