@@ -1,0 +1,69 @@
+{
+  "name": "thoughtlab",
+  "owner": "study-flamingo",
+  "repo": "thoughtlab",
+  "description": "AI instruction files for thoughtlab by study-flamingo",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-spec",
+      "path": ".claude/skills/api-spec",
+      "github_url": "https://github.com/study-flamingo/thoughtlab/tree/main/.claude/skills/api-spec",
+      "description": ""
+    },
+    {
+      "name": "auth",
+      "path": ".claude/skills/auth",
+      "github_url": "https://github.com/study-flamingo/thoughtlab/tree/main/.claude/skills/auth",
+      "description": ""
+    },
+    {
+      "name": "changelog",
+      "path": ".claude/skills/changelog",
+      "github_url": "https://github.com/study-flamingo/thoughtlab/tree/main/.claude/skills/changelog",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": ".claude/skills/commit",
+      "github_url": "https://github.com/study-flamingo/thoughtlab/tree/main/.claude/skills/commit",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/study-flamingo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-13T05:48:04Z"
+}
