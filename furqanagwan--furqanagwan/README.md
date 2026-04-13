@@ -1,6 +1,6 @@
-# furqanagwan
+# furqanagwan — distributed by TomeVault
 
-> Config by [furqanagwan](https://github.com/furqanagwan/furqanagwan) — distributed by [TomeVault](https://tomevault.io/claim/furqanagwan)
+> Originally from [furqanagwan/furqanagwan](https://github.com/furqanagwan/furqanagwan). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [furqanagwan/furqanagwan](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/furqanagwan](https://tomevault.io/claim/furqanagwan)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/furqanagwan)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/furqanagwan) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/furqanagwan) to manage distribution and track installs.
+
+<!-- genome:d-c-s -->
