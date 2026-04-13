@@ -79,6 +79,5 @@ DB 스키마 정의서: (DDL 공유됨) 테이블 구조, 컬럼 설명, 관계 
 코드 내 주석 및 컴포넌트 문서화: Vue 컴포넌트의 props, emits, 주요 로직 및 컴포저블 함수에 대한 설명 주석.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/amaham1)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/amaham1)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/amaham1) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
