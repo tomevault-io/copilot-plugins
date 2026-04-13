@@ -1,6 +1,6 @@
-# vibefactory
+# AI instruction files for vibefactory
 
-> Config by [nanichainlink](https://github.com/nanichainlink/vibefactory) — distributed by [TomeVault](https://tomevault.io/claim/nanichainlink)
+> Sourced from [nanichainlink/vibefactory](https://github.com/nanichainlink/vibefactory) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [nanichainlink/vibefactory](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/nanichainlink](https://tomevault.io/claim/nanichainlink)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/nanichainlink)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/nanichainlink) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/nanichainlink) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
