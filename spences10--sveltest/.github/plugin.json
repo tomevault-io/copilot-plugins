@@ -1,0 +1,14 @@
+{
+  "name": "spences10--sveltest",
+  "displayName": "sveltest",
+  "description": "AI instruction files for sveltest by spences10",
+  "version": "1.0.0",
+  "author": "spences10",
+  "homepage": "https://tomevault.io/claim/spences10",
+  "skills": [
+    {
+      "name": "svelte-testing",
+      "description": ""
+    }
+  ]
+}
