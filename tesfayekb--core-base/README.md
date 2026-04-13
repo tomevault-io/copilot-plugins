@@ -1,6 +1,6 @@
-# core-base
+# core-base — distributed by TomeVault
 
-> Config by [tesfayekb](https://github.com/tesfayekb/core-base) — distributed by [TomeVault](https://tomevault.io/claim/tesfayekb)
+> Originally from [tesfayekb/core-base](https://github.com/tesfayekb/core-base). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [tesfayekb/core-base](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/tesfayekb](https://tomevault.io/claim/tesfayekb)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/tesfayekb#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/tesfayekb) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
