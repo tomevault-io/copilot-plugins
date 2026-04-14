@@ -1,85 +1,50 @@
 ## render-signal-server
 
-> Applied when creating Pull Requests. Format rules for Prefix + English summary + structured body (overview, changes, test content)
+> Automatic skill detection and routing matrix for workflow_mediapipe based on pattern matching and priority hierarchy
 
 
-# PR Message Format Rules
+# Patterns de Détection pour Skills Integration
 
-This rule is a guideline that applies to Pull Request (PR) titles and bodies.
+Cette matrice définit les patterns de détection automatique pour l'invocation des skills spécialisés.
 
-## Position of This Rule
+| Pattern Détecté (FR/EN) | Skill / MCP Cible | Priorité |
+| :--- | :--- | :--- |
+| `vérifier config`, `état store`, `redis file`, `config sanity`, `check config` | **check-config** | 1 |
+| `debug`, `bug`, `crash`, `error`, `troubleshoot`, `systematic debugging` | **debugging-strategies** | 1 |
+| `memory bank`, `docs sync`, `audit docs`, `analyse memory` | **docs-sync-automaton** | 3 |
+| `docs`, `readme`, `writing`, `technical writing`, `markdown` | **documentation** | 2 |
+| `gros fichier`, `massive file`, `chirurgical`, `edit block` | **fast-filesystem** | 2 |
+| `json`, `path`, `structure`, `inspect`, `valeur`, `clé` | **json-query** | 2 |
+| `magic link`, `auth`, `token`, `revocation`, `security` | **magic-link-auth-companion** | 3 |
+| `r2 transfer`, `cloudflare r2`, `file offload`, `transfer pipeline` | **r2-transfer-service-playbook** | 3 |
+| `redis config`, `persistence`, `store sync`, `config drift`, `audit redis` | **redis-config-guardian** | 1 |
+| `routing rules`, `rules engine`, `webhook rules`, `dynamic routing` | **routing-rules-orchestrator** | 3 |
+| `test`, `pytest`, `suite`, `coverage`, `unit test` | **run-tests** | 2 |
+| `js module`, `frontend module`, `es6 module`, `scaffold js` | **scaffold-js-module** | 3 |
+| `python service`, `singleton service`, `backend service`, `scaffold python` | **scaffold-service** | 3 |
+| `réflexion`, `think`, `logique`, `architecture`, `analyser` | **sequentialthinking** | 1 |
+| `tâche`, `task`, `backlog`, `planification`, `roadmap` | **shrimp-task-manager** | 1 |
+| `test matrix`, `pytest suites`, `unit redis r2`, `resilience test` | **testing-matrix-navigator** | 2 |
+| `dashboard`, `ux`, `frontend`, `webhook panel`, `autosave` | **webhook-dashboard-ux-maintainer** | 3 |
+| `render`, `déploiement`, `render.com`, `service creation`, `monitoring`, `orchestration` | **render-deployment-manager** | 3 |
+| `git commit`, `push`, `commit push`, `git automation`, `stage changes` | **commit-push** | 2 |
 
-- This rule defines the PR message format in a way that aligns with the commit message convention based on Conventional Commits (`commit-message-format.md`).
-- While recommending the same style for title `Prefix` and summary as commit messages, it requires structured descriptions in the PR body such as "Overview," "Changes," and "Test Content."
-- When reusing in other projects, adjust `language` and required sections (e.g., "Technical Details") according to each project's policy.
+## Auto-Loading Logic
 
-## Language Specification
-
-- In this rule file, `language` is used as a logical name representing the language used in PR messages.
-- `language = "en"`
-- Title and body should be written in the language specified by `language` as a rule.
-
-## Title (First Line)
-
-### Format (Required)
-
-```text
-<Prefix>: <Summary (imperative/concise)>
+When patterns detected, automatically load:
+```
+fast_read_file(".windsurf/skills/[SKILL_NAME]/SKILL.md")
 ```
 
-- `Prefix` is recommended to use `type` from Conventional Commits, same as commit messages (e.g., `feat`, `fix`, `refactor`, `docs`, `chore`, etc.).
-- Write concisely in the language specified by `language`. No period at the end.
-- Briefly express what and why (if necessary), aiming for approximately 50 characters or less.
+## Multi-Skill Support
 
-## Body (Structured Format)
+For complex requests, combine multiple skills based on pattern detection priority.
 
-### Recommended Template
-
-PR body is recommended to have the following structured sections.
-
-```markdown
-## Overview
-
-Summary of what was implemented/fixed in this PR
-
-## Changes
-
-- Description of change 1
-- Description of change 2
-- Description of change 3
-
-## Technical Details (Optional)
-
-- Implementation details and design intentions as needed
-
-## Test Content
-
-- Types of tests performed (unit tests, E2E tests, manual verification, etc.)
-- Results of main behavior verification
-
-## Related Issues
-
-- Closes #123
-- Refs #456
-```
-
-- "Overview" and "Changes" are required in principle; "Technical Details," "Test Content," and "Related Issues" may be made required according to project operation rules.
-- Write bullet points with enough granularity to understand "what," "where," and "why" changes were made.
-
-## Principles for Message Generation
-
-- PR title and body must always be generated from **actual diffs and commit history** (e.g., `git diff`, `git log`) after reviewing their content.
-- Do not guess from issue titles or branch names alone; clearly state change content, impact scope, and test content in the body.
-- Even for automatic generation by AI or scripts, use diffs, commit history, and related Issue information as input.
-- Determine Prefix and summary to align with the commit message convention (`commit-message-format.md`) (avoid semantic inconsistency between commits and PR).
-
-## Prohibited
-
-- Writing title or body only in a language different from that specified by `language`
-- Ambiguous titles that don't convey meaning (e.g., abstract expressions like "update", "fix issue", "changes")
-- Body with only unstructured long text (without section headings or bullet points, making content hard to grasp)
-- Descriptions that differ from actual diffs or intentionally omit important changes, impacts, or test results
+## Notes d'Implementation
+- **Priorité 1** : Invocation automatique obligatoire
+- **Priorité 2** : Invocation recommandée selon contexte
+- Patterns sensibles à la casse et aux accents français
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/ki2pixel) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
