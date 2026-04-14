@@ -4,7 +4,7 @@
   "repo": "jobfinders_mvp",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/freelancing-solutions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T07:56:26Z"
+  "distributed_at": "2026-04-14T20:42:00Z"
 }
