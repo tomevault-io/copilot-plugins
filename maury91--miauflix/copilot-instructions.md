@@ -1,0 +1,256 @@
+## miauflix
+
+> - Be blunt and direct - if a proposal is stupid or not ideal, say so. Don't be a yes-man.
+
+
+# Miauflix Project Rules
+
+## 🎯 General Approach
+
+- Be blunt and direct - if a proposal is stupid or not ideal, say so. Don't be a yes-man.
+- **ALWAYS start by reading `docs/ai/context.md`** - critical project status specifically for AI assistants
+- **Before making ANY changes, check `docs/ai/gotchas.md`** - constraints that will break the system
+- **Use `docs/ai/file-mapping.md`** for quick reference on where to make changes
+- **Follow `docs/ai/patterns.md`** for code conventions and architectural consistency
+- Check `docs/task-file-mapping.md` for implementation status before starting any task
+- If a task appears to be complex, first plan it using the sequential thinking tool, show the plan to the user and after the user confirms the plan is solid proceed with the implementation
+- Use MCP when available (for example Serena), do not use tools for editing files unless explicitly allowed by the user (file edits from MCP do not appear in the interface)
+
+## 📋 Project Context (Updated 2025-06-30)
+
+### Implementation Status Overview
+
+- **Backend Infrastructure**: **95% complete and production-ready** ⚡
+- **Frontend**: Basic structure exists, has TypeScript build errors, JWT authentication missing
+- **Timeline**: **2-3 weeks to full functionality** (not months)
+- **Critical Reality**: **Only 2 missing pieces prevent full operation**
+
+### Key Documentation Files
+
+- **`docs/ai/context.md`** - **START HERE** - Project status for AI assistants
+- **`docs/ai/gotchas.md`** - Critical constraints to avoid breaking things
+- **`docs/ai/file-mapping.md`** - Quick reference for file locations
+- **`docs/ai/patterns.md`** - Code patterns and conventions
+- **`docs/ai/workflows.md`** - Step-by-step task guidance
+- `docs/overview.md` - Documentation roadmap and entry point
+- `docs/task-file-mapping.md` - Task → file mapping with implementation status
+- `docs/miauflix-architecture-analysis.md` - System architecture and background tasks
+
+### ✅ Production-Ready Components (DON'T REBUILD THESE)
+
+- **Source Aggregation**: Multi-provider (YTS + THERARBG) with background processing
+- **WebTorrent Infrastructure**: Complete client with tracker management and stats scraping
+- **Streaming Infrastructure**: Complete `/api/stream/:token` endpoint with quality selection and range requests
+- **Authentication Backend**: Full JWT system with refresh tokens and role-based access
+- **Database Layer**: Complete entity model with AES-256-GCM encryption
+- **Background Tasks**: All 7 scheduled tasks operational
+- **API Infrastructure**: Comprehensive routes with auth/rate limiting
+
+### ❌ **ONLY 1 Critical Missing Component**
+
+- **Frontend JWT Auth**: Login page, token management, interceptors to connect with existing backend auth system
+
+## 🚨 **CRITICAL CONSTRAINTS (Will Break System)**
+
+### ❌ **NEVER Install Dependencies in Workspace Directories**
+
+```bash
+# ❌ DON'T DO THIS - BREAKS PROJECT:
+cd backend && npm install package-name       # BREAKS WORKSPACE
+cd frontend && npm install package-name      # BREAKS WORKSPACE
+
+# ✅ ALWAYS DO THIS FROM ROOT:
+npm install --workspace backend package-name
+npm install --workspace frontend package-name
+```
+
+**Why**: Project uses npm workspaces. Installing directly in subdirs breaks dependency resolution.
+
+### ❌ **NEVER Make Real API Calls in Tests**
+
+- Tests use HTTP-VCR fixtures (pre-recorded responses)
+- Making real calls **breaks CI** and violates rate limits
+- Tests must be deterministic and work offline
+- **Use existing fixtures or record new ones properly**
+
+### ❌ **Database Schema Changes Are Immediate**
+
+- Database uses TypeORM `synchronize: true`
+- Entity changes **immediately affect database schema**
+- No migrations system - changes can cause data loss
+- **Test entity changes thoroughly in development**
+
+### ❌ **Frontend Has Build Errors - Fix First**
+
+```bash
+# Check current errors before adding features:
+cd frontend && npm run type-check
+npm run build  # Must pass before adding features
+```
+
+## 🧪 **Testing Guidelines (CRITICAL PATTERNS)**
+
+### ⚠️ **Mandatory Testing Patterns**
+
+#### **jest.mock() MUST be at file top (NOT in describe blocks)**
+
+```typescript
+// ✅ CORRECT - At file top before imports
+jest.mock('@services/download/download.service');
+jest.mock('@repositories/movie.repository');
+
+import { DownloadService } from '@services/download/download.service';
+// ... other imports
+
+describe('Service', () => {
+  // Tests here
+});
+```
+
+```typescript
+// ❌ WRONG - In describe block (hoisting issues)
+describe('Service', () => {
+  jest.mock('@services/external.service'); // ❌ Too late, won't work
+});
+```
+
+#### **ALWAYS Use setupTest() Pattern for Test Isolation**
+
+```typescript
+// ✅ CORRECT - Prevents race conditions
+const setupTest = () => {
+  const mockRepository = new Repository({} as never) as jest.Mocked<Repository>;
+  const service = new Service(mockRepository);
+  return { service, mockRepository };
+};
+
+it('should work', async () => {
+  const { service, mockRepository } = setupTest(); // ✅ Fresh state
+});
+```
+
+#### **ALWAYS Configure Faker Seed and Clean Timers**
+
+```typescript
+beforeAll(() => {
+  configureFakerSeed(); // ✅ Required for reproducible tests
+});
+
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.useRealTimers(); // ✅ Clean up timers
+});
+```
+
+### Test Commands (Always run from root)
+
+- `npm test --workspace backend` - Backend unit tests
+- `npm run test:backend:e2e` - E2E tests (spins up Docker environment)
+- `npm test --workspace=packages/source-metadata-extractor` - Source metadata tests
+- No frontend tests currently exist
+
+### E2E Testing Methods
+
+**Method 1 (One-time):** `npm run test:backend:e2e`
+**Method 2 (Development):**
+
+1. `npm run start:backend:e2e` (background)
+2. `npm run test:backend:e2e:dev` (repeat as needed)
+
+## 🏗️ **Architecture Awareness**
+
+### Key Services (All Implemented - DON'T REBUILD)
+
+- `AuthService` - JWT authentication with refresh tokens (228 lines, 18 methods)
+- `SourceService` - Multi-provider torrent source aggregation (719 lines, 24 methods)
+- `DownloadService` - WebTorrent client management (179 lines)
+- `MediaService` - TMDB integration and movie metadata
+- `TraktService` - Trakt.tv integration for lists
+
+### File Structure Patterns
+
+- Services: `backend/src/services/[service-name]/[service-name].service.ts`
+- Routes: `backend/src/routes/[feature].routes.ts`
+- Entities: `backend/src/entities/[entity-name].entity.ts`
+- Repositories: `backend/src/repositories/[entity-name].repository.ts`
+
+## 🚀 **Priority Workflows (FOCUS HERE)**
+
+### 1. **Implement Frontend JWT Authentication** (ONLY REMAINING TASK)
+
+Frontend needs to integrate with existing backend authentication system.
+
+**Missing Files to Create**:
+
+- `frontend/src/store/api/auth.ts` - API calls
+- `frontend/src/store/slices/auth.ts` - Auth state management
+- `frontend/src/app/pages/login/` - Login UI
+
+**Note**: Backend JWT system is complete - just need frontend integration.
+
+## 🔍 **Before Starting Any Task**
+
+1. **Read AI-Specific Documentation**
+   - **`docs/ai/context.md`** - Current project status for AI assistants
+   - **`docs/ai/gotchas.md`** - Critical constraints that will break things
+   - **`docs/ai/file-mapping.md`** - Where to make different types of changes
+   - **`docs/ai/patterns.md`** - Code conventions and patterns
+
+2. **Verify Implementation Status**
+   - Don't assume tasks marked as incomplete are actually incomplete
+   - Check actual codebase implementation vs todo status
+   - **95% of backend is production-ready** - focus on the 2 missing pieces
+
+3. **Understand Dependencies**
+   - Check if required infrastructure already exists (it probably does)
+   - Identify what's actually missing vs what's documented as missing
+   - Consider impact on other components
+
+## 🚨 **Common Pitfalls to Avoid**
+
+- **Don't rebuild existing infrastructure** - 95% of backend is production-ready
+- **Don't trust todo status blindly** - Verify against actual implementation
+- **Don't create authentication from scratch** - Backend JWT system is complete
+- **Don't implement source aggregation** - YTS + THERARBG providers are fully functional
+- **Don't assume WebTorrent needs setup** - DownloadService is complete and operational
+- **Don't install dependencies in workspace directories** - Will break npm workspaces
+- **Don't make real API calls in tests** - Use HTTP-VCR fixtures only
+- **Don't put jest.mock() in describe blocks** - Must be at file top
+
+## 💡 **Development Priorities**
+
+2. **Frontend JWT Integration** - Connect to existing backend auth
+3. **Documentation Updates** - Keep docs synchronized with implementation
+
+## 📁 **Quick File References**
+
+### Most Important Files
+
+- `backend/src/app.ts` - Main application setup
+- `backend/src/services/source/source.service.ts` - Source aggregation (complete)
+- `backend/src/services/download/download.service.ts` - WebTorrent client (complete)
+- `backend/src/services/auth/auth.service.ts` - Authentication (complete)
+- `backend/src/routes/index.ts` - Route definitions
+
+### Missing Implementations
+
+- Frontend JWT auth components (needs creation)
+
+## 🔒 **Security & Environment**
+
+- **Never hardcode secrets** - Use environment variables only
+- **Follow existing configuration.ts pattern** - Interactive setup system exists
+- **VPN detection is active** - Backend detects VPN status
+- **Encryption is production-ready** - AES-256-GCM for sensitive fields
+
+---
+
+**Remember**: This is a **complete, sophisticated streaming platform** that needs **only frontend JWT authentication integration**, not a ground-up rebuild. The backend including streaming is fully functional. Focus surgically on connecting the frontend to existing backend authentication.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/maury91)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/maury91)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
