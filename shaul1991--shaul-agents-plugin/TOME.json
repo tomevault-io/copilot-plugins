@@ -1,0 +1,87 @@
+{
+  "name": "shaul-agents-plugin",
+  "owner": "shaul1991",
+  "repo": "shaul-agents-plugin",
+  "description": "AI instruction files for shaul-agents-plugin by shaul1991",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backend-golang",
+      "path": "skills/backend-golang",
+      "github_url": "https://github.com/shaul1991/shaul-agents-plugin/tree/main/skills/backend-golang",
+      "description": ""
+    },
+    {
+      "name": "backend-implementation",
+      "path": "skills/backend-implementation",
+      "github_url": "https://github.com/shaul1991/shaul-agents-plugin/tree/main/skills/backend-implementation",
+      "description": ""
+    },
+    {
+      "name": "backend-java",
+      "path": "skills/backend-java",
+      "github_url": "https://github.com/shaul1991/shaul-agents-plugin/tree/main/skills/backend-java",
+      "description": ""
+    },
+    {
+      "name": "backend-kotlin",
+      "path": "skills/backend-kotlin",
+      "github_url": "https://github.com/shaul1991/shaul-agents-plugin/tree/main/skills/backend-kotlin",
+      "description": ""
+    },
+    {
+      "name": "backend-php",
+      "path": "skills/backend-php",
+      "github_url": "https://github.com/shaul1991/shaul-agents-plugin/tree/main/skills/backend-php",
+      "description": ""
+    },
+    {
+      "name": "backend-senior",
+      "path": "skills/backend-senior",
+      "github_url": "https://github.com/shaul1991/shaul-agents-plugin/tree/main/skills/backend-senior",
+      "description": ""
+    },
+    {
+      "name": "backend-tdd",
+      "path": "skills/backend-tdd",
+      "github_url": "https://github.com/shaul1991/shaul-agents-plugin/tree/main/skills/backend-tdd",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/shaul1991",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T03:33:37Z"
+}
