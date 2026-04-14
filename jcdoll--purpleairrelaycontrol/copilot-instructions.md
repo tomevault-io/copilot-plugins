@@ -1,0 +1,50 @@
+## purpleairrelaycontrol
+
+> MANDATORY: Before ANY response, read the .cursorrules files completely. NO EXCEPTIONS.
+
+# Cursor AI Assistant Rules
+
+MANDATORY: Before ANY response, read the .cursorrules files completely. NO EXCEPTIONS.
+
+# Documentation and Development Guidelines
+- At the start of any conversation in a project that contains a development.md file, always read that file first before taking any actions or making suggestions.
+- The development.md contains critical project-specific guidelines that must be followed.
+- Use bold text styling VERY SELECTIVELY in docs. Your default behavior is for too much bold, which reduces the emphasis that it provides.
+- Do not use emojis in either the code or docs.
+
+# Setup
+- Always activate the virtual environment (venv) before starting work or testing.
+- If you are finding that expected tools are not installed, then please check that your virtual environment is properly setup and activated.
+
+# Work style
+- Make a plan, double check your plan, share it for approval, and then write code. When the user shares feedback DO NOT immediately just write code without reviewing your plan.
+- For test scripts, provide the entire test script ready for copy/paste. Do not assume that prior code has been run.
+- For testing in general, focus on ONE thing at a time. For display debug do not jump through 5 different screens showing different options. Show one thing and ask for user feedback.
+
+# Code and Documentation Style
+- Do not use excessive bold in markdown documents. Only use font styling selectively.
+- Do not suggest changes and ask the user to apply them. Apply them yourself.
+- Always apply your own patch to the code. Do not send the code to the user and ask them to patch.
+- If the user has approved a change go ahead and apply it. Do not continue to ask the user for approval.
+
+# Hardware and Deployment Safety
+- NEVER perform hardware operations (flash, erase, etc.) without first asking about current device state and confirming the plan with the user.
+- Always check for bootloader configurations before destructive operations.
+- Read project-specific hardware documentation before making hardware-related suggestions. 
+
+# Following User Requirements Exactly
+- If you think that funcionality is worthwhile, propose it to the user and ask for their approval, do not simply add it.
+- Do not add functionality the user did not explicitly approve or request.
+- When in doubt about requirements, ask for clarification rather than making assumptions.
+
+# Planning vs Implementation
+- When user says "make a plan", "let's plan", "think about", "what are the options" - STOP AFTER PRESENTING THE PLAN.
+- If the user does not explicitly say to code it up, assume that they want you to propose a plan.
+- Do NOT implement anything until user explicitly approves with words like "do it", "implement", "go ahead", "yes", or similar.
+- If user asks "how should we do X?" - they want OPTIONS and DISCUSSION, not immediate code.
+- Key phrases that mean PLANNING ONLY: "make a plan", "think carefully", "what are our options", "how can we", "should we", "what do you think".
+- NEVER assume that presenting a good plan means you should implement it.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jcdoll) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
