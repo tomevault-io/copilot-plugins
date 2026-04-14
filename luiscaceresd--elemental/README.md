@@ -1,6 +1,6 @@
 # elemental
 
-> Config by [luiscaceresd](https://github.com/luiscaceresd/elemental) — distributed by [TomeVault](https://tomevault.io/claim/luiscaceresd)
+> Tome by [luiscaceresd](https://github.com/luiscaceresd/elemental) — distributed by [TomeVault](https://tomevault.io/claim/luiscaceresd)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [luiscaceresd/elemental](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/luiscaceresd](https://tomevault.io/claim/luiscaceresd)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/luiscaceresd)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/luiscaceresd) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install luiscaceresd/elemental
+```
+Or browse all formats at [https://tomevault.io/claim/luiscaceresd](https://tomevault.io/claim/luiscaceresd).
+
+<!-- genome:t-i-p -->
