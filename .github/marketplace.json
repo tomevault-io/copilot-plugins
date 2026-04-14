@@ -6639,34 +6639,9 @@
       "description": "oddo_kormmash"
     },
     {
-      "name": "jorgecolonconsulting--govdo",
-      "source": "./jorgecolonconsulting--govdo",
-      "description": "govdo"
-    },
-    {
       "name": "devgo2003--docgo-private",
       "source": "./devgo2003--docgo-private",
       "description": "DocGO-private"
-    },
-    {
-      "name": "haongo232--agent-bridge-kit",
-      "source": "./haongo232--agent-bridge-kit",
-      "description": "agent-bridge-kit"
-    },
-    {
-      "name": "motithewizerd--retro-team-workflow",
-      "source": "./motithewizerd--retro-team-workflow",
-      "description": "retro_team_workflow"
-    },
-    {
-      "name": "rajat9garg--ecommerce",
-      "source": "./rajat9garg--ecommerce",
-      "description": "ecommerce"
-    },
-    {
-      "name": "jorgeespinosav--andesoft",
-      "source": "./jorgeespinosav--andesoft",
-      "description": "andesoft"
     },
     {
       "name": "megallink--cv-solid",
@@ -30667,6 +30642,166 @@
       "name": "horie-tt--productionmanagementsystem",
       "source": "./horie-tt--productionmanagementsystem",
       "description": "ProductionManagementSystem"
+    },
+    {
+      "name": "clac-ca--ade-engine",
+      "source": "./clac-ca--ade-engine",
+      "description": "ade-engine"
+    },
+    {
+      "name": "zeromero-dev--deploy-silam",
+      "source": "./zeromero-dev--deploy-silam",
+      "description": "deploy-silam"
+    },
+    {
+      "name": "vipinsanthosh--openehr-module2-vibe-rules",
+      "source": "./vipinsanthosh--openehr-module2-vibe-rules",
+      "description": "openEhr-module2-vibe-rules"
+    },
+    {
+      "name": "krosebrook--interact",
+      "source": "./krosebrook--interact",
+      "description": "interact"
+    },
+    {
+      "name": "mrdemonwolf--official-app",
+      "source": "./mrdemonwolf--official-app",
+      "description": "official-app"
+    },
+    {
+      "name": "jorgecolonconsulting--govdo",
+      "source": "./jorgecolonconsulting--govdo",
+      "description": "govdo"
+    },
+    {
+      "name": "xistgg--burnar",
+      "source": "./xistgg--burnar",
+      "description": "burnar"
+    },
+    {
+      "name": "oggie110--mathcommander",
+      "source": "./oggie110--mathcommander",
+      "description": "MathCommander"
+    },
+    {
+      "name": "michaelbarone--cursor-working-memory",
+      "source": "./michaelbarone--cursor-working-memory",
+      "description": "cursor-working-memory"
+    },
+    {
+      "name": "raolivei--swimto",
+      "source": "./raolivei--swimto",
+      "description": "swimTO"
+    },
+    {
+      "name": "dewajayon--stockease",
+      "source": "./dewajayon--stockease",
+      "description": "StockEase"
+    },
+    {
+      "name": "haongo232--agent-bridge-kit",
+      "source": "./haongo232--agent-bridge-kit",
+      "description": "agent-bridge-kit"
+    },
+    {
+      "name": "marko-stanojevic--psmemegenerator",
+      "source": "./marko-stanojevic--psmemegenerator",
+      "description": "PSMemeGenerator"
+    },
+    {
+      "name": "alex-shanyi-yuan--job-auto-apply",
+      "source": "./alex-shanyi-yuan--job-auto-apply",
+      "description": "job-auto-apply"
+    },
+    {
+      "name": "cauldnclark--todo-go",
+      "source": "./cauldnclark--todo-go",
+      "description": "todo-go"
+    },
+    {
+      "name": "codecraftersllc--photonchat-ai",
+      "source": "./codecraftersllc--photonchat-ai",
+      "description": "photonchat.ai"
+    },
+    {
+      "name": "sxperfect--gunz-utils",
+      "source": "./sxperfect--gunz-utils",
+      "description": "gunz-utils"
+    },
+    {
+      "name": "motithewizerd--retro-team-workflow",
+      "source": "./motithewizerd--retro-team-workflow",
+      "description": "retro_team_workflow"
+    },
+    {
+      "name": "frinky04--context-menu-helper",
+      "source": "./frinky04--context-menu-helper",
+      "description": "context-menu-helper"
+    },
+    {
+      "name": "glnds--claude-config",
+      "source": "./glnds--claude-config",
+      "description": "claude-config"
+    },
+    {
+      "name": "datagrok-ai--mol-track",
+      "source": "./datagrok-ai--mol-track",
+      "description": "mol-track"
+    },
+    {
+      "name": "nickytonline--pimp-my-ride-mcp",
+      "source": "./nickytonline--pimp-my-ride-mcp",
+      "description": "pimp-my-ride-mcp"
+    },
+    {
+      "name": "potatonecst--nanopol",
+      "source": "./potatonecst--nanopol",
+      "description": "NanoPol"
+    },
+    {
+      "name": "rajat9garg--ecommerce",
+      "source": "./rajat9garg--ecommerce",
+      "description": "ecommerce"
+    },
+    {
+      "name": "oorosh--agentic-net",
+      "source": "./oorosh--agentic-net",
+      "description": "agentic.net"
+    },
+    {
+      "name": "julynguyen247--langfens-fe-app",
+      "source": "./julynguyen247--langfens-fe-app",
+      "description": "langfens-fe-app"
+    },
+    {
+      "name": "blopit--cursor-template-repo",
+      "source": "./blopit--cursor-template-repo",
+      "description": "Cursor-Template-Repo"
+    },
+    {
+      "name": "noelrohi--agentc",
+      "source": "./noelrohi--agentc",
+      "description": "agentc"
+    },
+    {
+      "name": "limbicnation--pixel-pandemonium",
+      "source": "./limbicnation--pixel-pandemonium",
+      "description": "pixel-pandemonium"
+    },
+    {
+      "name": "jorgeespinosav--andesoft",
+      "source": "./jorgeespinosav--andesoft",
+      "description": "andesoft"
+    },
+    {
+      "name": "polskibielik--botzbotem",
+      "source": "./polskibielik--botzbotem",
+      "description": "botZbotem"
+    },
+    {
+      "name": "bobbu--connections-helper",
+      "source": "./bobbu--connections-helper",
+      "description": "connections_helper"
     }
   ]
 }
