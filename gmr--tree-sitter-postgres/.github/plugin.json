@@ -1,0 +1,9 @@
+{
+  "name": "gmr--tree-sitter-postgres",
+  "displayName": "tree-sitter-postgres",
+  "description": "tree-sitter-postgres",
+  "version": "1.0.0",
+  "author": "gmr",
+  "homepage": "https://tomevault.io/claim/gmr",
+  "skills": []
+}
