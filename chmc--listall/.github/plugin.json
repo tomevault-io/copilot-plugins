@@ -1,0 +1,14 @@
+{
+  "name": "chmc--listall",
+  "displayName": "listall",
+  "description": "AI instruction files for listall by chmc",
+  "version": "1.0.0",
+  "author": "chmc",
+  "homepage": "https://tomevault.io/claim/chmc",
+  "skills": [
+    {
+      "name": "fastlane",
+      "description": ""
+    }
+  ]
+}
