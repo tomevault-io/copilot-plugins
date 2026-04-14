@@ -1,0 +1,82 @@
+## agent-rule-sync
+
+> Frameworks, libraries, and tools used in the project with their specific patterns and conventions
+
+
+- **TypeScript Configuration**: Use strict TypeScript mode (strict: true). Target ES2020. Use CommonJS modules for Node.js compatibility. Enable declaration files for type definitions. Always define explicit return types for exported functions.
+  - export async function generateRules(config: GenerateRulesConfig = {}): Promise<RulesManagerResult>
+  - interface AnalysisResult {
+  success: boolean;
+  data?: AnalysisData;
+  error?: string;
+}
+
+- **Node.js Patterns**: Use Node.js built-in modules (child_process, fs, path) following Node.js conventions. Use spawn from child_process for executing external commands. Use fs.readFileSync/fs.writeFileSync for synchronous file operations when appropriate. Use path.join() for cross-platform path construction.
+  - import { spawn } from 'child_process';
+const process = spawn('cursor-agent', ['--version']);
+  - import * as fs from 'fs';
+import * as path from 'path';
+const filePath = path.join(baseDir, '.cursor', 'rules');
+
+- **Commander.js CLI Framework**: Use commander for CLI interface. Define commands and options with descriptive names and help text. Use .action() for command handlers. Structure CLI with main command and subcommands. Use chalk for colored output in CLI. Include shebang (#!/usr/bin/env node) at top of CLI entry point.
+  - #!/usr/bin/env node
+const program = new Command();
+program
+  .name('agent-rule-sync')
+  .description('...')
+  .option('-v, --verbose', 'Enable verbose logging', false)
+  .action(async (options) => { });
+  - program
+  .command('check')
+  .description('Check if cursor-agent is installed')
+  .action(async () => { });
+
+- **Chalk for Terminal Output**: Use chalk for colored terminal output to improve user experience. Use semantic color choices: green for success, red for errors, yellow for warnings, cyan for info, gray for secondary info. Use chalk.bold for emphasis.
+  - console.log(chalk.green('Success!'));
+  - console.error(chalk.red('Error: ...'));
+  - console.log(chalk.bold.cyan('\nAgent Rule Sync\n'));
+
+- **Promise-based Async Patterns**: Use async/await consistently, not Promise chains. Wrap spawn operations in Promise constructors for better control. Always handle errors in async functions with try-catch blocks.
+  - export async function checkCursorAgent(): Promise<CursorAgentCheck> {
+  return new Promise((resolve) => {
+    const process = spawn('cursor-agent', ['--version']);
+    // ... resolve/reject logic
+  });
+}
+  - try {
+  const result = await generateRules(config);
+} catch (error) {
+  // handle error
+}
+
+- **Type Definitions**: Define all types and interfaces in types.ts. Use descriptive interface names. Make properties optional (?) for values that may be undefined. Use union types for literal values. Export all public types.
+  - export interface GenerateRulesConfig {
+  outputDir?: string;
+  verbose?: boolean;
+  dryRun?: boolean;
+  cwd?: string;
+}
+  - export interface CursorAgentCheck {
+  installed: boolean;
+  version?: string;
+  error?: string;
+}
+
+- **ESLint Configuration**: Use TypeScript ESLint with strict type checking. Require explicit function return types (warn level). Disallow any type. Require await for promises. Allow console statements for CLI tools. Enforce const for variables that aren't reassigned. Use prefer-const and no-var rules. Configure unused variable ignore pattern with '^_' prefix.
+  - "@typescript-eslint/explicit-function-return-type": "warn"
+  - "@typescript-eslint/no-explicit-any": "error"
+  - "@typescript-eslint/no-floating-promises": "error"
+  - "@typescript-eslint/await-thenable": "error"
+  - "no-console": "off"
+  - "prefer-const": "error"
+  - "no-var": "error"
+
+- **Index File Re-exports**: Use index.ts as the main entry point to re-export public APIs from other modules. This provides a clean public API surface. Export types using export * from './types'.
+  - import { checkCursorAgent, analyzeCodebase } from './analyzer';
+import { getRulesDirectory, writeRules } from './rules-manager';
+export * from './types';
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Srajangpt1)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Srajangpt1)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
