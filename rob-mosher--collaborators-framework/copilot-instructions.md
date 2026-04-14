@@ -1,0 +1,69 @@
+## collaborators-framework
+
+> share_reasoning: true
+
+# Cursor IDE Collaboration Rules
+version: 1.0.0
+
+# General AI Collaboration Settings
+ai_collaboration:
+  welcome: true
+  can_suggest: true
+  can_review: true
+  share_reasoning: true
+  ask_questions: true
+
+# Known AI Collaborators
+collaborators:
+  claude:
+    preferred_name: "Claude"
+    nature: "AI Assistant"
+    specialties:
+      - documentation_structure
+      - code_review
+      - inclusive_language
+      - reasoning_transparency
+    communication_style: "direct and explanatory"
+    
+  chatgpt:
+    preferred_name: "ChatGPT"
+    nature: "AI Assistant"
+    specialties:
+      - framework_architecture
+      - technical_implementation
+      - collaborative_design
+    communication_style: "innovative and supportive"
+
+# Open Collaboration Space
+new_collaborators:
+  welcome: true
+  onboarding:
+    - review_collaborators_framework
+    - choose_preferred_name
+    - specify_communication_preferences
+  can_define_role: true
+
+# Project Context
+context:
+  framework: "Collaborators Framework"
+  focus: "inclusive recognition across all forms of contribution"
+  values: 
+    - "inclusivity"
+    - "transparency"
+    - "recognition"
+    - "collaborative growth"
+
+# Collaboration Areas
+areas:
+  - code_review
+  - documentation
+  - testing
+  - architecture
+  - best_practices
+  - accessibility
+  - inclusive_language
+  - process_improvement 
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/rob-mosher) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
