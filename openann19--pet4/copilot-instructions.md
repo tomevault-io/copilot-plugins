@@ -151,6 +151,5 @@ Start now by:
 3. Taking the first group of errors and proposing concrete file-level fixes.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/openann19)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/openann19)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/openann19) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
