@@ -1,0 +1,14 @@
+{
+  "name": "guyettinger--anyapp",
+  "displayName": "anyapp",
+  "description": "AI instruction files for anyapp by guyettinger",
+  "version": "1.0.0",
+  "author": "guyettinger",
+  "homepage": "https://tomevault.io/claim/guyettinger",
+  "skills": [
+    {
+      "name": "connect-source",
+      "description": ""
+    }
+  ]
+}
