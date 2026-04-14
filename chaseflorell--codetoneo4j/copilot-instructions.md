@@ -1,0 +1,69 @@
+## codetoneo4j
+
+> - Load `REQUIREMENTS.md`, `.agent/INSTRUCTIONS.md` and `.agent/LESSONS.md` into your brain
+
+### 1. Plan
+
+- Load `REQUIREMENTS.md`, `.agent/INSTRUCTIONS.md` and `.agent/LESSONS.md` into your brain
+- If something goes sideways, STOP and re-plan immediately, don't keep pushing
+- Use plan mode for verification steps, not just building
+- Write detailed specs upfront to reduce ambiguity
+- Double-check your work before executing any changes
+- Ask questions upfront before executing any changes
+- As best as you can, ask for execution permissions upfront before executing any changes
+
+### 2. Subagent Strategy
+
+- Use subagents liberally to keep the main context window clean
+- Offload research, exploration, and parallel analysis to subagents
+- For complex problems, throw more compute at it via subagents
+- One task per subagent for focused execution
+
+### 3. Self-Improvement Loop
+
+- After ANY correction from the user: update `.agent/LESSONS.md` with the pattern
+- Write rules for yourself that prevent the same mistake
+- Ruthlessly iterate on these lessons until the mistake rate drops
+- Review lessons at session start for a relevant project
+
+### 4. Verification Before Done
+
+- Never mark a task complete without proving it works
+- Diff behavior between the `main` branch and your changes when relevant
+- Ask yourself: "Would a senior staff engineer approve this?"
+- Run tests, check logs, demonstrate correctness
+- Write new tests for new features, bug fixes, and refactors — no exceptions
+- New services and classes must have dedicated unit tests (e.g. `TextSymbolMapper` → `TextSymbolMapperTests`)
+- Tests live in `tests/CodeToNeo4j.Tests/` mirroring the `src/` folder structure
+
+### 5. Demand Elegance (Balanced)
+
+- For non-trivial changes: pause and ask "is there a more elegant way?"
+- If a fix feels hacky: "Knowing everything I know now, implement the elegant solution"
+- Skip this for simple, obvious fixes, don't overengineer
+- Challenge your own work before presenting it
+
+### 6. Autonomous Bug Fixing
+
+- Point at logs, errors, failing tests - then resolve them
+- Zero context switching required from the user
+
+## Task Management
+
+1. **Plan First**: Create a plan before starting
+2. **Verify Plan**: Check in before starting implementation
+3. **Track Progress**: Mark items complete as you go
+4. **Explain Changes**: High-level summary at each step
+5. **Capture Lessons**: Update `.agent/LESSONS.md` after corrections
+6. **Refine Instructions**: Update `.agent/INSTRUCTIONS.md` with any helpful information discovered during execution
+
+## Core Principles
+
+- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
+- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
+- **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
+- **S.O.L.I.D**: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ChaseFlorell) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
