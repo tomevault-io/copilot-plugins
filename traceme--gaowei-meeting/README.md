@@ -1,6 +1,6 @@
-# gaowei-meeting
+# gaowei-meeting — distributed by TomeVault
 
-> Config by [traceme](https://github.com/traceme/gaowei-meeting) — distributed by [TomeVault](https://tomevault.io/claim/traceme)
+> Originally from [traceme/gaowei-meeting](https://github.com/traceme/gaowei-meeting). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [traceme/gaowei-meeting](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/traceme](https://tomevault.io/claim/traceme)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/traceme)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/traceme) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/traceme) to manage distribution and track installs.
+
+<!-- genome:d-c-s -->
