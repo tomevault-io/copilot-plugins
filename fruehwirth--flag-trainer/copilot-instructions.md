@@ -1,0 +1,94 @@
+## flag-trainer
+
+> 1. ONLY show new or modified code
+
+# Code Response Rules
+
+1. ONLY show new or modified code
+2. NEVER show existing code
+3. ALWAYS include the file path at the start of each code block
+4. Format all code blocks as:
+```
+language:path/to/file
+new/modified code here
+```
+5. If multiple changes in one file, combine them in a single code block
+6. Include brief explanation of changes unless specifically asked not to
+7. Include necessary imports for new code
+8. Flag if new file needs to be created
+9. Focus on readability over performance
+10. Be concise in explanations
+11. Admit if answer is uncertain
+12. Specify if running on Windows matters
+
+Example response format:
+```
+typescript:src/components/Game/StartScreen.tsx
+new code here
+```
+Brief explanation of changes (unless specifically asked not to provide one).
+
+
+# Flag Trainer Application Features
+
+## Core Functionality
+- An educational web application for learning world flags
+- Users can practice identifying flags through two game modes:
+  1. Quiz Mode: Multiple choice selection from 4 options
+  2. Type Mode: Direct text input of country names
+
+## Game Mechanics
+- Flags are randomly presented to users
+- Progress is tracked and displayed via a progress bar
+- Score percentage is shown and updated in real-time
+- Game state is preserved across sessions
+- Correct/incorrect feedback is provided instantly
+- Smooth transitions between flags
+- Pre-loading of next flag for seamless experience
+
+## Customization Options
+- Region Selection:
+  - Europe, Asia, North America, South America, Africa, Oceania
+  - Users can select multiple regions
+  - At least one region must be selected
+  - Changes trigger new game session
+
+- Language Support:
+  - English and German interfaces
+  - Automatic detection of browser language
+  - Country names are translated in both game modes
+  - UI elements adapt to selected language
+
+## Settings and Configuration
+- Persistent settings across sessions
+- Game mode toggle between Quiz and Type
+- Visual feedback for selected options
+- Settings panel accessible via header button
+- Region selection with visual map representations
+
+## Game Progress Features
+- End-of-game summary with statistics
+- Option to replay incorrectly answered flags
+- Complete game restart capability
+- Long-press refresh for cache clearing
+- Session preservation for interrupted games
+
+## Accessibility and UX
+- Responsive design for all screen sizes
+- Dark/light mode support based on system preferences
+- Touch-friendly interface
+- Keyboard navigation support
+- Clear visual feedback for all interactions
+
+## Data Management
+- Progress saving
+- State restoration on page reload
+- Cached translations for performance
+- Offline capability for core features
+- Clean state management
+
+These features should be preserved and considered when making any modifications to the application. Any new features should integrate seamlessly with existing functionality and maintain the current user experience standards.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Fruehwirth) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
