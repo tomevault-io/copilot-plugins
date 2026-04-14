@@ -2,8 +2,8 @@
   "name": "alpadev_ai_monorepo",
   "owner": "alpadev-fx",
   "repo": "alpadev_ai_monorepo",
-  "description": "",
-  "type": "config",
+  "description": "AI instruction files for alpadev_ai_monorepo by alpadev-fx",
+  "type": "tome",
   "source_format": "GEMINI.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "db-ops",
+      "path": ".gemini/skills/db-ops",
+      "github_url": "https://github.com/alpadev-fx/alpadev_ai_monorepo/tree/main/.gemini/skills/db-ops",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/alpadev-fx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T13:52:53Z"
+  "distributed_at": "2026-04-14T16:30:32Z"
 }
