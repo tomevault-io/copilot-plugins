@@ -1,0 +1,51 @@
+{
+  "name": "thelostandunfounds",
+  "owner": "canyouseeus",
+  "repo": "thelostandunfounds",
+  "description": "AI instruction files for thelostandunfounds by canyouseeus",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bento-design",
+      "path": ".agent/skills/bento-design",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/bento-design",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/canyouseeus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T03:33:00Z"
+}
