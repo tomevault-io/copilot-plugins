@@ -4,7 +4,7 @@
   "repo": "jit-mktg-landing-page",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/raseniero",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T00:46:55Z"
+  "distributed_at": "2026-04-14T22:54:51Z"
 }
