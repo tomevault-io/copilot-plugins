@@ -1,6 +1,6 @@
 # rice
 
-> Config by [RICE-Rob-Inn-Com-Ent](https://github.com/RICE-Rob-Inn-Com-Ent/rice) — distributed by [TomeVault](https://tomevault.io/claim/RICE-Rob-Inn-Com-Ent)
+> Tome by [RICE-Rob-Inn-Com-Ent](https://github.com/RICE-Rob-Inn-Com-Ent/rice) — distributed by [TomeVault](https://tomevault.io/claim/RICE-Rob-Inn-Com-Ent)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [RICE-Rob-Inn-Com-Ent/rice](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/RICE-Rob-Inn-Com-Ent](https://tomevault.io/claim/RICE-Rob-Inn-Com-Ent)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/RICE-Rob-Inn-Com-Ent)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/RICE-Rob-Inn-Com-Ent) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/RICE-Rob-Inn-Com-Ent) to manage distribution and track installs.
+
+<!-- genome:t-c-s -->
