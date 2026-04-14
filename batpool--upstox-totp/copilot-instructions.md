@@ -1,0 +1,74 @@
+## upstox-totp
+
+> These rules define strict guidelines for managing Python dependencies in this project using the `uv` dependency manager.
+
+
+
+# Package Management with `uv`
+
+These rules define strict guidelines for managing Python dependencies in this project using the `uv` dependency manager.
+
+**✅ Use `uv` exclusively**
+
+- All Python dependencies **must be installed, synchronized, and locked** using `uv`.
+- Never use `pip`, `pip-tools`, or `poetry` directly for dependency management.
+
+**🔁 Managing Dependencies**
+
+Always use these commands:
+
+```bash
+# Add or upgrade dependencies
+uv add <package>
+
+# Remove dependencies
+uv remove <package>
+
+# Reinstall all dependencies from lock file
+uv sync
+```
+
+**🔁 Scripts**
+
+```zsh
+# Run script with proper dependencies
+uv run script.py
+```
+
+You can edit inline-metadata manually:
+
+```python
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "torch",
+#     "torchvision",
+#     "opencv-python",
+#     "numpy",
+#     "matplotlib",
+#     "Pillow",
+#     "timm",
+# ]
+# ///
+
+print("some python code")
+```
+
+Or using uv cli:
+
+```zsh
+# Add or upgrade script dependencies
+uv add package-name --script script.py
+
+# Remove script dependencies
+uv remove package-name --script script.py
+
+# Reinstall all script dependencies from lock file
+uv sync --script script.py
+```
+    
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/batpool)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/batpool)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
