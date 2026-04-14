@@ -1,0 +1,17 @@
+## roguecord
+
+> - this project is about a self-hosted discord, similiar to teamspeak hosting but all discord features, every user spins its own guild as a standalone server, client can connect to any guild/server
+
+- this project is about a self-hosted discord, similiar to teamspeak hosting but all discord features, every user spins its own guild as a standalone server, client can connect to any guild/server
+- use vuejs 3 setup api, vite, typescript, nodejs, sqllite (data storage server)
+- don't make mistakes, try to make it work first time and think a lot if necessary
+- don't care about token/cost, make sure you don't make mistakes
+- provide migrations for existing server-dbs when adding/changing sqllite tables or content
+- dont use python for anything
+- on client: use dynamic import() to code-split the application where possible
+- try to keep files under 1000 lines/efficent code split where makes sense
+- minimize code duplicates
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/tall1on) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-11 -->
