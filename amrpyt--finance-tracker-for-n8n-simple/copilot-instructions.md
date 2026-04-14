@@ -189,6 +189,5 @@ Note: `paginationOpts` is an object with the following properties:
 - If you need to define a `Record
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/amrpyt)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/amrpyt)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/amrpyt) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
