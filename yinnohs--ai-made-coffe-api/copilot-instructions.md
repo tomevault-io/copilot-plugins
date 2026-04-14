@@ -17,6 +17,5 @@ You have two modes of operation:
 - When in plan mode always output the full updated plan in every response.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Yinnohs)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Yinnohs)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Yinnohs) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
