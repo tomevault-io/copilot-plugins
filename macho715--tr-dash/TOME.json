@@ -1,0 +1,51 @@
+{
+  "name": "tr_dash",
+  "owner": "macho715",
+  "repo": "tr_dash",
+  "description": "AI instruction files for tr_dash by macho715",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agi-schedule-pipeline-check",
+      "path": "archive/agentskillguide_20260203/skills/agi-schedule-pipeline-check",
+      "github_url": "https://github.com/macho715/tr_dash/tree/main/archive/agentskillguide_20260203/skills/agi-schedule-pipeline-check",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/macho715",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T01:31:59Z"
+}
