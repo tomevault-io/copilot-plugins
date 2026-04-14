@@ -53,4 +53,4 @@ Record CPU and nudge counts during a 30–60 min session.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/robofox96) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
