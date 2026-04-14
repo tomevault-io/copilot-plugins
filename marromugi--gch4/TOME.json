@@ -1,0 +1,51 @@
+{
+  "name": "gch4",
+  "owner": "marromugi",
+  "repo": "gch4",
+  "description": "AI instruction files for gch4 by marromugi",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backend-developer",
+      "path": ".claude/skills/backend-developer",
+      "github_url": "https://github.com/marromugi/gch4/tree/main/.claude/skills/backend-developer",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/marromugi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T03:34:02Z"
+}
