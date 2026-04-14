@@ -1,6 +1,6 @@
-# react-barebone-boilerplate
+# react-barebone-boilerplate — distributed by TomeVault
 
-> Config by [AnasShahid](https://github.com/AnasShahid/react-barebone-boilerplate) — distributed by [TomeVault](https://tomevault.io/claim/AnasShahid)
+> Originally from [AnasShahid/react-barebone-boilerplate](https://github.com/AnasShahid/react-barebone-boilerplate). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [AnasShahid/react-barebone-boilerplat
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/AnasShahid](https://tomevault.io/claim/AnasShahid)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/AnasShahid)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AnasShahid) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/AnasShahid) to manage distribution and track installs.
+
+<!-- genome:d-c-p -->
