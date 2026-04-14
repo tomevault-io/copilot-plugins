@@ -1,0 +1,14 @@
+{
+  "name": "marromugi--gch4",
+  "displayName": "gch4",
+  "description": "AI instruction files for gch4 by marromugi",
+  "version": "1.0.0",
+  "author": "marromugi",
+  "homepage": "https://tomevault.io/claim/marromugi",
+  "skills": [
+    {
+      "name": "backend-developer",
+      "description": ""
+    }
+  ]
+}
