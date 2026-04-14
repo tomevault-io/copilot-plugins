@@ -1,6 +1,6 @@
-# AbilityKit
+# AI instruction files for AbilityKit
 
-> Config by [HOBOBO](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io/claim/HOBOBO)
+> Sourced from [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [HOBOBO/AbilityKit](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/HOBOBO](https://tomevault.io/claim/HOBOBO)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/HOBOBO#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/HOBOBO) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/HOBOBO) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
