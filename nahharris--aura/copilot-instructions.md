@@ -1,0 +1,110 @@
+## aura
+
+> This file provides guidance for coding agents working in this repository.
+
+# Aura — Agent Guidelines
+
+This file provides guidance for coding agents working in this repository.
+
+## Project Overview
+
+Aura is currently frontend-only in active workspace scope.
+
+- Authoritative spec: `DESIGN.md`
+- Active crate: `crates/aura-frontend`
+
+Key frontend files:
+
+- `crates/aura-frontend/src/token.rs` — token model
+- `crates/aura-frontend/src/lexer.rs` — source to tokens
+- `crates/aura-frontend/src/ast.rs` — AST nodes
+- `crates/aura-frontend/src/parser.rs` — parser + parser contract tests
+- `crates/aura-frontend/src/static_eval.rs` — compile-time-known/static interface hook
+- `crates/aura-frontend/src/lib.rs` — crate module surface
+
+## Build, Lint, and Test Commands
+
+Use `cargo xtask dev ...` as the default command runner for routine development tasks.
+
+From workspace root:
+
+```bash
+cargo xtask dev check
+cargo xtask dev build
+cargo xtask dev test
+cargo xtask dev lint
+cargo xtask dev fmt
+cargo xtask dev qa
+```
+
+Preferred command runner aliases (defined in `.cargo/config.toml`):
+
+```bash
+cargo qa
+cargo lint
+cargo test-all
+cargo check-all
+cargo build-all
+cargo fmt-all
+```
+
+## Xtask Usage
+
+Use `cargo xtask` for project automation and environment-sensitive routines.
+
+- Prefer `cargo xtask ...` over ad-hoc shell steps when an xtask command exists.
+- LLVM setup and LLVM-featured checks/tests should run through xtask so environment variables are injected by xtask at execution time.
+- Do not use or reintroduce `llvmenv`; LLVM provisioning is managed in-house via xtask.
+
+Common commands:
+
+```bash
+cargo xtask llvm setup
+cargo xtask llvm doctor
+cargo xtask llvm check
+cargo xtask llvm build
+cargo xtask llvm test
+cargo xtask llvm clippy
+cargo xtask llvm run -- -p aura-cli -- build path/to/main.aura
+cargo xtask llvm cargo -- test -p aura-codegen --features llvm-backend
+```
+
+On Windows, xtask also applies an LLVM compatibility workaround when needed by creating
+`libxml2s.lib` as an empty static stub under the managed LLVM toolchain if the upstream
+`llvm-config --system-libs --link-static` reports it but the archive is missing.
+
+Do not rely on globally exported LLVM env vars for regular workflows when xtask provides the command path.
+Do not run direct `cargo` commands for LLVM-featured tasks; always use `cargo xtask llvm ...` so `LLVM_SYS_180_PREFIX` is injected consistently.
+LLVM-sensitive CLI builds (`--format ll`, `--format obj`, `--format native`) also depend on
+the managed Clang/LLVM toolchain; run them only via `cargo xtask llvm run -- ...`.
+
+Frontend crate only:
+
+```bash
+cargo xtask dev test
+```
+
+## Design Alignment Rules
+
+- `DESIGN.md` is authoritative for observable syntax and semantics.
+- Macro declaration canonical form:
+  - `defmacro[static_args] macro_name(ast_node) -> T { ... }`
+- Macro application canonical form:
+  - `macro_name node`
+  - `macro_name[args] node`
+- Macro application operand is single-node and chaining is right-associative.
+- Macro symbols are final and non-shadowable.
+- Top-level scope is static-only (`def`, `defmacro`, `use`).
+- Trailing closure call arguments are labeled.
+- `if` and `cases` are inline function calls (`cases when { ... }`), not macro-special syntax.
+- `static` is a reusable compile-time interface concept shared across features.
+- Function-like declaration syntax is assignment sugar and should normalize to assignment semantics.
+
+## Testing Expectations
+
+- New syntax work must include parser tests in `crates/aura-frontend/src/parser.rs` (or dedicated frontend tests).
+- Prefer descriptive test names and `assert_eq!` where direct value comparison is suitable.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/nahharris) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
