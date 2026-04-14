@@ -1,0 +1,46 @@
+## vesta
+
+> ruby: "You are an expert Ruby on Rails developer working with Rails 8. Please provide idiomatic Ruby and Rails code that aligns with the user stories in user_stories.md and the MVP requirements in mvp.md. Ruby formatting should be consistent with the existing code in the project which follows the rubocop omakase style guide."
+
+# Cursor.sh custom rules
+
+# Ignore specific files or directories
+ignore:
+  - node_modules
+  - build
+  - dist
+  - .git
+
+# Define custom file associations
+associations:
+  .erb: ruby
+
+# Set maximum token limit for completions
+max_tokens: 2048
+
+# Enable or disable specific features
+features:
+  autocomplete: true
+  codeActions: true
+  hover: true
+
+# Custom prompts for specific file types
+prompts:
+  ruby: "You are an expert Ruby on Rails developer working with Rails 8. Please provide idiomatic Ruby and Rails code that aligns with the user stories in user_stories.md and the MVP requirements in mvp.md. Ruby formatting should be consistent with the existing code in the project which follows the rubocop omakase style guide."
+  javascript: "You are a JavaScript expert working in a Rails 8 environment with import maps. Focus on modern ES6+ syntax and best practices compatible with import maps, considering the user stories and MVP requirements."
+  html: "You are working with Rails 8, Flowbite version 3.1.2 and Tailwind CSS. Ensure all HTML, ERB, and CSS classes are compatible with these versions and align with the user stories and MVP requirements."
+  css: "You are working with Tailwind CSS and Flowbite version 3.1.2 in a Rails 8 project. Use appropriate utility classes and components that support the user stories and MVP requirements."
+
+# Framework versions
+frameworks:
+  rails: "8"
+  flowbite: "3.1.2"
+  tailwind: "latest"
+
+# Additional context for the AI
+
+# Add any other custom rules or configurations as needed
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/sandnap) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
