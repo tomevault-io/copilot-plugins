@@ -145,6 +145,5 @@ Good taste / 一般 / 垃圾
   - 在需求分析时，使用`sequential-thinking`评估复杂需求的技术可行性
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/K1ym)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/K1ym)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/K1ym) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
