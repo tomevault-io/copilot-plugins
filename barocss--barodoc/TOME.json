@@ -1,0 +1,63 @@
+{
+  "name": "barodoc",
+  "owner": "barocss",
+  "repo": "barodoc",
+  "description": "AI instruction files for barodoc by barocss",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "barodoc-cli",
+      "path": ".cursor/skills/barodoc-cli",
+      "github_url": "https://github.com/barocss/barodoc/tree/main/.cursor/skills/barodoc-cli",
+      "description": ""
+    },
+    {
+      "name": "barodoc-components",
+      "path": ".cursor/skills/barodoc-components",
+      "github_url": "https://github.com/barocss/barodoc/tree/main/.cursor/skills/barodoc-components",
+      "description": ""
+    },
+    {
+      "name": "barodoc-overview",
+      "path": ".cursor/skills/barodoc-overview",
+      "github_url": "https://github.com/barocss/barodoc/tree/main/.cursor/skills/barodoc-overview",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/barocss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T03:34:25Z"
+}
