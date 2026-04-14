@@ -1,6 +1,6 @@
-# ResumeMindAI-UI
+# ResumeMindAI-UI — distributed by TomeVault
 
-> Config by [arivuforge](https://github.com/arivuforge/ResumeMindAI-UI) — distributed by [TomeVault](https://tomevault.io/claim/arivuforge)
+> Originally from [arivuforge/ResumeMindAI-UI](https://github.com/arivuforge/ResumeMindAI-UI). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [arivuforge/ResumeMindAI-UI](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/arivuforge](https://tomevault.io/claim/arivuforge)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/arivuforge)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/arivuforge) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install arivuforge/ResumeMindAI-UI
+```
+Or browse all formats at [https://tomevault.io/claim/arivuforge](https://tomevault.io/claim/arivuforge).
+
+<!-- genome:d-i-p -->
