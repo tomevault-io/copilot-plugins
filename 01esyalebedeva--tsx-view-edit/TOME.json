@@ -4,7 +4,7 @@
   "repo": "tsx_view_edit",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/01esyaLebedeva",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T10:42:29Z"
+  "distributed_at": "2026-04-14T03:41:42Z"
 }
