@@ -1,6 +1,6 @@
-# ksharp
+# AI instruction files for ksharp
 
-> Config by [ERufian](https://github.com/ERufian/ksharp) — distributed by [TomeVault](https://tomevault.io/claim/ERufian)
+> Sourced from [ERufian/ksharp](https://github.com/ERufian/ksharp) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [ERufian/ksharp](https://github.com/E
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/ERufian](https://tomevault.io/claim/ERufian)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ERufian)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ERufian) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install ERufian/ksharp
+```
+Or browse all formats at [https://tomevault.io/claim/ERufian](https://tomevault.io/claim/ERufian).
+
+<!-- genome:a-i-p -->
