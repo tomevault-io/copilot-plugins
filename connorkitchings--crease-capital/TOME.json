@@ -1,0 +1,51 @@
+{
+  "name": "crease_capital",
+  "owner": "connorkitchings",
+  "repo": "crease_capital",
+  "description": "AI instruction files for crease_capital by connorkitchings",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-endpoint",
+      "path": ".agent/skills/api-endpoint",
+      "github_url": "https://github.com/connorkitchings/crease_capital/tree/main/.agent/skills/api-endpoint",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/connorkitchings",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T02:30:52Z"
+}
