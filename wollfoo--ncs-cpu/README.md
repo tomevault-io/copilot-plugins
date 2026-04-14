@@ -1,6 +1,6 @@
-# ncs-cpu
+# AI instruction files for ncs-cpu
 
-> Config by [wollfoo](https://github.com/wollfoo/ncs-cpu) — distributed by [TomeVault](https://tomevault.io/claim/wollfoo)
+> Sourced from [wollfoo/ncs-cpu](https://github.com/wollfoo/ncs-cpu) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [wollfoo/ncs-cpu](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/wollfoo](https://tomevault.io/claim/wollfoo)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/wollfoo)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/wollfoo) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/wollfoo) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
