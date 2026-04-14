@@ -1,0 +1,51 @@
+{
+  "name": "parker-nextjs-lab",
+  "owner": "archer102125220",
+  "repo": "parker-nextjs-lab",
+  "description": "AI instruction files for parker-nextjs-lab by archer102125220",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "build-tools",
+      "path": ".agent/skills/build-tools",
+      "github_url": "https://github.com/archer102125220/parker-nextjs-lab/tree/main/.agent/skills/build-tools",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/archer102125220",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T05:31:09Z"
+}
