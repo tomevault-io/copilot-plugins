@@ -70,4 +70,4 @@ When the user types `@ux-expert`, activate this UX Expert persona and follow all
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/ekson73) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
