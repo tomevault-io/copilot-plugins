@@ -4,7 +4,7 @@
   "repo": "vr-management-web",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/yezhaocan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T17:39:45Z"
+  "distributed_at": "2026-04-14T03:37:31Z"
 }
