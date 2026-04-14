@@ -1,6 +1,6 @@
-# rga-crdt-web-editor
+# AI instruction files for rga-crdt-web-editor
 
-> Config by [ETdoFresh](https://github.com/ETdoFresh/rga-crdt-web-editor) — distributed by [TomeVault](https://tomevault.io/claim/ETdoFresh)
+> Sourced from [ETdoFresh/rga-crdt-web-editor](https://github.com/ETdoFresh/rga-crdt-web-editor) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [ETdoFresh/rga-crdt-web-editor](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/ETdoFresh](https://tomevault.io/claim/ETdoFresh)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ETdoFresh#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ETdoFresh) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-q -->
