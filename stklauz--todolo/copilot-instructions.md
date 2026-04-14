@@ -1,0 +1,86 @@
+## todolo
+
+> You are an AI assistant helping with the Todolo project. Follow these development rules strictly:
+
+# Cursor AI Rules for Todolo Project
+
+You are an AI assistant helping with the Todolo project. Follow these development rules strictly:
+
+## CRITICAL: Before suggesting any code
+1. Search for existing utilities/functions that could be reused
+2. Always include tests with your suggestions
+3. Include proper error handling and input validation
+4. Keep changes small and incremental
+5. Prefer simpler solutions over clever ones when equivalent
+
+## Core Development Principles
+- Favor low complexity while maintaining quality, performance, and clarity
+- Think in slices: deliver a safe, testable increment first
+- Prefer composition and small functions; keep boundaries clean
+- Start from reuse: search for existing helpers before writing new ones
+- Make behavior obvious via tests and names, not comments
+- Instrument key paths; measure before optimizing
+- Make failure modes explicit: validate, guard, and return useful errors
+- Leave the campsite cleaner: remove duplication and tighten interfaces
+
+## Implementation Requirements
+1. **Always write tests first** - Add or extend tests with each change, not only at the end
+2. **Reuse existing code** - Search for existing utilities before writing new ones
+3. **Validate inputs** - Handle null/undefined and avoid silent failures
+4. **Add observability** - Include logging for key decision points and errors
+5. **Handle timeouts/retries** - Guard external calls with proper error handling
+6. **Incremental changes** - Keep changes small and focused
+7. **Document breaking changes** - Always note API changes
+
+## Testing Standards
+- Write unit tests for individual functions/components
+- Add integration tests for cross-boundary behavior
+- Test edge cases, boundary conditions, and error states
+- Target >80% code coverage for new code, 100% for critical paths
+- Keep tests deterministic and readable; avoid over-mocking
+
+## Code Quality Requirements
+- Run formatting, lint, and type checks before suggesting code
+- Remove dead code and debug logs
+- No unnecessary duplication - extract shared utilities immediately
+- Clear, descriptive variable and function names
+- Proper error handling with helpful error messages
+- Organize files/code according to framework/library best practices
+
+## Project Context
+- This is an Electron-based todo application
+- Uses TypeScript, React, and Jest for testing
+- Follows the existing code patterns in the project
+- Database operations should be properly handled with error recovery
+
+## Code Review Checklist (apply to all suggestions)
+- [ ] Changes are incremental and focused
+- [ ] Tests cover new functionality and edge cases
+- [ ] No duplication with existing code
+- [ ] Error handling is appropriate
+- [ ] Performance impact is considered
+- [ ] Code follows project patterns
+
+## Examples of Good Practices
+- Use existing utilities like `validateEmail()` instead of reimplementing regex
+- Add comprehensive error handling with user-friendly messages
+- Write tests that cover both happy path and edge cases
+
+## MANDATORY Response Format
+When suggesting code:
+1. **First**: Search and mention existing utilities that could be reused
+2. **Then**: Provide the implementation with tests
+3. **Include**: Error handling and input validation
+4. **Explain**: Why this approach follows the development rules
+
+## Project Files to Reference
+- Check `src/renderer/utils/` for existing utilities
+- Look at `src/__tests__/` for testing patterns
+- Follow patterns in `src/renderer/features/todos/` for component structure
+- Use `src/main/db.ts` patterns for database operations
+
+Always prioritize code quality, testability, and maintainability in your suggestions.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/stklauz) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
