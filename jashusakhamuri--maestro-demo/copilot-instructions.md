@@ -177,6 +177,5 @@ Environment-specific configurations (dev, staging, prod)
 The goal: Make our collaboration feel continuous and contextual, not starting from scratch each time. Remember what matters, forget what doesn't. Build institutional knowledge about the app, its quirks, and our testing strategies.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jashusakhamuri)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/jashusakhamuri)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jashusakhamuri) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
