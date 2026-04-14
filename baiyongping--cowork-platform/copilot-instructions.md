@@ -1,144 +1,240 @@
 ## cowork-platform
 
-> CloudBase document database supports **real-time push** functionality that allows applications to listen to all update events for documents in a specified collection that match query conditions. When monitored documents undergo any changes (such as addition, modification, deletion), the client receives notifications in real-time, enabling real-time data synchronization and updates.
+> This document provides detailed guidance on constructing complex queries using CloudBase document database.
 
-# Realtime Database with CloudBase
+# Complex Queries with CloudBase
 
-CloudBase document database supports **real-time push** functionality that allows applications to listen to all update events for documents in a specified collection that match query conditions. When monitored documents undergo any changes (such as addition, modification, deletion), the client receives notifications in real-time, enabling real-time data synchronization and updates.
+This document provides detailed guidance on constructing complex queries using CloudBase document database.
 
-## Core Features
+## Query Operators
 
-### Real-time Data Change Monitoring
-- Listen to all change events for documents in a collection that match query conditions
-- Support for all types of changes: addition, modification, deletion
-- Automatically push change snapshots to clients
-
-### Use Cases
-- Chat applications
-- Real-time collaborative editing
-- Live interactive features
-- Real-time dashboards
-- Multiplayer game state synchronization
-
-## Basic Usage
-
-### 1. Establish Monitoring
-
-Use the `.watch()` method on the collection reference to establish monitoring:
+Access operators through `db.command`:
 
 ```javascript
-// db is the database instance from cloudbase js client sdk 
-const watcher = db.collection("todos") // Specify collection
-  .where({ // Specify query conditions
-    status: 'active',
-    priority: _.in(['high', 'medium'])
-  })
-  .watch({
-    onChange: function(snapshot) { // Data change callback
-      console.log("Received data snapshot", snapshot);
-      // Update your UI or process data here
-      handleDataChange(snapshot);
-    },
-    onError: function(err) { // Error handling callback
-      console.error("Monitoring closed due to error", err);
-      // Handle errors, such as attempting to re-establish connection
-      handleWatchError(err);
-    }
-  });
+const _ = db.command;
 ```
 
-### 2. Close Monitoring
+### Comparison Operators
 
-When you no longer need to monitor data changes, call the `watcher.close()` method:
+| Operator | Usage | Description |
+|----------|-------|-------------|
+| `gt` | `_.gt(value)` | Greater than |
+| `gte` | `_.gte(value)` | Greater than or equal |
+| `lt` | `_.lt(value)` | Less than |
+| `lte` | `_.lte(value)` | Less than or equal |
+| `eq` | `_.eq(value)` | Equal to |
+| `neq` | `_.neq(value)` | Not equal to |
+
+### Array Operators
+
+| Operator | Usage | Description |
+|----------|-------|-------------|
+| `in` | `_.in([values])` | Value exists in array |
+| `nin` | `_.nin([values])` | Value not in array |
+
+## Building Complex Queries
+
+### Multiple Conditions
+
+Combine multiple conditions in the `where()` object:
 
 ```javascript
-// Close monitoring when page or component unmounts
-watcher.close();
+const result = await db.collection('todos')
+    .where({
+        // Age greater than 18
+        age: _.gt(18),
+        // Tags include 'tech' or 'study'
+        tags: _.in(['tech', 'study']),
+        // Created within last week
+        createdAt: _.gte(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))
+    })
+    .get();
 ```
 
-## API Details
+### Sorting Results
 
-### watch(options)
+Use `orderBy()` to sort results:
 
-Create a real-time data listener that returns a `watcher` object.
-
-**Parameters:**
-- `options.onChange` (Function): Callback function when data changes
-- `options.onError` (Function): Callback function when monitoring encounters an error
-
-**onChange callback parameter snapshot:**
 ```javascript
-{
-  docChanges: [
-    {
-      id: 'document-id',
-      dataType: 'init' | 'update' | 'delete' | 'add',
-      queueType: 'init' | 'update' | 'delete' | 'enqueue' | 'dequeue',
-      doc: { // Document content after change
-        // Document fields
-      }
-    },
-    // More changes...
-  ],
-  docs: [ // All documents in the query result set
-    // Document content...
-  ]
-}
+// Single field sorting
+db.collection('posts')
+    .orderBy('createdAt', 'desc')
+    .get()
+
+// Multiple field sorting (chain multiple orderBy calls)
+db.collection('products')
+    .orderBy('category', 'asc')
+    .orderBy('price', 'desc')
+    .get()
 ```
 
-**Change types in onChange callback:**
-- `init`: Initialization, sends all data when first establishing connection
-- `update`: Document content update
-- `add`: New document added
-- `delete`: Document deleted
+**Sort directions:**
+- `'asc'` - Ascending order
+- `'desc'` - Descending order
 
-**Watcher object methods:**
-- `watcher.close()`: Close monitoring and release resources
+### Limiting Results
 
-## Best Practices
-
-### 1. Specific Query Conditions
-
-Set as specific query conditions as possible in the `.where()` method to monitor only the data changes you truly need:
+Control the number of results returned:
 
 ```javascript
-// Recommended: Specific query conditions
-db.collection("messages")
-  .where({
-    chatRoomId: currentChatRoomId,
-    isDeleted: false
-  })
-  .watch({...});
-
-// Not recommended: Monitoring entire collection
-db.collection("messages").watch({...});
+// Limit to 10 results
+db.collection('posts')
+    .limit(10)
+    .get()
 ```
 
-### 2. Close Monitoring in a Timely Manner
+**Limits:**
+- Default: 100 records
+- Maximum: 1000 records per query
 
-Be sure to close monitoring when pages or components unmount to prevent memory leaks:
+### Field Selection
 
-**React Component Example:**
+Optimize queries by selecting only needed fields:
+
 ```javascript
-import { useEffect } from 'react';
+const result = await db.collection('users')
+    .field({
+        title: true,        // Include title
+        completed: true,    // Include completed
+        createdAt: true,    // Include createdAt
+        _id: false          // Exclude _id
+    })
+    .get();
+```
 
-function ChatRoom({ roomId }) {
-  useEffect(() => {
-    const watcher = db.collection("messages")
-      .where({ chatRoomId: roomId })
-      .watch({
-        onChange: handleNewMessages,
-        onError: handleError
-      });
+**Field selection rules:**
+- `true` - Include field in results
+- `false` - Exclude field from results
+- If not specified, all fields are included by default
+
+## Complete Complex Query Example
+
+Here's a comprehensive example combining all query features:
+
+```javascript
+const _ = db.command;
+
+const result = await db.collection('todos')
+    .where({
+        // Status must be 'active' or 'pending'
+        status: _.in(['active', 'pending']),
+        // Priority is high
+        priority: 'high',
+        // Age greater than 18
+        age: _.gt(18),
+        // Created in the last 30 days
+        createdAt: _.gte(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000))
+    })
+    .field({
+        title: true,
+        status: true,
+        priority: true,
+        assignee: true,
+        createdAt: true
+    })
+    .orderBy('createdAt', 'desc')
+    .orderBy('priority', 'asc')
+    .limit(50)
+    .skip(0)
+    .get();
+
+console.log('Found', result.data.length, 'todos');
+console.log('Results:', result.data);
+```
+
+## Query Performance Tips
+
+1. **Use Indexes**: Create indexes on frequently queried fields
+2. **Limit Fields**: Only select fields you need with `.field()`
+3. **Apply Filters Early**: Use specific `where()` conditions to reduce data scanned
+4. **Reasonable Limits**: Don't query more data than necessary
+5. **Optimize Sort Fields**: Sort on indexed fields when possible
+
+## Common Query Patterns
+
+### Date Range Queries
+
+```javascript
+const startDate = new Date('2025-01-01');
+const endDate = new Date('2025-12-31');
+
+db.collection('events')
+    .where({
+        eventDate: _.gte(startDate).and(_.lte(endDate))
+    })
+    .get()
+```
+
+### Text Search (Exact Match)
+
+```javascript
+// Exact title match
+db.collection('articles')
+    .where({
+        title: 'Specific Title'
+    })
+    .get()
+```
+
+### Multiple Value Matching
+
+```javascript
+// Find users with specific roles
+db.collection('users')
+    .where({
+        role: _.in(['admin', 'moderator', 'editor'])
+    })
+    .get()
+```
+
+### Excluding Values
+
+```javascript
+// Find posts not in draft or archived status
+db.collection('posts')
+    .where({
+        status: _.nin(['draft', 'archived'])
+    })
+    .get()
+```
+
+### Combining with Logical Operators
+
+```javascript
+// Users over 18 OR with verified status
+db.collection('users')
+    .where({
+        _or: [
+            { age: _.gt(18) },
+            { verified: true }
+        ]
+    })
+    .get()
+```
+
+## Error Handling
+
+Always handle potential errors:
+
+```javascript
+try {
+    const result = await db.collection('todos')
+        .where({ status: _.in(['active']) })
+        .orderBy('priority', 'desc')
+        .limit(10)
+        .get();
     
-    // Close monitoring when component unmounts
-    return () => {
-      watcher.close();
-    };
-  }, [roomId]);
+    if (result.data.length === 0) {
+        console.log('No matching documents found');
+    } else {
+        console.log('Found documents:', result.data);
+    }
+} catch (error) {
+    console.error('Query failed:', error);
+    // Handle error appropriately
 }
 ```
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/baiyongping) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
