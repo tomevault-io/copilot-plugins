@@ -1,0 +1,9 @@
+{
+  "name": "kestra-io--plugin-datagen",
+  "displayName": "plugin-datagen",
+  "description": "plugin-datagen",
+  "version": "1.0.0",
+  "author": "kestra-io",
+  "homepage": "https://tomevault.io/claim/kestra-io",
+  "skills": []
+}
