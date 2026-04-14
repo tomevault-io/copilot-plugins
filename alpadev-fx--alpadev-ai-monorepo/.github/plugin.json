@@ -1,9 +1,14 @@
 {
   "name": "alpadev-fx--alpadev-ai-monorepo",
   "displayName": "alpadev_ai_monorepo",
-  "description": "alpadev_ai_monorepo",
+  "description": "AI instruction files for alpadev_ai_monorepo by alpadev-fx",
   "version": "1.0.0",
   "author": "alpadev-fx",
   "homepage": "https://tomevault.io/claim/alpadev-fx",
-  "skills": []
+  "skills": [
+    {
+      "name": "db-ops",
+      "description": ""
+    }
+  ]
 }
