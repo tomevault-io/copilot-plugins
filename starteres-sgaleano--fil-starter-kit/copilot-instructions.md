@@ -33,6 +33,5 @@ PHP 8.2+ / Laravel 12.x / Filament 4.x: Follow standard conventions
 <!-- MANUAL ADDITIONS END -->
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/StarterES-sgaleano)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/StarterES-sgaleano)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/StarterES-sgaleano) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
