@@ -1,0 +1,51 @@
+{
+  "name": "fastapi",
+  "owner": "jijingkun-commits",
+  "repo": "fastapi",
+  "description": "AI instruction files for fastapi by jijingkun-commits",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "database-design",
+      "path": ".cursor/skills/database-design",
+      "github_url": "https://github.com/jijingkun-commits/fastapi/tree/main/.cursor/skills/database-design",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/jijingkun-commits",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T14:31:01Z"
+}
