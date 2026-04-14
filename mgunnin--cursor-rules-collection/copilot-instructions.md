@@ -1,0 +1,21 @@
+## cursor-rules-collection
+
+> When the user types `/list-templates` to see all available documentation templates
+
+# List Available Templates
+
+I will list all available documentation templates, including both default templates and any custom templates configured in your project.
+
+  1. **Scan Default Templates:** I will examine the `templates/` directory to identify all available default template categories and their variants.
+
+  2. **Check Custom Templates:** I will look for a `.cursor-init.yaml` configuration file and read any custom templates defined in the `custom_template_paths` section.
+
+  3. **Present Organized List:** I will display the templates organized by category, showing both default and custom options with their descriptions and paths.
+
+  Let me scan your project's template library...
+
+  I will use the `list_dir` tool to examine the templates directory structure and the `read_file` tool to check for custom template configurations in `.cursor-init.yaml`.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/mgunnin) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
