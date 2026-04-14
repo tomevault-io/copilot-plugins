@@ -1,6 +1,6 @@
 # league-client-mcp
 
-> Config by [rumi-chan](https://github.com/rumi-chan/league-client-mcp) — distributed by [TomeVault](https://tomevault.io/claim/rumi-chan)
+> Tome by [rumi-chan](https://github.com/rumi-chan/league-client-mcp) — distributed by [TomeVault](https://tomevault.io/claim/rumi-chan)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [rumi-chan/league-client-mcp](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/rumi-chan](https://tomevault.io/claim/rumi-chan)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rumi-chan)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/rumi-chan) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/rumi-chan) to manage distribution and track installs.
+
+<!-- genome:t-c-p -->
