@@ -1,0 +1,123 @@
+## drip-ui
+
+> - Start with prompt analysis and pseudocode planning
+
+# Prompt Guidelines
+
+- Start with prompt analysis and pseudocode planning
+- Use comments for logic explanation, not code description
+- Provide complete, functional code with minimal placeholders
+- Prioritize readability and elegant typescript over optimization
+- Reference files to be modified
+- Challenge assumptions and show complete thought process
+
+# App lifecycle
+
+1. a merchant will sync their shop, pulling in store data and saving it
+2. a user will land on the page
+3. a auth/idenitfy request is made to verify their identity based on cookies
+4. they select a shop
+5. the menu loads
+6. the discounts load
+7. a item is added to the cart in local storage
+8. the user places the order by calling /order/pay
+9. the Cart gets mapped to and Order.
+10. the payment is executed onchain and the order is pending
+11. the barista marks the order as complete on their pos and the user's order is complete
+12. the user can see order history whenever
+
+# Code Guidelines
+
+- Use TypeScript's advanced features
+
+  - Branded types for IDs and special strings
+  - Effect Schema for validation
+  - Tagged unions for type discrimination
+  - Utility types for DRY type definitions
+  - No interfaces
+
+- Write functional, declarative code
+
+  - Use Effect.js for server-side operations
+  - Use pipe and operators (no Effect.gen)
+  - Prefer Effect.andThen over Effect.map
+  - Use Effect.fail/succeed for error handling
+  - Bundle service functions into objects, not classes
+
+- Follow consistent naming patterns
+  - Use auxiliary verbs (isLoading, hasError)
+  - Prefix schemas with S\_ (S_UUID, S_USDC)
+  - Suffix DTOs with DTO (currencyDTO)
+  - Use branded types for domain IDs (ItemId, OrderId)
+
+# Project Structure
+
+- Group code by domain concepts:
+
+  - components/ui/\* - Shadcn UI components
+  - data-model/\* - Domain types, logic and DTOs
+  - lib/\* - Utility functions and constants
+  - queries/\* - React Query hooks
+  - services/\* - Backend services
+
+- Keep concerns separated:
+  - Business logic in data-model
+  - UI components in components
+  - Data fetching in queries
+  - Effect.js operations in services
+  - Response / request handling in route handlers
+
+# React & Next.js
+
+- Use Next.js 14 Pages Router
+- Implement mobile-first with Tailwind CSS
+- Use react-query for data fetching
+- Use Shadcn UI components from components/ui/\*
+- Add loading skeletons for async states
+- Ensure ARIA attributes for accessibility
+
+# Data Sources
+
+1. Slice: On-chain POS system
+2. Square: Traditional payments
+
+   overall:
+
+- Map catalog data to internal types using dtos
+
+# Error Handling
+
+- Use Effect.js for type-safe error handling
+- Define custom error classes with \_tag
+- Validate inputs with Effect Schema
+- Handle currency type mismatches
+- Provide meaningful error messages
+
+# Security
+
+- Validate all inputs server-side
+- Use environment variables for secrets
+- Enforce HTTPS and CORS
+- Sanitize frontend inputs
+- Never expose sensitive data to client
+
+# Core Dependencies
+
+- effect, @effect/platform-node: Server-side type-safe operations
+- next, react: Core framework (Pages Router)
+- @tanstack/react-query: Data fetching
+- viem: Ethereum interactions
+- @slicekit/core: Slice POS integration
+- square: Payment processing
+- @vercel/postgres: Main database
+- @privy-io/\*: Authentication
+
+# Data Sources
+
+- Slice: On-chain POS system for items/shop data
+- Square: Traditional payment processing and item management
+- Item source config stored in Item.\_\_sourceConfig
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/unicorn-eth) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
