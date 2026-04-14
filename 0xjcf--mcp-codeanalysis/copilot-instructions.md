@@ -1,0 +1,92 @@
+## mcp-codeanalysis
+
+> The knowledge graph provides a centralized, structured representation of the codebase's components, relationships, and metadata, enabling intelligent navigation and context-aware assistance.
+
+# Knowledge Graph Guidelines
+
+## Purpose
+The knowledge graph provides a centralized, structured representation of the codebase's components, relationships, and metadata, enabling intelligent navigation and context-aware assistance.
+
+## Implementation
+
+### Knowledge Graph Structure
+- **Nodes**: Components, files, functions, classes, concepts
+  - Each node must have a unique ID, type, and name
+  - Additional metadata should include description, tags, and relevant properties
+- **Edges**: Relationships between nodes
+  - Each edge must specify source, target, and relationship type
+  - Common relationships: depends_on, imports, calls, inherits_from, contains
+- **Properties**: Metadata about nodes and edges
+  - Include maturity level for components (experimental, beta, stable, deprecated)
+  - Document the rationale ("why") for components and design decisions
+
+### Data Format
+Knowledge graph data should be stored in JSON format with the following structure:
+
+```json
+{
+  "nodes": [
+    {
+      "id": "unique-identifier",
+      "type": "component|file|function|class|error|solution|pattern|concept",
+      "name": "Human-readable name",
+      "description": "Detailed description",
+      "maturity": "experimental|beta|stable|deprecated",
+      "why": "Rationale for this component or concept"
+    }
+  ],
+  "edges": [
+    {
+      "source": "source-node-id",
+      "target": "target-node-id",
+      "type": "depends_on|imports|calls|inherits_from|contains|causes|solves|implements|references"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "ISO-8601 timestamp",
+    "generatedBy": "generator.py"
+  }
+}
+```
+
+### Integration Guidelines
+
+1. **Memory Anchors**: Use the `MEMORY_ANCHOR:` comment to mark important code locations
+   ```python
+   # MEMORY_ANCHOR: knowledge_graph_generator
+   ```
+
+2. **Component Documentation**: Document components with their purpose, dependencies, and rationale
+   ```json
+   {
+     "name": "knowledge_graph",
+     "description": "Centralized knowledge representation of codebase",
+     "maturity": "beta",
+     "why": "Provides unified view of codebase relationships"
+   }
+   ```
+
+3. **Relationship Documentation**: Document relationships between components
+   ```json
+   {
+     "source": "component:knowledge_graph",
+     "target": "component:metadata",
+     "type": "depends_on"
+   }
+   ```
+
+4. **Visualization**: Use graphs to visualize relationships
+   - Component dependencies
+   - Function call hierarchies
+   - Error and solution relationships
+
+# Knowledge_graph Guidelines
+
+- Follow best practices for knowledge graph 
+- Ensure consistent standards across the codebase
+- Prioritize maintainability and readability
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/0xjcf) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
