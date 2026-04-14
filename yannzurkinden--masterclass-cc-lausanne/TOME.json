@@ -1,0 +1,51 @@
+{
+  "name": "masterclass-cc-lausanne",
+  "owner": "yannzurkinden",
+  "repo": "masterclass-cc-lausanne",
+  "description": "AI instruction files for masterclass-cc-lausanne by yannzurkinden",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documente",
+      "path": "skills_copy/documente",
+      "github_url": "https://github.com/yannzurkinden/masterclass-cc-lausanne/tree/main/skills_copy/documente",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/yannzurkinden",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T18:30:41Z"
+}
