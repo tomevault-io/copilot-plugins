@@ -1,0 +1,14 @@
+{
+  "name": "jeremyhon--agentctl",
+  "displayName": "agentctl",
+  "description": "AI instruction files for agentctl by jeremyhon",
+  "version": "1.0.0",
+  "author": "jeremyhon",
+  "homepage": "https://tomevault.io/claim/jeremyhon",
+  "skills": [
+    {
+      "name": "agent-orchestrator-cli",
+      "description": ""
+    }
+  ]
+}
