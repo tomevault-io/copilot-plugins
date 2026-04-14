@@ -1,0 +1,20 @@
+## geist
+
+> - When using SqlAlchemy sessions, make sure to import from app.models.database.database import Base, Session, SessionLocal and format sessions as with SessionLocal() as session:
+
+# Cursor rules
+## Sql Alchemy rules
+- When using SqlAlchemy sessions, make sure to import from app.models.database.database import Base, Session, SessionLocal and format sessions as with SessionLocal() as session:
+- When creating new models, make sure to inherit from Base, and include a __tablename__ attribute as well as an autoincrementing integer primary key.
+
+## Python Style
+- When writing functions, make sure to include type hints for all parameters and return types.
+- When writing functions, make sure to include docstrings that describe what the function does, what parameters it takes, and what it returns.
+- When calling functions, make sure to prefer keyword arguments over positional arguments when possible.
+
+## Logging
+- When creating a logger, make sure to use the __name__ attribute of the module as the logger name.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/DavidDworetzky) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
