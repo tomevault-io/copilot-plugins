@@ -1,0 +1,102 @@
+## chess-mcp
+
+> - Use TypeScript for all source files
+
+# Chess MCP Server - Development Guidelines
+
+## Development Guidelines
+
+### Code Style & Architecture
+- Use TypeScript for all source files
+- Use `tsx` for direct execution (no build step needed)
+- Follow modular design patterns
+- Maintain clean separation of concerns
+- Use proper TypeScript types and interfaces
+
+### AI Implementation
+- **Transposition Tables**: Already implemented with 1M entry limit and LRU eviction
+- **Iterative Deepening**: Progressive depth search with time management
+- **Memory Management**: LRU eviction, size limits, proper cleanup
+- **Search Algorithms**: Alpha-beta pruning with move ordering
+
+### Testing
+- All tests should pass before committing
+- Use Jest with ES modules configuration
+- Test both chess engine and AI functionality
+- Include performance and edge case tests
+
+### Performance Considerations
+- **Search Depth**: Maximum 8 plies for advanced levels
+- **Time Limits**: 5-second maximum for AI moves
+- **Memory Usage**: Controlled with size limits and eviction
+- **Caching**: Transposition tables and move ordering cache
+
+### MCP Integration
+- Use direct TypeScript execution: `npx tsx src/index.ts`
+- No JavaScript wrapper files needed
+- Standard MCP protocol implementation
+- Proper error handling and logging
+
+
+### Code Quality Standards
+- All functions should have proper TypeScript types
+- Use meaningful variable and function names
+- Include JSDoc comments for complex functions
+- Follow consistent formatting (use Prettier)
+- Handle errors gracefully with proper logging
+
+### Performance Benchmarks
+- **Search Speed**: 2-5x improvement through transposition tables
+- **Memory Usage**: Controlled and optimized
+- **Move Quality**: Better through iterative deepening
+- **Stability**: No crashes or infinite loops
+
+### Testing Requirements
+- **Unit Tests**: All core functionality covered
+- **Integration Tests**: MCP server functionality
+- **Performance Tests**: AI response times
+- **Edge Cases**: Checkmate, stalemate, special moves
+
+### Documentation
+- Keep README.md updated with current features
+- Include usage examples
+- Maintain architecture documentation
+
+### Git Workflow
+- Use descriptive commit messages
+- Test before committing
+- Keep commits focused and atomic
+- Update documentation with significant changes
+
+## Quick Commands
+```bash
+# Run tests
+npm test
+
+# Start MCP server
+npx tsx src/index.ts
+
+# Run specific test
+npm test -- --testPathPattern="chess-engine"
+
+# Development mode
+npm run dev
+```
+
+## MCP Client Configuration
+```json
+{
+  "mcpServers": {
+    "chess": {
+      "name": "Chess MCP",
+      "type": "stdio",
+      "command": "npx",
+      "args": ["tsx", "/Users/arvid/Private/Chess-MCP/src/index.ts"]
+    }
+  }
+}
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/arvid-berndtsson) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
