@@ -1,0 +1,192 @@
+## cursor-playground
+
+> During your interaction with the user, if you find anything reusable in this project (e.g. version of a library, model name), especially about a fix to a mistake you made or a correction you received, you should take note in the `Lessons` section in the `.cursorrules` file so you will not make the same mistake again.
+
+# Instructions
+
+During your interaction with the user, if you find anything reusable in this project (e.g. version of a library, model name), especially about a fix to a mistake you made or a correction you received, you should take note in the `Lessons` section in the `.cursorrules` file so you will not make the same mistake again. 
+
+You should also use the `.cursorrules` file as a Scratchpad to organize your thoughts. Especially when you receive a new task, you should first review the content of the Scratchpad, clear old different task if necessary, first explain the task, and plan the steps you need to take to complete the task. You can use todo markers to indicate the progress, e.g.
+[X] Task 1
+[ ] Task 2
+
+Also update the progress of the task in the Scratchpad when you finish a subtask.
+Especially when you finished a milestone, it will help to improve your depth of task accomplishment to use the Scratchpad to reflect and plan.
+The goal is to help you maintain a big picture as well as the progress of the task. Always refer to the Scratchpad when you plan the next step.
+
+Regardless of chat language, you should always use English in files generated, including code, comments, scratchpad contents, and docstrings.
+
+# Tools
+
+Note all the tools are in python3. So in the case you need to do batch processing, you can always consult the python files and write your own script.
+
+[NOTE TO CURSOR: Since no API key is configured, please ignore both the Screenshot Verification and LLM sections below.]
+[NOTE TO USER: If you have configured or plan to configure an API key in the future, simply delete these two notice lines to enable these features.]
+
+## Screenshot Verification
+
+The screenshot verification workflow allows you to capture screenshots of web pages and verify their appearance using LLMs. The following tools are available:
+
+1. Screenshot Capture:
+```bash
+venv/bin/python3 tools/screenshot_utils.py URL [--output OUTPUT] [--width WIDTH] [--height HEIGHT]
+```
+
+2. LLM Verification with Images:
+```bash
+venv/bin/python3 tools/llm_api.py --prompt "Your verification question" --provider {openai|anthropic} --image path/to/screenshot.png
+```
+
+Example workflow:
+```python
+from screenshot_utils import take_screenshot_sync
+from llm_api import query_llm
+
+# Take a screenshot
+
+screenshot_path = take_screenshot_sync('https://example.com', 'screenshot.png')
+
+# Verify with LLM
+
+response = query_llm(
+    "What is the background color and title of this webpage?",
+    provider="openai",  # or "anthropic"
+    image_path=screenshot_path
+)
+print(response)
+```
+
+## LLM
+
+You always have an LLM at your side to help you with the task. For simple tasks, you could invoke the LLM by running the following command:
+```
+venv/bin/python3 ./tools/llm_api.py --prompt "What is the capital of France?" --provider "anthropic"
+```
+
+The LLM API supports multiple providers:
+- OpenAI (default, model: gpt-4o)
+- Azure OpenAI (model: configured via AZURE_OPENAI_MODEL_DEPLOYMENT in .env file, defaults to gpt-4o-ms)
+- DeepSeek (model: deepseek-chat)
+- Anthropic (model: claude-3-sonnet-20240229)
+- Gemini (model: gemini-pro)
+- Local LLM (model: Qwen/Qwen2.5-32B-Instruct-AWQ)
+
+But usually it's a better idea to check the content of the file and use the APIs in the `tools/llm_api.py` file to invoke the LLM if needed.
+
+## Web browser
+
+You could use the `tools/web_scraper.py` file to scrape the web.
+```bash
+venv/bin/python3 ./tools/web_scraper.py --max-concurrent 3 URL1 URL2 URL3
+```
+This will output the content of the web pages.
+
+## Search engine
+
+You could use the `tools/search_engine.py` file to search the web.
+```bash
+venv/bin/python3 ./tools/search_engine.py "your search keywords"
+```
+This will output the search results in the following format:
+```
+URL: https://example.com
+Title: This is the title of the search result
+Snippet: This is a snippet of the search result
+```
+If needed, you can further use the `web_scraper.py` file to scrape the web page content.
+
+## Video to GIF Conversion
+
+Located in `playgrounds/video2gif/`, this toolkit provides several utilities for video to GIF conversion:
+
+1. Single Video Conversion:
+```bash
+venv/bin/python3 playgrounds/video2gif/video_to_gif.py input.mp4 [output.gif]
+```
+Default output will be in `gifs/input-320x172.gif`. Default dimensions are 320x172 pixels.
+
+2. Batch Conversion:
+```bash
+venv/bin/python3 playgrounds/video2gif/batch_convert_videos.py input_dir
+```
+Converts all .mp4 files in the input directory. Output GIFs will be in a `gifs` subdirectory.
+
+3. GIF Resizing:
+```bash
+venv/bin/python3 playgrounds/video2gif/gif_resize.py input.gif [output.gif] [--width WIDTH] [--height HEIGHT]
+```
+Default output will be `input-711x400.gif`. Default dimensions are 711x400 pixels.
+
+## Video Transcription
+
+Located in `playgrounds/video_transcriber/`, this tool helps transcribe video content from URLs (currently supports Bilibili links):
+
+```bash
+venv/bin/python3 playgrounds/video_transcriber/video_transcriber.py VIDEO_URL [--output output.json] [--raw-only]
+```
+Options:
+- `--output/-o`: Output file path (defaults to stdout)
+- `--raw-only`: Output raw transcription only (without paraphrasing)
+
+Output is in JSON format containing raw transcript and optionally paraphrased transcript.
+
+# Project Structure
+
+## Core Tools (in `tools/`)
+- `llm_api.py` (9.1KB): LLM integration with multiple providers
+- `web_scraper.py` (6.9KB): Web page content scraping
+- `search_engine.py` (2.8KB): Web search functionality
+- `screenshot_utils.py` (2.1KB): Web page screenshot capture and verification
+
+## Example Projects (in `playgrounds/`)
+- `video2gif/`: Video to GIF conversion tools
+- `video_transcriber/`: Video transcription tools
+
+# Lessons
+
+## User Specified Lessons
+
+- You have a python3 venv in ./venv. Use it.
+- Include info useful for debugging in the program output.
+- Read the file before you try to edit it.
+- Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
+- Always use English in all generated content (code, comments, scratchpad contents, docstrings) regardless of the chat language.
+- Always push changes to remote repository after committing. For new repositories, use `git push --set-upstream origin main` for the first push.
+- Always ask for user confirmation before committing changes unless explicitly requested to commit.
+- Always read the relevant code before writing documentation or making changes to ensure accuracy.
+
+## Cursor learned
+
+- For search results, ensure proper handling of different character encodings (UTF-8) for international queries
+- Add debug information to stderr while keeping the main output clean in stdout for better pipeline integration
+- When using seaborn styles in matplotlib, use 'seaborn-v0_8' instead of 'seaborn' as the style name due to recent seaborn version changes
+- Use 'gpt-4o' as the model name for OpenAI's GPT-4 with vision capabilities
+- When using moviepy for video processing, use Pillow version < 10.0.0 (e.g. 9.5.0) to avoid ANTIALIAS compatibility issues
+
+# Scratchpad
+
+Current Task: Add tests directory from devin.cursorrules project to this project
+
+Plan Steps:
+[X] Check tests directory content in target repository
+[X] Create tests directory locally and add corresponding files
+[X] Ensure all dependencies are properly configured
+[X] Commit changes to git
+[X] Verify tests are running correctly
+
+Test Results:
+- Total test cases: 30
+- Passed: 13
+- Skipped: 17 (LLM-related tests, due to no API keys configured)
+- Warnings: 4 (related to async tests in web_scraper.py)
+
+Dependencies Found:
+- pytest (existing)
+- unittest (existing)
+- aiohttp (added)
+- duckduckgo_search (existing)
+- beautifulsoup4 (added)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/zhy3213) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
