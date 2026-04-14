@@ -1,6 +1,6 @@
-# render_signal_server
+# render_signal_server — distributed by TomeVault
 
-> Config by [ki2pixel](https://github.com/ki2pixel/render_signal_server) — distributed by [TomeVault](https://tomevault.io/claim/ki2pixel)
+> Originally from [ki2pixel/render_signal_server](https://github.com/ki2pixel/render_signal_server). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [ki2pixel/render_signal_server](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/ki2pixel](https://tomevault.io/claim/ki2pixel)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ki2pixel#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ki2pixel) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
