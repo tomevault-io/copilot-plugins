@@ -2,8 +2,8 @@
   "name": "wikipedia-reliable-sources",
   "owner": "kynoptic",
   "repo": "wikipedia-reliable-sources",
-  "description": "",
-  "type": "config",
+  "description": "AI instruction files for wikipedia-reliable-sources by kynoptic",
+  "type": "tome",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "tests-audit-quality",
+      "path": ".claude/skills/tests-audit-quality",
+      "github_url": "https://github.com/kynoptic/wikipedia-reliable-sources/tree/main/.claude/skills/tests-audit-quality",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/kynoptic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T16:38:21Z"
+  "distributed_at": "2026-04-14T03:32:02Z"
 }
