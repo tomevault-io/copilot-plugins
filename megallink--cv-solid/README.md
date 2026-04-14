@@ -1,6 +1,6 @@
-# cv-solid
+# AI instruction files for cv-solid
 
-> Config by [MegalLink](https://github.com/MegalLink/cv-solid) — distributed by [TomeVault](https://tomevault.io/claim/MegalLink)
+> Sourced from [MegalLink/cv-solid](https://github.com/MegalLink/cv-solid) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [MegalLink/cv-solid](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/MegalLink](https://tomevault.io/claim/MegalLink)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/MegalLink#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/MegalLink) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install MegalLink/cv-solid
+```
+Or browse all formats at [https://tomevault.io/claim/MegalLink](https://tomevault.io/claim/MegalLink).
+
+<!-- genome:a-i-q -->
