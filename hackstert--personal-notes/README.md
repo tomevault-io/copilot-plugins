@@ -1,6 +1,6 @@
-# personal-notes
+# AI instruction files for personal-notes
 
-> Config by [HacksterT](https://github.com/HacksterT/personal-notes) — distributed by [TomeVault](https://tomevault.io/claim/HacksterT)
+> Sourced from [HacksterT/personal-notes](https://github.com/HacksterT/personal-notes) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [HacksterT/personal-notes](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/HacksterT](https://tomevault.io/claim/HacksterT)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/HacksterT)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/HacksterT) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-s -->
