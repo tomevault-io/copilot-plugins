@@ -120,6 +120,5 @@ If using ClineFlow's reference system:
 For questions or issues, see: https://github.com/hassanvfx/clineflow
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/hassanvfx)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/hassanvfx)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/hassanvfx) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
