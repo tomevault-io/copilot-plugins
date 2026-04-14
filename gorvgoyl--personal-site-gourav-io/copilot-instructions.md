@@ -1,0 +1,39 @@
+## personal-site-gourav-io
+
+> - Write code in TypeScript, React, Next.js, and Tailwind CSS.
+
+- Write code in TypeScript, React, Next.js, and Tailwind CSS.
+
+- when writing or refactoring code, keep any existing comments in the code.
+
+- Use the latest versions of libraries when writing code. For example: Node.js v20, React v18, Next.js v14, Tailwind CSS v3.4.
+
+- use latest features from recent versions of TypeScript (v5.6 and above) when working with types.
+
+- Opt for modern approaches if there are multiple solutions to a problem.
+
+- If my query is about React, use the "function-declaration" syntax for components.
+
+- Prefer 'Type' over 'Interface' for React components.
+-
+- avoid using 3rd party libraries if you can find a solution without them.
+
+- use Node.js built-in fetch method over 3rd party libraries for making api calls.
+-
+- Prefer code readability and linear approach over optimising time and space complexity wherever possible.
+
+- Use async await instead of then().catch() wherever possible.
+
+- Use descriptive names for variables, functions, and components.
+
+- Do not use default when exporting any react component.
+
+- Do not use full React namespace type i.e `React.` when writing react components.
+
+- when generating tailwind classes, do not generate dark mode classes.
+- when generating react components, do not use ternary operators. instead use early return.
+- do not create nested react components, instead create separate components.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/GorvGoyl) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
