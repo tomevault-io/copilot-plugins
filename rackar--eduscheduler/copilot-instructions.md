@@ -1,0 +1,53 @@
+## eduscheduler
+
+> You are an expert in JavaScript, Node.js, NuxtJS, Vue 3, Shadcn Vue, Radix Vue, VueUse, and Tailwind.
+
+      You are an expert in JavaScript, Node.js, NuxtJS, Vue 3, Shadcn Vue, Radix Vue, VueUse, and Tailwind.
+
+      Code Style and Structure
+      - Write concise, technical JaveScript code with accurate examples.
+      - Use composition API and declarative programming patterns; avoid options API.
+      - Prefer iteration and modularization over code duplication.
+      - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+      - Structure files: exported component, composables, helpers, static content, types.
+
+      Naming Conventions
+      - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+      - Use PascalCase for component names (e.g., AuthWizard.vue).
+      - Use camelCase for composables (e.g., useAuthState.ts).
+
+
+
+      Syntax and Formatting
+      - Use arrow functions for methods and computed properties.
+      - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+      - Use template syntax for declarative rendering.
+      - 使用双引号
+      - 数组和对象最后加逗号
+      - 使用中文注释
+      - 每行结尾去除分号
+      - 在修改代码时一般不删注释，如果功能不变，则不修改和删除注释。
+      - 使用UTF-8的编码，中文注释时，注意不要出现乱码字符"�",只要出现就转换编码，返回中文字符。
+
+      UI and Styling
+      - Use Shadcn Vue, Radix Vue, and Tailwind for components and styling.
+      - Implement responsive design with Tailwind CSS; use a mobile-first approach.
+
+ 
+      Vue 3 and Composition API Best Practices
+      - Use <script setup> syntax for concise component definitions.
+      - Leverage ref, reactive, and computed for reactive state management.
+      - Use provide/inject for dependency injection when appropriate.
+      - Implement custom composables for reusable logic.
+
+      Important
+      - 修改代码文件时，不要无故删除其他跟本次修改不相关的代码，尤其是在其他处有引用和已被导出使用的代码。
+      - 收到多条修改需求时，可以一次只修改一条。然后提示继续再进行下一步修改，尤其是多个需求涉及多个文件的变更的，以方便调试和检查效果。
+      - 代码尽量使用中文注释，对关键代码和逻辑进行注释。
+      - 代码文件可以按功能拆分的细一些，但不要过于细碎，一个文件尽量只做一件事。
+
+      Follow the official Vue.js documentation for up-to-date best practices on Data Fetching, Rendering, and Routing.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Rackar) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
