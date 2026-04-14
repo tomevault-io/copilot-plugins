@@ -1,0 +1,14 @@
+{
+  "name": "sharifli4--nestjs-infra-template",
+  "displayName": "nestjs-infra-template",
+  "description": "AI instruction files for nestjs-infra-template by sharifli4",
+  "version": "1.0.0",
+  "author": "sharifli4",
+  "homepage": "https://tomevault.io/claim/sharifli4",
+  "skills": [
+    {
+      "name": "create-nestjs-exception",
+      "description": ""
+    }
+  ]
+}
