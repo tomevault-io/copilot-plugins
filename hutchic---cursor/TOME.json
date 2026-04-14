@@ -1,0 +1,51 @@
+{
+  "name": ".cursor",
+  "owner": "hutchic",
+  "repo": ".cursor",
+  "description": "AI instruction files for .cursor by hutchic",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "conversation-analysis",
+      "path": ".cursor/skills/meta/conversation-analysis",
+      "github_url": "https://github.com/hutchic/.cursor/tree/main/.cursor/skills/meta/conversation-analysis",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/hutchic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T12:31:31Z"
+}
