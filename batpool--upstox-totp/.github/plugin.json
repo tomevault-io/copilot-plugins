@@ -1,0 +1,9 @@
+{
+  "name": "batpool--upstox-totp",
+  "displayName": "upstox-totp",
+  "description": "upstox-totp",
+  "version": "1.0.0",
+  "author": "batpool",
+  "homepage": "https://tomevault.io/claim/batpool",
+  "skills": []
+}
