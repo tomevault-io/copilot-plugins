@@ -1,186 +1,162 @@
 ## biblescholarprojectclean
 
-> description: Guidelines for optimizing contextual insights modules with DSPy teleprompters and handling integration issues
+> This file was automatically restored or completed.
 
-alwaysApply: false
-description: Guidelines for optimizing contextual insights modules with DSPy teleprompters and handling integration issues
-globs:
-  - "scripts/*contextual_insights*.py"
-  - "scripts/optimize_contextual_insights.py"
-  - "src/dspy_programs/contextual_insights_program.py"
-  - "train_contextual_insights.bat"
-  - "test_contextual_insights.py"
-title: Contextual Insights Optimization
-type: feature
----
 
-# Contextual Insights Optimization
+--- 
+type: always 
+title: Public Domain Bible Processing 
+description: Guidelines for processing public domain Bible translations (KJV, ASV, WEB) 
+globs: 
+  - "load_kjv_bible.py" 
+  - "load_asv_bible.py" 
+  - "load_public_domain_bibles.py" 
+  - "src/etl/public_domain_*.py" 
+alwaysApply: false 
+--- 
+ 
 
-## Overview
+# Public Domain Bible Processing Guidelines
 
-This rule documents the process and best practices for optimizing the Contextual Insights feature using DSPy teleprompters and handling integration issues with LM Studio.
+## Glob Patterns
+- src/etl/etl_english_bible.py
+- src/api/*/english_*.py
+- tests/unit/test_*kjv*.py
+- tests/unit/test_*asv*.py
+- tests/integration/test_*kjv*.py
+- tests/integration/test_*asv*.py
+- load_*_bible.py
 
-## Training Data Generation
+## Public Domain Bible Processing Overview
 
-Training data must be generated for each insight module in JSONL format:
+### Supported Public Domain Translations
+1. **King James Version (KJV)** - Complete Bible, 31,100 verses
+2. **American Standard Version (ASV)** - Complete Bible, 31,103 verses
+3. **World English Bible (WEB)** - Optional, modern public domain translation
 
-1. **Directory Structure**:
-   ```
-   data/processed/dspy_training_data/contextual_insights/
-     ├── summary_examples.jsonl
-     ├── cross_reference_examples.jsonl
-     ├── theological_terms_examples.jsonl
-     ├── historical_context_examples.jsonl
-     ├── original_language_examples.jsonl
-     └── related_entities_examples.jsonl
-   ```
+### Data Sources
+Public domain Bible translations can be loaded from the following sources:
 
-2. **Example Format**:
-   Each example should be a JSON object with `input` and `output` fields, matching the module's signature:
-   ```json
-   {"input": {"verse_reference": "John 3:16", "verse_text": "For God so loved..."}, "output": {"summary_text": "This verse explains..."}}
-   ```
+1. **Direct from GitHub repositories**:
+   - KJV: `https://raw.githubusercontent.com/thiagobodruk/bible/master/json/en_kjv.json`
+   - ASV: `https://raw.githubusercontent.com/bibleapi/bibleapi-bibles-json/master/asv.json`
 
-3. **Required Scripts**:
-   - `scripts/generate_contextual_insights_training.py`: Generates training examples
-   - `scripts/optimize_contextual_insights.py`: Runs optimization using DSPy teleprompters
-   - `scripts/load_optimized_contextual_insights.py`: Loads optimized modules into the main program
+2. **Local files**:
+   - If the translations are downloaded locally, they should be stored in the `data/raw` directory.
 
-## Known Issues and Solutions
+### Database Storage
 
-### LM Studio + DSPy JSON Schema Compatibility
+All public domain Bible verses should be stored in the `bible.verses` table with:
 
-1. **Issue**: LM Studio requires `response_format.type` to be `json_object` while DSPy expects `json_schema`
+```sql
+CREATE TABLE IF NOT EXISTS bible.verses (
+  id SERIAL PRIMARY KEY,
+  book_name VARCHAR(50) NOT NULL,
+  chapter_num INTEGER NOT NULL,
+  verse_num INTEGER NOT NULL,
+  verse_text TEXT NOT NULL,
+  translation_source VARCHAR(20) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(book_name, chapter_num, verse_num, translation_source)
+);
+```
+
+### Expected Verse Counts
+
+| Translation | Expected Verse Count |
+|-------------|---------------------|
+| KJV         | 31,100              |
+| ASV         | 31,103              |
+
+## Processing Requirements
+
+### KJV Bible Processing
+
+1. **Format**: The KJV JSON file is structured as an array of books, each containing chapters, and each chapter an array of verses.
+2. **Book Names**: Convert book abbreviations or numbers to standard full book names.
+3. **Translation Code**: Use 'KJV' as the translation_source.
+4. **Error Handling**: Include robust error handling for file format issues.
+
+### ASV Bible Processing
+
+1. **Format**: The ASV JSON file from bibleapi.com has a special structure:
+   - Data is contained in `resultset.row` array
+   - Each verse record has a `field` array with 5 elements:
+     - Reference ID (1001001 = book 1, chapter 1, verse 1)
+     - Book number (1-66)
+     - Testament number (1 = OT, 2 = NT)
+     - Verse number
+     - Verse text
+2. **Chapter Extraction**: 
+   - For single-digit book numbers (e.g., Genesis = 1): Extract chapter from positions 1-3 of the reference ID
+   - For double-digit book numbers: Extract chapter from positions 2-4 of the reference ID
+3. **Translation Code**: Use 'ASV' as the translation_source.
+
+## Implementation Guidelines
+
+### Loading Process
+
+1. **Download**: Retrieve the Bible JSON data from the appropriate source.
+2. **Parse**: Convert the JSON into verse objects with proper book, chapter, verse structure.
+3. **Deduplicate**: Check for existing verses before insertion to avoid duplicates.
+4. **Batch Processing**: Load verses in batches (1000 verses) to optimize performance.
+5. **Verification**: After loading, verify verse counts match the expected totals.
+
+### API Access
+
+All public domain translations should be accessible through the standard verse API:
+```
+/api/verses?translation=KJV&book=BookName&chapter=N&verse=N
+/api/verses?translation=ASV&book=BookName&chapter=N&verse=N
+```
+
+### Search Functionality
+
+1. Enable full-text search across all public domain translations.
+2. Allow users to specify which translations to include in search results.
+
+## Testing Requirements
+
+1. **Unit Tests**:
+   - Verify correct parsing of each translation's specific format
+   - Test handling of edge cases (missing fields, special characters)
    
-2. **Solution**:
-   - Use the `dspy_json_patch.py` to patch the DSPy module for proper JSON schema handling
-   - Always apply the patch before initializing any DSPy components:
-     ```python
-     import dspy
-     import dspy_json_patch
-     dspy_json_patch.apply_patches()
-     dspy.settings.experimental = True
-     ```
-   - For Contextual Insights, this is applied in both the API and optimization scripts
+2. **Integration Tests**:
+   - Verify complete database loading
+   - Confirm verse retrieval through API endpoints
+   - Test cross-translation verse comparison
 
-3. **When Optimizing**:
-   - Use simple optimizers like `BootstrapFewShot` as they are more compatible with LM Studio
-   - Set proper Example inputs using `Example(input={...}, output={...})` format
-   - Provide clear input/output field types in the signature classes
+## Copyright and Attribution
 
-### MLflow Integration
+Unlike restricted translations, public domain Bibles do not require special copyright notices. However, it's good practice to include attribution:
 
-1. **Make MLflow Optional**:
-   The optimization scripts should work even if MLflow is not available:
+1. **KJV**: "King James Version (KJV), public domain."
+2. **ASV**: "American Standard Version (ASV), 1901, public domain."
 
-   ```python
-   try:
-       import mlflow
-       mlflow_available = True
-       # Configure MLflow
-   except (ImportError, Exception) as e:
-       mlflow_available = False
-       logger.warning(f"MLflow not available: {e}")
-   ```
+## Recommended Loading Scripts
 
-2. **Fallback Pattern**:
-   ```python
-   def log_metrics(metrics):
-       if mlflow_available:
-           mlflow.log_metrics(metrics)
-       else:
-           # Save metrics to a local file instead
-           with open("optimization_metrics.json", "w") as f:
-               json.dump(metrics, f)
-   ```
+1. **KJV**: Use `load_kjv_bible.py` for downloading and loading KJV verses.
+2. **ASV**: Use `direct_asv_download.py` for downloading and processing ASV verses.
 
-## Optimization Process
+## Verification Queries
 
-1. **Generate Training Data**:
-   ```bash
-   python scripts/generate_contextual_insights_training.py
-   ```
+```sql
+-- Verify KJV loading
+SELECT COUNT(*) FROM bible.verses WHERE translation_source = 'KJV';
+-- Should return 31,100
 
-2. **Optimize Each Module**:
-   ```bash
-   python scripts/optimize_contextual_insights.py --module summary --optimizer bootstrap
-   ```
+-- Verify ASV loading
+SELECT COUNT(*) FROM bible.verses WHERE translation_source = 'ASV';
+-- Should return 31,103
 
-3. **Load Optimized Modules**:
-   ```python
-   # In contextual_insights_program.py
-   from scripts.load_optimized_contextual_insights import get_optimized_modules
-   
-   optimized_modules = get_optimized_modules()
-   if optimized_modules.get('summary_generator'):
-       self.generate_summary = optimized_modules['summary_generator']
-   ```
-
-## Testing
-
-1. **Program-Only Testing**:
-   Test just the DSPy program components without API integration:
-   ```bash
-   python test_contextual_insights.py --program-only
-   ```
-
-2. **API Testing**:
-   Test the full API integration:
-   ```bash
-   python test_contextual_insights.py
-   ```
-
-3. **Web Server**:
-   Start the web server with:
-   ```bash
-   python run_contextual_insights_web.py
-   # or
-   run_contextual_insights_web.bat
-   ```
-
-4. **API Health Check**:
-   ```bash
-   curl http://localhost:5001/api/contextual_insights/health
-   ```
-
-5. **API Request Test**:
-   ```bash
-   curl -X POST http://localhost:5001/api/contextual_insights/insights \
-     -H "Content-Type: application/json" \
-     -d '{"type":"verse","reference":"John 3:16","translation":"KJV"}'
-   ```
-
-## Common Errors and Fixes
-
-1. **Original Language Notes Error**:
-   ```
-   Could not retrieve original language text: get_original_language_verse_text() missing 2 required positional arguments: 'chapter_num' and 'verse_num'
-   ```
-   
-   **Fix**: Update the FocusProcessor to parse verse references into book, chapter, and verse components before calling get_original_language_verse_text().
-
-2. **Blueprint Error**:
-   ```
-   AttributeError: 'Blueprint' object has no attribute 'before_app_first_request'
-   ```
-   
-   **Fix**: Replace `@api_blueprint.before_app_first_request` with `@api_blueprint.before_app_request` and add logic to only initialize once.
-
-3. **Example Format Errors**:
-   ```
-   AttributeError: 'dict' object has no attribute 'with_inputs'
-   ```
-   
-   **Fix**: Create DSPy Examples with explicit fields matching signature requirements.
-
-## Documentation Updates
-
-After making changes to the optimization process:
-
-1. Update `docs/features/contextual_insights.md` with latest implementation details
-2. Update `docs/roadmaps/contextual_insights_feature_roadmap.md` to reflect current status
-3. Document any API changes in `docs/reference/API_REFERENCE.md`
+-- Compare John 3:16 across translations
+SELECT translation_source, verse_text 
+FROM bible.verses 
+WHERE book_name = 'John' AND chapter_num = 3 AND verse_num = 16
+ORDER BY translation_source;
+```
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/iog-creator) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-11 -->
