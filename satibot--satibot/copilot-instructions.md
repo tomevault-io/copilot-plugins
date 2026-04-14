@@ -202,4 +202,4 @@ Remember: `std.debug.print` always needs two arguments - never forget the `.{}`!
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/satibot) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
