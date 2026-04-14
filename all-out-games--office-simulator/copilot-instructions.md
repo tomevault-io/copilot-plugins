@@ -1,0 +1,99 @@
+## office-simulator
+
+> For the Interactable component
+
+## Interactables overview
+Interactables run on both the client AND the server. Use client-side code to drive UI text and visuals; perform gameplay state changes on the server.
+
+### Quick start
+```cs
+public class GymPass : Component
+{
+  public int Cost = 100;
+  private Interactable interactable;
+
+  public override void Awake()
+  {
+    interactable = Entity.AddComponent<Interactable>();
+
+    // Pure check. When false, the prompt is hidden for that player.
+    interactable.CanUseCallback += (Player p) =>
+    {
+      var myPlayer = (MyPlayer)p;
+      return !myPlayer.HasGymPass;
+    };
+
+    // Called on both client and server. Only mutate game state on the server.
+    interactable.OnInteract = (Player p) =>
+    {
+      if (!Network.IsServer) return;
+      // Do action here
+    };
+
+    // Optional: hold-to-interact
+    interactable.RequiredHoldTime = 0.6f; // seconds
+    interactable.HoldText = "Hold to buy";
+  }
+
+  public override void Update()
+  {
+    if (Network.IsServer) return;
+    // Drive UI text on the client only
+    interactable.Text = $"Buy a gym pass for ${Cost}";
+  }
+}
+```
+
+### Holding to interact
+- While holding, the engine fills a progress bar and switches the prompt to **HoldText** (if set). The normalized progress is available as read-only **HoldTime01**.
+- Use **OnHoldingInteract** to validate every frame while holding; return false to cancel and reset the current hold attempt.
+
+```cs
+interactable.RequiredHoldTime = 1.0f;
+interactable.HoldText = "Hold to open";
+interactable.OnHoldingInteract = (Player p) =>
+{
+  // Example: require a key item while holding
+  return ((MyPlayer)p).HasKeyItem;
+};
+```
+
+### UI helpers
+- **IsUIShowing()**: returns true while the prompt is visible/fading.
+- **GetScreenRect()**: returns the current on-screen rect of the prompt for aligning custom UI.
+- **GetShowingSinceTime() / GetShowing01()**: timing helpers for effects/animation.
+
+### API surface (C#)
+Properties:
+- `string Text` (client-only): main prompt text.
+- `string HoldText` (optional): shown while holding.
+- `Vector2 PromptOffset`
+- `float Radius`
+- `float RequiredHoldTime` (seconds)
+- `int Priority`
+- `float HoldTime01` (read-only 0..1)
+- `float ShowingSinceTime` (read-only)
+- `float ShowingT` (read-only 0..1)
+- `bool WillShowUi` (read-only)
+
+Methods:
+- `bool IsUIShowing()`
+- `Rect GetScreenRect()`
+- `float GetShowingSinceTime()`
+- `float GetShowing01()`
+
+Callbacks/Events:
+- `Func<Player, bool> CanUseCallback` — can the passed in player interact with this interactable? called on client and server.
+- `Func<Player, bool> OnHoldingInteract` — per-frame while holding; return false to cancel this attempt.
+- `Action<Player> OnInteract` — fires when the hold completes (or immediately if no hold).
+
+### Best practices
+- Keep `CanUseCallback` pure and fast. They run on client and server and decide visibility.
+- Only set `Text`/`HoldText` on the client. Server-side changes to text are ignored.
+- Only mutate gameplay in `OnInteract` on the server: `if (!Network.IsServer) return;`.
+- Use `PromptOffset` to keep prompts from overlapping the actor; tune `Radius` for feel.
+- Prefer `Priority` to disambiguate clustered interactables.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/All-Out-Games) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
