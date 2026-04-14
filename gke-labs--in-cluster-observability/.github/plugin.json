@@ -1,0 +1,9 @@
+{
+  "name": "gke-labs--in-cluster-observability",
+  "displayName": "in-cluster-observability",
+  "description": "in-cluster-observability",
+  "version": "1.0.0",
+  "author": "gke-labs",
+  "homepage": "https://tomevault.io/claim/gke-labs",
+  "skills": []
+}
