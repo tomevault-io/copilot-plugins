@@ -6639,36 +6639,6 @@
       "description": "oddo_kormmash"
     },
     {
-      "name": "wollfoo--ncs-gpu",
-      "source": "./wollfoo--ncs-gpu",
-      "description": "ncs-gpu"
-    },
-    {
-      "name": "intelligent-data-design-inc--nep",
-      "source": "./intelligent-data-design-inc--nep",
-      "description": "NEP"
-    },
-    {
-      "name": "carmandale--metal-sphere-demo",
-      "source": "./carmandale--metal-sphere-demo",
-      "description": "metal-sphere-demo"
-    },
-    {
-      "name": "etdofresh--rga-crdt-web-editor",
-      "source": "./etdofresh--rga-crdt-web-editor",
-      "description": "rga-crdt-web-editor"
-    },
-    {
-      "name": "ayooke97--osoora-finalta",
-      "source": "./ayooke97--osoora-finalta",
-      "description": "osoora-finalTA"
-    },
-    {
-      "name": "erufian--ksharp",
-      "source": "./erufian--ksharp",
-      "description": "ksharp"
-    },
-    {
       "name": "rajat9garg--ecommerce",
       "source": "./rajat9garg--ecommerce",
       "description": "ecommerce"
@@ -30277,6 +30247,226 @@
       "name": "intel-agency--workflow-orchestration-queue-hotel41-a",
       "source": "./intel-agency--workflow-orchestration-queue-hotel41-a",
       "description": "workflow-orchestration-queue-hotel41-a"
+    },
+    {
+      "name": "janhesters--aidd-jan",
+      "source": "./janhesters--aidd-jan",
+      "description": "aidd-jan"
+    },
+    {
+      "name": "macho715--tr-dash",
+      "source": "./macho715--tr-dash",
+      "description": "tr_dash"
+    },
+    {
+      "name": "jeremyhon--agentctl",
+      "source": "./jeremyhon--agentctl",
+      "description": "agentctl"
+    },
+    {
+      "name": "agaslez--cerber-core",
+      "source": "./agaslez--cerber-core",
+      "description": "cerber-core"
+    },
+    {
+      "name": "mozilla--build-a-b",
+      "source": "./mozilla--build-a-b",
+      "description": "build-a-b"
+    },
+    {
+      "name": "grok--sterlinghamilton-com",
+      "source": "./grok--sterlinghamilton-com",
+      "description": "sterlinghamilton.com"
+    },
+    {
+      "name": "docxology--metainformant",
+      "source": "./docxology--metainformant",
+      "description": "MetaInformAnt"
+    },
+    {
+      "name": "datamine-crypto--dashboard",
+      "source": "./datamine-crypto--dashboard",
+      "description": "dashboard"
+    },
+    {
+      "name": "wollfoo--ncs-gpu",
+      "source": "./wollfoo--ncs-gpu",
+      "description": "ncs-gpu"
+    },
+    {
+      "name": "arch-playground--ai-workflow-runner",
+      "source": "./arch-playground--ai-workflow-runner",
+      "description": "ai-workflow-runner"
+    },
+    {
+      "name": "o2alexanderfedin--vibe-playground",
+      "source": "./o2alexanderfedin--vibe-playground",
+      "description": "vibe-playground"
+    },
+    {
+      "name": "hoshico--jamstack-blog",
+      "source": "./hoshico--jamstack-blog",
+      "description": "jamstack-blog"
+    },
+    {
+      "name": "zhoudengt--hifate-bazi",
+      "source": "./zhoudengt--hifate-bazi",
+      "description": "HiFate-bazi"
+    },
+    {
+      "name": "lunarityai--nebula-fetch-cli",
+      "source": "./lunarityai--nebula-fetch-cli",
+      "description": "nebula-fetch-cli"
+    },
+    {
+      "name": "intelligent-data-design-inc--nep",
+      "source": "./intelligent-data-design-inc--nep",
+      "description": "NEP"
+    },
+    {
+      "name": "socket-link--phosphor",
+      "source": "./socket-link--phosphor",
+      "description": "phosphor"
+    },
+    {
+      "name": "mikeschinkel--go-tealeaves",
+      "source": "./mikeschinkel--go-tealeaves",
+      "description": "go-tealeaves"
+    },
+    {
+      "name": "spragginsdesigns--amyday",
+      "source": "./spragginsdesigns--amyday",
+      "description": "amyday"
+    },
+    {
+      "name": "nshkrdotcom--elixirscope",
+      "source": "./nshkrdotcom--elixirscope",
+      "description": "ElixirScope"
+    },
+    {
+      "name": "linus-f--website-dpsg-wehr",
+      "source": "./linus-f--website-dpsg-wehr",
+      "description": "website-dpsg-wehr"
+    },
+    {
+      "name": "carmandale--metal-sphere-demo",
+      "source": "./carmandale--metal-sphere-demo",
+      "description": "metal-sphere-demo"
+    },
+    {
+      "name": "kamal20201--sneakermarketplace",
+      "source": "./kamal20201--sneakermarketplace",
+      "description": "SneakerMarketplace"
+    },
+    {
+      "name": "healgaren--claude-channel-mux",
+      "source": "./healgaren--claude-channel-mux",
+      "description": "claude-channel-mux"
+    },
+    {
+      "name": "blopit--cursor-template-repo",
+      "source": "./blopit--cursor-template-repo",
+      "description": "Cursor-Template-Repo"
+    },
+    {
+      "name": "peanutsplash--surveygen",
+      "source": "./peanutsplash--surveygen",
+      "description": "Surveygen"
+    },
+    {
+      "name": "filmil--ai-coding-sop",
+      "source": "./filmil--ai-coding-sop",
+      "description": "ai-coding-sop"
+    },
+    {
+      "name": "etdofresh--rga-crdt-web-editor",
+      "source": "./etdofresh--rga-crdt-web-editor",
+      "description": "rga-crdt-web-editor"
+    },
+    {
+      "name": "warmsheep--thunder-note-server",
+      "source": "./warmsheep--thunder-note-server",
+      "description": "thunder_note_server"
+    },
+    {
+      "name": "hackerbara--changedown",
+      "source": "./hackerbara--changedown",
+      "description": "changedown"
+    },
+    {
+      "name": "jimni6--happyrow-core",
+      "source": "./jimni6--happyrow-core",
+      "description": "happyrow-core"
+    },
+    {
+      "name": "fishcode2025--mcp-sqlite",
+      "source": "./fishcode2025--mcp-sqlite",
+      "description": "mcp-sqlite"
+    },
+    {
+      "name": "m1ckyb--routeghost",
+      "source": "./m1ckyb--routeghost",
+      "description": "RouteGhost"
+    },
+    {
+      "name": "ayooke97--osoora-finalta",
+      "source": "./ayooke97--osoora-finalta",
+      "description": "osoora-finalTA"
+    },
+    {
+      "name": "catataudio--userscripts",
+      "source": "./catataudio--userscripts",
+      "description": "userscripts"
+    },
+    {
+      "name": "velodrome-finance--indexer",
+      "source": "./velodrome-finance--indexer",
+      "description": "indexer"
+    },
+    {
+      "name": "james10192--klassciv2",
+      "source": "./james10192--klassciv2",
+      "description": "KLASSCIv2"
+    },
+    {
+      "name": "mehotkhan--safarnak-app",
+      "source": "./mehotkhan--safarnak-app",
+      "description": "safarnak.app"
+    },
+    {
+      "name": "simonlemon333--ccfantasy",
+      "source": "./simonlemon333--ccfantasy",
+      "description": "ccfantasy"
+    },
+    {
+      "name": "erufian--ksharp",
+      "source": "./erufian--ksharp",
+      "description": "ksharp"
+    },
+    {
+      "name": "abcdmku--raincheck",
+      "source": "./abcdmku--raincheck",
+      "description": "RainCheck"
+    },
+    {
+      "name": "hed-standard--hed-python",
+      "source": "./hed-standard--hed-python",
+      "description": "hed-python"
+    },
+    {
+      "name": "ayut0--cursor-rules-templates",
+      "source": "./ayut0--cursor-rules-templates",
+      "description": "cursor-rules-templates"
+    },
+    {
+      "name": "yasinuslu--nepjua",
+      "source": "./yasinuslu--nepjua",
+      "description": "nepjua"
+    },
+    {
+      "name": "organvm-ii-poiesis--a-i-council--coliseum",
+      "source": "./organvm-ii-poiesis--a-i-council--coliseum",
+      "description": "a-i-council--coliseum"
     }
   ]
 }
