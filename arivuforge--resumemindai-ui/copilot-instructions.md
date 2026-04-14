@@ -712,6 +712,5 @@ npm run test:coverage  # Vitest with coverage
 **When in doubt:** Reference existing components in `app/components/` for approved patterns. Consistency is key!
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/arivuforge)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/arivuforge)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/arivuforge) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
