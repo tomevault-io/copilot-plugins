@@ -1,0 +1,14 @@
+{
+  "name": "mrpitch--ms-kanzlei",
+  "displayName": "ms-kanzlei",
+  "description": "AI instruction files for ms-kanzlei by mrpitch",
+  "version": "1.0.0",
+  "author": "mrpitch",
+  "homepage": "https://tomevault.io/claim/mrpitch",
+  "skills": [
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
