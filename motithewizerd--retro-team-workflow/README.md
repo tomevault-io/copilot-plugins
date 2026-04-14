@@ -1,6 +1,6 @@
-# retro_team_workflow
+# retro_team_workflow — distributed by TomeVault
 
-> Config by [MotiTheWizerd](https://github.com/MotiTheWizerd/retro_team_workflow) — distributed by [TomeVault](https://tomevault.io/claim/MotiTheWizerd)
+> Originally from [MotiTheWizerd/retro_team_workflow](https://github.com/MotiTheWizerd/retro_team_workflow). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [MotiTheWizerd/retro_team_workflow](h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/MotiTheWizerd](https://tomevault.io/claim/MotiTheWizerd)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/MotiTheWizerd)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/MotiTheWizerd) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install MotiTheWizerd/retro_team_workflow
+```
+Or browse all formats at [https://tomevault.io/claim/MotiTheWizerd](https://tomevault.io/claim/MotiTheWizerd).
+
+<!-- genome:d-i-s -->
