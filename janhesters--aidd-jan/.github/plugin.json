@@ -1,0 +1,34 @@
+{
+  "name": "janhesters--aidd-jan",
+  "displayName": "aidd-jan",
+  "description": "AI instruction files for aidd-jan by janhesters",
+  "version": "1.0.0",
+  "author": "janhesters",
+  "homepage": "https://tomevault.io/claim/janhesters",
+  "skills": [
+    {
+      "name": "aidd-implementation-writing",
+      "description": ""
+    },
+    {
+      "name": "aidd-prose-writing",
+      "description": ""
+    },
+    {
+      "name": "aidd-review",
+      "description": ""
+    },
+    {
+      "name": "aidd-skill-creating",
+      "description": ""
+    },
+    {
+      "name": "aidd-tdd",
+      "description": ""
+    },
+    {
+      "name": "aidd-test-writing",
+      "description": ""
+    }
+  ]
+}
