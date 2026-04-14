@@ -89,6 +89,5 @@ Required environment variables in `.env`:
 - **google_credentials**: id, user_id, access_token, refresh_token, token_uri, client_id, client_secret, scopes, expiry, created_at, updated_at
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/okihara)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/okihara)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/okihara) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
