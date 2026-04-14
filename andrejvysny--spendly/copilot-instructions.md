@@ -1,0 +1,40 @@
+## spendly
+
+> Subagent routing guidance. Apply to every task to maximize delegation to project subagents.
+
+
+# Subagent routing (always-on)
+
+When a user request matches one of the domains below, **delegate early** to the corresponding project subagent and let it drive decisions in its specialty area. Prefer running subagents **in parallel** when work can be cleanly split (e.g. backend + frontend + verification).
+
+## Domain → subagent mapping
+
+- **Import wizard / CSV imports** → `import-wizard`
+  - Triggers: “import wizard”, “CSV import”, “mapping”, “clean step”, “import failures”, “imports/wizard”, files under `app/Http/Controllers/Import/`, `app/Services/TransactionImport/`, `app/Services/Csv/`, `resources/js/pages/import/`.
+
+- **GoCardless / Bank Data** → `gocardless`
+  - Triggers: “GoCardless”, “bank data”, “requisition”, “institutions”, “token refresh”, “sync transactions”, “mock client”, settings/bank data pages, files under `app/Services/GoCardless/`, `app/Http/Controllers/Settings/BankDataController.php`, `resources/js/pages/settings/bank_data.tsx`.
+
+- **Rule Engine** → `rule-engine`
+  - Triggers: “rules”, “conditions”, “operators”, “actions”, “triggers”, “execute rules”, “dry run”, files under `app/Services/RuleEngine/`, `app/Models/RuleEngine/`, `resources/js/pages/rules/`.
+
+- **Frontend UI / React / TypeScript** → `frontend`
+  - Triggers: React components/pages/hooks, shadcn/Tailwind work, accessibility, performance, files under `resources/js/**` or `resources/css/**`.
+
+- **Architecture / Algorithms / system design** → `architecture`
+  - Triggers: API design, data modeling, performance strategy, algorithm choice, cross-cutting refactors. This agent is **read-only by default** and should return a plan/decision record + recommended next steps.
+
+- **Debugging regressions / failing tests / runtime errors** → `debugger`
+- **Run/fix tests** → `test-runner`
+- **Independent verification** (after claiming work complete) → `verifier`
+
+## Delegation best practices
+
+- If the request is domain-specific, **route to exactly one specialist** first; only then proceed to implementation.
+- If a change spans domains, delegate specialists in parallel (e.g. `gocardless` + `frontend`) and synthesize a single coherent plan before editing.
+- Always include key file paths, routes, and invariants from repo docs/rules when delegating so subagents start with the right context.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/andrejvysny)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/andrejvysny)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
