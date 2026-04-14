@@ -73,4 +73,4 @@ This philosophy emphasizes that since complexity is the primary enemy of softwar
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/zacharyelston) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
