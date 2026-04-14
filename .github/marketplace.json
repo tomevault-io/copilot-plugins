@@ -6639,36 +6639,6 @@
       "description": "oddo_kormmash"
     },
     {
-      "name": "rajat9garg--ecommerce",
-      "source": "./rajat9garg--ecommerce",
-      "description": "ecommerce"
-    },
-    {
-      "name": "terryso--ccshell",
-      "source": "./terryso--ccshell",
-      "description": "ccshell"
-    },
-    {
-      "name": "arivuforge--resumemindai-ui",
-      "source": "./arivuforge--resumemindai-ui",
-      "description": "ResumeMindAI-UI"
-    },
-    {
-      "name": "hobobo--abilitykit",
-      "source": "./hobobo--abilitykit",
-      "description": "AbilityKit"
-    },
-    {
-      "name": "haymayndzultra--supertemplate",
-      "source": "./haymayndzultra--supertemplate",
-      "description": "SuperTemplate"
-    },
-    {
-      "name": "rjmoggach--litigation-support",
-      "source": "./rjmoggach--litigation-support",
-      "description": "litigation-support"
-    },
-    {
       "name": "jorgecolonconsulting--govdo",
       "source": "./jorgecolonconsulting--govdo",
       "description": "govdo"
@@ -30467,6 +30437,236 @@
       "name": "organvm-ii-poiesis--a-i-council--coliseum",
       "source": "./organvm-ii-poiesis--a-i-council--coliseum",
       "description": "a-i-council--coliseum"
+    },
+    {
+      "name": "baiyongping--cowork-platform",
+      "source": "./baiyongping--cowork-platform",
+      "description": "cowork-platform"
+    },
+    {
+      "name": "kynoptic--wikipedia-reliable-sources",
+      "source": "./kynoptic--wikipedia-reliable-sources",
+      "description": "wikipedia-reliable-sources"
+    },
+    {
+      "name": "connorkitchings--crease-capital",
+      "source": "./connorkitchings--crease-capital",
+      "description": "crease_capital"
+    },
+    {
+      "name": "canyouseeus--thelostandunfounds",
+      "source": "./canyouseeus--thelostandunfounds",
+      "description": "thelostandunfounds"
+    },
+    {
+      "name": "andrescardonas7--salchipapa-web",
+      "source": "./andrescardonas7--salchipapa-web",
+      "description": "salchipapa-web"
+    },
+    {
+      "name": "shaul1991--shaul-agents-plugin",
+      "source": "./shaul1991--shaul-agents-plugin",
+      "description": "shaul-agents-plugin"
+    },
+    {
+      "name": "marromugi--gch4",
+      "source": "./marromugi--gch4",
+      "description": "gch4"
+    },
+    {
+      "name": "barocss--barodoc",
+      "source": "./barocss--barodoc",
+      "description": "barodoc"
+    },
+    {
+      "name": "sinelanguage--cursor-config-ios",
+      "source": "./sinelanguage--cursor-config-ios",
+      "description": "cursor-config-ios"
+    },
+    {
+      "name": "nontasbak--blog",
+      "source": "./nontasbak--blog",
+      "description": "blog"
+    },
+    {
+      "name": "torounit--mtga-deck-builder",
+      "source": "./torounit--mtga-deck-builder",
+      "description": "mtga-deck-builder"
+    },
+    {
+      "name": "djm204--agent-skills",
+      "source": "./djm204--agent-skills",
+      "description": "agent-skills"
+    },
+    {
+      "name": "harshanandak--forge",
+      "source": "./harshanandak--forge",
+      "description": "forge"
+    },
+    {
+      "name": "connorkitchings--vibe-coding",
+      "source": "./connorkitchings--vibe-coding",
+      "description": "Vibe-Coding"
+    },
+    {
+      "name": "rajat9garg--ecommerce",
+      "source": "./rajat9garg--ecommerce",
+      "description": "ecommerce"
+    },
+    {
+      "name": "chrisohalloran--foundry-demo-greeter",
+      "source": "./chrisohalloran--foundry-demo-greeter",
+      "description": "foundry-demo-greeter"
+    },
+    {
+      "name": "osmarnevesadvogado--servidor-npl-laura",
+      "source": "./osmarnevesadvogado--servidor-npl-laura",
+      "description": "servidor-npl-Laura"
+    },
+    {
+      "name": "yezhaocan--vr-management-web",
+      "source": "./yezhaocan--vr-management-web",
+      "description": "vr-management-web"
+    },
+    {
+      "name": "aokihu--mcp-teamate",
+      "source": "./aokihu--mcp-teamate",
+      "description": "mcp-teamate"
+    },
+    {
+      "name": "xierongchuan--taskmate",
+      "source": "./xierongchuan--taskmate",
+      "description": "TaskMate"
+    },
+    {
+      "name": "terryso--ccshell",
+      "source": "./terryso--ccshell",
+      "description": "ccshell"
+    },
+    {
+      "name": "markplusgood--coverme",
+      "source": "./markplusgood--coverme",
+      "description": "coverme"
+    },
+    {
+      "name": "cegem-360--chat",
+      "source": "./cegem-360--chat",
+      "description": "chat"
+    },
+    {
+      "name": "ai-whisperers--ai-whisperers-portfolio-website",
+      "source": "./ai-whisperers--ai-whisperers-portfolio-website",
+      "description": "ai-whisperers-portfolio-website"
+    },
+    {
+      "name": "contextunity--contextrouter",
+      "source": "./contextunity--contextrouter",
+      "description": "contextrouter"
+    },
+    {
+      "name": "pbv7--medoc-update-check",
+      "source": "./pbv7--medoc-update-check",
+      "description": "medoc-update-check"
+    },
+    {
+      "name": "arivuforge--resumemindai-ui",
+      "source": "./arivuforge--resumemindai-ui",
+      "description": "ResumeMindAI-UI"
+    },
+    {
+      "name": "hojinzs--github-symphony",
+      "source": "./hojinzs--github-symphony",
+      "description": "github-symphony"
+    },
+    {
+      "name": "varadasainikhil--testingownorderingplatform",
+      "source": "./varadasainikhil--testingownorderingplatform",
+      "description": "TestingOwnOrderingPlatform"
+    },
+    {
+      "name": "aadorian--os-template",
+      "source": "./aadorian--os-template",
+      "description": "OS_Template"
+    },
+    {
+      "name": "adam0white--messageai",
+      "source": "./adam0white--messageai",
+      "description": "MessageAI"
+    },
+    {
+      "name": "01esyalebedeva--tsx-view-edit",
+      "source": "./01esyalebedeva--tsx-view-edit",
+      "description": "tsx_view_edit"
+    },
+    {
+      "name": "hobobo--abilitykit",
+      "source": "./hobobo--abilitykit",
+      "description": "AbilityKit"
+    },
+    {
+      "name": "ousialang--oac",
+      "source": "./ousialang--oac",
+      "description": "oac"
+    },
+    {
+      "name": "kaito-siba--canvas-lms-poc",
+      "source": "./kaito-siba--canvas-lms-poc",
+      "description": "canvas-lms-poc"
+    },
+    {
+      "name": "henryoman--water",
+      "source": "./henryoman--water",
+      "description": "Water"
+    },
+    {
+      "name": "kk01001--common-tool",
+      "source": "./kk01001--common-tool",
+      "description": "common-tool"
+    },
+    {
+      "name": "gke-labs--in-cluster-observability",
+      "source": "./gke-labs--in-cluster-observability",
+      "description": "in-cluster-observability"
+    },
+    {
+      "name": "haymayndzultra--supertemplate",
+      "source": "./haymayndzultra--supertemplate",
+      "description": "SuperTemplate"
+    },
+    {
+      "name": "loofy147--algorithms",
+      "source": "./loofy147--algorithms",
+      "description": "Algorithms-"
+    },
+    {
+      "name": "nyartsgnaw--repo-gov-live-1775548759831",
+      "source": "./nyartsgnaw--repo-gov-live-1775548759831",
+      "description": "repo-gov-live-1775548759831"
+    },
+    {
+      "name": "firbedatomas--cobrofacil",
+      "source": "./firbedatomas--cobrofacil",
+      "description": "cobrofacil"
+    },
+    {
+      "name": "sethburkart123--covalt",
+      "source": "./sethburkart123--covalt",
+      "description": "Covalt"
+    },
+    {
+      "name": "fpittelo--alpinebot",
+      "source": "./fpittelo--alpinebot",
+      "description": "alpinebot"
+    },
+    {
+      "name": "rjmoggach--litigation-support",
+      "source": "./rjmoggach--litigation-support",
+      "description": "litigation-support"
+    },
+    {
+      "name": "horie-tt--productionmanagementsystem",
+      "source": "./horie-tt--productionmanagementsystem",
+      "description": "ProductionManagementSystem"
     }
   ]
 }
