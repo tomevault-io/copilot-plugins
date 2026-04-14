@@ -4,7 +4,7 @@
   "repo": "company",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/SHOHE001",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T13:46:33Z"
+  "distributed_at": "2026-04-14T14:37:22Z"
 }
