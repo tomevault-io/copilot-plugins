@@ -1,0 +1,63 @@
+{
+  "name": "dotfiles",
+  "owner": "ysano",
+  "repo": "dotfiles",
+  "description": "AI instruction files for dotfiles by ysano",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "keyboard-config",
+      "path": ".claude/skills/keyboard-config",
+      "github_url": "https://github.com/ysano/dotfiles/tree/main/.claude/skills/keyboard-config",
+      "description": ""
+    },
+    {
+      "name": "tmux-config",
+      "path": ".claude/skills/tmux-config",
+      "github_url": "https://github.com/ysano/dotfiles/tree/main/.claude/skills/tmux-config",
+      "description": ""
+    },
+    {
+      "name": "zsh-config",
+      "path": ".claude/skills/zsh-config",
+      "github_url": "https://github.com/ysano/dotfiles/tree/main/.claude/skills/zsh-config",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/ysano",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T11:31:01Z"
+}
