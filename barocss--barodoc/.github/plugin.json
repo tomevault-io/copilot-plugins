@@ -1,0 +1,22 @@
+{
+  "name": "barocss--barodoc",
+  "displayName": "barodoc",
+  "description": "AI instruction files for barodoc by barocss",
+  "version": "1.0.0",
+  "author": "barocss",
+  "homepage": "https://tomevault.io/claim/barocss",
+  "skills": [
+    {
+      "name": "barodoc-cli",
+      "description": ""
+    },
+    {
+      "name": "barodoc-components",
+      "description": ""
+    },
+    {
+      "name": "barodoc-overview",
+      "description": ""
+    }
+  ]
+}
