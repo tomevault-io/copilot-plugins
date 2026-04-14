@@ -1,6 +1,6 @@
-# ccshell
+# ccshell — distributed by TomeVault
 
-> Config by [terryso](https://github.com/terryso/ccshell) — distributed by [TomeVault](https://tomevault.io/claim/terryso)
+> Originally from [terryso/ccshell](https://github.com/terryso/ccshell). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [terryso/ccshell](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/terryso](https://tomevault.io/claim/terryso)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/terryso)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/terryso) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-p -->
