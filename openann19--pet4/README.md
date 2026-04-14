@@ -1,6 +1,6 @@
-# pet4
+# AI instruction files for pet4
 
-> Config by [openann19](https://github.com/openann19/pet4) — distributed by [TomeVault](https://tomevault.io/claim/openann19)
+> Sourced from [openann19/pet4](https://github.com/openann19/pet4) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [openann19/pet4](https://github.com/o
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/openann19](https://tomevault.io/claim/openann19)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/openann19#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/openann19) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install openann19/pet4
+```
+Or browse all formats at [https://tomevault.io/claim/openann19](https://tomevault.io/claim/openann19).
+
+<!-- genome:a-i-q -->
