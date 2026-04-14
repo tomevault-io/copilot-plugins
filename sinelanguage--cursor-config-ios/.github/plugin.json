@@ -1,0 +1,14 @@
+{
+  "name": "sinelanguage--cursor-config-ios",
+  "displayName": "cursor-config-ios",
+  "description": "AI instruction files for cursor-config-ios by sinelanguage",
+  "version": "1.0.0",
+  "author": "sinelanguage",
+  "homepage": "https://tomevault.io/claim/sinelanguage",
+  "skills": [
+    {
+      "name": "api-contract",
+      "description": ""
+    }
+  ]
+}
