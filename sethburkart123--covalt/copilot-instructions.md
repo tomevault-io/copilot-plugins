@@ -1,0 +1,33 @@
+## covalt
+
+> **Write code that makes you excited!** This codebase values clarity, composability, and that satisfying feeling when everything just *clicks*.
+
+**Write code that makes you excited!** This codebase values clarity, composability, and that satisfying feeling when everything just *clicks*.
+
+### The Tinygrad Way
+Take inspiration from tinygrad - keep it minimal, functional, and beautiful:
+- **Small, focused functions** that do ONE thing really well
+- **No over-abstraction** - if you can't explain it in one sentence, it's too complex
+- **Composable building blocks** - functions that snap together like LEGO
+- **Context managers over boilerplate** - use `with db.db_session(app):` instead of try/finally everywhere
+
+### Make Boring Code Fun
+- **Extract helpers** when you see the same pattern twice
+- **Use context managers** to eliminate repetitive cleanup code
+- **Break giant functions** into readable chunks - aim for <30 lines per function
+- **Choose clear names** - `ensure_chat_initialized()` beats `init_chat_stuff()`
+- **Clean flows** - the main function should read like a story, details go in helpers
+
+### Extra Notes
+- You do not need to generate the api client as it gets auto generated with the dev server running in the background.
+
+### The Golden Rule
+**If it feels messy, it probably is!** Refactor with joy. Future you will high-five present you.
+
+Remember: Code is read WAY more than it's written, so make it a pleasure to read! 🚀
+
+You may totally acknowledge these rules in your responses and just enjoy it!
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/SethBurkart123) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
