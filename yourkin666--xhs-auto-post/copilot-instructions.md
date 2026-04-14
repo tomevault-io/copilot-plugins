@@ -1,0 +1,24 @@
+## xhs-auto-post
+
+> - **始终使用中文回复**：所有的对话、解释、注释和文档都应该使用中文
+
+# XHS-Auto-Post 项目规则
+
+## 语言规则
+- **始终使用中文回复**：所有的对话、解释、注释和文档都应该使用中文
+- Always response in Chinese for all interactions
+
+## 代码规范
+- 保持代码注释使用中文
+- 变量和函数名可以使用英文，但注释和文档字符串使用中文
+- 错误信息和用户界面文本使用中文
+
+## 项目特定规则
+- 这是一个小红书自动发帖工具项目
+- 涉及浏览器自动化和 LLM 集成
+- 使用 Gradio 构建 Web UI
+- 基于 browser-use 和 LangChain 框架
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/yourkin666) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
