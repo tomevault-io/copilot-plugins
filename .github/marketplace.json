@@ -6644,31 +6644,6 @@
       "description": "DocGO-private"
     },
     {
-      "name": "megallink--cv-solid",
-      "source": "./megallink--cv-solid",
-      "description": "cv-solid"
-    },
-    {
-      "name": "mriabov--repairs-v0",
-      "source": "./mriabov--repairs-v0",
-      "description": "Repairs-v0"
-    },
-    {
-      "name": "profoundry-us--loco-motion",
-      "source": "./profoundry-us--loco-motion",
-      "description": "loco_motion"
-    },
-    {
-      "name": "vinidyy--colorful-chaos",
-      "source": "./vinidyy--colorful-chaos",
-      "description": "colorful-chaos"
-    },
-    {
-      "name": "ozekimasaki--pdf2img",
-      "source": "./ozekimasaki--pdf2img",
-      "description": "pdf2img"
-    },
-    {
       "name": "ki2pixel--render-signal-server",
       "source": "./ki2pixel--render-signal-server",
       "description": "render_signal_server"
@@ -30802,6 +30777,166 @@
       "name": "bobbu--connections-helper",
       "source": "./bobbu--connections-helper",
       "description": "connections_helper"
+    },
+    {
+      "name": "archer102125220--parker-nextjs-lab",
+      "source": "./archer102125220--parker-nextjs-lab",
+      "description": "parker-nextjs-lab"
+    },
+    {
+      "name": "loofy147--agent-hub",
+      "source": "./loofy147--agent-hub",
+      "description": "agent-hub"
+    },
+    {
+      "name": "carterwayneskhizeine--crazytypewriter",
+      "source": "./carterwayneskhizeine--crazytypewriter",
+      "description": "CrazyTypewriter"
+    },
+    {
+      "name": "blopit--cursor-template-repo",
+      "source": "./blopit--cursor-template-repo",
+      "description": "Cursor-Template-Repo"
+    },
+    {
+      "name": "shanngray--adam",
+      "source": "./shanngray--adam",
+      "description": "AdAM"
+    },
+    {
+      "name": "ahamsammich--auto-code",
+      "source": "./ahamsammich--auto-code",
+      "description": "auto-code"
+    },
+    {
+      "name": "megallink--cv-solid",
+      "source": "./megallink--cv-solid",
+      "description": "cv-solid"
+    },
+    {
+      "name": "nickcomua--nixos",
+      "source": "./nickcomua--nixos",
+      "description": "nixos"
+    },
+    {
+      "name": "nicknort--101825hackathon",
+      "source": "./nicknort--101825hackathon",
+      "description": "101825hackathon"
+    },
+    {
+      "name": "blopit--cursor-template-repo",
+      "source": "./blopit--cursor-template-repo",
+      "description": "Cursor-Template-Repo"
+    },
+    {
+      "name": "objectstack-ai--framework",
+      "source": "./objectstack-ai--framework",
+      "description": "framework"
+    },
+    {
+      "name": "royalgarter--hexdice",
+      "source": "./royalgarter--hexdice",
+      "description": "hexdice"
+    },
+    {
+      "name": "mriabov--repairs-v0",
+      "source": "./mriabov--repairs-v0",
+      "description": "Repairs-v0"
+    },
+    {
+      "name": "stefanalexandru-v--klanker",
+      "source": "./stefanalexandru-v--klanker",
+      "description": "klanker"
+    },
+    {
+      "name": "liaokaime--video-query",
+      "source": "./liaokaime--video-query",
+      "description": "video-query"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "awesome-ai-coding-all-in-one"
+    },
+    {
+      "name": "marcodavidd020--clothing-ecommerce",
+      "source": "./marcodavidd020--clothing-ecommerce",
+      "description": "Clothing-Ecommerce"
+    },
+    {
+      "name": "shu-kitamura--packet-builder",
+      "source": "./shu-kitamura--packet-builder",
+      "description": "packet-builder"
+    },
+    {
+      "name": "profoundry-us--loco-motion",
+      "source": "./profoundry-us--loco-motion",
+      "description": "loco_motion"
+    },
+    {
+      "name": "smallriver0316--readafull",
+      "source": "./smallriver0316--readafull",
+      "description": "readafull"
+    },
+    {
+      "name": "zly7--ecobrain",
+      "source": "./zly7--ecobrain",
+      "description": "EcoBrain"
+    },
+    {
+      "name": "nloperena--nexrena",
+      "source": "./nloperena--nexrena",
+      "description": "nexrena"
+    },
+    {
+      "name": "jcdoll--purpleairrelaycontrol",
+      "source": "./jcdoll--purpleairrelaycontrol",
+      "description": "purpleAirRelayControl"
+    },
+    {
+      "name": "2002bishwajeet--ogbanana",
+      "source": "./2002bishwajeet--ogbanana",
+      "description": "ogbanana"
+    },
+    {
+      "name": "vinidyy--colorful-chaos",
+      "source": "./vinidyy--colorful-chaos",
+      "description": "colorful-chaos"
+    },
+    {
+      "name": "halqme--btuin",
+      "source": "./halqme--btuin",
+      "description": "btuin"
+    },
+    {
+      "name": "jorgeajimenezl--wiz-lights-rs",
+      "source": "./jorgeajimenezl--wiz-lights-rs",
+      "description": "wiz-lights-rs"
+    },
+    {
+      "name": "victordaz07--xthegospel",
+      "source": "./victordaz07--xthegospel",
+      "description": "XtheGospel"
+    },
+    {
+      "name": "zhou-en--turf-portal",
+      "source": "./zhou-en--turf-portal",
+      "description": "turf_portal"
+    },
+    {
+      "name": "wolfofthenorth--sailorbook",
+      "source": "./wolfofthenorth--sailorbook",
+      "description": "SailorBook"
+    },
+    {
+      "name": "ozekimasaki--pdf2img",
+      "source": "./ozekimasaki--pdf2img",
+      "description": "pdf2img"
+    },
+    {
+      "name": "simon-rupp--wallet-watch",
+      "source": "./simon-rupp--wallet-watch",
+      "description": "Wallet-Watch"
     }
   ]
 }
