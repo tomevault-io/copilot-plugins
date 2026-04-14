@@ -10,6 +10,5 @@
 - Coverage should be very similar to the web-based JS/TS Provable SDK (https://github.com/ProvableHQ/sdk/tree/mainnet/wasm)
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/margelo)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/margelo)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/margelo) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
