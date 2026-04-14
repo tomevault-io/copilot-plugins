@@ -1,6 +1,6 @@
-# osoora-finalTA
+# osoora-finalTA — distributed by TomeVault
 
-> Config by [ayooke97](https://github.com/ayooke97/osoora-finalTA) — distributed by [TomeVault](https://tomevault.io/claim/ayooke97)
+> Originally from [ayooke97/osoora-finalTA](https://github.com/ayooke97/osoora-finalTA). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [ayooke97/osoora-finalTA](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/ayooke97](https://tomevault.io/claim/ayooke97)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ayooke97)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ayooke97) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/ayooke97) to manage distribution and track installs.
+
+<!-- genome:d-c-p -->
