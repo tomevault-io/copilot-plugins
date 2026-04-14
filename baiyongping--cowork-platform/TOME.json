@@ -2,9 +2,9 @@
   "name": "cowork-platform",
   "owner": "baiyongping",
   "repo": "cowork-platform",
-  "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "description": "AI instruction files for cowork-platform by baiyongping",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "auth-tool",
+      "path": ".claude/skills/auth-tool",
+      "github_url": "https://github.com/baiyongping/cowork-platform/tree/main/.claude/skills/auth-tool",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/baiyongping",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T08:32:56Z"
+  "distributed_at": "2026-04-14T03:31:32Z"
 }
