@@ -1,0 +1,117 @@
+## mcp-googledrive
+
+> このプロジェクトは、Model Context Protocol (MCP) を介してGoogle Driveにアクセスするためのサーバーです。TypeScriptで実装され、Google Drive API、Google Sheets API、Google Docs API、Google Slides APIを活用します。
+
+# MCP-GoogleDrive 開発ルール
+
+## プロジェクト概要
+このプロジェクトは、Model Context Protocol (MCP) を介してGoogle Driveにアクセスするためのサーバーです。TypeScriptで実装され、Google Drive API、Google Sheets API、Google Docs API、Google Slides APIを活用します。
+
+## アーキテクチャ構造
+
+### ディレクトリ構造の遵守
+```
+src/
+├── config/              # 設定ファイル
+├── services/            # ビジネスロジック層
+│   ├── drive.service.ts
+│   ├── sheets.service.ts
+│   ├── docs.service.ts
+│   ├── slides.service.ts
+│   └── pdf.service.ts
+├── tools/               # MCPツール定義
+├── types/               # 型定義
+├── utils/               # ユーティリティ関数
+├── auth.ts              # Google認証処理
+└── index.ts             # エントリーポイント
+```
+
+## 開発ガイドライン
+
+### TypeScript
+- **厳密な型付け**: `strict: true`を維持し、`any`型の使用を避ける
+- **インターフェース定義**: API レスポンスやデータ構造には必ず型定義を作成
+- **エラーハンドリング**: すべての非同期処理で適切なtry-catch文を使用
+- **JSDoc**: 公開関数にはJSDocコメントを記述
+
+### Google API関連
+- **認証情報の保護**: credentials/配下のファイルは絶対にコミットしない
+- **API制限の考慮**: レート制限やクォータ制限を意識した実装
+- **エラー処理**: Google APIのエラーレスポンスに対する適切なハンドリング
+- **リソース管理**: APIクライアントの適切な初期化と終了処理
+
+### MCP (Model Context Protocol)
+- **ツール定義**: 各ツールは明確な目的と説明を持つ
+- **パラメータ検証**: すべての入力パラメータの妥当性チェック
+- **レスポンス形式**: 一貫したレスポンス形式の維持
+- **エラーメッセージ**: ユーザーフレンドリーなエラーメッセージ
+
+### サービス層設計
+- **単一責任**: 各サービスクラスは単一のGoogle APIに対応
+- **依存性注入**: Google APIクライアントの適切な注入
+- **テスト可能性**: モックしやすい構造の維持
+- **再利用性**: 共通処理はユーティリティ関数として分離
+
+### セキュリティ
+- **認証トークン**: トークンの安全な保存と管理
+- **入力検証**: すべての外部入力に対する検証
+- **権限チェック**: Google Drive の適切な権限確認
+- **ログ出力**: 機密情報を含まないログ出力
+
+### パフォーマンス
+- **バッチ処理**: 可能な限りGoogle APIのバッチリクエストを活用
+- **キャッシュ**: 適切なレベルでのデータキャッシュ
+- **非同期処理**: 適切な非同期/並行処理の実装
+- **メモリ管理**: 大容量ファイル処理時のメモリ使用量最適化
+
+### エラーハンドリング
+```typescript
+// 良い例
+try {
+  const result = await googleApiCall();
+  return { success: true, data: result };
+} catch (error) {
+  if (error.code === 404) {
+    return { success: false, error: 'ファイルが見つかりません' };
+  }
+  return { success: false, error: `API エラー: ${error.message}` };
+}
+```
+
+### コードスタイル
+- **命名規則**: camelCase を使用、わかりやすい変数名
+- **関数サイズ**: 1つの関数は50行以内を目安
+- **コメント**: 複雑な処理には必ずコメントを追加
+- **インポート**: 相対パスは最小限に、明確なモジュール構造
+
+### ドキュメント
+- **README**: 機能の詳細説明と使用例
+- **API仕様**: 各ツールの詳細な仕様書
+- **設定方法**: 詳細なセットアップ手順
+- **トラブルシューティング**: よくある問題と解決方法
+
+### 開発環境
+- **ビルド**: `npm run build` でエラーなくビルド可能
+- **フォーマット**: Prettierによる一貫したコードフォーマット
+- **リント**: ESLintによるコード品質チェック
+- **型チェック**: TypeScriptコンパイラによる厳密な型チェック
+
+### 開発プロセス
+- **機能実装後の必須作業**: 新機能やバグ修正を実装した際は、必ず `npm run build` を実行してビルドエラーがないことを確認する
+- **コミット前チェック**: 以下の順序で実行し、すべて成功することを確認してからコミットする
+  1. `npm run build` - ビルドエラーの確認
+  2. `npm run lint` - コード品質チェック
+  3. `npm run test` - テスト実行（テストが存在する場合）
+- **継続的品質保証**: 機能追加・修正のたびに品質チェックを怠らない
+- **デバッグ手順**: 実装エラーが発生した場合は、まずビルドログを確認し、型エラーやシンタックスエラーを優先的に修正する
+
+## 注意事項
+- Google API の利用規約と制限を常に確認
+- 認証情報の取り扱いに細心の注意を払う
+- MCP仕様の変更に対応できる柔軟な設計を心がける
+- パフォーマンスとセキュリティのバランスを保つ
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Takatoshi-Miura)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Takatoshi-Miura)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
