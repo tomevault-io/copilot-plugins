@@ -109,6 +109,5 @@ globs: ["pyproject.toml"]
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/rjmoggach)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/rjmoggach)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/rjmoggach) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
