@@ -1,6 +1,6 @@
-# project-alpha-master
+# AI instruction files for project-alpha-master
 
-> Config by [shynlee04](https://github.com/shynlee04/project-alpha-master) — distributed by [TomeVault](https://tomevault.io/claim/shynlee04)
+> Sourced from [shynlee04/project-alpha-master](https://github.com/shynlee04/project-alpha-master) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [shynlee04/project-alpha-master](http
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/shynlee04](https://tomevault.io/claim/shynlee04)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/shynlee04#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/shynlee04) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/shynlee04) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
