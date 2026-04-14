@@ -1,0 +1,115 @@
+## firstqa
+
+> **Role:** AI-powered QA Engineer – the first QA hire for startups.
+
+# FirstQA – Cursor Rules
+
+## Project
+
+**Name:** FirstQA  
+**Role:** AI-powered QA Engineer – the first QA hire for startups.
+
+**What FirstQA does end-to-end:**
+- Analyzes requirements, design, and code
+- Creates test recipes from PRs and tickets
+- Automates test recipes (Playwright)
+- Performs AI code review
+- Executes tests in the browser like a manual tester
+- Shares test results and release decisions
+- Integrates with GitHub, Linear, Jira
+
+---
+
+## Tech Stack
+
+| Layer | Technologies |
+|-------|--------------|
+| Backend | Node.js, Express |
+| Frontend | EJS views, Bootstrap 5 |
+| Database | Supabase (PostgreSQL) |
+| Auth | Supabase Auth, GitHub OAuth, Linear OAuth, Jira OAuth |
+| AI | OpenAI API |
+| Testing | Playwright |
+| Integrations | GitHub App, Linear API, Jira (Atlassian Connect) |
+| Payments | Stripe |
+| Other | nodemailer, Axios |
+
+---
+
+## Project Structure
+
+```
+backend/           # Server-side
+├── routes/       # Express routes
+├── services/     # Business logic
+├── utils/        # Utilities
+├── lib/          # Shared libs
+└── ai/           # OpenAI client, prompts
+
+frontend/         # Client-side
+├── views/        # EJS templates
+├── public/       # CSS, images, logos
+└── chrome_extension/
+
+docs/             # plan.md, features.md, marketing/, customer-support/
+scripts/          # Dev/ops scripts
+supabase/         # DB migrations
+webhook-server.js # Entry point
+```
+
+---
+
+## Code Rules
+
+- Plan before implementing; explain the approach first
+- Use ES6+ JavaScript (async/await, no callbacks)
+- Use clear variable names; avoid abbreviations
+- Add error handling for all async work
+- Add Playwright tests for critical user flows
+- Prefer `@specific-files` over `@codebase` for context
+
+---
+
+## CRITICAL – Behavior
+
+### Only act when requested
+- Do not change code when the user is asking questions or investigating
+- Do not assume the user wants code changes unless they say so
+- Do not refactor, restyle, or “improve” without being asked
+
+### When to make changes
+- User clearly asks: “Fix X”, “Add Y”, “Implement Z”, “Change A to B”
+
+### When not to make changes
+- User asks: “Why is X broken?”, “How does Y work?”, “What’s wrong with Z?”
+
+### If unsure
+- Ask for clarification instead of guessing
+
+### Before changing code
+- Investigate the issue
+- Summarize findings
+- Propose an approach and wait for confirmation if the change is non-trivial
+
+### UI / styling
+- Do not change colors, fonts, or layout unless explicitly requested
+
+---
+
+## Security
+
+- Use environment variables for secrets (no hardcoded keys)
+- Validate and sanitize inputs
+- Follow least-privilege access
+
+---
+
+## Cost Control
+
+- Default to Auto mode
+- Use specific file references (`@file`) instead of broad codebase search
+- Plan work before running tools
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ovidon83) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
