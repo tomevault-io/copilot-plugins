@@ -4,7 +4,7 @@
   "repo": "SuperTemplate",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/HaymayndzUltra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T01:42:24Z"
+  "distributed_at": "2026-04-14T03:43:52Z"
 }
