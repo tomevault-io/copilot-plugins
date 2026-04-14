@@ -105,6 +105,5 @@ Système de diffusion audio pour salles de spectacle (~450 places), destiné à 
 - Toute nouvelle fonctionnalité doit être évaluée à l'aune de ce principe avant implémentation.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/dewiweb)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/dewiweb)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/dewiweb) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
