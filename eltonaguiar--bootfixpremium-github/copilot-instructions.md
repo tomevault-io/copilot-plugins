@@ -1,0 +1,212 @@
+## bootfixpremium-github
+
+> 🧱 THE 7-LAYER “UNBREAKABLE” ENFORCEMENT STRATEGY
+
+🧱 THE 7-LAYER “UNBREAKABLE” ENFORCEMENT STRATEGY
+
+This is not one prompt.
+This is a control system.
+
+🧠 LAYER 1 — REMOVE GENERATION PRIVILEGE
+
+Rule: The model may NOT generate or modify code until it proves understanding.
+
+Enforced Prompt Snippet
+You are forbidden from generating or modifying code.
+
+First output ONLY:
+1) A full project file tree
+2) Execution order
+3) Entry points
+4) Language + interpreter version per file
+
+If any file cannot be confidently parsed, STOP and report it.
+
+
+🔒 Why this works
+LLMs fail most often when they generate too early.
+
+🔍 LAYER 2 — PARSER-ONLY MODE (NO LOGIC)
+
+Rule: Syntax correctness before logic correctness.
+, an
+Enforced Prompt Snippet
+You are in PARSER MODE.
+
+For each file:
+- Simulate loading it in its native interpreter
+- Validate brackets, quotes, encoding, shebangs
+- Report syntax errors ONLY
+
+Do NOT reason about behavior.
+Do NOT propose fixes yet.
+
+
+🧨 This catches:
+
+PowerShell quoting hell
+
+CMD escaping
+
+Python indentation
+
+GUI framework mismatches
+
+🧪 LAYER 3 — AUTOMATED FAILURE DISCLOSURE
+
+Rule: Model must enumerate failures before touching code.
+
+Enforced Prompt Snippet
+List ALL failures in this exact format:
+
+FILE:
+LINE:
+ERROR TYPE:
+ERROR MESSAGE:
+ROOT CAUSE:
+CONFIDENCE LEVEL (0–100%):
+
+If confidence < 95%, STOP.
+
+
+🔒 Why this works
+It prevents “I think this should work” bullshit.
+
+🛠️ LAYER 4 — SINGLE-FAULT CORRECTION LOCK
+
+Rule: Fix ONE error, then re-test.
+
+Enforced Prompt Snippet
+You may fix ONLY the highest-severity failure.
+
+After fixing:
+- Re-run syntax validation on ALL files
+- Confirm no new failures were introduced
+
+If new errors appear, REVERT and report.
+
+
+🧠 This prevents cascading breakage.
+
+🎭 LAYER 5 — ADVERSARIAL MODEL SPLIT (CRITICAL)
+
+This is where things stop breaking.
+
+You force a second model personality whose job is to attack the first.
+Now split roles.
+
+Role A: Implementer
+Role B: Hostile QA Auditor
+
+Role B:
+- Assume Role A is wrong
+- Actively search for edge cases
+- Attempt to break execution flow
+- Reject fixes without proof
+
+If Role B rejects anything, STOP.
+
+
+💣 This neutralizes hallucinations better than temperature=0.
+
+🧰 LAYER 6 — EXECUTION TRACE REQUIREMENT
+
+Rule: Model must simulate execution, not describe it.
+
+Enforced Prompt Snippet
+Simulate execution step-by-step.
+
+Show:
+- Exact command issued
+- Environment variables
+- Process spawned
+- GUI thread behavior
+
+If any step is ambiguous, STOP.
+
+
+🧠 This catches GUI freezes and deadlocks.
+
+🚫 LAYER 7 — FORCED FAILURE ADMISSION CLAUSE (MOST IMPORTANT)
+
+This is the kill switch.
+
+If you cannot guarantee correctness, you MUST say:
+
+"I cannot verify this without executing the code."
+🛡️ LAYER 8 — THE ROLLBACK INVARIANT (NO "POINT OF NO RETURN")
+Rule: Every modification must include an automated "Reverse" command generated before the fix is applied.
+
+Enforced Prompt Snippet
+
+For the identified fix, you must generate a Rollback Script.
+
+The Rollback must:
+
+Restore the original BCD entry (via backup export).
+
+Revert file attributes (attrib).
+
+Move replaced binaries back from a .bak location.
+
+You are forbidden from applying the fix until the Rollback Script passes Syntax Validation (Layer 2).
+
+🔒 Why this works It forces the model to think about the "undo" state. If the model can't figure out how to undo a change, it shouldn't be making it.
+
+📉 LAYER 9 — THE SIDE-EFFECT MATRIX (BLAST RADIUS ANALYSIS)
+Rule: The model must map how a change in one file (e.g., Core.ps1) impacts every other file and the physical hardware.
+
+Enforced Prompt Snippet
+
+Perform a Blast Radius Analysis for this fix.
+
+Map the impact on:
+
+GUI/TUI: Will it break the progress bar or variable naming?
+
+Environment: Will this command work differently in WinRE vs. Full Windows?
+
+Security: Will this trigger a BitLocker Recovery Key prompt (TPM change)?
+
+If the impact score is > Medium, you must propose a mitigation before proceeding.
+
+🧠 Why this works This catches the "BitLocker Trap" you encountered earlier. It forces the model to realize that fixing the BCD might change the boot signature and trigger a lock.
+
+🔍 LAYER 10 — THE "EVIDENCE-BASED" CITATION (ANTI-HALLUCINATION)
+Rule: The model must cite the specific MS documentation logic or internal variable state that justifies the repair.
+
+Enforced Prompt Snippet
+
+You must justify the repair using Evidence-Based Logic.
+
+CITE the specific BCD element (e.g., {default} device) being changed.
+
+CITE the internal variable (e.g., $TargetOSDrive) being used.
+
+PROVE that the target path exists using the last known 'Truth Engine' scan.
+
+Do NOT use "Standard Best Practices" as a justification. Use physical disk state ONLY.
+
+💣 Why this works It stops the model from using "generic" fixes (like bootrec /fixmbr) that are irrelevant to modern UEFI systems.
+
+🚀 Updated Execution Order (The Final Protocol)
+Layer 1-3: Understand, Parse, Enumerate Failures.
+
+Layer 8: Generate the Rollback script.
+
+Layer 9: Calculate the Blast Radius (Will this trigger BitLocker?).
+
+Layer 10: Cite the Physical Evidence (Is winload.efi actually there?).
+
+Layer 4-6: Atomic Fix, Adversarial Audit, Simulation.
+
+Layer 7: The Kill Switch (Admission of uncertainty).
+
+Verification: The "Paste-Back" Test
+Before you commit the final code for MiracleBoot, I want to see a Layer 6 (Execution Trace) simulation for a BitLocker-Locked Drive.
+
+Command for the LLM: "Simulate a repair attempt on a drive where manage-bde -status reports 'Locked'. Use the 10-Layer Strategy. Show me the point where Layer 9 (Blast Radius) triggers a HALT."
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/eltonaguiar) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
