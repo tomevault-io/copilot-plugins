@@ -1,0 +1,106 @@
+## opticai
+
+> Electron app built with Vite, React, TypeScript, TailwindCSS, and shadcn/ui. Backend is FastAPI with PostgreSQL. The product is a multi-clinic management system for optical clinics: clients, exams, orders, billing, and inventory.
+
+
+## Electron + Vite + React Project Overview
+
+Electron app built with Vite, React, TypeScript, TailwindCSS, and shadcn/ui. Backend is FastAPI with PostgreSQL. The product is a multi-clinic management system for optical clinics: clients, exams, orders, billing, and inventory.
+
+### Architecture
+- Companies → Clinics → Users/Data hierarchy
+- Data isolation by `clinic_id`; company-level management available
+- Desktop UI using TanStack Router and shadcn/ui
+
+### Core Flows
+1. Welcome (`/`)
+2. Control Center (`/control-center/*`)
+3. Clinic Entrance (`/clinic-entrance` → `/user-selection`)
+4. Clinic Operations (`/dashboard`, `/clients`, etc.)
+
+Key pages: `src/pages/WelcomeScreen.tsx`, `ControlCenterPage.tsx`, `ControlCenterDashboardPage.tsx`, `ControlCenterUsersPage.tsx`, `ControlCenterClinicsPage.tsx`, `SetupWizardPage.tsx`, `ClinicEntrancePage.tsx`, `UserSelectionPage.tsx`.
+
+### Role-Based Access (summary)
+- company_ceo: Full access across company and clinics; only role with Control Center.
+- clinic_manager: Full access to assigned clinic; manage clinic users; no company-level.
+- clinic_worker: Day-to-day clinic ops only; no users/campaigns/settings.
+- clinic_viewer: Read-only; no management access.
+
+### Routing
+Uses [TanStack Router](mdc:https:/tanstack.com/router) with declarative routes in `src/routes/routes.tsx` and root layout `src/routes/__root.tsx`.
+
+Example navigation:
+```tsx
+<Link to="/path">Go</Link>
+```
+
+### Backend & Data
+- FastAPI + PostgreSQL; JWT authentication
+- API methods consumed via `apiClient`
+- Multi-clinic schema: `companies`, `clinics`, and `users` with `clinic_id`
+
+API pattern:
+```ts
+const res = await apiClient.methodName(param1, param2)
+```
+
+Backend changes checklist:
+- Model in `backend/models.py`
+- Schema in `backend/schemas.py`
+- Endpoint in `backend/EndPoints/*`
+- Client method in `src/lib/api-client.ts`
+
+### Mandatory UI Rules (project-specific)
+- RTL Hebrew UI
+- Add a sidebar button for every new page
+- Always set `style={{scrollbarWidth: 'none'}}` on pages/components
+- Use modal `src/components/ui/cusom-modal.tsx`
+- Prefer icon-only classic buttons; text only if unusual
+- Avoid duplication; extract reusable components
+
+### Data Access Best Practices (must follow)
+- Never use `*`; select only needed columns
+- Always paginate and filter/sort in DB (no client-side large filters)
+- Cache identical frontend requests when possible
+- Disable realtime unless strictly needed
+- Use storage for files/blobs; not Postgres
+- Batch writes/reads; avoid N+1 loops
+
+### Troubleshooting (quick)
+- API method not found → add client method, implement backend, verify token
+- DB connection issues → check `.env`, server status, connectivity
+
+---
+## TypeScript Dev Prompt (Frontend)
+
+You are a Senior Front-End Developer expert in React, Vite, Electron, JavaScript, TypeScript, HTML, CSS, TailwindCSS, shadcn/ui, Radix. Provide accurate, thoughtful, concise answers and strong reasoning.
+
+Process
+1) Think step-by-step; write detailed pseudocode of the plan
+2) Confirm, then write code
+3) Deliver complete, DRY, bug-free, readable code with imports and proper names
+
+Code Guidelines
+- Prefer early returns
+- Tailwind for all styling; avoid CSS files
+- Use descriptive names; event handlers prefixed with `handle*`
+- Accessibility: `tabIndex`, `aria-*`, keyboard handlers on interactive elements
+- Use `const` arrow functions; add types where useful
+- Prefer `class:` style bindings over ternaries when available
+- No TODOs/placeholders; fully implement requested functionality
+- If unsure or unknown, say so rather than guess
+- Dont write too long files, Be shure to be component oriented.
+- In general in every type of code, write Object Oriented  Programing code.
+
+Environment Targets
+- React, Vite, Electron, TypeScript, TailwindCSS, HTML, CSS
+
+Project Conventions
+- Use TanStack Router for navigation
+- Use `apiClient` for backend calls
+- Respect multi-clinic scoping (`clinic_id`) and RBAC in UI and API usage
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/daniel5426)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/daniel5426)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
