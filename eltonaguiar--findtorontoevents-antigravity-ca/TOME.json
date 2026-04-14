@@ -1,0 +1,63 @@
+{
+  "name": "findtorontoevents_antigravity.ca",
+  "owner": "eltonaguiar",
+  "repo": "findtorontoevents_antigravity.ca",
+  "description": "AI instruction files for findtorontoevents_antigravity.ca by eltonaguiar",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deploy-and-fix-local",
+      "path": ".cursor/skills/deploy-and-fix-local",
+      "github_url": "https://github.com/eltonaguiar/findtorontoevents_antigravity.ca/tree/main/.cursor/skills/deploy-and-fix-local",
+      "description": ""
+    },
+    {
+      "name": "deploy-and-fix-remote",
+      "path": ".cursor/skills/deploy-and-fix-remote",
+      "github_url": "https://github.com/eltonaguiar/findtorontoevents_antigravity.ca/tree/main/.cursor/skills/deploy-and-fix-remote",
+      "description": ""
+    },
+    {
+      "name": "deploy-to-altsite",
+      "path": ".cursor/skills/deploy-to-altsite",
+      "github_url": "https://github.com/eltonaguiar/findtorontoevents_antigravity.ca/tree/main/.cursor/skills/deploy-to-altsite",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/eltonaguiar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-14T16:31:30Z"
+}
