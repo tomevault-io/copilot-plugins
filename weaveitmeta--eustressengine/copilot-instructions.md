@@ -52,6 +52,5 @@ Sanitize inputs in WASM-exposed functions to prevent security risks; keep depend
 Follow idiomatic Rust patterns: Leverage ownership, enums for state management, and async with wasm-bindgen-futures for non-blocking operations.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/WeaveITMeta)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/WeaveITMeta)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/WeaveITMeta) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
