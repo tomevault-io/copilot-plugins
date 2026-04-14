@@ -1,0 +1,9 @@
+{
+  "name": "luci--luci-go",
+  "displayName": "luci-go",
+  "description": "luci-go",
+  "version": "1.0.0",
+  "author": "luci",
+  "homepage": "https://tomevault.io/claim/luci",
+  "skills": []
+}
