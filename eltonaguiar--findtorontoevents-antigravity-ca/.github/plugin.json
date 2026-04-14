@@ -1,0 +1,22 @@
+{
+  "name": "eltonaguiar--findtorontoevents-antigravity-ca",
+  "displayName": "findtorontoevents_antigravity.ca",
+  "description": "AI instruction files for findtorontoevents_antigravity.ca by eltonaguiar",
+  "version": "1.0.0",
+  "author": "eltonaguiar",
+  "homepage": "https://tomevault.io/claim/eltonaguiar",
+  "skills": [
+    {
+      "name": "deploy-and-fix-local",
+      "description": ""
+    },
+    {
+      "name": "deploy-and-fix-remote",
+      "description": ""
+    },
+    {
+      "name": "deploy-to-altsite",
+      "description": ""
+    }
+  ]
+}
