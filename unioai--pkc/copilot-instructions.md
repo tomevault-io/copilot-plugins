@@ -106,6 +106,5 @@ Before implementing any UI element, check this order:
 5. Validate functionality and appearance after each component migration
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Unioai)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Unioai)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Unioai) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
