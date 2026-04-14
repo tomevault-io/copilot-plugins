@@ -1,0 +1,22 @@
+{
+  "name": "ysano--dotfiles",
+  "displayName": "dotfiles",
+  "description": "AI instruction files for dotfiles by ysano",
+  "version": "1.0.0",
+  "author": "ysano",
+  "homepage": "https://tomevault.io/claim/ysano",
+  "skills": [
+    {
+      "name": "keyboard-config",
+      "description": ""
+    },
+    {
+      "name": "tmux-config",
+      "description": ""
+    },
+    {
+      "name": "zsh-config",
+      "description": ""
+    }
+  ]
+}
