@@ -1,6 +1,6 @@
 # Repairs-v0
 
-> Config by [MRiabov](https://github.com/MRiabov/Repairs-v0) — distributed by [TomeVault](https://tomevault.io/claim/MRiabov)
+> Tome by [MRiabov](https://github.com/MRiabov/Repairs-v0) — distributed by [TomeVault](https://tomevault.io/claim/MRiabov)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [MRiabov/Repairs-v0](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/MRiabov](https://tomevault.io/claim/MRiabov)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/MRiabov)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/MRiabov) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/MRiabov) to manage distribution and track installs.
+
+<!-- genome:t-c-s -->
