@@ -1,0 +1,192 @@
+## contextrouter
+
+> ContextRouter is a modular, LangGraph-powered AI Gateway designed for high-performance agentic workflows and multi-provider LLM orchestration.
+
+# ContextRouter: Agent Development Guide
+
+ContextRouter is a modular, LangGraph-powered AI Gateway designed for high-performance agentic workflows and multi-provider LLM orchestration.
+
+## Core Philosophy
+
+- **ContextUnit Protocol**: All data passing through the pipeline uses `ContextUnit` from `contextcore` for provenance and security. Authorization is handled via `ContextToken` which integrates with `ContextUnit.security` scopes.
+- **Platform Agnostic**: The router should not know about HTTP, Telegram, or Web. It consumes messages and emits events.
+- **Strict Separation**: Logic (cortex) vs. Infrastructure (modules/providers) vs. Raw Data (modules/connectors).
+- **Registry-First**: Components are registered via decorators and loaded lazily.
+- **Fallback-First**: All LLM calls go through FallbackModel with proper error type handling.
+
+## Architecture Overview
+
+```
+src/contextrouter/
+├── core/                    # Kernel: Config, Registry, ContextToken
+├── cortex/                  # LangGraph agents and orchestration
+│   ├── graphs/              # Agent graphs (dispatcher, rag, commerce, news)
+│   └── steps/               # Business logic functions
+├── modules/
+│   ├── models/              # LLM and embedding providers
+│   │   ├── registry.py      # BUILTIN_LLMS, model_registry
+│   │   ├── base.py          # BaseModel interface
+│   │   ├── types.py         # ModelRequest, ModelResponse, error types
+│   │   └── llm/             # Provider implementations
+│   ├── providers/           # Storage implementations (BrainProvider)
+│   ├── connectors/          # Raw data fetchers (Web, RSS)
+│   ├── protocols/           # Platform adapters (AG-UI, Telegram)
+│   └── tools/               # LLM tool registry
+└── protocols/               # Communication layer
+```
+
+## Model Registry (MANDATORY)
+
+All LLM usage MUST go through `model_registry`:
+
+```python
+from contextrouter.modules.models import model_registry
+
+# Configuration-driven with fallback
+model = model_registry.get_llm_with_fallback(
+    key=config.models.default_llm,
+    fallback_keys=config.models.fallback_llms,  # Use config, not hardcoded!
+    strategy="fallback",
+    config=config,
+)
+```
+
+### Error Handling
+
+Providers MUST convert SDK errors to proper types for fallback:
+
+```python
+from ..types import ModelQuotaExhaustedError, ModelRateLimitError
+
+try:
+    response = await sdk.generate(...)
+except SdkError as e:
+    if "quota" in str(e).lower() or "billing" in str(e).lower():
+        raise ModelQuotaExhaustedError(str(e), provider_info=provider_info)
+    if "rate" in str(e).lower():
+        raise ModelRateLimitError(str(e), provider_info=provider_info)
+    raise
+```
+
+### Reasoning Models (gpt-5, o1, o3)
+
+Reasoning models have special requirements:
+
+```python
+# ❌ WRONG - will fail
+bind_kwargs = {"max_tokens": 2000, "temperature": 0.7}
+
+# ✅ CORRECT
+if is_reasoning_model:
+    bind_kwargs = {"max_completion_tokens": 8000}  # Includes reasoning tokens
+else:
+    bind_kwargs = {"max_tokens": 2000, "temperature": 0.7}
+```
+
+## ContextUnit Protocol
+
+All data crossing module boundaries MUST use ContextUnit:
+
+```python
+from contextcore import ContextUnit, ContextToken
+
+# Create with provenance tracking
+unit = ContextUnit(
+    payload={"query": "..."},
+    provenance=["connector:web"],
+)
+
+# Add trace at each stage
+unit.provenance.append("graph:rag")
+
+# Authorization check
+token = ContextToken(permissions=("knowledge:read",))
+if token.can_read(unit.security):
+    # Access granted
+```
+
+## Cortex (The Brain)
+
+### ⚠️ CRITICAL: Router Is Domain-Agnostic
+
+**ContextRouter MUST NOT contain business logic.** It is a thin orchestration layer:
+
+- ✅ **Router does**: LLM routing, graph orchestration, protocol adapters, tool exposure
+- ❌ **Router does NOT**: Product enrichment logic, taxonomy rules, pricing calculations
+
+**Business logic belongs in domain services:**
+- Commerce logic → `ContextCommerce`
+- Knowledge storage → `ContextBrain`
+- Background workflows → `ContextWorker`
+
+Router only **calls** these services, never implements their logic.
+
+### Connecting External Graphs
+
+Domain-specific graphs live in their own packages and connect via:
+
+```python
+# Option 1: Config-based override
+export CONTEXTROUTER_OVERRIDE_PATH="contextcommerce.graphs:build_gardener"
+
+# Option 2: Registry (programmatic)
+from contextrouter.core.registry import register_graph
+
+@register_graph("gardener")
+def build_gardener_graph():
+    from contextcommerce.agents.gardener import create_graph
+    return create_graph()
+```
+
+See `CONTRIBUTING.md` → "Golden Path: Connecting External Graphs"
+
+### Agent Wrapper Contract
+
+```python
+# ✅ CORRECT - return dict
+async def my_node(state: MyState) -> dict:
+    result = await process(state["input"])
+    return {"output": result}
+
+# ❌ WRONG - returning coroutine crashes LangGraph
+def my_node(state: MyState) -> Coroutine:
+    return process(state["input"])  # Missing await!
+```
+
+## Configuration
+
+All settings MUST go through `core.config.Config`:
+
+```python
+# ❌ FORBIDDEN - direct env access
+value = os.environ.get("SOME_VAR")
+
+# ✅ CORRECT - use Config
+class MyConfig(BaseSettings):
+    some_var: str = Field(default="", alias="SOME_VAR")
+```
+
+## Adding New Functionality
+
+See `CONTRIBUTING.md` for complete Golden Paths:
+
+1. **Adding LLM Provider** → BUILTIN_LLMS + module + config
+2. **Adding Config Section** → Pydantic BaseSettings + env prefix
+3. **Adding Cortex Graph** → StateGraph + dispatcher registration
+4. **Adding Tool** → `@tool_registry.register` decorator
+
+## Agent Behavior Rules
+
+### ⚠️ **CRITICAL: NEVER make automatic commits without explicit user permission**
+- **NEVER** execute `git commit` commands on behalf of the user
+- **ONLY** suggest changes and provide commands for the user to run manually
+- **ALWAYS** ask for confirmation before making any commits
+
+### Documentation Updates
+- **ALWAYS** update documentation when adding/changing functionality
+- **KEEP** README, fulldoc, and docs site in sync
+- **UPDATE** CONTRIBUTING.md Golden Paths when patterns change
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ContextUnity) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
