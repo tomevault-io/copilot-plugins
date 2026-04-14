@@ -1,6 +1,6 @@
-# loco_motion
+# loco_motion — distributed by TomeVault
 
-> Config by [profoundry-us](https://github.com/profoundry-us/loco_motion) — distributed by [TomeVault](https://tomevault.io/claim/profoundry-us)
+> Originally from [profoundry-us/loco_motion](https://github.com/profoundry-us/loco_motion). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [profoundry-us/loco_motion](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/profoundry-us](https://tomevault.io/claim/profoundry-us)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/profoundry-us#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/profoundry-us) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
