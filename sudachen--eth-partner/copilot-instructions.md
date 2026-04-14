@@ -78,6 +78,5 @@ You are an expert in Rust, async programming, and concurrent systems.
 - Always call `cargo clippy` to be sure there is no linter issues
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/sudachen)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/sudachen)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/sudachen) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
