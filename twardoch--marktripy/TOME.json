@@ -4,7 +4,7 @@
   "repo": "marktripy",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/twardoch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T05:51:07Z"
+  "distributed_at": "2026-04-14T22:47:58Z"
 }
