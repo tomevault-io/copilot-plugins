@@ -1,0 +1,38 @@
+{
+  "name": "shaul1991--shaul-agents-plugin",
+  "displayName": "shaul-agents-plugin",
+  "description": "AI instruction files for shaul-agents-plugin by shaul1991",
+  "version": "1.0.0",
+  "author": "shaul1991",
+  "homepage": "https://tomevault.io/claim/shaul1991",
+  "skills": [
+    {
+      "name": "backend-golang",
+      "description": ""
+    },
+    {
+      "name": "backend-implementation",
+      "description": ""
+    },
+    {
+      "name": "backend-java",
+      "description": ""
+    },
+    {
+      "name": "backend-kotlin",
+      "description": ""
+    },
+    {
+      "name": "backend-php",
+      "description": ""
+    },
+    {
+      "name": "backend-senior",
+      "description": ""
+    },
+    {
+      "name": "backend-tdd",
+      "description": ""
+    }
+  ]
+}
