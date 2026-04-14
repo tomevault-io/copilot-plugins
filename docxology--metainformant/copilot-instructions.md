@@ -1,0 +1,607 @@
+## metainformant
+
+> - **`output/`**: All outputs from tests and real runs must go here by default. Treat as ephemeral and reproducible. Safe to delete. **CRITICAL**: Only program-generated execution outputs belong here. Never create documentation, reports, test scripts, or planning documents in `output/`. See `output/.cursorrules` for the complete policy.
+
+# METAINFORMANT Cursor Rules
+
+## Directory Structure
+
+### Core Directories
+- **`output/`**: All outputs from tests and real runs must go here by default. Treat as ephemeral and reproducible. Safe to delete. **CRITICAL**: Only program-generated execution outputs belong here. Never create documentation, reports, test scripts, or planning documents in `output/`. See `output/.cursorrules` for the complete policy.
+- **`config/`**: Repository-level configuration files and options. Read via `metainformant.core.config`; allow env overrides.
+- **`data/`**: Inputs such as datasets and local databases. Read-mostly, organized by domain and version.
+- **`docs/`**: All documentation organized by domain (`docs/<domain>/<topic>.md`). NEVER create new docs in repo root.
+- **`src/metainformant/`**: Source code organized by domain modules.
+- **`tests/`**: Test files mirroring source structure (`tests/test_<module>_<submodule>.py`).
+
+### Domain-Specific Output Paths
+- **Core**: `output/core/<utility>/` (e.g., `cache/`, `logs/`, `workflows/`)
+- **DNA**: `output/dna/<analysis_type>/` (e.g., `phylogeny/`, `population/`, `variants/`)
+- **RNA**: `output/amalgkit/<species>/<step>/` (e.g., `quant/`, `work/`, `logs/`)
+- **Protein**: `output/protein/<analysis_type>/` (e.g., `structures/`, `alignments/`)
+- **Epigenome**: `output/epigenome/<analysis_type>/` (e.g., `methylation/`, `chipseq/`, `atac/`)
+- **Ontology**: `output/ontology/<type>/` (e.g., `go/`, `annotations/`, `queries/`)
+- **Phenotype**: `output/phenotype/<dataset>/` (e.g., `traits/`, `life_course/`, `curation/`)
+- **Ecology**: `output/ecology/<analysis>/` (e.g., `community/`, `environmental/`, `interactions/`)
+- **Math**: `output/math/<type>/` (e.g., `simulations/`, `models/`, `plots/`)
+- **GWAS**: `output/gwas/<analysis_type>/` (e.g., `association/`, `plots/`, `qc/`)
+- **Information Theory**: `output/information/<analysis_type>/` (e.g., `entropy/`, `complexity/`)
+- **Life Events**: `output/life_events/<workflow>/` (e.g., `embeddings/`, `models/`, `plots/`)
+- **Visualization**: `output/visualization/<type>/` (e.g., `plots/`, `animations/`, `trees/`)
+- **Simulation**: `output/simulation/<type>/` (e.g., `sequences/`, `ecosystems/`)
+- **Single-Cell**: `output/singlecell/<analysis>/` (e.g., `preprocessing/`, `clustering/`)
+- **Quality**: `output/quality/<dataset>/` (e.g., `fastq/`, `reports/`)
+- **Networks**: `output/networks/<network_type>/` (e.g., `ppi/`, `regulatory/`, `pathways/`)
+- **ML**: `output/ml/<task>/` (e.g., `classification/`, `regression/`, `features/`)
+- **Multi-Omics**: `output/multiomics/<integration>/` (e.g., `integrated/`, `plots/`)
+- **Long Read**: `output/longread/<analysis_type>/` (e.g., `basecalling/`, `assembly/`, `methylation/`)
+- **Metagenomics**: `output/metagenomics/<analysis_type>/` (e.g., `amplicon/`, `assembly/`, `functional/`)
+- **Structural Variants**: `output/structural_variants/<analysis_type>/` (e.g., `detection/`, `annotation/`)
+- **Spatial**: `output/spatial/<analysis_type>/` (e.g., `clustering/`, `deconvolution/`, `integration/`)
+- **Pharmacogenomics**: `output/pharmacogenomics/<analysis_type>/` (e.g., `alleles/`, `clinical/`, `reports/`)
+- **Metabolomics**: `output/metabolomics/<analysis_type>/` (e.g., `identification/`, `quantification/`, `pathways/`)
+
+## Path and I/O
+
+### Path Handling Rules
+- **DO NOT write outside `output/`** unless an explicit user path is provided.
+- Prefer functional APIs that accept a destination path; if omitted, default to `output/` with a sensible subpath.
+- Use `metainformant.core.io` for file I/O (JSON/JSONL/CSV/TSV) and gzip-aware operations.
+- Use `metainformant.core.paths` for path handling and containment checks.
+- Use `metainformant.core.cache` for small JSON caches under `output/` if needed.
+- Always use `Path` objects from `pathlib` for path manipulation.
+- Expand user paths (`~`) and resolve to absolute paths using `paths.expand_and_resolve()`.
+- Validate paths with `paths.is_within()` to prevent directory traversal attacks.
+
+### Temporary Files and Disk Space Management
+
+**CRITICAL**: On external drives, system `/tmp` may be full. Always use repository-local temp directories.
+
+#### Temp Directory Strategy
+- **Primary**: Use `.tmp/` directory in repository root (on external drive with 5.5TB space)
+- **Python temp**: Set `TMPDIR` environment variable to `.tmp/python/`
+- **Bash heredocs**: Set `TMPDIR` environment variable to `.tmp/bash/`
+- **Cache files**: Use `.cache/` directory in repository root
+- **Never rely on system `/tmp`**: It may be a small tmpfs (RAM) filesystem
+
+#### Implementation Pattern
+
+```python
+import os
+import tempfile
+from pathlib import Path
+
+# Set temp directory to repository root
+REPO_ROOT = Path(__file__).resolve().parent.parent
+TEMP_DIR = REPO_ROOT / ".tmp" / "python"
+TEMP_DIR.mkdir(parents=True, exist_ok=True)
+
+# Override Python temp directory
+os.environ["TMPDIR"] = str(TEMP_DIR)
+os.environ["TEMP"] = str(TEMP_DIR)
+os.environ["TMP"] = str(TEMP_DIR)
+tempfile.tempdir = str(TEMP_DIR)
+
+# Now all temp operations use external drive
+with tempfile.NamedTemporaryFile() as tmp:
+    # tmp.name is in .tmp/python/
+    pass
+```
+
+#### Environment Variables (set before running)
+
+```bash
+# Export these in shell or .bashrc (replace with your repo path):
+export TMPDIR="$(pwd)/.tmp/bash"  # Or use absolute path to repo
+export TEMP=$TMPDIR
+export TMP=$TMPDIR
+
+# Verify:
+echo $TMPDIR
+# Should show repository .tmp directory
+```
+
+#### Shell Script Pattern
+
+```bash
+#!/bin/bash
+# At start of every shell script:
+
+# Set temp directory to external drive
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+export TMPDIR="$REPO_ROOT/.tmp/bash"
+mkdir -p "$TMPDIR"
+
+# Now all bash operations use external drive temp
+```
+
+#### Git Ignore
+
+Ensure `.tmp/` and `.cache/` are in `.gitignore`:
+```gitignore
+# Temporary files (external drive)
+.tmp/
+.cache/
+*.tmp
+*.temp
+```
+
+**See Also**: `docs/DISK_SPACE_MANAGEMENT.md` for complete disk space strategy and troubleshooting.
+
+### File I/O Patterns
+```python
+from metainformant.core import io, paths
+from pathlib import Path
+
+# Reading files
+data = io.load_json("config/example.yaml")
+records = list(io.read_jsonl("data/records.jsonl"))
+df = io.load_csv("data/table.csv")
+
+# Writing files (always to output/ by default)
+output_path = Path("output/module/subdir") / "result.json"
+io.dump_json(data, output_path)  # Automatically creates parent dirs
+io.write_csv(df, output_path.with_suffix(".csv"))
+
+# Gzip-aware operations
+with io.open_text_auto("data/large_file.txt.gz") as f:
+    content = f.read()
+```
+
+## Configuration
+
+### Configuration Loading
+- Centralize config loading in `metainformant.core.config`.
+- Allow env vars to override files in `config/` using `apply_env_overrides()`.
+- Domain modules must not hardcode absolute paths; accept config objects/paths from callers.
+- Use type-safe config classes (dataclasses) for domain-specific configs.
+
+### Environment Variable Patterns
+- **Core Module**: Use prefix `CORE_` (e.g., `CORE_THREADS`, `CORE_CACHE_DIR`, `CORE_LOG_LEVEL`)
+- **DNA Module**: Use prefix `DNA_` (e.g., `DNA_THREADS`, `DNA_WORK_DIR`)
+- **RNA Module**: Use prefix `AK_` (e.g., `AK_THREADS`, `AK_WORK_DIR`, `AK_LOG_DIR`)
+- **Protein Module**: Use prefix `PROT_` (e.g., `PROT_THREADS`, `PROT_WORK_DIR`)
+- **Epigenome Module**: Use prefix `EPI_` (e.g., `EPI_THREADS`, `EPI_WORK_DIR`)
+- **Ontology Module**: Use prefix `ONT_` (e.g., `ONT_CACHE_DIR`, `ONT_DB_PATH`)
+- **Phenotype Module**: Use prefix `PHEN_` (e.g., `PHEN_WORK_DIR`, `PHEN_DB_PATH`)
+- **Ecology Module**: Use prefix `ECO_` (e.g., `ECO_WORK_DIR`, `ECO_DB_PATH`)
+- **Math Module**: Use prefix `MATH_` (e.g., `MATH_THREADS`, `MATH_WORK_DIR`)
+- **GWAS Module**: Use prefix `GWAS_` (e.g., `GWAS_THREADS`, `GWAS_WORK_DIR`)
+- **Information Theory Module**: Use prefix `INFO_` (e.g., `INFO_THREADS`, `INFO_WORK_DIR`)
+- **Life Events Module**: Use prefix `LE_` (e.g., `LE_THREADS`, `LE_EMBEDDING_DIM`)
+- **Visualization Module**: Use prefix `VIZ_` (e.g., `VIZ_DPI`, `VIZ_FORMAT`, `VIZ_STYLE`)
+- **Simulation Module**: Use prefix `SIM_` (e.g., `SIM_THREADS`, `SIM_WORK_DIR`, `SIM_SEED`)
+- **Single-Cell Module**: Use prefix `SC_` (e.g., `SC_THREADS`, `SC_WORK_DIR`)
+- **Quality Module**: Use prefix `QC_` (e.g., `QC_THREADS`, `QC_WORK_DIR`)
+- **Networks Module**: Use prefix `NET_` (e.g., `NET_THREADS`, `NET_WORK_DIR`)
+- **ML Module**: Use prefix `ML_` (e.g., `ML_THREADS`, `ML_WORK_DIR`, `ML_MODEL_DIR`)
+- **Multi-Omics Module**: Use prefix `MULTI_` (e.g., `MULTI_THREADS`, `MULTI_WORK_DIR`)
+- **Long Read Module**: Use prefix `LR_` (e.g., `LR_THREADS`, `LR_WORK_DIR`)
+- **Metagenomics Module**: Use prefix `META_` (e.g., `META_THREADS`, `META_WORK_DIR`)
+- **Structural Variants Module**: Use prefix `SV_` (e.g., `SV_THREADS`, `SV_WORK_DIR`)
+- **Spatial Module**: Use prefix `SPATIAL_` (e.g., `SPATIAL_THREADS`, `SPATIAL_WORK_DIR`)
+- **Pharmacogenomics Module**: Use prefix `PHARMA_` (e.g., `PHARMA_THREADS`, `PHARMA_DB_PATH`)
+- **Metabolomics Module**: Use prefix `METAB_` (e.g., `METAB_THREADS`, `METAB_WORK_DIR`)
+
+### Configuration File Structure
+```yaml
+# config/<domain>/<name>.yaml
+work_dir: output/<domain>/<workflow>/
+log_dir: output/<domain>/<workflow>/logs
+threads: 8
+domain_specific:
+  key: value
+```
+
+### Config Loading Pattern
+```python
+from metainformant.core.config import load_mapping_from_file, apply_env_overrides
+from dataclasses import dataclass
+
+# Define domain-specific config class
+@dataclass
+class DomainConfig:
+    work_dir: Path
+    threads: int
+    # ... other fields
+
+def load_domain_config(config_file: str | Path, prefix: str = "DOMAIN") -> DomainConfig:
+    raw = load_mapping_from_file(config_file)
+    raw = apply_env_overrides(raw, prefix=prefix)
+    # Process and validate config
+    return DomainConfig(**raw)
+```
+
+**Real Examples**:
+- Core: Config classes use `CORE_` prefix for core utilities
+- RNA: `AmalgkitWorkflowConfig` with prefix `"AK"`
+- GWAS: `GWASWorkflowConfig` with prefix `"GWAS"`
+- Life Events: `LifeEventsWorkflowConfig` with prefix `"LE"`
+- Other modules: Follow pattern `{MODULE}_` prefix (e.g., `DNA_`, `PROT_`, `EPI_`, `ONT_`, `PHEN_`, `ECO_`, `MATH_`, `INFO_`, `VIZ_`, `SIM_`, `SC_`, `QC_`, `NET_`, `ML_`, `MULTI_`, `LR_`, `META_`, `SV_`, `SPATIAL_`, `PHARMA_`, `METAB_`)
+
+## Code Quality Policy (STRICTLY NO MOCKS/FAKES/PLACEHOLDERS)
+
+### Absolute Prohibition
+- **NEVER use fake/mocked/stubbed methods, objects, or network shims** in **source code** or tests.
+- **Real Implementation Only**: All functions must perform real computations or make real API calls. **NO DUMMY DATA RETURNS**.
+- **Source Code Policy**: Applies to all production code, not just tests. Placeholder implementations are prohibited.
+- **Exception Handling**: When external dependencies are unavailable, raise appropriate errors or skip gracefully, **never return dummy data**.
+
+### Prohibited Patterns
+- ❌ `return [[0, 1, 2] * 100]` (dummy genotype data)
+- ❌ `return [1.0, 0.5, 1.2] * 100` (dummy phenotype data)
+- ❌ `return {'scientific_name': f"Species_{taxon_id}"}` (placeholder API responses)
+- ❌ `return None` (placeholder plot objects)
+- ❌ `return [1.0] * size` (dummy eigenvalues)
+
+### Required Patterns
+- ✅ Real VCF parsing and file I/O
+- ✅ Actual UniProt/PDB API calls with proper error handling
+- ✅ Real matplotlib figure generation
+- ✅ Proper dynamic programming algorithms (Needleman-Wunsch, Smith-Waterman)
+- ✅ Genuine external tool execution
+
+### Test Patterns
+- **Networked tests**: Perform real HTTP requests with short timeouts. If offline, skip gracefully with clear messages.
+- **CLI-dependent tests** (e.g., amalgkit): Run only when dependency is available on PATH; otherwise skip with dependency notes.
+- **Database tests**: Use real database connections or skip when unavailable.
+- **API tests**: Make real API calls or skip when network/credentials unavailable.
+- **Environment Setup**: It is acceptable to set environment variables for test setup, but do not monkeypatch or replace functions.
+- **Test Artifacts**: Tests must write all artifacts only under `output/` directory (use `tmp_path` fixture).
+- **Reproducibility**: Prefer deterministic seeds and stable filenames for reproducible test runs.
+- **Clear Documentation**: When external dependencies are unavailable, tests must clearly document what is being skipped and why.
+
+### Test Structure
+```python
+import pytest
+from pathlib import Path
+from metainformant.core import io
+
+def test_functionality(tmp_path: Path) -> None:
+    """Test description."""
+    # Use tmp_path for all test outputs
+    output_file = tmp_path / "result.json"
+    
+    # Test real implementation
+    result = function_under_test(output_file)
+    
+    # Verify real output
+    assert output_file.exists()
+    data = io.load_json(output_file)
+    assert data["key"] == expected_value
+
+@pytest.mark.network
+def test_network_operation() -> None:
+    """Test that requires network access."""
+    try:
+        result = fetch_from_api()
+        assert result is not None
+    except (requests.ConnectionError, requests.Timeout) as e:
+        pytest.skip(f"Network unavailable: {e}")
+
+@pytest.mark.external_tool
+def test_cli_integration() -> None:
+    """Test that requires external CLI tool."""
+    import shutil
+    if not shutil.which("amalgkit"):
+        pytest.skip("amalgkit not available on PATH")
+    # Test real CLI integration
+```
+
+### Test Markers
+- `@pytest.mark.slow`: Tests that take significant time
+- `@pytest.mark.network`: Tests requiring internet connectivity (real API calls)
+- `@pytest.mark.external_tool`: Tests requiring external CLI tools
+- `@pytest.mark.integration`: End-to-end integration tests
+
+## Module-Specific Rules
+
+Module-specific rules are organized in the `cursorrules/` directory. Each module has its own `.cursorrules` file with detailed patterns, conventions, and guidelines.
+
+**Available Module Rules:**
+- `cursorrules/core.cursorrules` - Core utilities and shared patterns
+- `cursorrules/dna.cursorrules` - DNA sequence analysis and genomics
+- `cursorrules/rna.cursorrules` - RNA transcriptomic analysis
+- `cursorrules/protein.cursorrules` - Protein sequence and structure analysis
+- `cursorrules/epigenome.cursorrules` - Epigenetic modification analysis
+- `cursorrules/ontology.cursorrules` - Functional annotation and ontologies
+- `cursorrules/phenotype.cursorrules` - Phenotypic trait analysis
+- `cursorrules/ecology.cursorrules` - Ecological metadata and community analysis
+- `cursorrules/math.cursorrules` - Mathematical and theoretical biology
+- `cursorrules/gwas.cursorrules` - Genome-wide association studies
+- `cursorrules/information.cursorrules` - Information-theoretic analysis
+- `cursorrules/life_events.cursorrules` - Life course event analysis
+- `cursorrules/visualization.cursorrules` - Plotting and visualization
+- `cursorrules/simulation.cursorrules` - Synthetic data generation
+- `cursorrules/singlecell.cursorrules` - Single-cell transcriptomic analysis
+- `cursorrules/quality.cursorrules` - Data quality assessment
+- `cursorrules/networks.cursorrules` - Biological network analysis
+- `cursorrules/ml.cursorrules` - Machine learning for biological data
+- `cursorrules/multiomics.cursorrules` - Multi-omic data integration
+- `cursorrules/longread.cursorrules` - Long-read sequencing (PacBio/Nanopore)
+- `cursorrules/metagenomics.cursorrules` - Metagenomic analysis (amplicon, shotgun)
+- `cursorrules/structural_variants.cursorrules` - CNV/SV detection and annotation
+- `cursorrules/spatial.cursorrules` - Spatial transcriptomics (Visium, MERFISH, Xenium)
+- `cursorrules/pharmacogenomics.cursorrules` - Clinical pharmacogenomics
+- `cursorrules/menu.cursorrules` - Interactive menu and discovery system
+- `cursorrules/metabolomics.cursorrules` - Metabolomics analysis
+
+**See `cursorrules/README.md` for detailed information about the modular structure.**
+
+## Import Patterns
+
+### Standard Import Structure
+```python
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+# Core imports
+from metainformant.core import io, paths, logging, config
+
+# Domain imports (lazy when optional dependencies)
+try:
+    import networkx as nx
+except ImportError:
+    nx = None  # type: ignore
+```
+
+### Import Order
+1. `__future__` imports
+2. Standard library imports
+3. Third-party imports
+4. Local imports (from `metainformant.*`)
+5. Optional imports (with try/except)
+
+### Lazy Import Pattern
+```python
+# For optional dependencies
+def _lazy_import_networkx():
+    """Lazy import networkx."""
+    try:
+        import networkx as nx
+        return nx
+    except ImportError:
+        return None
+
+def graph_operation():
+    nx = _lazy_import_networkx()
+    if nx is None:
+        raise ImportError("networkx required for this operation")
+    # Use nx
+```
+
+## Code Style
+
+### Python Version
+- **Minimum**: Python 3.11+
+- Use type hints throughout (`typing` module, `|` syntax for unions)
+- Use `from __future__ import annotations` for forward references
+
+### Code Formatting
+- **Line length**: 120 characters (configured in `pyproject.toml`)
+- **Formatter**: Black (configured in `pyproject.toml`)
+- **Import sorting**: isort (configured in `pyproject.toml`)
+- **Type checking**: mypy (configured in `pyproject.toml`)
+
+### Function Design
+- Prefer functional APIs that accept destination paths
+- Use `Path` or `str` for file paths (accept both)
+- Return structured data (dictionaries, dataclasses) rather than raw values
+- Use clear, descriptive function names
+- Document with docstrings (Google style)
+
+### Error Handling
+- Use `metainformant.core.errors` for custom error types
+- Provide clear, actionable error messages
+- Handle missing optional dependencies gracefully
+- Log errors with context using `metainformant.core.logging`
+
+### Logging Pattern
+```python
+from metainformant.core.logging import get_logger
+
+logger = get_logger(__name__)
+
+def function():
+    logger.info("Starting operation")
+    try:
+        result = process_data()
+        logger.info(f"Completed: {result}")
+        return result
+    except Exception as e:
+        logger.error(f"Operation failed: {e}", exc_info=True)
+        raise
+```
+
+## Package Management and Environment Setup
+
+### UV Toolchain (REQUIRED)
+- **ALWAYS use `uv` for all Python package management and environment operations**
+- **NEVER use `pip`, `pip3`, `python -m pip`, or `python3 -m pip` directly**
+- Use `uv venv` to create virtual environments
+- Use `uv pip install` for installing packages
+- Use `uv run` to execute commands in the project environment
+- Use `uv sync` to sync dependencies from `pyproject.toml` and `uv.lock`
+- Use `uv add <package>` to add new dependencies
+- Use `uv remove <package>` to remove dependencies
+
+### Environment Setup Pattern
+```bash
+# Create virtual environment
+uv venv
+
+# Install package in editable mode
+uv pip install -e .
+
+# Install with extras
+uv pip install -e ".[dev,scientific]"
+
+# Run commands in environment
+uv run pytest
+uv run python scripts/example.py
+uv run metainformant --help
+
+# Sync all dependencies
+uv sync --extra dev --extra scientific
+```
+
+### Dependency Management
+- All dependencies are managed via `pyproject.toml`
+- Lock file `uv.lock` ensures reproducible installs
+- Use `uv add <package>` to add dependencies (updates both `pyproject.toml` and `uv.lock`)
+- Use `uv remove <package>` to remove dependencies
+- Use `uv sync` to install exact versions from lock file
+
+### Setup Scripts
+- Use `bash scripts/package/setup_uv.sh` for automated setup
+- Scripts automatically detect filesystem type (FAT vs ext4/NTFS)
+- Scripts configure UV cache and venv locations appropriately
+- See `docs/UV_SETUP.md` for complete uv setup guide
+
+## Documentation
+
+### Documentation Structure
+- **NEVER create new documentation files in repository root**
+- All documentation belongs in `docs/` subdirectories organized by domain
+- **UPDATE existing documentation** rather than creating new files
+- **NEVER create documentation, reports, test scripts, or planning documents in `output/`** - these belong in `docs/`, `tests/`, or `scripts/` respectively. See `output/.cursorrules` for the complete policy.
+- Temporary status reports and progress logs belong in `output/` and should be deleted when no longer needed
+- Documentation structure: `docs/<domain>/<topic>.md` or `docs/<domain>/<subtopic>/<specific>.md`
+
+### Documentation Patterns
+- Keep docs concise and reference core utilities
+- Examples that write files must write under `output/` and mention how to override paths
+- Include code examples with real usage patterns
+- Document environment variable overrides
+- Document optional dependencies and their availability
+- **Use `uv` tooling (e.g., `uv venv`, `uv pip`, `uv run`) for all environment creation and dependency installation.** 
+
+### Module Documentation
+Each module should have:
+- `README.md`: Overview of module functionality
+- `AGENTS.md`: AI agent contributions (if applicable)
+- Function docstrings: Google-style docstrings with Args, Returns, Raises, Examples
+
+## Workflow Integration
+
+### Cross-Module Integration
+- **Core → All**: Core utilities used by all modules (I/O, logging, config, paths)
+- **DNA → GWAS**: Variant calling and population genetics
+- **DNA → RNA**: Genomic coordinates for transcriptomic analysis
+- **DNA → Math**: Population genetics statistics and theoretical models
+- **DNA → Protein**: Genomic coordinates for protein structure analysis
+- **RNA → Single-Cell**: Expression data for single-cell analysis
+- **RNA → Multi-Omics**: Transcriptomic data integration
+- **RNA → Networks**: Regulatory network construction from expression data
+- **Protein → Networks**: PPI networks from protein data
+- **Protein → Ontology**: Functional annotation via protein domains
+- **Epigenome → DNA**: Epigenetic modifications mapped to genomic coordinates
+- **Epigenome → Networks**: Chromatin interaction networks
+- **Ontology → All**: Functional annotation for genes, proteins, and pathways
+- **Phenotype → GWAS**: Phenotypic traits for association studies
+- **Phenotype → Life Events**: Life course event analysis
+- **Ecology → Networks**: Ecological interaction networks
+- **Math → GWAS**: Statistical models for association analysis
+- **Math → DNA**: Population genetics theory
+- **Information → Networks**: Information-theoretic network analysis
+- **Information → Ontology**: Semantic similarity and information content
+- **Visualization → All**: Plotting and visualization for all modules
+- **Quality → All**: Quality control for all data types
+- **Simulation → All**: Synthetic data generation for testing
+- **Multi-Omics**: Integration of DNA, RNA, protein, epigenome, and other omics types
+- **Longread → DNA**: Long-read variant calling and genomic coordinates
+- **Longread → Epigenome**: Methylation from modified base detection
+- **Longread → Structural Variants**: SV detection complements short-read methods
+- **Metagenomics → Ecology**: Community diversity from amplicon/shotgun data
+- **Metagenomics → Networks**: Microbial co-occurrence networks
+- **Metagenomics → Ontology**: Functional annotation via GO/KEGG
+- **Structural Variants → DNA**: Genomic coordinates and variant calling
+- **Structural Variants → GWAS**: Structural variants in association studies
+- **Spatial → Single-Cell**: scRNA-seq reference for deconvolution
+- **Spatial → Networks**: Spatial interaction networks, ligand-receptor
+- **Pharmacogenomics → GWAS**: Variant data from association studies
+- **Pharmacogenomics → DNA**: Genomic coordinates and variant calling
+- **Pharmacogenomics → Phenotype**: Clinical phenotype data
+- **Metabolomics → Multi-Omics**: Metabolite-gene integration
+- **Metabolomics → Networks**: Metabolic pathway networks
+- **Metabolomics → Quality**: QC for mass spectrometry data
+
+### Workflow Patterns
+```python
+from metainformant.core.workflow import run_config_based_workflow
+
+# Domain-specific workflow
+from metainformant.rna.workflow import load_workflow_config, plan_workflow, execute_workflow
+
+config = load_workflow_config("config/amalgkit/species.yaml")
+steps = plan_workflow(config)
+# Execute steps
+return_codes = execute_workflow(config)
+```
+
+**Command-line execution** (recommended for end-to-end workflows):
+```bash
+# Full end-to-end workflow
+python3 scripts/rna/run_workflow.py --config config/amalgkit/amalgkit_pogonomyrmex_barbatus.yaml
+
+# Check status
+python3 scripts/rna/run_workflow.py --config config/amalgkit/amalgkit_pogonomyrmex_barbatus.yaml --status
+```
+
+## Contributions
+
+### New Module Requirements
+New modules should:
+1. Read configs from `config/` (with env overrides)
+2. Read inputs from `data/`
+3. Write outputs to `output/` by default
+4. Use `core` utilities for I/O, logging, paths
+5. Follow module-specific patterns above
+6. Include comprehensive tests (no mocks)
+7. Include documentation in `docs/<domain>/`
+
+### Module Initialization
+```python
+# src/metainformant/new_domain/__init__.py
+"""New domain functionality.
+
+Brief description of domain purpose and capabilities.
+"""
+
+from __future__ import annotations
+
+__all__ = [
+    # List exported submodules
+    "submodule1",
+    "submodule2",
+]
+```
+
+## Summary
+
+### Core Principles
+1. **Package Management**: **ALWAYS use `uv`** for all Python package management - `uv venv`, `uv pip install`, `uv run`, `uv sync`, `uv add`, `uv remove`. Never use `pip` directly.
+2. **Output Directory**: Always write program execution outputs to `output/` by default. **NEVER** create documentation, reports, test scripts, or planning documents in `output/`. See `output/.cursorrules` for the complete policy.
+3. **Configuration**: Use `config/` with env overrides
+4. **No Mocks**: Real implementations only in tests
+5. **Modular Design**: Clear interfaces, minimal dependencies
+6. **Documentation**: Update existing docs, never create root-level docs, never create docs in `output/`
+7. **Type Safety**: Comprehensive type hints throughout
+8. **Error Handling**: Clear errors with biological context
+9. **Path Safety**: Always validate paths, prevent traversal attacks
+
+### Quick Reference
+- **Package Management**: Always use `uv` - `uv venv`, `uv pip install`, `uv run`, `uv sync`, `uv add`, `uv remove`
+- **Config**: `metainformant.core.config.load_mapping_from_file()`
+- **I/O**: `metainformant.core.io.load_json()`, `dump_json()`, etc.
+- **Paths**: `metainformant.core.paths.expand_and_resolve()`, `is_within()`
+- **Logging**: `metainformant.core.logging.get_logger(__name__)`
+- **Tests**: Use `tmp_path` fixture, write to `output/`, no mocks
+- **Docs**: Update `docs/<domain>/<topic>.md`, never root-level
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/docxology) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
