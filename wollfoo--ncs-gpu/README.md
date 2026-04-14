@@ -1,6 +1,6 @@
-# ncs-gpu
+# AI instruction files for ncs-gpu
 
-> Config by [wollfoo](https://github.com/wollfoo/ncs-gpu) — distributed by [TomeVault](https://tomevault.io/claim/wollfoo)
+> Sourced from [wollfoo/ncs-gpu](https://github.com/wollfoo/ncs-gpu) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [wollfoo/ncs-gpu](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/wollfoo](https://tomevault.io/claim/wollfoo)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/wollfoo)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/wollfoo) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-p -->
