@@ -1,0 +1,14 @@
+{
+  "name": "wosnat--multiomics-biocypher-kg",
+  "displayName": "multiomics_biocypher_kg",
+  "description": "AI instruction files for multiomics_biocypher_kg by wosnat",
+  "version": "1.0.0",
+  "author": "wosnat",
+  "homepage": "https://tomevault.io/claim/wosnat",
+  "skills": [
+    {
+      "name": "check-gene-ids",
+      "description": ""
+    }
+  ]
+}
