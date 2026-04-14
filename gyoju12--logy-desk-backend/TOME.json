@@ -4,7 +4,7 @@
   "repo": "logy-desk-backend",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/gyoju12",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T05:58:29Z"
+  "distributed_at": "2026-04-14T12:03:08Z"
 }
