@@ -1,6 +1,8 @@
-# alpadev_ai_monorepo
+# AI instruction files for alpadev_ai_monorepo
 
-> Config by [alpadev-fx](https://github.com/alpadev-fx/alpadev_ai_monorepo) — distributed by [TomeVault](https://tomevault.io/claim/alpadev-fx)
+> Sourced from [alpadev-fx/alpadev_ai_monorepo](https://github.com/alpadev-fx/alpadev_ai_monorepo) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+AI instruction files for alpadev_ai_monorepo by alpadev-fx
 
 ## GitHub Copilot Config
 
@@ -15,9 +17,18 @@ Original source: `GEMINI.md` in [alpadev-fx/alpadev_ai_monorepo](https://github.
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/alpadev-fx](https://tomevault.io/claim/alpadev-fx)
+## Bundled Skills (1)
+
+- [db-ops](https://github.com/alpadev-fx/alpadev_ai_monorepo/tree/main/.gemini/skills/db-ops)
+
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/alpadev-fx#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/alpadev-fx) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install alpadev-fx/alpadev_ai_monorepo
+```
+Or browse all formats at [https://tomevault.io/claim/alpadev-fx](https://tomevault.io/claim/alpadev-fx).
+
+<!-- genome:a-i-q -->
