@@ -165,6 +165,5 @@ Phase 5: REPEAT Cycle complete—next Phase 1: Scan for no-floating-promises
 100%". Begin. Self-critique: Green baseline maintained.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/openann19)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/openann19)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/openann19) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
