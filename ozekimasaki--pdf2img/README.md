@@ -1,6 +1,6 @@
 # pdf2img
 
-> Config by [ozekimasaki](https://github.com/ozekimasaki/pdf2img) — distributed by [TomeVault](https://tomevault.io/claim/ozekimasaki)
+> Tome by [ozekimasaki](https://github.com/ozekimasaki/pdf2img) — distributed by [TomeVault](https://tomevault.io/claim/ozekimasaki)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [ozekimasaki/pdf2img](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/ozekimasaki](https://tomevault.io/claim/ozekimasaki)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ozekimasaki#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ozekimasaki) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install ozekimasaki/pdf2img
+```
+Or browse all formats at [https://tomevault.io/claim/ozekimasaki](https://tomevault.io/claim/ozekimasaki).
+
+<!-- genome:t-i-q -->
