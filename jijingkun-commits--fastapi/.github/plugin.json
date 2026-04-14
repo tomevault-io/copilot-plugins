@@ -1,0 +1,14 @@
+{
+  "name": "jijingkun-commits--fastapi",
+  "displayName": "fastapi",
+  "description": "AI instruction files for fastapi by jijingkun-commits",
+  "version": "1.0.0",
+  "author": "jijingkun-commits",
+  "homepage": "https://tomevault.io/claim/jijingkun-commits",
+  "skills": [
+    {
+      "name": "database-design",
+      "description": ""
+    }
+  ]
+}
