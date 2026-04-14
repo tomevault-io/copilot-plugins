@@ -1,0 +1,35 @@
+## a-recursive-root
+
+> <!-- ORGANVM:AUTO:START -->
+
+<!-- ORGANVM:AUTO:START -->
+## System Context (auto-generated — do not edit)
+
+**Organ:** ORGAN-I (Theory) | **Tier:** standard | **Status:** CANDIDATE
+**Org:** `unknown` | **Repo:** `a-recursive-root`
+
+### Edges
+- **Produces** → `unknown`: unknown
+- **Produces** → `unknown`: unknown
+
+### Siblings in Theory
+`recursive-engine--generative-entity`, `organon-noumenon--ontogenetic-morphe`, `auto-revision-epistemic-engine`, `narratological-algorithmic-lenses`, `call-function--ontological`, `sema-metra--alchemica-mundi`, `system-governance-framework`, `cognitive-archaelogy-tribunal`, `radix-recursiva-solve-coagula-redi`, `.github`, `nexus--babel-alexandria-`, `reverse-engine-recursive-run`, `4-ivi374-F0Rivi4`, `cog-init-1-0-`, `collective-persona-operations` ... and 4 more
+
+### Governance
+- Foundational theory layer. No upstream dependencies.
+
+*Last synced: 2026-02-24T12:41:28Z*
+<!-- ORGANVM:AUTO:END -->
+
+
+## ⚡ Conductor OS Integration
+This repository is a managed component of the ORGANVM meta-workspace.
+- **Orchestration:** Use `conductor patch` for system status and work queue.
+- **Lifecycle:** Follow the `FRAME -> SHAPE -> BUILD -> PROVE` workflow.
+- **Governance:** Promotions are managed via `conductor wip promote`.
+- **Intelligence:** Conductor MCP tools are available for routing and mission synthesis.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/organvm-i-theoria)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/organvm-i-theoria)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
