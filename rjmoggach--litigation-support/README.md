@@ -1,6 +1,6 @@
-# litigation-support
+# AI instruction files for litigation-support
 
-> Config by [rjmoggach](https://github.com/rjmoggach/litigation-support) — distributed by [TomeVault](https://tomevault.io/claim/rjmoggach)
+> Sourced from [rjmoggach/litigation-support](https://github.com/rjmoggach/litigation-support) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.windsurf/rules/*.md` in [rjmoggach/litigation-support](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/rjmoggach](https://tomevault.io/claim/rjmoggach)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rjmoggach)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/rjmoggach) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/rjmoggach) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
