@@ -1,6 +1,6 @@
-# andesoft
+# andesoft — distributed by TomeVault
 
-> Config by [JorgeEspinosaV](https://github.com/JorgeEspinosaV/andesoft) — distributed by [TomeVault](https://tomevault.io/claim/JorgeEspinosaV)
+> Originally from [JorgeEspinosaV/andesoft](https://github.com/JorgeEspinosaV/andesoft). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [JorgeEspinosaV/andesoft](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/JorgeEspinosaV](https://tomevault.io/claim/JorgeEspinosaV)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/JorgeEspinosaV#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/JorgeEspinosaV) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install JorgeEspinosaV/andesoft
+```
+Or browse all formats at [https://tomevault.io/claim/JorgeEspinosaV](https://tomevault.io/claim/JorgeEspinosaV).
+
+<!-- genome:d-i-q -->
