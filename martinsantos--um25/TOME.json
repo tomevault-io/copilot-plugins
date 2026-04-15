@@ -4,7 +4,7 @@
   "repo": "um25",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/martinsantos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T17:11:44Z"
+  "distributed_at": "2026-04-15T07:44:54Z"
 }
