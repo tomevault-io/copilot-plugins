@@ -1,0 +1,9 @@
+{
+  "name": "endpoint-data--slack-to-faq",
+  "displayName": "slack-to-faq",
+  "description": "slack-to-faq",
+  "version": "1.0.0",
+  "author": "endpoint-data",
+  "homepage": "https://tomevault.io/claim/endpoint-data",
+  "skills": []
+}
