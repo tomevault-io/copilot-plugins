@@ -1,0 +1,121 @@
+## kanakku
+
+> Guidelines for improving and maintaining cursor rules based on code patterns and development practices
+
+# Self-Improvement Guidelines
+
+## Rule Maintenance
+
+- Update rules when new patterns emerge
+- Add examples from actual codebase
+- Remove outdated patterns
+- Cross-reference related rules
+
+## Rule Improvement Triggers
+
+- New code patterns not covered by existing rules
+- Repeated similar implementations across files
+- Common error patterns that could be prevented
+- New libraries or tools being used consistently
+- Emerging best practices in the codebase
+
+## Analysis Process
+
+- Compare new code with existing rules
+- Identify patterns that should be standardized
+- Look for references to external documentation
+- Check for consistent error handling patterns
+- Monitor test patterns and coverage
+- **Rule Validation/Testing (Mental Walkthrough)**: Before finalizing a new rule or a significant modification to an existing rule, 'test' it by mentally walking through its application against recent, relevant code changes or feature implementations in `kanakku`. Does the rule clearly and unambiguously guide towards the desired outcome? Are there edge cases it doesn't cover well? Would it have prevented a recent bug or inconsistency?
+- **AI Feedback Loop Integration**: If you, the AI assistant, find yourself frequently misunderstanding a rule, misapplying it, or needing to ask for clarification on a specific rule despite it existing, this is a strong signal that the rule itself needs improvement. Propose changes to that rule to enhance its clarity, specificity, or provide better examples relevant to your interpretation challenges.
+- **Prioritization of Rule Improvements**: When proposing multiple rule changes, indicate if some are more critical than others. Prioritize updates or additions to rules that address:
+    1.  Security vulnerabilities.
+    2.  Core architectural principles of `kanakku`.
+    3.  Frequently recurring bugs, inconsistencies, or code review comments.
+    4.  Areas prone to significant AI misinterpretation leading to incorrect or suboptimal code.
+- When proposing changes to these `.mdc` rule files for `kanakku`, clearly state:
+    1.  The specific problem the proposed change addresses (e.g., ambiguity in current rule X, lack of coverage for scenario Y, observed AI misinterpretation pattern Z).
+    2.  How the proposed new wording, example, or section provides a clearer, more actionable, or less ambiguous guideline for `kanakku` development.
+  Ensure your proposals align with the formatting and intent of `cursor_rules.mdc` and the overall goal of improving code quality and AI assistance for this specific project.
+- Avoid proposing rule changes that are overly prescriptive for minor stylistic preferences if `kanakku`'s current codebase is already largely consistent in that area and it doesn't impact correctness, security, or maintainability. Focus on rules that have a tangible impact on these key areas or significantly improve clarity for both human developers and AI assistants working on `kanakku`.
+
+## Rule Updates
+
+### Add New Rules When
+
+- A new technology/pattern is used in 3+ files
+- Common bugs could be prevented by a rule
+- Code reviews repeatedly mention the same feedback
+- New security or performance patterns emerge
+
+### Modify Existing Rules When
+
+- Better examples exist in the codebase
+- Additional edge cases are discovered
+- Related rules have been updated
+- Implementation details have changed
+
+## Example Pattern Recognition
+
+// If you, the AI, observe repeated patterns in the `kanakku` codebase, such as:
+
+// In multiple Flask route handlers:
+// File: app/some_feature/routes.py
+// @bp.route('/items/<int:item_id>', methods=['GET'])
+// @jwt_required()
+// def get_item(item_id):
+//     current_user_id = get_jwt_identity()
+//     item = Item.query.filter_by(id=item_id, owner_id=current_user_id).first()
+//     if not item:
+//         return jsonify({"error": "Not Found", "message": "Item not found or not owned by user"}), 404
+//     return jsonify(item_schema.dump(item)), 200
+
+// In another route handler:
+// File: app/other_feature/routes.py
+// @bp.route('/widgets/<int:widget_id>/update', methods=['PUT'])
+// @jwt_required()
+// def update_widget(widget_id):
+//     current_user_id = get_jwt_identity()
+//     widget = Widget.query.filter_by(id=widget_id, user_id=current_user_id).first_or_404() // using first_or_404
+//     # ... update logic ...
+//     return jsonify(widget_schema.dump(widget)), 200
+
+// Consider proposing an update to `backend.mdc` or a new `data_access_patterns.mdc`:
+// - **Standardizing Resource Ownership Checks:** "Create a reusable decorator or helper function to consistently check resource ownership against `current_user_id` from JWT, abstracting the `filter_by(owner_id=current_user_id).first_or_404()` logic."
+// - **Consistent Not Found Handling:** "Specify whether to use `.first()` then check `if not item:` and return custom 404, or to consistently use `.first_or_404()` which raises a Werkzeug NotFound exception (handled by a global error handler)."
+// - **Service Layer Abstraction:** "Reinforce that direct `Model.query` calls should ideally be in a service layer, not route handlers."
+
+## Rule Quality Checks
+
+- Rules should be actionable and specific
+- Examples should come from actual code
+- References should be up to date
+- Patterns should be consistently enforced
+
+## Continuous Improvement
+
+- Monitor code review comments
+- Track common development questions
+- Update rules after major refactors
+- Add links to relevant documentation
+- Cross-reference related rules
+
+## Rule Deprecation
+
+- Mark outdated patterns as deprecated
+- Remove rules that no longer apply
+- Update references to deprecated rules
+- Document migration paths for old patterns
+
+## Documentation Updates
+
+- Keep examples synchronized with code
+- Update references to external docs
+- Maintain links between related rules
+- Document breaking changes
+
+Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/baijum) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
