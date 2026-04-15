@@ -4,7 +4,7 @@
   "repo": "sandbox-inev-ai",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/ustudiopd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T05:53:21Z"
+  "distributed_at": "2026-04-15T17:36:41Z"
 }
