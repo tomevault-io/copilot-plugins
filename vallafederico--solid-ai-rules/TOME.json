@@ -2,8 +2,8 @@
   "name": "solid-ai-rules",
   "owner": "vallafederico",
   "repo": "solid-ai-rules",
-  "description": "",
-  "type": "config",
+  "description": "AI instruction files for solid-ai-rules by vallafederico",
+  "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,8 +37,123 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "solid-core-jsx-attributes",
+      "path": ".claude/skills/solid-core-jsx-attributes",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-core-jsx-attributes",
+      "description": ""
+    },
+    {
+      "name": "solid-core-primitives",
+      "path": ".claude/skills/solid-core-primitives",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-core-primitives",
+      "description": ""
+    },
+    {
+      "name": "solid-core-rendering",
+      "path": ".claude/skills/solid-core-rendering",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-core-rendering",
+      "description": ""
+    },
+    {
+      "name": "solid-core-rendering-ssr",
+      "path": ".claude/skills/solid-core-rendering-ssr",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-core-rendering-ssr",
+      "description": ""
+    },
+    {
+      "name": "solid-core-utilities",
+      "path": ".claude/skills/solid-core-utilities",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-core-utilities",
+      "description": ""
+    },
+    {
+      "name": "solid-deployment",
+      "path": ".claude/skills/solid-deployment",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-deployment",
+      "description": ""
+    },
+    {
+      "name": "solid-router-data-apis",
+      "path": ".claude/skills/solid-router-data-apis",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-router-data-apis",
+      "description": ""
+    },
+    {
+      "name": "solid-router-queries",
+      "path": ".claude/skills/solid-router-queries",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-router-queries",
+      "description": ""
+    },
+    {
+      "name": "solid-styling",
+      "path": ".claude/skills/solid-styling",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-styling",
+      "description": ""
+    },
+    {
+      "name": "solid-terminology",
+      "path": ".claude/skills/solid-terminology",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-terminology",
+      "description": ""
+    },
+    {
+      "name": "solid-testing",
+      "path": ".claude/skills/solid-testing",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solid-testing",
+      "description": ""
+    },
+    {
+      "name": "solidstart-api-routes",
+      "path": ".claude/skills/solidstart-api-routes",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solidstart-api-routes",
+      "description": ""
+    },
+    {
+      "name": "solidstart-client-only",
+      "path": ".claude/skills/solidstart-client-only",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solidstart-client-only",
+      "description": ""
+    },
+    {
+      "name": "solidstart-config",
+      "path": ".claude/skills/solidstart-config",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solidstart-config",
+      "description": ""
+    },
+    {
+      "name": "solidstart-data-mutation",
+      "path": ".claude/skills/solidstart-data-mutation",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solidstart-data-mutation",
+      "description": ""
+    },
+    {
+      "name": "solidstart-entrypoints",
+      "path": ".claude/skills/solidstart-entrypoints",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solidstart-entrypoints",
+      "description": ""
+    },
+    {
+      "name": "solidstart-optimistic-ui",
+      "path": ".claude/skills/solidstart-optimistic-ui",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solidstart-optimistic-ui",
+      "description": ""
+    },
+    {
+      "name": "solidstart-static-assets",
+      "path": ".claude/skills/solidstart-static-assets",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solidstart-static-assets",
+      "description": ""
+    },
+    {
+      "name": "solidstart-websocket",
+      "path": ".claude/skills/solidstart-websocket",
+      "github_url": "https://github.com/vallafederico/solid-ai-rules/tree/main/.claude/skills/solidstart-websocket",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/vallafederico",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T09:43:50Z"
+  "distributed_at": "2026-04-15T23:31:21Z"
 }
