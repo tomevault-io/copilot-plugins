@@ -1,0 +1,88 @@
+## unity-developer-tools
+
+> You are working on Unity Developer Tools, a Cursor IDE plugin for Unity game development.
+
+You are working on Unity Developer Tools, a Cursor IDE plugin for Unity game development.
+
+## Repo structure
+
+- `.cursor-plugin/plugin.json` - plugin manifest (version is auto-managed by CI)
+- `skills/` - 18 SKILL.md files (project setup, MonoBehaviour, ScriptableObjects, physics, UI, shaders, animation, audio, input, networking, editor scripting, performance, render pipelines, ECS/DOTS, visual scripting, testing, addressables, platform targeting)
+- `rules/` - 8 .mdc rule files (C# conventions, lifecycle, performance, naming, serialization, shaders, visual scripting, security)
+- `snippets/` - 20 code snippets organized by type (csharp, shaders, visual-scripting)
+- `templates/` - 5 starter templates (2d-platformer, 3d-fps, ui-menu-system, scriptableobject-architecture, editor-tool)
+- `mcp-server/` - Python FastMCP server with 4 tools and JSON data files
+- `docs/` - architecture, roadmap, contributing, getting started
+- `.github/workflows/` - validate, release, deploy-docs, label-sync, update-unity-api, stale
+- `mkdocs.yml` - MkDocs Material documentation site configuration
+- `.github/scripts/` - refresh_unity_data.py (data update script)
+- `AGENTS.md` - full workflow and contribution guide for AI agents
+- `CHANGELOG.md` - manually maintained release history
+
+## Commit conventions
+
+Use conventional commits. The release workflow auto-bumps version based on prefix:
+- `feat:` = minor bump
+- `feat!:` or `BREAKING CHANGE` = major bump
+- `fix:`, `chore:`, `docs:`, `refactor:`, etc. = patch bump
+
+## Version management
+
+Never manually edit the version in `plugin.json` or the README version badge. The release workflow (`release.yml`) auto-updates both on push to main.
+
+## Hard rules
+
+- No em dashes or en dashes anywhere. Use hyphens or rewrite.
+- No hardcoded credentials, tokens, API keys, or passwords.
+- All C# code should target Unity 6.x conventions.
+- Use Awaitable over IEnumerator coroutines for new async code.
+- Use FindFirstObjectByType, not FindObjectOfType (deprecated).
+- Use HLSLPROGRAM, not CGPROGRAM (deprecated in URP/HDRP).
+- Use UI Toolkit for editor tools, not IMGUI/OnGUI.
+- Python in `mcp-server/` must pass `py_compile`.
+- URP is the default render pipeline. HDRP is maintenance-only. Built-in is deprecated.
+
+## When editing skills or rules
+
+- Skills are SKILL.md with YAML frontmatter. Keep them accurate to current Unity 6.x APIs.
+- Rules are .mdc with frontmatter (`description`, `globs`, `alwaysApply`). They enforce conventions in generated code.
+- After adding/removing a skill or rule, update `plugin.json` to register it and update counts in README.md.
+
+## When editing the MCP server
+
+- All tool logic lives in `mcp-server/server.py`.
+- Placeholder modules in `mcp-server/tools/` maintain directory structure.
+- Data files in `mcp-server/data/` provide reference databases.
+- Dependencies are listed in `mcp-server/requirements.txt`.
+
+## When editing templates
+
+- Every template directory needs at minimum a README.md and working C# scripts.
+- Follow Unity 6 conventions: Awaitable, new Input System, [SerializeField] private.
+
+## When editing snippets
+
+- Each snippet has a header comment explaining what it does and when to use it.
+- Use modern Unity patterns throughout.
+
+## When editing workflows
+
+- `release.yml` uses `[skip ci]` on its version bump commit. Don't remove that.
+- `release.yml` paths-ignore excludes `.github/**`, `docs/**`, `*.md`, `LICENSE`. Content-only changes won't trigger releases.
+- `release.yml` has a concurrency guard. Only one release can run at a time.
+- `release.yml` builds and attaches a zip artifact to each GitHub Release.
+- `update-unity-api.yml` commits with `chore:` prefix (patch bump). Don't change to `feat:`.
+- `validate.yml` runs 8 parallel jobs on PR and push. Keep checks fast.
+- `label-sync.yml` auto-labels PRs by path. Add new label mappings when adding top-level directories.
+- `deploy-docs.yml` builds and deploys the MkDocs Material site to GitHub Pages on every push to main.
+- When adding a new skill, also add it to the `nav:` section in `mkdocs.yml`.
+- `CHANGELOG.md` is manually maintained. Update it for significant changes.
+
+## When editing MCP data files
+
+- Do not manually edit files that `update-unity-api.yml` manages unless you also update the refresh script.
+- Each JSON data file has a schema validated by `validate.yml`. Adding or renaming fields requires updating the validation job.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/TMHSDigital) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
