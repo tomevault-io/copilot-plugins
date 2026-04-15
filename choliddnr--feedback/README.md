@@ -1,23 +1,24 @@
 # feedback
 
-> Config by [choliddnr](https://github.com/choliddnr/feedback) — distributed by [TomeVault](https://tomevault.io/claim/choliddnr)
+> Tome by [choliddnr](https://github.com/choliddnr/feedback) — distributed by [TomeVault](https://tomevault.io/claim/choliddnr)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [choliddnr/feedback](https://github.com/choliddnr/feedback).
+Original source: `GEMINI.md` in [choliddnr/feedback](https://github.com/choliddnr/feedback).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/choliddnr](https://tomevault.io/claim/choliddnr)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/choliddnr#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/choliddnr) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/choliddnr) to manage distribution and track installs.
+
+<!-- genome:t-c-q -->
