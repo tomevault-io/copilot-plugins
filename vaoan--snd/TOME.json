@@ -1,0 +1,123 @@
+{
+  "name": "SND",
+  "owner": "vaoan",
+  "repo": "SND",
+  "description": "AI instruction files for SND by vaoan",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "snd-addons",
+      "path": ".claude/skills/snd-addons",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-addons",
+      "description": ""
+    },
+    {
+      "name": "snd-artisan",
+      "path": ".claude/skills/snd-artisan",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-artisan",
+      "description": ""
+    },
+    {
+      "name": "snd-autoretainer",
+      "path": ".claude/skills/snd-autoretainer",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-autoretainer",
+      "description": ""
+    },
+    {
+      "name": "snd-bossmod",
+      "path": ".claude/skills/snd-bossmod",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-bossmod",
+      "description": ""
+    },
+    {
+      "name": "snd-deliveroo",
+      "path": ".claude/skills/snd-deliveroo",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-deliveroo",
+      "description": ""
+    },
+    {
+      "name": "snd-ice",
+      "path": ".claude/skills/snd-ice",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-ice",
+      "description": ""
+    },
+    {
+      "name": "snd-lifestream",
+      "path": ".claude/skills/snd-lifestream",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-lifestream",
+      "description": ""
+    },
+    {
+      "name": "snd-references",
+      "path": ".claude/skills/snd-references",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-references",
+      "description": ""
+    },
+    {
+      "name": "snd-questionable",
+      "path": ".claude/skills/snd-questionable",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-questionable",
+      "description": ""
+    },
+    {
+      "name": "snd-saucy",
+      "path": ".claude/skills/snd-saucy",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-saucy",
+      "description": ""
+    },
+    {
+      "name": "snd-textadvance",
+      "path": ".claude/skills/snd-textadvance",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-textadvance",
+      "description": ""
+    },
+    {
+      "name": "snd-vnavmesh",
+      "path": ".claude/skills/snd-vnavmesh",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-vnavmesh",
+      "description": ""
+    },
+    {
+      "name": "snd-yesalready",
+      "path": ".claude/skills/snd-yesalready",
+      "github_url": "https://github.com/vaoan/SND/tree/main/.claude/skills/snd-yesalready",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/vaoan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-15T23:32:03Z"
+}
