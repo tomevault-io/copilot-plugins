@@ -4,7 +4,7 @@
   "repo": "ilia.beer",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/ramzxy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T11:46:05Z"
+  "distributed_at": "2026-04-15T10:48:15Z"
 }
