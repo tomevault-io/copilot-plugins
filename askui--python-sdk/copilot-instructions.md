@@ -1,0 +1,92 @@
+## python-sdk
+
+> - Use `_` prefix for all private variables, constants, functions, methods, properties, etc. that don't need to be accessible from outside the module
+
+# Code Style
+- Use `_` prefix for all private variables, constants, functions, methods, properties, etc. that don't need to be accessible from outside the module
+- Mark everything as private that does not absolutely need to be accessible from outside the module
+- Use `@override` (imported from `typing_extensions`) decorator for all methods that override a parent class method
+- Use type hints for all variables, functions, methods, properties, return values, parameters etc.
+- Omit `Any` within type hints unless absolutely necessary
+- Use built-in types (e.g., `list`, `dict`, `tuple`, `set`, `str | None`) instead of types from `typing` module (e.g. `List`, `Dict`, `Tuple`, `Set`, `Optional`, `Union`) wherever possible
+- Instead of `Optional` use `| None`
+- Create a `__init__.py` file in each folder
+- Never pass literals, e.g., `error_msg`, directly to `Exceptions`, but instead assign them to variables and pass them to the exception, e.g., `raise FileNotFoundError(error_msg)` instead of `raise FileNotFoundError(f"Thread {thread_id} not found")`
+- Always specify `encoding="utf-8"` for all file read and write operations (e.g., `Path.read_text()`, `Path.write_text()`, `open()`, etc.) to ensure proper handling of Unicode characters across all platforms
+
+## FastAPI
+- Instead of defining `response_model` within route annotation, use the model as the response type in the function signature
+- Do not assign `None` to dependencies but instead move it before arguments with default values
+
+# Testing
+- Use `pytest-mock` for mocking in tests wherever you need to mock something and pytest-mock can do the job.
+
+# Git
+- Never use `git add .` - always explicitly add files that are related to the task using `git add <file1> <file2> ...`
+- Use conventional commits format for commit messages (e.g., `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`)
+- Always run linting/pdm commands before committing to ensure code quality. The following commands must pass:
+  - `pdm run format` - code formatting with ruff (must pass)
+  - `pdm run lint` - linting with ruff (must pass, or use `pdm run lint:fix` to auto-fix issues)
+  - `pdm run typecheck:all` - type checking with mypy (may have pre-existing errors from venv/optional dependencies, but should not introduce new errors)
+  - Alternatively, use `pdm run qa:fix` which runs `typecheck:all`, `format`, and `lint:fix`
+
+# Documentation
+
+## Docstrings
+- All public functions, constants, classes, types etc. should have docstrings
+- Document the constructor (`__init__`) args as part of the class docstring
+- Omit the `__init__` docstring
+- All function parameter should be documented with their type (followed by `, optional` if there is a default value) in parenthesis and description
+- In descriptions, use backticks for all code references (variables, types, etc.), including types, e.g., `str`
+- When referencing a function, use the function name in backticks plus parentheses, e.g., `click()`
+- When referencing a class, use the class name in backticks, e.g., `VisionAgent`
+- When referencing a method, use the class name in backticks plus the method name in parentheses, e.g., `VisionAgent.click()`
+- When referencing a class attribute, use the class name in backticks plus the attribute name, e.g., `VisionAgent.display`
+- Use `Example` section for code examples
+- Use `Returns` section for return values
+- Use `Raises` section for exceptions listing all possible exceptions that can be raised by the function
+- Use `Notes` section for additional notes
+- Use `See Also` section for related functions
+- Use `References` section for references
+- Use `Examples` section for code examples
+- Example of a good docstring:
+  ```python
+  def locate(
+      self,
+      locator: str | Locator,
+      screenshot: InputSource | None = None,
+      model: ModelComposition | str | None = None,
+  ) -> Point:
+      """
+      Find the position of the UI element identified by the `locator` using the `model`.
+
+      Args:
+          locator (str | Locator): The identifier or description of the element to locate.
+          screenshot (InputSource | None, optional): The screenshot to use for locating the
+              element. Can be a path to an image file, a PIL Image object or a data URL.
+              If `None`, takes a screenshot of the currently selected screen.
+          model (ModelComposition | str | None, optional): The composition or name of
+              the model(s) to be used for locating the element using the `locator`.
+
+      Returns:
+          Point: The coordinates of a point on the element, usually the center of the element, as a tuple (x, y).
+
+      Raises:
+          ValueError: If the arguments are not of the correct type.
+          ElementNotFoundError: If no element can be found.
+
+      Example:
+          ```python
+          from askui import VisionAgent
+
+          with VisionAgent() as agent:
+              point = agent.locate("Submit button")
+              print(f"Element found at coordinates: {point}")
+          ```
+      """
+      ...
+  ```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/askui) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
