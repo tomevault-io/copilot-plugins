@@ -4,7 +4,7 @@
   "repo": "cambodia-toilet-monopoly",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/Beltran12138",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T12:37:07Z"
+  "distributed_at": "2026-04-15T10:44:10Z"
 }
