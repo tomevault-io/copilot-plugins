@@ -4,7 +4,7 @@
   "repo": "door-hardware-tracker",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/matt-RHC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T19:44:45Z"
+  "distributed_at": "2026-04-15T22:05:14Z"
 }
