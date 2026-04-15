@@ -1,0 +1,14 @@
+{
+  "name": "zerobias-org--collectorbot",
+  "displayName": "collectorbot",
+  "description": "AI instruction files for collectorbot by zerobias-org",
+  "version": "1.0.0",
+  "author": "zerobias-org",
+  "homepage": "https://tomevault.io/claim/zerobias-org",
+  "skills": [
+    {
+      "name": "review-collector",
+      "description": ""
+    }
+  ]
+}
