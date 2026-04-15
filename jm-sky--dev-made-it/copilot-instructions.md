@@ -1,0 +1,73 @@
+## dev-made-it
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# Dev Commands
+
+## Development  
+- `pnpm dev` - Start development server (Nuxt dev mode)
+- `pnpm build` - Build for production  
+- `pnpm generate` - Generate static site
+- `pnpm preview` - Preview production build
+- `pnpm postinstall` - Prepare Nuxt (runs automatically after install)
+
+## Linting and Type Checking
+- ESLint: Uses @nuxt/eslint module with configuration in `eslint.config.mjs`
+- TypeScript references are managed by Nuxt's generated tsconfig files
+
+## Dependencies
+- Project uses **pnpm** as package manager
+- Uses Nuxt 4 with Vue 3 and TypeScript
+- Key modules: @nuxt/eslint, @nuxt/ui, @nuxtjs/i18n, shadcn-nuxt, @vueuse/motion/nuxt, @vite-pwa/nuxt
+- Styling: Tailwind CSS v4 with @tailwindcss/vite plugin
+
+# Project Architecture
+
+## Component Structure
+- **app/components/**: Nuxt-accessible components organized by category:
+  - `Buttons/`: DarkModeButton, LocaleButton  
+  - `Cards/`: AboutCard, BaseCard, ContactCard
+  - `Layout/`: Navbar, NavbarLinks
+  - `Sections/`: HeroSection, AboutSection, ContactSection, FooterSection, ScrollToTop, BaseSection
+  - `List/`: List, ListItem
+  - `Logo/`: CompanyLogo, CompanyName
+  - `Examples/`: Example components
+  - `ui/`: shadcn-vue components (managed by shadcn-nuxt)
+  - `GradientMaskedContent.vue`: Standalone component
+
+## Application Structure  
+- **Page-based routing**: `app/app.vue` serves as root layout rendering `NuxtPage`
+- **Main page**: `app/pages/index.vue` contains all sections (Hero → About → Contact → Footer with ScrollToTop)
+- **404 page**: `app/pages/404.vue` for error handling
+- **Static generation ready**: Uses `pnpm generate` for deployment
+
+## Internationalization (i18n)
+- **Locales**: Polish (default), English, and Russian in `i18n/locales/`
+- **Configuration**: Cookie-based detection, redirects on root
+- **Integration**: Uses @nuxtjs/i18n module with vue-i18n
+
+## Styling System
+- **Tailwind CSS v4**: Latest version with Vite plugin integration
+- **shadcn-vue**: Component library with New York style, slate base color
+- **CSS location**: `app/assets/css/index.css` (referenced as `~/assets/css/index.css` in nuxt.config.ts)
+- **Component styling**: Uses CSS variables for theming
+- **Animations**: @vueuse/motion/nuxt for motion animations with respect for user preferences
+
+## Build and Deployment
+- **Static generation**: Primary deployment method via `pnpm generate`
+- **Build script**: `scripts/build-deploy.sh` handles git pull, pnpm install, generate, and finalization
+- **Production**: Uses Nuxt's optimized build process
+- **PWA**: Progressive Web App support via @vite-pwa/nuxt module
+
+# Key Configuration Files
+- `nuxt.config.ts`: Main Nuxt configuration with modules and i18n setup
+- `components.json`: shadcn-vue configuration with aliases and styling preferences
+- `tsconfig.json`: TypeScript references managed by Nuxt's generated configs
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jm-sky) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
