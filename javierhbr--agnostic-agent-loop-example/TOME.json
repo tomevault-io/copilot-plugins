@@ -1,0 +1,51 @@
+{
+  "name": "agnostic-agent-loop-example",
+  "owner": "javierhbr",
+  "repo": "agnostic-agent-loop-example",
+  "description": "AI instruction files for agnostic-agent-loop-example by javierhbr",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openspec",
+      "path": ".claude/skills/openspec",
+      "github_url": "https://github.com/javierhbr/agnostic-agent-loop-example/tree/main/.claude/skills/openspec",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/javierhbr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-15T10:31:07Z"
+}
