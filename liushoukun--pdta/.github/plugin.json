@@ -1,0 +1,14 @@
+{
+  "name": "liushoukun--pdta",
+  "displayName": "pdta",
+  "description": "AI instruction files for pdta by liushoukun",
+  "version": "1.0.0",
+  "author": "liushoukun",
+  "homepage": "https://tomevault.io/claim/liushoukun",
+  "skills": [
+    {
+      "name": "generate-test",
+      "description": ""
+    }
+  ]
+}
