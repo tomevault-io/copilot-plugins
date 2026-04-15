@@ -1,0 +1,373 @@
+## unity-house
+
+> How to write automated test with Convex
+
+
+
+---
+title: "Testing"
+sidebar_position: 105
+description: "Testing your backend"
+slug: "testing"
+pagination_prev: "search"
+---
+
+Convex makes it easy to test your app via automated tests running in JS or
+against a real backend, and manually in dev, preview and staging environments.
+
+## Automated tests
+
+### `convex-test` library
+
+[Use the `convex-test` library](/testing/convex-test.mdx) to test your functions
+in JS via the excellent Vitest testing framework.
+
+### Testing against a real backend
+
+Convex open source builds allow you to test all of your backend logic running on
+a real [local Convex backend](/testing/convex-backend.mdx).
+
+--------------------------------------------------------------------------------
+ ---
+ title: convex-test
+ sidebar_label: convex-test
+ sidebar_position: 100
+ description: "Mock Convex backend for fast automated testing of functions"
+ ---
+ 
+ The `convex-test` library provides a mock implementation of the Convex backend
+ in JavaScript. It enables fast automated testing of the logic in your
+[functions](/functions.mdx).
+
+**Example:** The library includes a
+[test suite](https://github.com/get-convex/convex-test/tree/main/convex) which
+you can browse to see examples of using it.
+
+## Get Started
+
+<StepByStep>
+
+  <Step title="Install test dependencies">
+    Install [Vitest](https://vitest.dev/) and the [`convex-test`](https://www.npmjs.com/package/convex-test) library.
+
+    ```sh
+    npm install --save-dev convex-test vitest @edge-runtime/vm
+    ```
+
+  </Step>
+
+  <Step title="Setup NPM scripts">
+    
+    Add these scripts to your `package.json`
+
+    ```json title="package.json"
+    "scripts": {
+      "test": "vitest",
+      "test:once": "vitest run",
+      "test:debug": "vitest --inspect-brk --no-file-parallelism",
+      "test:coverage": "vitest run --coverage --coverage.reporter=text",
+    }
+    ```
+
+  </Step>
+
+  <Step title="Configure Vitest">
+    
+    Add <JSDialectFileName name="vitest.config.mts" /> file to configure the test
+    environment to better match the Convex runtime, and to inline the test library
+    for better dependency tracking.
+
+    ```ts title="vitest.config.mts"
+    import { defineConfig } from "vitest/config";
+
+    export default defineConfig({
+      test: {
+        environment: "edge-runtime",
+        server: { deps: { inline: ["convex-test"] } },
+      },
+    });
+    ```
+
+  </Step>
+
+  <Step title="Add a test file">
+    
+    In your `convex` folder add a file ending in <JSDialectFileName name=".test.ts" />
+
+    The example test calls the `api.messages.send` mutation twice
+    and then asserts that the `api.messages.list` query returns
+    the expected results.
+
+    ```ts title="convex/messages.test.ts"
+    import { convexTest } from "convex-test";
+    import { expect, test } from "vitest";
+    import { api } from "./_generated/api";
+    import schema from "./schema";
+
+    test("sending messages", async () => {
+      const t = convexTest(schema);
+      await t.mutation(api.messages.send, { body: "Hi!", author: "Sarah" });
+      await t.mutation(api.messages.send, { body: "Hey!", author: "Tom" });
+      const messages = await t.query(api.messages.list);
+      expect(messages).toMatchObject([
+        { body: "Hi!", author: "Sarah" },
+        { body: "Hey!", author: "Tom" }
+      ]);
+    });
+    ```
+
+  </Step>
+
+  <Step title="Run tests">
+
+    Start the tests with `npm run test`. When you change the test file or your
+    functions the tests will rerun automatically.
+
+    ```sh
+    npm run test
+    ```
+
+ </Step>
+
+</StepByStep>
+
+If you're not familiar with Vitest or Jest read the
+[Vitest Getting Started docs](https://vitest.dev/guide) first.
+
+## `convexTest`
+
+The library exports a `convexTest` function which should be called at the start
+of each of your tests. The function returns an object which is by convention
+stored in the `t` variable and which provides methods for exercising your Convex
+functions.
+
+If your project uses a [schema](/database/schemas.mdx) you should pass it to the
+`convexTest` function:
+
+```ts title="convex/myFunctions.test.ts"
+import { convexTest } from "convex-test";
+import { test } from "vitest";
+import schema from "./schema";
+
+test("some behavior", async () => {
+ const t = convexTest(schema);
+ // use `t`...
+});
+```
+
+Passing in the schema is required for the tests to correctly implement schema
+validation and for correct typing of
+[`t.run`](#setting-up-and-inspecting-data-and-storage-with-trun).
+
+If you don't have a schema, call `convexTest()` with no argument.
+
+## Calling functions with `t.query`, `t.mutation` and `t.action`
+
+Your test can call public and internal Convex [functions](/functions.mdx) in
+your project:
+
+```ts title="convex/myFunctions.test.ts"
+import { convexTest } from "convex-test";
+import { test } from "vitest";
+import { api, internal } from "./_generated/api";
+
+test("functions", async () => {
+ const t = convexTest();
+ const x = await t.query(api.myFunctions.myQuery, { a: 1, b: 2 });
+ const y = await t.query(internal.myFunctions.internalQuery, { a: 1, b: 2 });
+ const z = await t.mutation(api.myFunctions.mutateSomething, { a: 1, b: 2 });
+});
+```
+
+## Setting up and inspecting data and storage with `t.run`
+
+Sometimes you might want to directly [write](/database/writing-data.mdx) to the
+mock database or [file storage](/file-storage.mdx) from your test, without
+needing a declared function in your project. You can use the `t.run` method
+which takes a handler that is given a `ctx` that allows reading from and writing
+to the mock backend:
+
+```ts title="convex/tasks.test.ts"
+import { convexTest } from "convex-test";
+import { expect, test } from "vitest";
+
+test("functions", async () => {
+ const t = convexTest();
+ const firstTask = await t.run(async (ctx) => {
+   await ctx.db.insert("tasks", { text: "Eat breakfast" });
+   return await ctx.db.query("tasks").first();
+ });
+ expect(firstTask).toMatchObject({ text: "Eat breakfast" });
+});
+```
+
+## Testing HTTP actions with `t.fetch`
+
+Your test can call [HTTP actions](/functions/http-actions.mdx) registered by
+your router:
+
+```ts title="convex/http.test.ts"
+import { convexTest } from "convex-test";
+import { test } from "vitest";
+
+test("functions", async () => {
+ const t = convexTest();
+ const response = await t.fetch("/some/path", { method: "POST" });
+});
+```
+
+Mocking the global `fetch` function doesn't affect `t.fetch`, but you can use
+`t.fetch` in a `fetch` mock to route to your HTTP actions.
+
+
+## Testing authentication with `t.withIdentity`
+
+To test functions which depend on the current [authenticated](/auth.mdx) user
+identity you can create a version of the `t` accessor with given
+[user identity attributes](/api/interfaces/server.UserIdentity). If you don't
+provide them, `issuer`, `subject` and `tokenIdentifier` will be generated
+automatically:
+
+```ts title="convex/tasks.test.ts"
+import { convexTest } from "convex-test";
+import { expect, test } from "vitest";
+import { api } from "./_generated/api";
+import schema from "./schema";
+
+test("authenticated functions", async () => {
+ const t = convexTest(schema);
+
+ const asSarah = t.withIdentity({ name: "Sarah" });
+ await asSarah.mutation(api.tasks.create, { text: "Add tests" });
+
+ const sarahsTasks = await asSarah.query(api.tasks.list);
+ expect(sarahsTasks).toMatchObject([{ text: "Add tests" }]);
+
+ const asLee = t.withIdentity({ name: "Lee" });
+ const leesTasks = await asLee.query(api.tasks.list);
+ expect(leesTasks).toEqual([]);
+});
+```
+
+## Mocking `fetch` calls
+
+You can use Vitest's
+[vi.stubGlobal](https://vitest.dev/guide/mocking.html#globals) method:
+
+```ts title="convex/ai.test.ts"
+import { expect, test, vi } from "vitest";
+import { convexTest } from "../index";
+import { api } from "./_generated/api";
+import schema from "./schema";
+
+test("ai", async () => {
+ const t = convexTest(schema);
+
+ vi.stubGlobal(
+   "fetch",
+   vi.fn(async () => ({ text: async () => "I am the overlord" }) as Response),
+ );
+
+ const reply = await t.action(api.messages.sendAIMessage, { prompt: "hello" });
+ expect(reply).toEqual("I am the overlord");
+
+ vi.unstubAllGlobals();
+});
+```
+
+## Asserting results
+
+See Vitest's [Expect](https://vitest.dev/api/expect.html) reference.
+
+[`toMatchObject()`](https://vitest.dev/api/expect.html#tomatchobject) is
+particularly helpful when asserting the shape of results without needing to list
+every object field.
+
+### Asserting errors
+
+To assert that a function throws, use
+[`.rejects.toThrowError()`](https://vitest.dev/api/expect.html#tothrowerror):
+
+```ts title="convex/messages.test.ts"
+import { convexTest } from "convex-test";
+import { expect, test } from "vitest";
+import { api } from "./_generated/api";
+import schema from "./schema";
+
+test("messages validation", async () => {
+ const t = convexTest(schema);
+ expect(async () => {
+   await t.mutation(api.messages.send, { body: "", author: "James" });
+ }).rejects.toThrowError("Empty message body is not allowed");
+});
+```
+
+## Custom `convex/` folder name or location
+
+If your project has a different name or location configured
+for the `convex/` folder in `convex.json`, you need to call
+[`import.meta.glob`](https://vitejs.dev/guide/features#glob-import) and pass the
+result as the second argument to `convexTest`.
+
+The argument to `import.meta.glob` must be a glob pattern matching all the files
+containing your Convex functions. The paths are relative to the test file in
+which `import.meta.glob` is called. It's best to do this in one place in your
+custom functions folder:
+
+```ts title="src/convex/test.setup.ts"
+/// <reference types="vite/client" />
+export const modules = import.meta.glob("./**/!(*.*.*)*.*s");
+```
+
+This example glob pattern includes all files with a single extension ending in
+`s` (like `js` or `ts`) in the `src/convex` folder and any of its children.
+
+Use the result in your tests:
+
+```ts title="src/convex/messages.test.ts"
+import { convexTest } from "convex-test";
+import { test } from "vitest";
+import schema from "./schema";
+import { modules } from "./test.setup";
+
+test("some behavior", async () => {
+ const t = convexTest(schema, modules);
+ // use `t`...
+});
+```
+
+## Limitations
+
+Since `convex-test` is only a mock implementation, it doesn't have many of the
+behaviors of the real Convex backend. Still, it should be helpful for testing
+the logic in your functions, and catching regressions caused by changes to your
+code.
+
+Some of the ways the mock differs:
+
+- Error messages content. You should not write product logic that relies on the
+ content of error messages thrown by the real backend, as they are always
+ subject to change.
+- Limits. The mock doesn't enforce size and time
+ [limits](/production/state/limits.mdx).
+- ID format. Your code should not depend on the document or storage ID format.
+- Runtime built-ins. Most of your functions are written for the
+ [Convex default runtime](/functions/runtimes.mdx), while Vitest uses a mock of
+ Vercel's Edge Runtime, which is similar but might differ from the Convex
+ runtime. You should always test new code manually to make sure it doesn't use
+ built-ins not available in the Convex runtime.
+- Some features have only simplified semantics, namely:
+ - [Text search](/search.mdx) returns all documents that include a word for
+   which at least one word in the searched string is a prefix. It does not
+   implement fuzzy searching and doesn't sort the results by relevance.
+ - [Vector search](/search/vector-search.mdx) returns results sorted by cosine
+   similarity, but doesn't use an efficient vector index in its implementation.
+ - There is no support for [cron jobs](/scheduling/cron-jobs.mdx), you should
+   trigger your functions manually from the test.
+
+To test your functions running on a real Convex backend, check out
+[Testing Local Backend](/testing/convex-backend.mdx).
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/chrisamador) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
