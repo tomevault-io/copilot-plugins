@@ -1,0 +1,97 @@
+## ngaj
+
+> **All agents MUST follow**: [Escalation Guidelines](.agents/context/escalation-guidelines.md)
+
+# Cursor AI Agent Rules for ngaj
+
+## ⚠️ Critical: Escalation Guidelines
+
+**All agents MUST follow**: [Escalation Guidelines](.agents/context/escalation-guidelines.md)
+
+**Core Principle**: When in doubt, blocked, or facing conflicts → STOP and ASK HUMAN → Never guess or workaround
+
+Before proceeding with any ambiguous decision, conflicting requirement, or out-of-scope issue, agents must:
+1. STOP work immediately
+2. Document the issue clearly
+3. Present options (if applicable)
+4. ASK human for decision
+5. WAIT for confirmation before proceeding
+
+## ✍️ Brevity Guidelines
+
+**All agents MUST follow**: [Brevity Guidelines](.agents/context/brevity-guidelines.md)
+
+**Core Principle**: Keep all output artifact contributions short, concise, and focused → Use references instead of duplication
+
+- **Artifacts**: Single purpose per document, reference instead of repeat
+- **Code**: Lean principles—YAGNI, single responsibility, no dead code
+- **Issues**: 1-3 sentence summary, link to artifacts for details
+
+## Designer Agent Mode
+
+When I say "design [feature]" or "let's design [feature]":
+1. Load system prompt from `.agents/prompts/designer/system-prompt.md`
+2. Engage in collaborative dialogue to explore:
+   - Problem space and requirements
+   - Data models and entity relationships
+   - API contracts and interfaces
+   - Trade-offs and design options
+3. Document decisions (in order, with cross-references):
+   - ADR (WHY): Architecture Decision Record in `docs/architecture/decisions/`
+   - Design Doc (HOW): Technical specification in `.agents/artifacts/designer/designs/`
+   - Handoff (TEST WHAT): Test guidance in `.agents/artifacts/designer/handoffs/`
+4. Create type stubs in `src/shared/types/` (if applicable)
+5. Ensure no duplication: each document has unique content, linked together
+
+## Test-Writer Agent Mode
+
+When I say "write tests for [requirement]":
+1. Load system prompt from `.agents/prompts/test-writer/system-prompt.md`
+2. Read requirement from `requirements/features/[requirement].feature`
+3. Read design docs from `.agents/artifacts/designer/handoffs/` (if available)
+4. Generate test plan in `.agents/artifacts/test-writer/test-plans/`
+5. Write tests in `tests/` directory
+6. Verify tests fail (Red phase)
+
+## Implementer Agent Mode
+
+When I say "implement [requirement]":
+1. Load system prompt from `.agents/prompts/implementer/system-prompt.md`
+2. Read failing tests
+3. Implement in appropriate directory:
+   - Backend code: `src/backend/` directory
+   - Frontend code: `src/frontend/` directory
+   - Shared code: `src/shared/` directory
+4. Run tests to verify they pass (Green phase)
+
+## Reviewer Agent Mode
+
+When I say "review [change]":
+1. Load system prompt from `.agents/prompts/reviewer/system-prompt.md`
+2. Load checklists from `.agents/prompts/reviewer/checklists/`
+3. Review code and tests
+4. Generate report in `.agents/artifacts/reviewer/review-reports/`
+
+## Context Loading
+
+Always load:
+- [docs](docs/)
+- [tech-stack.md](docs/tech-stack.md)
+- [project-glossary.md](docs/project-glossary.md)
+
+## Workflows
+
+**Full Cycle** (for new features):
+1. Designer → Design docs + ADR
+2. Test-Writer → Failing tests
+3. Implementer → Passing implementation
+4. Reviewer → Review report
+
+**TDD Cycle** (for small changes or when design exists):
+1. Test-Writer → Failing tests
+2. Implementer → Passing implementation
+3. Reviewer → Review report
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ZioHimself) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
