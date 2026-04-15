@@ -1,0 +1,9 @@
+{
+  "name": "salesforcecli--plugin-lightning-dev",
+  "displayName": "plugin-lightning-dev",
+  "description": "plugin-lightning-dev",
+  "version": "1.0.0",
+  "author": "salesforcecli",
+  "homepage": "https://tomevault.io/claim/salesforcecli",
+  "skills": []
+}
