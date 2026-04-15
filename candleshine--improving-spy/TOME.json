@@ -4,7 +4,7 @@
   "repo": "improving-spy",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/candleshine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T10:44:07Z"
+  "distributed_at": "2026-04-15T21:05:02Z"
 }
