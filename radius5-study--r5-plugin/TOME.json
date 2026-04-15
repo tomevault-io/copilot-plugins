@@ -1,0 +1,51 @@
+{
+  "name": "r5-plugin",
+  "owner": "radius5-study",
+  "repo": "r5-plugin",
+  "description": "AI instruction files for r5-plugin by radius5-study",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pr-review",
+      "path": "plugins/r5/skills/pr-review",
+      "github_url": "https://github.com/radius5-study/r5-plugin/tree/main/plugins/r5/skills/pr-review",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/radius5-study",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-15T15:30:24Z"
+}
