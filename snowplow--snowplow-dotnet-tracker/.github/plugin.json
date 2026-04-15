@@ -1,0 +1,9 @@
+{
+  "name": "snowplow--snowplow-dotnet-tracker",
+  "displayName": "snowplow-dotnet-tracker",
+  "description": "snowplow-dotnet-tracker",
+  "version": "1.0.0",
+  "author": "snowplow",
+  "homepage": "https://tomevault.io/claim/snowplow",
+  "skills": []
+}
