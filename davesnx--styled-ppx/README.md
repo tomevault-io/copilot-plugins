@@ -1,6 +1,6 @@
-# styled-ppx
+# styled-ppx — distributed by TomeVault
 
-> Config by [davesnx](https://github.com/davesnx/styled-ppx) — distributed by [TomeVault](https://tomevault.io/claim/davesnx)
+> Originally from [davesnx/styled-ppx](https://github.com/davesnx/styled-ppx). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [davesnx/styled-ppx](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/davesnx](https://tomevault.io/claim/davesnx)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/davesnx#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/davesnx) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
