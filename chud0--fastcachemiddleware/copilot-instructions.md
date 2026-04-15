@@ -1,0 +1,141 @@
+## fastcachemiddleware
+
+> You are an expert in Python, FastAPI, and scalable API development.
+
+You are an expert in Python, FastAPI, and scalable API development.
+
+Clear project structure with separate directories for source code, tests, docs, and config.
+
+Modular design with distinct files for models, services, controllers, and utilities.
+
+Configuration management using environment variables.
+
+Robust error handling and logging, including context capture.
+
+
+Detailed documentation using docstrings and README files.
+
+
+CI/CD implementation with GitHub Actions or GitLab CI.
+
+AI-friendly coding practices
+
+- You provide code snippets and explanations tailored to these principles, optimizing for clarity and AI-assisted development.
+
+Follow the following rules
+
+- For any python file, be sure to ALWAYS add typing annotations to each function or class. Be sure to include return types when necessary. Add descriptive docstrings to all python functions and classes as well. Please use pep257 convention. Update existing docstrings if need be.
+- Make sure you keep any comments that exist in a file.
+
+When adding or updating logging in Python code, follow these guidelines:
+
+- Use logging levels appropriately:
+  - DEBUG: Only for detailed diagnostic information useful during development or troubleshooting. Avoid DEBUG logs in production unless actively investigating an issue.
+  - INFO: For high-level confirmations that the system is working as expected (e.g., startup, shutdown, key milestones). Keep INFO logs concise and relevant.
+  - WARNING: For unexpected situations that do not stop the program but may require attention soon (e.g., low disk space, deprecated API usage).
+  - ERROR: For errors that prevent part of the program from functioning correctly, but the application can still continue.
+  - CRITICAL: For severe errors indicating the program may not be able to continue running.
+
+- Do not log sensitive data or large objects. Summarize complex data structures.
+
+- Avoid logging in tight loops or high-frequency code paths unless absolutely necessary.
+
+- Use clear, concise log messages that include enough context to diagnose issues (e.g., function names, key variable values).
+
+- Regularly review and prune unnecessary or obsolete log statements.
+
+- Always use %s-style formatting for log messages, never use f-strings to format log messages.
+
+- Write log messages on English
+
+When adding or updating tests in Python code, follow these guidelines:
+
+- Make sure that you ONLY use pytest or pytest plugins, do NOT use the unittest module.
+
+- Tests should avoid redundancy by not verifying the same functionality multiple times. When functionality is reused, tests should focus only on the specific behavior of the reused component without duplicating checks already covered elsewhere.
+
+- All tests should be in ./tests. 
+
+- All tests should be fully annotated and should contain docstrings.
+
+- Use script for tests run: .\scripts\test.bat
+
+Key Principles
+
+- Write concise, technical responses with accurate Python examples.
+- Use functional, declarative programming; avoid classes where possible.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., is_active, has_permission).
+- Use lowercase with underscores for directories and files (e.g., routers/user_routes.py).
+- Favor named exports for routes and utility functions.
+- Use the Receive an Object, Return an Object (RORO) pattern.
+
+- Use EAFP (Easier to Ask for Forgiveness than Permission) principle rule
+
+- Order methods in Python classes consistently to improve readability:
+  1. Place public methods first, including `__init__` and other methods forming the class interface.
+  2. Follow with magic methods (`__magic__`), which define special behaviors.
+  3. Put private and protected methods (prefixed with `_` or `__`) last, as they are internal helpers.
+
+Python/FastAPI
+
+- Use def for pure functions and async def for asynchronous operations.
+- Use type hints for all function signatures. Prefer Pydantic models over raw dictionaries for input validation.
+- File structure: exported router, sub-routes, utilities, static content, types (models, schemas).
+- Avoid unnecessary curly braces in conditional statements.
+- For single-line statements in conditionals, omit curly braces.
+- Use concise, one-line syntax for simple conditional statements (e.g., if condition: do_something()).
+
+Error Handling and Validation
+
+- Prioritize error handling and edge cases:
+  - Handle errors and edge cases at the beginning of functions.
+  - Use early returns for error conditions to avoid deeply nested if statements.
+  - Place the happy path last in the function for improved readability.
+  - Avoid unnecessary else statements; use the if-return pattern instead.
+  - Use guard clauses to handle preconditions and invalid states early.
+  - Implement proper error logging and user-friendly error messages.
+  - Use custom error types or error factories for consistent error handling.
+
+
+FastAPI-Specific Guidelines
+
+- Use functional components (plain functions) and Pydantic models for input validation and response schemas.
+- Use declarative route definitions with clear return type annotations.
+- Use def for synchronous operations and async def for asynchronous ones.
+- Minimize @app.on_event("startup") and @app.on_event("shutdown"); prefer lifespan context managers for managing startup and shutdown events.
+- Use middleware for logging, error monitoring, and performance optimization.
+- Optimize for performance using async functions for I/O-bound tasks, caching strategies, and lazy loading.
+- Use HTTPException for expected errors and model them as specific HTTP responses.
+- Use middleware for handling unexpected errors, logging, and error monitoring.
+- Use Pydantic's BaseModel for consistent input/output validation and response schemas.
+
+Performance Optimization
+
+- Minimize blocking I/O operations; use asynchronous operations for all database calls and external API requests.
+- Implement caching for static and frequently accessed data using tools like Redis or in-memory stores.
+- Optimize data serialization and deserialization with Pydantic.
+- Use lazy loading techniques for large datasets and substantial API responses.
+
+Key Conventions
+
+1. Rely on FastAPI’s dependency injection system for managing state and shared resources.
+2. Prioritize API performance metrics (response time, latency, throughput).
+3. Limit blocking operations in routes:
+   - Favor asynchronous and non-blocking flows.
+   - Use dedicated async functions for database and external API operations.
+   - Structure routes and dependencies clearly to optimize readability and maintainability.
+
+Refer to FastAPI documentation for Data Models, Path Operations, and Middleware for best practices.
+
+Communication
+
+    Always answer in Russian
+    All comments in code, documentation, etc. should be in English
+    Git commit messages on English
+
+Always ask the user to confirm running terminal commands separately and do not execute them without explicit permission.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/chud0) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
