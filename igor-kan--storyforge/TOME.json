@@ -4,7 +4,7 @@
   "repo": "storyforge",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/igor-kan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T18:43:40Z"
+  "distributed_at": "2026-04-15T16:04:09Z"
 }
