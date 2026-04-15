@@ -40077,6 +40077,631 @@
       "name": "mawazawa--specificity",
       "source": "./mawazawa--specificity",
       "description": "specificity"
+    },
+    {
+      "name": "hiromu1018ks--hidamari",
+      "source": "./hiromu1018ks--hidamari",
+      "description": "Hidamari"
+    },
+    {
+      "name": "gitwalter--ai-dev-agent",
+      "source": "./gitwalter--ai-dev-agent",
+      "description": "ai-dev-agent"
+    },
+    {
+      "name": "maksym-marko--wpp-generator2",
+      "source": "./maksym-marko--wpp-generator2",
+      "description": "WPP-Generator2"
+    },
+    {
+      "name": "bruce1986--airplane-notify",
+      "source": "./bruce1986--airplane-notify",
+      "description": "airplane_notify"
+    },
+    {
+      "name": "planetaryescape--interviewoptimiser",
+      "source": "./planetaryescape--interviewoptimiser",
+      "description": "interviewoptimiser"
+    },
+    {
+      "name": "davidkarolyi--toss",
+      "source": "./davidkarolyi--toss",
+      "description": "toss"
+    },
+    {
+      "name": "huttleai--huttle-ai",
+      "source": "./huttleai--huttle-ai",
+      "description": "huttle-ai"
+    },
+    {
+      "name": "qqrewquu--zifeng-guo-portfolio",
+      "source": "./qqrewquu--zifeng-guo-portfolio",
+      "description": "zifeng-guo-portfolio"
+    },
+    {
+      "name": "astrowow--astro-blog",
+      "source": "./astrowow--astro-blog",
+      "description": "astro-blog"
+    },
+    {
+      "name": "trevorplam--cloud-gallery",
+      "source": "./trevorplam--cloud-gallery",
+      "description": "cloud-gallery"
+    },
+    {
+      "name": "globalsecurepayments--tokenomics",
+      "source": "./globalsecurepayments--tokenomics",
+      "description": "tokenomics"
+    },
+    {
+      "name": "andyzheung--check-app",
+      "source": "./andyzheung--check-app",
+      "description": "check-app"
+    },
+    {
+      "name": "jeffgipson--biblellm",
+      "source": "./jeffgipson--biblellm",
+      "description": "BibleLLM"
+    },
+    {
+      "name": "tnphucccc--mangahub",
+      "source": "./tnphucccc--mangahub",
+      "description": "mangahub"
+    },
+    {
+      "name": "tonyjaimep--parker-app",
+      "source": "./tonyjaimep--parker-app",
+      "description": "parker-app"
+    },
+    {
+      "name": "hproof--hunyuan3d-skills",
+      "source": "./hproof--hunyuan3d-skills",
+      "description": "hunyuan3d_skills"
+    },
+    {
+      "name": "hxrmxstudio--entelequia-track",
+      "source": "./hxrmxstudio--entelequia-track",
+      "description": "entelequia-track"
+    },
+    {
+      "name": "kleneway--next-ai-starter",
+      "source": "./kleneway--next-ai-starter",
+      "description": "next-ai-starter"
+    },
+    {
+      "name": "ianeff--sandbox-cka",
+      "source": "./ianeff--sandbox-cka",
+      "description": "sandbox-cka"
+    },
+    {
+      "name": "alex-garay--nemso-clean",
+      "source": "./alex-garay--nemso-clean",
+      "description": "nemso_clean"
+    },
+    {
+      "name": "theidude--king-brewing",
+      "source": "./theidude--king-brewing",
+      "description": "king-brewing"
+    },
+    {
+      "name": "openclaw-collab--sunnahskills",
+      "source": "./openclaw-collab--sunnahskills",
+      "description": "sunnahskills"
+    },
+    {
+      "name": "askui--python-sdk",
+      "source": "./askui--python-sdk",
+      "description": "python-sdk"
+    },
+    {
+      "name": "arsabolsky--openinbrowser",
+      "source": "./arsabolsky--openinbrowser",
+      "description": "OpenInBrowser"
+    },
+    {
+      "name": "mtajada--fantasia",
+      "source": "./mtajada--fantasia",
+      "description": "fantasia"
+    },
+    {
+      "name": "pedro-mello30--code-review-agent",
+      "source": "./pedro-mello30--code-review-agent",
+      "description": "code-review-agent"
+    },
+    {
+      "name": "code-kern-ai--refinery-gateway",
+      "source": "./code-kern-ai--refinery-gateway",
+      "description": "refinery-gateway"
+    },
+    {
+      "name": "kele-bingtang--teek-design-vue3",
+      "source": "./kele-bingtang--teek-design-vue3",
+      "description": "teek-design-vue3"
+    },
+    {
+      "name": "bogdanmosica--trador",
+      "source": "./bogdanmosica--trador",
+      "description": "trador"
+    },
+    {
+      "name": "ollieb89--ugro",
+      "source": "./ollieb89--ugro",
+      "description": "ugro"
+    },
+    {
+      "name": "stevenmburns--flrig-sandbox",
+      "source": "./stevenmburns--flrig-sandbox",
+      "description": "flrig-sandbox"
+    },
+    {
+      "name": "alvarosabu--alvarosabu",
+      "source": "./alvarosabu--alvarosabu",
+      "description": "alvarosabu"
+    },
+    {
+      "name": "n0nsmoker--sqlalchemy-serializer",
+      "source": "./n0nsmoker--sqlalchemy-serializer",
+      "description": "SQLAlchemy-serializer"
+    },
+    {
+      "name": "cc4i--ai-agency",
+      "source": "./cc4i--ai-agency",
+      "description": "ai-agency"
+    },
+    {
+      "name": "blakebauman--fleet-workspace",
+      "source": "./blakebauman--fleet-workspace",
+      "description": "fleet-workspace"
+    },
+    {
+      "name": "compiler-explorer--ce-router",
+      "source": "./compiler-explorer--ce-router",
+      "description": "ce-router"
+    },
+    {
+      "name": "xin-lai--codespirit",
+      "source": "./xin-lai--codespirit",
+      "description": "CodeSpirit"
+    },
+    {
+      "name": "salesforcecli--plugin-lightning-dev",
+      "source": "./salesforcecli--plugin-lightning-dev",
+      "description": "plugin-lightning-dev"
+    },
+    {
+      "name": "ricardodiasc--llproxy",
+      "source": "./ricardodiasc--llproxy",
+      "description": "llproxy"
+    },
+    {
+      "name": "vmljg--ds-registry",
+      "source": "./vmljg--ds-registry",
+      "description": "ds-registry"
+    },
+    {
+      "name": "zollicoff--discord-status-fusion",
+      "source": "./zollicoff--discord-status-fusion",
+      "description": "discord-status-fusion"
+    },
+    {
+      "name": "felpj--b8cash",
+      "source": "./felpj--b8cash",
+      "description": "b8cash"
+    },
+    {
+      "name": "phillip-motion--quiver",
+      "source": "./phillip-motion--quiver",
+      "description": "quiver"
+    },
+    {
+      "name": "jackson---quantum-pokemon",
+      "source": "./jackson---quantum-pokemon",
+      "description": "quantum-pokemon"
+    },
+    {
+      "name": "orc-hfg--madek-api-nuxt-layer",
+      "source": "./orc-hfg--madek-api-nuxt-layer",
+      "description": "madek-api-nuxt-layer"
+    },
+    {
+      "name": "coreycole--datastarui",
+      "source": "./coreycole--datastarui",
+      "description": "datastarui"
+    },
+    {
+      "name": "kitlangton--hex",
+      "source": "./kitlangton--hex",
+      "description": "Hex"
+    },
+    {
+      "name": "marcusgoll--spec-flow",
+      "source": "./marcusgoll--spec-flow",
+      "description": "Spec-Flow"
+    },
+    {
+      "name": "adamhaley--versionary",
+      "source": "./adamhaley--versionary",
+      "description": "versionary"
+    },
+    {
+      "name": "rahul-s-rajput--triviabot",
+      "source": "./rahul-s-rajput--triviabot",
+      "description": "triviabot"
+    },
+    {
+      "name": "copilotkit--skills",
+      "source": "./copilotkit--skills",
+      "description": "skills"
+    },
+    {
+      "name": "luen--quillbot-api",
+      "source": "./luen--quillbot-api",
+      "description": "quillbot-api"
+    },
+    {
+      "name": "zhangchenchen--tier-list-maker",
+      "source": "./zhangchenchen--tier-list-maker",
+      "description": "tier_list_maker"
+    },
+    {
+      "name": "perni24--planner",
+      "source": "./perni24--planner",
+      "description": "planner"
+    },
+    {
+      "name": "haongo232--agent-bridge-kit",
+      "source": "./haongo232--agent-bridge-kit",
+      "description": "agent-bridge-kit"
+    },
+    {
+      "name": "weiesky--cc-viewer",
+      "source": "./weiesky--cc-viewer",
+      "description": "cc-viewer"
+    },
+    {
+      "name": "dercraker--from-a2b",
+      "source": "./dercraker--from-a2b",
+      "description": "From-A2B"
+    },
+    {
+      "name": "cl-victor1--nuxt-template-stripe-supabase-google-i18n-kofi",
+      "source": "./cl-victor1--nuxt-template-stripe-supabase-google-i18n-kofi",
+      "description": "nuxt-template-stripe-supabase-google-i18n-kofi"
+    },
+    {
+      "name": "luk036--ckpttnpy",
+      "source": "./luk036--ckpttnpy",
+      "description": "ckpttnpy"
+    },
+    {
+      "name": "julianandrescaracas0623--motoapp",
+      "source": "./julianandrescaracas0623--motoapp",
+      "description": "MotoApp"
+    },
+    {
+      "name": "ianarazny--ianarazny-github-io",
+      "source": "./ianarazny--ianarazny-github-io",
+      "description": "ianarazny.github.io"
+    },
+    {
+      "name": "hellohanchen--expanda",
+      "source": "./hellohanchen--expanda",
+      "description": "expanda"
+    },
+    {
+      "name": "haqq-network--frontend",
+      "source": "./haqq-network--frontend",
+      "description": "frontend"
+    },
+    {
+      "name": "123qweraz--rust-ime",
+      "source": "./123qweraz--rust-ime",
+      "description": "rust_ime"
+    },
+    {
+      "name": "chrisgroks--ms-tools-bridge",
+      "source": "./chrisgroks--ms-tools-bridge",
+      "description": "ms-tools-bridge"
+    },
+    {
+      "name": "phil-scott-78--vcr",
+      "source": "./phil-scott-78--vcr",
+      "description": "vcr"
+    },
+    {
+      "name": "daviddatux25--securecat",
+      "source": "./daviddatux25--securecat",
+      "description": "securecat"
+    },
+    {
+      "name": "lavarong--wechat-automation-api",
+      "source": "./lavarong--wechat-automation-api",
+      "description": "wechat-automation-api"
+    },
+    {
+      "name": "matiusdev--alamesa",
+      "source": "./matiusdev--alamesa",
+      "description": "AlaMesa"
+    },
+    {
+      "name": "wahengchang--function-call-editor-web-page",
+      "source": "./wahengchang--function-call-editor-web-page",
+      "description": "function-call-editor-web-page"
+    },
+    {
+      "name": "chrbailey--sap-transaction-forensics",
+      "source": "./chrbailey--sap-transaction-forensics",
+      "description": "SAP-Transaction-Forensics"
+    },
+    {
+      "name": "watzon--three-mf",
+      "source": "./watzon--three-mf",
+      "description": "three-mf"
+    },
+    {
+      "name": "sailpoint-oss--ui-development-kit",
+      "source": "./sailpoint-oss--ui-development-kit",
+      "description": "ui-development-kit"
+    },
+    {
+      "name": "host-uk--core-service-commerce",
+      "source": "./host-uk--core-service-commerce",
+      "description": "core-service-commerce"
+    },
+    {
+      "name": "carlos18bp--gym-project",
+      "source": "./carlos18bp--gym-project",
+      "description": "gym_project"
+    },
+    {
+      "name": "snowplow--snowplow-dotnet-tracker",
+      "source": "./snowplow--snowplow-dotnet-tracker",
+      "description": "snowplow-dotnet-tracker"
+    },
+    {
+      "name": "kamekamek--gakkoudayori-ai",
+      "source": "./kamekamek--gakkoudayori-ai",
+      "description": "gakkoudayori-ai"
+    },
+    {
+      "name": "nantero1--ai-first-devops-toolkit",
+      "source": "./nantero1--ai-first-devops-toolkit",
+      "description": "ai-first-devops-toolkit"
+    },
+    {
+      "name": "g-goma393--colomoa-dashboard",
+      "source": "./g-goma393--colomoa-dashboard",
+      "description": "colomoa-dashboard"
+    },
+    {
+      "name": "areid987--aigency-v1-0-0",
+      "source": "./areid987--aigency-v1-0-0",
+      "description": "aigency-v1.0.0"
+    },
+    {
+      "name": "vibeforge1111--vibeship-scanner",
+      "source": "./vibeforge1111--vibeship-scanner",
+      "description": "vibeship-scanner"
+    },
+    {
+      "name": "net-ai-git--rules",
+      "source": "./net-ai-git--rules",
+      "description": "Rules"
+    },
+    {
+      "name": "scrapybara--scrapybara-ts-template",
+      "source": "./scrapybara--scrapybara-ts-template",
+      "description": "scrapybara-ts-template"
+    },
+    {
+      "name": "zewelor--hass-hidrograficopt",
+      "source": "./zewelor--hass-hidrograficopt",
+      "description": "hass-hidrograficopt"
+    },
+    {
+      "name": "danya0365--promptready-nextjs",
+      "source": "./danya0365--promptready-nextjs",
+      "description": "promptready-nextjs"
+    },
+    {
+      "name": "0x4d5352--regolith",
+      "source": "./0x4d5352--regolith",
+      "description": "regolith"
+    },
+    {
+      "name": "pjtunstall--by-a-thread",
+      "source": "./pjtunstall--by-a-thread",
+      "description": "by-a-thread"
+    },
+    {
+      "name": "devinpearson--ipb",
+      "source": "./devinpearson--ipb",
+      "description": "ipb"
+    },
+    {
+      "name": "human2l--love-diary-v2",
+      "source": "./human2l--love-diary-v2",
+      "description": "love-diary-v2"
+    },
+    {
+      "name": "henderorlando--booklyapp",
+      "source": "./henderorlando--booklyapp",
+      "description": "booklyapp"
+    },
+    {
+      "name": "sanohiro--ze",
+      "source": "./sanohiro--ze",
+      "description": "ze"
+    },
+    {
+      "name": "euronone--project-3-real-time-ai-sales-lead-intelligence-engine",
+      "source": "./euronone--project-3-real-time-ai-sales-lead-intelligence-engine",
+      "description": "Project-3-Real-Time-AI-Sales-Lead-Intelligence-Engine"
+    },
+    {
+      "name": "0xstormblessed--deployguard",
+      "source": "./0xstormblessed--deployguard",
+      "description": "deployguard"
+    },
+    {
+      "name": "mleone10--macos-local-config",
+      "source": "./mleone10--macos-local-config",
+      "description": "macos-local-config"
+    },
+    {
+      "name": "amadeusitgroup--otter",
+      "source": "./amadeusitgroup--otter",
+      "description": "otter"
+    },
+    {
+      "name": "andgineer--github-custom-actions",
+      "source": "./andgineer--github-custom-actions",
+      "description": "github-custom-actions"
+    },
+    {
+      "name": "juliaayumi--techninja-fatec-frontend",
+      "source": "./juliaayumi--techninja-fatec-frontend",
+      "description": "TechNinja-FATEC-frontend"
+    },
+    {
+      "name": "b3pay--ic-reactor",
+      "source": "./b3pay--ic-reactor",
+      "description": "ic-reactor"
+    },
+    {
+      "name": "maxnilz--feed",
+      "source": "./maxnilz--feed",
+      "description": "feed"
+    },
+    {
+      "name": "calel33--project-componets",
+      "source": "./calel33--project-componets",
+      "description": "project-componets"
+    },
+    {
+      "name": "provable-games--ticket-master",
+      "source": "./provable-games--ticket-master",
+      "description": "ticket-master"
+    },
+    {
+      "name": "lizthedeveloper--prompt-eng-salesforce-gradio-agent",
+      "source": "./lizthedeveloper--prompt-eng-salesforce-gradio-agent",
+      "description": "prompt_eng_salesforce_gradio_agent"
+    },
+    {
+      "name": "anishlp7--aniui",
+      "source": "./anishlp7--aniui",
+      "description": "aniui"
+    },
+    {
+      "name": "efhsg--aimm",
+      "source": "./efhsg--aimm",
+      "description": "aimm"
+    },
+    {
+      "name": "breatheco-de--apiv2",
+      "source": "./breatheco-de--apiv2",
+      "description": "apiv2"
+    },
+    {
+      "name": "principle-labs--corivo",
+      "source": "./principle-labs--corivo",
+      "description": "Corivo"
+    },
+    {
+      "name": "unhook-sh--unhook",
+      "source": "./unhook-sh--unhook",
+      "description": "unhook"
+    },
+    {
+      "name": "kabi10--cursor-rules",
+      "source": "./kabi10--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "clarkngo--clarkngo-github-io",
+      "source": "./clarkngo--clarkngo-github-io",
+      "description": "clarkngo.github.io"
+    },
+    {
+      "name": "marta-fret--10xdevs-flashcards",
+      "source": "./marta-fret--10xdevs-flashcards",
+      "description": "10xdevs-flashcards"
+    },
+    {
+      "name": "francomascareloai--ea-scalper-xauusd",
+      "source": "./francomascareloai--ea-scalper-xauusd",
+      "description": "EA_SCALPER_XAUUSD"
+    },
+    {
+      "name": "alonsarias--structured-prompts-ui",
+      "source": "./alonsarias--structured-prompts-ui",
+      "description": "structured-prompts-ui"
+    },
+    {
+      "name": "graciolli-f--rubric",
+      "source": "./graciolli-f--rubric",
+      "description": "Rubric"
+    },
+    {
+      "name": "thefluxatlas--ceremony-field-catalog",
+      "source": "./thefluxatlas--ceremony-field-catalog",
+      "description": "ceremony-field-catalog"
+    },
+    {
+      "name": "avav25--ai-assets",
+      "source": "./avav25--ai-assets",
+      "description": "ai-assets"
+    },
+    {
+      "name": "container-xchange--cdc-connector",
+      "source": "./container-xchange--cdc-connector",
+      "description": "cdc-connector"
+    },
+    {
+      "name": "derek-alves--bank-android-flutter-app",
+      "source": "./derek-alves--bank-android-flutter-app",
+      "description": "bank_android_flutter_app"
+    },
+    {
+      "name": "settlemint--settlemint-action",
+      "source": "./settlemint--settlemint-action",
+      "description": "settlemint-action"
+    },
+    {
+      "name": "yur4uwe--data-analisys",
+      "source": "./yur4uwe--data-analisys",
+      "description": "data-analisys"
+    },
+    {
+      "name": "thatguycasual--kraken-bot",
+      "source": "./thatguycasual--kraken-bot",
+      "description": "kraken-bot"
+    },
+    {
+      "name": "celsomilne--oa-tools",
+      "source": "./celsomilne--oa-tools",
+      "description": "oa-tools"
+    },
+    {
+      "name": "whoekage--errorhub",
+      "source": "./whoekage--errorhub",
+      "description": "errorhub"
+    },
+    {
+      "name": "albertsun6--ontology-builder",
+      "source": "./albertsun6--ontology-builder",
+      "description": "ontology-builder"
+    },
+    {
+      "name": "mystroanalytics--gbos-cli",
+      "source": "./mystroanalytics--gbos-cli",
+      "description": "gbos-cli"
+    },
+    {
+      "name": "choiseongho1--coupon-test",
+      "source": "./choiseongho1--coupon-test",
+      "description": "coupon-test"
     }
   ]
 }
