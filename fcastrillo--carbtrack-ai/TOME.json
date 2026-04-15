@@ -1,0 +1,129 @@
+{
+  "name": "carbtrack-ai",
+  "owner": "fcastrillo",
+  "repo": "carbtrack-ai",
+  "description": "AI instruction files for carbtrack-ai by fcastrillo",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rai-discover-document",
+      "path": ".claude/skills/rai-discover-document",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-discover-document",
+      "description": ""
+    },
+    {
+      "name": "rai-discover-scan",
+      "path": ".claude/skills/rai-discover-scan",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-discover-scan",
+      "description": ""
+    },
+    {
+      "name": "rai-discover-start",
+      "path": ".claude/skills/rai-discover-start",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-discover-start",
+      "description": ""
+    },
+    {
+      "name": "rai-epic-close",
+      "path": ".claude/skills/rai-epic-close",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-epic-close",
+      "description": ""
+    },
+    {
+      "name": "rai-epic-design",
+      "path": ".claude/skills/rai-epic-design",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-epic-design",
+      "description": ""
+    },
+    {
+      "name": "rai-epic-plan",
+      "path": ".claude/skills/rai-epic-plan",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-epic-plan",
+      "description": ""
+    },
+    {
+      "name": "rai-epic-start",
+      "path": ".claude/skills/rai-epic-start",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-epic-start",
+      "description": ""
+    },
+    {
+      "name": "rai-project-onboard",
+      "path": ".claude/skills/rai-project-onboard",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-project-onboard",
+      "description": ""
+    },
+    {
+      "name": "rai-session-close",
+      "path": ".claude/skills/rai-session-close",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-session-close",
+      "description": ""
+    },
+    {
+      "name": "rai-session-start",
+      "path": ".claude/skills/rai-session-start",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-session-start",
+      "description": ""
+    },
+    {
+      "name": "rai-story-design",
+      "path": ".claude/skills/rai-story-design",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-story-design",
+      "description": ""
+    },
+    {
+      "name": "rai-story-implement",
+      "path": ".claude/skills/rai-story-implement",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-story-implement",
+      "description": ""
+    },
+    {
+      "name": "rai-story-plan",
+      "path": ".claude/skills/rai-story-plan",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-story-plan",
+      "description": ""
+    },
+    {
+      "name": "rai-story-review",
+      "path": ".claude/skills/rai-story-review",
+      "github_url": "https://github.com/fcastrillo/carbtrack-ai/tree/main/.claude/skills/rai-story-review",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/fcastrillo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-15T17:31:13Z"
+}
