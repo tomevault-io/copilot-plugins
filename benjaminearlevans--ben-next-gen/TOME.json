@@ -1,0 +1,44 @@
+{
+  "name": "ben_next_gen",
+  "owner": "benjaminearlevans",
+  "repo": "ben_next_gen",
+  "description": "",
+  "type": "config",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "claim_url": "https://tomevault.io/claim/benjaminearlevans",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-15T03:00:37Z"
+}
