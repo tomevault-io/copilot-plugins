@@ -1,0 +1,9 @@
+{
+  "name": "datadog--dd-trace-py",
+  "displayName": "dd-trace-py",
+  "description": "dd-trace-py",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://tomevault.io/claim/DataDog",
+  "skills": []
+}
