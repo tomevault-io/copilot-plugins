@@ -1,0 +1,136 @@
+## endpoint-tester
+
+> This document provides foundational context and development guidelines for the DARO Endpoint Tester project.
+
+# DARO Endpoint Tester - Project Context
+
+This document provides foundational context and development guidelines for the DARO Endpoint Tester project.
+
+## Project Overview
+
+**DARO Endpoint Tester** is a lightweight, browser-based API client (inspired by Postman) built with modern web technologies. It allows developers to test RESTful endpoints, manage multiple request tabs, track history, and save frequently used endpoints.
+
+### Main Technologies
+- **Frontend Framework:** React 19
+- **Build Tool:** Vite
+- **Language:** TypeScript
+- **Routing:** React Router v7
+- **Styling:** Vanilla CSS (modular per component)
+- **Package Manager:** `pnpm` (required)
+- **State Management:** Custom hooks with `localStorage` persistence.
+- **Notifications:** `sonner` for toast notifications.
+
+## Project Structure
+
+```text
+src/
+├── components/
+│   ├── common/         # Reusable UI components (TabBar, RequestPanel, Editor, etc.)
+│   └── layout/         # High-level layout components (Header, Footer)
+├── hooks/              # Core business logic separated into custom hooks
+├── utils/              # Helper functions and data layer (storage, URL parsing)
+└── views/              # Main page components (Home, Tester, Docs, Error)
+```
+
+## Building and Running
+
+| Action | Command |
+| :--- | :--- |
+| **Install Dependencies** | `pnpm install` |
+| **Start Dev Server** | `pnpm dev` |
+| **Production Build** | `pnpm build` |
+| **Lint Code** | `pnpm lint` |
+| **Preview Build** | `pnpm preview` |
+
+> **Note:** Do not use `npm` or `yarn`. This project strictly uses `pnpm`.
+
+## Architecture & Development Conventions
+
+### 1. State Persistence
+All application state (Tabs, History, Saved Endpoints) is persisted to `localStorage`.
+- **Source of Truth:** `src/utils/storage.ts` defines the types and keys used.
+- **History Limit:** Currently limited to 5 entries (defined as `MAX_HISTORY` in `storage.ts`) for testing/performance; target for production is 100+.
+
+### 2. Logic Separation (Hooks)
+Business logic is decoupled from the UI and resides in custom hooks located in `src/hooks/`:
+- `useTabs`: Manages multi-tab state and active tab.
+- `useHistory`: Manages request history and provides replay functionality.
+- `useRequest`: Handles the actual `fetch` execution and response parsing.
+- `useSavedEndpoints`: Manages the collection of saved endpoints.
+
+### 3. URL Synchronization
+The project uses `src/utils/url.ts` to sync the URL bar with the parameters table bidirectionally. Always ensure any changes to the URL bar are reflected in the params list and vice-versa.
+
+### 4. UI/UX Standards
+- **Icons:** Custom SVG assets in `src/assets/`.
+- **Toasts:** Use `sonner`. Prefer `toast.success`, `toast.error`, `toast.warning`, or `toast.info`. Do not introduce other notification libraries.
+- **Methods:** HTTP methods have specific colors assigned in `src/utils/storage.ts` (`getMethodColor`). Use these colors for visual consistency.
+
+### 5. Validation
+URL validation is performed in the `Tester` view before executing requests. It requires a valid protocol (`http:` or `https:`).
+
+## Data Models
+
+### RequestResponse
+```typescript
+{
+  status: number;
+  statusText: string;
+  responseTime: number;
+  data: unknown;
+  headers: Record<string, string>;
+  isError: boolean;
+  errorMessage?: string;
+  size?: number; // Response size in bytes
+}
+```
+
+### Tab
+```typescript
+{
+  id: string;
+  label: string;
+  method: HttpMethod;
+  url: string;
+  params: { key: string; value: string }[];
+  pathParams: { key: string; value: string }[];
+  headers: { key: string; value: string }[];
+  body: string;
+  response?: RequestResponse | null;
+  savedId?: string; // Tracks if this tab is linked to a SavedEndpoint
+}
+```
+
+### HistoryEntry
+```typescript
+{
+  id: string;
+  tabId: string;
+  timestamp: string;
+  method: HttpMethod;
+  url: string;
+  params: { key: string; value: string }[];
+  pathParams: { key: string; value: string }[];
+  headers: { key: string; value: string }[];
+  body: string;
+  responseStatus: number;
+  responseTime: number;
+}
+```
+
+## Deployment
+
+The project is configured for deployment on **Netlify**.
+- **SPA Routing:** Includes a `public/_redirects` file to ensure React Router handles all routes correctly (preventing 404s on refresh).
+- **Manual/CD:** Supports both manual deployment via CLI and Continuous Deployment via GitHub.
+
+## TODOs / Roadmap
+- Environment variable support (e.g., `{{baseUrl}}`).
+- Tests (currently no test suite is configured).
+- Export/Import collections.
+- Advanced JSON editor features (auto-completion, schema validation).
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ARO-Software-Development)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ARO-Software-Development)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
