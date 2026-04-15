@@ -1,0 +1,51 @@
+{
+  "name": "pdta",
+  "owner": "liushoukun",
+  "repo": "pdta",
+  "description": "AI instruction files for pdta by liushoukun",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "generate-test",
+      "path": ".cursor/skills/generate-test",
+      "github_url": "https://github.com/liushoukun/pdta/tree/main/.cursor/skills/generate-test",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/liushoukun",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-15T00:30:32Z"
+}
