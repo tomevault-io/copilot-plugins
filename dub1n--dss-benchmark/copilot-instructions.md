@@ -1,0 +1,106 @@
+## dss-benchmark
+
+> USE WHEN working with YAML frontmatter, file metadata, validation errors, or auto-correction. Provides frontmatter standards, format consistency rules, and validation integration protocols.
+
+---
+tags: [Validation, Frontmatter, Quality Assurance, Automation, Standards]
+provides: [Validation Rules, Auto Correction, Format Standards]
+requires: [DSS Core Structure and Concepts, Tag Standards]
+---
+# Frontmatter Validation Rules
+
+## Required Fields
+
+All DSS files with frontmatter must include:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `tags` | Array of strings | Categorization tags following tag conventions |
+| `provides` | Array of strings | Resources or concepts that the file provides |
+| `requires` | Array of strings | Dependencies that the file needs from other parts |
+
+## Field Format Rules
+
+### Tags
+- Must be an array/list, even for a single tag
+- Each tag must be a string
+- Tags should be lowercase with underscores for spaces
+- At least one tag is required
+- Example: `tags: [documentation, automation, phase1]`
+
+### Provides
+- Must be an array/list, even for a single item
+- Each item must be a string
+- Items should represent resources, concepts, or artifacts the file contributes
+- Empty array allowed if file doesn't explicitly provide resources
+- Example: `provides: [frontmatter_validation_rules, validation_schema]`
+
+### Requires
+- Must be an array/list, even for a single item
+- Each item must be a string
+- Items should reference existing files or resources in the project
+- Empty array allowed if file has no dependencies
+- For file references, use relative paths from project root
+- Example: `requires: [meta/dss_config.yml, docs/automated_formatting.md]`
+
+## Format Consistency
+
+### Markdown Files
+Frontmatter in Markdown files must:
+- Begin at the very start of the file
+- Start with a line containing only `---`
+- End with a line containing only `---`
+- Contain valid YAML between the delimiters
+
+Example:
+```markdown
+---
+tags: [documentation, template]
+provides: [frontmatter_example]
+requires: []
+---
+
+# Document Title
+```
+
+### Python Files
+Frontmatter in Python files must:
+- Be contained within a docstring at the beginning of the file
+- Start with `"""---`
+- End with `---"""`
+- Contain valid YAML between the delimiters
+
+Example:
+```python
+"""---
+tags: [utility, automation]
+provides: [frontmatter_validation]
+requires: [yaml, pathlib]
+---
+Module description here.
+"""
+
+import yaml
+from pathlib import Path
+```
+
+## Auto-correction Behavior
+
+The frontmatter validation script can automatically correct:
+
+1. Missing required fields → added with default values from [dss_config.yml](mdc:meta/dss_config.yml)
+2. String values for tags/provides/requires → converted to single-item arrays
+3. Non-string, non-array values → replaced with appropriate defaults
+4. Invalid YAML → reported but cannot be auto-corrected
+
+## Validation Integration
+
+These rules are implemented in:
+- Frontmatter validation scripts
+- Pre-commit hooks for automated validation
+- Documentation generators enforcing frontmatter rules
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Dub1n)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Dub1n)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
