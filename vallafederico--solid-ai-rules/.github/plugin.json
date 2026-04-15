@@ -1,9 +1,86 @@
 {
   "name": "vallafederico--solid-ai-rules",
   "displayName": "solid-ai-rules",
-  "description": "solid-ai-rules",
+  "description": "AI instruction files for solid-ai-rules by vallafederico",
   "version": "1.0.0",
   "author": "vallafederico",
   "homepage": "https://tomevault.io/claim/vallafederico",
-  "skills": []
+  "skills": [
+    {
+      "name": "solid-core-jsx-attributes",
+      "description": ""
+    },
+    {
+      "name": "solid-core-primitives",
+      "description": ""
+    },
+    {
+      "name": "solid-core-rendering",
+      "description": ""
+    },
+    {
+      "name": "solid-core-rendering-ssr",
+      "description": ""
+    },
+    {
+      "name": "solid-core-utilities",
+      "description": ""
+    },
+    {
+      "name": "solid-deployment",
+      "description": ""
+    },
+    {
+      "name": "solid-router-data-apis",
+      "description": ""
+    },
+    {
+      "name": "solid-router-queries",
+      "description": ""
+    },
+    {
+      "name": "solid-styling",
+      "description": ""
+    },
+    {
+      "name": "solid-terminology",
+      "description": ""
+    },
+    {
+      "name": "solid-testing",
+      "description": ""
+    },
+    {
+      "name": "solidstart-api-routes",
+      "description": ""
+    },
+    {
+      "name": "solidstart-client-only",
+      "description": ""
+    },
+    {
+      "name": "solidstart-config",
+      "description": ""
+    },
+    {
+      "name": "solidstart-data-mutation",
+      "description": ""
+    },
+    {
+      "name": "solidstart-entrypoints",
+      "description": ""
+    },
+    {
+      "name": "solidstart-optimistic-ui",
+      "description": ""
+    },
+    {
+      "name": "solidstart-static-assets",
+      "description": ""
+    },
+    {
+      "name": "solidstart-websocket",
+      "description": ""
+    }
+  ]
 }
