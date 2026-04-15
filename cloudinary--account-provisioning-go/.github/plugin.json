@@ -1,0 +1,9 @@
+{
+  "name": "cloudinary--account-provisioning-go",
+  "displayName": "account-provisioning-go",
+  "description": "account-provisioning-go",
+  "version": "1.0.0",
+  "author": "cloudinary",
+  "homepage": "https://tomevault.io/claim/cloudinary",
+  "skills": []
+}
