@@ -1,0 +1,69 @@
+{
+  "name": "omega-gemini-cli",
+  "owner": "oimiragieo",
+  "repo": "omega-gemini-cli",
+  "description": "AI instruction files for omega-gemini-cli by oimiragieo",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "omega-feedback-test",
+      "path": ".gemini/skills/omega-feedback-test",
+      "github_url": "https://github.com/oimiragieo/omega-gemini-cli/tree/main/.gemini/skills/omega-feedback-test",
+      "description": ""
+    },
+    {
+      "name": "omega-gemini-cli",
+      "path": ".agents/skills/omega-gemini-cli",
+      "github_url": "https://github.com/oimiragieo/omega-gemini-cli/tree/main/.agents/skills/omega-gemini-cli",
+      "description": ""
+    },
+    {
+      "name": "omega-gemini-cli",
+      "path": ".claude/skills/omega-gemini-cli",
+      "github_url": "https://github.com/oimiragieo/omega-gemini-cli/tree/main/.claude/skills/omega-gemini-cli",
+      "description": ""
+    },
+    {
+      "name": "omega-gemini-cli",
+      "path": ".agent/skills/omega-gemini-cli",
+      "github_url": "https://github.com/oimiragieo/omega-gemini-cli/tree/main/.agent/skills/omega-gemini-cli",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/oimiragieo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-15T10:30:39Z"
+}
