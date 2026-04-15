@@ -1,9 +1,14 @@
 {
   "name": "ki2pixel--render-signal-server",
   "displayName": "render_signal_server",
-  "description": "render_signal_server",
+  "description": "AI instruction files for render_signal_server by ki2pixel",
   "version": "1.0.0",
   "author": "ki2pixel",
   "homepage": "https://tomevault.io/claim/ki2pixel",
-  "skills": []
+  "skills": [
+    {
+      "name": "magic-link-auth-companion",
+      "description": ""
+    }
+  ]
 }
