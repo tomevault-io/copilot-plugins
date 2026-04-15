@@ -2,8 +2,8 @@
   "name": "render_signal_server",
   "owner": "ki2pixel",
   "repo": "render_signal_server",
-  "description": "",
-  "type": "config",
+  "description": "AI instruction files for render_signal_server by ki2pixel",
+  "type": "tome",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "magic-link-auth-companion",
+      "path": ".windsurf/skills/magic-link-auth-companion",
+      "github_url": "https://github.com/ki2pixel/render_signal_server/tree/main/.windsurf/skills/magic-link-auth-companion",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/ki2pixel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T00:45:09Z"
+  "distributed_at": "2026-04-15T06:30:19Z"
 }
