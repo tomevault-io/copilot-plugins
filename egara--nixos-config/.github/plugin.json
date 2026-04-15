@@ -1,0 +1,9 @@
+{
+  "name": "egara--nixos-config",
+  "displayName": "nixos-config",
+  "description": "nixos-config",
+  "version": "1.0.0",
+  "author": "egara",
+  "homepage": "https://tomevault.io/claim/egara",
+  "skills": []
+}
