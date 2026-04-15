@@ -1,0 +1,14 @@
+{
+  "name": "talentseek--flourish",
+  "displayName": "flourish",
+  "description": "AI instruction files for flourish by talentseek",
+  "version": "1.0.0",
+  "author": "talentseek",
+  "homepage": "https://tomevault.io/claim/talentseek",
+  "skills": [
+    {
+      "name": "location-enrichment",
+      "description": ""
+    }
+  ]
+}
