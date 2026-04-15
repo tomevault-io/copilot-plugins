@@ -1,0 +1,14 @@
+{
+  "name": "gioe--tusk",
+  "displayName": "tusk",
+  "description": "AI instruction files for tusk by gioe",
+  "version": "1.0.0",
+  "author": "gioe",
+  "homepage": "https://tomevault.io/claim/gioe",
+  "skills": [
+    {
+      "name": "groom-backlog",
+      "description": ""
+    }
+  ]
+}
