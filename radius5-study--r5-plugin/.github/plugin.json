@@ -1,0 +1,14 @@
+{
+  "name": "radius5-study--r5-plugin",
+  "displayName": "r5-plugin",
+  "description": "AI instruction files for r5-plugin by radius5-study",
+  "version": "1.0.0",
+  "author": "radius5-study",
+  "homepage": "https://tomevault.io/claim/radius5-study",
+  "skills": [
+    {
+      "name": "pr-review",
+      "description": ""
+    }
+  ]
+}
