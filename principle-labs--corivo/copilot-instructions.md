@@ -1,0 +1,249 @@
+## corivo
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 项目概述
+
+Corivo 是一个融入用户已有工作流的赛博**伙伴**。它不是一个独立的 App，而是寄生在 Claude Code、Cursor、飞书等工具中的后台服务——自动从用户的 AI 对话和消息中采集信息，持续整理和更新，在合适的时机以 `[corivo]` 的名义主动提醒用户。
+
+当前版本请以各 package 的 `package.json` 为准（workspace 内版本独立演进）
+
+详细设计文档见 [README.md](./README.md)
+
+---
+
+## Package 文档
+
+每个 package 内都有独立的 `CLAUDE.md`，包含该包详细的构建命令、目录结构、核心概念和开发规范：
+
+- [`packages/cli/CLAUDE.md`](./packages/cli/CLAUDE.md) — CLI 工具、数据库、心跳引擎
+- [`packages/solver/CLAUDE.md`](./packages/solver/CLAUDE.md) — CRDT 同步服务器
+- [`packages/plugins/claude-code/CLAUDE.md`](./packages/plugins/claude-code/CLAUDE.md) — Claude Code 插件
+
+**进入某个 package 工作时，优先阅读该 package 的 CLAUDE.md。**
+
+---
+
+## 构建与测试（快速参考）
+
+每个 package 独立管理，进入对应目录后操作：
+
+```bash
+# packages/cli
+cd packages/cli
+npm run build          # tsdown
+npm run dev            # tsdown --watch
+npm run test           # vitest --run
+npm run typecheck      # tsc --noEmit
+
+# packages/solver
+cd packages/solver
+npm run dev            # tsx watch src/index.ts（开发热重载）
+npm run build          # tsc
+npm run start          # node dist/index.js
+
+# packages/plugins/claude-code
+cd packages/plugins/claude-code
+# 配置/文档型 package，无独立构建步骤
+```
+
+**测试**（当前以 cli package 的 Vitest 套件最完整）：
+
+```bash
+cd packages/cli
+# 运行所有测试
+npm run test
+
+# 运行单个测试文件
+npm run test -- __tests__/unit/database.test.ts
+npm run test -- __tests__/integration/heartbeat.test.ts
+npm run test -- __tests__/integration/claude-code-ingestor.test.ts
+```
+
+> 注意：`@corivo/cli` 是纯 ESM 模块。`better-sqlite3` 是 CJS，通过 `createRequire(import.meta.url)` 加载。
+
+---
+
+## 包架构
+
+### packages/cli（`@corivo/cli`）
+
+核心 CLI 工具，包含所有本地存储和智能处理逻辑。
+
+**数据流：**
+
+```
+用户工具（Claude Code / Cursor）
+    │
+    ▼
+Ingestors / Cold Scan      ← 采集原始信息
+    │
+    ▼
+CorivoDatabase             ← better-sqlite3，存储于 ~/.corivo/corivo.db
+    │ (Blocks + Associations + Query Logs)
+    ▼
+Heartbeat Engine（每 5 秒）
+    ├── processPendingBlocks → RuleEngine 标注（决策/事实/知识）
+    ├── processVitalityDecay → 按标注类型衰减（决策最慢，知识最快）
+    ├── processAssociations → 发现 Block 间关联（每 30s）
+    └── processConsolidation → 去重 + 摘要 + 补链（每 1min）
+    │
+    ▼
+CLI Commands（save / query / status / push / inject …）
+```
+
+**核心模型：**
+
+- `Block`：记忆单元。字段：`id / content / annotation / vitality / status / refs / pattern / source`
+- `vitality`：0–100 的生命力，驱动 `status`（active → cooling → cold → archived）
+- `annotation`：三段式 `"类型 · 子类 · 标签"`，例如 `"决策 · project · typescript"`
+- `Association`：Block 间有向关系，类型：similar / related / conflicts / refines / supersedes / causes / depends_on
+
+**数据库特点：**
+
+- 数据目录：`~/.corivo/`，主库：`corivo.db`
+- WAL 模式，FTS5 全文搜索（中文降级为 LIKE 搜索）
+- 可选 SQLCipher 加密，不可用时自动降级为应用层加密（`KeyManager`）
+- `CorivoDatabase.getInstance()` 单例，进程生命周期内不关闭
+
+**当前 CLI 结构：**
+
+```
+src/
+  cli/
+    commands/       CLI 命令实现
+    runtime.ts      CLI 运行时辅助函数（替代旧 CliContext）
+    presenters/     输出格式化
+  application/      use-case / orchestration
+  domain/
+    memory/models/  Block / Association / Pattern
+    memory/services/ 记忆服务
+    host/contracts/ 宿主契约
+  infrastructure/
+    hosts/          宿主适配、安装、导入
+    llm/            提取 provider
+    platform/       本地 service manager / 平台适配
+    storage/
+      lifecycle/    数据库路径与生命周期
+      repositories/ block / association / raw-memory / stats / session-record
+      schema/       schema / migration
+      search/       搜索
+    output/         push-queue / reminders
+  runtime/          recall / review / scoring / sync-client / process-state
+  engine/
+    heartbeat.ts    后台守护进程主循环
+    auto-sync.ts    心跳内自动同步
+    rules/          规则入口
+  cold-scan/        一次性扫描提取器
+  ingestors/        实时摄取器
+  identity/         身份标识（平台指纹，无需密码）
+  crypto/           密钥管理与内容加密
+  push/             上下文推送
+```
+
+**当前边界约束：**
+
+- `cli/*` 只做 CLI 适配和输出
+- `application/*` 只做用例编排
+- `domain/*` 放稳定业务模型和服务
+- `infrastructure/*` 放 sqlite、host、llm、platform、output
+- `runtime/*` 放运行时策略和 runtime 支撑
+- `engine/*` 当前只应保留 heartbeat / auto-sync / rules
+
+**守护进程运行方式：**
+
+`corivo start` 通过 service manager 将心跳进程注册为后台服务。当前只通过环境变量 `CORIVO_DB_PATH` 传入数据库路径，不再传递 `db_key`。
+
+---
+
+### packages/solver（`@corivo/solver`）
+
+CRDT 同步中继服务器，供多设备同步使用。基于 Fastify v5。
+
+**认证流程（Challenge-Response + Bearer Token）：**
+
+```
+Client → POST /auth/challenge → { challenge }
+Client → POST /auth/verify   → { identityId, signature } → { token }
+Client → 后续请求带 Authorization: Bearer <token>
+```
+
+Token 存储在内存 Map 中，TTL 由 `config.tokenTtlMs` 控制，后台每 5 分钟清理过期 token。
+
+**同步端点：**
+
+- `POST /sync/push` — 客户端推送 changeset rows（幂等，`INSERT OR IGNORE`）
+- `POST /sync/pull` — 客户端拉取指定 `since_version` 之后的 changesets
+
+Changeset 存储于服务端 SQLite（`src/db/server-db.ts`），每条记录按 `identity_id` 隔离。
+
+---
+
+### packages/plugins/claude-code（`@corivo/claude-code`）
+
+Claude Code 插件包，让 AI 工具能读写 Corivo 记忆。
+
+**组成：**
+
+- `skills/`：Claude Code 保存/查询技能提示词
+- `hooks/`：Claude Code hook 资产
+- `README.md` / `CLAUDE.md`：插件本地说明
+
+---
+
+## 开发规范
+
+### Git 分支
+
+- ❌ 不在 main 直接修改
+- ✅ 所有改动在子分支完成，完成后合并
+- 分支命名：`feature/功能名称` / `fix/问题描述` / `refactor/模块名称`
+
+### Commit 规范
+
+```
+<类型>: <描述>
+
+原因：<为什么>
+```
+
+类型：feat / fix / refactor / docs / hotfix
+
+### 原子化提交
+
+每个 commit 只做一件事，保持最小可理解单元：
+
+- ✅ 一个功能点、一个 bug fix、一次重构对应一个 commit
+- ❌ 不在同一个 commit 里混合功能实现与格式整理
+- ❌ 不把"顺手改的东西"塞进不相关的 commit
+
+**判断标准：** commit message 能用一句话清晰描述，且 diff 只包含该描述涉及的改动。
+
+**拆分时机：**
+- 实现某功能前，先把前置重构单独提交
+- bug fix 和触发该 bug 的测试分两个 commit（测试先提交）
+- 同一文件的多处无关改动，分多次 `git add -p` 暂存后分别提交
+
+---
+
+## Design System
+
+**做任何 UI / 视觉决策前，必须先读 DESIGN.md。**
+
+- Aesthetic: Organic/Natural — 「记忆像植物一样生长」
+- Colors: 暖灰基底 + 琥珀强调色（`#d97706`）
+- Typography: Instrument Serif（Display）+ Instrument Sans（Body）
+- Spacing: 8px base unit, Comfortable density
+
+---
+
+最后更新：2026-03-20
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Principle-Labs)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Principle-Labs)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
