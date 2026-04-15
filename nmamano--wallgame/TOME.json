@@ -2,9 +2,9 @@
   "name": "wallgame",
   "owner": "nmamano",
   "repo": "wallgame",
-  "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "description": "AI instruction files for wallgame by nmamano",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "review-design-doc",
+      "path": ".claude/skills/review-design-doc",
+      "github_url": "https://github.com/nmamano/wallgame/tree/main/.claude/skills/review-design-doc",
+      "description": ""
+    }
+  ],
   "claim_url": "https://tomevault.io/claim/nmamano",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T16:53:51Z"
+  "distributed_at": "2026-04-15T20:31:40Z"
 }
