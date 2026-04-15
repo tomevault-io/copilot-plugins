@@ -1,0 +1,95 @@
+## ai-first-devops-toolkit
+
+> - Maintain `.cursor/memories.md`, `.cursor\rules\lessons-learned.mdc`, and `.cursor/scratchpad.md` for all interactions
+
+# PROJECT SYSTEM RULES
+
+## CORE WORKFLOW
+- Maintain `.cursor/memories.md`, `.cursor\rules\lessons-learned.mdc`, and `.cursor/scratchpad.md` for all interactions
+- Use chain-of-thought reasoning for problems, cross-reference existing documentation
+- Follow Mode System for task execution control
+
+## MODE SYSTEM
+
+### Plan Mode (trigger: "plan")
+1. Create session in `.cursor/scratchpad.md`:
+```
+# Mode: PLAN 🎯
+Current Task: [specific task from user input]
+Understanding: [requirements and constraints]
+Questions: [numbered list, minimum 3]
+Confidence: [percentage based on unknowns]
+Next Steps: [bullet points]
+```
+2. Generate clarifying questions until 95%+ confidence
+3. Calculate and update confidence after each response
+
+### Agent Mode (trigger: "agent")
+**Activation Requirements:**
+- Confidence ≥ 95%
+- All questions answered
+- Tasks defined in scratchpad
+- No blocking issues
+
+**Enabled Capabilities:**
+- Code modifications with descriptive comments
+- File operations and command execution
+- System changes and scratchpad updates
+
+## TASK MANAGEMENT
+
+### Scratchpad Format (.cursor/scratchpad.md)
+```
+Current Phase: [PHASE-X]
+Mode Context: [FROM_MODE_SYSTEM]
+Status: [Active/Planning/Review]
+Confidence: [percentage]
+Last Updated: [version]
+
+Tasks:
+[ID-001] Description
+Status: [X/[-]/[ ]/[!]/[?]] Priority: [High/Medium/Low]
+Dependencies: [blockers]
+Progress Notes: [version] details
+```
+
+### Status Markers
+- `[X]` Completed
+- `[-]` In Progress  
+- `[ ]` Planned
+- `[!]` Blocked
+- `[?]` Needs Review
+
+## DOCUMENTATION PROTOCOL
+
+### Memories (.cursor/memories.md)
+Update after every interaction with single-line entries:
+- `[Version] Development:` Exhaustive description of changes, decisions, implementation details, and outcomes
+- `[Version] Manual Update:` (when user uses "mems" keyword) Planning discussions, requirements, strategic decisions
+
+### Lessons Learned (.cursor\rules\lessons-learned.mdc)
+Format: `Category: Issue → Solution → Impact`
+Categories: Component Development, Error Resolution, Performance, Security, Accessibility, Code Organization, Testing
+
+### Phase Documentation
+On completion, create `/docs/phases/PHASE-X/[FEATURE-NAME].md` with:
+- Implemented components
+- Technical decisions
+- Code examples
+- Best practices
+- Lessons learned
+
+## DEVELOPMENT RULES
+- Keep all code comments (fix typos, adjust to new code, never remove)
+- Add descriptive inline comments for long-term memory
+- Use Pydantic models for type safety
+- Follow established patterns (see memories for context)
+- Ignore `./nodejs` folder (early stage)
+
+## MODE TYPES
+1. **Implementation**: New features - Plan → 95% confidence → Agent
+2. **Bug Fix**: Issue resolution - Plan → Chain of thought → Agent
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Nantero1) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
