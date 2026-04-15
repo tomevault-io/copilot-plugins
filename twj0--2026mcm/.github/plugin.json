@@ -1,0 +1,18 @@
+{
+  "name": "twj0--2026mcm",
+  "displayName": "2026mcm",
+  "description": "AI instruction files for 2026mcm by twj0",
+  "version": "1.0.0",
+  "author": "twj0",
+  "homepage": "https://tomevault.io/claim/twj0",
+  "skills": [
+    {
+      "name": "mcm-c-coder",
+      "description": ""
+    },
+    {
+      "name": "mcm-c-web-researcher",
+      "description": ""
+    }
+  ]
+}
