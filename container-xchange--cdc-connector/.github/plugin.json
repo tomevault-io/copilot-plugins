@@ -1,0 +1,9 @@
+{
+  "name": "container-xchange--cdc-connector",
+  "displayName": "cdc-connector",
+  "description": "cdc-connector",
+  "version": "1.0.0",
+  "author": "Container-xChange",
+  "homepage": "https://tomevault.io/claim/Container-xChange",
+  "skills": []
+}
