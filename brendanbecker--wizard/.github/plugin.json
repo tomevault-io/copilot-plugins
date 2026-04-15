@@ -1,0 +1,14 @@
+{
+  "name": "brendanbecker--wizard",
+  "displayName": "wizard",
+  "description": "AI instruction files for wizard by brendanbecker",
+  "version": "1.0.0",
+  "author": "brendanbecker",
+  "homepage": "https://tomevault.io/claim/brendanbecker",
+  "skills": [
+    {
+      "name": "_template",
+      "description": ""
+    }
+  ]
+}
