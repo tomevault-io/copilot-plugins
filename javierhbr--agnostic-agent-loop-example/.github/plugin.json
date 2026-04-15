@@ -1,0 +1,14 @@
+{
+  "name": "javierhbr--agnostic-agent-loop-example",
+  "displayName": "agnostic-agent-loop-example",
+  "description": "AI instruction files for agnostic-agent-loop-example by javierhbr",
+  "version": "1.0.0",
+  "author": "javierhbr",
+  "homepage": "https://tomevault.io/claim/javierhbr",
+  "skills": [
+    {
+      "name": "openspec",
+      "description": ""
+    }
+  ]
+}
