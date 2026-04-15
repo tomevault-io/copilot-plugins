@@ -1,0 +1,23 @@
+## settlemint-action
+
+> 1. Create a GitHub Action for SettleMint CLI
+
+1. Create a GitHub Action for SettleMint CLI
+2. Use Node.js runtime (Node 20)
+3. Accept command, token, and version inputs
+4. Use npx for faster CLI execution with specified version (default latest)
+5. Execute provided CLI commands
+6. Handle errors and provide feedback
+7. Configure TypeScript for proper type checking
+8. Support all SettleMint environment variables as optional inputs
+9. Set predefined contract addresses as environment variables
+10. Add auto-connect functionality
+11. Process .env files from secrets and add them to GitHub environment
+12. Add comprehensive test coverage for main functionality
+13. Configure Renovate to run `npm run package` after dependency updates
+14. Create comprehensive README documentation with examples and best practices
+15. Implement npm cache for faster package downloads
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/settlemint) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
