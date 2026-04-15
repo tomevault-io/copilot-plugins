@@ -40702,6 +40702,631 @@
       "name": "choiseongho1--coupon-test",
       "source": "./choiseongho1--coupon-test",
       "description": "coupon-test"
+    },
+    {
+      "name": "radius5-study--r5-plugin",
+      "source": "./radius5-study--r5-plugin",
+      "description": "r5-plugin"
+    },
+    {
+      "name": "joshua-sx--rora-rider-mobile",
+      "source": "./joshua-sx--rora-rider-mobile",
+      "description": "rora-rider-mobile"
+    },
+    {
+      "name": "mrcalderon3d--everything-game-dev-code",
+      "source": "./mrcalderon3d--everything-game-dev-code",
+      "description": "everything-game-dev-code"
+    },
+    {
+      "name": "conanmcn--fragments",
+      "source": "./conanmcn--fragments",
+      "description": "fragments"
+    },
+    {
+      "name": "miketui--app",
+      "source": "./miketui--app",
+      "description": "App"
+    },
+    {
+      "name": "zhaowendao2005--prisim-paperlib---projectfolder",
+      "source": "./zhaowendao2005--prisim-paperlib---projectfolder",
+      "description": "Prisim-PaperLib---ProjectFolder"
+    },
+    {
+      "name": "jacobmr--email-tracker",
+      "source": "./jacobmr--email-tracker",
+      "description": "email-tracker"
+    },
+    {
+      "name": "zkunzhang--intelligentelementsupermarket",
+      "source": "./zkunzhang--intelligentelementsupermarket",
+      "description": "IntelligentElementSupermarket"
+    },
+    {
+      "name": "schroedinger-hat--osday",
+      "source": "./schroedinger-hat--osday",
+      "description": "osday"
+    },
+    {
+      "name": "demetriomjr--real-state-crm",
+      "source": "./demetriomjr--real-state-crm",
+      "description": "real-state-crm"
+    },
+    {
+      "name": "winstonsue--true-north",
+      "source": "./winstonsue--true-north",
+      "description": "true-north"
+    },
+    {
+      "name": "sakanaisreal--devops-lab-02",
+      "source": "./sakanaisreal--devops-lab-02",
+      "description": "devops-lab-02"
+    },
+    {
+      "name": "jeffersonlab--halla-molpol-sim",
+      "source": "./jeffersonlab--halla-molpol-sim",
+      "description": "halla_molpol_sim"
+    },
+    {
+      "name": "inoxoft--afterlife",
+      "source": "./inoxoft--afterlife",
+      "description": "afterlife"
+    },
+    {
+      "name": "ethiopianss--java-e-commerce-system",
+      "source": "./ethiopianss--java-e-commerce-system",
+      "description": "Java-E-commerce-System"
+    },
+    {
+      "name": "wollfoo--ncs-gpu",
+      "source": "./wollfoo--ncs-gpu",
+      "description": "ncs-gpu"
+    },
+    {
+      "name": "hyperscapeai--hyperscape",
+      "source": "./hyperscapeai--hyperscape",
+      "description": "hyperscape"
+    },
+    {
+      "name": "tserre--tserre-github-io",
+      "source": "./tserre--tserre-github-io",
+      "description": "tserre.github.io"
+    },
+    {
+      "name": "divizyon--t1-sportlink-web-backend",
+      "source": "./divizyon--t1-sportlink-web-backend",
+      "description": "t1-sportlink-web-backend"
+    },
+    {
+      "name": "alchemist-aloha--resram-rust",
+      "source": "./alchemist-aloha--resram-rust",
+      "description": "resram.rust"
+    },
+    {
+      "name": "21-dot-dev--websites",
+      "source": "./21-dot-dev--websites",
+      "description": "websites"
+    },
+    {
+      "name": "n3wang--solo-level-system",
+      "source": "./n3wang--solo-level-system",
+      "description": "solo_level_system"
+    },
+    {
+      "name": "michaelbarone--cc3",
+      "source": "./michaelbarone--cc3",
+      "description": "cc3"
+    },
+    {
+      "name": "felipepimentel--plexure-api-search",
+      "source": "./felipepimentel--plexure-api-search",
+      "description": "plexure-api-search"
+    },
+    {
+      "name": "shinguakira--typing-game-hono",
+      "source": "./shinguakira--typing-game-hono",
+      "description": "typing-game-hono"
+    },
+    {
+      "name": "da8ter--tilevisu-bewohner-status-kachel",
+      "source": "./da8ter--tilevisu-bewohner-status-kachel",
+      "description": "TileVisu-Bewohner-Status-Kachel"
+    },
+    {
+      "name": "martijnvogten--pojoquery",
+      "source": "./martijnvogten--pojoquery",
+      "description": "pojoquery"
+    },
+    {
+      "name": "onnop--cacheutility",
+      "source": "./onnop--cacheutility",
+      "description": "CacheUtility"
+    },
+    {
+      "name": "jattu8602--gogreen",
+      "source": "./jattu8602--gogreen",
+      "description": "gogreen"
+    },
+    {
+      "name": "udcw1995--inventory-manager",
+      "source": "./udcw1995--inventory-manager",
+      "description": "inventory-manager"
+    },
+    {
+      "name": "damvolkov--et-mlapi",
+      "source": "./damvolkov--et-mlapi",
+      "description": "et-mlapi"
+    },
+    {
+      "name": "makifun--nixos",
+      "source": "./makifun--nixos",
+      "description": "nixos"
+    },
+    {
+      "name": "hatefsystems--search-engine-core",
+      "source": "./hatefsystems--search-engine-core",
+      "description": "search-engine-core"
+    },
+    {
+      "name": "quotawish--leaves-word",
+      "source": "./quotawish--leaves-word",
+      "description": "leaves-word"
+    },
+    {
+      "name": "ivelot--aletheia-api",
+      "source": "./ivelot--aletheia-api",
+      "description": "AletheIA_api"
+    },
+    {
+      "name": "yongyut-wil--expense-bot",
+      "source": "./yongyut-wil--expense-bot",
+      "description": "expense-bot"
+    },
+    {
+      "name": "henrikamren--stablemate",
+      "source": "./henrikamren--stablemate",
+      "description": "stablemate"
+    },
+    {
+      "name": "marcinmatys--edu-quiz-3",
+      "source": "./marcinmatys--edu-quiz-3",
+      "description": "edu-quiz-3"
+    },
+    {
+      "name": "burggraf--svelte5-all-in-one",
+      "source": "./burggraf--svelte5-all-in-one",
+      "description": "svelte5-all-in-one"
+    },
+    {
+      "name": "wujunkai2004--ai-ui",
+      "source": "./wujunkai2004--ai-ui",
+      "description": "ai-ui"
+    },
+    {
+      "name": "justaghost--content-creation",
+      "source": "./justaghost--content-creation",
+      "description": "content_creation"
+    },
+    {
+      "name": "alonzohess--launchpoint",
+      "source": "./alonzohess--launchpoint",
+      "description": "LaunchPoint"
+    },
+    {
+      "name": "ssonit--lookify",
+      "source": "./ssonit--lookify",
+      "description": "lookify"
+    },
+    {
+      "name": "nimiplatform--nimi",
+      "source": "./nimiplatform--nimi",
+      "description": "nimi"
+    },
+    {
+      "name": "katzkawai--node-clock",
+      "source": "./katzkawai--node-clock",
+      "description": "node_clock"
+    },
+    {
+      "name": "balllightningab--balllightning",
+      "source": "./balllightningab--balllightning",
+      "description": "balllightning"
+    },
+    {
+      "name": "verythorough--fishbowl",
+      "source": "./verythorough--fishbowl",
+      "description": "fishbowl"
+    },
+    {
+      "name": "vyente-ruffin--mcp-mssql-server-webapp",
+      "source": "./vyente-ruffin--mcp-mssql-server-webapp",
+      "description": "MCP-MSSQL-SERVER-WEBAPP"
+    },
+    {
+      "name": "hathaway3--toolshed",
+      "source": "./hathaway3--toolshed",
+      "description": "toolshed"
+    },
+    {
+      "name": "kongsak4807017--north-thai-monitor",
+      "source": "./kongsak4807017--north-thai-monitor",
+      "description": "north-thai-monitor"
+    },
+    {
+      "name": "jorgecolonconsulting--govdo",
+      "source": "./jorgecolonconsulting--govdo",
+      "description": "govdo"
+    },
+    {
+      "name": "adrihp06--mnemosyne",
+      "source": "./adrihp06--mnemosyne",
+      "description": "Mnemosyne"
+    },
+    {
+      "name": "zkunzhang--tcwyirs-ui",
+      "source": "./zkunzhang--tcwyirs-ui",
+      "description": "tcwyirs-ui"
+    },
+    {
+      "name": "enalmada--tanstarter",
+      "source": "./enalmada--tanstarter",
+      "description": "tanstarter"
+    },
+    {
+      "name": "digennarot--dndscheduler",
+      "source": "./digennarot--dndscheduler",
+      "description": "dndScheduler"
+    },
+    {
+      "name": "karek2001--bleach-x10",
+      "source": "./karek2001--bleach-x10",
+      "description": "Bleach_x10"
+    },
+    {
+      "name": "diy-recording-equipment--helpscout-to-csv",
+      "source": "./diy-recording-equipment--helpscout-to-csv",
+      "description": "Helpscout-to-CSV"
+    },
+    {
+      "name": "chikingsley--episodic",
+      "source": "./chikingsley--episodic",
+      "description": "episodic"
+    },
+    {
+      "name": "block--domain-api",
+      "source": "./block--domain-api",
+      "description": "domain-api"
+    },
+    {
+      "name": "host-uk--core-mcp",
+      "source": "./host-uk--core-mcp",
+      "description": "core-mcp"
+    },
+    {
+      "name": "imzodev--goalshare",
+      "source": "./imzodev--goalshare",
+      "description": "goalshare"
+    },
+    {
+      "name": "tom-010--boring-stack",
+      "source": "./tom-010--boring-stack",
+      "description": "boring-stack"
+    },
+    {
+      "name": "aloofbuddha--pay-up",
+      "source": "./aloofbuddha--pay-up",
+      "description": "pay-up"
+    },
+    {
+      "name": "backrunner--privateplot",
+      "source": "./backrunner--privateplot",
+      "description": "privateplot"
+    },
+    {
+      "name": "host-uk--core-template",
+      "source": "./host-uk--core-template",
+      "description": "core-template"
+    },
+    {
+      "name": "sha888--titan-pomade",
+      "source": "./sha888--titan-pomade",
+      "description": "titan-pomade"
+    },
+    {
+      "name": "performancecopilot--helm-charts",
+      "source": "./performancecopilot--helm-charts",
+      "description": "helm-charts"
+    },
+    {
+      "name": "moyum--moyu-search",
+      "source": "./moyum--moyu-search",
+      "description": "moyu-search"
+    },
+    {
+      "name": "z3ddiez--krisis",
+      "source": "./z3ddiez--krisis",
+      "description": "KRISIS"
+    },
+    {
+      "name": "host-uk--core-api",
+      "source": "./host-uk--core-api",
+      "description": "core-api"
+    },
+    {
+      "name": "rudnitski--grocery-voice-assistant-2",
+      "source": "./rudnitski--grocery-voice-assistant-2",
+      "description": "grocery-voice-assistant-2"
+    },
+    {
+      "name": "kalmanodds--kalmanodds-com",
+      "source": "./kalmanodds--kalmanodds-com",
+      "description": "kalmanodds.com"
+    },
+    {
+      "name": "bingenroo--slote",
+      "source": "./bingenroo--slote",
+      "description": "slote"
+    },
+    {
+      "name": "chud0--fastcachemiddleware",
+      "source": "./chud0--fastcachemiddleware",
+      "description": "FastCacheMiddleware"
+    },
+    {
+      "name": "host-uk--demo-website",
+      "source": "./host-uk--demo-website",
+      "description": "demo-website"
+    },
+    {
+      "name": "apo-bozdag--chord-wheel-app",
+      "source": "./apo-bozdag--chord-wheel-app",
+      "description": "chord-wheel-app"
+    },
+    {
+      "name": "appifysheets--tbc-integrationservice-standardplus-client",
+      "source": "./appifysheets--tbc-integrationservice-standardplus-client",
+      "description": "TBC-IntegrationService-StandardPlus-Client"
+    },
+    {
+      "name": "jianxcao--transmission-web",
+      "source": "./jianxcao--transmission-web",
+      "description": "transmission-web"
+    },
+    {
+      "name": "simple-frontend-dev--update-watcher",
+      "source": "./simple-frontend-dev--update-watcher",
+      "description": "update-watcher"
+    },
+    {
+      "name": "igor-kan--storyforge",
+      "source": "./igor-kan--storyforge",
+      "description": "storyforge"
+    },
+    {
+      "name": "santosomar--ai-agents-for-cybersecurity",
+      "source": "./santosomar--ai-agents-for-cybersecurity",
+      "description": "AI-agents-for-cybersecurity"
+    },
+    {
+      "name": "deepreef11--nvim",
+      "source": "./deepreef11--nvim",
+      "description": "nvim"
+    },
+    {
+      "name": "lionvsx--assistant-ui-alignui",
+      "source": "./lionvsx--assistant-ui-alignui",
+      "description": "assistant-ui-alignui"
+    },
+    {
+      "name": "hawikk--chatgtp-wrapper-2000",
+      "source": "./hawikk--chatgtp-wrapper-2000",
+      "description": "chatgtp-wrapper-2000"
+    },
+    {
+      "name": "zackees--fastled-wasm-compiler",
+      "source": "./zackees--fastled-wasm-compiler",
+      "description": "fastled-wasm-compiler"
+    },
+    {
+      "name": "justaghost--content-creation",
+      "source": "./justaghost--content-creation",
+      "description": "content_creation"
+    },
+    {
+      "name": "aadarsh-mane--ai-healthcaredesktop",
+      "source": "./aadarsh-mane--ai-healthcaredesktop",
+      "description": "ai-healthcareDesktop"
+    },
+    {
+      "name": "enzosv--idlefit-flutter",
+      "source": "./enzosv--idlefit-flutter",
+      "description": "idlefit-flutter"
+    },
+    {
+      "name": "remcostoeten--my-shell-setup",
+      "source": "./remcostoeten--my-shell-setup",
+      "description": "my-shell-setup"
+    },
+    {
+      "name": "markusporti--hso-thesis",
+      "source": "./markusporti--hso-thesis",
+      "description": "hso-thesis"
+    },
+    {
+      "name": "henderorlando--booklyapp",
+      "source": "./henderorlando--booklyapp",
+      "description": "booklyapp"
+    },
+    {
+      "name": "nullcoder--ghostpaste",
+      "source": "./nullcoder--ghostpaste",
+      "description": "ghostpaste"
+    },
+    {
+      "name": "zhanxn666--instinctlab-h1",
+      "source": "./zhanxn666--instinctlab-h1",
+      "description": "instinctlab_H1"
+    },
+    {
+      "name": "jamie0walton--angmscada",
+      "source": "./jamie0walton--angmscada",
+      "description": "angmscada"
+    },
+    {
+      "name": "salamanders--videogofaster",
+      "source": "./salamanders--videogofaster",
+      "description": "VideoGoFaster"
+    },
+    {
+      "name": "yigitkonur--n8n-cli",
+      "source": "./yigitkonur--n8n-cli",
+      "description": "n8n-cli"
+    },
+    {
+      "name": "tomkarolyshyn--dev-containers",
+      "source": "./tomkarolyshyn--dev-containers",
+      "description": "dev-containers"
+    },
+    {
+      "name": "tetheredpublics--task-raver-app",
+      "source": "./tetheredpublics--task-raver-app",
+      "description": "task-raver-app"
+    },
+    {
+      "name": "jm-sky--dev-made-it",
+      "source": "./jm-sky--dev-made-it",
+      "description": "dev-made-it"
+    },
+    {
+      "name": "krishnan--multi-agent-contract-enforcer",
+      "source": "./krishnan--multi-agent-contract-enforcer",
+      "description": "Multi-Agent-Contract-Enforcer"
+    },
+    {
+      "name": "cyranoaladin--jupiter-swap",
+      "source": "./cyranoaladin--jupiter-swap",
+      "description": "jupiter_swap"
+    },
+    {
+      "name": "timintech--proxmox-manager",
+      "source": "./timintech--proxmox-manager",
+      "description": "proxmox-manager"
+    },
+    {
+      "name": "findingmarbles--retromat",
+      "source": "./findingmarbles--retromat",
+      "description": "Retromat"
+    },
+    {
+      "name": "isatimur--ultimate-todo-app",
+      "source": "./isatimur--ultimate-todo-app",
+      "description": "ultimate-todo-app"
+    },
+    {
+      "name": "luchrv--task-cli",
+      "source": "./luchrv--task-cli",
+      "description": "task-cli"
+    },
+    {
+      "name": "thana-toast--school-angular",
+      "source": "./thana-toast--school-angular",
+      "description": "School-Angular"
+    },
+    {
+      "name": "unilabs-academy--dicorre",
+      "source": "./unilabs-academy--dicorre",
+      "description": "dicorre"
+    },
+    {
+      "name": "nmamano--wallgame",
+      "source": "./nmamano--wallgame",
+      "description": "wallgame"
+    },
+    {
+      "name": "droneshire--my-py-utils",
+      "source": "./droneshire--my-py-utils",
+      "description": "my-py-utils"
+    },
+    {
+      "name": "iamtouchskyer--memex",
+      "source": "./iamtouchskyer--memex",
+      "description": "memex"
+    },
+    {
+      "name": "jayvicsanantonio--web-development-hub",
+      "source": "./jayvicsanantonio--web-development-hub",
+      "description": "web-development-hub"
+    },
+    {
+      "name": "emmanuelalmonte--netstr",
+      "source": "./emmanuelalmonte--netstr",
+      "description": "netstr"
+    },
+    {
+      "name": "davesnx--styled-ppx",
+      "source": "./davesnx--styled-ppx",
+      "description": "styled-ppx"
+    },
+    {
+      "name": "dev-muhus--superpiccell-website",
+      "source": "./dev-muhus--superpiccell-website",
+      "description": "superpiccell-website"
+    },
+    {
+      "name": "samd--selfhosted-rag-doc-chat-prototype",
+      "source": "./samd--selfhosted-rag-doc-chat-prototype",
+      "description": "selfhosted-rag-doc-chat-prototype"
+    },
+    {
+      "name": "mjones3--kiro-ui-poc",
+      "source": "./mjones3--kiro-ui-poc",
+      "description": "kiro-ui-poc"
+    },
+    {
+      "name": "misfiredhit999--twenty",
+      "source": "./misfiredhit999--twenty",
+      "description": "twenty"
+    },
+    {
+      "name": "jvxz--notch-rip",
+      "source": "./jvxz--notch-rip",
+      "description": "notch.rip"
+    },
+    {
+      "name": "web-a1--capital-craft",
+      "source": "./web-a1--capital-craft",
+      "description": "capital-craft"
+    },
+    {
+      "name": "michaelsimoneau--michael-simoneau-com",
+      "source": "./michaelsimoneau--michael-simoneau-com",
+      "description": "michael-simoneau-com"
+    },
+    {
+      "name": "timjossund--baptist-cloud",
+      "source": "./timjossund--baptist-cloud",
+      "description": "baptist-cloud"
+    },
+    {
+      "name": "remyhonig--git-presented",
+      "source": "./remyhonig--git-presented",
+      "description": "git-presented"
+    },
+    {
+      "name": "martinjamesholland--zappi-sunsync-controller-public",
+      "source": "./martinjamesholland--zappi-sunsync-controller-public",
+      "description": "Zappi-Sunsync-Controller-Public"
+    },
+    {
+      "name": "amaximus0x--youversity",
+      "source": "./amaximus0x--youversity",
+      "description": "youversity"
+    },
+    {
+      "name": "kareltestspecial--vegan-biotech-report",
+      "source": "./kareltestspecial--vegan-biotech-report",
+      "description": "Vegan-BioTech-Report"
     }
   ]
 }
