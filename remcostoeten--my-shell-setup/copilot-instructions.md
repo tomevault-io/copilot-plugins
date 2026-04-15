@@ -1,0 +1,125 @@
+## my-shell-setup
+
+> 1. **Main Injector Script (`main_injector.sh`)**:
+
+# Generic MVP / Base setup for my shell configuration.
+
+1. **Main Injector Script (`main_injector.sh`)**:
+    - Responsible for sourcing all individual injectors.
+    - Displays a welcome message with version and last updated date.
+    - Sources a colors script for global availability.
+    - Sources all injectors from a specified directory.
+
+2. **Versioning Script (`versioning.sh`)**:
+    - Reads the current version from `version.txt`.
+    - Increments the version based on a flag (`--medium` for major increments, default for minor increments).
+    - Updates the version and last updated date in `version.txt`.
+    - Updates the version and last updated date in `welcome/intro.sh` file.
+
+3. **Welcome Script (`welcome.sh`)**:
+    - Reads the version and last updated date from `version.txt`.
+    - Displays a welcome message with the version and last updated date.
+
+4. **Colors Script (`colors.sh`)**:
+    - Contains color definitions for use in other scripts.
+
+5. **Git Hook (`pre-commit`)**:
+    - Automatically runs the `versioning.sh` script before each commit to update the version and last updated date.
+
+6. **Directory Structure**:
+    - `shell-config/`
+      - `main_injector.sh`
+      - `version.txt`
+      - `initialize/`
+         - `colors.sh`
+         - `welcome.sh`
+         - `versioning.sh`
+      - `injectors/`
+         - (individual injector scripts)
+
+**Example Directory Structure:**
+/Users/stoe442907/development/dotfiles/
+├── shell-config/ 
+│   ├── .zshrc <---- This is the file that gets sourced in the terminal, we will symlink this to the .zshrc in the home directory
+│   ├── main_injector.sh <---- gets sourced in the .zshrc
+│   ├── version.txt <--- config version. We start at 0.0.1 and increment 0.0.1 each commit. Every time commit is run, prompt for if you want to increment major or minor version with minor being default
+│   ├── initialize/ <-- files/scripts for the main_injector.sh to source
+│   │   ├── colors.sh <--- contains all kinds of colors and rainbow effects
+│   │   ├── welcome.sh <-- defined below
+│   │   ├── versioning.sh <-- logic for incrementing version
+│   ├── injectors/ <-- get sourced in the main_injector.sh. These source their own files
+│   │   ├── initialize_injector.sh
+│   │   ├── utilities_injector.sh
+
+In the injectors folder, the first word stands for the directory. So `initialize_injector.sh` is in the initialize folder. `utilities_injector.sh` is in the utilities folder.
+
+The folder `initialize` could contain the following files for example:
+- colors.sh
+- welcome.sh
+- versioning.sh
+
+The injectors folder could contain the following files for example:
+- initialize_injector.sh
+- utilities_injector.sh
+- alias_injector.sh
+- custom-cli-tools_injector.sh
+
+In any injector, just source ALL files in the same directory. So in `initialize_injector.sh` you would source all files in the initialize folder. In `utilities_injector.sh` you would source all files in the utilities folder.
+
+The `main_injector.sh` would source all files in the injectors folder.
+
+The `version.txt` file would contain the version number and the last updated date. The version number would be in the format of 0.0.1. The last updated date would be in the format of 2021-09-01. The version number would be incremented by 0.0.1 each time the `versioning.sh` script is run. The last updated date would be updated to the current date each time the `versioning.sh` script is run.
+
+Build a way that if we do `git commit -m "xxxx"` it automatically runs the `versioning.sh` script and increments the version number and updates the last updated date in the `version.txt` file. It should prompt the user if they want to increment the major or minor version number with minor being the default. If the user does not want to increment the version number, the commit should not be run.
+
+For each subject or file, there should be a comprehensive helper menu with colors and good guides.
+
+The helper menu should also have an interactive way of creating new files. For example, if you want to create a new alias partial e.g. `git-aliases.sh`. You should be able to select which folder you want to create the file in. And then the file should be created with the correct header and footer. The header should contain the file name and the date it was created. The footer should contain the file name and the date it was last updated.
+
+And lastly, make it compatible with macOS and Linux.
+
+# Dotfiles Architecture Workflow Rules
+
+## Directory Structure
+- Each functional group of scripts must be in its own directory
+- Directory names must be descriptive and use kebab-case
+- Each directory must have a corresponding injector in the `injectors/` directory
+
+## Injector Rules
+- Injector files must be named `{directory-name}-injector`
+- Injectors must source all files in their corresponding directory
+- Injectors must be executable and have proper shebang
+
+## File Creation
+- All new files must be created using the dotfiles-architect tool
+- Files must have proper headers with creation date and description
+- Files must be executable and have proper shebang
+
+## Pre-Push Checks
+- Architecture validation must pass before pushing
+- All required directories must exist
+- All directories must have corresponding injectors
+
+## Using the Architect Tool
+1. Run `dotfiles-architect.sh` to manage the architecture
+2. Use the tool for:
+   - Creating new modules (directory + injector)
+   - Creating new files
+   - Validating architecture
+   - Running pre-push checks
+
+## Best Practices
+- Keep files focused and single-purpose
+- Use descriptive names for files and functions
+- Document all files with proper headers
+- Test changes locally before pushing
+
+## Enforcement
+These rules are enforced by:
+1. The dotfiles-architect tool
+2. Pre-push git hooks
+3. Regular architecture validation
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/remcostoeten) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
