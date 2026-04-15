@@ -1,0 +1,55 @@
+## update-watcher
+
+> This is an update-watcher project that automates package updates across repositories. It consists of:
+
+# Update Watcher Project Rules
+
+## Project Context
+
+This is an update-watcher project that automates package updates across repositories. It consists of:
+
+- `packages/frontend-updates-runner`: Creates PRs to update frontend packages
+
+## Coding Style & Preferences
+
+- Use TypeScript for all new code
+- Follow existing code patterns and naming conventions
+- Prefer async/await over promises
+- Use descriptive variable and function names
+
+## Update File Format
+
+When creating update files in `packages/frontend-updates-runner/updates/`:
+
+- Use the format `packageName@version.md`
+- Include key changes with bold headers but not in markdown headers
+- Be concise but comprehensive
+- Include migration notes when relevant
+- Link to official documentation/changelogs
+- Do not use emojis
+
+## Git Workflow
+
+- Commit update files with format: `trigger-frontend-updates:packageName@version`
+- Stage files before committing
+- Use descriptive commit messages
+
+## Communication Style
+
+- Be direct and actionable
+- Provide clear next steps
+- Explain the "why" behind recommendations
+- Use bullet points for lists of changes
+- Keep responses focused on the task at hand
+
+## Information Accuracy
+
+- **Never fabricate or guess information** - only use verified facts
+- When creating update files, only include information from official sources
+- If official documentation/release notes don't exist yet, be transparent about this
+- Link to actual, existing resources rather than hypothetical ones
+- When uncertain about details, err on the side of caution and note what's unknown
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/simple-frontend-dev) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
