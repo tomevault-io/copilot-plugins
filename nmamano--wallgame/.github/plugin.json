@@ -1,9 +1,14 @@
 {
   "name": "nmamano--wallgame",
   "displayName": "wallgame",
-  "description": "wallgame",
+  "description": "AI instruction files for wallgame by nmamano",
   "version": "1.0.0",
   "author": "nmamano",
   "homepage": "https://tomevault.io/claim/nmamano",
-  "skills": []
+  "skills": [
+    {
+      "name": "review-design-doc",
+      "description": ""
+    }
+  ]
 }
