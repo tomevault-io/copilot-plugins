@@ -39447,6 +39447,636 @@
       "name": "rajat9garg--payment-ai",
       "source": "./rajat9garg--payment-ai",
       "description": "payment-ai"
+    },
+    {
+      "name": "oimiragieo--omega-gemini-cli",
+      "source": "./oimiragieo--omega-gemini-cli",
+      "description": "omega-gemini-cli"
+    },
+    {
+      "name": "javierhbr--agnostic-agent-loop-example",
+      "source": "./javierhbr--agnostic-agent-loop-example",
+      "description": "agnostic-agent-loop-example"
+    },
+    {
+      "name": "raxitlabs--grayzonebench",
+      "source": "./raxitlabs--grayzonebench",
+      "description": "GrayZoneBench"
+    },
+    {
+      "name": "nibzard--rinbp",
+      "source": "./nibzard--rinbp",
+      "description": "RiNBP"
+    },
+    {
+      "name": "darkmatter--stackpanel",
+      "source": "./darkmatter--stackpanel",
+      "description": "stackpanel"
+    },
+    {
+      "name": "xiaozhewei--voice-code",
+      "source": "./xiaozhewei--voice-code",
+      "description": "voice-code"
+    },
+    {
+      "name": "rajat9garg--urlshortner",
+      "source": "./rajat9garg--urlshortner",
+      "description": "urlshortner"
+    },
+    {
+      "name": "pawtograder--platform",
+      "source": "./pawtograder--platform",
+      "description": "platform"
+    },
+    {
+      "name": "kekstroke--audio-event-annotation",
+      "source": "./kekstroke--audio-event-annotation",
+      "description": "audio-event-annotation"
+    },
+    {
+      "name": "the-pocket--pocketflow-tutorial-cold-email-personalization",
+      "source": "./the-pocket--pocketflow-tutorial-cold-email-personalization",
+      "description": "PocketFlow-Tutorial-Cold-Email-Personalization"
+    },
+    {
+      "name": "nirholas--binance-us-mcp",
+      "source": "./nirholas--binance-us-mcp",
+      "description": "Binance-US-MCP"
+    },
+    {
+      "name": "rajat9garg--leaderboard",
+      "source": "./rajat9garg--leaderboard",
+      "description": "leaderboard"
+    },
+    {
+      "name": "robertg761--ha-desktop-widget",
+      "source": "./robertg761--ha-desktop-widget",
+      "description": "HA-Desktop-Widget"
+    },
+    {
+      "name": "mrpaolosarino--quiz-from-json",
+      "source": "./mrpaolosarino--quiz-from-json",
+      "description": "quiz-from-json"
+    },
+    {
+      "name": "letssayhellowrold--infobridge",
+      "source": "./letssayhellowrold--infobridge",
+      "description": "InfoBridge"
+    },
+    {
+      "name": "robertpelloni--bobui",
+      "source": "./robertpelloni--bobui",
+      "description": "bobui"
+    },
+    {
+      "name": "ollieb89--ml-challenges",
+      "source": "./ollieb89--ml-challenges",
+      "description": "ml_challenges"
+    },
+    {
+      "name": "kitplummer--goa",
+      "source": "./kitplummer--goa",
+      "description": "goa"
+    },
+    {
+      "name": "aderemi-alo--pocketly",
+      "source": "./aderemi-alo--pocketly",
+      "description": "pocketly"
+    },
+    {
+      "name": "nichm--shell-config",
+      "source": "./nichm--shell-config",
+      "description": "shell-config"
+    },
+    {
+      "name": "8421bit--miniclaw",
+      "source": "./8421bit--miniclaw",
+      "description": "MiniClaw"
+    },
+    {
+      "name": "synaptixlabs--showroom",
+      "source": "./synaptixlabs--showroom",
+      "description": "Showroom"
+    },
+    {
+      "name": "bbuchsbaum--eyesim",
+      "source": "./bbuchsbaum--eyesim",
+      "description": "eyesim"
+    },
+    {
+      "name": "momomojo--the-perfect-refreshlawn",
+      "source": "./momomojo--the-perfect-refreshlawn",
+      "description": "the_perfect_RefreshLawn"
+    },
+    {
+      "name": "tribbloid--lp2-lc-lean4",
+      "source": "./tribbloid--lp2-lc-lean4",
+      "description": "lp2-lc-lean4"
+    },
+    {
+      "name": "pcewing--dotfiles",
+      "source": "./pcewing--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "ollieb89--ml-challenges",
+      "source": "./ollieb89--ml-challenges",
+      "description": "ml_challenges"
+    },
+    {
+      "name": "csuermann--node-red-contrib-suncron",
+      "source": "./csuermann--node-red-contrib-suncron",
+      "description": "node-red-contrib-suncron"
+    },
+    {
+      "name": "ciphercosmos--dsaba-lms-04",
+      "source": "./ciphercosmos--dsaba-lms-04",
+      "description": "dsaba-lms-04"
+    },
+    {
+      "name": "dav-rob--flow4ai",
+      "source": "./dav-rob--flow4ai",
+      "description": "Flow4AI"
+    },
+    {
+      "name": "swopsyapp--sniperok",
+      "source": "./swopsyapp--sniperok",
+      "description": "sniperok"
+    },
+    {
+      "name": "beltran12138--cambodia-toilet-monopoly",
+      "source": "./beltran12138--cambodia-toilet-monopoly",
+      "description": "cambodia-toilet-monopoly"
+    },
+    {
+      "name": "awps--code-formatter-extension",
+      "source": "./awps--code-formatter-extension",
+      "description": "code-formatter-extension"
+    },
+    {
+      "name": "alexunjm--join-pdf-go",
+      "source": "./alexunjm--join-pdf-go",
+      "description": "join-pdf-go"
+    },
+    {
+      "name": "norbu09--mcp-server",
+      "source": "./norbu09--mcp-server",
+      "description": "mcp_server"
+    },
+    {
+      "name": "omoinjm--clean-arc-template",
+      "source": "./omoinjm--clean-arc-template",
+      "description": "clean-arc-template"
+    },
+    {
+      "name": "reeseastor--b2b-boilerplate",
+      "source": "./reeseastor--b2b-boilerplate",
+      "description": "b2b-boilerplate"
+    },
+    {
+      "name": "duhanbalci--dexpr",
+      "source": "./duhanbalci--dexpr",
+      "description": "dexpr"
+    },
+    {
+      "name": "alemendieta017--wedding-invitation",
+      "source": "./alemendieta017--wedding-invitation",
+      "description": "wedding-invitation"
+    },
+    {
+      "name": "pung8146--quizcraft",
+      "source": "./pung8146--quizcraft",
+      "description": "quizcraft"
+    },
+    {
+      "name": "twardoch--uutel",
+      "source": "./twardoch--uutel",
+      "description": "uutel"
+    },
+    {
+      "name": "reeseastor--indie-kit",
+      "source": "./reeseastor--indie-kit",
+      "description": "indie-kit"
+    },
+    {
+      "name": "ramzxy--ilia-beer",
+      "source": "./ramzxy--ilia-beer",
+      "description": "ilia.beer"
+    },
+    {
+      "name": "dercraker--emojigenerator",
+      "source": "./dercraker--emojigenerator",
+      "description": "EmojiGenerator"
+    },
+    {
+      "name": "jaenam1212--poke-builder",
+      "source": "./jaenam1212--poke-builder",
+      "description": "poke-builder"
+    },
+    {
+      "name": "thanumahee12--sai-sana-cakes-bakes",
+      "source": "./thanumahee12--sai-sana-cakes-bakes",
+      "description": "sai-sana-cakes-Bakes"
+    },
+    {
+      "name": "trevorplam--agency-platform",
+      "source": "./trevorplam--agency-platform",
+      "description": "agency-platform"
+    },
+    {
+      "name": "showchen168--resignation-system",
+      "source": "./showchen168--resignation-system",
+      "description": "resignation-system"
+    },
+    {
+      "name": "hjsundev--atomic-ai",
+      "source": "./hjsundev--atomic-ai",
+      "description": "atomic-ai"
+    },
+    {
+      "name": "spagett1maker--zoopzoop",
+      "source": "./spagett1maker--zoopzoop",
+      "description": "ZOOPZOOP"
+    },
+    {
+      "name": "you-sk--web-pong",
+      "source": "./you-sk--web-pong",
+      "description": "web-pong"
+    },
+    {
+      "name": "trevorplam--prompts",
+      "source": "./trevorplam--prompts",
+      "description": "prompts"
+    },
+    {
+      "name": "fayazk--efinance",
+      "source": "./fayazk--efinance",
+      "description": "eFinance"
+    },
+    {
+      "name": "juanma-ai--my-cursor-rules",
+      "source": "./juanma-ai--my-cursor-rules",
+      "description": "my-cursor-rules"
+    },
+    {
+      "name": "fred-o-nyarko--mcbuse",
+      "source": "./fred-o-nyarko--mcbuse",
+      "description": "mcbuse"
+    },
+    {
+      "name": "haraldschilly--analyze-your-dna",
+      "source": "./haraldschilly--analyze-your-dna",
+      "description": "analyze-your-dna"
+    },
+    {
+      "name": "wollfoo--qwen-code",
+      "source": "./wollfoo--qwen-code",
+      "description": "qwen-code"
+    },
+    {
+      "name": "laitim2001--ai-document-extraction-project",
+      "source": "./laitim2001--ai-document-extraction-project",
+      "description": "ai-document-extraction-project"
+    },
+    {
+      "name": "wewei--procbase",
+      "source": "./wewei--procbase",
+      "description": "procbase"
+    },
+    {
+      "name": "seb-devops--go-clinia-mcp",
+      "source": "./seb-devops--go-clinia-mcp",
+      "description": "go-clinia-mcp"
+    },
+    {
+      "name": "richmiller55--computer-algebra-system",
+      "source": "./richmiller55--computer-algebra-system",
+      "description": "computer-algebra-system"
+    },
+    {
+      "name": "gabrielmcp78--docshop-v-3",
+      "source": "./gabrielmcp78--docshop-v-3",
+      "description": "DocShop_v.3"
+    },
+    {
+      "name": "magnumpowers--foraldrakollen",
+      "source": "./magnumpowers--foraldrakollen",
+      "description": "foraldrakollen"
+    },
+    {
+      "name": "thunter009--file-utilities",
+      "source": "./thunter009--file-utilities",
+      "description": "file-utilities"
+    },
+    {
+      "name": "qqrewquu--zifeng-guo-portfolio",
+      "source": "./qqrewquu--zifeng-guo-portfolio",
+      "description": "zifeng-guo-portfolio"
+    },
+    {
+      "name": "ck3d--ck3d-nvim-configs",
+      "source": "./ck3d--ck3d-nvim-configs",
+      "description": "ck3d-nvim-configs"
+    },
+    {
+      "name": "ttuckerm--trendzo-working-5-7-25",
+      "source": "./ttuckerm--trendzo-working-5-7-25",
+      "description": "trendzo-working-5-7-25"
+    },
+    {
+      "name": "pttrulez--coffeeriders",
+      "source": "./pttrulez--coffeeriders",
+      "description": "coffeeriders"
+    },
+    {
+      "name": "julianoczkowski--next-modus",
+      "source": "./julianoczkowski--next-modus",
+      "description": "next_modus"
+    },
+    {
+      "name": "sudotx--automatic-waffle",
+      "source": "./sudotx--automatic-waffle",
+      "description": "automatic-waffle"
+    },
+    {
+      "name": "cortega26--elrincondeebano",
+      "source": "./cortega26--elrincondeebano",
+      "description": "elrincondeebano"
+    },
+    {
+      "name": "jon-chun--documindintelliocr",
+      "source": "./jon-chun--documindintelliocr",
+      "description": "DocuMindIntelliOCR"
+    },
+    {
+      "name": "zuchguillotine--hinto",
+      "source": "./zuchguillotine--hinto",
+      "description": "HINTO"
+    },
+    {
+      "name": "gurusup--ecommerce-ai",
+      "source": "./gurusup--ecommerce-ai",
+      "description": "ecommerce_ai"
+    },
+    {
+      "name": "skywxlker-ops--tensorparallelismbeta",
+      "source": "./skywxlker-ops--tensorparallelismbeta",
+      "description": "TensorParallelismBeta"
+    },
+    {
+      "name": "manizu2424--webmanizu",
+      "source": "./manizu2424--webmanizu",
+      "description": "webmanizu"
+    },
+    {
+      "name": "starwind-ui--starwind-ui",
+      "source": "./starwind-ui--starwind-ui",
+      "description": "starwind-ui"
+    },
+    {
+      "name": "noice-anas--mywebsite",
+      "source": "./noice-anas--mywebsite",
+      "description": "MyWebsite"
+    },
+    {
+      "name": "ozymandros--erp-microservices",
+      "source": "./ozymandros--erp-microservices",
+      "description": "ERP.Microservices"
+    },
+    {
+      "name": "prek-x--goldsignalai",
+      "source": "./prek-x--goldsignalai",
+      "description": "GoldSignalAI"
+    },
+    {
+      "name": "norven63--redcap",
+      "source": "./norven63--redcap",
+      "description": "redcap"
+    },
+    {
+      "name": "santosomar--ai-agents-for-cybersecurity",
+      "source": "./santosomar--ai-agents-for-cybersecurity",
+      "description": "AI-agents-for-cybersecurity"
+    },
+    {
+      "name": "antoniowd--nvim",
+      "source": "./antoniowd--nvim",
+      "description": "nvim"
+    },
+    {
+      "name": "mflisikowski--turboverse-kit",
+      "source": "./mflisikowski--turboverse-kit",
+      "description": "turboverse-kit"
+    },
+    {
+      "name": "amar3012005--hivemind",
+      "source": "./amar3012005--hivemind",
+      "description": "HIVEMIND"
+    },
+    {
+      "name": "realsyncdynamics-spec--realsync-platform",
+      "source": "./realsyncdynamics-spec--realsync-platform",
+      "description": "realsync-platform"
+    },
+    {
+      "name": "eduardo-sl--go-agent-skills",
+      "source": "./eduardo-sl--go-agent-skills",
+      "description": "go-agent-skills"
+    },
+    {
+      "name": "pnocera--tailscale-mcp",
+      "source": "./pnocera--tailscale-mcp",
+      "description": "tailscale-mcp"
+    },
+    {
+      "name": "guesung--tech-mail",
+      "source": "./guesung--tech-mail",
+      "description": "tech-mail"
+    },
+    {
+      "name": "jodannys--cobros-app",
+      "source": "./jodannys--cobros-app",
+      "description": "cobros-app"
+    },
+    {
+      "name": "anvsult--anvsult-portfolio",
+      "source": "./anvsult--anvsult-portfolio",
+      "description": "anvsult-portfolio"
+    },
+    {
+      "name": "untamed-theory--vibesec",
+      "source": "./untamed-theory--vibesec",
+      "description": "vibesec"
+    },
+    {
+      "name": "lolomutekai--access",
+      "source": "./lolomutekai--access",
+      "description": "access"
+    },
+    {
+      "name": "obviouslogic-ai--onelife-connect",
+      "source": "./obviouslogic-ai--onelife-connect",
+      "description": "onelife-connect"
+    },
+    {
+      "name": "tonionagauzzi--trafficlight",
+      "source": "./tonionagauzzi--trafficlight",
+      "description": "TrafficLight"
+    },
+    {
+      "name": "gopar-citus--gcs",
+      "source": "./gopar-citus--gcs",
+      "description": "gcs"
+    },
+    {
+      "name": "phainestai--mimir",
+      "source": "./phainestai--mimir",
+      "description": "mimir"
+    },
+    {
+      "name": "xootb--portfolio-astro",
+      "source": "./xootb--portfolio-astro",
+      "description": "portfolio-astro"
+    },
+    {
+      "name": "bsamaha--dk",
+      "source": "./bsamaha--dk",
+      "description": "dk"
+    },
+    {
+      "name": "rajat352--mindikot",
+      "source": "./rajat352--mindikot",
+      "description": "Mindikot"
+    },
+    {
+      "name": "ayovl--pitch-deck2",
+      "source": "./ayovl--pitch-deck2",
+      "description": "pitch-deck2"
+    },
+    {
+      "name": "terryso--ccshell",
+      "source": "./terryso--ccshell",
+      "description": "ccshell"
+    },
+    {
+      "name": "brunofedev--oms-agent",
+      "source": "./brunofedev--oms-agent",
+      "description": "oms-agent"
+    },
+    {
+      "name": "edobry--minsky",
+      "source": "./edobry--minsky",
+      "description": "minsky"
+    },
+    {
+      "name": "dunghthlqt--pbl6-android",
+      "source": "./dunghthlqt--pbl6-android",
+      "description": "PBL6_Android"
+    },
+    {
+      "name": "goondocks-co--myco",
+      "source": "./goondocks-co--myco",
+      "description": "myco"
+    },
+    {
+      "name": "architects-toolkit--smarthopper",
+      "source": "./architects-toolkit--smarthopper",
+      "description": "SmartHopper"
+    },
+    {
+      "name": "jackwatters45---obsidian",
+      "source": "./jackwatters45---obsidian",
+      "description": ".obsidian"
+    },
+    {
+      "name": "kd-rana--github-activity-analyzer",
+      "source": "./kd-rana--github-activity-analyzer",
+      "description": "github-activity-analyzer"
+    },
+    {
+      "name": "wato787--dose",
+      "source": "./wato787--dose",
+      "description": "dose"
+    },
+    {
+      "name": "adrianwedd--afterglow-engine",
+      "source": "./adrianwedd--afterglow-engine",
+      "description": "afterglow-engine"
+    },
+    {
+      "name": "pauljphilp--effectiveagent",
+      "source": "./pauljphilp--effectiveagent",
+      "description": "EffectiveAgent"
+    },
+    {
+      "name": "gen0e0--holodelive",
+      "source": "./gen0e0--holodelive",
+      "description": "holodelive"
+    },
+    {
+      "name": "danielcmadeley--nour-ahmed-wedding",
+      "source": "./danielcmadeley--nour-ahmed-wedding",
+      "description": "nour-ahmed-wedding"
+    },
+    {
+      "name": "coreui--coreui-free-react-admin-template",
+      "source": "./coreui--coreui-free-react-admin-template",
+      "description": "coreui-free-react-admin-template"
+    },
+    {
+      "name": "ota2000--dlt-community-sources",
+      "source": "./ota2000--dlt-community-sources",
+      "description": "dlt-community-sources"
+    },
+    {
+      "name": "profoundry-us--loco-motion",
+      "source": "./profoundry-us--loco-motion",
+      "description": "loco_motion"
+    },
+    {
+      "name": "nam-hle--task-management",
+      "source": "./nam-hle--task-management",
+      "description": "task-management"
+    },
+    {
+      "name": "tigrondev--spectraforge",
+      "source": "./tigrondev--spectraforge",
+      "description": "SpectraForge"
+    },
+    {
+      "name": "eastlondoner--vibe-tools",
+      "source": "./eastlondoner--vibe-tools",
+      "description": "vibe-tools"
+    },
+    {
+      "name": "mryesiller--devtools",
+      "source": "./mryesiller--devtools",
+      "description": "devtools"
+    },
+    {
+      "name": "copyleftdev--fabric-atelier",
+      "source": "./copyleftdev--fabric-atelier",
+      "description": "fabric-atelier"
+    },
+    {
+      "name": "thiagopvn--formulario-srt",
+      "source": "./thiagopvn--formulario-srt",
+      "description": "formulario-SRT"
+    },
+    {
+      "name": "joselc--life-sim-second-approach",
+      "source": "./joselc--life-sim-second-approach",
+      "description": "life-sim-second-approach"
+    },
+    {
+      "name": "erent8--advanced-customer-detection",
+      "source": "./erent8--advanced-customer-detection",
+      "description": "Advanced-Customer-Detection"
+    },
+    {
+      "name": "mawazawa--specificity",
+      "source": "./mawazawa--specificity",
+      "description": "specificity"
     }
   ]
 }
