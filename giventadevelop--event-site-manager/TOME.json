@@ -4,7 +4,7 @@
   "repo": "event-site-manager",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/giventadevelop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T02:46:58Z"
+  "distributed_at": "2026-04-15T05:43:26Z"
 }
