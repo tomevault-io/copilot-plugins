@@ -1,0 +1,14 @@
+{
+  "name": "dataroadinc--cargo-fmt-toml",
+  "displayName": "cargo-fmt-toml",
+  "description": "AI instruction files for cargo-fmt-toml by dataroadinc",
+  "version": "1.0.0",
+  "author": "dataroadinc",
+  "homepage": "https://tomevault.io/claim/dataroadinc",
+  "skills": [
+    {
+      "name": "release-prep",
+      "description": ""
+    }
+  ]
+}
