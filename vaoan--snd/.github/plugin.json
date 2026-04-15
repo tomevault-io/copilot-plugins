@@ -1,0 +1,62 @@
+{
+  "name": "vaoan--snd",
+  "displayName": "SND",
+  "description": "AI instruction files for SND by vaoan",
+  "version": "1.0.0",
+  "author": "vaoan",
+  "homepage": "https://tomevault.io/claim/vaoan",
+  "skills": [
+    {
+      "name": "snd-addons",
+      "description": ""
+    },
+    {
+      "name": "snd-artisan",
+      "description": ""
+    },
+    {
+      "name": "snd-autoretainer",
+      "description": ""
+    },
+    {
+      "name": "snd-bossmod",
+      "description": ""
+    },
+    {
+      "name": "snd-deliveroo",
+      "description": ""
+    },
+    {
+      "name": "snd-ice",
+      "description": ""
+    },
+    {
+      "name": "snd-lifestream",
+      "description": ""
+    },
+    {
+      "name": "snd-references",
+      "description": ""
+    },
+    {
+      "name": "snd-questionable",
+      "description": ""
+    },
+    {
+      "name": "snd-saucy",
+      "description": ""
+    },
+    {
+      "name": "snd-textadvance",
+      "description": ""
+    },
+    {
+      "name": "snd-vnavmesh",
+      "description": ""
+    },
+    {
+      "name": "snd-yesalready",
+      "description": ""
+    }
+  ]
+}
