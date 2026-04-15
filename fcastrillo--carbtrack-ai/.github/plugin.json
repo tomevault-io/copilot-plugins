@@ -1,0 +1,66 @@
+{
+  "name": "fcastrillo--carbtrack-ai",
+  "displayName": "carbtrack-ai",
+  "description": "AI instruction files for carbtrack-ai by fcastrillo",
+  "version": "1.0.0",
+  "author": "fcastrillo",
+  "homepage": "https://tomevault.io/claim/fcastrillo",
+  "skills": [
+    {
+      "name": "rai-discover-document",
+      "description": ""
+    },
+    {
+      "name": "rai-discover-scan",
+      "description": ""
+    },
+    {
+      "name": "rai-discover-start",
+      "description": ""
+    },
+    {
+      "name": "rai-epic-close",
+      "description": ""
+    },
+    {
+      "name": "rai-epic-design",
+      "description": ""
+    },
+    {
+      "name": "rai-epic-plan",
+      "description": ""
+    },
+    {
+      "name": "rai-epic-start",
+      "description": ""
+    },
+    {
+      "name": "rai-project-onboard",
+      "description": ""
+    },
+    {
+      "name": "rai-session-close",
+      "description": ""
+    },
+    {
+      "name": "rai-session-start",
+      "description": ""
+    },
+    {
+      "name": "rai-story-design",
+      "description": ""
+    },
+    {
+      "name": "rai-story-implement",
+      "description": ""
+    },
+    {
+      "name": "rai-story-plan",
+      "description": ""
+    },
+    {
+      "name": "rai-story-review",
+      "description": ""
+    }
+  ]
+}
