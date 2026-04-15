@@ -1,0 +1,57 @@
+{
+  "name": "2026mcm",
+  "owner": "twj0",
+  "repo": "2026mcm",
+  "description": "AI instruction files for 2026mcm by twj0",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mcm-c-coder",
+      "path": ".claude/skills/mcm-c-coder",
+      "github_url": "https://github.com/twj0/2026mcm/tree/main/.claude/skills/mcm-c-coder",
+      "description": ""
+    },
+    {
+      "name": "mcm-c-web-researcher",
+      "path": ".claude/skills/mcm-c-web-researcher",
+      "github_url": "https://github.com/twj0/2026mcm/tree/main/.claude/skills/mcm-c-web-researcher",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/twj0",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-15T06:30:48Z"
+}
