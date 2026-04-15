@@ -38192,6 +38192,636 @@
       "name": "yigitkonur--n8n-cli",
       "source": "./yigitkonur--n8n-cli",
       "description": "n8n-cli"
+    },
+    {
+      "name": "ki2pixel--render-signal-server",
+      "source": "./ki2pixel--render-signal-server",
+      "description": "render_signal_server"
+    },
+    {
+      "name": "twj0--2026mcm",
+      "source": "./twj0--2026mcm",
+      "description": "2026mcm"
+    },
+    {
+      "name": "talentseek--flourish",
+      "source": "./talentseek--flourish",
+      "description": "flourish"
+    },
+    {
+      "name": "tuai90--meridian",
+      "source": "./tuai90--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "awesome-ai-coding-all-in-one"
+    },
+    {
+      "name": "dinxsh--tempo-goldrush-agent",
+      "source": "./dinxsh--tempo-goldrush-agent",
+      "description": "tempo-goldrush-agent"
+    },
+    {
+      "name": "visheshnarayan--knowledge",
+      "source": "./visheshnarayan--knowledge",
+      "description": "knowledge"
+    },
+    {
+      "name": "rice-rob-inn-com-ent--rice",
+      "source": "./rice-rob-inn-com-ent--rice",
+      "description": "rice"
+    },
+    {
+      "name": "query-farm--airport",
+      "source": "./query-farm--airport",
+      "description": "airport"
+    },
+    {
+      "name": "arlott0410-alt--laomap",
+      "source": "./arlott0410-alt--laomap",
+      "description": "LaoMap"
+    },
+    {
+      "name": "vvssubra--cukaipro-main",
+      "source": "./vvssubra--cukaipro-main",
+      "description": "CukaiPro-Main"
+    },
+    {
+      "name": "blackpr--play-prediction",
+      "source": "./blackpr--play-prediction",
+      "description": "play-prediction"
+    },
+    {
+      "name": "julianandrescaracas0623--motoapp",
+      "source": "./julianandrescaracas0623--motoapp",
+      "description": "MotoApp"
+    },
+    {
+      "name": "ham0215--google-calendar-mcp",
+      "source": "./ham0215--google-calendar-mcp",
+      "description": "google-calendar-mcp"
+    },
+    {
+      "name": "wenyg--memento",
+      "source": "./wenyg--memento",
+      "description": "memento"
+    },
+    {
+      "name": "phatjhhoq8--tryhairstyle-diffusion",
+      "source": "./phatjhhoq8--tryhairstyle-diffusion",
+      "description": "TryHairstyle_Diffusion"
+    },
+    {
+      "name": "mohamed-alaa-1--egx-stock-price-prediction",
+      "source": "./mohamed-alaa-1--egx-stock-price-prediction",
+      "description": "EGX-Stock-Price-Prediction"
+    },
+    {
+      "name": "trevorplam--command-center",
+      "source": "./trevorplam--command-center",
+      "description": "command-center"
+    },
+    {
+      "name": "willchan--tools",
+      "source": "./willchan--tools",
+      "description": "tools"
+    },
+    {
+      "name": "edison-watch--autoleash",
+      "source": "./edison-watch--autoleash",
+      "description": "AutoLeash"
+    },
+    {
+      "name": "jan21--getrelevantpapers",
+      "source": "./jan21--getrelevantpapers",
+      "description": "GetRelevantPapers"
+    },
+    {
+      "name": "slartibartfast-br--heimdallcontrolsurface",
+      "source": "./slartibartfast-br--heimdallcontrolsurface",
+      "description": "heimdallcontrolsurface"
+    },
+    {
+      "name": "consilience-dev--firstagent",
+      "source": "./consilience-dev--firstagent",
+      "description": "firstAgent"
+    },
+    {
+      "name": "alexeygrigorev---claude",
+      "source": "./alexeygrigorev---claude",
+      "description": ".claude"
+    },
+    {
+      "name": "snoopiam--mqt",
+      "source": "./snoopiam--mqt",
+      "description": "mqt"
+    },
+    {
+      "name": "meshivanshsinghh--reddit-etl-pipeline",
+      "source": "./meshivanshsinghh--reddit-etl-pipeline",
+      "description": "reddit_etl_pipeline"
+    },
+    {
+      "name": "deppmish2--metaflow-mcp",
+      "source": "./deppmish2--metaflow-mcp",
+      "description": "metaflow-mcp"
+    },
+    {
+      "name": "muhammadhilmi007--samudra-paket-app",
+      "source": "./muhammadhilmi007--samudra-paket-app",
+      "description": "Samudra-Paket-App"
+    },
+    {
+      "name": "endharassment--tor-fetcher",
+      "source": "./endharassment--tor-fetcher",
+      "description": "tor-fetcher"
+    },
+    {
+      "name": "cheukyuen--learn-agent",
+      "source": "./cheukyuen--learn-agent",
+      "description": "learn-agent"
+    },
+    {
+      "name": "scotthavird--crewai-template",
+      "source": "./scotthavird--crewai-template",
+      "description": "crewai-template"
+    },
+    {
+      "name": "larloch10938--dnd",
+      "source": "./larloch10938--dnd",
+      "description": "dnd"
+    },
+    {
+      "name": "haymayndzultra--ynthmaster-calculator",
+      "source": "./haymayndzultra--ynthmaster-calculator",
+      "description": "ynthmaster-calculator"
+    },
+    {
+      "name": "street-address-rb--street-address",
+      "source": "./street-address-rb--street-address",
+      "description": "street-address"
+    },
+    {
+      "name": "xxnpcxx--coachpsyhology",
+      "source": "./xxnpcxx--coachpsyhology",
+      "description": "coachpsyhology"
+    },
+    {
+      "name": "lowlandtech--specs",
+      "source": "./lowlandtech--specs",
+      "description": "specs"
+    },
+    {
+      "name": "tdiorio2323--tdstudioshq",
+      "source": "./tdiorio2323--tdstudioshq",
+      "description": "tdstudioshq"
+    },
+    {
+      "name": "sevwren--muellereuchre",
+      "source": "./sevwren--muellereuchre",
+      "description": "MuellerEuchre"
+    },
+    {
+      "name": "dgreenwald--py-tools",
+      "source": "./dgreenwald--py-tools",
+      "description": "py_tools"
+    },
+    {
+      "name": "fjkiani--lotto-machine",
+      "source": "./fjkiani--lotto-machine",
+      "description": "lotto-machine"
+    },
+    {
+      "name": "riesvriend--power",
+      "source": "./riesvriend--power",
+      "description": "power"
+    },
+    {
+      "name": "crsmithdev--caller",
+      "source": "./crsmithdev--caller",
+      "description": "caller"
+    },
+    {
+      "name": "felipergrosa--9s76hm2",
+      "source": "./felipergrosa--9s76hm2",
+      "description": "9s76hm2"
+    },
+    {
+      "name": "quantumheart--divineascension",
+      "source": "./quantumheart--divineascension",
+      "description": "DivineAscension"
+    },
+    {
+      "name": "danielnaca--notes-to-self",
+      "source": "./danielnaca--notes-to-self",
+      "description": "Notes-to-self"
+    },
+    {
+      "name": "burstmembrane--vite-ts-shadcn-tailwind-turborepo",
+      "source": "./burstmembrane--vite-ts-shadcn-tailwind-turborepo",
+      "description": "vite-ts-shadcn-tailwind-turborepo"
+    },
+    {
+      "name": "bsj-m-takigawa--csv-test-takigawa",
+      "source": "./bsj-m-takigawa--csv-test-takigawa",
+      "description": "csv_test_takigawa"
+    },
+    {
+      "name": "henderorlando--booklyapp",
+      "source": "./henderorlando--booklyapp",
+      "description": "booklyapp"
+    },
+    {
+      "name": "shasthoai--image-utils",
+      "source": "./shasthoai--image-utils",
+      "description": "image-utils"
+    },
+    {
+      "name": "pwm-organization--mealmates-ionic",
+      "source": "./pwm-organization--mealmates-ionic",
+      "description": "MealMates-Ionic"
+    },
+    {
+      "name": "yamilyscapa--sky-hr-web",
+      "source": "./yamilyscapa--sky-hr-web",
+      "description": "sky-hr-web"
+    },
+    {
+      "name": "tim37021--http-request",
+      "source": "./tim37021--http-request",
+      "description": "http_request"
+    },
+    {
+      "name": "ugorastell--modhubplatform",
+      "source": "./ugorastell--modhubplatform",
+      "description": "modhubPlatform"
+    },
+    {
+      "name": "mukunduashok--incident-responder",
+      "source": "./mukunduashok--incident-responder",
+      "description": "incident-responder"
+    },
+    {
+      "name": "dvolk76--chik-chirik",
+      "source": "./dvolk76--chik-chirik",
+      "description": "Chik-Chirik"
+    },
+    {
+      "name": "moawizbinyamin--fastapi-mcp-server",
+      "source": "./moawizbinyamin--fastapi-mcp-server",
+      "description": "Fastapi-mcp-server-"
+    },
+    {
+      "name": "dllewellyn--jules-manager-extension",
+      "source": "./dllewellyn--jules-manager-extension",
+      "description": "jules-manager-extension"
+    },
+    {
+      "name": "henderorlando--booklyapp",
+      "source": "./henderorlando--booklyapp",
+      "description": "booklyapp"
+    },
+    {
+      "name": "graealex--smartcardexplorer",
+      "source": "./graealex--smartcardexplorer",
+      "description": "SmartCardExplorer"
+    },
+    {
+      "name": "jlondrejcka--cursor-rules-sfdx",
+      "source": "./jlondrejcka--cursor-rules-sfdx",
+      "description": "cursor-rules-sfdx"
+    },
+    {
+      "name": "babayula--kim",
+      "source": "./babayula--kim",
+      "description": "kim"
+    },
+    {
+      "name": "thanhdat311--e-commerce-vs1",
+      "source": "./thanhdat311--e-commerce-vs1",
+      "description": "E-commerce-vs1"
+    },
+    {
+      "name": "digi4care--sveltekit-postgres-devcontainer",
+      "source": "./digi4care--sveltekit-postgres-devcontainer",
+      "description": "sveltekit-postgres-devcontainer"
+    },
+    {
+      "name": "nestledjs--nestledjs-com",
+      "source": "./nestledjs--nestledjs-com",
+      "description": "nestledjs.com"
+    },
+    {
+      "name": "briangmilnes--veracity",
+      "source": "./briangmilnes--veracity",
+      "description": "veracity"
+    },
+    {
+      "name": "ishmcgee--company-categorizer",
+      "source": "./ishmcgee--company-categorizer",
+      "description": "company_categorizer"
+    },
+    {
+      "name": "omtanakorn--project-zomboid-server",
+      "source": "./omtanakorn--project-zomboid-server",
+      "description": "project-zomboid-server"
+    },
+    {
+      "name": "eon-ideas--billio",
+      "source": "./eon-ideas--billio",
+      "description": "billio"
+    },
+    {
+      "name": "jslabxyz--takehome-pay-calculator",
+      "source": "./jslabxyz--takehome-pay-calculator",
+      "description": "takehome-pay-calculator"
+    },
+    {
+      "name": "stiliyan26--ticket-master",
+      "source": "./stiliyan26--ticket-master",
+      "description": "Ticket-Master"
+    },
+    {
+      "name": "techwebsid--online-exam-system",
+      "source": "./techwebsid--online-exam-system",
+      "description": "online_exam_system"
+    },
+    {
+      "name": "evancendekia--cameraapp",
+      "source": "./evancendekia--cameraapp",
+      "description": "CameraApp"
+    },
+    {
+      "name": "drunkender--flakduster",
+      "source": "./drunkender--flakduster",
+      "description": "flakduster"
+    },
+    {
+      "name": "davidmgross--taxstriketactics",
+      "source": "./davidmgross--taxstriketactics",
+      "description": "TaxStrikeTactics"
+    },
+    {
+      "name": "kevcofett--kessel-digital-agent-platform",
+      "source": "./kevcofett--kessel-digital-agent-platform",
+      "description": "Kessel-Digital-Agent-Platform"
+    },
+    {
+      "name": "jameshorton2486--depo-transcribe",
+      "source": "./jameshorton2486--depo-transcribe",
+      "description": "depo_transcribe"
+    },
+    {
+      "name": "hainanzhao--clawless",
+      "source": "./hainanzhao--clawless",
+      "description": "Clawless"
+    },
+    {
+      "name": "leejss--sellpiece",
+      "source": "./leejss--sellpiece",
+      "description": "sellpiece"
+    },
+    {
+      "name": "weeb-vip--algolia-sync",
+      "source": "./weeb-vip--algolia-sync",
+      "description": "algolia-sync"
+    },
+    {
+      "name": "ghali21--cleanmatex",
+      "source": "./ghali21--cleanmatex",
+      "description": "cleanmatex"
+    },
+    {
+      "name": "octaedro--bill-validator",
+      "source": "./octaedro--bill-validator",
+      "description": "bill-validator"
+    },
+    {
+      "name": "bachrathyd--mdbm-matlab",
+      "source": "./bachrathyd--mdbm-matlab",
+      "description": "MDBM-Matlab"
+    },
+    {
+      "name": "trevorplam--cloud-gallery",
+      "source": "./trevorplam--cloud-gallery",
+      "description": "cloud-gallery"
+    },
+    {
+      "name": "gettakaro--takaro-minecraft",
+      "source": "./gettakaro--takaro-minecraft",
+      "description": "takaro-minecraft"
+    },
+    {
+      "name": "getnenai--nen-quickstart",
+      "source": "./getnenai--nen-quickstart",
+      "description": "nen-quickstart"
+    },
+    {
+      "name": "zengwenliang416--persional-notes",
+      "source": "./zengwenliang416--persional-notes",
+      "description": "Persional-Notes"
+    },
+    {
+      "name": "snowdreamtech--template",
+      "source": "./snowdreamtech--template",
+      "description": "template"
+    },
+    {
+      "name": "drtonylove1963--blueiq",
+      "source": "./drtonylove1963--blueiq",
+      "description": "BlueIQ"
+    },
+    {
+      "name": "leinonen--liveshade",
+      "source": "./leinonen--liveshade",
+      "description": "liveshade"
+    },
+    {
+      "name": "jungfrau70--ed-platform",
+      "source": "./jungfrau70--ed-platform",
+      "description": "ed_platform"
+    },
+    {
+      "name": "inayat-0007--open-cluely-stable",
+      "source": "./inayat-0007--open-cluely-stable",
+      "description": "Open-Cluely-Stable"
+    },
+    {
+      "name": "ethanh2003--home-server-set-up",
+      "source": "./ethanh2003--home-server-set-up",
+      "description": "Home-Server-Set-up"
+    },
+    {
+      "name": "alesierraalta--lumo",
+      "source": "./alesierraalta--lumo",
+      "description": "LUMO"
+    },
+    {
+      "name": "tylergibbs1--sieve",
+      "source": "./tylergibbs1--sieve",
+      "description": "sieve"
+    },
+    {
+      "name": "davis7dotsh--river",
+      "source": "./davis7dotsh--river",
+      "description": "river"
+    },
+    {
+      "name": "pranjalpruthi--arboviromics",
+      "source": "./pranjalpruthi--arboviromics",
+      "description": "arboviromics"
+    },
+    {
+      "name": "eric861129--cloud-assets",
+      "source": "./eric861129--cloud-assets",
+      "description": "Cloud-Assets"
+    },
+    {
+      "name": "kedhareswer--hit-asco",
+      "source": "./kedhareswer--hit-asco",
+      "description": "hit-asco"
+    },
+    {
+      "name": "laxsuryavanshi--bitvolt",
+      "source": "./laxsuryavanshi--bitvolt",
+      "description": "bitvolt"
+    },
+    {
+      "name": "bernierllc--agents-environment-config",
+      "source": "./bernierllc--agents-environment-config",
+      "description": "agents-environment-config"
+    },
+    {
+      "name": "carandev--accounting-manager",
+      "source": "./carandev--accounting-manager",
+      "description": "accounting-manager"
+    },
+    {
+      "name": "samuelkaminsky--sktools",
+      "source": "./samuelkaminsky--sktools",
+      "description": "SKTools"
+    },
+    {
+      "name": "basil-world--ordergo-demo",
+      "source": "./basil-world--ordergo-demo",
+      "description": "ordergo-demo"
+    },
+    {
+      "name": "vikiboss--single-html-app",
+      "source": "./vikiboss--single-html-app",
+      "description": "single-html-app"
+    },
+    {
+      "name": "oliyoung--torchlight",
+      "source": "./oliyoung--torchlight",
+      "description": "torchlight"
+    },
+    {
+      "name": "tecozens--csp-for-mro",
+      "source": "./tecozens--csp-for-mro",
+      "description": "csp-for-mro"
+    },
+    {
+      "name": "anderson-webops--retrozetrocomics-com",
+      "source": "./anderson-webops--retrozetrocomics-com",
+      "description": "retrozetrocomics.com"
+    },
+    {
+      "name": "chrismessina--raycast-digger",
+      "source": "./chrismessina--raycast-digger",
+      "description": "raycast-digger"
+    },
+    {
+      "name": "data-buddies-llc--n8n-gitman",
+      "source": "./data-buddies-llc--n8n-gitman",
+      "description": "n8n-gitman"
+    },
+    {
+      "name": "keboola--keboola-design-system",
+      "source": "./keboola--keboola-design-system",
+      "description": "keboola-design-system"
+    },
+    {
+      "name": "objones25--go-embeddings",
+      "source": "./objones25--go-embeddings",
+      "description": "go-embeddings"
+    },
+    {
+      "name": "r-burkhardt--maglev",
+      "source": "./r-burkhardt--maglev",
+      "description": "maglev"
+    },
+    {
+      "name": "ssi-automations--documindintelliocr",
+      "source": "./ssi-automations--documindintelliocr",
+      "description": "DocuMindIntelliOCR"
+    },
+    {
+      "name": "swarn2099--decibel",
+      "source": "./swarn2099--decibel",
+      "description": "decibel"
+    },
+    {
+      "name": "csvt32745--dcpersona",
+      "source": "./csvt32745--dcpersona",
+      "description": "DCPersona"
+    },
+    {
+      "name": "ahagelberg--simple-journal",
+      "source": "./ahagelberg--simple-journal",
+      "description": "simple-journal"
+    },
+    {
+      "name": "prismspecs--return-to-sender-arduino",
+      "source": "./prismspecs--return-to-sender-arduino",
+      "description": "return_to_sender-arduino"
+    },
+    {
+      "name": "martinsantos--um25",
+      "source": "./martinsantos--um25",
+      "description": "um25"
+    },
+    {
+      "name": "waterlilyllc--rainpipe",
+      "source": "./waterlilyllc--rainpipe",
+      "description": "rainpipe"
+    },
+    {
+      "name": "moduscreateorg--app-med-ai-gen",
+      "source": "./moduscreateorg--app-med-ai-gen",
+      "description": "app-med-ai-gen"
+    },
+    {
+      "name": "kalkalch--chromeproxy",
+      "source": "./kalkalch--chromeproxy",
+      "description": "chromeproxy"
+    },
+    {
+      "name": "patelmm79--vllm-container-ngc",
+      "source": "./patelmm79--vllm-container-ngc",
+      "description": "vllm-container-ngc"
+    },
+    {
+      "name": "aojdevstudio--dental-dashboard",
+      "source": "./aojdevstudio--dental-dashboard",
+      "description": "dental-dashboard"
+    },
+    {
+      "name": "fiore0312--incrocio-infallibile",
+      "source": "./fiore0312--incrocio-infallibile",
+      "description": "incrocio-infallibile"
+    },
+    {
+      "name": "monsoft-solutions--alluring-website-v1",
+      "source": "./monsoft-solutions--alluring-website-v1",
+      "description": "alluring-website-v1"
+    },
+    {
+      "name": "rayman546--davinci3-wiki",
+      "source": "./rayman546--davinci3-wiki",
+      "description": "davinci3-wiki"
     }
   ]
 }
