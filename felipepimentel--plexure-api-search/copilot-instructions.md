@@ -1,0 +1,193 @@
+## plexure-api-search
+
+> - Never remove existing code that is not directly related to the current change scope
+
+# Plexure API Search - Cursor Rules
+
+# Code Preservation Rules
+- Never remove existing code that is not directly related to the current change scope
+- Always maintain existing functionality unless explicitly requested to change
+- Keep all existing imports and dependencies unless they are specifically being refactored
+- Preserve existing error handling and logging mechanisms
+- Maintain existing configuration options and defaults
+- Keep all existing CLI commands and their functionality
+- Do not remove or modify existing tests unless they are directly related to changes
+- Preserve existing documentation unless it needs to be updated for new changes
+
+# File Specific Rules
+
+## Core Files
+- searcher.py: Search engine core logic, query processing, and result ranking
+- indexer.py: API contract indexing, vector creation, and database management
+- embeddings.py: Vector embedding generation and model management
+- cli.py: Command-line interface and user interaction handling
+- config.py: Configuration management and environment variables
+- cache.py: Caching mechanisms for search results and embeddings
+- metrics.py: Performance tracking and statistical measurements
+- validation.py: Input validation and data sanitization
+- boosting.py: Search result ranking and score boosting logic
+- expansion.py: Query expansion and enhancement
+- consistency.py: Data consistency and validation checks
+- quality.py: Search quality metrics and improvements
+- understanding.py: Natural language processing and query understanding
+- monitoring.py: System monitoring and logging
+
+## Support Files
+- __init__.py: Package initialization and version info
+- __main__.py: Entry point for command-line execution
+
+## Configuration Files (in project root)
+- pyproject.toml: Project metadata and dependencies
+- poetry.lock: Locked dependency versions
+- .env: Environment variables (not in git)
+- .env.sample: Example environment variables
+- .gitignore: Git ignore patterns
+- README.md: Project documentation
+- LICENSE: Project license
+- NOTICE: Third-party notices
+
+## Documentation Files (in docs/ directory)
+- api.md: API documentation
+- architecture.md: System architecture
+- deployment.md: Deployment guide
+- development.md: Development guide
+- testing.md: Testing guide
+
+# Code Style
+- Follow PEP 8 style guidelines for Python code
+- Use type hints for all function parameters and return values
+- Maximum line length: 100 characters
+- Use docstrings for all public functions and classes
+- Use consistent naming conventions across all files
+- Add comments for complex logic or business rules
+- Keep functions focused and single-purpose
+- Use meaningful variable names that describe their purpose
+
+# Project Structure
+- Keep all core logic in plexure_api_search/ directory
+- Place all tests in tests/ directory
+- Store configuration files in project root
+- Keep documentation in docs/ directory
+- Organize modules by feature/domain
+- Use __init__.py files to control public APIs
+- Keep circular dependencies strictly forbidden
+- Maintain clear separation of concerns
+
+# Testing
+- Write unit tests for all new functionality
+- Maintain test coverage above 80%
+- Place tests in tests/ directory
+- Name test files with test_ prefix
+- Test files must match source file names
+- Include integration tests for critical paths
+- Mock external dependencies appropriately
+- Test error conditions and edge cases
+- Use pytest fixtures for common setup
+- Include performance tests for critical operations
+
+# Documentation
+- Document all public APIs with docstrings
+- Keep README.md up to date with new features
+- Include usage examples in docstrings
+- Document complex algorithms with comments
+- Maintain API documentation in docs/
+- Include type hints in documentation
+- Document error conditions and handling
+- Keep configuration options documented
+- Include troubleshooting guides
+
+# Dependencies
+- Use Poetry for dependency management
+- Pin dependency versions in pyproject.toml
+- Keep dependencies up to date
+- Document new dependencies in README.md
+- Use requirements-dev.txt for development dependencies
+- Make optional dependencies truly optional
+- Handle dependency conflicts gracefully
+- Document minimum version requirements
+- Test with multiple Python versions
+
+# Environment
+- Use .env for environment variables
+- Never commit sensitive data
+- Keep .env.sample updated
+- Use Python 3.9 or higher
+- Document all environment variables
+- Provide default values when appropriate
+- Validate environment variables at startup
+- Handle missing variables gracefully
+- Support different environments (dev/prod)
+
+# Model Management
+- Use public, well-established models by default
+- Handle model loading errors gracefully
+- Implement fallback models for robustness
+- Cache model artifacts appropriately
+- Monitor model performance metrics
+- Support model versioning
+- Handle tokenization errors gracefully
+- Validate model compatibility
+- Document model requirements and limitations
+
+# Error Handling
+- Use specific exception types
+- Log errors with appropriate context
+- Implement graceful fallbacks
+- Validate inputs early
+- Handle resource cleanup properly
+- Provide meaningful error messages
+- Include error recovery mechanisms
+- Monitor error rates and patterns
+- Document error handling procedures
+
+# Performance
+- Cache expensive operations
+- Use vectorized operations where possible
+- Monitor memory usage
+- Keep response times under 200ms
+- Profile performance-critical code
+- Implement request timeouts
+- Use connection pooling
+- Implement rate limiting
+- Monitor resource utilization
+- Optimize database queries
+
+# Security
+- Validate all inputs
+- Sanitize API responses
+- Use environment variables for secrets
+- Follow security best practices
+- Never log sensitive data
+- Implement rate limiting
+- Use secure communication
+- Validate authentication tokens
+- Implement access controls
+- Monitor security events
+
+# Monitoring
+- Log important operations
+- Track performance metrics
+- Monitor error rates
+- Use structured logging
+- Implement health checks
+- Track resource utilization
+- Monitor API latencies
+- Implement alerting
+- Track business metrics
+- Monitor cache effectiveness
+
+# Version Control
+- Write clear commit messages
+- Follow semantic versioning
+- Keep feature branches small
+- Merge only after tests pass
+- Use conventional commits format
+- Review code changes
+- Maintain changelog
+- Tag releases properly
+- Document breaking changes
+- Keep main branch stable
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/felipepimentel) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
