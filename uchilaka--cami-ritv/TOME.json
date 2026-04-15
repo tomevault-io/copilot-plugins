@@ -4,7 +4,7 @@
   "repo": "cami-ritv",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/uchilaka",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T12:53:55Z"
+  "distributed_at": "2026-04-15T00:49:48Z"
 }
