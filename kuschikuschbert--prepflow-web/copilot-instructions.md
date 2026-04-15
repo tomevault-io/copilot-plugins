@@ -1,0 +1,889 @@
+## prepflow-web
+
+> - **TypeScript:** Strict typing, no `any` types without justification
+
+
+## 📋 **Development Standards**
+
+### **Code Quality Requirements**
+
+- **TypeScript:** Strict typing, no `any` types without justification
+  - **Ref Types:** Always use `RefObject<HTMLElement | null>` in interfaces (see TypeScript Ref Types section in `core.mdc`)
+  - **useRef Pattern:** `useRef<HTMLElement>(null)` returns `RefObject<HTMLElement | null>`, always type accordingly
+- **React Patterns:** Functional components with hooks, proper error boundaries
+- **Performance:** Lazy loading, image optimization, Core Web Vitals optimization
+- **Accessibility:** ARIA labels, semantic HTML, keyboard navigation support
+- **SEO:** Proper meta tags, structured data, semantic markup
+- **Universal Design:** Components that work on web and mobile
+
+### **Naming Conventions**
+
+- **Files:** kebab-case (e.g., `exit-intent-popup.tsx`)
+- **Components:** PascalCase (e.g., `ExitIntentPopup`)
+- **Functions:** camelCase with descriptive verbs (e.g., `trackUserEngagement`)
+- **Constants:** UPPER_SNAKE_CASE (e.g., `GTM_EVENTS`)
+- **CSS Classes:** Tailwind utility classes with custom CSS variables
+
+### **Testing Requirements**
+
+- **Unit Tests:** All utility functions and components
+- **Integration Tests:** Analytics integration and user flows
+- **E2E Tests:** Critical user journeys (lead capture, purchase)
+- **Performance Tests:** Core Web Vitals and loading times
+
+**Note:** For comprehensive testing standards, patterns, and best practices, see `testing.mdc`.
+
+## 🔧 **Code Formatting & Quality Tools**
+
+**Prettier:** `npm run format` | `npm run format:check` | `npm run format:staged`. Config: `.prettierrc` (single quotes, semi, 100 width, trailing commas, `prettier-plugin-tailwindcss`). Runs automatically via `lint-staged` on commit.
+
+**ESLint:** `npm run lint`. Config: `eslint.config.mjs` extends `next/core-web-vitals`. Unescaped entities enforced — use `&apos;`, `&quot;` in JSX.
+
+## 🚀 **CI/CD & Automation**
+
+**Note:** For detailed deployment process, monitoring, and operations standards, see `operations.mdc`.
+
+### **Pre-Deployment Checks**
+
+**MANDATORY:** Before pushing to `main`, run `npm run pre-deploy` to verify your code will deploy successfully on Vercel.
+
+**What it checks:**
+
+- Node version (>=22.0.0)
+- Dependencies installation (`npm ci`)
+- Lint check (`npm run lint`)
+- Type check (`npm run type-check`)
+- Format check (`npm run format:check`)
+- Cleanup check (`npm run cleanup:check`)
+- Build check (`npm run build`) - **Most important, this is what Vercel runs**
+
+**Usage:**
+
+```bash
+# Run all pre-deployment checks
+npm run pre-deploy
+```
+
+**See Also:** `operations.mdc` (Deployment Process) for complete pre-deployment checklist and `docs/SCRIPTS.md` (Pre-Deployment Check) for detailed documentation.
+
+### **GitHub Actions CI Workflow**
+
+**File:** `.github/workflows/ci-cd.yml`
+
+**Triggers:**
+
+- Pull requests to `main`
+- Pushes to `main`
+
+**Jobs:**
+
+1. **Lint** - Runs `npm run lint`
+2. **Type Check** - Runs `npm run type-check`
+3. **Format Check** - Runs `npm run format:check`
+4. **Build** - Runs `npm run build`
+
+**Requirements:**
+
+- All jobs must pass for PR merge
+- Node.js 22 LTS
+- Automatic npm cache
+
+**Status:** ✅ Configured and active
+
+### **PR Auto-Labeling**
+
+**File:** `.github/workflows/pr-labels.yml`
+
+**Configuration:** `.github/labeler.yml`
+
+**Labels Applied Automatically:**
+
+- `refactor` - Code refactoring changes
+- `bugfix` - Bug fixes
+- `ui` - UI/component changes
+- `breakpoints` - Responsive/breakpoint changes
+- `documentation` - Documentation updates
+- `ci` - CI/CD changes
+- `codemod` - Codemod transformations
+- `config` - Configuration changes
+- `api` - API route changes
+- `hooks` - React hooks changes
+- `types` - TypeScript type changes
+
+**How It Works:**
+
+- Analyzes changed files in PR
+- Matches patterns in `.github/labeler.yml`
+- Applies appropriate labels automatically
+- Runs on PR open, sync, and reopen
+
+**Status:** ✅ Configured and active
+
+### **Automatic CHANGELOG Generation**
+
+**Script:** `scripts/generate-changelog.js`
+
+**Command:** `npm run changelog`
+
+**How It Works:**
+
+- Analyzes git commits since last tag (or all commits)
+- Parses Conventional Commits format: `type(scope): subject`
+- Groups commits by type (feat, fix, docs, etc.)
+- Generates formatted CHANGELOG.md entry
+
+**Commit Types:**
+
+- 🚀 `feat:` - New features
+- 🐛 `fix:` - Bug fixes
+- 📚 `docs:` - Documentation
+- 💎 `style:` - Code style changes
+- ♻️ `refactor:` - Code refactoring
+- ⚡ `perf:` - Performance improvements
+- 🧪 `test:` - Test additions/changes
+- 🔧 `chore:` - Maintenance tasks
+- ⚙️ `ci:` - CI/CD changes
+- 📦 `build:` - Build system changes
+- ⏪ `revert:` - Reverted commits
+
+**Output Format:**
+
+```markdown
+## [0.1.1] - 2025-01-XX
+
+### 🚀 Features
+
+- New feature description (abc1234)
+
+### 🐛 Fixes
+
+- Bug fix description (def5678)
+```
+
+**Usage:**
+
+```bash
+# Generate changelog from recent commits
+npm run changelog
+```
+
+**Status:** ✅ Script created and ready
+
+## 📝 **JSDoc Documentation Standards**
+
+### **JSDoc Requirements**
+
+**MANDATORY:** All public functions, components, and utilities must have JSDoc documentation.
+
+### **JSDoc Template**
+
+````typescript
+/**
+ * Brief description of what the function/component does.
+ *
+ * @param {Type} paramName - Description of parameter
+ * @param {Type} [optionalParam] - Optional parameter description
+ * @returns {ReturnType} Description of return value
+ * @throws {ErrorType} When this error is thrown
+ *
+ * @example
+ * ```typescript
+ * const result = myFunction('example');
+ * console.log(result); // Output description
+ * ```
+ */
+````
+
+### **Component JSDoc Template**
+
+````typescript
+/**
+ * Component description.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {string} props.title - Title text
+ * @param {Function} props.onClick - Click handler
+ * @returns {JSX.Element} Rendered component
+ *
+ * @example
+ * ```tsx
+ * <MyComponent title="Hello" onClick={() => {}} />
+ * ```
+ */
+export function MyComponent({ title, onClick }: Props) {
+  // ...
+}
+````
+
+### **Hook JSDoc Template**
+
+````typescript
+/**
+ * Hook description.
+ *
+ * @param {Type} param - Parameter description
+ * @returns {Object} Hook return value
+ * @returns {Type} returns.property - Property description
+ *
+ * @example
+ * ```typescript
+ * const { data, loading } = useMyHook('param');
+ * ```
+ */
+export function useMyHook(param: string) {
+  // ...
+}
+````
+
+### **JSDoc Standards**
+
+- **Always document:** Public functions, React components, custom hooks, utility functions
+- **Optional:** Private/internal functions (but recommended)
+- **Required fields:** Description, @param for all parameters, @returns for return values
+- **Optional fields:** @throws, @example, @see, @since, @deprecated
+- **Format:** Use TypeScript types in JSDoc (`{string}`, `{Object}`, `{Promise<string>}`)
+
+**Status:** ⚠️ In Progress - Standardization ongoing
+
+## 💬 **Dialog Usage Standards**
+
+**NEVER use native `confirm()`, `prompt()`, or `alert()`.** Use `useConfirm`, `usePrompt`, `useAlert` hooks instead.
+
+**See `dialogs.mdc` for complete dialog API, PrepFlow voice guidelines, accessibility requirements, and z-index hierarchy.**
+
+## 🔄 **Codemod Rules & Transformations**
+
+### **Codemod System**
+
+**Purpose:** Automated code transformations for deprecated components, patterns, and migrations.
+
+**Implementation:** ✅ Fully implemented using jscodeshift with TypeScript/TSX parser support.
+
+### **Available Codemods**
+
+#### **1. Breakpoint Migration Codemod**
+
+**File:** `scripts/codemods/breakpoint-migration.js`
+
+**Transformations:**
+
+- `sm:` → `tablet:` (481px+)
+- `md:` → `tablet:` (481px+)
+- `lg:` → `desktop:` (1025px+)
+
+**Targets only Tailwind class strings (AST-based):**
+
+- JSX `className="sm:text-lg"` or `class="..."`
+- JSX `className={`sm:text-lg ${var}`}` template literals
+- Object property **values** (e.g. `container: 'sm:px-6 lg:px-8'` in style configs)
+
+**Does NOT replace object keys** like `{ sm: '...', md: '...', lg: '...' }` (size variants).
+
+**Usage:**
+
+```bash
+# Dry-run (preview changes)
+npx jscodeshift -t scripts/codemods/breakpoint-migration.js --parser tsx app components lib --dry
+
+# Apply changes
+npx jscodeshift -t scripts/codemods/breakpoint-migration.js --parser tsx app components lib
+# Or via cleanup fix: npm run cleanup:fix
+```
+
+#### **2. Console Migration Codemod**
+
+**File:** `scripts/codemods/console-migration.js`
+
+**Transformations:**
+
+- `console.log(...)` → `logger.dev(...)`
+- `console.error(...)` → `logger.error(...)`
+- `console.warn(...)` → `logger.warn(...)`
+- `console.info(...)` → `logger.info(...)`
+- `console.debug(...)` → `logger.debug(...)`
+
+**Features:**
+
+- Automatically adds `import { logger } from '@/lib/logger';` if not present
+- Preserves all arguments and call structure
+- Detects existing logger imports to avoid duplicates
+
+**Usage:**
+
+```bash
+# Dry-run (preview changes)
+npm run codemod:console
+
+# Apply changes
+npm run codemod:console:write
+```
+
+#### **3. Run All Codemods**
+
+```bash
+# Run both migrations in dry-run mode
+npm run codemod:all
+```
+
+### **Codemod Execution Workflow**
+
+**Step 1: Preview Changes**
+
+```bash
+npm run codemod:breakpoints
+npm run codemod:console
+```
+
+**Step 2: Review Output**
+
+- Check the diff/preview output
+- Verify transformations look correct
+- Note any files that will be modified
+
+**Step 3: Apply Changes**
+
+```bash
+npm run codemod:breakpoints:write
+npm run codemod:console:write
+```
+
+**Step 4: Verify & Test**
+
+- Run `npm run lint` to check for issues
+- Run `npm run type-check` to verify TypeScript
+- Test affected functionality
+- Format code: `npm run format`
+
+**Step 5: Commit**
+
+- Commit with `refactor:` prefix
+- Example: `refactor: migrate breakpoints and console calls via codemod`
+
+### **Technical Details**
+
+**Dependencies:**
+
+- `jscodeshift` - AST transformation tool
+- `@types/jscodeshift` - TypeScript types
+
+**Parser:** Uses `tsx` parser for TypeScript/TSX file support
+
+**File Locations:**
+
+- `scripts/codemods/breakpoint-migration.js`
+- `scripts/codemods/console-migration.js`
+
+### **Future Codemods (To Be Created)**
+
+1. **Component Updates:** Update deprecated component names
+2. **Error Handling:** Standardize error handling patterns
+3. **Import Path Updates:** Migrate relative imports to alias imports
+
+**Status:** ✅ Breakpoint and Console migrations fully implemented and tested
+
+## 🔄 **Code Refactoring Patterns & Techniques**
+
+**MANDATORY:** Follow these patterns when refactoring code to maintain quality and consistency.
+
+### **Component Refactoring Patterns**
+
+**1. Extract Sub-Components:**
+
+- Extract logical UI sections into separate components
+- Example: Extract `<TableHeader>`, `<TableRow>`, `<TableFooter>` from large table component
+- Keep components focused on single responsibility
+- Share state via props or context (avoid prop drilling)
+
+**2. Extract Custom Hooks:**
+
+- Extract reusable state logic into custom hooks
+- Example: Extract form validation logic → `useFormValidation`
+- Extract data fetching logic → `useDataFetching`
+- Extract business logic → `useBusinessLogic`
+- Hooks should be pure and testable
+
+**3. Extract Type Definitions:**
+
+- Move complex interfaces/types to `.types.ts` files
+- Example: `types.ts`, `interfaces.ts`, `api-types.ts`
+- Keep types co-located with related code when possible
+- Export types from index files for easy imports
+
+**4. Extract Utility Functions:**
+
+- Move pure functions to utility files
+- Example: `utils/formatters.ts`, `utils/validators.ts`, `utils/transformers.ts`
+- Keep utilities pure (no side effects)
+- Document utility functions with JSDoc
+
+### **API Route Refactoring Patterns**
+
+**1. Extract Helper Functions:**
+
+- Move business logic to `helpers/` subdirectory
+- Example: `helpers/validateRequest.ts`, `helpers/buildQuery.ts`, `helpers/formatResponse.ts`
+- Keep route handlers thin (request/response only)
+- Test helpers independently
+
+**2. Extract Validation Logic:**
+
+- Create separate validators for request validation
+- Use Zod schemas for type-safe validation
+- Example: `helpers/validateRequest.ts` with Zod schema
+- Return clear validation error messages
+
+**3. Extract Error Handlers:**
+
+- Create consistent error handling helpers
+- Use `ApiErrorHandler` for standardized errors
+- Example: `helpers/handleError.ts` with error mapping
+- Log errors with context (requestId, endpoint, user)
+
+**4. Extract Query Builders:**
+
+- Create reusable query builder functions
+- Example: `helpers/buildQuery.ts` for complex queries
+- Keep queries type-safe with TypeScript
+- Use Supabase query builder methods (never raw SQL)
+
+**Refactoring Checklist:**
+
+When refactoring any file, ensure:
+
+- [ ] All extracted code is properly typed
+- [ ] Error handling is consistent
+- [ ] JSDoc documentation is added
+- [ ] Tests are updated (if applicable)
+- [ ] Imports are organized and cleaned
+- [ ] No circular dependencies introduced
+- [ ] File size limits are respected
+- [ ] Code is tested after refactoring
+
+**📚 Comprehensive Refactoring Guide:**
+
+For detailed refactoring patterns, step-by-step instructions, decision trees, and real-world examples, see:
+
+- **`docs/FILE_SIZE_REFACTORING_GUIDE.md`** - Complete guide with 5 proven patterns:
+  1. Extract Helper Functions (Utilities & API Routes)
+  2. Extract Custom Hooks (React Components)
+  3. Extract Sub-Components (Large Components)
+  4. Extract API Route Helpers
+  5. Consolidate Code (Minor Overages)
+
+  Includes checklists, common pitfalls, solutions, and statistics from January 2025 refactoring (16 files fixed, 40+ new files created).
+
+### **Code Duplication Reduction**
+
+**MANDATORY:** Eliminate code duplication using these patterns:
+
+**1. Extract Common Logic:**
+
+- Identify repeated patterns across files
+- Extract to shared utilities or hooks
+- Example: Form validation, error handling, data transformation
+
+**2. Create Reusable Components:**
+
+- Extract repeated UI patterns to components
+- Example: Reusable `<Modal>`, `<Table>`, `<Form>` components
+- Use composition over duplication
+
+**3. Use Higher-Order Functions:**
+
+- Create wrapper functions for common patterns
+- Example: `withErrorHandling`, `withAuth`, `withValidation`
+- Reduces boilerplate code
+
+**4. Shared Constants:**
+
+- Extract magic numbers/strings to constants
+- Example: `constants/api-endpoints.ts`, `constants/validation-rules.ts`
+- Use enums for fixed sets of values
+
+### **Performance-Aware Refactoring**
+
+**MANDATORY:** When refactoring, consider performance implications.
+
+**1. Extract Memoized Components:**
+
+```typescript
+// ✅ GOOD: Extract and memoize list items
+const ListItem = memo(({ item, onSelect }: ListItemProps) => {
+  return <div onClick={() => onSelect(item.id)}>{item.name}</div>;
+});
+
+// ✅ GOOD: Memoize expensive sub-components
+const ExpensiveChart = memo(({ data }: ChartProps) => {
+  return <ComplexChart data={transformData(data)} />;
+}, (prev, next) => prev.data === next.data); // Custom comparison
+```
+
+**2. Optimize Hook Dependencies:**
+
+```typescript
+// ✅ GOOD: Stable dependencies
+const stableCallback = useCallback(() => {
+  // ...
+}, []); // Empty if truly stable
+
+const memoizedValue = useMemo(() => {
+  return compute(data);
+}, [data]); // Only include actual dependencies
+
+// ❌ BAD: Unstable dependencies
+const unstableCallback = useCallback(() => {
+  // ...
+}, [objectProp]); // objectProp changes every render
+```
+
+**3. Lazy Load During Refactoring:**
+
+```typescript
+// When extracting large components, consider lazy loading
+const ExtractedComponent = dynamic(() => import('./ExtractedComponent'), {
+  ssr: false,
+  loading: () => <ComponentSkeleton />,
+});
+```
+
+**See Also:**
+
+- `operations.mdc` (Speed Optimization & Memoization Standards) - Comprehensive memoization patterns
+- `development.mdc` (File Refactoring Standards) - Mandatory file size limits and refactoring triggers
+
+## 🤖 **Automated Enforcement**
+
+**Cleanup System:** See `cleanup.mdc` for comprehensive automated enforcement of all development standards.
+
+**Available Checks:**
+
+- File sizes: `npm run cleanup:check` (validates file size limits)
+- Console.log migration: `npm run cleanup:check` (detects console usage)
+- Breakpoints: `npm run cleanup:check` (validates custom breakpoints)
+- Unused imports: `npm run cleanup:check` (detects unused imports)
+- Prettier formatting: `npm run cleanup:check` (validates formatting)
+- ESLint violations: `npm run cleanup:check` (validates lint rules)
+- JSDoc documentation: `npm run cleanup:check` (detects missing JSDoc)
+- Naming conventions: `npm run cleanup:check` (validates naming)
+
+**Available Fixes:**
+
+- Breakpoints: `npm run cleanup:fix` (auto-migrates via codemod)
+- Console.log: `npm run cleanup:fix` (auto-migrates via codemod)
+- Unused imports: `npm run cleanup:fix` (auto-removes via ESLint)
+- Prettier formatting: `npm run cleanup:fix` (auto-formats via Prettier)
+
+**Standards Reference:** See `cleanup.mdc` (File Size Limits, Code Quality Standards, JSDoc Requirements, Code Formatting Standards) for complete enforcement details.
+
+## 🛠️ **Available Development Scripts**
+
+**Note:** See `docs/SCRIPTS.md` for complete script reference and usage examples.
+
+### **Code Quality Scripts**
+
+#### **File Size Enforcement**
+
+**Script:** `scripts/check-file-sizes.js`
+**Command:** `npm run lint:filesize`
+
+Enforces file size limits to maintain code quality:
+
+- **Page Components:** Maximum 500 lines
+- **Complex Components:** Maximum 300 lines
+- **API Routes:** Maximum 200 lines
+- **Utility Functions:** Maximum 150 lines
+- **Hooks:** Maximum 120 lines (increased from 100 to accommodate coordination hooks)
+
+**Integration:** Runs automatically in CI pipeline and pre-commit hooks.
+
+#### **Breakpoint Detection**
+
+**Script:** `scripts/detect-breakpoints.js`
+**Command:** `npm run detect-breakpoints`
+
+Analyzes breakpoint usage across the codebase:
+
+- Identifies active breakpoints (used in project)
+- Identifies unused breakpoints (defined but not used)
+- Identifies rogue breakpoints (used but not defined)
+
+**Referenced in:** `design.mdc` (Custom Breakpoint System)
+
+#### **CHANGELOG Generation**
+
+**Script:** `scripts/generate-changelog.js`
+**Command:** `npm run changelog`
+
+Automatically generates `CHANGELOG.md` from git commits using Conventional Commits format.
+
+**Commit Types Supported:**
+
+- 🚀 `feat:` - New features
+- 🐛 `fix:` - Bug fixes
+- 📚 `docs:` - Documentation
+- 💎 `style:` - Code style changes
+- ♻️ `refactor:` - Code refactoring
+- ⚡ `perf:` - Performance improvements
+- 🧪 `test:` - Test additions/changes
+- 🔧 `chore:` - Maintenance tasks
+- ⚙️ `ci:` - CI/CD changes
+- 📦 `build:` - Build system changes
+- ⏪ `revert:` - Reverted commits
+
+### **Asset Management Scripts**
+
+#### **Screenshot Management**
+
+**Scripts:**
+
+- `scripts/add-screenshots.sh` - Add new screenshots
+- `scripts/copy-screenshots.sh` - Copy screenshots from source
+- `scripts/replace-screenshots.sh` - Replace existing screenshots
+
+**Usage:**
+
+```bash
+bash scripts/add-screenshots.sh
+bash scripts/copy-screenshots.sh
+bash scripts/replace-screenshots.sh
+```
+
+**Purpose:** Helper scripts for managing screenshot assets in `public/images/`.
+
+#### **Image Optimization**
+
+**Script:** `scripts/optimize-images.js`
+**Command:** `node scripts/optimize-images.js`
+
+Optimizes images in `public/images/` and `public/icons/` directories:
+
+- Converts to WebP format
+- Compresses PNG/JPEG images
+- Generates responsive sizes
+
+**Referenced in:** `operations.mdc` (Performance Optimization)
+
+### **Complete Script Reference**
+
+For complete documentation of all scripts, see `docs/SCRIPTS.md`.
+
+## 🎨 **Design System Reference**
+
+**See `design.mdc` for the complete Cyber Carrot Design System** — colors, typography, component guidelines (containers, buttons, tables, checkboxes, icons, z-index hierarchy), animation system, landing page styles, mobile optimization, and responsive breakpoints.
+
+**See `operations.mdc` for all performance and analytics standards** — Core Web Vitals targets, caching/prefetching patterns, batch fetching, analytics (GTM/GA4), SEO, and conversion optimization.
+
+## 🔧 **Development Workflow**
+
+**Note:** For implementation patterns and code standards, see the **"Development Workflow & Standards"** section in `implementation.mdc`.
+
+### **🚨 CRITICAL: Mandatory Development Practices (NON-NEGOTIABLE)**
+
+#### **1. Git Best Practices (MANDATORY)**
+
+**ALL development work MUST follow this workflow to prevent code destruction:**
+
+1. Create feature branch: `git checkout -b improvement/feature-name`
+2. Implement & test incrementally
+3. Commit changes: `git add -A && git commit -m "feat: descriptive message"`
+4. Test branch functionality
+5. Merge to main: `git checkout main && git merge improvement/feature-name`
+6. Test main branch
+7. Push changes: `git push origin main`
+
+**NEVER work directly on main branch for improvements!**
+
+#### **2. CurbOS Area Protection (MANDATORY)**
+
+**MANDATORY:** The `app/curbos/` and `app/curbos-import/` directories are **protected areas** excluded from all scans, checks, and optimizations.
+
+**Protection Rules:**
+
+- ✅ Files in `app/curbos/` are tracked in git and committed normally
+- ❌ **NEVER modify files in `app/curbos/`** - Pre-commit hook blocks modifications
+- ❌ **NEVER stage changes to `app/curbos/`** - Commit will be automatically blocked
+- ⚠️ **Emergency bypass only:** `ALLOW_CURBOS_MODIFY=1 git commit ...`
+
+**Complete Exclusion from All Tools:**
+
+- ❌ **ESLint** - Excluded (`eslint.config.mjs`)
+- ❌ **TypeScript** - Excluded (`tsconfig.json`)
+- ❌ **Prettier** - Excluded (`.prettierignore`)
+- ❌ **File Size Checks**, **Cleanup Scripts**, **Bundle Analysis** - All excluded
+
+**Available Commands:**
+
+- `npm run curbos:status` - Check if curbos files have been modified
+- `npm run curbos:reset` - Reset curbos files to last committed state
+- `npm run curbos:unstage` - Unstage curbos files from staging area
+
+**See Also:** `scripts/protect-curbos.js`, `.husky/pre-commit`
+
+#### **3. File Refactoring Standards (MANDATORY)**
+
+**ALL files MUST be refactored when they exceed size limits:**
+
+**File Size Limits:**
+
+- **Page Components:** Maximum 500 lines
+- **Complex Components:** Maximum 300 lines
+- **API Routes:** Maximum 200 lines
+- **Utility Functions:** Maximum 150 lines
+- **Hooks:** Maximum 120 lines (increased from 100 to accommodate coordination hooks)
+
+**Mandatory Refactoring Triggers:**
+
+- ✅ **Page exceeds 500 lines** → Split into smaller components
+- ✅ **Component exceeds 300 lines** → Extract sub-components and hooks
+- ✅ **API route exceeds 200 lines** → Split into multiple endpoints
+- ✅ **Function exceeds 150 lines** → Break into smaller functions
+- ✅ **Hook exceeds 120 lines** → Split into multiple specialized hooks
+
+**Refactoring Requirements:**
+
+1. **Component Splitting:** Break large components into logical sub-components
+2. **Hook Extraction:** Extract reusable logic into custom hooks
+3. **Type Definitions:** Create separate `.types.ts` files for complex interfaces
+4. **Utility Functions:** Move helper functions to separate utility files
+5. **Error Boundaries:** Wrap complex components with error boundaries
+6. **Loading States:** Implement proper loading and error handling
+7. **Documentation:** Update component documentation and prop interfaces
+
+**Refactoring Workflow:**
+
+1. Create refactoring branch: `git checkout -b refactor/component-name`
+2. Analyze structure and identify separation points
+3. Create new files (components, hooks, types, utilities)
+4. Update imports and test thoroughly
+5. Update documentation and merge to main
+
+**Example Refactoring Pattern:**
+
+```typescript
+// Before: Large component (800+ lines)
+// app/webapp/recipes/page.tsx
+
+// After: Refactored structure
+// app/webapp/recipes/
+//   ├── page.tsx (160 lines - main page)
+//   ├── types.ts (50 lines - TypeScript interfaces)
+//   ├── components/
+//   │   ├── RecipeCard.tsx (80 lines)
+//   │   ├── RecipeTable.tsx (120 lines)
+//   │   ├── RecipeForm.tsx (150 lines)
+//   │   └── RecipePreviewModal.tsx (100 lines)
+//   └── hooks/
+//       ├── useRecipeManagement.ts (80 lines)
+//       └── useAIInstructions.ts (60 lines)
+```
+
+**Code Quality Enforcement:**
+
+- **Pre-commit hooks:** Automatically check file sizes via `scripts/check-file-sizes.js`
+- **CI/CD pipeline:** Fail builds if files exceed limits
+- **Code reviews:** Mandatory review of refactored code
+- **Performance monitoring:** Track bundle size impact
+
+**📚 Refactoring Guide:**
+
+For comprehensive refactoring patterns, examples, and step-by-step instructions, see:
+
+- **`docs/FILE_SIZE_REFACTORING_GUIDE.md`** - Complete guide with 5 proven patterns, decision trees, checklists, and real-world examples from January 2025 refactoring (16 files fixed, 40+ new files created)
+
+**Recent Refactoring Examples:**
+
+#### **Ingredient Normalization Utilities Refactoring**
+
+**Before:** Single large utility file (203 lines) - exceeded 150-line utility limit
+
+**After:** Split into 3 focused utilities (all under 150 lines):
+
+- `lib/ingredients/normalizeIngredientData.ts` (101 lines) - Core parsing and unit normalization
+- `lib/ingredients/buildInsertData.ts` (73 lines) - Data builder for database inserts
+- `lib/ingredients/normalizeIngredientDataMain.ts` (76 lines) - Main orchestrator function
+
+#### **COGS Hooks Refactoring**
+
+**Before:** Large hooks exceeding 100-line limit (104-127 lines)
+
+**After:** Trimmed and optimized hooks (all under 100 lines) with extracted specialized hooks:
+
+- `useCOGSDataFetching.ts` - Data fetching (extracted)
+- `useIngredientConversion.ts` - Unit conversions (extracted)
+
+**Refactoring Techniques Used:**
+
+1. **Extract Helper Functions:** Moved complex logic to separate utility functions
+2. **Split Large Hooks:** Broke down hooks into smaller, focused hooks
+3. **Extract Constants:** Moved constants to module-level for reuse
+4. **Consolidate Code:** Removed unnecessary blank lines and comments
+5. **Inline Simple Functions:** Inlined small helper functions to save lines
+6. **Extract Types:** Moved complex interfaces to separate type files when needed
+
+**Benefits of Mandatory Refactoring:**
+
+- ✅ **Maintainability:** Smaller files are easier to understand and modify
+- ✅ **Debugging:** Easier to isolate and fix issues in smaller components
+- ✅ **Testing:** Smaller components are easier to unit test
+- ✅ **Performance:** Better tree-shaking and code splitting
+- ✅ **Collaboration:** Multiple developers can work on different components
+- ✅ **Reusability:** Extracted hooks and utilities can be reused across the app
+- ✅ **Bundle Size:** Smaller, more focused bundles improve loading performance
+- ✅ **Code Safety:** Git branching prevents code destruction during refactoring
+
+**📚 Learn from Real Refactoring:**
+
+See `docs/FILE_SIZE_REFACTORING_GUIDE.md` for:
+
+- Detailed examples from January 2025 refactoring (16 files, 40+ new files)
+- Proven patterns that reduced files by 30-60% through strategic extraction
+- Common pitfalls and solutions (TypeScript types, React hooks, circular dependencies)
+- Decision trees for choosing the right refactoring pattern
+- Statistics and insights from successful refactoring
+
+### **Git Strategy**
+
+- **Main Branch:** Production-ready code (protected)
+- **Improvement Branches:** All new features and improvements (`improvement/feature-name`)
+- **Hotfix Branches:** Critical bug fixes (`hotfix/bug-description`)
+- **Commit Messages:** Conventional commits with descriptive messages
+
+### **Deployment Process**
+
+- **Development:** Local development with hot reload
+- **Staging:** Vercel preview deployments
+- **Production:** Automatic deployment from main branch
+- **Monitoring:** Performance metrics, error tracking, analytics
+
+### **🚨 CRITICAL: Vercel Compression Configuration**
+
+**IMPORTANT:** To prevent `ERR_CONTENT_DECODING_FAILED` errors on production:
+
+- **Set `compress: false`** in `next.config.ts` - Let Vercel handle compression automatically
+- **Remove explicit Content-Encoding headers** - Vercel's automatic compression conflicts with manual settings
+- **Never set `Content-Encoding: gzip, br`** manually - Causes browser decoding conflicts
+
+**Configuration:**
+
+```typescript
+// next.config.ts
+const nextConfig: NextConfig = {
+  // Let Vercel handle compression automatically
+  compress: false,
+  // Remove explicit compression headers from headers() function
+};
+```
+
+**Why:** Vercel automatically handles compression with optimal settings. Manual compression configuration causes conflicts and prevents proper content decoding in browsers.
+
+### **Quality Assurance**
+
+- **Code Review:** All changes require review
+- **Testing:** Automated tests must pass
+- **Performance:** Core Web Vitals monitoring
+- **Accessibility:** WCAG 2.1 AA compliance
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/KuschiKuschbert) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
