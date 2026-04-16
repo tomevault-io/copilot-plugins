@@ -1,0 +1,95 @@
+## prompt-manager
+
+> You are an expert in Python, FastAPI, Next.js, and ShadCN UI components.
+
+You are an expert in Python, FastAPI, Next.js, and ShadCN UI components.
+
+## Key Principles
+- Provide concise, technical responses with accurate Python and JavaScript examples.
+- Prefer functional, declarative programming; Use classes where appropriate such as FastAPI inputs and outputs and the SQLAlchemy models.
+- Use modular, reusable components to avoid duplication.
+- Name variables descriptively with auxiliary verbs (e.g., is_active, has_error).
+- Use lowercase with underscores for Python and lowercase with dashes for React file names.
+- Favor named exports for components and utility functions.
+
+## Backend (Python/FastAPI)
+- Use `def` for pure functions and `async def` for asynchronous functions.
+- Pydantic models for input validation, and SQLAlchemy with Alembic for migrations.
+- Use the RORO (Receive an Object, Return an Object) pattern where appropriate.
+- Follow a clean structure: routers, sub-routes, utilities, types (models/schemas).
+- Prioritize error handling: early returns, guard clauses, and custom error types.
+- Minimize @app.on_event("startup"/"shutdown"); prefer context managers.
+- Use async for I/O-bound tasks.
+
+## Frontend (Next.js/React)
+- Use functional components and JavaScript for everything.
+- Install ShadCN UI components via npm.
+- Implement a simple two-page layout: a dashboard and an editor.
+- Use Tailwind CSS and Radix UI for styling; adopt a mobile-first approach.
+- For form validation, use Zod and `react-hook-form`.
+- Use dynamic imports for non-critical components.
+- Ensuring Frontend Doesn't Crash
+    - The Axios interceptor checks for 503 status codes and displays an alert. You can replace the alert with a more sophisticated UI message if desired.
+    
+    ```import axiosInstance from '../api/axiosInstance';
+
+    axiosInstance.get('/projects/')
+    .then(response => setProjects(response.data))
+    .catch(error => console.error(error));```
+- Important. In order to install shadcn-ui, you must run the command ```npx shadcn-ui@latest init --src-dir``` from within the frontend directory, but the installer may throw an error if it detects a 'src' directory. Therefore, install shacdn before having composer create directories and files there.
+## Vercel AI Integration
+- Use Vercel’s v0 workflow to integrate standalone components.
+
+## Performance
+- Favor async operations and lazy loading for performance.
+
+
+  
+### Python/FastAPI
+- Use def for pure functions and async def for asynchronous operations.
+- Use type hints for all function signatures. Prefer Pydantic models over raw dictionaries for input validation.
+- File structure: exported router, sub-routes, utilities, static content, types (models, schemas).
+- Avoid unnecessary curly braces in conditional statements.
+- For single-line statements in conditionals, omit curly braces.
+- Use concise, one-line syntax for simple conditional statements (e.g., if condition: do_something()).
+
+### FastAPI-Specific Guidelines
+- Use functional components (plain functions) and Pydantic models for input validation and response schemas.
+- Use declarative route definitions with clear return type annotations.
+- Use HTTPException for expected errors and model them as specific HTTP responses.
+- Use Pydantic's BaseModel for consistent input/output validation and response schemas.
+
+Key Conventions
+1. Rely on FastAPI’s dependency injection system for managing state and shared resources.
+2. Prioritize API performance metrics (response time, latency, throughput).
+3. Limit blocking operations in routes:
+    - Favor asynchronous and non-blocking flows.
+    - Use dedicated async functions for database and external API operations.
+    - Structure routes and dependencies clearly to optimize readability and maintainability.
+
+### Dependencies
+
+ | Package            | Description                                | 
+|--------------------|---------------------------------------------|
+| FastAPI            | Web framework for building APIs             | 
+| Uvicorn            | ASGI server implementation                  | 
+| SQLAlchemy         | Database ORM                                |
+| Alembic            | Database migrations                         |
+| Pydantic           | Data validation and settings management     | 
+| Jinja2             | Templating engine                           | 
+| Psycopg2-binary    | PostgreSQL database adapter for Python       |
+| Python-Multipart   | Handling multipart/form-data for file uploads| 
+
+- Install and configure Next.js.
+<!-- IMPORTANT: the src-dir argument looks in the current directory for a 'src' directory and creates the components there.  -->
+<!-- Use npm to install your project dependencies, Use npx to run the ShadCN CLI for initialization and adding components. -->
+1. ```cd frontend```
+2. ```npx create-next-app@latest .``` (Optional)
+3. ```npx shadcn@latest init -d --src-dir```
+4. ```npm install react react-dom axios react-router-dom```
+  
+Refer to FastAPI, Next.js, and Vercel AI SDK documentation for best practices.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/emilio-gagliardi) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
