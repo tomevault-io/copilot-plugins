@@ -1,0 +1,14 @@
+{
+  "name": "jahands--workers-monorepo-template",
+  "displayName": "workers-monorepo-template",
+  "description": "AI instruction files for workers-monorepo-template by jahands",
+  "version": "1.0.0",
+  "author": "jahands",
+  "homepage": "https://tomevault.io/claim/jahands",
+  "skills": [
+    {
+      "name": "typescript-inline-scripts",
+      "description": ""
+    }
+  ]
+}
