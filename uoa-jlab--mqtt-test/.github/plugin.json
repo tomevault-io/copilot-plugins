@@ -1,0 +1,9 @@
+{
+  "name": "uoa-jlab--mqtt-test",
+  "displayName": "mqtt_test",
+  "description": "mqtt_test",
+  "version": "1.0.0",
+  "author": "uoa-jlab",
+  "homepage": "https://tomevault.io/claim/uoa-jlab",
+  "skills": []
+}
