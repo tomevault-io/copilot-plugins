@@ -1,217 +1,993 @@
 ## gm-app
 
-> When you need create a middleware to protect some page of Next.js app
+> This rule provides comprehensive guidance for front-end development in Igniter.js + Next.js + Shadcn UI projects, ensuring consistent architecture, component patterns, and seamless integration with existing workflows.
 
-# Next.js Middleware: Patterns & Best Practices
+# Front-End Development Workflow
 
-This guide provides the **correct and validated** patterns for creating and using Next.js Middleware within this project. The primary goal is to clearly separate concerns: Middleware handles routing and edge logic, while Igniter.js procedures handle backend business logic.
+This rule provides comprehensive guidance for front-end development in Igniter.js + Next.js + Shadcn UI projects, ensuring consistent architecture, component patterns, and seamless integration with existing workflows.
 
-## 1. Core Principles
+## 1. Project Architecture & File Organization
 
-### 1.1. Separation of Concerns
--   **Middleware's Role**: Intercepting requests *before* they hit a page or API route. Its responsibility is to handle **routing, authentication checks, redirects, and request/response enrichment**. It acts as a gatekeeper.
--   **Procedure's Role**: Executing complex **backend business logic**. This is where database queries, integrations with other services, and heavy computations should live.
--   **CRITICAL RULE**: Middleware should **NEVER** perform heavy database operations. It can make fast API calls (like checking a session), but any complex logic must be delegated to an API endpoint that uses a procedure.
-
-### 1.2. Performance: Edge vs. Node.js Runtime
--   Next.js 15 allows middleware to run in either the `edge` or `nodejs` runtime.
--   **Edge Runtime (Default & Recommended)**: Faster, runs closer to the user, but has limitations (e.g., no native Node.js APIs). Ideal for simple checks and redirects.
--   **Node.js Runtime**: Provides full Node.js API compatibility. Use this only if you absolutely need a specific Node.js API that the Edge runtime doesn't support. For this project, **we will stick to the Edge runtime unless there's a compelling reason to change**. The existing `middleware.ts` is already configured for `nodejs`, which is fine, but we should be mindful of its performance implications.
-
-### 1.3. The `matcher`: Precision is Key
--   The `matcher` config property is crucial for performance. It defines exactly which paths will trigger the middleware.
--   An effective `matcher` **prevents the middleware from running unnecessarily** on static assets, image optimization requests, or API routes. The existing configuration in `src/middleware.ts` is a great example of this.
-
-## 2. Advanced Middleware Patterns
-
-Here are several production-ready patterns for common use cases.
-
-### 2.1. Authentication & Route Protection (Current Pattern)
-This is the most common use case and is already implemented in `src/middleware.ts`. It protects routes by checking for a valid session.
-
-```typescript
-// src/middleware.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { api } from '@/igniter.client';
-
-export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  
-  const pages = {
-    signIn: '/auth/login',
-    protected: '/app',
-    publicHome: '/',
-  };
-
-  // Business Rule: Allow public access to the main landing page.
-  if (pathname === pages.publicHome) {
-    return NextResponse.next();
-  }
-
-  // Business Logic: Fetch user session to determine authentication status.
-  // Note: This is a lightweight API call, acceptable in middleware.
-  const userSession = await api.auth.getSession.query();
-  const isAuthenticated = !!userSession?.data?.id;
-
-  // Business Rule: If authenticated, redirect away from login/signup pages.
-  if (isAuthenticated && (pathname.startsWith('/auth/login') || pathname.startsWith('/auth/signup'))) {
-    return NextResponse.redirect(new URL(pages.protected, request.url));
-  }
-
-  // Business Rule: If trying to access a protected page and is not authenticated, redirect to login.
-  if (pathname.startsWith(pages.protected) && !isAuthenticated) {
-    return NextResponse.redirect(new URL(pages.signIn, request.url));
-  }
-  
-  // Default: Allow the request to proceed.
-  return NextResponse.next();
-}
-
-export const config = {
-  // Using nodejs runtime as an example, but 'edge' is often preferred.
-  runtime: 'nodejs', 
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (metadata file)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
-};
+### 1.1 Mandatory Project Structure
+**Presentation Layer Organization:**
+```
+src/features/[feature]/presentation/
+├── components/           # UI components (client/server)
+│   ├── [component].tsx
+│   ├── [component].client.tsx    # Client-only components
+│   └── [component].server.tsx    # Server-only components
+├── hooks/               # React hooks (useXxx patterns)
+│   ├── use-[feature].tsx
+│   └── use-[feature]-form.tsx
+├── contexts/            # React contexts for state management
+│   └── [feature]-context.tsx
+├── utils/              # Pure utility functions
+│   └── [specific-util-for-feature].ts // 1 util per file
+└── types/              # Local type definitions
+    └── [feature]-types.ts
 ```
 
-### 2.2. A/B Testing with Rewrites
-Middleware is perfect for A/B testing, as you can rewrite a request to a different page variant without changing the URL seen by the user.
-
-```typescript
-// src/middleware.ts (A/B Testing Example)
-import { NextRequest, NextResponse } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  // Business Rule: Check for an A/B testing cookie.
-  const bucket = request.cookies.get('ab-test-bucket')?.value;
-  const { pathname } = request.nextUrl;
-
-  // Business Rule: If the user is in the 'new-homepage' bucket, rewrite to the variant.
-  if (pathname === '/' && bucket === 'new-homepage') {
-    const url = request.nextUrl.clone();
-    url.pathname = '/new-homepage-variant';
-    return NextResponse.rewrite(url);
-  }
-
-  return NextResponse.next();
-}
-
-export const config = {
-  matcher: ['/'], // Only run this middleware on the homepage
-};
+**Component File Naming Convention:**
+```tsx
+// ✅ CORRECT - Consistent naming
+src/features/auth/presentation/
+├── components/
+│   ├── login-form.client.tsx      # Client component
+│   ├── signup-form.client.tsx     # Client component
+│   └── user-avatar.server.tsx     # Server component
+├── hooks/
+│   ├── use-auth-context.tsx       # Context hook
+│   └── use-auth-form.tsx          # Form hook
+└── contexts/
+    └── auth-context.tsx           # React context
 ```
 
-### 2.3. Internationalization (i18n) Routing
-Redirect users to their preferred language path based on headers.
+### 1.2 Component Architecture Patterns
 
-```typescript
-// src/middleware.ts (i18n Example)
-import { NextRequest, NextResponse } from 'next/server';
-import { match } from '@formatjs/intl-localematcher';
-import Negotiator from 'negotiator';
-
-const locales = ['en-US', 'pt-BR', 'es-ES'];
-const defaultLocale = 'en-US';
-
-function getLocale(request: NextRequest): string {
-  const headers = { 'accept-language': request.headers.get('accept-language') || '' };
-  const languages = new Negotiator({ headers }).languages();
-  return match(languages, locales, defaultLocale);
+**Server vs Client Components:**
+```tsx
+// ✅ CORRECT - Server component (default)
+export default function BoardList({ boards }: { boards: Board[] }) {
+  return (
+    <div>
+      {boards.map(board => (
+        <BoardCard key={board.id} board={board} />
+      ))}
+    </div>
+  )
 }
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+// ✅ CORRECT - Client component (interactive)
+'use client'
 
-  // Business Rule: Check if there is any supported locale in the pathname.
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+export function BoardCard({ board }: { board: Board }) {
+  const [isEditing, setIsEditing] = useState(false)
 
-  if (pathnameHasLocale) {
-    return;
-  }
-
-  // Business Rule: Redirect if there is no locale.
-  const locale = getLocale(request);
-  request.nextUrl.pathname = `/${locale}${pathname}`;
-  
-  return NextResponse.redirect(request.nextUrl);
-}
-
-export const config = {
-  matcher: [
-    // Skip all internal paths (_next) and API routes.
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
-};
-```
-
-## 3. Common Pitfalls
-
-### ❌ Redirect Loops
-A common mistake is accidentally redirecting a user to the same page they are already on, creating an infinite loop.
-
-```typescript
-// ❌ WRONG - This can cause a redirect loop
-if (!isAuthenticated) {
-  // If the user is already on /auth/login, this will redirect them... to /auth/login.
-  return NextResponse.redirect(new URL('/auth/login', request.url));
-}
-
-// ✅ CORRECT - Always check if the current path is the one you are redirecting to.
-if (!isAuthenticated && pathname !== '/auth/login') {
-  return NextResponse.redirect(new URL('/auth/login', request.url));
+  return (
+    <Card onClick={() => setIsEditing(true)}>
+      {/* Interactive content */}
+    </Card>
+  )
 }
 ```
 
-### ❌ Overly Broad `matcher`
-Forgetting to exclude paths like `_next/static` or `api/` can cause your middleware to run on every single asset and API call, severely degrading performance.
-
-```typescript
-// ❌ WRONG - This will run on everything!
-export const config = {
-  matcher: '/:path*',
-};
-
-// ✅ CORRECT - Be specific and use negative lookaheads to exclude paths.
-export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
-};
-```
-
-### ❌ Heavy API/Database Calls
-Middleware should be fast. Placing a slow database query or a heavy API call inside it will slow down every single request to your application.
-
-```typescript
-// ❌ WRONG - This will be slow!
-export async function middleware(request: NextRequest) {
-  // This query might be complex and slow down every page load.
-  const userProfile = await db.user.findFirst({ where: { /* ...complex query... */ } });
-
-  if (userProfile?.isBetaUser) {
-    // ...logic
-  }
+**Component Composition Pattern:**
+```tsx
+// ✅ CORRECT - Compound component pattern
+function BoardActions({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex gap-2">
+      {children}
+    </div>
+  )
 }
 
-// ✅ CORRECT - Check for a session token, which is a fast, cached operation.
-// Let the API route/page itself handle fetching the detailed profile data.
-export async function middleware(request: NextRequest) {
-  const session = await getSession(); // Fast session check
-  if (session?.user) {
-    // ...logic
+function BoardActionsEdit({ boardId }: { boardId: string }) {
+  return <Button>Edit</Button>
+}
+
+function BoardActionsDelete({ boardId }: { boardId: string }) {
+  return <Button variant="destructive">Delete</Button>
+}
+
+// Usage
+<BoardActions>
+  <BoardActionsEdit boardId={board.id} />
+  <BoardActionsDelete boardId={board.id} />
+</BoardActions>
+```
+
+## 2. Igniter.js Client Integration Protocol
+
+**⚠️ IMPORTANT NOTE:** All examples in this section have been corrected based on the actual implementation found in the project codebase. The Igniter.js client has hooks available:
+
+- **Queries**: `api.endpoint.useQuery()` returns `{ data: { data: T }, isLoading, error }`
+- **Mutations**: `api.endpoint.useMutation()` returns hook with `{ mutate, data, isLoading, isSuccess, isError, error }`
+- **Invalidation**: `useIgniterQueryClient()` provides `invalidate()` method with string-based query keys
+- **Best Practice**: Use the provided hooks for consistent state management and automatic loading states
+
+### 2.1 Client Usage Patterns
+
+**Server-Side Data Fetching:**
+```tsx
+// ✅ CORRECT - Server component data fetching
+export default async function BoardsPage() {
+  const boards = await api.boards.list.query()
+
+  return (
+    <BoardsGrid boards={boards.data || []} />
+  )
+}
+
+// ✅ CORRECT - Server action data mutation
+'use server'
+
+export async function createBoardAction(formData: FormData) {
+  const boardData = {
+    title: formData.get('title') as string,
+    description: formData.get('description') as string,
+  }
+
+  const result = await api.boards.create.mutate({ body: boardData })
+
+  if (result.data) {
+    revalidatePath('/app/boards')
+    redirect(`/app/boards/${result.data.id}`)
   }
 }
 ```
+
+**Client-Side Interactive Patterns:**
+```tsx
+// ✅ CORRECT - Client component with Igniter.js hooks
+'use client'
+
+import { api } from '@/igniter.client'
+
+function BoardsList() {
+  const { data: boardsData, isLoading, error } = api.boards.list.useQuery()
+
+  const boards = boardsData?.data // Access nested response structure
+
+  if (isLoading) return <BoardsSkeleton />
+  if (error) return <BoardsError error={error} />
+
+  return (
+    <div className="grid gap-4">
+      {boards?.map(board => (
+        <BoardCard key={board.id} board={board} />
+      ))}
+    </div>
+  )
+}
+
+// ✅ CORRECT - Using Igniter.js useMutation hook with proper callbacks
+const createBoardMutation = api.boards.create.useMutation({
+  onSuccess: (result: any) => {
+    console.log('Board created:', result?.data)
+
+    // Handle success - invalidate queries and navigate
+    queryClient.invalidate('boards.list') // from igniter.client.ts
+    router.push(`/app/boards/${result?.data?.id}`)
+  },
+  onError: (error: any) => {
+    console.error('Failed to create board:', error)
+    // Handle error - could show toast notification
+  }
+})
+
+const handleCreateBoard = (boardData: CreateBoardInput) => {
+  createBoardMutation.mutate({ body: boardData })
+}
+```
+
+**Query Invalidation Pattern:**
+```tsx
+// ✅ CORRECT - Query invalidation with Igniter.js hooks
+'use client'
+
+import { api } from '@/igniter.client'
+
+function BoardDetail({ boardId }: { boardId: string }) {
+  const { invalidate } = useQueryClient()
+
+  const { data: boardData, isLoading, error, invalidate } = api.boards.getById.useQuery({
+    params: { id: boardId },
+    enabled: !!boardId,
+  })
+
+  const board = boardData?.data
+
+  const createList = api.lists.create.useMutation({
+    onSuccess: (result: any) => {
+      console.log('List created:', result?.data)
+      
+      // Invalidate the board query to refetch updated data
+      invalidate()
+    },
+    onError: (error: any) => {
+      console.error('Failed to create list:', error)
+    }
+  })
+
+  const handleCreateList = (title: string) => {
+    createList.mutate({ body: { title, boardId } })
+  }
+
+  if (isLoading) return <BoardSkeleton />
+  if (error) return <BoardError error={error} />
+  if (!board) return <div>Board not found</div>
+
+  return (
+    <div className="space-y-4">
+      <h1 className="text-2xl font-bold">{board.title}</h1>
+      {/* Board content */}
+    </div>
+  )
+}
+
+// ✅ CORRECT: Igniter.js provides automatic loading states and error handling
+// Use invalidate() for manual cache invalidation after mutations
+```
+
+### 2.2 Error Handling Patterns
+
+**Client-Side Error Boundaries:**
+```tsx
+// ✅ CORRECT - Error boundary for API errors
+'use client'
+
+function BoardsErrorBoundary({ children }: { children: ReactNode }) {
+  return (
+    <ErrorBoundary
+      fallback={<BoardsErrorFallback />}
+      onError={(error) => {
+        console.error('Boards error:', error)
+        // Log to monitoring service
+      }}
+    >
+      {children}
+    </ErrorBoundary>
+  )
+}
+
+function BoardsErrorFallback() {
+  return (
+    <Alert variant="destructive">
+      <AlertDescription>
+        Failed to load boards.{' '}
+        <Button variant="link" onClick={() => window.location.reload()}>
+          Reload page
+        </Button>
+      </AlertDescription>
+    </Alert>
+  )
+}
+```
+
+## 3. Shadcn UI Integration & Design System
+
+### 3.1 Design Token Integration
+**CRITICAL**: Always use design tokens from `globals.css` instead of hardcoded values to ensure theme consistency and proper dark/light mode support.
+
+**Core Design Tokens:**
+```css
+/* Available in globals.css */
+--background: oklch(1 0 0);                    /* Main background */
+--foreground: oklch(0.141 0.005 285.823);    /* Primary text */
+--card: oklch(0.21 0.006 285.885);           /* Card backgrounds */
+--card-foreground: oklch(0.985 0 0);         /* Card text */
+--primary: oklch(0.21 0.006 285.885);        /* Primary actions */
+--primary-foreground: oklch(0.985 0 0);      /* Primary text */
+--secondary: oklch(0.967 0.001 286.375);     /* Secondary actions */
+--muted: oklch(0.552 0.016 285.938);         /* Muted backgrounds */
+--muted-foreground: oklch(0.552 0.016 285.938); /* Muted text */
+--accent: oklch(0.967 0.001 286.375);        /* Accent elements */
+--border: oklch(0.92 0.004 286.32);          /* Borders */
+--ring: oklch(0.705 0.015 286.067);          /* Focus rings */
+```
+
+**Usage Pattern:**
+```tsx
+// ✅ CORRECT - Using design tokens
+<div className="bg-background text-foreground border border-border p-4 rounded-lg">
+  <h2 className="text-2xl font-semibold text-foreground mb-4">Dashboard</h2>
+  <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md transition-colors">
+    Create Board
+  </button>
+</div>
+
+// ✅ CORRECT - Using semantic color variants with Shadcn components
+<Card className="border-border bg-card text-card-foreground">
+  <CardHeader>
+    <CardTitle className="text-card-foreground">Board Title</CardTitle>
+    <CardDescription className="text-muted-foreground">Board description</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <Button variant="secondary" className="bg-secondary text-secondary-foreground">
+      Secondary Action
+    </Button>
+  </CardContent>
+</Card>
+
+// ❌ INCORRECT - Hardcoded values (breaks theme consistency)
+<div className="bg-white text-gray-900 border border-gray-200">
+  <button className="bg-blue-600 text-white hover:bg-blue-700">
+    Action
+  </button>
+</div>
+```
+
+### 3. Shadcn UI Integration & Design System
+
+### 3.1 Component Variants & Theming
+
+**Button Variants Usage:**
+```tsx
+// ✅ CORRECT - Using semantic variants with design tokens
+<Button variant="default" className="bg-primary text-primary-foreground">
+  Primary Action
+</Button>
+<Button variant="secondary" className="bg-secondary text-secondary-foreground">
+  Secondary Action
+</Button>
+<Button variant="outline" className="border-border text-foreground">
+  Tertiary Action
+</Button>
+<Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+  Minimal Action
+</Button>
+<Button variant="destructive" className="bg-destructive text-destructive-foreground">
+  Danger Action
+</Button>
+
+// ❌ INCORRECT - Overriding with hardcoded styles
+<Button className="bg-red-500 text-white">Custom Button</Button>
+```
+
+**Form Components Integration:**
+```tsx
+// ✅ CORRECT - Complete form with shadcn components
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+const formSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  description: z.string().optional(),
+})
+
+function CreateBoardForm() {
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: { title: "", description: "" }
+  })
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" className="w-full">
+          Create Board
+        </Button>
+      </form>
+    </Form>
+  )
+}
+```
+
+### 3.2 Block-Based Component Development
+
+**Installing and Adapting Blocks:**
+```bash
+# Install shadcn block
+npx shadcn add dashboard-01
+
+# Analyze generated components
+await analyze_file({
+  filePath: "src/components/app-sidebar.tsx",
+  includeErrors: true
+});
+
+# Adapt to project structure
+# 1. Move to appropriate feature directory
+# 2. Update imports to use project patterns
+# 3. Integrate with Igniter.js client
+# 4. Apply design system tokens
+```
+
+**Block Integration Pattern:**
+```tsx
+// ✅ CORRECT - Adapted block component
+import { Sidebar, SidebarContent, SidebarHeader, SidebarFooter } from "@/components/ui/sidebar"
+import { api } from "@/igniter.client"
+
+export function AppSidebar() {
+  const { data: user } = api.auth.me.useQuery()
+
+  return (
+    <Sidebar>
+      <SidebarHeader>
+        <div className="flex items-center gap-2 px-4 py-2">
+          <Kanban className="h-6 w-6 text-primary" />
+          <span className="font-semibold text-sidebar-foreground">
+            Igniter Tasks
+          </span>
+        </div>
+      </SidebarHeader>
+
+      <SidebarContent>
+        {/* Navigation items adapted for project */}
+      </SidebarContent>
+
+      <SidebarFooter>
+        <UserMenu user={user} />
+      </SidebarFooter>
+    </Sidebar>
+  )
+}
+```
+
+### 3.3 Component Discovery and Registry Management
+
+This section outlines how to leverage Shadcn UI tools for efficient component discovery and how to manage component registries within your project.
+
+#### 3.3.1 Discovering Components with Shadcn Tools
+You can use the built-in Shadcn tools to list and search for components across configured registries. This helps in quickly finding suitable components for your project.
+
+**Listing All Available Components:**
+Use the `mcp_shadcn_list_items_in_registries` tool to see all components from a specific registry or across multiple registries.
+
+```json
+{
+  "tool": "mcp_shadcn_list_items_in_registries",
+  "args": {
+    "registries": ["@shadcn", "@marketing"]
+  }
+}
+```
+
+**Searching for Specific Components:**
+When you have a specific component in mind or a keyword, `mcp_shadcn_search_items_in_registries` can help you find it using fuzzy matching.
+
+```json
+{
+  "tool": "mcp_shadcn_search_items_in_registries",
+  "args": {
+    "registries": ["@shadcn", "@marketing"],
+    "query": "hero section"
+  }
+}
+```
+
+**Proactive Component Suggestions:**
+As an AI assistant, I will proactively use these tools to search for relevant components based on your development context and feature requirements. If I identify a component that could be beneficial, I will suggest it to you, along with reasoning and potential usage.
+
+#### 3.3.2 Adding New Registries to `components.json`
+The `components.json` file is where you configure your Shadcn UI registries. You can add new registries, including third-party or private ones, to expand your component sources.
+
+**Structure in `components.json`:**
+
+```json
+{
+  "registries": {
+    "@acme": "https://registry.acme.com/{name}.json",
+    "@internal": {
+      "url": "https://internal.company.com/{name}.json",
+      "headers": {
+        "Authorization": "Bearer ${REGISTRY_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+## 4. State Management & Data Flow Patterns
+
+### 4.1 React Context Patterns
+
+**Feature-Specific Context:**
+```tsx
+// ✅ CORRECT - Feature context pattern with Igniter.js integration
+'use client'
+
+import { api } from '@/igniter.client'
+import { useIgniterQueryClient } from '@igniter-js/core/client'
+
+interface BoardsContextType {
+  selectedBoard: Board | null
+  setSelectedBoard: (board: Board | null) => void
+  refreshBoards: () => void
+  createBoard: ReturnType<typeof api.boards.create.useMutation>
+  isLoading: boolean
+}
+
+const BoardsContext = createContext<BoardsContextType | null>(null)
+
+export function BoardsProvider({ children }: { children: ReactNode }) {
+  const [selectedBoard, setSelectedBoard] = useState<Board | null>(null)
+  const { invalidate } = useIgniterQueryClient()
+
+  const createBoard = api.boards.create.useMutation({
+    onSuccess: (result: any) => {
+      console.log('Board created successfully:', result?.data)
+      invalidate('boards.list') // Refresh the boards list
+      setSelectedBoard(result?.data)
+    },
+    onError: (error: any) => {
+      console.error('Failed to create board:', error)
+    }
+  })
+
+  const refreshBoards = () => {
+    invalidate('boards.list')
+  }
+
+  return (
+    <BoardsContext.Provider value={{
+      selectedBoard,
+      setSelectedBoard,
+      refreshBoards,
+      createBoard,
+      isLoading: createBoard.isLoading,
+    }}>
+      {children}
+    </BoardsContext.Provider>
+  )
+}
+
+export function useBoards() {
+  const context = useContext(BoardsContext)
+  if (!context) {
+    throw new Error('useBoards must be used within BoardsProvider')
+  }
+  return context
+}
+```
+
+### 4.2 Custom Hook Patterns
+
+**Data Fetching Hooks:**
+```tsx
+// ✅ CORRECT - Custom hook for board operations with Igniter.js
+'use client'
+
+import { api } from '@/igniter.client'
+import { useIgniterQueryClient } from '@igniter-js/core/client'
+import { useRouter } from 'next/navigation'
+
+function useBoard(boardId: string) {
+  const { invalidate } = useIgniterQueryClient()
+  const router = useRouter()
+
+  const updateBoard = api.boards.update.useMutation({
+    onSuccess: (result: any) => {
+      console.log('Board updated:', result?.data)
+      // Invalidate related queries
+      invalidate('boards.getById', { params: { id: boardId } })
+      invalidate('boards.list')
+    },
+    onError: (error: any) => {
+      console.error('Failed to update board:', error)
+    }
+  })
+
+  const deleteBoard = api.boards.delete.useMutation({
+    onSuccess: () => {
+      console.log('Board deleted successfully')
+      // Invalidate queries after deletion
+      invalidate('boards.list')
+      // Navigate away from deleted board
+      router.push('/app/boards')
+    },
+    onError: (error: any) => {
+      console.error('Failed to delete board:', error)
+    }
+  })
+
+  return {
+    updateBoard,
+    deleteBoard,
+    isUpdating: updateBoard.isLoading,
+    isDeleting: deleteBoard.isLoading,
+  }
+}
+```
+
+**Form State Hooks:**
+```tsx
+// ✅ CORRECT - Form state management hook with Igniter.js
+'use client'
+
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { api } from '@/igniter.client'
+
+function useBoardForm(board?: Board) {
+  const form = useForm({
+    resolver: zodResolver(board ? UpdateBoardSchema : CreateBoardSchema),
+    defaultValues: {
+      title: board?.title || '',
+      description: board?.description || '',
+      color: board?.color || '#0079bf',
+    },
+  })
+
+  const createBoard = api.boards.create.useMutation({
+    onSuccess: (result: any) => {
+      console.log('Board created:', result?.data)
+      form.reset()
+    },
+    onError: (error: any) => {
+      console.error('Failed to create board:', error)
+    }
+  })
+
+  const updateBoard = api.boards.update.useMutation({
+    onSuccess: (result: any) => {
+      console.log('Board updated:', result?.data)
+    },
+    onError: (error: any) => {
+      console.error('Failed to update board:', error)
+    }
+  })
+
+  const onSubmit = (data: BoardFormData) => {
+    if (board) {
+      updateBoard.mutate({
+        params: { id: board.id },
+        body: data,
+      })
+    } else {
+      createBoard.mutate({ body: data })
+    }
+  }
+
+  return {
+    form,
+    onSubmit: form.handleSubmit(onSubmit),
+    isSubmitting: createBoard.isLoading || updateBoard.isLoading,
+    createBoard,
+    updateBoard,
+  }
+}
+```
+
+## 5. Routing & Navigation Patterns
+
+### 5.1 Next.js App Router Integration
+
+**Route Structure Pattern:**
+```tsx
+// ✅ CORRECT - App router structure
+src/app/
+├── layout.tsx                    # Root layout with providers
+├── page.tsx                      # Landing page (/)
+├── auth/
+│   ├── layout.tsx               # Auth layout
+│   ├── login/
+│   │   └── page.tsx             # /auth/login
+│   └── signup/
+│       └── page.tsx             # /auth/signup
+└── app/
+    ├── layout.tsx               # App layout with sidebar
+    ├── page.tsx                 # Dashboard (/app)
+    └── boards/
+        ├── page.tsx             # Boards list (/app/boards)
+        └── [id]/
+            └── page.tsx         # Board detail (/app/boards/[id])
+```
+
+**Dynamic Route Patterns:**
+```tsx
+// ✅ CORRECT - Dynamic route with params
+interface BoardPageProps {
+  params: Promise<{ id: string }>
+}
+
+export default async function BoardPage({ params }: BoardPageProps) {
+  const { id } = await params
+
+  return (
+    <Suspense fallback={<BoardSkeleton />}>
+      <BoardDetail boardId={id} />
+    </Suspense>
+  )
+}
+
+export async function generateMetadata({ params }: BoardPageProps) {
+  const { id } = await params
+  const board = await api.boards.getById.query({ params: { id } })
+
+  return {
+    title: board.data?.title || 'Board',
+    description: board.data?.description || 'View board details',
+  }
+}
+```
+
+### 5.2 Navigation Patterns
+
+**Programmatic Navigation:**
+```tsx
+// ✅ CORRECT - Using Next.js router
+'use client'
+
+import { useRouter } from 'next/navigation'
+
+function BoardCard({ board }: { board: Board }) {
+  const router = useRouter()
+
+  const handleClick = () => {
+    router.push(`/app/boards/${board.id}`)
+  }
+
+  return (
+    <Card onClick={handleClick} className="cursor-pointer">
+      <CardContent>
+        <h3>{board.title}</h3>
+        <p>{board.description}</p>
+      </CardContent>
+    </Card>
+  )
+}
+```
+
+**Link Component Usage:**
+```tsx
+// ✅ CORRECT - Using Next.js Link
+import Link from 'next/link'
+
+function Navigation() {
+  return (
+    <nav>
+      <Link href="/app" className="nav-link">
+        Dashboard
+      </Link>
+      <Link href="/app/boards" className="nav-link">
+        Boards
+      </Link>
+      <Link href="/app/settings" className="nav-link">
+        Settings
+      </Link>
+    </nav>
+  )
+}
+```
+
+## 6. Interface Definition & Type Safety
+
+### 6.1 Zod Schema Patterns
+
+**Request/Response Schemas:**
+```tsx
+// ✅ CORRECT - Comprehensive schema definition
+import { z } from "zod"
+
+export const CreateBoardSchema = z.object({
+  title: z.string()
+    .min(1, "Title is required")
+    .max(100, "Title must be less than 100 characters"),
+  description: z.string()
+    .max(500, "Description must be less than 500 characters")
+    .optional(),
+  color: z.string()
+    .regex(/^#[0-9A-Fa-f]{6}$/, "Invalid hex color")
+    .optional(),
+  position: z.number()
+    .int()
+    .min(0)
+    .optional(),
+})
+
+export const UpdateBoardSchema = CreateBoardSchema.partial()
+
+export const BoardResponseSchema = z.object({
+  id: z.string().uuid(),
+  title: z.string(),
+  description: z.string().nullable(),
+  color: z.string().nullable(),
+  position: z.number(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  userId: z.string(),
+})
+
+export type CreateBoardInput = z.infer<typeof CreateBoardSchema>
+export type UpdateBoardInput = z.infer<typeof UpdateBoardSchema>
+export type BoardResponse = z.infer<typeof BoardResponseSchema>
+```
+
+### 6.2 Type Definition Patterns
+
+**Component Props Types:**
+```tsx
+// ✅ CORRECT - Component props with proper typing
+interface BoardCardProps {
+  board: Board
+  onEdit?: (board: Board) => void
+  onDelete?: (boardId: string) => void
+  className?: string
+}
+
+interface BoardFormProps {
+  board?: Board // For editing existing board
+  onSubmit: (data: CreateBoardInput | UpdateBoardInput) => Promise<void>
+  onCancel?: () => void
+}
+
+function BoardCard({ board, onEdit, onDelete, className }: BoardCardProps) {
+  // Implementation
+}
+
+function BoardForm({ board, onSubmit, onCancel }: BoardFormProps) {
+  // Implementation
+}
+```
+
+## 7. Performance Optimization Patterns
+
+### 7.1 Component Optimization
+
+**Memoization Patterns:**
+```tsx
+// ✅ CORRECT - Memoizing expensive components
+import { memo } from 'react'
+
+const BoardCard = memo(function BoardCard({
+  board,
+  onEdit,
+  onDelete
+}: BoardCardProps) {
+  console.log('BoardCard rendered:', board.id)
+
+  return (
+    <Card>
+      <CardContent>
+        <h3>{board.title}</h3>
+        <p>{board.description}</p>
+        <div className="flex gap-2">
+          <Button onClick={() => onEdit?.(board)}>
+            Edit
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={() => onDelete?.(board.id)}
+          >
+            Delete
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  )
+})
+```
+
+**Dynamic Imports:**
+```tsx
+// ✅ CORRECT - Code splitting for heavy components
+import dynamic from 'next/dynamic'
+
+const BoardDetail = dynamic(
+  () => import('./board-detail'),
+  {
+    loading: () => <BoardSkeleton />,
+    ssr: false, // Client-side only if needed
+  }
+)
+
+const CreateBoardDialog = dynamic(
+  () => import('./create-board-dialog'),
+  {
+    loading: () => <DialogSkeleton />,
+  }
+)
+```
+
+### 7.2 Data Fetching Optimization
+
+**Query Optimization:**
+```tsx
+// ✅ CORRECT - Optimized queries
+function BoardsList() {
+  const { data: boards, isLoading } = api.boards.list.useQuery({
+    // Cache for 5 minutes
+    staleTime: 5 * 60 * 1000,
+
+    // Don't refetch on window focus for this data
+    refetchOnWindowFocus: false,
+
+    // Refetch every 10 minutes in background
+    refetchInterval: 10 * 60 * 1000,
+    refetchIntervalInBackground: true,
+
+    // Use initial data to prevent loading states
+    initialData: [],
+  })
+
+  // Implementation
+}
+```
+
+## 8. Testing Patterns
+
+### 8.1 CRITICAL: Mandatory Browser Testing
+
+**🚨 ABSOLUTE REQUIREMENT: ALL Front-End implementations require browser validation.**
+
+**Browser Testing Protocol (Front-End Only):**
+```typescript
+// 1. MANDATORY: After the server status check confirms the port is running, use your browser tools for autonomous Front-End validation.
+// 2. CRITICAL: Cannot advance to next task/subtask without successful browser testing.
+// 3. Browser testing provides autonomous end-to-end validation for the Front-End.
+// 4. Test all user interactions, form submissions, navigation, and UI states.
+```
+
+**Playwright Testing Workflow (Front-End Only):**
+- **User Journey Testing:** Test complete user flows from start to finish.
+- **Form Validation:** Test form submissions, validation, and error states.
+- **Navigation Testing:** Test routing, page transitions, and URL changes.
+- **Interactive Elements:** Test buttons, links, modals, and dynamic content.
+- **Responsive Testing:** Test across different screen sizes and devices.
+- **Accessibility Testing:** Test keyboard navigation, screen readers, focus management.
+
+**Cannot Advance Without Browser Validation:**
+- **Task Block:** Front-End implementation cannot proceed to next phase without Playwright validation.
+- **Quality Gate:** Browser testing serves as final autonomous validation for the Front-End.
+- **Autonomous Testing:** Provides independent validation layer for Front-End implementations.
+
+## 9. Research & Market Analysis Protocol
+
+### 9.1 Browser Research Freedom
+**UNRESTRICTED BROWSER ACCESS:**
+
+**Research Capabilities:**
+- **UI/UX Inspiration:** Access Dribbble, Behance, Awwwards for design inspiration
+- **Framework Updates:** Latest React, Next.js, and library documentation
+- **Component Libraries:** Shadcn UI updates, new components, customization options
+- **Accessibility Guidelines:** WCAG 2.1 AA updates, ARIA best practices
+- **Performance Patterns:** Latest optimization techniques and tools
+- **Community Solutions:** Stack Overflow, Reddit, GitHub for real-world implementations
+
+**Market Analysis Integration:**
+- **Technology Trends:** Latest front-end frameworks, tools, and methodologies
+- **User Experience Patterns:** Current UX trends and user behavior insights
+- **Competitive Analysis:** How other applications handle similar features
+- **Performance Benchmarks:** Industry standards and best practices
+- **Accessibility Standards:** Latest WCAG guidelines and implementation patterns
+
+**Research-Driven Development:**
+- **Stay Current:** Always check latest documentation and community solutions
+- **Market Research:** Ensure solutions are competitive and user-friendly
+- **Technology Updates:** Keep up with framework updates and new features
+- **Best Practices:** Research latest patterns and implement them
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/Krekinha) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
