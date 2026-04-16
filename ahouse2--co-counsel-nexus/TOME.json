@@ -4,7 +4,7 @@
   "repo": "co_counsel_nexus",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/ahouse2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T22:36:50Z"
+  "distributed_at": "2026-04-16T20:33:33Z"
 }
