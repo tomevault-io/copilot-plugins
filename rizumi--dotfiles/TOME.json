@@ -1,0 +1,51 @@
+{
+  "name": "dotfiles",
+  "owner": "rizumi",
+  "repo": "dotfiles",
+  "description": "AI instruction files for dotfiles by rizumi",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "translation-checker",
+      "path": "dot_claude/skills/translation-checker",
+      "github_url": "https://github.com/rizumi/dotfiles/tree/main/dot_claude/skills/translation-checker",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/rizumi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-16T05:30:38Z"
+}
