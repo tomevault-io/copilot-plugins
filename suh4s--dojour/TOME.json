@@ -4,7 +4,7 @@
   "repo": "dojour",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/suh4s",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T11:44:40Z"
+  "distributed_at": "2026-04-16T20:08:38Z"
 }
