@@ -4,7 +4,7 @@
   "repo": "DocuMindIntelliOCR",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/SSI-Automations",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T19:00:05Z"
+  "distributed_at": "2026-04-16T09:24:53Z"
 }
