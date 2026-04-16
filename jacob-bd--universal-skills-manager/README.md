@@ -1,8 +1,6 @@
-# universal-skills-manager
+# AI instruction files for universal-skills-manager
 
-> Tome by [jacob-bd](https://github.com/jacob-bd/universal-skills-manager) — distributed by [TomeVault](https://tomevault.io/claim/jacob-bd)
-
-AI instruction files for universal-skills-manager by jacob-bd
+> Sourced from [jacob-bd/universal-skills-manager](https://github.com/jacob-bd/universal-skills-manager) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,14 +13,16 @@ Original source: `CLAUDE.md` in [jacob-bd/universal-skills-manager](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/jacob-bd](https://tomevault.io/claim/jacob-bd)
-
-## Bundled Skills (1)
-
-- [universal-skills-manager](https://github.com/jacob-bd/universal-skills-manager/tree/main/universal-skills-manager)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/jacob-bd)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jacob-bd) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install jacob-bd/universal-skills-manager
+```
+Or browse all formats at [https://tomevault.io/claim/jacob-bd](https://tomevault.io/claim/jacob-bd).
+
+<!-- genome:a-i-s -->
