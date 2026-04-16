@@ -1,0 +1,51 @@
+{
+  "name": "workers-monorepo-template",
+  "owner": "jahands",
+  "repo": "workers-monorepo-template",
+  "description": "AI instruction files for workers-monorepo-template by jahands",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "typescript-inline-scripts",
+      "path": ".agents/skills/typescript-inline-scripts",
+      "github_url": "https://github.com/jahands/workers-monorepo-template/tree/main/.agents/skills/typescript-inline-scripts",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/jahands",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-16T10:31:14Z"
+}
