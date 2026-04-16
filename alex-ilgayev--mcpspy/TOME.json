@@ -1,0 +1,51 @@
+{
+  "name": "MCPSpy",
+  "owner": "alex-ilgayev",
+  "repo": "MCPSpy",
+  "description": "AI instruction files for MCPSpy by alex-ilgayev",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-commit-creator",
+      "path": ".claude/skills/git-commit-creator",
+      "github_url": "https://github.com/alex-ilgayev/MCPSpy/tree/main/.claude/skills/git-commit-creator",
+      "description": ""
+    }
+  ],
+  "claim_url": "https://tomevault.io/claim/alex-ilgayev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-16T08:31:08Z"
+}
