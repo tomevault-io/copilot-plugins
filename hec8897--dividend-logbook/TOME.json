@@ -4,7 +4,7 @@
   "repo": "dividend-logbook",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/hec8897",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T21:01:23Z"
+  "distributed_at": "2026-04-16T19:33:36Z"
 }
