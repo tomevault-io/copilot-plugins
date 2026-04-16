@@ -174,11 +174,6 @@
       "description": "qbittorrent-web"
     },
     {
-      "name": "jacob-bd--universal-skills-manager",
-      "source": "./jacob-bd--universal-skills-manager",
-      "description": "universal-skills-manager"
-    },
-    {
       "name": "mshick--add-pr-comment",
       "source": "./mshick--add-pr-comment",
       "description": "add-pr-comment"
@@ -46972,6 +46967,631 @@
       "name": "geehexx--mcp-web",
       "source": "./geehexx--mcp-web",
       "description": "mcp-web"
+    },
+    {
+      "name": "daudayusuf--podcast-summariser-thread-writer",
+      "source": "./daudayusuf--podcast-summariser-thread-writer",
+      "description": "podcast-summariser-thread-writer"
+    },
+    {
+      "name": "politan--cashy-flow",
+      "source": "./politan--cashy-flow",
+      "description": "cashy-flow"
+    },
+    {
+      "name": "crisesarmiento--testsense",
+      "source": "./crisesarmiento--testsense",
+      "description": "testsense"
+    },
+    {
+      "name": "cho45--cf-neocities",
+      "source": "./cho45--cf-neocities",
+      "description": "cf-neocities"
+    },
+    {
+      "name": "wisdomoflovingfaith--lupopedia",
+      "source": "./wisdomoflovingfaith--lupopedia",
+      "description": "lupopedia"
+    },
+    {
+      "name": "sharmaadityahq--frameworkx",
+      "source": "./sharmaadityahq--frameworkx",
+      "description": "FrameworkX"
+    },
+    {
+      "name": "9thlevelsoftware--altaydosite",
+      "source": "./9thlevelsoftware--altaydosite",
+      "description": "AltAydoSite"
+    },
+    {
+      "name": "chasemc67--jam-dashboard",
+      "source": "./chasemc67--jam-dashboard",
+      "description": "jam-dashboard"
+    },
+    {
+      "name": "chrisburlacu1--gitlab-mcp",
+      "source": "./chrisburlacu1--gitlab-mcp",
+      "description": "gitlab-mcp"
+    },
+    {
+      "name": "danlil240--spectra",
+      "source": "./danlil240--spectra",
+      "description": "Spectra"
+    },
+    {
+      "name": "mickaelyoshua--finances-tui",
+      "source": "./mickaelyoshua--finances-tui",
+      "description": "finances-tui"
+    },
+    {
+      "name": "ghastsantos--template-backend",
+      "source": "./ghastsantos--template-backend",
+      "description": "template-backend"
+    },
+    {
+      "name": "pathtoresiliencebv--aurelio-living",
+      "source": "./pathtoresiliencebv--aurelio-living",
+      "description": "aurelio-living"
+    },
+    {
+      "name": "xlabinternet--xratecosystem",
+      "source": "./xlabinternet--xratecosystem",
+      "description": "xRatEcosystem"
+    },
+    {
+      "name": "isl270--multi-agent-ai-realtor",
+      "source": "./isl270--multi-agent-ai-realtor",
+      "description": "multi-agent-ai-realtor"
+    },
+    {
+      "name": "taka-kaitani--leetcode-solutions",
+      "source": "./taka-kaitani--leetcode-solutions",
+      "description": "leetcode-solutions"
+    },
+    {
+      "name": "lorenaparra-ui--platam-pay-v2-frontend",
+      "source": "./lorenaparra-ui--platam-pay-v2-frontend",
+      "description": "platam_pay_v2_frontend"
+    },
+    {
+      "name": "ljho01--slice",
+      "source": "./ljho01--slice",
+      "description": "slice"
+    },
+    {
+      "name": "anugrahsputra--change-project-name",
+      "source": "./anugrahsputra--change-project-name",
+      "description": "change_project_name"
+    },
+    {
+      "name": "haymayndzultra--supertemplate",
+      "source": "./haymayndzultra--supertemplate",
+      "description": "SuperTemplate"
+    },
+    {
+      "name": "rice-wxl--med-spurious",
+      "source": "./rice-wxl--med-spurious",
+      "description": "med_spurious"
+    },
+    {
+      "name": "majiajue--longbridge",
+      "source": "./majiajue--longbridge",
+      "description": "longbridge"
+    },
+    {
+      "name": "eldrgeek--frontrow",
+      "source": "./eldrgeek--frontrow",
+      "description": "FrontRow"
+    },
+    {
+      "name": "eightman999--kodukaityou-app",
+      "source": "./eightman999--kodukaityou-app",
+      "description": "Kodukaityou_APP"
+    },
+    {
+      "name": "nightconcept--nightengine",
+      "source": "./nightconcept--nightengine",
+      "description": "NightEngine"
+    },
+    {
+      "name": "parthkk90--wam0",
+      "source": "./parthkk90--wam0",
+      "description": "wam0"
+    },
+    {
+      "name": "mayornaca--qlify-platform",
+      "source": "./mayornaca--qlify-platform",
+      "description": "qlify-platform"
+    },
+    {
+      "name": "ryansmccoy--feed-spine",
+      "source": "./ryansmccoy--feed-spine",
+      "description": "feed-spine"
+    },
+    {
+      "name": "slinkter--myprojectapi11",
+      "source": "./slinkter--myprojectapi11",
+      "description": "myprojectapi11"
+    },
+    {
+      "name": "avav25--ai-assets",
+      "source": "./avav25--ai-assets",
+      "description": "ai-assets"
+    },
+    {
+      "name": "oporpino--qwert",
+      "source": "./oporpino--qwert",
+      "description": "qwert"
+    },
+    {
+      "name": "djamestaft--crossfitgym",
+      "source": "./djamestaft--crossfitgym",
+      "description": "CrossfitGym"
+    },
+    {
+      "name": "yorberr--capital-flux",
+      "source": "./yorberr--capital-flux",
+      "description": "Capital_Flux"
+    },
+    {
+      "name": "anasfaaiz--ace",
+      "source": "./anasfaaiz--ace",
+      "description": "ACE"
+    },
+    {
+      "name": "wahengchang--workflow-multiple",
+      "source": "./wahengchang--workflow-multiple",
+      "description": "workflow-multiple"
+    },
+    {
+      "name": "youshyee--nvim",
+      "source": "./youshyee--nvim",
+      "description": "nvim"
+    },
+    {
+      "name": "marcodavidd020--clothing-ecommerce-backend",
+      "source": "./marcodavidd020--clothing-ecommerce-backend",
+      "description": "Clothing-Ecommerce-Backend"
+    },
+    {
+      "name": "sjaaak777--knowledge-base-system",
+      "source": "./sjaaak777--knowledge-base-system",
+      "description": "knowledge-base-system"
+    },
+    {
+      "name": "sebaschicaiza--nexalforge-landingpage",
+      "source": "./sebaschicaiza--nexalforge-landingpage",
+      "description": "nexalforge-landingpage"
+    },
+    {
+      "name": "jpmarichal--ccmwf",
+      "source": "./jpmarichal--ccmwf",
+      "description": "ccmwf"
+    },
+    {
+      "name": "ayeshalee88--phaseiii",
+      "source": "./ayeshalee88--phaseiii",
+      "description": "PHASEIII"
+    },
+    {
+      "name": "maverick-software--agentopia",
+      "source": "./maverick-software--agentopia",
+      "description": "agentopia"
+    },
+    {
+      "name": "hj01857655--hnqm-helper-main",
+      "source": "./hj01857655--hnqm-helper-main",
+      "description": "hnqm_helper-main"
+    },
+    {
+      "name": "lkingsford--utwid-rl",
+      "source": "./lkingsford--utwid-rl",
+      "description": "utwid_rl"
+    },
+    {
+      "name": "balamurugan-venkadachalam--flocklist",
+      "source": "./balamurugan-venkadachalam--flocklist",
+      "description": "FlockList"
+    },
+    {
+      "name": "jacob-bd--universal-skills-manager",
+      "source": "./jacob-bd--universal-skills-manager",
+      "description": "universal-skills-manager"
+    },
+    {
+      "name": "bryyzxm--motivato",
+      "source": "./bryyzxm--motivato",
+      "description": "motivato"
+    },
+    {
+      "name": "kiraezy--leagueprowordlefrontend",
+      "source": "./kiraezy--leagueprowordlefrontend",
+      "description": "LeagueProWordleFrontend"
+    },
+    {
+      "name": "choeng-rayu--derlg",
+      "source": "./choeng-rayu--derlg",
+      "description": "DerLg"
+    },
+    {
+      "name": "karstegg--marthavault",
+      "source": "./karstegg--marthavault",
+      "description": "MarthaVault"
+    },
+    {
+      "name": "webdevcody--automaker-starter-kit",
+      "source": "./webdevcody--automaker-starter-kit",
+      "description": "automaker-starter-kit"
+    },
+    {
+      "name": "mrfansi--larachat",
+      "source": "./mrfansi--larachat",
+      "description": "larachat"
+    },
+    {
+      "name": "rkwai--ai-agent-platform",
+      "source": "./rkwai--ai-agent-platform",
+      "description": "ai-agent-platform"
+    },
+    {
+      "name": "gideon-jacob--gideon-portfolio-website",
+      "source": "./gideon-jacob--gideon-portfolio-website",
+      "description": "gideon-portfolio-website"
+    },
+    {
+      "name": "yetiz-org--goth-scaffold",
+      "source": "./yetiz-org--goth-scaffold",
+      "description": "goth-scaffold"
+    },
+    {
+      "name": "dumpysquare--flipperagents",
+      "source": "./dumpysquare--flipperagents",
+      "description": "flipperAgents"
+    },
+    {
+      "name": "nextstepguru--dineros-cc",
+      "source": "./nextstepguru--dineros-cc",
+      "description": "dineros.cc"
+    },
+    {
+      "name": "consiliency--airfield-info-server",
+      "source": "./consiliency--airfield-info-server",
+      "description": "Airfield-Info-Server"
+    },
+    {
+      "name": "samanthalu--fl-staff-portal",
+      "source": "./samanthalu--fl-staff-portal",
+      "description": "fl_staff_portal"
+    },
+    {
+      "name": "trevorplam--cloud-gallery",
+      "source": "./trevorplam--cloud-gallery",
+      "description": "cloud-gallery"
+    },
+    {
+      "name": "petekp--agentic-canvas",
+      "source": "./petekp--agentic-canvas",
+      "description": "agentic-canvas"
+    },
+    {
+      "name": "agwhi--dotfiles",
+      "source": "./agwhi--dotfiles",
+      "description": "Dotfiles"
+    },
+    {
+      "name": "thijserends--challenge",
+      "source": "./thijserends--challenge",
+      "description": "challenge"
+    },
+    {
+      "name": "njreid--zelland",
+      "source": "./njreid--zelland",
+      "description": "zelland"
+    },
+    {
+      "name": "avenbreaks--core",
+      "source": "./avenbreaks--core",
+      "description": "core"
+    },
+    {
+      "name": "jbis1104--head-tracking-monitor-arm-rp5",
+      "source": "./jbis1104--head-tracking-monitor-arm-rp5",
+      "description": "Head-Tracking-Monitor-Arm_RP5"
+    },
+    {
+      "name": "pauljphilp--wetware-software",
+      "source": "./pauljphilp--wetware-software",
+      "description": "wetware-software"
+    },
+    {
+      "name": "menkelabs--datadog-drilldown",
+      "source": "./menkelabs--datadog-drilldown",
+      "description": "datadog-drilldown"
+    },
+    {
+      "name": "nattadasu--bilidownloader",
+      "source": "./nattadasu--bilidownloader",
+      "description": "bilidownloader"
+    },
+    {
+      "name": "divmak11--dashboard-bihar-congress",
+      "source": "./divmak11--dashboard-bihar-congress",
+      "description": "dashboard_bihar_congress"
+    },
+    {
+      "name": "itzsaga--reading-plan-worker",
+      "source": "./itzsaga--reading-plan-worker",
+      "description": "reading-plan-worker"
+    },
+    {
+      "name": "amo-tech-ai--sun100",
+      "source": "./amo-tech-ai--sun100",
+      "description": "sun100"
+    },
+    {
+      "name": "xp-speit2018--cotab",
+      "source": "./xp-speit2018--cotab",
+      "description": "cotab"
+    },
+    {
+      "name": "izzatfirdaus--ictserve-031125",
+      "source": "./izzatfirdaus--ictserve-031125",
+      "description": "ictserve-031125"
+    },
+    {
+      "name": "benjaminlettner--meshc2",
+      "source": "./benjaminlettner--meshc2",
+      "description": "MeshC2"
+    },
+    {
+      "name": "braven112--mfl-football-v2",
+      "source": "./braven112--mfl-football-v2",
+      "description": "mfl.football.v2"
+    },
+    {
+      "name": "pateatlau--bma-2026",
+      "source": "./pateatlau--bma-2026",
+      "description": "bma-2026"
+    },
+    {
+      "name": "furkancolhak--fleximlhub",
+      "source": "./furkancolhak--fleximlhub",
+      "description": "FlexiMLHub"
+    },
+    {
+      "name": "jiaruh--momentum",
+      "source": "./jiaruh--momentum",
+      "description": "Momentum"
+    },
+    {
+      "name": "trevorplam--cloud-gallery",
+      "source": "./trevorplam--cloud-gallery",
+      "description": "cloud-gallery"
+    },
+    {
+      "name": "andershsueh--alice",
+      "source": "./andershsueh--alice",
+      "description": "Alice"
+    },
+    {
+      "name": "wenjebs--ripple",
+      "source": "./wenjebs--ripple",
+      "description": "ripple"
+    },
+    {
+      "name": "themonk2121--ai-dev-tasks",
+      "source": "./themonk2121--ai-dev-tasks",
+      "description": "ai-dev-tasks"
+    },
+    {
+      "name": "dongkikim--vr",
+      "source": "./dongkikim--vr",
+      "description": "vr"
+    },
+    {
+      "name": "lmnhd--devilsadvocate",
+      "source": "./lmnhd--devilsadvocate",
+      "description": "DevilsAdvocate"
+    },
+    {
+      "name": "withholm--claude-tab-fix",
+      "source": "./withholm--claude-tab-fix",
+      "description": "claude-tab-fix"
+    },
+    {
+      "name": "nicoletc--trustloan-capstone-project",
+      "source": "./nicoletc--trustloan-capstone-project",
+      "description": "TrustLoan-Capstone-Project"
+    },
+    {
+      "name": "bcordeirodev--lawyer-hero-envato",
+      "source": "./bcordeirodev--lawyer-hero-envato",
+      "description": "lawyer-hero-envato"
+    },
+    {
+      "name": "lohitpt252003--chale-ham",
+      "source": "./lohitpt252003--chale-ham",
+      "description": "chale-ham"
+    },
+    {
+      "name": "rcesaret--teomappingproject",
+      "source": "./rcesaret--teomappingproject",
+      "description": "TeoMappingProject"
+    },
+    {
+      "name": "1henrypage--sh-treehouse",
+      "source": "./1henrypage--sh-treehouse",
+      "description": "sh-treehouse"
+    },
+    {
+      "name": "0xatrilla--repo-radar",
+      "source": "./0xatrilla--repo-radar",
+      "description": "Repo-Radar"
+    },
+    {
+      "name": "eugenebolotin--django-template",
+      "source": "./eugenebolotin--django-template",
+      "description": "django-template"
+    },
+    {
+      "name": "ign3el--edusmart",
+      "source": "./ign3el--edusmart",
+      "description": "edusmart"
+    },
+    {
+      "name": "rcesaret--windsurf",
+      "source": "./rcesaret--windsurf",
+      "description": "windsurf"
+    },
+    {
+      "name": "willbooster--build-ts",
+      "source": "./willbooster--build-ts",
+      "description": "build-ts"
+    },
+    {
+      "name": "aidev-ma--edu-venture-pad",
+      "source": "./aidev-ma--edu-venture-pad",
+      "description": "edu-venture-pad"
+    },
+    {
+      "name": "wuhall--labelme-pre-annotation",
+      "source": "./wuhall--labelme-pre-annotation",
+      "description": "labelme-pre-annotation"
+    },
+    {
+      "name": "antithetic--garden-madness",
+      "source": "./antithetic--garden-madness",
+      "description": "garden-madness"
+    },
+    {
+      "name": "emilymacro--test",
+      "source": "./emilymacro--test",
+      "description": "test"
+    },
+    {
+      "name": "valkyriweb--itslue-co-za",
+      "source": "./valkyriweb--itslue-co-za",
+      "description": "itslue.co.za"
+    },
+    {
+      "name": "tecuzin--mlops",
+      "source": "./tecuzin--mlops",
+      "description": "mlops"
+    },
+    {
+      "name": "qredence--skills",
+      "source": "./qredence--skills",
+      "description": "skills"
+    },
+    {
+      "name": "lyonsno--spoke",
+      "source": "./lyonsno--spoke",
+      "description": "spoke"
+    },
+    {
+      "name": "rui-tx--jaws",
+      "source": "./rui-tx--jaws",
+      "description": "jaws"
+    },
+    {
+      "name": "markfoskey--chronopsis",
+      "source": "./markfoskey--chronopsis",
+      "description": "chronopsis"
+    },
+    {
+      "name": "mustafahasanat--emperor-ui",
+      "source": "./mustafahasanat--emperor-ui",
+      "description": "emperor-ui"
+    },
+    {
+      "name": "fastprod--contextengine",
+      "source": "./fastprod--contextengine",
+      "description": "ContextEngine"
+    },
+    {
+      "name": "flushkim--cpc-optimizer",
+      "source": "./flushkim--cpc-optimizer",
+      "description": "cpc_optimizer"
+    },
+    {
+      "name": "artfrost1--lavillapinereact2",
+      "source": "./artfrost1--lavillapinereact2",
+      "description": "LaVillaPineReact2"
+    },
+    {
+      "name": "seonghoho--tech-book",
+      "source": "./seonghoho--tech-book",
+      "description": "tech-book"
+    },
+    {
+      "name": "johnlindquist--chopup",
+      "source": "./johnlindquist--chopup",
+      "description": "chopup"
+    },
+    {
+      "name": "abutun--galactic-striker",
+      "source": "./abutun--galactic-striker",
+      "description": "Galactic-Striker"
+    },
+    {
+      "name": "krazykarthik2--zig-raylib-3d-inversekinematics-solverxsimple",
+      "source": "./krazykarthik2--zig-raylib-3d-inversekinematics-solverxsimple",
+      "description": "zig_raylib_3d_inversekinematics_solverxsimple"
+    },
+    {
+      "name": "henderorlando--booklyapp",
+      "source": "./henderorlando--booklyapp",
+      "description": "booklyapp"
+    },
+    {
+      "name": "greenbuttonalliance--openespi-greenbutton-java",
+      "source": "./greenbuttonalliance--openespi-greenbutton-java",
+      "description": "OpenESPI-GreenButton-Java"
+    },
+    {
+      "name": "dacay--eventkit-node",
+      "source": "./dacay--eventkit-node",
+      "description": "eventkit-node"
+    },
+    {
+      "name": "jeremyfail--swipeclock-scripting-extension",
+      "source": "./jeremyfail--swipeclock-scripting-extension",
+      "description": "swipeclock-scripting-extension"
+    },
+    {
+      "name": "buchuoer--todo-web",
+      "source": "./buchuoer--todo-web",
+      "description": "todo-web"
+    },
+    {
+      "name": "inabaphoto--seo-analytics-saas",
+      "source": "./inabaphoto--seo-analytics-saas",
+      "description": "seo-analytics-saas"
+    },
+    {
+      "name": "bjnortier--htkit",
+      "source": "./bjnortier--htkit",
+      "description": "HTKit"
+    },
+    {
+      "name": "dapperfu--media-indexer",
+      "source": "./dapperfu--media-indexer",
+      "description": "media_indexer"
+    },
+    {
+      "name": "ivanjr0--of",
+      "source": "./ivanjr0--of",
+      "description": "of"
+    },
+    {
+      "name": "donmatano--mapochi",
+      "source": "./donmatano--mapochi",
+      "description": "mapochi"
+    },
+    {
+      "name": "greenb8--ww-google-places-autocomplete",
+      "source": "./greenb8--ww-google-places-autocomplete",
+      "description": "ww-google-places-autocomplete"
     }
   ]
 }
