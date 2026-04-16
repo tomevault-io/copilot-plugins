@@ -4,7 +4,7 @@
   "repo": "agent-kit-skill",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/binhtranquoc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T18:51:37Z"
+  "distributed_at": "2026-04-16T03:10:29Z"
 }
