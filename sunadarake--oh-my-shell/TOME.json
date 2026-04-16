@@ -4,7 +4,7 @@
   "repo": "oh_my_shell",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/sunadarake",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T07:56:39Z"
+  "distributed_at": "2026-04-16T22:12:46Z"
 }
