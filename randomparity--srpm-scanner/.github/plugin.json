@@ -1,0 +1,9 @@
+{
+  "name": "randomparity--srpm-scanner",
+  "displayName": "srpm-scanner",
+  "description": "srpm-scanner",
+  "version": "1.0.0",
+  "author": "randomparity",
+  "homepage": "https://tomevault.io/claim/randomparity",
+  "skills": []
+}
