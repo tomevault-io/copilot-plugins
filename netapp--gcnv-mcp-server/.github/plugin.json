@@ -1,0 +1,9 @@
+{
+  "name": "netapp--gcnv-mcp-server",
+  "displayName": "gcnv-mcp-server",
+  "description": "gcnv-mcp-server",
+  "version": "1.0.0",
+  "author": "NetApp",
+  "homepage": "https://tomevault.io/claim/NetApp",
+  "skills": []
+}
