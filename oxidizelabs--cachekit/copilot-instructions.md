@@ -1,0 +1,52 @@
+## cachekit
+
+> You are working in a Rust cache library.
+
+You are working in a Rust cache library.
+
+Goals
+- Optimize for expected workload patterns before choosing a policy.
+- Keep hot paths allocation-free and predictable.
+- Favor memory layout efficiency over algorithmic complexity.
+- Treat concurrency as a core design choice, not a wrapper.
+
+Design Rules
+- Separate policy from storage; policies only manage metadata and ordering.
+- Prefer contiguous storage and index-based indirection over pointer chasing.
+- Avoid per-operation allocations; pre-allocate pools/arenas and reuse.
+- Keep eviction O(1) with direct indices/handles; no scans or tree walks.
+- Make concurrency strategy explicit (global lock, sharded, or mostly lock-free).
+- Avoid heavy Rust ergonomics in hot loops (trait objects, iterator chains, closures).
+- Keep metadata tight; split hot metadata from cold payloads when possible.
+
+Workload & Benchmarks
+- Assume scan-heavy and skewed workloads; prefer scan-resistant policies when needed.
+- Evaluate with Zipfian, scan + point lookup, and mixed read/write patterns.
+- Track tail latency, throughput, eviction cost, and memory overhead.
+
+Metrics & Observability
+- Include lightweight counters for hit/miss, evictions, inserts/updates.
+- Gate detailed metrics behind feature flags.
+
+Rust Pitfalls
+- Minimize Arc usage in hot paths; avoid hidden clones.
+- Prefer explicit loops and concrete types in performance-critical code.
+
+Documentation Layout
+- Use a consistent module doc layout: Architecture, Key Components, Core Operations, Performance Trade-offs, When to Use, Example Usage, Type Constraints, Thread Safety, Implementation Notes.
+- Keep examples short, compile-ready, and focused on a single use case.
+- Document public methods with concise docstrings; avoid restating the signature.
+
+Docstring Style Guide
+- Use Rustdoc (`//!` for modules, `///` for items).
+- Prefer one-sentence summaries; mention invariants or complexity only when they matter.
+- Avoid Args/Returns sections unless behavior is non-obvious.
+- Template:
+  //! ## Architecture
+  //! ...
+  /// Brief summary of behavior.
+- Align public APIs and documentation with the [Rust API Guidelines checklist](https://rust-lang.github.io/api-guidelines/checklist.html) so naming, visibility, and ergonomics stay consistent across consumers.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/OxidizeLabs) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
