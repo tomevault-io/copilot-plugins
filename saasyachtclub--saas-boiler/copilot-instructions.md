@@ -1,0 +1,114 @@
+## saas-boiler
+
+> This is the **SaaS Yacht Club** - a FREE & Open Source SaaS boilerplate built with React 19, Next.js 15, TypeScript 5.7, Better Auth, Stripe, Neon PostgreSQL, and Drizzle ORM. It's production-ready with enterprise-grade security, multi-tenant architecture, and modern development practices.
+
+# ⚓ SaaS Yacht Club - Cursor IDE Rules
+
+## 🎯 Project Context
+This is the **SaaS Yacht Club** - a FREE & Open Source SaaS boilerplate built with React 19, Next.js 15, TypeScript 5.7, Better Auth, Stripe, Neon PostgreSQL, and Drizzle ORM. It's production-ready with enterprise-grade security, multi-tenant architecture, and modern development practices.
+
+## 🛠️ Development Environment
+- **Node.js**: >= 20.0.0 (use .nvmrc)
+- **Package Manager**: pnpm >= 9.0.0 (faster than npm/yarn)
+- **TypeScript**: 5.7+ with strict mode enabled
+- **Build System**: Turbo monorepo with caching
+- **Code Quality**: Biome (100x faster than ESLint)
+
+## 📦 Package Management
+- Prefer `pnpm` over npm/yarn for all operations
+- Use `pnpm -w` for workspace-level commands
+- Resolve semver conflicts by preferring app versions
+- Always run `pnpm -w build` before pushing to ensure clean builds
+- Use `pnpm install --frozen-lockfile` in CI/production
+
+## 🔐 Environment & Security
+- **Required Environment Variables**: DATABASE_URL, STRIPE_SECRET_KEY, BETTER_AUTH_SECRET, RESEND_API_KEY
+- **Optional but Recommended**: SENTRY_DSN, AXIOM_TOKEN, NEXT_PUBLIC_POSTHOG_KEY
+- Never commit .env files or secrets to version control
+- Use .env.example as template for required variables
+- Validate all environment variables at startup
+
+## 🏗️ Architecture Patterns
+- **App Router**: Use Next.js 15 App Router exclusively (no Pages Router)
+- **Server Components**: Default to Server Components, use 'use client' only when needed
+- **React 19**: Leverage new features like improved hydration and concurrent features
+- **TypeScript**: Strict mode with proper null/undefined handling using optional chaining
+- **Database**: Use Drizzle ORM with type-safe queries and relations
+
+## 🎨 Code Style & Quality
+- **Linting**: Use Biome instead of ESLint (configured in biome.jsonc)
+- **Formatting**: Biome handles formatting (no Prettier needed)
+- **TypeScript**: Strict mode with exactOptionalPropertyTypes: false
+- **Imports**: Use absolute imports with @ alias for src/ directory
+- **Components**: PascalCase for components, kebab-case for pages
+
+## 🔄 API & Error Handling
+- Use `next-axiom` `withAxiom` wrapper on all API routes and middleware
+- Capture errors via `src/lib/logging.ts` `captureError` function
+- Implement proper error boundaries with global-error.tsx
+- Use Zod for input validation and type safety
+- Follow RESTful conventions with proper HTTP status codes
+
+## 🧪 Testing & Quality Assurance
+- **Unit Tests**: Vitest with React Testing Library
+- **E2E Tests**: Playwright for end-to-end testing
+- **Type Checking**: Run `pnpm type-check` before commits
+- **Build Verification**: Always run `pnpm -w build` before pushing
+- **Coverage**: Maintain good test coverage for critical paths
+
+## 🚀 Deployment & Production
+- **Platform**: Optimized for Vercel deployment
+- **Build**: Use `pnpm build` for production builds
+- **Environment**: Separate configs for development/staging/production
+- **Monitoring**: Sentry for errors, PostHog for analytics, Axiom for logs
+- **Performance**: Monitor Core Web Vitals and optimize accordingly
+
+## 🔒 Security Best Practices
+- Implement CSRF protection with tokens
+- Use proper input sanitization and validation
+- Enable rate limiting on API endpoints
+- Use secure session management with Better Auth
+- Implement proper CORS and security headers
+- Regular dependency updates and security scanning
+
+## 📊 Database & ORM
+- **ORM**: Drizzle ORM with type-safe queries
+- **Database**: Neon PostgreSQL with connection pooling
+- **Migrations**: Use Drizzle migrations for schema changes
+- **Relations**: Properly define relations for complex queries
+- **Indexes**: Add appropriate indexes for performance
+
+## 🎯 Component Development
+- Use shadcn/ui as base component library
+- Implement proper TypeScript interfaces for all props
+- Use Tailwind CSS with consistent design tokens
+- Support dark mode with CSS variables
+- Ensure accessibility with proper ARIA attributes
+- Use React.forwardRef for component refs
+
+## 📱 Responsive & Performance
+- Mobile-first responsive design approach
+- Optimize images with Next.js Image component
+- Use proper caching strategies (Redis, CDN)
+- Implement lazy loading for heavy components
+- Monitor and optimize Core Web Vitals
+
+## 🤝 Collaboration & Git
+- Use conventional commits for clear history
+- Create feature branches for new development
+- Use pull request templates for consistency
+- Run all checks before pushing (build, test, lint)
+- Keep commits atomic and well-described
+
+## 📚 Documentation
+- Update documentation when adding new features
+- Use JSDoc comments for complex functions
+- Keep README and CONTRIBUTING.md current
+- Document API endpoints and their usage
+- Maintain changelog for version tracking
+
+Remember: This is a production-ready boilerplate used by real SaaS companies. Maintain high code quality, security standards, and performance optimization in all contributions.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/saasyachtclub) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
