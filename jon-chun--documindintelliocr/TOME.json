@@ -4,7 +4,7 @@
   "repo": "DocuMindIntelliOCR",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/jon-chun",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T08:56:03Z"
+  "distributed_at": "2026-04-16T12:26:04Z"
 }
