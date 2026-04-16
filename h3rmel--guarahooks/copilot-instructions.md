@@ -1,0 +1,146 @@
+## guarahooks
+
+> Project structure and organization conventions
+
+
+# guarahooks Project Structure
+
+This project is a custom React hooks library built with Next.js, including documentation and CLI.
+
+## Main Structure
+
+```tree
+.
+├── app/                   # Next.js App Router
+│   ├── (docs)/            # Route group for docs
+│   ├── showcase/          # Showcase page
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Home page
+│   └── not-found.tsx      # 404 page
+├── assets/                # Styling, fonts and static content
+├── components/            # React components
+│   ├── ui/               # Shadcn UI components
+│   ├── layout/           # Layout components
+│   ├── sections/         # Page sections
+│   ├── theme/            # Theme components
+│   ├── magicui/          # Magic UI components
+│   ├── design/           # Design components
+│   └── *.tsx             # Other general components
+├── config/               # Project configurations
+│   ├── site.ts           # General site configuration
+│   └── docs.ts           # Documentation configuration
+├── content/              # MDX content
+│   ├── docs/             # Documentation
+│   ├── pages/            # Static pages
+│   └── showcases/        # Showcase examples
+├── hooks/                # Custom project hooks
+├── lib/                  # Utilities and helpers
+├── registry/             # Hook registration system
+│   ├── hooks/            # Registered hook files
+│   ├── example/          # Usage examples
+│   ├── registry-hooks.ts # Main hook registry
+│   └── registry-examples.ts # Example registry
+├── packages/             # Monorepo packages
+│   └── cli/              # guarahooks CLI
+├── public/               # Static assets
+├── scripts/              # Build and utility scripts
+├── types/                # TypeScript definitions
+└── ...                   # Other files (ESLint, Prettier, etc.)
+```
+
+## Naming Conventions
+
+All files must be named using kebab-case (e.g.: `hello-world.tsx`)
+
+### Key Points
+
+- **Hooks**: Use `use-` prefix (e.g: `use-mounted.tsx`, `use-config.tsx`)
+
+## Component Organization
+
+### By Category
+
+- **`components/ui/`**: Shadcn UI primitive components
+- **`components/layout/`**: Header, footer, navigation, sidebar
+- **`components/sections/`**: Page sections (hero, showcase)
+- **`components/theme/`**: Theme provider and toggle
+- **`components/magicui/`**: Special UI components
+- **`components/design/`**: Design-specific components
+- **`components/`**: Other reusable components
+
+### Specific Components
+
+- **Hook Preview**: `hook-preview.tsx`, `hook-wrapper.tsx`, `hook-source.tsx`
+- **Code**: `code-block-wrapper.tsx`, `copy-button.tsx`
+- **Navigation**: `table-of-contents.tsx`, `command-menu.tsx`
+- **Contribution**: `contribute.tsx`, `repo-download.tsx`
+
+## Content System
+
+### Documentation
+
+- **Location**: `content/docs/`
+- **Format**: MDX files
+- **Route**: Rendered via `app/(docs)/docs/[[...slug]]/page.tsx`
+- **Configuration**: `config/docs.ts` for navigation
+
+### Static Pages
+
+- **Location**: `content/pages/`
+- **Format**: MDX for structured content
+
+### Showcase
+
+- **Location**: `content/showcases/`
+- **Purpose**: Examples and demonstrations
+
+## Hook System
+
+### Project Hooks
+
+- **Location**: `hooks/`
+- **Example**: `use-config.tsx`, `use-mounted.tsx`
+- **Usage**: Internal project hooks
+
+### Registry Hooks
+
+- **Location**: `registry/hooks/`
+- **Registry**: `registry/registry-hooks.ts`
+- **Examples**: `registry/registry-examples.ts`
+- **Purpose**: Public library hooks
+
+## Utilities and Configuration
+
+### Lib
+
+- **`lib/utils.ts`**: General utilities
+- **`lib/github.ts`**: GitHub integration
+- **`lib/hooks.ts`**: Hook utilities
+- **`lib/events.ts`**: Event management
+- **`lib/toc.ts`**: Table of contents
+- **`lib/rehype-*.ts`**: MDX processing plugins
+
+### Config
+
+- **`config/site.ts`**: General configuration (metadata, navigation)
+- **`config/docs.ts`**: Documentation structure
+
+## Development
+
+### Scripts
+
+- **`scripts/check-node.mjs`**: Node.js version verification
+- **`scripts/check-pnpm.mjs`**: PNPM version verification
+- **`scripts/build-registry.mts`**: Registry system build
+
+### Monorepo
+
+- **Manager**: pnpm with workspaces
+- **CLI**: `packages/cli/` - command line tool
+- **Each package**: Own `package.json` and configuration
+
+This structure ensures scalability, maintainability and a consistent development experience.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/h3rmel) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
