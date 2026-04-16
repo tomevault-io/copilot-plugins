@@ -1,0 +1,107 @@
+## magento2
+
+> php Test/Integration/PostalCodeParserTest.php
+
+# TaxCloud Magento2 Extension - Cursor Configuration
+
+## Development Commands
+
+### Run Tests
+```bash
+# Run all integration tests
+make test
+
+# Run tests locally (requires PHP)
+make test-local
+
+# Run individual test files
+php Test/Integration/PostalCodeParserTest.php
+php Test/Integration/RefundTest.php
+php Test/Integration/ComprehensiveRefundTest.php
+php Test/Integration/FailureCaseTest.php
+php Test/Integration/AdobeCommerce248p1CompatibilityTest.php
+
+# Run all tests at once
+for test_file in Test/Integration/*Test.php; do
+  echo "Running $test_file..."
+  php "$test_file"
+done
+```
+
+### Run Linting
+```bash
+# Install PHP CodeSniffer (if not already installed)
+composer global require squizlabs/php_codesniffer
+
+# Run linting on PHP files (warnings are non-fatal)
+phpcs --standard=PSR2 --extensions=php Model/ Observer/ Logger/ Setup/ --ignore=Test/
+
+# Auto-fix linting issues (where possible)
+phpcbf --standard=PSR2 --extensions=php Model/ Observer/ Logger/ Setup/ --ignore=Test/
+
+# Run linting with error-only failure (recommended for CI)
+lint_output=$($HOME/.composer/vendor/bin/phpcs --standard=PSR2 --extensions=php Model/ Observer/ Logger/ Setup/ --ignore=Test/ 2>&1 || true)
+if echo "$lint_output" | grep -q "FOUND [1-9][0-9]* ERROR"; then
+  echo "❌ Linting failed - errors found:"
+  echo "$lint_output"
+  exit 1
+else
+  echo "✅ Linting passed - only warnings found (non-fatal):"
+  echo "$lint_output"
+fi
+```
+
+### Run Both Tests and Linting
+```bash
+# Run tests first
+for test_file in Test/Integration/*Test.php; do
+  echo "Running $test_file..."
+  php "$test_file"
+done
+
+# Then run linting
+phpcs --standard=PSR2 --extensions=php Model/ Observer/ Logger/ Setup/ --ignore=Test/
+
+# Or use make commands
+make test
+phpcs --standard=PSR2 --extensions=php Model/ Observer/ Logger/ Setup/ --ignore=Test/
+```
+
+## Code Style Guidelines
+
+- Follow PSR-2 coding standards
+- Use proper indentation (4 spaces)
+- Add proper spacing around operators and keywords
+- Place opening braces on the same line as function declarations
+- Use camelCase for property names (no underscore prefixes)
+- Keep lines under 120 characters when possible
+
+## File Structure
+
+- `Model/` - Core business logic
+- `Observer/` - Event observers
+- `Logger/` - Logging functionality
+- `Setup/` - Database setup and patches
+- `Test/Integration/` - Integration tests
+- `Test/Unit/` - Unit tests (require PHPUnit)
+- `.github/workflows/` - GitHub Actions workflows
+- `.github/actions/` - Reusable GitHub Actions
+
+## Testing
+
+- All tests should be run before committing
+- Integration tests can run without PHPUnit
+- Unit tests require PHPUnit framework
+- Use descriptive test method names
+- Test both success and failure scenarios
+
+## Deployment
+
+- Manual deployment only via GitHub Actions
+- Tests must pass before deployment
+- Use SSH keys for secure deployment
+- Deploy to sandbox environment for testing
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/FedTax) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
