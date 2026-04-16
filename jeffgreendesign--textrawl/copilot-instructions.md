@@ -1,0 +1,61 @@
+## textrawl
+
+> TypeScript and Node.js conventions for Textrawl
+
+
+# TypeScript Conventions
+
+## ESM Imports
+
+This is an ES module project. All imports MUST use `.js` extensions:
+
+```typescript
+// Correct
+import { logger } from '../utils/logger.js';
+import { hybridSearch } from '../db/search.js';
+
+// Wrong - will fail at runtime
+import { logger } from '../utils/logger';
+```
+
+## Node.js Version
+
+Requires Node.js >= 22.0.0. Use modern APIs:
+
+- `fetch` (native, no node-fetch)
+- Top-level await in modules
+- ES2023+ features
+
+## Type Definitions
+
+- Define types in `src/types/` directory
+- Export types from module index files
+- Use Zod for runtime validation, infer types with `z.infer<>`
+
+## Async/Await
+
+Always use async/await over raw promises:
+
+```typescript
+// Correct
+const result = await someAsyncOperation();
+
+// Avoid
+someAsyncOperation().then(result => { ... });
+```
+
+## Error Handling
+
+Use custom error hierarchy from `src/utils/errors.ts`:
+
+```typescript
+import { NotFoundError, ValidationError } from '../utils/errors.js';
+
+if (!document) {
+  throw new NotFoundError('Document not found');
+}
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jeffgreendesign) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
