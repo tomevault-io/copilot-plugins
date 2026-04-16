@@ -1,6 +1,6 @@
-# callers
+# AI instruction files for callers
 
-> Config by [andreasalomone](https://github.com/andreasalomone/callers) — distributed by [TomeVault](https://tomevault.io/claim/andreasalomone)
+> Sourced from [andreasalomone/callers](https://github.com/andreasalomone/callers) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [andreasalomone/callers](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/andreasalomone](https://tomevault.io/claim/andreasalomone)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/andreasalomone#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/andreasalomone) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install andreasalomone/callers
+```
+Or browse all formats at [https://tomevault.io/claim/andreasalomone](https://tomevault.io/claim/andreasalomone).
+
+<!-- genome:a-i-q -->
