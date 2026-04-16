@@ -44472,6 +44472,631 @@
       "name": "bac-ptit--vip",
       "source": "./bac-ptit--vip",
       "description": "vip"
+    },
+    {
+      "name": "alex-ilgayev--mcpspy",
+      "source": "./alex-ilgayev--mcpspy",
+      "description": "MCPSpy"
+    },
+    {
+      "name": "chat812--freecc",
+      "source": "./chat812--freecc",
+      "description": "freecc"
+    },
+    {
+      "name": "etiennefd--hhr-tech-tree",
+      "source": "./etiennefd--hhr-tech-tree",
+      "description": "hhr-tech-tree"
+    },
+    {
+      "name": "kleneway--subcontractor-demo-2",
+      "source": "./kleneway--subcontractor-demo-2",
+      "description": "subcontractor-demo-2"
+    },
+    {
+      "name": "mferris77--springboard",
+      "source": "./mferris77--springboard",
+      "description": "SpringBoard"
+    },
+    {
+      "name": "ttuckerm--trendzo-working-5-7-25",
+      "source": "./ttuckerm--trendzo-working-5-7-25",
+      "description": "trendzo-working-5-7-25"
+    },
+    {
+      "name": "mauritsajournal--fpl-draft-dashboard",
+      "source": "./mauritsajournal--fpl-draft-dashboard",
+      "description": "fpl-draft-dashboard"
+    },
+    {
+      "name": "emgould--redis-search",
+      "source": "./emgould--redis-search",
+      "description": "redis-search"
+    },
+    {
+      "name": "cpmcalcul--cpmcalcultor",
+      "source": "./cpmcalcul--cpmcalcultor",
+      "description": "cpmcalcultor"
+    },
+    {
+      "name": "chava-gnolasco--f-v-marvel-explorer",
+      "source": "./chava-gnolasco--f-v-marvel-explorer",
+      "description": "f-v-marvel-explorer"
+    },
+    {
+      "name": "raseniero--lk-golf-mobil-business-inbound-call-agent",
+      "source": "./raseniero--lk-golf-mobil-business-inbound-call-agent",
+      "description": "lk-golf-mobil-business-inbound-call-agent"
+    },
+    {
+      "name": "c-leffy--tic-tac-toe",
+      "source": "./c-leffy--tic-tac-toe",
+      "description": "tic-tac-toe"
+    },
+    {
+      "name": "voxmenthe--optionstrat",
+      "source": "./voxmenthe--optionstrat",
+      "description": "optionstrat"
+    },
+    {
+      "name": "dengyao1014--traveltang",
+      "source": "./dengyao1014--traveltang",
+      "description": "TravelTang"
+    },
+    {
+      "name": "braveheart-innovations--debate-ai",
+      "source": "./braveheart-innovations--debate-ai",
+      "description": "debate-ai"
+    },
+    {
+      "name": "aacarter1--brkato-1009",
+      "source": "./aacarter1--brkato-1009",
+      "description": "brkato-1009"
+    },
+    {
+      "name": "ycechungai--nanoclaw",
+      "source": "./ycechungai--nanoclaw",
+      "description": "NanoClaw"
+    },
+    {
+      "name": "starry-nightfall--advanced-customization",
+      "source": "./starry-nightfall--advanced-customization",
+      "description": "Advanced-Customization"
+    },
+    {
+      "name": "xthyh--shipany-template-one",
+      "source": "./xthyh--shipany-template-one",
+      "description": "shipany-template-one"
+    },
+    {
+      "name": "nurulislamz--stocky",
+      "source": "./nurulislamz--stocky",
+      "description": "Stocky"
+    },
+    {
+      "name": "thomas-bartlett--mamba-vs-transformer-qa",
+      "source": "./thomas-bartlett--mamba-vs-transformer-qa",
+      "description": "mamba-vs-transformer-qa"
+    },
+    {
+      "name": "cantaloupe-ai--shabti",
+      "source": "./cantaloupe-ai--shabti",
+      "description": "shabti"
+    },
+    {
+      "name": "alvarosdev--temperaturehumidityzigbeeenddevice",
+      "source": "./alvarosdev--temperaturehumidityzigbeeenddevice",
+      "description": "TemperatureHumidityZigbeeEndDevice"
+    },
+    {
+      "name": "narraacademy--narra-agent-web",
+      "source": "./narraacademy--narra-agent-web",
+      "description": "Narra-Agent-web"
+    },
+    {
+      "name": "anoband--neo-display",
+      "source": "./anoband--neo-display",
+      "description": "neo-display"
+    },
+    {
+      "name": "maus3rsr--school-angular",
+      "source": "./maus3rsr--school-angular",
+      "description": "School_Angular"
+    },
+    {
+      "name": "xmonkee--nanoclaw",
+      "source": "./xmonkee--nanoclaw",
+      "description": "nanoclaw"
+    },
+    {
+      "name": "constrod--budget-group-api",
+      "source": "./constrod--budget-group-api",
+      "description": "budget-group-api"
+    },
+    {
+      "name": "vvvvictorj--redis-learning-project",
+      "source": "./vvvvictorj--redis-learning-project",
+      "description": "redis-Learning-project"
+    },
+    {
+      "name": "868-anton--laravel-12-quickreview-2025",
+      "source": "./868-anton--laravel-12-quickreview-2025",
+      "description": "laravel-12-QuickReview-2025"
+    },
+    {
+      "name": "sutin1234--angular21-agent-skills-winsurf",
+      "source": "./sutin1234--angular21-agent-skills-winsurf",
+      "description": "angular21-agent-skills-winsurf"
+    },
+    {
+      "name": "fluid-movement--frisbee-festival",
+      "source": "./fluid-movement--frisbee-festival",
+      "description": "frisbee-festival"
+    },
+    {
+      "name": "krekinha--gm-app",
+      "source": "./krekinha--gm-app",
+      "description": "gm-app"
+    },
+    {
+      "name": "mgsky1--memory-gallery",
+      "source": "./mgsky1--memory-gallery",
+      "description": "memory-gallery"
+    },
+    {
+      "name": "apiliumcode--aingle",
+      "source": "./apiliumcode--aingle",
+      "description": "aingle"
+    },
+    {
+      "name": "mjones3--pizza-poll-demo",
+      "source": "./mjones3--pizza-poll-demo",
+      "description": "pizza-poll-demo"
+    },
+    {
+      "name": "cmll21--dotfiles",
+      "source": "./cmll21--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "chenliangchong--strengthwise",
+      "source": "./chenliangchong--strengthwise",
+      "description": "strengthwise"
+    },
+    {
+      "name": "s7331331337s--scrapybara-ts-template",
+      "source": "./s7331331337s--scrapybara-ts-template",
+      "description": "scrapybara-ts-template"
+    },
+    {
+      "name": "weisssa--benkyou",
+      "source": "./weisssa--benkyou",
+      "description": "benkyou"
+    },
+    {
+      "name": "jon-chun--documindintelliocr",
+      "source": "./jon-chun--documindintelliocr",
+      "description": "DocuMindIntelliOCR"
+    },
+    {
+      "name": "raviwu--websites",
+      "source": "./raviwu--websites",
+      "description": "websites"
+    },
+    {
+      "name": "futureexcited--vibe-tools-mcp",
+      "source": "./futureexcited--vibe-tools-mcp",
+      "description": "vibe-tools-mcp"
+    },
+    {
+      "name": "divizyon--t1-sportlink-mobil-backend",
+      "source": "./divizyon--t1-sportlink-mobil-backend",
+      "description": "t1-sportlink-mobil-backend"
+    },
+    {
+      "name": "kimms4335--my-first-minsu",
+      "source": "./kimms4335--my-first-minsu",
+      "description": "my-first-minsu"
+    },
+    {
+      "name": "unioai--pkc",
+      "source": "./unioai--pkc",
+      "description": "PKC"
+    },
+    {
+      "name": "prof-ramos--intranet",
+      "source": "./prof-ramos--intranet",
+      "description": "intranet"
+    },
+    {
+      "name": "aditya-autoomstudio--anubhuta-jogamala",
+      "source": "./aditya-autoomstudio--anubhuta-jogamala",
+      "description": "anubhuta-jogamala"
+    },
+    {
+      "name": "divizyon--t2-sportlink-web-backend",
+      "source": "./divizyon--t2-sportlink-web-backend",
+      "description": "t2-sportlink-web-backend"
+    },
+    {
+      "name": "joankoo97--my-first-site",
+      "source": "./joankoo97--my-first-site",
+      "description": "my-first-site"
+    },
+    {
+      "name": "jon-chun--documindintelliocr",
+      "source": "./jon-chun--documindintelliocr",
+      "description": "DocuMindIntelliOCR"
+    },
+    {
+      "name": "awaaate--am2z",
+      "source": "./awaaate--am2z",
+      "description": "am2z"
+    },
+    {
+      "name": "514-labs--area-code",
+      "source": "./514-labs--area-code",
+      "description": "area-code"
+    },
+    {
+      "name": "macattak--policy-assist",
+      "source": "./macattak--policy-assist",
+      "description": "policy-assist"
+    },
+    {
+      "name": "dbwltnwl--my-first-site",
+      "source": "./dbwltnwl--my-first-site",
+      "description": "my-first-site"
+    },
+    {
+      "name": "rodrigobranas--iadevst2",
+      "source": "./rodrigobranas--iadevst2",
+      "description": "iadevst2"
+    },
+    {
+      "name": "hackstert--troy-resume",
+      "source": "./hackstert--troy-resume",
+      "description": "troy-resume"
+    },
+    {
+      "name": "izadoesdev--keypal",
+      "source": "./izadoesdev--keypal",
+      "description": "keypal"
+    },
+    {
+      "name": "synonymous64--portfolio",
+      "source": "./synonymous64--portfolio",
+      "description": "Portfolio"
+    },
+    {
+      "name": "narae0912-coder--my-port",
+      "source": "./narae0912-coder--my-port",
+      "description": "my-port"
+    },
+    {
+      "name": "rodrigobranas--iadevst3",
+      "source": "./rodrigobranas--iadevst3",
+      "description": "iadevst3"
+    },
+    {
+      "name": "satorunnlg--wfam",
+      "source": "./satorunnlg--wfam",
+      "description": "wfam"
+    },
+    {
+      "name": "thepian--record-thing",
+      "source": "./thepian--record-thing",
+      "description": "record-thing"
+    },
+    {
+      "name": "jayakrishnanmurali--linqsy",
+      "source": "./jayakrishnanmurali--linqsy",
+      "description": "linqsy"
+    },
+    {
+      "name": "ondata--liberiamoli-tutti",
+      "source": "./ondata--liberiamoli-tutti",
+      "description": "liberiamoli-tutti"
+    },
+    {
+      "name": "synaptixlabs--showroom",
+      "source": "./synaptixlabs--showroom",
+      "description": "Showroom"
+    },
+    {
+      "name": "algas--tetris-claude",
+      "source": "./algas--tetris-claude",
+      "description": "tetris-claude"
+    },
+    {
+      "name": "leighatkins--openpaint",
+      "source": "./leighatkins--openpaint",
+      "description": "OpenPaint"
+    },
+    {
+      "name": "dendyadithya--next-js-boilerplate",
+      "source": "./dendyadithya--next-js-boilerplate",
+      "description": "next-js-boilerplate"
+    },
+    {
+      "name": "paloaltonetworks--pan-mcp-relay",
+      "source": "./paloaltonetworks--pan-mcp-relay",
+      "description": "pan-mcp-relay"
+    },
+    {
+      "name": "wollfoo--qwen-code",
+      "source": "./wollfoo--qwen-code",
+      "description": "qwen-code"
+    },
+    {
+      "name": "ecrous--kernel",
+      "source": "./ecrous--kernel",
+      "description": "kernel"
+    },
+    {
+      "name": "tborys--bmad",
+      "source": "./tborys--bmad",
+      "description": "BMAD"
+    },
+    {
+      "name": "ripple-devrel-artifacts--yunomi",
+      "source": "./ripple-devrel-artifacts--yunomi",
+      "description": "Yunomi"
+    },
+    {
+      "name": "russelr00--ariserecylcing",
+      "source": "./russelr00--ariserecylcing",
+      "description": "ariserecylcing"
+    },
+    {
+      "name": "arvoredossaberes--embarcatech-etapa-2---projeto-final-firmware",
+      "source": "./arvoredossaberes--embarcatech-etapa-2---projeto-final-firmware",
+      "description": "Embarcatech-Etapa-2---Projeto-Final-firmware"
+    },
+    {
+      "name": "parallel-7--flashforgeemulator",
+      "source": "./parallel-7--flashforgeemulator",
+      "description": "FlashForgeEmulator"
+    },
+    {
+      "name": "dmitriiweb--flbst-tg-bot",
+      "source": "./dmitriiweb--flbst-tg-bot",
+      "description": "flbst-tg-bot"
+    },
+    {
+      "name": "aihmda--cvplatform",
+      "source": "./aihmda--cvplatform",
+      "description": "CVPlatform"
+    },
+    {
+      "name": "mbadawy1--searoutes-mock",
+      "source": "./mbadawy1--searoutes-mock",
+      "description": "searoutes-mock"
+    },
+    {
+      "name": "arvoredossaberes--embarcatech-etapa-2---projeto-final",
+      "source": "./arvoredossaberes--embarcatech-etapa-2---projeto-final",
+      "description": "Embarcatech-Etapa-2---Projeto-Final"
+    },
+    {
+      "name": "dsk52--blog",
+      "source": "./dsk52--blog",
+      "description": "blog"
+    },
+    {
+      "name": "palisaderesearch--ai-vs-humans-ctf-report",
+      "source": "./palisaderesearch--ai-vs-humans-ctf-report",
+      "description": "ai-vs-humans-ctf-report"
+    },
+    {
+      "name": "geronimo1975--sudo-ai-com",
+      "source": "./geronimo1975--sudo-ai-com",
+      "description": "sudo-ai.com"
+    },
+    {
+      "name": "aandresf--studio",
+      "source": "./aandresf--studio",
+      "description": "studio"
+    },
+    {
+      "name": "arvoredossaberes--mk-lwip-httpd-fs",
+      "source": "./arvoredossaberes--mk-lwip-httpd-fs",
+      "description": "mk-lwip-httpd-fs"
+    },
+    {
+      "name": "iansebas--iansebas-github-io",
+      "source": "./iansebas--iansebas-github-io",
+      "description": "iansebas.github.io"
+    },
+    {
+      "name": "muraaano--cursor-project-rules-on-rails",
+      "source": "./muraaano--cursor-project-rules-on-rails",
+      "description": "cursor-project-rules-on-rails"
+    },
+    {
+      "name": "vcoderun--acpkit",
+      "source": "./vcoderun--acpkit",
+      "description": "acpkit"
+    },
+    {
+      "name": "krosebrook--interact",
+      "source": "./krosebrook--interact",
+      "description": "interact"
+    },
+    {
+      "name": "arvoredossaberes--stm32f429zi-freertos-lwip",
+      "source": "./arvoredossaberes--stm32f429zi-freertos-lwip",
+      "description": "STM32F429zi-FreeRTOS-LwIP"
+    },
+    {
+      "name": "agolduck--dot-emacs",
+      "source": "./agolduck--dot-emacs",
+      "description": "dot-emacs"
+    },
+    {
+      "name": "lips85--makers-second",
+      "source": "./lips85--makers-second",
+      "description": "makers-second"
+    },
+    {
+      "name": "bunsdev--boofi-poc-interface",
+      "source": "./bunsdev--boofi-poc-interface",
+      "description": "boofi-poc-interface"
+    },
+    {
+      "name": "apmiller108--tmp",
+      "source": "./apmiller108--tmp",
+      "description": "tmp"
+    },
+    {
+      "name": "malinjr07--svelte-kit-template",
+      "source": "./malinjr07--svelte-kit-template",
+      "description": "svelte-kit-template"
+    },
+    {
+      "name": "sifatulrabbi--sifatulrabbi-github-io",
+      "source": "./sifatulrabbi--sifatulrabbi-github-io",
+      "description": "sifatulrabbi.github.io"
+    },
+    {
+      "name": "corbadotech--docs",
+      "source": "./corbadotech--docs",
+      "description": "docs"
+    },
+    {
+      "name": "chipnxv--midday-main",
+      "source": "./chipnxv--midday-main",
+      "description": "midday-main"
+    },
+    {
+      "name": "openos-project-ecosystem-ooc--penguins-eggs",
+      "source": "./openos-project-ecosystem-ooc--penguins-eggs",
+      "description": "penguins-eggs"
+    },
+    {
+      "name": "haymayndzultra--ynthmaster-calculator",
+      "source": "./haymayndzultra--ynthmaster-calculator",
+      "description": "ynthmaster-calculator"
+    },
+    {
+      "name": "orozmarin--places-frontend",
+      "source": "./orozmarin--places-frontend",
+      "description": "places-frontend"
+    },
+    {
+      "name": "ssi-automations--documindintelliocr",
+      "source": "./ssi-automations--documindintelliocr",
+      "description": "DocuMindIntelliOCR"
+    },
+    {
+      "name": "yersonargotev--aitas",
+      "source": "./yersonargotev--aitas",
+      "description": "aitas"
+    },
+    {
+      "name": "maufee--cloudrun-example",
+      "source": "./maufee--cloudrun-example",
+      "description": "cloudrun-example"
+    },
+    {
+      "name": "sandraschi--tailscale-mcp",
+      "source": "./sandraschi--tailscale-mcp",
+      "description": "tailscale-mcp"
+    },
+    {
+      "name": "sticerd-eee--sewage",
+      "source": "./sticerd-eee--sewage",
+      "description": "sewage"
+    },
+    {
+      "name": "jasonstcyrx--ai-template",
+      "source": "./jasonstcyrx--ai-template",
+      "description": "ai-template"
+    },
+    {
+      "name": "prajans--midday-main-main",
+      "source": "./prajans--midday-main-main",
+      "description": "midday-main-main"
+    },
+    {
+      "name": "fitcheckbu--fitcheckbu",
+      "source": "./fitcheckbu--fitcheckbu",
+      "description": "FitcheckBU"
+    },
+    {
+      "name": "sandraschi--fastsearch-mcp",
+      "source": "./sandraschi--fastsearch-mcp",
+      "description": "fastsearch-mcp"
+    },
+    {
+      "name": "jakeklassen--vitest-create-mock",
+      "source": "./jakeklassen--vitest-create-mock",
+      "description": "vitest-create-mock"
+    },
+    {
+      "name": "motech-development--platform",
+      "source": "./motech-development--platform",
+      "description": "platform"
+    },
+    {
+      "name": "xueyouxz--plannning-eval-vis",
+      "source": "./xueyouxz--plannning-eval-vis",
+      "description": "plannning-eval-vis"
+    },
+    {
+      "name": "eduguate--neuralcodelab",
+      "source": "./eduguate--neuralcodelab",
+      "description": "neuralcodelab"
+    },
+    {
+      "name": "sandraschi--system-admin-mcp",
+      "source": "./sandraschi--system-admin-mcp",
+      "description": "system-admin-mcp"
+    },
+    {
+      "name": "agourakis82--darwin-atlas",
+      "source": "./agourakis82--darwin-atlas",
+      "description": "darwin-atlas"
+    },
+    {
+      "name": "mckaywrigley--takeoff-prompt-manager",
+      "source": "./mckaywrigley--takeoff-prompt-manager",
+      "description": "takeoff-prompt-manager"
+    },
+    {
+      "name": "amoylab--unla",
+      "source": "./amoylab--unla",
+      "description": "Unla"
+    },
+    {
+      "name": "timhun--daily-podcast-stk",
+      "source": "./timhun--daily-podcast-stk",
+      "description": "daily-podcast-stk"
+    },
+    {
+      "name": "sandraschi--plexmcp",
+      "source": "./sandraschi--plexmcp",
+      "description": "plexmcp"
+    },
+    {
+      "name": "sergelents--cartwise",
+      "source": "./sergelents--cartwise",
+      "description": "CartWise"
+    },
+    {
+      "name": "miguelmachado-dev--tidalnowplaying",
+      "source": "./miguelmachado-dev--tidalnowplaying",
+      "description": "TidalNowPlaying"
+    },
+    {
+      "name": "bcharleson--heyreach-mcp",
+      "source": "./bcharleson--heyreach-mcp",
+      "description": "heyreach-mcp"
+    },
+    {
+      "name": "nyc360org-source--nyc360-backend",
+      "source": "./nyc360org-source--nyc360-backend",
+      "description": "nyc360.backend"
     }
   ]
 }
