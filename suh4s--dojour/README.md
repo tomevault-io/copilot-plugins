@@ -5,15 +5,15 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [suh4s/dojour](https://github.com/suh4s/dojour).
+Original source: `.windsurf/rules/*.md` in [suh4s/dojour](https://github.com/suh4s/dojour).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
-- **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/suh4s#quality)
 
