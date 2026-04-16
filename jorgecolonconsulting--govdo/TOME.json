@@ -4,7 +4,7 @@
   "repo": "govdo",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/jorgecolonconsulting",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T15:52:19Z"
+  "distributed_at": "2026-04-16T12:19:55Z"
 }
