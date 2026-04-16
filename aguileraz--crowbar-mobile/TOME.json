@@ -4,7 +4,7 @@
   "repo": "crowbar-mobile",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/aguileraz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T16:00:32Z"
+  "distributed_at": "2026-04-16T03:00:46Z"
 }
