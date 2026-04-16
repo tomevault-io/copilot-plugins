@@ -1,23 +1,28 @@
-# stella
+# stella — distributed by TomeVault
 
-> Config by [jctaoo](https://github.com/jctaoo/stella) — distributed by [TomeVault](https://tomevault.io/claim/jctaoo)
+> Originally from [jctaoo/stella](https://github.com/jctaoo/stella). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jctaoo/stella](https://github.com/jctaoo/stella).
+Original source: `.cursor/rules/*.mdc` in [jctaoo/stella](https://github.com/jctaoo/stella).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/jctaoo](https://tomevault.io/claim/jctaoo)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/jctaoo#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jctaoo) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install jctaoo/stella
+```
+Or browse all formats at [https://tomevault.io/claim/jctaoo](https://tomevault.io/claim/jctaoo).
+
+<!-- genome:d-i-q -->
