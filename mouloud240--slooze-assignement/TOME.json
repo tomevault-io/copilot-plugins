@@ -4,7 +4,7 @@
   "repo": "Slooze-assignement",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/mouloud240",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T02:42:01Z"
+  "distributed_at": "2026-04-16T20:02:14Z"
 }
