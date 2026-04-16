@@ -1,6 +1,6 @@
-# cosmosdb-cursor-plugin
+# AI instruction files for cosmosdb-cursor-plugin
 
-> Config by [AzureCosmosDB](https://github.com/AzureCosmosDB/cosmosdb-cursor-plugin) — distributed by [TomeVault](https://tomevault.io/claim/AzureCosmosDB)
+> Sourced from [AzureCosmosDB/cosmosdb-cursor-plugin](https://github.com/AzureCosmosDB/cosmosdb-cursor-plugin) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [AzureCosmosDB/cosmosdb-cursor-plugin]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/AzureCosmosDB](https://tomevault.io/claim/AzureCosmosDB)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/AzureCosmosDB)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AzureCosmosDB) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-s -->
