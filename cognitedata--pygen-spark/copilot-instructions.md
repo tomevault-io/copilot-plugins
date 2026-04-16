@@ -1,0 +1,576 @@
+## pygen-spark
+
+> 1. **Use Pydantic to the highest degree possible**: Prefer Pydantic `BaseModel` over dictionaries, dataclasses, or untyped data structures
+
+# Cognite Databricks Integration - Coding Guidelines
+
+## Core Principles
+
+1. **Use Pydantic to the highest degree possible**: Prefer Pydantic `BaseModel` over dictionaries, dataclasses, or untyped data structures
+2. **Use PySpark when possible**: PySpark DataTypes are the source of truth for all type conversions
+3. **Follow pygen-main style**: Code should look like it was written by the same developer as [pygen-main](https://github.com/cognitedata/pygen)
+4. **Testing and release process**: Follow `release.md` in the workspace root for test expectations and release workflow guidance
+5. **Review automation feedback**: Check Gemini Code Assist comments and GitHub PR checks for relevant PRs
+
+## Type Safety & Data Structures
+
+### Pydantic Models (PREFERRED)
+- Use `pydantic.BaseModel` for all complex data structures
+- Use `pydantic.Field` for field metadata and defaults
+- Avoid `dict[str, Any]` - use typed Pydantic models instead
+- Use `Field(default_factory=list)` for mutable defaults
+
+```python
+# ✅ Good - Pydantic model
+from pydantic import BaseModel, Field
+
+class UDTFConfig(BaseModel):
+    """Configuration for a UDTF."""
+    udtf_name: str = Field(..., description="UDTF function name")
+    parameters: list[str] = Field(default_factory=list)
+    
+    @property
+    def by_name(self) -> dict[str, str]:
+        """Convenience property for dict-like access."""
+        return {p: p for p in self.parameters}
+
+# ❌ Bad - untyped dictionary
+def get_config() -> dict[str, Any]:
+    return {"udtf_name": "foo", "parameters": []}
+```
+
+### Type Hints (REQUIRED)
+- All functions, methods, and class attributes must have type hints
+- Avoid `Any` - use specific types or `TYPE_CHECKING` for complex imports
+- Use `|` for union types (Python 3.10+): `str | None` not `Optional[str]`
+- Use `from __future__ import annotations` for forward references
+
+```python
+# ✅ Good
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from cognite.client.data_classes.data_modeling import View
+
+def process_view(view: View) -> str | None:
+    """Process a view and return result."""
+    return view.external_id if view else None
+
+# ❌ Bad
+def process_view(view):
+    return view.external_id if view else None
+```
+
+## PySpark as Source of Truth
+
+### Type Conversions
+- **ALWAYS** use `TypeConverter` for all type conversions
+- PySpark DataTypes are the intermediate representation
+- Never duplicate type conversion logic - use `TypeConverter` methods
+
+```python
+# ✅ Good - Use TypeConverter
+from cognite.databricks.type_converter import TypeConverter
+from pyspark.sql.types import StringType, LongType
+
+# Convert CDF property to PySpark, then to SQL
+spark_type = TypeConverter.cdf_to_spark(property_type, is_array=False)
+sql_type, type_name = TypeConverter.spark_to_sql_type_info(spark_type)
+type_json = TypeConverter.spark_to_type_json(spark_type, "field_name", nullable=True)
+
+# ❌ Bad - Manual type mapping
+if isinstance(property_type, dm.Int32):
+    sql_type = "INT"
+    type_name = ColumnTypeName.INT
+```
+
+### PySpark DataTypes
+- Use PySpark types (`StringType()`, `LongType()`, `StructType()`, etc.) for schemas
+- Build schemas using `StructType([StructField(...)])` 
+- Use `StructField.json()` for generating type JSON strings
+
+```python
+# ✅ Good
+from pyspark.sql.types import StructType, StructField, StringType, LongType
+
+schema = StructType([
+    StructField("name", StringType(), nullable=True),
+    StructField("count", LongType(), nullable=False),
+])
+
+# ❌ Bad - string-based schema
+schema = "TABLE(name STRING, count INT)"
+```
+
+## Code Style ([pygen-main](https://github.com/cognitedata/pygen) alignment)
+
+### Imports
+- Group: standard library, third-party, local application
+- Sort alphabetically within groups
+- Use `TYPE_CHECKING` for type-only imports
+- Use absolute imports
+
+```python
+# ✅ Good
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+from cognite.client import CogniteClient
+from pydantic import BaseModel, Field
+from pyspark.sql.types import StringType, StructType
+
+from cognite.databricks.type_converter import TypeConverter
+
+if TYPE_CHECKING:
+    from cognite.client.data_classes.data_modeling import View
+```
+
+### Naming Conventions
+- Variables/functions: `snake_case`
+- Constants: `UPPER_SNAKE_CASE`
+- Classes: `PascalCase`
+- Private members: `_single_leading_underscore`
+- Modules: `snake_case`
+
+### Docstrings
+- Start with concise one-line description
+- Use `Args:` and `Returns:` sections for complex functions
+- Keep descriptions brief and factual
+- Omit obvious parameter descriptions
+
+```python
+# ✅ Good
+def convert_type(property_type: object, is_array: bool = False) -> DataType:
+    """Convert CDF property type to PySpark DataType.
+    
+    Args:
+        property_type: CDF property type (e.g., dm.Text, dm.Int32)
+        is_array: If True, wrap the base type in ArrayType
+        
+    Returns:
+        PySpark DataType object
+    """
+    return TypeConverter.cdf_to_spark(property_type, is_array=is_array)
+
+# ❌ Bad - too verbose
+def convert_type(property_type: object, is_array: bool = False) -> DataType:
+    """
+    This function converts a CDF property type to a PySpark DataType.
+    
+    Parameters:
+        property_type (object): The CDF property type to convert, which can be
+            one of several types like dm.Text, dm.Int32, etc.
+        is_array (bool): A boolean flag that indicates whether the base type
+            should be wrapped in an ArrayType. Defaults to False.
+            
+    Returns:
+        DataType: A PySpark DataType object representing the converted type.
+    """
+```
+
+### Formatting
+- **Line length**: 120 characters maximum
+- **Indentation**: 4 spaces per level
+- **Python version**: 3.10+ (use modern syntax: `|` for unions, `match/case`)
+
+### Error Handling
+- Use specific exceptions, not broad `Exception`
+- Provide meaningful error messages
+- Use `| None` for optional return types
+
+```python
+# ✅ Good
+def load_config(path: Path) -> Config | None:
+    """Load configuration from file."""
+    try:
+        data = json.loads(path.read_text())
+        return Config(**data)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        logger.warning(f"Failed to load config from {path}: {e}")
+        return None
+
+# ❌ Bad
+def load_config(path: Path):
+    try:
+        return json.loads(path.read_text())
+    except Exception:
+        return {}
+```
+
+## UDTF Consistency Requirements
+
+### All UDTF Types Must Behave Similarly
+- **Data Model UDTFs**, **Time Series UDTFs**, and **future UDTF types** must follow the same patterns:
+  - Same client initialization logic (rely on `_init_success` from `__init__`, don't set it after successful creation)
+  - Same `_create_client` method pattern (with authentication verification, `client_name="pygen-spark"`, error handling)
+  - Same `_classify_error` method for error categorization
+  - Same error handling patterns (use `_classify_error`, consistent error messages)
+  - Same template-based generation approach (Jinja2 templates, not hardcoded classes)
+
+### UDTF Template Requirements
+- All UDTF templates must include:
+  - `_create_client()` method with authentication verification
+  - `_classify_error()` method for error categorization
+  - Consistent initialization flow: `__init__` sets `_init_success = True`, `eval()` relies on this value
+  - Error messages written to `sys.stderr` with `[UDTF]` prefix
+  - Same import patterns and dependency handling
+
+### UDTF Generation Requirements
+- All UDTF types must use the same generation pattern:
+  - Template-based generation (Jinja2 templates in `templates/` directory)
+  - Same generator method pattern (`generate_*_udtfs()` in `SparkUDTFGenerator`)
+  - Consistent file naming and output directory structure
+  - Same code formatting (Black, 120 char line length)
+
+```python
+# ✅ Good - All UDTF types follow same pattern
+class SparkUDTFGenerator:
+    def generate_data_model_udtfs(self, ...) -> UDTFGenerationResult:
+        """Generate data model UDTFs using templates."""
+        # Template-based generation
+    
+    def generate_time_series_udtfs(self, ...) -> UDTFGenerationResult:
+        """Generate time series UDTFs using templates."""
+        # Same template-based generation pattern
+    
+    def generate_future_udtf_type(self, ...) -> UDTFGenerationResult:
+        """Generate future UDTF type using templates."""
+        # Same template-based generation pattern
+
+# ❌ Bad - Inconsistent patterns
+class SparkUDTFGenerator:
+    def generate_data_model_udtfs(self, ...):
+        # Template-based
+    def generate_time_series_udtfs(self, ...):
+        # Hardcoded classes (inconsistent!)
+```
+
+## Architecture Patterns
+
+### Centralized Type Conversion
+- Use `TypeConverter` class with static methods
+- All type conversions go through PySpark DataTypes
+- Never duplicate conversion logic
+
+### Pydantic Configuration Models
+- Use Pydantic models for configuration (similar to [pygen-main](https://github.com/cognitedata/pygen)'s `PygenConfig`)
+- Use global registry instances for shared configuration (like `time_series_udtf_registry`)
+
+```python
+# ✅ Good - Pydantic registry pattern
+class UDTFRegistry(BaseModel):
+    """Registry of UDTF configurations."""
+    configs: dict[str, UDTFConfig] = Field(default_factory=dict)
+    
+    def get_config(self, name: str) -> UDTFConfig | None:
+        """Get configuration by name."""
+        return self.configs.get(name)
+
+# Global instance
+udtf_registry = UDTFRegistry()
+```
+
+### Return Types
+- Return Pydantic models, not dictionaries
+- Provide convenience properties for backward compatibility (e.g., `by_view_id`)
+- Use `@property` for computed attributes
+
+```python
+# ✅ Good
+class RegistrationResult(BaseModel):
+    """Result of UDTF registration."""
+    registered_udtfs: list[RegisteredUDTFResult] = Field(default_factory=list)
+    
+    @property
+    def by_view_id(self) -> dict[str, RegisteredUDTFResult]:
+        """Convenience property for dict-like access."""
+        return {r.view_id: r for r in self.registered_udtfs}
+    
+    def get(self, view_id: str) -> RegisteredUDTFResult | None:
+        """Get result for specific view_id."""
+        return self.by_view_id.get(view_id)
+```
+
+## Code Review Checklist
+
+When reviewing or writing code, ensure:
+- [ ] All functions have type hints
+- [ ] Complex data structures use Pydantic `BaseModel`
+- [ ] Type conversions use `TypeConverter` (not manual mapping)
+- [ ] PySpark DataTypes are used for schemas
+- [ ] Imports are grouped and sorted correctly
+- [ ] Docstrings follow the concise format
+- [ ] Error handling uses specific exceptions
+- [ ] Code follows [pygen-main](https://github.com/cognitedata/pygen) patterns and style
+- [ ] No `dict[str, Any]` or untyped structures
+- [ ] No duplicate type conversion logic
+- [ ] All UDTF types follow the same patterns (client initialization, error handling, template-based generation)
+- [ ] UDTF templates include `_create_client()` and `_classify_error()` methods
+- [ ] UDTF initialization relies on `_init_success` from `__init__`, not set after successful client creation
+
+## Examples of Good Patterns
+
+### Type-Safe Configuration
+```python
+from pydantic import BaseModel, Field
+
+class UDTFGeneratorConfig(BaseModel):
+    """Configuration for UDTF generation."""
+    catalog: str
+    schema_name: str
+    secret_scope: str
+    include_time_series: bool = Field(default=False)
+    
+    def validate(self) -> None:
+        """Validate configuration."""
+        if not self.catalog:
+            raise ValueError("catalog is required")
+```
+
+### PySpark-First Type Conversion
+```python
+from cognite.databricks.type_converter import TypeConverter
+
+def register_udtf(property_type: object) -> FunctionParameterInfo:
+    """Register UDTF parameter using PySpark types."""
+    # Convert CDF -> PySpark -> SQL (single source of truth)
+    spark_type = TypeConverter.cdf_to_spark(property_type)
+    sql_type, type_name = TypeConverter.spark_to_sql_type_info(spark_type)
+    type_json = TypeConverter.spark_to_type_json(spark_type, "param", nullable=True)
+    
+    return FunctionParameterInfo(
+        name="param",
+        type_text=sql_type,
+        type_name=type_name,
+        type_json=type_json,
+    )
+```
+
+### Pydantic Return Types
+```python
+class UDTFResult(BaseModel):
+    """Result of UDTF operation."""
+    view_id: str
+    success: bool
+    message: str | None = None
+    
+    @property
+    def is_successful(self) -> bool:
+        """Check if operation was successful."""
+        return self.success
+```
+
+---
+
+## Testing & Quality Guardrails
+
+### Pre-commit Hooks (REQUIRED)
+- All code must pass pre-commit hooks before committing
+- Hooks include: `uv-lock`, `ruff` (lint + format), `mypy`
+- Run `uv run pre-commit run --all-files` before pushing
+- Pre-commit config: `.pre-commit-config.yaml`
+
+### Linting & Formatting (Ruff)
+- **Line length**: 120 characters maximum
+- **Target version**: Python 3.10+
+- **Enabled rules**: `E`, `W`, `F`, `I`, `RUF`, `TID`, `UP`, `B`, `FLY`, `PTH`, `ERA`
+- **Ignored rules**: `UP007` (X | Y annotations), `B008` (function calls in defaults), `RUF009` (function calls in defaults), `W293` (whitespace in docstrings)
+- **Import sorting**: Use `isort` via ruff, known-third-party includes `cognite.client`
+- Run `ruff check --fix` and `ruff format` before committing
+
+### Type Checking (Mypy)
+- **Configuration**: `explicit_package_bases = true`, `plugins = ["pydantic.mypy"]`
+- **Strictness**: Aligned with [pygen-main](https://github.com/cognitedata/pygen) (lenient, not overly strict)
+- **Pydantic plugin**: Required for proper Pydantic model type checking
+- All functions must have type hints (enforced by mypy)
+- Use `# type: ignore[...]` sparingly and only with specific error codes
+- Common ignore patterns:
+  - `# type: ignore[import-untyped]` - for untyped third-party imports
+  - `# type: ignore[call-arg]` - for SDK compatibility issues
+  - `# type: ignore[dict-item]` - for test fixture dictionaries
+  - `# type: ignore[attr-defined]` - for mock objects
+
+### Testing Requirements
+
+#### Test Structure
+- **Unit tests**: `tests/test_unit/` - Fast, isolated tests with mocks
+- **Integration tests**: `tests/test_integration/` - Tests that require external services
+- **Test utilities**: `tests/utils.py` - Shared test helpers
+- **Fixtures**: `tests/conftest.py` - Shared pytest fixtures
+- **Test files**: Must follow `test_*.py` naming convention
+
+#### Test Coverage
+- **Minimum threshold**: 45% (configured in `.coveragerc` and GitHub Actions)
+- **Exclusions**: Templates, `__init__.py`, test files themselves
+- Coverage report generated in CI and posted to PRs
+- Use `.coveragerc` for coverage configuration (not `pyproject.toml`)
+
+#### Writing Tests
+- Use pytest fixtures from `conftest.py` (e.g., `mock_cognite_client`, `sample_view`)
+- Follow AAA pattern: Arrange, Act, Assert
+- Use descriptive test names: `test_function_name_scenario_expected_result`
+- Test both success and failure cases
+- Use `pytest.mark.parametrize` for testing multiple scenarios
+- Mock external dependencies (CogniteClient, file I/O, etc.)
+
+```python
+# ✅ Good - Comprehensive test
+def test_generate_udtfs_creates_files(mock_cognite_client, temp_output_dir, sample_view):
+    """Test that generate_udtfs creates expected files."""
+    # Arrange
+    generator = SparkUDTFGenerator(client=mock_cognite_client, output_dir=temp_output_dir)
+    
+    # Act
+    result = generator.generate_udtfs([sample_view])
+    
+    # Assert
+    assert len(result.generated_files) == 1
+    assert result.get_file(sample_view.external_id).exists()
+    assert result.get_file(sample_view.external_id).suffix == ".py"
+
+# ❌ Bad - Missing assertions, no clear structure
+def test_generate():
+    generator = SparkUDTFGenerator()
+    result = generator.generate_udtfs([view])
+    # No assertions!
+```
+
+#### Test Fixtures
+- Use Pydantic models for test data when possible
+- Include all required fields for SDK objects (View, DataModel, etc.)
+- Use `# type: ignore[dict-item]` for test fixture dictionaries when needed
+- Mock CogniteClient using `pytest-mock` or custom fixtures
+
+```python
+# ✅ Good - Complete fixture with all required fields
+@pytest.fixture
+def sample_view() -> dm.View:
+    """Create a sample view for testing."""
+    return dm.View(
+        space="test_space",
+        external_id="TestView",
+        version="1",
+        created_time=int(datetime.now(timezone.utc).timestamp() * 1000),
+        last_updated_time=int(datetime.now(timezone.utc).timestamp() * 1000),
+        name="Test View",
+        description="Test description",
+        filter=None,
+        implements=[],
+        writable=True,
+        used_for="node",
+        is_global=False,
+        properties={
+            "name": dm.MappedProperty(
+                type=dm.Text(),
+                nullable=True,
+                container=dm.ContainerId("test_space", "TestContainer", "1"),
+                container_property_identifier="name",
+                immutable=False,
+                auto_increment=False,
+            )
+        },
+    )
+```
+
+### CI/CD Pipeline (GitHub Actions)
+
+#### Build Workflow (`.github/workflows/build.yml`)
+- **Triggers**: Pull requests
+- **Jobs**:
+  1. **lint**: Pre-commit hooks (ruff, mypy, uv-lock)
+  2. **tests**: Multi-version testing (Python 3.10, 3.12)
+  3. **coverage**: Coverage report with 45% threshold
+  4. **build**: Package building verification
+
+#### Release Workflow (`.github/workflows/release.yaml`)
+- **Triggers**: Push to `main` branch
+- **Jobs**:
+  1. **lint**: Pre-commit checks
+  2. **release**: Version bumping, changelog, PyPI upload, GitHub release
+- **Requires**: `CD` environment with `PYPI_API_TOKEN` secret
+
+### Code Quality Checklist
+
+Before submitting code, ensure:
+- [ ] All pre-commit hooks pass (`uv run pre-commit run --all-files`)
+- [ ] Ruff linting passes (`ruff check`)
+- [ ] Ruff formatting applied (`ruff format`)
+- [ ] Mypy type checking passes (`mypy cognite/ tests/`)
+- [ ] All tests pass (`pytest`)
+- [ ] Test coverage meets threshold (45%)
+- [ ] New code has corresponding tests
+- [ ] Test fixtures are complete and properly typed
+- [ ] No `# type: ignore` without specific error code
+- [ ] CI pipeline passes (lint, tests, coverage, build)
+
+### Running Tests Locally
+
+```bash
+# Run all tests
+uv run pytest
+
+# Run unit tests only
+uv run pytest tests/test_unit
+
+# Run with coverage
+uv run pytest --cov=cognite/ --cov-report=html
+
+# Run specific test file
+uv run pytest tests/test_unit/test_generator.py
+
+# Run with verbose output
+uv run pytest -v
+
+# Run pre-commit hooks
+uv run pre-commit run --all-files
+```
+
+### Test File Organization
+
+```
+tests/
+├── conftest.py              # Root-level fixtures
+├── utils.py                 # Test utilities
+├── test_udtf_generation.py  # Legacy/placeholder tests
+├── test_unit/               # Unit tests
+│   ├── conftest.py          # Unit test fixtures
+│   ├── test_fields.py
+│   ├── test_generator.py
+│   ├── test_templates.py
+│   ├── test_type_converter.py
+│   └── test_utils.py
+└── test_integration/        # Integration tests
+    ├── conftest.py          # Integration test fixtures
+    └── test_udtf_queries.py
+```
+
+### Doctest Requirements
+- Doctests run automatically via `--doctest-modules` in pytest
+- Use `# doctest: +SKIP` on same line as example for file-dependent examples
+- Don't include inline comments in expected output (doctest doesn't support them)
+- Keep doctest examples simple and focused
+
+```python
+# ✅ Good - Skipped doctest
+>>> config = CDFConnectionConfig.from_toml("config.toml")  # doctest: +SKIP
+
+# ✅ Good - Simple doctest
+>>> to_udtf_function_name("SmallBoat")
+'small_boat_udtf'
+
+# ❌ Bad - Inline comment in expected output
+>>> to_udtf_function_name("small_boat_udtf")
+'small_boat_udtf'  # Already in correct format
+```
+
+---
+
+**Remember**: Code should be indistinguishable from [pygen-main](https://github.com/cognitedata/pygen) - same developer, same patterns, same quality.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/cognitedata) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
