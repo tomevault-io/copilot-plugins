@@ -1,0 +1,60 @@
+## jam-dashboard
+
+> jam-dashboard is a website/tool to help with guitar music theory.
+
+jam-dashboard is a website/tool to help with guitar music theory.
+
+Specifically, it contains the following features:
+- a global key picker which drives the key for the whole page
+- a fretboard visualizer, which lets you easily see where a collection of notes are on the fretboard
+- an ear-training game which lets you pick a set of chord types to test against
+- a chord explorer, which will both play the chords and show their voicings on the fretboard 
+
+It's built with:
+- React
+- Remix
+- Tailwind
+- ShadCN
+- Tonal.js (for music-theory related utils)
+- Tone.js (for playing the chords/notes etc)
+
+And we also use:
+- Vercel (for deployment and some analytics)
+- Posthog (for feedback, and advanced analytics)
+- BuyMeACoffee (for accepting tips)
+
+The way color theming works is:
+
+- Colors are defined in tailwind.css, and the inital theme (colors) are taken from a ShadCN
+- theres a `/theme` route where we can preview the colors
+
+The fretboard visulizer has a number of advanced features, including:
+
+- being able to control the tuning of each string
+- adjusting the number of frets visualized
+- using a key-picker to easily select notes being visualized, with the ability to also edit those notes after in the textbox
+- a scale detector which can suggest matching scales based on the notes in the textbox.
+
+The fretboard visualizer is in two main react components:
+
+- fret.tsx renders individual frets
+- fretboard.tsx renders a collection of frets into a fretboard
+
+The component which handles the overall page layout, and the inputs for fretboard, is FretboardControls.tsx
+
+For music-theory related utils and functions, we mostly use Tonal.js. We also have a musicTheoryUtils.ts file which handles things like converting between equivalent notes (flat/sharp)
+and other util functions used to match up equivalent notes on the fretboard
+
+We always add storybook stories to all our UI components.
+We always add Jest unit tests to all our util files.
+
+When adding new React components, we give each their own folder, with a story and index.tsx to export them. The structure looks like this:
+
+📂 ReactComponentName/
+├── ReactComponentName.tsx
+├── ReactComponentName.stories.tsx
+└── index.tsx
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/chasemc67) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
