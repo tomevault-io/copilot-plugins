@@ -4,7 +4,7 @@
   "repo": "stella",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/jctaoo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T22:06:21Z"
+  "distributed_at": "2026-04-16T01:00:14Z"
 }
