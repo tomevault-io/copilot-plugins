@@ -4,7 +4,7 @@
   "repo": "zz-ui-differ-plugins",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/JacobZyy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T00:11:23Z"
+  "distributed_at": "2026-04-16T00:59:20Z"
 }
