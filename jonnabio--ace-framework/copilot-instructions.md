@@ -1,0 +1,84 @@
+## ace-framework
+
+> This project uses the ACE-Framework (AI-assisted Code Engineering) v2.0.
+
+# ACE-Framework Cursor Rules
+# This file configures AI behavior in Cursor IDE
+
+## Project Context
+
+This project uses the ACE-Framework (AI-assisted Code Engineering) v2.0.
+All AI interactions should follow the BMAD methodology: Analyze → Plan → Execute → Verify.
+
+## Required Reading on Session Start
+
+Before any task, read these files:
+1. .aceconfig - Core rules and configuration
+2. .ace/roles/roles.md - Available roles and their responsibilities
+3. docs/context/ACTIVE_CONTEXT.md - Current session state
+4. docs/rca/regression-guards.yaml - Protected files and invariants
+
+## Core Rules
+
+1. Never commit secrets, credentials, or API keys
+2. All code must pass linting before commit
+3. Follow patterns established in docs/adr/
+4. Update ACTIVE_CONTEXT.md after each session
+5. Verify against .ace/standards/ before completing any task
+6. Generate IMPLEMENTATION_PLAN.md before writing code
+7. Every task follows BMAD: Analyze → Plan → Execute → Verify
+8. Create ADR for any significant architectural decision
+9. Atomic commits with clear, descriptive messages
+10. No code generation without reading existing code first
+11. Check regression guards before modifying any guarded file
+12. Every issue requires RCA with regression prevention
+
+## Standards
+
+When writing code, follow:
+- .ace/standards/coding.md - Code quality rules
+- .ace/standards/security.md - Security requirements (CRITICAL)
+- .ace/standards/architecture.md - Design patterns
+- .ace/standards/git-workflow.md - Commit and branching conventions
+
+## Available Roles
+
+Activate appropriate role for the task:
+- Architect (PLANNING) - System design and planning
+- Developer (EXECUTION) - Implementation and testing
+- QA Engineer (VERIFICATION) - Testing and validation
+- Incident Responder (INCIDENT) - RCA and fixes
+
+## Skills
+
+For specialized tasks, apply relevant skill:
+- .ace/skills/api-design.md
+- .ace/skills/database-operations.md
+- .ace/skills/migration-logic.md
+- .ace/skills/refactoring.md
+- .ace/skills/root-cause-analysis.md
+- .ace/skills/testing-strategy.md
+- .ace/skills/code-review.md
+
+## Before Modifying Files
+
+1. Check docs/rca/regression-guards.yaml for guards
+2. If file is guarded, read the associated RCA
+3. Understand invariants that must be maintained
+4. Run regression tests after modification
+
+## Session Protocol
+
+Start: "Read .aceconfig, .ace/roles/roles.md, and ACTIVE_CONTEXT.md"
+End: "Update ACTIVE_CONTEXT.md with completed work and next steps"
+
+## Response Format
+
+- Be specific about file locations
+- Reference relevant standards/ADRs
+- Follow established code patterns in docs/context/system_patterns.md
+- Update ACTIVE_CONTEXT.md when significant progress is made
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jonnabio) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
