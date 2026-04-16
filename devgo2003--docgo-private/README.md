@@ -1,6 +1,6 @@
-# DocGO-private
+# DocGO-private — distributed by TomeVault
 
-> Config by [DevGO2003](https://github.com/DevGO2003/DocGO-private) — distributed by [TomeVault](https://tomevault.io/claim/DevGO2003)
+> Originally from [DevGO2003/DocGO-private](https://github.com/DevGO2003/DocGO-private). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [DevGO2003/DocGO-private](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/DevGO2003](https://tomevault.io/claim/DevGO2003)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/DevGO2003)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/DevGO2003) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install DevGO2003/DocGO-private
+```
+Or browse all formats at [https://tomevault.io/claim/DevGO2003](https://tomevault.io/claim/DevGO2003).
+
+<!-- genome:d-i-s -->
