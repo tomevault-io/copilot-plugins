@@ -1,0 +1,70 @@
+## mlops
+
+> Système MLOps pour l'entraînement, le fine-tuning, l'évaluation et l'audit sécurité de modèles LLM, avec une entrée de données lakehouse (medallion Bronze/Silver/Gold) pilotée localement.
+
+
+# Spécification du projet MLOps
+
+## Objectif
+
+Système MLOps pour l'entraînement, le fine-tuning, l'évaluation et l'audit sécurité de modèles LLM, avec une entrée de données lakehouse (medallion Bronze/Silver/Gold) pilotée localement.
+
+## Stack technique
+
+- **API/UI** : FastAPI + Streamlit
+- **Exécution asynchrone** : workers poll-based (training/evaluation/security)
+- **Tracking & Registry** : MLflow
+- **Évaluation** : RAGAS
+- **Fine-tuning** : HuggingFace Transformers + PEFT/LoRA
+- **Lakehouse local** : MinIO + Spark + Nessie (Bronze/Silver/Gold)
+- **Mode standalone** : Prefect (`@flow` / `@task`)
+- **Langage** : Python 3.11+
+
+## Architecture
+
+```
+Data sources (JSONL) -> Spark Bronze -> Spark Silver -> Spark Gold (metadata snapshot)
+                                                       |
+                                                       v
+UI Streamlit -> API FastAPI -> PostgreSQL (runs/status/config)
+                              |
+                              +-> Training worker -> MLflow
+                              +-> Evaluation worker -> MLflow
+                              +-> Security worker -> MLflow
+```
+
+## Configuration YAML
+
+Le projet supporte deux modes de configuration :
+
+- **Docker/API (principal)** : création de runs via `POST /runs`
+- **Standalone/CLI** : YAML (`configs/*.yaml`) exécuté via `main.py`
+
+En standalone, le fichier YAML définit pour chaque modèle :
+- Le nom / identifiant du modèle (ex: HuggingFace model ID)
+- Le type de tâche (training from scratch, fine-tuning, évaluation seule)
+- Le jeu de données associé à chaque tâche (entraînement et/ou évaluation)
+- Les hyperparamètres (learning rate, epochs, batch size, LoRA rank, etc.)
+- Les métriques RAGAS à évaluer
+
+## Pipeline
+
+1. **Ingestion lakehouse** : Bronze -> Silver -> Gold, génération de metadata snapshot
+2. **Création run** : payload API avec `*_dataset_id` (legacy) ou `*_lakehouse_ref` (snapshot immuable)
+3. **Entraînement / Fine-tuning** : training worker + tracking MLflow
+4. **Évaluation RAGAS** : evaluation worker + MLScore + sync tags MLflow
+5. **Sécurité** : security worker (OWASP Top 10 LLM)
+
+## Conventions
+
+- Tout le code métier est en Python
+- Les workers Docker utilisent un mode poll-based via l'API
+- Le mode standalone Prefect reste disponible avec `@flow`/`@task`
+- Les runs supportent des références lakehouse snapshotées pour reproductibilité
+- Chaque run MLflow est taggé avec le nom du modèle, le dataset et le type de tâche
+- Les configurations sont validées avec Pydantic avant exécution
+- Les secrets (API keys, tokens HuggingFace) sont gérés via variables d'environnement
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/tecuzin) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
