@@ -1,0 +1,14 @@
+{
+  "name": "rizumi--dotfiles",
+  "displayName": "dotfiles",
+  "description": "AI instruction files for dotfiles by rizumi",
+  "version": "1.0.0",
+  "author": "rizumi",
+  "homepage": "https://tomevault.io/claim/rizumi",
+  "skills": [
+    {
+      "name": "translation-checker",
+      "description": ""
+    }
+  ]
+}
