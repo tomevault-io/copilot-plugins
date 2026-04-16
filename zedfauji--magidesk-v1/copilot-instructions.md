@@ -1,274 +1,131 @@
 ## magidesk-v1
 
-> - Entities contain behavior, not just data
+> This directory contains all development rules, guardrails, and policies for the Magidesk POS project. All files are in `.mdc` format for Cursor AI to understand and enforce.
 
-# Domain Model Rules
+# Cursor Rules Index
 
-## Entity Design Principles
+This directory contains all development rules, guardrails, and policies for the Magidesk POS project. All files are in `.mdc` format for Cursor AI to understand and enforce.
 
-### Rich Domain Model
-- Entities contain behavior, not just data
-- Business logic lives in entities and domain services
-- Entities enforce their own invariants
-- Use domain events for important state changes
+## Rules Files
 
-### Aggregate Roots
-- **Ticket**: Aggregate root for order management
-- **CashSession**: Aggregate root for cash management
-- **Shift**: Aggregate root for shift management
-- Only aggregate roots are accessed via repositories
-- Child entities accessed through aggregate root
+### Architecture & Design
+- **architecture.mdc**: Clean Architecture enforcement, layer responsibilities, dependency rules
+- **domain-model.mdc**: Domain entity design, relationships, value objects, domain services
+- **guardrails.mdc**: Development guardrails that block violations and enforce requirements
 
-### Value Objects
-- **Money**: Immutable, enforces 2 decimal places, currency support
-- **UserId**: Strongly-typed identifier
-- Value objects are immutable
-- Use value objects to prevent primitive obsession
+### Development Patterns
+- **mvvm-pattern.mdc**: MVVM pattern rules, ViewModel guidelines, data binding rules
+- **ui-controls.mdc**: WinUI 3 controls, XAML best practices, accessibility requirements
+- **code-quality.mdc**: Code standards, complexity limits, refactoring rules
 
-## Ticket Entity Rules
+### Policies & Standards
+- **development-policies.mdc**: Code review, Git workflow, testing, documentation requirements
+- **git-workflow.mdc**: Branch strategy, commit rules, PR process, merge rules
+- **security-policies.mdc**: Data protection, authentication, input validation, audit requirements
 
-### Properties
-- Use `TicketStatus` enum (not multiple booleans)
-- Support multiple payments (collection, not single)
-- Support multiple order lines
-- Support discounts (item and ticket level)
-- Support gratuity (optional)
-- Version field for optimistic concurrency
+### Testing & Quality
+- **testing-requirements.mdc**: Test coverage requirements, test types, test organization
+- **invariants-enforcement.mdc**: How invariants are enforced, testing requirements, exception types
 
-### State Transitions
-- Draft → Open (when first item added)
-- Open → Paid (when PaidAmount >= TotalAmount)
-- Paid → Closed (when settled)
-- Any → Voided (if no payments)
-- Closed → Refunded (via refund workflow)
+### Infrastructure
+- **database-rules.mdc**: PostgreSQL rules, EF Core guidelines, naming conventions, migration rules
+- **scripts-control.mdc**: Script organization, PowerShell standards, security rules
 
-### Invariants
-- Cannot add items to Closed/Voided/Refunded tickets
-- Cannot void ticket with payments
-- Cannot close ticket with DueAmount > 0
-- TotalAmount = Subtotal + Tax + ServiceCharge + DeliveryCharge + Adjustment - Discount + Gratuity
-- PaidAmount = Sum of all payment amounts
-- DueAmount = TotalAmount - PaidAmount
+### Reference & Documentation
+- **floreantpos-reference.mdc**: Rules for using FloreantPOS as reference (read-only, no copying)
+- **documentation-control.mdc**: Documentation structure, standards, maintenance requirements
 
-### Methods
-- `CalculateTotals()`: Recalculates all amounts
-- `CanAddPayment(Payment)`: Validates payment
-- `CanClose()`: Validates closing
-- `CanVoid()`: Validates voiding
-- `CanRefund(Money)`: Validates refund
-- `CanSplit()`: Validates splitting
+### Tools & Libraries
+- **mcp-tools.mdc**: Rules for using MCP tools (Context7, PostgreSQL MCP, Sequential Thinking)
+- **library-usage.mdc**: Library selection, usage patterns, EF Core, Dapper, Polly, etc.
 
-## OrderLine Entity Rules
+### General
+- **general-development.mdc**: General development rules, async/await, logging, configuration, MCP tools
 
-### Properties
-- Support fractional quantities (for weight-based items)
-- Support discrete quantities (ItemCount)
-- Support modifiers and add-ons
-- Support item-level discounts
-- Snapshot menu item data (name, price, tax rate)
+## Quick Reference
 
-### Invariants
-- Quantity > 0 OR ItemCount > 0
-- UnitPrice >= 0
-- DiscountAmount <= SubtotalAmount
-- All calculated amounts >= 0
-- Cannot modify if parent ticket is finalized
+### Most Important Rules
+1. **No business logic in UI** - See `mvvm-pattern.mdc` and `architecture.mdc`
+2. **All invariants enforced** - See `invariants-enforcement.mdc`
+3. **Clean Architecture** - See `architecture.mdc` and `guardrails.mdc`
+4. **FloreantPOS is reference only** - See `floreantpos-reference.mdc`
+5. **PostgreSQL in `magidesk` schema** - See `database-rules.mdc`
+6. **Use Context7 for library docs** - See `mcp-tools.mdc` and `library-usage.mdc`
+7. **Use Sequential Thinking for complex problems** - See `mcp-tools.mdc`
 
-### Methods
-- `CalculatePrice()`: Recalculates line totals
-- `CanMerge(OrderLine)`: Checks if items can be merged
-- `Merge(OrderLine)`: Merges identical items
+### Required Libraries
+- **EF Core**: ORM (Infrastructure only)
+- **CommunityToolkit.Mvvm**: MVVM framework
+- **FluentValidation**: Validation
+- **Polly**: Resilience patterns
+- **xUnit/Moq**: Testing
+- **Dapper**: Optional, for performance-critical queries
 
-## Payment Entity Rules
+### MCP Tools
+- **Context7**: Get latest library documentation (REQUIRED before new features)
+- **PostgreSQL MCP**: Database analysis and optimization
+- **Sequential Thinking**: Complex problem analysis (REQUIRED for complex domain logic)
+- **Memory Bank**: Store architectural decisions and project knowledge (REQUIRED for important decisions)
 
-### Base Payment
-- Abstract base class or interface
-- Common properties: Id, Amount, TransactionType, PaymentType, etc.
-- Type-specific properties in derived classes
+## Enforcement
 
-### Payment Types
-- **CashTransaction**: TenderAmount, ChangeAmount
-- **CreditCardTransaction**: Card details, AuthCode, etc.
-- **DebitCardTransaction**: Card details
-- **GiftCertificateTransaction**: CertNumber, FaceValue, CashBack
-- **CustomPaymentTransaction**: Custom fields
+- These rules are enforced through:
+  - Code review process
+  - Automated linting
+  - Architecture validation
+  - Test requirements
+  - CI/CD checks
+  - MCP tool usage verification
 
-### Invariants
-- Amount > 0
-- For cash: TenderAmount >= Amount
-- For cash: ChangeAmount = TenderAmount - Amount
-- Cannot void if already voided
-- Cannot refund if not completed
-- Gift cert cash back <= (FaceValue - PaidAmount)
+## Updates
 
-### Split Payments
-- Multiple payments per ticket supported
-- Partial payments allowed
-- Ticket closes when PaidAmount >= TotalAmount
-- Each payment is independent
+- Update rules when architecture changes
+- Document exceptions to rules
+- Review rules regularly
+- Keep rules current with codebase
 
-## CashSession Entity Rules
+## Rule Categories
 
-### Properties
-- OpeningBalance (cash at start)
-- ExpectedCash (calculated)
-- ActualCash (counted at close)
-- Difference (ActualCash - ExpectedCash)
-- Status (Open/Closed)
+### Must Follow (Blocking)
+- Architecture violations
+- Security issues
+- Invariant violations
+- Code quality below standards
+- Skipping library documentation lookup
+- Using unmaintained libraries
 
-### Invariants
-- OpeningBalance >= 0
-- Cannot close with open tickets for user
-- ExpectedCash = OpeningBalance + CashReceipts - CashRefunds - Payouts - CashDrops - Bleeds
-- Cannot modify once Closed
-- Only one open session per user
+### Should Follow (Warning)
+- Code style
+- Documentation
+- Test coverage
+- Performance
+- MCP tool usage
 
-### Methods
-- `CalculateExpectedCash()`: Calculates expected amount
-- `CanClose()`: Validates closing
-- `Close(actualCash)`: Closes session
+### Best Practices (Guidance)
+- Code organization
+- Naming conventions
+- Error handling patterns
+- Logging practices
+- Library selection
 
-## Discount Entity Rules
+## How to Use
 
-### Discount Definition
-- Reference data (can change over time)
-- Multiple discount types supported
-- Minimum buy/quantity requirements
-- Auto-apply option
+1. **During Development**: Cursor AI will reference these rules automatically
+2. **Code Review**: Reviewers check against these rules
+3. **New Team Members**: Read these rules to understand project standards
+4. **Architecture Changes**: Update relevant rule files
+5. **Library Usage**: Always check Context7 MCP tool first
+6. **Complex Problems**: Use Sequential Thinking MCP tool
 
-### Applied Discounts
-- **TicketDiscount**: Snapshot of discount applied to ticket
-- **OrderLineDiscount**: Snapshot of discount applied to item
-- Immutable once created
-- Only one discount applies (max discount selected)
+## Rule File Format
 
-### Invariants
-- Discount amount cannot exceed subtotal
-- Discount eligibility checked before application
-- Applied discounts are immutable snapshots
-
-## Gratuity Entity Rules
-
-### Properties
-- Amount (tips/gratuity)
-- Paid (separate from ticket payment)
-- Refunded (if ticket refunded)
-- Belongs to ticket
-
-### Invariants
-- Amount >= 0
-- Can be paid separately from ticket
-- If ticket refunded, gratuity may be refunded
-
-## Domain Events
-
-### Event Design
-- Immutable events
-- Contain entity state snapshots
-- Timestamped
-- User attribution
-- Correlation ID for related events
-
-### Required Events
-- TicketCreated, TicketOpened, TicketClosed, TicketVoided, TicketRefunded
-- PaymentProcessed, PaymentAuthorized, PaymentCaptured, PaymentVoided, PaymentRefunded
-- CashSessionOpened, CashSessionClosed
-- OrderLineAdded, OrderLineRemoved, OrderLineModified
-- DiscountApplied
-
-## Domain Services
-
-### TicketDomainService
-- Complex ticket operations
-- CalculateTotals, CanAddPayment, CanClose, CanVoid, CanRefund, CanSplit
-- Stateless service
-
-### PaymentDomainService
-- Payment operations
-- CalculateChange, CanVoid, CanRefund, CanCapture
-- Stateless service
-
-### DiscountDomainService
-- Discount calculations
-- GetMaxDiscount, CalculateDiscountAmount, IsEligible
-- Stateless service
-
-### CashSessionDomainService
-- Cash session operations
-- CalculateExpectedCash, CanClose
-- Stateless service
-
-## Enumerations
-
-### Use Enums, Not Strings
-- TicketStatus enum (not string)
-- PaymentType enum (not string)
-- PaymentStatus enum (not string)
-- TransactionType enum (Credit/Debit)
-- CashSessionStatus enum
-- TableStatus enum
-- KitchenStatus enum
-
-### Enum Rules
-- Strongly typed
-- Cannot have invalid values
-- Easy to validate
-- IntelliSense support
-
-## Immutability Rules
-
-### Immutable Entities
-- AuditEvent: Immutable once created
-- Applied discounts: Immutable snapshots
-- Closed tickets: Immutable (use reopen if needed)
-- Closed cash sessions: Immutable
-- Completed payments: Immutable (use refund instead)
-
-### Immutable Value Objects
-- Money: Immutable
-- UserId: Immutable
-
-## Relationships
-
-### One-to-Many
-- Ticket → OrderLines
-- Ticket → Payments
-- Ticket → TicketDiscounts
-- OrderLine → OrderLineModifiers
-- OrderLine → OrderLineDiscounts
-- CashSession → Payments (cash only)
-
-### Many-to-One
-- OrderLine → Ticket
-- Payment → Ticket
-- Payment → CashSession (if cash)
-- Ticket → Shift
-- Ticket → OrderType
-- Ticket → User (owner)
-
-### Optional Relationships
-- Ticket → Customer (optional)
-- Ticket → Gratuity (optional)
-- Ticket → AssignedDriver (optional)
-- OrderLine → SizeModifier (optional)
-
-## Validation Rules
-
-### Construction Validation
-- All required properties must be provided
-- Invariants checked at construction
-- Invalid state cannot be created
-
-### Mutation Validation
-- State transitions validated
-- Invariants checked before mutation
-- Invalid operations throw exceptions
-
-### Business Rule Validation
-- Domain services validate complex rules
-- Cannot bypass validation
-- Validation is part of domain logic
+All files use `.mdc` format (Markdown for Cursor) with:
+- Clear sections
+- Examples where helpful
+- Prohibited practices listed
+- Required practices listed
+- Enforcement mechanisms described
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/zedfauji) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
