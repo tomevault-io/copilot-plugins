@@ -1,0 +1,35 @@
+## generative-ai-application-builder
+
+> You are working in the `generative-ai-application-builder` monorepo.
+
+You are working in the `generative-ai-application-builder` monorepo.
+
+## General
+- Prefer small, reviewable diffs.
+- Do not restyle or refactor unrelated code.
+- If you change behavior, update/adjust tests where they exist.
+
+## Admin console (do not change look & feel)
+Paths: `source/ui-deployment/**`
+- Keep using **Cloudscape** components and existing UI patterns.
+- Avoid introducing Tailwind/shadcn into the admin console.
+
+## Customer portal (new, user-friendly UI)
+Paths: `source/ui-portal/**`
+- Use **React + TypeScript + Vite**.
+- Use **Tailwind CSS** for styling.
+- Use **shadcn-style** component patterns (Tailwind + small local components), not Cloudscape.
+- Must support **light/dark/system** theme and persist preference in `localStorage`.
+- Keep UX “customer-grade”: simple navigation, minimal AWS jargon, clear statuses and channels.
+
+## Auth & API conventions
+- Use Cognito **ID tokens** for API auth (Authorization header).
+- Never leak cross-tenant data; rely on server-side tenant scoping and do not add client-side bypasses.
+
+## Branding
+- Canonical domain: `aiagentsworkforce.com` (portal host: `portal.aiagentsworkforce.com`).
+- Use placeholder logo/text if needed; keep it easy to swap later.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/SCS-Group) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
