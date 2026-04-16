@@ -1,0 +1,99 @@
+## crowdsense-server
+
+> **Lambda Layer MUST be packaged with `nodejs/shared/` directory structure.**
+
+# Cursor AI Assistant Rules for CrowdSense Project
+
+## Lambda Layer Structure (CRITICAL - DO NOT FORGET)
+
+**Lambda Layer MUST be packaged with `nodejs/shared/` directory structure.**
+
+- Lambda functions import: `require('/opt/nodejs/shared/services/crowdService')`
+- Layer structure must be: `nodejs/shared/services/...`
+- NEVER use `nodejs/services/` structure
+- Always check `deploy-layer.ps1` script ensures `nodejs\shared\` structure
+
+Reference: `resources/docs/LAMBDA-LAYER-STRUCTURE.md`
+
+## Browser Automation (MANDATORY)
+
+**If user has browser open, ALWAYS use browser tools instead of asking user to check.**
+
+### When to use browser:
+- AWS Console checks (Lambda, CloudWatch, API Gateway, DynamoDB, ElastiCache)
+- Deployment status verification
+- Error debugging from CloudWatch logs
+- Configuration verification
+
+### Available browser tools:
+- `browser_snapshot`: Capture page accessibility snapshot
+- `browser_navigate`: Navigate to URL
+- `browser_click`: Click elements
+- `browser_type`: Type text
+- `browser_tabs`: Manage tabs (list, switch, create, close)
+- `browser_console_messages`: Check console messages
+- `browser_network_requests`: Check network requests
+
+### Workflow:
+1. Check open tabs: `browser_tabs({ action: "list" })`
+2. Navigate to AWS console if needed
+3. Use `browser_snapshot()` to understand page structure
+4. Interact with elements using refs from snapshot
+
+### DO NOT:
+- Ask user to "check in browser" if browser is available
+- Use terminal commands when browser can do it faster
+- Skip browser verification when it's open
+
+Reference: `resources/docs/BROWSER-AUTOMATION-GUIDE.md`
+
+## AWS Region
+
+- Default region: `ap-southeast-2` (stored in `.aws-region` file)
+- Always read region from `.aws-region` file in deployment scripts
+- Reference: `README-AWS-REGION.md`
+
+## Test Account Credentials (IMPORTANT - DO NOT FORGET)
+
+**CrowdSense 테스트 계정:**
+- 아이디: `ilhyuk`
+- 비밀번호: `asd123!@#`
+
+**When testing in browser:**
+- ALWAYS use these credentials for login
+- DO NOT ask user for login credentials
+- Remember: 아이디는 `ilhyuk`, 비밀번호는 `asd123!@#`
+
+## ElastiCache / Redis Strategy (IMPORTANT - DO NOT FORGET)
+
+**현재 구현 전략:**
+- ElastiCache는 비용 문제로 현재 사용하지 않음
+- 목업 Redis를 사용 중 (인메모리 캐시)
+- DynamoDB에 데이터는 계속 저장되고 있음
+- 발표 시점에 ElastiCache로 전환 예정
+
+**When working with caching:**
+- DO NOT suggest using ElastiCache for now
+- Current implementation uses mock Redis (in-memory)
+- Data is being stored in DynamoDB continuously
+- Plan to switch to ElastiCache before presentation/demo
+- This is a cost-saving measure during development
+
+## Deployment (CRITICAL - DO NOT ASK USER TO DEPLOY)
+
+**ALWAYS deploy yourself when code changes are made:**
+- Lambda Layer 배포: `lambda-functions/shared/deploy-layer.ps1` 실행
+- Lambda 함수 Layer 업데이트: 배포 후 자동으로 모든 함수 업데이트
+- Frontend 배포: `client/deploy.ps1` 실행
+- NEVER ask user to deploy manually
+- NEVER say "you need to deploy" or "please deploy"
+- ALWAYS execute deployment scripts directly
+
+**When user says "배포했어" or "deployed":**
+- Verify deployment was successful
+- Update Lambda functions to use new Layer version if needed
+- Test in browser to confirm changes are working
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/danpung628) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
