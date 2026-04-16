@@ -4,7 +4,7 @@
   "repo": "RecyClique",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/La-Clique-qui-Recycle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T02:56:49Z"
+  "distributed_at": "2026-04-16T19:31:17Z"
 }
