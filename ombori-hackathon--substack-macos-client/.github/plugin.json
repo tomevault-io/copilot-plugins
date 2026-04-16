@@ -1,0 +1,14 @@
+{
+  "name": "ombori-hackathon--substack-macos-client",
+  "displayName": "substack-macos-client",
+  "description": "AI instruction files for substack-macos-client by ombori-hackathon",
+  "version": "1.0.0",
+  "author": "ombori-hackathon",
+  "homepage": "https://tomevault.io/claim/ombori-hackathon",
+  "skills": [
+    {
+      "name": "test",
+      "description": ""
+    }
+  ]
+}
