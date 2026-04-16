@@ -1,6 +1,6 @@
-# adam-test-app-yottagraph
+# AI instruction files for adam-test-app-yottagraph
 
-> Config by [Lovelace-AI](https://github.com/Lovelace-AI/adam-test-app-yottagraph) — distributed by [TomeVault](https://tomevault.io/claim/Lovelace-AI)
+> Sourced from [Lovelace-AI/adam-test-app-yottagraph](https://github.com/Lovelace-AI/adam-test-app-yottagraph) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [Lovelace-AI/adam-test-app-yottagraph]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Lovelace-AI](https://tomevault.io/claim/Lovelace-AI)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Lovelace-AI)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Lovelace-AI) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Lovelace-AI/adam-test-app-yottagraph
+```
+Or browse all formats at [https://tomevault.io/claim/Lovelace-AI](https://tomevault.io/claim/Lovelace-AI).
+
+<!-- genome:a-i-s -->
