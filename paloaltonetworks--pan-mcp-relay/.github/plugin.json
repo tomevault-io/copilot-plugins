@@ -1,0 +1,9 @@
+{
+  "name": "paloaltonetworks--pan-mcp-relay",
+  "displayName": "pan-mcp-relay",
+  "description": "pan-mcp-relay",
+  "version": "1.0.0",
+  "author": "PaloAltoNetworks",
+  "homepage": "https://tomevault.io/claim/PaloAltoNetworks",
+  "skills": []
+}
