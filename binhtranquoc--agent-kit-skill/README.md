@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [binhtranquoc/agent-kit-skill](https://github.com/binhtranquoc/agent-kit-skill).
+Original source: `.windsurf/rules/*.md` in [binhtranquoc/agent-kit-skill](https://github.com/binhtranquoc/agent-kit-skill).
 
 ## Also available for
 
@@ -13,7 +13,7 @@ Original source: `GEMINI.md` in [binhtranquoc/agent-kit-skill](https://github.co
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/binhtranquoc#quality)
 
