@@ -1,0 +1,53 @@
+## project-management-dashboard
+
+> architecture: "arm64-darwin"
+
+# System Configuration
+architecture: "arm64-darwin"
+memory_limit: "16GB"
+gpu_utilization: "enabled"
+thread_count: 10
+
+# AI Model Configuration
+model_preferences:
+  primary: "Anthropic Claude 3-5 Sonnet 20241022"
+  fallback: "deepseek-coder"
+
+# Token Management
+token_optimization:
+  max_context: 15000
+  response_limit: 12000
+  cache_strategy: "adaptive"
+  budget_management: "balanced"
+
+# Cost Management
+cost_management:
+  strategy: "minimal"
+  budget_control:
+    daily_limit: 1.50
+    cost_per_token: 0.0000050
+
+# Code Generation Rules
+code_generation:
+  style: "minimal"
+  documentation: "essential"
+  testing: "thorough"
+  patterns:
+    minimal_code: true
+    performance_first: true
+    complete_implementation: true
+
+# Quality Standards
+quality:
+  complexity_threshold: "low"
+  lint_level: "basic"
+
+# Security
+security:
+  input_validation: "strict"
+  output_sanitization: true
+  workspace_boundary: "cursor/project_management_dashboard"
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Victordtesla24) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
