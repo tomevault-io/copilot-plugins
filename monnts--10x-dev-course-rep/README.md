@@ -1,6 +1,6 @@
 # 10x-dev-course-rep
 
-> Config by [MonnTS](https://github.com/MonnTS/10x-dev-course-rep) — distributed by [TomeVault](https://tomevault.io/claim/MonnTS)
+> Tome by [MonnTS](https://github.com/MonnTS/10x-dev-course-rep) — distributed by [TomeVault](https://tomevault.io/claim/MonnTS)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [MonnTS/10x-dev-course-rep](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/MonnTS](https://tomevault.io/claim/MonnTS)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/MonnTS#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/MonnTS) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/MonnTS) to manage distribution and track installs.
+
+<!-- genome:t-c-q -->
