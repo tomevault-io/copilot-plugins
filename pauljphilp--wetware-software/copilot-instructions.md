@@ -1,88 +1,55 @@
 ## wetware-software
 
-> description: Use a wrapping Layer to add cross-cutting concerns like caching to a service without altering its original implementation.
+> description: Use Scope for fine-grained, manual control over resource lifecycles and cleanup guarantees.
 
-description: Use a wrapping Layer to add cross-cutting concerns like caching to a service without altering its original implementation.
+description: Use Scope for fine-grained, manual control over resource lifecycles and cleanup guarantees.
 globs: "**/*.ts"
 alwaysApply: true
 
-# Add Caching by Wrapping a Layer
-**Rule:** Use a wrapping Layer to add cross-cutting concerns like caching to a service without altering its original implementation.
+# Manage Resource Lifecycles with Scope
+**Rule:** Use Scope for fine-grained, manual control over resource lifecycles and cleanup guarantees.
 
 ### Example
-We have a `WeatherService` that makes slow API calls. We create a `WeatherService.cached` wrapper layer that adds an in-memory cache using a `Ref` and a `Map`.
+This example shows how to acquire a resource (like a file handle), use it, and have `Scope` guarantee its release.
 
 ```typescript
-import { Effect, Layer, Ref } from "effect";
+import { Effect, Scope } from "effect";
 
-// 1. Define the service interface
-class WeatherService extends Effect.Service<WeatherService>()(
-  "WeatherService",
-  {
-    sync: () => ({
-      getForecast: (city: string) => Effect.succeed(`Sunny in ${city}`),
-    }),
-  }
-) {}
-
-// 2. The "Live" implementation that is slow
-const WeatherServiceLive = Layer.succeed(
-  WeatherService,
-  WeatherService.of({
-    _tag: "WeatherService",
-    getForecast: (city) =>
-      Effect.succeed(`Sunny in ${city}`).pipe(
-        Effect.delay("2 seconds"),
-        Effect.tap(() => Effect.log(`Fetched live forecast for ${city}`))
-      ),
-  })
+// Simulate acquiring and releasing a resource
+const acquireFile = Effect.log("File opened").pipe(
+  Effect.as({ write: (data: string) => Effect.log(`Wrote: ${data}`) }),
 );
+const releaseFile = Effect.log("File closed.");
 
-// 3. The Caching Wrapper Layer
-const WeatherServiceCached = Layer.effect(
-  WeatherService,
-  Effect.gen(function* () {
-    // It REQUIRES the original WeatherService
-    const underlyingService = yield* WeatherService;
-    const cache = yield* Ref.make(new Map<string, string>());
+// Create a "scoped" effect. This effect, when used, will acquire the
+// resource and register its release action with the current scope.
+const scopedFile = Effect.acquireRelease(acquireFile, () => releaseFile);
 
-    return WeatherService.of({
-      _tag: "WeatherService",
-      getForecast: (city) =>
-        Ref.get(cache).pipe(
-          Effect.flatMap((map) =>
-            map.has(city)
-              ? Effect.log(`Cache HIT for ${city}`).pipe(
-                  Effect.as(map.get(city)!)
-                )
-              : Effect.log(`Cache MISS for ${city}`).pipe(
-                  Effect.flatMap(() => underlyingService.getForecast(city)),
-                  Effect.tap((forecast) =>
-                    Ref.update(cache, (map) => map.set(city, forecast))
-                  )
-                )
-          )
-        ),
-    });
-  })
-);
-
-// 4. Compose the final layer. The wrapper is provided with the live implementation.
-const AppLayer = Layer.provide(WeatherServiceCached, WeatherServiceLive);
-
-// 5. The application logic
+// The main program that uses the scoped resource
 const program = Effect.gen(function* () {
-  const weather = yield* WeatherService;
-  yield* weather.getForecast("London"); // First call is slow (MISS)
-  yield* weather.getForecast("London"); // Second call is instant (HIT)
+  // Effect.scoped "uses" the resource. It runs the acquire effect,
+  // provides the resource to the inner effect, and ensures the
+  // release effect is run when this block completes.
+  const file = yield* Effect.scoped(scopedFile);
+
+  yield* file.write("hello");
+  yield* file.write("world");
+
+  // The file will be automatically closed here.
 });
 
-Effect.runPromise(Effect.provide(program, AppLayer));
-
+Effect.runPromise(program);
+/*
+Output:
+File opened
+Wrote: hello
+Wrote: world
+File closed
+*/
 ```
 
 ---
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/PaulJPhilp) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
