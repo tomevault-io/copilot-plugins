@@ -1,0 +1,256 @@
+## careo
+
+> Guidelines and best practices for building Supabase-based Next.js projects, including database schema design, queries, mutations, and real-world examples
+
+
+# Supabase & Next.js Guidelines
+
+## Database Guidelines
+
+### Schema Design
+
+- Always define your schema in Supabase migrations (`supabase/migrations/`)
+- Use PostgreSQL data types appropriately:
+  - `UUID` for primary keys (use `gen_random_uuid()` as default)
+  - `TEXT` for variable-length strings
+  - `TIMESTAMPTZ` for timestamps (always use timezone-aware)
+  - `JSONB` for nested/structured data
+  - `BOOLEAN` for true/false values
+  - `INTEGER` or `BIGINT` for numbers
+- Always include `created_at TIMESTAMPTZ DEFAULT NOW()` and `updated_at TIMESTAMPTZ DEFAULT NOW()` columns
+- Use foreign keys with `ON DELETE CASCADE` or `ON DELETE SET NULL` as appropriate
+- Create indexes for frequently queried columns and foreign keys
+
+### Row Level Security (RLS)
+
+- **ALWAYS enable RLS** on all tables: `ALTER TABLE table_name ENABLE ROW LEVEL SECURITY;`
+- Create policies for each table covering:
+  - `SELECT` - Who can read data
+  - `INSERT` - Who can create data
+  - `UPDATE` - Who can modify data
+  - `DELETE` - Who can remove data
+- Use `auth.uid()` to reference the current authenticated user
+- Scope policies by `organization_id`, `team_id`, or `care_home_id` as appropriate
+- Test RLS policies thoroughly before deploying
+
+### Example RLS Policy
+
+```sql
+-- Allow users to read residents in their active organization
+CREATE POLICY "Users can read residents in their organization"
+ON residents FOR SELECT
+USING (
+  organization_id IN (
+    SELECT active_organization_id FROM users WHERE id = auth.uid()
+  )
+);
+```
+
+## Authentication Guidelines
+
+### Supabase Auth Only
+
+- **ALWAYS use Supabase Auth** - Do NOT use BetterAuth or third-party auth frameworks
+- Use `@supabase/auth-helpers-nextjs` for Next.js integration
+- Store user roles in `auth.users.app_metadata.role`
+- Store organization/team context in `public.users` table
+- Use `useSupabase()` hook from `@/components/providers/SupabaseProvider` for client-side access
+- Use `createServerClient()` for server-side access
+
+### User Profile Management
+
+- Extend `auth.users` with `public.users` table for additional profile data
+- Use `useProfile()` hook for accessing current user profile
+- Always check authentication before accessing protected resources
+
+## Frontend Guidelines
+
+### Data Fetching
+
+**Client-Side (React Components)**:
+```typescript
+import { useSupabase } from "@/components/providers/SupabaseProvider";
+import { useEffect, useState } from "react";
+
+const { supabase } = useSupabase();
+const [data, setData] = useState(null);
+
+useEffect(() => {
+  const fetchData = async () => {
+    const { data, error } = await supabase
+      .from("table_name")
+      .select("*")
+      .eq("field", value);
+    
+    if (error) {
+      console.error("Error fetching data:", error);
+      return;
+    }
+    
+    setData(data);
+  };
+  
+  fetchData();
+}, [supabase]);
+```
+
+**Server-Side (Server Components/Actions)**:
+```typescript
+import { createServerClient } from "@/lib/supabase-server";
+
+export async function ServerComponent() {
+  const supabase = createServerClient();
+  
+  const { data, error } = await supabase
+    .from("table_name")
+    .select("*");
+  
+  if (error) throw error;
+  
+  return <div>{/* render data */}</div>;
+}
+```
+
+### Mutations
+
+```typescript
+const handleSubmit = async () => {
+  const { data, error } = await supabase
+    .from("table_name")
+    .insert({ field: value })
+    .select()
+    .single();
+  
+  if (error) {
+    toast.error("Failed to create record");
+    return;
+  }
+  
+  toast.success("Record created successfully");
+};
+```
+
+### Real-time Subscriptions
+
+```typescript
+useEffect(() => {
+  const channel = supabase
+    .channel("table-changes")
+    .on(
+      "postgres_changes",
+      {
+        event: "*",
+        schema: "public",
+        table: "table_name",
+        filter: `organization_id=eq.${organizationId}`,
+      },
+      (payload) => {
+        // Handle real-time update
+        console.log("Change received:", payload);
+      }
+    )
+    .subscribe();
+  
+  return () => {
+    supabase.removeChannel(channel);
+  };
+}, [supabase, organizationId]);
+```
+
+## TypeScript Guidelines
+
+### Type Safety
+
+- Use TypeScript strictly - enable `strict: true` in tsconfig.json
+- Define types for database rows:
+```typescript
+export interface Resident {
+  id: string;
+  first_name: string;
+  last_name: string;
+  organization_id: string;
+  team_id: string;
+  created_at: string;
+  updated_at: string;
+}
+```
+
+- Use `Record<KeyType, ValueType>` for key-value mappings
+- Always use `as const` for string literals in discriminated union types
+- When using arrays, define them as `const array: Array<T> = [...];`
+- Always add `@types/node` to your `package.json` when using Node.js built-in modules
+
+### ID Types
+
+- Use `string` (UUID) for all IDs - Supabase uses UUIDs, not Convex's `Id<TableName>` type
+- Do NOT import or use `Id` from Convex - it no longer exists
+
+## Error Handling
+
+- Always check for errors in Supabase responses:
+```typescript
+const { data, error } = await supabase.from("table").select("*");
+
+if (error) {
+  console.error("Supabase error:", error);
+  toast.error(error.message);
+  return;
+}
+```
+
+- Use try-catch blocks for async operations
+- Provide user-friendly error messages
+- Log errors for debugging but don't expose sensitive details to users
+
+## Performance Guidelines
+
+### Query Optimization
+
+- Use `.select()` to fetch only needed columns, not `*`
+- Use `.eq()`, `.in()`, `.gte()`, `.lte()` filters instead of fetching all data
+- Create indexes for frequently filtered columns
+- Use pagination for large datasets:
+```typescript
+const { data } = await supabase
+  .from("table")
+  .select("*")
+  .range(0, 49); // First 50 records
+```
+
+### Caching
+
+- Use React Query or SWR for client-side caching if needed
+- Consider using Next.js caching strategies for server components
+- Be mindful of RLS policies when caching - cache keys should include user context
+
+## Security Guidelines
+
+- **NEVER** disable RLS in production
+- **NEVER** expose service role key to client-side code
+- Always validate user permissions before mutations
+- Use parameterized queries (Supabase client handles this automatically)
+- Sanitize user inputs before database operations
+- Use Supabase Storage for file uploads with proper access policies
+
+## Migration Guidelines
+
+- Create migrations in `supabase/migrations/` directory
+- Name migrations with timestamp: `YYYYMMDDHHMMSS_description.sql`
+- Test migrations locally before deploying
+- Use transactions for multi-step migrations
+- Always include rollback instructions in migration comments
+
+## Best Practices
+
+1. **Consistency**: Use snake_case for database columns, camelCase for TypeScript variables
+2. **Timestamps**: Always use `TIMESTAMPTZ` (not `TIMESTAMP`) for timezone-aware dates
+3. **Nullability**: Be explicit about nullable columns - use `NOT NULL` when appropriate
+4. **Relationships**: Use foreign keys to maintain referential integrity
+5. **Indexes**: Create indexes for foreign keys and frequently queried columns
+6. **RLS First**: Design RLS policies before writing queries
+7. **Error Handling**: Always handle Supabase errors gracefully
+8. **Type Safety**: Define TypeScript interfaces for all database tables
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/CareO-HQ) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
