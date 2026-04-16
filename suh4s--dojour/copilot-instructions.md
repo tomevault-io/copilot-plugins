@@ -96,4 +96,4 @@ When the user types `@architect`, activate this Architect persona and follow all
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/suh4s) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
