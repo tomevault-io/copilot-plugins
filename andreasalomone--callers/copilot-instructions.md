@@ -1,41 +1,37 @@
 ## callers
 
-> *   **Naming Convention (e.g., BEM, SUIT CSS, or similar):**
+> *   **Semantic HTML5:**
 
-# CSS Coding Guidelines
+# HTML Coding Guidelines
 
-*   **Naming Convention (e.g., BEM, SUIT CSS, or similar):**
-    *   **Principle:** Use a consistent and predictable naming convention for classes to avoid conflicts, improve readability, and make CSS more maintainable.
-    *   **Application:** Choose a methodology like BEM (Block, Element, Modifier) (e.g., `.block__element--modifier`) or another systematic approach. Be consistent throughout the project. Avoid overly generic names and ID selectors for styling.
+*   **Semantic HTML5:**
+    *   **Principle:** Use HTML5 semantic elements to describe the structure and meaning of the content.
+    *   **Application:** Employ elements like `<article>`, `<aside>`, `<nav>`, `<section>`, `<header>`, `<footer>`, `<main>`, `<figure>`, `<figcaption>` appropriately. Avoid using `<div>` or `<span>` when a more specific semantic tag is suitable.
 
-*   **Modularity and Scalability (e.g., ITCSS, SMACSS):**
-    *   **Principle:** Structure CSS in a way that is modular, scalable, and easy to manage, especially in larger projects.
-    *   **Application:** Consider architectural approaches like ITCSS (Inverted Triangle CSS) or SMACSS (Scalable and Modular Architecture for CSS). Break CSS into logical components/modules. Use preprocessors (Sass, Less) to enhance organization with variables, mixins, and nesting (used judiciously).
+*   **Accessibility (A11y):**
+    *   **Principle:** Write HTML that is accessible to all users, including those with disabilities using assistive technologies.
+    *   **Application:** Provide `alt` attributes for all `<img>` tags. Use ARIA (Accessible Rich Internet Applications) roles and attributes where necessary to enhance semantics for assistive technologies, especially for dynamic content and custom widgets. Ensure proper heading hierarchy (`<h1>` to `<h6>`). Ensure form elements have associated `<label>` tags.
 
-*   **Readability and Formatting:**
-    *   **Principle:** Write CSS that is easy to read and understand.
-    *   **Application:** Be consistent with formatting (e.g., indentation, spacing, one property per line or multi-line). Logically order properties (e.g., positioning, box model, typography, visual). Comment non-obvious sections or complex selectors.
+*   **Validation:**
+    *   **Principle:** Ensure HTML is well-formed and valid according to W3C standards.
+    *   **Application:** Regularly validate HTML using tools like the W3C Markup Validation Service. Properly close tags, nest elements correctly, and use lowercase for tags and attributes for consistency.
 
-*   **Performance and Selectors:**
-    *   **Principle:** Write efficient CSS that doesn't negatively impact page rendering performance.
-    *   **Application:** Avoid overly complex or qualified selectors. Minimize the use of the universal selector (`*`) and descendant selectors where class-based selectors are more efficient. Avoid using `!important` unless absolutely necessary for overriding external styles or utility classes.
-
-*   **Responsiveness and Units:**
-    *   **Principle:** Design CSS to be responsive and adaptable to different screen sizes and devices.
-    *   **Application:** Use relative units (e.g., `em`, `rem`, `%`, `vw`, `vh`) for flexible layouts and typography where appropriate. Employ media queries for responsive adjustments. Consider a mobile-first or desktop-first approach consistently.
+*   **Conciseness and Readability:**
+    *   **Principle:** Write clean, readable HTML. Avoid unnecessary elements or excessive nesting.
+    *   **Application:** Use indentation to reflect element hierarchy. Comment complex sections or non-obvious structures. Strive for the simplest markup that achieves the desired structure and semantics.
 
 *   **Separation of Concerns:**
-    *   **Principle:** Keep CSS focused on presentation, separate from HTML structure and JavaScript behavior.
-    *   **Application:** Avoid inline styles in HTML. JavaScript should primarily toggle classes to change styling, rather than directly manipulating CSS properties.
+    *   **Principle:** HTML should define the structure and content, CSS should handle presentation, and JavaScript should manage behavior.
+    *   **Application:** Avoid inline styles (use external or embedded CSS). Minimize inline JavaScript event handlers (attach listeners via JavaScript files). Keep markup focused on what the content *is*, not how it *looks* or *acts*.
 
-*   **Conciseness (Shorthand Properties):**
-    *   **Principle:** Use shorthand properties where appropriate to reduce code verbosity, but ensure readability is maintained.
-    *   **Application:** Use properties like `margin`, `padding`, `font`, `background` shorthand when setting multiple related values. For example, `margin: 10px 15px;` instead of `margin-top: 10px; margin-right: 15px; margin-bottom: 10px; margin-left: 15px;` (if all sides are symmetrical or paired).
+*   **Forms:**
+    *   **Principle:** Create usable and accessible forms.
+    *   **Application:** Use appropriate input types (`email`, `tel`, `number`, `date`, etc.). Group related fields with `<fieldset>` and `<legend>`. Provide clear instructions and validation feedback (though often enhanced with JS/CSS).
 
-*   **Accessibility:**
-    *   **Principle:** Ensure CSS choices support accessibility.
-    *   **Application:** Ensure sufficient color contrast. Avoid relying solely on color to convey information. Make sure focus states (`:focus`) are clearly visible. Use `prefers-reduced-motion` media query for users sensitive to animations. 
+*   **Character Encoding & Language:**
+    *   **Principle:** Specify character encoding and primary language for the document.
+    *   **Application:** Include `<meta charset="UTF-8">` as the first child of the `<head>`. Set the `lang` attribute on the `<html>` tag (e.g., `<html lang="en">`). 
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/andreasalomone) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
