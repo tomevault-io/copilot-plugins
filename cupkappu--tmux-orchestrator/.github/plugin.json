@@ -1,0 +1,26 @@
+{
+  "name": "cupkappu--tmux-orchestrator",
+  "displayName": "tmux-orchestrator",
+  "description": "AI instruction files for tmux-orchestrator by cupkappu",
+  "version": "1.0.0",
+  "author": "cupkappu",
+  "homepage": "https://tomevault.io/claim/cupkappu",
+  "skills": [
+    {
+      "name": "torc-deploy-team",
+      "description": ""
+    },
+    {
+      "name": "torc-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "torc-start",
+      "description": ""
+    },
+    {
+      "name": "torc-team-status",
+      "description": ""
+    }
+  ]
+}
