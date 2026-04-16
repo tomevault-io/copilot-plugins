@@ -4,7 +4,7 @@
   "repo": "kaantanis-blog",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/KaanTanis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T03:32:07Z"
+  "distributed_at": "2026-04-16T23:46:12Z"
 }
