@@ -1,0 +1,33 @@
+## sharego
+
+> version bump parity — all 3 version locations must be updated together
+
+
+# version bump rule
+
+when bumping the project version, ALL 3 locations must be updated in the same commit. never bump one without the others. you can also use the `pnpm run version:sync` script to propagate the root version to all sub-packages.
+
+## version locations (all must match)
+
+| # | file | field |
+|---|---|---|
+| 1 | `package.json` (root) | `"version"` |
+| 2 | `core/package.json` | `"version"` |
+| 3 | `apps/app/package.json` | `"version"` |
+
+## process
+
+1. determine the new version (semver: major.minor.patch)
+2. update root `package.json` version, then run `pnpm run version:sync`
+3. commit as `chore: bump version to x.y.z`
+4. if a lockfile update is needed (new dependency added), run `pnpm install` and commit the lockfile BEFORE tagging
+5. tag and push: `git tag vx.y.z && git push origin vx.y.z`
+
+## common mistake to avoid
+
+if you added a new dependency in the same release, run `pnpm install` to update `pnpm-lock.yaml` BEFORE creating the version tag. CI uses `pnpm install --frozen-lockfile` which requires the lockfile to be in sync.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/MehdiMamas)
+> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/MehdiMamas)
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
