@@ -4,7 +4,7 @@
   "repo": "interact",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/Krosebrook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T04:31:37Z"
+  "distributed_at": "2026-04-16T09:19:31Z"
 }
