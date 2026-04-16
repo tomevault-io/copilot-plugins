@@ -1,0 +1,17 @@
+## flutter-app
+
+> @backend/functions/ 是后端
+
+后端服务全面完善
+
+@backend/functions/ 是后端
+@lib/ 下是所有的UI界面
+
+你需要完成
+1. 改进match算法，使得特征计算的方差增加，也就是匹配不匹配的差异增大。然后bubble的大小方差增大，第一眼看不到明显的大小差异。为了不让内容溢出，bubble上的字号也要相应调整。
+2. （重要）改进AI返回的内容。返回的json是AI一个总的得分，AI的一个总的summary（summary的语气需要根据两个匹配的人的个性特征来写，比如低沉/活泼/幽默），自由发挥总结相似特征和得分，比如 {"xxx":"xxx", "xxx":"xxx"}. 不需要有starters
+3. （重要）改进mathanalysis页面，设计成一个简洁的单页卡片模式，有前后两面，可以flip，前面显示user，总得分，后面显示AI summary，以及ai的返回的自由发挥的相似特征和得分。将这个绘制成雷达图或者横向条形图。
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/wangshiwen-ai-hku) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
