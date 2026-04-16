@@ -1,0 +1,97 @@
+## node-koapp
+
+> Middleware patterns and usage
+
+
+# Middleware Patterns
+
+## Built-in Middlewares
+
+The framework provides several built-in middlewares:
+
+### Server-Sent Events (SSE)
+
+```javascript
+const { KoaSSEMiddleware } = require("@axiosleo/koapp");
+
+router.any("/sse", async (context) => {
+  const func = KoaSSEMiddleware();
+  await func(context.koa, async () => {});
+
+  context.koa.sse.send({ data: "hello, world!" });
+  context.koa.sse.end();
+});
+```
+
+### Session Middleware
+
+```javascript
+// Automatically configured when session config is provided
+app = new KoaApplication({
+  session: {
+    maxAge: 1296000000,
+    httpOnly: true,
+    signed: true,
+  },
+});
+```
+
+## Custom Middleware
+
+### Router-Level Middleware
+
+```javascript
+const router = new Router("/api", {
+  middlewares: [
+    async (context) => {
+      // Pre-processing logic
+      console.log(`${context.method}: ${context.router.pathinfo}`);
+    },
+  ],
+  afters: [
+    async (context) => {
+      // Post-processing logic
+      console.log(context.response);
+    },
+  ],
+});
+```
+
+### Application-Level Middleware
+
+Koa middlewares can be added directly to the Koa instance:
+
+```javascript
+app.koa.use(async (ctx, next) => {
+  // Custom middleware logic
+  await next();
+});
+```
+
+## File Upload Middleware
+
+Use `@koa/multer` for file uploads:
+
+```javascript
+const multer = require("@koa/multer");
+
+router.post("/upload", async (context) => {
+  const upload = multer();
+  const func = upload.any();
+  await func(context.koa, async () => {});
+
+  const file = context.koa.request.files[0];
+  // Process file...
+});
+```
+
+## Middleware Execution Order
+
+1. Application-level Koa middlewares
+2. Router middlewares (before handlers)
+3. Route handlers
+4. Router afters (after handlers)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/AxiosLeo) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
