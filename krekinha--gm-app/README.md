@@ -1,6 +1,6 @@
-# gm-app
+# AI instruction files for gm-app
 
-> Config by [Krekinha](https://github.com/Krekinha/gm-app) — distributed by [TomeVault](https://tomevault.io/claim/Krekinha)
+> Sourced from [Krekinha/gm-app](https://github.com/Krekinha/gm-app) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Krekinha/gm-app](https://github.com/K
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Krekinha](https://tomevault.io/claim/Krekinha)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Krekinha#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Krekinha) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-q -->
