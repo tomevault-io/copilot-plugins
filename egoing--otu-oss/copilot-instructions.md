@@ -1,0 +1,78 @@
+## otu-oss
+
+> 절대!!! add, commit은 하지마.
+
+
+# 항상 한국어로 답변해주세요. 
+
+- 세부항목 1
+- 세부항목 2
+
+절대!!! add, commit은 하지마.
+
+# 본 저장소는 https://github.com/opentutorials-org/otu.ai.web 에 존재해.
+
+# diff와 같이 page가 존재하는 명령어를 이용할 때는 --no-pager를 사용해줘. 
+
+# 브랜치
+브랜치에서의 변경사항을 조회할 때는 dev와의 차이점을 비교해서 처리해주세요.
+
+# 코딩 스타일은 CLAUDE.md 파일의 "코드 스타일" 섹션을 참고해줘.
+해당 코딩 스타일에서 벗어나는 코드를 발견하면 꼭 필요하다고 판단되는 경우는 CLAUDE.md에 기술된 스타일로 변경해줘. 
+
+# 사용자에게 제공하는 이 앱의 기능을 /docs/functionality.md에 최대한 간결하게 정리해줘. 기능을 구현할 때는 이 파일을 참고해줘.
+새로운 기능이 추가될 때마다 내용을 반영해주고, 기존의 내용에서 변경할 것이 있다면 반영해줘.
+
+# 사용자에게는 잘 보이지 않는 이 앱의 동작 메커니즘을 /docs/ 에 중복 없이 적어줘. 매커니즘이 궁금할 때는 이 파일 중에서 참고해줘.  
+
+# 이번 변경사항으로 영향을 받을 수 있는 기능을 나열하고 테스트 방법도 알려줘. 중요도에 따라서 반드시, 가급적, 참고 등급으로 구분해줘. 별도의 코드 박스로 정리해줘. 
+
+## 답변길이
+질문 끝에 이유 없이 단순 숫자가 있으면 분량 제한을 요구하는 것임. 
+1 => 1문장, 2 => 2문장 
+1m => 1분 분량, 2m => 2분 분량
+
+# 작업을 처리하기 전에 애매한 부분이 있으면 로그를 설치해서 사용자에게 로그를 설치했으니 실행해보고 로그 내용을 알려주면 도와주겠다고 물어봐. 로그는 debug.js를 사용하고 /debug 폴더에서 유시한 로그가 있다면 먼저 찾아고, 없다면 생성하자. 
+
+# 로그
+debug 디렉토리에 debug.js 형식으로 로그를 보관하고 있어. 로그를 만들 때 우선 기존 로그가 있는지 확인해보고 없으면 만들어줘. 아래 형식이야. 
+```
+//@ts-ignore
+import debug from 'debug';
+export const aiLogger = debug('ai');
+aiLogger.log = console.log.bind(console);
+```
+프론트엔드 로그는 사용자와 상화작용 부분에 종속된 로직은 사용자 상호작용 시작부터 로직이 끝나는 지점까지의 구간을 분명하게 인식할 수 있게 로그를 앞뒤로 넣어줘. 디버깅을 위해서 필요한 로그가 있다면 응답할 때 테스트해야 할 로그를 언급해줘. 클라이언트 예: localStorage.debug = 'sync,editor:index' 서버 예: DEBUG='sync'
+
+# 다국어 (LinguiJS)
+ui에 포함되는 텍스트는 항상 다국어가 필요한지 파악해줘. LinguiJS 매크로를 사용해서 `t\`텍스트\`` 형태로 작성해줘. 클라이언트/RSC에서는 `import { useLingui } from '@lingui/react/macro'` → `const { t } = useLingui()`, API 라우트에서는 `getServerI18n` + `msg` 패턴을 사용해줘.
+
+# 절대 하면 안되는 작업
+npx supabase *, npx vercel *, 커밋은 요청이 있을 때 조건부로 진행하고, git push는 절대하지마.
+
+# 커밋 메시지 형식
+- 커밋 메시지에 백틱(\`)을 사용해야 할 경우, 셸이 이를 명령어로 해석하는 것을 방지하기 위해 메시지 전체를 작은따옴표(`'`)로 감싸줘. 예: `git commit -m 'feat: code가 포함된 커밋 메시지'`
+- 진전의 대화를 기반으로 하는 것이 아니라 변경사항을 바탕으로 커밋 메시지를 작성해줘.
+- git add 파읾명으로 커밋하지 말고 git add . && git commit -m "커밋 메시지" 로 커밋해줘.
+
+# 데이터베이스의 구조나 데이터를 확인하려면 아래의 명령어로 처리하면 됨. 읽기작업만 진행하고 쓰기 작업은 허락없이 하지마. 이를 응용해서 실서버에 접근하면 배신이야 배신.
+docker exec -i supabase_db_new-opentutorials psql -U postgres -d postgres -c 명령어
+
+# todo.md파일 사용
+docs/development/todo.md 파일을 참고해서 아직 완료하지 못한 작업을 처리해줘. 완료된 작업은 완료 표시를 해줘. - [ ] 는 완료되지 않은 작업, - [x] 는 완료된 작업이야. 작업을 완료 할 때마다 어떤 작업을 진행했는지 다음 작업자가 쉽게 파악할 수 있게 작업 내용을 추가해줘. 
+
+# 타입체킹
+타입 오류가 예상되면 npm run type-check를 실행해서 타입 오류가 있는지 파악해줘.
+
+# 참조
+CLAUDE.md 파일도 참고해서 작업을 진행해줘. 
+
+# 이슈
+이슈를 발급할 때는 https://github.com/orgs/opentutorials-org/projects/ 에 No status 컬럼으로 만들어줘. 적당한 label, type을 선택해줘.
+
+# 마이그레이션 
+마이그레이션 파일은 불변해야 해. 따라서 마이그레이션 파일은 절대 수정하면 안됨. 
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/egoing) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
