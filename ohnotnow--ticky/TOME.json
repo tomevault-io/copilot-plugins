@@ -4,7 +4,7 @@
   "repo": "ticky",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/ohnotnow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T01:50:40Z"
+  "distributed_at": "2026-04-17T04:12:42Z"
 }
