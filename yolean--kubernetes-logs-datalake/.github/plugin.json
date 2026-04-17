@@ -1,0 +1,9 @@
+{
+  "name": "yolean--kubernetes-logs-datalake",
+  "displayName": "kubernetes-logs-datalake",
+  "description": "kubernetes-logs-datalake",
+  "version": "1.0.0",
+  "author": "Yolean",
+  "homepage": "https://tomevault.io/claim/Yolean",
+  "skills": []
+}
