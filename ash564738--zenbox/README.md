@@ -1,6 +1,6 @@
-# Zenbox
+# AI instruction files for Zenbox
 
-> Config by [Ash564738](https://github.com/Ash564738/Zenbox) — distributed by [TomeVault](https://tomevault.io/claim/Ash564738)
+> Sourced from [Ash564738/Zenbox](https://github.com/Ash564738/Zenbox) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Ash564738/Zenbox](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Ash564738](https://tomevault.io/claim/Ash564738)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Ash564738)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Ash564738) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/Ash564738) to manage distribution and track installs.
+
+<!-- genome:a-c-p -->
