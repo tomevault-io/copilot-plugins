@@ -1,0 +1,9 @@
+{
+  "name": "nucliweb--gemini-agent-skills",
+  "displayName": "gemini-agent-skills",
+  "description": "gemini-agent-skills",
+  "version": "1.0.0",
+  "author": "nucliweb",
+  "homepage": "https://tomevault.io/claim/nucliweb",
+  "skills": []
+}
