@@ -1,0 +1,377 @@
+## keymoji
+
+> Keymoji ist eine moderne Svelte-Anwendung für sichere Emoji-Passwort-Generierung mit Magic-Link-Authentifizierung, Account-Management über n8n/Google Sheets, und AI Story Mode.
+
+# Keymoji Cursor Rules - Senior Web Dev Pro Level
+# Version: 0.8.0
+# Last Updated: 2025-01-XX
+
+## 🎯 Projekt-Übersicht
+Keymoji ist eine moderne Svelte-Anwendung für sichere Emoji-Passwort-Generierung mit Magic-Link-Authentifizierung, Account-Management über n8n/Google Sheets, und AI Story Mode.
+
+## 📋 Kern-Prinzipien
+
+### 1. Code-Qualität & Best Practices
+- **IMMER TypeScript verwenden** - Alle neuen Dateien müssen TypeScript sein
+- **Svelte Runes verwenden** - `$state`, `$derived`, `$effect` statt klassische Stores wo möglich
+- **DRY (Don't Repeat Yourself)** - Keine Duplikate, wiederverwendbare Komponenten/Utils
+- **Single Source of Truth** - Jede Datenquelle hat genau einen Ort
+- **Performance First** - Funktionen nur so oft ausführen wie nötig
+- **Memory Leak Prevention** - Alle Timeouts/Intervals müssen gecleared werden
+
+### 2. Architektur & Struktur
+
+#### Stores (Svelte Runes bevorzugt)
+```typescript
+// ✅ GUT: Svelte 5 Runes
+let count = $state(0);
+let doubled = $derived(count * 2);
+$effect(() => console.log(count));
+
+// ⚠️ ALT: Nur wenn nötig für Kompatibilität
+import { writable } from 'svelte/store';
+```
+
+#### API Calls
+- **IMMER** `cachedFetch` aus `utils/apiCache.js` verwenden
+- **KEINE** direkten `fetch()` Calls außer in `apiCache.js`
+- **KEINE** doppelten API-Calls - Daten zwischen Komponenten weitergeben
+- **IMMER** Error Handling mit try/catch
+- **IMMER** Loading States
+
+#### TypeScript Schemas
+```typescript
+// ✅ GUT: Schema-Definitionen
+export interface Account {
+  userId: string;
+  email: string;
+  tier: 'free' | 'pro';
+  profile: UserProfile;
+  metadata: AccountMetadata;
+}
+
+export interface UserProfile {
+  name: string;
+  avatar?: string;
+}
+```
+
+### 3. Komponenten-Struktur
+
+#### Svelte Komponenten
+```svelte
+<script lang="ts">
+  // 1. Imports
+  import { onMount } from 'svelte';
+  
+  // 2. TypeScript Interfaces
+  interface Props {
+    title: string;
+    count?: number;
+  }
+  
+  // 3. Props mit $props()
+  let { title, count = 0 }: Props = $props();
+  
+  // 4. State mit $state()
+  let isLoading = $state(false);
+  
+  // 5. Derived mit $derived()
+  let displayCount = $derived(count * 2);
+  
+  // 6. Effects mit $effect()
+  $effect(() => {
+    console.log('Count changed:', displayCount);
+  });
+  
+  // 7. Functions
+  function handleClick() {
+    // ...
+  }
+</script>
+```
+
+### 4. Tailwind CSS
+
+#### Regeln
+- **NUR** Tailwind Utility-Klassen verwenden
+- **KEINE** `<style>` Tags in Komponenten (außer für Animationen)
+- **Gemeinsame Patterns** in `tailwind.config.js` als Utilities definieren
+- **PurgeCSS** aktiviert für Production Builds
+- **Dark Mode** via `dark:` Klassen
+
+#### Beispiel
+```svelte
+<!-- ✅ GUT -->
+<div class="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+  <h2 class="text-xl font-bold text-gray-900 dark:text-white">Title</h2>
+</div>
+
+<!-- ❌ SCHLECHT -->
+<div class="custom-container">
+  <h2 class="custom-title">Title</h2>
+</div>
+<style>
+  .custom-container { /* ... */ }
+</style>
+```
+
+### 5. A11y (Accessibility)
+
+#### Regeln
+- **IMMER** `aria-label` für Icon-Buttons
+- **IMMER** Keyboard Navigation unterstützen
+- **IMMER** Focus Management für Modals/Dialogs
+- **IMMER** Skip Links für Screen Reader
+- **IMMER** Alt-Text für Bilder
+- **IMMER** Semantic HTML verwenden
+
+#### Komponenten
+- `FocusManager.svelte` für Focus Trapping
+- `SkipLink.svelte` für Skip Navigation
+- Reaktive ARIA-Labels für dynamische Inhalte
+
+### 6. API & Backend
+
+#### Magic-Link Authentication
+- **IMMER** `secureLoginWithMagicLink()` verwenden
+- **IMMER** `secureVerifyMagicLink()` verwenden
+- **IMMER** Session Validation vor Account-Operationen
+- **IMMER** Cross-Tab Communication für Magic Links
+
+#### Account Management
+- **IMMER** `accountStore.js` für Account-Operationen verwenden
+- **IMMER** `syncAccountData()` nach Login/Update aufrufen
+- **IMMER** `currentAccount` Store als Single Source of Truth
+- **IMMER** Metadata Cleaning vor API-Calls
+
+#### n8n Integration
+- **IMMER** `WEBHOOKS` aus `config/api.js` verwenden
+- **IMMER** `body: { body: { ... } }` Wrapper für n8n
+- **IMMER** JSON-Strings für `profile` und `metadata` in Google Sheets
+
+### 7. Storage & State
+
+#### localStorage
+- **IMMER** `storageHelpers` aus `config/storage.js` verwenden
+- **IMMER** `STORAGE_KEYS` Konstanten verwenden
+- **IMMER** Migration bei Strukturänderungen
+- **IMMER** Error Handling für QuotaExceededError
+
+#### Session Management
+- **IMMER** `USER_PREFERENCES` für Account-Daten
+- **IMMER** Session Expiry prüfen
+- **IMMER** Cross-Tab Synchronization
+
+### 8. Performance
+
+#### Optimierungen
+- **IMMER** API-Caching verwenden (`cachedFetch`)
+- **IMMER** Debouncing für User Input
+- **IMMER** Lazy Loading für große Komponenten
+- **IMMER** Code Splitting für Routes
+- **IMMER** Memoization für teure Berechnungen
+
+#### Reaktivität
+- **IMMER** `$derived` für abgeleitete Werte
+- **IMMER** `$effect` für Side Effects
+- **KEINE** reaktiven Statements mit Side Effects
+- **KEINE** unnötigen Re-Renders
+
+### 9. Error Handling
+
+#### Regeln
+- **IMMER** try/catch für async Operations
+- **IMMER** User-freundliche Error Messages
+- **IMMER** Error Logging für Debugging
+- **IMMER** Fallback Values
+
+#### Beispiel
+```typescript
+try {
+  const result = await apiCall();
+  return result;
+} catch (error) {
+  console.error('API Error:', error);
+  showError('Failed to load data. Please try again.');
+  return defaultValue;
+}
+```
+
+### 10. Testing & Debugging
+
+#### Development
+- **IMMER** `isDevelopment()` für Debug-Code
+- **IMMER** Console Logs mit Emojis für Kategorisierung
+- **IMMER** TypeScript für Type Safety
+
+#### Production
+- **KEINE** Console Logs in Production
+- **KEINE** Debug-Modi aktiviert
+- **IMMER** Error Boundaries
+
+### 11. Versionierung
+
+#### Automatische Versionierung
+- **IMMER** `package.json` Version aktualisieren
+- **IMMER** `src/utils/version.js` aktualisieren
+- **IMMER** Git Tag für Releases
+- **IMMER** Changelog aktualisieren
+
+#### Version Format
+- `MAJOR.MINOR.PATCH` (Semantic Versioning)
+- Aktuelle Version: `0.8.1`
+- Pre-Release: `0.7.7-beta.1`
+
+### 12. Build & Deployment
+
+#### Webpack Configuration
+- **IMMER** Production Optimizations aktiviert
+- **IMMER** Code Splitting für Performance
+- **IMMER** Source Maps für Debugging
+- **IMMER** CSS Extraction & Minification
+
+#### Vercel Deployment
+- **IMMER** Environment Variables gesetzt
+- **IMMER** Build Output optimiert
+- **IMMER** Edge Functions für API Routes
+
+#### GitHub Actions
+- **IMMER** Automated Testing
+- **IMMER** Automated Builds
+- **IMMER** Automated Deployment
+
+### 13. Code-Organisation
+
+#### Datei-Struktur
+```
+src/
+├── components/        # Wiederverwendbare Komponenten
+│   ├── A11y/         # Accessibility Komponenten
+│   ├── Core/         # Core Features
+│   ├── Features/     # Feature-spezifische Komponenten
+│   ├── Layout/       # Layout-Komponenten
+│   └── UI/           # UI-Elemente
+├── config/           # Konfiguration
+├── data/             # Statische Daten & Content
+├── routes/           # Route-Komponenten
+├── stores/           # State Management (Runes bevorzugt)
+├── utils/            # Utility-Funktionen
+└── widgets/          # Widget-Komponenten
+```
+
+#### Naming Conventions
+- **Komponenten**: PascalCase (`UserSettings.svelte`)
+- **Dateien**: camelCase (`accountStore.js`)
+- **Konstanten**: UPPER_SNAKE_CASE (`STORAGE_KEYS`)
+- **Funktionen**: camelCase (`getUserSettings()`)
+- **Types/Interfaces**: PascalCase (`UserAccount`)
+
+### 14. Git & Commits
+
+#### Commit Messages
+- **IMMER** Präfix verwenden: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`
+- **IMMER** Deutsche Beschreibung
+- **IMMER** Detaillierte Beschreibung bei größeren Änderungen
+
+#### Branches
+- **IMMER** Feature-Branches für neue Features
+- **IMMER** `frontend` Branch für Frontend-Arbeiten (nicht `master`)
+- **IMMER** PR für Code Review
+
+### 15. Sicherheit
+
+#### Regeln
+- **IMMER** Input Validation
+- **IMMER** XSS Prevention
+- **IMMER** CSRF Protection
+- **IMMER** Rate Limiting für API Calls
+- **IMMER** Secure Storage für Sensitive Data
+
+#### Magic Links
+- **IMMER** Token Expiry prüfen
+- **IMMER** Single-Use Tokens
+- **IMMER** Rate Limiting
+
+### 16. Dokumentation
+
+#### Code Comments
+- **IMMER** JSDoc für Funktionen
+- **IMMER** TypeScript Types für Parameter
+- **IMMER** Erklärungen für komplexe Logik
+
+#### Beispiel
+```typescript
+/**
+ * Lädt Account-Daten vom Backend
+ * @param userId - Die User-ID
+ * @param options - Optionale Parameter
+ * @returns Promise mit Account-Daten
+ */
+async function loadAccount(userId: string, options?: LoadOptions): Promise<Account> {
+  // ...
+}
+```
+
+## 🚫 Verbotene Patterns
+
+### ❌ NICHT erlaubt:
+1. **Direkte `fetch()` Calls** - Immer `cachedFetch` verwenden
+2. **Klassische Stores** - Svelte Runes bevorzugen
+3. **Inline Styles** - Nur Tailwind CSS
+4. **Doppelte API-Calls** - Daten weitergeben statt neu laden
+5. **Ungeclearte Timeouts** - Immer Cleanup in `onDestroy`
+6. **Console Logs in Production** - Nur in Development
+7. **Any Types** - Immer spezifische Types
+8. **Magic Numbers** - Immer Konstanten verwenden
+9. **Nested ternaries** - Klarere If-Statements
+10. **Unused Imports** - Immer entfernen
+
+## ✅ Erlaubte Patterns
+
+### ✅ Erlaubt:
+1. **Svelte Runes** - `$state`, `$derived`, `$effect`
+2. **TypeScript** - Überall wo möglich
+3. **Tailwind CSS** - Für alle Styles
+4. **API Caching** - `cachedFetch` für alle API-Calls
+5. **Error Boundaries** - Für Error Handling
+6. **Lazy Loading** - Für große Komponenten
+7. **Code Splitting** - Für Routes
+8. **Memoization** - Für teure Berechnungen
+
+## 🔄 Migration Guidelines
+
+### Svelte 3 → Svelte 5
+1. **Stores → Runes**: `writable()` → `$state()`
+2. **Derived Stores**: `derived()` → `$derived()`
+3. **Reactive Statements**: `$:` → `$effect()`
+4. **Props**: `export let` → `let { prop } = $props()`
+
+### TypeScript Migration
+1. **Schrittweise**: `.js` → `.ts` → `.svelte` mit `lang="ts"`
+2. **Schemas**: Interfaces für alle Datenstrukturen
+3. **Types**: Keine `any` Types
+
+## 📚 Ressourcen
+
+- **Svelte Docs**: https://svelte.dev/docs
+- **Svelte 5 Migration**: https://svelte.dev/docs/svelte/migration-guide
+- **TypeScript**: https://www.typescriptlang.org/docs/
+- **Tailwind CSS**: https://tailwindcss.com/docs
+- **A11y**: https://www.w3.org/WAI/WCAG21/quickref/
+
+## 🎯 Aktuelle Prioritäten
+
+1. **Svelte 5 Migration** - Runes überall
+2. **TypeScript Migration** - Alle Dateien typisiert
+3. **API Call Optimization** - Keine Duplikate
+4. **Performance** - Caching & Lazy Loading
+5. **A11y** - Vollständige Accessibility
+
+---
+
+**WICHTIG**: Diese Rules sind verbindlich für alle Code-Änderungen. Bei Fragen oder Unklarheiten immer nachfragen!
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/chooomedia) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
