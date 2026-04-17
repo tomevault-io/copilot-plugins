@@ -1,6 +1,6 @@
-# APAS-VERUS — distributed by TomeVault
+# APAS-VERUS
 
-> Originally from [briangmilnes/APAS-VERUS](https://github.com/briangmilnes/APAS-VERUS). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [briangmilnes/APAS-VERUS](https://github.com/briangmilnes/APAS-VERUS) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
