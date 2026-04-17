@@ -1,0 +1,244 @@
+## daggerverse
+
+> - `feat`: A new feature (minor version)
+
+## **Commit Message Format**
+
+```
+type(scope): subject
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### **Types**
+
+- `feat`: A new feature (minor version)
+  - New functionality in reusable modules
+  - New integrations with Dagger
+  - Enhancements to CI/CD logic in `.dagger/`
+- `fix`: A bug fix (patch version)
+  - Fixes in module logic
+  - Corrections in auto-generated configurations
+  - Workflow or script fixes
+- `perf`: A code change that improves performance (patch version)
+  - Optimizations in reusable modules
+  - Workflow performance improvements
+  - Build efficiency updates
+- `docs`: Documentation-only changes (patch version)
+  - Updates to README or module-specific documentation
+  - Comments explaining module behaviors
+  - Changes in documentation for `.dagger/` workflows
+- `style`: Non-functional changes to code style
+  - Formatting adjustments
+  - Linting fixes
+  - Naming conventions
+- `refactor`: Code changes without feature addition or bug fix
+  - Module structure reorganization
+  - Internal logic improvements
+  - Redundant code removal
+- `test`: Adding or fixing tests
+  - Unit tests for modules
+  - Workflow tests
+  - Integration tests for Dagger pipelines
+- `build`: Changes in build configuration or dependencies
+  - Updates to `go.mod` or `go.sum`
+  - Adjustments in Dagger development setup
+  - Build script modifications
+- `ci`: Updates to CI/CD configuration
+  - Workflow improvements in `.dagger/`
+  - GitHub Actions configurations
+  - Release process updates
+- `chore`: Repository maintenance or minor updates
+  - Cleanup tasks
+  - Administrative changes
+  - Dependency updates without code modifications
+
+### **Scopes**
+
+#### Language-Specific Scopes
+- `python`: Changes related to Python modules and functionality
+- `nodejs`: Changes related to Node.js modules and functionality
+- `ruby`: Changes related to Ruby modules and functionality
+
+#### Module-Specific Scopes
+- `<language>-<module_name>`: Changes related to specific modules (e.g., `python-pipeline`, `nodejs-scheduler`)
+- Any new module name must follow the pattern `<language>-<module_name>`.
+
+#### General Scopes
+- `global`: Repository-wide changes or changes affecting multiple modules
+
+---
+
+## **Commit Message Rules**
+
+1. **Subject Line:**
+   - Format: `type(scope): subject`
+   - Use present tense (e.g., "Add feature", not "Added feature").
+   - Keep it concise (72 characters or fewer).
+   - Avoid ending with a period.
+   - Example: `feat(python): add new testing pipeline`.
+
+2. **Body:**
+   - Must be separated from the subject by a blank line.
+   - Explain _what_ and _why_, not _how_.
+   - Use bullet points for multiple items.
+   - Example:
+     ```
+     feat(python): add new testing pipeline
+
+     - Added comprehensive tests with coverage reporting
+     - Integrated with popular testing frameworks
+     - Enhanced reporting for detailed metrics
+     ```
+
+3. **Breaking Changes:**
+   - Add `!` after the type/scope: `feat(python)!: change API structure`.
+   - Include a `BREAKING CHANGE:` section in the footer.
+   - Example:
+     ```
+     feat(python)!: update testing API structure
+
+     BREAKING CHANGE: The test runner now requires explicit configuration.
+     ```
+
+---
+
+## **Module Naming and Structure**
+
+1. **Module Import Path**
+   - Modules must follow this structure:  
+     ```
+     github.com/felipepimentel/daggerverse/<pasta>/<module_name>/internal/dagger
+     ```
+
+2. **Directory Responsibilities**
+   - **`internal/`**: Contains auto-generated files. **Do not manually modify files here**.
+   - **`dagger.gen.go`**: An auto-generated file. Any updates must be done using:
+     ```bash
+     dagger develop
+     ```
+
+3. **Protected Components**
+   - Changes to `dagger.gen.go` or files in `/internal` are prohibited.
+   - Validate generated content with the `dagger develop` command.
+
+4. **Example Module Structure**
+   ```
+   daggerverse/
+   ├── python/
+   │   ├── pipeline/
+   │   │   ├── go.mod
+   │   │   ├── main.go
+   │   │   └── internal/
+   │   │       └── dagger/
+   │   │           ├── dagger.gen.go
+   │   │           └── (other auto-generated files)
+   ├── nodejs/
+   │   ├── scheduler/
+   └── global/
+   ```
+
+---
+
+## **Reusing Internal Modules**
+
+### **1. Declaring Module Dependencies**
+
+To reuse an internal module, declare it as a dependency in your module’s `dagger.json` file. This ensures the dependency is linked during the development process.
+
+Example `dagger.json`:
+```json
+{
+  "name": "wolfi",
+  "engineVersion": "v0.15.3",
+  "sdk": "go",
+  "dependencies": [
+    {
+      "name": "apko",
+      "source": "../apko"
+    }
+  ],
+  "source": "."
+}
+```
+
+### **2. Using Internal Modules**
+
+After declaring the dependency in `dagger.json`, you can access the module’s exported structures or methods by importing it into your Go code. For example:
+
+```go
+package main
+
+import (
+	"github.com/felipepimentel/daggerverse/essentials/wolfi/internal/dagger"
+)
+
+// A Dagger Module to integrate with Wolfi Linux
+type Wolfi struct{}
+
+// Build a Wolfi Linux container
+func (w *Wolfi) Container(
+	// APK packages to install
+	// +optional
+	packages []string,
+	// Overlay images to merge on top of the base.
+	// +optional
+	overlays []*dagger.Container,
+) *dagger.Container {
+	ctr := dag.Apko().Wolfi(packages)
+	for _, overlay := range overlays {
+		ctr = ctr.WithDirectory("/", overlay.Rootfs())
+	}
+	return ctr
+}
+```
+
+In this example:
+- The `dag.Apko()` function refers to the `apko` dependency declared in `dagger.json`.
+- Dependencies are structured to encourage code reuse and modularity.
+
+### **3. Guidelines for Reusing Modules**
+
+- **Always declare dependencies** in `dagger.json` to make them explicit and trackable.
+- **Avoid duplicating logic**; reuse existing modules when functionality overlaps.
+- **Leverage internal APIs**: Use exported functions or methods provided by the dependent module.
+- **Document dependencies** in the README or inline comments to clarify module relationships.
+
+---
+
+## **Code Quality Rules**
+
+1. **General**
+   - Adhere to idiomatic Go practices.
+   - Ensure all changes pass linting and formatting checks.
+   - Write unit tests for all new or modified functionality.
+
+2. **Dagger Workflow-Specific Rules**
+   - Always use `dagger/<module>/internal/dagger` for imports.
+   - Validate Dagger and Go versions:
+     - Dagger version: `0.15.3`.
+     - Go version: `1.23.2`.
+
+3. **Testing**
+   - Mock external dependencies where possible.
+   - Ensure CI/CD workflows test all critical paths.
+
+4. **Documentation**
+   - Clearly describe module purpose and usage.
+   - Highlight any requirements for Dagger or Go versions.
+
+---
+
+## **Breaking Changes**
+
+1. **Commit Header:**
+   - Use `!` after `type(scope)` (e.g., `feat(python)!:`).
+
+2. **Commit Footer:**
+   - Include a `BREAKING CHANGE:` section explaining the impact and migration steps.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/felipepimentel) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
