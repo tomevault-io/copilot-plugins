@@ -1,6 +1,6 @@
-# mimir — distributed by TomeVault
+# mimir
 
-> Originally from [phainestai/mimir](https://github.com/phainestai/mimir). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [phainestai/mimir](https://github.com/phainestai/mimir) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
