@@ -1,0 +1,9 @@
+{
+  "name": "abjin--rocksdb-parallel-compaction-experiment",
+  "displayName": "rocksdb-parallel-compaction-experiment",
+  "description": "rocksdb-parallel-compaction-experiment",
+  "version": "1.0.0",
+  "author": "abjin",
+  "homepage": "https://tomevault.io/claim/abjin",
+  "skills": []
+}
