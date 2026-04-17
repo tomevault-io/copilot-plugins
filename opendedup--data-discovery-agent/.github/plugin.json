@@ -1,0 +1,9 @@
+{
+  "name": "opendedup--data-discovery-agent",
+  "displayName": "data-discovery-agent",
+  "description": "data-discovery-agent",
+  "version": "1.0.0",
+  "author": "opendedup",
+  "homepage": "https://github.com/opendedup/data-discovery-agent",
+  "skills": []
+}
