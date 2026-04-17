@@ -1,6 +1,6 @@
-# CCTVHighmindsIdea — distributed by TomeVault
+# CCTVHighmindsIdea
 
-> Originally from [HaymayndzUltra/CCTVHighmindsIdea](https://github.com/HaymayndzUltra/CCTVHighmindsIdea). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [HaymayndzUltra/CCTVHighmindsIdea](https://github.com/HaymayndzUltra/CCTVHighmindsIdea) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
