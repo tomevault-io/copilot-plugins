@@ -1,0 +1,9 @@
+{
+  "name": "mc-agent--af-agent",
+  "displayName": "AF_agent",
+  "description": "AF_agent",
+  "version": "1.0.0",
+  "author": "MC-agent",
+  "homepage": "https://tomevault.io/claim/MC-agent",
+  "skills": []
+}
