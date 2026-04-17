@@ -4,7 +4,7 @@
   "repo": "slovy-movy-app",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,8 @@
     }
   ],
   "skills": [],
+  "source_url": "https://github.com/slovymovy/slovy-movy-app",
   "claim_url": "https://tomevault.io/claim/slovymovy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T02:38:43Z"
+  "distributed_at": "2026-04-17T12:16:44Z"
 }
