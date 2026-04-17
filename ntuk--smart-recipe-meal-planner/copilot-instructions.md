@@ -1,0 +1,60 @@
+## smart-recipe-meal-planner
+
+> "pattern": "frontend/src/components/**/*.tsx",
+
+{
+  "rules": [
+    {
+      "pattern": "frontend/src/components/**/*.tsx",
+      "description": "React UI components using TypeScript and Tailwind CSS"
+    },
+    {
+      "pattern": "frontend/src/pages/**/*.tsx",
+      "description": "Page components for different application routes"
+    },
+    {
+      "pattern": "frontend/src/services/**/*.ts",
+      "description": "API service clients for communicating with backend microservices"
+    },
+    {
+      "pattern": "frontend/src/hooks/**/*.ts",
+      "description": "Custom React hooks for shared logic"
+    },
+    {
+      "pattern": "frontend/src/context/**/*.tsx",
+      "description": "React context providers for state management"
+    },
+    {
+      "pattern": "frontend/src/types/**/*.ts",
+      "description": "TypeScript type definitions for the application"
+    },
+    {
+      "pattern": "backend/auth-service/**/*.py",
+      "description": "Authentication microservice handling user registration, login, and JWT tokens"
+    },
+    {
+      "pattern": "backend/ingredient-scanner-service/**/*.py",
+      "description": "Service for extracting ingredients from images using OCR"
+    },
+    {
+      "pattern": "backend/recipe-service/**/*.py",
+      "description": "Service for storing and retrieving recipes with search capabilities"
+    },
+    {
+      "pattern": "backend/meal-planning-service/**/*.py",
+      "description": "Service for generating meal plans based on ingredients and preferences"
+    },
+    {
+      "pattern": "backend/shopping-list-service/**/*.py",
+      "description": "Service for creating and managing shopping lists"
+    },
+    {
+      "pattern": "docker-compose.yml",
+      "description": "Docker Compose configuration for orchestrating all microservices"
+    }
+  ]
+}
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Ntuk) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
