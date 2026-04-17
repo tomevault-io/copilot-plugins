@@ -1,6 +1,6 @@
-# oh-my-ai-docs
+# AI instruction files for oh-my-ai-docs
 
-> Config by [bossjones](https://github.com/bossjones/oh-my-ai-docs) — distributed by [TomeVault](https://tomevault.io/claim/bossjones)
+> Sourced from [bossjones/oh-my-ai-docs](https://github.com/bossjones/oh-my-ai-docs) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [bossjones/oh-my-ai-docs](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/bossjones](https://tomevault.io/claim/bossjones)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/bossjones)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/bossjones) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install bossjones/oh-my-ai-docs
+```
+Or browse all formats at [https://tomevault.io/claim/bossjones](https://tomevault.io/claim/bossjones).
+
+<!-- genome:a-i-s -->
