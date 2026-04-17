@@ -1,6 +1,6 @@
 # djentronome
 
-> Config by [drumnation](https://github.com/drumnation/djentronome) — distributed by [TomeVault](https://tomevault.io/claim/drumnation)
+> Source: [drumnation/djentronome](https://github.com/drumnation/djentronome) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [drumnation/djentronome](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/drumnation](https://tomevault.io/claim/drumnation)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/drumnation)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/drumnation) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/drumnation) to manage distribution and track installs.
+
+<!-- genome:d-c-s -->
