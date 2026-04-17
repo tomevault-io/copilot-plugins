@@ -4,7 +4,7 @@
   "repo": "coffee_run",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/steveoleary",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T21:49:46Z"
+  "distributed_at": "2026-04-17T00:11:23Z"
 }
