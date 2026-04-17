@@ -4,7 +4,7 @@
   "repo": "betting-brain-v3",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/brendadeeznuts1111",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T23:42:53Z"
+  "distributed_at": "2026-04-17T07:32:41Z"
 }
