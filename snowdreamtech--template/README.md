@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [snowdreamtech/template](https://github.com/snowdreamtech/template).
+Original source: `.windsurf/rules/*.md` in [snowdreamtech/template](https://github.com/snowdreamtech/template).
 
 ## Also available for
 
@@ -13,7 +13,7 @@ Original source: `GEMINI.md` in [snowdreamtech/template](https://github.com/snow
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/snowdreamtech)
 
