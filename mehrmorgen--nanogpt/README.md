@@ -1,23 +1,24 @@
-# nanoGPT
+# nanoGPT — distributed by TomeVault
 
-> Config by [mehrmorgen](https://github.com/mehrmorgen/nanoGPT) — distributed by [TomeVault](https://tomevault.io/claim/mehrmorgen)
+> Originally from [mehrmorgen/nanoGPT](https://github.com/mehrmorgen/nanoGPT). Converted and distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mehrmorgen/nanoGPT](https://github.com/mehrmorgen/nanoGPT).
+Original source: `GEMINI.md` in [mehrmorgen/nanoGPT](https://github.com/mehrmorgen/nanoGPT).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/mehrmorgen](https://tomevault.io/claim/mehrmorgen)
+From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/mehrmorgen)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mehrmorgen) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-s -->
