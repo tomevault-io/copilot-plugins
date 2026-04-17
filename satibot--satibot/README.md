@@ -1,6 +1,6 @@
-# satibot — distributed by TomeVault
+# satibot
 
-> Originally from [satibot/satibot](https://github.com/satibot/satibot). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [satibot/satibot](https://github.com/satibot/satibot) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
