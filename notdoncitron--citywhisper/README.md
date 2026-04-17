@@ -1,6 +1,6 @@
-# citywhisper
+# AI instruction files for citywhisper
 
-> Config by [NotDonCitron](https://github.com/NotDonCitron/citywhisper) — distributed by [TomeVault](https://tomevault.io/claim/NotDonCitron)
+> Sourced from [NotDonCitron/citywhisper](https://github.com/NotDonCitron/citywhisper) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `GEMINI.md` in [NotDonCitron/citywhisper](https://github.com/No
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/NotDonCitron](https://tomevault.io/claim/NotDonCitron)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/NotDonCitron#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/NotDonCitron) to manage distribution.
+Is this your repo? [Claim it](https://tomevault.io/claim/NotDonCitron) to manage distribution and track installs.
+
+<!-- genome:a-c-q -->
