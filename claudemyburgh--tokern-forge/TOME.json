@@ -4,7 +4,7 @@
   "repo": "tokern-forge",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/claudemyburgh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T14:55:56Z"
+  "distributed_at": "2026-04-17T02:04:56Z"
 }
