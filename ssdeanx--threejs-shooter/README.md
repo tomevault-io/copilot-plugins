@@ -1,6 +1,6 @@
-# threejs.shooter — distributed by TomeVault
+# threejs.shooter
 
-> Originally from [ssdeanx/threejs.shooter](https://github.com/ssdeanx/threejs.shooter). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ssdeanx/threejs.shooter](https://github.com/ssdeanx/threejs.shooter) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
