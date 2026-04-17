@@ -4,7 +4,7 @@
   "repo": "nanoGPT",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/mehrmorgen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T21:13:41Z"
+  "distributed_at": "2026-04-17T05:59:53Z"
 }
