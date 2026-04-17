@@ -1,6 +1,6 @@
-# bluemoon — distributed by TomeVault
+# bluemoon
 
-> Originally from [alisonbessa/bluemoon](https://github.com/alisonbessa/bluemoon). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [alisonbessa/bluemoon](https://github.com/alisonbessa/bluemoon) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
