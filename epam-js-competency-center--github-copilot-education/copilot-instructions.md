@@ -1,0 +1,73 @@
+## github-copilot-education
+
+> Express.js patterns and RESTful API conventions
+
+
+# Express.js Patterns
+
+## Controller Structure
+Controllers in `src/controllers/` should follow this pattern:
+
+```typescript
+import { Request, Response } from 'express';
+
+const controllerName = {
+  // GET operations
+  list: async (req: Request, res: Response) => {
+    try {
+      // Implementation
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+
+  // POST operations
+  create: async (req: Request, res: Response) => {
+    // Implementation with validation
+  },
+
+  // PUT/PATCH operations
+  update: async (req: Request, res: Response) => {
+    // Implementation
+  },
+
+  // DELETE operations
+  delete: async (req: Request, res: Response) => {
+    // Implementation
+  }
+};
+
+export default controllerName;
+```
+
+## Route Organization
+Routes in `src/routes/` should:
+- Import controllers and delegate to them
+- Define middleware for authentication/validation
+- Follow RESTful conventions:
+  - `GET /resource` - list all
+  - `GET /resource/:id` - get one
+  - `POST /resource` - create
+  - `PUT /resource/:id` - update
+  - `DELETE /resource/:id` - delete
+
+## Error Handling
+- Always use try-catch in async controllers
+- Return consistent error response format
+- Use appropriate HTTP status codes
+- Log errors for debugging
+
+## Middleware Patterns
+- Validation middleware for request data
+- Authentication middleware for protected routes
+- Error handling middleware for global error management
+
+## View Rendering
+- Use EJS templates in `src/views/`
+- Pass data through `res.render()`
+- Utilize partials for reusable components
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/EPAM-JS-Competency-center) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
