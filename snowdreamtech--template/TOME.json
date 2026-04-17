@@ -4,7 +4,7 @@
   "repo": "template",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/snowdreamtech",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T07:02:59Z"
+  "distributed_at": "2026-04-17T01:48:54Z"
 }
