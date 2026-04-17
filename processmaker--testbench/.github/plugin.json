@@ -1,0 +1,9 @@
+{
+  "name": "processmaker--testbench",
+  "displayName": "testbench",
+  "description": "testbench",
+  "version": "1.0.0",
+  "author": "ProcessMaker",
+  "homepage": "https://github.com/ProcessMaker/testbench",
+  "skills": []
+}
