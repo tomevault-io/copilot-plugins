@@ -1,0 +1,43 @@
+## pitchdocs
+
+> You are working on PitchDocs, a Claude Code plugin that generates marketing-quality repository documentation. This is a pure Markdown project with no code runtime.
+
+# PitchDocs — Cursor Rules
+
+You are working on PitchDocs, a Claude Code plugin that generates marketing-quality repository documentation. This is a pure Markdown project with no code runtime.
+
+## Architecture
+
+- **Skills** (16): `.claude/skills/*/SKILL.md` — reference knowledge loaded on-demand
+- **Agents** (4): `.claude/agents/*.md` — docs-writer (orchestrator), docs-researcher, docs-reviewer; `agents/docs-freshness.md` — installed per-project by `/pitchdocs:activate`
+- **Rules** (3 auto-loaded + 2 installable): `.claude/rules/content-filter.md` (global); `.claude/rules/doc-standards.md`, `.claude/rules/docs-awareness.md` (installed auto-loaded); `rules/doc-standards.md`, `rules/docs-awareness.md` (source templates installed per-project by `/pitchdocs:activate`)
+- **Commands** (16): `commands/*.md` — 14 active + 2 stubs redirecting to [ContextDocs](https://github.com/littlebearapps/contextdocs)
+- **Hooks** (1 opt-in): `hooks/content-filter-guard.sh` — installed per-project by `/pitchdocs:activate install strict` (Claude Code only)
+
+## Writing Standards
+
+- Australian English (realise, colour, behaviour, licence/license)
+- Benefit-driven language: `[Feature] so you can [outcome] — [evidence]` (with optional JTBD job mapping for richer benefits)
+- 4-question test on every doc: problem solved? usable? credible? linked?
+- Progressive disclosure: non-technical first, technical deeper
+- Every feature claim must trace to actual code (file path, function, config)
+
+## File Sync Requirements
+
+When adding skills or commands, update all of:
+- `README.md` (commands table, features section)
+- `AGENTS.md` (skills table, commands table, if applicable)
+- `llms.txt` (file reference with benefit description)
+- `.github/ISSUE_TEMPLATE/bug_report.yml` (component dropdown)
+
+## Upstream Specs
+
+Pinned in `upstream-versions.json`, checked monthly by `.github/workflows/check-upstream.yml`. Do not bump spec versions without verifying the upstream source.
+
+## GEO Optimisation
+
+Structure docs for AI extraction: crisp top-of-page definitions, one topic per H2, descriptive headings with keywords, comparison tables for "X vs Y" queries, concrete statistics with evidence.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/littlebearapps) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
