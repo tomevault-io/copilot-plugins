@@ -4,7 +4,7 @@
   "repo": "ArchitectMind",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "claim_url": "https://tomevault.io/claim/june-in-exile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T19:41:43Z"
+  "distributed_at": "2026-04-17T01:54:47Z"
 }
