@@ -4,7 +4,7 @@
   "repo": "apex",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,8 @@
     }
   ],
   "skills": [],
+  "source_url": "https://github.com/cennahq/apex",
   "claim_url": "https://tomevault.io/claim/cennahq",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T18:37:59Z"
+  "distributed_at": "2026-04-17T12:02:58Z"
 }
