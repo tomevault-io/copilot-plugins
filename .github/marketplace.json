@@ -54732,6 +54732,11 @@
       "name": "aa-del9--native-template",
       "source": "./aa-del9--native-template",
       "description": "native-template"
+    },
+    {
+      "name": "kyuna0312--inaricode",
+      "source": "./kyuna0312--inaricode",
+      "description": "inaricode"
     }
   ]
 }
