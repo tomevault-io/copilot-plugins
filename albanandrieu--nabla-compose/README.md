@@ -1,6 +1,6 @@
-# nabla-compose
+# AI instruction files for nabla-compose
 
-> Config by [AlbanAndrieu](https://github.com/AlbanAndrieu/nabla-compose) — distributed by [TomeVault](https://tomevault.io/claim/AlbanAndrieu)
+> Sourced from [AlbanAndrieu/nabla-compose](https://github.com/AlbanAndrieu/nabla-compose) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [AlbanAndrieu/nabla-compose](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/AlbanAndrieu](https://tomevault.io/claim/AlbanAndrieu)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/AlbanAndrieu)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AlbanAndrieu) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install AlbanAndrieu/nabla-compose
+```
+Or browse all formats at [https://tomevault.io/claim/AlbanAndrieu](https://tomevault.io/claim/AlbanAndrieu).
+
+<!-- genome:a-i-p -->
