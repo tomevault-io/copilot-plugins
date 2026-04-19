@@ -1,9 +1,9 @@
 {
-  "name": "aura-frog-cursor",
+  "name": "aura-frog",
   "owner": "nguyenthienthanh",
   "repo": "aura-frog-cursor",
-  "description": "",
-  "type": "config",
+  "description": "AI instruction skills by nguyenthienthanh",
+  "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,8 +37,208 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "stitch-design",
+      "path": "aura-frog/skills/stitch-design",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/stitch-design",
+      "description": ""
+    },
+    {
+      "name": "angular-expert",
+      "path": "aura-frog/skills/angular-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/angular-expert",
+      "description": ""
+    },
+    {
+      "name": "react-native-expert",
+      "path": "aura-frog/skills/react-native-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/react-native-expert",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "aura-frog/skills/code-reviewer",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "path": "aura-frog/skills/code-simplifier",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "flutter-expert",
+      "path": "aura-frog/skills/flutter-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/flutter-expert",
+      "description": ""
+    },
+    {
+      "name": "laravel-expert",
+      "path": "aura-frog/skills/laravel-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/laravel-expert",
+      "description": ""
+    },
+    {
+      "name": "bugfix-quick",
+      "path": "aura-frog/skills/bugfix-quick",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/bugfix-quick",
+      "description": ""
+    },
+    {
+      "name": "vue-expert",
+      "path": "aura-frog/skills/vue-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/vue-expert",
+      "description": ""
+    },
+    {
+      "name": "agent-detector",
+      "path": "aura-frog/skills/agent-detector",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/agent-detector",
+      "description": ""
+    },
+    {
+      "name": "api-designer",
+      "path": "aura-frog/skills/api-designer",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/api-designer",
+      "description": ""
+    },
+    {
+      "name": "design-expert",
+      "path": "aura-frog/skills/design-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/design-expert",
+      "description": ""
+    },
+    {
+      "name": "design-system-library",
+      "path": "aura-frog/skills/design-system-library",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/design-system-library",
+      "description": ""
+    },
+    {
+      "name": "dev-expert",
+      "path": "aura-frog/skills/dev-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/dev-expert",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "aura-frog/skills/documentation",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "framework-expert",
+      "path": "aura-frog/skills/framework-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/framework-expert",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "aura-frog/skills/git-workflow",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "go-expert",
+      "path": "aura-frog/skills/go-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/go-expert",
+      "description": ""
+    },
+    {
+      "name": "lazy-agent-loader",
+      "path": "aura-frog/skills/lazy-agent-loader",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/lazy-agent-loader",
+      "description": ""
+    },
+    {
+      "name": "learning-analyzer",
+      "path": "aura-frog/skills/learning-analyzer",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/learning-analyzer",
+      "description": ""
+    },
+    {
+      "name": "migration-helper",
+      "path": "aura-frog/skills/migration-helper",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/migration-helper",
+      "description": ""
+    },
+    {
+      "name": "nextjs-expert",
+      "path": "aura-frog/skills/nextjs-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/nextjs-expert",
+      "description": ""
+    },
+    {
+      "name": "nodejs-expert",
+      "path": "aura-frog/skills/nodejs-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/nodejs-expert",
+      "description": ""
+    },
+    {
+      "name": "python-expert",
+      "path": "aura-frog/skills/python-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/python-expert",
+      "description": ""
+    },
+    {
+      "name": "qa-expert",
+      "path": "aura-frog/skills/qa-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/qa-expert",
+      "description": ""
+    },
+    {
+      "name": "react-expert",
+      "path": "aura-frog/skills/react-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/react-expert",
+      "description": ""
+    },
+    {
+      "name": "refactor-expert",
+      "path": "aura-frog/skills/refactor-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/refactor-expert",
+      "description": ""
+    },
+    {
+      "name": "scalable-thinking",
+      "path": "aura-frog/skills/scalable-thinking",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/scalable-thinking",
+      "description": ""
+    },
+    {
+      "name": "self-improve",
+      "path": "aura-frog/skills/self-improve",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/self-improve",
+      "description": ""
+    },
+    {
+      "name": "test-writer",
+      "path": "aura-frog/skills/test-writer",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/test-writer",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": "aura-frog/skills/testing-patterns",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "path": "aura-frog/skills/typescript-expert",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestrator",
+      "path": "aura-frog/skills/workflow-orchestrator",
+      "github_url": "https://github.com/nguyenthienthanh/aura-frog-cursor/tree/main/aura-frog/skills/workflow-orchestrator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nguyenthienthanh/aura-frog-cursor",
   "claim_url": "https://tomevault.io/claim/nguyenthienthanh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T18:33:29Z"
+  "distributed_at": "2026-04-19T02:31:10Z"
 }
