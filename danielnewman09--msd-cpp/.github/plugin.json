@@ -1,0 +1,22 @@
+{
+  "name": "danielnewman09--msd-cpp",
+  "displayName": "msd-cpp",
+  "description": "AI instruction skills by danielnewman09",
+  "version": "1.0.0",
+  "author": "danielnewman09",
+  "homepage": "https://github.com/danielnewman09/MSD-CPP",
+  "skills": [
+    {
+      "name": "cpp-systematic-debugger",
+      "description": ""
+    },
+    {
+      "name": "cpp-tutorial-generator",
+      "description": ""
+    },
+    {
+      "name": "transfer-object-builder",
+      "description": ""
+    }
+  ]
+}
