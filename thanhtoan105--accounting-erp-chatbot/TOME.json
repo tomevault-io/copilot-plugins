@@ -1,10 +1,10 @@
 {
-  "name": "Accounting_ERP_Chatbot",
+  "name": "accounting_erp_chatbot",
   "owner": "thanhtoan105",
   "repo": "Accounting_ERP_Chatbot",
-  "description": "",
-  "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "description": "AI instruction skills by thanhtoan105",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,34 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "beads",
+      "path": ".agents/skills/beads",
+      "github_url": "https://github.com/thanhtoan105/Accounting_ERP_Chatbot/tree/main/.agents/skills/beads",
+      "description": ""
+    },
+    {
+      "name": "conductor",
+      "path": ".agents/skills/conductor",
+      "github_url": "https://github.com/thanhtoan105/Accounting_ERP_Chatbot/tree/main/.agents/skills/conductor",
+      "description": ""
+    },
+    {
+      "name": "dev-browser",
+      "path": ".claude/skills/dev-browser",
+      "github_url": "https://github.com/thanhtoan105/Accounting_ERP_Chatbot/tree/main/.claude/skills/dev-browser",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/thanhtoan105/Accounting_ERP_Chatbot/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thanhtoan105/Accounting_ERP_Chatbot",
   "claim_url": "https://tomevault.io/claim/thanhtoan105",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T11:44:50Z"
+  "distributed_at": "2026-04-19T02:32:03Z"
 }
