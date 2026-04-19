@@ -1,6 +1,6 @@
-# agentprj
+# AI instruction files for agentprj
 
-> Config by [chaojiwudidashuaige492](https://github.com/chaojiwudidashuaige492/agentprj) — distributed by [TomeVault](https://tomevault.io/claim/chaojiwudidashuaige492)
+> Sourced from [chaojiwudidashuaige492/agentprj](https://github.com/chaojiwudidashuaige492/agentprj) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.windsurf/rules/*.md` in [chaojiwudidashuaige492/agentprj](htt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Browse all formats: [https://tomevault.io/claim/chaojiwudidashuaige492](https://tomevault.io/claim/chaojiwudidashuaige492)
+Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/chaojiwudidashuaige492#quality)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/chaojiwudidashuaige492) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install chaojiwudidashuaige492/agentprj
+```
+Or browse all formats at [https://tomevault.io/claim/chaojiwudidashuaige492](https://tomevault.io/claim/chaojiwudidashuaige492).
+
+<!-- genome:a-i-q -->
