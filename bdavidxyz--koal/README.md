@@ -1,6 +1,6 @@
-# koal — distributed by TomeVault
+# koal
 
-> Originally from [bdavidxyz/koal](https://github.com/bdavidxyz/koal). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [bdavidxyz/koal](https://github.com/bdavidxyz/koal) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [bdavidxyz/koal](https://github.com/b
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/bdavidxyz)
+From [bdavidxyz/koal](https://github.com/bdavidxyz/koal) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install bdavidxyz/koal
 ```
-Or browse all formats at [https://tomevault.io/claim/bdavidxyz](https://tomevault.io/claim/bdavidxyz).
+Source: [github.com/bdavidxyz/koal](https://github.com/bdavidxyz/koal).
 
 <!-- genome:d-i-s -->
