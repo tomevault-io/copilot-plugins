@@ -1,8 +1,8 @@
 # qbittorrent-web
 
-> Tome by [jianxcao](https://github.com/jianxcao/qbittorrent-web) — distributed by [TomeVault](https://tomevault.io/claim/jianxcao)
+> Source: [jianxcao/qbittorrent-web](https://github.com/jianxcao/qbittorrent-web) — distributed by [TomeVault](https://tomevault.io)
 
-AI instruction files for qbittorrent-web by jianxcao
+AI instruction skills by jianxcao
 
 ## GitHub Copilot Config
 
@@ -17,8 +17,6 @@ Original source: `.cursor/rules/*.mdc` in [jianxcao/qbittorrent-web](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/jianxcao](https://tomevault.io/claim/jianxcao)
-
 ## Bundled Skills (5)
 
 - [i18n-checker](https://github.com/jianxcao/qbittorrent-web/tree/main/.cursor/skills/i18n-checker)
@@ -27,7 +25,10 @@ Browse all formats: [https://tomevault.io/claim/jianxcao](https://tomevault.io/c
 - [vue-best-practices](https://github.com/jianxcao/qbittorrent-web/tree/main/.agents/skills/vue-best-practices)
 - [vueuse-best-practices](https://github.com/jianxcao/qbittorrent-web/tree/main/.agents/skills/vueuse-best-practices)
 
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/jianxcao/qbittorrent-web](https://github.com/jianxcao/qbittorrent-web)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jianxcao) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-p -->
