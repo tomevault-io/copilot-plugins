@@ -1,9 +1,14 @@
 {
   "name": "imenesesl--guidy",
-  "displayName": "guidy",
+  "displayName": "primer-guidy",
   "description": "AI instruction skills by imenesesl",
   "version": "1.0.0",
   "author": "imenesesl",
   "homepage": "https://github.com/imenesesl/guidy",
-  "skills": []
+  "skills": [
+    {
+      "name": "react-web-app",
+      "description": ""
+    }
+  ]
 }
