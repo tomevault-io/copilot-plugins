@@ -4,7 +4,7 @@
   "repo": "OpenShift-LP-QE--Tools",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/RedHatQE",
+  "source_url": "https://github.com/RedHatQE/OpenShift-LP-QE--Tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T22:43:38Z"
+  "distributed_at": "2026-04-19T14:56:16Z"
 }
