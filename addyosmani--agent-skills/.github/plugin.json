@@ -1,0 +1,70 @@
+{
+  "name": "addyosmani--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Production-grade engineering skills for AI coding agents.",
+  "version": "1.0.0",
+  "author": "addyosmani",
+  "homepage": "https://github.com/addyosmani/agent-skills",
+  "skills": [
+    {
+      "name": "api-and-interface-design",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-and-automation",
+      "description": ""
+    },
+    {
+      "name": "code-review-and-quality",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "description": ""
+    },
+    {
+      "name": "debugging-and-error-recovery",
+      "description": ""
+    },
+    {
+      "name": "documentation-and-adrs",
+      "description": ""
+    },
+    {
+      "name": "frontend-ui-engineering",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-and-versioning",
+      "description": ""
+    },
+    {
+      "name": "incremental-implementation",
+      "description": ""
+    },
+    {
+      "name": "performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "security-and-hardening",
+      "description": ""
+    },
+    {
+      "name": "shipping-and-launch",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-development",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "using-agent-skills",
+      "description": ""
+    }
+  ]
+}
