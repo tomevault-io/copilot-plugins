@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [briangmilnes/APAS-VERUS](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/briangmilnes)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/briangmilnes/APAS-VERUS](https://github.com/briangmilnes/APAS-VERUS)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install briangmilnes/APAS-VERUS
 ```
-Or browse all formats at [https://tomevault.io/claim/briangmilnes](https://tomevault.io/claim/briangmilnes).
+Source: [github.com/briangmilnes/APAS-VERUS](https://github.com/briangmilnes/APAS-VERUS).
 
 <!-- genome:d-i-p -->
