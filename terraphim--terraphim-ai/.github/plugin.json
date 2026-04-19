@@ -1,0 +1,126 @@
+{
+  "name": "terraphim--terraphim-ai",
+  "displayName": "terraphim",
+  "description": "AI instruction skills by terraphim",
+  "version": "1.0.0",
+  "author": "terraphim",
+  "homepage": "https://github.com/terraphim/terraphim-ai",
+  "skills": [
+    {
+      "name": "requirements-traceability",
+      "description": ""
+    },
+    {
+      "name": "acceptance-testing",
+      "description": ""
+    },
+    {
+      "name": "ai-config-management",
+      "description": ""
+    },
+    {
+      "name": "architecture",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "description": ""
+    },
+    {
+      "name": "disciplined-design",
+      "description": ""
+    },
+    {
+      "name": "disciplined-implementation",
+      "description": ""
+    },
+    {
+      "name": "disciplined-quality-evaluation",
+      "description": ""
+    },
+    {
+      "name": "disciplined-research",
+      "description": ""
+    },
+    {
+      "name": "disciplined-specification",
+      "description": ""
+    },
+    {
+      "name": "disciplined-validation",
+      "description": ""
+    },
+    {
+      "name": "disciplined-verification",
+      "description": ""
+    },
+    {
+      "name": "gpui-components",
+      "description": ""
+    },
+    {
+      "name": "implementation",
+      "description": ""
+    },
+    {
+      "name": "judge",
+      "description": ""
+    },
+    {
+      "name": "local-knowledge",
+      "description": ""
+    },
+    {
+      "name": "md-book",
+      "description": ""
+    },
+    {
+      "name": "open-source-contribution",
+      "description": ""
+    },
+    {
+      "name": "quality-gate",
+      "description": ""
+    },
+    {
+      "name": "rust-development",
+      "description": ""
+    },
+    {
+      "name": "rust-performance",
+      "description": ""
+    },
+    {
+      "name": "security-audit",
+      "description": ""
+    },
+    {
+      "name": "session-search",
+      "description": ""
+    },
+    {
+      "name": "terraphim-hooks",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "visual-testing",
+      "description": ""
+    },
+    {
+      "name": "xero",
+      "description": ""
+    }
+  ]
+}
