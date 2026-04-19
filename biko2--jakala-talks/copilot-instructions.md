@@ -1,0 +1,56 @@
+## jakala-talks
+
+> - La **capa de aplicación** actúa como **coordinador de casos de uso**.
+
+
+# Regla: Arquitectura Hexagonal - Capa de Aplicación
+
+### Descripción
+
+- La **capa de aplicación** actúa como **coordinador de casos de uso**.
+- Orquesta la interacción entre el dominio y el mundo exterior a través de puertos.
+- Contiene:
+  - Casos de uso (application services)
+  - Coordinación de flujos de negocio
+  - Definición de interfaces hacia el dominio
+- ❌ No debe incluir: lógica de infraestructura, SDKs externos, queries SQL.
+
+✅ Ejemplo de Caso de Uso:
+
+```ts
+// application/services/RegisterUser.ts
+import { UserRepository } from "../../domain/ports/UserRepository";
+import { User } from "../../domain/entities/User";
+
+export class RegisterUser {
+  constructor(private readonly userRepo: UserRepository) {}
+
+  async execute(id: string, name: string) {
+    const user = new User(id, name);
+    await this.userRepo.save(user);
+    return user;
+  }
+}
+```
+
+✅ Ejemplo de Coordinación de Servicios:
+
+```ts
+// application/services/RenameUser.ts
+import { UserRepository } from "../../domain/ports/UserRepository";
+
+export class RenameUser {
+  constructor(private readonly userRepo: UserRepository) {}
+
+  async execute(id: string, newName: string) {
+    const user = await this.userRepo.findById(id);
+    if (!user) throw new Error("Usuario no encontrado");
+    user.rename(newName);
+    await this.userRepo.save(user);
+  }
+}
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/biko2) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
