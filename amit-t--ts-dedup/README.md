@@ -1,6 +1,6 @@
 # ts-dedup
 
-> Tome by [amit-t](https://github.com/amit-t/ts-dedup) — distributed by [TomeVault](https://tomevault.io/claim/amit-t)
+> Tome by [amit-t](https://github.com/amit-t/ts-dedup) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [amit-t/ts-dedup](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/amit-t#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/amit-t/ts-dedup](https://github.com/amit-t/ts-dedup)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install amit-t/ts-dedup
 ```
-Or browse all formats at [https://tomevault.io/claim/amit-t](https://tomevault.io/claim/amit-t).
+Source: [github.com/amit-t/ts-dedup](https://github.com/amit-t/ts-dedup).
 
 <!-- genome:t-i-q -->
