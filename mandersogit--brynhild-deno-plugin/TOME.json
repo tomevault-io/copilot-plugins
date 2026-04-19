@@ -1,0 +1,76 @@
+{
+  "name": "brynhild",
+  "owner": "mandersogit",
+  "repo": "brynhild-deno-plugin",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "brynhild-development",
+      "path": ".brynhild/skills/brynhild-development",
+      "github_url": "https://github.com/mandersogit/brynhild-deno-plugin/tree/main/.brynhild/skills/brynhild-development",
+      "description": ""
+    },
+    {
+      "name": "commit-helper",
+      "path": "src/brynhild/builtin_skills/commit-helper",
+      "github_url": "https://github.com/mandersogit/brynhild-deno-plugin/tree/main/src/brynhild/builtin_skills/commit-helper",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "path": "tests/fixtures/plugins/test-complete/skills/debugging",
+      "github_url": "https://github.com/mandersogit/brynhild-deno-plugin/tree/main/tests/fixtures/plugins/test-complete/skills/debugging",
+      "description": ""
+    },
+    {
+      "name": "my-skill",
+      "path": "tests/fixtures/skills/my-skill",
+      "github_url": "https://github.com/mandersogit/brynhild-deno-plugin/tree/main/tests/fixtures/skills/my-skill",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "src/brynhild/builtin_skills/skill-creator",
+      "github_url": "https://github.com/mandersogit/brynhild-deno-plugin/tree/main/src/brynhild/builtin_skills/skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mandersogit/brynhild-deno-plugin",
+  "claim_url": "https://tomevault.io/claim/mandersogit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:36:27Z"
+}
