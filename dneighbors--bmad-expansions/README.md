@@ -1,6 +1,6 @@
 # bmad-expansions
 
-> Tome by [dneighbors](https://github.com/dneighbors/bmad-expansions) — distributed by [TomeVault](https://tomevault.io/claim/dneighbors)
+> Tome by [dneighbors](https://github.com/dneighbors/bmad-expansions) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [dneighbors/bmad-expansions](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/dneighbors#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/dneighbors/bmad-expansions](https://github.com/dneighbors/bmad-expansions)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/dneighbors) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-q -->
