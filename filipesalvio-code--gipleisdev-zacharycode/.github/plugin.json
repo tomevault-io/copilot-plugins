@@ -1,0 +1,26 @@
+{
+  "name": "filipesalvio-code--gipleisdev-zacharycode",
+  "displayName": "gipleisdev-zacharycode",
+  "description": "AI instruction skills by filipesalvio-code",
+  "version": "1.0.0",
+  "author": "filipesalvio-code",
+  "homepage": "https://github.com/filipesalvio-code/GipleisDev-ZacharyCode",
+  "skills": [
+    {
+      "name": "context-mesh",
+      "description": ""
+    },
+    {
+      "name": "gipleis-audit",
+      "description": ""
+    },
+    {
+      "name": "gipleis-commit-pr",
+      "description": ""
+    },
+    {
+      "name": "gipleis-workflow",
+      "description": ""
+    }
+  ]
+}
