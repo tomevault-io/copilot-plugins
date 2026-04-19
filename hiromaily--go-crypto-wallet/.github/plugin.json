@@ -1,0 +1,74 @@
+{
+  "name": "hiromaily--go-crypto-wallet",
+  "displayName": "go-crypto-wallet",
+  "description": "go-crypto-wallet",
+  "version": "1.0.0",
+  "author": "hiromaily",
+  "homepage": "https://github.com/hiromaily/go-crypto-wallet",
+  "skills": [
+    {
+      "name": "bch-development",
+      "description": ""
+    },
+    {
+      "name": "btc-terminology",
+      "description": ""
+    },
+    {
+      "name": "db-migration",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "description": ""
+    },
+    {
+      "name": "docs-update",
+      "description": ""
+    },
+    {
+      "name": "fix-pr-review",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "github-issue-creation",
+      "description": ""
+    },
+    {
+      "name": "go-development",
+      "description": ""
+    },
+    {
+      "name": "knowledge-gap",
+      "description": ""
+    },
+    {
+      "name": "label-context-mapping",
+      "description": ""
+    },
+    {
+      "name": "makefile-update",
+      "description": ""
+    },
+    {
+      "name": "shell-scripts",
+      "description": ""
+    },
+    {
+      "name": "solidity-development",
+      "description": ""
+    },
+    {
+      "name": "typescript-development",
+      "description": ""
+    },
+    {
+      "name": "wallet-cli",
+      "description": ""
+    }
+  ]
+}
