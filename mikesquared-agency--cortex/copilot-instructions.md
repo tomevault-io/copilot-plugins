@@ -1,0 +1,95 @@
+## cortex
+
+> Cortex is an embedded graph memory engine for AI agents. Rust, redb (embedded DB), gRPC + HTTP APIs, vector search (HNSW), auto-linking.
+
+# CLAUDE.md — Cortex Agent Guide
+
+## What is this?
+
+Cortex is an embedded graph memory engine for AI agents. Rust, redb (embedded DB), gRPC + HTTP APIs, vector search (HNSW), auto-linking.
+
+## Repo structure
+
+```
+crates/
+  cortex-core/     — Storage, graph, vector, auto-linker, types. The library.
+  cortex-server/   — gRPC/HTTP server, CLI, config. The binary.
+  cortex-client/   — Rust gRPC client crate.
+  cortex-proto/    — Protobuf definitions + generated code.
+  warren-adapter/  — Optional Warren integration (feature-gated).
+sdks/
+  typescript/      — @cortex/client npm package
+  python/          — cortex-memory PyPI package
+  go/              — Go client module
+specs/             — Design specs (tagged IMPLEMENTED/DEFERRED)
+docs/              — User-facing documentation
+examples/          — Integration examples (LangChain, CrewAI, etc.)
+```
+
+## Build & test
+
+```bash
+cargo test --workspace                          # All 176 tests
+cargo test --workspace --no-default-features    # Without warren adapter
+cargo build -p cortex-server --release          # Release binary
+cargo clippy --workspace                        # Lint
+```
+
+## Run
+
+```bash
+cortex init                    # Create cortex.toml
+cortex serve                   # Start server (gRPC :9090, HTTP :9091)
+cortex node create --kind fact --title "..."
+cortex search "query"
+cortex briefing <agent-id>
+cortex shell                   # Interactive REPL
+```
+
+## Key types
+
+- `NodeKind` / `Relation` — validated string newtypes (not enums)
+- `Cortex::open(path)` — library mode, no server needed
+- `Storage` trait — `RedbStorage` implements it
+- `IngestAdapter` trait — pluggable event sources
+- Config: `cortex.toml` with `#[serde(default)]` on all structs
+
+## Architecture decisions
+
+- **redb** for storage (embedded, ACID, zero-copy mmap)
+- **HNSW** for vector search (instant-distance crate)
+- **gRPC** (tonic) for production API, **HTTP** (axum) for debug/viz
+- **warren-adapter** is optional (`--features warren`), cortex-core has zero network deps
+- Auto-linker runs background loop: similarity rules → edges, decay → prune, dedup → merge
+
+## Config
+
+See `cortex.example.toml`. All config structs support partial overrides (serde defaults).
+
+## Feature flags
+
+- `warren` (default) — enables Warren NATS integration
+- Without it: standalone graph memory with no network dependencies
+
+## Specs
+
+Check `specs/` — all implemented specs are tagged. Deferred work tracked in GitHub issues.
+
+## Tests
+
+- `crates/cortex-core/` — 128 unit tests (storage, graph, types, filters)
+- `crates/cortex-server/` — integration tests
+- `sdks/typescript/` — 28 Jest tests
+- `sdks/python/` — 30 pytest tests
+- `sdks/go/` — 9 Go tests
+
+## Common pitfalls
+
+- Port 9090 may conflict with existing services — override in `cortex.toml`
+- Partial `cortex.toml` is fine — unset fields use defaults
+- `cortex-core` must have zero network dependencies — put network stuff in `cortex-server` or adapters
+- Node kinds and relations are lowercase strings with hyphens/underscores only
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/MikeSquared-Agency) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
