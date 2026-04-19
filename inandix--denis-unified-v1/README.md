@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [iNandix/denis_unified_v1](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/iNandix)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/iNandix/denis_unified_v1](https://github.com/iNandix/denis_unified_v1)
 
 ---
 
