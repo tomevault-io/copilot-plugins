@@ -1,6 +1,6 @@
-# projectapp — distributed by TomeVault
+# projectapp
 
-> Originally from [gustavop-dev/projectapp](https://github.com/gustavop-dev/projectapp). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [gustavop-dev/projectapp](https://github.com/gustavop-dev/projectapp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
