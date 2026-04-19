@@ -1,0 +1,34 @@
+{
+  "name": "az9713--claude-code-wsl-installation",
+  "displayName": "claude-co",
+  "description": "AI instruction skills by az9713",
+  "version": "1.0.0",
+  "author": "az9713",
+  "homepage": "https://github.com/az9713/claude-code-wsl-installation",
+  "skills": [
+    {
+      "name": "key-takeaways",
+      "description": ""
+    },
+    {
+      "name": "title-generator",
+      "description": ""
+    },
+    {
+      "name": "coding-workflow",
+      "description": ""
+    },
+    {
+      "name": "retrospective",
+      "description": ""
+    },
+    {
+      "name": "orchestration",
+      "description": ""
+    },
+    {
+      "name": "task-manager",
+      "description": ""
+    }
+  ]
+}
