@@ -1,0 +1,22 @@
+{
+  "name": "jsboige--coursia",
+  "displayName": "coursia",
+  "description": "AI instruction skills by jsboige",
+  "version": "1.0.0",
+  "author": "jsboige",
+  "homepage": "https://github.com/jsboige/CoursIA",
+  "skills": [
+    {
+      "name": "mcp-jupyter",
+      "description": ""
+    },
+    {
+      "name": "validate-genai",
+      "description": ""
+    },
+    {
+      "name": "verify-notebooks",
+      "description": ""
+    }
+  ]
+}
