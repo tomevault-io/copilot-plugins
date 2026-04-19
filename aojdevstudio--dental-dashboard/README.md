@@ -1,6 +1,6 @@
 # dental-dashboard
 
-> Tome by [AojdevStudio](https://github.com/AojdevStudio/dental-dashboard) — distributed by [TomeVault](https://tomevault.io/claim/AojdevStudio)
+> Tome by [AojdevStudio](https://github.com/AojdevStudio/dental-dashboard) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [AojdevStudio/dental-dashboard](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/AojdevStudio)
+From [AojdevStudio/dental-dashboard](https://github.com/AojdevStudio/dental-dashboard) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install AojdevStudio/dental-dashboard
 ```
-Or browse all formats at [https://tomevault.io/claim/AojdevStudio](https://tomevault.io/claim/AojdevStudio).
+Source: [github.com/AojdevStudio/dental-dashboard](https://github.com/AojdevStudio/dental-dashboard).
 
 <!-- genome:t-i-s -->
