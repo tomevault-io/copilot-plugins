@@ -1,9 +1,9 @@
 {
-  "name": "MarthaVault",
+  "name": "marthavault",
   "owner": "karstegg",
   "repo": "MarthaVault",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
@@ -37,8 +37,28 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "claude-cli-bridge",
+      "path": ".claude/skills/claude-cli-bridge",
+      "github_url": "https://github.com/karstegg/MarthaVault/tree/main/.claude/skills/claude-cli-bridge",
+      "description": ""
+    },
+    {
+      "name": "outlook-extractor",
+      "path": ".claude/skills/outlook-extractor",
+      "github_url": "https://github.com/karstegg/MarthaVault/tree/main/.claude/skills/outlook-extractor",
+      "description": ""
+    },
+    {
+      "name": "whatsapp-style",
+      "path": ".claude/skills/whatsapp-style",
+      "github_url": "https://github.com/karstegg/MarthaVault/tree/main/.claude/skills/whatsapp-style",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/karstegg/MarthaVault",
   "claim_url": "https://tomevault.io/claim/karstegg",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T15:52:23Z"
+  "distributed_at": "2026-04-19T02:32:31Z"
 }
