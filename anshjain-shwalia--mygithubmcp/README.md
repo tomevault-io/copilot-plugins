@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [AnshJain-Shwalia/myGithubMCP](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/AnshJain-Shwalia#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/AnshJain-Shwalia/myGithubMCP](https://github.com/AnshJain-Shwalia/myGithubMCP)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/AnshJain-Shwalia) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
