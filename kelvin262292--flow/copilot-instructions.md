@@ -1,152 +1,55 @@
 ## flow
 
-> Utility for VAN QA validation reports
+> 辅助生成 git 提交信息
 
-# VAN QA: VALIDATION REPORTS
+# Git 规则
 
-> **TL;DR:** This component contains the formats for comprehensive success and failure reports generated upon completion of the QA validation process.
+## 重要原则
+- **重要**：不要自动提交 git 代码，除非有明确的提示
+- 提交前确保代码通过所有测试
+- 保持提交信息简洁明了，描述清楚变更内容
+- 避免大型提交，尽量将变更分解为小的、相关的提交
 
-## 📋 COMPREHENSIVE SUCCESS REPORT FORMAT
-
-After all four validation points pass, generate this success report:
-
+## 提交规范
+git 提交模板<type>(<scope>): <subject>，具体要求如下：
+1. 注意冒号 : 后有空格
+2. type 的枚举值有：
+- feat: 新增功能
+- fix: 修复 bug
+- docs: 文档注释
+- style: 代码格式(不影响代码运行的变动)
+- refactor: 重构、优化(既不增加新功能, 也不是修复bug)
+- perf: 性能优化
+- test: 增加测试
+- chore: 构建过程或辅助工具的变动
+- revert: 回退
+- build: 打包
+3. 若 subject 中描述超过两种要点，请使用要点列表描述详情，每个要点使用-符号开头，多个换行，参考如下样例：
 ```
-╔═════════════════════ 🔍 QA VALIDATION REPORT ══════════════════════╗
-│ PROJECT: [Project Name] | TIMESTAMP: [Current Date/Time]            │
-├─────────────────────────────────────────────────────────────────────┤
-│ 1️⃣ DEPENDENCIES: ✓ Compatible                                       │
-│ 2️⃣ CONFIGURATION: ✓ Valid & Compatible                             │
-│ 3️⃣ ENVIRONMENT: ✓ Ready                                             │
-│ 4️⃣ MINIMAL BUILD: ✓ Successful & Passed                            │
-├─────────────────────────────────────────────────────────────────────┤
-│ 🚨 FINAL VERDICT: PASS                                              │
-│ ➡️ Clear to proceed to BUILD mode                                   │
-╚═════════════════════════════════════════════════════════════════════╝
-```
+feat(web): implement email verification workflow
 
-### Success Report Generation Example:
-```powershell
-function Generate-SuccessReport {
-    param (
-        [string]$ProjectName = "Current Project"
-    )
-    
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    
-    $report = @"
-╔═════════════════════ 🔍 QA VALIDATION REPORT ══════════════════════╗
-│ PROJECT: $ProjectName | TIMESTAMP: $timestamp            │
-├─────────────────────────────────────────────────────────────────────┤
-│ 1️⃣ DEPENDENCIES: ✓ Compatible                                       │
-│ 2️⃣ CONFIGURATION: ✓ Valid & Compatible                             │
-│ 3️⃣ ENVIRONMENT: ✓ Ready                                             │
-│ 4️⃣ MINIMAL BUILD: ✓ Successful & Passed                            │
-├─────────────────────────────────────────────────────────────────────┤
-│ 🚨 FINAL VERDICT: PASS                                              │
-│ ➡️ Clear to proceed to BUILD mode                                   │
-╚═════════════════════════════════════════════════════════════════════╝
-"@
-    
-    # Save validation status (used by BUILD mode prevention mechanism)
-    "PASS" | Set-Content -Path "memory-bank\.qa_validation_status"
-    
-    return $report
-}
+- Add email verification token generation service
+- Create verification email template with dynamic links
+- Add API endpoint for token validation
+- Update user model with verification status field
 ```
 
-## ❌ FAILURE REPORT FORMAT
+## 分支管理
+- main/master: 主分支，保持稳定可发布状态
+- develop: 开发分支，包含最新开发特性
+- feature/*: 功能分支，用于开发新功能
+- bugfix/*: 修复分支，用于修复bug
+- release/*: 发布分支，用于准备发布
 
-If any validation step fails, generate this detailed failure report:
+**常用分支命名约定**：
 
-```
-⚠️⚠️⚠️ QA VALIDATION FAILED ⚠️⚠️⚠️
-
-The following issues must be resolved before proceeding to BUILD mode:
-
-1️⃣ DEPENDENCY ISSUES:
-- [Detailed description of dependency issues]
-- [Recommended fix]
-
-2️⃣ CONFIGURATION ISSUES:
-- [Detailed description of configuration issues]
-- [Recommended fix]
-
-3️⃣ ENVIRONMENT ISSUES:
-- [Detailed description of environment issues]
-- [Recommended fix]
-
-4️⃣ BUILD TEST ISSUES:
-- [Detailed description of build test issues]
-- [Recommended fix]
-
-⚠️ BUILD MODE IS BLOCKED until these issues are resolved.
-Type 'VAN QA' after fixing the issues to re-validate.
-```
-
-### Failure Report Generation Example:
-```powershell
-function Generate-FailureReport {
-    param (
-        [string[]]$DependencyIssues = @(),
-        [string[]]$ConfigIssues = @(),
-        [string[]]$EnvironmentIssues = @(),
-        [string[]]$BuildIssues = @()
-    )
-    
-    $report = @"
-⚠️⚠️⚠️ QA VALIDATION FAILED ⚠️⚠️⚠️
-
-The following issues must be resolved before proceeding to BUILD mode:
-
-"@
-    
-    if ($DependencyIssues.Count -gt 0) {
-        $report += @"
-1️⃣ DEPENDENCY ISSUES:
-$(($DependencyIssues | ForEach-Object { "- $_" }) -join "`n")
-
-"@
-    }
-    
-    if ($ConfigIssues.Count -gt 0) {
-        $report += @"
-2️⃣ CONFIGURATION ISSUES:
-$(($ConfigIssues | ForEach-Object { "- $_" }) -join "`n")
-
-"@
-    }
-    
-    if ($EnvironmentIssues.Count -gt 0) {
-        $report += @"
-3️⃣ ENVIRONMENT ISSUES:
-$(($EnvironmentIssues | ForEach-Object { "- $_" }) -join "`n")
-
-"@
-    }
-    
-    if ($BuildIssues.Count -gt 0) {
-        $report += @"
-4️⃣ BUILD TEST ISSUES:
-$(($BuildIssues | ForEach-Object { "- $_" }) -join "`n")
-
-"@
-    }
-    
-    $report += @"
-⚠️ BUILD MODE IS BLOCKED until these issues are resolved.
-Type 'VAN QA' after fixing the issues to re-validate.
-"@
-    
-    # Save validation status (used by BUILD mode prevention mechanism)
-    "FAIL" | Set-Content -Path "memory-bank\.qa_validation_status"
-    
-    return $report
-}
-```
-
-**Next Step (on SUCCESS):** Load `van-qa-utils/mode-transitions.mdc` to handle BUILD mode transition.
-**Next Step (on FAILURE):** Load `van-qa-utils/common-fixes.mdc` for issue remediation guidance. 
+| 分支类型   | 命名格式             | 示例                      |
+| ---------- | -------------------- | ------------------------- |
+| 功能分支   | feature/[描述]       | feature/user-auth         |
+| 修复分支   | fix/[问题ID]-[描述]  | fix/issue-42-login-crash  |
+| 发布分支   | release/[版本]       | release/v2.1.0            |
+| 热修复分支 | hotfix/[版本]-[描述] | hotfix/v2.0.1-payment-fix |
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/kelvin262292) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-15 -->
