@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [anadreth/multiplayer-goblin-chase](h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/anadreth#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/anadreth/multiplayer-goblin-chase](https://github.com/anadreth/multiplayer-goblin-chase)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install anadreth/multiplayer-goblin-chase
 ```
-Or browse all formats at [https://tomevault.io/claim/anadreth](https://tomevault.io/claim/anadreth).
+Source: [github.com/anadreth/multiplayer-goblin-chase](https://github.com/anadreth/multiplayer-goblin-chase).
 
 <!-- genome:a-i-q -->
