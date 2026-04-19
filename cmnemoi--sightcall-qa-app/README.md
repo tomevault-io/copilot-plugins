@@ -1,6 +1,6 @@
-# sightcall-qa-app — distributed by TomeVault
+# sightcall-qa-app
 
-> Originally from [cmnemoi/sightcall-qa-app](https://github.com/cmnemoi/sightcall-qa-app). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [cmnemoi/sightcall-qa-app](https://github.com/cmnemoi/sightcall-qa-app) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
