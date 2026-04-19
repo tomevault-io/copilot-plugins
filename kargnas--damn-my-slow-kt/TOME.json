@@ -1,0 +1,44 @@
+{
+  "name": "damn-my-slow-kt",
+  "owner": "kargnas",
+  "repo": "damn-my-slow-kt",
+  "description": "\uba85\ub839\uc5b4 \uc124\uce58 \ud55c\ubc88\uc73c\ub85c \ud55c\ub2ec KT \uc778\ud130\ub137 \uc694\uae08\uc744 \ubb34\ub8cc\ub85c \uc4f8 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uadc0\ucc2e\uc740 \uacf5\ubb38 \uc791\uc131 \ud544\uc694 \uc5c6\uc2b5\ub2c8\ub2e4.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kargnas/damn-my-slow-kt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T23:52:00Z"
+}
