@@ -1,0 +1,9 @@
+{
+  "name": "quipnetwork--xq-rs",
+  "displayName": "xq-rs",
+  "description": "A rust implementation of the Quip Network's quantum virtual machine.",
+  "version": "1.0.0",
+  "author": "QuipNetwork",
+  "homepage": "https://github.com/QuipNetwork/xq-rs",
+  "skills": []
+}
