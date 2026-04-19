@@ -1,0 +1,9 @@
+{
+  "name": "coleam00--claude-memory-compiler",
+  "displayName": "claude-memory-compiler",
+  "description": "Give Claude Code a memory that evolves with your codebase. Hooks automatically capture sessions, the Claude Agent SDK extracts key decisions and lessons, and an LLM compiler organizes everything into ",
+  "version": "1.0.0",
+  "author": "coleam00",
+  "homepage": "https://github.com/coleam00/claude-memory-compiler",
+  "skills": []
+}
