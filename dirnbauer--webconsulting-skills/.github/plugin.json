@@ -1,10 +1,10 @@
 {
   "name": "dirnbauer--webconsulting-skills",
   "displayName": "webconsulting-skills",
-  "description": "AI instruction files for webconsulting-skills by dirnbauer",
+  "description": "AI instruction skills by dirnbauer",
   "version": "1.0.0",
   "author": "dirnbauer",
-  "homepage": "https://tomevault.io/claim/dirnbauer",
+  "homepage": "https://github.com/dirnbauer/webconsulting-skills",
   "skills": [
     {
       "name": "ai-search-optimization",
@@ -20,6 +20,134 @@
     },
     {
       "name": "webconsulting-branding",
+      "description": ""
+    },
+    {
+      "name": "typo3-update",
+      "description": ""
+    },
+    {
+      "name": "typo3-security",
+      "description": ""
+    },
+    {
+      "name": "cli-tools",
+      "description": ""
+    },
+    {
+      "name": "postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "typo3-seo",
+      "description": ""
+    },
+    {
+      "name": "typo3-docs",
+      "description": ""
+    },
+    {
+      "name": "ui-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "deepfake-detection",
+      "description": ""
+    },
+    {
+      "name": "typo3-core-contributions",
+      "description": ""
+    },
+    {
+      "name": "typo3-testing",
+      "description": ""
+    },
+    {
+      "name": "agent-md-refactor",
+      "description": ""
+    },
+    {
+      "name": "android-design",
+      "description": ""
+    },
+    {
+      "name": "context7",
+      "description": ""
+    },
+    {
+      "name": "cro-funnel",
+      "description": ""
+    },
+    {
+      "name": "find-skills",
+      "description": ""
+    },
+    {
+      "name": "ios-design",
+      "description": ""
+    },
+    {
+      "name": "ipados-design",
+      "description": ""
+    },
+    {
+      "name": "macos-design",
+      "description": ""
+    },
+    {
+      "name": "marketing-skills",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "description": ""
+    },
+    {
+      "name": "readiness-report",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "description": ""
+    },
+    {
+      "name": "refactor-clean",
+      "description": ""
+    },
+    {
+      "name": "shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "tvos-design",
+      "description": ""
+    },
+    {
+      "name": "typo3-powermail",
+      "description": ""
+    },
+    {
+      "name": "typo3-records-list-types",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "visionos-design",
+      "description": ""
+    },
+    {
+      "name": "watchos-design",
+      "description": ""
+    },
+    {
+      "name": "web-platform-design",
+      "description": ""
+    },
+    {
+      "name": "webconsulting-create-documentation",
       "description": ""
     }
   ]
