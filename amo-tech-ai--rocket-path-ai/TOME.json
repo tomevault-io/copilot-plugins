@@ -2,7 +2,7 @@
   "name": "rocket-path-ai",
   "owner": "amo-tech-ai",
   "repo": "rocket-path-ai",
-  "description": "AI instruction files for rocket-path-ai by amo-tech-ai",
+  "description": "",
   "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -43,9 +43,33 @@
       "path": ".cursor/skills/agent-best-practices",
       "github_url": "https://github.com/amo-tech-ai/rocket-path-ai/tree/main/.cursor/skills/agent-best-practices",
       "description": ""
+    },
+    {
+      "name": "claude-sdk",
+      "path": ".cursor/skills/claude-sdk",
+      "github_url": "https://github.com/amo-tech-ai/rocket-path-ai/tree/main/.cursor/skills/claude-sdk",
+      "description": ""
+    },
+    {
+      "name": "dashboards",
+      "path": ".cursor/skills/dashboards",
+      "github_url": "https://github.com/amo-tech-ai/rocket-path-ai/tree/main/.cursor/skills/dashboards",
+      "description": ""
+    },
+    {
+      "name": "edge-functions",
+      "path": ".cursor/skills/edge-functions",
+      "github_url": "https://github.com/amo-tech-ai/rocket-path-ai/tree/main/.cursor/skills/edge-functions",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".cursor/skills/testing",
+      "github_url": "https://github.com/amo-tech-ai/rocket-path-ai/tree/main/.cursor/skills/testing",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/amo-tech-ai",
+  "source_url": "https://github.com/amo-tech-ai/rocket-path-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T23:33:02Z"
+  "distributed_at": "2026-04-19T14:37:49Z"
 }
