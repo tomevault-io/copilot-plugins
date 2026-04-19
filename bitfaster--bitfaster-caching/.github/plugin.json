@@ -1,0 +1,22 @@
+{
+  "name": "bitfaster--bitfaster-caching",
+  "displayName": "bitfaster.caching",
+  "description": "AI instruction skills by bitfaster",
+  "version": "1.0.0",
+  "author": "bitfaster",
+  "homepage": "https://github.com/bitfaster/BitFaster.Caching",
+  "skills": [
+    {
+      "name": "bench-fast",
+      "description": ""
+    },
+    {
+      "name": "dump-asm",
+      "description": ""
+    },
+    {
+      "name": "split-asm",
+      "description": ""
+    }
+  ]
+}
