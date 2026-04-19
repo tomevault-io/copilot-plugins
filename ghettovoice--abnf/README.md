@@ -1,6 +1,6 @@
-# abnf — distributed by TomeVault
+# abnf
 
-> Originally from [ghettovoice/abnf](https://github.com/ghettovoice/abnf). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ghettovoice/abnf](https://github.com/ghettovoice/abnf) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ghettovoice/abnf](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ghettovoice#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ghettovoice/abnf](https://github.com/ghettovoice/abnf)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ghettovoice/abnf
 ```
-Or browse all formats at [https://tomevault.io/claim/ghettovoice](https://tomevault.io/claim/ghettovoice).
+Source: [github.com/ghettovoice/abnf](https://github.com/ghettovoice/abnf).
 
 <!-- genome:d-i-q -->
