@@ -1,6 +1,6 @@
-# minsky — distributed by TomeVault
+# minsky
 
-> Originally from [edobry/minsky](https://github.com/edobry/minsky). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [edobry/minsky](https://github.com/edobry/minsky) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [edobry/minsky](https://github.com/edo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/edobry)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/edobry/minsky](https://github.com/edobry/minsky)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install edobry/minsky
 ```
-Or browse all formats at [https://tomevault.io/claim/edobry](https://tomevault.io/claim/edobry).
+Source: [github.com/edobry/minsky](https://github.com/edobry/minsky).
 
 <!-- genome:d-i-p -->
