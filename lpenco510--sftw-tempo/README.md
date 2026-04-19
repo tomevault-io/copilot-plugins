@@ -1,6 +1,6 @@
 # SFTW-tempo
 
-> Tome by [lpenco510](https://github.com/lpenco510/SFTW-tempo) — distributed by [TomeVault](https://tomevault.io/claim/lpenco510)
+> Tome by [lpenco510](https://github.com/lpenco510/SFTW-tempo) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [lpenco510/SFTW-tempo](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/lpenco510#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lpenco510/SFTW-tempo](https://github.com/lpenco510/SFTW-tempo)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install lpenco510/SFTW-tempo
 ```
-Or browse all formats at [https://tomevault.io/claim/lpenco510](https://tomevault.io/claim/lpenco510).
+Source: [github.com/lpenco510/SFTW-tempo](https://github.com/lpenco510/SFTW-tempo).
 
 <!-- genome:t-i-q -->
