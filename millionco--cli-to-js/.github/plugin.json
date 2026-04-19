@@ -1,0 +1,9 @@
+{
+  "name": "millionco--cli-to-js",
+  "displayName": "cli-to-js",
+  "description": "Turn any CLI into a JavaScript API",
+  "version": "1.0.0",
+  "author": "millionco",
+  "homepage": "https://github.com/millionco/cli-to-js",
+  "skills": []
+}
