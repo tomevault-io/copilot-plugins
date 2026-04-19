@@ -1,6 +1,6 @@
-# bdo-market-tracker — distributed by TomeVault
+# bdo-market-tracker
 
-> Originally from [KevDil/bdo-market-tracker](https://github.com/KevDil/bdo-market-tracker). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [KevDil/bdo-market-tracker](https://github.com/KevDil/bdo-market-tracker) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
