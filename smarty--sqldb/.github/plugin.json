@@ -1,0 +1,9 @@
+{
+  "name": "smarty--sqldb",
+  "displayName": "sqldb",
+  "description": "sqldb",
+  "version": "1.0.0",
+  "author": "smarty",
+  "homepage": "https://github.com/smarty/sqldb",
+  "skills": []
+}
