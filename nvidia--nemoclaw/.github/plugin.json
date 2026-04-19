@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nemoclaw",
+  "displayName": "NemoClaw",
+  "description": "Run OpenClaw more securely inside NVIDIA OpenShell with managed inference",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/NemoClaw",
+  "skills": []
+}
