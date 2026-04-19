@@ -1,0 +1,14 @@
+{
+  "name": "millionco--expect",
+  "displayName": "expect",
+  "description": "Expect tests your agent's code in a real browser",
+  "version": "1.0.0",
+  "author": "millionco",
+  "homepage": "https://github.com/millionco/expect",
+  "skills": [
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    }
+  ]
+}
