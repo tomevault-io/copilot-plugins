@@ -1,0 +1,9 @@
+{
+  "name": "aerospike--aerospike-client-csharp",
+  "displayName": "aerospike-client-csharp",
+  "description": "aerospike-client-csharp",
+  "version": "1.0.0",
+  "author": "aerospike",
+  "homepage": "https://github.com/aerospike/aerospike-client-csharp",
+  "skills": []
+}
