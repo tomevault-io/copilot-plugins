@@ -1,0 +1,70 @@
+{
+  "name": "lobehub--lobe-chat-agents",
+  "displayName": "lobe",
+  "description": "AI instruction skills by lobehub",
+  "version": "1.0.0",
+  "author": "lobehub",
+  "homepage": "https://github.com/lobehub/lobe-chat-agents",
+  "skills": [
+    {
+      "name": "add-provider-doc",
+      "description": ""
+    },
+    {
+      "name": "add-setting-env",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "description": ""
+    },
+    {
+      "name": "desktop",
+      "description": ""
+    },
+    {
+      "name": "drizzle",
+      "description": ""
+    },
+    {
+      "name": "hotkey",
+      "description": ""
+    },
+    {
+      "name": "i18n",
+      "description": ""
+    },
+    {
+      "name": "microcopy",
+      "description": ""
+    },
+    {
+      "name": "modal",
+      "description": ""
+    },
+    {
+      "name": "project-overview",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "recent-data",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "zustand",
+      "description": ""
+    }
+  ]
+}
