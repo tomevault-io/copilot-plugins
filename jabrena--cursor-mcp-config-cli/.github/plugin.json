@@ -1,0 +1,14 @@
+{
+  "name": "jabrena--cursor-mcp-config-cli",
+  "displayName": "cursor",
+  "description": "AI instruction skills by jabrena",
+  "version": "1.0.0",
+  "author": "jabrena",
+  "homepage": "https://github.com/jabrena/cursor-mcp-config-cli",
+  "skills": [
+    {
+      "name": "200-agents-md",
+      "description": ""
+    }
+  ]
+}
