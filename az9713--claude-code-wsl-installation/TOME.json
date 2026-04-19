@@ -1,0 +1,82 @@
+{
+  "name": "claude-co",
+  "owner": "az9713",
+  "repo": "claude-code-wsl-installation",
+  "description": "AI instruction skills by az9713",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "key-takeaways",
+      "path": "content-repurposing/skills/key-takeaways",
+      "github_url": "https://github.com/az9713/claude-code-wsl-installation/tree/main/content-repurposing/skills/key-takeaways",
+      "description": ""
+    },
+    {
+      "name": "title-generator",
+      "path": "content-repurposing/skills/title-generator",
+      "github_url": "https://github.com/az9713/claude-code-wsl-installation/tree/main/content-repurposing/skills/title-generator",
+      "description": ""
+    },
+    {
+      "name": "coding-workflow",
+      "path": "skills/coding-workflow",
+      "github_url": "https://github.com/az9713/claude-code-wsl-installation/tree/main/skills/coding-workflow",
+      "description": ""
+    },
+    {
+      "name": "retrospective",
+      "path": "skills/retrospective",
+      "github_url": "https://github.com/az9713/claude-code-wsl-installation/tree/main/skills/retrospective",
+      "description": ""
+    },
+    {
+      "name": "orchestration",
+      "path": "src/skills/orchestration",
+      "github_url": "https://github.com/az9713/claude-code-wsl-installation/tree/main/src/skills/orchestration",
+      "description": ""
+    },
+    {
+      "name": "task-manager",
+      "path": "src/skills/task-manager",
+      "github_url": "https://github.com/az9713/claude-code-wsl-installation/tree/main/src/skills/task-manager",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/az9713/claude-code-wsl-installation",
+  "claim_url": "https://tomevault.io/claim/az9713",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:34:40Z"
+}
