@@ -1,6 +1,6 @@
-# flow
+# AI instruction files for flow
 
-> Config by [kelvin262292](https://github.com/kelvin262292/flow) — distributed by [TomeVault](https://tomevault.io/claim/kelvin262292)
+> Sourced from [kelvin262292/flow](https://github.com/kelvin262292/flow) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [kelvin262292/flow](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/kelvin262292](https://tomevault.io/claim/kelvin262292)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/kelvin262292)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/kelvin262292) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install kelvin262292/flow
+```
+Or browse all formats at [https://tomevault.io/claim/kelvin262292](https://tomevault.io/claim/kelvin262292).
+
+<!-- genome:a-i-p -->
