@@ -1,0 +1,9 @@
+{
+  "name": "millionco--claude-doctor",
+  "displayName": "claude-doctor",
+  "description": "Diagnose your Claude Code sessions",
+  "version": "1.0.0",
+  "author": "millionco",
+  "homepage": "https://github.com/millionco/claude-doctor",
+  "skills": []
+}
