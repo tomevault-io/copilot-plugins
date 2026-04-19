@@ -1,6 +1,6 @@
 # Samudra-Paket-ERP
 
-> Tome by [muhammadhilmi007](https://github.com/muhammadhilmi007/Samudra-Paket-ERP) — distributed by [TomeVault](https://tomevault.io/claim/muhammadhilmi007)
+> Tome by [muhammadhilmi007](https://github.com/muhammadhilmi007/Samudra-Paket-ERP) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [muhammadhilmi007/Samudra-Paket-ERP](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/muhammadhilmi007#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/muhammadhilmi007/Samudra-Paket-ERP](https://github.com/muhammadhilmi007/Samudra-Paket-ERP)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/muhammadhilmi007) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-q -->
