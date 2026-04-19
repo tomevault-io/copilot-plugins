@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [MongiLearnsToCode/SoloSpark](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/MongiLearnsToCode)
+From [MongiLearnsToCode/SoloSpark](https://github.com/MongiLearnsToCode/SoloSpark) — a repo with 0+ stars on GitHub.
 
 ---
 
