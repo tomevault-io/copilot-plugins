@@ -1,6 +1,6 @@
 # AI-design-system
 
-> Tome by [livyn-inc](https://github.com/livyn-inc/AI-design-system) — distributed by [TomeVault](https://tomevault.io/claim/livyn-inc)
+> Tome by [livyn-inc](https://github.com/livyn-inc/AI-design-system) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [livyn-inc/AI-design-system](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/livyn-inc#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/livyn-inc/AI-design-system](https://github.com/livyn-inc/AI-design-system)
 
 ---
 
