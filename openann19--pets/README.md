@@ -1,6 +1,6 @@
-# pets — distributed by TomeVault
+# pets
 
-> Originally from [openann19/pets](https://github.com/openann19/pets). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [openann19/pets](https://github.com/openann19/pets) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
