@@ -1,6 +1,6 @@
 # combien-tu-nous-coutes.com
 
-> Tome by [Ri087](https://github.com/Ri087/combien-tu-nous-coutes.com) — distributed by [TomeVault](https://tomevault.io/claim/Ri087)
+> Tome by [Ri087](https://github.com/Ri087/combien-tu-nous-coutes.com) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Ri087/combien-tu-nous-coutes.com](htt
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Ri087#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Ri087/combien-tu-nous-coutes.com](https://github.com/Ri087/combien-tu-nous-coutes.com)
 
 ---
 
