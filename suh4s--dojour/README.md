@@ -1,6 +1,6 @@
-# dojour — distributed by TomeVault
+# dojour
 
-> Originally from [suh4s/dojour](https://github.com/suh4s/dojour). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [suh4s/dojour](https://github.com/suh4s/dojour) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [suh4s/dojour](https://github.com/suh
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/suh4s#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/suh4s/dojour](https://github.com/suh4s/dojour)
 
 ---
 
