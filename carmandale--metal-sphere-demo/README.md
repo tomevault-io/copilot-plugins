@@ -1,6 +1,6 @@
 # metal-sphere-demo
 
-> Tome by [carmandale](https://github.com/carmandale/metal-sphere-demo) — distributed by [TomeVault](https://tomevault.io/claim/carmandale)
+> Tome by [carmandale](https://github.com/carmandale/metal-sphere-demo) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [carmandale/metal-sphere-demo](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/carmandale#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/carmandale/metal-sphere-demo](https://github.com/carmandale/metal-sphere-demo)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/carmandale) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-q -->
