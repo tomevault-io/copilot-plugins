@@ -1,0 +1,9 @@
+{
+  "name": "statease--sphinx-jsontoc-builder",
+  "displayName": "sphinx-jsontoc-builder",
+  "description": "sphinx-jsontoc-builder",
+  "version": "1.0.0",
+  "author": "statease",
+  "homepage": "https://github.com/statease/sphinx-jsontoc-builder",
+  "skills": []
+}
