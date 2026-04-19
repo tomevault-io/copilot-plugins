@@ -1,6 +1,6 @@
-# calcflow — distributed by TomeVault
+# calcflow
 
-> Originally from [batistagroup/calcflow](https://github.com/batistagroup/calcflow). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [batistagroup/calcflow](https://github.com/batistagroup/calcflow) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [batistagroup/calcflow](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/batistagroup#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/batistagroup/calcflow](https://github.com/batistagroup/calcflow)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install batistagroup/calcflow
 ```
-Or browse all formats at [https://tomevault.io/claim/batistagroup](https://tomevault.io/claim/batistagroup).
+Source: [github.com/batistagroup/calcflow](https://github.com/batistagroup/calcflow).
 
 <!-- genome:d-i-q -->
