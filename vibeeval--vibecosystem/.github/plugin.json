@@ -1,0 +1,30 @@
+{
+  "name": "vibeeval--vibecosystem",
+  "displayName": "vibecosystem",
+  "description": "AI software team for Claude Code - 138 agents, 295 skills, 73 hooks. Self-learning, multi-agent swarm, autonomous skill evolution.",
+  "version": "1.0.0",
+  "author": "vibeeval",
+  "homepage": "https://github.com/vibeeval/vibecosystem",
+  "skills": [
+    {
+      "name": "python-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "description": ""
+    }
+  ]
+}
