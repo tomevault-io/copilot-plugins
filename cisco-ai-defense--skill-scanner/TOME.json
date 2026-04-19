@@ -2,7 +2,7 @@
   "name": "skill-scanner",
   "owner": "cisco-ai-defense",
   "repo": "skill-scanner",
-  "description": "AI instruction files for skill-scanner by cisco-ai-defense",
+  "description": "AI instruction skills by cisco-ai-defense",
   "type": "tome",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -117,7 +117,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/cisco-ai-defense",
+  "source_url": "https://github.com/cisco-ai-defense/skill-scanner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T05:31:47Z"
+  "distributed_at": "2026-04-19T14:30:19Z"
 }
