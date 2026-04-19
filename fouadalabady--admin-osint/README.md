@@ -1,6 +1,6 @@
 # admin.osint
 
-> Tome by [fouadalabady](https://github.com/fouadalabady/admin.osint) — distributed by [TomeVault](https://tomevault.io/claim/fouadalabady)
+> Tome by [fouadalabady](https://github.com/fouadalabady/admin.osint) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [fouadalabady/admin.osint](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/fouadalabady#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/fouadalabady/admin.osint](https://github.com/fouadalabady/admin.osint)
 
 ---
 
