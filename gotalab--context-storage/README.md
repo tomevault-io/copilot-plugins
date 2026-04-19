@@ -1,6 +1,6 @@
-# context-storage — distributed by TomeVault
+# context-storage
 
-> Originally from [gotalab/context-storage](https://github.com/gotalab/context-storage). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [gotalab/context-storage](https://github.com/gotalab/context-storage) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
