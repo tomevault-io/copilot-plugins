@@ -1,6 +1,6 @@
 # MuellerEuchre
 
-> Tome by [SevWren](https://github.com/SevWren/MuellerEuchre) — distributed by [TomeVault](https://tomevault.io/claim/SevWren)
+> Tome by [SevWren](https://github.com/SevWren/MuellerEuchre) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [SevWren/MuellerEuchre](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/SevWren)
+From [SevWren/MuellerEuchre](https://github.com/SevWren/MuellerEuchre) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install SevWren/MuellerEuchre
 ```
-Or browse all formats at [https://tomevault.io/claim/SevWren](https://tomevault.io/claim/SevWren).
+Source: [github.com/SevWren/MuellerEuchre](https://github.com/SevWren/MuellerEuchre).
 
 <!-- genome:t-i-s -->
