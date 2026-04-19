@@ -1,6 +1,6 @@
-# Global-Remit-Teller3 — distributed by TomeVault
+# Global-Remit-Teller3
 
-> Originally from [RonFahima1/Global-Remit-Teller3](https://github.com/RonFahima1/Global-Remit-Teller3). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [RonFahima1/Global-Remit-Teller3](https://github.com/RonFahima1/Global-Remit-Teller3) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
