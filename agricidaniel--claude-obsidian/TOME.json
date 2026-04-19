@@ -2,9 +2,9 @@
   "name": "claude-obsidian",
   "owner": "AgriciDaniel",
   "repo": "claude-obsidian",
-  "description": "",
+  "description": "Claude + Obsidian knowledge companion. Persistent, compounding wiki vault based on Karpathy's LLM Wiki pattern. /wiki /save /autoresearch",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/AgriciDaniel",
+  "source_url": "https://github.com/AgriciDaniel/claude-obsidian",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T01:42:43Z"
+  "distributed_at": "2026-04-19T20:37:36Z"
 }
