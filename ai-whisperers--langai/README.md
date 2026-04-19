@@ -1,6 +1,6 @@
 # LangAi
 
-> Tome by [Ai-Whisperers](https://github.com/Ai-Whisperers/LangAi) — distributed by [TomeVault](https://tomevault.io/claim/Ai-Whisperers)
+> Tome by [Ai-Whisperers](https://github.com/Ai-Whisperers/LangAi) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Ai-Whisperers/LangAi](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Ai-Whisperers)
+From [Ai-Whisperers/LangAi](https://github.com/Ai-Whisperers/LangAi) — a repo with 0+ stars on GitHub.
 
 ---
 
