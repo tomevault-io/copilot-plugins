@@ -1,0 +1,9 @@
+{
+  "name": "claude-code-expert--markflow",
+  "displayName": "markflow",
+  "description": "markflow",
+  "version": "1.0.0",
+  "author": "claude-code-expert",
+  "homepage": "https://github.com/claude-code-expert/markflow",
+  "skills": []
+}
