@@ -1,0 +1,9 @@
+{
+  "name": "quipnetwork--quip-node-manager",
+  "displayName": "quip-node-manager",
+  "description": "A simple GUI client to manage a Quip Network node",
+  "version": "1.0.0",
+  "author": "QuipNetwork",
+  "homepage": "https://github.com/QuipNetwork/quip-node-manager",
+  "skills": []
+}
