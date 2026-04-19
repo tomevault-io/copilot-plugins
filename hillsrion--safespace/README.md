@@ -1,6 +1,6 @@
 # safespace
 
-> Tome by [Hillsrion](https://github.com/Hillsrion/safespace) — distributed by [TomeVault](https://tomevault.io/claim/Hillsrion)
+> Tome by [Hillsrion](https://github.com/Hillsrion/safespace) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Hillsrion/safespace](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Hillsrion)
+From [Hillsrion/safespace](https://github.com/Hillsrion/safespace) — a repo with 0+ stars on GitHub.
 
 ---
 
