@@ -1,0 +1,9 @@
+{
+  "name": "emdash-cms--emdash",
+  "displayName": "emdash",
+  "description": "EmDash is a full-stack TypeScript CMS based on Astro; the spiritual successor to WordPress",
+  "version": "1.0.0",
+  "author": "emdash-cms",
+  "homepage": "https://github.com/emdash-cms/emdash",
+  "skills": []
+}
