@@ -4,7 +4,7 @@
   "repo": "Bio-eSign-ElysiaJs",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/HazimMaulana",
+  "source_url": "https://github.com/HazimMaulana/Bio-eSign-ElysiaJs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T15:43:22Z"
+  "distributed_at": "2026-04-19T23:56:28Z"
 }
