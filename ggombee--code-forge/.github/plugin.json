@@ -1,0 +1,14 @@
+{
+  "name": "ggombee--code-forge",
+  "displayName": "code-forge",
+  "description": "AI instruction skills by ggombee",
+  "version": "1.0.0",
+  "author": "ggombee",
+  "homepage": "https://github.com/ggombee/code-forge",
+  "skills": [
+    {
+      "name": "node-express",
+      "description": ""
+    }
+  ]
+}
