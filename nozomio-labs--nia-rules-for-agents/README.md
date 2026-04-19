@@ -1,30 +1,30 @@
-# nia-rules-for-agents — distributed by TomeVault
+# nia-rules-for-agents
 
-> Originally from [nozomio-labs/nia-rules-for-agents](https://github.com/nozomio-labs/nia-rules-for-agents). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [nozomio-labs/nia-rules-for-agents](https://github.com/nozomio-labs/nia-rules-for-agents) — distributed by [TomeVault](https://tomevault.io)
 
-AI instruction files for nia-rules-for-agents by nozomio-labs
+AI instruction skills by nozomio-labs
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [nozomio-labs/nia-rules-for-agents](https://github.com/nozomio-labs/nia-rules-for-agents).
+Original source: `.cursor/rules/*.mdc` in [nozomio-labs/nia-rules-for-agents](https://github.com/nozomio-labs/nia-rules-for-agents).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 ## Bundled Skills (1)
 
 - [nia](https://github.com/nozomio-labs/nia-rules-for-agents/tree/main/.claude/skills/nia)
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/nozomio-labs#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/nozomio-labs/nia-rules-for-agents](https://github.com/nozomio-labs/nia-rules-for-agents)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/nozomio-labs) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
