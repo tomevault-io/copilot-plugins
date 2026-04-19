@@ -1,0 +1,9 @@
+{
+  "name": "aoshimash--nixos-config",
+  "displayName": "nixos-config",
+  "description": "nixos-config",
+  "version": "1.0.0",
+  "author": "aoshimash",
+  "homepage": "https://github.com/aoshimash/nixos-config",
+  "skills": []
+}
