@@ -56942,6 +56942,756 @@
       "name": "benjiao--wswsws",
       "source": "./benjiao--wswsws",
       "description": "wswsws"
+    },
+    {
+      "name": "lalit2001--rmc-mobile-apps",
+      "source": "./lalit2001--rmc-mobile-apps",
+      "description": "rmc-mobile-apps"
+    },
+    {
+      "name": "lzyyzznl--all-in-one-search",
+      "source": "./lzyyzznl--all-in-one-search",
+      "description": "all_in_one_search"
+    },
+    {
+      "name": "abidjappie--nextjs-quick-starter",
+      "source": "./abidjappie--nextjs-quick-starter",
+      "description": "nextjs-quick-starter"
+    },
+    {
+      "name": "inandix--denis-unified-v1",
+      "source": "./inandix--denis-unified-v1",
+      "description": "denis_unified_v1"
+    },
+    {
+      "name": "hamatoyogi--hamatoyogi-dev",
+      "source": "./hamatoyogi--hamatoyogi-dev",
+      "description": "hamatoyogi.dev"
+    },
+    {
+      "name": "fouadalabady--admin-osint",
+      "source": "./fouadalabady--admin-osint",
+      "description": "admin.osint"
+    },
+    {
+      "name": "twardoch--twars-url2md",
+      "source": "./twardoch--twars-url2md",
+      "description": "twars-url2md"
+    },
+    {
+      "name": "xeocast--xeocast-video-service",
+      "source": "./xeocast--xeocast-video-service",
+      "description": "xeocast-video-service"
+    },
+    {
+      "name": "amolbudhiraja--website",
+      "source": "./amolbudhiraja--website",
+      "description": "website"
+    },
+    {
+      "name": "thevladbog--vokzal",
+      "source": "./thevladbog--vokzal",
+      "description": "vokzal"
+    },
+    {
+      "name": "derekross--yakbak",
+      "source": "./derekross--yakbak",
+      "description": "yakbak"
+    },
+    {
+      "name": "phoenixvc--retort",
+      "source": "./phoenixvc--retort",
+      "description": "retort"
+    },
+    {
+      "name": "libpdf-js--core",
+      "source": "./libpdf-js--core",
+      "description": "core"
+    },
+    {
+      "name": "coderabbit-demo--ai-fitness-coach",
+      "source": "./coderabbit-demo--ai-fitness-coach",
+      "description": "ai-fitness-coach"
+    },
+    {
+      "name": "derekross--plektos",
+      "source": "./derekross--plektos",
+      "description": "plektos"
+    },
+    {
+      "name": "rahul-s-rajput--triviabot",
+      "source": "./rahul-s-rajput--triviabot",
+      "description": "triviabot"
+    },
+    {
+      "name": "gosrock--dudoong-front",
+      "source": "./gosrock--dudoong-front",
+      "description": "DuDoong-Front"
+    },
+    {
+      "name": "bamxo--brim",
+      "source": "./bamxo--brim",
+      "description": "brim"
+    },
+    {
+      "name": "uhop--list-toolkit",
+      "source": "./uhop--list-toolkit",
+      "description": "list-toolkit"
+    },
+    {
+      "name": "transactionauthorizationprotocol--tap-rs",
+      "source": "./transactionauthorizationprotocol--tap-rs",
+      "description": "tap-rs"
+    },
+    {
+      "name": "agrberg--array-proc",
+      "source": "./agrberg--array-proc",
+      "description": "array_proc"
+    },
+    {
+      "name": "heaneysam--medichecks-nextjs",
+      "source": "./heaneysam--medichecks-nextjs",
+      "description": "medichecks_nextjs"
+    },
+    {
+      "name": "boneskull--impvol",
+      "source": "./boneskull--impvol",
+      "description": "impvol"
+    },
+    {
+      "name": "haongo232--agent-bridge-kit",
+      "source": "./haongo232--agent-bridge-kit",
+      "description": "agent-bridge-kit"
+    },
+    {
+      "name": "jorgearanda--cuevano",
+      "source": "./jorgearanda--cuevano",
+      "description": "cuevano"
+    },
+    {
+      "name": "human-bee--thought-partners",
+      "source": "./human-bee--thought-partners",
+      "description": "thought-partners"
+    },
+    {
+      "name": "duongductrong--tiptap",
+      "source": "./duongductrong--tiptap",
+      "description": "tiptap"
+    },
+    {
+      "name": "andresortega-tech--webapporganizat",
+      "source": "./andresortega-tech--webapporganizat",
+      "description": "WebAppOrganizaT"
+    },
+    {
+      "name": "ittna--pokerkit",
+      "source": "./ittna--pokerkit",
+      "description": "PokerKit"
+    },
+    {
+      "name": "tick2trade-prod--cursor-repo-agents-docs",
+      "source": "./tick2trade-prod--cursor-repo-agents-docs",
+      "description": "cursor-repo-agents-docs"
+    },
+    {
+      "name": "griotdev--lista-da-vanessador",
+      "source": "./griotdev--lista-da-vanessador",
+      "description": "lista-da-vanessaDOR"
+    },
+    {
+      "name": "tborys--bmad",
+      "source": "./tborys--bmad",
+      "description": "BMAD"
+    },
+    {
+      "name": "xinqingaa--unified-popups",
+      "source": "./xinqingaa--unified-popups",
+      "description": "unified_popups"
+    },
+    {
+      "name": "yosfgfx--imagefx",
+      "source": "./yosfgfx--imagefx",
+      "description": "imagefx"
+    },
+    {
+      "name": "hyperstaker--hyperstaker-ui",
+      "source": "./hyperstaker--hyperstaker-ui",
+      "description": "hyperstaker-ui"
+    },
+    {
+      "name": "reedzhao--clickup-helper-ws",
+      "source": "./reedzhao--clickup-helper-ws",
+      "description": "clickup_helper_ws"
+    },
+    {
+      "name": "drakkarstorm--deadlinkr",
+      "source": "./drakkarstorm--deadlinkr",
+      "description": "deadlinkr"
+    },
+    {
+      "name": "developer-dex--hackathon-frontend",
+      "source": "./developer-dex--hackathon-frontend",
+      "description": "hackathon-frontend"
+    },
+    {
+      "name": "cainamventures--cainam-frontend",
+      "source": "./cainamventures--cainam-frontend",
+      "description": "cainam-frontend"
+    },
+    {
+      "name": "amit-t--stream-llm",
+      "source": "./amit-t--stream-llm",
+      "description": "stream-llm"
+    },
+    {
+      "name": "ripple--rippled-workload",
+      "source": "./ripple--rippled-workload",
+      "description": "rippled-workload"
+    },
+    {
+      "name": "aiflowml--cursor-rules",
+      "source": "./aiflowml--cursor-rules",
+      "description": "cursor_rules"
+    },
+    {
+      "name": "uhop--time-queues",
+      "source": "./uhop--time-queues",
+      "description": "time-queues"
+    },
+    {
+      "name": "frani-be--landing-frani-be",
+      "source": "./frani-be--landing-frani-be",
+      "description": "landing-frani-be"
+    },
+    {
+      "name": "ktsu-dev--tui",
+      "source": "./ktsu-dev--tui",
+      "description": "TUI"
+    },
+    {
+      "name": "bklit--bklit",
+      "source": "./bklit--bklit",
+      "description": "bklit"
+    },
+    {
+      "name": "autowds--autowds-backend",
+      "source": "./autowds--autowds-backend",
+      "description": "autowds-backend"
+    },
+    {
+      "name": "vagrantpi--idle-hippo",
+      "source": "./vagrantpi--idle-hippo",
+      "description": "idle_hippo"
+    },
+    {
+      "name": "justintnt--hamlet",
+      "source": "./justintnt--hamlet",
+      "description": "hamlet"
+    },
+    {
+      "name": "maven-gavin--anmeismart",
+      "source": "./maven-gavin--anmeismart",
+      "description": "AnmeiSmart"
+    },
+    {
+      "name": "singularitylab-swufe--fastapi-template-agent",
+      "source": "./singularitylab-swufe--fastapi-template-agent",
+      "description": "fastapi-template-agent"
+    },
+    {
+      "name": "limpingninja--notoriuspty",
+      "source": "./limpingninja--notoriuspty",
+      "description": "NotoriusPTY"
+    },
+    {
+      "name": "rih0z--nextpint",
+      "source": "./rih0z--nextpint",
+      "description": "NextPint"
+    },
+    {
+      "name": "sindoatan--eq-infrasupp-test",
+      "source": "./sindoatan--eq-infrasupp-test",
+      "description": "eq-infrasupp-test"
+    },
+    {
+      "name": "kashguard--go-mpc-infra",
+      "source": "./kashguard--go-mpc-infra",
+      "description": "go-mpc-infra"
+    },
+    {
+      "name": "rcesaret--windsurf",
+      "source": "./rcesaret--windsurf",
+      "description": "windsurf"
+    },
+    {
+      "name": "aoshimash--nixos-config",
+      "source": "./aoshimash--nixos-config",
+      "description": "nixos-config"
+    },
+    {
+      "name": "jimmyh-world--aiken-ref-guide",
+      "source": "./jimmyh-world--aiken-ref-guide",
+      "description": "Aiken-ref-guide"
+    },
+    {
+      "name": "twardoch--pdf22md",
+      "source": "./twardoch--pdf22md",
+      "description": "pdf22md"
+    },
+    {
+      "name": "trevorplam--command-center",
+      "source": "./trevorplam--command-center",
+      "description": "command-center"
+    },
+    {
+      "name": "ohnotnow--web-ait",
+      "source": "./ohnotnow--web-ait",
+      "description": "web-ait"
+    },
+    {
+      "name": "pitounet75--robotrl",
+      "source": "./pitounet75--robotrl",
+      "description": "RobotRL"
+    },
+    {
+      "name": "twardoch--playwrightauthor",
+      "source": "./twardoch--playwrightauthor",
+      "description": "playwrightauthor"
+    },
+    {
+      "name": "sevwren--muellereuchre",
+      "source": "./sevwren--muellereuchre",
+      "description": "MuellerEuchre"
+    },
+    {
+      "name": "jassoncasey--cnc-redalert-port",
+      "source": "./jassoncasey--cnc-redalert-port",
+      "description": "CnC_RedAlert_Port"
+    },
+    {
+      "name": "atomic-supply--sales-demo-glowco",
+      "source": "./atomic-supply--sales-demo-glowco",
+      "description": "sales-demo-glowco"
+    },
+    {
+      "name": "twardoch--playpi",
+      "source": "./twardoch--playpi",
+      "description": "playpi"
+    },
+    {
+      "name": "haymayndzultra--supertemplate",
+      "source": "./haymayndzultra--supertemplate",
+      "description": "SuperTemplate"
+    },
+    {
+      "name": "igor-kan--keywise",
+      "source": "./igor-kan--keywise",
+      "description": "keywise"
+    },
+    {
+      "name": "srrmlwn--rental-investment-analyzer-chrome",
+      "source": "./srrmlwn--rental-investment-analyzer-chrome",
+      "description": "rental-investment-analyzer-chrome"
+    },
+    {
+      "name": "twardoch--virginia-clemm-poe",
+      "source": "./twardoch--virginia-clemm-poe",
+      "description": "virginia-clemm-poe"
+    },
+    {
+      "name": "splooshai--sploosh-ai-hockey-analytics",
+      "source": "./splooshai--sploosh-ai-hockey-analytics",
+      "description": "sploosh-ai-hockey-analytics"
+    },
+    {
+      "name": "newslabntu--projector-calib",
+      "source": "./newslabntu--projector-calib",
+      "description": "projector-calib"
+    },
+    {
+      "name": "vietrochack--home",
+      "source": "./vietrochack--home",
+      "description": "home"
+    },
+    {
+      "name": "millerren--grbl-stc",
+      "source": "./millerren--grbl-stc",
+      "description": "grbl-stc"
+    },
+    {
+      "name": "cyberbunny19--good-ai",
+      "source": "./cyberbunny19--good-ai",
+      "description": "GOOD-AI"
+    },
+    {
+      "name": "7factor--crap4dotnet",
+      "source": "./7factor--crap4dotnet",
+      "description": "crap4dotnet"
+    },
+    {
+      "name": "gaetanoff--bootstrap-ia",
+      "source": "./gaetanoff--bootstrap-ia",
+      "description": "bootstrap-ia"
+    },
+    {
+      "name": "acandael--actionmaker-v2",
+      "source": "./acandael--actionmaker-v2",
+      "description": "actionmaker-v2"
+    },
+    {
+      "name": "koncoweb--ksir",
+      "source": "./koncoweb--ksir",
+      "description": "ksir"
+    },
+    {
+      "name": "qfennessy--numismatist",
+      "source": "./qfennessy--numismatist",
+      "description": "numismatist"
+    },
+    {
+      "name": "jslamartina--hass-addons",
+      "source": "./jslamartina--hass-addons",
+      "description": "hass-addons"
+    },
+    {
+      "name": "ulyssesleolee--goskernel",
+      "source": "./ulyssesleolee--goskernel",
+      "description": "GOSKernel"
+    },
+    {
+      "name": "toemaus313--nextchord",
+      "source": "./toemaus313--nextchord",
+      "description": "NextChord"
+    },
+    {
+      "name": "lausiv1024--coolersystemcontroller",
+      "source": "./lausiv1024--coolersystemcontroller",
+      "description": "CoolerSystemController"
+    },
+    {
+      "name": "livyn-inc--ai-design-system",
+      "source": "./livyn-inc--ai-design-system",
+      "description": "AI-design-system"
+    },
+    {
+      "name": "mustafabeshara--erpnext2",
+      "source": "./mustafabeshara--erpnext2",
+      "description": "erpnext2"
+    },
+    {
+      "name": "zlincoln--allura-portfolio-site",
+      "source": "./zlincoln--allura-portfolio-site",
+      "description": "allura-portfolio-site"
+    },
+    {
+      "name": "marcelbaklouti--openclaw-boilerplate",
+      "source": "./marcelbaklouti--openclaw-boilerplate",
+      "description": "openclaw-boilerplate"
+    },
+    {
+      "name": "ramarivera--chrono-lingua",
+      "source": "./ramarivera--chrono-lingua",
+      "description": "chrono-lingua"
+    },
+    {
+      "name": "omarvalle--agentx",
+      "source": "./omarvalle--agentx",
+      "description": "agentx"
+    },
+    {
+      "name": "ivans51--class-track-laravel",
+      "source": "./ivans51--class-track-laravel",
+      "description": "class-track-laravel"
+    },
+    {
+      "name": "lips7--matcher",
+      "source": "./lips7--matcher",
+      "description": "Matcher"
+    },
+    {
+      "name": "wan0ri--cursor-rules",
+      "source": "./wan0ri--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "shixiangyu1--real-time-data-warehouse",
+      "source": "./shixiangyu1--real-time-data-warehouse",
+      "description": "real-time-data-warehouse"
+    },
+    {
+      "name": "openloom--ai",
+      "source": "./openloom--ai",
+      "description": "ai"
+    },
+    {
+      "name": "ryanmorash--ha-nationalgrid",
+      "source": "./ryanmorash--ha-nationalgrid",
+      "description": "ha_nationalgrid"
+    },
+    {
+      "name": "laravel-gtm--hubspot-sdk",
+      "source": "./laravel-gtm--hubspot-sdk",
+      "description": "hubspot-sdk"
+    },
+    {
+      "name": "technologi-service--template-init",
+      "source": "./technologi-service--template-init",
+      "description": "template-init"
+    },
+    {
+      "name": "jmateus842--taller-adicional-angular",
+      "source": "./jmateus842--taller-adicional-angular",
+      "description": "taller_adicional_angular"
+    },
+    {
+      "name": "sgaunet--gitlab-mcp",
+      "source": "./sgaunet--gitlab-mcp",
+      "description": "gitlab-mcp"
+    },
+    {
+      "name": "naveenadi--payvlo",
+      "source": "./naveenadi--payvlo",
+      "description": "Payvlo"
+    },
+    {
+      "name": "strangeworlder--tss",
+      "source": "./strangeworlder--tss",
+      "description": "tss"
+    },
+    {
+      "name": "kuberocketci--kuberocketai",
+      "source": "./kuberocketci--kuberocketai",
+      "description": "kuberocketai"
+    },
+    {
+      "name": "nao70161994--machikoro",
+      "source": "./nao70161994--machikoro",
+      "description": "machikoro"
+    },
+    {
+      "name": "soulox--dropemail-net",
+      "source": "./soulox--dropemail-net",
+      "description": "dropemail-net"
+    },
+    {
+      "name": "bravegeek--az-vectordb",
+      "source": "./bravegeek--az-vectordb",
+      "description": "az-vectordb"
+    },
+    {
+      "name": "synaptixlabs--scaffold",
+      "source": "./synaptixlabs--scaffold",
+      "description": "scaffold"
+    },
+    {
+      "name": "cfogelklou--measured-munch",
+      "source": "./cfogelklou--measured-munch",
+      "description": "measured-munch"
+    },
+    {
+      "name": "projeto-crm-2026--crm-frontend-web-app",
+      "source": "./projeto-crm-2026--crm-frontend-web-app",
+      "description": "crm-frontend-web-app"
+    },
+    {
+      "name": "scardubu--taxbridge",
+      "source": "./scardubu--taxbridge",
+      "description": "taxbridge"
+    },
+    {
+      "name": "paulvales--pocker",
+      "source": "./paulvales--pocker",
+      "description": "pocker"
+    },
+    {
+      "name": "megahomeweb--megahome",
+      "source": "./megahomeweb--megahome",
+      "description": "megahome"
+    },
+    {
+      "name": "pollora--framework",
+      "source": "./pollora--framework",
+      "description": "framework"
+    },
+    {
+      "name": "ashish-tandon--openpolicy-merge-platform-v2",
+      "source": "./ashish-tandon--openpolicy-merge-platform-v2",
+      "description": "OpenPolicy-Merge-Platform-V2"
+    },
+    {
+      "name": "canaisolutions--canai-platform",
+      "source": "./canaisolutions--canai-platform",
+      "description": "canai-platform"
+    },
+    {
+      "name": "sovsianykov--budjet-backend",
+      "source": "./sovsianykov--budjet-backend",
+      "description": "budjet-backend"
+    },
+    {
+      "name": "xjoex--math-candy",
+      "source": "./xjoex--math-candy",
+      "description": "math_candy"
+    },
+    {
+      "name": "nachoo07--ponti-backend-develop",
+      "source": "./nachoo07--ponti-backend-develop",
+      "description": "ponti-backend-develop"
+    },
+    {
+      "name": "ankitkumar1302--appleui",
+      "source": "./ankitkumar1302--appleui",
+      "description": "AppleUI"
+    },
+    {
+      "name": "petamorikei--eagle-js",
+      "source": "./petamorikei--eagle-js",
+      "description": "eagle-js"
+    },
+    {
+      "name": "wictorstenseke--react-dash-layout",
+      "source": "./wictorstenseke--react-dash-layout",
+      "description": "react-dash-layout"
+    },
+    {
+      "name": "eternisai--template-frontend",
+      "source": "./eternisai--template-frontend",
+      "description": "template-frontend"
+    },
+    {
+      "name": "hackur--jeremysarda-com-2025",
+      "source": "./hackur--jeremysarda-com-2025",
+      "description": "jeremysarda.com-2025"
+    },
+    {
+      "name": "solidfoundry--project-heimdall",
+      "source": "./solidfoundry--project-heimdall",
+      "description": "project-heimdall"
+    },
+    {
+      "name": "ksytiger--medical-scanner",
+      "source": "./ksytiger--medical-scanner",
+      "description": "medical-scanner"
+    },
+    {
+      "name": "gpteee--n8n-workflows",
+      "source": "./gpteee--n8n-workflows",
+      "description": "n8n-Workflows"
+    },
+    {
+      "name": "sysmae--learnmaster-by-taskmaster",
+      "source": "./sysmae--learnmaster-by-taskmaster",
+      "description": "learnmaster-by-taskmaster"
+    },
+    {
+      "name": "wonderforgelabs--dotnet-test-shard",
+      "source": "./wonderforgelabs--dotnet-test-shard",
+      "description": "dotnet-test-shard"
+    },
+    {
+      "name": "iamfarzad--fb-c-labv2",
+      "source": "./iamfarzad--fb-c-labv2",
+      "description": "FB-c_labV2"
+    },
+    {
+      "name": "th3w1zard1--kotorscript-session-manager",
+      "source": "./th3w1zard1--kotorscript-session-manager",
+      "description": "kotorscript-session-manager"
+    },
+    {
+      "name": "mahv3--seminar-app",
+      "source": "./mahv3--seminar-app",
+      "description": "seminar-app"
+    },
+    {
+      "name": "sumsankar--repo-intel",
+      "source": "./sumsankar--repo-intel",
+      "description": "repo-intel"
+    },
+    {
+      "name": "ibrahim-omar1--pokedex",
+      "source": "./ibrahim-omar1--pokedex",
+      "description": "pokedex"
+    },
+    {
+      "name": "hyperskill--ilt-reports-generator",
+      "source": "./hyperskill--ilt-reports-generator",
+      "description": "ilt-reports-generator"
+    },
+    {
+      "name": "aacarter1--brkato-1009",
+      "source": "./aacarter1--brkato-1009",
+      "description": "brkato-1009"
+    },
+    {
+      "name": "pinealctx--nexus-site",
+      "source": "./pinealctx--nexus-site",
+      "description": "nexus-site"
+    },
+    {
+      "name": "phantomknight287--saturn",
+      "source": "./phantomknight287--saturn",
+      "description": "saturn"
+    },
+    {
+      "name": "juniordev203--toeic-elearning-be",
+      "source": "./juniordev203--toeic-elearning-be",
+      "description": "toeic-elearning-be"
+    },
+    {
+      "name": "thomas-bartlett--mamba-vs-transformer-qa",
+      "source": "./thomas-bartlett--mamba-vs-transformer-qa",
+      "description": "mamba-vs-transformer-qa"
+    },
+    {
+      "name": "mo4islona--metadata-example",
+      "source": "./mo4islona--metadata-example",
+      "description": "metadata_example"
+    },
+    {
+      "name": "malnati--platform-generator",
+      "source": "./malnati--platform-generator",
+      "description": "platform-generator"
+    },
+    {
+      "name": "lufiabani--projetofinalweb",
+      "source": "./lufiabani--projetofinalweb",
+      "description": "ProjetoFinalWeb"
+    },
+    {
+      "name": "reeseastor--indie-kit",
+      "source": "./reeseastor--indie-kit",
+      "description": "indie-kit"
+    },
+    {
+      "name": "nakoliss--solutionsimpactweb",
+      "source": "./nakoliss--solutionsimpactweb",
+      "description": "SolutionsImpactWeb"
+    },
+    {
+      "name": "answeroverflow--answeroverflow",
+      "source": "./answeroverflow--answeroverflow",
+      "description": "AnswerOverflow"
+    },
+    {
+      "name": "garretthogan--react-pong",
+      "source": "./garretthogan--react-pong",
+      "description": "react-pong"
+    },
+    {
+      "name": "beltran12138--cambodia-toilet-monopoly",
+      "source": "./beltran12138--cambodia-toilet-monopoly",
+      "description": "cambodia-toilet-monopoly"
+    },
+    {
+      "name": "workcontrolgit--myoniontemplate",
+      "source": "./workcontrolgit--myoniontemplate",
+      "description": "MyOnionTemplate"
+    },
+    {
+      "name": "sdaconceicao--pokedex",
+      "source": "./sdaconceicao--pokedex",
+      "description": "pokedex"
     }
   ]
 }
