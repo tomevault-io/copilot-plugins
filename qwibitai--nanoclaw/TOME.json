@@ -1,0 +1,93 @@
+{
+  "name": "nanoclaw",
+  "owner": "qwibitai",
+  "repo": "nanoclaw",
+  "description": "A lightweight alternative to OpenClaw that runs in containers for security. Connects to WhatsApp, Telegram, Slack, Discord, Gmail and other messaging apps,, has memory, scheduled jobs, and runs directly on Anthropic's Agents SDK",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-gmail",
+      "path": ".claude/skills/add-gmail",
+      "github_url": "https://github.com/qwibitai/nanoclaw/tree/main/.claude/skills/add-gmail",
+      "description": ""
+    },
+    {
+      "name": "add-telegram-swarm",
+      "path": ".claude/skills/add-telegram-swarm",
+      "github_url": "https://github.com/qwibitai/nanoclaw/tree/main/.claude/skills/add-telegram-swarm",
+      "description": ""
+    },
+    {
+      "name": "add-voice-transcription",
+      "path": ".claude/skills/add-voice-transcription",
+      "github_url": "https://github.com/qwibitai/nanoclaw/tree/main/.claude/skills/add-voice-transcription",
+      "description": ""
+    },
+    {
+      "name": "agent-browser",
+      "path": "container/skills/agent-browser",
+      "github_url": "https://github.com/qwibitai/nanoclaw/tree/main/container/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "customize",
+      "path": ".claude/skills/customize",
+      "github_url": "https://github.com/qwibitai/nanoclaw/tree/main/.claude/skills/customize",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "path": ".claude/skills/debug",
+      "github_url": "https://github.com/qwibitai/nanoclaw/tree/main/.claude/skills/debug",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": ".claude/skills/setup",
+      "github_url": "https://github.com/qwibitai/nanoclaw/tree/main/.claude/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "x-integration",
+      "path": ".claude/skills/x-integration",
+      "github_url": "https://github.com/qwibitai/nanoclaw/tree/main/.claude/skills/x-integration",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/qwibitai/nanoclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T23:30:45Z"
+}
