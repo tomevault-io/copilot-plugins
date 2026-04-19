@@ -1,0 +1,9 @@
+{
+  "name": "opencowai--opencow",
+  "displayName": "opencow",
+  "description": "One task, one agent, delivered. The open-source platform for task-driven autonomous AI agents.OpenCow assigns an autonomous AI agent to every task \u2014 features, campaigns,  reports, audits \u2014 and deliver",
+  "version": "1.0.0",
+  "author": "OpenCowAI",
+  "homepage": "https://github.com/OpenCowAI/opencow",
+  "skills": []
+}
