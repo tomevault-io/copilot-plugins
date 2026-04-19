@@ -1,6 +1,6 @@
-# Cursortemplate — distributed by TomeVault
+# Cursortemplate
 
-> Originally from [shittuay/Cursortemplate](https://github.com/shittuay/Cursortemplate). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [shittuay/Cursortemplate](https://github.com/shittuay/Cursortemplate) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [shittuay/Cursortemplate](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/shittuay)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/shittuay/Cursortemplate](https://github.com/shittuay/Cursortemplate)
 
 ---
 
