@@ -1,0 +1,70 @@
+{
+  "name": "paleorose",
+  "owner": "paleoterra",
+  "repo": "PaleoRose",
+  "description": "AI instruction skills by paleoterra",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ci-cd-helper",
+      "path": ".claude/skills/ci-cd-helper",
+      "github_url": "https://github.com/paleoterra/PaleoRose/tree/main/.claude/skills/ci-cd-helper",
+      "description": ""
+    },
+    {
+      "name": "code-metrics-analyzer",
+      "path": ".claude/skills/code-metrics-analyzer",
+      "github_url": "https://github.com/paleoterra/PaleoRose/tree/main/.claude/skills/code-metrics-analyzer",
+      "description": ""
+    },
+    {
+      "name": "performance-profiler-tools",
+      "path": ".claude/skills/performance-profiler-tools",
+      "github_url": "https://github.com/paleoterra/PaleoRose/tree/main/.claude/skills/performance-profiler-tools",
+      "description": ""
+    },
+    {
+      "name": "sqlite-test-validator",
+      "path": ".claude/skills/sqlite-test-validator",
+      "github_url": "https://github.com/paleoterra/PaleoRose/tree/main/.claude/skills/sqlite-test-validator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/paleoterra/PaleoRose",
+  "claim_url": "https://tomevault.io/claim/paleoterra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:31:35Z"
+}
