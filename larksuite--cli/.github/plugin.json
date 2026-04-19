@@ -1,0 +1,9 @@
+{
+  "name": "larksuite--cli",
+  "displayName": "cli",
+  "description": "The official Lark/Feishu CLI tool, maintained by the larksuite team \u2014 built for humans and AI Agents. Covers core business domains including Messenger, Docs, Base, Sheets, Calendar, Mail, Tasks, Meeti",
+  "version": "1.0.0",
+  "author": "larksuite",
+  "homepage": "https://github.com/larksuite/cli",
+  "skills": []
+}
