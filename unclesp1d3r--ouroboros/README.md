@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [unclesp1d3r/Ouroboros](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/unclesp1d3r#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/unclesp1d3r/Ouroboros](https://github.com/unclesp1d3r/Ouroboros)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install unclesp1d3r/Ouroboros
 ```
-Or browse all formats at [https://tomevault.io/claim/unclesp1d3r](https://tomevault.io/claim/unclesp1d3r).
+Source: [github.com/unclesp1d3r/Ouroboros](https://github.com/unclesp1d3r/Ouroboros).
 
 <!-- genome:a-i-q -->
