@@ -1,0 +1,45 @@
+{
+  "name": "loyalty-demo-app",
+  "owner": "CrisCorzo97",
+  "repo": "loyalty-demo-app",
+  "description": "",
+  "type": "config",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CrisCorzo97/loyalty-demo-app",
+  "claim_url": "https://tomevault.io/claim/CrisCorzo97",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T05:54:56Z"
+}
