@@ -1,0 +1,94 @@
+{
+  "name": "genlayer",
+  "owner": "genlayerlabs",
+  "repo": "genlayer-testing-suite",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cloudflare-cli",
+      "path": ".claude/skills/cloudflare-cli",
+      "github_url": "https://github.com/genlayerlabs/genlayer-testing-suite/tree/main/.claude/skills/cloudflare-cli",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": ".claude/skills/create-pr",
+      "github_url": "https://github.com/genlayerlabs/genlayer-testing-suite/tree/main/.claude/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "hosted-studio-debug",
+      "path": ".claude/skills/hosted-studio-debug",
+      "github_url": "https://github.com/genlayerlabs/genlayer-testing-suite/tree/main/.claude/skills/hosted-studio-debug",
+      "description": ""
+    },
+    {
+      "name": "integration-tests",
+      "path": ".claude/skills/integration-tests",
+      "github_url": "https://github.com/genlayerlabs/genlayer-testing-suite/tree/main/.claude/skills/integration-tests",
+      "description": ""
+    },
+    {
+      "name": "sentry-issue-fixer",
+      "path": ".claude/skills/sentry-issue-fixer",
+      "github_url": "https://github.com/genlayerlabs/genlayer-testing-suite/tree/main/.claude/skills/sentry-issue-fixer",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": ".claude/skills/setup",
+      "github_url": "https://github.com/genlayerlabs/genlayer-testing-suite/tree/main/.claude/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "studio-db",
+      "path": ".claude/skills/studio-db",
+      "github_url": "https://github.com/genlayerlabs/genlayer-testing-suite/tree/main/.claude/skills/studio-db",
+      "description": ""
+    },
+    {
+      "name": "unit-tests",
+      "path": ".claude/skills/unit-tests",
+      "github_url": "https://github.com/genlayerlabs/genlayer-testing-suite/tree/main/.claude/skills/unit-tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/genlayerlabs/genlayer-testing-suite",
+  "claim_url": "https://tomevault.io/claim/genlayerlabs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:35:05Z"
+}
