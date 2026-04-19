@@ -1,8 +1,6 @@
 # orchestrator
 
-> Tome by [ollieb89](https://github.com/ollieb89/orchestrator) — distributed by [TomeVault](https://tomevault.io/claim/ollieb89)
-
-AI instruction files for orchestrator by ollieb89
+> Tome by [ollieb89](https://github.com/ollieb89/orchestrator) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,14 +15,15 @@ Original source: `.windsurf/rules/*.md` in [ollieb89/orchestrator](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-## Bundled Skills (1)
+## Bundled Skills (2)
 
 - [compound-docs](https://github.com/ollieb89/orchestrator/tree/main/.cursor/skills/compound-docs)
+- [obsidian-mcp](https://github.com/ollieb89/orchestrator/tree/main/.agent/skills/obsidian-mcp)
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ollieb89)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ollieb89/orchestrator](https://github.com/ollieb89/orchestrator)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/ollieb89) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
