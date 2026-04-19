@@ -1,6 +1,6 @@
 # ml_challenges
 
-> Tome by [ollieb89](https://github.com/ollieb89/ml_challenges) — distributed by [TomeVault](https://tomevault.io/claim/ollieb89)
+> Tome by [ollieb89](https://github.com/ollieb89/ml_challenges) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ollieb89/ml_challenges](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ollieb89)
+From [ollieb89/ml_challenges](https://github.com/ollieb89/ml_challenges) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ollieb89/ml_challenges
 ```
-Or browse all formats at [https://tomevault.io/claim/ollieb89](https://tomevault.io/claim/ollieb89).
+Source: [github.com/ollieb89/ml_challenges](https://github.com/ollieb89/ml_challenges).
 
 <!-- genome:t-i-s -->
