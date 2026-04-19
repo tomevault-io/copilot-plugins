@@ -1,0 +1,18 @@
+{
+  "name": "xmtp--xmtpd",
+  "displayName": "xmtpd",
+  "description": "AI instruction files for xmtpd by xmtp",
+  "version": "1.0.0",
+  "author": "xmtp",
+  "homepage": "https://github.com/xmtp/xmtpd",
+  "skills": [
+    {
+      "name": "writing-go-code",
+      "description": ""
+    },
+    {
+      "name": "writing-queries",
+      "description": ""
+    }
+  ]
+}
