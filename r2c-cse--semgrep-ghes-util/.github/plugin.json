@@ -1,0 +1,9 @@
+{
+  "name": "r2c-cse--semgrep-ghes-util",
+  "displayName": "semgrep-ghes-util",
+  "description": "semgrep-ghes-util",
+  "version": "1.0.0",
+  "author": "r2c-CSE",
+  "homepage": "https://github.com/r2c-CSE/semgrep-ghes-util",
+  "skills": []
+}
