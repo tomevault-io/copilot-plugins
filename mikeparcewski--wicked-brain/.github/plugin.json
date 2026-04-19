@@ -1,0 +1,18 @@
+{
+  "name": "mikeparcewski--wicked-brain",
+  "displayName": "wicked",
+  "description": "AI instruction skills by mikeparcewski",
+  "version": "1.0.0",
+  "author": "mikeparcewski",
+  "homepage": "https://github.com/mikeparcewski/wicked-brain",
+  "skills": [
+    {
+      "name": "plugin-json-schema",
+      "description": ""
+    },
+    {
+      "name": "releasing",
+      "description": ""
+    }
+  ]
+}
