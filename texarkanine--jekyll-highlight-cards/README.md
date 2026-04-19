@@ -1,6 +1,6 @@
-# jekyll-highlight-cards — distributed by TomeVault
+# jekyll-highlight-cards
 
-> Originally from [Texarkanine/jekyll-highlight-cards](https://github.com/Texarkanine/jekyll-highlight-cards). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Texarkanine/jekyll-highlight-cards](https://github.com/Texarkanine/jekyll-highlight-cards) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
