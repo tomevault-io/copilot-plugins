@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [HaoNgo232/agent-bridge-kit](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/HaoNgo232#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/HaoNgo232/agent-bridge-kit](https://github.com/HaoNgo232/agent-bridge-kit)
 
 ---
 
