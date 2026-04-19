@@ -1,0 +1,46 @@
+{
+  "name": "yu-iskw--agentops-notes",
+  "displayName": "agent",
+  "description": "AI instruction skills by yu-iskw",
+  "version": "1.0.0",
+  "author": "yu-iskw",
+  "homepage": "https://github.com/yu-iskw/agentops-notes",
+  "skills": [
+    {
+      "name": "go-upgrade-workflow",
+      "description": ""
+    },
+    {
+      "name": "implement-agent-skill",
+      "description": ""
+    },
+    {
+      "name": "implement-agent-skills",
+      "description": ""
+    },
+    {
+      "name": "implement-agent-skills",
+      "description": ""
+    },
+    {
+      "name": "implement-agent-teams",
+      "description": ""
+    },
+    {
+      "name": "implement-sub-agents",
+      "description": ""
+    },
+    {
+      "name": "manage-adr",
+      "description": ""
+    },
+    {
+      "name": "python-upgrade-workflow",
+      "description": ""
+    },
+    {
+      "name": "update-readme",
+      "description": ""
+    }
+  ]
+}
