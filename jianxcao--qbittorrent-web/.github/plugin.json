@@ -1,0 +1,30 @@
+{
+  "name": "jianxcao--qbittorrent-web",
+  "displayName": "qbittorrent-web",
+  "description": "AI instruction skills by jianxcao",
+  "version": "1.0.0",
+  "author": "jianxcao",
+  "homepage": "https://github.com/jianxcao/qbittorrent-web",
+  "skills": [
+    {
+      "name": "i18n-checker",
+      "description": ""
+    },
+    {
+      "name": "pinia-best-practices",
+      "description": ""
+    },
+    {
+      "name": "readme-generator",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vueuse-best-practices",
+      "description": ""
+    }
+  ]
+}
