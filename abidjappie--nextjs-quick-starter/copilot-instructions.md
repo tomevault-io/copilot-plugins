@@ -1,0 +1,2253 @@
+## nextjs-quick-starter
+
+> **Security, Stability, and Best Practices - ALWAYS follow these principles:**
+
+# Next.js Quick Starter - Cursor Rules
+
+## 🎯 Critical Requirements
+
+**Security, Stability, and Best Practices - ALWAYS follow these principles:**
+
+### **1. Security-First Development**
+- ✅ **Runtime Validation** - Use **Zod** to validate inputs at runtime (forms, API requests, environment variables, database queries)
+- ✅ **Environment Security** - Never expose secrets client-side; use `NEXT_PUBLIC_` only for safe values
+- ✅ **Authentication** - Implement **better-auth** for type-safe, session-based authentication
+- ✅ **Authorization** - Always verify user permissions in server actions and API routes
+- ✅ **Input Sanitization** - Validate and sanitize all user inputs before processing or storing
+- ✅ **Database Security** - Use parameterized queries (Drizzle ORM handles this) to prevent SQL injection
+
+### **2. Type Safety Everywhere**
+- ✅ **TypeScript Strict Mode** - Enable strict type checking for compile-time safety
+- ✅ **Zod for Runtime Types** - Validate data at runtime with Zod schemas
+- ✅ **Type Inference** - Use `z.infer<>` for Zod types and `$inferSelect/$inferInsert` for Drizzle
+- ✅ **No `any` Types** - Avoid `any`; use `unknown` or proper types
+- ✅ **Explicit Return Types** - Define return types for all functions
+
+### **3. Latest Stable Versions**
+- ✅ **Node.js** - Use latest LTS version (currently Node.js 24 LTS)
+- ✅ **Next.js** - Use latest stable (Next.js 16+ with App Router)
+- ✅ **React** - Use latest stable (React 19+ with RSC and new hooks)
+- ✅ **TypeScript** - Use latest stable (TypeScript 5+)
+- ✅ **Package Manager** - Use **pnpm** (faster, more efficient than npm/yarn)
+
+### **4. Architecture & Patterns**
+- ✅ **Server Components First** - Default to React Server Components; use Client Components only when needed
+- ✅ **Server Actions** - Use server actions for mutations with progressive enhancement
+- ✅ **Separation of Concerns** - Keep business logic in server actions, UI in components
+- ✅ **Error Boundaries** - Implement error.tsx for graceful error handling
+- ✅ **Loading States** - Use loading.tsx and Suspense for better UX
+
+### **5. Database & Data Integrity**
+- ✅ **Drizzle ORM** - Use type-safe ORM with schema-first approach
+- ✅ **drizzle-zod Integration** - Generate Zod schemas from Drizzle for single source of truth
+- ✅ **Migrations** - Always use migrations (never push directly to production)
+- ✅ **Data Validation** - Validate at database schema level AND application level
+- ✅ **Transactions** - Use transactions for multi-step operations
+
+### **6. Code Quality & Consistency**
+- ✅ **Biome Linting** - Strict linting with consistent formatting (tabs, double quotes)
+- ✅ **Code Comments** - Write descriptive JSDoc comments for functions and complex logic
+- ✅ **Git Hooks** - Use Lefthook to enforce quality checks pre-commit
+- ✅ **Descriptive Naming** - Use clear, self-documenting variable and function names
+- ✅ **DRY Principle** - Don't repeat yourself; extract reusable logic
+
+### **7. Testing & Reliability**
+- ✅ **Test Critical Paths** - Write tests for authentication, data validation, and business logic
+- ✅ **Type Check** - Run `tsc --noEmit` to catch type errors
+- ✅ **Validate Schemas** - Test Zod schemas with valid and invalid inputs
+- ✅ **Error Handling** - Always handle errors gracefully with try-catch and user-friendly messages
+
+### **8. Performance & Optimization**
+- ✅ **React Query** - Use TanStack React Query for efficient data fetching and caching
+- ✅ **Code Splitting** - Use dynamic imports for large components
+- ✅ **Image Optimization** - Use next/image for automatic optimization
+- ✅ **Streaming** - Leverage Suspense and streaming for better perceived performance
+- ✅ **Caching Strategy** - Implement proper caching with revalidation
+
+### **9. Production Readiness**
+- ✅ **Environment Validation** - Use `@next/env` + Zod to validate env vars at startup
+- ✅ **Logging** - Implement proper error logging (console.error minimum, consider external service)
+- ✅ **Monitoring** - Set up health checks and error tracking
+- ✅ **Security Headers** - Configure proper CORS, CSP, and security headers
+- ✅ **Rate Limiting** - Implement rate limiting for API routes in production
+
+### **10. Developer Experience**
+- ✅ **Documentation** - Maintain up-to-date README with setup instructions
+- ✅ **.env.example** - Provide example environment file with all required variables
+- ✅ **Local Development** - Support local SQLite database for easy development
+- ✅ **Type-Safe Imports** - Use path aliases (@/) for cleaner imports
+- ✅ **Clear Error Messages** - Provide helpful error messages with context
+
+## Project Overview
+This is a Next.js 16 application using React 19, Vercel AI SDK, Drizzle ORM, shadcn/ui, and Tailwind CSS v4.
+
+## Core Technologies & Dependencies
+
+### Framework & Runtime
+- **Next.js 16+** - Latest stable with App Router and React Server Components
+- **React 19+** - Latest stable with useActionState, useFormStatus, useOptimistic
+- **TypeScript 5+** - Latest stable with strict mode enabled
+- **Node.js 24 LTS** - Current LTS version (use latest LTS available)
+
+### UI & Styling
+- **shadcn/ui** - Component library with New York style and RSC support
+- **Tailwind CSS v4** - Latest stable with CSS variables and modern features
+- **lucide-react** - Modern icon library (latest stable)
+- **class-variance-authority** - Type-safe component variants
+- **clsx** + **tailwind-merge** - Utility for conditional className merging
+- **sonner** - Beautiful toast notifications (latest stable)
+
+### AI & ML (Optional)
+- **Vercel AI SDK v5** - Streaming AI responses and structured outputs
+- **@ai-sdk/react** - React hooks (useObject, useChat, useCompletion)
+- **@ai-sdk/openai** - OpenAI provider (latest stable)
+- **@ai-sdk/anthropic** - Anthropic/Claude provider (latest stable)
+- **@ai-sdk/google** - Google AI provider (latest stable)
+
+### Database & ORM
+- **Drizzle ORM** - Type-safe ORM with schema-first approach (latest stable)
+- **drizzle-kit** - Schema management and migrations (latest stable)
+- **@libsql/client** - LibSQL/Turso database client (latest stable)
+- **drizzle-zod** - Generate Zod schemas from Drizzle schemas (latest stable)
+
+### Authentication & Security
+- **better-auth v1** - Modern, type-safe authentication for Next.js (latest v1)
+- **Zod v4** - Runtime validation and schema definition (latest stable)
+- **@next/env** - Environment variable loading and validation (built-in)
+
+### Data Fetching & State Management
+- **TanStack React Query v5** - Server state, caching, and data fetching (latest v5)
+- **@tanstack/react-query-devtools** - DevTools for debugging queries (latest stable)
+- **TanStack React Store** - Client-side state management (latest stable)
+
+### Utilities
+- **date-fns** - Date manipulation and formatting (latest stable)
+- **nuqs v2** - Type-safe URL search params management (latest v2)
+
+### Code Quality & Developer Tools
+- **Biome v2** - Fast linting and formatting (latest v2)
+- **Lefthook v2** - Git hooks automation (latest v2)
+- **i18next-cli** - Internationalization tools (if needed)
+
+## Code Style & Formatting
+
+### Biome Configuration
+- Use tabs for indentation (indentStyle: "tab")
+- Use double quotes for strings (quoteStyle: "double")
+- Enable recommended linting rules
+- Enable organize imports on save
+- Strict linting rules should be applied
+- Run `biome check --write` to format and lint
+
+### Code Quality Standards
+- **Use Zod for ALL input validation** (server actions, API routes, environment variables)
+- Write well-commented code with JSDoc comments for functions
+- Include inline comments for complex logic
+- Write comprehensive tests where possible (including Zod schema tests)
+- Follow TypeScript strict mode
+- Use descriptive variable and function names
+- Prefer const over let, avoid var
+- Use async/await over promise chains
+
+## Next.js Best Practices
+
+### App Router & File Structure
+- Use app directory for routing (App Router is the standard)
+- Prefer server components by default (RSC-first approach)
+- Only add "use client" when necessary (interactivity, hooks, browser APIs)
+- Use server actions for mutations and form submissions
+- Place actions in separate files (e.g., app/actions.ts or co-located)
+- Use proper loading.tsx, error.tsx, and not-found.tsx files
+- Follow Next.js file conventions (layout.tsx, page.tsx, route.ts, template.tsx)
+
+### Advanced App Router Features
+- **Route Groups**: Use `(folder)` for organization without affecting URL structure
+- **Parallel Routes**: Use `@folder` for simultaneous page rendering (dashboards, modals)
+- **Intercepting Routes**: Use `(..)folder` for modal-like experiences
+- **Dynamic Routes**: Use `[slug]` for dynamic segments, `[...slug]` for catch-all
+- **Route Handlers**: Create API routes with route.ts (GET, POST, PUT, DELETE, etc.)
+- **Proxy**: Use proxy.ts for request/response manipulation (replaces middleware.ts in Next.js 16)
+- **Metadata API**: Export metadata object or generateMetadata function for SEO
+- **generateStaticParams**: For static generation of dynamic routes
+- **Streaming**: Use Suspense and loading.tsx for progressive rendering
+
+### Metadata API for SEO
+- Export `metadata` object for static metadata
+- Export `generateMetadata` function for dynamic metadata
+- Use typed `Metadata` interface from 'next'
+- Metadata cascades from root layout down (merged)
+- Generate Open Graph images with ImageResponse
+- Use `viewport` export for viewport configuration
+
+Example static metadata:
+```typescript
+// app/layout.tsx or app/page.tsx
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | My App",
+    default: "My App",
+  },
+  description: "My app description",
+  openGraph: {
+    title: "My App",
+    description: "My app description",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
+```
+
+Example dynamic metadata:
+```typescript
+// app/blog/[slug]/page.tsx
+import type { Metadata } from "next";
+
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: { slug: string } 
+}): Promise<Metadata> {
+  const post = await getPost(params.slug);
+  
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      images: [post.image],
+    },
+  };
+}
+```
+
+### Server Components vs Client Components
+- Default to Server Components for:
+  - Static content
+  - Initial data fetching (then pass to React Query)
+  - Direct database queries
+  - Environment variables (server-side)
+  - SEO-critical content
+  
+- Use Client Components ("use client") for:
+  - Interactive UI (onClick, onChange, etc.)
+  - React hooks (useState, useEffect, etc.)
+  - React Query hooks (useQuery, useMutation, etc.)
+  - React Store (useStore)
+  - Browser APIs (window, localStorage, etc.)
+  - AI SDK hooks (useObject, useChat, useCompletion)
+  - Event listeners
+  - Context providers that use state
+
+### Server Actions & Forms (Next.js 16 + React 19)
+
+> **Quick Reference**: See [CHEATSHEET.md](./CHEATSHEET.md) for detailed examples and patterns.
+
+- Prefer server actions for form submissions and mutations
+- Use "use server" directive at top of action files or inline
+- Always validate input data in server actions (use Zod or similar)
+- Return type-safe responses (success/error states)
+- Use Next.js Form component for form submissions when possible
+- Use React 19's useActionState hook for form state management
+- Use useFormStatus for pending states and form feedback
+- Handle errors gracefully with try-catch blocks
+- Use revalidatePath or revalidateTag after mutations
+- Progressive enhancement: forms work without JavaScript
+
+Example server action with useActionState pattern:
+```typescript
+// app/actions.ts
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+
+const schema = z.object({
+  field: z.string().min(1),
+});
+
+export async function myAction(prevState: any, formData: FormData) {
+  try {
+    const validated = schema.parse({
+      field: formData.get("field"),
+    });
+    
+    // Perform mutation
+    await db.insert(table).values(validated);
+    
+    revalidatePath("/");
+    return { success: true, message: "Success!" };
+  } catch (error) {
+    return { success: false, error: String(error) };
+  }
+}
+```
+
+Example client component with useActionState and useFormStatus:
+```typescript
+// app/my-form.tsx
+"use client";
+
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
+import { myAction } from "./actions";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? "Submitting..." : "Submit"}
+    </button>
+  );
+}
+
+export function MyForm() {
+  const [state, formAction] = useActionState(myAction, null);
+  
+  return (
+    <form action={formAction}>
+      <input name="field" type="text" required />
+      <SubmitButton />
+      {state?.error && <p className="text-red-500">{state.error}</p>}
+      {state?.success && <p className="text-green-500">{state.message}</p>}
+    </form>
+  );
+}
+```
+
+### Data Fetching & Caching
+- Fetch data in Server Components directly
+- Use async/await in Server Components
+- Implement proper error boundaries
+- Use Suspense boundaries for loading states
+- Cache appropriately with fetch cache options or unstable_cache
+- Consider using React cache() for request deduplication
+- Use next/cache for revalidatePath and revalidateTag
+- Default fetch caching: requests are cached automatically
+- Opt out of caching with `{ cache: 'no-store' }` or `{ next: { revalidate: 0 } }`
+- Use time-based revalidation: `{ next: { revalidate: 3600 } }` for 1 hour
+- Prefer on-demand revalidation with revalidatePath/revalidateTag over time-based
+
+## TanStack React Query Best Practices
+
+> **Quick Reference**: See [CHEATSHEET.md](./CHEATSHEET.md) for detailed examples and patterns.
+
+### When to Use React Query
+- **Dynamic data fetching** in Client Components
+- **Server state management** with automatic caching and revalidation
+- **Polling and real-time data** that needs periodic updates
+- **Mutations** with automatic cache invalidation
+- **Optimistic updates** for better UX
+
+### Setup
+- Create QueryClient provider in root layout (client component)
+- Configure staleTime and gcTime for optimal caching
+- Use Server Components for initial data fetching, then hydrate with React Query
+- Enable React Query DevTools in development
+
+### Key Patterns
+
+**Basic query:**
+```typescript
+import { useQuery } from "@tanstack/react-query";
+
+const { data, isLoading } = useQuery({
+  queryKey: ["users", userId],
+  queryFn: async () => {
+    const res = await fetch(`/api/users/${userId}`);
+    return res.json();
+  },
+});
+```
+
+**Mutation with cache invalidation:**
+```typescript
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+const queryClient = useQueryClient();
+const mutation = useMutation({
+  mutationFn: async (data) => fetch("/api/posts", { method: "POST", body: JSON.stringify(data) }),
+  onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
+});
+```
+
+**Prefetch in Server Components:**
+```typescript
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+
+export default async function Page() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({ queryKey: ["posts"], queryFn: fetchPosts });
+  
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <PostsList />
+    </HydrationBoundary>
+  );
+}
+```
+
+### Best Practices
+- Use descriptive queryKeys (e.g., `["users", userId]`)
+- Leverage automatic refetching and background updates
+- Use optimistic updates for better UX
+- Combine with Zod for response validation
+- Use `enabled` option to conditionally fetch
+- Enable React Query DevTools in development
+
+## TanStack React Store Best Practices
+
+> **Quick Reference**: See [CHEATSHEET.md](./CHEATSHEET.md) for detailed examples and patterns.
+
+### When to Use React Store
+- **UI state** (modals, sidebars, themes, global UI settings)
+- **Form state** in complex multi-step forms
+- **Client-side only state** that doesn't need server persistence
+
+### Key Patterns
+
+**Create and use store:**
+```typescript
+// stores/ui-store.ts
+import { Store } from "@tanstack/react-store";
+
+export const uiStore = new Store({
+  sidebarOpen: false,
+  theme: "light" as "light" | "dark",
+});
+
+// In component:
+import { useStore } from "@tanstack/react-store";
+const sidebarOpen = useStore(uiStore, (state) => state.sidebarOpen);
+```
+
+### Best Practices
+- Keep stores small and focused (single responsibility)
+- Use TypeScript for type-safe state
+- Don't use for server state (use React Query instead)
+- Use selector functions for performance
+- Avoid deeply nested state structures
+
+### When to Use What
+- **Server Components**: Initial data fetching, static content, SEO-critical data
+- **React Query**: Dynamic data fetching, caching, polling, mutations
+- **React Store**: UI state, form state, client-side only state
+- **Server Actions**: Form submissions, mutations with progressive enhancement
+- **nuqs**: URL search params (filters, pagination, tabs, search queries, callback URLs)
+- **useState**: Local component state that doesn't need to be shared
+
+## Sonner Toast Notifications
+
+### Setup
+Add Toaster component to root layout:
+
+```typescript
+// app/layout.tsx
+import { Toaster } from "sonner";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <Toaster position="bottom-right" richColors />
+      </body>
+    </html>
+  );
+}
+```
+
+### Usage Patterns
+
+**Basic toast notifications:**
+```typescript
+"use client";
+
+import { toast } from "sonner";
+
+export function MyComponent() {
+  return (
+    <div>
+      <button onClick={() => toast.success("Success!")}>Show toast</button>
+      <button onClick={() => toast.error("Error occurred")}>Error</button>
+      <button onClick={() => toast.info("Information")}>Info</button>
+      <button onClick={() => toast.warning("Warning")}>Warning</button>
+    </div>
+  );
+}
+```
+
+**Toast with description:**
+```typescript
+toast.success("Todo added successfully!", {
+  description: "Your todo has been added to the list.",
+});
+```
+
+**Toast with action button:**
+```typescript
+toast.success("Todo deleted", {
+  description: "The todo has been removed.",
+  action: {
+    label: "Undo",
+    onClick: () => console.log("Undo"),
+  },
+});
+```
+
+**Promise toast (for async operations):**
+```typescript
+toast.promise(
+  fetch("/api/data"),
+  {
+    loading: "Loading...",
+    success: "Data loaded successfully!",
+    error: "Failed to load data",
+  }
+);
+```
+
+### Sonner Best Practices
+- Use in Client Components only (requires "use client")
+- Use appropriate toast types (success, error, info, warning)
+- Add descriptions for important actions
+- Use promise toasts for async operations
+- Keep messages concise and actionable
+- Use action buttons for undo operations
+- Position: bottom-right is recommended for non-intrusive UX
+
+## date-fns Utility
+
+### Common Date Operations
+
+**Formatting dates:**
+```typescript
+import { format, formatDistance, formatRelative } from "date-fns";
+
+// Format date
+format(new Date(), "PPP"); // "April 29, 2023"
+format(new Date(), "yyyy-MM-dd"); // "2023-04-29"
+format(new Date(), "MMMM do, yyyy"); // "April 29th, 2023"
+
+// Relative time
+formatDistance(new Date(2023, 0, 1), new Date()); // "4 months ago"
+formatRelative(new Date(2023, 0, 1), new Date()); // "01/01/2023"
+```
+
+**Date manipulation:**
+```typescript
+import { addDays, subDays, addMonths, startOfMonth, endOfMonth } from "date-fns";
+
+// Add/subtract time
+addDays(new Date(), 7); // 7 days from now
+subDays(new Date(), 7); // 7 days ago
+addMonths(new Date(), 1); // 1 month from now
+
+// Start/end of periods
+startOfMonth(new Date()); // First day of current month
+endOfMonth(new Date()); // Last day of current month
+```
+
+**Date comparisons:**
+```typescript
+import { isBefore, isAfter, isSameDay, isWithinInterval } from "date-fns";
+
+const date1 = new Date(2023, 0, 1);
+const date2 = new Date(2023, 6, 1);
+
+isBefore(date1, date2); // true
+isAfter(date1, date2); // false
+isSameDay(date1, date2); // false
+
+isWithinInterval(new Date(), {
+  start: date1,
+  end: date2,
+}); // Check if current date is between date1 and date2
+```
+
+**Parsing dates:**
+```typescript
+import { parse, parseISO } from "date-fns";
+
+// Parse ISO string
+parseISO("2023-04-29T10:30:00Z");
+
+// Parse custom format
+parse("29/04/2023", "dd/MM/yyyy", new Date());
+```
+
+### date-fns Best Practices
+- Always use date-fns for date operations (avoid native Date methods)
+- Use `formatDistance` for relative times ("2 hours ago")
+- Use `format` with standard tokens for consistency
+- Consider locale support with `date-fns/locale`
+- Tree-shakable: only import functions you need
+- Immutable: functions don't modify original dates
+- Use `parseISO` for ISO 8601 strings from APIs
+- Validate dates with `isValid` before operations
+
+## nuqs - Type-Safe URL Search Params
+
+> **Quick Reference**: See [CHEATSHEET.md](./CHEATSHEET.md) for detailed examples and patterns.
+
+### When to Use nuqs
+
+**Use nuqs for URL search params:**
+- Filters and sorting (category, price range, sort column)
+- Pagination (page numbers, items per page)
+- UI state that persists on refresh (active tabs, view modes)
+- Shareable state (deep links to specific app states)
+- Multi-step forms (current step, form progress)
+- Search queries and callback URLs
+
+**Do NOT use nuqs for:**
+- Sensitive data (use server-side sessions)
+- Large data (use localStorage or database)
+- Temporary UI state (use useState)
+- Auth tokens (use httpOnly cookies)
+
+### Why Use nuqs?
+
+- ✅ Type-safe with built-in parsers (string, number, boolean, etc.)
+- ✅ Automatic URL synchronization and server-side rendering support
+- ✅ Better performance than useSearchParams (no unnecessary re-renders)
+- ✅ Cleaner API with state-like syntax
+
+### Key Patterns
+
+**Basic usage:**
+```typescript
+import { useQueryState, parseAsInteger } from "nuqs";
+
+const [search, setSearch] = useQueryState("search");
+const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
+```
+
+**Safe callback URLs:**
+```typescript
+import { useSafeCallbackUrl } from "@/lib/use-safe-callback-url";
+
+const callbackUrl = useSafeCallbackUrl("/dashboard");
+// Only allows relative paths starting with "/"
+```
+
+### Best Practices
+- Always use type-safe parsers (`parseAsInteger`, `parseAsBoolean`, etc.)
+- Set default values with `.withDefault()`
+- Use `useQueryStates` for multiple related params
+- Keep URL params minimal and readable
+- Validate callback URLs to prevent open redirects (use `useSafeCallbackUrl`)
+
+### Environment Variables (with @next/env and Zod Validation)
+- Use `@next/env` to load environment variables (already installed)
+- Prefix public variables with NEXT_PUBLIC_
+- Use Zod to validate environment variables at startup
+- Create envConfig.ts for centralized, type-safe env management
+- Support local development with .env.local
+- Never expose sensitive keys on client side
+- Document required environment variables in README
+- Validate environment variables at startup (fail fast on missing vars)
+
+Example envConfig.ts pattern:
+```typescript
+// envConfig.ts
+import { loadEnvConfig } from "@next/env";
+import { z } from "zod";
+
+// Load environment variables
+const projectDir = process.cwd();
+loadEnvConfig(projectDir);
+
+// Define validation schema
+const envSchema = z.object({
+  // Server-side only variables
+  DATABASE_URL: z.string().url(),
+  OPENAI_API_KEY: z.string().min(1).optional(),
+  ANTHROPIC_API_KEY: z.string().min(1).optional(),
+  GOOGLE_API_KEY: z.string().min(1).optional(),
+  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+  
+  // Client-safe variables (NEXT_PUBLIC_ prefix)
+  NEXT_PUBLIC_APP_URL: z.string().url().default("http://localhost:3000"),
+});
+
+// Validate environment variables at startup
+const parsed = envSchema.safeParse(process.env);
+
+if (!parsed.success) {
+  console.error("❌ Invalid environment variables:", parsed.error.flatten().fieldErrors);
+  throw new Error("Invalid environment variables");
+}
+
+export const env = parsed.data;
+
+// Usage: import { env } from "@/envConfig";
+// Access: env.DATABASE_URL, env.NEXT_PUBLIC_APP_URL
+```
+
+## Vercel AI SDK Best Practices
+
+> **Quick Reference**: See [CHEATSHEET.md](./CHEATSHEET.md) for detailed examples and patterns.
+
+### General AI SDK Usage
+- Use AI SDK for streaming responses and structured outputs
+- Prefer @ai-sdk/react hooks (useObject, useChat, useCompletion)
+- Use streamText for streaming text responses
+- Use generateObject or streamObject for structured data
+- Use generateText for non-streaming text
+- Handle loading and error states properly
+- Implement proper error boundaries for AI features
+
+### useObject Hook Pattern
+- Use useObject for structured, validated AI outputs
+- Define Zod schemas for expected AI responses
+- Handle submit, stop, and isLoading states
+- Display partial objects during streaming
+- Validate and type-check AI responses
+
+Example useObject pattern:
+```typescript
+"use client";
+
+import { useObject } from "@ai-sdk/react";
+import { z } from "zod";
+
+const schema = z.object({
+  title: z.string(),
+  items: z.array(z.string()),
+});
+
+export function MyComponent() {
+  const { object, submit, isLoading, error } = useObject({
+    api: "/api/generate",
+    schema,
+  });
+
+  return (
+    <div>
+      <button onClick={() => submit("prompt")} disabled={isLoading}>
+        Generate
+      </button>
+      {object && (
+        <div>
+          <h2>{object.title}</h2>
+          <ul>
+            {object.items?.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### AI Route Handlers (with Zod Validation)
+- Create route handlers in app/api/[name]/route.ts
+- Use streamText or generateObject from AI SDK
+- **Always validate inputs with Zod** before processing
+- Support multiple AI providers (OpenAI, Anthropic, Google)
+- Handle errors and edge cases gracefully
+- Implement rate limiting for production
+- Validate API keys and authentication
+
+Example AI route handler with Zod validation:
+```typescript
+import { openai } from "@ai-sdk/openai";
+import { streamObject } from "ai";
+import { z } from "zod";
+import { NextResponse } from "next/server";
+
+// Define input validation schema
+const inputSchema = z.object({
+  prompt: z.string().min(1).max(1000),
+  temperature: z.number().min(0).max(2).optional(),
+});
+
+// Define output schema for AI
+const outputSchema = z.object({
+  title: z.string(),
+  content: z.string(),
+  tags: z.array(z.string()),
+});
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    
+    // Validate input with Zod
+    const validated = inputSchema.parse(body);
+    
+    const result = streamObject({
+      model: openai("gpt-4o"),
+      schema: outputSchema,
+      prompt: validated.prompt,
+      temperature: validated.temperature ?? 0.7,
+    });
+
+    return result.toTextStreamResponse();
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: "Invalid input", details: error.errors },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## shadcn/ui & Component Guidelines
+
+### shadcn/ui Usage
+- Install components via `npx shadcn@latest add [component]`
+- Components located in `@/components/ui`
+- Use New York style variant (as per components.json)
+- Leverage RSC-compatible components
+- Customize components in components/ui, don't modify node_modules
+- Use lucide-react for icons
+
+### Component Structure
+- Create reusable components in `@/components`
+- UI primitives go in `@/components/ui` (shadcn managed)
+- Use TypeScript interfaces for component props
+- Export components as named exports
+- Use cva for variant-based styling
+- Implement proper TypeScript types
+
+Example component pattern:
+```typescript
+import { type VariantProps, cva } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const variants = cva("base-classes", {
+  variants: {
+    variant: {
+      default: "default-classes",
+      secondary: "secondary-classes",
+    },
+    size: {
+      sm: "small-classes",
+      lg: "large-classes",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "sm",
+  },
+});
+
+interface MyComponentProps extends VariantProps<typeof variants> {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function MyComponent({ 
+  children, 
+  variant, 
+  size, 
+  className 
+}: MyComponentProps) {
+  return (
+    <div className={cn(variants({ variant, size }), className)}>
+      {children}
+    </div>
+  );
+}
+```
+
+### Styling Best Practices
+- Use Tailwind CSS utility classes
+- Use CSS variables for theming (defined in globals.css)
+- Use cn() utility (from @/lib/utils) to merge classes
+- Follow mobile-first responsive design
+- Use Tailwind's arbitrary values sparingly
+- Prefer Tailwind utilities over custom CSS
+- Use semantic color names (primary, secondary, etc.)
+
+## Database & Drizzle ORM
+
+> **Quick Reference**: See [CHEATSHEET.md](./CHEATSHEET.md) for detailed examples and patterns.
+
+### Drizzle Setup
+- Database client: @libsql/client (libSQL/Turso)
+- Schema defined in db/schema.ts
+- Database client in db/index.ts
+- Migrations in migrations/ directory
+- Use drizzle-kit for schema management
+- Use drizzle-zod to generate Zod schemas from Drizzle schemas
+
+### Database Best Practices
+- Define schemas with proper TypeScript types
+- Use Drizzle's type inference for queries
+- **Use drizzle-zod to generate Zod schemas** for validation
+- Create indexes for frequently queried fields
+- Use transactions for multi-step operations
+- Implement proper error handling for database operations
+- Use prepared statements for security
+- Run migrations before build (pnpm build)
+
+### Drizzle Schema with drizzle-zod
+```typescript
+// db/schema.ts
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { z } from "zod";
+
+// Define Drizzle schema
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  age: integer("age"),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+
+// Generate Zod schemas from Drizzle schema
+export const insertUserSchema = createInsertSchema(users, {
+  // Refine or override specific fields
+  email: z.string().email(),
+  name: z.string().min(2).max(100),
+  age: z.number().int().positive().max(150).optional(),
+});
+
+export const selectUserSchema = createSelectSchema(users);
+
+// Infer TypeScript types
+export type User = typeof users.$inferSelect;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+
+// Use in server actions
+export const createUserFormSchema = insertUserSchema.omit({ 
+  id: true, 
+  createdAt: true 
+});
+```
+
+### Using drizzle-zod in Server Actions
+```typescript
+// app/actions.ts
+"use server";
+
+import { db } from "@/db";
+import { users, insertUserSchema } from "@/db/schema";
+import { revalidatePath } from "next/cache";
+
+export async function createUser(formData: FormData) {
+  // Validate with Zod schema generated from Drizzle
+  const result = insertUserSchema.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+    age: formData.get("age") ? Number(formData.get("age")) : undefined,
+  });
+
+  if (!result.success) {
+    return {
+      success: false,
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  await db.insert(users).values(result.data);
+  revalidatePath("/users");
+  
+  return { success: true };
+}
+```
+
+### drizzle-zod Best Practices
+- **Always use `createInsertSchema`** for insert/create operations
+- **Use `createSelectSchema`** for validating query results
+- **Use `.omit()` or `.pick()`** to create form-specific schemas
+- **Use `.extend()`** to add additional validation rules
+- **Refine fields** in the second parameter of `createInsertSchema`
+- Keep schemas co-located with Drizzle schemas in db/schema.ts
+- Export both TypeScript types and Zod schemas
+
+### Drizzle Query Patterns
+```typescript
+// Querying
+import { db } from "@/db";
+import { users, selectUserSchema } from "@/db/schema";
+import { eq } from "drizzle-orm";
+
+// Select with validation
+const allUsers = await db.select().from(users);
+const validatedUsers = allUsers.map(u => selectUserSchema.parse(u));
+
+// Select single user
+const user = await db.select().from(users).where(eq(users.id, 1));
+
+// Insert with Zod validation
+const newUser = insertUserSchema.parse({
+  name: "John",
+  email: "john@example.com",
+  age: 25,
+});
+await db.insert(users).values(newUser);
+
+// Update
+await db.update(users)
+  .set({ name: "Jane" })
+  .where(eq(users.id, 1));
+
+// Delete
+await db.delete(users).where(eq(users.id, 1));
+```
+
+### Advanced drizzle-zod Patterns
+```typescript
+// db/schema.ts
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
+export const posts = sqliteTable("posts", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  published: integer("published", { mode: "boolean" }).default(false),
+  userId: integer("user_id").references(() => users.id),
+});
+
+// Base schema from Drizzle
+export const insertPostSchema = createInsertSchema(posts, {
+  title: z.string().min(3).max(200),
+  content: z.string().min(10),
+});
+
+// Form-specific schema (omit auto-generated fields)
+export const createPostFormSchema = insertPostSchema.omit({
+  id: true,
+  userId: true,
+});
+
+// Update schema (all fields optional except id)
+export const updatePostSchema = insertPostSchema
+  .partial()
+  .required({ id: true });
+
+// API response schema with relations
+export const postWithAuthorSchema = selectPostSchema.extend({
+  author: selectUserSchema,
+});
+```
+
+### Scripts
+- `pnpm db:generate` - Generate migrations
+- `pnpm db:push` - Push schema changes
+- `pnpm db:migrate` - Run migrations
+- `pnpm db:studio` - Open Drizzle Studio
+
+## Authentication with better-auth
+
+### better-auth Overview
+- Modern, type-safe authentication solution for Next.js
+- Built for Next.js 16 App Router and Server Components
+- Seamless integration with Drizzle ORM
+- Supports email/password, OAuth providers (GitHub, Google, etc.)
+- Session-based authentication with automatic management
+- Full TypeScript support with type-safe sessions
+
+### better-auth Setup
+- Server configuration in `lib/auth.ts`
+- Client hooks in `lib/auth-client.ts`
+- API route handler in `app/api/auth/[...all]/route.ts`
+- Auth schema in `auth-schema.ts` (generated with `pnpm auth:generate`)
+- Auth tables: user, session, account, verification (defined in auth-schema.ts)
+- Route protection in `proxy.ts` (Next.js 16 replaces middleware.ts)
+
+### Generating Auth Schema
+**Run this command to generate the better-auth schema:**
+
+\`\`\`bash
+pnpm auth:generate
+\`\`\`
+
+This creates `auth-schema.ts` with Drizzle table definitions for:
+- `user` - User accounts
+- `session` - Active sessions
+- `account` - OAuth accounts
+- `verification` - Email verification tokens
+
+**After generating, run migrations:**
+
+\`\`\`bash
+pnpm db:generate  # Generate migration files
+pnpm db:migrate   # Apply migrations to database
+\`\`\`
+
+### Server-Side Auth Configuration
+```typescript
+// lib/auth.ts
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { db } from "@/db";
+import { env } from "@/envConfig";
+import * as schema from "@/auth-schema";
+
+export const auth = betterAuth({
+  database: drizzleAdapter(db, {
+    provider: "sqlite",
+    schema: schema,
+  }),
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: false, // Set to true in production
+  },
+  // Optional: Social providers
+  // socialProviders: {
+  //   github: {
+  //     clientId: env.GITHUB_CLIENT_ID,
+  //     clientSecret: env.GITHUB_CLIENT_SECRET,
+  //   },
+  // },
+  session: {
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
+    updateAge: 60 * 60 * 24, // 1 day
+  },
+  basePath: "/api/auth",
+  baseURL: env.NEXT_PUBLIC_APP_URL,
+  secret: env.BETTER_AUTH_SECRET,
+});
+
+export type Session = typeof auth.$Infer.Session;
+export type User = typeof auth.$Infer.Session.user;
+```
+
+### Client-Side Auth Hooks
+```typescript
+// lib/auth-client.ts
+"use client";
+
+import { createAuthClient } from "better-auth/react";
+
+// Use process.env directly in client components for NEXT_PUBLIC_ vars
+export const authClient = createAuthClient({
+  baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+});
+
+export const {
+  useSession,
+  signIn,
+  signUp,
+  signOut,
+} = authClient;
+```
+
+### API Route Handler
+```typescript
+// app/api/auth/[...all]/route.ts
+import { auth } from "@/lib/auth";
+import { toNextJsHandler } from "better-auth/next-js";
+
+export const { GET, POST } = toNextJsHandler(auth);
+```
+
+### Proxy for Route Protection (Next.js 16)
+**Next.js 16 uses `proxy.ts` instead of `middleware.ts`**
+
+```typescript
+// proxy.ts
+import { type NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+
+const protectedRoutes = ["/dashboard", "/profile", "/settings"];
+const authRoutes = ["/login", "/register"];
+
+export default async function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
+  const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
+
+  // Get session
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
+
+  // Redirect to login if accessing protected route without session
+  if (isProtectedRoute && !session) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("callbackUrl", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // Redirect to dashboard if accessing auth routes with session
+  if (isAuthRoute && session) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [
+    "/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
+};
+```
+
+### Authentication in Server Actions
+**Always check authentication in server actions that require it:**
+
+```typescript
+// app/actions.ts
+"use server";
+
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+
+export async function protectedAction(formData: FormData) {
+  // Get session
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  // Check authentication
+  if (!session) {
+    return {
+      success: false,
+      errors: { _form: ["You must be logged in"] },
+    };
+  }
+
+  // Verify ownership if needed
+  const userId = session.user.id;
+  
+  // ... perform authenticated action
+}
+```
+
+### Authentication in Server Components
+```typescript
+// app/dashboard/page.tsx
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+export default async function DashboardPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  return (
+    <div>
+      <h1>Welcome, {session.user.name}</h1>
+      <p>Email: {session.user.email}</p>
+    </div>
+  );
+}
+```
+
+### Authentication in Client Components
+```typescript
+// components/user-menu.tsx
+"use client";
+
+import { useSession, signOut } from "@/lib/auth-client";
+
+export function UserMenu() {
+  const { data: session, isPending } = useSession();
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    return <a href="/login">Sign In</a>;
+  }
+
+  return (
+    <div>
+      <p>Hello, {session.user.name}</p>
+      <button onClick={() => signOut()}>Sign Out</button>
+    </div>
+  );
+}
+```
+
+### Database Schema with User Relations
+When adding user relations to your tables:
+
+```typescript
+// db/schema.ts
+export const todos = sqliteTable("todos", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  description: text("description").notNull(),
+  completed: integer("completed", { mode: "boolean" }).notNull().default(false),
+  userId: text("user_id").notNull(), // Link to better-auth user table
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+```
+
+### better-auth Best Practices
+- **Always validate sessions** in protected server actions and routes
+- **Verify ownership** when users access/modify their own resources
+- Use proxy for route-level protection (cleaner than checking in each page)
+- Store minimal data in session (id, email, name)
+- Use `BETTER_AUTH_SECRET` environment variable (min 32 chars in production)
+- Enable email verification in production
+- Implement rate limiting on auth endpoints
+- Use HTTPS in production (automatic on Vercel)
+- Consider adding two-factor authentication for sensitive apps
+- Log security events (failed logins, suspicious activity)
+
+### Auth-Protected Server Action Pattern
+```typescript
+"use server";
+
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { db } from "@/db";
+import { todos } from "@/db/schema";
+import { eq, and } from "drizzle-orm";
+
+export async function updateTodo(id: number, data: Partial<Todo>) {
+  // 1. Check authentication
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return {
+      success: false,
+      errors: { _form: ["You must be logged in"] },
+    };
+  }
+
+  // 2. Verify ownership
+  const [todo] = await db.select().from(todos).where(eq(todos.id, id));
+  
+  if (!todo || todo.userId !== session.user.id) {
+    return {
+      success: false,
+      errors: { _form: ["Todo not found or you don't have permission"] },
+    };
+  }
+
+  // 3. Perform update
+  await db.update(todos).set(data).where(eq(todos.id, id));
+
+  return { success: true };
+}
+```
+
+### Environment Variables for Auth
+Add to `envConfig.ts`:
+
+```typescript
+const envSchema = z.object({
+  // ... other vars
+  
+  // Authentication (required)
+  BETTER_AUTH_SECRET: z
+    .string()
+    .min(32, "BETTER_AUTH_SECRET must be at least 32 characters"),
+  
+  // Optional: Social Auth
+  GITHUB_CLIENT_ID: z.string().min(1).optional(),
+  GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
+  GOOGLE_CLIENT_ID: z.string().min(1).optional(),
+  GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),
+});
+```
+
+Add to `.env.local`:
+
+```ini
+# Authentication (better-auth)
+BETTER_AUTH_SECRET="your-secret-key-min-32-characters-long"
+
+# Optional: Social Auth Providers
+# GITHUB_CLIENT_ID=""
+# GITHUB_CLIENT_SECRET=""
+# GOOGLE_CLIENT_ID=""
+# GOOGLE_CLIENT_SECRET=""
+```
+
+### Generate Secret for Production
+```bash
+# Generate a secure random secret (32+ characters)
+openssl rand -base64 32
+```
+
+## Internationalization (i18next)
+
+- i18next configuration in i18next.config.ts
+- Use i18next-cli for managing translations
+- Support multiple languages from the start
+- Implement proper language detection
+- Use translation keys consistently
+- Provide fallback translations
+
+## Local Development Support
+
+### Environment Setup
+- Use .env.local for local environment variables
+- Provide .env.example with all required variables
+- Document environment setup in README
+- Support local database setup (SQLite for development)
+- Use localhost URLs for local services
+- Implement fallbacks for missing env vars during development
+
+### Development Workflow
+- Run `pnpm dev` for development server (use `--turbo` for Turbopack)
+- Use `pnpm db:studio` to view database with Drizzle Studio
+- Use `biome check --write` for linting and formatting
+- Lefthook will run pre-commit checks automatically
+- Test locally before deploying
+- Use TypeScript strict mode to catch errors early
+- Use React DevTools and Next.js DevTools for debugging
+
+### Next.js 16 Enhancements
+- **Turbopack**: Faster bundler for development (add --turbo flag)
+- **Improved Fast Refresh**: Better HMR with fewer full reloads
+- **Enhanced Error Overlay**: Better error messages and stack traces
+- **Async Request APIs**: `cookies()`, `headers()`, `draftMode()` are now async
+- **Form Actions**: Native integration with React 19 form actions
+- **Improved Caching**: Better granular cache control
+- **Stability**: Server Actions and App Router are now stable
+
+### Async Request APIs (Breaking Change in Next.js 16)
+In Next.js 16, request APIs are now async and must be awaited:
+
+```typescript
+// ❌ Old (Next.js 15)
+import { cookies } from "next/headers";
+
+export function MyComponent() {
+  const cookieStore = cookies();
+  const token = cookieStore.get("token");
+}
+
+// ✅ New (Next.js 16)
+import { cookies } from "next/headers";
+
+export async function MyComponent() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
+}
+
+// Same for headers()
+import { headers } from "next/headers";
+
+export async function MyComponent() {
+  const headersList = await headers();
+  const userAgent = headersList.get("user-agent");
+}
+```
+
+**Important**: This affects:
+- Server Components using `cookies()` or `headers()`
+- Server Actions accessing request context
+- Proxy functions (proxy.ts)
+- Route handlers (already async)
+
+### Git Hooks (Lefthook)
+- Pre-commit: Run biome check
+- Ensure code is formatted and linted before commit
+- Configuration in lefthook.yml
+
+## Testing Guidelines
+
+### Testing Strategy
+- Write unit tests for utility functions
+- **Test Zod schemas** with valid and invalid inputs
+- Write integration tests for server actions with validation
+- Test API routes thoroughly (including validation errors)
+- Test error states and edge cases (especially validation failures)
+- Mock AI SDK calls in tests
+- Test database operations with test database
+- Test environment variable validation (envConfig.ts)
+
+### Testing Zod Schemas
+```typescript
+import { describe, it, expect } from "vitest";
+import { userSchema } from "./schemas";
+
+describe("userSchema", () => {
+  it("should validate correct user data", () => {
+    const result = userSchema.safeParse({
+      name: "John Doe",
+      email: "john@example.com",
+      age: 25,
+    });
+    expect(result.success).toBe(true);
+  });
+  
+  it("should reject invalid email", () => {
+    const result = userSchema.safeParse({
+      name: "John Doe",
+      email: "invalid-email",
+      age: 25,
+    });
+    expect(result.success).toBe(false);
+  });
+});
+```
+
+### Testing Tools (Add as needed)
+- **Vitest**: Fast unit tests with ESM support
+- **Playwright**: E2E tests for critical user flows
+- **React Testing Library**: Component tests
+- **@testing-library/user-event**: User interaction simulation
+
+## Path Aliases (from tsconfig.json)
+
+- `@/components` - Components directory
+- `@/lib` - Library utilities
+- `@/hooks` - Custom React hooks
+- `@/ui` - UI components (shadcn)
+- `@/utils` - Utility functions
+
+## Security Best Practices
+
+### Input Validation (with Zod)
+- **Always use Zod** for runtime type validation and schema definition
+- Validate all user inputs in server actions and API routes
+- Validate FormData in server actions before processing
+- Define reusable Zod schemas for common data types
+- Use Zod's error messages for user-friendly feedback
+- Sanitize data before database operations
+- Combine Zod (runtime) with TypeScript (compile-time) for full type safety
+
+Example Zod validation patterns:
+```typescript
+import { z } from "zod";
+
+// Define reusable schemas
+const emailSchema = z.string().email();
+const userSchema = z.object({
+  name: z.string().min(2).max(100),
+  email: emailSchema,
+  age: z.number().int().positive().max(150),
+});
+
+// Use with server actions
+export async function createUser(formData: FormData) {
+  const result = userSchema.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+    age: Number(formData.get("age")),
+  });
+  
+  if (!result.success) {
+    return { 
+      success: false, 
+      errors: result.error.flatten().fieldErrors 
+    };
+  }
+  
+  // result.data is now fully typed and validated
+  await db.insert(users).values(result.data);
+  return { success: true };
+}
+```
+
+### Security Measures
+- Never expose API keys on client side (no NEXT_PUBLIC_ for secrets)
+- Use environment variables for all sensitive data
+- Implement rate limiting for API routes (consider @upstash/ratelimit)
+- Configure CORS appropriately for API routes
+- Validate authentication/authorization in server actions
+- Use HTTPS in production (automatic on Vercel)
+- Implement CSRF protection for sensitive operations
+- Use Content Security Policy (CSP) headers
+- Sanitize user-generated content (XSS prevention)
+- Use parameterized queries (Drizzle ORM handles this)
+
+## React 19 Features & Patterns
+
+### New React 19 Hooks
+- **useActionState**: For managing form state with server actions
+- **useFormStatus**: For form submission pending states (must be used in child of form)
+- **useOptimistic**: For optimistic UI updates before server confirmation
+- **use()**: For reading promises and context (can be called conditionally)
+
+### React 19 Improvements
+- Actions: Native support for async transitions with form actions
+- `<form>` actions: Pass functions directly to form action prop
+- `useOptimistic`: Optimistic updates that revert on error
+- Server Components: Enhanced streaming and suspense support
+- Better hydration errors with detailed diffs
+- Document metadata: `<title>`, `<meta>`, `<link>` can be rendered anywhere
+- Stylesheet preloading: Better CSS loading performance
+- Async scripts: Improved script loading and deduplication
+
+Example useOptimistic pattern:
+```typescript
+"use client";
+
+import { useOptimistic } from "react";
+import { addTodo } from "./actions";
+
+export function TodoList({ todos }: { todos: Todo[] }) {
+  const [optimisticTodos, addOptimisticTodo] = useOptimistic(
+    todos,
+    (state, newTodo: Todo) => [...state, newTodo]
+  );
+
+  async function handleSubmit(formData: FormData) {
+    const title = formData.get("title") as string;
+    addOptimisticTodo({ id: Date.now(), title, completed: false });
+    await addTodo(title);
+  }
+
+  return (
+    <>
+      <form action={handleSubmit}>
+        <input name="title" />
+        <button type="submit">Add</button>
+      </form>
+      <ul>
+        {optimisticTodos.map((todo) => (
+          <li key={todo.id}>{todo.title}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
+```
+
+## Performance Optimization
+
+- Use React Server Components for better performance (RSC-first)
+- Implement proper code splitting with dynamic imports
+- Lazy load heavy components with React.lazy or next/dynamic
+- Optimize images with next/image (automatic WebP, sizing, lazy loading)
+- Use Suspense boundaries for better UX during loading
+- Implement proper caching strategies (fetch cache, unstable_cache)
+- Monitor bundle size with Next.js bundle analyzer
+- Use streaming for AI responses (improves perceived performance)
+- Leverage Partial Prerendering (PPR) when stable
+- Use Server Actions to reduce client-side JavaScript
+- Minimize 'use client' boundaries to reduce bundle size
+
+## Error Handling
+
+- Implement error boundaries for client components
+- Use error.tsx for route-level error handling
+- Return structured errors from server actions
+- Log errors appropriately (consider error tracking service)
+- Provide user-friendly error messages
+- Handle loading states properly
+- Implement retry logic for transient failures
+
+## Documentation
+
+- Comment complex logic and algorithms
+- Use JSDoc for function documentation with parameter types
+- **Document Zod schemas** with comments explaining validation rules
+- Document environment variables in envConfig.ts
+- Keep README.md up to date with setup instructions
+- Document API endpoints with request/response schemas (Zod)
+- Include setup instructions for new developers
+- Document database schema changes with migrations
+
+Example documentation pattern:
+```typescript
+/**
+ * User creation schema
+ * Validates user input for account creation
+ */
+const createUserSchema = z.object({
+  /** User's full name (2-100 characters) */
+  name: z.string().min(2).max(100),
+  /** Valid email address */
+  email: z.string().email(),
+  /** Age must be 18+ */
+  age: z.number().int().min(18).max(150),
+});
+
+/**
+ * Creates a new user account
+ * @param formData - Form data containing user information
+ * @returns Success or error response with validation details
+ */
+export async function createUser(formData: FormData) {
+  // ... implementation
+}
+```
+
+## TypeScript Best Practices
+
+> **Quick Reference**: See [CHEATSHEET.md](./CHEATSHEET.md) for detailed examples and patterns.
+
+### Type Safety
+- Enable strict mode in tsconfig.json
+- Avoid using `any` type - use `unknown` if needed
+- **Use `z.infer<typeof schema>` to derive types from Zod schemas** (single source of truth)
+- **Use Drizzle's `$inferSelect` and `$inferInsert`** for database types
+- **Use drizzle-zod to generate Zod schemas from Drizzle schemas** (best of both worlds)
+- Use type inference where possible
+- Define interfaces for component props
+- Use `satisfies` operator for better type checking
+- Leverage TypeScript utility types (Partial, Pick, Omit, etc.)
+- Use `as const` for literal types
+- Define return types for functions explicitly
+
+### Type Patterns
+```typescript
+// Best: Use drizzle-zod to generate Zod schemas from Drizzle schemas
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { z } from "zod";
+
+// Define Drizzle schema (source of truth for database)
+const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+});
+
+// Generate Zod schemas from Drizzle
+const insertUserSchema = createInsertSchema(users, {
+  email: z.string().email(),
+  name: z.string().min(2),
+});
+const selectUserSchema = createSelectSchema(users);
+
+// Infer TypeScript types
+type User = typeof users.$inferSelect;           // From Drizzle
+type InsertUser = z.infer<typeof insertUserSchema>; // From Zod
+
+// Good: Explicit return type and prop interface
+interface ButtonProps {
+  onClick: () => void;
+  children: React.ReactNode;
+  variant?: "primary" | "secondary";
+}
+
+export function Button({ onClick, children, variant = "primary" }: ButtonProps): JSX.Element {
+  return <button onClick={onClick}>{children}</button>;
+}
+
+// Good: Using satisfies for config objects
+const config = {
+  apiUrl: "https://api.example.com",
+  timeout: 5000,
+} satisfies Record<string, string | number>;
+
+// Good: Type-safe async function with Zod validation
+async function fetchUser(id: number): Promise<User | null> {
+  const user = await db.select().from(users).where(eq(users.id, id));
+  // Optionally validate the database result
+  const validated = userSchema.safeParse(user[0]);
+  return validated.success ? validated.data : null;
+}
+
+// Excellent: Zod schema with inferred types for both input and output
+const createPostSchema = z.object({
+  title: z.string().min(3),
+  content: z.string(),
+  published: z.boolean().default(false),
+});
+
+type CreatePostInput = z.infer<typeof createPostSchema>;
+
+export async function createPost(input: CreatePostInput) {
+  // input is fully typed and validated
+  const validated = createPostSchema.parse(input);
+  return await db.insert(posts).values(validated);
+}
+```
+
+## Additional Guidelines
+
+### Code Organization
+- Keep components small and focused (< 200 lines)
+- Follow single responsibility principle
+- Prefer composition over inheritance
+- Write DRY (Don't Repeat Yourself) code
+- Co-locate related files (components with styles/tests)
+- Use barrel exports (index.ts) for cleaner imports
+
+### Code Quality
+- Use meaningful variable and function names
+- Keep functions pure when possible
+- Handle null/undefined cases explicitly
+- Use optional chaining (?.) and nullish coalescing (??)
+- Implement proper loading states for async operations
+- Avoid deeply nested code (max 3-4 levels)
+- Extract complex logic into separate functions
+- Use early returns to reduce nesting
+
+### Recommended Additional Packages
+
+**Already Installed:**
+- ✅ **sonner** - Beautiful toast notifications
+- ✅ **date-fns** - Date manipulation and formatting
+- ✅ **nuqs** - Type-safe URL search params (see [CHEATSHEET.md](./CHEATSHEET.md))
+- ✅ **@tanstack/react-query-devtools** - DevTools for debugging queries
+
+**Consider adding with pnpm:**
+- **react-hook-form** + **@hookform/resolvers**: Complex form handling with Zod validation
+- **vaul**: Drawer component (mobile-friendly)
+- **zod-form-data**: Parse FormData directly with Zod schemas
+
+Example with react-hook-form + Zod:
+```typescript
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const formSchema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+export function MyForm() {
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
+  
+  const onSubmit = async (data: FormData) => {
+    // data is fully validated and typed
+    await myAction(data);
+  };
+  
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register("name")} />
+      {errors.name && <span>{errors.name.message}</span>}
+      
+      <input {...register("email")} type="email" />
+      {errors.email && <span>{errors.email.message}</span>}
+      
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+## Deployment Considerations
+
+### Pre-Deployment Checklist
+- Verify all environment variables are set (check envConfig.ts)
+- Run database migrations before deployment (`pnpm db:migrate`)
+- Test build locally with `pnpm build` and `pnpm start`
+- Ensure all dependencies are in package.json (no missing deps)
+- Test on Node.js 24 LTS environment
+- Run linting with `biome check --write`
+- Verify TypeScript compilation with `tsc --noEmit`
+
+### Production Setup
+- Use Node.js 24 LTS for deployment
+- Set NODE_ENV=production
+- Enable proper error tracking (e.g., Sentry, Highlight)
+- Implement health check endpoints (/api/health)
+- Monitor application performance and metrics
+- Use proper logging for debugging (consider Pino, Winston)
+- Set up proper CORS and security headers
+- Enable compression and caching headers
+- Use CDN for static assets
+- Implement rate limiting for API routes
+- Set up automated backups for database
+
+### Recommended Platforms
+- Vercel (optimized for Next.js, zero-config)
+- Cloudflare Pages (edge deployment)
+- AWS (ECS, Fargate, or Amplify)
+- Railway, Render, or Fly.io (simpler alternatives)
+
+## Common Patterns Summary
+
+> **Quick Reference**: See [CHEATSHEET.md](./CHEATSHEET.md) for complete examples of each pattern below.
+
+### 1. Server Action with Form (React 19 + Next.js 16 + Zod)
+- Use "use server" directive in action file
+- **Define Zod schema for validation** (required)
+- Accept `prevState` and `formData` parameters for useActionState
+- **Validate inputs with Zod** using safeParse() for error handling
+- Use revalidatePath or revalidateTag after mutations
+- Return structured success/error states with Zod error messages
+- Client: Use useActionState + useFormStatus hooks
+
+Example:
+```typescript
+// actions.ts
+"use server";
+import { z } from "zod";
+import { revalidatePath } from "next/cache";
+
+const schema = z.object({
+  title: z.string().min(3).max(100),
+  description: z.string().min(10).max(500),
+});
+
+export async function createPost(prevState: any, formData: FormData) {
+  const result = schema.safeParse({
+    title: formData.get("title"),
+    description: formData.get("description"),
+  });
+  
+  if (!result.success) {
+    return { 
+      success: false, 
+      errors: result.error.flatten().fieldErrors 
+    };
+  }
+  
+  await db.insert(posts).values(result.data);
+  revalidatePath("/posts");
+  return { success: true };
+}
+```
+
+### 2. AI Generation with useObject
+- Define Zod schema for structured output
+- Use useObject hook from @ai-sdk/react
+- Handle loading, error, and partial object states
+- Create corresponding API route with streamObject
+- Display streaming data with proper loading states
+
+### 3. Data Fetching with React Query
+- Use useQuery for fetching data in Client Components
+- Use useMutation for data modifications with automatic cache invalidation
+- Prefetch data in Server Components with HydrationBoundary
+- Use descriptive query keys for cache management
+- Combine with Zod for response validation
+
+Example:
+```typescript
+"use client";
+import { useQuery } from "@tanstack/react-query";
+import { z } from "zod";
+
+const userSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email(),
+});
+
+export function UserProfile({ userId }: { userId: string }) {
+  const { data, isLoading } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: async () => {
+      const res = await fetch(`/api/users/${userId}`);
+      const json = await res.json();
+      return userSchema.parse(json); // Validate with Zod
+    },
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  return <div>{data.name}</div>;
+}
+```
+
+### 4. State Management with React Store
+- Use React Store for UI state (theme, modals, sidebars)
+- Create focused stores for specific features
+- Use selector functions for performance
+- Don't use for server state (use React Query instead)
+
+Example:
+```typescript
+// stores/ui-store.ts
+import { Store } from "@tanstack/react-store";
+
+export const uiStore = new Store({
+  sidebarOpen: false,
+  theme: "light" as "light" | "dark",
+});
+
+// In component:
+"use client";
+import { useStore } from "@tanstack/react-store";
+import { uiStore } from "@/stores/ui-store";
+
+export function Sidebar() {
+  const sidebarOpen = useStore(uiStore, (state) => state.sidebarOpen);
+  return <aside className={sidebarOpen ? "open" : "closed"} />;
+}
+```
+
+### 5. Database Schema with drizzle-zod
+- Define Drizzle schema as source of truth
+- Use `createInsertSchema` for inserts/creates
+- Use `createSelectSchema` for query results
+- Refine fields with Zod validators
+- Export both schemas and types
+
+Example:
+```typescript
+// db/schema.ts
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { z } from "zod";
+
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+});
+
+export const insertUserSchema = createInsertSchema(users, {
+  email: z.string().email(),
+  name: z.string().min(2).max(100),
+});
+
+export const selectUserSchema = createSelectSchema(users);
+export type User = typeof users.$inferSelect;
+```
+
+### 6. Server Component with Database
+- Fetch data directly in async Server Component
+- Use Drizzle ORM for type-safe queries
+- Validate with drizzle-zod schemas
+- Wrap in Suspense boundary with loading.tsx fallback
+- Handle errors with error.tsx boundary
+- Cache with fetch options or unstable_cache
+
+### 7. Client Component with Interactivity
+- Add "use client" directive only when needed
+- Use React hooks (useState, useEffect, etc.)
+- Keep client boundaries small and focused
+- Pass server data as props from parent Server Component
+
+### 8. Styled Component with shadcn/ui
+- Use cva for variant-based styling
+- Use cn() utility to merge Tailwind classes
+- Implement TypeScript interfaces for props
+- Leverage shadcn/ui components from @/components/ui
+
+### 9. API Route Handler (with Zod Validation)
+- Create route.ts file with named exports (GET, POST, etc.)
+- **Always validate inputs with Zod** before processing
+- Use safeParse() for validation with error handling
+- Handle errors gracefully with try-catch
+- Return appropriate HTTP status codes
+- Return NextResponse or streaming responses
+- Implement rate limiting for production
+
+Example:
+```typescript
+// app/api/users/route.ts
+import { z } from "zod";
+import { NextResponse } from "next/server";
+
+const createUserSchema = z.object({
+  name: z.string().min(2).max(100),
+  email: z.string().email(),
+});
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const validated = createUserSchema.parse(body);
+    
+    const user = await db.insert(users).values(validated);
+    return NextResponse.json({ success: true, data: user });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: "Validation failed", details: error.errors },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+```
+
+### 10. Optimistic UI Update
+- Use useOptimistic hook for instant feedback
+- Update UI optimistically before server confirmation
+- Server action validates and persists data
+- Automatic rollback on error
+
+### 11. Metadata for SEO
+- Export metadata object for static pages
+- Export generateMetadata for dynamic pages
+- Use typed Metadata interface from 'next'
+- Include Open Graph and Twitter card metadata
+
+### 12. Environment Configuration (with @next/env and Zod)
+- **Use @next/env to load environment variables** (already installed)
+- **Validate all environment variables with Zod** at startup
+- Centralize in envConfig.ts with type-safe schema
+- Use NEXT_PUBLIC_ prefix for client-accessible vars
+- Support .env.local for local development
+- Fail fast on missing or invalid environment variables
+
+Example:
+```typescript
+// envConfig.ts
+import { loadEnvConfig } from "@next/env";
+import { z } from "zod";
+
+// Load environment variables
+const projectDir = process.cwd();
+loadEnvConfig(projectDir);
+
+// Define validation schema
+const envSchema = z.object({
+  DATABASE_URL: z.string().url(),
+  NODE_ENV: z.enum(["development", "production", "test"]),
+  NEXT_PUBLIC_APP_URL: z.string().url(),
+});
+
+// Validate
+const parsed = envSchema.safeParse(process.env);
+if (!parsed.success) {
+  console.error("❌ Invalid environment:", parsed.error.flatten().fieldErrors);
+  throw new Error("Invalid environment variables");
+}
+
+export const env = parsed.data;
+```
+
+### 13. Dynamic Routes with Static Generation
+- Use [slug] folders for dynamic segments
+- Export generateStaticParams for SSG
+- Implement generateMetadata for dynamic SEO
+- Fetch data in async page component
+
+---
+
+## Quick Reference
+
+### File Conventions (App Router)
+| File | Purpose | Special |
+|------|---------|---------|
+| `layout.tsx` | Shared layout for routes | Required in root |
+| `page.tsx` | Route page component | Creates route |
+| `loading.tsx` | Loading UI (Suspense) | Automatic |
+| `error.tsx` | Error boundary | Must be Client Component |
+| `not-found.tsx` | 404 page | For notFound() |
+| `route.ts` | API route handler | Export GET, POST, etc. |
+| `template.tsx` | Re-rendered layout | Unlike layout |
+| `default.tsx` | Parallel route fallback | For @folder |
+| `proxy.ts` | Request proxy (Next.js 16) | Root only, replaces middleware.ts |
+
+### Next.js 16 + React 19 Hooks
+| Hook | Usage | Location |
+|------|-------|----------|
+| `useActionState` | Form state with server actions | Client Component |
+| `useFormStatus` | Form pending state | Inside form child |
+| `useOptimistic` | Optimistic UI updates | Client Component |
+| `use()` | Unwrap promises/context | Client/Server |
+| `useQuery` | Fetch and cache data | Client Component (React Query) |
+| `useMutation` | Mutate data with cache invalidation | Client Component (React Query) |
+| `useStore` | Access store state | Client Component (React Store) |
+| `useObject` | AI structured output | Client Component (@ai-sdk/react) |
+| `useChat` | AI chat interface | Client Component (@ai-sdk/react) |
+| `useCompletion` | AI text completion | Client Component (@ai-sdk/react) |
+
+### Important Commands
+```bash
+# Package Management
+pnpm install             # Install dependencies
+pnpm add <package>       # Add new package
+pnpm remove <package>    # Remove package
+
+# Development
+pnpm dev                 # Start dev server
+pnpm dev --turbo         # Start with Turbopack
+
+# Database
+pnpm db:generate         # Generate migrations
+pnpm db:push             # Push schema without migration
+pnpm db:migrate          # Run migrations
+pnpm db:studio           # Open Drizzle Studio
+
+# Code Quality
+biome check --write      # Lint and format
+tsc --noEmit            # Type check
+
+# Build & Deploy
+pnpm build              # Build for production
+pnpm start              # Start production server
+```
+
+### Key Imports
+```typescript
+// Validation (Most Important - Use in Every Action/API Route)
+import { z } from "zod";
+
+// Environment Variables (for envConfig.ts)
+import { loadEnvConfig } from "@next/env";
+
+// Next.js
+import { cookies, headers } from "next/headers";           // Async in Next.js 16
+import { redirect, notFound } from "next/navigation";
+import { revalidatePath, revalidateTag } from "next/cache";
+import type { Metadata } from "next";
+import { NextResponse } from "next/server";
+
+// React 19
+import { useActionState, useFormStatus, useOptimistic } from "react";
+
+// TanStack React Query (Client Components)
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, dehydrate, HydrationBoundary } from "@tanstack/react-query";
+
+// TanStack React Store (Client Components)
+import { Store, useStore } from "@tanstack/react-store";
+
+// AI SDK
+import { useObject, useChat, useCompletion } from "@ai-sdk/react";
+import { streamText, generateObject, streamObject } from "ai";
+import { openai } from "@ai-sdk/openai";
+import { anthropic } from "@ai-sdk/anthropic";
+import { google } from "@ai-sdk/google";
+
+// Database
+import { db } from "@/db";
+import { users, insertUserSchema, selectUserSchema } from "@/db/schema";
+import { eq, and, or, desc, asc } from "drizzle-orm";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+
+// UI Utilities
+import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+
+// Environment (Type-safe with @next/env + Zod validation)
+import { env } from "@/envConfig";
+```
+
+### Environment Variables Template
+```bash
+# .env.local (for local development)
+
+# Database (required)
+DATABASE_URL="file:local.db"
+
+# AI Providers (at least one required)
+OPENAI_API_KEY="sk-..."
+ANTHROPIC_API_KEY="sk-ant-..."
+GOOGLE_API_KEY="..."
+
+# Optional
+NODE_ENV="development"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/abidjappie) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
