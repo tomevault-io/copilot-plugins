@@ -1,0 +1,64 @@
+{
+  "name": "bitfaster.caching",
+  "owner": "bitfaster",
+  "repo": "BitFaster.Caching",
+  "description": "AI instruction skills by bitfaster",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bench-fast",
+      "path": ".claude/skills/bench-fast",
+      "github_url": "https://github.com/bitfaster/BitFaster.Caching/tree/main/.claude/skills/bench-fast",
+      "description": ""
+    },
+    {
+      "name": "dump-asm",
+      "path": ".claude/skills/dump-asm",
+      "github_url": "https://github.com/bitfaster/BitFaster.Caching/tree/main/.claude/skills/dump-asm",
+      "description": ""
+    },
+    {
+      "name": "split-asm",
+      "path": ".claude/skills/split-asm",
+      "github_url": "https://github.com/bitfaster/BitFaster.Caching/tree/main/.claude/skills/split-asm",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bitfaster/BitFaster.Caching",
+  "claim_url": "https://tomevault.io/claim/bitfaster",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:30:14Z"
+}
