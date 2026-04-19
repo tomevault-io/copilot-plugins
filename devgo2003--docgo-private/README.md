@@ -1,6 +1,6 @@
-# DocGO-private — distributed by TomeVault
+# DocGO-private
 
-> Originally from [DevGO2003/DocGO-private](https://github.com/DevGO2003/DocGO-private). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [DevGO2003/DocGO-private](https://github.com/DevGO2003/DocGO-private) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
