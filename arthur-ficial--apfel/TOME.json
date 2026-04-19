@@ -2,9 +2,9 @@
   "name": "apfel",
   "owner": "Arthur-Ficial",
   "repo": "apfel",
-  "description": "",
+  "description": "The free AI already on your Mac. CLI tool, OpenAI-compatible server, and interactive chat \u2014 all on-device via Apple Intelligence. No API keys, no cloud, no downloads.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Arthur-Ficial",
+  "source_url": "https://github.com/Arthur-Ficial/apfel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T14:02:46Z"
+  "distributed_at": "2026-04-19T21:04:31Z"
 }
