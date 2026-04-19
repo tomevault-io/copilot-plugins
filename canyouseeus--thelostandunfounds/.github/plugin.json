@@ -1,13 +1,65 @@
 {
   "name": "canyouseeus--thelostandunfounds",
   "displayName": "thelostandunfounds",
-  "description": "AI instruction files for thelostandunfounds by canyouseeus",
+  "description": "AI instruction skills by canyouseeus",
   "version": "1.0.0",
   "author": "canyouseeus",
-  "homepage": "https://tomevault.io/claim/canyouseeus",
+  "homepage": "https://github.com/canyouseeus/thelostandunfounds",
   "skills": [
     {
       "name": "bento-design",
+      "description": ""
+    },
+    {
+      "name": "brand-email-manager",
+      "description": ""
+    },
+    {
+      "name": "browser-ops-guard",
+      "description": ""
+    },
+    {
+      "name": "code-refactor",
+      "description": ""
+    },
+    {
+      "name": "dev-parity-guard",
+      "description": ""
+    },
+    {
+      "name": "fix-google-auth",
+      "description": ""
+    },
+    {
+      "name": "gallery-agent-management",
+      "description": ""
+    },
+    {
+      "name": "infra-ops",
+      "description": ""
+    },
+    {
+      "name": "noir-design",
+      "description": ""
+    },
+    {
+      "name": "paypal-sandbox",
+      "description": ""
+    },
+    {
+      "name": "paypal-verify",
+      "description": ""
+    },
+    {
+      "name": "revenue-data-validator",
+      "description": ""
+    },
+    {
+      "name": "smart-browsing",
+      "description": ""
+    },
+    {
+      "name": "verify_ui_changes",
       "description": ""
     }
   ]
