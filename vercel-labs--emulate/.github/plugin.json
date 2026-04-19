@@ -1,0 +1,14 @@
+{
+  "name": "vercel-labs--emulate",
+  "displayName": "emulate",
+  "description": "Local API emulation for CI and no-network sandboxes",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/emulate",
+  "skills": [
+    {
+      "name": "next",
+      "description": ""
+    }
+  ]
+}
