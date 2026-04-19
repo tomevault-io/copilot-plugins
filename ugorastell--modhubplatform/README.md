@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [UgoRastell/modhubPlatform](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/UgoRastell#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/UgoRastell/modhubPlatform](https://github.com/UgoRastell/modhubPlatform)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install UgoRastell/modhubPlatform
 ```
-Or browse all formats at [https://tomevault.io/claim/UgoRastell](https://tomevault.io/claim/UgoRastell).
+Source: [github.com/UgoRastell/modhubPlatform](https://github.com/UgoRastell/modhubPlatform).
 
 <!-- genome:a-i-q -->
