@@ -1,10 +1,10 @@
 {
   "name": "hashintel--hash",
   "displayName": "hash",
-  "description": "AI instruction files for hash by hashintel",
+  "description": "AI instruction skills by hashintel",
   "version": "1.0.0",
   "author": "hashintel",
-  "homepage": "https://tomevault.io/claim/hashintel",
+  "homepage": "https://github.com/hashintel/hash",
   "skills": [
     {
       "name": "documenting-rust-code",
