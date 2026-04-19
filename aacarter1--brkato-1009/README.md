@@ -1,6 +1,6 @@
-# brkato-1009 — distributed by TomeVault
+# brkato-1009
 
-> Originally from [aacarter1/brkato-1009](https://github.com/aacarter1/brkato-1009). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [aacarter1/brkato-1009](https://github.com/aacarter1/brkato-1009) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
