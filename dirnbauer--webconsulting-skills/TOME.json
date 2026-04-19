@@ -2,9 +2,9 @@
   "name": "webconsulting-skills",
   "owner": "dirnbauer",
   "repo": "webconsulting-skills",
-  "description": "AI instruction files for webconsulting-skills by dirnbauer",
+  "description": "AI instruction skills by dirnbauer",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,201 @@
       "path": "skills/webconsulting-branding",
       "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/webconsulting-branding",
       "description": ""
+    },
+    {
+      "name": "typo3-update",
+      "path": "skills/typo3-update",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-update",
+      "description": ""
+    },
+    {
+      "name": "typo3-security",
+      "path": "skills/typo3-security",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-security",
+      "description": ""
+    },
+    {
+      "name": "cli-tools",
+      "path": "skills/cli-tools",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/cli-tools",
+      "description": ""
+    },
+    {
+      "name": "postgres-best-practices",
+      "path": "skills/postgres-best-practices",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "typo3-seo",
+      "path": "skills/typo3-seo",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-seo",
+      "description": ""
+    },
+    {
+      "name": "typo3-docs",
+      "path": "skills/typo3-docs",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-docs",
+      "description": ""
+    },
+    {
+      "name": "ui-design-patterns",
+      "path": "skills/ui-design-patterns",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/ui-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "deepfake-detection",
+      "path": "skills/deepfake-detection",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/deepfake-detection",
+      "description": ""
+    },
+    {
+      "name": "typo3-core-contributions",
+      "path": "skills/typo3-core-contributions",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-core-contributions",
+      "description": ""
+    },
+    {
+      "name": "typo3-testing",
+      "path": "skills/typo3-testing",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-testing",
+      "description": ""
+    },
+    {
+      "name": "agent-md-refactor",
+      "path": "skills/agent-md-refactor",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/agent-md-refactor",
+      "description": ""
+    },
+    {
+      "name": "android-design",
+      "path": "skills/android-design",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/android-design",
+      "description": ""
+    },
+    {
+      "name": "context7",
+      "path": "skills/context7",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/context7",
+      "description": ""
+    },
+    {
+      "name": "cro-funnel",
+      "path": "skills/cro-funnel",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/cro-funnel",
+      "description": ""
+    },
+    {
+      "name": "find-skills",
+      "path": "skills/find-skills",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/find-skills",
+      "description": ""
+    },
+    {
+      "name": "ios-design",
+      "path": "skills/ios-design",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/ios-design",
+      "description": ""
+    },
+    {
+      "name": "ipados-design",
+      "path": "skills/ipados-design",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/ipados-design",
+      "description": ""
+    },
+    {
+      "name": "macos-design",
+      "path": "skills/macos-design",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/macos-design",
+      "description": ""
+    },
+    {
+      "name": "marketing-skills",
+      "path": "skills/marketing-skills",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/marketing-skills",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": "skills/og-image",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/og-image",
+      "description": ""
+    },
+    {
+      "name": "readiness-report",
+      "path": "skills/readiness-report",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/readiness-report",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "path": "skills/refactor",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/refactor",
+      "description": ""
+    },
+    {
+      "name": "refactor-clean",
+      "path": "skills/refactor-clean",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/refactor-clean",
+      "description": ""
+    },
+    {
+      "name": "shadcn-ui",
+      "path": "skills/shadcn-ui",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "tvos-design",
+      "path": "skills/tvos-design",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/tvos-design",
+      "description": ""
+    },
+    {
+      "name": "typo3-powermail",
+      "path": "skills/typo3-powermail",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-powermail",
+      "description": ""
+    },
+    {
+      "name": "typo3-records-list-types",
+      "path": "skills/typo3-records-list-types",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-records-list-types",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "skills/react-best-practices",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "visionos-design",
+      "path": "skills/visionos-design",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/visionos-design",
+      "description": ""
+    },
+    {
+      "name": "watchos-design",
+      "path": "skills/watchos-design",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/watchos-design",
+      "description": ""
+    },
+    {
+      "name": "web-platform-design",
+      "path": "skills/web-platform-design",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/web-platform-design",
+      "description": ""
+    },
+    {
+      "name": "webconsulting-create-documentation",
+      "path": "skills/webconsulting-create-documentation",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/webconsulting-create-documentation",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/dirnbauer",
+  "source_url": "https://github.com/dirnbauer/webconsulting-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T21:30:11Z"
+  "distributed_at": "2026-04-19T14:30:58Z"
 }
