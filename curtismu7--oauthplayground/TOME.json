@@ -4,7 +4,7 @@
   "repo": "oauthPlayground",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,8 @@
     }
   ],
   "skills": [],
+  "source_url": "https://github.com/curtismu7/oauthPlayground",
   "claim_url": "https://tomevault.io/claim/curtismu7",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T08:45:39Z"
+  "distributed_at": "2026-04-19T06:10:26Z"
 }
