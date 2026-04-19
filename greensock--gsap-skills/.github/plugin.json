@@ -1,0 +1,14 @@
+{
+  "name": "greensock--gsap-skills",
+  "displayName": "gsap-skills",
+  "description": "Official AI skills for GSAP. These skills teach AI coding agents how to correctly use GSAP (GreenSock Animation Platform), including best practices, common animation patterns, and plugin usage.",
+  "version": "1.0.0",
+  "author": "greensock",
+  "homepage": "https://github.com/greensock/gsap-skills",
+  "skills": [
+    {
+      "name": "gsap-frameworks",
+      "description": ""
+    }
+  ]
+}
