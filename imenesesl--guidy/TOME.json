@@ -1,5 +1,5 @@
 {
-  "name": "guidy",
+  "name": "primer-guidy",
   "owner": "imenesesl",
   "repo": "guidy",
   "description": "AI instruction skills by imenesesl",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "react-web-app",
+      "path": ".cursor/skills/react-web-app",
+      "github_url": "https://github.com/imenesesl/guidy/tree/main/.cursor/skills/react-web-app",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/imenesesl/guidy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T14:41:07Z"
+  "distributed_at": "2026-04-19T14:41:34Z"
 }
