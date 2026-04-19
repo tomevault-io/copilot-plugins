@@ -1,0 +1,52 @@
+## ai-school-recommendation-app
+
+> **Core Principle**: Update docs with code changes. Keep docs current with `main` branch.
+
+
+# Documentation Guidelines
+
+**Core Principle**: Update docs with code changes. Keep docs current with `main` branch.
+
+## Quick Update Guide
+
+### Design Changes → `docs/design/`
+- New features → `design-doc.mdc`
+- Database changes → `schema-design.mdc` + migration
+- Architecture changes → `design-doc.mdc` + `implementation-plan.mdc`
+
+### Testing Changes → `docs/testing/`
+- New test tools → `testing-guide.md`
+- New features → `features/<feature>-testing.md`
+
+### Setup Changes → Root `docs/`
+- Environment variables → `setup-instructions.md`
+- File structure → `file-structure.mdc`
+- Major features → `README.md`
+
+## Database Workflow
+```bash
+# 1. Create migration
+supabase migration new <description>
+
+# 2. Write SQL in migration file
+
+# 3. User runs SQL on Supabase Dashboard
+
+# 4. Update schema doc
+# Edit docs/design/schema-design.mdc
+
+# 5. Commit together
+git add supabase/migrations/ docs/design/schema-design.mdc
+```
+
+## Update Checklist
+- [ ] Code changes have doc updates
+- [ ] File paths are current
+- [ ] New features have testing guides
+- [ ] Breaking changes documented
+
+**Remember**: Update docs as you code, not after.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Shan533) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
