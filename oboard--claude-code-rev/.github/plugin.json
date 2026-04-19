@@ -1,0 +1,9 @@
+{
+  "name": "oboard--claude-code-rev",
+  "displayName": "claude-code-rev",
+  "description": "Runnable ClaudeCode source code",
+  "version": "1.0.0",
+  "author": "oboard",
+  "homepage": "https://github.com/oboard/claude-code-rev",
+  "skills": []
+}
