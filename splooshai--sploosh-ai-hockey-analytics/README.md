@@ -1,6 +1,6 @@
-# sploosh-ai-hockey-analytics — distributed by TomeVault
+# sploosh-ai-hockey-analytics
 
-> Originally from [SplooshAI/sploosh-ai-hockey-analytics](https://github.com/SplooshAI/sploosh-ai-hockey-analytics). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [SplooshAI/sploosh-ai-hockey-analytics](https://github.com/SplooshAI/sploosh-ai-hockey-analytics) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [SplooshAI/sploosh-ai-hockey-analytic
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/SplooshAI#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/SplooshAI/sploosh-ai-hockey-analytics](https://github.com/SplooshAI/sploosh-ai-hockey-analytics)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/SplooshAI) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
