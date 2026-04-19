@@ -1,6 +1,6 @@
-# Veriqan — distributed by TomeVault
+# Veriqan
 
-> Originally from [hebelmx/Veriqan](https://github.com/hebelmx/Veriqan). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [hebelmx/Veriqan](https://github.com/hebelmx/Veriqan) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [hebelmx/Veriqan](https://github.com/h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/hebelmx#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/hebelmx/Veriqan](https://github.com/hebelmx/Veriqan)
 
 ---
 
