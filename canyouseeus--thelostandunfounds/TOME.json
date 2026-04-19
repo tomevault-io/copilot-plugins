@@ -2,7 +2,7 @@
   "name": "thelostandunfounds",
   "owner": "canyouseeus",
   "repo": "thelostandunfounds",
-  "description": "AI instruction files for thelostandunfounds by canyouseeus",
+  "description": "AI instruction skills by canyouseeus",
   "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -43,9 +43,87 @@
       "path": ".agent/skills/bento-design",
       "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/bento-design",
       "description": ""
+    },
+    {
+      "name": "brand-email-manager",
+      "path": ".agent/skills/brand-email-manager",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/brand-email-manager",
+      "description": ""
+    },
+    {
+      "name": "browser-ops-guard",
+      "path": ".agent/skills/browser-ops-guard",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/browser-ops-guard",
+      "description": ""
+    },
+    {
+      "name": "code-refactor",
+      "path": ".agent/skills/code-refactor",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/code-refactor",
+      "description": ""
+    },
+    {
+      "name": "dev-parity-guard",
+      "path": ".agent/skills/dev-parity-guard",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/dev-parity-guard",
+      "description": ""
+    },
+    {
+      "name": "fix-google-auth",
+      "path": ".agent/skills/fix-google-auth",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/fix-google-auth",
+      "description": ""
+    },
+    {
+      "name": "gallery-agent-management",
+      "path": "skills/gallery-agent-management",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/skills/gallery-agent-management",
+      "description": ""
+    },
+    {
+      "name": "infra-ops",
+      "path": ".agent/skills/infra-ops",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/infra-ops",
+      "description": ""
+    },
+    {
+      "name": "noir-design",
+      "path": ".agent/skills/noir-design",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/noir-design",
+      "description": ""
+    },
+    {
+      "name": "paypal-sandbox",
+      "path": ".agent/skills/paypal-sandbox",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/paypal-sandbox",
+      "description": ""
+    },
+    {
+      "name": "paypal-verify",
+      "path": "skills/paypal-verify",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/skills/paypal-verify",
+      "description": ""
+    },
+    {
+      "name": "revenue-data-validator",
+      "path": ".agent/skills/revenue-data-validator",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/revenue-data-validator",
+      "description": ""
+    },
+    {
+      "name": "smart-browsing",
+      "path": ".agent/skills/smart-browsing",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/smart-browsing",
+      "description": ""
+    },
+    {
+      "name": "verify_ui_changes",
+      "path": ".agent/skills/verify_ui_changes",
+      "github_url": "https://github.com/canyouseeus/thelostandunfounds/tree/main/.agent/skills/verify_ui_changes",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/canyouseeus",
+  "source_url": "https://github.com/canyouseeus/thelostandunfounds",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T03:33:00Z"
+  "distributed_at": "2026-04-19T14:38:21Z"
 }
