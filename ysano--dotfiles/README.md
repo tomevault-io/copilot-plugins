@@ -1,8 +1,8 @@
-# dotfiles — distributed by TomeVault
+# dotfiles
 
-> Originally from [ysano/dotfiles](https://github.com/ysano/dotfiles). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ysano/dotfiles](https://github.com/ysano/dotfiles) — distributed by [TomeVault](https://tomevault.io)
 
-AI instruction files for dotfiles by ysano
+AI instruction skills by ysano
 
 ## GitHub Copilot Config
 
@@ -23,10 +23,10 @@ Original source: `.cursor/rules/*.mdc` in [ysano/dotfiles](https://github.com/ys
 - [tmux-config](https://github.com/ysano/dotfiles/tree/main/.claude/skills/tmux-config)
 - [zsh-config](https://github.com/ysano/dotfiles/tree/main/.claude/skills/zsh-config)
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ysano)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ysano/dotfiles](https://github.com/ysano/dotfiles)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/ysano) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
