@@ -1,0 +1,42 @@
+{
+  "name": "qwibitai--nanoclaw",
+  "displayName": "nanoclaw",
+  "description": "A lightweight alternative to OpenClaw that runs in containers for security. Connects to WhatsApp, Telegram, Slack, Discord, Gmail and other messaging apps,, has memory, scheduled jobs, and runs direct",
+  "version": "1.0.0",
+  "author": "qwibitai",
+  "homepage": "https://github.com/qwibitai/nanoclaw",
+  "skills": [
+    {
+      "name": "add-gmail",
+      "description": ""
+    },
+    {
+      "name": "add-telegram-swarm",
+      "description": ""
+    },
+    {
+      "name": "add-voice-transcription",
+      "description": ""
+    },
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "customize",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "x-integration",
+      "description": ""
+    }
+  ]
+}
