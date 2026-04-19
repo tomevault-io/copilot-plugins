@@ -1,6 +1,6 @@
 # gaqno-development-workspace
 
-> Tome by [gaqno-development](https://github.com/gaqno-development/gaqno-development-workspace) — distributed by [TomeVault](https://tomevault.io/claim/gaqno-development)
+> Tome by [gaqno-development](https://github.com/gaqno-development/gaqno-development-workspace) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [gaqno-development/gaqno-development-
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/gaqno-development)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/gaqno-development/gaqno-development-workspace](https://github.com/gaqno-development/gaqno-development-workspace)
 
 ---
 
