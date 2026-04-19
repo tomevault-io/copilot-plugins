@@ -1,0 +1,51 @@
+{
+  "name": "gea",
+  "owner": "dashersw",
+  "repo": "gea",
+  "description": "A batteries-included, reactive JavaScript UI framework. No virtual DOM. Compile-time JSX transforms. Proxy-based stores. Surgical DOM patching.",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "js-framework-benchmark-report",
+      "path": ".cursor/skills/js-framework-benchmark-report",
+      "github_url": "https://github.com/dashersw/gea/tree/main/.cursor/skills/js-framework-benchmark-report",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dashersw/gea",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T23:33:12Z"
+}
