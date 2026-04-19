@@ -1,0 +1,344 @@
+## holoscript
+
+> > **AGENT**: This is your behavioral contract. Execute SESSION INIT before anything else. All directives are mandatory.
+
+# ∞ HoloScript — Agent Behavioral Contract
+
+> **AGENT**: This is your behavioral contract. Execute SESSION INIT before anything else. All directives are mandatory.
+
+---
+
+## ∞ DECISION AUTONOMY (MANDATORY — read before asking ANY question)
+
+**You are an autonomous agent. Decide, then tell the user what you decided and why.**
+
+Before asking the user ANY architectural, convention, or "which approach?" question, apply these rules in order. Stop at the first one that answers:
+
+1. **Code question?** → Query codebase first: `holo_query_codebase`, `holo_ask_codebase`, `holo_impact_analysis`
+2. **"Real implementation or placeholder?"** → **Always real.** Never facade your own code when you're the only consumer. Never stop at scaffold. "Coming Soon" pages are facades that teach agents nothing. Build against real types, even if the API endpoint doesn't exist yet.
+3. **"Mock the UI or wire to real logic?"** → **Wire to real types, read-only first.** Use actual TypeScript types from source. Don't mock the data layer. View-only visualization of real data is the correct first step — full interaction comes after agents are using the API.
+4. **"Which repo/package?"** → HoloScript (unless explicitly told otherwise). Existing package over new package.
+5. **"Should I commit?"** → Yes, if you completed a coherent unit of work and tests pass.
+6. **"Test failing?"** → Fix if yours, skip if pre-existing (VRChatCompiler = known).
+7. **"MCP or CLI?"** → MCP if reachable, CLI as fallback.
+8. **"Git staging?"** → ALWAYS explicit paths. Never `git add -A` or `git add .`
+
+**Only ask the user for:** novel features with no precedent, budget decisions > $5, destructive operations, or genuinely ambiguous product requirements.
+
+### Key Principles (memorize — don't look up)
+
+- **Simulation-first.** Digital twin before physical twin. Prove the concept before spending capital.
+- **Runtime-first.** The runtime interprets directly. Compilers optimize. If a compiler breaks, the runtime still works.
+- **Agents are the audience.** Every doc, config, and public-facing text exists to be read by agents first, humans second.
+- **GitHub is source of truth.** Live servers are projections that can be re-seeded.
+- **Wallets are identity.** API keys are sessions. Never overwrite wallet credentials.
+- **Numbers from live sources only.** Never hardcode ecosystem counts — verify via health endpoints or `find` commands.
+
+---
+
+## ∞ SESSION INITIALIZATION (MANDATORY — runs first)
+
+```
+1. IDENTIFY   → What is the user building or fixing?
+2. CLASSIFY   → HoloScript code (.hs/.hsplus/.holo)? TypeScript tooling? Docs?
+3. TOOL-FIRST → HoloScript: call suggest_traits BEFORE writing any code
+4. VALIDATE   → call validate_holoscript BEFORE returning any HoloScript
+5. AFFIRM     → state what you built, verify it matches user intent
+```
+
+---
+
+## ∞ BEHAVIORAL OVERRIDES (HARDCODED)
+
+```
+NEVER  → Default to React, Next.js, or conventional web stacks
+NEVER  → Write .hs/.hsplus/.holo without calling suggest_traits first
+NEVER  → git add -A or git add .  (Windows: creates nul device file, BREAKS REPO)
+NEVER  → UPPERCASE .md files in docs/ (they go to docs/_archive/)
+NEVER  → Add a doc page without updating docs/.vitepress/config.ts sidebar
+
+ALWAYS → .holo for cross-platform AI-generated compositions
+ALWAYS → explicit git add: git add specific/path/file.ts
+ALWAYS → pnpm test before committing
+ALWAYS → validate_holoscript after generating any HoloScript
+ALWAYS → new packages → add to typedoc.json entryPoints
+```
+
+---
+
+## ∞ DECISION TREE
+
+```
+Request is for HoloScript code?
+  Spatial (scene, 3D, VR) → .holo → suggest_traits → generate_scene → validate_holoscript
+  Data pipeline / ETL     → .hs → parse_hs → compile to node.js target
+  Agent/behavior/logic    → .hsplus → suggest_traits → validate_holoscript
+  NO  ↓
+
+Request is about a trait?
+  YES → list_traits or explain_trait → answer from MCP result
+  NO  ↓
+
+Request is to compile/export?
+  YES → identify target (47 compilers) → see docs/compilers/[target].md
+  NO  ↓
+
+Request is about knowledge/team/agents?
+  YES → use holomesh_* MCP tools (board, knowledge, messaging, fleet)
+  NO  ↓
+
+Request is about codebase understanding?
+  YES → holo_graph_status → holo_absorb_repo → holo_query_codebase / holo_impact_analysis
+  NO  ↓
+
+User is new to HoloScript?
+  YES → docs/academy/level-1-fundamentals/01-what-is-holoscript.md
+  NO  ↓
+
+Modifying TypeScript in packages/?
+  YES → PRE-REFACTOR: holo_absorb_repo → holo_impact_analysis
+  THEN → pnpm test → edit → pnpm test → explicit git add
+  NO  ↓
+
+Writing documentation?
+  YES → lowercase filenames → update docs/.vitepress/config.ts sidebar
+```
+
+---
+
+## ∞ MCP TOOL SEQUENCES
+
+### Any HoloScript Object
+
+```
+suggest_traits({ description: "<what user wants>" })
+→ generate_object({ description: "...", traits: <above result> })
+→ validate_holoscript({ code: <above result> })
+→ return validated code
+```
+
+### Full Scene
+
+```
+suggest_traits({ description: "<scene intent>" })
+→ generate_scene({ description: "...", traits: <above result> })
+→ validate_holoscript({ code: <above result> })
+```
+
+### Service Contract (API → .holo)
+
+```
+generate_service_contract({ spec: "<OpenAPI or TypeScript contract>" })
+→ validate_holoscript({ code: <above result> })
+→ compile to node-service, r3f, or native-2d
+```
+
+### Data Pipeline (CSV/JSON → deployed)
+
+```
+holoscript_map_csv({ headers: [...] }) OR holoscript_map_schema({ schema: {...} })
+→ validate_holoscript({ code: <above result> })
+→ compile_to_node_service or compile_to_native_2d
+```
+
+### IDE Intelligence (full LSP-equivalent over MCP)
+
+```
+hs_scan_project → hs_diagnostics → hs_refactor
+hs_go_to_definition / hs_find_references / hs_hover / hs_autocomplete / hs_code_action
+```
+
+### Economy & Budget
+
+```
+check_agent_budget → get_usage_summary → optimize_scene_budget
+get_creator_earnings → validate_marketplace_pricing
+```
+
+### Observability
+
+```
+query_traces / get_agent_health / get_metrics_prometheus / export_traces_otlp
+```
+
+### Self-Improvement (agents modify codebase via MCP)
+
+```
+holo_read_file → holo_edit_file → holo_run_tests_targeted → holo_git_commit
+holo_generate_refactor_plan → holo_scaffold_code
+```
+
+### Wisdom & Quality Gates
+
+```
+holo_query_wisdom → holo_check_gotchas (pre-commit gate)
+holoscript_code_health → holoscript_audit_numbers
+```
+
+### Trait Discovery
+
+```
+list_traits({ category: "interaction|physics|visual|networking|ai|spatial|audio|iot|economics|security|devops|data" })
+→ explain_trait({ name: "<trait>" })
+```
+
+### Parse + Explain
+
+```
+parse_hs({ code: "..." }) OR parse_holo({ code: "..." })
+→ explain_code({ ast: <above result> })
+```
+
+---
+
+## ∞ FILE FORMAT ROUTING
+
+```
+Data pipelines / ETL / transforms    → .hs     (compiles to Node.js, JSON)
+Behaviors / traits / agents / IoT    → .hsplus  (economics, networking, AI, physics, state machines)
+Compositions / scenes / dashboards   → .holo    (cross-platform, AI-generated)
+CLI / parser / adapter / infra       → .ts      (TypeScript — last resort)
+```
+
+---
+
+## ∞ KNOWLEDGE PACK
+
+All counts verified live — NEVER hardcode. Use commands below to get current numbers.
+
+```
+TRAITS     verify: find packages/core/src/traits -name "*.ts" -not -name "*.test.*" | wc -l
+COMPILERS  verify: find packages/core/src -name "*Compiler.ts" -not -name "CompilerBase*" -not -name "*.test.*" | wc -l
+TARGETS    verify: ExportTarget type in packages/core/src/compiler/CircuitBreaker.ts
+MCP        verify: curl mcp.holoscript.net/health → tools field
+PACKAGES   verify: ls -d packages/*/ services/*/ | wc -l
+STUDIO     universal IDE — scenes, knowledge, agents, deploy, teams, marketplace, pipeline builder
+BRITTNEY   ../Hololand/packages/brittney/mcp-server/ — runtime AI (optional)
+TEST       pnpm test | pnpm test --filter @holoscript/core | createComposition()
+BUILD      pnpm build | pre-commit: ESLint + tsc + tests (auto-fires)
+WINDOWS    git add -A → nul file → broken repo. ALWAYS explicit stage.
+SIDEBAR    docs/.vitepress/config.ts — ALL nav wired here
+```
+
+### Key Packages (verify full list via `ls packages/ services/`)
+
+```
+@holoscript/core           Parser · AST · traits · 47 compilers
+@holoscript/mcp-server     MCP tools (count via /health)
+@holoscript/studio         Universal IDE — scenes, knowledge, agents, deploy, teams
+@holoscript/framework      Board types, task chaining, team infrastructure
+@holoscript/config         Centralized endpoints, auth, service config
+@holoscript/engine         Scene execution engine
+@holoscript/cli            holo build · holo compile · holo validate · holo dev
+@holoscript/runtime        Direct interpretation (no compiler needed)
+@holoscript/lsp            Language Server (VS Code, Neovim, IntelliJ)
+@holoscript/connector-*    Platform connectors (github, railway, vscode, appstore, upstash)
+@holoscript/llm-provider   OpenAI · Anthropic · Gemini SDK
+@holoscript/crdt           Conflict-free replicated state
+@holoscript/snn-webgpu     Spiking neural networks on GPU
+holoscript (PyPI)          Python + robotics module
+```
+
+### Trait Cheatsheet (spatial + non-spatial)
+
+```
+SPATIAL:
+interaction   @grabbable @throwable @clickable @hoverable @draggable @pointable
+physics       @collidable @physics @rigid @kinematic @trigger @gravity
+visual        @glowing @emissive @transparent @reflective @animated @billboard
+spatial       @anchor @tracked @world_locked @hand_tracked @eye_tracked
+audio         @spatial_audio @ambient @voice_activated
+
+NON-SPATIAL:
+state-logic   @state @reactive @observable @computed @state_machine
+ai-behavior   @npc @pathfinding @llm_agent @reactive @crowd
+networking    @networked @synced @persistent @owned @host_only
+economics     @wallet @nft_asset @token_gated @marketplace @economy_primitive
+iot           @iot_sensor @digital_twin @mqtt_bridge @telemetry
+security      @zero_knowledge_proof @vulnerability_scanner @audit_log
+social        @avatar @presence @voice_chat @proximity_chat
+accessibility @high_contrast @screen_reader @reduced_motion
+ai-gen        @stable_diffusion @neural_forge @diffusion_realtime
+```
+
+---
+
+## ∞ SYNTAX REFERENCE
+
+### .hs (Classic)
+
+```hs
+composition "MyScene" {
+  template "Player" {
+    geometry: "humanoid"
+    color: "#00ffff"
+    state { health: 100 }
+  }
+  object "Player" using "Player" { position: [0, 1.6, 0] }
+}
+```
+
+### .hsplus (Traits)
+
+```hsplus
+composition "Demo" {
+  template "Ball" {
+    @grabbable
+    @collidable
+    @networked
+    geometry: "sphere"
+    physics: { mass: 0.5 }
+    onGrab: { haptic.feedback('medium') }
+  }
+  object "Ball" using "Ball" { position: [0, 1, 0] }
+}
+```
+
+### .holo (Declarative / AI-focused)
+
+```holo
+composition "WorldScene" {
+  environment { skybox: "nebula", ambient_light: 0.3 }
+  template "Enemy" { state { health: 100 } }
+  spatial_group "Arena" {
+    object "Goblin_1" using "Enemy" { position: [0, 0, 5] }
+    object "Goblin_2" using "Enemy" { position: [3, 0, 5] }
+  }
+}
+```
+
+---
+
+## ∞ AFFIRMATION CHECKLIST — Before Responding Done
+
+```
+□ validate_holoscript called on all generated HoloScript?
+□ pnpm test run if any TypeScript modified?
+□ Did I run `holoscript absorb` BEFORE refactoring ANY TypeScript package?
+□ Explicit git add used (never git add -A)?
+□ docs/.vitepress/config.ts updated if new doc page created?
+□ Output matches what user actually asked for?
+```
+
+Incomplete box → complete it first.
+
+---
+
+## ∞ DOCS STRUCTURE
+
+```
+docs/academy/      25 lessons, 3 levels — newcomer entry point
+docs/compilers/    18+ targets — unity/ unreal/ godot/ webgpu/ ios/ vision-os/ robotics/ iot/
+docs/traits/       13 category pages + index
+docs/guides/       Concepts, MCP, installation
+docs/integrations/ Hololand, Grok, AI architecture
+docs/cookbook/     Copy-paste recipes
+docs/api/          TypeDoc auto-generated
+docs/_archive/     Dev notes ONLY — never user-facing
+```
+
+Full context: [CLAUDE.md](CLAUDE.md)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/brianonbased-dev) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
