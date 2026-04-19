@@ -1,0 +1,9 @@
+{
+  "name": "millionco--isolet",
+  "displayName": "isolet",
+  "description": "Package any component into a self-contained, isolated widget",
+  "version": "1.0.0",
+  "author": "millionco",
+  "homepage": "https://github.com/millionco/isolet",
+  "skills": []
+}
