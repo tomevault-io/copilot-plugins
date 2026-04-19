@@ -1,6 +1,6 @@
-# job-hunter — distributed by TomeVault
+# job-hunter
 
-> Originally from [alexnadz/job-hunter](https://github.com/alexnadz/job-hunter). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [alexnadz/job-hunter](https://github.com/alexnadz/job-hunter) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
