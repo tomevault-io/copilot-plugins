@@ -1,0 +1,226 @@
+## chunky-dad
+
+> Static website for gay bear travel guide with city guides, events, and bear-owned businesses. Built with vanilla HTML, CSS, and JavaScript.
+
+# chunky.dad Website - Cursor Rules
+
+## Project Overview
+Static website for gay bear travel guide with city guides, events, and bear-owned businesses. Built with vanilla HTML, CSS, and JavaScript.
+
+## Key Guidelines
+- **NEVER create new markdown files** - absolutely no *.md files except existing README
+- **No documentation files** - do not create summaries, guides, or documentation
+- **Free tools only** - no API keys required
+- **GitHub Pages hosting** - deployed via GitHub Pages
+
+## Code Style
+- Use semantic HTML5 elements
+- CSS Grid/Flexbox for layouts
+- ES6+ JavaScript (const/let, arrow functions, template literals)
+- 2-space indentation
+- Vanilla JavaScript preferred over libraries
+
+## File Structure
+```
+/
+├── index.html          # Main landing page
+├── city.html           # City guide template
+├── styles.css          # Main stylesheet
+├── js/                 # Modular JavaScript architecture
+│   ├── logger.js       # Centralized logging system
+│   ├── city-config.js  # City configuration data
+│   ├── navigation.js   # Navigation and scrolling
+│   ├── page-effects.js # Animations and visual effects
+│   ├── forms.js        # Form handling and validation
+│   ├── calendar-core.js # Calendar data parsing and management
+│   ├── dynamic-calendar-loader.js # Calendar UI and interactions
+│   └── app.js          # Main application coordinator
+├── data/               # JSON data files
+├── scripts/            # Scriptable automation scripts (development)
+│   ├── README.md       # Scripts documentation
+│   ├── scriptable-complete-api.md # Complete Scriptable API reference (54 classes)
+│   ├── bear-event-scraper-unified.js # Unified bear event scraper
+│   └── scraper-config.json        # Scraper configuration
+├── chunky-dad/         # Organized development files
+│   ├── adapters/       # Environment-specific implementations
+│   ├── parsers/        # Venue-specific parsing logic
+│   └── shared-core.js  # Pure JavaScript business logic
+├── adapters/           # Scriptable-compatible adapters (root level)
+├── parsers/            # Scriptable-compatible parsers (root level)
+├── bear-event-scraper-unified.js # Main scriptable file (root level)
+├── display-saved-run.js # Past runs viewer (root level)
+├── shared-core.js      # Core logic (root level)
+├── scraper-input.json  # Configuration (root level)
+├── testing/            # Test files and utilities
+│   ├── index.html      # Dynamic test file browser
+│   ├── manifest.json   # Auto-generated list of test files
+│   └── generate-manifest.js # Script to update manifest
+└── README.md
+```
+
+**SCRIPTABLE FILE ORGANIZATION**: 
+- **Development**: ALWAYS edit files in the `scripts/` directory - this is the source of truth
+- **NEVER create or edit root-level Scriptable files directly** - they are not used
+- **Git repository**: Only the `scripts/` versions should be committed to Git
+- The `chunky-dad/` folder contains organized backup copies for reference
+- **For Scriptable app**: Use files directly from `scripts/` directory - no copying needed
+
+## Testing Directory
+- **Auto-updating manifest**: When adding new HTML files to testing/, run `npm run update-test-manifest`
+- **Git hooks**: Run `npm run setup-hooks` to enable automatic manifest updates on commit
+- **GitHub Actions**: Manifest is automatically updated when pushing changes to test files
+
+## Current Patterns
+- Modular JavaScript architecture with clear separation of concerns
+- ES6 classes with inheritance (CalendarCore → DynamicCalendarLoader)
+- Centralized application coordination via app.js
+- CSS Grid for card layouts
+- URL parameters for city guide content switching
+- Dynamic calendar loading
+- Responsive hamburger menu
+- CSS custom properties for theming
+
+## JavaScript Architecture
+- **app.js**: Main coordinator, initializes all modules based on page type
+- **navigation.js**: Handles mobile menu, smooth scrolling, navigation interactions
+- **page-effects.js**: Manages animations, scroll effects, visual enhancements
+- **forms.js**: Form validation, submission, user input processing
+- **calendar-core.js**: Core calendar data parsing, iCal processing, date utilities
+- **dynamic-calendar-loader.js**: Calendar UI rendering, interactions, map integration
+- **js/app.js**: Main coordinator, initializes all modules based on page type
+
+## Development
+- **ALWAYS pull from main before making any changes** - run `git pull origin main` first
+- Local server: `npm run dev` (Python HTTP server)
+- Test responsive design on mobile
+- Use browser dev tools for debugging
+- **Console logging**: Always check F12 → Console for color-coded debug information
+- **Performance monitoring**: Use logger timing functions for bottleneck identification
+- **Error tracking**: All errors automatically logged with context and stack traces
+
+## Error Handling & System Design
+- **Graceful error handling**: Display user-friendly error messages when operations fail
+- **NO complex legacy systems**: Avoid creating fallback systems, dual code paths, or complex compatibility layers
+- **Fail fast**: If a feature doesn't work, show an error message rather than falling back to old systems
+- **Simple is better**: Prefer simple, direct implementations over complex multi-path systems
+- **Clean architecture**: When updating systems, replace old functionality rather than maintaining parallel systems
+
+## Scriptable Development
+- **CRITICAL**: When editing ANY file in `scripts/` directory, ALWAYS read `scripts/README.md` first
+- **Architecture Rules**: The scripts directory uses STRICT separation of concerns - see README for details
+- **API Reference**: Complete Scriptable API documentation available at `scripts/scriptable-complete-api.md`
+- **54 documented classes**: All Scriptable APIs from Alert to XMLParser with full method signatures
+- **Bear Event Scrapers**: iOS automation scripts for scraping bear community events
+- **Development Context**: When working on Scriptable scripts, reference the API documentation for:
+  - HTTP requests (Request class)
+  - Calendar integration (Calendar, CalendarEvent classes)
+  - File operations (FileManager class)
+  - Data parsing (Data, XMLParser classes)
+  - UI components (Alert, Notification classes)
+- **AI-Proofing**: Each file has specific restrictions - read file headers before editing
+
+### Canonicalization & Display Rules (scripts/ only)
+- Scope: These rules apply ONLY to files under `scripts/` (parsers, adapters, shared-core).
+- Only canonicalize field names when parsing source data and when reading from calendar notes. No other per-field special logic.
+- Display and comparisons must use the exact event object that will be saved. Never add custom display-time logic that alters fields.
+
+## Project-Specific Notes
+- Bear community focus - inclusive, welcoming tone
+- Event calendar needs regular updates
+- City guides use URL parameters
+- Travel content should stay current
+- JavaScript required for navigation and dynamic content
+
+## Logging System
+- **Centralized logging** via `js/logger.js` - always use `logger` global object
+- **Component-based** with color-coded categories for easy debugging
+- **Multiple log levels**: DEBUG, INFO, WARN, ERROR with filtering capabilities
+- **Performance monitoring** built-in with timing functions
+- **Structured data** support for complex debugging information
+
+### Component Categories (use these exact names):
+- **PAGE**: Main page interactions, animations, scrolling effects
+- **CALENDAR**: Calendar loading, event parsing, display updates
+- **MAP**: Map initialization, markers, user interactions
+- **FORM**: Form validation, submission, user input processing
+- **NAV**: Navigation, menu interactions, smooth scrolling
+- **CITY**: City page loading, city switching, configuration
+- **EVENT**: Event interactions, detail viewing, calendar clicks
+- **SYSTEM**: System-level events, errors, initialization
+
+### Logging Patterns:
+```javascript
+// Component initialization
+logger.componentInit('COMPONENT', 'description', optionalData);
+
+// Successful operations
+logger.componentLoad('COMPONENT', 'success message', optionalData);
+
+// User interactions
+logger.userInteraction('COMPONENT', 'action description', optionalData);
+
+// API calls and data operations
+logger.apiCall('COMPONENT', 'operation description', optionalData);
+
+// Performance timing
+logger.time('COMPONENT', 'operation name');
+// ... do work ...
+logger.timeEnd('COMPONENT', 'operation name');
+
+// Error handling
+logger.componentError('COMPONENT', 'error description', errorObject);
+
+// General logging
+logger.debug('COMPONENT', 'debug message', optionalData);
+logger.info('COMPONENT', 'info message', optionalData);
+logger.warn('COMPONENT', 'warning message', optionalData);
+logger.error('COMPONENT', 'error message', optionalData);
+```
+
+### When to Log:
+- **Always**: Component initialization, major operations, errors
+- **User interactions**: Clicks, form submissions, navigation
+- **API operations**: Data fetching, parsing, success/failure
+- **Performance**: Critical operations that might be slow
+- **State changes**: View switching, data updates
+
+### Debugging Workflow:
+1. Open browser DevTools (F12) → Console tab
+2. Filter by component color or use console filters
+3. Look for error messages (red) and warnings (orange)
+4. Check timing information for performance issues
+5. Review user interaction flow for UX problems
+
+### Maintenance:
+- Keep component names consistent across all logging
+- Add logging to new features following existing patterns
+- Use structured data objects for complex information
+- Test logging in both development and production scenarios
+- Monitor console for errors during development
+
+### Production Considerations:
+- Debug mode enabled by default for development
+- For production deployment, consider: `logger.setLogLevel('WARN')` to reduce console noise
+- Logging system is lightweight and doesn't impact performance
+- Error logging always enabled regardless of debug mode
+- No API keys or sensitive data should be logged
+
+## Common Tasks
+- Adding new cities: Update city cards in index.html, add city config in js/city-config.js
+- Adding events: Update events section in index.html
+- Calendar updates: Modify js/dynamic-calendar-loader.js
+- Styling: Use existing CSS custom properties, follow grid patterns
+- **Adding logging to new features**: Use component-specific logging patterns
+- **Debugging issues**: Check console logs, filter by component, review error messages
+- **Performance optimization**: Use logger.time/timeEnd for timing analysis
+- **Scriptable development**: Reference `scripts/scriptable-complete-api.md` for API usage
+- **Event scraper updates**: Modify bear-event-scraper-unified.js and related modules in scripts/ folder
+
+## IMPORTANT RESTRICTIONS
+- **NEVER create new *.md files** - no documentation, summaries, or guides
+- **Only modify existing README** if absolutely necessary and requested
+- **No markdown documentation** - focus on code and functionality only
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/stanleyrya) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
