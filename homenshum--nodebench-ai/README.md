@@ -1,6 +1,6 @@
-# nodebench-ai — distributed by TomeVault
+# nodebench-ai
 
-> Originally from [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
