@@ -1,0 +1,75 @@
+{
+  "name": "vibecosystem",
+  "owner": "vibeeval",
+  "repo": "vibecosystem",
+  "description": "AI software team for Claude Code - 138 agents, 295 skills, 73 hooks. Self-learning, multi-agent swarm, autonomous skill evolution.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "python-patterns",
+      "path": "skills/python-patterns",
+      "github_url": "https://github.com/vibeeval/vibecosystem/tree/main/skills/python-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "path": "skills/python-testing",
+      "github_url": "https://github.com/vibeeval/vibecosystem/tree/main/skills/python-testing",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "path": "skills/django-verification",
+      "github_url": "https://github.com/vibeeval/vibecosystem/tree/main/skills/django-verification",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "path": "skills/django-security",
+      "github_url": "https://github.com/vibeeval/vibecosystem/tree/main/skills/django-security",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "path": "skills/django-patterns",
+      "github_url": "https://github.com/vibeeval/vibecosystem/tree/main/skills/django-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vibeeval/vibecosystem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T23:32:05Z"
+}
