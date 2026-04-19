@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [AndresOrtega-tech/WebAppOrganizaT](h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/AndresOrtega-tech)
+From [AndresOrtega-tech/WebAppOrganizaT](https://github.com/AndresOrtega-tech/WebAppOrganizaT) — a repo with 0+ stars on GitHub.
 
 ---
 
