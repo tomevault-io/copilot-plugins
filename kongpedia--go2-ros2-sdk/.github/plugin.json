@@ -1,0 +1,9 @@
+{
+  "name": "kongpedia--go2-ros2-sdk",
+  "displayName": "go2_ros2_sdk",
+  "description": "go2_ros2_sdk",
+  "version": "1.0.0",
+  "author": "KongPedia",
+  "homepage": "https://github.com/KongPedia/go2_ros2_sdk",
+  "skills": []
+}
