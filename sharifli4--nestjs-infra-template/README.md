@@ -1,8 +1,6 @@
-# nestjs-infra-template — distributed by TomeVault
+# nestjs-infra-template
 
-> Originally from [sharifli4/nestjs-infra-template](https://github.com/sharifli4/nestjs-infra-template). Converted and distributed by [TomeVault](https://tomevault.io)
-
-AI instruction files for nestjs-infra-template by sharifli4
+> Source: [sharifli4/nestjs-infra-template](https://github.com/sharifli4/nestjs-infra-template) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,7 +19,7 @@ Original source: `.cursor/rules/*.mdc` in [sharifli4/nestjs-infra-template](http
 
 - [create-nestjs-exception](https://github.com/sharifli4/nestjs-infra-template/tree/main/.cursor/skills/create-nestjs-exception)
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/sharifli4)
+From [sharifli4/nestjs-infra-template](https://github.com/sharifli4/nestjs-infra-template) — a repo with 0+ stars on GitHub.
 
 ---
 
