@@ -1,0 +1,51 @@
+{
+  "name": "expect",
+  "owner": "millionco",
+  "repo": "expect",
+  "description": "Expect tests your agent's code in a real browser",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".agents/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/millionco/expect/tree/main/.agents/skills/vercel-react-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/millionco/expect",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T23:34:31Z"
+}
