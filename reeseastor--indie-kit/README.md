@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ReeseAstor/indie-kit](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ReeseAstor)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ReeseAstor/indie-kit](https://github.com/ReeseAstor/indie-kit)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ReeseAstor/indie-kit
 ```
-Or browse all formats at [https://tomevault.io/claim/ReeseAstor](https://tomevault.io/claim/ReeseAstor).
+Source: [github.com/ReeseAstor/indie-kit](https://github.com/ReeseAstor/indie-kit).
 
 <!-- genome:d-i-p -->
