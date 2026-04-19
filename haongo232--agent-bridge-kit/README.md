@@ -1,6 +1,6 @@
-# agent-bridge-kit — distributed by TomeVault
+# agent-bridge-kit
 
-> Originally from [HaoNgo232/agent-bridge-kit](https://github.com/HaoNgo232/agent-bridge-kit). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [HaoNgo232/agent-bridge-kit](https://github.com/HaoNgo232/agent-bridge-kit) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
