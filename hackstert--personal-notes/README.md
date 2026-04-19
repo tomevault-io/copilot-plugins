@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [HacksterT/personal-notes](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/HacksterT)
+From [HacksterT/personal-notes](https://github.com/HacksterT/personal-notes) — a repo with 0+ stars on GitHub.
 
 ---
 
