@@ -1,6 +1,6 @@
-# kuberocketai — distributed by TomeVault
+# kuberocketai
 
-> Originally from [KubeRocketCI/kuberocketai](https://github.com/KubeRocketCI/kuberocketai). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [KubeRocketCI/kuberocketai](https://github.com/KubeRocketCI/kuberocketai) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [KubeRocketCI/kuberocketai](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/KubeRocketCI)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/KubeRocketCI/kuberocketai](https://github.com/KubeRocketCI/kuberocketai)
 
 ---
 
