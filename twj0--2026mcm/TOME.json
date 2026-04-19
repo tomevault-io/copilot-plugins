@@ -2,7 +2,7 @@
   "name": "2026mcm",
   "owner": "twj0",
   "repo": "2026mcm",
-  "description": "AI instruction files for 2026mcm by twj0",
+  "description": "AI instruction skills by twj0",
   "type": "tome",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -51,7 +51,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/twj0",
+  "source_url": "https://github.com/twj0/2026mcm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T06:30:48Z"
+  "distributed_at": "2026-04-19T14:40:00Z"
 }
