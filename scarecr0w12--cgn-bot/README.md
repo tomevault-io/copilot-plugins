@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [scarecr0w12/CGN-Bot](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/scarecr0w12)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/scarecr0w12/CGN-Bot](https://github.com/scarecr0w12/CGN-Bot)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install scarecr0w12/CGN-Bot
 ```
-Or browse all formats at [https://tomevault.io/claim/scarecr0w12](https://tomevault.io/claim/scarecr0w12).
+Source: [github.com/scarecr0w12/CGN-Bot](https://github.com/scarecr0w12/CGN-Bot).
 
 <!-- genome:a-i-p -->
