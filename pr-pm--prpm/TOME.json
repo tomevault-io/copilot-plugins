@@ -2,7 +2,7 @@
   "name": "prpm",
   "owner": "pr-pm",
   "repo": "prpm",
-  "description": "AI instruction files for prpm by pr-pm",
+  "description": "AI instruction skills by pr-pm",
   "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -30,6 +30,11 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [
@@ -62,9 +67,189 @@
       "path": "packages/cli/test-fixtures/integration/batch-2-agents/files/claude-skill",
       "github_url": "https://github.com/pr-pm/prpm/tree/main/packages/cli/test-fixtures/integration/batch-2-agents/files/claude-skill",
       "description": ""
+    },
+    {
+      "name": "codex-skill",
+      "path": "packages/cli/test-fixtures/integration/batch-3-special/files/codex-skill",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/packages/cli/test-fixtures/integration/batch-3-special/files/codex-skill",
+      "description": ""
+    },
+    {
+      "name": "droid-skill",
+      "path": "packages/cli/test-fixtures/integration/batch-2-agents/files/droid-skill",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/packages/cli/test-fixtures/integration/batch-2-agents/files/droid-skill",
+      "description": ""
+    },
+    {
+      "name": "claude-hook-writer",
+      "path": ".claude/skills/claude-hook-writer",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/claude-hook-writer",
+      "description": ""
+    },
+    {
+      "name": "creating-agents-md",
+      "path": ".claude/skills/creating-agents-md",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-agents-md",
+      "description": ""
+    },
+    {
+      "name": "creating-claude-commands",
+      "path": ".claude/skills/creating-claude-commands",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-claude-commands",
+      "description": ""
+    },
+    {
+      "name": "creating-claude-hooks",
+      "path": ".claude/skills/creating-claude-hooks",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-claude-hooks",
+      "description": ""
+    },
+    {
+      "name": "creating-copilot-packages",
+      "path": ".claude/skills/creating-copilot-packages",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-copilot-packages",
+      "description": ""
+    },
+    {
+      "name": "creating-cursor-commands",
+      "path": ".claude/skills/creating-cursor-commands",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-cursor-commands",
+      "description": ""
+    },
+    {
+      "name": "creating-cursor-rules-skill",
+      "path": ".claude/skills/creating-cursor-rules-skill",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-cursor-rules-skill",
+      "description": ""
+    },
+    {
+      "name": "creating-kiro-agents",
+      "path": ".claude/skills/creating-kiro-agents",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-kiro-agents",
+      "description": ""
+    },
+    {
+      "name": "creating-opencode-agents",
+      "path": ".claude/skills/creating-opencode-agents",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-opencode-agents",
+      "description": ""
+    },
+    {
+      "name": "creating-opencode-plugins",
+      "path": ".claude/skills/creating-opencode-plugins",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-opencode-plugins",
+      "description": ""
+    },
+    {
+      "name": "creating-zed-extensions",
+      "path": ".claude/skills/creating-zed-extensions",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/creating-zed-extensions",
+      "description": ""
+    },
+    {
+      "name": "documentation-standards",
+      "path": ".claude/skills/documentation-standards",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/documentation-standards",
+      "description": ""
+    },
+    {
+      "name": "elastic-beanstalk-deployment",
+      "path": ".claude/skills/elastic-beanstalk-deployment",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/elastic-beanstalk-deployment",
+      "description": ""
+    },
+    {
+      "name": "github-actions-testing",
+      "path": ".claude/skills/github-actions-testing",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/github-actions-testing",
+      "description": ""
+    },
+    {
+      "name": "human-writing",
+      "path": ".claude/skills/human-writing",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/human-writing",
+      "description": ""
+    },
+    {
+      "name": "integrating-stripe-webhooks",
+      "path": ".claude/skills/integrating-stripe-webhooks",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/integrating-stripe-webhooks",
+      "description": ""
+    },
+    {
+      "name": "karen-repo-reviewer",
+      "path": ".claude/skills/karen-repo-reviewer",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/karen-repo-reviewer",
+      "description": ""
+    },
+    {
+      "name": "npm-trusted-publishing",
+      "path": ".claude/skills/npm-trusted-publishing",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/npm-trusted-publishing",
+      "description": ""
+    },
+    {
+      "name": "osgrep-skill",
+      "path": ".claude/skills/osgrep-skill",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/osgrep-skill",
+      "description": ""
+    },
+    {
+      "name": "postgres-migrations",
+      "path": ".claude/skills/postgres-migrations",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/postgres-migrations",
+      "description": ""
+    },
+    {
+      "name": "prpm-development",
+      "path": ".claude/skills/prpm-development",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/prpm-development",
+      "description": ""
+    },
+    {
+      "name": "prpm-json-best-practices",
+      "path": ".claude/skills/prpm-json-best-practices",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/prpm-json-best-practices",
+      "description": ""
+    },
+    {
+      "name": "pulumi-troubleshooting",
+      "path": ".claude/skills/pulumi-troubleshooting",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/pulumi-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "self-improving",
+      "path": ".claude/skills/self-improving",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/self-improving",
+      "description": ""
+    },
+    {
+      "name": "slash-command-builder",
+      "path": ".claude/skills/slash-command-builder",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/slash-command-builder",
+      "description": ""
+    },
+    {
+      "name": "testing-prpm-cli",
+      "path": ".claude/skills/testing-prpm-cli",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/testing-prpm-cli",
+      "description": ""
+    },
+    {
+      "name": "typescript-hook-writer",
+      "path": ".claude/skills/typescript-hook-writer",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/typescript-hook-writer",
+      "description": ""
+    },
+    {
+      "name": "typescript-type-safety",
+      "path": ".claude/skills/typescript-type-safety",
+      "github_url": "https://github.com/pr-pm/prpm/tree/main/.claude/skills/typescript-type-safety",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/pr-pm",
+  "source_url": "https://github.com/pr-pm/prpm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T01:51:04Z"
+  "distributed_at": "2026-04-19T14:34:55Z"
 }
