@@ -1,6 +1,6 @@
-# indie-kit — distributed by TomeVault
+# indie-kit
 
-> Originally from [ReeseAstor/indie-kit](https://github.com/ReeseAstor/indie-kit). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ReeseAstor/indie-kit](https://github.com/ReeseAstor/indie-kit) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
