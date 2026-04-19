@@ -1,0 +1,26 @@
+{
+  "name": "paleoterra--paleorose",
+  "displayName": "paleorose",
+  "description": "AI instruction skills by paleoterra",
+  "version": "1.0.0",
+  "author": "paleoterra",
+  "homepage": "https://github.com/paleoterra/PaleoRose",
+  "skills": [
+    {
+      "name": "ci-cd-helper",
+      "description": ""
+    },
+    {
+      "name": "code-metrics-analyzer",
+      "description": ""
+    },
+    {
+      "name": "performance-profiler-tools",
+      "description": ""
+    },
+    {
+      "name": "sqlite-test-validator",
+      "description": ""
+    }
+  ]
+}
