@@ -2,7 +2,7 @@
 
 > Sourced from [ssdeanx/Gemini-CLI-Web](https://github.com/ssdeanx/Gemini-CLI-Web) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-AI instruction files for Gemini-CLI-Web by ssdeanx
+AI instruction skills by ssdeanx
 
 ## GitHub Copilot Config
 
@@ -21,7 +21,7 @@ Original source: `.windsurf/rules/*.md` in [ssdeanx/Gemini-CLI-Web](https://gith
 
 - [gemini](https://github.com/ssdeanx/Gemini-CLI-Web/tree/main/.github/skills/gemini)
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ssdeanx#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ssdeanx/Gemini-CLI-Web](https://github.com/ssdeanx/Gemini-CLI-Web)
 
 ---
 
@@ -29,6 +29,6 @@ Install this config instantly:
 ```
 npx tomevault install ssdeanx/Gemini-CLI-Web
 ```
-Or browse all formats at [https://tomevault.io/claim/ssdeanx](https://tomevault.io/claim/ssdeanx).
+Source: [github.com/ssdeanx/Gemini-CLI-Web](https://github.com/ssdeanx/Gemini-CLI-Web).
 
 <!-- genome:a-i-q -->
