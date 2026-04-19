@@ -1,0 +1,148 @@
+{
+  "name": "anytype",
+  "owner": "anyproto",
+  "repo": "anytype-cli",
+  "description": "AI instruction skills by anyproto",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "qa-engineer",
+      "path": ".claude/skills/qa-engineer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/qa-engineer",
+      "description": ""
+    },
+    {
+      "name": "typescript-code-review",
+      "path": ".claude/skills/typescript-code-review",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/typescript-code-review",
+      "description": ""
+    },
+    {
+      "name": "update-docs",
+      "path": ".claude/skills/update-docs",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/update-docs",
+      "description": ""
+    },
+    {
+      "name": "analytics-developer",
+      "path": ".claude/skills/analytics-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/analytics-developer",
+      "description": ""
+    },
+    {
+      "name": "claudemd-maintainer",
+      "path": ".claude/skills/claudemd-maintainer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/claudemd-maintainer",
+      "description": ""
+    },
+    {
+      "name": "code-generation-developer",
+      "path": ".claude/skills/code-generation-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/code-generation-developer",
+      "description": ""
+    },
+    {
+      "name": "code-review-developer",
+      "path": ".claude/skills/code-review-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/code-review-developer",
+      "description": ""
+    },
+    {
+      "name": "design-system-developer",
+      "path": ".claude/skills/design-system-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/design-system-developer",
+      "description": ""
+    },
+    {
+      "name": "feature-toggle-developer",
+      "path": ".claude/skills/feature-toggle-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/feature-toggle-developer",
+      "description": ""
+    },
+    {
+      "name": "ios-dev-guidelines",
+      "path": ".claude/skills/ios-dev-guidelines",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/ios-dev-guidelines",
+      "description": ""
+    },
+    {
+      "name": "liquid-glass-developer",
+      "path": ".claude/skills/liquid-glass-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/liquid-glass-developer",
+      "description": ""
+    },
+    {
+      "name": "localization-developer",
+      "path": ".claude/skills/localization-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/localization-developer",
+      "description": ""
+    },
+    {
+      "name": "skills-manager",
+      "path": ".claude/skills/skills-manager",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/skills-manager",
+      "description": ""
+    },
+    {
+      "name": "swift-concurrency-developer",
+      "path": ".claude/skills/swift-concurrency-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/swift-concurrency-developer",
+      "description": ""
+    },
+    {
+      "name": "swiftui-patterns-developer",
+      "path": ".claude/skills/swiftui-patterns-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/swiftui-patterns-developer",
+      "description": ""
+    },
+    {
+      "name": "swiftui-performance-developer",
+      "path": ".claude/skills/swiftui-performance-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/swiftui-performance-developer",
+      "description": ""
+    },
+    {
+      "name": "tests-developer",
+      "path": ".claude/skills/tests-developer",
+      "github_url": "https://github.com/anyproto/anytype-cli/tree/main/.claude/skills/tests-developer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/anyproto/anytype-cli",
+  "claim_url": "https://tomevault.io/claim/anyproto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:34:13Z"
+}
