@@ -30,10 +30,16 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
+  "source_url": "https://github.com/chaojiwudidashuaige492/agentprj",
   "claim_url": "https://tomevault.io/claim/chaojiwudidashuaige492",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T03:52:55Z"
+  "distributed_at": "2026-04-19T03:02:55Z"
 }
