@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [sayeedjoy/Date-Sniffer](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/sayeedjoy)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/sayeedjoy/Date-Sniffer](https://github.com/sayeedjoy/Date-Sniffer)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install sayeedjoy/Date-Sniffer
 ```
-Or browse all formats at [https://tomevault.io/claim/sayeedjoy](https://tomevault.io/claim/sayeedjoy).
+Source: [github.com/sayeedjoy/Date-Sniffer](https://github.com/sayeedjoy/Date-Sniffer).
 
 <!-- genome:a-i-p -->
