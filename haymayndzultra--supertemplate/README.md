@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [HaymayndzUltra/SuperTemplate](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/HaymayndzUltra)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/HaymayndzUltra/SuperTemplate](https://github.com/HaymayndzUltra/SuperTemplate)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install HaymayndzUltra/SuperTemplate
 ```
-Or browse all formats at [https://tomevault.io/claim/HaymayndzUltra](https://tomevault.io/claim/HaymayndzUltra).
+Source: [github.com/HaymayndzUltra/SuperTemplate](https://github.com/HaymayndzUltra/SuperTemplate).
 
 <!-- genome:a-i-p -->
