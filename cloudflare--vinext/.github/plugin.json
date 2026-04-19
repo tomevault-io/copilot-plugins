@@ -1,0 +1,14 @@
+{
+  "name": "cloudflare--vinext",
+  "displayName": "vinext",
+  "description": "Vite plugin that reimplements the Next.js API surface \u2014 deploy anywhere",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/vinext",
+  "skills": [
+    {
+      "name": "migrate-to-vinext",
+      "description": ""
+    }
+  ]
+}
