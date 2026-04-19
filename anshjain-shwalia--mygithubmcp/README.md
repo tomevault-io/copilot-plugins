@@ -1,6 +1,6 @@
-# myGithubMCP — distributed by TomeVault
+# myGithubMCP
 
-> Originally from [AnshJain-Shwalia/myGithubMCP](https://github.com/AnshJain-Shwalia/myGithubMCP). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [AnshJain-Shwalia/myGithubMCP](https://github.com/AnshJain-Shwalia/myGithubMCP) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
