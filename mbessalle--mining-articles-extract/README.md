@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [mbessalle/mining-articles-extract](h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mbessalle)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mbessalle/mining-articles-extract](https://github.com/mbessalle/mining-articles-extract)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/mbessalle) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-p -->
