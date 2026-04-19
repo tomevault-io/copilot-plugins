@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [avav25/ai-assets](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/avav25)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/avav25/ai-assets](https://github.com/avav25/ai-assets)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/avav25) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-p -->
