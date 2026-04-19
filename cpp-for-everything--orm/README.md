@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [cpp-for-everything/ORM](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/cpp-for-everything)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/cpp-for-everything/ORM](https://github.com/cpp-for-everything/ORM)
 
 ---
 
