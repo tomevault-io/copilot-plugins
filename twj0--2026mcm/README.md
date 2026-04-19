@@ -1,8 +1,8 @@
 # 2026mcm
 
-> Tome by [twj0](https://github.com/twj0/2026mcm) — distributed by [TomeVault](https://tomevault.io/claim/twj0)
+> Tome by [twj0](https://github.com/twj0/2026mcm) — distributed by [TomeVault](https://tomevault.io)
 
-AI instruction files for 2026mcm by twj0
+AI instruction skills by twj0
 
 ## GitHub Copilot Config
 
@@ -22,7 +22,7 @@ Original source: `.windsurf/rules/*.md` in [twj0/2026mcm](https://github.com/twj
 - [mcm-c-coder](https://github.com/twj0/2026mcm/tree/main/.claude/skills/mcm-c-coder)
 - [mcm-c-web-researcher](https://github.com/twj0/2026mcm/tree/main/.claude/skills/mcm-c-web-researcher)
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/twj0)
+From [twj0/2026mcm](https://github.com/twj0/2026mcm) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -30,6 +30,6 @@ Install this config instantly:
 ```
 npx tomevault install twj0/2026mcm
 ```
-Or browse all formats at [https://tomevault.io/claim/twj0](https://tomevault.io/claim/twj0).
+Source: [github.com/twj0/2026mcm](https://github.com/twj0/2026mcm).
 
 <!-- genome:t-i-s -->
