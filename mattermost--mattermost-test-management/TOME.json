@@ -1,0 +1,88 @@
+{
+  "name": "mattermost",
+  "owner": "mattermost",
+  "repo": "mattermost-test-management",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-simplifier",
+      "path": "plugins/code-simplifier/skills/code-simplifier",
+      "github_url": "https://github.com/mattermost/mattermost-test-management/tree/main/plugins/code-simplifier/skills/code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "conflicts",
+      "path": "plugins/conflicts/skills/conflicts",
+      "github_url": "https://github.com/mattermost/mattermost-test-management/tree/main/plugins/conflicts/skills/conflicts",
+      "description": ""
+    },
+    {
+      "name": "figma-implement-design",
+      "path": "plugins/figma-implement-design/skills/figma-implement-design",
+      "github_url": "https://github.com/mattermost/mattermost-test-management/tree/main/plugins/figma-implement-design/skills/figma-implement-design",
+      "description": ""
+    },
+    {
+      "name": "issue-resolver",
+      "path": "plugins/issue-resolver/skills/issue-resolver",
+      "github_url": "https://github.com/mattermost/mattermost-test-management/tree/main/plugins/issue-resolver/skills/issue-resolver",
+      "description": ""
+    },
+    {
+      "name": "mattermost-test-data",
+      "path": "plugins/mattermost-test-data/skills/mattermost-test-data",
+      "github_url": "https://github.com/mattermost/mattermost-test-management/tree/main/plugins/mattermost-test-data/skills/mattermost-test-data",
+      "description": ""
+    },
+    {
+      "name": "precommit",
+      "path": "plugins/precommit/skills/precommit",
+      "github_url": "https://github.com/mattermost/mattermost-test-management/tree/main/plugins/precommit/skills/precommit",
+      "description": ""
+    },
+    {
+      "name": "teamimplement",
+      "path": "plugins/teamimplement/skills/teamimplement",
+      "github_url": "https://github.com/mattermost/mattermost-test-management/tree/main/plugins/teamimplement/skills/teamimplement",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mattermost/mattermost-test-management",
+  "claim_url": "https://tomevault.io/claim/mattermost",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:36:49Z"
+}
