@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [thomas-bartlett/mamba-vs-transformer
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/thomas-bartlett)
+From [thomas-bartlett/mamba-vs-transformer-qa](https://github.com/thomas-bartlett/mamba-vs-transformer-qa) — a repo with 0+ stars on GitHub.
 
 ---
 
