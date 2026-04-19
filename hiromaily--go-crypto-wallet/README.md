@@ -1,8 +1,6 @@
-# go-crypto-wallet
+# AI instruction files for go-crypto-wallet
 
-> Tome by [hiromaily](https://github.com/hiromaily/go-crypto-wallet) — distributed by [TomeVault](https://tomevault.io/claim/hiromaily)
-
-AI instruction files for go-crypto-wallet by hiromaily
+> Sourced from [hiromaily/go-crypto-wallet](https://github.com/hiromaily/go-crypto-wallet) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -16,8 +14,6 @@ Original source: `.cursor/rules/*.mdc` in [hiromaily/go-crypto-wallet](https://g
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-Browse all formats: [https://tomevault.io/claim/hiromaily](https://tomevault.io/claim/hiromaily)
 
 ## Bundled Skills (16)
 
@@ -38,7 +34,14 @@ Browse all formats: [https://tomevault.io/claim/hiromaily](https://tomevault.io/
 - [typescript-development](https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/typescript-development)
 - [wallet-cli](https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/wallet-cli)
 
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/hiromaily/go-crypto-wallet](https://github.com/hiromaily/go-crypto-wallet)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/hiromaily) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install hiromaily/go-crypto-wallet
+```
+Source: [github.com/hiromaily/go-crypto-wallet](https://github.com/hiromaily/go-crypto-wallet).
+
+<!-- genome:a-i-p -->
