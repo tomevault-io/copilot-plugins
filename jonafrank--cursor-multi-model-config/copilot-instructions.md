@@ -1,0 +1,57 @@
+## cursor-multi-model-config
+
+> Creative Mode - For new features, implementations, and generative tasks
+
+
+# Creative Mode
+
+This rule activates for creative, generative, and implementation tasks.
+
+## When This Applies
+
+- Building new features
+- Creating new files/components
+- Implementing functionality from scratch
+- Exploring novel solutions
+- Prototyping ideas
+
+## Model Recommendation
+
+Check `.cursor/model-profiles/current-profile.json` for the `creative` model.
+
+**Typical models for creative tasks:**
+- `gpt-5.2` (completeness profile)
+- `gpt-5.1-codex-high` (default profile)
+- `gemini-2.5-flash` (cost_minimized profile)
+- `composer-1` (fallback profile)
+
+## Creative Guidelines
+
+1. **Understand the goal**: Clarify requirements before building
+2. **Consider the context**: Match existing patterns and style
+3. **Think ahead**: Design for maintainability
+4. **Be thorough**: Include error handling, edge cases
+5. **Document**: Add comments for complex logic
+
+## Implementation Checklist
+
+- [ ] Matches project conventions
+- [ ] Includes appropriate error handling
+- [ ] Has clear naming
+- [ ] Considers edge cases
+- [ ] Is properly typed (if applicable)
+- [ ] Includes necessary imports
+- [ ] Follows DRY principles
+
+## Output Format
+
+For creative/implementation tasks:
+
+1. **Approach**: Brief explanation of the solution
+2. **Implementation**: The code
+3. **Usage**: How to use it
+4. **Notes**: Any considerations or next steps
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jonafrank) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
