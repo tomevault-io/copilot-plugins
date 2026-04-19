@@ -1,8 +1,8 @@
-# skill-scanner — distributed by TomeVault
+# skill-scanner
 
-> Originally from [cisco-ai-defense/skill-scanner](https://github.com/cisco-ai-defense/skill-scanner). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [cisco-ai-defense/skill-scanner](https://github.com/cisco-ai-defense/skill-scanner) — distributed by [TomeVault](https://tomevault.io)
 
-AI instruction files for skill-scanner by cisco-ai-defense
+AI instruction skills by cisco-ai-defense
 
 ## GitHub Copilot Config
 
@@ -33,7 +33,7 @@ Original source: `.windsurf/rules/*.md` in [cisco-ai-defense/skill-scanner](http
 - [simple-formatter](https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/test_skills/safe/simple-formatter)
 - [simple-math](https://github.com/cisco-ai-defense/skill-scanner/tree/main/evals/skills/safe-skills/simple-math)
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/cisco-ai-defense#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/cisco-ai-defense/skill-scanner](https://github.com/cisco-ai-defense/skill-scanner)
 
 ---
 
@@ -41,6 +41,6 @@ Install this config instantly:
 ```
 npx tomevault install cisco-ai-defense/skill-scanner
 ```
-Or browse all formats at [https://tomevault.io/claim/cisco-ai-defense](https://tomevault.io/claim/cisco-ai-defense).
+Source: [github.com/cisco-ai-defense/skill-scanner](https://github.com/cisco-ai-defense/skill-scanner).
 
 <!-- genome:d-i-q -->
