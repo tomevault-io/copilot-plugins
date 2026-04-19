@@ -2,7 +2,7 @@
   "name": "dotfiles",
   "owner": "ysano",
   "repo": "dotfiles",
-  "description": "AI instruction files for dotfiles by ysano",
+  "description": "AI instruction skills by ysano",
   "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -57,7 +57,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/ysano",
+  "source_url": "https://github.com/ysano/dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T11:31:01Z"
+  "distributed_at": "2026-04-19T14:37:20Z"
 }
