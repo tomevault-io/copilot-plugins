@@ -1,23 +1,24 @@
 # Sam3video-pinokio
 
-> Config by [manat0912](https://github.com/manat0912/Sam3video-pinokio) — distributed by [TomeVault](https://tomevault.io/claim/manat0912)
+> Tome by [manat0912](https://github.com/manat0912/Sam3video-pinokio) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [manat0912/Sam3video-pinokio](https://github.com/manat0912/Sam3video-pinokio).
+Original source: `.cursor/rules/*.mdc` in [manat0912/Sam3video-pinokio](https://github.com/manat0912/Sam3video-pinokio).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/manat0912](https://tomevault.io/claim/manat0912)
+From [manat0912/Sam3video-pinokio](https://github.com/manat0912/Sam3video-pinokio) — a repo with 0+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/manat0912) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
