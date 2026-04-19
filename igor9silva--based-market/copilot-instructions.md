@@ -1,0 +1,68 @@
+## based-market
+
+> When installing NPM packages, ALWAYS use `bun`. Never ever use npm, yarn, pmpn or other - always Bun. The same goes for running stuff. Instead of `npx` I'll always do `bunx`.
+
+When installing NPM packages, ALWAYS use `bun`. Never ever use npm, yarn, pmpn or other - always Bun. The same goes for running stuff. Instead of `npx` I'll always do `bunx`.
+
+When using typescript/javascript, I'm used to add a blank comment line so prettier/Biome doens't remove that line. Specially for the very first line for a function declaration, I find it to be very important for readability, while also being unable to setup Prettier to keep that line blank.
+
+Please, never remove those comments. In fact, I'd like you to add them.
+
+Example:
+```ts
+export function useIsMobile() {
+	//
+	const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined);
+
+	React.useEffect(() => {
+// ... rest of the code ...
+```
+------------------------------------
+When using tailwind, NEVER use hardcoded values unless it's literally the only option. For example, instead of "min-w-[256px]", prefer to use tailwind conventions such as "min-w-64" *ALWAYS*
+------------------------------------
+Always prefer importing specific hooks from `React` over importing the entire library.
+e.g. `import { useEffect, useRef } from 'react'` instead of `import * as React from 'react'`
+
+DO NOT EVER APOLOGIZE. It's fine to make mistakes, keep focused on fixing them.
+
+Do not EVER remove comments. I'll do that manually when review the commit.
+DO NOT MESS UP WITH MY INDENTATION.
+
+Prefer `Boolean()` over `!!` as it's more readable.
+
+Always use `bun` instead of `npm` or any other. Including `bunx` instead of `npx`.
+
+***Everything*** should be type-safe. i.e. using `any` is STRICTLY forbidden.
+
+`const` is preferable, avoid using `let` when possible.
+
+// we do not Capitalize comments.
+
+For validation ifs, oneliners are preferable.
+e.g.
+BAD
+if (!element) {
+	return;
+}
+GOOD
+if (!element) return;
+------------------------------------
+Project uses TanStack (NOT Next.js).
+Project uses Tailwind with shadcn-like components.
+For form validation, we use TanStack.
+For toasts/notifications, we use sonner (already present).
+------------------------------------
+all booleans should read like `isSomething` `hasSomething` `shouldDoShit`, like a yes/no question
+------------------------------------
+we use PascalCase for component files
+------------------------------------
+when doing multiple react Components on the same file, make sure the main Component is the first one on the file
+smaller components should be AFTER the main component
+------------------------------------
+prefer array.concat() over [...spread] for performance reasons
+------------------------------------
+There is absolutetly no need to run the dev server or typechecks. `bun run dev` is ALWAYS running.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/igor9silva) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
