@@ -2,9 +2,9 @@
   "name": "nia-rules-for-agents",
   "owner": "nozomio-labs",
   "repo": "nia-rules-for-agents",
-  "description": "AI instruction files for nia-rules-for-agents by nozomio-labs",
+  "description": "AI instruction skills by nozomio-labs",
   "type": "tome",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -45,7 +45,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/nozomio-labs",
+  "source_url": "https://github.com/nozomio-labs/nia-rules-for-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T05:41:15Z"
+  "distributed_at": "2026-04-19T14:35:59Z"
 }
