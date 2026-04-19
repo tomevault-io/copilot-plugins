@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [peancharoen/lcbp3](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/peancharoen)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/peancharoen/lcbp3](https://github.com/peancharoen/lcbp3)
 
 ---
 
