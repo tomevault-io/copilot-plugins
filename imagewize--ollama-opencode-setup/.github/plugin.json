@@ -1,0 +1,9 @@
+{
+  "name": "imagewize--ollama-opencode-setup",
+  "displayName": "ollama-opencode-setup",
+  "description": "ollama-opencode-setup",
+  "version": "1.0.0",
+  "author": "imagewize",
+  "homepage": "https://github.com/imagewize/ollama-opencode-setup",
+  "skills": []
+}
