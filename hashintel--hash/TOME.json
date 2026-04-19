@@ -2,9 +2,9 @@
   "name": "hash",
   "owner": "hashintel",
   "repo": "hash",
-  "description": "AI instruction files for hash by hashintel",
+  "description": "AI instruction skills by hashintel",
   "type": "tome",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -87,7 +87,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/hashintel",
+  "source_url": "https://github.com/hashintel/hash",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T05:36:13Z"
+  "distributed_at": "2026-04-19T14:33:06Z"
 }
