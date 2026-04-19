@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [SynaptixLabs/vigil](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/SynaptixLabs)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/SynaptixLabs/vigil](https://github.com/SynaptixLabs/vigil)
 
 ---
 
