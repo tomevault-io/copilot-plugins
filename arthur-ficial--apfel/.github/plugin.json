@@ -1,0 +1,9 @@
+{
+  "name": "arthur-ficial--apfel",
+  "displayName": "apfel",
+  "description": "The free AI already on your Mac. CLI tool, OpenAI-compatible server, and interactive chat \u2014 all on-device via Apple Intelligence. No API keys, no cloud, no downloads.",
+  "version": "1.0.0",
+  "author": "Arthur-Ficial",
+  "homepage": "https://github.com/Arthur-Ficial/apfel",
+  "skills": []
+}
