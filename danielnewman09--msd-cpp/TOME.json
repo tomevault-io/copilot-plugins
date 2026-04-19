@@ -1,0 +1,64 @@
+{
+  "name": "msd-cpp",
+  "owner": "danielnewman09",
+  "repo": "MSD-CPP",
+  "description": "AI instruction skills by danielnewman09",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cpp-systematic-debugger",
+      "path": ".claude/skills/cpp-systematic-debugger",
+      "github_url": "https://github.com/danielnewman09/MSD-CPP/tree/main/.claude/skills/cpp-systematic-debugger",
+      "description": ""
+    },
+    {
+      "name": "cpp-tutorial-generator",
+      "path": ".claude/skills/cpp-tutorial-generator",
+      "github_url": "https://github.com/danielnewman09/MSD-CPP/tree/main/.claude/skills/cpp-tutorial-generator",
+      "description": ""
+    },
+    {
+      "name": "transfer-object-builder",
+      "path": ".claude/skills/transfer-object-builder",
+      "github_url": "https://github.com/danielnewman09/MSD-CPP/tree/main/.claude/skills/transfer-object-builder",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/danielnewman09/MSD-CPP",
+  "claim_url": "https://tomevault.io/claim/danielnewman09",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:32:54Z"
+}
