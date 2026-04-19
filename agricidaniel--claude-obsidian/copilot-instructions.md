@@ -1,72 +1,65 @@
 ## claude-obsidian
 
-> This repo is a knowledge companion that builds persistent, compounding Obsidian wiki vaults using Andrej Karpathy's LLM Wiki pattern. The skills are written in the cross-platform Agent Skills format and work in Cascade alongside Claude Code.
+> claude-obsidian: LLM Wiki Pattern for Obsidian vaults. Always-on context for any project pointed at this repo.
 
-# claude-obsidian: Windsurf Rules
 
-This repo is a knowledge companion that builds persistent, compounding Obsidian wiki vaults using Andrej Karpathy's LLM Wiki pattern. The skills are written in the cross-platform Agent Skills format and work in Cascade alongside Claude Code.
+# claude-obsidian
 
-## Project Type
+A Claude Code plugin and Obsidian vault that builds persistent, compounding knowledge bases using Andrej Karpathy's LLM Wiki pattern. This repo works with Cursor's AI through the cross-platform Agent Skills format.
 
-- **Hybrid**: Claude Code plugin + Obsidian vault
-- **Pattern**: LLM Wiki (Karpathy)
-- **Stack**: Markdown only: no build step, no runtime dependencies
+## What This Project Is
 
-## What's In This Repo
+- **Vault root**: contains `wiki/` (agent-generated knowledge) and `.raw/` (source documents: immutable)
+- **Hot cache**: `wiki/hot.md` (~500 tokens) holds recent session context
+- **Index**: `wiki/index.md` is the master catalog Claude reads first
+- **Skills**: 10 skills under `skills/<name>/SKILL.md` define ingest/query/lint/save/canvas/etc
 
+## Skills Available
+
+| Skill | When to use |
+|---|---|
+| `wiki` | Scaffold new vault, route to sub-skills |
+| `wiki-ingest` | Ingest a file, URL, or image: creates 8-15 wiki pages |
+| `wiki-query` | Answer questions from the wiki (Quick / Standard / Deep modes) |
+| `wiki-lint` | Health check: orphans, dead links, gaps |
+| `save` | File current conversation as a wiki note |
+| `autoresearch` | Autonomous research loop |
+| `canvas` | Create/edit Obsidian canvas files |
+| `defuddle` | Clean web pages before ingest |
+| `obsidian-markdown` | Obsidian syntax reference |
+| `obsidian-bases` | Obsidian Bases (.base files) |
+
+Read the relevant `skills/<name>/SKILL.md` file when the user's request matches a skill's trigger phrases.
+
+## Critical Conventions
+
+1. **Never modify `.raw/`**. Sources are immutable
+2. **Read `wiki/hot.md` first** when starting a session (if it exists)
+3. **Use wikilinks** (`[[Note Name]]`) for all internal references in wiki pages
+4. **Frontmatter is flat YAML**. See `skills/wiki/references/frontmatter.md`
+5. **Append to `wiki/log.md`**, never edit past entries
+6. **Hot cache is overwritten** at session end (it's a cache, not a journal)
+
+## Setup for Cursor
+
+To make these skills first-class in Cursor, run:
+
+```bash
+ln -s "$(pwd)/skills" .cursor/skills
 ```
-claude-obsidian/
-├── skills/              ← 10 SKILL.md files (Agent Skills format)
-├── hooks/               ← SessionStart, PostCompact, PostToolUse, Stop
-├── .claude-plugin/      ← Claude Code plugin manifest
-├── _templates/          ← Obsidian Templater templates
-├── wiki/                ← Generated knowledge base
-│   ├── hot.md           ← recent context cache (~500 tokens)
-│   ├── index.md         ← master catalog
-│   ├── log.md           ← append-only operation log
-│   ├── concepts/, entities/, sources/, comparisons/, questions/
-│   └── meta/dashboard.base ← Obsidian Bases dashboard
-└── .raw/                ← Immutable source documents
+
+Or use the bundled installer:
+
+```bash
+bash bin/setup-multi-agent.sh
 ```
 
-## Skills Available to Cascade
+## Cross-Reference
 
-Run `bash bin/setup-multi-agent.sh` once to symlink `skills/` into `.windsurf/skills/`. Then Cascade auto-discovers all 10 skills:
-
-- `wiki`: orchestration, vault scaffolding, hot cache
-- `wiki-ingest`: files, URLs, images → 8-15 wiki pages
-- `wiki-query`: Quick / Standard / Deep query modes
-- `wiki-lint`: health check (orphans, dead links, gaps)
-- `save`: file conversation as wiki note
-- `autoresearch`: autonomous research loop
-- `canvas`: Obsidian canvas (.canvas) files
-- `defuddle`: clean web pages before ingest
-- `obsidian-markdown`: full Obsidian syntax reference
-- `obsidian-bases`: Obsidian Bases (.base) database views
-
-## Critical Rules
-
-- **Never modify `.raw/`**: those are source documents
-- **Read `wiki/hot.md` silently at session start** to restore context
-- **Use wikilinks** `[[Note Name]]` for all internal references
-- **Frontmatter is flat YAML** with plural keys (`tags`, `aliases`)
-- **Auto-commit hook** fires on every Write/Edit to `wiki/` and `.raw/`
-- **Append to `wiki/log.md`** at the top, never edit past entries
-
-## Bootstrap
-
-When the user opens this project in Windsurf:
-
-1. Read this rules file
-2. If `wiki/hot.md` exists, silently read it
-3. Wait for triggers like "set up wiki", "ingest", or "query"
-
-## Links
-
-- https://github.com/AgriciDaniel/claude-obsidian
-- https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
-- https://github.com/kepano/obsidian-skills
+- Plugin: https://github.com/AgriciDaniel/claude-obsidian
+- Pattern: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
+- Related: https://github.com/kepano/obsidian-skills
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/AgriciDaniel) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [AgriciDaniel/claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
