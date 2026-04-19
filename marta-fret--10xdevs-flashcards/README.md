@@ -1,6 +1,6 @@
-# 10xdevs-flashcards — distributed by TomeVault
+# 10xdevs-flashcards
 
-> Originally from [marta-fret/10xdevs-flashcards](https://github.com/marta-fret/10xdevs-flashcards). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [marta-fret/10xdevs-flashcards](https://github.com/marta-fret/10xdevs-flashcards) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [marta-fret/10xdevs-flashcards](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/marta-fret)
+From [marta-fret/10xdevs-flashcards](https://github.com/marta-fret/10xdevs-flashcards) — a repo with 0+ stars on GitHub.
 
 ---
 
