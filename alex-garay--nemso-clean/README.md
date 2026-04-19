@@ -1,6 +1,6 @@
-# nemso_clean — distributed by TomeVault
+# nemso_clean
 
-> Originally from [Alex-Garay/nemso_clean](https://github.com/Alex-Garay/nemso_clean). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Alex-Garay/nemso_clean](https://github.com/Alex-Garay/nemso_clean) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
