@@ -1,9 +1,142 @@
 {
   "name": "nguyenthienthanh--aura-frog-cursor",
-  "displayName": "aura-frog-cursor",
-  "description": "aura-frog-cursor",
+  "displayName": "aura-frog",
+  "description": "AI instruction skills by nguyenthienthanh",
   "version": "1.0.0",
   "author": "nguyenthienthanh",
-  "homepage": "https://tomevault.io/claim/nguyenthienthanh",
-  "skills": []
+  "homepage": "https://github.com/nguyenthienthanh/aura-frog-cursor",
+  "skills": [
+    {
+      "name": "stitch-design",
+      "description": ""
+    },
+    {
+      "name": "angular-expert",
+      "description": ""
+    },
+    {
+      "name": "react-native-expert",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "flutter-expert",
+      "description": ""
+    },
+    {
+      "name": "laravel-expert",
+      "description": ""
+    },
+    {
+      "name": "bugfix-quick",
+      "description": ""
+    },
+    {
+      "name": "vue-expert",
+      "description": ""
+    },
+    {
+      "name": "agent-detector",
+      "description": ""
+    },
+    {
+      "name": "api-designer",
+      "description": ""
+    },
+    {
+      "name": "design-expert",
+      "description": ""
+    },
+    {
+      "name": "design-system-library",
+      "description": ""
+    },
+    {
+      "name": "dev-expert",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "framework-expert",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "go-expert",
+      "description": ""
+    },
+    {
+      "name": "lazy-agent-loader",
+      "description": ""
+    },
+    {
+      "name": "learning-analyzer",
+      "description": ""
+    },
+    {
+      "name": "migration-helper",
+      "description": ""
+    },
+    {
+      "name": "nextjs-expert",
+      "description": ""
+    },
+    {
+      "name": "nodejs-expert",
+      "description": ""
+    },
+    {
+      "name": "python-expert",
+      "description": ""
+    },
+    {
+      "name": "qa-expert",
+      "description": ""
+    },
+    {
+      "name": "react-expert",
+      "description": ""
+    },
+    {
+      "name": "refactor-expert",
+      "description": ""
+    },
+    {
+      "name": "scalable-thinking",
+      "description": ""
+    },
+    {
+      "name": "self-improve",
+      "description": ""
+    },
+    {
+      "name": "test-writer",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestrator",
+      "description": ""
+    }
+  ]
 }
