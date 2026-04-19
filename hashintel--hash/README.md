@@ -1,21 +1,21 @@
-# hash — distributed by TomeVault
+# hash
 
-> Originally from [hashintel/hash](https://github.com/hashintel/hash). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [hashintel/hash](https://github.com/hashintel/hash) — distributed by [TomeVault](https://tomevault.io)
 
-AI instruction files for hash by hashintel
+AI instruction skills by hashintel
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [hashintel/hash](https://github.com/hashintel/hash).
+Original source: `.cursor/rules/*.mdc` in [hashintel/hash](https://github.com/hashintel/hash).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 ## Bundled Skills (8)
 
@@ -28,7 +28,7 @@ Original source: `.windsurf/rules/*.md` in [hashintel/hash](https://github.com/h
 - [writing-hashql-diagnostics](https://github.com/hashintel/hash/tree/main/.claude/skills/writing-hashql-diagnostics)
 - [writing-hashql-jexpr](https://github.com/hashintel/hash/tree/main/.claude/skills/writing-hashql-jexpr)
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/hashintel#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/hashintel/hash](https://github.com/hashintel/hash)
 
 ---
 
@@ -36,6 +36,6 @@ Install this config instantly:
 ```
 npx tomevault install hashintel/hash
 ```
-Or browse all formats at [https://tomevault.io/claim/hashintel](https://tomevault.io/claim/hashintel).
+Source: [github.com/hashintel/hash](https://github.com/hashintel/hash).
 
 <!-- genome:d-i-q -->
