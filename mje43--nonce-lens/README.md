@@ -1,6 +1,6 @@
 # nonce-lens
 
-> Tome by [MJE43](https://github.com/MJE43/nonce-lens) — distributed by [TomeVault](https://tomevault.io/claim/MJE43)
+> Tome by [MJE43](https://github.com/MJE43/nonce-lens) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [MJE43/nonce-lens](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/MJE43)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/MJE43/nonce-lens](https://github.com/MJE43/nonce-lens)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install MJE43/nonce-lens
 ```
-Or browse all formats at [https://tomevault.io/claim/MJE43](https://tomevault.io/claim/MJE43).
+Source: [github.com/MJE43/nonce-lens](https://github.com/MJE43/nonce-lens).
 
 <!-- genome:t-i-p -->
