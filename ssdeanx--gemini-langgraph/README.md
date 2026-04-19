@@ -1,8 +1,6 @@
 # gemini-langgraph
 
-> Tome by [ssdeanx](https://github.com/ssdeanx/gemini-langgraph) — distributed by [TomeVault](https://tomevault.io/claim/ssdeanx)
-
-AI instruction files for gemini-langgraph by ssdeanx
+> Tome by [ssdeanx](https://github.com/ssdeanx/gemini-langgraph) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ssdeanx/gemini-langgraph](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ssdeanx#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ssdeanx/gemini-langgraph](https://github.com/ssdeanx/gemini-langgraph)
 
 ---
 
