@@ -1,6 +1,6 @@
-# maestro_demo — distributed by TomeVault
+# maestro_demo
 
-> Originally from [alexzavg/maestro_demo](https://github.com/alexzavg/maestro_demo). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [alexzavg/maestro_demo](https://github.com/alexzavg/maestro_demo) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [alexzavg/maestro_demo](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/alexzavg#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/alexzavg/maestro_demo](https://github.com/alexzavg/maestro_demo)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install alexzavg/maestro_demo
 ```
-Or browse all formats at [https://tomevault.io/claim/alexzavg](https://tomevault.io/claim/alexzavg).
+Source: [github.com/alexzavg/maestro_demo](https://github.com/alexzavg/maestro_demo).
 
 <!-- genome:d-i-q -->
