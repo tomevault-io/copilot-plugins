@@ -1,13 +1,17 @@
 {
   "name": "ollieb89--orchestrator",
   "displayName": "orchestrator",
-  "description": "AI instruction files for orchestrator by ollieb89",
+  "description": "orchestrator",
   "version": "1.0.0",
   "author": "ollieb89",
-  "homepage": "https://tomevault.io/claim/ollieb89",
+  "homepage": "https://github.com/ollieb89/orchestrator",
   "skills": [
     {
       "name": "compound-docs",
+      "description": ""
+    },
+    {
+      "name": "obsidian-mcp",
       "description": ""
     }
   ]
