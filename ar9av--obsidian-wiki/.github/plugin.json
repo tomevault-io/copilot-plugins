@@ -1,0 +1,9 @@
+{
+  "name": "ar9av--obsidian-wiki",
+  "displayName": "obsidian-wiki",
+  "description": "Framework for AI agents to build and maintain an Obsidian wiki using Karpathy's LLM Wiki pattern",
+  "version": "1.0.0",
+  "author": "Ar9av",
+  "homepage": "https://github.com/Ar9av/obsidian-wiki",
+  "skills": []
+}
