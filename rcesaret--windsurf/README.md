@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [rcesaret/windsurf](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rcesaret)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rcesaret/windsurf](https://github.com/rcesaret/windsurf)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install rcesaret/windsurf
 ```
-Or browse all formats at [https://tomevault.io/claim/rcesaret](https://tomevault.io/claim/rcesaret).
+Source: [github.com/rcesaret/windsurf](https://github.com/rcesaret/windsurf).
 
 <!-- genome:a-i-p -->
