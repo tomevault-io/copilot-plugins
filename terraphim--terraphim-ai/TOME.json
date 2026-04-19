@@ -1,0 +1,220 @@
+{
+  "name": "terraphim",
+  "owner": "terraphim",
+  "repo": "terraphim-ai",
+  "description": "AI instruction skills by terraphim",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "requirements-traceability",
+      "path": "skills/requirements-traceability",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/requirements-traceability",
+      "description": ""
+    },
+    {
+      "name": "acceptance-testing",
+      "path": "skills/acceptance-testing",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/acceptance-testing",
+      "description": ""
+    },
+    {
+      "name": "ai-config-management",
+      "path": "skills/ai-config-management",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/ai-config-management",
+      "description": ""
+    },
+    {
+      "name": "architecture",
+      "path": "skills/architecture",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/architecture",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "path": "skills/debugging",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/debugging",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "path": "skills/devops",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/devops",
+      "description": ""
+    },
+    {
+      "name": "disciplined-design",
+      "path": "skills/disciplined-design",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/disciplined-design",
+      "description": ""
+    },
+    {
+      "name": "disciplined-implementation",
+      "path": "skills/disciplined-implementation",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/disciplined-implementation",
+      "description": ""
+    },
+    {
+      "name": "disciplined-quality-evaluation",
+      "path": "skills/disciplined-quality-evaluation",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/disciplined-quality-evaluation",
+      "description": ""
+    },
+    {
+      "name": "disciplined-research",
+      "path": "skills/disciplined-research",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/disciplined-research",
+      "description": ""
+    },
+    {
+      "name": "disciplined-specification",
+      "path": "skills/disciplined-specification",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/disciplined-specification",
+      "description": ""
+    },
+    {
+      "name": "disciplined-validation",
+      "path": "skills/disciplined-validation",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/disciplined-validation",
+      "description": ""
+    },
+    {
+      "name": "disciplined-verification",
+      "path": "skills/disciplined-verification",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/disciplined-verification",
+      "description": ""
+    },
+    {
+      "name": "gpui-components",
+      "path": "skills/gpui-components",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/gpui-components",
+      "description": ""
+    },
+    {
+      "name": "implementation",
+      "path": "skills/implementation",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/implementation",
+      "description": ""
+    },
+    {
+      "name": "judge",
+      "path": "skills/judge",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/judge",
+      "description": ""
+    },
+    {
+      "name": "local-knowledge",
+      "path": "skills/local-knowledge",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/local-knowledge",
+      "description": ""
+    },
+    {
+      "name": "md-book",
+      "path": "skills/md-book",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/md-book",
+      "description": ""
+    },
+    {
+      "name": "open-source-contribution",
+      "path": "skills/open-source-contribution",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/open-source-contribution",
+      "description": ""
+    },
+    {
+      "name": "quality-gate",
+      "path": "skills/quality-gate",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/quality-gate",
+      "description": ""
+    },
+    {
+      "name": "rust-development",
+      "path": "skills/rust-development",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/rust-development",
+      "description": ""
+    },
+    {
+      "name": "rust-performance",
+      "path": "skills/rust-performance",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/rust-performance",
+      "description": ""
+    },
+    {
+      "name": "security-audit",
+      "path": "skills/security-audit",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/security-audit",
+      "description": ""
+    },
+    {
+      "name": "session-search",
+      "path": "skills/session-search",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/session-search",
+      "description": ""
+    },
+    {
+      "name": "terraphim-hooks",
+      "path": "skills/terraphim-hooks",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/terraphim-hooks",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "skills/testing",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "visual-testing",
+      "path": "skills/visual-testing",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/visual-testing",
+      "description": ""
+    },
+    {
+      "name": "xero",
+      "path": "skills/infrastructure/xero",
+      "github_url": "https://github.com/terraphim/terraphim-ai/tree/main/skills/infrastructure/xero",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/terraphim/terraphim-ai",
+  "claim_url": "https://tomevault.io/claim/terraphim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:37:41Z"
+}
