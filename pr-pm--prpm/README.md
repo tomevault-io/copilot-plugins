@@ -1,8 +1,8 @@
-# prpm
+# AI instruction files for prpm
 
-> Tome by [pr-pm](https://github.com/pr-pm/prpm) — distributed by [TomeVault](https://tomevault.io/claim/pr-pm)
+> Sourced from [pr-pm/prpm](https://github.com/pr-pm/prpm) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-AI instruction files for prpm by pr-pm
+AI instruction skills by pr-pm
 
 ## GitHub Copilot Config
 
@@ -16,8 +16,6 @@ Original source: `.cursor/rules/*.mdc` in [pr-pm/prpm](https://github.com/pr-pm/
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-Browse all formats: [https://tomevault.io/claim/pr-pm](https://tomevault.io/claim/pr-pm)
 
 ## Bundled Skills (35)
 
@@ -57,7 +55,14 @@ Browse all formats: [https://tomevault.io/claim/pr-pm](https://tomevault.io/clai
 - [typescript-hook-writer](https://github.com/pr-pm/prpm/tree/main/.claude/skills/typescript-hook-writer)
 - [typescript-type-safety](https://github.com/pr-pm/prpm/tree/main/.claude/skills/typescript-type-safety)
 
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/pr-pm/prpm](https://github.com/pr-pm/prpm)
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/pr-pm) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install pr-pm/prpm
+```
+Source: [github.com/pr-pm/prpm](https://github.com/pr-pm/prpm).
+
+<!-- genome:a-i-p -->
