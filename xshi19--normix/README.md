@@ -1,6 +1,6 @@
-# normix — distributed by TomeVault
+# normix
 
-> Originally from [xshi19/normix](https://github.com/xshi19/normix). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [xshi19/normix](https://github.com/xshi19/normix) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [xshi19/normix](https://github.com/xsh
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/xshi19#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/xshi19/normix](https://github.com/xshi19/normix)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install xshi19/normix
 ```
-Or browse all formats at [https://tomevault.io/claim/xshi19](https://tomevault.io/claim/xshi19).
+Source: [github.com/xshi19/normix](https://github.com/xshi19/normix).
 
 <!-- genome:d-i-q -->
