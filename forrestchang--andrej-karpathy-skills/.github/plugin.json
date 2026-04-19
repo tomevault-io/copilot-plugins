@@ -1,0 +1,14 @@
+{
+  "name": "forrestchang--andrej-karpathy-skills",
+  "displayName": "andrej-karpathy-skills",
+  "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.",
+  "version": "1.0.0",
+  "author": "forrestchang",
+  "homepage": "https://github.com/forrestchang/andrej-karpathy-skills",
+  "skills": [
+    {
+      "name": "karpathy-guidelines",
+      "description": ""
+    }
+  ]
+}
