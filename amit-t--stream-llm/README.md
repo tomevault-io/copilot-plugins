@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [amit-t/stream-llm](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/amit-t#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/amit-t/stream-llm](https://github.com/amit-t/stream-llm)
 
 ---
 
