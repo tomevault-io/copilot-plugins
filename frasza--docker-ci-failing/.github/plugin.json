@@ -1,0 +1,9 @@
+{
+  "name": "frasza--docker-ci-failing",
+  "displayName": "docker-ci-failing",
+  "description": "docker-ci-failing",
+  "version": "1.0.0",
+  "author": "frasza",
+  "homepage": "https://github.com/frasza/docker-ci-failing",
+  "skills": []
+}
