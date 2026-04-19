@@ -1,6 +1,6 @@
 # b2b-boilerplate
 
-> Tome by [ReeseAstor](https://github.com/ReeseAstor/b2b-boilerplate) — distributed by [TomeVault](https://tomevault.io/claim/ReeseAstor)
+> Tome by [ReeseAstor](https://github.com/ReeseAstor/b2b-boilerplate) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ReeseAstor/b2b-boilerplate](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ReeseAstor)
+From [ReeseAstor/b2b-boilerplate](https://github.com/ReeseAstor/b2b-boilerplate) — a repo with 0+ stars on GitHub.
 
 ---
 
