@@ -1,6 +1,6 @@
-# retort — distributed by TomeVault
+# retort
 
-> Originally from [phoenixvc/retort](https://github.com/phoenixvc/retort). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [phoenixvc/retort](https://github.com/phoenixvc/retort) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [phoenixvc/retort](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/phoenixvc)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/phoenixvc/retort](https://github.com/phoenixvc/retort)
 
 ---
 
