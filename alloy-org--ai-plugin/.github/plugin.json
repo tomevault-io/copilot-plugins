@@ -1,0 +1,9 @@
+{
+  "name": "alloy-org--ai-plugin",
+  "displayName": "ai-plugin",
+  "description": "ai-plugin",
+  "version": "1.0.0",
+  "author": "alloy-org",
+  "homepage": "https://github.com/alloy-org/ai-plugin",
+  "skills": []
+}
