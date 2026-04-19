@@ -1,0 +1,30 @@
+{
+  "name": "manaflow-ai--cmux",
+  "displayName": "cmux",
+  "description": "Ghostty-based macOS terminal with vertical tabs and notifications for AI coding agents",
+  "version": "1.0.0",
+  "author": "manaflow-ai",
+  "homepage": "https://github.com/manaflow-ai/cmux",
+  "skills": [
+    {
+      "name": "cmux",
+      "description": ""
+    },
+    {
+      "name": "cmux",
+      "description": ""
+    },
+    {
+      "name": "cmux-browser",
+      "description": ""
+    },
+    {
+      "name": "cmux-debug-windows",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
