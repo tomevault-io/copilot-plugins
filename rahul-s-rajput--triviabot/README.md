@@ -1,6 +1,6 @@
-# triviabot — distributed by TomeVault
+# triviabot
 
-> Originally from [rahul-s-rajput/triviabot](https://github.com/rahul-s-rajput/triviabot). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [rahul-s-rajput/triviabot](https://github.com/rahul-s-rajput/triviabot) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [rahul-s-rajput/triviabot](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/rahul-s-rajput#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rahul-s-rajput/triviabot](https://github.com/rahul-s-rajput/triviabot)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/rahul-s-rajput) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
