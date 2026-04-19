@@ -1,0 +1,30 @@
+{
+  "name": "mandersogit--brynhild-deno-plugin",
+  "displayName": "brynhild",
+  "description": "brynhild-deno-plugin",
+  "version": "1.0.0",
+  "author": "mandersogit",
+  "homepage": "https://github.com/mandersogit/brynhild-deno-plugin",
+  "skills": [
+    {
+      "name": "brynhild-development",
+      "description": ""
+    },
+    {
+      "name": "commit-helper",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "description": ""
+    },
+    {
+      "name": "my-skill",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
