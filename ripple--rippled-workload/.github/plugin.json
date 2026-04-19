@@ -1,0 +1,9 @@
+{
+  "name": "ripple--rippled-workload",
+  "displayName": "rippled-workload",
+  "description": "rippled-workload",
+  "version": "1.0.0",
+  "author": "ripple",
+  "homepage": "https://github.com/ripple/rippled-workload",
+  "skills": []
+}
