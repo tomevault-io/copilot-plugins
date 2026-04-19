@@ -1,0 +1,9 @@
+{
+  "name": "kashguard--go-mpc-infra",
+  "displayName": "go-mpc-infra",
+  "description": "go-mpc-infra",
+  "version": "1.0.0",
+  "author": "kashguard",
+  "homepage": "https://github.com/kashguard/go-mpc-infra",
+  "skills": []
+}
