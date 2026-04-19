@@ -7,14 +7,14 @@ Local knowledge graph for Claude Code. Builds a persistent map of your codebase 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph).
+Original source: `AGENTS.md` in [tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/tirth8205/code-review-graph](https://github.com/tirth8205/code-review-graph)
