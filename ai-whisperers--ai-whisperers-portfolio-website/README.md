@@ -1,6 +1,6 @@
-# ai-whisperers-portfolio-website — distributed by TomeVault
+# ai-whisperers-portfolio-website
 
-> Originally from [Ai-Whisperers/ai-whisperers-portfolio-website](https://github.com/Ai-Whisperers/ai-whisperers-portfolio-website). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Ai-Whisperers/ai-whisperers-portfolio-website](https://github.com/Ai-Whisperers/ai-whisperers-portfolio-website) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Ai-Whisperers/ai-whisperers-portfolio
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Ai-Whisperers)
+From [Ai-Whisperers/ai-whisperers-portfolio-website](https://github.com/Ai-Whisperers/ai-whisperers-portfolio-website) — a repo with 0+ stars on GitHub.
 
 ---
 
