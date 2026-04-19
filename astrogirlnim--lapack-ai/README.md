@@ -1,6 +1,6 @@
 # lapack_ai
 
-> Tome by [astrogirlnim](https://github.com/astrogirlnim/lapack_ai) — distributed by [TomeVault](https://tomevault.io/claim/astrogirlnim)
+> Tome by [astrogirlnim](https://github.com/astrogirlnim/lapack_ai) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [astrogirlnim/lapack_ai](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/astrogirlnim)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/astrogirlnim/lapack_ai](https://github.com/astrogirlnim/lapack_ai)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install astrogirlnim/lapack_ai
 ```
-Or browse all formats at [https://tomevault.io/claim/astrogirlnim](https://tomevault.io/claim/astrogirlnim).
+Source: [github.com/astrogirlnim/lapack_ai](https://github.com/astrogirlnim/lapack_ai).
 
 <!-- genome:t-i-p -->
