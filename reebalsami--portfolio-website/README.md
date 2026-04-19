@@ -1,6 +1,6 @@
-# portfolio-website — distributed by TomeVault
+# portfolio-website
 
-> Originally from [ReebalSami/portfolio-website](https://github.com/ReebalSami/portfolio-website). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ReebalSami/portfolio-website](https://github.com/ReebalSami/portfolio-website) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
