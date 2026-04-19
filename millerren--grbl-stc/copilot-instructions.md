@@ -1,0 +1,17 @@
+## grbl-stc
+
+> 1. **项目背景**: 本项目是将 grbl 移植到 STC 微控制器 (MCU) 上的工程。
+
+# 项目特定规则 (Project Rules)
+
+1. **项目背景**: 本项目是将 grbl 移植到 STC 微控制器 (MCU) 上的工程。
+2. **开发环境**: 只能使用 **Keil C51** 编译器/编辑器进行开发和编译。
+3. **C 语言标准**: 强制使用 **C89 或 C90** 标准。
+   - 必须在代码块的开头声明所有变量，不能在代码中间混合声明。
+   - 避免使用 C99 及其以后的特性（如 `inline`、可变长数组等）。
+   - 注意 Keil C51 的特有关键字（如 `data`, `idata`, `xdata`, `code`, `bdata`, `sfr`, `sbit` 等）的使用规则。
+4. **沟通语言**: 始终使用 **中文** 与用户进行沟通。
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/MillerRen) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
