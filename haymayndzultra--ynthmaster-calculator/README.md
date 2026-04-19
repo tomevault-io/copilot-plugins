@@ -1,6 +1,6 @@
-# ynthmaster-calculator — distributed by TomeVault
+# ynthmaster-calculator
 
-> Originally from [HaymayndzUltra/ynthmaster-calculator](https://github.com/HaymayndzUltra/ynthmaster-calculator). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [HaymayndzUltra/ynthmaster-calculator](https://github.com/HaymayndzUltra/ynthmaster-calculator) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
