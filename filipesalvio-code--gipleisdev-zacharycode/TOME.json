@@ -1,0 +1,70 @@
+{
+  "name": "gipleisdev-zacharycode",
+  "owner": "filipesalvio-code",
+  "repo": "GipleisDev-ZacharyCode",
+  "description": "AI instruction skills by filipesalvio-code",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "context-mesh",
+      "path": ".cursor/skills/context-mesh",
+      "github_url": "https://github.com/filipesalvio-code/GipleisDev-ZacharyCode/tree/main/.cursor/skills/context-mesh",
+      "description": ""
+    },
+    {
+      "name": "gipleis-audit",
+      "path": ".cursor/skills/gipleis-audit",
+      "github_url": "https://github.com/filipesalvio-code/GipleisDev-ZacharyCode/tree/main/.cursor/skills/gipleis-audit",
+      "description": ""
+    },
+    {
+      "name": "gipleis-commit-pr",
+      "path": ".cursor/skills/gipleis-commit-pr",
+      "github_url": "https://github.com/filipesalvio-code/GipleisDev-ZacharyCode/tree/main/.cursor/skills/gipleis-commit-pr",
+      "description": ""
+    },
+    {
+      "name": "gipleis-workflow",
+      "path": ".cursor/skills/gipleis-workflow",
+      "github_url": "https://github.com/filipesalvio-code/GipleisDev-ZacharyCode/tree/main/.cursor/skills/gipleis-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/filipesalvio-code/GipleisDev-ZacharyCode",
+  "claim_url": "https://tomevault.io/claim/filipesalvio-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:33:26Z"
+}
