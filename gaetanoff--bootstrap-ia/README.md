@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [GaetanOff/bootstrap-ia](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/GaetanOff)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/GaetanOff/bootstrap-ia](https://github.com/GaetanOff/bootstrap-ia)
 
 ---
 
