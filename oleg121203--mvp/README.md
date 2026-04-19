@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [oleg121203/MVP](https://github.com/o
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/oleg121203)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/oleg121203/MVP](https://github.com/oleg121203/MVP)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install oleg121203/MVP
 ```
-Or browse all formats at [https://tomevault.io/claim/oleg121203](https://tomevault.io/claim/oleg121203).
+Source: [github.com/oleg121203/MVP](https://github.com/oleg121203/MVP).
 
 <!-- genome:a-i-p -->
