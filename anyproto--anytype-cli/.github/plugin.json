@@ -1,0 +1,78 @@
+{
+  "name": "anyproto--anytype-cli",
+  "displayName": "anytype",
+  "description": "AI instruction skills by anyproto",
+  "version": "1.0.0",
+  "author": "anyproto",
+  "homepage": "https://github.com/anyproto/anytype-cli",
+  "skills": [
+    {
+      "name": "qa-engineer",
+      "description": ""
+    },
+    {
+      "name": "typescript-code-review",
+      "description": ""
+    },
+    {
+      "name": "update-docs",
+      "description": ""
+    },
+    {
+      "name": "analytics-developer",
+      "description": ""
+    },
+    {
+      "name": "claudemd-maintainer",
+      "description": ""
+    },
+    {
+      "name": "code-generation-developer",
+      "description": ""
+    },
+    {
+      "name": "code-review-developer",
+      "description": ""
+    },
+    {
+      "name": "design-system-developer",
+      "description": ""
+    },
+    {
+      "name": "feature-toggle-developer",
+      "description": ""
+    },
+    {
+      "name": "ios-dev-guidelines",
+      "description": ""
+    },
+    {
+      "name": "liquid-glass-developer",
+      "description": ""
+    },
+    {
+      "name": "localization-developer",
+      "description": ""
+    },
+    {
+      "name": "skills-manager",
+      "description": ""
+    },
+    {
+      "name": "swift-concurrency-developer",
+      "description": ""
+    },
+    {
+      "name": "swiftui-patterns-developer",
+      "description": ""
+    },
+    {
+      "name": "swiftui-performance-developer",
+      "description": ""
+    },
+    {
+      "name": "tests-developer",
+      "description": ""
+    }
+  ]
+}
