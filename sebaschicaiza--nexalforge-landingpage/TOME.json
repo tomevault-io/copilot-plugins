@@ -4,7 +4,7 @@
   "repo": "nexalforge-landingpage",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/SebasChicaiza",
+  "source_url": "https://github.com/SebasChicaiza/nexalforge-landingpage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T15:47:50Z"
+  "distributed_at": "2026-04-19T17:32:57Z"
 }
