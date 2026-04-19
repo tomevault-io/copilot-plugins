@@ -1,0 +1,9 @@
+{
+  "name": "tirth8205--code-review-graph",
+  "displayName": "code-review-graph",
+  "description": "Local knowledge graph for Claude Code. Builds a persistent map of your codebase so Claude reads only what matters \u2014 6.8\u00d7 fewer tokens on reviews and up to 49\u00d7 on daily coding tasks.",
+  "version": "1.0.0",
+  "author": "tirth8205",
+  "homepage": "https://github.com/tirth8205/code-review-graph",
+  "skills": []
+}
