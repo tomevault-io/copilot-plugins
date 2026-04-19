@@ -1,6 +1,6 @@
-# ilca-kns — distributed by TomeVault
+# ilca-kns
 
-> Originally from [emelleby/ilca-kns](https://github.com/emelleby/ilca-kns). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [emelleby/ilca-kns](https://github.com/emelleby/ilca-kns) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
