@@ -1,6 +1,6 @@
-# cloudbase-demo — distributed by TomeVault
+# cloudbase-demo
 
-> Originally from [hidontknow/cloudbase-demo](https://github.com/hidontknow/cloudbase-demo). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [hidontknow/cloudbase-demo](https://github.com/hidontknow/cloudbase-demo) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
