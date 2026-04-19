@@ -1,0 +1,150 @@
+{
+  "name": "pr-pm--prpm",
+  "displayName": "prpm",
+  "description": "AI instruction skills by pr-pm",
+  "version": "1.0.0",
+  "author": "pr-pm",
+  "homepage": "https://github.com/pr-pm/prpm",
+  "skills": [
+    {
+      "name": "adding-new-ai-format",
+      "description": ""
+    },
+    {
+      "name": "agent-builder",
+      "description": ""
+    },
+    {
+      "name": "aws-beanstalk-expert",
+      "description": ""
+    },
+    {
+      "name": "beanstalk-deploy",
+      "description": ""
+    },
+    {
+      "name": "claude-skill",
+      "description": ""
+    },
+    {
+      "name": "codex-skill",
+      "description": ""
+    },
+    {
+      "name": "droid-skill",
+      "description": ""
+    },
+    {
+      "name": "claude-hook-writer",
+      "description": ""
+    },
+    {
+      "name": "creating-agents-md",
+      "description": ""
+    },
+    {
+      "name": "creating-claude-commands",
+      "description": ""
+    },
+    {
+      "name": "creating-claude-hooks",
+      "description": ""
+    },
+    {
+      "name": "creating-copilot-packages",
+      "description": ""
+    },
+    {
+      "name": "creating-cursor-commands",
+      "description": ""
+    },
+    {
+      "name": "creating-cursor-rules-skill",
+      "description": ""
+    },
+    {
+      "name": "creating-kiro-agents",
+      "description": ""
+    },
+    {
+      "name": "creating-opencode-agents",
+      "description": ""
+    },
+    {
+      "name": "creating-opencode-plugins",
+      "description": ""
+    },
+    {
+      "name": "creating-zed-extensions",
+      "description": ""
+    },
+    {
+      "name": "documentation-standards",
+      "description": ""
+    },
+    {
+      "name": "elastic-beanstalk-deployment",
+      "description": ""
+    },
+    {
+      "name": "github-actions-testing",
+      "description": ""
+    },
+    {
+      "name": "human-writing",
+      "description": ""
+    },
+    {
+      "name": "integrating-stripe-webhooks",
+      "description": ""
+    },
+    {
+      "name": "karen-repo-reviewer",
+      "description": ""
+    },
+    {
+      "name": "npm-trusted-publishing",
+      "description": ""
+    },
+    {
+      "name": "osgrep-skill",
+      "description": ""
+    },
+    {
+      "name": "postgres-migrations",
+      "description": ""
+    },
+    {
+      "name": "prpm-development",
+      "description": ""
+    },
+    {
+      "name": "prpm-json-best-practices",
+      "description": ""
+    },
+    {
+      "name": "pulumi-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "self-improving",
+      "description": ""
+    },
+    {
+      "name": "slash-command-builder",
+      "description": ""
+    },
+    {
+      "name": "testing-prpm-cli",
+      "description": ""
+    },
+    {
+      "name": "typescript-hook-writer",
+      "description": ""
+    },
+    {
+      "name": "typescript-type-safety",
+      "description": ""
+    }
+  ]
+}
