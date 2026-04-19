@@ -1,0 +1,135 @@
+{
+  "name": "agent-skills",
+  "owner": "addyosmani",
+  "repo": "agent-skills",
+  "description": "Production-grade engineering skills for AI coding agents.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-and-interface-design",
+      "path": "skills/api-and-interface-design",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/api-and-interface-design",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-and-automation",
+      "path": "skills/ci-cd-and-automation",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/ci-cd-and-automation",
+      "description": ""
+    },
+    {
+      "name": "code-review-and-quality",
+      "path": "skills/code-review-and-quality",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "path": "skills/context-engineering",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/context-engineering",
+      "description": ""
+    },
+    {
+      "name": "debugging-and-error-recovery",
+      "path": "skills/debugging-and-error-recovery",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/debugging-and-error-recovery",
+      "description": ""
+    },
+    {
+      "name": "documentation-and-adrs",
+      "path": "skills/documentation-and-adrs",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/documentation-and-adrs",
+      "description": ""
+    },
+    {
+      "name": "frontend-ui-engineering",
+      "path": "skills/frontend-ui-engineering",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/frontend-ui-engineering",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-and-versioning",
+      "path": "skills/git-workflow-and-versioning",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/git-workflow-and-versioning",
+      "description": ""
+    },
+    {
+      "name": "incremental-implementation",
+      "path": "skills/incremental-implementation",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/incremental-implementation",
+      "description": ""
+    },
+    {
+      "name": "performance-optimization",
+      "path": "skills/performance-optimization",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "security-and-hardening",
+      "path": "skills/security-and-hardening",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/security-and-hardening",
+      "description": ""
+    },
+    {
+      "name": "shipping-and-launch",
+      "path": "skills/shipping-and-launch",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/shipping-and-launch",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-development",
+      "path": "skills/spec-driven-development",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/spec-driven-development",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "skills/test-driven-development",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "using-agent-skills",
+      "path": "skills/using-agent-skills",
+      "github_url": "https://github.com/addyosmani/agent-skills/tree/main/skills/using-agent-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/addyosmani/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T23:31:21Z"
+}
