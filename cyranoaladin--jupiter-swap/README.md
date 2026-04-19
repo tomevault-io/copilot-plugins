@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [cyranoaladin/jupiter_swap](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/cyranoaladin)
+From [cyranoaladin/jupiter_swap](https://github.com/cyranoaladin/jupiter_swap) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install cyranoaladin/jupiter_swap
 ```
-Or browse all formats at [https://tomevault.io/claim/cyranoaladin](https://tomevault.io/claim/cyranoaladin).
+Source: [github.com/cyranoaladin/jupiter_swap](https://github.com/cyranoaladin/jupiter_swap).
 
 <!-- genome:a-i-s -->
