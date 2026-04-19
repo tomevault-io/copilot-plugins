@@ -1,6 +1,6 @@
 # Agentic-Workflow
 
-> Tome by [Siamese001](https://github.com/Siamese001/Agentic-Workflow) — distributed by [TomeVault](https://tomevault.io/claim/Siamese001)
+> Tome by [Siamese001](https://github.com/Siamese001/Agentic-Workflow) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Siamese001/Agentic-Workflow](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Siamese001)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Siamese001/Agentic-Workflow](https://github.com/Siamese001/Agentic-Workflow)
 
 ---
 
