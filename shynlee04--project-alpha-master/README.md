@@ -5,20 +5,20 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [shynlee04/project-alpha-master](https://github.com/shynlee04/project-alpha-master).
+Original source: `.cursor/rules/*.mdc` in [shynlee04/project-alpha-master](https://github.com/shynlee04/project-alpha-master).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/shynlee04#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/shynlee04/project-alpha-master](https://github.com/shynlee04/project-alpha-master)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/shynlee04) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-q -->
