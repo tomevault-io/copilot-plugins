@@ -1,0 +1,9 @@
+{
+  "name": "openshift-kni--eco-ci-cd",
+  "displayName": "eco-ci-cd",
+  "description": "eco-ci-cd",
+  "version": "1.0.0",
+  "author": "openshift-kni",
+  "homepage": "https://github.com/openshift-kni/eco-ci-cd",
+  "skills": []
+}
