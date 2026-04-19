@@ -1,6 +1,6 @@
 # IPSSI-hackathon
 
-> Tome by [Biholo](https://github.com/Biholo/IPSSI-hackathon) — distributed by [TomeVault](https://tomevault.io/claim/Biholo)
+> Tome by [Biholo](https://github.com/Biholo/IPSSI-hackathon) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Biholo/IPSSI-hackathon](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Biholo#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Biholo/IPSSI-hackathon](https://github.com/Biholo/IPSSI-hackathon)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Biholo/IPSSI-hackathon
 ```
-Or browse all formats at [https://tomevault.io/claim/Biholo](https://tomevault.io/claim/Biholo).
+Source: [github.com/Biholo/IPSSI-hackathon](https://github.com/Biholo/IPSSI-hackathon).
 
 <!-- genome:t-i-q -->
