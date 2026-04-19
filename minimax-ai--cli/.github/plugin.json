@@ -1,0 +1,9 @@
+{
+  "name": "minimax-ai--cli",
+  "displayName": "cli",
+  "description": "Generate text, images, video, speech, and music by MiniMax.",
+  "version": "1.0.0",
+  "author": "MiniMax-AI",
+  "homepage": "https://github.com/MiniMax-AI/cli",
+  "skills": []
+}
