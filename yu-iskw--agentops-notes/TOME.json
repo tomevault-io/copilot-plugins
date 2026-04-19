@@ -1,0 +1,100 @@
+{
+  "name": "agent",
+  "owner": "yu-iskw",
+  "repo": "agentops-notes",
+  "description": "AI instruction skills by yu-iskw",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "go-upgrade-workflow",
+      "path": "skills/software_development/go/go-upgrade-workflow",
+      "github_url": "https://github.com/yu-iskw/agentops-notes/tree/main/skills/software_development/go/go-upgrade-workflow",
+      "description": ""
+    },
+    {
+      "name": "implement-agent-skill",
+      "path": ".cursor/skills/implement-agent-skill",
+      "github_url": "https://github.com/yu-iskw/agentops-notes/tree/main/.cursor/skills/implement-agent-skill",
+      "description": ""
+    },
+    {
+      "name": "implement-agent-skills",
+      "path": ".claude/skills/implement-agent-skills",
+      "github_url": "https://github.com/yu-iskw/agentops-notes/tree/main/.claude/skills/implement-agent-skills",
+      "description": ""
+    },
+    {
+      "name": "implement-agent-skills",
+      "path": "skills/software_development/implement-agent-skills",
+      "github_url": "https://github.com/yu-iskw/agentops-notes/tree/main/skills/software_development/implement-agent-skills",
+      "description": ""
+    },
+    {
+      "name": "implement-agent-teams",
+      "path": ".claude/skills/implement-agent-teams",
+      "github_url": "https://github.com/yu-iskw/agentops-notes/tree/main/.claude/skills/implement-agent-teams",
+      "description": ""
+    },
+    {
+      "name": "implement-sub-agents",
+      "path": ".claude/skills/implement-sub-agents",
+      "github_url": "https://github.com/yu-iskw/agentops-notes/tree/main/.claude/skills/implement-sub-agents",
+      "description": ""
+    },
+    {
+      "name": "manage-adr",
+      "path": "skills/software_development/manage-adr",
+      "github_url": "https://github.com/yu-iskw/agentops-notes/tree/main/skills/software_development/manage-adr",
+      "description": ""
+    },
+    {
+      "name": "python-upgrade-workflow",
+      "path": "skills/software_development/python/python-upgrade-workflow",
+      "github_url": "https://github.com/yu-iskw/agentops-notes/tree/main/skills/software_development/python/python-upgrade-workflow",
+      "description": ""
+    },
+    {
+      "name": "update-readme",
+      "path": ".cursor/skills/update-readme",
+      "github_url": "https://github.com/yu-iskw/agentops-notes/tree/main/.cursor/skills/update-readme",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yu-iskw/agentops-notes",
+  "claim_url": "https://tomevault.io/claim/yu-iskw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:38:12Z"
+}
