@@ -1,6 +1,6 @@
-# boilerplate-poc — distributed by TomeVault
+# boilerplate-poc
 
-> Originally from [impulse-studio/boilerplate-poc](https://github.com/impulse-studio/boilerplate-poc). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [impulse-studio/boilerplate-poc](https://github.com/impulse-studio/boilerplate-poc) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
