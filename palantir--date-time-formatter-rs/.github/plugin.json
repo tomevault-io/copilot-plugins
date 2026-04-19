@@ -1,0 +1,9 @@
+{
+  "name": "palantir--date-time-formatter-rs",
+  "displayName": "date-time-formatter-rs",
+  "description": "date-time-formatter-rs",
+  "version": "1.0.0",
+  "author": "palantir",
+  "homepage": "https://github.com/palantir/date-time-formatter-rs",
+  "skills": []
+}
