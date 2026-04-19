@@ -1,6 +1,6 @@
 # office-simulator
 
-> Tome by [All-Out-Games](https://github.com/All-Out-Games/office-simulator) — distributed by [TomeVault](https://tomevault.io/claim/All-Out-Games)
+> Tome by [All-Out-Games](https://github.com/All-Out-Games/office-simulator) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [All-Out-Games/office-simulator](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/All-Out-Games#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/All-Out-Games/office-simulator](https://github.com/All-Out-Games/office-simulator)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install All-Out-Games/office-simulator
 ```
-Or browse all formats at [https://tomevault.io/claim/All-Out-Games](https://tomevault.io/claim/All-Out-Games).
+Source: [github.com/All-Out-Games/office-simulator](https://github.com/All-Out-Games/office-simulator).
 
 <!-- genome:t-i-q -->
