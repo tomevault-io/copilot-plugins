@@ -1,0 +1,9 @@
+{
+  "name": "garrytan--gstack",
+  "displayName": "gstack",
+  "description": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
+  "version": "1.0.0",
+  "author": "garrytan",
+  "homepage": "https://github.com/garrytan/gstack",
+  "skills": []
+}
