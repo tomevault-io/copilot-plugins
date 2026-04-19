@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [muhammadhilmi007/Samudra-Paket-App](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/muhammadhilmi007#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/muhammadhilmi007/Samudra-Paket-App](https://github.com/muhammadhilmi007/Samudra-Paket-App)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install muhammadhilmi007/Samudra-Paket-App
 ```
-Or browse all formats at [https://tomevault.io/claim/muhammadhilmi007](https://tomevault.io/claim/muhammadhilmi007).
+Source: [github.com/muhammadhilmi007/Samudra-Paket-App](https://github.com/muhammadhilmi007/Samudra-Paket-App).
 
 <!-- genome:a-i-q -->
