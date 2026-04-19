@@ -1,6 +1,6 @@
-# essence — distributed by TomeVault
+# essence
 
-> Originally from [xife12/essence](https://github.com/xife12/essence). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [xife12/essence](https://github.com/xife12/essence) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
