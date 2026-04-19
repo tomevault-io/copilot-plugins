@@ -1,6 +1,6 @@
 # ProductionReports
 
-> Tome by [karstegg](https://github.com/karstegg/ProductionReports) — distributed by [TomeVault](https://tomevault.io/claim/karstegg)
+> Tome by [karstegg](https://github.com/karstegg/ProductionReports) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [karstegg/ProductionReports](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/karstegg)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/karstegg/ProductionReports](https://github.com/karstegg/ProductionReports)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install karstegg/ProductionReports
 ```
-Or browse all formats at [https://tomevault.io/claim/karstegg](https://tomevault.io/claim/karstegg).
+Source: [github.com/karstegg/ProductionReports](https://github.com/karstegg/ProductionReports).
 
 <!-- genome:t-i-p -->
