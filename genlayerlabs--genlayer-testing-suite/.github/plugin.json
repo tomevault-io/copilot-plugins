@@ -1,0 +1,42 @@
+{
+  "name": "genlayerlabs--genlayer-testing-suite",
+  "displayName": "genlayer",
+  "description": "genlayer-testing-suite",
+  "version": "1.0.0",
+  "author": "genlayerlabs",
+  "homepage": "https://github.com/genlayerlabs/genlayer-testing-suite",
+  "skills": [
+    {
+      "name": "cloudflare-cli",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "hosted-studio-debug",
+      "description": ""
+    },
+    {
+      "name": "integration-tests",
+      "description": ""
+    },
+    {
+      "name": "sentry-issue-fixer",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "studio-db",
+      "description": ""
+    },
+    {
+      "name": "unit-tests",
+      "description": ""
+    }
+  ]
+}
