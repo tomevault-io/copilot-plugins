@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [tbeaudouin05/stripe-grpc-http-starte
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/tbeaudouin05)
+From [tbeaudouin05/stripe-grpc-http-starter](https://github.com/tbeaudouin05/stripe-grpc-http-starter) — a repo with 0+ stars on GitHub.
 
 ---
 
