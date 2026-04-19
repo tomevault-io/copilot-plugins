@@ -164,6 +164,5 @@ export const sliceSlice = createSlice({
 - **conventional commits**の採用検討 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/wangchangdog)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/wangchangdog)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/wangchangdog) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
