@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Tan0610/Orla_DB](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Tan0610)
+From [Tan0610/Orla_DB](https://github.com/Tan0610/Orla_DB) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Tan0610/Orla_DB
 ```
-Or browse all formats at [https://tomevault.io/claim/Tan0610](https://tomevault.io/claim/Tan0610).
+Source: [github.com/Tan0610/Orla_DB](https://github.com/Tan0610/Orla_DB).
 
 <!-- genome:a-i-s -->
