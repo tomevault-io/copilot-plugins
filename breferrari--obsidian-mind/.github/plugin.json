@@ -1,0 +1,9 @@
+{
+  "name": "breferrari--obsidian-mind",
+  "displayName": "obsidian-mind",
+  "description": "An Obsidian vault that gives AI coding agents persistent memory. Claude Code, Codex CLI, Gemini CLI.",
+  "version": "1.0.0",
+  "author": "breferrari",
+  "homepage": "https://github.com/breferrari/obsidian-mind",
+  "skills": []
+}
