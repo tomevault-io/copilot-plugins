@@ -1,10 +1,10 @@
 {
   "name": "ysano--dotfiles",
   "displayName": "dotfiles",
-  "description": "AI instruction files for dotfiles by ysano",
+  "description": "AI instruction skills by ysano",
   "version": "1.0.0",
   "author": "ysano",
-  "homepage": "https://tomevault.io/claim/ysano",
+  "homepage": "https://github.com/ysano/dotfiles",
   "skills": [
     {
       "name": "keyboard-config",
