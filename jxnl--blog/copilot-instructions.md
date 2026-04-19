@@ -1,0 +1,114 @@
+## blog
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Overview
+
+This is Jason Liu's personal blog and consulting website built with MkDocs Material. The site features AI/ML technical content, consulting services, RAG education courses, and personal writing.
+
+## Build Commands
+
+```bash
+# Install dependencies (using uv as preferred)
+uv pip install -r requirements-doc.txt
+
+# Development server with live reload
+mkdocs serve
+
+# Build static site
+mkdocs build
+# or
+./build_mkdocs.sh
+
+# Utility scripts
+python check_links.py          # Verify all links in markdown files
+python generate_sitemap.py     # Generate SEO sitemap with AI summaries
+python generate_desc.py        # Add AI-generated descriptions to posts
+```
+
+## Architecture
+
+The site uses MkDocs with Material theme for static site generation:
+
+- **Content**: All markdown files in `docs/` directory
+- **Blog posts**: Located in `docs/writing/posts/`
+- **Configuration**: `mkdocs.yml` defines site structure, theme, and plugins
+- **Automation**: Python scripts for SEO optimization and link checking
+- **Styling**: Custom CSS in `docs/stylesheets/`, JS in `docs/javascripts/`
+
+Key architectural decisions:
+
+- Static site generation for performance and hosting simplicity
+- Material Design for modern, responsive UI
+- Blog plugin for chronological content organization
+- AI-powered tools for SEO metadata generation
+- YouTube color scheme for consistent branding
+
+## Adding Content
+
+When adding new blog posts:
+
+1. Create markdown file in `docs/writing/posts/`
+2. Include frontmatter with date, authors, description, categories, and draft status
+3. Run `python generate_desc.py` to generate AI descriptions if needed
+4. Links should be verified with `python check_links.py`
+
+## Writing Style Guidelines
+
+### Thought Leadership Posts
+
+**Structure:** Core insights upfront → glossary of key terms → concrete examples → actionable next steps
+
+**Opening Format:** Use "**The core insight:**" or "**Two core insights:**" followed by direct statement. Include series positioning: "_This is part of the [Series Name](./series-index.md). I'm focusing on X because it's where theory meets practice._"
+
+**Subheadings:** Avoid corny/dramatic language. Use direct, descriptive headers like "Implementation Strategy" instead of "The Evolution from Chunks to Context" or "Why Agents Need Different Information Architecture" instead of "The Persistence Advantage: Why Agents Change Everything"
+
+**Citations:** Weave research naturally to support arguments. Use descriptive link text ("research shows", "Anthropic's approach"). Position strategically where they strengthen specific points.
+
+**Key insights:** "Bad context is cheap but toxic" (computational cheapness ≠ business value), coding agents as leading edge, economics/ergonomics matter, transferable principles across industries.
+
+**Tone:** Concise, practical urgency ("this matters now"), concrete metrics, honest about complexity. First-person perspective from consulting experience.
+
+**Consulting Attribution:** Include early reference: "Through my [consulting work](https://jxnl.co/services/), I help companies..." and conclude with collaboration invitation: "If these approaches resonate with your challenges or if you're interested in working together, I'd love to help."
+
+**Cross-linking:** Use blog-crosslink-optimizer agent to enhance posts with natural internal links that add reader value.
+
+## Series Writing Guidelines
+
+**Context Engineering Series:** Multi-post series exploring practical approaches to building better agentic RAG systems. Each post should:
+
+- Position within the broader series narrative
+- Include consistent glossary format with brief definitions
+- Link to services page and mention consulting experience
+- End with series navigation footer
+- Use concrete metrics and business outcomes
+- Avoid overly dramatic or "thought leadership" subheadings
+
+**Blog Post Titles:** Use direct, actionable formats like "Four Levels Every RAG System Should Implement" or "Two Experiments We Need to Run on AI Agent Compaction" rather than abstract concepts.
+
+## Important Notes
+
+- The site is live at https://jxnl.co/
+- Git repository: https://github.com/jxnl/blog/
+- Uses YouTube color scheme (dark theme)
+- Google Analytics enabled (G-686PKP2V2V)
+- RSS feed available for blog posts
+- MathJax enabled for mathematical notation
+
+## Shortlink CLI Rule
+
+- When adding new external links to any blog post, always use the `scripts/shortlinks.py` CLI to generate a Dub shortlink.
+- Always use the `--blog-tag` option to tag the link with the blog's slug or filename (e.g., `--blog-tag coding-agents-lessons`).
+- Example usage:
+  ```bash
+  uv run python scripts/shortlinks.py "https://example.com" --title "Descriptive Title" --desc "Short description" --tags "tag1,tag2" --external-id "unique-id-for-link" --blog-tag "blog-slug"
+  ```
+- This ensures all links are trackable and associated with the correct blog for analytics and management.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jxnl) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
