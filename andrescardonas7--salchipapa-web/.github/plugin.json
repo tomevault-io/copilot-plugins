@@ -1,13 +1,49 @@
 {
   "name": "andrescardonas7--salchipapa-web",
   "displayName": "salchipapa-web",
-  "description": "AI instruction files for salchipapa-web by andrescardonas7",
+  "description": "AI instruction skills by andrescardonas7",
   "version": "1.0.0",
   "author": "andrescardonas7",
-  "homepage": "https://tomevault.io/claim/andrescardonas7",
+  "homepage": "https://github.com/andrescardonas7/salchipapa-web",
   "skills": [
     {
       "name": "audit-context-building",
+      "description": ""
+    },
+    {
+      "name": "differential-review",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "dwarf-expert",
+      "description": ""
+    },
+    {
+      "name": "fix-review",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "semgrep-rule-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "spec-to-code-compliance",
+      "description": ""
+    },
+    {
+      "name": "variant-analysis",
       "description": ""
     }
   ]
