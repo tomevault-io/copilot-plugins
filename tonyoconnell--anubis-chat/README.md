@@ -1,6 +1,6 @@
-# anubis.chat — distributed by TomeVault
+# anubis.chat
 
-> Originally from [tonyoconnell/anubis.chat](https://github.com/tonyoconnell/anubis.chat). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [tonyoconnell/anubis.chat](https://github.com/tonyoconnell/anubis.chat) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
