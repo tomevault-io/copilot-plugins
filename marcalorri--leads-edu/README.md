@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [marcalorri/leads-edu](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/marcalorri)
+From [marcalorri/leads-edu](https://github.com/marcalorri/leads-edu) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install marcalorri/leads-edu
 ```
-Or browse all formats at [https://tomevault.io/claim/marcalorri](https://tomevault.io/claim/marcalorri).
+Source: [github.com/marcalorri/leads-edu](https://github.com/marcalorri/leads-edu).
 
 <!-- genome:a-i-s -->
