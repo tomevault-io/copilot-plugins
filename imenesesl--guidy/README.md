@@ -1,4 +1,4 @@
-# guidy
+# primer-guidy
 
 > Source: [imenesesl/guidy](https://github.com/imenesesl/guidy) — distributed by [TomeVault](https://tomevault.io)
 
@@ -16,6 +16,10 @@ Original source: `.cursor/rules/*.mdc` in [imenesesl/guidy](https://github.com/i
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [react-web-app](https://github.com/imenesesl/guidy/tree/main/.cursor/skills/react-web-app)
 
 From [imenesesl/guidy](https://github.com/imenesesl/guidy) — a repo with 0+ stars on GitHub.
 
