@@ -1,6 +1,6 @@
-# Prisim-PaperLib---ProjectFolder — distributed by TomeVault
+# Prisim-PaperLib---ProjectFolder
 
-> Originally from [zhaowendao2005/Prisim-PaperLib---ProjectFolder](https://github.com/zhaowendao2005/Prisim-PaperLib---ProjectFolder). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [zhaowendao2005/Prisim-PaperLib---ProjectFolder](https://github.com/zhaowendao2005/Prisim-PaperLib---ProjectFolder) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [zhaowendao2005/Prisim-PaperLib---Pro
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/zhaowendao2005)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/zhaowendao2005/Prisim-PaperLib---ProjectFolder](https://github.com/zhaowendao2005/Prisim-PaperLib---ProjectFolder)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/zhaowendao2005) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
