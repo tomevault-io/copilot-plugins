@@ -1,6 +1,6 @@
 # 9s76hm2
 
-> Tome by [felipergrosa](https://github.com/felipergrosa/9s76hm2) — distributed by [TomeVault](https://tomevault.io/claim/felipergrosa)
+> Tome by [felipergrosa](https://github.com/felipergrosa/9s76hm2) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [felipergrosa/9s76hm2](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/felipergrosa)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/felipergrosa/9s76hm2](https://github.com/felipergrosa/9s76hm2)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install felipergrosa/9s76hm2
 ```
-Or browse all formats at [https://tomevault.io/claim/felipergrosa](https://tomevault.io/claim/felipergrosa).
+Source: [github.com/felipergrosa/9s76hm2](https://github.com/felipergrosa/9s76hm2).
 
 <!-- genome:t-i-p -->
