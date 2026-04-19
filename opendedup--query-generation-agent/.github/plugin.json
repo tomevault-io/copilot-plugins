@@ -1,0 +1,9 @@
+{
+  "name": "opendedup--query-generation-agent",
+  "displayName": "query-generation-agent",
+  "description": "query-generation-agent",
+  "version": "1.0.0",
+  "author": "opendedup",
+  "homepage": "https://github.com/opendedup/query-generation-agent",
+  "skills": []
+}
