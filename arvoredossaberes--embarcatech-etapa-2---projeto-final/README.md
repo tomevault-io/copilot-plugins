@@ -1,6 +1,6 @@
 # Embarcatech-Etapa-2---Projeto-Final
 
-> Tome by [ArvoreDosSaberes](https://github.com/ArvoreDosSaberes/Embarcatech-Etapa-2---Projeto-Final) — distributed by [TomeVault](https://tomevault.io/claim/ArvoreDosSaberes)
+> Tome by [ArvoreDosSaberes](https://github.com/ArvoreDosSaberes/Embarcatech-Etapa-2---Projeto-Final) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [ArvoreDosSaberes/Embarcatech-Etapa-2
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ArvoreDosSaberes#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ArvoreDosSaberes/Embarcatech-Etapa-2---Projeto-Final](https://github.com/ArvoreDosSaberes/Embarcatech-Etapa-2---Projeto-Final)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/ArvoreDosSaberes) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-q -->
