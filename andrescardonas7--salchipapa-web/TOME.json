@@ -2,7 +2,7 @@
   "name": "salchipapa-web",
   "owner": "andrescardonas7",
   "repo": "salchipapa-web",
-  "description": "AI instruction files for salchipapa-web by andrescardonas7",
+  "description": "AI instruction skills by andrescardonas7",
   "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -43,9 +43,63 @@
       "path": ".cursor/skills/audit-context-building",
       "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/audit-context-building",
       "description": ""
+    },
+    {
+      "name": "differential-review",
+      "path": ".cursor/skills/differential-review",
+      "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/differential-review",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": ".cursor/skills/docx",
+      "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "dwarf-expert",
+      "path": ".cursor/skills/dwarf-expert",
+      "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/dwarf-expert",
+      "description": ""
+    },
+    {
+      "name": "fix-review",
+      "path": ".cursor/skills/fix-review",
+      "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/fix-review",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": ".cursor/skills/pdf",
+      "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "semgrep-rule-creator",
+      "path": ".cursor/skills/semgrep-rule-creator",
+      "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/semgrep-rule-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".cursor/skills/skill-creator",
+      "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "spec-to-code-compliance",
+      "path": ".cursor/skills/spec-to-code-compliance",
+      "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/spec-to-code-compliance",
+      "description": ""
+    },
+    {
+      "name": "variant-analysis",
+      "path": ".cursor/skills/variant-analysis",
+      "github_url": "https://github.com/andrescardonas7/salchipapa-web/tree/main/.cursor/skills/variant-analysis",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/andrescardonas7",
+  "source_url": "https://github.com/andrescardonas7/salchipapa-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T03:33:19Z"
+  "distributed_at": "2026-04-19T14:40:29Z"
 }
