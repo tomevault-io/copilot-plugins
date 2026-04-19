@@ -1,6 +1,6 @@
-# tob-test-01-yottagraph — distributed by TomeVault
+# tob-test-01-yottagraph
 
-> Originally from [Lovelace-AI/tob-test-01-yottagraph](https://github.com/Lovelace-AI/tob-test-01-yottagraph). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Lovelace-AI/tob-test-01-yottagraph](https://github.com/Lovelace-AI/tob-test-01-yottagraph) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
