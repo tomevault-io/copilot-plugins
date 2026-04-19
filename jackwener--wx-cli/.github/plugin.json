@@ -1,0 +1,9 @@
+{
+  "name": "jackwener--wx-cli",
+  "displayName": "wx-cli",
+  "description": "WeChat local data CLI with daemon architecture",
+  "version": "1.0.0",
+  "author": "jackwener",
+  "homepage": "https://github.com/jackwener/wx-cli",
+  "skills": []
+}
