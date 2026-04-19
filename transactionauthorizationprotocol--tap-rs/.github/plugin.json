@@ -1,0 +1,9 @@
+{
+  "name": "transactionauthorizationprotocol--tap-rs",
+  "displayName": "tap-rs",
+  "description": "tap-rs",
+  "version": "1.0.0",
+  "author": "TransactionAuthorizationProtocol",
+  "homepage": "https://github.com/TransactionAuthorizationProtocol/tap-rs",
+  "skills": []
+}
