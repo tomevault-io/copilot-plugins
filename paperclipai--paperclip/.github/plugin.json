@@ -1,0 +1,14 @@
+{
+  "name": "paperclipai--paperclip",
+  "displayName": "paperclip",
+  "description": "Open-source orchestration for zero-human companies",
+  "version": "1.0.0",
+  "author": "paperclipai",
+  "homepage": "https://github.com/paperclipai/paperclip",
+  "skills": [
+    {
+      "name": "doc-maintenance",
+      "description": ""
+    }
+  ]
+}
