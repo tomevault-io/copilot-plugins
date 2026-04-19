@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [blopit/Cursor-Template-Repo](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/blopit)
+From [blopit/Cursor-Template-Repo](https://github.com/blopit/Cursor-Template-Repo) — a repo with 0+ stars on GitHub.
 
 ---
 
