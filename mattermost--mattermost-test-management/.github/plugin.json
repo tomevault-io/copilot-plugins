@@ -1,0 +1,38 @@
+{
+  "name": "mattermost--mattermost-test-management",
+  "displayName": "mattermost",
+  "description": "mattermost-test-management",
+  "version": "1.0.0",
+  "author": "mattermost",
+  "homepage": "https://github.com/mattermost/mattermost-test-management",
+  "skills": [
+    {
+      "name": "code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "conflicts",
+      "description": ""
+    },
+    {
+      "name": "figma-implement-design",
+      "description": ""
+    },
+    {
+      "name": "issue-resolver",
+      "description": ""
+    },
+    {
+      "name": "mattermost-test-data",
+      "description": ""
+    },
+    {
+      "name": "precommit",
+      "description": ""
+    },
+    {
+      "name": "teamimplement",
+      "description": ""
+    }
+  ]
+}
