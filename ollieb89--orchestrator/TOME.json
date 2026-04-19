@@ -2,7 +2,7 @@
   "name": "orchestrator",
   "owner": "ollieb89",
   "repo": "orchestrator",
-  "description": "AI instruction files for orchestrator by ollieb89",
+  "description": "",
   "type": "tome",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -43,9 +43,15 @@
       "path": ".cursor/skills/compound-docs",
       "github_url": "https://github.com/ollieb89/orchestrator/tree/main/.cursor/skills/compound-docs",
       "description": ""
+    },
+    {
+      "name": "obsidian-mcp",
+      "path": ".agent/skills/obsidian-mcp",
+      "github_url": "https://github.com/ollieb89/orchestrator/tree/main/.agent/skills/obsidian-mcp",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/ollieb89",
+  "source_url": "https://github.com/ollieb89/orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T11:31:26Z"
+  "distributed_at": "2026-04-19T14:39:02Z"
 }
