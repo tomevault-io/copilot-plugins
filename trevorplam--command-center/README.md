@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [TrevorPLam/command-center](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/TrevorPLam#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/TrevorPLam/command-center](https://github.com/TrevorPLam/command-center)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/TrevorPLam) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-q -->
