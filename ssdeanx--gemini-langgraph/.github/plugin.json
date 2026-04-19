@@ -1,9 +1,9 @@
 {
   "name": "ssdeanx--gemini-langgraph",
   "displayName": "gemini-langgraph",
-  "description": "AI instruction files for gemini-langgraph by ssdeanx",
+  "description": "gemini-langgraph",
   "version": "1.0.0",
   "author": "ssdeanx",
-  "homepage": "https://tomevault.io/claim/ssdeanx",
+  "homepage": "https://github.com/ssdeanx/gemini-langgraph",
   "skills": []
 }
