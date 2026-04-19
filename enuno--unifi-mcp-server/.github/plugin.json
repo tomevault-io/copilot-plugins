@@ -1,0 +1,22 @@
+{
+  "name": "enuno--unifi-mcp-server",
+  "displayName": "unifi-mcp-server",
+  "description": "unifi-mcp-server",
+  "version": "1.0.0",
+  "author": "enuno",
+  "homepage": "https://github.com/enuno/unifi-mcp-server",
+  "skills": [
+    {
+      "name": "fastmcp",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "unifi-mcp-tool-builder",
+      "description": ""
+    }
+  ]
+}
