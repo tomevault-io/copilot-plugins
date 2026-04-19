@@ -1,0 +1,33 @@
+## quantlab
+
+> QuantLab project-wide operating rules
+
+
+# QuantLab Cursor Rules
+
+## Read First
+
+Before making changes, read these context files:
+
+- `@.agents/project-brief.md`
+- `@.agents/implementation-rules.md`
+- `@.agents/current-state.md`
+
+## Change Discipline
+
+- Make the smallest change that satisfies the task.
+- Do not edit unrelated files.
+- Do not move business logic into `main.py`.
+- Prefer existing modules and patterns over new abstractions.
+- Preserve backward compatibility unless the task explicitly changes a contract.
+
+## Quality Rules
+
+- Add or update `pytest` coverage for behavior changes.
+- Keep deterministic behavior where possible.
+- Preserve artifact schemas and CLI contracts unless the task requires a change.
+- For broker or execution work, keep human gates explicit and preserve idempotency and reconciliation safety.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Whiteks1) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
