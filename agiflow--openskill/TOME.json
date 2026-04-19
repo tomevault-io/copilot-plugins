@@ -4,7 +4,7 @@
   "repo": "openskill",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,8 @@
     }
   ],
   "skills": [],
+  "source_url": "https://github.com/AgiFlow/openskill",
   "claim_url": "https://tomevault.io/claim/AgiFlow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T20:35:44Z"
+  "distributed_at": "2026-04-19T05:58:43Z"
 }
