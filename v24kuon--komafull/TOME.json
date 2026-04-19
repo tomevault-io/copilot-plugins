@@ -1,0 +1,58 @@
+{
+  "name": "komafull",
+  "owner": "v24kuon",
+  "repo": "KomaFull",
+  "description": "AI instruction skills by v24kuon",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "laravel",
+      "path": ".cursor/skills/laravel",
+      "github_url": "https://github.com/v24kuon/KomaFull/tree/main/.cursor/skills/laravel",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": ".cursor/skills/test-driven-development",
+      "github_url": "https://github.com/v24kuon/KomaFull/tree/main/.cursor/skills/test-driven-development",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/v24kuon/KomaFull",
+  "claim_url": "https://tomevault.io/claim/v24kuon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-19T02:33:52Z"
+}
