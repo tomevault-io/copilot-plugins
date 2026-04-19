@@ -1,6 +1,6 @@
 # scaffold
 
-> Tome by [SynaptixLabs](https://github.com/SynaptixLabs/scaffold) — distributed by [TomeVault](https://tomevault.io/claim/SynaptixLabs)
+> Tome by [SynaptixLabs](https://github.com/SynaptixLabs/scaffold) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [SynaptixLabs/scaffold](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/SynaptixLabs)
+From [SynaptixLabs/scaffold](https://github.com/SynaptixLabs/scaffold) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install SynaptixLabs/scaffold
 ```
-Or browse all formats at [https://tomevault.io/claim/SynaptixLabs](https://tomevault.io/claim/SynaptixLabs).
+Source: [github.com/SynaptixLabs/scaffold](https://github.com/SynaptixLabs/scaffold).
 
 <!-- genome:t-i-s -->
