@@ -1,0 +1,16 @@
+## fietsberaad-veiligstallen-app
+
+> Location of ColdFusion broncode (source) on this PC
+
+
+# ColdFusion broncode
+
+The ColdFusion application source code lives in the **`broncode`** folder at the project root:
+
+- **Path (this PC):** `broncode/` (relative to this workspace)
+- **Full path:** `<workspace>/broncode` (e.g. `/storage/veiligstallen/fietsberaad-veiligstallen-app/broncode`)
+- **Note:** This folder is local-only: it is in `.gitignore` and not in version control. When present, use it for parity checks, reference, and porting behaviour to the Next.js app. If not present and the user asks coldfusion specific questions, report that the source code is not available
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Stichting-CROW) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
