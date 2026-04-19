@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [aacarter1/brkato-1009](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/aacarter1)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/aacarter1/brkato-1009](https://github.com/aacarter1/brkato-1009)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/aacarter1) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
