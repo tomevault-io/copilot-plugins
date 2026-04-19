@@ -1,0 +1,14 @@
+{
+  "name": "notque--claude-code-toolkit",
+  "displayName": "claude-code-toolkit",
+  "description": "AI Agent System - Creator of the /do router",
+  "version": "1.0.0",
+  "author": "notque",
+  "homepage": "https://github.com/notque/claude-code-toolkit",
+  "skills": [
+    {
+      "name": "typescript-check",
+      "description": ""
+    }
+  ]
+}
