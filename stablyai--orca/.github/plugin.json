@@ -1,0 +1,14 @@
+{
+  "name": "stablyai--orca",
+  "displayName": "orca",
+  "description": "Orca is the next-gen IDE for building with coding agents",
+  "version": "1.0.0",
+  "author": "stablyai",
+  "homepage": "https://github.com/stablyai/orca",
+  "skills": [
+    {
+      "name": "typescript",
+      "description": ""
+    }
+  ]
+}
