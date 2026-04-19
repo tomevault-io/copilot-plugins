@@ -1,10 +1,10 @@
 {
   "name": "nozomio-labs--nia-rules-for-agents",
   "displayName": "nia-rules-for-agents",
-  "description": "AI instruction files for nia-rules-for-agents by nozomio-labs",
+  "description": "AI instruction skills by nozomio-labs",
   "version": "1.0.0",
   "author": "nozomio-labs",
-  "homepage": "https://tomevault.io/claim/nozomio-labs",
+  "homepage": "https://github.com/nozomio-labs/nia-rules-for-agents",
   "skills": [
     {
       "name": "nia",
