@@ -1,0 +1,74 @@
+{
+  "name": "aws-samples--sample-openclaw-on-aws-with-bedrock",
+  "displayName": "sample",
+  "description": "AI instruction skills by aws-samples",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock",
+  "skills": [
+    {
+      "name": "browser-automation",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "excel-spreadsheets",
+      "description": ""
+    },
+    {
+      "name": "google-web-search",
+      "description": ""
+    },
+    {
+      "name": "powerpoint-presentations",
+      "description": ""
+    },
+    {
+      "name": "tavily-search",
+      "description": ""
+    },
+    {
+      "name": "url-fetcher",
+      "description": ""
+    },
+    {
+      "name": "visual-design",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "description": ""
+    },
+    {
+      "name": "word-documents",
+      "description": ""
+    },
+    {
+      "name": "clean-workshop",
+      "description": ""
+    },
+    {
+      "name": "run-workshop",
+      "description": ""
+    },
+    {
+      "name": "scaffold-workshop",
+      "description": ""
+    },
+    {
+      "name": "data-structure-checker",
+      "description": ""
+    },
+    {
+      "name": "system-prompt-writer",
+      "description": ""
+    }
+  ]
+}
