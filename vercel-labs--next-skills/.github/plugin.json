@@ -1,0 +1,30 @@
+{
+  "name": "vercel-labs--next-skills",
+  "displayName": "skills",
+  "description": "The open agent skills tool - npx skills",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/next-skills",
+  "skills": [
+    {
+      "name": "next-cache-components",
+      "description": ""
+    },
+    {
+      "name": "next-upgrade",
+      "description": ""
+    },
+    {
+      "name": "next",
+      "description": ""
+    },
+    {
+      "name": "next",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "description": ""
+    }
+  ]
+}
