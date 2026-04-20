@@ -1,0 +1,63 @@
+{
+  "name": "lazyworktree",
+  "owner": "chmouel",
+  "repo": "lazyworktree",
+  "description": "Easy Git worktree management CLI and TUI for the terminal.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deep-analyse",
+      "path": ".claude/skills/deep-analyse",
+      "github_url": "https://github.com/chmouel/lazyworktree/tree/main/.claude/skills/deep-analyse",
+      "description": ""
+    },
+    {
+      "name": "design-sync",
+      "path": ".claude/skills/design-sync",
+      "github_url": "https://github.com/chmouel/lazyworktree/tree/main/.claude/skills/design-sync",
+      "description": ""
+    },
+    {
+      "name": "doc-sync",
+      "path": ".claude/skills/doc-sync",
+      "github_url": "https://github.com/chmouel/lazyworktree/tree/main/.claude/skills/doc-sync",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chmouel/lazyworktree",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:37:40Z"
+}
