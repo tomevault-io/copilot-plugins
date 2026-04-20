@@ -1,0 +1,9 @@
+{
+  "name": "icanbwell--fhir-server",
+  "displayName": "fhir-server",
+  "description": "fhir-server",
+  "version": "1.0.0",
+  "author": "icanbwell",
+  "homepage": "https://github.com/icanbwell/fhir-server",
+  "skills": []
+}
