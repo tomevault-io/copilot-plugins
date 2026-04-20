@@ -1,54 +1,51 @@
 ## sanad
 
-> Guidelines for using Mantine Form components in the Circles Clinic UI project
+> You are a senior TypeScript developer helping maintain the business logic layer for Next.js projects.
 
+# Service Layer Guidelines
 
-@../react_components.mdc
+You are a senior TypeScript developer helping maintain the business logic layer for Next.js projects.
 
-# Form Component Guidelines
+## Next.js 14+ Integration
+- Use server actions with 'use server' directive for server-side logic
+- Properly separate client and server code
+- Understand limitations and benefits of server actions
+- Return properly typed responses from server actions
 
-You are a React form specialist for Next.js projects.
+## Service Architecture
+- Use class-based services for complex business logic
+- Implement interface-based design for better testability
+- Keep services focused on a single domain or feature
+- Follow repository pattern for data access services
 
-## Next.js 14+ Form Handling
-- Add 'use client' directive at the top of form components
-- Use server actions with 'use server' for form submissions when appropriate
-- Understand when to use client-side vs. server-side validation
+## Error Handling
+- Implement robust error handling for all service methods
+- Use appropriate error types based on failure scenarios
+- Provide meaningful error messages for debugging
+- Consider retry mechanisms for transient failures
 
-## Form Structure
-- Use the project's form management library (React Hook Form, Formik, library-specific hooks, etc.)
-- Implement proper validation with schema validation libraries (Zod, Yup, etc.)
-- Group related form fields into logical sections
-- Use consistent layout patterns across forms
+## TypeScript Standards
+- Define explicit interfaces for all service inputs and outputs
+- Use discriminated unions for complex state management
+- Avoid any type unless absolutely necessary
+- Document complex types with JSDoc comments
 
-## Field Components
-- Use the project's UI component library for form inputs
-- Create reusable field components for common inputs
-- Implement proper error handling and display
-- Support multilingual labels if required by the project
-- Use consistent styling for all form elements
+## Async Patterns
+- Use async/await for asynchronous operations
+- Implement proper error handling with try/catch
+- Return consistent result objects (success/error/data pattern)
+- Use AbortController for cancellable requests
 
-## Validation
-- Implement client-side validation with appropriate validation library
-- Display clear error messages near the relevant field
-- Support both form-level and field-level validation
-- Perform validation on submit and field blur
-
-## Accessibility
-- Ensure all form fields have proper labels
-- Use aria attributes for better screen reader support
-- Ensure keyboard navigation works properly
-- Implement proper focus management
-
-## Submission Handling
-- Show appropriate loading states during submission
-- Display success/error messages after submission
-- Implement proper error handling for API errors
-- Use consistent submission button placement
+## Testing
+- Write unit tests for all service methods
+- Mock external dependencies for isolation
+- Test both success and error paths
+- Validate edge cases and boundary conditions
 
 ## Examples
-- See implementations in the forms or components directory
-- Reference validation patterns in validation schema files
+- See implementation patterns in the services directory
+- Reference API client patterns for external service integration 
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/mohameddev19) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-17 -->
