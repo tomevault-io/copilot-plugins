@@ -2,9 +2,9 @@
   "name": "skill-scanner",
   "owner": "cisco-ai-defense",
   "repo": "skill-scanner",
-  "description": "AI instruction skills by cisco-ai-defense",
+  "description": "Security Scanner for Agent Skills",
   "type": "tome",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -119,5 +119,5 @@
   ],
   "source_url": "https://github.com/cisco-ai-defense/skill-scanner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T14:30:19Z"
+  "distributed_at": "2026-04-20T11:38:18Z"
 }
