@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Strategy11/formidable-forms](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Strategy11)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Strategy11/formidable-forms](https://github.com/Strategy11/formidable-forms)
 
 ---
 
