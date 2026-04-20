@@ -1,0 +1,9 @@
+{
+  "name": "modem-dev--hunk",
+  "displayName": "hunk",
+  "description": "Review-first terminal diff viewer for agentic coders",
+  "version": "1.0.0",
+  "author": "modem-dev",
+  "homepage": "https://github.com/modem-dev/hunk",
+  "skills": []
+}
