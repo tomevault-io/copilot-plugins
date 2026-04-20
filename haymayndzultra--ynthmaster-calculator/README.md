@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [HaymayndzUltra/ynthmaster-calculator
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/HaymayndzUltra#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/HaymayndzUltra/ynthmaster-calculator](https://github.com/HaymayndzUltra/ynthmaster-calculator)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install HaymayndzUltra/ynthmaster-calculator
 ```
-Or browse all formats at [https://tomevault.io/claim/HaymayndzUltra](https://tomevault.io/claim/HaymayndzUltra).
+Source: [github.com/HaymayndzUltra/ynthmaster-calculator](https://github.com/HaymayndzUltra/ynthmaster-calculator).
 
 <!-- genome:d-i-q -->
