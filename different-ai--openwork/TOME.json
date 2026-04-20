@@ -1,0 +1,267 @@
+{
+  "name": "openwork",
+  "owner": "different-ai",
+  "repo": "openwork",
+  "description": "An open-source alternative to Claude Cowork built for teams, powered by opencode",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "browser-setup-devtools",
+      "path": ".opencode/skills/browser-setup-devtools",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/browser-setup-devtools",
+      "description": ""
+    },
+    {
+      "name": "cargo-lock-manager",
+      "path": ".opencode/skills/cargo-lock-manager",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/cargo-lock-manager",
+      "description": ""
+    },
+    {
+      "name": "get-started",
+      "path": ".opencode/skills/get-started",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/get-started",
+      "description": ""
+    },
+    {
+      "name": "opencode-bridge",
+      "path": ".opencode/skills/opencode-bridge",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/opencode-bridge",
+      "description": ""
+    },
+    {
+      "name": "opencode-mirror",
+      "path": ".opencode/skills/opencode-mirror",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/opencode-mirror",
+      "description": ""
+    },
+    {
+      "name": "opencode-primitives",
+      "path": ".opencode/skills/opencode-primitives",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/opencode-primitives",
+      "description": ""
+    },
+    {
+      "name": "openwork-core",
+      "path": ".opencode/skills/openwork-core",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/openwork-core",
+      "description": ""
+    },
+    {
+      "name": "openwork-debug",
+      "path": ".opencode/skills/openwork-debug",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/openwork-debug",
+      "description": ""
+    },
+    {
+      "name": "openwork-docker-chrome-mcp",
+      "path": ".opencode/skills/openwork-docker-chrome-mcp",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/openwork-docker-chrome-mcp",
+      "description": ""
+    },
+    {
+      "name": "openwork-orchestrator-npm-publish",
+      "path": ".opencode/skills/openwork-orchestrator-npm-publish",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/openwork-orchestrator-npm-publish",
+      "description": ""
+    },
+    {
+      "name": "solidjs-patterns",
+      "path": ".opencode/skills/solidjs-patterns",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/solidjs-patterns",
+      "description": ""
+    },
+    {
+      "name": "tauri-solidjs",
+      "path": ".opencode/skills/tauri-solidjs",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/tauri-solidjs",
+      "description": ""
+    },
+    {
+      "name": "agent-creator",
+      "path": ".opencode/skills/agent-creator",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/agent-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "path": ".opencode/skills/command-creator",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/command-creator",
+      "description": ""
+    },
+    {
+      "name": "create-cal-com-link",
+      "path": ".opencode/skills/create-cal-com-link",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/create-cal-com-link",
+      "description": ""
+    },
+    {
+      "name": "get-started",
+      "path": ".opencode/skills/get-started",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/get-started",
+      "description": ""
+    },
+    {
+      "name": "mcp-arch",
+      "path": ".opencode/skills/mcp-arch",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/mcp-arch",
+      "description": ""
+    },
+    {
+      "name": "openwork-chrome-mcp-testing",
+      "path": ".opencode/skills/openwork-chrome-mcp-testing",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/openwork-chrome-mcp-testing",
+      "description": ""
+    },
+    {
+      "name": "openwork-docker-chrome-mcp",
+      "path": ".opencode/skills/openwork-docker-chrome-mcp",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/openwork-docker-chrome-mcp",
+      "description": ""
+    },
+    {
+      "name": "owpenbot-test",
+      "path": ".opencode/skills/owpenbot-test",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/owpenbot-test",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "path": ".opencode/skills/plugin-creator",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "research-doc",
+      "path": ".opencode/skills/research-doc",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/research-doc",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".opencode/skills/skill-creator",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "sync-submodules",
+      "path": ".opencode/skills/sync-submodules",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/sync-submodules",
+      "description": ""
+    },
+    {
+      "name": "workspace-guide",
+      "path": ".opencode/skills/workspace-guide",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/workspace-guide",
+      "description": ""
+    },
+    {
+      "name": "worktree-ux-pr",
+      "path": ".opencode/skills/worktree-ux-pr",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/worktree-ux-pr",
+      "description": ""
+    },
+    {
+      "name": "worktree-workflow",
+      "path": ".opencode/skills/worktree-workflow",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/.opencode/skills/worktree-workflow",
+      "description": ""
+    },
+    {
+      "name": "agent-creator",
+      "path": "skills/agent-creator",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/agent-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "path": "skills/command-creator",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/command-creator",
+      "description": ""
+    },
+    {
+      "name": "create-cal-com-link",
+      "path": "skills/create-cal-com-link",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/create-cal-com-link",
+      "description": ""
+    },
+    {
+      "name": "openwork-chrome-mcp-testing",
+      "path": "skills/openwork-chrome-mcp-testing",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/openwork-chrome-mcp-testing",
+      "description": ""
+    },
+    {
+      "name": "owpenbot-test",
+      "path": "skills/owpenbot-test",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/owpenbot-test",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "path": "skills/plugin-creator",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "sandbox-lifecycle-fastlane",
+      "path": "skills/sandbox-lifecycle-fastlane",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/sandbox-lifecycle-fastlane",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "worktree-ux-pr",
+      "path": "skills/worktree-ux-pr",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/worktree-ux-pr",
+      "description": ""
+    },
+    {
+      "name": "worktree-workflow",
+      "path": "skills/worktree-workflow",
+      "github_url": "https://github.com/different-ai/openwork/tree/main/skills/worktree-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/different-ai/openwork",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:40:18Z"
+}
