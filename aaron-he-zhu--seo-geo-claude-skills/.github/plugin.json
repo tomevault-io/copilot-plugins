@@ -1,0 +1,70 @@
+{
+  "name": "aaron-he-zhu--seo-geo-claude-skills",
+  "displayName": "seo-geo-claude-skills",
+  "description": "20 SEO & GEO skills for Claude Code, Cursor, Codex, and 35+ AI agents. Keyword research, content writing, technical audits, rank tracking. CORE-EEAT + CITE frameworks.",
+  "version": "1.0.0",
+  "author": "aaron-he-zhu",
+  "homepage": "https://github.com/aaron-he-zhu/seo-geo-claude-skills",
+  "skills": [
+    {
+      "name": "backlink-analyzer",
+      "description": ""
+    },
+    {
+      "name": "serp-analysis",
+      "description": ""
+    },
+    {
+      "name": "technical-seo-checker",
+      "description": ""
+    },
+    {
+      "name": "competitor-analysis",
+      "description": ""
+    },
+    {
+      "name": "content-quality-auditor",
+      "description": ""
+    },
+    {
+      "name": "content-refresher",
+      "description": ""
+    },
+    {
+      "name": "domain-authority-auditor",
+      "description": ""
+    },
+    {
+      "name": "entity-optimizer",
+      "description": ""
+    },
+    {
+      "name": "geo-content-optimizer",
+      "description": ""
+    },
+    {
+      "name": "internal-linking-optimizer",
+      "description": ""
+    },
+    {
+      "name": "memory-management",
+      "description": ""
+    },
+    {
+      "name": "meta-tags-optimizer",
+      "description": ""
+    },
+    {
+      "name": "performance-reporter",
+      "description": ""
+    },
+    {
+      "name": "rank-tracker",
+      "description": ""
+    },
+    {
+      "name": "seo-content-writer",
+      "description": ""
+    }
+  ]
+}
