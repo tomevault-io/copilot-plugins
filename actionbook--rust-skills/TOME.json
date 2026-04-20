@@ -1,0 +1,201 @@
+{
+  "name": "rust-skills",
+  "owner": "actionbook",
+  "repo": "rust-skills",
+  "description": "Rust Developer AI Assistance System \u2014 Meta-Problem-Driven Knowledge Indexing",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "coding-guidelines",
+      "path": "skills/coding-guidelines",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/coding-guidelines",
+      "description": ""
+    },
+    {
+      "name": "domain-cli",
+      "path": "skills/domain-cli",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/domain-cli",
+      "description": ""
+    },
+    {
+      "name": "domain-cloud-native",
+      "path": "skills/domain-cloud-native",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/domain-cloud-native",
+      "description": ""
+    },
+    {
+      "name": "domain-embedded",
+      "path": "skills/domain-embedded",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/domain-embedded",
+      "description": ""
+    },
+    {
+      "name": "domain-fintech",
+      "path": "skills/domain-fintech",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/domain-fintech",
+      "description": ""
+    },
+    {
+      "name": "domain-iot",
+      "path": "skills/domain-iot",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/domain-iot",
+      "description": ""
+    },
+    {
+      "name": "domain-ml",
+      "path": "skills/domain-ml",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/domain-ml",
+      "description": ""
+    },
+    {
+      "name": "domain-web",
+      "path": "skills/domain-web",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/domain-web",
+      "description": ""
+    },
+    {
+      "name": "m05-type-driven",
+      "path": "skills/m05-type-driven",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/m05-type-driven",
+      "description": ""
+    },
+    {
+      "name": "m09-domain",
+      "path": "skills/m09-domain",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/m09-domain",
+      "description": ""
+    },
+    {
+      "name": "m11-ecosystem",
+      "path": "skills/m11-ecosystem",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/m11-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "m12-lifecycle",
+      "path": "skills/m12-lifecycle",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/m12-lifecycle",
+      "description": ""
+    },
+    {
+      "name": "m13-domain-error",
+      "path": "skills/m13-domain-error",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/m13-domain-error",
+      "description": ""
+    },
+    {
+      "name": "m14-mental-model",
+      "path": "skills/m14-mental-model",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/m14-mental-model",
+      "description": ""
+    },
+    {
+      "name": "m15-anti-pattern",
+      "path": "skills/m15-anti-pattern",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/m15-anti-pattern",
+      "description": ""
+    },
+    {
+      "name": "rust-call-graph",
+      "path": "skills/rust-call-graph",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-call-graph",
+      "description": ""
+    },
+    {
+      "name": "rust-code-navigator",
+      "path": "skills/rust-code-navigator",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-code-navigator",
+      "description": ""
+    },
+    {
+      "name": "rust-daily",
+      "path": "skills/rust-daily",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-daily",
+      "description": ""
+    },
+    {
+      "name": "rust-deps-visualizer",
+      "path": "skills/rust-deps-visualizer",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-deps-visualizer",
+      "description": ""
+    },
+    {
+      "name": "rust-learner",
+      "path": "skills/rust-learner",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-learner",
+      "description": ""
+    },
+    {
+      "name": "rust-refactor-helper",
+      "path": "skills/rust-refactor-helper",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-refactor-helper",
+      "description": ""
+    },
+    {
+      "name": "rust-router",
+      "path": "skills/rust-router",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-router",
+      "description": ""
+    },
+    {
+      "name": "rust-skill-creator",
+      "path": "skills/rust-skill-creator",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "rust-symbol-analyzer",
+      "path": "skills/rust-symbol-analyzer",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-symbol-analyzer",
+      "description": ""
+    },
+    {
+      "name": "rust-trait-explorer",
+      "path": "skills/rust-trait-explorer",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/rust-trait-explorer",
+      "description": ""
+    },
+    {
+      "name": "unsafe-checker",
+      "path": "skills/unsafe-checker",
+      "github_url": "https://github.com/actionbook/rust-skills/tree/main/skills/unsafe-checker",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/actionbook/rust-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:31:22Z"
+}
