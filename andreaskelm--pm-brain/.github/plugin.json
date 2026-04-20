@@ -1,0 +1,14 @@
+{
+  "name": "andreaskelm--pm-brain",
+  "displayName": "pm-brain",
+  "description": "AI-powered product management thinking & operating system. Playbooks, guides, templates, and frameworks that bridge PM theory to daily execution.",
+  "version": "1.0.0",
+  "author": "andreaskelm",
+  "homepage": "https://github.com/andreaskelm/pm-brain",
+  "skills": [
+    {
+      "name": "pm-brain-workflow",
+      "description": ""
+    }
+  ]
+}
