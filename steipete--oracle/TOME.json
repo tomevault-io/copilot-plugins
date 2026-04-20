@@ -1,0 +1,51 @@
+{
+  "name": "oracle",
+  "owner": "steipete",
+  "repo": "oracle",
+  "description": "Ask the oracle when you're stuck. Invoke GPT-5 Pro with a custom context and files.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oracle",
+      "path": "skills/oracle",
+      "github_url": "https://github.com/steipete/oracle/tree/main/skills/oracle",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/steipete/oracle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:41:48Z"
+}
