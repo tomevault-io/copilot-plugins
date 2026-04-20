@@ -1,0 +1,38 @@
+{
+  "name": "vercel-labs--json-render",
+  "displayName": "json-render",
+  "description": "The Generative UI framework",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/json-render",
+  "skills": [
+    {
+      "name": "remotion-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "react-three-fiber",
+      "description": ""
+    },
+    {
+      "name": "react-email",
+      "description": ""
+    },
+    {
+      "name": "react-pdf",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "description": ""
+    }
+  ]
+}
