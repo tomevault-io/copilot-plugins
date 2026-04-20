@@ -1,0 +1,87 @@
+{
+  "name": "json-render",
+  "owner": "vercel-labs",
+  "repo": "json-render",
+  "description": "The Generative UI framework",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "remotion-best-practices",
+      "path": "skills/remotion-best-practices",
+      "github_url": "https://github.com/vercel-labs/json-render/tree/main/skills/remotion-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "skills/vue",
+      "github_url": "https://github.com/vercel-labs/json-render/tree/main/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "skills/react",
+      "github_url": "https://github.com/vercel-labs/json-render/tree/main/skills/react",
+      "description": ""
+    },
+    {
+      "name": "react-three-fiber",
+      "path": "skills/react-three-fiber",
+      "github_url": "https://github.com/vercel-labs/json-render/tree/main/skills/react-three-fiber",
+      "description": ""
+    },
+    {
+      "name": "react-email",
+      "path": "skills/react-email",
+      "github_url": "https://github.com/vercel-labs/json-render/tree/main/skills/react-email",
+      "description": ""
+    },
+    {
+      "name": "react-pdf",
+      "path": "skills/react-pdf",
+      "github_url": "https://github.com/vercel-labs/json-render/tree/main/skills/react-pdf",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "path": "skills/react-native",
+      "github_url": "https://github.com/vercel-labs/json-render/tree/main/skills/react-native",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vercel-labs/json-render",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:05:22Z"
+}
