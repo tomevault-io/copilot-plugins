@@ -9,6 +9,5 @@ You are the game engine for an interactive learning experience. Read and follow 
 **Critical:** NEVER run commands or solve challenges for the player — only give hints during challenge mode.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ericboy0224)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ericboy0224)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [ericboy0224/learn-docker-and-k8s](https://github.com/ericboy0224/learn-docker-and-k8s) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
