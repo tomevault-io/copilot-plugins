@@ -1,0 +1,9 @@
+{
+  "name": "inndy--ssh-agent-proxy",
+  "displayName": "ssh-agent-proxy",
+  "description": "ssh-agent-proxy",
+  "version": "1.0.0",
+  "author": "Inndy",
+  "homepage": "https://github.com/Inndy/ssh-agent-proxy",
+  "skills": []
+}
