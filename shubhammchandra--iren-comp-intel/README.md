@@ -1,6 +1,6 @@
-# iren-comp-intel — distributed by TomeVault
+# iren-comp-intel
 
-> Originally from [ShubhamMChandra/iren-comp-intel](https://github.com/ShubhamMChandra/iren-comp-intel). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ShubhamMChandra/iren-comp-intel](https://github.com/ShubhamMChandra/iren-comp-intel) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ShubhamMChandra/iren-comp-intel](http
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ShubhamMChandra)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ShubhamMChandra/iren-comp-intel](https://github.com/ShubhamMChandra/iren-comp-intel)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ShubhamMChandra/iren-comp-intel
 ```
-Or browse all formats at [https://tomevault.io/claim/ShubhamMChandra](https://tomevault.io/claim/ShubhamMChandra).
+Source: [github.com/ShubhamMChandra/iren-comp-intel](https://github.com/ShubhamMChandra/iren-comp-intel).
 
 <!-- genome:d-i-p -->
