@@ -1,6 +1,6 @@
 # bmr-breegade
 
-> Tome by [bmarguerite](https://github.com/bmarguerite/bmr-breegade) — distributed by [TomeVault](https://tomevault.io/claim/bmarguerite)
+> Tome by [bmarguerite](https://github.com/bmarguerite/bmr-breegade) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [bmarguerite/bmr-breegade](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/bmarguerite)
+From [bmarguerite/bmr-breegade](https://github.com/bmarguerite/bmr-breegade) — a repo with 0+ stars on GitHub.
 
 ---
 
