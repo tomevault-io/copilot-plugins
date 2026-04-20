@@ -1,0 +1,30 @@
+{
+  "name": "code-yeongyu--oh-my-openagent",
+  "displayName": "oh-my-open",
+  "description": "omo; the best agent harness - previously oh-my-opencode",
+  "version": "1.0.0",
+  "author": "code-yeongyu",
+  "homepage": "https://github.com/code-yeongyu/oh-my-openagent",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "dev-browser",
+      "description": ""
+    },
+    {
+      "name": "frontend-ui-ux",
+      "description": ""
+    },
+    {
+      "name": "git-master",
+      "description": ""
+    },
+    {
+      "name": "github-triage",
+      "description": ""
+    }
+  ]
+}
