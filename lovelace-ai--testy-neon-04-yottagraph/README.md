@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Lovelace-AI/testy-neon-04-yottagraph]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Lovelace-AI)
+From [Lovelace-AI/testy-neon-04-yottagraph](https://github.com/Lovelace-AI/testy-neon-04-yottagraph) — a repo with 0+ stars on GitHub.
 
 ---
 
