@@ -1,0 +1,9 @@
+{
+  "name": "modem-dev--slop-scan",
+  "displayName": "slop-scan",
+  "description": "Detect AI code slop patterns in your repo",
+  "version": "1.0.0",
+  "author": "modem-dev",
+  "homepage": "https://github.com/modem-dev/slop-scan",
+  "skills": []
+}
