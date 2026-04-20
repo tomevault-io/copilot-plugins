@@ -1,0 +1,14 @@
+{
+  "name": "alvinunreal--oh-my-opencode-slim",
+  "displayName": "oh-my-opencode-slim",
+  "description": "Slimmed, cleaned and fine-tuned oh-my-opencode fork, consumes much less tokens",
+  "version": "1.0.0",
+  "author": "alvinunreal",
+  "homepage": "https://github.com/alvinunreal/oh-my-opencode-slim",
+  "skills": [
+    {
+      "name": "cartography",
+      "description": ""
+    }
+  ]
+}
