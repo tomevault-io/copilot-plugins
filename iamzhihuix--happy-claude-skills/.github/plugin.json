@@ -1,0 +1,26 @@
+{
+  "name": "iamzhihuix--happy-claude-skills",
+  "displayName": "happy-claude-skills",
+  "description": "AI instruction skills by iamzhihuix",
+  "version": "1.0.0",
+  "author": "iamzhihuix",
+  "homepage": "https://github.com/iamzhihuix/happy-claude-skills",
+  "skills": [
+    {
+      "name": "wechat-article-writer",
+      "description": ""
+    },
+    {
+      "name": "browser",
+      "description": ""
+    },
+    {
+      "name": "docx-format-replicator",
+      "description": ""
+    },
+    {
+      "name": "video-processor",
+      "description": ""
+    }
+  ]
+}
