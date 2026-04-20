@@ -1,0 +1,9 @@
+{
+  "name": "gemini-cli-extensions--conductor",
+  "displayName": "conductor",
+  "description": "Conductor is a Gemini CLI extension that allows you to specify, plan, and implement software features.",
+  "version": "1.0.0",
+  "author": "gemini-cli-extensions",
+  "homepage": "https://github.com/gemini-cli-extensions/conductor",
+  "skills": []
+}
