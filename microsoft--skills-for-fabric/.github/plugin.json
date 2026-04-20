@@ -1,0 +1,134 @@
+{
+  "name": "microsoft--skills-for-fabric",
+  "displayName": "skills",
+  "description": "A collection of skills and MCP systems to enable users of CLI, VSCode, Claude to operate over Microsoft Fabric",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/skills-for-fabric",
+  "skills": [
+    {
+      "name": "appinsights-instrumentation",
+      "description": ""
+    },
+    {
+      "name": "azure-ai",
+      "description": ""
+    },
+    {
+      "name": "azure-aigateway",
+      "description": ""
+    },
+    {
+      "name": "azure-compliance",
+      "description": ""
+    },
+    {
+      "name": "azure-deploy",
+      "description": ""
+    },
+    {
+      "name": "azure-diagnostics",
+      "description": ""
+    },
+    {
+      "name": "azure-prepare",
+      "description": ""
+    },
+    {
+      "name": "azure-rbac",
+      "description": ""
+    },
+    {
+      "name": "azure-resource-lookup",
+      "description": ""
+    },
+    {
+      "name": "azure-resource-visualizer",
+      "description": ""
+    },
+    {
+      "name": "azure-validate",
+      "description": ""
+    },
+    {
+      "name": "capacity",
+      "description": ""
+    },
+    {
+      "name": "customize",
+      "description": ""
+    },
+    {
+      "name": "deploy-model",
+      "description": ""
+    },
+    {
+      "name": "entra-app-registration",
+      "description": ""
+    },
+    {
+      "name": "github-issue-creator",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "microsoft-foundry",
+      "description": ""
+    },
+    {
+      "name": "podcast-generation",
+      "description": ""
+    },
+    {
+      "name": "preset",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "wiki-ado-convert",
+      "description": ""
+    },
+    {
+      "name": "wiki-agents-md",
+      "description": ""
+    },
+    {
+      "name": "wiki-architect",
+      "description": ""
+    },
+    {
+      "name": "wiki-changelog",
+      "description": ""
+    },
+    {
+      "name": "wiki-llms-txt",
+      "description": ""
+    },
+    {
+      "name": "wiki-onboarding",
+      "description": ""
+    },
+    {
+      "name": "wiki-page-writer",
+      "description": ""
+    },
+    {
+      "name": "wiki-qa",
+      "description": ""
+    },
+    {
+      "name": "wiki-researcher",
+      "description": ""
+    },
+    {
+      "name": "react-flow-node-ts",
+      "description": ""
+    }
+  ]
+}
