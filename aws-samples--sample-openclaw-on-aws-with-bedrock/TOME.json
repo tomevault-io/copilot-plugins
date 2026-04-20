@@ -1,0 +1,141 @@
+{
+  "name": "sample",
+  "owner": "aws-samples",
+  "repo": "sample-OpenClaw-on-AWS-with-Bedrock",
+  "description": "AI instruction skills by aws-samples",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "browser-automation",
+      "path": "chatbot-app/agentcore/skills/browser-automation",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/browser-automation",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": "chatbot-app/agentcore/skills/code-interpreter",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/code-interpreter",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "path": "chatbot-app/agentcore/skills/doc-coauthoring",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "excel-spreadsheets",
+      "path": "chatbot-app/agentcore/skills/excel-spreadsheets",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/excel-spreadsheets",
+      "description": ""
+    },
+    {
+      "name": "google-web-search",
+      "path": "chatbot-app/agentcore/skills/google-web-search",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/google-web-search",
+      "description": ""
+    },
+    {
+      "name": "powerpoint-presentations",
+      "path": "chatbot-app/agentcore/skills/powerpoint-presentations",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/powerpoint-presentations",
+      "description": ""
+    },
+    {
+      "name": "tavily-search",
+      "path": "chatbot-app/agentcore/skills/tavily-search",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/tavily-search",
+      "description": ""
+    },
+    {
+      "name": "url-fetcher",
+      "path": "chatbot-app/agentcore/skills/url-fetcher",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/url-fetcher",
+      "description": ""
+    },
+    {
+      "name": "visual-design",
+      "path": "chatbot-app/agentcore/skills/visual-design",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/visual-design",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "path": "chatbot-app/agentcore/skills/web-search",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/web-search",
+      "description": ""
+    },
+    {
+      "name": "word-documents",
+      "path": "chatbot-app/agentcore/skills/word-documents",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/chatbot-app/agentcore/skills/word-documents",
+      "description": ""
+    },
+    {
+      "name": "clean-workshop",
+      "path": ".claude/skills/clean-workshop",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/.claude/skills/clean-workshop",
+      "description": ""
+    },
+    {
+      "name": "run-workshop",
+      "path": ".claude/skills/run-workshop",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/.claude/skills/run-workshop",
+      "description": ""
+    },
+    {
+      "name": "scaffold-workshop",
+      "path": ".claude/skills/scaffold-workshop",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/.claude/skills/scaffold-workshop",
+      "description": ""
+    },
+    {
+      "name": "data-structure-checker",
+      "path": "self-hosted/skills/data-structure-checker",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/self-hosted/skills/data-structure-checker",
+      "description": ""
+    },
+    {
+      "name": "system-prompt-writer",
+      "path": "self-hosted/skills/system-prompt-writer",
+      "github_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/tree/main/self-hosted/skills/system-prompt-writer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:07:06Z"
+}
