@@ -1,0 +1,14 @@
+{
+  "name": "gradio-app--daggr",
+  "displayName": "daggr",
+  "description": "Chain apps and models to build robust AI workflows \ud83e\udd17",
+  "version": "1.0.0",
+  "author": "gradio-app",
+  "homepage": "https://github.com/gradio-app/daggr",
+  "skills": [
+    {
+      "name": "daggr",
+      "description": ""
+    }
+  ]
+}
