@@ -1,9 +1,9 @@
 {
   "name": "zimoliao--scholaraio",
   "displayName": "scholaraio",
-  "description": "scholaraio",
+  "description": "Scholar All-In-One: A research infrastructure for AI agents",
   "version": "1.0.0",
   "author": "ZimoLiao",
-  "homepage": "https://tomevault.io/claim/ZimoLiao",
+  "homepage": "https://github.com/ZimoLiao/scholaraio",
   "skills": []
 }
