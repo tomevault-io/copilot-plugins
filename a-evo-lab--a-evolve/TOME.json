@@ -1,0 +1,57 @@
+{
+  "name": "a-evolve",
+  "owner": "A-EVO-Lab",
+  "repo": "a-evolve",
+  "description": "The official repository of \"Position: Agentic Evolution is the Path to Evolving LLMs\".",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "python-packages",
+      "path": "seed_workspaces/skillbench/skills/python-packages",
+      "github_url": "https://github.com/A-EVO-Lab/a-evolve/tree/main/seed_workspaces/skillbench/skills/python-packages",
+      "description": ""
+    },
+    {
+      "name": "python-data-analysis",
+      "path": "artifacts/tb2_clawcode_opus46/skills/python-data-analysis",
+      "github_url": "https://github.com/A-EVO-Lab/a-evolve/tree/main/artifacts/tb2_clawcode_opus46/skills/python-data-analysis",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/A-EVO-Lab/a-evolve",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T08:33:45Z"
+}
