@@ -1,0 +1,9 @@
+{
+  "name": "recolabs--gnata",
+  "displayName": "gnata",
+  "description": "Pure-Go implementation of JSONata 2.x for high-throughput streaming evaluation",
+  "version": "1.0.0",
+  "author": "RecoLabs",
+  "homepage": "https://github.com/RecoLabs/gnata",
+  "skills": []
+}
