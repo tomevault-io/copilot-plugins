@@ -1,0 +1,63 @@
+{
+  "name": "clawlet",
+  "owner": "mosaxiv",
+  "repo": "clawlet",
+  "description": "Ultra-lightweight and efficient personal AI assistant",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "github",
+      "path": "skills/builtin/skills/github",
+      "github_url": "https://github.com/mosaxiv/clawlet/tree/main/skills/builtin/skills/github",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "path": "skills/builtin/skills/tmux",
+      "github_url": "https://github.com/mosaxiv/clawlet/tree/main/skills/builtin/skills/tmux",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "path": "skills/builtin/skills/weather",
+      "github_url": "https://github.com/mosaxiv/clawlet/tree/main/skills/builtin/skills/weather",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mosaxiv/clawlet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:45:28Z"
+}
