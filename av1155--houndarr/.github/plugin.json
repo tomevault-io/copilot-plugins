@@ -1,0 +1,9 @@
+{
+  "name": "av1155--houndarr",
+  "displayName": "houndarr",
+  "description": "Self-hosted *arr companion for controlled missing, cutoff, and upgrade searches.",
+  "version": "1.0.0",
+  "author": "av1155",
+  "homepage": "https://github.com/av1155/houndarr",
+  "skills": []
+}
