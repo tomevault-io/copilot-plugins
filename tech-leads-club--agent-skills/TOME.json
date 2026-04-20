@@ -1,0 +1,255 @@
+{
+  "name": "agent-skills",
+  "owner": "tech-leads-club",
+  "repo": "agent-skills",
+  "description": "The secure, validated skill registry for professional AI coding agents. Extend Antigravity, Claude Code, Cursor, Copilot and more with absolute confidence.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "web-accessibility",
+      "path": "packages/skills-catalog/skills/(quality)/web-accessibility",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/web-accessibility",
+      "description": ""
+    },
+    {
+      "name": "aws-advisor",
+      "path": "packages/skills-catalog/skills/(cloud)/aws-advisor",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(cloud)/aws-advisor",
+      "description": ""
+    },
+    {
+      "name": "web-best-practices",
+      "path": "packages/skills-catalog/skills/(quality)/web-best-practices",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/web-best-practices",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-deploy",
+      "path": "packages/skills-catalog/skills/(cloud)/cloudflare-deploy",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(cloud)/cloudflare-deploy",
+      "description": ""
+    },
+    {
+      "name": "coding-guidelines",
+      "path": "packages/skills-catalog/skills/(development)/coding-guidelines",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(development)/coding-guidelines",
+      "description": ""
+    },
+    {
+      "name": "component-common-domain-detection",
+      "path": "packages/skills-catalog/skills/(architecture)/component-common-domain-detection",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(architecture)/component-common-domain-detection",
+      "description": ""
+    },
+    {
+      "name": "component-flattening-analysis",
+      "path": "packages/skills-catalog/skills/(architecture)/component-flattening-analysis",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(architecture)/component-flattening-analysis",
+      "description": ""
+    },
+    {
+      "name": "component-identification-sizing",
+      "path": "packages/skills-catalog/skills/(architecture)/component-identification-sizing",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(architecture)/component-identification-sizing",
+      "description": ""
+    },
+    {
+      "name": "core-web-vitals",
+      "path": "packages/skills-catalog/skills/(performance)/core-web-vitals",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(performance)/core-web-vitals",
+      "description": ""
+    },
+    {
+      "name": "cursor-subagent-creator",
+      "path": "packages/skills-catalog/skills/(creation)/cursor-subagent-creator",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(creation)/cursor-subagent-creator",
+      "description": ""
+    },
+    {
+      "name": "decomposition-planning-roadmap",
+      "path": "packages/skills-catalog/skills/(architecture)/decomposition-planning-roadmap",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(architecture)/decomposition-planning-roadmap",
+      "description": ""
+    },
+    {
+      "name": "docs-writer",
+      "path": "packages/skills-catalog/skills/(development)/docs-writer",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(development)/docs-writer",
+      "description": ""
+    },
+    {
+      "name": "domain-analysis",
+      "path": "packages/skills-catalog/skills/(architecture)/domain-analysis",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(architecture)/domain-analysis",
+      "description": ""
+    },
+    {
+      "name": "figma",
+      "path": "packages/skills-catalog/skills/(design)/figma",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(design)/figma",
+      "description": ""
+    },
+    {
+      "name": "figma-implement-design",
+      "path": "packages/skills-catalog/skills/(design)/figma-implement-design",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(design)/figma-implement-design",
+      "description": ""
+    },
+    {
+      "name": "gh-address-comments",
+      "path": "packages/skills-catalog/skills/(development)/gh-address-comments",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(development)/gh-address-comments",
+      "description": ""
+    },
+    {
+      "name": "gh-fix-ci",
+      "path": "packages/skills-catalog/skills/(tooling)/gh-fix-ci",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(tooling)/gh-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "netlify-deploy",
+      "path": "packages/skills-catalog/skills/(cloud)/netlify-deploy",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(cloud)/netlify-deploy",
+      "description": ""
+    },
+    {
+      "name": "nx-workspace",
+      "path": "packages/skills-catalog/skills/(tooling)/nx-workspace",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(tooling)/nx-workspace",
+      "description": ""
+    },
+    {
+      "name": "perf-lighthouse",
+      "path": "packages/skills-catalog/skills/(performance)/perf-lighthouse",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(performance)/perf-lighthouse",
+      "description": ""
+    },
+    {
+      "name": "perf-web-optimization",
+      "path": "packages/skills-catalog/skills/(performance)/perf-web-optimization",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(performance)/perf-web-optimization",
+      "description": ""
+    },
+    {
+      "name": "playwright-skill",
+      "path": "packages/skills-catalog/skills/(web-automation)/playwright-skill",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(web-automation)/playwright-skill",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "packages/skills-catalog/skills/(quality)/react-best-practices",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-composition-patterns",
+      "path": "packages/skills-catalog/skills/(architecture)/react-composition-patterns",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(architecture)/react-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "render-deploy",
+      "path": "packages/skills-catalog/skills/(cloud)/render-deploy",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(cloud)/render-deploy",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "path": "packages/skills-catalog/skills/(security)/security-best-practices",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "security-ownership-map",
+      "path": "packages/skills-catalog/skills/(security)/security-ownership-map",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-ownership-map",
+      "description": ""
+    },
+    {
+      "name": "security-threat-model",
+      "path": "packages/skills-catalog/skills/(security)/security-threat-model",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model",
+      "description": ""
+    },
+    {
+      "name": "sentry",
+      "path": "packages/skills-catalog/skills/(monitoring)/sentry",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(monitoring)/sentry",
+      "description": ""
+    },
+    {
+      "name": "shopify-developer",
+      "path": "packages/skills-catalog/skills/(development)/shopify-developer",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(development)/shopify-developer",
+      "description": ""
+    },
+    {
+      "name": "subagent-creator",
+      "path": "packages/skills-catalog/skills/(creation)/subagent-creator",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(creation)/subagent-creator",
+      "description": ""
+    },
+    {
+      "name": "tlc-spec-driven",
+      "path": "packages/skills-catalog/skills/(development)/tlc-spec-driven",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(development)/tlc-spec-driven",
+      "description": ""
+    },
+    {
+      "name": "vercel-deploy",
+      "path": "packages/skills-catalog/skills/(cloud)/vercel-deploy",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(cloud)/vercel-deploy",
+      "description": ""
+    },
+    {
+      "name": "web-quality-audit",
+      "path": "packages/skills-catalog/skills/(quality)/web-quality-audit",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/web-quality-audit",
+      "description": ""
+    },
+    {
+      "name": "react-native-expert",
+      "path": "packages/skills-catalog/skills/(development)/react-native-expert",
+      "github_url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(development)/react-native-expert",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tech-leads-club/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:55:40Z"
+}
