@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [rajat9garg/leaderboard](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/rajat9garg#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rajat9garg/leaderboard](https://github.com/rajat9garg/leaderboard)
 
 ---
 
