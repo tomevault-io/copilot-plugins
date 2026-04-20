@@ -1,0 +1,54 @@
+{
+  "name": "waynesutton--convexskills",
+  "displayName": "convexskills",
+  "description": "AI agent skills and templates for building production ready apps with Convex. Patterns for queries, mutations, cron jobs, webhooks, migrations, and more.",
+  "version": "1.0.0",
+  "author": "waynesutton",
+  "homepage": "https://github.com/waynesutton/convexskills",
+  "skills": [
+    {
+      "name": "convex",
+      "description": ""
+    },
+    {
+      "name": "convex-best-practices",
+      "description": ""
+    },
+    {
+      "name": "convex-realtime",
+      "description": ""
+    },
+    {
+      "name": "convex-http-actions",
+      "description": ""
+    },
+    {
+      "name": "convex-security-check",
+      "description": ""
+    },
+    {
+      "name": "convex-cron-jobs",
+      "description": ""
+    },
+    {
+      "name": "convex-migrations",
+      "description": ""
+    },
+    {
+      "name": "avoid-feature-creep",
+      "description": ""
+    },
+    {
+      "name": "convex-security-audit",
+      "description": ""
+    },
+    {
+      "name": "convex-agents",
+      "description": ""
+    },
+    {
+      "name": "convex-component-authoring",
+      "description": ""
+    }
+  ]
+}
