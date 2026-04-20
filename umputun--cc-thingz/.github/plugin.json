@@ -1,0 +1,54 @@
+{
+  "name": "umputun--cc-thingz",
+  "displayName": "cc-thingz",
+  "description": "various things for claude code",
+  "version": "1.0.0",
+  "author": "umputun",
+  "homepage": "https://github.com/umputun/cc-thingz",
+  "skills": [
+    {
+      "name": "clarify",
+      "description": ""
+    },
+    {
+      "name": "dialectic",
+      "description": ""
+    },
+    {
+      "name": "last-tag",
+      "description": ""
+    },
+    {
+      "name": "learn",
+      "description": ""
+    },
+    {
+      "name": "md-copy",
+      "description": ""
+    },
+    {
+      "name": "new",
+      "description": ""
+    },
+    {
+      "name": "pr",
+      "description": ""
+    },
+    {
+      "name": "root-cause-investigator",
+      "description": ""
+    },
+    {
+      "name": "txt-copy",
+      "description": ""
+    },
+    {
+      "name": "writing-style",
+      "description": ""
+    },
+    {
+      "name": "wrong",
+      "description": ""
+    }
+  ]
+}
