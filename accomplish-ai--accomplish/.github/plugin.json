@@ -1,0 +1,38 @@
+{
+  "name": "accomplish-ai--accomplish",
+  "displayName": "accomplish",
+  "description": "Accomplish\u2122 is the open source Al coworker that lives on your desktop",
+  "version": "1.0.0",
+  "author": "accomplish-ai",
+  "homepage": "https://github.com/accomplish-ai/accomplish",
+  "skills": [
+    {
+      "name": "ask-user-question",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "dev-browser",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "safe-file-deletion",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "web-research",
+      "description": ""
+    }
+  ]
+}
