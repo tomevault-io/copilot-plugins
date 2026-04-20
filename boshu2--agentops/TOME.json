@@ -1,0 +1,207 @@
+{
+  "name": "agentops",
+  "owner": "boshu2",
+  "repo": "agentops",
+  "description": "The operational layer for coding agents. Memory, validation, and feedback loops that compound between sessions.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "council",
+      "path": "skills/council",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/council",
+      "description": ""
+    },
+    {
+      "name": "beads",
+      "path": "skills/beads",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/beads",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "path": "skills/brainstorm",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/brainstorm",
+      "description": ""
+    },
+    {
+      "name": "bug-hunt",
+      "path": "skills/bug-hunt",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/bug-hunt",
+      "description": ""
+    },
+    {
+      "name": "codex-team",
+      "path": "skills/codex-team",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/codex-team",
+      "description": ""
+    },
+    {
+      "name": "complexity",
+      "path": "skills/complexity",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/complexity",
+      "description": ""
+    },
+    {
+      "name": "converter",
+      "path": "skills/converter",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/converter",
+      "description": ""
+    },
+    {
+      "name": "crank",
+      "path": "skills/crank",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/crank",
+      "description": ""
+    },
+    {
+      "name": "doc",
+      "path": "skills/doc",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/doc",
+      "description": ""
+    },
+    {
+      "name": "heal-skill",
+      "path": "skills/heal-skill",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/heal-skill",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "path": "skills/implement",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/implement",
+      "description": ""
+    },
+    {
+      "name": "inject",
+      "path": "skills/inject",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/inject",
+      "description": ""
+    },
+    {
+      "name": "product",
+      "path": "skills/product",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/product",
+      "description": ""
+    },
+    {
+      "name": "quickstart",
+      "path": "skills/quickstart",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/quickstart",
+      "description": ""
+    },
+    {
+      "name": "readme",
+      "path": "skills/readme",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/readme",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": "skills/release",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/release",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "skills/research",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/research",
+      "description": ""
+    },
+    {
+      "name": "reverse-engineer-rpi",
+      "path": "skills/reverse-engineer-rpi",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/reverse-engineer-rpi",
+      "description": ""
+    },
+    {
+      "name": "rpi",
+      "path": "skills/rpi",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/rpi",
+      "description": ""
+    },
+    {
+      "name": "shared",
+      "path": "skills/shared",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/shared",
+      "description": ""
+    },
+    {
+      "name": "standards",
+      "path": "skills/standards",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/standards",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "path": "skills/status",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/status",
+      "description": ""
+    },
+    {
+      "name": "swarm",
+      "path": "skills/swarm",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/swarm",
+      "description": ""
+    },
+    {
+      "name": "trace",
+      "path": "skills/trace",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/trace",
+      "description": ""
+    },
+    {
+      "name": "update",
+      "path": "skills/update",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/update",
+      "description": ""
+    },
+    {
+      "name": "using-agentops",
+      "path": "skills/using-agentops",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/using-agentops",
+      "description": ""
+    },
+    {
+      "name": "vibe",
+      "path": "skills/vibe",
+      "github_url": "https://github.com/boshu2/agentops/tree/main/skills/vibe",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/boshu2/agentops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:31:38Z"
+}
