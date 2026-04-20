@@ -1,0 +1,9 @@
+{
+  "name": "gsd-build--gsd-browser",
+  "displayName": "gsd-browser",
+  "description": "A fast, native browser automation CLI built from the ground up for AI agents, powered by Chrome DevTools Protocol. 63 commands covering navigation, interaction, screenshots, accessibility, network moc",
+  "version": "1.0.0",
+  "author": "gsd-build",
+  "homepage": "https://github.com/gsd-build/gsd-browser",
+  "skills": []
+}
