@@ -1,0 +1,18 @@
+{
+  "name": "crazynomad--tutorial",
+  "displayName": "tutorial",
+  "description": "AI instruction skills by crazynomad",
+  "version": "1.0.0",
+  "author": "crazynomad",
+  "homepage": "https://github.com/crazynomad/tutorial",
+  "skills": [
+    {
+      "name": "podcast-downloader",
+      "description": ""
+    },
+    {
+      "name": "podcast-downloader",
+      "description": ""
+    }
+  ]
+}
