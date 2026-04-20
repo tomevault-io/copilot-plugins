@@ -1,0 +1,57 @@
+{
+  "name": "tutorial",
+  "owner": "crazynomad",
+  "repo": "tutorial",
+  "description": "AI instruction skills by crazynomad",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "podcast-downloader",
+      "path": "02-podcast-downloader/artifact/podcast-downloader",
+      "github_url": "https://github.com/crazynomad/tutorial/tree/main/02-podcast-downloader/artifact/podcast-downloader",
+      "description": ""
+    },
+    {
+      "name": "podcast-downloader",
+      "path": "notebooklm/.claude/skills/podcast-downloader",
+      "github_url": "https://github.com/crazynomad/tutorial/tree/main/notebooklm/.claude/skills/podcast-downloader",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/crazynomad/tutorial",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:38:18Z"
+}
