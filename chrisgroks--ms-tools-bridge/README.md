@@ -1,6 +1,6 @@
-# ms-tools-bridge — distributed by TomeVault
+# ms-tools-bridge
 
-> Originally from [chrisgroks/ms-tools-bridge](https://github.com/chrisgroks/ms-tools-bridge). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [chrisgroks/ms-tools-bridge](https://github.com/chrisgroks/ms-tools-bridge) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [chrisgroks/ms-tools-bridge](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/chrisgroks)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/chrisgroks/ms-tools-bridge](https://github.com/chrisgroks/ms-tools-bridge)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install chrisgroks/ms-tools-bridge
 ```
-Or browse all formats at [https://tomevault.io/claim/chrisgroks](https://tomevault.io/claim/chrisgroks).
+Source: [github.com/chrisgroks/ms-tools-bridge](https://github.com/chrisgroks/ms-tools-bridge).
 
 <!-- genome:d-i-p -->
