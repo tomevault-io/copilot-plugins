@@ -1,0 +1,18 @@
+{
+  "name": "benjitaylor--agentation",
+  "displayName": "agentation",
+  "description": "The visual feedback tool for agents.",
+  "version": "1.0.0",
+  "author": "benjitaylor",
+  "homepage": "https://github.com/benjitaylor/agentation",
+  "skills": [
+    {
+      "name": "agentation",
+      "description": ""
+    },
+    {
+      "name": "agentation-self-driving",
+      "description": ""
+    }
+  ]
+}
