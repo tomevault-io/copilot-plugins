@@ -1,6 +1,6 @@
 # payment-ai
 
-> Tome by [rajat9garg](https://github.com/rajat9garg/payment-ai) — distributed by [TomeVault](https://tomevault.io/claim/rajat9garg)
+> Tome by [rajat9garg](https://github.com/rajat9garg/payment-ai) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [rajat9garg/payment-ai](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rajat9garg)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rajat9garg/payment-ai](https://github.com/rajat9garg/payment-ai)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/rajat9garg) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
