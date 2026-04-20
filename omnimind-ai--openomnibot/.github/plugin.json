@@ -1,0 +1,9 @@
+{
+  "name": "omnimind-ai--openomnibot",
+  "displayName": "OpenOmniBot",
+  "description": "\u4f60\u7684\u7aef\u4fa7 AI \u52a9\u624b\uff0c\u5979\u53ef\u4ee5\u64cd\u4f5c\u7ec8\u7aef\uff0c\u4e5f\u53ef\u4ee5\u5b8c\u6210 Android \u4e16\u754c\u7684\u5e7f\u6cdb\u4efb\u52a1 || Your on-device AI assistant, capable of operating terminals and performing a wide range of tasks in the Android world",
+  "version": "1.0.0",
+  "author": "omnimind-ai",
+  "homepage": "https://github.com/omnimind-ai/OpenOmniBot",
+  "skills": []
+}
