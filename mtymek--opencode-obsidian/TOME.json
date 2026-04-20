@@ -1,0 +1,57 @@
+{
+  "name": "opencode-obsidian",
+  "owner": "mtymek",
+  "repo": "opencode-obsidian",
+  "description": "Embed OpenCode AI assistant directly in Obsidian's sidebar.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openspec-apply-change",
+      "path": ".opencode/skills/openspec-apply-change",
+      "github_url": "https://github.com/mtymek/opencode-obsidian/tree/main/.opencode/skills/openspec-apply-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-onboard",
+      "path": ".opencode/skills/openspec-onboard",
+      "github_url": "https://github.com/mtymek/opencode-obsidian/tree/main/.opencode/skills/openspec-onboard",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mtymek/opencode-obsidian",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:43:31Z"
+}
