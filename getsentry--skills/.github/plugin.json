@@ -1,0 +1,54 @@
+{
+  "name": "getsentry--skills",
+  "displayName": "skills",
+  "description": "Agent Skills used by the Sentry team for development.",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/skills",
+  "skills": [
+    {
+      "name": "agents-md",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "claude-settings-audit",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "django-access-review",
+      "description": ""
+    },
+    {
+      "name": "django-perf-review",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "find-bugs",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "description": ""
+    },
+    {
+      "name": "skill-scanner",
+      "description": ""
+    }
+  ]
+}
