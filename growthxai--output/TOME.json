@@ -1,0 +1,111 @@
+{
+  "name": "output",
+  "owner": "growthxai",
+  "repo": "output",
+  "description": "The open-source TypeScript framework for building AI workflows and agents. Designed for Claude Code describe what you want, Claude builds it, with all the best practices already in place.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flow-error-try-catch-removal",
+      "path": "plugins/outputai-flow-migrator/skills/flow-error-try-catch-removal",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai-flow-migrator/skills/flow-error-try-catch-removal",
+      "description": ""
+    },
+    {
+      "name": "output-dev-evaluator-function",
+      "path": "plugins/outputai/skills/output-dev-evaluator-function",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-dev-evaluator-function",
+      "description": ""
+    },
+    {
+      "name": "output-dev-http-client-create",
+      "path": "plugins/outputai/skills/output-dev-http-client-create",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-dev-http-client-create",
+      "description": ""
+    },
+    {
+      "name": "output-dev-prompt-file",
+      "path": "plugins/outputai/skills/output-dev-prompt-file",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-dev-prompt-file",
+      "description": ""
+    },
+    {
+      "name": "output-dev-scenario-file",
+      "path": "plugins/outputai/skills/output-dev-scenario-file",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-dev-scenario-file",
+      "description": ""
+    },
+    {
+      "name": "output-dev-types-file",
+      "path": "plugins/outputai/skills/output-dev-types-file",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-dev-types-file",
+      "description": ""
+    },
+    {
+      "name": "output-dev-workflow-function",
+      "path": "plugins/outputai/skills/output-dev-workflow-function",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-dev-workflow-function",
+      "description": ""
+    },
+    {
+      "name": "output-error-direct-io",
+      "path": "plugins/outputai/skills/output-error-direct-io",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-error-direct-io",
+      "description": ""
+    },
+    {
+      "name": "output-meta-project-context",
+      "path": "plugins/outputai/skills/output-meta-project-context",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-meta-project-context",
+      "description": ""
+    },
+    {
+      "name": "output-services-check",
+      "path": "plugins/outputai/skills/output-services-check",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-services-check",
+      "description": ""
+    },
+    {
+      "name": "output-workflow-run",
+      "path": "plugins/outputai/skills/output-workflow-run",
+      "github_url": "https://github.com/growthxai/output/tree/main/plugins/outputai/skills/output-workflow-run",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/growthxai/output",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T05:31:06Z"
+}
