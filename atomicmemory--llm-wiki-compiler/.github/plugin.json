@@ -1,0 +1,9 @@
+{
+  "name": "atomicmemory--llm-wiki-compiler",
+  "displayName": "llm-wiki-compiler",
+  "description": "The knowledge compiler. Raw sources in, interlinked wiki out. Inspired by Karpathy's LLM Wiki pattern.",
+  "version": "1.0.0",
+  "author": "atomicmemory",
+  "homepage": "https://github.com/atomicmemory/llm-wiki-compiler",
+  "skills": []
+}
