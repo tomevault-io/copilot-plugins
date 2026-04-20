@@ -98,6 +98,32 @@ If you **change sync behavior**:
 - **Hooks fail silently**: They're git sync calls, not user-facing logic. If git is offline, don't crash.
 - **Embedding cache invalidation**: SHA-256 content hash per card. Stale entries cleaned on `embedCards()`. Don't switch to timestamp-based — content hash is correct.
 
+## Flomo Integration (Bidirectional Sync)
+
+Memex has bidirectional sync with flomo. Two hard rules:
+
+### Flomo → Memex (Import)
+
+- **Digest, never mechanical import.** Flomo memos are fleeting notes, NOT Zettelkasten cards. The agent must read, curate, and rewrite into atomic insights.
+- All imported cards get `source: flomo` in frontmatter.
+- Use `flomoImportCommand` for bulk parsing, or `flomo_import_parse` MCP tool to preview memos before curating.
+- Quality bar: skip garbage (<150 bytes), merge related memos, extract only non-obvious insights.
+
+### Memex → Flomo (Push)
+
+- **Anti-loopback: NEVER push `source: flomo` cards back to flomo.** This is enforced in code (`pushSingleCard` + batch filter in `flomoPushCommand`). Don't remove it.
+- Push via webhook (`flomoPushCommand`). Webhook URL validated at both read and write time (defense in depth).
+
+### Code Locations
+
+| What | Where |
+|------|-------|
+| All flomo logic | `src/commands/flomo.ts` |
+| MCP tools | `src/mcp/operations.ts` (flomo_push, flomo_import_parse) |
+| Anti-loopback guard | `pushSingleCard()` line ~135, batch filter line ~410 |
+| Webhook validation | `isValidFlomoWebhookUrl()` — HTTPS + flomoapp.com + /iwh/ prefix |
+| Tests | `tests/commands/flomo.test.ts`, `tests/commands/flomo-import.test.ts` |
+
 ## Platform Integration Files
 
 ```
@@ -109,5 +135,5 @@ Pi:           pi-extension/index.ts
 These are separate integration surfaces. Changing core code doesn't require updating them unless you change tool signatures or card format.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/iamtouchskyer) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [iamtouchskyer/memex](https://github.com/iamtouchskyer/memex) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
