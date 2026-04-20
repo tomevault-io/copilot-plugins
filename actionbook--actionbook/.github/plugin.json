@@ -1,0 +1,42 @@
+{
+  "name": "actionbook--actionbook",
+  "displayName": "actionbook",
+  "description": "Let your AI agent uses your browser. Actionbook makes it actually work.",
+  "version": "1.0.0",
+  "author": "actionbook",
+  "homepage": "https://github.com/actionbook/actionbook",
+  "skills": [
+    {
+      "name": "actionbook",
+      "description": ""
+    },
+    {
+      "name": "actionbook",
+      "description": ""
+    },
+    {
+      "name": "actionbook-scraper",
+      "description": ""
+    },
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "arxiv-viewer",
+      "description": ""
+    },
+    {
+      "name": "json-ui-skill",
+      "description": ""
+    },
+    {
+      "name": "rust-learner",
+      "description": ""
+    }
+  ]
+}
