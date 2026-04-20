@@ -1,0 +1,14 @@
+{
+  "name": "cyl19970726--poly-sdk",
+  "displayName": "poly-sdk",
+  "description": "AI instruction skills by cyl19970726",
+  "version": "1.0.0",
+  "author": "cyl19970726",
+  "homepage": "https://github.com/cyl19970726/poly-sdk",
+  "skills": [
+    {
+      "name": "polymarket-knowledge",
+      "description": ""
+    }
+  ]
+}
