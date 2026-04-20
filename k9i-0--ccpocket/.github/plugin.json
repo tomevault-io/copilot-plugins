@@ -1,0 +1,22 @@
+{
+  "name": "k9i-0--ccpocket",
+  "displayName": "ccpocket",
+  "description": "Mobile client for Codex and Claude \u2014 control coding agents from your phone via WebSocket bridge",
+  "version": "1.0.0",
+  "author": "K9i-0",
+  "homepage": "https://github.com/K9i-0/ccpocket",
+  "skills": [
+    {
+      "name": "flutter-ui-design",
+      "description": ""
+    },
+    {
+      "name": "flutter-upgrade",
+      "description": ""
+    },
+    {
+      "name": "test-flutter",
+      "description": ""
+    }
+  ]
+}
