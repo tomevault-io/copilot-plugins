@@ -1,0 +1,9 @@
+{
+  "name": "nexu-io--nexu",
+  "displayName": "nexu",
+  "description": "The simplest desktop client for OpenClaw \ud83e\udd9e \u2014 bridge your Agent to WeChat, Feishu, Slack & Discord in one click. Works with Claude Code, Codex & any LLM. BYOK, Oauth, local-first, chat from your phone ",
+  "version": "1.0.0",
+  "author": "nexu-io",
+  "homepage": "https://github.com/nexu-io/nexu",
+  "skills": []
+}
