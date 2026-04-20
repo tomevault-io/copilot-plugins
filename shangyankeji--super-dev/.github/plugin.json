@@ -1,0 +1,14 @@
+{
+  "name": "shangyankeji--super-dev",
+  "displayName": "super-dev",
+  "description": "Engineering workflow layer for AI coding tools with specs, review, quality gates, and traceability.\u4e3a AI \u7f16\u7a0b\u5de5\u5177\u63d0\u4f9b\u5de5\u7a0b\u5316\u6d41\u7a0b\u3001\u8d28\u91cf\u95e8\u7981\u4e0e\u53ef\u8ffd\u6eaf\u80fd\u529b\u3002",
+  "version": "1.0.0",
+  "author": "shangyankeji",
+  "homepage": "https://github.com/shangyankeji/super-dev",
+  "skills": [
+    {
+      "name": "super-dev",
+      "description": ""
+    }
+  ]
+}
