@@ -1,0 +1,50 @@
+{
+  "name": "zavora-ai--adk-rust",
+  "displayName": "adk-rust",
+  "description": "Rust Agent Development Kit (ADK-Rust): Build AI agents in Rust with modular components for models, tools, memory, realtime voice, and more. ADK-Rust is a flexible framework for developing AI agents wi",
+  "version": "1.0.0",
+  "author": "zavora-ai",
+  "homepage": "https://github.com/zavora-ai/adk-rust",
+  "skills": [
+    {
+      "name": "adk-rust-agent-workflows",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-app-bootstrap",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-eval-observability-guardrails",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-graph-orchestration",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-provider-selection",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-realtime-voice",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-studio-codegen-release",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-tools-mcp-ui",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-workspace-quality-gate",
+      "description": ""
+    },
+    {
+      "name": "adk-studio",
+      "description": ""
+    }
+  ]
+}
