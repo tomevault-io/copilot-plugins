@@ -1,0 +1,9 @@
+{
+  "name": "lightricks--ltx-desktop",
+  "displayName": "LTX-Desktop",
+  "description": "An open-source desktop app for generating videos with LTX models",
+  "version": "1.0.0",
+  "author": "Lightricks",
+  "homepage": "https://github.com/Lightricks/LTX-Desktop",
+  "skills": []
+}
