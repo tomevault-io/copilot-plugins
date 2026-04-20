@@ -1,0 +1,9 @@
+{
+  "name": "akazwz--hostc",
+  "displayName": "hostc",
+  "description": "Localhost to the edge. Secure, fast, and zero-config edge tunnels powered by Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "akazwz",
+  "homepage": "https://github.com/akazwz/hostc",
+  "skills": []
+}
