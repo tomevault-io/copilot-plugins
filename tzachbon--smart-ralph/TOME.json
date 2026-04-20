@@ -1,0 +1,93 @@
+{
+  "name": "smart-ralph",
+  "owner": "tzachbon",
+  "repo": "smart-ralph",
+  "description": "Spec-driven development with smart compaction. Claude Code plugin combining Ralph Wiggum loop with structured specification workflow.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "communication-style",
+      "path": "plugins/ralph-specum/skills/communication-style",
+      "github_url": "https://github.com/tzachbon/smart-ralph/tree/main/plugins/ralph-specum/skills/communication-style",
+      "description": ""
+    },
+    {
+      "name": "communication-style",
+      "path": "plugins/ralph-speckit/skills/communication-style",
+      "github_url": "https://github.com/tzachbon/smart-ralph/tree/main/plugins/ralph-speckit/skills/communication-style",
+      "description": ""
+    },
+    {
+      "name": "delegation-principle",
+      "path": "plugins/ralph-speckit/skills/delegation-principle",
+      "github_url": "https://github.com/tzachbon/smart-ralph/tree/main/plugins/ralph-speckit/skills/delegation-principle",
+      "description": ""
+    },
+    {
+      "name": "reality-verification",
+      "path": "plugins/ralph-specum/skills/reality-verification",
+      "github_url": "https://github.com/tzachbon/smart-ralph/tree/main/plugins/ralph-specum/skills/reality-verification",
+      "description": ""
+    },
+    {
+      "name": "smart-ralph",
+      "path": "plugins/ralph-specum/skills/smart-ralph",
+      "github_url": "https://github.com/tzachbon/smart-ralph/tree/main/plugins/ralph-specum/skills/smart-ralph",
+      "description": ""
+    },
+    {
+      "name": "smart-ralph",
+      "path": "plugins/ralph-speckit/skills/smart-ralph",
+      "github_url": "https://github.com/tzachbon/smart-ralph/tree/main/plugins/ralph-speckit/skills/smart-ralph",
+      "description": ""
+    },
+    {
+      "name": "spec-workflow",
+      "path": "plugins/ralph-specum/skills/spec-workflow",
+      "github_url": "https://github.com/tzachbon/smart-ralph/tree/main/plugins/ralph-specum/skills/spec-workflow",
+      "description": ""
+    },
+    {
+      "name": "speckit-workflow",
+      "path": "plugins/ralph-speckit/skills/speckit-workflow",
+      "github_url": "https://github.com/tzachbon/smart-ralph/tree/main/plugins/ralph-speckit/skills/speckit-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tzachbon/smart-ralph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:47:34Z"
+}
