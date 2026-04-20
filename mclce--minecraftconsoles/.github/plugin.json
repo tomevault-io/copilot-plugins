@@ -1,0 +1,9 @@
+{
+  "name": "mclce--minecraftconsoles",
+  "displayName": "MinecraftConsoles",
+  "description": "Vanilla LCE intended as an upstream base for other projects. Originally based on a WIP version of TU19.",
+  "version": "1.0.0",
+  "author": "MCLCE",
+  "homepage": "https://github.com/MCLCE/MinecraftConsoles",
+  "skills": []
+}
