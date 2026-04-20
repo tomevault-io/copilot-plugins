@@ -1,0 +1,9 @@
+{
+  "name": "remoteoss--dexter",
+  "displayName": "dexter",
+  "description": "A fast, full-featured Elixir LSP optimized for large codebases.",
+  "version": "1.0.0",
+  "author": "remoteoss",
+  "homepage": "https://github.com/remoteoss/dexter",
+  "skills": []
+}
