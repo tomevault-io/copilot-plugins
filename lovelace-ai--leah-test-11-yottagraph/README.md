@@ -1,6 +1,6 @@
 # leah-test-11-yottagraph
 
-> Tome by [Lovelace-AI](https://github.com/Lovelace-AI/leah-test-11-yottagraph) — distributed by [TomeVault](https://tomevault.io/claim/Lovelace-AI)
+> Tome by [Lovelace-AI](https://github.com/Lovelace-AI/leah-test-11-yottagraph) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Lovelace-AI/leah-test-11-yottagraph](
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Lovelace-AI)
+From [Lovelace-AI/leah-test-11-yottagraph](https://github.com/Lovelace-AI/leah-test-11-yottagraph) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Lovelace-AI/leah-test-11-yottagraph
 ```
-Or browse all formats at [https://tomevault.io/claim/Lovelace-AI](https://tomevault.io/claim/Lovelace-AI).
+Source: [github.com/Lovelace-AI/leah-test-11-yottagraph](https://github.com/Lovelace-AI/leah-test-11-yottagraph).
 
 <!-- genome:t-i-s -->
