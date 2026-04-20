@@ -1,0 +1,14 @@
+{
+  "name": "homeassistant-ai--skills",
+  "displayName": "skills",
+  "description": "Home Assistant skills for agents",
+  "version": "1.0.0",
+  "author": "homeassistant-ai",
+  "homepage": "https://github.com/homeassistant-ai/skills",
+  "skills": [
+    {
+      "name": "home-assistant-best-practices",
+      "description": ""
+    }
+  ]
+}
