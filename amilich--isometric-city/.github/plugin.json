@@ -1,0 +1,14 @@
+{
+  "name": "amilich--isometric-city",
+  "displayName": "isometric-city",
+  "description": "IsoCity: City building simulation game.",
+  "version": "1.0.0",
+  "author": "amilich",
+  "homepage": "https://github.com/amilich/isometric-city",
+  "skills": [
+    {
+      "name": "say-hi",
+      "description": ""
+    }
+  ]
+}
