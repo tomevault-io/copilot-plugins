@@ -1,0 +1,38 @@
+{
+  "name": "paid-tw--skills",
+  "displayName": "skills",
+  "description": "\u53f0\u7063\u7b2c\u4e09\u65b9\u91d1\u6d41 Skills for AI Agents - \u85cd\u65b0\u91d1\u6d41\u3001\u7da0\u754c\u79d1\u6280 ECPay\u3001\u7d71\u4e00\u91d1\u6d41 PAYUNi",
+  "version": "1.0.0",
+  "author": "paid-tw",
+  "homepage": "https://github.com/paid-tw/skills",
+  "skills": [
+    {
+      "name": "ecpay",
+      "description": ""
+    },
+    {
+      "name": "newebpay",
+      "description": ""
+    },
+    {
+      "name": "newebpay-query",
+      "description": ""
+    },
+    {
+      "name": "payment-help",
+      "description": ""
+    },
+    {
+      "name": "payuni",
+      "description": ""
+    },
+    {
+      "name": "payuni-query",
+      "description": ""
+    },
+    {
+      "name": "payuni-webhook",
+      "description": ""
+    }
+  ]
+}
