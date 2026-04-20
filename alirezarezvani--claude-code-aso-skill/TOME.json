@@ -1,0 +1,213 @@
+{
+  "name": "claude",
+  "owner": "alirezarezvani",
+  "repo": "claude-code-aso-skill",
+  "description": "AEO Automation Framework for Claude Code One-click, beginner friendly automation for GitHub. Includes a dedicated fleet of AEO sub-agents handling planning, execution, reports, actionable items, and executive summaries. Trigger work instantly with AEO slash-commands. Fully integrated as a Claude Code Skill and usable across Claude AI App",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-documenter",
+      "path": "skills/documentation/api-documenter",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/documentation/api-documenter",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "skills/development/code-reviewer",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/development/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "dependency-auditor",
+      "path": "skills/security/dependency-auditor",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/security/dependency-auditor",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "path": "skills/development/git-commit-helper",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/development/git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "readme-updater",
+      "path": "skills/documentation/readme-updater",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/documentation/readme-updater",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "path": "skills/development/test-generator",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/development/test-generator",
+      "description": ""
+    },
+    {
+      "name": "agent-factory",
+      "path": "generated-skills/agent-factory",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/agent-factory",
+      "description": ""
+    },
+    {
+      "name": "aws-solution-architect",
+      "path": "generated-skills/aws-solution-architect",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/aws-solution-architect",
+      "description": ""
+    },
+    {
+      "name": "claude-md-enhancer",
+      "path": "generated-skills/claude-md-enhancer",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/claude-md-enhancer",
+      "description": ""
+    },
+    {
+      "name": "codex-cli-bridge",
+      "path": "generated-skills/codex-cli-bridge",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/codex-cli-bridge",
+      "description": ""
+    },
+    {
+      "name": "content-trend-researcher",
+      "path": "generated-skills/content-trend-researcher",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/content-trend-researcher",
+      "description": ""
+    },
+    {
+      "name": "hook-factory",
+      "path": "generated-skills/hook-factory",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/hook-factory",
+      "description": ""
+    },
+    {
+      "name": "ms365-tenant-manager",
+      "path": "generated-skills/ms365-tenant-manager",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/ms365-tenant-manager",
+      "description": ""
+    },
+    {
+      "name": "prompt-factory",
+      "path": "generated-skills/prompt-factory",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/prompt-factory",
+      "description": ""
+    },
+    {
+      "name": "scrum-master-agent",
+      "path": "generated-skills/scrum-master-agent",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/scrum-master-agent",
+      "description": ""
+    },
+    {
+      "name": "slash-command-factory",
+      "path": "generated-skills/slash-command-factory",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/slash-command-factory",
+      "description": ""
+    },
+    {
+      "name": "tdd-guide",
+      "path": "generated-skills/tdd-guide",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/generated-skills/tdd-guide",
+      "description": ""
+    },
+    {
+      "name": "aso",
+      "path": ".claude/skills/aso",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/.claude/skills/aso",
+      "description": ""
+    },
+    {
+      "name": "app-store-optimization",
+      "path": "app-store-optimization",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/app-store-optimization",
+      "description": ""
+    },
+    {
+      "name": "skill",
+      "path": "skill",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skill",
+      "description": ""
+    },
+    {
+      "name": "architecture-pattern-selector",
+      "path": "skills/architecture-pattern-selector",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/architecture-pattern-selector",
+      "description": ""
+    },
+    {
+      "name": "clarification-protocol",
+      "path": "skills/clarification-protocol",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/clarification-protocol",
+      "description": ""
+    },
+    {
+      "name": "cost-estimator",
+      "path": "skills/cost-estimator",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/cost-estimator",
+      "description": ""
+    },
+    {
+      "name": "delegation-prompt-crafter",
+      "path": "skills/delegation-prompt-crafter",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/delegation-prompt-crafter",
+      "description": ""
+    },
+    {
+      "name": "ml-cv-specialist",
+      "path": "skills/ml-cv-specialist",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/ml-cv-specialist",
+      "description": ""
+    },
+    {
+      "name": "request-analyzer",
+      "path": "skills/request-analyzer",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/request-analyzer",
+      "description": ""
+    },
+    {
+      "name": "roadmap-generator",
+      "path": "skills/roadmap-generator",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/roadmap-generator",
+      "description": ""
+    },
+    {
+      "name": "scalability-advisor",
+      "path": "skills/scalability-advisor",
+      "github_url": "https://github.com/alirezarezvani/claude-code-aso-skill/tree/main/skills/scalability-advisor",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alirezarezvani/claude-code-aso-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:38:20Z"
+}
