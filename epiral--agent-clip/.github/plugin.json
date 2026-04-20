@@ -1,0 +1,9 @@
+{
+  "name": "epiral--agent-clip",
+  "displayName": "agent-clip",
+  "description": "AI Agent as a Pinix Clip \u2014 agentic loop with memory, tools, and vision",
+  "version": "1.0.0",
+  "author": "epiral",
+  "homepage": "https://github.com/epiral/agent-clip",
+  "skills": []
+}
