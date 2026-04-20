@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--etiket",
+  "displayName": "etiket",
+  "description": "Zero-dependency barcode & QR code SVG, PNG generator. 40+ formats, styled QR codes, tree-shakeable. Pure TypeScript.",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/etiket",
+  "skills": []
+}
