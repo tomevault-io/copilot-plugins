@@ -1,0 +1,9 @@
+{
+  "name": "rs-4--tanstack-ai-demo",
+  "displayName": "tanstack-ai-demo",
+  "description": "A modern AI chat template built with TanStack Start, featuring multi-model support, real-time streaming, and a clean, responsive UI.",
+  "version": "1.0.0",
+  "author": "rs-4",
+  "homepage": "https://github.com/rs-4/tanstack-ai-demo",
+  "skills": []
+}
