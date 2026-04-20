@@ -1,0 +1,870 @@
+{
+  "name": "benchflow-ai--skillsbench",
+  "displayName": "skillsbench",
+  "description": "SkillsBench evaluates how well skills work and how effective agents are at using them",
+  "version": "1.0.0",
+  "author": "benchflow-ai",
+  "homepage": "https://github.com/benchflow-ai/skillsbench",
+  "skills": [
+    {
+      "name": "13f-analyzer",
+      "description": ""
+    },
+    {
+      "name": "ac-branch-pi-model",
+      "description": ""
+    },
+    {
+      "name": "academic-pdf-redaction",
+      "description": ""
+    },
+    {
+      "name": "analyze-ci",
+      "description": ""
+    },
+    {
+      "name": "artifact-evaluation",
+      "description": ""
+    },
+    {
+      "name": "artifact-evaluation",
+      "description": ""
+    },
+    {
+      "name": "artifact-evaluation",
+      "description": ""
+    },
+    {
+      "name": "audio-extractor",
+      "description": ""
+    },
+    {
+      "name": "audiobook",
+      "description": ""
+    },
+    {
+      "name": "docs-to-skill",
+      "description": ""
+    },
+    {
+      "name": "automatic-speech-recognition",
+      "description": ""
+    },
+    {
+      "name": "azure-bgp",
+      "description": ""
+    },
+    {
+      "name": "badge-evaluation",
+      "description": ""
+    },
+    {
+      "name": "box-least-squares",
+      "description": ""
+    },
+    {
+      "name": "browser-testing",
+      "description": ""
+    },
+    {
+      "name": "browser-testing",
+      "description": ""
+    },
+    {
+      "name": "casadi-ipopt-nlp",
+      "description": ""
+    },
+    {
+      "name": "citation-management",
+      "description": ""
+    },
+    {
+      "name": "civ6lib",
+      "description": ""
+    },
+    {
+      "name": "conditioning",
+      "description": ""
+    },
+    {
+      "name": "constraint-parser",
+      "description": ""
+    },
+    {
+      "name": "contribution-analysis",
+      "description": ""
+    },
+    {
+      "name": "csv-processing",
+      "description": ""
+    },
+    {
+      "name": "custom-distance-metrics",
+      "description": ""
+    },
+    {
+      "name": "cvss-score-extraction",
+      "description": ""
+    },
+    {
+      "name": "d3-visualization",
+      "description": ""
+    },
+    {
+      "name": "data_cleaning",
+      "description": ""
+    },
+    {
+      "name": "dc-power-flow",
+      "description": ""
+    },
+    {
+      "name": "dialogue_graph",
+      "description": ""
+    },
+    {
+      "name": "did_causal_analysis",
+      "description": ""
+    },
+    {
+      "name": "discover-important-function",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "dyn-object-masks",
+      "description": ""
+    },
+    {
+      "name": "economic-dispatch",
+      "description": ""
+    },
+    {
+      "name": "egomotion-estimation",
+      "description": ""
+    },
+    {
+      "name": "elevenlabs-tts",
+      "description": ""
+    },
+    {
+      "name": "energy-calculator",
+      "description": ""
+    },
+    {
+      "name": "enterprise-artifact-search",
+      "description": ""
+    },
+    {
+      "name": "erlang-concurrency",
+      "description": ""
+    },
+    {
+      "name": "erlang-distribution",
+      "description": ""
+    },
+    {
+      "name": "erlang-otp-behaviors",
+      "description": ""
+    },
+    {
+      "name": "excitation-signal-design",
+      "description": ""
+    },
+    {
+      "name": "exoplanet-workflows",
+      "description": ""
+    },
+    {
+      "name": "feature_engineering",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-audio-processing",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-format-conversion",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-media-info",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-video-editing",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-video-editing",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-video-filters",
+      "description": ""
+    },
+    {
+      "name": "file-organizer",
+      "description": ""
+    },
+    {
+      "name": "filler-word-processing",
+      "description": ""
+    },
+    {
+      "name": "finite-horizon-lqr",
+      "description": ""
+    },
+    {
+      "name": "first-order-model-fitting",
+      "description": ""
+    },
+    {
+      "name": "fjsp-baseline-repair-with-downtime-and-policy",
+      "description": ""
+    },
+    {
+      "name": "flood-detection",
+      "description": ""
+    },
+    {
+      "name": "fuzzing-python",
+      "description": ""
+    },
+    {
+      "name": "fuzzy-match",
+      "description": ""
+    },
+    {
+      "name": "fuzzy-name-search",
+      "description": ""
+    },
+    {
+      "name": "gamma-phase-associator",
+      "description": ""
+    },
+    {
+      "name": "gemini-count-in-video",
+      "description": ""
+    },
+    {
+      "name": "gemini-video-understanding",
+      "description": ""
+    },
+    {
+      "name": "geospatial-analysis",
+      "description": ""
+    },
+    {
+      "name": "gh-cli",
+      "description": ""
+    },
+    {
+      "name": "glm-basics",
+      "description": ""
+    },
+    {
+      "name": "glm-calibration",
+      "description": ""
+    },
+    {
+      "name": "glm-output",
+      "description": ""
+    },
+    {
+      "name": "gmail-skill",
+      "description": ""
+    },
+    {
+      "name": "gpt-multimodal",
+      "description": ""
+    },
+    {
+      "name": "gtts",
+      "description": ""
+    },
+    {
+      "name": "harbor",
+      "description": ""
+    },
+    {
+      "name": "hex-grid-spatial",
+      "description": ""
+    },
+    {
+      "name": "hibernate-upgrade",
+      "description": ""
+    },
+    {
+      "name": "hierarchical-taxonomy-clustering",
+      "description": ""
+    },
+    {
+      "name": "image_editing",
+      "description": ""
+    },
+    {
+      "name": "image-ocr",
+      "description": ""
+    },
+    {
+      "name": "imc-tuning-rules",
+      "description": ""
+    },
+    {
+      "name": "integral-action-design",
+      "description": ""
+    },
+    {
+      "name": "jackson-security",
+      "description": ""
+    },
+    {
+      "name": "jakarta-namespace",
+      "description": ""
+    },
+    {
+      "name": "jax-skills",
+      "description": ""
+    },
+    {
+      "name": "lab-unit-harmonization",
+      "description": ""
+    },
+    {
+      "name": "lean4-memories",
+      "description": ""
+    },
+    {
+      "name": "lean4-theorem-proving",
+      "description": ""
+    },
+    {
+      "name": "light-curve-preprocessing",
+      "description": ""
+    },
+    {
+      "name": "locational-marginal-prices",
+      "description": ""
+    },
+    {
+      "name": "lomb-scargle-periodogram",
+      "description": ""
+    },
+    {
+      "name": "manufacturing-failure-reason-codebook-normalization",
+      "description": ""
+    },
+    {
+      "name": "map-optimization-strategy",
+      "description": ""
+    },
+    {
+      "name": "marker",
+      "description": ""
+    },
+    {
+      "name": "matched-filtering",
+      "description": ""
+    },
+    {
+      "name": "maven-build-lifecycle",
+      "description": ""
+    },
+    {
+      "name": "maven-dependency-management",
+      "description": ""
+    },
+    {
+      "name": "maven-plugin-configuration",
+      "description": ""
+    },
+    {
+      "name": "memory-optimization",
+      "description": ""
+    },
+    {
+      "name": "mesh-analysis",
+      "description": ""
+    },
+    {
+      "name": "meteorology-driver-classification",
+      "description": ""
+    },
+    {
+      "name": "mhc-algorithm",
+      "description": ""
+    },
+    {
+      "name": "modal-gpu",
+      "description": ""
+    },
+    {
+      "name": "mpc-horizon-tuning",
+      "description": ""
+    },
+    {
+      "name": "multimodal-fusion",
+      "description": ""
+    },
+    {
+      "name": "nanogpt-training",
+      "description": ""
+    },
+    {
+      "name": "nlp-research-repo-package-installment",
+      "description": ""
+    },
+    {
+      "name": "nws-flood-thresholds",
+      "description": ""
+    },
+    {
+      "name": "obj-exporter",
+      "description": ""
+    },
+    {
+      "name": "obj-exporter",
+      "description": ""
+    },
+    {
+      "name": "object_counter",
+      "description": ""
+    },
+    {
+      "name": "obspy-data-api",
+      "description": ""
+    },
+    {
+      "name": "obspy-datacenter-client",
+      "description": ""
+    },
+    {
+      "name": "openai-tts",
+      "description": ""
+    },
+    {
+      "name": "openai-vision",
+      "description": ""
+    },
+    {
+      "name": "output-validation",
+      "description": ""
+    },
+    {
+      "name": "parallel-processing",
+      "description": ""
+    },
+    {
+      "name": "pareto-optimization",
+      "description": ""
+    },
+    {
+      "name": "pause-detector",
+      "description": ""
+    },
+    {
+      "name": "pca-decomposition",
+      "description": ""
+    },
+    {
+      "name": "pcap-analysis",
+      "description": ""
+    },
+    {
+      "name": "pcap-triage-tshark",
+      "description": ""
+    },
+    {
+      "name": "pddl-skills",
+      "description": ""
+    },
+    {
+      "name": "pddl-skills",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf-reading",
+      "description": ""
+    },
+    {
+      "name": "pid-controller",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "description": ""
+    },
+    {
+      "name": "power-flow-data",
+      "description": ""
+    },
+    {
+      "name": "powerlifting",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "description": ""
+    },
+    {
+      "name": "pubchem-database",
+      "description": ""
+    },
+    {
+      "name": "pymatgen",
+      "description": ""
+    },
+    {
+      "name": "python-parallelization",
+      "description": ""
+    },
+    {
+      "name": "python-scala-collections",
+      "description": ""
+    },
+    {
+      "name": "python-scala-functional",
+      "description": ""
+    },
+    {
+      "name": "python-scala-idioms",
+      "description": ""
+    },
+    {
+      "name": "python-scala-libraries",
+      "description": ""
+    },
+    {
+      "name": "python-scala-oop",
+      "description": ""
+    },
+    {
+      "name": "python-scala-syntax-mapping",
+      "description": ""
+    },
+    {
+      "name": "rdkit",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "reflow_machine_maintenance_guidance",
+      "description": ""
+    },
+    {
+      "name": "reflow-profile-compliance-toolkit",
+      "description": ""
+    },
+    {
+      "name": "report-generator",
+      "description": ""
+    },
+    {
+      "name": "restclient-migration",
+      "description": ""
+    },
+    {
+      "name": "safety-interlocks",
+      "description": ""
+    },
+    {
+      "name": "sampling-and-indexing",
+      "description": ""
+    },
+    {
+      "name": "scipy-curve-fit",
+      "description": ""
+    },
+    {
+      "name": "search-accommodations",
+      "description": ""
+    },
+    {
+      "name": "search-attractions",
+      "description": ""
+    },
+    {
+      "name": "search-cities",
+      "description": ""
+    },
+    {
+      "name": "search-driving-distance",
+      "description": ""
+    },
+    {
+      "name": "search-flights",
+      "description": ""
+    },
+    {
+      "name": "search-restaurants",
+      "description": ""
+    },
+    {
+      "name": "segment-combiner",
+      "description": ""
+    },
+    {
+      "name": "seisbench-model-api",
+      "description": ""
+    },
+    {
+      "name": "seismic-picker-selection",
+      "description": ""
+    },
+    {
+      "name": "senior-data-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-data-scientist",
+      "description": ""
+    },
+    {
+      "name": "senior-java",
+      "description": ""
+    },
+    {
+      "name": "senior-security",
+      "description": ""
+    },
+    {
+      "name": "setup-env",
+      "description": ""
+    },
+    {
+      "name": "silence-detector",
+      "description": ""
+    },
+    {
+      "name": "simulation-metrics",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skillsbench",
+      "description": ""
+    },
+    {
+      "name": "speaker-clustering",
+      "description": ""
+    },
+    {
+      "name": "speech-to-text",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-migration",
+      "description": ""
+    },
+    {
+      "name": "spring-security-6",
+      "description": ""
+    },
+    {
+      "name": "sqlite-map-parser",
+      "description": ""
+    },
+    {
+      "name": "ssh-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "state-space-linearization",
+      "description": ""
+    },
+    {
+      "name": "suricata-offline-evejson",
+      "description": ""
+    },
+    {
+      "name": "suricata-rules-basics",
+      "description": ""
+    },
+    {
+      "name": "sympy",
+      "description": ""
+    },
+    {
+      "name": "syz-extract-constants",
+      "description": ""
+    },
+    {
+      "name": "syzkaller-build-loop",
+      "description": ""
+    },
+    {
+      "name": "syzlang-ioctl-basics",
+      "description": ""
+    },
+    {
+      "name": "temporal-python-testing",
+      "description": ""
+    },
+    {
+      "name": "threat-detection",
+      "description": ""
+    },
+    {
+      "name": "threejs",
+      "description": ""
+    },
+    {
+      "name": "time_series_anomaly_detection",
+      "description": ""
+    },
+    {
+      "name": "timeseries-detrending",
+      "description": ""
+    },
+    {
+      "name": "transit-least-squares",
+      "description": ""
+    },
+    {
+      "name": "trend-analysis",
+      "description": ""
+    },
+    {
+      "name": "trivy-offline-vulnerability-scanning",
+      "description": ""
+    },
+    {
+      "name": "text-to-speech",
+      "description": ""
+    },
+    {
+      "name": "usgs-data-download",
+      "description": ""
+    },
+    {
+      "name": "uv-package-manager",
+      "description": ""
+    },
+    {
+      "name": "vehicle-dynamics",
+      "description": ""
+    },
+    {
+      "name": "video-frame-extraction",
+      "description": ""
+    },
+    {
+      "name": "video-processor",
+      "description": ""
+    },
+    {
+      "name": "voice-activity-detection",
+      "description": ""
+    },
+    {
+      "name": "vulnerability-csv-reporting",
+      "description": ""
+    },
+    {
+      "name": "web-interface-guidelines",
+      "description": ""
+    },
+    {
+      "name": "whisper-transcription",
+      "description": ""
+    },
+    {
+      "name": "workload-balancing",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "description": ""
+    },
+    {
+      "name": "yaml-config",
+      "description": ""
+    },
+    {
+      "name": "python-scala-functional",
+      "description": ""
+    },
+    {
+      "name": "python-scala-syntax-mapping",
+      "description": ""
+    },
+    {
+      "name": "python-scala-libraries",
+      "description": ""
+    },
+    {
+      "name": "python-scala-idioms",
+      "description": ""
+    },
+    {
+      "name": "python-parallelization",
+      "description": ""
+    },
+    {
+      "name": "python-scala-collections",
+      "description": ""
+    },
+    {
+      "name": "python-scala-oop",
+      "description": ""
+    }
+  ]
+}
