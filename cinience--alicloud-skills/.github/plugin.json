@@ -1,0 +1,98 @@
+{
+  "name": "cinience--alicloud-skills",
+  "displayName": "alicloud-skills",
+  "description": "alibaba cloud skills\uff0cqwen \uff0cwan and all skills",
+  "version": "1.0.0",
+  "author": "cinience",
+  "homepage": "https://github.com/cinience/alicloud-skills",
+  "skills": [
+    {
+      "name": "alicloud-ai-audio-tts-realtime-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-audio-tts-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-audio-tts-voice-clone-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-audio-tts-voice-design-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-entry-modelstudio-matrix-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-entry-modelstudio-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-image-qwen-image-edit-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-image-qwen-image-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-misc-crawl-and-skill-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-video-wan-r2v-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-video-wan-video-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-compute-ecs-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-data-lake-dlf-next-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-data-lake-dlf-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-database-rds-supabase-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-network-dns-cli-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-observability-sls-log-query-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-platform-openapi-product-api-discovery-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-security-center-sas-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-security-cloudfw-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-security-kms-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-storage-oss-ossutil-test",
+      "description": ""
+    }
+  ]
+}
