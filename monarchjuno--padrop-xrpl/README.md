@@ -1,6 +1,6 @@
 # padrop_xrpl
 
-> Tome by [monarchjuno](https://github.com/monarchjuno/padrop_xrpl) — distributed by [TomeVault](https://tomevault.io/claim/monarchjuno)
+> Tome by [monarchjuno](https://github.com/monarchjuno/padrop_xrpl) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [monarchjuno/padrop_xrpl](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/monarchjuno#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/monarchjuno/padrop_xrpl](https://github.com/monarchjuno/padrop_xrpl)
 
 ---
 
