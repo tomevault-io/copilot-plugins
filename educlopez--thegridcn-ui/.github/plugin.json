@@ -1,0 +1,14 @@
+{
+  "name": "educlopez--thegridcn-ui",
+  "displayName": "thegridcn-ui",
+  "description": "An authentic Tron: Ares inspired theme system for shadcn/ui",
+  "version": "1.0.0",
+  "author": "educlopez",
+  "homepage": "https://github.com/educlopez/thegridcn-ui",
+  "skills": [
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    }
+  ]
+}
