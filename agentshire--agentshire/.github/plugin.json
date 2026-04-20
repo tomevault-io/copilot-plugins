@@ -1,0 +1,9 @@
+{
+  "name": "agentshire--agentshire",
+  "displayName": "Agentshire",
+  "description": "OpenClaw / QClaw  plugin that visualizes AI agents as 3D NPCs in a game town \u2014 with social simulation, a map editor, and a character workshop.",
+  "version": "1.0.0",
+  "author": "Agentshire",
+  "homepage": "https://github.com/Agentshire/Agentshire",
+  "skills": []
+}
