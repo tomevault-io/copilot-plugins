@@ -1,6 +1,6 @@
-# flight-miniapp — distributed by TomeVault
+# flight-miniapp
 
-> Originally from [Mrjing/flight-miniapp](https://github.com/Mrjing/flight-miniapp). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Mrjing/flight-miniapp](https://github.com/Mrjing/flight-miniapp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Mrjing/flight-miniapp](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Mrjing#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Mrjing/flight-miniapp](https://github.com/Mrjing/flight-miniapp)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Mrjing/flight-miniapp
 ```
-Or browse all formats at [https://tomevault.io/claim/Mrjing](https://tomevault.io/claim/Mrjing).
+Source: [github.com/Mrjing/flight-miniapp](https://github.com/Mrjing/flight-miniapp).
 
 <!-- genome:d-i-q -->
