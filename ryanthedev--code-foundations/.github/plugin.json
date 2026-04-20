@@ -1,0 +1,50 @@
+{
+  "name": "ryanthedev--code-foundations",
+  "displayName": "code-foundations",
+  "description": "Code Foundations: software engineering skills for AI",
+  "version": "1.0.0",
+  "author": "ryanthedev",
+  "homepage": "https://github.com/ryanthedev/code-foundations",
+  "skills": [
+    {
+      "name": "aposd-designing-deep-modules",
+      "description": ""
+    },
+    {
+      "name": "aposd-reviewing-module-design",
+      "description": ""
+    },
+    {
+      "name": "aposd-simplifying-complexity",
+      "description": ""
+    },
+    {
+      "name": "aposd-verifying-correctness",
+      "description": ""
+    },
+    {
+      "name": "cc-control-flow-quality",
+      "description": ""
+    },
+    {
+      "name": "cc-defensive-programming",
+      "description": ""
+    },
+    {
+      "name": "cc-pseudocode-programming",
+      "description": ""
+    },
+    {
+      "name": "cc-quality-practices",
+      "description": ""
+    },
+    {
+      "name": "cc-refactoring-guidance",
+      "description": ""
+    },
+    {
+      "name": "cc-routine-and-class-design",
+      "description": ""
+    }
+  ]
+}
