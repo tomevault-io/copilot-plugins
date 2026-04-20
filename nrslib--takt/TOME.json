@@ -1,0 +1,51 @@
+{
+  "name": "takt",
+  "owner": "nrslib",
+  "repo": "takt",
+  "description": "TAKT Agent Koordination Topology - Define how AI agents coordinate, where humans intervene, and what gets recorded \u2014 in YAML",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill",
+      "path": "builtins/skill",
+      "github_url": "https://github.com/nrslib/takt/tree/main/builtins/skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nrslib/takt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:15:12Z"
+}
