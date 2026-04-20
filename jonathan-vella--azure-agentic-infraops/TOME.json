@@ -1,0 +1,129 @@
+{
+  "name": "azure",
+  "owner": "jonathan-vella",
+  "repo": "azure-agentic-infraops",
+  "description": "APEX turns Azure platform engineering requirements into verified, deploy-ready IaC \u2014 powered by GitHub Copilot agents, real-time pricing, and built-in compliance.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azure-adr",
+      "path": ".github/skills/azure-adr",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/azure-adr",
+      "description": ""
+    },
+    {
+      "name": "azure-artifacts",
+      "path": ".github/skills/azure-artifacts",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/azure-artifacts",
+      "description": ""
+    },
+    {
+      "name": "azure-defaults",
+      "path": ".github/skills/azure-defaults",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/azure-defaults",
+      "description": ""
+    },
+    {
+      "name": "azure-diagrams",
+      "path": ".github/skills/azure-diagrams",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/azure-diagrams",
+      "description": ""
+    },
+    {
+      "name": "docs-writer",
+      "path": ".github/skills/docs-writer",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/docs-writer",
+      "description": ""
+    },
+    {
+      "name": "github-operations",
+      "path": ".github/skills/github-operations",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/github-operations",
+      "description": ""
+    },
+    {
+      "name": "make-skill-template",
+      "path": ".github/skills/make-skill-template",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/make-skill-template",
+      "description": ""
+    },
+    {
+      "name": "azure-diagrams",
+      "path": ".github/skills/azure-diagrams",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/azure-diagrams",
+      "description": ""
+    },
+    {
+      "name": "make-skill-template",
+      "path": ".github/skills/make-skill-template",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/make-skill-template",
+      "description": ""
+    },
+    {
+      "name": "challenge-guide-styler",
+      "path": ".github/skills/challenge-guide-styler",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/challenge-guide-styler",
+      "description": ""
+    },
+    {
+      "name": "docs-writer",
+      "path": ".github/skills/docs-writer",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/docs-writer",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": ".github/skills/git-commit",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "github-operations",
+      "path": ".github/skills/github-operations",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/github-operations",
+      "description": ""
+    },
+    {
+      "name": "make-skill-template",
+      "path": ".github/skills/make-skill-template",
+      "github_url": "https://github.com/jonathan-vella/azure-agentic-infraops/tree/main/.github/skills/make-skill-template",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jonathan-vella/azure-agentic-infraops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:45:12Z"
+}
