@@ -1,0 +1,122 @@
+{
+  "name": "yoanbernabeu--grepai",
+  "displayName": "grepai",
+  "description": "Semantic Search & Call Graphs for AI Agents (100% Local)",
+  "version": "1.0.0",
+  "author": "yoanbernabeu",
+  "homepage": "https://github.com/yoanbernabeu/grepai",
+  "skills": [
+    {
+      "name": "grepai",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "grepai-search-basics",
+      "description": ""
+    },
+    {
+      "name": "grepai-search-advanced",
+      "description": ""
+    },
+    {
+      "name": "grepai-search-tips",
+      "description": ""
+    },
+    {
+      "name": "grepai-trace-callers",
+      "description": ""
+    },
+    {
+      "name": "grepai-search-boosting",
+      "description": ""
+    },
+    {
+      "name": "grepai-trace-callees",
+      "description": ""
+    },
+    {
+      "name": "grepai-trace-graph",
+      "description": ""
+    },
+    {
+      "name": "grepai-languages",
+      "description": ""
+    },
+    {
+      "name": "grepai-chunking",
+      "description": ""
+    },
+    {
+      "name": "grepai-ignore-patterns",
+      "description": ""
+    },
+    {
+      "name": "grepai-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "grepai-config-reference",
+      "description": ""
+    },
+    {
+      "name": "grepai-watch-daemon",
+      "description": ""
+    },
+    {
+      "name": "grepai-init",
+      "description": ""
+    },
+    {
+      "name": "grepai-mcp-tools",
+      "description": ""
+    },
+    {
+      "name": "grepai-workspaces",
+      "description": ""
+    },
+    {
+      "name": "grepai-embeddings-ollama",
+      "description": ""
+    },
+    {
+      "name": "grepai-storage-gob",
+      "description": ""
+    },
+    {
+      "name": "grepai-quickstart",
+      "description": ""
+    },
+    {
+      "name": "grepai-ollama-setup",
+      "description": ""
+    },
+    {
+      "name": "grepai-mcp-claude",
+      "description": ""
+    },
+    {
+      "name": "grepai-mcp-cursor",
+      "description": ""
+    },
+    {
+      "name": "grepai-storage-qdrant",
+      "description": ""
+    },
+    {
+      "name": "grepai-storage-postgres",
+      "description": ""
+    },
+    {
+      "name": "grepai-embeddings-lmstudio",
+      "description": ""
+    },
+    {
+      "name": "grepai-embeddings-openai",
+      "description": ""
+    }
+  ]
+}
