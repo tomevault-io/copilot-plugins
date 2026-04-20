@@ -1,0 +1,9 @@
+{
+  "name": "dimillian--pokeswift",
+  "displayName": "PokeSwift",
+  "description": "A reimplementation of the Pokemon Red/Blue engine in Swift and SwiftUI",
+  "version": "1.0.0",
+  "author": "Dimillian",
+  "homepage": "https://github.com/Dimillian/PokeSwift",
+  "skills": []
+}
