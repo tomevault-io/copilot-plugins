@@ -1,0 +1,129 @@
+{
+  "name": "antigravity-ide",
+  "owner": "Dokhacgiakhoa",
+  "repo": "antigravity-ide",
+  "description": "Google AntiGravity IDE for Vibe Coding",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-pr-workflows-git-workflow",
+      "path": ".agent/skills/git-pr-workflows-git-workflow",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/git-pr-workflows-git-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-collaboration-master",
+      "path": ".agent/skills/git-collaboration-master",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/git-collaboration-master",
+      "description": ""
+    },
+    {
+      "name": "git-pushing",
+      "path": ".agent/skills/git-pushing",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/git-pushing",
+      "description": ""
+    },
+    {
+      "name": "git-advanced-workflows",
+      "path": ".agent/skills/git-advanced-workflows",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/git-advanced-workflows",
+      "description": ""
+    },
+    {
+      "name": "typescript-pro",
+      "path": ".agent/skills/typescript-pro",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/typescript-pro",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "path": ".agent/skills/typescript-expert",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "path": ".agent/skills/typescript-advanced-types",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "python-testing-patterns",
+      "path": ".agent/skills/python-testing-patterns",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/python-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-performance-optimization",
+      "path": ".agent/skills/python-performance-optimization",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/python-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "python-pro",
+      "path": ".agent/skills/python-pro",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/python-pro",
+      "description": ""
+    },
+    {
+      "name": "python-packaging",
+      "path": ".agent/skills/python-packaging",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/python-packaging",
+      "description": ""
+    },
+    {
+      "name": "python-patterns",
+      "path": ".agent/skills/python-patterns",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/python-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-pro",
+      "path": ".agent/skills/django-pro",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/django-pro",
+      "description": ""
+    },
+    {
+      "name": "python-development-python-scaffold",
+      "path": ".agent/skills/python-development-python-scaffold",
+      "github_url": "https://github.com/Dokhacgiakhoa/antigravity-ide/tree/main/.agent/skills/python-development-python-scaffold",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Dokhacgiakhoa/antigravity-ide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:02:10Z"
+}
