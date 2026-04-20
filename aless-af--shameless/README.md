@@ -1,6 +1,6 @@
-# Shameless — distributed by TomeVault
+# Shameless
 
-> Originally from [aless-af/Shameless](https://github.com/aless-af/Shameless). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [aless-af/Shameless](https://github.com/aless-af/Shameless) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [aless-af/Shameless](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/aless-af)
+From [aless-af/Shameless](https://github.com/aless-af/Shameless) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install aless-af/Shameless
 ```
-Or browse all formats at [https://tomevault.io/claim/aless-af](https://tomevault.io/claim/aless-af).
+Source: [github.com/aless-af/Shameless](https://github.com/aless-af/Shameless).
 
 <!-- genome:d-i-s -->
