@@ -1,6 +1,6 @@
 # Starter-Kit
 
-> Tome by [devharunah](https://github.com/devharunah/Starter-Kit) — distributed by [TomeVault](https://tomevault.io/claim/devharunah)
+> Tome by [devharunah](https://github.com/devharunah/Starter-Kit) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [devharunah/Starter-Kit](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/devharunah#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/devharunah/Starter-Kit](https://github.com/devharunah/Starter-Kit)
 
 ---
 
