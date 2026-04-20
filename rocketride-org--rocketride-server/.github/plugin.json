@@ -1,0 +1,9 @@
+{
+  "name": "rocketride-org--rocketride-server",
+  "displayName": "rocketride-server",
+  "description": "High-performance AI pipeline engine with a C++ core and 50+ Python-extensible nodes. Build, debug, and scale LLM workflows with 13+ model providers, 8+ vector databases, and agent orchestration, all f",
+  "version": "1.0.0",
+  "author": "rocketride-org",
+  "homepage": "https://github.com/rocketride-org/rocketride-server",
+  "skills": []
+}
