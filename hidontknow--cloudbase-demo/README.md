@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [hidontknow/cloudbase-demo](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/hidontknow)
+From [hidontknow/cloudbase-demo](https://github.com/hidontknow/cloudbase-demo) — a repo with 0+ stars on GitHub.
 
 ---
 
