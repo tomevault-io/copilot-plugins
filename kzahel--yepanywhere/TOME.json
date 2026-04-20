@@ -4,7 +4,7 @@
   "repo": "yepanywhere",
   "description": "Self-hosted web UI for Claude and Codex. Push notifications, file uploads, no accounts, no database. Uses your existing CLI session history.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kzahel/yepanywhere",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:15:41Z"
+  "distributed_at": "2026-04-20T16:25:07Z"
 }
