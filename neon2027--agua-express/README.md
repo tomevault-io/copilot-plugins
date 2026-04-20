@@ -1,24 +1,24 @@
-# agua-express — distributed by TomeVault
+# agua-express
 
-> Originally from [neon2027/agua-express](https://github.com/neon2027/agua-express). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [neon2027/agua-express](https://github.com/neon2027/agua-express) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [neon2027/agua-express](https://github.com/neon2027/agua-express).
+Original source: `CLAUDE.md` in [neon2027/agua-express](https://github.com/neon2027/agua-express).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/neon2027)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/neon2027/agua-express](https://github.com/neon2027/agua-express)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/neon2027) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
