@@ -1,0 +1,9 @@
+{
+  "name": "hypothesi--mcp-server-tauri",
+  "displayName": "mcp-server-tauri",
+  "description": "A Model Context Protocol (MCP) server and plugin for Tauri v2 development",
+  "version": "1.0.0",
+  "author": "hypothesi",
+  "homepage": "https://github.com/hypothesi/mcp-server-tauri",
+  "skills": []
+}
