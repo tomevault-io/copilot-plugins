@@ -1,0 +1,105 @@
+{
+  "name": "lobster",
+  "owner": "openclaw",
+  "repo": "lobster",
+  "description": "Lobster is a Openclaw-native workflow shell: a typed, local-first \u201cmacro engine\u201d that turns skills/tools into composable pipelines and safe automations\u2014and lets Openclaw call those workflows in one step.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jules-and-lobster",
+      "path": "skills/sanjacob99/jules-and-lobster",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/sanjacob99/jules-and-lobster",
+      "description": ""
+    },
+    {
+      "name": "lobster",
+      "path": "skills/guwidoe/lobster",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/guwidoe/lobster",
+      "description": ""
+    },
+    {
+      "name": "lobster-jobs",
+      "path": "skills/kesslerio/lobster-jobs",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/kesslerio/lobster-jobs",
+      "description": ""
+    },
+    {
+      "name": "lobster-tank",
+      "path": "skills/jwaynelowry/lobster-tank",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/jwaynelowry/lobster-tank",
+      "description": ""
+    },
+    {
+      "name": "lobster-bio-dev",
+      "path": "skills/cewinharhar/lobster-bio-dev",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/cewinharhar/lobster-bio-dev",
+      "description": ""
+    },
+    {
+      "name": "lobster-market",
+      "path": "skills/xtaq/lobster-market",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/xtaq/lobster-market",
+      "description": ""
+    },
+    {
+      "name": "lobster-bio-use",
+      "path": "skills/cewinharhar/lobster-bio-use",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/cewinharhar/lobster-bio-use",
+      "description": ""
+    },
+    {
+      "name": "lucky-lobster",
+      "path": "skills/rachelbastian/lucky-lobster",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/rachelbastian/lucky-lobster",
+      "description": ""
+    },
+    {
+      "name": "lucky-lobster-ai",
+      "path": "skills/rachelbastian/lucky-lobster-ai",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/rachelbastian/lucky-lobster-ai",
+      "description": ""
+    },
+    {
+      "name": "perp-lobster",
+      "path": "skills/thisnewmark/perp-lobster",
+      "github_url": "https://github.com/openclaw/lobster/tree/main/skills/thisnewmark/perp-lobster",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/lobster",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:21:07Z"
+}
