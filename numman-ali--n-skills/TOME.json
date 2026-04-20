@@ -1,0 +1,75 @@
+{
+  "name": "n-skills",
+  "owner": "numman-ali",
+  "repo": "n-skills",
+  "description": "Curated plugin marketplace for AI agents - works with Claude Code, Codex, and openskills",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dev-browser",
+      "path": "skills/automation/dev-browser/skills/dev-browser",
+      "github_url": "https://github.com/numman-ali/n-skills/tree/main/skills/automation/dev-browser/skills/dev-browser",
+      "description": ""
+    },
+    {
+      "name": "gastown",
+      "path": "skills/tools/gastown/skills/gastown",
+      "github_url": "https://github.com/numman-ali/n-skills/tree/main/skills/tools/gastown/skills/gastown",
+      "description": ""
+    },
+    {
+      "name": "open-source-maintainer",
+      "path": "skills/workflow/open-source-maintainer/skills/open-source-maintainer",
+      "github_url": "https://github.com/numman-ali/n-skills/tree/main/skills/workflow/open-source-maintainer/skills/open-source-maintainer",
+      "description": ""
+    },
+    {
+      "name": "orchestration",
+      "path": "skills/workflow/orchestration/skills/orchestration",
+      "github_url": "https://github.com/numman-ali/n-skills/tree/main/skills/workflow/orchestration/skills/orchestration",
+      "description": ""
+    },
+    {
+      "name": "zai-cli",
+      "path": "skills/tools/zai-cli/skills/zai-cli",
+      "github_url": "https://github.com/numman-ali/n-skills/tree/main/skills/tools/zai-cli/skills/zai-cli",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/numman-ali/n-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:44:06Z"
+}
