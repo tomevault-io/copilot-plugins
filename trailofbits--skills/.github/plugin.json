@@ -1,0 +1,202 @@
+{
+  "name": "trailofbits--skills",
+  "displayName": "skills",
+  "description": "Trail of Bits Claude Code skills for security research, vulnerability detection, and audit workflows",
+  "version": "1.0.0",
+  "author": "trailofbits",
+  "homepage": "https://github.com/trailofbits/skills",
+  "skills": [
+    {
+      "name": "audit-context-building",
+      "description": ""
+    },
+    {
+      "name": "audit-prep-assistant",
+      "description": ""
+    },
+    {
+      "name": "code-maturity-assessor",
+      "description": ""
+    },
+    {
+      "name": "codeql",
+      "description": ""
+    },
+    {
+      "name": "constant-time-analysis",
+      "description": ""
+    },
+    {
+      "name": "debug-buttercup",
+      "description": ""
+    },
+    {
+      "name": "devcontainer-setup",
+      "description": ""
+    },
+    {
+      "name": "differential-review",
+      "description": ""
+    },
+    {
+      "name": "dwarf-expert",
+      "description": ""
+    },
+    {
+      "name": "entry-point-analyzer",
+      "description": ""
+    },
+    {
+      "name": "firebase-apk-scanner",
+      "description": ""
+    },
+    {
+      "name": "git-cleanup",
+      "description": ""
+    },
+    {
+      "name": "guidelines-advisor",
+      "description": ""
+    },
+    {
+      "name": "insecure-defaults",
+      "description": ""
+    },
+    {
+      "name": "modern-python",
+      "description": ""
+    },
+    {
+      "name": "property-based-testing",
+      "description": ""
+    },
+    {
+      "name": "second-opinion",
+      "description": ""
+    },
+    {
+      "name": "secure-workflow-guide",
+      "description": ""
+    },
+    {
+      "name": "semgrep",
+      "description": ""
+    },
+    {
+      "name": "semgrep-rule-creator",
+      "description": ""
+    },
+    {
+      "name": "semgrep-rule-variant-creator",
+      "description": ""
+    },
+    {
+      "name": "spec-to-code-compliance",
+      "description": ""
+    },
+    {
+      "name": "variant-analysis",
+      "description": ""
+    },
+    {
+      "name": "yara-rule-authoring",
+      "description": ""
+    },
+    {
+      "name": "ffuf-web-fuzzing",
+      "description": ""
+    },
+    {
+      "name": "humanizer",
+      "description": ""
+    },
+    {
+      "name": "last30days",
+      "description": ""
+    },
+    {
+      "name": "openai-cloudflare-deploy",
+      "description": ""
+    },
+    {
+      "name": "openai-develop-web-game",
+      "description": ""
+    },
+    {
+      "name": "openai-doc",
+      "description": ""
+    },
+    {
+      "name": "openai-gh-address-comments",
+      "description": ""
+    },
+    {
+      "name": "openai-gh-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "openai-jupyter-notebook",
+      "description": ""
+    },
+    {
+      "name": "openai-netlify-deploy",
+      "description": ""
+    },
+    {
+      "name": "openai-pdf",
+      "description": ""
+    },
+    {
+      "name": "openai-playwright",
+      "description": ""
+    },
+    {
+      "name": "openai-screenshot",
+      "description": ""
+    },
+    {
+      "name": "openai-security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "openai-security-ownership-map",
+      "description": ""
+    },
+    {
+      "name": "openai-sentry",
+      "description": ""
+    },
+    {
+      "name": "openai-spreadsheet",
+      "description": ""
+    },
+    {
+      "name": "openai-yeet",
+      "description": ""
+    },
+    {
+      "name": "react-pdf",
+      "description": ""
+    },
+    {
+      "name": "scv-scan",
+      "description": ""
+    },
+    {
+      "name": "security-awareness",
+      "description": ""
+    },
+    {
+      "name": "skill-extractor",
+      "description": ""
+    },
+    {
+      "name": "wooyun-legacy",
+      "description": ""
+    },
+    {
+      "name": "x-research",
+      "description": ""
+    }
+  ]
+}
