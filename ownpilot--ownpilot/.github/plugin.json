@@ -1,0 +1,14 @@
+{
+  "name": "ownpilot--ownpilot",
+  "displayName": "OwnPilot",
+  "description": "Privacy-first personal AI assistant platform with autonomous agents, tool orchestration, and multi-provider support.",
+  "version": "1.0.0",
+  "author": "ownpilot",
+  "homepage": "https://github.com/ownpilot/OwnPilot",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
