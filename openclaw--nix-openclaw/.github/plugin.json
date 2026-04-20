@@ -1,0 +1,22 @@
+{
+  "name": "openclaw--nix-openclaw",
+  "displayName": "nix-openclaw",
+  "description": "Packages OpenClaw for nix.",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/nix-openclaw",
+  "skills": [
+    {
+      "name": "openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "description": ""
+    }
+  ]
+}
