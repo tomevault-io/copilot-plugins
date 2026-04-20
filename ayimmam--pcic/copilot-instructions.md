@@ -1,0 +1,42 @@
+## pcic
+
+> MongoDB schema conventions and existing model reference
+
+
+# Mongoose Model Reference
+
+## Existing Models
+
+**User** — `name, email, password, role, batch, domain, status`
+- role: president | pm | mc | domain_leader | member
+- batch: batch_1 | batch_2 | batch_3
+- domain: T&G | Technical | Events | Marketing | Finance | General
+- status: active | warning | inactive
+
+**Event** — `title, description, date, domain, capacity, createdBy, attendees[]`
+- attendees subdoc: `{ memberId, checkedIn, checkedInAt }`
+
+**Decision** — `title, description, category, status, startDate, endDate, stakeholders[], author, timeline[], actionItems[]`
+- category: exam-schedule | holiday | stakeholder | project-progress | learning
+- status: pending | approved | implemented
+- startDate/endDate: optional; required for exam-schedule (both), holiday (at least startDate)
+- timeline subdoc: `{ status, changedBy, changedAt, notes }`
+- actionItems subdoc: `{ task, assignee (ref User), dueDate, status (pending | done) }`
+- GET /api/decisions/conflicts?date=YYYY-MM-DD returns exam-schedule and holiday decisions overlapping that date
+
+**Strike** — `memberId, reason, assignedBy` (timestamps auto)
+
+**Candidate** — `name, email, motivation, portfolioUrl, resumeUrl, status, reviewedBy, reviewedAt`
+- status: pending | approved | rejected
+
+## When Adding New Models
+
+1. Create in `server/src/models/ModelName.js` (PascalCase)
+2. Always include `{ timestamps: true }` option
+3. Use enums for fixed-value fields
+4. Add a controller in `server/src/controllers/`
+5. Add routes in `server/src/routes/`, mount in `server/src/index.js`
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ayimmam) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
