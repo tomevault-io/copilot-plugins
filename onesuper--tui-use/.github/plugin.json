@@ -1,0 +1,9 @@
+{
+  "name": "onesuper--tui-use",
+  "displayName": "tui-use",
+  "description": "tui-use lets agents interact with programs that expect a human at the keyboard \u2014 REPLs, debuggers, TUI apps, and anything else bash can't reach.",
+  "version": "1.0.0",
+  "author": "onesuper",
+  "homepage": "https://github.com/onesuper/tui-use",
+  "skills": []
+}
