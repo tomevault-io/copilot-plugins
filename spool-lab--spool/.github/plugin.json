@@ -1,0 +1,9 @@
+{
+  "name": "spool-lab--spool",
+  "displayName": "spool",
+  "description": "Search your Claude Code sessions, Codex history, GitHub stars, and 50+ sources \u2014 locally, instantly. Your AI agents can search too.",
+  "version": "1.0.0",
+  "author": "spool-lab",
+  "homepage": "https://github.com/spool-lab/spool",
+  "skills": []
+}
