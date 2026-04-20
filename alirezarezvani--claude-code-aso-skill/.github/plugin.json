@@ -1,0 +1,122 @@
+{
+  "name": "alirezarezvani--claude-code-aso-skill",
+  "displayName": "claude",
+  "description": "AEO Automation Framework for Claude Code One-click, beginner friendly automation for GitHub. Includes a dedicated fleet of AEO sub-agents handling planning, execution, reports, actionable items, and e",
+  "version": "1.0.0",
+  "author": "alirezarezvani",
+  "homepage": "https://github.com/alirezarezvani/claude-code-aso-skill",
+  "skills": [
+    {
+      "name": "api-documenter",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "dependency-auditor",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "readme-updater",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "description": ""
+    },
+    {
+      "name": "agent-factory",
+      "description": ""
+    },
+    {
+      "name": "aws-solution-architect",
+      "description": ""
+    },
+    {
+      "name": "claude-md-enhancer",
+      "description": ""
+    },
+    {
+      "name": "codex-cli-bridge",
+      "description": ""
+    },
+    {
+      "name": "content-trend-researcher",
+      "description": ""
+    },
+    {
+      "name": "hook-factory",
+      "description": ""
+    },
+    {
+      "name": "ms365-tenant-manager",
+      "description": ""
+    },
+    {
+      "name": "prompt-factory",
+      "description": ""
+    },
+    {
+      "name": "scrum-master-agent",
+      "description": ""
+    },
+    {
+      "name": "slash-command-factory",
+      "description": ""
+    },
+    {
+      "name": "tdd-guide",
+      "description": ""
+    },
+    {
+      "name": "aso",
+      "description": ""
+    },
+    {
+      "name": "app-store-optimization",
+      "description": ""
+    },
+    {
+      "name": "skill",
+      "description": ""
+    },
+    {
+      "name": "architecture-pattern-selector",
+      "description": ""
+    },
+    {
+      "name": "clarification-protocol",
+      "description": ""
+    },
+    {
+      "name": "cost-estimator",
+      "description": ""
+    },
+    {
+      "name": "delegation-prompt-crafter",
+      "description": ""
+    },
+    {
+      "name": "ml-cv-specialist",
+      "description": ""
+    },
+    {
+      "name": "request-analyzer",
+      "description": ""
+    },
+    {
+      "name": "roadmap-generator",
+      "description": ""
+    },
+    {
+      "name": "scalability-advisor",
+      "description": ""
+    }
+  ]
+}
