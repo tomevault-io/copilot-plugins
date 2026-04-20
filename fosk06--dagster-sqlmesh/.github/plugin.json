@@ -1,0 +1,9 @@
+{
+  "name": "fosk06--dagster-sqlmesh",
+  "displayName": "dagster-sqlmesh",
+  "description": "dagster-sqlmesh",
+  "version": "1.0.0",
+  "author": "fosk06",
+  "homepage": "https://github.com/fosk06/dagster-sqlmesh",
+  "skills": []
+}
