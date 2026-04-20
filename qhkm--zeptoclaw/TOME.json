@@ -1,0 +1,57 @@
+{
+  "name": "zeptoclaw",
+  "owner": "qhkm",
+  "repo": "zeptoclaw",
+  "description": "AI coding agent \u2014 32 tools, 9 providers, 9 channels. The agent runtime that ZeptoRT supervises.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "github",
+      "path": "skills/github",
+      "github_url": "https://github.com/qhkm/zeptoclaw/tree/main/skills/github",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/qhkm/zeptoclaw/tree/main/skills/skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/qhkm/zeptoclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T08:31:57Z"
+}
