@@ -1,0 +1,9 @@
+{
+  "name": "chekdata--chek-ego-miner",
+  "displayName": "chek-ego-miner",
+  "description": "Crowdsource EGO robot data capture, contribution, and public-safe edge-host bring-up.",
+  "version": "1.0.0",
+  "author": "chekdata",
+  "homepage": "https://github.com/chekdata/chek-ego-miner",
+  "skills": []
+}
