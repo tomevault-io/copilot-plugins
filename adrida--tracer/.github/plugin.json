@@ -1,0 +1,9 @@
+{
+  "name": "adrida--tracer",
+  "displayName": "tracer",
+  "description": "TRACER: replace 90%+ of your LLM classification calls with a traditional ML model. Formal parity guarantees. Self-improving.",
+  "version": "1.0.0",
+  "author": "adrida",
+  "homepage": "https://github.com/adrida/tracer",
+  "skills": []
+}
