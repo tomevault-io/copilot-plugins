@@ -1,0 +1,99 @@
+{
+  "name": "agent-toolkit",
+  "owner": "softaworks",
+  "repo": "agent-toolkit",
+  "description": "A curated collection of skills for AI coding agents. Skills are packaged instructions and scripts that extend agent capabilities across development, documentation, planning, and professional workflows.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mermaid-diagrams",
+      "path": "dist/plugins/mermaid-diagrams/skills/mermaid-diagrams",
+      "github_url": "https://github.com/softaworks/agent-toolkit/tree/main/dist/plugins/mermaid-diagrams/skills/mermaid-diagrams",
+      "description": ""
+    },
+    {
+      "name": "writing-clearly-and-concisely",
+      "path": "dist/plugins/writing-clearly-and-concisely/skills/writing-clearly-and-concisely",
+      "github_url": "https://github.com/softaworks/agent-toolkit/tree/main/dist/plugins/writing-clearly-and-concisely/skills/writing-clearly-and-concisely",
+      "description": ""
+    },
+    {
+      "name": "commit-work",
+      "path": "dist/plugins/commit-work/skills/commit-work",
+      "github_url": "https://github.com/softaworks/agent-toolkit/tree/main/dist/plugins/commit-work/skills/commit-work",
+      "description": ""
+    },
+    {
+      "name": "reducing-entropy",
+      "path": "dist/plugins/reducing-entropy/skills/reducing-entropy",
+      "github_url": "https://github.com/softaworks/agent-toolkit/tree/main/dist/plugins/reducing-entropy/skills/reducing-entropy",
+      "description": ""
+    },
+    {
+      "name": "marp-slide",
+      "path": "dist/plugins/marp-slide/skills/marp-slide",
+      "github_url": "https://github.com/softaworks/agent-toolkit/tree/main/dist/plugins/marp-slide/skills/marp-slide",
+      "description": ""
+    },
+    {
+      "name": "lesson-learned",
+      "path": "dist/plugins/lesson-learned/skills/lesson-learned",
+      "github_url": "https://github.com/softaworks/agent-toolkit/tree/main/dist/plugins/lesson-learned/skills/lesson-learned",
+      "description": ""
+    },
+    {
+      "name": "web-to-markdown",
+      "path": "dist/plugins/web-to-markdown/skills/web-to-markdown",
+      "github_url": "https://github.com/softaworks/agent-toolkit/tree/main/dist/plugins/web-to-markdown/skills/web-to-markdown",
+      "description": ""
+    },
+    {
+      "name": "react-dev",
+      "path": "skills/react-dev",
+      "github_url": "https://github.com/softaworks/agent-toolkit/tree/main/skills/react-dev",
+      "description": ""
+    },
+    {
+      "name": "react-useeffect",
+      "path": "skills/react-useeffect",
+      "github_url": "https://github.com/softaworks/agent-toolkit/tree/main/skills/react-useeffect",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/softaworks/agent-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:53:45Z"
+}
