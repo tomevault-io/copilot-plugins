@@ -1,0 +1,150 @@
+{
+  "name": "tech-leads-club--agent-skills",
+  "displayName": "agent-skills",
+  "description": "The secure, validated skill registry for professional AI coding agents. Extend Antigravity, Claude Code, Cursor, Copilot and more with absolute confidence.",
+  "version": "1.0.0",
+  "author": "tech-leads-club",
+  "homepage": "https://github.com/tech-leads-club/agent-skills",
+  "skills": [
+    {
+      "name": "web-accessibility",
+      "description": ""
+    },
+    {
+      "name": "aws-advisor",
+      "description": ""
+    },
+    {
+      "name": "web-best-practices",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-deploy",
+      "description": ""
+    },
+    {
+      "name": "coding-guidelines",
+      "description": ""
+    },
+    {
+      "name": "component-common-domain-detection",
+      "description": ""
+    },
+    {
+      "name": "component-flattening-analysis",
+      "description": ""
+    },
+    {
+      "name": "component-identification-sizing",
+      "description": ""
+    },
+    {
+      "name": "core-web-vitals",
+      "description": ""
+    },
+    {
+      "name": "cursor-subagent-creator",
+      "description": ""
+    },
+    {
+      "name": "decomposition-planning-roadmap",
+      "description": ""
+    },
+    {
+      "name": "docs-writer",
+      "description": ""
+    },
+    {
+      "name": "domain-analysis",
+      "description": ""
+    },
+    {
+      "name": "figma",
+      "description": ""
+    },
+    {
+      "name": "figma-implement-design",
+      "description": ""
+    },
+    {
+      "name": "gh-address-comments",
+      "description": ""
+    },
+    {
+      "name": "gh-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "netlify-deploy",
+      "description": ""
+    },
+    {
+      "name": "nx-workspace",
+      "description": ""
+    },
+    {
+      "name": "perf-lighthouse",
+      "description": ""
+    },
+    {
+      "name": "perf-web-optimization",
+      "description": ""
+    },
+    {
+      "name": "playwright-skill",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "render-deploy",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "security-ownership-map",
+      "description": ""
+    },
+    {
+      "name": "security-threat-model",
+      "description": ""
+    },
+    {
+      "name": "sentry",
+      "description": ""
+    },
+    {
+      "name": "shopify-developer",
+      "description": ""
+    },
+    {
+      "name": "subagent-creator",
+      "description": ""
+    },
+    {
+      "name": "tlc-spec-driven",
+      "description": ""
+    },
+    {
+      "name": "vercel-deploy",
+      "description": ""
+    },
+    {
+      "name": "web-quality-audit",
+      "description": ""
+    },
+    {
+      "name": "react-native-expert",
+      "description": ""
+    }
+  ]
+}
