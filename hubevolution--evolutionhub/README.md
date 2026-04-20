@@ -1,6 +1,6 @@
 # EvolutionHub
 
-> Tome by [HubEvolution](https://github.com/HubEvolution/EvolutionHub) — distributed by [TomeVault](https://tomevault.io/claim/HubEvolution)
+> Tome by [HubEvolution](https://github.com/HubEvolution/EvolutionHub) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [HubEvolution/EvolutionHub](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/HubEvolution)
+From [HubEvolution/EvolutionHub](https://github.com/HubEvolution/EvolutionHub) — a repo with 0+ stars on GitHub.
 
 ---
 
