@@ -1,0 +1,14 @@
+{
+  "name": "friuns2--codexui",
+  "displayName": "codex",
+  "description": "\ud83d\ude80 Run Codex App UI Anywhere: Linux, Windows, or Termux on Android \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "friuns2",
+  "homepage": "https://github.com/friuns2/codexUI",
+  "skills": [
+    {
+      "name": "launch-codex-unpacked",
+      "description": ""
+    }
+  ]
+}
