@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [AReid987/aigency-v1.0.0](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/AReid987)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/AReid987/aigency-v1.0.0](https://github.com/AReid987/aigency-v1.0.0)
 
 ---
 
