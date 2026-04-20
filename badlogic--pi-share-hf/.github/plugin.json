@@ -1,0 +1,42 @@
+{
+  "name": "badlogic--pi-share-hf",
+  "displayName": "pi-s",
+  "description": "Collect, review, and upload redacted pi session files to a Hugging Face dataset",
+  "version": "1.0.0",
+  "author": "badlogic",
+  "homepage": "https://github.com/badlogic/pi-share-hf",
+  "skills": [
+    {
+      "name": "brave-search",
+      "description": ""
+    },
+    {
+      "name": "browser-tools",
+      "description": ""
+    },
+    {
+      "name": "gccli",
+      "description": ""
+    },
+    {
+      "name": "gdcli",
+      "description": ""
+    },
+    {
+      "name": "gmcli",
+      "description": ""
+    },
+    {
+      "name": "transcribe",
+      "description": ""
+    },
+    {
+      "name": "vscode",
+      "description": ""
+    },
+    {
+      "name": "youtube-transcript",
+      "description": ""
+    }
+  ]
+}
