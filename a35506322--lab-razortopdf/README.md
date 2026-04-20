@@ -1,6 +1,6 @@
 # Lab.RazorToPDF
 
-> Tome by [a35506322](https://github.com/a35506322/Lab.RazorToPDF) — distributed by [TomeVault](https://tomevault.io/claim/a35506322)
+> Tome by [a35506322](https://github.com/a35506322/Lab.RazorToPDF) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [a35506322/Lab.RazorToPDF](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/a35506322)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/a35506322/Lab.RazorToPDF](https://github.com/a35506322/Lab.RazorToPDF)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install a35506322/Lab.RazorToPDF
 ```
-Or browse all formats at [https://tomevault.io/claim/a35506322](https://tomevault.io/claim/a35506322).
+Source: [github.com/a35506322/Lab.RazorToPDF](https://github.com/a35506322/Lab.RazorToPDF).
 
 <!-- genome:t-i-p -->
