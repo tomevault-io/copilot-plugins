@@ -1,0 +1,9 @@
+{
+  "name": "fw-ai-external--python-sdk",
+  "displayName": "python-sdk",
+  "description": "python-sdk",
+  "version": "1.0.0",
+  "author": "fw-ai-external",
+  "homepage": "https://github.com/fw-ai-external/python-sdk",
+  "skills": []
+}
