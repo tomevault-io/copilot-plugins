@@ -1,0 +1,9 @@
+{
+  "name": "cline--kanban",
+  "displayName": "kanban",
+  "description": "Launch a local web app that runs CLI agents in parallel",
+  "version": "1.0.0",
+  "author": "cline",
+  "homepage": "https://github.com/cline/kanban",
+  "skills": []
+}
