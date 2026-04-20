@@ -1,0 +1,159 @@
+{
+  "name": "swarm-tools",
+  "owner": "joelhooks",
+  "repo": "swarm-tools",
+  "description": "\ud83d\udc1d Multi-agent swarm coordination for OpenCode with learning capabilities, agent issue tracking, and management",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "always-on-guidance",
+      "path": "packages/opencode-swarm-plugin/claude-plugin/skills/always-on-guidance",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/claude-plugin/skills/always-on-guidance",
+      "description": ""
+    },
+    {
+      "name": "always-on-guidance",
+      "path": "packages/claude-code-swarm-plugin/skills/always-on-guidance",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/claude-code-swarm-plugin/skills/always-on-guidance",
+      "description": ""
+    },
+    {
+      "name": "cli-builder",
+      "path": "packages/opencode-swarm-plugin/global-skills/cli-builder",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/global-skills/cli-builder",
+      "description": ""
+    },
+    {
+      "name": "gh-issue-triage",
+      "path": ".opencode/skill/gh-issue-triage",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/.opencode/skill/gh-issue-triage",
+      "description": ""
+    },
+    {
+      "name": "publish-package-cicd",
+      "path": ".opencode/skill/publish-package-cicd",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/.opencode/skill/publish-package-cicd",
+      "description": ""
+    },
+    {
+      "name": "queue",
+      "path": "packages/opencode-swarm-plugin/global-skills/queue",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/global-skills/queue",
+      "description": ""
+    },
+    {
+      "name": "ralph-supervisor",
+      "path": "packages/opencode-swarm-plugin/claude-plugin/skills/ralph-supervisor",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/claude-plugin/skills/ralph-supervisor",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": ".claude/skills/release",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/.claude/skills/release",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "packages/opencode-swarm-plugin/global-skills/skill-creator",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/global-skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "packages/opencode-swarm-plugin/examples/skill/skill-creator",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/examples/skill/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-generator",
+      "path": "packages/opencode-swarm-plugin/global-skills/skill-generator",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/global-skills/skill-generator",
+      "description": ""
+    },
+    {
+      "name": "swarm-cli",
+      "path": "packages/opencode-swarm-plugin/claude-plugin/skills/swarm-cli",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/claude-plugin/skills/swarm-cli",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "path": "packages/opencode-swarm-plugin/global-skills/swarm-coordination",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/global-skills/swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "path": "packages/opencode-swarm-plugin/examples/skill/swarm-coordination",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/examples/skill/swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "path": "packages/opencode-swarm-plugin/claude-plugin/skills/swarm-coordination",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/claude-plugin/skills/swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "path": "packages/claude-code-swarm-plugin/skills/swarm-coordination",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/claude-code-swarm-plugin/skills/swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "system-design",
+      "path": "packages/opencode-swarm-plugin/global-skills/system-design",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/global-skills/system-design",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": ".opencode/skill/tdd",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/.opencode/skill/tdd",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": "packages/opencode-swarm-plugin/global-skills/testing-patterns",
+      "github_url": "https://github.com/joelhooks/swarm-tools/tree/main/packages/opencode-swarm-plugin/global-skills/testing-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joelhooks/swarm-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:32:39Z"
+}
