@@ -1,0 +1,105 @@
+{
+  "name": "codex-skills",
+  "owner": "am-will",
+  "repo": "codex-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": "skills/agent-browser",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-responsive-ui",
+      "path": "skills/frontend-responsive-ui",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/frontend-responsive-ui",
+      "description": ""
+    },
+    {
+      "name": "gemini-computer-use",
+      "path": "skills/gemini-computer-use",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/gemini-computer-use",
+      "description": ""
+    },
+    {
+      "name": "llm-council",
+      "path": "skills/llm-council",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/llm-council",
+      "description": ""
+    },
+    {
+      "name": "markdown-url",
+      "path": "skills/markdown-url",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/markdown-url",
+      "description": ""
+    },
+    {
+      "name": "openai-docs-skill",
+      "path": "skills/openai-docs-skill",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/openai-docs-skill",
+      "description": ""
+    },
+    {
+      "name": "planner",
+      "path": "skills/planner",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/planner",
+      "description": ""
+    },
+    {
+      "name": "read-github",
+      "path": "skills/read-github",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/read-github",
+      "description": ""
+    },
+    {
+      "name": "swarm-planner",
+      "path": "skills/swarm-planner",
+      "github_url": "https://github.com/am-will/codex-skills/tree/main/skills/swarm-planner",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/am-will/codex-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:34:39Z"
+}
