@@ -1,0 +1,74 @@
+{
+  "name": "antfu--skills",
+  "displayName": "skills",
+  "description": "Anthony Fu's curated collection of agent skills.",
+  "version": "1.0.0",
+  "author": "antfu",
+  "homepage": "https://github.com/antfu/skills",
+  "skills": [
+    {
+      "name": "vite",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "pnpm",
+      "description": ""
+    },
+    {
+      "name": "vueuse-functions",
+      "description": ""
+    },
+    {
+      "name": "antfu",
+      "description": ""
+    },
+    {
+      "name": "pinia",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "nuxt",
+      "description": ""
+    },
+    {
+      "name": "slidev",
+      "description": ""
+    },
+    {
+      "name": "tsdown",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "description": ""
+    },
+    {
+      "name": "unocss",
+      "description": ""
+    },
+    {
+      "name": "vitepress",
+      "description": ""
+    },
+    {
+      "name": "vue-router-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-testing-best-practices",
+      "description": ""
+    }
+  ]
+}
