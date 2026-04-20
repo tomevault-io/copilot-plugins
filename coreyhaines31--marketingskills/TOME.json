@@ -1,0 +1,141 @@
+{
+  "name": "marketingskills",
+  "owner": "coreyhaines31",
+  "repo": "marketingskills",
+  "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "marketing-psychology",
+      "path": "skills/marketing-psychology",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/marketing-psychology",
+      "description": ""
+    },
+    {
+      "name": "product-marketing-context",
+      "path": "skills/product-marketing-context",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/product-marketing-context",
+      "description": ""
+    },
+    {
+      "name": "marketing-ideas",
+      "path": "skills/marketing-ideas",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/marketing-ideas",
+      "description": ""
+    },
+    {
+      "name": "social-content",
+      "path": "skills/social-content",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/social-content",
+      "description": ""
+    },
+    {
+      "name": "copy-editing",
+      "path": "skills/copy-editing",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/copy-editing",
+      "description": ""
+    },
+    {
+      "name": "pricing-strategy",
+      "path": "skills/pricing-strategy",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/pricing-strategy",
+      "description": ""
+    },
+    {
+      "name": "ab-test-setup",
+      "path": "skills/ab-test-setup",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/ab-test-setup",
+      "description": ""
+    },
+    {
+      "name": "analytics-tracking",
+      "path": "skills/analytics-tracking",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/analytics-tracking",
+      "description": ""
+    },
+    {
+      "name": "cold-email",
+      "path": "skills/cold-email",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/cold-email",
+      "description": ""
+    },
+    {
+      "name": "email-sequence",
+      "path": "skills/email-sequence",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/email-sequence",
+      "description": ""
+    },
+    {
+      "name": "form-cro",
+      "path": "skills/form-cro",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/form-cro",
+      "description": ""
+    },
+    {
+      "name": "free-tool-strategy",
+      "path": "skills/free-tool-strategy",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/free-tool-strategy",
+      "description": ""
+    },
+    {
+      "name": "launch-strategy",
+      "path": "skills/launch-strategy",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/launch-strategy",
+      "description": ""
+    },
+    {
+      "name": "paid-ads",
+      "path": "skills/paid-ads",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/paid-ads",
+      "description": ""
+    },
+    {
+      "name": "paywall-upgrade-cro",
+      "path": "skills/paywall-upgrade-cro",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/paywall-upgrade-cro",
+      "description": ""
+    },
+    {
+      "name": "referral-program",
+      "path": "skills/referral-program",
+      "github_url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/referral-program",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/coreyhaines31/marketingskills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:38:56Z"
+}
