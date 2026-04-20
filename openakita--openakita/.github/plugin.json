@@ -1,0 +1,142 @@
+{
+  "name": "openakita--openakita",
+  "displayName": "openakita",
+  "description": "An open-source AI assistant framework with skills and agent architecture",
+  "version": "1.0.0",
+  "author": "openakita",
+  "homepage": "https://github.com/openakita/openakita",
+  "skills": [
+    {
+      "name": "browser-click",
+      "description": ""
+    },
+    {
+      "name": "browser-get-content",
+      "description": ""
+    },
+    {
+      "name": "browser-navigate",
+      "description": ""
+    },
+    {
+      "name": "browser-open",
+      "description": ""
+    },
+    {
+      "name": "browser-screenshot",
+      "description": ""
+    },
+    {
+      "name": "browser-type",
+      "description": ""
+    },
+    {
+      "name": "desktop-click",
+      "description": ""
+    },
+    {
+      "name": "desktop-find-element",
+      "description": ""
+    },
+    {
+      "name": "desktop-inspect",
+      "description": ""
+    },
+    {
+      "name": "desktop-screenshot",
+      "description": ""
+    },
+    {
+      "name": "desktop-scroll",
+      "description": ""
+    },
+    {
+      "name": "desktop-type",
+      "description": ""
+    },
+    {
+      "name": "desktop-wait",
+      "description": ""
+    },
+    {
+      "name": "find-skills",
+      "description": ""
+    },
+    {
+      "name": "generate-image",
+      "description": ""
+    },
+    {
+      "name": "get-skill-info",
+      "description": ""
+    },
+    {
+      "name": "get-skill-reference",
+      "description": ""
+    },
+    {
+      "name": "github-automation",
+      "description": ""
+    },
+    {
+      "name": "install-skill",
+      "description": ""
+    },
+    {
+      "name": "list-scheduled-tasks",
+      "description": ""
+    },
+    {
+      "name": "list-skills",
+      "description": ""
+    },
+    {
+      "name": "load-skill",
+      "description": ""
+    },
+    {
+      "name": "read-file",
+      "description": ""
+    },
+    {
+      "name": "reload-skill",
+      "description": ""
+    },
+    {
+      "name": "run-shell",
+      "description": ""
+    },
+    {
+      "name": "run-skill-script",
+      "description": ""
+    },
+    {
+      "name": "schedule-task",
+      "description": ""
+    },
+    {
+      "name": "switch-persona",
+      "description": ""
+    },
+    {
+      "name": "toggle-proactive",
+      "description": ""
+    },
+    {
+      "name": "trigger-scheduled-task",
+      "description": ""
+    },
+    {
+      "name": "video-downloader",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "description": ""
+    },
+    {
+      "name": "write-file",
+      "description": ""
+    }
+  ]
+}
