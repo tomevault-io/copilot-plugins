@@ -1,0 +1,9 @@
+{
+  "name": "ghostty-org--ghostling",
+  "displayName": "ghostling",
+  "description": "A minimum viable terminal emulator built on top of the libghostty C API. Ex minimo, infinita nascuntur. \ud83d\udc7b\ud83d\udc23",
+  "version": "1.0.0",
+  "author": "ghostty-org",
+  "homepage": "https://github.com/ghostty-org/ghostling",
+  "skills": []
+}
