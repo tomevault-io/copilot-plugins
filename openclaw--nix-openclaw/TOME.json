@@ -1,0 +1,63 @@
+{
+  "name": "nix-openclaw",
+  "owner": "openclaw",
+  "repo": "nix-openclaw",
+  "description": "Packages OpenClaw for nix.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openclaw",
+      "path": "skills/josephrp/autonomous-agent/adapters/openclaw",
+      "github_url": "https://github.com/openclaw/nix-openclaw/tree/main/skills/josephrp/autonomous-agent/adapters/openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "path": "skills/josephrp/autonomous/adapters/openclaw",
+      "github_url": "https://github.com/openclaw/nix-openclaw/tree/main/skills/josephrp/autonomous/adapters/openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "path": "skills/jordanprater/openclaw",
+      "github_url": "https://github.com/openclaw/nix-openclaw/tree/main/skills/jordanprater/openclaw",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/nix-openclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T16:09:12Z"
+}
