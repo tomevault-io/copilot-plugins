@@ -1,0 +1,51 @@
+{
+  "name": "claude_code",
+  "owner": "brainqub3",
+  "repo": "claude_code_RLM",
+  "description": "Claude code setup as an RLM scaffhold Implemented by Brainqub3",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rlm",
+      "path": ".claude/skills/rlm",
+      "github_url": "https://github.com/brainqub3/claude_code_RLM/tree/main/.claude/skills/rlm",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/brainqub3/claude_code_RLM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:19:32Z"
+}
