@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [PaulJPhilp/EffectiveAgent](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/PaulJPhilp#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/PaulJPhilp/EffectiveAgent](https://github.com/PaulJPhilp/EffectiveAgent)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install PaulJPhilp/EffectiveAgent
 ```
-Or browse all formats at [https://tomevault.io/claim/PaulJPhilp](https://tomevault.io/claim/PaulJPhilp).
+Source: [github.com/PaulJPhilp/EffectiveAgent](https://github.com/PaulJPhilp/EffectiveAgent).
 
 <!-- genome:a-i-q -->
