@@ -1,0 +1,57 @@
+{
+  "name": "hello-halo",
+  "owner": "openkursar",
+  "repo": "hello-halo",
+  "description": "7\u00d724 Desktop AI Agent for Everyone. Visual AI assistant with remote access, file management, and built-in AI browser.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-commit",
+      "path": ".claude/skills/code-commit",
+      "github_url": "https://github.com/openkursar/hello-halo/tree/main/.claude/skills/code-commit",
+      "description": ""
+    },
+    {
+      "name": "halo-dev",
+      "path": ".claude/skills/halo-dev",
+      "github_url": "https://github.com/openkursar/hello-halo/tree/main/.claude/skills/halo-dev",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openkursar/hello-halo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:48:13Z"
+}
