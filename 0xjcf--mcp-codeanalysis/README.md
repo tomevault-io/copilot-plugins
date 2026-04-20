@@ -1,6 +1,6 @@
 # MCP_CodeAnalysis
 
-> Tome by [0xjcf](https://github.com/0xjcf/MCP_CodeAnalysis) — distributed by [TomeVault](https://tomevault.io/claim/0xjcf)
+> Tome by [0xjcf](https://github.com/0xjcf/MCP_CodeAnalysis) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [0xjcf/MCP_CodeAnalysis](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/0xjcf)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/0xjcf/MCP_CodeAnalysis](https://github.com/0xjcf/MCP_CodeAnalysis)
 
 ---
 
