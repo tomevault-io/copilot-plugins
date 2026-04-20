@@ -1,0 +1,22 @@
+{
+  "name": "syi0808--screenize",
+  "displayName": "screenize",
+  "description": "Open-source macOS screen recording app with auto-zoom, cursor effects, and timeline editing \u2014 Screen Studio alternative.",
+  "version": "1.0.0",
+  "author": "syi0808",
+  "homepage": "https://github.com/syi0808/screenize",
+  "skills": [
+    {
+      "name": "github-planner",
+      "description": ""
+    },
+    {
+      "name": "sqlite-vectordb",
+      "description": ""
+    },
+    {
+      "name": "work-logger",
+      "description": ""
+    }
+  ]
+}
