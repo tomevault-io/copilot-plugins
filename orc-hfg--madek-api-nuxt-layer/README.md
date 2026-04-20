@@ -1,6 +1,6 @@
 # madek-api-nuxt-layer
 
-> Tome by [orc-hfg](https://github.com/orc-hfg/madek-api-nuxt-layer) — distributed by [TomeVault](https://tomevault.io/claim/orc-hfg)
+> Tome by [orc-hfg](https://github.com/orc-hfg/madek-api-nuxt-layer) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [orc-hfg/madek-api-nuxt-layer](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/orc-hfg)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/orc-hfg/madek-api-nuxt-layer](https://github.com/orc-hfg/madek-api-nuxt-layer)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install orc-hfg/madek-api-nuxt-layer
 ```
-Or browse all formats at [https://tomevault.io/claim/orc-hfg](https://tomevault.io/claim/orc-hfg).
+Source: [github.com/orc-hfg/madek-api-nuxt-layer](https://github.com/orc-hfg/madek-api-nuxt-layer).
 
 <!-- genome:t-i-p -->
