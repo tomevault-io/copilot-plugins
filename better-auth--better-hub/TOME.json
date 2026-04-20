@@ -1,0 +1,51 @@
+{
+  "name": "better",
+  "owner": "better-auth",
+  "repo": "better-hub",
+  "description": "Re-imagining code collaboration for humans and agents",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "skills",
+      "github_url": "https://github.com/better-auth/better-hub/tree/main/skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/better-auth/better-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T08:35:56Z"
+}
