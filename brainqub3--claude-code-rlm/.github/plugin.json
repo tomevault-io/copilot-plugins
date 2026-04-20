@@ -1,0 +1,14 @@
+{
+  "name": "brainqub3--claude-code-rlm",
+  "displayName": "claude_code",
+  "description": "Claude code setup as an RLM scaffhold Implemented by Brainqub3",
+  "version": "1.0.0",
+  "author": "brainqub3",
+  "homepage": "https://github.com/brainqub3/claude_code_RLM",
+  "skills": [
+    {
+      "name": "rlm",
+      "description": ""
+    }
+  ]
+}
