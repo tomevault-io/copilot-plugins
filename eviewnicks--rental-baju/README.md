@@ -1,6 +1,6 @@
 # rental-baju
 
-> Tome by [EviewNicks](https://github.com/EviewNicks/rental-baju) — distributed by [TomeVault](https://tomevault.io/claim/EviewNicks)
+> Tome by [EviewNicks](https://github.com/EviewNicks/rental-baju) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [EviewNicks/rental-baju](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/EviewNicks)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/EviewNicks/rental-baju](https://github.com/EviewNicks/rental-baju)
 
 ---
 
