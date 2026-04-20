@@ -1,0 +1,9 @@
+{
+  "name": "denissergeevitch--repo-task-proof-loop",
+  "displayName": "repo-task-proof-loop",
+  "description": "Spec driven skill with subagents spawning",
+  "version": "1.0.0",
+  "author": "DenisSergeevitch",
+  "homepage": "https://github.com/DenisSergeevitch/repo-task-proof-loop",
+  "skills": []
+}
