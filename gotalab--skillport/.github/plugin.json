@@ -1,0 +1,22 @@
+{
+  "name": "gotalab--skillport",
+  "displayName": "skillport",
+  "description": "Bring Agent Skills to Any AI Agent and Coding Agent \u2014 via CLI or MCP. Manage once, serve anywhere.",
+  "version": "1.0.0",
+  "author": "gotalab",
+  "homepage": "https://github.com/gotalab/skillport",
+  "skills": [
+    {
+      "name": "git-branch-cleanup",
+      "description": ""
+    },
+    {
+      "name": "opus-4-5-migration",
+      "description": ""
+    },
+    {
+      "name": "skill-evaluator",
+      "description": ""
+    }
+  ]
+}
