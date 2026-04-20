@@ -1,0 +1,34 @@
+{
+  "name": "mcollina--skills",
+  "displayName": "skills",
+  "description": "My own collection of skills for modern Node.js development",
+  "version": "1.0.0",
+  "author": "mcollina",
+  "homepage": "https://github.com/mcollina/skills",
+  "skills": [
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "fastify",
+      "description": ""
+    },
+    {
+      "name": "node",
+      "description": ""
+    },
+    {
+      "name": "nodejs-core",
+      "description": ""
+    },
+    {
+      "name": "octocat",
+      "description": ""
+    },
+    {
+      "name": "typescript-magician",
+      "description": ""
+    }
+  ]
+}
