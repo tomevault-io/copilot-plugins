@@ -1,0 +1,14 @@
+{
+  "name": "hmans--beans",
+  "displayName": "beans",
+  "description": "A CLI-based, flat-file issue tracker for humans and robots. \ud83e\udd16",
+  "version": "1.0.0",
+  "author": "hmans",
+  "homepage": "https://github.com/hmans/beans",
+  "skills": [
+    {
+      "name": "bubbletea",
+      "description": ""
+    }
+  ]
+}
