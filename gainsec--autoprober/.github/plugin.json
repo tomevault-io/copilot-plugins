@@ -1,0 +1,9 @@
+{
+  "name": "gainsec--autoprober",
+  "displayName": "AutoProber",
+  "description": "Hardware hacker\u2019s flying probe automation stack for agent-driven   target discovery, microscope mapping, safety-monitored CNC motion, probe review, and   controlled pin probing.",
+  "version": "1.0.0",
+  "author": "GainSec",
+  "homepage": "https://github.com/GainSec/AutoProber",
+  "skills": []
+}
