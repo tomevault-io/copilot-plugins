@@ -1,0 +1,22 @@
+{
+  "name": "rivet-dev--sandbox-agent",
+  "displayName": "sandbox-agent",
+  "description": "Run Coding Agents in Sandboxes. Control Them Over HTTP. Supports Claude Code, Codex, OpenCode, and Amp.",
+  "version": "1.0.0",
+  "author": "rivet-dev",
+  "homepage": "https://github.com/rivet-dev/sandbox-agent",
+  "skills": [
+    {
+      "name": "sandbox-agent",
+      "description": ""
+    },
+    {
+      "name": "skills-custom-tool",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "description": ""
+    }
+  ]
+}
