@@ -1,6 +1,6 @@
 # binding
 
-> Tome by [rajat9garg](https://github.com/rajat9garg/binding) — distributed by [TomeVault](https://tomevault.io/claim/rajat9garg)
+> Tome by [rajat9garg](https://github.com/rajat9garg/binding) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [rajat9garg/binding](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/rajat9garg#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rajat9garg/binding](https://github.com/rajat9garg/binding)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install rajat9garg/binding
 ```
-Or browse all formats at [https://tomevault.io/claim/rajat9garg](https://tomevault.io/claim/rajat9garg).
+Source: [github.com/rajat9garg/binding](https://github.com/rajat9garg/binding).
 
 <!-- genome:t-i-q -->
