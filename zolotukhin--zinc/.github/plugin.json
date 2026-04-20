@@ -1,0 +1,9 @@
+{
+  "name": "zolotukhin--zinc",
+  "displayName": "zinc",
+  "description": "Zig INferenCe Engine \u2014 Local LLM inference on AMD GPUs and Apple Silicon",
+  "version": "1.0.0",
+  "author": "zolotukhin",
+  "homepage": "https://github.com/zolotukhin/zinc",
+  "skills": []
+}
