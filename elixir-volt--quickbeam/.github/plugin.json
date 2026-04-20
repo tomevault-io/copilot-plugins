@@ -1,0 +1,9 @@
+{
+  "name": "elixir-volt--quickbeam",
+  "displayName": "quickbeam",
+  "description": "JavaScript runtime for the BEAM \u2014 Web APIs backed by OTP, native DOM, and a built-in TypeScript toolchain.",
+  "version": "1.0.0",
+  "author": "elixir-volt",
+  "homepage": "https://github.com/elixir-volt/quickbeam",
+  "skills": []
+}
