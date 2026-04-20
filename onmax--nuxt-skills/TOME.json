@@ -1,0 +1,147 @@
+{
+  "name": "nuxt-skills",
+  "owner": "onmax",
+  "repo": "nuxt-skills",
+  "description": "Vue, Nuxt, and NuxtHub skills for AI coding assistants.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "reka-ui",
+      "path": "skills/reka-ui",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/reka-ui",
+      "description": ""
+    },
+    {
+      "name": "nuxt",
+      "path": "skills/nuxt",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/nuxt",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "skills/vue",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "nuxt-ui",
+      "path": "skills/nuxt-ui",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/nuxt-ui",
+      "description": ""
+    },
+    {
+      "name": "vueuse",
+      "path": "skills/vueuse",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/vueuse",
+      "description": ""
+    },
+    {
+      "name": "ts-library",
+      "path": "skills/ts-library",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/ts-library",
+      "description": ""
+    },
+    {
+      "name": "motion",
+      "path": "skills/motion",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/motion",
+      "description": ""
+    },
+    {
+      "name": "document-writer",
+      "path": "skills/document-writer",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/document-writer",
+      "description": ""
+    },
+    {
+      "name": "nuxt-modules",
+      "path": "skills/nuxt-modules",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/nuxt-modules",
+      "description": ""
+    },
+    {
+      "name": "nuxt-content",
+      "path": "skills/nuxt-content",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/nuxt-content",
+      "description": ""
+    },
+    {
+      "name": "nuxt-better-auth",
+      "path": "skills/nuxt-better-auth",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/nuxt-better-auth",
+      "description": ""
+    },
+    {
+      "name": "nuxthub",
+      "path": "skills/nuxthub",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/nuxthub",
+      "description": ""
+    },
+    {
+      "name": "pnpm",
+      "path": "skills/pnpm",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/pnpm",
+      "description": ""
+    },
+    {
+      "name": "tresjs",
+      "path": "skills/tresjs",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/tresjs",
+      "description": ""
+    },
+    {
+      "name": "tsdown",
+      "path": "skills/tsdown",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/tsdown",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "path": "skills/vite",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/vite",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "path": "skills/vitest",
+      "github_url": "https://github.com/onmax/nuxt-skills/tree/main/skills/vitest",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/onmax/nuxt-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:36:25Z"
+}
