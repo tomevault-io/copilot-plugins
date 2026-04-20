@@ -1,0 +1,105 @@
+{
+  "name": "adk-rust",
+  "owner": "zavora-ai",
+  "repo": "adk-rust",
+  "description": "Rust Agent Development Kit (ADK-Rust): Build AI agents in Rust with modular components for models, tools, memory, realtime voice, and more. ADK-Rust is a flexible framework for developing AI agents with simplicity and power. Model-agnostic, deployment-agnostic, optimized for frontier AI models. Includes support for real-time voice agents.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adk-rust-agent-workflows",
+      "path": ".skills/skills/adk-rust-agent-workflows",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-rust-agent-workflows",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-app-bootstrap",
+      "path": ".skills/skills/adk-rust-app-bootstrap",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-rust-app-bootstrap",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-eval-observability-guardrails",
+      "path": ".skills/skills/adk-rust-eval-observability-guardrails",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-rust-eval-observability-guardrails",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-graph-orchestration",
+      "path": ".skills/skills/adk-rust-graph-orchestration",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-rust-graph-orchestration",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-provider-selection",
+      "path": ".skills/skills/adk-rust-provider-selection",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-rust-provider-selection",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-realtime-voice",
+      "path": ".skills/skills/adk-rust-realtime-voice",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-rust-realtime-voice",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-studio-codegen-release",
+      "path": ".skills/skills/adk-rust-studio-codegen-release",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-rust-studio-codegen-release",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-tools-mcp-ui",
+      "path": ".skills/skills/adk-rust-tools-mcp-ui",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-rust-tools-mcp-ui",
+      "description": ""
+    },
+    {
+      "name": "adk-rust-workspace-quality-gate",
+      "path": ".skills/skills/adk-rust-workspace-quality-gate",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-rust-workspace-quality-gate",
+      "description": ""
+    },
+    {
+      "name": "adk-studio",
+      "path": ".skills/skills/adk-studio",
+      "github_url": "https://github.com/zavora-ai/adk-rust/tree/main/.skills/skills/adk-studio",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zavora-ai/adk-rust",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:41:50Z"
+}
