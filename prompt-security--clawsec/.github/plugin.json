@@ -1,0 +1,38 @@
+{
+  "name": "prompt-security--clawsec",
+  "displayName": "clawsec",
+  "description": "A complete security skill suite for OpenClaw's and NanoClaw agents (and variants). Protect your SOUL.md (etc') with drift detection, live security recommendations, automated audits, and skill integrit",
+  "version": "1.0.0",
+  "author": "prompt-security",
+  "homepage": "https://github.com/prompt-security/clawsec",
+  "skills": [
+    {
+      "name": "claw-release",
+      "description": ""
+    },
+    {
+      "name": "clawsec-clawhub-checker",
+      "description": ""
+    },
+    {
+      "name": "clawsec-suite",
+      "description": ""
+    },
+    {
+      "name": "clawtributor",
+      "description": ""
+    },
+    {
+      "name": "openclaw-audit-watchdog",
+      "description": ""
+    },
+    {
+      "name": "prompt-agent",
+      "description": ""
+    },
+    {
+      "name": "soul-guardian",
+      "description": ""
+    }
+  ]
+}
