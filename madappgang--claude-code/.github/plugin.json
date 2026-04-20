@@ -1,0 +1,14 @@
+{
+  "name": "madappgang--claude-code",
+  "displayName": "claud",
+  "description": "claude code plugins marketplace",
+  "version": "1.0.0",
+  "author": "MadAppGang",
+  "homepage": "https://github.com/MadAppGang/claude-code",
+  "skills": [
+    {
+      "name": "vue-typescript",
+      "description": ""
+    }
+  ]
+}
