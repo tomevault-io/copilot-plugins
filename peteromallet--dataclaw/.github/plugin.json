@@ -1,0 +1,9 @@
+{
+  "name": "peteromallet--dataclaw",
+  "displayName": "dataclaw",
+  "description": "Agent harness to publish your history from Claude Code et al. as Huggingface datasets. ",
+  "version": "1.0.0",
+  "author": "peteromallet",
+  "homepage": "https://github.com/peteromallet/dataclaw",
+  "skills": []
+}
