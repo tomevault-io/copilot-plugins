@@ -1,0 +1,30 @@
+{
+  "name": "luongnv89--claude-howto",
+  "displayName": "claude-howto",
+  "description": "A visual, example-driven guide to Claude Code \u2014 from basic concepts to advanced agents, with copy-paste templates that bring immediate value.",
+  "version": "1.0.0",
+  "author": "luongnv89",
+  "homepage": "https://github.com/luongnv89/claude-howto",
+  "skills": [
+    {
+      "name": "doc-generator",
+      "description": ""
+    },
+    {
+      "name": "blog-draft",
+      "description": ""
+    },
+    {
+      "name": "brand-voice",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
