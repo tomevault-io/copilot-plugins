@@ -1,0 +1,99 @@
+{
+  "name": "skills",
+  "owner": "posit-dev",
+  "repo": "skills",
+  "description": "A collection of Claude Skills from Posit",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "brand-yml",
+      "path": "brand-yml",
+      "github_url": "https://github.com/posit-dev/skills/tree/main/brand-yml",
+      "description": ""
+    },
+    {
+      "name": "cli",
+      "path": "r-lib/cli",
+      "github_url": "https://github.com/posit-dev/skills/tree/main/r-lib/cli",
+      "description": ""
+    },
+    {
+      "name": "cran-extrachecks",
+      "path": "r-lib/cran-extrachecks",
+      "github_url": "https://github.com/posit-dev/skills/tree/main/r-lib/cran-extrachecks",
+      "description": ""
+    },
+    {
+      "name": "create-release-checklist",
+      "path": "open-source/create-release-checklist",
+      "github_url": "https://github.com/posit-dev/skills/tree/main/open-source/create-release-checklist",
+      "description": ""
+    },
+    {
+      "name": "critical-code-reviewer",
+      "path": "posit-dev/critical-code-reviewer",
+      "github_url": "https://github.com/posit-dev/skills/tree/main/posit-dev/critical-code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "describe-design",
+      "path": "posit-dev/describe-design",
+      "github_url": "https://github.com/posit-dev/skills/tree/main/posit-dev/describe-design",
+      "description": ""
+    },
+    {
+      "name": "lifecycle",
+      "path": "r-lib/lifecycle",
+      "github_url": "https://github.com/posit-dev/skills/tree/main/r-lib/lifecycle",
+      "description": ""
+    },
+    {
+      "name": "release-post",
+      "path": "open-source/release-post",
+      "github_url": "https://github.com/posit-dev/skills/tree/main/open-source/release-post",
+      "description": ""
+    },
+    {
+      "name": "testing-r-packages",
+      "path": "r-lib/testing-r-packages",
+      "github_url": "https://github.com/posit-dev/skills/tree/main/r-lib/testing-r-packages",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/posit-dev/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:39:11Z"
+}
