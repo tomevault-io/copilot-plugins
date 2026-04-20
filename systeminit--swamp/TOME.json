@@ -1,0 +1,111 @@
+{
+  "name": "swamp",
+  "owner": "systeminit",
+  "repo": "swamp",
+  "description": "Stinemates, Watson, Adam, Mahir, Paul ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ddd",
+      "path": ".claude/skills/ddd",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.claude/skills/ddd",
+      "description": ""
+    },
+    {
+      "name": "github-pr",
+      "path": ".claude/skills/github-pr",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.claude/skills/github-pr",
+      "description": ""
+    },
+    {
+      "name": "jujutsu",
+      "path": ".agents/skills/jujutsu",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.agents/skills/jujutsu",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".agents/skills/skill-creator",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.agents/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "swamp-extension-model",
+      "path": ".claude/skills/swamp-extension-model",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.claude/skills/swamp-extension-model",
+      "description": ""
+    },
+    {
+      "name": "swamp-model",
+      "path": ".claude/skills/swamp-model",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.claude/skills/swamp-model",
+      "description": ""
+    },
+    {
+      "name": "swamp-repo",
+      "path": ".claude/skills/swamp-repo",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.claude/skills/swamp-repo",
+      "description": ""
+    },
+    {
+      "name": "swamp-troubleshooting",
+      "path": ".claude/skills/swamp-troubleshooting",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.claude/skills/swamp-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "swamp-vault",
+      "path": ".claude/skills/swamp-vault",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.claude/skills/swamp-vault",
+      "description": ""
+    },
+    {
+      "name": "swamp-workflow",
+      "path": ".claude/skills/swamp-workflow",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.claude/skills/swamp-workflow",
+      "description": ""
+    },
+    {
+      "name": "terminal-output",
+      "path": ".claude/skills/terminal-output",
+      "github_url": "https://github.com/systeminit/swamp/tree/main/.claude/skills/terminal-output",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/systeminit/swamp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:54:59Z"
+}
