@@ -1,6 +1,6 @@
 # Antman
 
-> Tome by [seanjr2847](https://github.com/seanjr2847/Antman) — distributed by [TomeVault](https://tomevault.io/claim/seanjr2847)
+> Tome by [seanjr2847](https://github.com/seanjr2847/Antman) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [seanjr2847/Antman](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/seanjr2847#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/seanjr2847/Antman](https://github.com/seanjr2847/Antman)
 
 ---
 
