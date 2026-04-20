@@ -1,6 +1,6 @@
 # AI-RFX-Backend
 
-> Tome by [DanielIribarren](https://github.com/DanielIribarren/AI-RFX-Backend) — distributed by [TomeVault](https://tomevault.io/claim/DanielIribarren)
+> Tome by [DanielIribarren](https://github.com/DanielIribarren/AI-RFX-Backend) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [DanielIribarren/AI-RFX-Backend](http
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/DanielIribarren#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/DanielIribarren/AI-RFX-Backend](https://github.com/DanielIribarren/AI-RFX-Backend)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install DanielIribarren/AI-RFX-Backend
 ```
-Or browse all formats at [https://tomevault.io/claim/DanielIribarren](https://tomevault.io/claim/DanielIribarren).
+Source: [github.com/DanielIribarren/AI-RFX-Backend](https://github.com/DanielIribarren/AI-RFX-Backend).
 
 <!-- genome:t-i-q -->
