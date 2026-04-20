@@ -1,0 +1,43 @@
+## raytracing-engine-in-c
+
+> Coordinate choice and step control: Use horizon-penetrating coordinates (e.g. ingoing Kerr or Eddington–Finkelstein) so that integrator variables don’t blow up at the horizon​
+
+Coordinate choice and step control: Use horizon-penetrating coordinates (e.g. ingoing Kerr or Eddington–Finkelstein) so that integrator variables don’t blow up at the horizon​
+arxiv.org
+. In these non-singular coordinates one can apply adaptive error control safely, while ignoring singular coordinate equations​
+arxiv.org
+. Near the horizon explicitly cap step-size (or switch to fixed small steps) so integration remains stable​
+arxiv.org
+. Implement early termination of rays that fall into the hole to avoid wasted steps (stop when radial coordinate ≲ horizon)​
+arxiv.org
+.
+Integrator tuning and caching: Precompute or cache repeated quantities (metric components, Christoffel symbols at static points if possible) outside inner loops. If solving many independent rays, reuse memory and data structures, and vectorize loops (SIMD) on CPU. Use multi-threading (OpenMP or std::thread) to batch integrate rays per core. On GPU, assign one thread per ray to integrate in parallel (see GPU section below).
+Reducing Spatial Aliasing at the Event Horizon
+Super-sampling / anti-alias filtering: The BH silhouette has a very sharp edge in image space, causing jaggies if under-sampled. Mitigate this by supersampling pixels around the horizon: e.g. cast multiple jittered rays per pixel (stochastic or stratified sampling) and average the results. Use low-discrepancy sequences (Halton/blue-noise) for subpixel offsets to reduce noise. Post-process with a small-radius filter (Gaussian or edge-preserving blur) if needed. NVIDIA’s studies note that only increasing sample density truly removes aliasing​
+research.nvidia.com
+, so allocate more rays where curvature is high.
+Analytic checks / boundary refinement: Compute approximate lensing analytically for coarse pixels to identify edge regions. For pixels partially occluded by the horizon, adaptively refine sampling near that boundary. A simple checker is to detect steep depth or color gradients at the BH rim: if neighbor pixels differ a lot (e.g. black vs. bright background), subdivide those pixels. This “edge-aware” refinement can concentrate GPU work where it matters most.
+Texture band-limiting (if background image used): If the scene has a background starfield or skybox, use a sufficiently high-resolution environment map. Optionally pre-filter (mipmaps) to avoid high-frequency artifacts when it is strongly lensed.
+Minimizing Temporal Flicker (Progressive Refinement)
+Frame accumulation (Temporal AA): Instead of displaying each coarse pass directly, accumulate samples over time. Use a per-pixel accumulation buffer: each new frame adds its sample(s) to the running average. This blends out temporal noise and flicker. When the camera moves, use motion vectors (project previous frame pixels into the new view) to reuse data—this is the idea behind Temporal Anti-Aliasing (TAA)​
+research.nvidia.com
+. TAA effectively turns per-frame noise into stable image detail and is widely used in real-time rendering.
+Multi-resolution flow: Maintain a multi-level buffer. Start rendering at low resolution or sample count and progressively refine. However, always display a blended combination of old and new to avoid abrupt changes. For example, when increasing from 1/8 to 1/4 res, linearly interpolate the buffers or apply a fade to smooth the jump.
+Dynamic jittering strategy: Each frame should use a slightly different jitter pattern or subpixel offset (e.g. rotated Halton sequence) so that accumulated sampling covers the pixel uniformly over time. Avoid repeating the same grid which causes static alias. Combine this with temporal filtering: e.g. weighted exponential moving average so older frames fade out gradually.
+Convergence criterion: Optionally, halt refinement in regions that have converged (little change between iterations) to save computation. Mark these pixels “done” and skip extra rays there while refining others.
+CPU–GPU Cooperation for Faster Rendering
+Offload heavy integration to GPU: Compute geodesic integration on the GPU via compute shaders or CUDA/OpenCL. A per-ray integrator kernel (one thread per ray) can achieve massive parallelism. For example, a CUDA geodesic tracer (MALBEC) achieved ~7× speedup over a CPU version​
+arxiv.org
+. On desktop GPUs use OpenGL/Vulkan compute or CUDA; for WebGPU use WGSL compute passes. Ensure each thread handles one ray (or small packet) to maximize parallel occupancy​
+arxiv.org
+.
+Memory and data transfer: Allocate buffers of ray data in GPU memory. Transfer only initial ray parameters from CPU (position, direction) and read back final colors/depths. Use asynchronous transfer and double-buffering so GPU and CPU work in parallel. Page-lock (pinned) memory on the host to speed DMA. Minimize per-frame downloads; if possible, let GPU write directly to a texture that’s presented on screen.
+Workload balancing: The CPU can generate dynamic events (user input, scene setup) while GPU integrator runs. On CPU, continue culling or precomputing helper data for next frames. Within GPU kernels, organize threads/blocks to keep all multiprocessors busy​
+arxiv.org
+. Tune block size for occupancy; avoid low-occupancy scenarios (too few threads) or too much register/memory use.
+Reduce branch divergence: Avoid divergent control flow in GPU kernels. For example, do the horizon-stop test after a fixed number of steps per warp, or use warp-level voting to skip finished rays. This keeps threads in lockstep.
+Precision considerations: Many GPUs support native FP32 much faster than FP64. Analyze if single precision suffices for portions of the calculation (e.g. far from BH). Use mixed precision: perform critical arithmetic (near horizon) in double on CPU, or use GPU FP16 for initial passes.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Klaudiusz321) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
