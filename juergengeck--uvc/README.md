@@ -1,6 +1,6 @@
-# uvc — distributed by TomeVault
+# uvc
 
-> Originally from [juergengeck/uvc](https://github.com/juergengeck/uvc). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [juergengeck/uvc](https://github.com/juergengeck/uvc) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [juergengeck/uvc](https://github.com/j
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/juergengeck#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/juergengeck/uvc](https://github.com/juergengeck/uvc)
 
 ---
 
