@@ -1,0 +1,135 @@
+{
+  "name": "seo-geo-claude-skills",
+  "owner": "aaron-he-zhu",
+  "repo": "seo-geo-claude-skills",
+  "description": "20 SEO & GEO skills for Claude Code, Cursor, Codex, and 35+ AI agents. Keyword research, content writing, technical audits, rank tracking. CORE-EEAT + CITE frameworks.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backlink-analyzer",
+      "path": "monitor/backlink-analyzer",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/monitor/backlink-analyzer",
+      "description": ""
+    },
+    {
+      "name": "serp-analysis",
+      "path": "research/serp-analysis",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/research/serp-analysis",
+      "description": ""
+    },
+    {
+      "name": "technical-seo-checker",
+      "path": "optimize/technical-seo-checker",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/optimize/technical-seo-checker",
+      "description": ""
+    },
+    {
+      "name": "competitor-analysis",
+      "path": "research/competitor-analysis",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/research/competitor-analysis",
+      "description": ""
+    },
+    {
+      "name": "content-quality-auditor",
+      "path": "cross-cutting/content-quality-auditor",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/cross-cutting/content-quality-auditor",
+      "description": ""
+    },
+    {
+      "name": "content-refresher",
+      "path": "optimize/content-refresher",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/optimize/content-refresher",
+      "description": ""
+    },
+    {
+      "name": "domain-authority-auditor",
+      "path": "cross-cutting/domain-authority-auditor",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/cross-cutting/domain-authority-auditor",
+      "description": ""
+    },
+    {
+      "name": "entity-optimizer",
+      "path": "cross-cutting/entity-optimizer",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/cross-cutting/entity-optimizer",
+      "description": ""
+    },
+    {
+      "name": "geo-content-optimizer",
+      "path": "build/geo-content-optimizer",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/build/geo-content-optimizer",
+      "description": ""
+    },
+    {
+      "name": "internal-linking-optimizer",
+      "path": "optimize/internal-linking-optimizer",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/optimize/internal-linking-optimizer",
+      "description": ""
+    },
+    {
+      "name": "memory-management",
+      "path": "cross-cutting/memory-management",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/cross-cutting/memory-management",
+      "description": ""
+    },
+    {
+      "name": "meta-tags-optimizer",
+      "path": "build/meta-tags-optimizer",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/build/meta-tags-optimizer",
+      "description": ""
+    },
+    {
+      "name": "performance-reporter",
+      "path": "monitor/performance-reporter",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/monitor/performance-reporter",
+      "description": ""
+    },
+    {
+      "name": "rank-tracker",
+      "path": "monitor/rank-tracker",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/monitor/rank-tracker",
+      "description": ""
+    },
+    {
+      "name": "seo-content-writer",
+      "path": "build/seo-content-writer",
+      "github_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills/tree/main/build/seo-content-writer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aaron-he-zhu/seo-geo-claude-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:30:40Z"
+}
