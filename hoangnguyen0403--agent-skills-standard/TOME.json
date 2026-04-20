@@ -1,0 +1,105 @@
+{
+  "name": "agent-skills-standard",
+  "owner": "HoangNguyen0403",
+  "repo": "agent-skills-standard",
+  "description": "A collection of Agent Skills Standard and Best Practice for Programming Languages, Frameworks that help our AI Agent follow best practies on frameworks and programming laguages",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flutter-cicd",
+      "path": "skills/flutter/flutter-cicd",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/skills/flutter/flutter-cicd",
+      "description": ""
+    },
+    {
+      "name": "typescript-language",
+      "path": "skills/typescript/typescript-language",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/skills/typescript/typescript-language",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "path": "skills/typescript/typescript-best-practices",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/skills/typescript/typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "typescript-security",
+      "path": ".agent/skills/typescript/typescript-security",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/.agent/skills/typescript/typescript-security",
+      "description": ""
+    },
+    {
+      "name": "typescript-tooling",
+      "path": ".agent/skills/typescript/typescript-tooling",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/.agent/skills/typescript/typescript-tooling",
+      "description": ""
+    },
+    {
+      "name": "typescript-language",
+      "path": ".agent/skills/typescript/typescript-language",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/.agent/skills/typescript/typescript-language",
+      "description": ""
+    },
+    {
+      "name": "typescript-security",
+      "path": "skills/typescript/typescript-security",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/skills/typescript/typescript-security",
+      "description": ""
+    },
+    {
+      "name": "typescript-tooling",
+      "path": "skills/typescript/typescript-tooling",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/skills/typescript/typescript-tooling",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "path": ".agent/skills/typescript/typescript-best-practices",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/.agent/skills/typescript/typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "nextjs-i18n",
+      "path": "skills/nextjs/nextjs-i18n",
+      "github_url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/main/skills/nextjs/nextjs-i18n",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HoangNguyen0403/agent-skills-standard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:02:54Z"
+}
