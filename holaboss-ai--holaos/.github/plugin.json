@@ -1,0 +1,9 @@
+{
+  "name": "holaboss-ai--holaos",
+  "displayName": "holaOS",
+  "description": "The agent environment for long-horizon work, continuity, and self-evolution.",
+  "version": "1.0.0",
+  "author": "holaboss-ai",
+  "homepage": "https://github.com/holaboss-ai/holaOS",
+  "skills": []
+}
