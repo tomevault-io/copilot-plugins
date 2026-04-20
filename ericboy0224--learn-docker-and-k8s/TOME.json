@@ -2,9 +2,9 @@
   "name": "learn-docker-and-k8s",
   "owner": "ericboy0224",
   "repo": "learn-docker-and-k8s",
-  "description": "",
+  "description": "Interactive AI-driven game to learn Docker, Linux, networking & Kubernetes. Open in Claude Code or Cursor, type 'let's play'.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ericboy0224",
+  "source_url": "https://github.com/ericboy0224/learn-docker-and-k8s",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T23:03:18Z"
+  "distributed_at": "2026-04-20T00:02:53Z"
 }
