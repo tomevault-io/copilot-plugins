@@ -1,0 +1,9 @@
+{
+  "name": "peonping--peon-ping",
+  "displayName": "peon-ping",
+  "description": "Warcraft III Peon voice notifications (+ more!) for Claude Code, Codex, IDEs, and any AI agent. Stop babysitting your terminal. Employ a Peon today.",
+  "version": "1.0.0",
+  "author": "PeonPing",
+  "homepage": "https://github.com/PeonPing/peon-ping",
+  "skills": []
+}
