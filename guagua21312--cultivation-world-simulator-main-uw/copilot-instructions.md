@@ -1,0 +1,49 @@
+## cultivation-world-simulator-main-uw
+
+> 前端架构与开发规范指南
+
+# 前端架构与开发指南 (Frontend Architecture & Performance Guide)
+
+在修改 `web/src/` 目录下的代码时，必须严格遵循以下架构规范和性能最佳实践。
+
+## 1. 架构与数据流 (Architecture & Data Flow)
+- **Server-Authoritative (后端驱动)**: 游戏状态由后端驱动。前端通过接收 `TickPayloadDTO` 来更新状态。
+- **Store 职责划分**:
+  - 必须遵循 Pinia Store 的职责划分。
+  - `world.ts` 负责 world 级编排（初始化、tick、时间/天象状态），不应继续膨胀为 God Store。
+  - **新代码优先直接使用子 Store (`map/avatar/event/ui/system`)**；`world` 的代理字段视为兼容层。
+- **启动状态机**:
+  - `App.vue` 应保持“装配层”职责。
+  - 启动状态跃迁逻辑必须收敛在 `useAppBootFlow`，避免在根组件散落多个 watcher 分支。
+- **Socket 分层约束**:
+  - `api/socket.ts` 只负责 transport（连接、重连、消息订阅）。
+  - 消息分发必须通过 `stores/socketMessageRouter.ts`，禁止在组件内直接按消息类型分支。
+
+## 2. Vue 3 性能最佳实践 (Performance Best Practices)
+- **强制约束 (MUST)**: 对于从后端接收的大型只读对象（如 `AvatarDetail`, 游戏状态快照，地图数据），**必须使用 `shallowRef`** 而不是 `ref` 或 `reactive`。这能避免深层 Proxy 转换导致的性能卡顿 (10ms-100ms+ UI freezes)。
+- **长列表渲染**: 对于长列表（如事件日志、实体列表），优先使用“分页 + 增量加载”或“虚拟滚动”。当单次渲染节点数持续增长时，必须引入虚拟滚动方案。
+- **Memoization**: 使用 `computed` 处理昂贵的派生状态，避免在模板中使用内联表达式或方法。
+- **性能基线**: 对关键链路（初始化、事件合并/加载）保留可观测耗时指标，重构前后需比较并确保不退化。
+
+## 3. 桌面版与 Steam 适配 (Desktop & Steam / pywebview)
+- **强制约束 (MUST)**: 虽然目前支持了常规浏览器模式（Web Mode）和 Steam 桌面版（pywebview）双轨打包，但因为前后端共享同一套前端代码，监听画布/容器尺寸变化时，**严禁使用 `useWindowSize()`**（它依赖 `window.resize`，在 pywebview 全屏切换时不触发导致黑边）。
+- **必须统一使用 `useElementSize(container)`**（基于 `ResizeObserver`），以确保尺寸变化在 WebView2 以及各平台浏览器中均可靠。
+
+## 4. 异常恢复与渲染 (Error Recovery & Rendering)
+- **F5 强刷机制**: 游戏内置了全局按键监听劫持 F5 执行 `window.location.reload()` 强行刷新前端页面。
+- **防闪烁设计**: 依赖 `isAppReady` 状态。在收到后端 `initStatus` 接口第一次响应前，前端界面必须保持纯黑 (`display: none` 等效) 以防闪烁。
+- **错误处理统一出口**:
+  - 记录日志优先使用 `utils/appError.ts`（`logError/logWarn`），避免裸 `console.error/warn` 分散在业务代码中。
+  - 用户提示统一通过 `message`，避免重复弹窗或风格不一致。
+- **Pixi 渲染优化**: 
+  - **强制约束 (MUST)**: **严禁将 PIXI 原生对象 (如 `Sprite`, `Container`) 放入 Vue 的深层响应式对象 (`ref`, `reactive`) 中**。这会导致 PIXI 内部严格相等 (`===`) 比较失败（如 `removeChild` 失效），引发内存泄漏和逻辑 Bug。若需保存实例引用，请使用普通变量或 `shallowRef`。
+  - 动态效果（如水面流动）必须使用 `PIXI.Ticker` 独立驱动，不依赖 Vue 渲染循环。
+  - 地图使用 `shallowRef` 存储。地块渲染使用 `onMounted` 一次性构建 Pixi Sprite，静态地块不参与响应式更新。
+
+## 5. 类型与 DTO 规范 (Type & DTO Policy)
+- **新增接口字段时**，必须先更新 `types/api.ts`，再在 `api/mappers/*` 做 DTO -> Domain 归一化。
+- **禁止扩散 `any`**: 新增代码中不得引入无必要 `any`；确需过渡时必须标注用途和后续收敛点。
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/GUAGUA21312) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
