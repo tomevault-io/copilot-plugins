@@ -1,0 +1,87 @@
+{
+  "name": "accomplish",
+  "owner": "accomplish-ai",
+  "repo": "accomplish",
+  "description": "Accomplish\u2122 is the open source Al coworker that lives on your desktop",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ask-user-question",
+      "path": "packages/agent-core/mcp-tools/ask-user-question",
+      "github_url": "https://github.com/accomplish-ai/accomplish/tree/main/packages/agent-core/mcp-tools/ask-user-question",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "apps/desktop/bundled-skills/code-review",
+      "github_url": "https://github.com/accomplish-ai/accomplish/tree/main/apps/desktop/bundled-skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "dev-browser",
+      "path": "packages/agent-core/mcp-tools/dev-browser",
+      "github_url": "https://github.com/accomplish-ai/accomplish/tree/main/packages/agent-core/mcp-tools/dev-browser",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": "apps/desktop/bundled-skills/git-commit",
+      "github_url": "https://github.com/accomplish-ai/accomplish/tree/main/apps/desktop/bundled-skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "safe-file-deletion",
+      "path": "packages/agent-core/mcp-tools/safe-file-deletion",
+      "github_url": "https://github.com/accomplish-ai/accomplish/tree/main/packages/agent-core/mcp-tools/safe-file-deletion",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "apps/desktop/bundled-skills/skill-creator",
+      "github_url": "https://github.com/accomplish-ai/accomplish/tree/main/apps/desktop/bundled-skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "web-research",
+      "path": "apps/desktop/bundled-skills/web-research",
+      "github_url": "https://github.com/accomplish-ai/accomplish/tree/main/apps/desktop/bundled-skills/web-research",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/accomplish-ai/accomplish",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:30:40Z"
+}
