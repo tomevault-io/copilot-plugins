@@ -1,0 +1,14 @@
+{
+  "name": "snarktank--antfarm",
+  "displayName": "antfarm",
+  "description": "Build your agent team in OpenClaw with one command.",
+  "version": "1.0.0",
+  "author": "snarktank",
+  "homepage": "https://github.com/snarktank/antfarm",
+  "skills": [
+    {
+      "name": "antfarm-workflows",
+      "description": ""
+    }
+  ]
+}
