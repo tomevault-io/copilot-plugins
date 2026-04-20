@@ -1,0 +1,38 @@
+{
+  "name": "partme-ai--full-stack-skills",
+  "displayName": "full-stack-skills",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u514d\u8d39\u7684\u5168\u6808\u5f00\u53d1\u6240\u9700\u7684\u6280\u80fd\u5e02\u573a\uff0c\u63d0\u4f9b\u5404\u79cd\u5b9e\u7528\u7684 AI \u6280\u80fd\u96c6\u5408\uff0c\u652f\u6301\u591a\u79cd\u5e73\u53f0\u3002",
+  "version": "1.0.0",
+  "author": "partme-ai",
+  "homepage": "https://github.com/partme-ai/full-stack-skills",
+  "skills": [
+    {
+      "name": "vue-router-v3",
+      "description": ""
+    },
+    {
+      "name": "vue-router-v4",
+      "description": ""
+    },
+    {
+      "name": "vue-router",
+      "description": ""
+    },
+    {
+      "name": "vue3",
+      "description": ""
+    },
+    {
+      "name": "vue2",
+      "description": ""
+    },
+    {
+      "name": "vuex-vue2",
+      "description": ""
+    },
+    {
+      "name": "django",
+      "description": ""
+    }
+  ]
+}
