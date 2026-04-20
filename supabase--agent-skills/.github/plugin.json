@@ -1,0 +1,14 @@
+{
+  "name": "supabase--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agent Skills to help developers using AI agents with Supabase",
+  "version": "1.0.0",
+  "author": "supabase",
+  "homepage": "https://github.com/supabase/agent-skills",
+  "skills": [
+    {
+      "name": "supabase-postgres-best-practices",
+      "description": ""
+    }
+  ]
+}
