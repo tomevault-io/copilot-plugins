@@ -1,6 +1,6 @@
 # ai-template
 
-> Tome by [jasonstcyrx](https://github.com/jasonstcyrx/ai-template) — distributed by [TomeVault](https://tomevault.io/claim/jasonstcyrx)
+> Tome by [jasonstcyrx](https://github.com/jasonstcyrx/ai-template) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [jasonstcyrx/ai-template](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/jasonstcyrx)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/jasonstcyrx/ai-template](https://github.com/jasonstcyrx/ai-template)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/jasonstcyrx) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
