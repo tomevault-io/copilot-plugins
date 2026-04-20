@@ -1,0 +1,9 @@
+{
+  "name": "faiscadev--fakecloud",
+  "displayName": "fakecloud",
+  "description": "Local AWS cloud emulator. Free forever.",
+  "version": "1.0.0",
+  "author": "faiscadev",
+  "homepage": "https://github.com/faiscadev/fakecloud",
+  "skills": []
+}
