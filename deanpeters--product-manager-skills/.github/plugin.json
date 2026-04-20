@@ -1,0 +1,110 @@
+{
+  "name": "deanpeters--product-manager-skills",
+  "displayName": "Product-Manager-Skills",
+  "description": "Product Management skills framework built on battle-tested methods for Claude Code, Cowork, Codex, and AI agents.",
+  "version": "1.0.0",
+  "author": "deanpeters",
+  "homepage": "https://github.com/deanpeters/Product-Manager-Skills",
+  "skills": [
+    {
+      "name": "acquisition-channel-advisor",
+      "description": ""
+    },
+    {
+      "name": "ai-shaped-readiness-advisor",
+      "description": ""
+    },
+    {
+      "name": "context-engineering-advisor",
+      "description": ""
+    },
+    {
+      "name": "customer-journey-map",
+      "description": ""
+    },
+    {
+      "name": "customer-journey-mapping-workshop",
+      "description": ""
+    },
+    {
+      "name": "discovery-interview-prep",
+      "description": ""
+    },
+    {
+      "name": "discovery-process",
+      "description": ""
+    },
+    {
+      "name": "epic-breakdown-advisor",
+      "description": ""
+    },
+    {
+      "name": "epic-hypothesis",
+      "description": ""
+    },
+    {
+      "name": "feature-investment-advisor",
+      "description": ""
+    },
+    {
+      "name": "finance-based-pricing-advisor",
+      "description": ""
+    },
+    {
+      "name": "lean-ux-canvas",
+      "description": ""
+    },
+    {
+      "name": "opportunity-solution-tree",
+      "description": ""
+    },
+    {
+      "name": "pol-probe",
+      "description": ""
+    },
+    {
+      "name": "positioning-workshop",
+      "description": ""
+    },
+    {
+      "name": "prd-development",
+      "description": ""
+    },
+    {
+      "name": "prioritization-advisor",
+      "description": ""
+    },
+    {
+      "name": "problem-framing-canvas",
+      "description": ""
+    },
+    {
+      "name": "product-strategy-session",
+      "description": ""
+    },
+    {
+      "name": "recommendation-canvas",
+      "description": ""
+    },
+    {
+      "name": "roadmap-planning",
+      "description": ""
+    },
+    {
+      "name": "skill-authoring-workflow",
+      "description": ""
+    },
+    {
+      "name": "tam-sam-som-calculator",
+      "description": ""
+    },
+    {
+      "name": "user-story",
+      "description": ""
+    },
+    {
+      "name": "user-story-mapping-workshop",
+      "description": ""
+    }
+  ]
+}
