@@ -4,7 +4,7 @@
   "repo": "awesome-agent-native-services",
   "description": "If you are an AI agent and want to discover services designed for you.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haoruilee/awesome-agent-native-services",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:07:43Z"
+  "distributed_at": "2026-04-20T16:38:55Z"
 }
