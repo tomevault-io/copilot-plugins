@@ -1,0 +1,135 @@
+{
+  "name": "skill-factory",
+  "owner": "lexler",
+  "repo": "skill-factory",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-patterns",
+      "path": "output_skills/ai/ai-patterns",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/ai/ai-patterns",
+      "description": ""
+    },
+    {
+      "name": "approval-tests",
+      "path": "output_skills/testing/approval-tests",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/testing/approval-tests",
+      "description": ""
+    },
+    {
+      "name": "bdd-with-approvals",
+      "path": "output_skills/testing/bdd-with-approvals",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/testing/bdd-with-approvals",
+      "description": ""
+    },
+    {
+      "name": "collaborative-design",
+      "path": "output_skills/design/collaborative-design",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/design/collaborative-design",
+      "description": ""
+    },
+    {
+      "name": "creating-hooks",
+      "path": "output_skills/ai/claude-code/creating-hooks",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/ai/claude-code/creating-hooks",
+      "description": ""
+    },
+    {
+      "name": "creating-process-files",
+      "path": "output_skills/ai/creating-process-files",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/ai/creating-process-files",
+      "description": ""
+    },
+    {
+      "name": "event-modeling",
+      "path": "output_skills/design/event-modeling",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/design/event-modeling",
+      "description": ""
+    },
+    {
+      "name": "git-worktrees",
+      "path": "output_skills/developer-tools/git-worktrees",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/developer-tools/git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "hexagonal-architecture",
+      "path": "output_skills/design/hexagonal-architecture",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/design/hexagonal-architecture",
+      "description": ""
+    },
+    {
+      "name": "nullables",
+      "path": "output_skills/testing/nullables",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/testing/nullables",
+      "description": ""
+    },
+    {
+      "name": "refactoring",
+      "path": "output_skills/practices/refactoring",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/practices/refactoring",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": "output_skills/testing/tdd",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/testing/tdd",
+      "description": ""
+    },
+    {
+      "name": "using-uv",
+      "path": "output_skills/developer-tools/using-uv",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/developer-tools/using-uv",
+      "description": ""
+    },
+    {
+      "name": "writing-bash-scripts",
+      "path": "output_skills/developer-tools/writing-bash-scripts",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/developer-tools/writing-bash-scripts",
+      "description": ""
+    },
+    {
+      "name": "writing-statuslines",
+      "path": "output_skills/ai/claude-code/writing-statuslines",
+      "github_url": "https://github.com/lexler/skill-factory/tree/main/output_skills/ai/claude-code/writing-statuslines",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lexler/skill-factory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:41:45Z"
+}
