@@ -1,0 +1,22 @@
+{
+  "name": "chmouel--lazyworktree",
+  "displayName": "lazyworktree",
+  "description": "Easy Git worktree management CLI and TUI for the terminal.",
+  "version": "1.0.0",
+  "author": "chmouel",
+  "homepage": "https://github.com/chmouel/lazyworktree",
+  "skills": [
+    {
+      "name": "deep-analyse",
+      "description": ""
+    },
+    {
+      "name": "design-sync",
+      "description": ""
+    },
+    {
+      "name": "doc-sync",
+      "description": ""
+    }
+  ]
+}
