@@ -1,7 +1,7 @@
 {
   "name": "cisco-ai-defense--skill-scanner",
   "displayName": "skill-scanner",
-  "description": "AI instruction skills by cisco-ai-defense",
+  "description": "Security Scanner for Agent Skills",
   "version": "1.0.0",
   "author": "cisco-ai-defense",
   "homepage": "https://github.com/cisco-ai-defense/skill-scanner",
