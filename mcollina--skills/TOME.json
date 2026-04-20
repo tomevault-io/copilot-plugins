@@ -1,0 +1,81 @@
+{
+  "name": "skills",
+  "owner": "mcollina",
+  "repo": "skills",
+  "description": "My own collection of skills for modern Node.js development",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documentation",
+      "path": "skills/documentation",
+      "github_url": "https://github.com/mcollina/skills/tree/main/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "fastify",
+      "path": "skills/fastify",
+      "github_url": "https://github.com/mcollina/skills/tree/main/skills/fastify",
+      "description": ""
+    },
+    {
+      "name": "node",
+      "path": "skills/node",
+      "github_url": "https://github.com/mcollina/skills/tree/main/skills/node",
+      "description": ""
+    },
+    {
+      "name": "nodejs-core",
+      "path": "skills/nodejs-core",
+      "github_url": "https://github.com/mcollina/skills/tree/main/skills/nodejs-core",
+      "description": ""
+    },
+    {
+      "name": "octocat",
+      "path": "skills/octocat",
+      "github_url": "https://github.com/mcollina/skills/tree/main/skills/octocat",
+      "description": ""
+    },
+    {
+      "name": "typescript-magician",
+      "path": "skills/typescript-magician",
+      "github_url": "https://github.com/mcollina/skills/tree/main/skills/typescript-magician",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mcollina/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:42:51Z"
+}
