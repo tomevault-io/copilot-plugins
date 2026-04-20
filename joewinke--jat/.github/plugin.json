@@ -1,0 +1,22 @@
+{
+  "name": "joewinke--jat",
+  "displayName": "jat",
+  "description": "  The World's First Agentic IDE. Visual dashboard: live sessions, task management, code editor, terminal. Epic Swarm parallel workflows. Auto-proceed rules. Automation patterns. Beads + Agent Mail + 5",
+  "version": "1.0.0",
+  "author": "joewinke",
+  "homepage": "https://github.com/joewinke/jat",
+  "skills": [
+    {
+      "name": "jat-complete",
+      "description": ""
+    },
+    {
+      "name": "jat-start",
+      "description": ""
+    },
+    {
+      "name": "jat-verify",
+      "description": ""
+    }
+  ]
+}
