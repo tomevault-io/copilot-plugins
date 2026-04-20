@@ -1,0 +1,26 @@
+{
+  "name": "mylukin--agent-foreman",
+  "displayName": "agent-foreman",
+  "description": "Stop AI agents from half-building features. Ship complete code in one session.",
+  "version": "1.0.0",
+  "author": "mylukin",
+  "homepage": "https://github.com/mylukin/agent-foreman",
+  "skills": [
+    {
+      "name": "feature-next",
+      "description": ""
+    },
+    {
+      "name": "foreman-spec",
+      "description": ""
+    },
+    {
+      "name": "init-harness",
+      "description": ""
+    },
+    {
+      "name": "project-analyze",
+      "description": ""
+    }
+  ]
+}
