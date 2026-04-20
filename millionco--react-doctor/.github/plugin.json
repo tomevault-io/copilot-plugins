@@ -1,0 +1,18 @@
+{
+  "name": "millionco--react-doctor",
+  "displayName": "react-doctor",
+  "description": "Let coding agents diagnose and fix your React code",
+  "version": "1.0.0",
+  "author": "millionco",
+  "homepage": "https://github.com/millionco/react-doctor",
+  "skills": [
+    {
+      "name": "react-doctor",
+      "description": ""
+    },
+    {
+      "name": "remotion-best-practices",
+      "description": ""
+    }
+  ]
+}
