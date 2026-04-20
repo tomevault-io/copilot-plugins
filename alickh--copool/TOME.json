@@ -1,0 +1,44 @@
+{
+  "name": "Copool",
+  "owner": "AlickH",
+  "repo": "Copool",
+  "description": "Copool is a macOS SwiftUI app for Codex/ChatGPT account switching and API proxy management\uff5cCopool \u662f\u4e00\u4e2a\u7528\u4e8e Codex/ChatGPT \u8d26\u53f7\u5207\u6362\u4e0e API \u4ee3\u7406\u7ba1\u7406\u7684 macOS SwiftUI \u5e94\u7528",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AlickH/Copool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T16:49:54Z"
+}
