@@ -1,0 +1,126 @@
+{
+  "name": "gmickel--flow-next",
+  "displayName": "flow-next",
+  "description": "Plan-first AI workflow plugin for Claude Code, OpenAI Codex, and Factory Droid. Zero-dep task tracking, worker subagents, Ralph autonomous mode, cross-model reviews.",
+  "version": "1.0.0",
+  "author": "gmickel",
+  "homepage": "https://github.com/gmickel/flow-next",
+  "skills": [
+    {
+      "name": "flow-next",
+      "description": ""
+    },
+    {
+      "name": "flow-next-deps",
+      "description": ""
+    },
+    {
+      "name": "flow-next-epic-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-export-context",
+      "description": ""
+    },
+    {
+      "name": "flow-next-impl-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-interview",
+      "description": ""
+    },
+    {
+      "name": "flow-next-plan",
+      "description": ""
+    },
+    {
+      "name": "flow-next-plan-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-prime",
+      "description": ""
+    },
+    {
+      "name": "flow-next-ralph-init",
+      "description": ""
+    },
+    {
+      "name": "flow-next-rp-explorer",
+      "description": ""
+    },
+    {
+      "name": "flow-next-setup",
+      "description": ""
+    },
+    {
+      "name": "flow-next-sync",
+      "description": ""
+    },
+    {
+      "name": "flow-next-work",
+      "description": ""
+    },
+    {
+      "name": "flow-next-worktree-kit",
+      "description": ""
+    },
+    {
+      "name": "browser",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-export-context",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-impl-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-interview",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-plan",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-plan-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-prime",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-ralph-init",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-rp-explorer",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-setup",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-sync",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-work",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-worktree-kit",
+      "description": ""
+    }
+  ]
+}
