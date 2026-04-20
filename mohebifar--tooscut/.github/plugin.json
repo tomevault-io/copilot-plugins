@@ -1,0 +1,9 @@
+{
+  "name": "mohebifar--tooscut",
+  "displayName": "tooscut",
+  "description": "Professional video editing, right in your browser. Made with Rust, WebGPU, WASM, and Tanstack Start.",
+  "version": "1.0.0",
+  "author": "mohebifar",
+  "homepage": "https://github.com/mohebifar/tooscut",
+  "skills": []
+}
