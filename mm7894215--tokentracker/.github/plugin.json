@@ -1,0 +1,9 @@
+{
+  "name": "mm7894215--tokentracker",
+  "displayName": "TokenTracker",
+  "description": "Track Claude Code, Codex, Cursor, Gemini, Kiro, OpenCode, OpenClaw & Every Code token usage. Local-first, zero-config, with a beautiful dashboard, native macOS menu bar app, and 4 desktop widgets.",
+  "version": "1.0.0",
+  "author": "mm7894215",
+  "homepage": "https://github.com/mm7894215/TokenTracker",
+  "skills": []
+}
