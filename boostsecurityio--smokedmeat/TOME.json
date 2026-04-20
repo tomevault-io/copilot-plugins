@@ -4,7 +4,7 @@
   "repo": "smokedmeat",
   "description": "A CI/CD Red Team Framework for demonstrating Build Pipeline security risks.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/boostsecurityio/smokedmeat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T02:35:14Z"
+  "distributed_at": "2026-04-20T22:46:33Z"
 }
