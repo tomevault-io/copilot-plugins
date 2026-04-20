@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [zedfauji/magidesk-v1](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/zedfauji)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/zedfauji/magidesk-v1](https://github.com/zedfauji/magidesk-v1)
 
 ---
 
