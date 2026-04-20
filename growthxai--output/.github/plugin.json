@@ -1,0 +1,54 @@
+{
+  "name": "growthxai--output",
+  "displayName": "output",
+  "description": "The open-source TypeScript framework for building AI workflows and agents. Designed for Claude Code describe what you want, Claude builds it, with all the best practices already in place.",
+  "version": "1.0.0",
+  "author": "growthxai",
+  "homepage": "https://github.com/growthxai/output",
+  "skills": [
+    {
+      "name": "flow-error-try-catch-removal",
+      "description": ""
+    },
+    {
+      "name": "output-dev-evaluator-function",
+      "description": ""
+    },
+    {
+      "name": "output-dev-http-client-create",
+      "description": ""
+    },
+    {
+      "name": "output-dev-prompt-file",
+      "description": ""
+    },
+    {
+      "name": "output-dev-scenario-file",
+      "description": ""
+    },
+    {
+      "name": "output-dev-types-file",
+      "description": ""
+    },
+    {
+      "name": "output-dev-workflow-function",
+      "description": ""
+    },
+    {
+      "name": "output-error-direct-io",
+      "description": ""
+    },
+    {
+      "name": "output-meta-project-context",
+      "description": ""
+    },
+    {
+      "name": "output-services-check",
+      "description": ""
+    },
+    {
+      "name": "output-workflow-run",
+      "description": ""
+    }
+  ]
+}
