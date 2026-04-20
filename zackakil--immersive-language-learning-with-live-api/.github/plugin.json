@@ -1,0 +1,9 @@
+{
+  "name": "zackakil--immersive-language-learning-with-live-api",
+  "displayName": "immersive-language-learning-with-live-api",
+  "description": "Immergo is an immersive language learning application powered by the Google Gemini Live SDK. It simulates real-world roleplay scenarios (e.g., buying a bus ticket, ordering coffee) to help users pract",
+  "version": "1.0.0",
+  "author": "ZackAkil",
+  "homepage": "https://github.com/ZackAkil/immersive-language-learning-with-live-api",
+  "skills": []
+}
