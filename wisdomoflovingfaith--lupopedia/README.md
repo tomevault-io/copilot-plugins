@@ -1,6 +1,6 @@
 # lupopedia
 
-> Tome by [wisdomoflovingfaith](https://github.com/wisdomoflovingfaith/lupopedia) — distributed by [TomeVault](https://tomevault.io/claim/wisdomoflovingfaith)
+> Tome by [wisdomoflovingfaith](https://github.com/wisdomoflovingfaith/lupopedia) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [wisdomoflovingfaith/lupopedia](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/wisdomoflovingfaith#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/wisdomoflovingfaith/lupopedia](https://github.com/wisdomoflovingfaith/lupopedia)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install wisdomoflovingfaith/lupopedia
 ```
-Or browse all formats at [https://tomevault.io/claim/wisdomoflovingfaith](https://tomevault.io/claim/wisdomoflovingfaith).
+Source: [github.com/wisdomoflovingfaith/lupopedia](https://github.com/wisdomoflovingfaith/lupopedia).
 
 <!-- genome:t-i-q -->
