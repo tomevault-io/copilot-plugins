@@ -1,0 +1,63 @@
+{
+  "name": "skill-porter",
+  "owner": "jduncan-rva",
+  "repo": "skill-porter",
+  "description": "Universal tool to convert Claude Code skills to Gemini CLI extensions and vice versa",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-connector-converted",
+      "path": "examples/before-after/api-connector-converted",
+      "github_url": "https://github.com/jduncan-rva/skill-porter/tree/main/examples/before-after/api-connector-converted",
+      "description": ""
+    },
+    {
+      "name": "simple-claude-skill",
+      "path": "examples/simple-claude-skill",
+      "github_url": "https://github.com/jduncan-rva/skill-porter/tree/main/examples/simple-claude-skill",
+      "description": ""
+    },
+    {
+      "name": "code-formatter-converted",
+      "path": "examples/before-after/code-formatter-converted",
+      "github_url": "https://github.com/jduncan-rva/skill-porter/tree/main/examples/before-after/code-formatter-converted",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jduncan-rva/skill-porter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:33:20Z"
+}
