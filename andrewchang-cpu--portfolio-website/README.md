@@ -1,6 +1,6 @@
-# portfolio-website
+# AI instruction files for portfolio-website
 
-> Config by [AndrewChang-cpu](https://github.com/AndrewChang-cpu/portfolio-website) — distributed by [TomeVault](https://tomevault.io/claim/AndrewChang-cpu)
+> Sourced from [AndrewChang-cpu/portfolio-website](https://github.com/AndrewChang-cpu/portfolio-website) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [AndrewChang-cpu/portfolio-website](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/AndrewChang-cpu](https://tomevault.io/claim/AndrewChang-cpu)
+From [AndrewChang-cpu/portfolio-website](https://github.com/AndrewChang-cpu/portfolio-website) — a repo with 0+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AndrewChang-cpu) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install AndrewChang-cpu/portfolio-website
+```
+Source: [github.com/AndrewChang-cpu/portfolio-website](https://github.com/AndrewChang-cpu/portfolio-website).
+
+<!-- genome:a-i-s -->
