@@ -1,0 +1,1335 @@
+{
+  "name": "skillsbench",
+  "owner": "benchflow-ai",
+  "repo": "skillsbench",
+  "description": "SkillsBench evaluates how well skills work and how effective agents are at using them",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "13f-analyzer",
+      "path": "tasks-no-skills/sec-financial-report/environment/skills/13f-analyzer",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/sec-financial-report/environment/skills/13f-analyzer",
+      "description": ""
+    },
+    {
+      "name": "ac-branch-pi-model",
+      "path": "tasks-no-skills/energy-ac-optimal-power-flow/environment/skills/ac-branch-pi-model",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/energy-ac-optimal-power-flow/environment/skills/ac-branch-pi-model",
+      "description": ""
+    },
+    {
+      "name": "academic-pdf-redaction",
+      "path": "tasks-no-skills/paper-anonymizer/environment/skills/academic-pdf-redaction",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/paper-anonymizer/environment/skills/academic-pdf-redaction",
+      "description": ""
+    },
+    {
+      "name": "analyze-ci",
+      "path": "tasks-no-skills/fix-build-agentops/environment/skills/analyze-ci",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-build-agentops/environment/skills/analyze-ci",
+      "description": ""
+    },
+    {
+      "name": "artifact-evaluation",
+      "path": "libs/artifact-runner/skills/artifact-evaluation",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/libs/artifact-runner/skills/artifact-evaluation",
+      "description": ""
+    },
+    {
+      "name": "artifact-evaluation",
+      "path": "libs/artifact-runner/eval-kit/skills/artifact-evaluation",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/libs/artifact-runner/eval-kit/skills/artifact-evaluation",
+      "description": ""
+    },
+    {
+      "name": "artifact-evaluation",
+      "path": "libs/artifact-runner/tasks/nodemedic-demo/environment/skills/artifact-evaluation",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/libs/artifact-runner/tasks/nodemedic-demo/environment/skills/artifact-evaluation",
+      "description": ""
+    },
+    {
+      "name": "audio-extractor",
+      "path": "tasks/video-silence-remover/environment/skills/audio-extractor",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/video-silence-remover/environment/skills/audio-extractor",
+      "description": ""
+    },
+    {
+      "name": "audiobook",
+      "path": "tasks-no-skills/pg-essay-to-audiobook/environment/skills/audiobook",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/pg-essay-to-audiobook/environment/skills/audiobook",
+      "description": ""
+    },
+    {
+      "name": "docs-to-skill",
+      "path": ".claude/skills/docs-to-skill",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/.claude/skills/docs-to-skill",
+      "description": ""
+    },
+    {
+      "name": "automatic-speech-recognition",
+      "path": "tasks-no-skills/speaker-diarization-subtitles/environment/skills/automatic-speech-recognition",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/speaker-diarization-subtitles/environment/skills/automatic-speech-recognition",
+      "description": ""
+    },
+    {
+      "name": "azure-bgp",
+      "path": "tasks-no-skills/azure-bgp-oscillation-route-leak/environment/skills/azure-bgp",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/azure-bgp-oscillation-route-leak/environment/skills/azure-bgp",
+      "description": ""
+    },
+    {
+      "name": "badge-evaluation",
+      "path": "libs/artifact-runner/tasks/nodemedic-demo/environment/skills/badge-evaluation",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/libs/artifact-runner/tasks/nodemedic-demo/environment/skills/badge-evaluation",
+      "description": ""
+    },
+    {
+      "name": "box-least-squares",
+      "path": "tasks-no-skills/exoplanet-detection-period/environment/skills/box-least-squares",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/exoplanet-detection-period/environment/skills/box-least-squares",
+      "description": ""
+    },
+    {
+      "name": "browser-testing",
+      "path": "tasks-no-skills/fix-visual-stability/environment/skills/browser-testing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-visual-stability/environment/skills/browser-testing",
+      "description": ""
+    },
+    {
+      "name": "browser-testing",
+      "path": "tasks-no-skills/react-performance-debugging/environment/skills/browser-testing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/react-performance-debugging/environment/skills/browser-testing",
+      "description": ""
+    },
+    {
+      "name": "casadi-ipopt-nlp",
+      "path": "tasks-no-skills/energy-ac-optimal-power-flow/environment/skills/casadi-ipopt-nlp",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/energy-ac-optimal-power-flow/environment/skills/casadi-ipopt-nlp",
+      "description": ""
+    },
+    {
+      "name": "citation-management",
+      "path": "tasks-no-skills/citation-check/environment/skills/citation-management",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/citation-check/environment/skills/citation-management",
+      "description": ""
+    },
+    {
+      "name": "civ6lib",
+      "path": "tasks-no-skills/civ6-adjacency-optimizer/environment/skills/civ6lib",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/civ6-adjacency-optimizer/environment/skills/civ6lib",
+      "description": ""
+    },
+    {
+      "name": "conditioning",
+      "path": "tasks-no-skills/gravitational-wave-detection/environment/skills/conditioning",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/gravitational-wave-detection/environment/skills/conditioning",
+      "description": ""
+    },
+    {
+      "name": "constraint-parser",
+      "path": "tasks-no-skills/scheduling-email-assistant/environment/skills/constraint-parser",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/scheduling-email-assistant/environment/skills/constraint-parser",
+      "description": ""
+    },
+    {
+      "name": "contribution-analysis",
+      "path": "tasks-no-skills/lake-warming-attribution/environment/skills/contribution-analysis",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/lake-warming-attribution/environment/skills/contribution-analysis",
+      "description": ""
+    },
+    {
+      "name": "csv-processing",
+      "path": "tasks-no-skills/adaptive-cruise-control/environment/skills/csv-processing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/adaptive-cruise-control/environment/skills/csv-processing",
+      "description": ""
+    },
+    {
+      "name": "custom-distance-metrics",
+      "path": "tasks-no-skills/mars-clouds-clustering/environment/skills/custom-distance-metrics",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/mars-clouds-clustering/environment/skills/custom-distance-metrics",
+      "description": ""
+    },
+    {
+      "name": "cvss-score-extraction",
+      "path": "tasks-no-skills/software-dependency-audit/environment/skills/cvss-score-extraction",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/software-dependency-audit/environment/skills/cvss-score-extraction",
+      "description": ""
+    },
+    {
+      "name": "d3-visualization",
+      "path": "tasks-no-skills/data-to-d3/environment/skills/d3-visualization",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/data-to-d3/environment/skills/d3-visualization",
+      "description": ""
+    },
+    {
+      "name": "data_cleaning",
+      "path": "tasks-no-skills/trend-anomaly-causal-inference/environment/skills/data_cleaning",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/trend-anomaly-causal-inference/environment/skills/data_cleaning",
+      "description": ""
+    },
+    {
+      "name": "dc-power-flow",
+      "path": "tasks-no-skills/energy-market-pricing/environment/skills/dc-power-flow",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/energy-market-pricing/environment/skills/dc-power-flow",
+      "description": ""
+    },
+    {
+      "name": "dialogue_graph",
+      "path": "tasks-no-skills/dialogue-parser/environment/skills/dialogue_graph",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/dialogue-parser/environment/skills/dialogue_graph",
+      "description": ""
+    },
+    {
+      "name": "did_causal_analysis",
+      "path": "tasks-no-skills/trend-anomaly-causal-inference/environment/skills/did_causal_analysis",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/trend-anomaly-causal-inference/environment/skills/did_causal_analysis",
+      "description": ""
+    },
+    {
+      "name": "discover-important-function",
+      "path": "tasks-no-skills/setup-fuzzing-py/environment/skills/discover-important-function",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/setup-fuzzing-py/environment/skills/discover-important-function",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "tasks-no-skills/offer-letter-generator/environment/skills/docx",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/offer-letter-generator/environment/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "tasks-no-skills/organize-messy-files/environment/skills/docx",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/organize-messy-files/environment/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "dyn-object-masks",
+      "path": "tasks-no-skills/dynamic-object-aware-egomotion/environment/skills/dyn-object-masks",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/dynamic-object-aware-egomotion/environment/skills/dyn-object-masks",
+      "description": ""
+    },
+    {
+      "name": "economic-dispatch",
+      "path": "tasks-no-skills/energy-market-pricing/environment/skills/economic-dispatch",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/energy-market-pricing/environment/skills/economic-dispatch",
+      "description": ""
+    },
+    {
+      "name": "egomotion-estimation",
+      "path": "tasks-no-skills/dynamic-object-aware-egomotion/environment/skills/egomotion-estimation",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/dynamic-object-aware-egomotion/environment/skills/egomotion-estimation",
+      "description": ""
+    },
+    {
+      "name": "elevenlabs-tts",
+      "path": "tasks-no-skills/pg-essay-to-audiobook/environment/skills/elevenlabs-tts",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/pg-essay-to-audiobook/environment/skills/elevenlabs-tts",
+      "description": ""
+    },
+    {
+      "name": "energy-calculator",
+      "path": "tasks/video-silence-remover/environment/skills/energy-calculator",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/video-silence-remover/environment/skills/energy-calculator",
+      "description": ""
+    },
+    {
+      "name": "enterprise-artifact-search",
+      "path": "tasks-no-skills/enterprise-information-search/environment/skills/enterprise-artifact-search",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/enterprise-information-search/environment/skills/enterprise-artifact-search",
+      "description": ""
+    },
+    {
+      "name": "erlang-concurrency",
+      "path": "tasks-no-skills/fix-erlang-ssh-cve/environment/skills/erlang-concurrency",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-erlang-ssh-cve/environment/skills/erlang-concurrency",
+      "description": ""
+    },
+    {
+      "name": "erlang-distribution",
+      "path": "tasks-no-skills/fix-erlang-ssh-cve/environment/skills/erlang-distribution",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-erlang-ssh-cve/environment/skills/erlang-distribution",
+      "description": ""
+    },
+    {
+      "name": "erlang-otp-behaviors",
+      "path": "tasks-no-skills/fix-erlang-ssh-cve/environment/skills/erlang-otp-behaviors",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-erlang-ssh-cve/environment/skills/erlang-otp-behaviors",
+      "description": ""
+    },
+    {
+      "name": "excitation-signal-design",
+      "path": "tasks-no-skills/hvac-control/environment/skills/excitation-signal-design",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/hvac-control/environment/skills/excitation-signal-design",
+      "description": ""
+    },
+    {
+      "name": "exoplanet-workflows",
+      "path": "tasks-no-skills/exoplanet-detection-period/environment/skills/exoplanet-workflows",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/exoplanet-detection-period/environment/skills/exoplanet-workflows",
+      "description": ""
+    },
+    {
+      "name": "feature_engineering",
+      "path": "tasks-no-skills/trend-anomaly-causal-inference/environment/skills/feature_engineering",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/trend-anomaly-causal-inference/environment/skills/feature_engineering",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-audio-processing",
+      "path": "tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-audio-processing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-audio-processing",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-format-conversion",
+      "path": "tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-format-conversion",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-format-conversion",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg",
+      "path": "tasks-no-skills/mario-coin-counting/environment/skills/ffmpeg",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/mario-coin-counting/environment/skills/ffmpeg",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-media-info",
+      "path": "tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-media-info",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-media-info",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-video-editing",
+      "path": "tasks-no-skills/video-filler-word-remover/environment/skills/ffmpeg-video-editing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/video-filler-word-remover/environment/skills/ffmpeg-video-editing",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-video-editing",
+      "path": "tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-video-editing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-video-editing",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-video-filters",
+      "path": "tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-video-filters",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/multilingual-video-dubbing/environment/skills/ffmpeg-video-filters",
+      "description": ""
+    },
+    {
+      "name": "file-organizer",
+      "path": "tasks-no-skills/organize-messy-files/environment/skills/file-organizer",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/organize-messy-files/environment/skills/file-organizer",
+      "description": ""
+    },
+    {
+      "name": "filler-word-processing",
+      "path": "tasks-no-skills/video-filler-word-remover/environment/skills/filler-word-processing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/video-filler-word-remover/environment/skills/filler-word-processing",
+      "description": ""
+    },
+    {
+      "name": "finite-horizon-lqr",
+      "path": "tasks-no-skills/r2r-mpc-control/environment/skills/finite-horizon-lqr",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/r2r-mpc-control/environment/skills/finite-horizon-lqr",
+      "description": ""
+    },
+    {
+      "name": "first-order-model-fitting",
+      "path": "tasks-no-skills/hvac-control/environment/skills/first-order-model-fitting",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/hvac-control/environment/skills/first-order-model-fitting",
+      "description": ""
+    },
+    {
+      "name": "fjsp-baseline-repair-with-downtime-and-policy",
+      "path": "tasks-no-skills/manufacturing-fjsp-optimization/environment/skills/fjsp-baseline-repair-with-downtime-and-policy",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/manufacturing-fjsp-optimization/environment/skills/fjsp-baseline-repair-with-downtime-and-policy",
+      "description": ""
+    },
+    {
+      "name": "flood-detection",
+      "path": "tasks-no-skills/flood-risk-analysis/environment/skills/flood-detection",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/flood-risk-analysis/environment/skills/flood-detection",
+      "description": ""
+    },
+    {
+      "name": "fuzzing-python",
+      "path": "tasks-no-skills/setup-fuzzing-py/environment/skills/fuzzing-python",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/setup-fuzzing-py/environment/skills/fuzzing-python",
+      "description": ""
+    },
+    {
+      "name": "fuzzy-match",
+      "path": "tasks-no-skills/invoice-fraud-detection/environment/skills/fuzzy-match",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/invoice-fraud-detection/environment/skills/fuzzy-match",
+      "description": ""
+    },
+    {
+      "name": "fuzzy-name-search",
+      "path": "tasks-no-skills/sec-financial-report/environment/skills/fuzzy-name-search",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/sec-financial-report/environment/skills/fuzzy-name-search",
+      "description": ""
+    },
+    {
+      "name": "gamma-phase-associator",
+      "path": "tasks-no-skills/earthquake-phase-association/environment/skills/gamma-phase-associator",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/earthquake-phase-association/environment/skills/gamma-phase-associator",
+      "description": ""
+    },
+    {
+      "name": "gemini-count-in-video",
+      "path": "tasks-no-skills/pedestrian-traffic-counting/environment/skills/gemini-count-in-video",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/pedestrian-traffic-counting/environment/skills/gemini-count-in-video",
+      "description": ""
+    },
+    {
+      "name": "gemini-video-understanding",
+      "path": "tasks-no-skills/pedestrian-traffic-counting/environment/skills/gemini-video-understanding",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/pedestrian-traffic-counting/environment/skills/gemini-video-understanding",
+      "description": ""
+    },
+    {
+      "name": "geospatial-analysis",
+      "path": "tasks-no-skills/earthquake-plate-calculation/environment/skills/geospatial-analysis",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/earthquake-plate-calculation/environment/skills/geospatial-analysis",
+      "description": ""
+    },
+    {
+      "name": "gh-cli",
+      "path": "tasks-no-skills/gh-repo-analytics/environment/skills/gh-cli",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/gh-repo-analytics/environment/skills/gh-cli",
+      "description": ""
+    },
+    {
+      "name": "glm-basics",
+      "path": "tasks-no-skills/glm-lake-mendota/environment/skills/glm-basics",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/glm-lake-mendota/environment/skills/glm-basics",
+      "description": ""
+    },
+    {
+      "name": "glm-calibration",
+      "path": "tasks-no-skills/glm-lake-mendota/environment/skills/glm-calibration",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/glm-lake-mendota/environment/skills/glm-calibration",
+      "description": ""
+    },
+    {
+      "name": "glm-output",
+      "path": "tasks-no-skills/glm-lake-mendota/environment/skills/glm-output",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/glm-lake-mendota/environment/skills/glm-output",
+      "description": ""
+    },
+    {
+      "name": "gmail-skill",
+      "path": "tasks-no-skills/scheduling-email-assistant/environment/skills/gmail-skill",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/scheduling-email-assistant/environment/skills/gmail-skill",
+      "description": ""
+    },
+    {
+      "name": "gpt-multimodal",
+      "path": "tasks-no-skills/pedestrian-traffic-counting/environment/skills/gpt-multimodal",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/pedestrian-traffic-counting/environment/skills/gpt-multimodal",
+      "description": ""
+    },
+    {
+      "name": "gtts",
+      "path": "tasks-no-skills/pg-essay-to-audiobook/environment/skills/gtts",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/pg-essay-to-audiobook/environment/skills/gtts",
+      "description": ""
+    },
+    {
+      "name": "harbor",
+      "path": ".claude/skills/harbor",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/.claude/skills/harbor",
+      "description": ""
+    },
+    {
+      "name": "hex-grid-spatial",
+      "path": "tasks-no-skills/civ6-adjacency-optimizer/environment/skills/hex-grid-spatial",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/civ6-adjacency-optimizer/environment/skills/hex-grid-spatial",
+      "description": ""
+    },
+    {
+      "name": "hibernate-upgrade",
+      "path": "tasks-no-skills/spring-boot-jakarta-migration/environment/skills/hibernate-upgrade",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/spring-boot-jakarta-migration/environment/skills/hibernate-upgrade",
+      "description": ""
+    },
+    {
+      "name": "hierarchical-taxonomy-clustering",
+      "path": "tasks-no-skills/taxonomy-tree-merge/environment/skills/hierarchical-taxonomy-clustering",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/taxonomy-tree-merge/environment/skills/hierarchical-taxonomy-clustering",
+      "description": ""
+    },
+    {
+      "name": "image_editing",
+      "path": "tasks-no-skills/mario-coin-counting/environment/skills/image_editing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/mario-coin-counting/environment/skills/image_editing",
+      "description": ""
+    },
+    {
+      "name": "image-ocr",
+      "path": "tasks-no-skills/jpg-ocr-stat/environment/skills/image-ocr",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/jpg-ocr-stat/environment/skills/image-ocr",
+      "description": ""
+    },
+    {
+      "name": "imc-tuning-rules",
+      "path": "tasks-no-skills/hvac-control/environment/skills/imc-tuning-rules",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/hvac-control/environment/skills/imc-tuning-rules",
+      "description": ""
+    },
+    {
+      "name": "integral-action-design",
+      "path": "tasks-no-skills/r2r-mpc-control/environment/skills/integral-action-design",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/r2r-mpc-control/environment/skills/integral-action-design",
+      "description": ""
+    },
+    {
+      "name": "jackson-security",
+      "path": "tasks-no-skills/fix-druid-loophole-cve/environment/skills/jackson-security",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-druid-loophole-cve/environment/skills/jackson-security",
+      "description": ""
+    },
+    {
+      "name": "jakarta-namespace",
+      "path": "tasks-no-skills/spring-boot-jakarta-migration/environment/skills/jakarta-namespace",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/spring-boot-jakarta-migration/environment/skills/jakarta-namespace",
+      "description": ""
+    },
+    {
+      "name": "jax-skills",
+      "path": "tasks-no-skills/jax-computing-basics/environment/skills/jax-skills",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/jax-computing-basics/environment/skills/jax-skills",
+      "description": ""
+    },
+    {
+      "name": "lab-unit-harmonization",
+      "path": "tasks-no-skills/lab-unit-harmonization/environment/skills/lab-unit-harmonization",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/lab-unit-harmonization/environment/skills/lab-unit-harmonization",
+      "description": ""
+    },
+    {
+      "name": "lean4-memories",
+      "path": "tasks-no-skills/lean4-proof/environment/skills/lean4-memories",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/lean4-proof/environment/skills/lean4-memories",
+      "description": ""
+    },
+    {
+      "name": "lean4-theorem-proving",
+      "path": "tasks-no-skills/lean4-proof/environment/skills/lean4-theorem-proving",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/lean4-proof/environment/skills/lean4-theorem-proving",
+      "description": ""
+    },
+    {
+      "name": "light-curve-preprocessing",
+      "path": "tasks-no-skills/exoplanet-detection-period/environment/skills/light-curve-preprocessing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/exoplanet-detection-period/environment/skills/light-curve-preprocessing",
+      "description": ""
+    },
+    {
+      "name": "locational-marginal-prices",
+      "path": "tasks-no-skills/energy-market-pricing/environment/skills/locational-marginal-prices",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/energy-market-pricing/environment/skills/locational-marginal-prices",
+      "description": ""
+    },
+    {
+      "name": "lomb-scargle-periodogram",
+      "path": "tasks-no-skills/exoplanet-detection-period/environment/skills/lomb-scargle-periodogram",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/exoplanet-detection-period/environment/skills/lomb-scargle-periodogram",
+      "description": ""
+    },
+    {
+      "name": "manufacturing-failure-reason-codebook-normalization",
+      "path": "tasks-no-skills/manufacturing-codebook-normalization/environment/skills/manufacturing-failure-reason-codebook-normalization",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/manufacturing-codebook-normalization/environment/skills/manufacturing-failure-reason-codebook-normalization",
+      "description": ""
+    },
+    {
+      "name": "map-optimization-strategy",
+      "path": "tasks-no-skills/civ6-adjacency-optimizer/environment/skills/map-optimization-strategy",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/civ6-adjacency-optimizer/environment/skills/map-optimization-strategy",
+      "description": ""
+    },
+    {
+      "name": "marker",
+      "path": "tasks-no-skills/latex-formula-extraction/environment/skills/marker",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/latex-formula-extraction/environment/skills/marker",
+      "description": ""
+    },
+    {
+      "name": "matched-filtering",
+      "path": "tasks-no-skills/gravitational-wave-detection/environment/skills/matched-filtering",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/gravitational-wave-detection/environment/skills/matched-filtering",
+      "description": ""
+    },
+    {
+      "name": "maven-build-lifecycle",
+      "path": "tasks-no-skills/fix-build-google-auto/environment/skills/maven-build-lifecycle",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-build-google-auto/environment/skills/maven-build-lifecycle",
+      "description": ""
+    },
+    {
+      "name": "maven-dependency-management",
+      "path": "tasks-no-skills/fix-build-google-auto/environment/skills/maven-dependency-management",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-build-google-auto/environment/skills/maven-dependency-management",
+      "description": ""
+    },
+    {
+      "name": "maven-plugin-configuration",
+      "path": "tasks-no-skills/fix-build-google-auto/environment/skills/maven-plugin-configuration",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-build-google-auto/environment/skills/maven-plugin-configuration",
+      "description": ""
+    },
+    {
+      "name": "memory-optimization",
+      "path": "tasks-no-skills/parallel-tfidf-search/environment/skills/memory-optimization",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/parallel-tfidf-search/environment/skills/memory-optimization",
+      "description": ""
+    },
+    {
+      "name": "mesh-analysis",
+      "path": "tasks-no-skills/3d-scan-calc/environment/skills/mesh-analysis",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/3d-scan-calc/environment/skills/mesh-analysis",
+      "description": ""
+    },
+    {
+      "name": "meteorology-driver-classification",
+      "path": "tasks-no-skills/lake-warming-attribution/environment/skills/meteorology-driver-classification",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/lake-warming-attribution/environment/skills/meteorology-driver-classification",
+      "description": ""
+    },
+    {
+      "name": "mhc-algorithm",
+      "path": "tasks-no-skills/mhc-layer-impl/environment/skills/mhc-algorithm",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/mhc-layer-impl/environment/skills/mhc-algorithm",
+      "description": ""
+    },
+    {
+      "name": "modal-gpu",
+      "path": "tasks-no-skills/mhc-layer-impl/environment/skills/modal-gpu",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/mhc-layer-impl/environment/skills/modal-gpu",
+      "description": ""
+    },
+    {
+      "name": "mpc-horizon-tuning",
+      "path": "tasks-no-skills/r2r-mpc-control/environment/skills/mpc-horizon-tuning",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/r2r-mpc-control/environment/skills/mpc-horizon-tuning",
+      "description": ""
+    },
+    {
+      "name": "multimodal-fusion",
+      "path": "tasks-no-skills/speaker-diarization-subtitles/environment/skills/multimodal-fusion",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/speaker-diarization-subtitles/environment/skills/multimodal-fusion",
+      "description": ""
+    },
+    {
+      "name": "nanogpt-training",
+      "path": "tasks-no-skills/mhc-layer-impl/environment/skills/nanogpt-training",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/mhc-layer-impl/environment/skills/nanogpt-training",
+      "description": ""
+    },
+    {
+      "name": "nlp-research-repo-package-installment",
+      "path": "tasks-no-skills/simpo-code-reproduction/environment/skills/nlp-research-repo-package-installment",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/simpo-code-reproduction/environment/skills/nlp-research-repo-package-installment",
+      "description": ""
+    },
+    {
+      "name": "nws-flood-thresholds",
+      "path": "tasks-no-skills/flood-risk-analysis/environment/skills/nws-flood-thresholds",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/flood-risk-analysis/environment/skills/nws-flood-thresholds",
+      "description": ""
+    },
+    {
+      "name": "obj-exporter",
+      "path": "tasks-no-skills/threejs-structure-parser/environment/skills/obj-exporter",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/threejs-structure-parser/environment/skills/obj-exporter",
+      "description": ""
+    },
+    {
+      "name": "obj-exporter",
+      "path": "tasks-no-skills/threejs-to-obj/environment/skills/obj-exporter",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/threejs-to-obj/environment/skills/obj-exporter",
+      "description": ""
+    },
+    {
+      "name": "object_counter",
+      "path": "tasks-no-skills/mario-coin-counting/environment/skills/object_counter",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/mario-coin-counting/environment/skills/object_counter",
+      "description": ""
+    },
+    {
+      "name": "obspy-data-api",
+      "path": "tasks-no-skills/earthquake-phase-association/environment/skills/obspy-data-api",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/earthquake-phase-association/environment/skills/obspy-data-api",
+      "description": ""
+    },
+    {
+      "name": "obspy-datacenter-client",
+      "path": "tasks-no-skills/seismic-phase-picking/environment/skills/obspy-datacenter-client",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/seismic-phase-picking/environment/skills/obspy-datacenter-client",
+      "description": ""
+    },
+    {
+      "name": "openai-tts",
+      "path": "tasks-no-skills/pg-essay-to-audiobook/environment/skills/openai-tts",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/pg-essay-to-audiobook/environment/skills/openai-tts",
+      "description": ""
+    },
+    {
+      "name": "openai-vision",
+      "path": "tasks-no-skills/jpg-ocr-stat/environment/skills/openai-vision",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/jpg-ocr-stat/environment/skills/openai-vision",
+      "description": ""
+    },
+    {
+      "name": "output-validation",
+      "path": "tasks-no-skills/dynamic-object-aware-egomotion/environment/skills/output-validation",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/dynamic-object-aware-egomotion/environment/skills/output-validation",
+      "description": ""
+    },
+    {
+      "name": "parallel-processing",
+      "path": "tasks-no-skills/mars-clouds-clustering/environment/skills/parallel-processing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/mars-clouds-clustering/environment/skills/parallel-processing",
+      "description": ""
+    },
+    {
+      "name": "pareto-optimization",
+      "path": "tasks-no-skills/mars-clouds-clustering/environment/skills/pareto-optimization",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/mars-clouds-clustering/environment/skills/pareto-optimization",
+      "description": ""
+    },
+    {
+      "name": "pause-detector",
+      "path": "tasks/video-silence-remover/environment/skills/pause-detector",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/video-silence-remover/environment/skills/pause-detector",
+      "description": ""
+    },
+    {
+      "name": "pca-decomposition",
+      "path": "tasks-no-skills/lake-warming-attribution/environment/skills/pca-decomposition",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/lake-warming-attribution/environment/skills/pca-decomposition",
+      "description": ""
+    },
+    {
+      "name": "pcap-analysis",
+      "path": "tasks-no-skills/dapt-intrusion-detection/environment/skills/pcap-analysis",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/dapt-intrusion-detection/environment/skills/pcap-analysis",
+      "description": ""
+    },
+    {
+      "name": "pcap-triage-tshark",
+      "path": "tasks-no-skills/suricata-custom-exfil/environment/skills/pcap-triage-tshark",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/suricata-custom-exfil/environment/skills/pcap-triage-tshark",
+      "description": ""
+    },
+    {
+      "name": "pddl-skills",
+      "path": "tasks-no-skills/virtualhome-agent-planning/environment/skills/pddl-skills",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/virtualhome-agent-planning/environment/skills/pddl-skills",
+      "description": ""
+    },
+    {
+      "name": "pddl-skills",
+      "path": "tasks-no-skills/pddl-tpp-planning/environment/skills/pddl-skills",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/pddl-tpp-planning/environment/skills/pddl-skills",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "tasks-no-skills/sales-pivot-analysis/environment/skills/pdf",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/sales-pivot-analysis/environment/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "tasks-no-skills/financial-modeling-qa/environment/skills/pdf",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/financial-modeling-qa/environment/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "tasks-no-skills/find-topk-similiar-chemicals/environment/skills/pdf",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/find-topk-similiar-chemicals/environment/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "tasks-no-skills/paper-anonymizer/environment/skills/pdf",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/paper-anonymizer/environment/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "tasks-no-skills/court-form-filling/environment/skills/pdf",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/court-form-filling/environment/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf-reading",
+      "path": "libs/artifact-runner/tasks/nodemedic-demo/environment/skills/pdf-reading",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/libs/artifact-runner/tasks/nodemedic-demo/environment/skills/pdf-reading",
+      "description": ""
+    },
+    {
+      "name": "pid-controller",
+      "path": "tasks-no-skills/adaptive-cruise-control/environment/skills/pid-controller",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/adaptive-cruise-control/environment/skills/pid-controller",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": "tasks-no-skills/organize-messy-files/environment/skills/planning-with-files",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/organize-messy-files/environment/skills/planning-with-files",
+      "description": ""
+    },
+    {
+      "name": "power-flow-data",
+      "path": "tasks-no-skills/energy-ac-optimal-power-flow/environment/skills/power-flow-data",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/energy-ac-optimal-power-flow/environment/skills/power-flow-data",
+      "description": ""
+    },
+    {
+      "name": "powerlifting",
+      "path": "tasks-no-skills/powerlifting-coef-calc/environment/skills/powerlifting",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/powerlifting-coef-calc/environment/skills/powerlifting",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "path": "tasks-no-skills/exceltable-in-ppt/environment/skills/pptx",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/exceltable-in-ppt/environment/skills/pptx",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "path": "tasks-no-skills/pptx-reference-formatting/environment/skills/pptx",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/pptx-reference-formatting/environment/skills/pptx",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "path": "tasks-no-skills/organize-messy-files/environment/skills/pptx",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/organize-messy-files/environment/skills/pptx",
+      "description": ""
+    },
+    {
+      "name": "pubchem-database",
+      "path": "tasks-no-skills/find-topk-similiar-chemicals/environment/skills/pubchem-database",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/find-topk-similiar-chemicals/environment/skills/pubchem-database",
+      "description": ""
+    },
+    {
+      "name": "pymatgen",
+      "path": "tasks-no-skills/crystallographic-wyckoff-position-analysis/environment/skills/pymatgen",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/crystallographic-wyckoff-position-analysis/environment/skills/pymatgen",
+      "description": ""
+    },
+    {
+      "name": "python-parallelization",
+      "path": "tasks-no-skills/parallel-tfidf-search/environment/skills/python-parallelization",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/parallel-tfidf-search/environment/skills/python-parallelization",
+      "description": ""
+    },
+    {
+      "name": "python-scala-collections",
+      "path": "tasks-no-skills/python-scala-translation/environment/skills/python-scala-collections",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/python-scala-translation/environment/skills/python-scala-collections",
+      "description": ""
+    },
+    {
+      "name": "python-scala-functional",
+      "path": "tasks-no-skills/python-scala-translation/environment/skills/python-scala-functional",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/python-scala-translation/environment/skills/python-scala-functional",
+      "description": ""
+    },
+    {
+      "name": "python-scala-idioms",
+      "path": "tasks-no-skills/python-scala-translation/environment/skills/python-scala-idioms",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/python-scala-translation/environment/skills/python-scala-idioms",
+      "description": ""
+    },
+    {
+      "name": "python-scala-libraries",
+      "path": "tasks-no-skills/python-scala-translation/environment/skills/python-scala-libraries",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/python-scala-translation/environment/skills/python-scala-libraries",
+      "description": ""
+    },
+    {
+      "name": "python-scala-oop",
+      "path": "tasks-no-skills/python-scala-translation/environment/skills/python-scala-oop",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/python-scala-translation/environment/skills/python-scala-oop",
+      "description": ""
+    },
+    {
+      "name": "python-scala-syntax-mapping",
+      "path": "tasks-no-skills/python-scala-translation/environment/skills/python-scala-syntax-mapping",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/python-scala-translation/environment/skills/python-scala-syntax-mapping",
+      "description": ""
+    },
+    {
+      "name": "rdkit",
+      "path": "tasks-no-skills/find-topk-similiar-chemicals/environment/skills/rdkit",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/find-topk-similiar-chemicals/environment/skills/rdkit",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "tasks-no-skills/react-performance-debugging/environment/skills/react-best-practices",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/react-performance-debugging/environment/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "tasks-no-skills/fix-visual-stability/environment/skills/react-best-practices",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-visual-stability/environment/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "reflow_machine_maintenance_guidance",
+      "path": "tasks-no-skills/manufacturing-equipment-maintenance/environment/skills/reflow_machine_maintenance_guidance",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/manufacturing-equipment-maintenance/environment/skills/reflow_machine_maintenance_guidance",
+      "description": ""
+    },
+    {
+      "name": "reflow-profile-compliance-toolkit",
+      "path": "tasks-no-skills/manufacturing-equipment-maintenance/environment/skills/reflow-profile-compliance-toolkit",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/manufacturing-equipment-maintenance/environment/skills/reflow-profile-compliance-toolkit",
+      "description": ""
+    },
+    {
+      "name": "report-generator",
+      "path": "tasks/video-silence-remover/environment/skills/report-generator",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/video-silence-remover/environment/skills/report-generator",
+      "description": ""
+    },
+    {
+      "name": "restclient-migration",
+      "path": "tasks-no-skills/spring-boot-jakarta-migration/environment/skills/restclient-migration",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/spring-boot-jakarta-migration/environment/skills/restclient-migration",
+      "description": ""
+    },
+    {
+      "name": "safety-interlocks",
+      "path": "tasks-no-skills/hvac-control/environment/skills/safety-interlocks",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/hvac-control/environment/skills/safety-interlocks",
+      "description": ""
+    },
+    {
+      "name": "sampling-and-indexing",
+      "path": "tasks-no-skills/dynamic-object-aware-egomotion/environment/skills/sampling-and-indexing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/dynamic-object-aware-egomotion/environment/skills/sampling-and-indexing",
+      "description": ""
+    },
+    {
+      "name": "scipy-curve-fit",
+      "path": "tasks-no-skills/hvac-control/environment/skills/scipy-curve-fit",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/hvac-control/environment/skills/scipy-curve-fit",
+      "description": ""
+    },
+    {
+      "name": "search-accommodations",
+      "path": "tasks-no-skills/travel-planning/environment/skills/search-accommodations",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/travel-planning/environment/skills/search-accommodations",
+      "description": ""
+    },
+    {
+      "name": "search-attractions",
+      "path": "tasks-no-skills/travel-planning/environment/skills/search-attractions",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/travel-planning/environment/skills/search-attractions",
+      "description": ""
+    },
+    {
+      "name": "search-cities",
+      "path": "tasks-no-skills/travel-planning/environment/skills/search-cities",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/travel-planning/environment/skills/search-cities",
+      "description": ""
+    },
+    {
+      "name": "search-driving-distance",
+      "path": "tasks-no-skills/travel-planning/environment/skills/search-driving-distance",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/travel-planning/environment/skills/search-driving-distance",
+      "description": ""
+    },
+    {
+      "name": "search-flights",
+      "path": "tasks-no-skills/travel-planning/environment/skills/search-flights",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/travel-planning/environment/skills/search-flights",
+      "description": ""
+    },
+    {
+      "name": "search-restaurants",
+      "path": "tasks-no-skills/travel-planning/environment/skills/search-restaurants",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/travel-planning/environment/skills/search-restaurants",
+      "description": ""
+    },
+    {
+      "name": "segment-combiner",
+      "path": "tasks/video-silence-remover/environment/skills/segment-combiner",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/video-silence-remover/environment/skills/segment-combiner",
+      "description": ""
+    },
+    {
+      "name": "seisbench-model-api",
+      "path": "tasks-no-skills/earthquake-phase-association/environment/skills/seisbench-model-api",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/earthquake-phase-association/environment/skills/seisbench-model-api",
+      "description": ""
+    },
+    {
+      "name": "seismic-picker-selection",
+      "path": "tasks-no-skills/earthquake-phase-association/environment/skills/seismic-picker-selection",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/earthquake-phase-association/environment/skills/seismic-picker-selection",
+      "description": ""
+    },
+    {
+      "name": "senior-data-engineer",
+      "path": "tasks-no-skills/flink-query/environment/skills/senior-data-engineer",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/flink-query/environment/skills/senior-data-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-data-scientist",
+      "path": "tasks-no-skills/powerlifting-coef-calc/environment/skills/senior-data-scientist",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/powerlifting-coef-calc/environment/skills/senior-data-scientist",
+      "description": ""
+    },
+    {
+      "name": "senior-java",
+      "path": "tasks-no-skills/fix-druid-loophole-cve/environment/skills/senior-java",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-druid-loophole-cve/environment/skills/senior-java",
+      "description": ""
+    },
+    {
+      "name": "senior-security",
+      "path": "tasks-no-skills/fix-erlang-ssh-cve/environment/skills/senior-security",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-erlang-ssh-cve/environment/skills/senior-security",
+      "description": ""
+    },
+    {
+      "name": "setup-env",
+      "path": "tasks-no-skills/setup-fuzzing-py/environment/skills/setup-env",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/setup-fuzzing-py/environment/skills/setup-env",
+      "description": ""
+    },
+    {
+      "name": "silence-detector",
+      "path": "tasks/video-silence-remover/environment/skills/silence-detector",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/video-silence-remover/environment/skills/silence-detector",
+      "description": ""
+    },
+    {
+      "name": "simulation-metrics",
+      "path": "tasks-no-skills/adaptive-cruise-control/environment/skills/simulation-metrics",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/adaptive-cruise-control/environment/skills/simulation-metrics",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skillsbench",
+      "path": ".claude/skills/skillsbench",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/.claude/skills/skillsbench",
+      "description": ""
+    },
+    {
+      "name": "speaker-clustering",
+      "path": "tasks-no-skills/speaker-diarization-subtitles/environment/skills/speaker-clustering",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/speaker-diarization-subtitles/environment/skills/speaker-clustering",
+      "description": ""
+    },
+    {
+      "name": "speech-to-text",
+      "path": "tasks-no-skills/video-tutorial-indexer/environment/skills/speech-to-text",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/video-tutorial-indexer/environment/skills/speech-to-text",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-migration",
+      "path": "tasks-no-skills/spring-boot-jakarta-migration/environment/skills/spring-boot-migration",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/spring-boot-jakarta-migration/environment/skills/spring-boot-migration",
+      "description": ""
+    },
+    {
+      "name": "spring-security-6",
+      "path": "tasks-no-skills/spring-boot-jakarta-migration/environment/skills/spring-security-6",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/spring-boot-jakarta-migration/environment/skills/spring-security-6",
+      "description": ""
+    },
+    {
+      "name": "sqlite-map-parser",
+      "path": "tasks-no-skills/civ6-adjacency-optimizer/environment/skills/sqlite-map-parser",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/civ6-adjacency-optimizer/environment/skills/sqlite-map-parser",
+      "description": ""
+    },
+    {
+      "name": "ssh-penetration-testing",
+      "path": "tasks-no-skills/fix-erlang-ssh-cve/environment/skills/ssh-penetration-testing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-erlang-ssh-cve/environment/skills/ssh-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "state-space-linearization",
+      "path": "tasks-no-skills/r2r-mpc-control/environment/skills/state-space-linearization",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/r2r-mpc-control/environment/skills/state-space-linearization",
+      "description": ""
+    },
+    {
+      "name": "suricata-offline-evejson",
+      "path": "tasks-no-skills/suricata-custom-exfil/environment/skills/suricata-offline-evejson",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/suricata-custom-exfil/environment/skills/suricata-offline-evejson",
+      "description": ""
+    },
+    {
+      "name": "suricata-rules-basics",
+      "path": "tasks-no-skills/suricata-custom-exfil/environment/skills/suricata-rules-basics",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/suricata-custom-exfil/environment/skills/suricata-rules-basics",
+      "description": ""
+    },
+    {
+      "name": "sympy",
+      "path": "tasks-no-skills/crystallographic-wyckoff-position-analysis/environment/skills/sympy",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/crystallographic-wyckoff-position-analysis/environment/skills/sympy",
+      "description": ""
+    },
+    {
+      "name": "syz-extract-constants",
+      "path": "tasks-no-skills/syzkaller-ppdev-syzlang/environment/skills/syz-extract-constants",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/syzkaller-ppdev-syzlang/environment/skills/syz-extract-constants",
+      "description": ""
+    },
+    {
+      "name": "syzkaller-build-loop",
+      "path": "tasks-no-skills/syzkaller-ppdev-syzlang/environment/skills/syzkaller-build-loop",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/syzkaller-ppdev-syzlang/environment/skills/syzkaller-build-loop",
+      "description": ""
+    },
+    {
+      "name": "syzlang-ioctl-basics",
+      "path": "tasks-no-skills/syzkaller-ppdev-syzlang/environment/skills/syzlang-ioctl-basics",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/syzkaller-ppdev-syzlang/environment/skills/syzlang-ioctl-basics",
+      "description": ""
+    },
+    {
+      "name": "temporal-python-testing",
+      "path": "tasks-no-skills/fix-build-agentops/environment/skills/temporal-python-testing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-build-agentops/environment/skills/temporal-python-testing",
+      "description": ""
+    },
+    {
+      "name": "threat-detection",
+      "path": "tasks-no-skills/dapt-intrusion-detection/environment/skills/threat-detection",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/dapt-intrusion-detection/environment/skills/threat-detection",
+      "description": ""
+    },
+    {
+      "name": "threejs",
+      "path": "tasks-no-skills/threejs-structure-parser/environment/skills/threejs",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/threejs-structure-parser/environment/skills/threejs",
+      "description": ""
+    },
+    {
+      "name": "time_series_anomaly_detection",
+      "path": "tasks-no-skills/trend-anomaly-causal-inference/environment/skills/time_series_anomaly_detection",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/trend-anomaly-causal-inference/environment/skills/time_series_anomaly_detection",
+      "description": ""
+    },
+    {
+      "name": "timeseries-detrending",
+      "path": "tasks-no-skills/econ-detrending-correlation/environment/skills/timeseries-detrending",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/econ-detrending-correlation/environment/skills/timeseries-detrending",
+      "description": ""
+    },
+    {
+      "name": "transit-least-squares",
+      "path": "tasks-no-skills/exoplanet-detection-period/environment/skills/transit-least-squares",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/exoplanet-detection-period/environment/skills/transit-least-squares",
+      "description": ""
+    },
+    {
+      "name": "trend-analysis",
+      "path": "tasks-no-skills/lake-warming-attribution/environment/skills/trend-analysis",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/lake-warming-attribution/environment/skills/trend-analysis",
+      "description": ""
+    },
+    {
+      "name": "trivy-offline-vulnerability-scanning",
+      "path": "tasks-no-skills/software-dependency-audit/environment/skills/trivy-offline-vulnerability-scanning",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/software-dependency-audit/environment/skills/trivy-offline-vulnerability-scanning",
+      "description": ""
+    },
+    {
+      "name": "text-to-speech",
+      "path": "tasks-no-skills/multilingual-video-dubbing/environment/skills/text-to-speech",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/multilingual-video-dubbing/environment/skills/text-to-speech",
+      "description": ""
+    },
+    {
+      "name": "usgs-data-download",
+      "path": "tasks-no-skills/flood-risk-analysis/environment/skills/usgs-data-download",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/flood-risk-analysis/environment/skills/usgs-data-download",
+      "description": ""
+    },
+    {
+      "name": "uv-package-manager",
+      "path": "tasks-no-skills/fix-build-agentops/environment/skills/uv-package-manager",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-build-agentops/environment/skills/uv-package-manager",
+      "description": ""
+    },
+    {
+      "name": "vehicle-dynamics",
+      "path": "tasks-no-skills/adaptive-cruise-control/environment/skills/vehicle-dynamics",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/adaptive-cruise-control/environment/skills/vehicle-dynamics",
+      "description": ""
+    },
+    {
+      "name": "video-frame-extraction",
+      "path": "tasks-no-skills/jpg-ocr-stat/environment/skills/video-frame-extraction",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/jpg-ocr-stat/environment/skills/video-frame-extraction",
+      "description": ""
+    },
+    {
+      "name": "video-processor",
+      "path": "tasks/video-silence-remover/environment/skills/video-processor",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/video-silence-remover/environment/skills/video-processor",
+      "description": ""
+    },
+    {
+      "name": "voice-activity-detection",
+      "path": "tasks-no-skills/speaker-diarization-subtitles/environment/skills/voice-activity-detection",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/speaker-diarization-subtitles/environment/skills/voice-activity-detection",
+      "description": ""
+    },
+    {
+      "name": "vulnerability-csv-reporting",
+      "path": "tasks-no-skills/software-dependency-audit/environment/skills/vulnerability-csv-reporting",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/software-dependency-audit/environment/skills/vulnerability-csv-reporting",
+      "description": ""
+    },
+    {
+      "name": "web-interface-guidelines",
+      "path": "tasks-no-skills/fix-visual-stability/environment/skills/web-interface-guidelines",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/fix-visual-stability/environment/skills/web-interface-guidelines",
+      "description": ""
+    },
+    {
+      "name": "whisper-transcription",
+      "path": "tasks-no-skills/video-filler-word-remover/environment/skills/whisper-transcription",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/video-filler-word-remover/environment/skills/whisper-transcription",
+      "description": ""
+    },
+    {
+      "name": "workload-balancing",
+      "path": "tasks-no-skills/parallel-tfidf-search/environment/skills/workload-balancing",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/parallel-tfidf-search/environment/skills/workload-balancing",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "path": "tasks-no-skills/invoice-fraud-detection/environment/skills/xlsx",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/invoice-fraud-detection/environment/skills/xlsx",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "path": "tasks-no-skills/sales-pivot-analysis/environment/skills/xlsx",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/sales-pivot-analysis/environment/skills/xlsx",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "path": "tasks-no-skills/exceltable-in-ppt/environment/skills/xlsx",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/exceltable-in-ppt/environment/skills/xlsx",
+      "description": ""
+    },
+    {
+      "name": "yaml-config",
+      "path": "tasks-no-skills/adaptive-cruise-control/environment/skills/yaml-config",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks-no-skills/adaptive-cruise-control/environment/skills/yaml-config",
+      "description": ""
+    },
+    {
+      "name": "python-scala-functional",
+      "path": "tasks/python-scala-translation/environment/skills/python-scala-functional",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/python-scala-translation/environment/skills/python-scala-functional",
+      "description": ""
+    },
+    {
+      "name": "python-scala-syntax-mapping",
+      "path": "tasks/python-scala-translation/environment/skills/python-scala-syntax-mapping",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/python-scala-translation/environment/skills/python-scala-syntax-mapping",
+      "description": ""
+    },
+    {
+      "name": "python-scala-libraries",
+      "path": "tasks/python-scala-translation/environment/skills/python-scala-libraries",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/python-scala-translation/environment/skills/python-scala-libraries",
+      "description": ""
+    },
+    {
+      "name": "python-scala-idioms",
+      "path": "tasks/python-scala-translation/environment/skills/python-scala-idioms",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/python-scala-translation/environment/skills/python-scala-idioms",
+      "description": ""
+    },
+    {
+      "name": "python-parallelization",
+      "path": "tasks/parallel-tfidf-search/environment/skills/python-parallelization",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/parallel-tfidf-search/environment/skills/python-parallelization",
+      "description": ""
+    },
+    {
+      "name": "python-scala-collections",
+      "path": "tasks/python-scala-translation/environment/skills/python-scala-collections",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/python-scala-translation/environment/skills/python-scala-collections",
+      "description": ""
+    },
+    {
+      "name": "python-scala-oop",
+      "path": "tasks/python-scala-translation/environment/skills/python-scala-oop",
+      "github_url": "https://github.com/benchflow-ai/skillsbench/tree/main/tasks/python-scala-translation/environment/skills/python-scala-oop",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/benchflow-ai/skillsbench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:32:21Z"
+}
