@@ -1,0 +1,51 @@
+{
+  "name": "stitch-mcp",
+  "owner": "davideast",
+  "repo": "stitch-mcp",
+  "description": "A CLI for moving AI-generated UI designs from Google\u2019s Stitch platform into your development workflow.",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "typed-service-contract",
+      "path": ".gemini/skills/typed-service-contract",
+      "github_url": "https://github.com/davideast/stitch-mcp/tree/main/.gemini/skills/typed-service-contract",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/davideast/stitch-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:09:19Z"
+}
