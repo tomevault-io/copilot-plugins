@@ -1,0 +1,46 @@
+{
+  "name": "posit-dev--skills",
+  "displayName": "skills",
+  "description": "A collection of Claude Skills from Posit",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/skills",
+  "skills": [
+    {
+      "name": "brand-yml",
+      "description": ""
+    },
+    {
+      "name": "cli",
+      "description": ""
+    },
+    {
+      "name": "cran-extrachecks",
+      "description": ""
+    },
+    {
+      "name": "create-release-checklist",
+      "description": ""
+    },
+    {
+      "name": "critical-code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "describe-design",
+      "description": ""
+    },
+    {
+      "name": "lifecycle",
+      "description": ""
+    },
+    {
+      "name": "release-post",
+      "description": ""
+    },
+    {
+      "name": "testing-r-packages",
+      "description": ""
+    }
+  ]
+}
