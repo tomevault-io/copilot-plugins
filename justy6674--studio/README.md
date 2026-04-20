@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Justy6674/studio](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Justy6674)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Justy6674/studio](https://github.com/Justy6674/studio)
 
 ---
 
