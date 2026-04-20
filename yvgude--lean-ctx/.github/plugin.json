@@ -1,0 +1,9 @@
+{
+  "name": "yvgude--lean-ctx",
+  "displayName": "lean-ctx",
+  "description": "Reduce AI coding costs by 99% \u2014 MCP Server + Shell Hook for Cursor, Claude Code, Copilot, Windsurf, Gemini CLI & 24 tools. Single Rust binary, zero telemetry.",
+  "version": "1.0.0",
+  "author": "yvgude",
+  "homepage": "https://github.com/yvgude/lean-ctx",
+  "skills": []
+}
