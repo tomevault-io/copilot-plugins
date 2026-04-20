@@ -1,0 +1,9 @@
+{
+  "name": "diegosouzapw--omniroute",
+  "displayName": "OmniRoute",
+  "description": "OmniRoute is an AI gateway for multi-provider LLMs: an OpenAI-compatible endpoint with smart routing, load balancing, retries, and fallbacks. Add policies, rate limits, caching, and observability for ",
+  "version": "1.0.0",
+  "author": "diegosouzapw",
+  "homepage": "https://github.com/diegosouzapw/OmniRoute",
+  "skills": []
+}
