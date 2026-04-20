@@ -1,0 +1,58 @@
+{
+  "name": "zylos-ai--zylos-core",
+  "displayName": "zylos-core",
+  "description": "\ud83d\udc19 Give your AI a life \u2014 open-source agent infrastructure for team collaboration.",
+  "version": "1.0.0",
+  "author": "zylos-ai",
+  "homepage": "https://github.com/zylos-ai/zylos-core",
+  "skills": [
+    {
+      "name": "activity-monitor",
+      "description": ""
+    },
+    {
+      "name": "check-context",
+      "description": ""
+    },
+    {
+      "name": "comm-bridge",
+      "description": ""
+    },
+    {
+      "name": "component-management",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "description": ""
+    },
+    {
+      "name": "health-check",
+      "description": ""
+    },
+    {
+      "name": "http",
+      "description": ""
+    },
+    {
+      "name": "restart-claude",
+      "description": ""
+    },
+    {
+      "name": "scheduler",
+      "description": ""
+    },
+    {
+      "name": "upgrade-claude",
+      "description": ""
+    },
+    {
+      "name": "web-console",
+      "description": ""
+    },
+    {
+      "name": "zylos-memory",
+      "description": ""
+    }
+  ]
+}
