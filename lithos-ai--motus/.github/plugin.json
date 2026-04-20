@@ -1,0 +1,9 @@
+{
+  "name": "lithos-ai--motus",
+  "displayName": "motus",
+  "description": "The open-source agent-serving project",
+  "version": "1.0.0",
+  "author": "lithos-ai",
+  "homepage": "https://github.com/lithos-ai/motus",
+  "skills": []
+}
