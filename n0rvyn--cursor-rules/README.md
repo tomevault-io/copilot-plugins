@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [n0rvyn/cursor-rules](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/n0rvyn)
+From [n0rvyn/cursor-rules](https://github.com/n0rvyn/cursor-rules) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install n0rvyn/cursor-rules
 ```
-Or browse all formats at [https://tomevault.io/claim/n0rvyn](https://tomevault.io/claim/n0rvyn).
+Source: [github.com/n0rvyn/cursor-rules](https://github.com/n0rvyn/cursor-rules).
 
 <!-- genome:a-i-s -->
