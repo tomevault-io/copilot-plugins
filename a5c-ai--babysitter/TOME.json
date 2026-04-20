@@ -1,0 +1,117 @@
+{
+  "name": "babysitter",
+  "owner": "a5c-ai",
+  "repo": "babysitter",
+  "description": "Babysitter enforces obedience on agentic workforces and enables them to manage extremely complex tasks and workflows through deterministic, hallucination-free self-orchestration",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "babysit",
+      "path": "plugins/babysitter/skills/babysit",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/plugins/babysitter/skills/babysit",
+      "description": ""
+    },
+    {
+      "name": "process-builder",
+      "path": ".claude/skills/process-builder",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/.claude/skills/process-builder",
+      "description": ""
+    },
+    {
+      "name": "babysitter-breakpoint",
+      "path": ".codex/skills/babysitter-breakpoint",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/.codex/skills/babysitter-breakpoint",
+      "description": ""
+    },
+    {
+      "name": "fastlane-mobile-ci-cd",
+      "path": "library/specializations/mobile-development/skills/fastlane-cicd",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/library/specializations/mobile-development/skills/fastlane-cicd",
+      "description": ""
+    },
+    {
+      "name": "flutter-dart-development",
+      "path": "library/specializations/mobile-development/skills/flutter-dart",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/library/specializations/mobile-development/skills/flutter-dart",
+      "description": ""
+    },
+    {
+      "name": "aeroelastic-analysis",
+      "path": "library/specializations/domains/science/aerospace-engineering/skills/aeroelastic-analysis",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/library/specializations/domains/science/aerospace-engineering/skills/aeroelastic-analysis",
+      "description": ""
+    },
+    {
+      "name": "flutter-desktop-config",
+      "path": "library/specializations/desktop-development/skills/flutter-desktop-config",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/library/specializations/desktop-development/skills/flutter-desktop-config",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "path": "library/specializations/web-development/skills/git",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/library/specializations/web-development/skills/git",
+      "description": ""
+    },
+    {
+      "name": "vue-development",
+      "path": "library/specializations/web-development/skills/vue-development",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/library/specializations/web-development/skills/vue-development",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "path": "library/specializations/web-development/skills/typescript",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/library/specializations/web-development/skills/typescript",
+      "description": ""
+    },
+    {
+      "name": "typescript-sdk-specialist",
+      "path": "library/specializations/sdk-platform-development/skills/typescript-sdk-specialist",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/library/specializations/sdk-platform-development/skills/typescript-sdk-specialist",
+      "description": ""
+    },
+    {
+      "name": "python-sdk-specialist",
+      "path": "library/specializations/sdk-platform-development/skills/python-sdk-specialist",
+      "github_url": "https://github.com/a5c-ai/babysitter/tree/main/library/specializations/sdk-platform-development/skills/python-sdk-specialist",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/a5c-ai/babysitter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:49:42Z"
+}
