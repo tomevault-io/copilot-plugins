@@ -1,0 +1,38 @@
+{
+  "name": "vm0-ai--vm0",
+  "displayName": "vm0",
+  "description": "the easiest way to run natural language-described workflows automatically",
+  "version": "1.0.0",
+  "author": "vm0-ai",
+  "homepage": "https://github.com/vm0-ai/vm0",
+  "skills": [
+    {
+      "name": "cli-design",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "database-development",
+      "description": ""
+    },
+    {
+      "name": "project-principles",
+      "description": ""
+    },
+    {
+      "name": "tech-debt",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    }
+  ]
+}
