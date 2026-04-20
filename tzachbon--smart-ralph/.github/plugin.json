@@ -1,0 +1,42 @@
+{
+  "name": "tzachbon--smart-ralph",
+  "displayName": "smart-ralph",
+  "description": "Spec-driven development with smart compaction. Claude Code plugin combining Ralph Wiggum loop with structured specification workflow.",
+  "version": "1.0.0",
+  "author": "tzachbon",
+  "homepage": "https://github.com/tzachbon/smart-ralph",
+  "skills": [
+    {
+      "name": "communication-style",
+      "description": ""
+    },
+    {
+      "name": "communication-style",
+      "description": ""
+    },
+    {
+      "name": "delegation-principle",
+      "description": ""
+    },
+    {
+      "name": "reality-verification",
+      "description": ""
+    },
+    {
+      "name": "smart-ralph",
+      "description": ""
+    },
+    {
+      "name": "smart-ralph",
+      "description": ""
+    },
+    {
+      "name": "spec-workflow",
+      "description": ""
+    },
+    {
+      "name": "speckit-workflow",
+      "description": ""
+    }
+  ]
+}
