@@ -1,0 +1,69 @@
+{
+  "name": "clawdbot-feishu",
+  "owner": "m1heng",
+  "repo": "clawdbot-feishu",
+  "description": "AI instruction skills by m1heng",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": ".agents/skills/agent-browser",
+      "github_url": "https://github.com/m1heng/clawdbot-feishu/tree/main/.agents/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "feishu-doc",
+      "path": "skills/feishu-doc",
+      "github_url": "https://github.com/m1heng/clawdbot-feishu/tree/main/skills/feishu-doc",
+      "description": ""
+    },
+    {
+      "name": "feishu-e2e-test",
+      "path": ".claude/skills/feishu-e2e-test",
+      "github_url": "https://github.com/m1heng/clawdbot-feishu/tree/main/.claude/skills/feishu-e2e-test",
+      "description": ""
+    },
+    {
+      "name": "feishu-perm",
+      "path": "skills/feishu-perm",
+      "github_url": "https://github.com/m1heng/clawdbot-feishu/tree/main/skills/feishu-perm",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/m1heng/clawdbot-feishu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:42:16Z"
+}
