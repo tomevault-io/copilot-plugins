@@ -1,0 +1,9 @@
+{
+  "name": "lee-to--aif-handoff",
+  "displayName": "aif-handoff",
+  "description": "Autonomous Kanban board where AI agents plan, implement, and review your tasks \u2014 fully hands-off.",
+  "version": "1.0.0",
+  "author": "lee-to",
+  "homepage": "https://github.com/lee-to/aif-handoff",
+  "skills": []
+}
