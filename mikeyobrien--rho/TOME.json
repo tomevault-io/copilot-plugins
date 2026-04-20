@@ -1,0 +1,171 @@
+{
+  "name": "rho",
+  "owner": "mikeyobrien",
+  "repo": "rho",
+  "description": "An AI agent that stays running, remembers across sessions, and checks in on its own. macOS, Linux, Android. Built on Pi.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clipboard",
+      "path": "platforms/linux/skills/clipboard",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/linux/skills/clipboard",
+      "description": ""
+    },
+    {
+      "name": "clipboard",
+      "path": "platforms/android/skills/clipboard",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/android/skills/clipboard",
+      "description": ""
+    },
+    {
+      "name": "clipboard",
+      "path": "platforms/macos/skills/clipboard",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/macos/skills/clipboard",
+      "description": ""
+    },
+    {
+      "name": "code-assist",
+      "path": "skills/code-assist",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/skills/code-assist",
+      "description": ""
+    },
+    {
+      "name": "code-task-generator",
+      "path": "skills/code-task-generator",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/skills/code-task-generator",
+      "description": ""
+    },
+    {
+      "name": "codebase-summary",
+      "path": "skills/codebase-summary",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/skills/codebase-summary",
+      "description": ""
+    },
+    {
+      "name": "create-sop",
+      "path": "skills/create-sop",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/skills/create-sop",
+      "description": ""
+    },
+    {
+      "name": "device",
+      "path": "platforms/android/skills/device",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/android/skills/device",
+      "description": ""
+    },
+    {
+      "name": "eval",
+      "path": "skills/eval",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/skills/eval",
+      "description": ""
+    },
+    {
+      "name": "location",
+      "path": "platforms/android/skills/location",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/android/skills/location",
+      "description": ""
+    },
+    {
+      "name": "open-url",
+      "path": "platforms/android/skills/open-url",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/android/skills/open-url",
+      "description": ""
+    },
+    {
+      "name": "open-url",
+      "path": "platforms/linux/skills/open-url",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/linux/skills/open-url",
+      "description": ""
+    },
+    {
+      "name": "open-url",
+      "path": "platforms/macos/skills/open-url",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/macos/skills/open-url",
+      "description": ""
+    },
+    {
+      "name": "pdd",
+      "path": "skills/pdd",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/skills/pdd",
+      "description": ""
+    },
+    {
+      "name": "rho-cloud-email",
+      "path": "skills/rho-cloud-email",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/skills/rho-cloud-email",
+      "description": ""
+    },
+    {
+      "name": "rho-cloud-onboard",
+      "path": "skills/rho-cloud-onboard",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/skills/rho-cloud-onboard",
+      "description": ""
+    },
+    {
+      "name": "sms",
+      "path": "platforms/android/skills/sms",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/android/skills/sms",
+      "description": ""
+    },
+    {
+      "name": "stt",
+      "path": "platforms/android/skills/stt",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/android/skills/stt",
+      "description": ""
+    },
+    {
+      "name": "tts",
+      "path": "platforms/linux/skills/tts",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/linux/skills/tts",
+      "description": ""
+    },
+    {
+      "name": "tts",
+      "path": "platforms/android/skills/tts",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/android/skills/tts",
+      "description": ""
+    },
+    {
+      "name": "tts",
+      "path": "platforms/macos/skills/tts",
+      "github_url": "https://github.com/mikeyobrien/rho/tree/main/platforms/macos/skills/tts",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mikeyobrien/rho",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:44:34Z"
+}
