@@ -1,0 +1,98 @@
+{
+  "name": "different-ai--opencode-browser",
+  "displayName": "open",
+  "description": "OpenCode plugin to automate Chrome. Inspired by Claude in Chrome.",
+  "version": "1.0.0",
+  "author": "different-ai",
+  "homepage": "https://github.com/different-ai/opencode-browser",
+  "skills": [
+    {
+      "name": "agent-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "description": ""
+    },
+    {
+      "name": "create-cal-com-link",
+      "description": ""
+    },
+    {
+      "name": "get-started",
+      "description": ""
+    },
+    {
+      "name": "mcp-arch",
+      "description": ""
+    },
+    {
+      "name": "owpenbot-test",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "research-doc",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "sync-submodules",
+      "description": ""
+    },
+    {
+      "name": "workspace-guide",
+      "description": ""
+    },
+    {
+      "name": "worktree-ux-pr",
+      "description": ""
+    },
+    {
+      "name": "worktree-workflow",
+      "description": ""
+    },
+    {
+      "name": "agent-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "description": ""
+    },
+    {
+      "name": "create-cal-com-link",
+      "description": ""
+    },
+    {
+      "name": "owpenbot-test",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "sandbox-lifecycle-fastlane",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "worktree-ux-pr",
+      "description": ""
+    },
+    {
+      "name": "worktree-workflow",
+      "description": ""
+    }
+  ]
+}
