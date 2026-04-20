@@ -1,0 +1,14 @@
+{
+  "name": "muratcankoylan--ralph-wiggum-marketer",
+  "displayName": "ralph-wiggum-marketer",
+  "description": "A Claude Code Plugin that provides an autonomous AI copywriter.",
+  "version": "1.0.0",
+  "author": "muratcankoylan",
+  "homepage": "https://github.com/muratcankoylan/ralph-wiggum-marketer",
+  "skills": [
+    {
+      "name": "copywriter",
+      "description": ""
+    }
+  ]
+}
