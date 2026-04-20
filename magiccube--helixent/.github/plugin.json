@@ -1,0 +1,9 @@
+{
+  "name": "magiccube--helixent",
+  "displayName": "helixent",
+  "description": "Helixent is a small library for building ReAct-style agent loops based on the Bun stack.",
+  "version": "1.0.0",
+  "author": "MagicCube",
+  "homepage": "https://github.com/MagicCube/helixent",
+  "skills": []
+}
