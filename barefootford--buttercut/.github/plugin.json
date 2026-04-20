@@ -1,0 +1,34 @@
+{
+  "name": "barefootford--buttercut",
+  "displayName": "buttercut",
+  "description": "Edit Video with Claude Code",
+  "version": "1.0.0",
+  "author": "barefootford",
+  "homepage": "https://github.com/barefootford/buttercut",
+  "skills": [
+    {
+      "name": "analyze-video",
+      "description": ""
+    },
+    {
+      "name": "backup-library",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "roughcut",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "update-buttercut",
+      "description": ""
+    }
+  ]
+}
