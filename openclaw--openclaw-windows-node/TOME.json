@@ -1,0 +1,327 @@
+{
+  "name": "openclaw",
+  "owner": "openclaw",
+  "repo": "openclaw-windows-node",
+  "description": "Windows companion suite for OpenClaw - System Tray app, Shared library, Node, and PowerToys Command Palette extension",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "1password",
+      "path": "skills/1password",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/1password",
+      "description": ""
+    },
+    {
+      "name": "apple-notes",
+      "path": "skills/apple-notes",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/apple-notes",
+      "description": ""
+    },
+    {
+      "name": "apple-reminders",
+      "path": "skills/apple-reminders",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/apple-reminders",
+      "description": ""
+    },
+    {
+      "name": "bear-notes",
+      "path": "skills/bear-notes",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/bear-notes",
+      "description": ""
+    },
+    {
+      "name": "blogwatcher",
+      "path": "skills/blogwatcher",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/blogwatcher",
+      "description": ""
+    },
+    {
+      "name": "blucli",
+      "path": "skills/blucli",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/blucli",
+      "description": ""
+    },
+    {
+      "name": "bluebubbles",
+      "path": "skills/bluebubbles",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/bluebubbles",
+      "description": ""
+    },
+    {
+      "name": "camsnap",
+      "path": "skills/camsnap",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/camsnap",
+      "description": ""
+    },
+    {
+      "name": "clawhub",
+      "path": "skills/clawhub",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/clawhub",
+      "description": ""
+    },
+    {
+      "name": "coding-agent",
+      "path": "skills/coding-agent",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/coding-agent",
+      "description": ""
+    },
+    {
+      "name": "feishu-doc",
+      "path": "extensions/feishu/skills/feishu-doc",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/extensions/feishu/skills/feishu-doc",
+      "description": ""
+    },
+    {
+      "name": "feishu-perm",
+      "path": "extensions/feishu/skills/feishu-perm",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/extensions/feishu/skills/feishu-perm",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": "skills/gemini",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/gemini",
+      "description": ""
+    },
+    {
+      "name": "gh-issues",
+      "path": "skills/gh-issues",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/gh-issues",
+      "description": ""
+    },
+    {
+      "name": "gifgrep",
+      "path": "skills/gifgrep",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/gifgrep",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "path": "skills/github",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/github",
+      "description": ""
+    },
+    {
+      "name": "gog",
+      "path": "skills/gog",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/gog",
+      "description": ""
+    },
+    {
+      "name": "goplaces",
+      "path": "skills/goplaces",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/goplaces",
+      "description": ""
+    },
+    {
+      "name": "healthcheck",
+      "path": "skills/healthcheck",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/healthcheck",
+      "description": ""
+    },
+    {
+      "name": "himalaya",
+      "path": "skills/himalaya",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/himalaya",
+      "description": ""
+    },
+    {
+      "name": "imsg",
+      "path": "skills/imsg",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/imsg",
+      "description": ""
+    },
+    {
+      "name": "mcporter",
+      "path": "skills/mcporter",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/mcporter",
+      "description": ""
+    },
+    {
+      "name": "model-usage",
+      "path": "skills/model-usage",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/model-usage",
+      "description": ""
+    },
+    {
+      "name": "nano-pdf",
+      "path": "skills/nano-pdf",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/nano-pdf",
+      "description": ""
+    },
+    {
+      "name": "notion",
+      "path": "skills/notion",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/notion",
+      "description": ""
+    },
+    {
+      "name": "obsidian",
+      "path": "skills/obsidian",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/obsidian",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper",
+      "path": "skills/openai-whisper",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/openai-whisper",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper-api",
+      "path": "skills/openai-whisper-api",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/openai-whisper-api",
+      "description": ""
+    },
+    {
+      "name": "openhue",
+      "path": "skills/openhue",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/openhue",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "path": "skills/oracle",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/oracle",
+      "description": ""
+    },
+    {
+      "name": "ordercli",
+      "path": "skills/ordercli",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/ordercli",
+      "description": ""
+    },
+    {
+      "name": "peekaboo",
+      "path": "skills/peekaboo",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/peekaboo",
+      "description": ""
+    },
+    {
+      "name": "prose",
+      "path": "extensions/open-prose/skills/prose",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/extensions/open-prose/skills/prose",
+      "description": ""
+    },
+    {
+      "name": "sag",
+      "path": "skills/sag",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/sag",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "slack",
+      "path": "skills/slack",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/slack",
+      "description": ""
+    },
+    {
+      "name": "songsee",
+      "path": "skills/songsee",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/songsee",
+      "description": ""
+    },
+    {
+      "name": "things-mac",
+      "path": "skills/things-mac",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/things-mac",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "path": "skills/tmux",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/tmux",
+      "description": ""
+    },
+    {
+      "name": "trello",
+      "path": "skills/trello",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/trello",
+      "description": ""
+    },
+    {
+      "name": "video-frames",
+      "path": "skills/video-frames",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/video-frames",
+      "description": ""
+    },
+    {
+      "name": "wacli",
+      "path": "skills/wacli",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/wacli",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "path": "skills/weather",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/weather",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "path": "skills/josephrp/autonomous-agent/adapters/openclaw",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/josephrp/autonomous-agent/adapters/openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "path": "skills/josephrp/autonomous/adapters/openclaw",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/josephrp/autonomous/adapters/openclaw",
+      "description": ""
+    },
+    {
+      "name": "windows",
+      "path": "skills/ivangdavila/windows",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/ivangdavila/windows",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "path": "skills/jordanprater/openclaw",
+      "github_url": "https://github.com/openclaw/openclaw-windows-node/tree/main/skills/jordanprater/openclaw",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/openclaw-windows-node",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:47:44Z"
+}
