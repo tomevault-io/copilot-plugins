@@ -1,0 +1,118 @@
+{
+  "name": "boshu2--agentops",
+  "displayName": "agentops",
+  "description": "The operational layer for coding agents. Memory, validation, and feedback loops that compound between sessions.",
+  "version": "1.0.0",
+  "author": "boshu2",
+  "homepage": "https://github.com/boshu2/agentops",
+  "skills": [
+    {
+      "name": "council",
+      "description": ""
+    },
+    {
+      "name": "beads",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "description": ""
+    },
+    {
+      "name": "bug-hunt",
+      "description": ""
+    },
+    {
+      "name": "codex-team",
+      "description": ""
+    },
+    {
+      "name": "complexity",
+      "description": ""
+    },
+    {
+      "name": "converter",
+      "description": ""
+    },
+    {
+      "name": "crank",
+      "description": ""
+    },
+    {
+      "name": "doc",
+      "description": ""
+    },
+    {
+      "name": "heal-skill",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "description": ""
+    },
+    {
+      "name": "inject",
+      "description": ""
+    },
+    {
+      "name": "product",
+      "description": ""
+    },
+    {
+      "name": "quickstart",
+      "description": ""
+    },
+    {
+      "name": "readme",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "reverse-engineer-rpi",
+      "description": ""
+    },
+    {
+      "name": "rpi",
+      "description": ""
+    },
+    {
+      "name": "shared",
+      "description": ""
+    },
+    {
+      "name": "standards",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "description": ""
+    },
+    {
+      "name": "swarm",
+      "description": ""
+    },
+    {
+      "name": "trace",
+      "description": ""
+    },
+    {
+      "name": "update",
+      "description": ""
+    },
+    {
+      "name": "using-agentops",
+      "description": ""
+    },
+    {
+      "name": "vibe",
+      "description": ""
+    }
+  ]
+}
