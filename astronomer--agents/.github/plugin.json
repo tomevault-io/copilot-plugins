@@ -1,0 +1,38 @@
+{
+  "name": "astronomer--agents",
+  "displayName": "agents",
+  "description": "AI agent tooling for data engineering workflows.",
+  "version": "1.0.0",
+  "author": "astronomer",
+  "homepage": "https://github.com/astronomer/agents",
+  "skills": [
+    {
+      "name": "airflow",
+      "description": ""
+    },
+    {
+      "name": "authoring-dags",
+      "description": ""
+    },
+    {
+      "name": "debugging-dags",
+      "description": ""
+    },
+    {
+      "name": "testing-dags",
+      "description": ""
+    },
+    {
+      "name": "migrating-airflow-2-to-3",
+      "description": ""
+    },
+    {
+      "name": "managing-astro-local-env",
+      "description": ""
+    },
+    {
+      "name": "airflow-hitl",
+      "description": ""
+    }
+  ]
+}
