@@ -1,0 +1,9 @@
+{
+  "name": "safishamsi--graphify",
+  "displayName": "graphify",
+  "description": "AI coding assistant skill (Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, OpenClaw, Factory Droid, Trae, Google Antigravity). Turn any folder of code, docs, papers, images, or v",
+  "version": "1.0.0",
+  "author": "safishamsi",
+  "homepage": "https://github.com/safishamsi/graphify",
+  "skills": []
+}
