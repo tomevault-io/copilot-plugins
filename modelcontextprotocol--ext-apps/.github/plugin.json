@@ -1,0 +1,18 @@
+{
+  "name": "modelcontextprotocol--ext-apps",
+  "displayName": "ext-apps",
+  "description": "Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers",
+  "version": "1.0.0",
+  "author": "modelcontextprotocol",
+  "homepage": "https://github.com/modelcontextprotocol/ext-apps",
+  "skills": [
+    {
+      "name": "create-mcp-app",
+      "description": ""
+    },
+    {
+      "name": "migrate-oai-app",
+      "description": ""
+    }
+  ]
+}
