@@ -1,6 +1,6 @@
-# jekyllactions — distributed by TomeVault
+# jekyllactions
 
-> Originally from [brunogama/jekyllactions](https://github.com/brunogama/jekyllactions). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [brunogama/jekyllactions](https://github.com/brunogama/jekyllactions) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [brunogama/jekyllactions](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/brunogama#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/brunogama/jekyllactions](https://github.com/brunogama/jekyllactions)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install brunogama/jekyllactions
 ```
-Or browse all formats at [https://tomevault.io/claim/brunogama](https://tomevault.io/claim/brunogama).
+Source: [github.com/brunogama/jekyllactions](https://github.com/brunogama/jekyllactions).
 
 <!-- genome:d-i-q -->
