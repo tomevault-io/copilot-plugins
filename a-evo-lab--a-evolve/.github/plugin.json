@@ -1,0 +1,18 @@
+{
+  "name": "a-evo-lab--a-evolve",
+  "displayName": "a-evolve",
+  "description": "The official repository of \"Position: Agentic Evolution is the Path to Evolving LLMs\".",
+  "version": "1.0.0",
+  "author": "A-EVO-Lab",
+  "homepage": "https://github.com/A-EVO-Lab/a-evolve",
+  "skills": [
+    {
+      "name": "python-packages",
+      "description": ""
+    },
+    {
+      "name": "python-data-analysis",
+      "description": ""
+    }
+  ]
+}
