@@ -1,6 +1,6 @@
-# mk-lwip-httpd-fs — distributed by TomeVault
+# mk-lwip-httpd-fs
 
-> Originally from [ArvoreDosSaberes/mk-lwip-httpd-fs](https://github.com/ArvoreDosSaberes/mk-lwip-httpd-fs). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ArvoreDosSaberes/mk-lwip-httpd-fs](https://github.com/ArvoreDosSaberes/mk-lwip-httpd-fs) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ArvoreDosSaberes/mk-lwip-httpd-fs](h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ArvoreDosSaberes)
+From [ArvoreDosSaberes/mk-lwip-httpd-fs](https://github.com/ArvoreDosSaberes/mk-lwip-httpd-fs) — a repo with 0+ stars on GitHub.
 
 ---
 
