@@ -1,0 +1,9 @@
+{
+  "name": "simple10--agents-observe",
+  "displayName": "agents-observe",
+  "description": "Real-time observability of claude code sessions & multi-agents.",
+  "version": "1.0.0",
+  "author": "simple10",
+  "homepage": "https://github.com/simple10/agents-observe",
+  "skills": []
+}
