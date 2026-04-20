@@ -1,0 +1,51 @@
+{
+  "name": "awesome-agent-skills",
+  "owner": "libukai",
+  "repo": "awesome-agent-skills",
+  "description": "Agent Skills \u7ec8\u6781\u6307\u5357\uff1a\u5feb\u901f\u5165\u95e8\u3001\u8d44\u6e90\u63a8\u8350\u3001\u7cbe\u9009\u6280\u80fd\u4e0e\u5b9e\u7528\u5de5\u5177 \uff5cThe Ultimate Guide to Agent Skills: QuickStart, Resources, Features&Toolkit",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vscode-sftp-config",
+      "path": "plugins/vscode-extensions-toolkit/skills/vscode-sftp-config",
+      "github_url": "https://github.com/libukai/awesome-agent-skills/tree/main/plugins/vscode-extensions-toolkit/skills/vscode-sftp-config",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/libukai/awesome-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:59:43Z"
+}
