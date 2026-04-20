@@ -1,0 +1,9 @@
+{
+  "name": "claude-world--notebooklm-skill",
+  "displayName": "notebooklm-skill",
+  "description": "NotebookLM does the research, Claude writes the content. Research \u2192 Synthesis \u2192 Content Creation \u2192 Publishing. Claude Code Skill + MCP Server.",
+  "version": "1.0.0",
+  "author": "claude-world",
+  "homepage": "https://github.com/claude-world/notebooklm-skill",
+  "skills": []
+}
