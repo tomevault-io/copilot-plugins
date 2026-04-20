@@ -1,0 +1,18 @@
+{
+  "name": "robinebers--openusage",
+  "displayName": "openusage",
+  "description": "Burning through your subscriptions too fast? Paying for stuff you never use? Stop guessing. OpenUsage is free and open source.",
+  "version": "1.0.0",
+  "author": "robinebers",
+  "homepage": "https://github.com/robinebers/openusage",
+  "skills": [
+    {
+      "name": "tauri-development",
+      "description": ""
+    },
+    {
+      "name": "tauri-v2",
+      "description": ""
+    }
+  ]
+}
