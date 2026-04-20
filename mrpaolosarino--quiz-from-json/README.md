@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [MrPaoloSarino/quiz-from-json](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/MrPaoloSarino)
+From [MrPaoloSarino/quiz-from-json](https://github.com/MrPaoloSarino/quiz-from-json) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install MrPaoloSarino/quiz-from-json
 ```
-Or browse all formats at [https://tomevault.io/claim/MrPaoloSarino](https://tomevault.io/claim/MrPaoloSarino).
+Source: [github.com/MrPaoloSarino/quiz-from-json](https://github.com/MrPaoloSarino/quiz-from-json).
 
 <!-- genome:a-i-s -->
