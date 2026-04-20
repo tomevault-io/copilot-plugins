@@ -1,0 +1,117 @@
+{
+  "name": "zylos-core",
+  "owner": "zylos-ai",
+  "repo": "zylos-core",
+  "description": "\ud83d\udc19 Give your AI a life \u2014 open-source agent infrastructure for team collaboration.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "activity-monitor",
+      "path": "skills/activity-monitor",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/activity-monitor",
+      "description": ""
+    },
+    {
+      "name": "check-context",
+      "path": "skills/check-context",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/check-context",
+      "description": ""
+    },
+    {
+      "name": "comm-bridge",
+      "path": "skills/comm-bridge",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/comm-bridge",
+      "description": ""
+    },
+    {
+      "name": "component-management",
+      "path": "skills/component-management",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/component-management",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "path": "skills/create-skill",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/create-skill",
+      "description": ""
+    },
+    {
+      "name": "health-check",
+      "path": "skills/health-check",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/health-check",
+      "description": ""
+    },
+    {
+      "name": "http",
+      "path": "skills/http",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/http",
+      "description": ""
+    },
+    {
+      "name": "restart-claude",
+      "path": "skills/restart-claude",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/restart-claude",
+      "description": ""
+    },
+    {
+      "name": "scheduler",
+      "path": "skills/scheduler",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/scheduler",
+      "description": ""
+    },
+    {
+      "name": "upgrade-claude",
+      "path": "skills/upgrade-claude",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/upgrade-claude",
+      "description": ""
+    },
+    {
+      "name": "web-console",
+      "path": "skills/web-console",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/web-console",
+      "description": ""
+    },
+    {
+      "name": "zylos-memory",
+      "path": "skills/zylos-memory",
+      "github_url": "https://github.com/zylos-ai/zylos-core/tree/main/skills/zylos-memory",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zylos-ai/zylos-core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:01:20Z"
+}
