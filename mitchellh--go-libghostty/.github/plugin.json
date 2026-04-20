@@ -1,0 +1,9 @@
+{
+  "name": "mitchellh--go-libghostty",
+  "displayName": "go-libghostty",
+  "description": "Go bindings for libghostty-vt.",
+  "version": "1.0.0",
+  "author": "mitchellh",
+  "homepage": "https://github.com/mitchellh/go-libghostty",
+  "skills": []
+}
