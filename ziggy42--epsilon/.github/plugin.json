@@ -1,0 +1,9 @@
+{
+  "name": "ziggy42--epsilon",
+  "displayName": "epsilon",
+  "description": "A WASM virtual machine written in Go with 0 dependencies",
+  "version": "1.0.0",
+  "author": "ziggy42",
+  "homepage": "https://github.com/ziggy42/epsilon",
+  "skills": []
+}
