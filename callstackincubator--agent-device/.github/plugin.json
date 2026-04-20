@@ -1,0 +1,34 @@
+{
+  "name": "callstackincubator--agent-device",
+  "displayName": "agent",
+  "description": "CLI to control iOS and Android devices for AI agents",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/agent-device",
+  "skills": [
+    {
+      "name": "react-native-best-practices",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "upgrading-react-native",
+      "description": ""
+    },
+    {
+      "name": "validate-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-device",
+      "description": ""
+    },
+    {
+      "name": "react-native-brownfield-migration",
+      "description": ""
+    }
+  ]
+}
