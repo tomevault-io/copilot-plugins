@@ -1,0 +1,57 @@
+{
+  "name": "react-doctor",
+  "owner": "millionco",
+  "repo": "react-doctor",
+  "description": "Let coding agents diagnose and fix your React code",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-doctor",
+      "path": "skills/react-doctor",
+      "github_url": "https://github.com/millionco/react-doctor/tree/main/skills/react-doctor",
+      "description": ""
+    },
+    {
+      "name": "remotion-best-practices",
+      "path": ".ami/skills/remotion-best-practices",
+      "github_url": "https://github.com/millionco/react-doctor/tree/main/.ami/skills/remotion-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/millionco/react-doctor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T08:31:24Z"
+}
