@@ -1,0 +1,9 @@
+{
+  "name": "pratiyush--llm-wiki",
+  "displayName": "llm-wiki",
+  "description": "LLM-powered knowledge base from your Claude Code, Codex CLI, Copilot, Cursor & Gemini sessions. Karpathy's LLM Wiki pattern \u2014 implemented and shipped.",
+  "version": "1.0.0",
+  "author": "Pratiyush",
+  "homepage": "https://github.com/Pratiyush/llm-wiki",
+  "skills": []
+}
