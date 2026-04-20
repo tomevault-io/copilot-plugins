@@ -1,6 +1,6 @@
-# Deanmachines-RSC — distributed by TomeVault
+# Deanmachines-RSC
 
-> Originally from [ssdeanx/Deanmachines-RSC](https://github.com/ssdeanx/Deanmachines-RSC). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ssdeanx/Deanmachines-RSC](https://github.com/ssdeanx/Deanmachines-RSC) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ssdeanx/Deanmachines-RSC](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ssdeanx)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ssdeanx/Deanmachines-RSC](https://github.com/ssdeanx/Deanmachines-RSC)
 
 ---
 
