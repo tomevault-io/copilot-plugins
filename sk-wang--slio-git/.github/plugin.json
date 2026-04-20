@@ -1,0 +1,9 @@
+{
+  "name": "sk-wang--slio-git",
+  "displayName": "slio-git",
+  "description": "A fast, native Git GUI inspired by Intellij Idea and Meld. Built with Rust + Iced.",
+  "version": "1.0.0",
+  "author": "sk-wang",
+  "homepage": "https://github.com/sk-wang/slio-git",
+  "skills": []
+}
