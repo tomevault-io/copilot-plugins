@@ -1,0 +1,9 @@
+{
+  "name": "endevco--aube",
+  "displayName": "aube",
+  "description": "A fast Node.js package manager",
+  "version": "1.0.0",
+  "author": "endevco",
+  "homepage": "https://github.com/endevco/aube",
+  "skills": []
+}
