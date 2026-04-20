@@ -1,0 +1,9 @@
+{
+  "name": "vaayne--mori",
+  "displayName": "mori",
+  "description": "A native macOS workspace terminal organized around Projects and Worktrees, powered by tmux and libghostty",
+  "version": "1.0.0",
+  "author": "vaayne",
+  "homepage": "https://github.com/vaayne/mori",
+  "skills": []
+}
