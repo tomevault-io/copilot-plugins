@@ -1,0 +1,14 @@
+{
+  "name": "mixedbread-ai--mgrep",
+  "displayName": "mgrep",
+  "description": "A calm, CLI-native way to semantically grep everything, like code, images, pdfs and more.",
+  "version": "1.0.0",
+  "author": "mixedbread-ai",
+  "homepage": "https://github.com/mixedbread-ai/mgrep",
+  "skills": [
+    {
+      "name": "mgrep",
+      "description": ""
+    }
+  ]
+}
