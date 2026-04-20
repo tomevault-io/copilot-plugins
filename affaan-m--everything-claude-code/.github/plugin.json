@@ -1,0 +1,346 @@
+{
+  "name": "affaan-m--everything-claude-code",
+  "displayName": "everything-claude-code",
+  "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+  "version": "1.0.0",
+  "author": "affaan-m",
+  "homepage": "https://github.com/affaan-m/everything-claude-code",
+  "skills": [
+    {
+      "name": "api-design",
+      "description": ""
+    },
+    {
+      "name": "backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-io",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "continuous-learning",
+      "description": ""
+    },
+    {
+      "name": "continuous-learning-v2",
+      "description": ""
+    },
+    {
+      "name": "cost-aware-llm-pipeline",
+      "description": ""
+    },
+    {
+      "name": "cpp-coding-standards",
+      "description": ""
+    },
+    {
+      "name": "database-migrations",
+      "description": ""
+    },
+    {
+      "name": "deployment-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "description": ""
+    },
+    {
+      "name": "docker-patterns",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "eval-harness",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "java-coding-standards",
+      "description": ""
+    },
+    {
+      "name": "jpa-patterns",
+      "description": ""
+    },
+    {
+      "name": "springboot-patterns",
+      "description": ""
+    },
+    {
+      "name": "springboot-security",
+      "description": ""
+    },
+    {
+      "name": "springboot-verification",
+      "description": ""
+    },
+    {
+      "name": "swift-actor-persistence",
+      "description": ""
+    },
+    {
+      "name": "swift-protocol-di-testing",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "documentation-lookup",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "documentation-lookup",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "documentation-lookup",
+      "description": ""
+    },
+    {
+      "name": "flutter-dart-code-review",
+      "description": ""
+    },
+    {
+      "name": "dart-flutter-patterns",
+      "description": ""
+    },
+    {
+      "name": "flutter-dart-code-review",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "visa-doc-translate",
+      "description": ""
+    },
+    {
+      "name": "nutrient-document-processing",
+      "description": ""
+    },
+    {
+      "name": "nutrient-document-processing",
+      "description": ""
+    },
+    {
+      "name": "investor-materials",
+      "description": ""
+    },
+    {
+      "name": "investor-materials",
+      "description": ""
+    },
+    {
+      "name": "nutrient-document-processing",
+      "description": ""
+    },
+    {
+      "name": "google-workspace-ops",
+      "description": ""
+    },
+    {
+      "name": "customs-trade-compliance",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "remotion-video-creation",
+      "description": ""
+    },
+    {
+      "name": "backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-turbopack",
+      "description": ""
+    },
+    {
+      "name": "nextjs-turbopack",
+      "description": ""
+    },
+    {
+      "name": "backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-turbopack",
+      "description": ""
+    },
+    {
+      "name": "nextjs-turbopack",
+      "description": ""
+    },
+    {
+      "name": "backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "claude-api",
+      "description": ""
+    },
+    {
+      "name": "claude-api",
+      "description": ""
+    },
+    {
+      "name": "claude-api",
+      "description": ""
+    },
+    {
+      "name": "hexagonal-architecture",
+      "description": ""
+    },
+    {
+      "name": "nestjs-patterns",
+      "description": ""
+    },
+    {
+      "name": "nodejs-keccak256",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "description": ""
+    },
+    {
+      "name": "python-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "description": ""
+    },
+    {
+      "name": "python-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "description": ""
+    },
+    {
+      "name": "python-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "description": ""
+    },
+    {
+      "name": "python-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "description": ""
+    }
+  ]
+}
