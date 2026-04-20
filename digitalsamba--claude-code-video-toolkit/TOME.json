@@ -1,0 +1,69 @@
+{
+  "name": "claude-code-video-toolkit",
+  "owner": "digitalsamba",
+  "repo": "claude-code-video-toolkit",
+  "description": "AI-native video production toolkit for Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "elevenlabs",
+      "path": ".claude/skills/elevenlabs",
+      "github_url": "https://github.com/digitalsamba/claude-code-video-toolkit/tree/main/.claude/skills/elevenlabs",
+      "description": ""
+    },
+    {
+      "name": "playwright-recording",
+      "path": ".claude/skills/playwright-recording",
+      "github_url": "https://github.com/digitalsamba/claude-code-video-toolkit/tree/main/.claude/skills/playwright-recording",
+      "description": ""
+    },
+    {
+      "name": "qwen-edit",
+      "path": ".claude/skills/qwen-edit",
+      "github_url": "https://github.com/digitalsamba/claude-code-video-toolkit/tree/main/.claude/skills/qwen-edit",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "path": ".claude/skills/remotion",
+      "github_url": "https://github.com/digitalsamba/claude-code-video-toolkit/tree/main/.claude/skills/remotion",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/digitalsamba/claude-code-video-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:31:28Z"
+}
