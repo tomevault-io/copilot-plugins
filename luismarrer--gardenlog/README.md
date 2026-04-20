@@ -1,6 +1,6 @@
-# gardenLog — distributed by TomeVault
+# gardenLog
 
-> Originally from [luismarrer/gardenLog](https://github.com/luismarrer/gardenLog). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [luismarrer/gardenLog](https://github.com/luismarrer/gardenLog) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [luismarrer/gardenLog](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/luismarrer)
+From [luismarrer/gardenLog](https://github.com/luismarrer/gardenLog) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install luismarrer/gardenLog
 ```
-Or browse all formats at [https://tomevault.io/claim/luismarrer](https://tomevault.io/claim/luismarrer).
+Source: [github.com/luismarrer/gardenLog](https://github.com/luismarrer/gardenLog).
 
 <!-- genome:d-i-s -->
