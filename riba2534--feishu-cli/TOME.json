@@ -1,0 +1,99 @@
+{
+  "name": "feishu-cli",
+  "owner": "riba2534",
+  "repo": "feishu-cli",
+  "description": "feishu-cli \u662f\u4e00\u4e2a\u529f\u80fd\u5b8c\u6574\u7684\u98de\u4e66\u5f00\u653e\u5e73\u53f0\u547d\u4ee4\u884c\u5de5\u5177\u3002\u5b83\u5c06\u98de\u4e66\u6587\u6863\u3001\u77e5\u8bc6\u5e93\u3001\u7535\u5b50\u8868\u683c\u3001\u6d88\u606f\u3001\u65e5\u5386\u3001\u4efb\u52a1\u7b49\u64cd\u4f5c\u5c01\u88c5\u4e3a\u7b80\u6d01\u7684\u547d\u4ee4\u884c\u63a5\u53e3\uff0c\u6838\u5fc3\u80fd\u529b\u662f Markdown \u2194 \u98de\u4e66\u6587\u6863\u53cc\u5411\u65e0\u635f\u8f6c\u6362\u3002",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "feishu-cli-board",
+      "path": "skills/feishu-cli-board",
+      "github_url": "https://github.com/riba2534/feishu-cli/tree/main/skills/feishu-cli-board",
+      "description": ""
+    },
+    {
+      "name": "feishu-cli-doc-guide",
+      "path": "skills/feishu-cli-doc-guide",
+      "github_url": "https://github.com/riba2534/feishu-cli/tree/main/skills/feishu-cli-doc-guide",
+      "description": ""
+    },
+    {
+      "name": "feishu-cli-export",
+      "path": "skills/feishu-cli-export",
+      "github_url": "https://github.com/riba2534/feishu-cli/tree/main/skills/feishu-cli-export",
+      "description": ""
+    },
+    {
+      "name": "feishu-cli-import",
+      "path": "skills/feishu-cli-import",
+      "github_url": "https://github.com/riba2534/feishu-cli/tree/main/skills/feishu-cli-import",
+      "description": ""
+    },
+    {
+      "name": "feishu-cli-msg",
+      "path": "skills/feishu-cli-msg",
+      "github_url": "https://github.com/riba2534/feishu-cli/tree/main/skills/feishu-cli-msg",
+      "description": ""
+    },
+    {
+      "name": "feishu-cli-perm",
+      "path": "skills/feishu-cli-perm",
+      "github_url": "https://github.com/riba2534/feishu-cli/tree/main/skills/feishu-cli-perm",
+      "description": ""
+    },
+    {
+      "name": "feishu-cli-read",
+      "path": "skills/feishu-cli-read",
+      "github_url": "https://github.com/riba2534/feishu-cli/tree/main/skills/feishu-cli-read",
+      "description": ""
+    },
+    {
+      "name": "feishu-cli-search",
+      "path": "skills/feishu-cli-search",
+      "github_url": "https://github.com/riba2534/feishu-cli/tree/main/skills/feishu-cli-search",
+      "description": ""
+    },
+    {
+      "name": "feishu-cli-write",
+      "path": "skills/feishu-cli-write",
+      "github_url": "https://github.com/riba2534/feishu-cli/tree/main/skills/feishu-cli-write",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/riba2534/feishu-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:51:12Z"
+}
