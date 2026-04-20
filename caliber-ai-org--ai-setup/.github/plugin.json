@@ -1,0 +1,9 @@
+{
+  "name": "caliber-ai-org--ai-setup",
+  "displayName": "ai-setup",
+  "description": "Continuously sync your AI setups with one command. Codebase tailor suited agent skills, MCPs and config files for Claude Code, Cursor, and Codex.",
+  "version": "1.0.0",
+  "author": "caliber-ai-org",
+  "homepage": "https://github.com/caliber-ai-org/ai-setup",
+  "skills": []
+}
