@@ -1,0 +1,14 @@
+{
+  "name": "steipete--oracle",
+  "displayName": "oracle",
+  "description": "Ask the oracle when you're stuck. Invoke GPT-5 Pro with a custom context and files.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/oracle",
+  "skills": [
+    {
+      "name": "oracle",
+      "description": ""
+    }
+  ]
+}
