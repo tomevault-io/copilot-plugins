@@ -1,0 +1,51 @@
+{
+  "name": "codex",
+  "owner": "friuns2",
+  "repo": "codexUI",
+  "description": "\ud83d\ude80 Run Codex App UI Anywhere: Linux, Windows, or Termux on Android \ud83d\ude80",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "launch-codex-unpacked",
+      "path": "skills/launch-codex-unpacked",
+      "github_url": "https://github.com/friuns2/codexUI/tree/main/skills/launch-codex-unpacked",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/friuns2/codexUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T08:36:27Z"
+}
