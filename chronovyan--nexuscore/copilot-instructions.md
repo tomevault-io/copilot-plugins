@@ -1,74 +1,78 @@
 ## nexuscore
 
-> **Global Rule: Refactoring Guidelines (Template)**
+> **Global Rule: Testing Strategies & Philosophy (Template)**
 
-**Global Rule: Refactoring Guidelines (Template)**
+**Global Rule: Testing Strategies & Philosophy (Template)**
 
-**Purpose:** To guide the AI in identifying opportunities for code refactoring, suggesting appropriate refactoring techniques, and ensuring that refactoring is done safely and effectively to improve code quality without altering external behavior.
+**Purpose:** To guide the AI in suggesting, generating, and discussing software tests in a manner that aligns with the user's preferred testing methodologies, quality standards, and overall testing strategy.
 
 **Instructions for the AI:**
-"When reviewing code or assisting with development, proactively identify opportunities for refactoring. When suggesting or performing refactoring, adhere to the principles and techniques outlined below. The primary goal of refactoring is to improve the internal structure of the code, making it easier to understand, maintain, and extend, without changing its observable behavior."
+"When generating, reviewing, or suggesting tests, or when discussing testing strategies, you **must** adhere to the following principles. If the current project has specific testing guidelines or uses particular testing frameworks with established conventions, integrate those and prioritize them."
 
-**1. Goals of Refactoring:**
+**1. Overall Testing Goals:**
     * "(User to specify, e.g.:
-        * Improve code readability and understandability.
-        * Reduce complexity (e.g., simplify conditional logic, break down large methods/classes).
-        * Enhance maintainability and extensibility.
-        * Remove duplication (DRY - Don't Repeat Yourself).
-        * Improve performance (though this should often be a secondary goal after clarity, unless addressing a known bottleneck – refer to 'Performance Optimization Reminders').
-        * Make code easier to test.)"
+        * 'The primary goal of testing is to increase confidence in the correctness and reliability of the software.'
+        * 'Tests should prevent regressions effectively.'
+        * 'Tests serve as a form of living documentation for the code's behavior.'
+        * 'Aim for a balanced test suite that provides good coverage without being excessively slow or brittle.')"
 
-**2. When to Refactor:**
+**2. Preferred Testing Methodologies:**
     * "(User to specify, e.g.:
-        * **The Boy Scout Rule:** 'Leave the code cleaner than you found it. Make small improvements whenever you touch a piece of code.'
-        * **Before Adding New Features:** 'If working on a complex or poorly structured area of code, refactor it first to make adding the new feature easier and safer.'
-        * **After a Bug Fix:** 'Once a bug is fixed, refactor the surrounding code if its structure contributed to the bug or made it hard to find.'
-        * **When Code Smells are Detected:** 'Proactively address identified code smells (see section below).'
-        * **During Code Reviews:** 'Identify and suggest refactorings as part of the code review process.')"
+        * **Test-Driven Development (TDD):** 'If I indicate a TDD approach, guide me through the red-green-refactor cycle. Help draft failing tests first, then the minimal code to pass, then suggest refactorings.'
+        * **Behavior-Driven Development (BDD):** 'If using BDD, help formulate Gherkin-style scenarios (`Given-When-Then`) or similar user-story-focused tests. Focus on testing observable behavior.'
+        * **Test-After Development:** 'If writing tests after implementation, help identify key functionalities and edge cases to cover. Suggest tests that verify existing behavior and protect against future regressions.'
+        * 'No strong preference, but ensure comprehensive coverage as appropriate for the context.')"
 
-**3. When NOT to Refactor (Cautionary Principles):**
-    * "(User to specify, e.g.:
-        * 'Avoid large-scale refactoring close to a critical deadline unless absolutely necessary to fix a severe issue.'
-        * 'Do not refactor code that is poorly understood or lacks adequate test coverage, as the risk of introducing regressions is high. (Prioritize adding tests first).'
-        * 'If the code is part of a very unstable or experimental module that is expected to change drastically or be discarded soon.'
-        * 'Avoid refactoring external libraries or code you don't own, unless contributing upstream in a controlled manner.')"
+**3. Test Pyramid & Scope:**
+    * "(User to specify emphasis, e.g.:)
+        * **Strong emphasis on Unit Tests:** 'A large base of fast, isolated unit tests is preferred. These should form the bulk of the test suite.'
+        * **Balanced Approach:** 'Aim for a healthy mix of unit, integration, and end-to-end (E2E) tests. The number of tests should decrease as you move up the pyramid (fewer E2E than integration, fewer integration than unit).'
+        * **Focus on Integration Tests:** 'For [specific type of project, e.g., API-driven services], robust integration tests are critical and should be prioritized alongside necessary unit tests.'"
 
-**4. Prerequisites for Refactoring:**
-    * "**Solid Test Coverage:** Before undertaking any significant refactoring, ensure that the code to be refactored has a comprehensive suite of (passing) automated tests. These tests are crucial for verifying that the refactoring has not changed the code's behavior."
-    * "**Version Control:** Ensure the code is under version control and all current changes are committed before starting a refactoring session."
+**4. Unit Testing Specifics:**
+    * **Definition:** "Unit tests should verify the smallest testable parts of an application, isolated from their dependencies."
+    * **Scope:** "Focus on a single class, module, or function."
+    * **Isolation:** "External dependencies (e.g., database, network, file system, other services) **must** be mocked, stubbed, or faked to ensure tests are fast, deterministic, and isolated. (User to specify preferred mocking/stubbing libraries or techniques for common languages, e.g., `unittest.mock` in Python, `Moq` for C#, `Mockito` for Java, `gMock` for C++)"
+    * **Characteristics:** "Good unit tests are Fast, Independent/Isolated, Repeatable, Self-Validating, and Timely (FIRST principles)."
 
-**5. Identifying Code Smells (Opportunities for Refactoring):**
-    * "(User to list common code smells they want the AI to look for. Examples:)
-        * **Duplicate Code:** Identical or very similar code found in multiple places.
-        * **Long Method/Function:** A method or function that is too long and likely doing too many things.
-        * **Large Class/Module:** A class or module that has too many responsibilities, fields, or methods.
-        * **Feature Envy:** A method that seems more interested in a class other than the one it actually is in.
-        * **Primitive Obsession:** Using primitive data types to represent domain concepts instead of creating small classes/structs.
-        * **Long Parameter List:** A function or method with too many parameters.
-        * **Shotgun Surgery:** A single change requires making many small changes in different classes.
-        * **Data Clumps:** Groups of variables that often appear together in multiple places.
-        * **Switch Statements/Type-Checking Conditionals:** Complex conditional logic based on type codes or enums that might be better handled by polymorphism.
-        * **Comments Explaining Complex Code:** Comments used as a "deodorant" for code that is hard to understand (the code itself should be made clearer).
-        * **Lazy Class/Speculative Generality:** A class that doesn't do enough to justify its existence or code added "just in case" it might be needed."
+**5. Integration Testing Specifics:**
+    * **Purpose:** "Integration tests verify the interactions between two or more components, modules, or services of the application (e.g., interaction with a database, communication between microservices, API endpoint behavior with its underlying logic)."
+    * **Scope:** "Test the integration points and contracts between components."
+    * **Managing Dependencies:** "(User to specify, e.g., 'For database integration tests, use a dedicated test database or in-memory alternatives if feasible.' 'For external service integration, consider using test doubles like fakes or stubs, or test against controlled test instances of those services.')"
 
-**6. Common Refactoring Techniques to Suggest/Apply:**
-    * "(User to list preferred techniques or confirm general knowledge is acceptable. AI should know these, but preferences can be stated. Examples:)
-        * **Extraction Family:** Extract Method, Extract Class, Extract Variable, Extract Superclass/Interface.
-        * **Inlining Family:** Inline Method, Inline Temp.
-        * **Renaming:** Rename Variable, Rename Method, Rename Class (emphasize clear, intention-revealing names).
-        * **Moving Features:** Move Method, Move Field.
-        * **Simplifying Conditionals:** Decompose Conditional, Consolidate Conditional Expression, Replace Nested Conditional with Guard Clauses.
-        * **Making Method Calls Simpler:** Introduce Parameter Object, Preserve Whole Object, Remove Setting Method, Replace Parameter with Explicit Methods.
-        * **Generalization:** Pull Up Method/Field, Push Down Method/Field, Extract Interface.
-        * **Dealing with Data:** Encapsulate Field, Replace Magic Number with Symbolic Constant, Replace Array with Object."
+**6. End-to-End (E2E) Testing Specifics:**
+    * **Purpose:** "E2E tests validate the entire application flow from the user's perspective, simulating real user scenarios through the UI or API entry points."
+    * **When to Use:** "Use sparingly for critical user paths due to their higher cost, slower execution, and potential flakiness."
+    * **Scope:** "Cover key workflows and user journeys."
+    * **Tools:** "(User to specify preferred E2E testing tools if any, e.g., Selenium, Cypress, Playwright, Puppeteer)."
 
-**7. Refactoring Process:**
-    * "**Small, Incremental Changes:** Refactorings should be done in small, deliberate steps."
-    * "**Test After Each Step:** Run tests after each small refactoring to ensure no behavior has been broken. If tests fail, revert the last change and try a different approach or break it down further."
-    * "**Do Not Mix Refactoring with Feature Addition:** Keep commits focused. A commit should either be purely for refactoring or purely for adding/changing features, not both. This makes history clearer and regressions easier to track."
+**7. Test Structure & Organization:**
+    * **Naming Conventions:**
+        * "Test files: (User to specify, e.g., `test_*.py`, `*.spec.ts`, `*_test.go`, `ClassNameTests.cs`)"
+        * "Test functions/methods: (User to specify, e.g., `test_should_do_x_when_y()`, `Should_DoX_When_Y()`, `GivenA_WhenB_ThenC()`, `it('should do x when y')`)"
+    * **Arrangement:** "(User to specify preferred pattern, e.g.:
+        * **Arrange-Act-Assert (AAA):** 'Structure tests clearly with distinct Arrange (setup), Act (execution), and Assert (verification) sections.'
+        * **Given-When-Then (BDD style):** 'Use comments or structure to reflect this pattern within test methods if applicable.')"
+    * **Readability:** "Tests should be clear, concise, and easy to understand. They act as documentation."
 
-"When suggesting refactorings, clearly state the code smell being addressed and the refactoring technique(s) being proposed. Explain the benefits of the suggested change. If I ask for refactoring help, guide me through the process using these principles."
+**8. Code Coverage:**
+    * "(User to specify stance, e.g.:)
+        * 'While 100% code coverage is not always a practical or meaningful goal, strive for high coverage (e.g., >80%) of critical business logic.'
+        * 'Use coverage reports as a guide to identify untested areas, not as an absolute measure of test quality.'
+        * 'Focus on testing behavior and outcomes rather than just line coverage.'"
+
+**9. Test Data Management:**
+    * "Avoid magic values in tests; use well-named constants or variables for test data."
+    * "For complex test data, consider using test data builders or fixture generation mechanisms."
+    * "Ensure test data is isolated and does not conflict between tests."
+
+**10. Writing Testable Code:**
+    * "When generating or refactoring application code, proactively consider its testability."
+    * "Favor dependency injection, clear separation of concerns, and interfaces/abstractions to make code easier to isolate and test."
+    * "Avoid static methods/classes with side effects or global state where possible, as they are harder to test in isolation."
+
+"When asked to write tests, or when new application code is generated, suggest and create tests following these guidelines. If existing code lacks adequate tests, you may propose adding them."
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/Chronovyan) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-15 -->
