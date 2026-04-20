@@ -1,6 +1,6 @@
-# graph-viewer — distributed by TomeVault
+# graph-viewer
 
-> Originally from [LessUp/graph-viewer](https://github.com/LessUp/graph-viewer). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [LessUp/graph-viewer](https://github.com/LessUp/graph-viewer) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [LessUp/graph-viewer](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/LessUp#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/LessUp/graph-viewer](https://github.com/LessUp/graph-viewer)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/LessUp) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
