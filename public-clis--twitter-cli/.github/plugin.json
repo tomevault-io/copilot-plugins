@@ -1,0 +1,9 @@
+{
+  "name": "public-clis--twitter-cli",
+  "displayName": "twitter-cli",
+  "description": "A CLI for Twitter/X \u2014 feed, bookmarks, and user timeline in terminal",
+  "version": "1.0.0",
+  "author": "public-clis",
+  "homepage": "https://github.com/public-clis/twitter-cli",
+  "skills": []
+}
