@@ -1,6 +1,6 @@
 # sightcall_qa_api
 
-> Tome by [cmnemoi](https://github.com/cmnemoi/sightcall_qa_api) — distributed by [TomeVault](https://tomevault.io/claim/cmnemoi)
+> Tome by [cmnemoi](https://github.com/cmnemoi/sightcall_qa_api) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [cmnemoi/sightcall_qa_api](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/cmnemoi)
+From [cmnemoi/sightcall_qa_api](https://github.com/cmnemoi/sightcall_qa_api) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install cmnemoi/sightcall_qa_api
 ```
-Or browse all formats at [https://tomevault.io/claim/cmnemoi](https://tomevault.io/claim/cmnemoi).
+Source: [github.com/cmnemoi/sightcall_qa_api](https://github.com/cmnemoi/sightcall_qa_api).
 
 <!-- genome:t-i-s -->
