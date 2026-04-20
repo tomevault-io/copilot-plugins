@@ -1,0 +1,18 @@
+{
+  "name": "subsy--ralph-tui",
+  "displayName": "ralph-tui",
+  "description": "AI instruction skills by subsy",
+  "version": "1.0.0",
+  "author": "subsy",
+  "homepage": "https://github.com/subsy/ralph-tui",
+  "skills": [
+    {
+      "name": "ralph-tui-prd",
+      "description": ""
+    },
+    {
+      "name": "ralph-tui-create-beads-rust",
+      "description": ""
+    }
+  ]
+}
