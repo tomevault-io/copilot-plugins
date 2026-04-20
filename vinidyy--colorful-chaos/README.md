@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Vinidyy/colorful-chaos](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Vinidyy)
+From [Vinidyy/colorful-chaos](https://github.com/Vinidyy/colorful-chaos) — a repo with 0+ stars on GitHub.
 
 ---
 
