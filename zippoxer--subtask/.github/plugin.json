@@ -1,0 +1,14 @@
+{
+  "name": "zippoxer--subtask",
+  "displayName": "subtask",
+  "description": "Claude Skill to do your tasks with subagents in Git worktrees",
+  "version": "1.0.0",
+  "author": "zippoxer",
+  "homepage": "https://github.com/zippoxer/subtask",
+  "skills": [
+    {
+      "name": "install",
+      "description": ""
+    }
+  ]
+}
