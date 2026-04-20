@@ -1,0 +1,9 @@
+{
+  "name": "borski--travel-hacking-toolkit",
+  "displayName": "travel-hacking-toolkit",
+  "description": "AI-powered travel hacking with points, miles, and award flights. Drop-in skills and MCP servers for OpenCode and Claude Code.",
+  "version": "1.0.0",
+  "author": "borski",
+  "homepage": "https://github.com/borski/travel-hacking-toolkit",
+  "skills": []
+}
