@@ -1,0 +1,63 @@
+{
+  "name": "sandbox-agent",
+  "owner": "rivet-dev",
+  "repo": "sandbox-agent",
+  "description": "Run Coding Agents in Sandboxes. Control Them Over HTTP. Supports Claude Code, Codex, OpenCode, and Amp.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sandbox-agent",
+      "path": "skills/sandbox-agent",
+      "github_url": "https://github.com/rivet-dev/sandbox-agent/tree/main/skills/sandbox-agent",
+      "description": ""
+    },
+    {
+      "name": "skills-custom-tool",
+      "path": "examples/skills-custom-tool",
+      "github_url": "https://github.com/rivet-dev/sandbox-agent/tree/main/examples/skills-custom-tool",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "path": "scripts/skill-generator/template",
+      "github_url": "https://github.com/rivet-dev/sandbox-agent/tree/main/scripts/skill-generator/template",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rivet-dev/sandbox-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:51:53Z"
+}
