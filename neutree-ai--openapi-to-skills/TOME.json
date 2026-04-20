@@ -1,0 +1,57 @@
+{
+  "name": "openapi-to-skills",
+  "owner": "neutree-ai",
+  "repo": "openapi-to-skills",
+  "description": "OpenAPI to Agent Skill for context-efficient AI agents",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "\u65e5\u672c\u8a9e\u30c6\u30b9\u30c8api",
+      "path": "examples/output/\u65e5\u672c\u8a9e\u30c6\u30b9\u30c8api",
+      "github_url": "https://github.com/neutree-ai/openapi-to-skills/tree/main/examples/output/\u65e5\u672c\u8a9e\u30c6\u30b9\u30c8api",
+      "description": ""
+    },
+    {
+      "name": "swagger-petstore-openapi-3-0",
+      "path": "examples/output/swagger-petstore-openapi-3-0",
+      "github_url": "https://github.com/neutree-ai/openapi-to-skills/tree/main/examples/output/swagger-petstore-openapi-3-0",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/neutree-ai/openapi-to-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:46:01Z"
+}
