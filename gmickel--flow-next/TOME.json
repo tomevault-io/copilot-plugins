@@ -1,0 +1,219 @@
+{
+  "name": "flow-next",
+  "owner": "gmickel",
+  "repo": "flow-next",
+  "description": "Plan-first AI workflow plugin for Claude Code, OpenAI Codex, and Factory Droid. Zero-dep task tracking, worker subagents, Ralph autonomous mode, cross-model reviews.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flow-next",
+      "path": "plugins/flow-next/skills/flow-next",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next",
+      "description": ""
+    },
+    {
+      "name": "flow-next-deps",
+      "path": "plugins/flow-next/skills/flow-next-deps",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-deps",
+      "description": ""
+    },
+    {
+      "name": "flow-next-epic-review",
+      "path": "plugins/flow-next/skills/flow-next-epic-review",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-epic-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-export-context",
+      "path": "plugins/flow-next/skills/flow-next-export-context",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-export-context",
+      "description": ""
+    },
+    {
+      "name": "flow-next-impl-review",
+      "path": "plugins/flow-next/skills/flow-next-impl-review",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-impl-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-interview",
+      "path": "plugins/flow-next/skills/flow-next-interview",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-interview",
+      "description": ""
+    },
+    {
+      "name": "flow-next-plan",
+      "path": "plugins/flow-next/skills/flow-next-plan",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-plan",
+      "description": ""
+    },
+    {
+      "name": "flow-next-plan-review",
+      "path": "plugins/flow-next/skills/flow-next-plan-review",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-plan-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-prime",
+      "path": "plugins/flow-next/skills/flow-next-prime",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-prime",
+      "description": ""
+    },
+    {
+      "name": "flow-next-ralph-init",
+      "path": "plugins/flow-next/skills/flow-next-ralph-init",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-ralph-init",
+      "description": ""
+    },
+    {
+      "name": "flow-next-rp-explorer",
+      "path": "plugins/flow-next/skills/flow-next-rp-explorer",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-rp-explorer",
+      "description": ""
+    },
+    {
+      "name": "flow-next-setup",
+      "path": "plugins/flow-next/skills/flow-next-setup",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-setup",
+      "description": ""
+    },
+    {
+      "name": "flow-next-sync",
+      "path": "plugins/flow-next/skills/flow-next-sync",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-sync",
+      "description": ""
+    },
+    {
+      "name": "flow-next-work",
+      "path": "plugins/flow-next/skills/flow-next-work",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-work",
+      "description": ""
+    },
+    {
+      "name": "flow-next-worktree-kit",
+      "path": "plugins/flow-next/skills/flow-next-worktree-kit",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/plugins/flow-next/skills/flow-next-worktree-kit",
+      "description": ""
+    },
+    {
+      "name": "browser",
+      "path": ".opencode/skill/browser",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/browser",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode",
+      "path": ".opencode/skill/flow-next-opencode",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-export-context",
+      "path": ".opencode/skill/flow-next-opencode-export-context",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-export-context",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-impl-review",
+      "path": ".opencode/skill/flow-next-opencode-impl-review",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-impl-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-interview",
+      "path": ".opencode/skill/flow-next-opencode-interview",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-interview",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-plan",
+      "path": ".opencode/skill/flow-next-opencode-plan",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-plan",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-plan-review",
+      "path": ".opencode/skill/flow-next-opencode-plan-review",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-plan-review",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-prime",
+      "path": ".opencode/skill/flow-next-opencode-prime",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-prime",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-ralph-init",
+      "path": ".opencode/skill/flow-next-opencode-ralph-init",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-ralph-init",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-rp-explorer",
+      "path": ".opencode/skill/flow-next-opencode-rp-explorer",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-rp-explorer",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-setup",
+      "path": ".opencode/skill/flow-next-opencode-setup",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-setup",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-sync",
+      "path": ".opencode/skill/flow-next-opencode-sync",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-sync",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-work",
+      "path": ".opencode/skill/flow-next-opencode-work",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-work",
+      "description": ""
+    },
+    {
+      "name": "flow-next-opencode-worktree-kit",
+      "path": ".opencode/skill/flow-next-opencode-worktree-kit",
+      "github_url": "https://github.com/gmickel/flow-next/tree/main/.opencode/skill/flow-next-opencode-worktree-kit",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gmickel/flow-next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T16:09:44Z"
+}
