@@ -1,6 +1,6 @@
 # record-thing
 
-> Tome by [thepian](https://github.com/thepian/record-thing) — distributed by [TomeVault](https://tomevault.io/claim/thepian)
+> Tome by [thepian](https://github.com/thepian/record-thing) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [thepian/record-thing](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/thepian)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/thepian/record-thing](https://github.com/thepian/record-thing)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install thepian/record-thing
 ```
-Or browse all formats at [https://tomevault.io/claim/thepian](https://tomevault.io/claim/thepian).
+Source: [github.com/thepian/record-thing](https://github.com/thepian/record-thing).
 
 <!-- genome:t-i-p -->
