@@ -1,0 +1,9 @@
+{
+  "name": "maxbittker--rs-sdk",
+  "displayName": "rs-sdk",
+  "description": "Runescape automation library, optimized for use by coding agents.",
+  "version": "1.0.0",
+  "author": "MaxBittker",
+  "homepage": "https://github.com/MaxBittker/rs-sdk",
+  "skills": []
+}
