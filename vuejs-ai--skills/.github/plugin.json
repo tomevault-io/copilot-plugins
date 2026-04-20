@@ -1,0 +1,42 @@
+{
+  "name": "vuejs-ai--skills",
+  "displayName": "skills",
+  "description": "Agent skills for Vue 3 development",
+  "version": "1.0.0",
+  "author": "vuejs-ai",
+  "homepage": "https://github.com/vuejs-ai/skills",
+  "skills": [
+    {
+      "name": "vue-debug-guides",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-pinia-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-router-best-practices",
+      "description": ""
+    },
+    {
+      "name": "create-adaptable-composable",
+      "description": ""
+    },
+    {
+      "name": "vue-testing-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-jsx-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-options-api-best-practices",
+      "description": ""
+    }
+  ]
+}
