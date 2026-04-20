@@ -1,0 +1,9 @@
+{
+  "name": "cnighswonger--claude-code-cache-fix",
+  "displayName": "claude-code-cache-fix",
+  "description": "Fixes prompt cache regression in Claude Code that causes up to 20x cost increase on resumed sessions",
+  "version": "1.0.0",
+  "author": "cnighswonger",
+  "homepage": "https://github.com/cnighswonger/claude-code-cache-fix",
+  "skills": []
+}
