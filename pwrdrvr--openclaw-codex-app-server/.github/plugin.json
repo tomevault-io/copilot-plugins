@@ -1,0 +1,9 @@
+{
+  "name": "pwrdrvr--openclaw-codex-app-server",
+  "displayName": "openclaw-codex-app-server",
+  "description": "OpenClaw plugin that brings Codex to Telegram and Discord via the Codex App Server protocol.",
+  "version": "1.0.0",
+  "author": "pwrdrvr",
+  "homepage": "https://github.com/pwrdrvr/openclaw-codex-app-server",
+  "skills": []
+}
