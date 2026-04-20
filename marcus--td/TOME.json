@@ -1,0 +1,69 @@
+{
+  "name": "td",
+  "owner": "marcus",
+  "repo": "td",
+  "description": "A minimalist CLI for tracking tasks across AI coding sessions.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "td-integration-test",
+      "path": ".claude/skills/td-integration-test",
+      "github_url": "https://github.com/marcus/td/tree/main/.claude/skills/td-integration-test",
+      "description": ""
+    },
+    {
+      "name": "td-task-management",
+      "path": "td-task-management",
+      "github_url": "https://github.com/marcus/td/tree/main/td-task-management",
+      "description": ""
+    },
+    {
+      "name": "td-review-session",
+      "path": "skills/td-review-session",
+      "github_url": "https://github.com/marcus/td/tree/main/skills/td-review-session",
+      "description": ""
+    },
+    {
+      "name": "td-task-management",
+      "path": "skills/td-task-management",
+      "github_url": "https://github.com/marcus/td/tree/main/skills/td-task-management",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/marcus/td",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:42:32Z"
+}
