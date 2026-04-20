@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [HanyWell/hany-beats-blog](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/HanyWell#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/HanyWell/hany-beats-blog](https://github.com/HanyWell/hany-beats-blog)
 
 ---
 
