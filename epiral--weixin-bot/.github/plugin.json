@@ -1,0 +1,9 @@
+{
+  "name": "epiral--weixin-bot",
+  "displayName": "weixin-bot",
+  "description": "WeChat iLink Bot SDK for Node.js and Python \u2014 zero-config agent integration",
+  "version": "1.0.0",
+  "author": "epiral",
+  "homepage": "https://github.com/epiral/weixin-bot",
+  "skills": []
+}
