@@ -1,6 +1,6 @@
-# scotia-performance — distributed by TomeVault
+# scotia-performance
 
-> Originally from [sevenzig/scotia-performance](https://github.com/sevenzig/scotia-performance). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [sevenzig/scotia-performance](https://github.com/sevenzig/scotia-performance) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [sevenzig/scotia-performance](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/sevenzig#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/sevenzig/scotia-performance](https://github.com/sevenzig/scotia-performance)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/sevenzig) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
