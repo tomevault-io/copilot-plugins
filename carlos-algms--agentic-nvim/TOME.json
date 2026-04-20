@@ -1,0 +1,51 @@
+{
+  "name": "agentic.nvim",
+  "owner": "carlos-algms",
+  "repo": "agentic.nvim",
+  "description": "Agentic Chat Interface directly in Neovim with ACP providers from Claude-Code, Gemini, Codex, OpenCode, and Cursor-agent",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "github-discussion",
+      "path": ".claude/skills/github-discussion",
+      "github_url": "https://github.com/carlos-algms/agentic.nvim/tree/main/.claude/skills/github-discussion",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/carlos-algms/agentic.nvim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:39:21Z"
+}
