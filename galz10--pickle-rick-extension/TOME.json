@@ -1,0 +1,75 @@
+{
+  "name": "pickle-rick-extension",
+  "owner": "galz10",
+  "repo": "pickle-rick-extension",
+  "description": "This extension transforms the Gemini CLI into \"Pickle Rick,\" a hyper-intelligent, arrogant, yet extremely competent  engineering persona. It enforces a rigid, iterative software development lifecycle through continuous AI agent loops. Emphasizing \"God Mode\" coding practices and a disdain for",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-implementer",
+      "path": "skills/code-implementer",
+      "github_url": "https://github.com/galz10/pickle-rick-extension/tree/main/skills/code-implementer",
+      "description": ""
+    },
+    {
+      "name": "code-researcher",
+      "path": "skills/code-researcher",
+      "github_url": "https://github.com/galz10/pickle-rick-extension/tree/main/skills/code-researcher",
+      "description": ""
+    },
+    {
+      "name": "plan-reviewer",
+      "path": "skills/plan-reviewer",
+      "github_url": "https://github.com/galz10/pickle-rick-extension/tree/main/skills/plan-reviewer",
+      "description": ""
+    },
+    {
+      "name": "research-reviewer",
+      "path": "skills/research-reviewer",
+      "github_url": "https://github.com/galz10/pickle-rick-extension/tree/main/skills/research-reviewer",
+      "description": ""
+    },
+    {
+      "name": "ruthless-refactorer",
+      "path": "skills/ruthless-refactorer",
+      "github_url": "https://github.com/galz10/pickle-rick-extension/tree/main/skills/ruthless-refactorer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/galz10/pickle-rick-extension",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:40:30Z"
+}
