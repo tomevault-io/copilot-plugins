@@ -1,0 +1,9 @@
+{
+  "name": "truecourse-ai--truecourse",
+  "displayName": "truecourse",
+  "description": "AI-powered architecture analysis and code intelligence. Detects circular deps, layer violations, dead modules, and more. Web UI + CLI.",
+  "version": "1.0.0",
+  "author": "truecourse-ai",
+  "homepage": "https://github.com/truecourse-ai/truecourse",
+  "skills": []
+}
