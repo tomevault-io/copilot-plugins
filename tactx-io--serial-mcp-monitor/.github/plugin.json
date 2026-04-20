@@ -1,0 +1,9 @@
+{
+  "name": "tactx-io--serial-mcp-monitor",
+  "displayName": "serial-mcp-monitor",
+  "description": "serial-mcp-monitor",
+  "version": "1.0.0",
+  "author": "tactx-io",
+  "homepage": "https://github.com/tactx-io/serial-mcp-monitor",
+  "skills": []
+}
