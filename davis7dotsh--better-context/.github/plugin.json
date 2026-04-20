@@ -1,0 +1,18 @@
+{
+  "name": "davis7dotsh--better-context",
+  "displayName": "better-context",
+  "description": "A better way to get up to date context on libraries/technologies in your projects",
+  "version": "1.0.0",
+  "author": "davis7dotsh",
+  "homepage": "https://github.com/davis7dotsh/better-context",
+  "skills": [
+    {
+      "name": "better-result-adopt",
+      "description": ""
+    },
+    {
+      "name": "btca-cli",
+      "description": ""
+    }
+  ]
+}
