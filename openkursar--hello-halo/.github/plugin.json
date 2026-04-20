@@ -1,0 +1,18 @@
+{
+  "name": "openkursar--hello-halo",
+  "displayName": "hello-halo",
+  "description": "7\u00d724 Desktop AI Agent for Everyone. Visual AI assistant with remote access, file management, and built-in AI browser.",
+  "version": "1.0.0",
+  "author": "openkursar",
+  "homepage": "https://github.com/openkursar/hello-halo",
+  "skills": [
+    {
+      "name": "code-commit",
+      "description": ""
+    },
+    {
+      "name": "halo-dev",
+      "description": ""
+    }
+  ]
+}
