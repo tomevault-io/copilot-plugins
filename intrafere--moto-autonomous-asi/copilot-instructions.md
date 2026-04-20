@@ -1,0 +1,83 @@
+## moto-autonomous-asi
+
+> This describes additional architecture for the synergy between the part 1 database aggregator tool and part 2 aggregator-compiler tool.
+
+
+## The Unified Mode Design:
+
+ This describes additional architecture for the synergy between the part 1 database aggregator tool and part 2 aggregator-compiler tool.
+
+ NOTE: This is a continuously-running program that does not stop itself, the user selects the aggregator to start, then starts the compiler when they desire, and then the user choses when to turn off each selective mode by turning the off switch. There is no "solution stop token" as in normal AI solution generation.
+ 
+ 
+ ## Aggregator start-up workflow
+1.) The aggregator runs initially with no compiler running.
+2.) The compiler does not begin running until the user starts it manually. Aggregator can run on its own for a head-start for as long as the operator would like. If the operator desires the aggregator can also run by itself without any compilation.
+
+## GUI Design
+
+The user should be able to save any mid-way progress of the aggregation database and the current compilation results separately as the program is still running.
+
+The live-constructing aggregation results should be viewable in one tab and also a save function that allows the user to save the whole current aggregation database to a .txt file. This aggregation database should be viewable in rea-time as the aggregation submittors write it.
+
+The live-constructing compiler-written paper should be viewable in one tab and also a save function that allows the user to save the whole current aggregation database to a .txt file. This paper should be viewable in real-time as the compiler constructs it.
+
+
+## Autonomous Research Mode (Part 3) - User Controls
+
+**Manual Paper Writing Trigger**: During active brainstorm aggregation (Tier 1), the user can manually force transition to paper writing by clicking "Force Paper Writing" in the UI. This bypasses the automatic completion review and allows the user to act as a special submitter reviewer, deciding when the brainstorm is sufficient for paper compilation.
+
+**How it works**:
+- Button appears in the brainstorm status section only when tier1_aggregation is active
+- Requires confirmation before executing (prevents accidental clicks)
+- Stops the brainstorm aggregator immediately upon confirmation
+- Marks brainstorm as complete
+- Transitions to paper compilation workflow (Tier 2) with all selected reference papers
+- Does NOT run completion review (bypassed entirely - user decision is final)
+
+**API Endpoint**: `POST /api/auto-research/force-paper-writing`
+
+**Use Case**: User may have domain knowledge that the brainstorm has explored sufficient territory before the automatic 10-acceptance interval, saving time and allowing manual control over the autonomous workflow.
+
+## Multi-Submitter Architecture (Aggregator Only)
+
+**Distinction**: Multiple submitters are only available for the Aggregator (Part 1 and Part 3 brainstorm aggregation). The Compiler (Part 2) uses a fixed single-submitter sequential Markov chain workflow.
+
+### Aggregator Multi-Submitter (Part 1 & Part 3)
+- Configurable 1-10 parallel submitters (default: 3)
+- Each submitter can have its own model, context window, and max output tokens
+- Enables multi-model exploration of different solution basins simultaneously
+- Single validator maintains coherent Markov chain evolution for database alignment
+- UI labels: "Submitter 1 (Main Submitter)", "Submitter 2", "Submitter 3", etc.
+- "Copy Main to All" button for quick configuration
+
+### Compiler Single-Submitter (Part 2)
+- Fixed 2-submitter architecture (NOT configurable):
+  - **High-Context Submitter**: Handles outline_create, outline_update, construction, review modes
+  - **High-Parameter Submitter**: Handles rigor enhancement mode
+- Sequential Markov chain workflow (only one submission at a time)
+- Each compiler submitter has its own model, context, and max token settings (separate from aggregator)
+- UI shows these as separate "High-Context Submitter" and "High-Parameter Submitter" sections
+
+**Why Single Validator?**: Multiple validators would cause divergent evolution of the database, breaking the coherent Markov chain required for solution alignment. The single validator ensures all submissions are evaluated against the same evolving database state.
+
+## Additional Traits Shared Between Aggregator-Submitters and Compiler-Submitters
+
+- The JSON of aggregator-subbmiters and compiler-submitters should include a "reasoning:" request below its "submission:" line. (This forces the submitter to explain the thoughts behind there reasoning and can also reveal deception for additional context for the validator.)
+
+## API Call Output Notes (User-Configurable)
+- **All `max_tokens` limits are user-configurable via GUI settings** (like context window sizes). Users can adjust these per model role based on their specific models' capabilities.
+- **Aggregator defaults**: submitter=25000 tokens, validator=25000 tokens (reasoning models need 15K-25K for internal reasoning + output)
+- **Compiler defaults**: validator=25000, high-context=25000 (for outline_create/outline_update/construction/review), high-param=25000 (for rigor mode)
+- **GUI tooltips** provide recommended minimums: Submitter "25000+ for reasoning models", Validator "25000+", High-context "25000+ (outline needs 15K+)", High-param "25000+"
+- Settings are passed through API routes and stored in `rag_config` (aggregator) and `system_config` (compiler)
+- **CRITICAL**: `system_config.compiler_*` settings (context windows, max output tokens) are the single source of truth for all compiler modules. ANY code that creates a `CompilerCoordinator` MUST write its context/token settings to `system_config` BEFORE init. The manual `/api/compiler/start` route does this; autonomous mode (`autonomous_coordinator.py`) must do it explicitly before each `CompilerCoordinator()` creation.
+- Reasoning models (e.g., those with `<think>` tags or separate `reasoning` fields) may use significant tokens on internal reasoning before generating JSON output
+
+## Other Notes
+
+IMPORTANT: When a JSON result for validation does not work you should reject the submission and alert the submitter the content and the reason isfor JSON rejection, this context should be sent to the submitters local failure feedback memory that we have defined in other areas.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Intrafere) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
