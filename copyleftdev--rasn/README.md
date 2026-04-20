@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [copyleftdev/rasn](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/copyleftdev#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/copyleftdev/rasn](https://github.com/copyleftdev/rasn)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install copyleftdev/rasn
 ```
-Or browse all formats at [https://tomevault.io/claim/copyleftdev](https://tomevault.io/claim/copyleftdev).
+Source: [github.com/copyleftdev/rasn](https://github.com/copyleftdev/rasn).
 
 <!-- genome:a-i-q -->
