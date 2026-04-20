@@ -1,0 +1,9 @@
+{
+  "name": "basnijholt--compose-farm",
+  "displayName": "compose-farm",
+  "description": "Compose Farm - run docker compose commands across multiple hosts",
+  "version": "1.0.0",
+  "author": "basnijholt",
+  "homepage": "https://github.com/basnijholt/compose-farm",
+  "skills": []
+}
