@@ -1,6 +1,6 @@
 # developers-hub
 
-> Tome by [vcita](https://github.com/vcita/developers-hub) — distributed by [TomeVault](https://tomevault.io/claim/vcita)
+> Tome by [vcita](https://github.com/vcita/developers-hub) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [vcita/developers-hub](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/vcita)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/vcita/developers-hub](https://github.com/vcita/developers-hub)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/vcita) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
