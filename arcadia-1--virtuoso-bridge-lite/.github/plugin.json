@@ -1,0 +1,9 @@
+{
+  "name": "arcadia-1--virtuoso-bridge-lite",
+  "displayName": "virtuoso-bridge-lite",
+  "description": "Bridge between LLM-Agent and Cadence Virtuoso. A new infrastructure for Agentic Analog and Mixed-Signal Design. ",
+  "version": "1.0.0",
+  "author": "Arcadia-1",
+  "homepage": "https://github.com/Arcadia-1/virtuoso-bridge-lite",
+  "skills": []
+}
