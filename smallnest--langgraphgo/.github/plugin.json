@@ -1,0 +1,78 @@
+{
+  "name": "smallnest--langgraphgo",
+  "displayName": "langgraphgo",
+  "description": "\u529f\u80fd\u90a3\u4e48\u5f3a\u5927\uff0c\u4ee3\u7801\u5982\u6b64\u7b80\u5355",
+  "version": "1.0.0",
+  "author": "smallnest",
+  "homepage": "https://github.com/smallnest/langgraphgo",
+  "skills": [
+    {
+      "name": "baoyu-comic",
+      "description": ""
+    },
+    {
+      "name": "baoyu-image-gen",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "coze-api",
+      "description": ""
+    },
+    {
+      "name": "crewai-developer",
+      "description": ""
+    },
+    {
+      "name": "feature-builder",
+      "description": ""
+    },
+    {
+      "name": "flutter-api",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "hello_world",
+      "description": ""
+    },
+    {
+      "name": "markitdown",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "playwright-skill",
+      "description": ""
+    },
+    {
+      "name": "prompt-optimizer",
+      "description": ""
+    },
+    {
+      "name": "react-component-generator",
+      "description": ""
+    },
+    {
+      "name": "request-analyzer",
+      "description": ""
+    },
+    {
+      "name": "ui-analyzer",
+      "description": ""
+    }
+  ]
+}
