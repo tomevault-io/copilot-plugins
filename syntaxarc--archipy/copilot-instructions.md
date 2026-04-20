@@ -1,0 +1,72 @@
+## archipy
+
+> ArchiPy clean architecture layer rules — where code lives and how layers interact
+
+
+# Architecture Patterns
+
+ArchiPy follows **Clean Architecture** with four strictly separated layers.
+
+## Layer Map
+
+```
+archipy/
+├── models/       # Domain layer — data structures only
+│   ├── entities/   # Domain model objects (SQLAlchemy/Pydantic)
+│   ├── dtos/       # Data Transfer Objects for API input/output
+│   ├── errors/     # Custom exception classes
+│   └── types/      # Enumerations and type definitions
+├── adapters/     # Infrastructure layer — external integrations
+├── helpers/      # Support layer — pure utilities and cross-cutting concerns
+└── configs/      # Configuration layer — environment-based settings
+```
+
+## Layer Rules
+
+### `models/` — Domain Layer
+- Contains **data structures only** — no business logic, no I/O.
+- Entities use SQLAlchemy or Pydantic; DTOs use Pydantic `BaseModel`.
+- Errors must subclass the project's `BaseError`.
+
+### `adapters/` — Infrastructure Layer
+- Follows **Ports & Adapters** pattern.
+- Every adapter directory must have a `ports.py` (abstract interface) and a `mocks.py` (test double).
+- Adapters may import from `models/` and `configs/` — never from `helpers/decorators` at module level (use lazy imports to avoid circular imports).
+
+### `helpers/` — Support Layer
+- Pure utilities: no direct external I/O, no database calls.
+- Sub-packages: `utils/`, `decorators/`, `interceptors/`, `metaclasses/`.
+- Decorators must not know about specific adapter implementations.
+
+### `configs/` — Configuration Layer
+- All config classes must extend `pydantic_settings.BaseSettings`.
+- Configuration loaded from environment variables or `.env` files.
+- No hardcoded secrets; use `.env.example` to document required variables.
+
+## Import Direction (one-way only)
+
+```
+configs  ←  models  ←  helpers  ←  adapters
+```
+
+- `adapters` may import from `models`, `configs`, `helpers`.
+- `helpers` may import from `models`, `configs`.
+- `models` may import from `configs` only.
+- **Never** import upward (e.g., `models` importing from `adapters`).
+
+## Lazy Imports for Optional Dependencies
+
+Lazy imports are only permitted in `archipy/helpers/` (e.g., `helpers/utils/`, `helpers/decorators/`, `helpers/interceptors/`). Use them inside functions/methods — never at module level — to avoid `ImportError` when an optional extra is not installed:
+
+```python
+# ✅ GOOD — lazy import inside a helper utility function
+def encode_jwt(payload: dict) -> str:
+    import jwt  # noqa: PLC0415
+    return jwt.encode(payload, ...)
+```
+
+Adapters **must not** use lazy imports to guard optional dependencies; instead, each adapter lives under its own optional extra and is only imported when that extra is installed.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/SyntaxArc) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
