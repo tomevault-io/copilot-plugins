@@ -1,0 +1,114 @@
+{
+  "name": "actionbook--rust-skills",
+  "displayName": "rust-skills",
+  "description": "Rust Developer AI Assistance System \u2014 Meta-Problem-Driven Knowledge Indexing",
+  "version": "1.0.0",
+  "author": "actionbook",
+  "homepage": "https://github.com/actionbook/rust-skills",
+  "skills": [
+    {
+      "name": "coding-guidelines",
+      "description": ""
+    },
+    {
+      "name": "domain-cli",
+      "description": ""
+    },
+    {
+      "name": "domain-cloud-native",
+      "description": ""
+    },
+    {
+      "name": "domain-embedded",
+      "description": ""
+    },
+    {
+      "name": "domain-fintech",
+      "description": ""
+    },
+    {
+      "name": "domain-iot",
+      "description": ""
+    },
+    {
+      "name": "domain-ml",
+      "description": ""
+    },
+    {
+      "name": "domain-web",
+      "description": ""
+    },
+    {
+      "name": "m05-type-driven",
+      "description": ""
+    },
+    {
+      "name": "m09-domain",
+      "description": ""
+    },
+    {
+      "name": "m11-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "m12-lifecycle",
+      "description": ""
+    },
+    {
+      "name": "m13-domain-error",
+      "description": ""
+    },
+    {
+      "name": "m14-mental-model",
+      "description": ""
+    },
+    {
+      "name": "m15-anti-pattern",
+      "description": ""
+    },
+    {
+      "name": "rust-call-graph",
+      "description": ""
+    },
+    {
+      "name": "rust-code-navigator",
+      "description": ""
+    },
+    {
+      "name": "rust-daily",
+      "description": ""
+    },
+    {
+      "name": "rust-deps-visualizer",
+      "description": ""
+    },
+    {
+      "name": "rust-learner",
+      "description": ""
+    },
+    {
+      "name": "rust-refactor-helper",
+      "description": ""
+    },
+    {
+      "name": "rust-router",
+      "description": ""
+    },
+    {
+      "name": "rust-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "rust-symbol-analyzer",
+      "description": ""
+    },
+    {
+      "name": "rust-trait-explorer",
+      "description": ""
+    },
+    {
+      "name": "unsafe-checker",
+      "description": ""
+    }
+  ]
+}
