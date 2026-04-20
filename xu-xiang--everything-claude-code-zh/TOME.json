@@ -1,0 +1,195 @@
+{
+  "name": "everything-claude-code-zh",
+  "owner": "xu-xiang",
+  "repo": "everything-claude-code-zh",
+  "description": "everything-claude-code \u4e2d\u6587\u7ffb\u8bd1\u9879\u76ee\uff1a\u5b8c\u6574\u7684 Claude Code \u914d\u7f6e\u96c6\u5408\uff08agents, skills, hooks, commands, rules, MCPs\uff09\u3002\u6e90\u81ea Anthropic \u9ed1\u5ba2\u677e\u83b7\u80dc\u8005\u7684\u5b9e\u6218\u914d\u7f6e\uff0c\u52a9\u529b\u4e2d\u6587\u5de5\u7a0b\u5e08\u9ad8\u6548\u7406\u89e3\u4e0e\u4f7f\u7528 Claude Code\u3002",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backend-patterns",
+      "path": "skills/backend-patterns",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-io",
+      "path": "skills/clickhouse-io",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/clickhouse-io",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "path": "skills/coding-standards",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/coding-standards",
+      "description": ""
+    },
+    {
+      "name": "continuous-learning",
+      "path": "skills/continuous-learning",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/continuous-learning",
+      "description": ""
+    },
+    {
+      "name": "continuous-learning-v2",
+      "path": "skills/continuous-learning-v2",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/continuous-learning-v2",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "path": "skills/django-patterns",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/django-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-tdd",
+      "path": "skills/django-tdd",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/django-tdd",
+      "description": ""
+    },
+    {
+      "name": "eval-harness",
+      "path": "skills/eval-harness",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/eval-harness",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "path": "skills/frontend-patterns",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "golang-patterns",
+      "path": "skills/golang-patterns",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/golang-patterns",
+      "description": ""
+    },
+    {
+      "name": "golang-testing",
+      "path": "skills/golang-testing",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/golang-testing",
+      "description": ""
+    },
+    {
+      "name": "java-coding-standards",
+      "path": "skills/java-coding-standards",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/java-coding-standards",
+      "description": ""
+    },
+    {
+      "name": "oneskill",
+      "path": ".claude/skills/oneskill",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/.claude/skills/oneskill",
+      "description": ""
+    },
+    {
+      "name": "python-patterns",
+      "path": "skills/python-patterns",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/python-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "path": "skills/python-testing",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/python-testing",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "path": "skills/security-review",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/security-review",
+      "description": ""
+    },
+    {
+      "name": "springboot-patterns",
+      "path": "skills/springboot-patterns",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/springboot-patterns",
+      "description": ""
+    },
+    {
+      "name": "springboot-security",
+      "path": "skills/springboot-security",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/springboot-security",
+      "description": ""
+    },
+    {
+      "name": "springboot-tdd",
+      "path": "skills/springboot-tdd",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/springboot-tdd",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "path": "skills/tdd-workflow",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "path": "skills/django-verification",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/django-verification",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "path": "docs/ja-JP/skills/django-security",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/django-security",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "path": "docs/ja-JP/skills/django-verification",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/django-verification",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "path": "docs/ja-JP/skills/django-patterns",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/docs/ja-JP/skills/django-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "path": "skills/django-security",
+      "github_url": "https://github.com/xu-xiang/everything-claude-code-zh/tree/main/skills/django-security",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xu-xiang/everything-claude-code-zh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:00:18Z"
+}
