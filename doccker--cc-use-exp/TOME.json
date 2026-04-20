@@ -2,9 +2,9 @@
   "name": "cc-use-exp",
   "owner": "doccker",
   "repo": "cc-use-exp",
-  "description": "AI instruction files for cc-use-exp by doccker",
+  "description": "\u8ba9 Claude Code\u3001Gemini CLI\u3001Codex\u3001Cursor \u5f00\u7bb1\u5373\u7528\u7684\u5206\u5c42\u914d\u7f6e\u6a21\u677f\uff0c\u603b\u7ed3\u65e5\u5e38\u7ecf\u9a8c\uff0c\u6301\u7eed\u5b8c\u5584\u4e2d\u2026\u2026",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -79,9 +79,27 @@
       "path": ".claude/skills/ruanzhu",
       "github_url": "https://github.com/doccker/cc-use-exp/tree/main/.claude/skills/ruanzhu",
       "description": ""
+    },
+    {
+      "name": "python-dev",
+      "path": ".gemini/skills/python-dev",
+      "github_url": "https://github.com/doccker/cc-use-exp/tree/main/.gemini/skills/python-dev",
+      "description": ""
+    },
+    {
+      "name": "python-dev",
+      "path": ".cursor/skills/python-dev",
+      "github_url": "https://github.com/doccker/cc-use-exp/tree/main/.cursor/skills/python-dev",
+      "description": ""
+    },
+    {
+      "name": "cc-python-dev",
+      "path": ".codex/skills/cc-python-dev",
+      "github_url": "https://github.com/doccker/cc-use-exp/tree/main/.codex/skills/cc-python-dev",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/doccker",
+  "source_url": "https://github.com/doccker/cc-use-exp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T14:39:32Z"
+  "distributed_at": "2026-04-20T15:38:58Z"
 }
