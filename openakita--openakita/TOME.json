@@ -1,0 +1,243 @@
+{
+  "name": "openakita",
+  "owner": "openakita",
+  "repo": "openakita",
+  "description": "An open-source AI assistant framework with skills and agent architecture",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "browser-click",
+      "path": "skills/system/browser-click",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/browser-click",
+      "description": ""
+    },
+    {
+      "name": "browser-get-content",
+      "path": "skills/system/browser-get-content",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/browser-get-content",
+      "description": ""
+    },
+    {
+      "name": "browser-navigate",
+      "path": "skills/system/browser-navigate",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/browser-navigate",
+      "description": ""
+    },
+    {
+      "name": "browser-open",
+      "path": "skills/system/browser-open",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/browser-open",
+      "description": ""
+    },
+    {
+      "name": "browser-screenshot",
+      "path": "skills/system/browser-screenshot",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/browser-screenshot",
+      "description": ""
+    },
+    {
+      "name": "browser-type",
+      "path": "skills/system/browser-type",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/browser-type",
+      "description": ""
+    },
+    {
+      "name": "desktop-click",
+      "path": "skills/system/desktop-click",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/desktop-click",
+      "description": ""
+    },
+    {
+      "name": "desktop-find-element",
+      "path": "skills/system/desktop-find-element",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/desktop-find-element",
+      "description": ""
+    },
+    {
+      "name": "desktop-inspect",
+      "path": "skills/system/desktop-inspect",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/desktop-inspect",
+      "description": ""
+    },
+    {
+      "name": "desktop-screenshot",
+      "path": "skills/system/desktop-screenshot",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/desktop-screenshot",
+      "description": ""
+    },
+    {
+      "name": "desktop-scroll",
+      "path": "skills/system/desktop-scroll",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/desktop-scroll",
+      "description": ""
+    },
+    {
+      "name": "desktop-type",
+      "path": "skills/system/desktop-type",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/desktop-type",
+      "description": ""
+    },
+    {
+      "name": "desktop-wait",
+      "path": "skills/system/desktop-wait",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/desktop-wait",
+      "description": ""
+    },
+    {
+      "name": "find-skills",
+      "path": "skills/system/find-skills",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/find-skills",
+      "description": ""
+    },
+    {
+      "name": "generate-image",
+      "path": "skills/system/generate-image",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/generate-image",
+      "description": ""
+    },
+    {
+      "name": "get-skill-info",
+      "path": "skills/system/get-skill-info",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/get-skill-info",
+      "description": ""
+    },
+    {
+      "name": "get-skill-reference",
+      "path": "skills/system/get-skill-reference",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/get-skill-reference",
+      "description": ""
+    },
+    {
+      "name": "github-automation",
+      "path": "skills/github-automation",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/github-automation",
+      "description": ""
+    },
+    {
+      "name": "install-skill",
+      "path": "skills/system/install-skill",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/install-skill",
+      "description": ""
+    },
+    {
+      "name": "list-scheduled-tasks",
+      "path": "skills/system/list-scheduled-tasks",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/list-scheduled-tasks",
+      "description": ""
+    },
+    {
+      "name": "list-skills",
+      "path": "skills/system/list-skills",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/list-skills",
+      "description": ""
+    },
+    {
+      "name": "load-skill",
+      "path": "skills/system/load-skill",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/load-skill",
+      "description": ""
+    },
+    {
+      "name": "read-file",
+      "path": "skills/system/read-file",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/read-file",
+      "description": ""
+    },
+    {
+      "name": "reload-skill",
+      "path": "skills/system/reload-skill",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/reload-skill",
+      "description": ""
+    },
+    {
+      "name": "run-shell",
+      "path": "skills/system/run-shell",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/run-shell",
+      "description": ""
+    },
+    {
+      "name": "run-skill-script",
+      "path": "skills/system/run-skill-script",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/run-skill-script",
+      "description": ""
+    },
+    {
+      "name": "schedule-task",
+      "path": "skills/system/schedule-task",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/schedule-task",
+      "description": ""
+    },
+    {
+      "name": "switch-persona",
+      "path": "skills/system/switch-persona",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/switch-persona",
+      "description": ""
+    },
+    {
+      "name": "toggle-proactive",
+      "path": "skills/system/toggle-proactive",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/toggle-proactive",
+      "description": ""
+    },
+    {
+      "name": "trigger-scheduled-task",
+      "path": "skills/system/trigger-scheduled-task",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/trigger-scheduled-task",
+      "description": ""
+    },
+    {
+      "name": "video-downloader",
+      "path": "skills/video-downloader",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/video-downloader",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "path": "skills/system/web-search",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/web-search",
+      "description": ""
+    },
+    {
+      "name": "write-file",
+      "path": "skills/system/write-file",
+      "github_url": "https://github.com/openakita/openakita/tree/main/skills/system/write-file",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openakita/openakita",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:46:34Z"
+}
