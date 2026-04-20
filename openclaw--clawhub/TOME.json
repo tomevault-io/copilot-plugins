@@ -1,0 +1,327 @@
+{
+  "name": "clawhub",
+  "owner": "openclaw",
+  "repo": "clawhub",
+  "description": "Skill Directory for OpenClaw",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clawhub",
+      "path": "skills/clawhub",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/clawhub",
+      "description": ""
+    },
+    {
+      "name": "ai-bill-clawhub",
+      "path": "skills/fumarole16-afk/ai-bill-clawhub",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/fumarole16-afk/ai-bill-clawhub",
+      "description": ""
+    },
+    {
+      "name": "clawhub-hh1fd",
+      "path": "skills/hightower6eu/clawhub-hh1fd",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-hh1fd",
+      "description": ""
+    },
+    {
+      "name": "clawhub",
+      "path": "skills/zaycv/clawhub",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/zaycv/clawhub",
+      "description": ""
+    },
+    {
+      "name": "keep-protocol-clawhub",
+      "path": "skills/nteg-dev/keep-protocol/keep-protocol-clawhub",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/nteg-dev/keep-protocol/keep-protocol-clawhub",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-remote-agent",
+      "path": "skills/sqsge/clawhub-skill-remote-agent",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/sqsge/clawhub-skill-remote-agent",
+      "description": ""
+    },
+    {
+      "name": "rey-clawhub-publisher",
+      "path": "skills/sa9saq/rey-clawhub-publisher",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/sa9saq/rey-clawhub-publisher",
+      "description": ""
+    },
+    {
+      "name": "secure-clawhub",
+      "path": "skills/jononovo/secure-clawhub",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/jononovo/secure-clawhub",
+      "description": ""
+    },
+    {
+      "name": "2026-02-10-clawhub-base-wallet-1-5-0",
+      "path": "skills/pin-alt/2026-02-10-clawhub-base-wallet-1-5-0",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/pin-alt/2026-02-10-clawhub-base-wallet-1-5-0",
+      "description": ""
+    },
+    {
+      "name": "clawhub-6yr3b",
+      "path": "skills/hightower6eu/clawhub-6yr3b",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-6yr3b",
+      "description": ""
+    },
+    {
+      "name": "clawhub-c9y4p",
+      "path": "skills/hightower6eu/clawhub-c9y4p",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-c9y4p",
+      "description": ""
+    },
+    {
+      "name": "clawhub-d4kxr",
+      "path": "skills/hightower6eu/clawhub-d4kxr",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-d4kxr",
+      "description": ""
+    },
+    {
+      "name": "clawhub-f3qcn",
+      "path": "skills/hightower6eu/clawhub-f3qcn",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-f3qcn",
+      "description": ""
+    },
+    {
+      "name": "clawhub-gpcrq",
+      "path": "skills/hightower6eu/clawhub-gpcrq",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-gpcrq",
+      "description": ""
+    },
+    {
+      "name": "clawhub-gpwp7",
+      "path": "skills/hightower6eu/clawhub-gpwp7",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-gpwp7",
+      "description": ""
+    },
+    {
+      "name": "clawhub-gstca",
+      "path": "skills/hightower6eu/clawhub-gstca",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-gstca",
+      "description": ""
+    },
+    {
+      "name": "clawhub-hh2km",
+      "path": "skills/hightower6eu/clawhub-hh2km",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-hh2km",
+      "description": ""
+    },
+    {
+      "name": "clawhub-hylhq",
+      "path": "skills/hightower6eu/clawhub-hylhq",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-hylhq",
+      "description": ""
+    },
+    {
+      "name": "clawhub-i7oci",
+      "path": "skills/hightower6eu/clawhub-i7oci",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-i7oci",
+      "description": ""
+    },
+    {
+      "name": "clawhub-i9zhz",
+      "path": "skills/hightower6eu/clawhub-i9zhz",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-i9zhz",
+      "description": ""
+    },
+    {
+      "name": "clawhub-ja7eh",
+      "path": "skills/hightower6eu/clawhub-ja7eh",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-ja7eh",
+      "description": ""
+    },
+    {
+      "name": "clawhub-krmvq",
+      "path": "skills/hightower6eu/clawhub-krmvq",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-krmvq",
+      "description": ""
+    },
+    {
+      "name": "clawhub-oihpl",
+      "path": "skills/hightower6eu/clawhub-oihpl",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-oihpl",
+      "description": ""
+    },
+    {
+      "name": "clawhub-olgys",
+      "path": "skills/hightower6eu/clawhub-olgys",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-olgys",
+      "description": ""
+    },
+    {
+      "name": "clawhub-osasg",
+      "path": "skills/hightower6eu/clawhub-osasg",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-osasg",
+      "description": ""
+    },
+    {
+      "name": "clawhub-rkvny",
+      "path": "skills/hightower6eu/clawhub-rkvny",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-rkvny",
+      "description": ""
+    },
+    {
+      "name": "clawhub-sxtsn",
+      "path": "skills/hightower6eu/clawhub-sxtsn",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-sxtsn",
+      "description": ""
+    },
+    {
+      "name": "clawhub-tlxx5",
+      "path": "skills/hightower6eu/clawhub-tlxx5",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-tlxx5",
+      "description": ""
+    },
+    {
+      "name": "clawhub-uoeym",
+      "path": "skills/hightower6eu/clawhub-uoeym",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-uoeym",
+      "description": ""
+    },
+    {
+      "name": "clawhub-wixce",
+      "path": "skills/hightower6eu/clawhub-wixce",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-wixce",
+      "description": ""
+    },
+    {
+      "name": "clawhub-wotp2",
+      "path": "skills/hightower6eu/clawhub-wotp2",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hightower6eu/clawhub-wotp2",
+      "description": ""
+    },
+    {
+      "name": "vassili-clawhub-cli",
+      "path": "skills/vassiliylakhonin/vassili-clawhub-cli",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/vassiliylakhonin/vassili-clawhub-cli",
+      "description": ""
+    },
+    {
+      "name": "clawhub-jira-pat-skill",
+      "path": "skills/dejanb/clawhub-jira-pat-skill",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/dejanb/clawhub-jira-pat-skill",
+      "description": ""
+    },
+    {
+      "name": "clawhub-publisher",
+      "path": "skills/shepherd217/clawhub-publisher",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/shepherd217/clawhub-publisher",
+      "description": ""
+    },
+    {
+      "name": "clawhub-search-verify",
+      "path": "skills/viktorbjorn/clawhub-search-verify",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/viktorbjorn/clawhub-search-verify",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-2",
+      "path": "skills/pathemata-mathemata/clawhub-skill-2",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/pathemata-mathemata/clawhub-skill-2",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skills",
+      "path": "skills/hans1329/clawhub-skills",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/hans1329/clawhub-skills",
+      "description": ""
+    },
+    {
+      "name": "clawhub-publish-doctor",
+      "path": "skills/bluebirdback/clawhub-publish-doctor",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/bluebirdback/clawhub-publish-doctor",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-explorer",
+      "path": "skills/playgod2023/clawhub-skill-explorer",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/playgod2023/clawhub-skill-explorer",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-guide",
+      "path": "skills/tdavis009/clawhub-skill-guide",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/tdavis009/clawhub-skill-guide",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-publisher",
+      "path": "skills/wanng-ide/clawhub-skill-publisher",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/wanng-ide/clawhub-skill-publisher",
+      "description": ""
+    },
+    {
+      "name": "clawsec-clawhub-checker",
+      "path": "skills/davida-ps/clawsec-clawhub-checker",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/davida-ps/clawsec-clawhub-checker",
+      "description": ""
+    },
+    {
+      "name": "2026-02-10-clawhub-clawvault-1-5-1",
+      "path": "skills/pin-alt/2026-02-10-clawhub-clawvault-1-5-1",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/pin-alt/2026-02-10-clawhub-clawvault-1-5-1",
+      "description": ""
+    },
+    {
+      "name": "exec-clawhub-publish-doctor",
+      "path": "skills/bluebirdback/exec-clawhub-publish-doctor",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/bluebirdback/exec-clawhub-publish-doctor",
+      "description": ""
+    },
+    {
+      "name": "outlook-skill-clawhub",
+      "path": "skills/87marc/outlook-skill-clawhub",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/87marc/outlook-skill-clawhub",
+      "description": ""
+    },
+    {
+      "name": "20206-02-10-clawhub-summarize-1-0-0",
+      "path": "skills/pin-alt/20206-02-10-clawhub-summarize-1-0-0",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/pin-alt/20206-02-10-clawhub-summarize-1-0-0",
+      "description": ""
+    },
+    {
+      "name": "clawhub-zerion-api",
+      "path": "skills/abishekdharshan/clawhub-zerion-api",
+      "github_url": "https://github.com/openclaw/clawhub/tree/main/skills/abishekdharshan/clawhub-zerion-api",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/clawhub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T16:08:38Z"
+}
