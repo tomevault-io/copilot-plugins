@@ -1,0 +1,9 @@
+{
+  "name": "celestoai--smolvm",
+  "displayName": "SmolVM",
+  "description": "Open-source AI sandbox infrastructure for code execution, browser use, and AI agents.",
+  "version": "1.0.0",
+  "author": "CelestoAI",
+  "homepage": "https://github.com/CelestoAI/SmolVM",
+  "skills": []
+}
