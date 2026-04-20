@@ -1,0 +1,14 @@
+{
+  "name": "yeachan-heo--oh-my-claudecode",
+  "displayName": "oh-my-c",
+  "description": "Teams-first Multi-agent orchestration for Claude Code",
+  "version": "1.0.0",
+  "author": "Yeachan-Heo",
+  "homepage": "https://github.com/Yeachan-Heo/oh-my-claudecode",
+  "skills": [
+    {
+      "name": "build-fix",
+      "description": ""
+    }
+  ]
+}
