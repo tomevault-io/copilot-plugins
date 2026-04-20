@@ -1,0 +1,57 @@
+{
+  "name": "aigc-weekly",
+  "owner": "miantiao-me",
+  "repo": "aigc-weekly",
+  "description": "Agili \u7684 AIGC \u5468\u520a - \u4e00\u4e2a\u7531 Agentic AI Agent \u9a71\u52a8\u7684 AIGC\uff08\u4eba\u5de5\u667a\u80fd\u751f\u6210\u5185\u5bb9\uff09\u7cbe\u9009\u5468\u520a\u3002",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "batch-research",
+      "path": "agent/.opencode/skills/batch-research",
+      "github_url": "https://github.com/miantiao-me/aigc-weekly/tree/main/agent/.opencode/skills/batch-research",
+      "description": ""
+    },
+    {
+      "name": "publish-weekly",
+      "path": "agent/.opencode/skills/publish-weekly",
+      "github_url": "https://github.com/miantiao-me/aigc-weekly/tree/main/agent/.opencode/skills/publish-weekly",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/miantiao-me/aigc-weekly",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:34:09Z"
+}
