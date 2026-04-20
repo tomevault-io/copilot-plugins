@@ -1,0 +1,9 @@
+{
+  "name": "first-fluke--fullstack-starter",
+  "displayName": "fullstack-starter",
+  "description": "Production-ready fullstack monorepo template with Next.js, FastAPI, Flutter, Terraform, and mise",
+  "version": "1.0.0",
+  "author": "first-fluke",
+  "homepage": "https://github.com/first-fluke/fullstack-starter",
+  "skills": []
+}
