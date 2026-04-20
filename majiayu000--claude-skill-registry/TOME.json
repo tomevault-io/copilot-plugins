@@ -1,0 +1,207 @@
+{
+  "name": "claude",
+  "owner": "majiayu000",
+  "repo": "claude-skill-registry",
+  "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "app-ui-design",
+      "path": "skills/app-ui-design",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/app-ui-design",
+      "description": ""
+    },
+    {
+      "name": "harmonyos-app",
+      "path": "skills/harmonyos-app",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/harmonyos-app",
+      "description": ""
+    },
+    {
+      "name": "product-ux-expert",
+      "path": "skills/product-ux-expert",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/product-ux-expert",
+      "description": ""
+    },
+    {
+      "name": "prd-master",
+      "path": "skills/prd-master",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/prd-master",
+      "description": ""
+    },
+    {
+      "name": "technical-spec",
+      "path": "skills/technical-spec",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/technical-spec",
+      "description": ""
+    },
+    {
+      "name": "devops-excellence",
+      "path": "skills/devops-excellence",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/devops-excellence",
+      "description": ""
+    },
+    {
+      "name": "golang-web",
+      "path": "skills/golang-web",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/golang-web",
+      "description": ""
+    },
+    {
+      "name": "observability-sre",
+      "path": "skills/observability-sre",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/observability-sre",
+      "description": ""
+    },
+    {
+      "name": "database-patterns",
+      "path": "skills/database-patterns",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/database-patterns",
+      "description": ""
+    },
+    {
+      "name": "auth-security",
+      "path": "skills/auth-security",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/auth-security",
+      "description": ""
+    },
+    {
+      "name": "zig-project",
+      "path": "skills/zig-project",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/zig-project",
+      "description": ""
+    },
+    {
+      "name": "auto-optimize",
+      "path": "skills/auto-optimize",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/auto-optimize",
+      "description": ""
+    },
+    {
+      "name": "codex-agent",
+      "path": "skills/codex-agent",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/codex-agent",
+      "description": ""
+    },
+    {
+      "name": "product-analytics",
+      "path": "skills/product-analytics",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/product-analytics",
+      "description": ""
+    },
+    {
+      "name": "rust-project",
+      "path": "skills/rust-project",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/rust-project",
+      "description": ""
+    },
+    {
+      "name": "typescript-project",
+      "path": "skills/typescript-project",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/typescript-project",
+      "description": ""
+    },
+    {
+      "name": "backend-nodejs",
+      "path": "data/backend-nodejs",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/backend-nodejs",
+      "description": ""
+    },
+    {
+      "name": "core-dev",
+      "path": "data/core-dev",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/core-dev",
+      "description": ""
+    },
+    {
+      "name": "backend-node",
+      "path": "data/backend-node",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/backend-node",
+      "description": ""
+    },
+    {
+      "name": "marketing-seo-complete",
+      "path": "data/marketing-seo-complete",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/marketing-seo-complete",
+      "description": ""
+    },
+    {
+      "name": "django-model-helper",
+      "path": "skills/data/django-model-helper",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/skills/data/django-model-helper",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "path": "data/language-patterns",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/language-patterns",
+      "description": ""
+    },
+    {
+      "name": "hashbrown-dev",
+      "path": "data/hashbrown-core",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/hashbrown-core",
+      "description": ""
+    },
+    {
+      "name": "code-antipatterns-analysis",
+      "path": "data/code-antipatterns-analysis",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/code-antipatterns-analysis",
+      "description": ""
+    },
+    {
+      "name": "i18n-setup-wizard",
+      "path": "data/i18n-setup-wizard",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/i18n-setup-wizard",
+      "description": ""
+    },
+    {
+      "name": "i18n-manager",
+      "path": "data/i18n-manager",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/i18n-manager",
+      "description": ""
+    },
+    {
+      "name": "jwt-auth-expert",
+      "path": "data/jwt-auth-expert",
+      "github_url": "https://github.com/majiayu000/claude-skill-registry/tree/main/data/jwt-auth-expert",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/majiayu000/claude-skill-registry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T16:00:18Z"
+}
