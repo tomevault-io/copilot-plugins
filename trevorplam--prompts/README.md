@@ -1,6 +1,6 @@
-# prompts — distributed by TomeVault
+# prompts
 
-> Originally from [TrevorPLam/prompts](https://github.com/TrevorPLam/prompts). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [TrevorPLam/prompts](https://github.com/TrevorPLam/prompts) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [TrevorPLam/prompts](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/TrevorPLam)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/TrevorPLam/prompts](https://github.com/TrevorPLam/prompts)
 
 ---
 
