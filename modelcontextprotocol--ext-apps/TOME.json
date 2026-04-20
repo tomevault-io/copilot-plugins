@@ -1,0 +1,57 @@
+{
+  "name": "ext-apps",
+  "owner": "modelcontextprotocol",
+  "repo": "ext-apps",
+  "description": "Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-mcp-app",
+      "path": "plugins/mcp-apps/skills/create-mcp-app",
+      "github_url": "https://github.com/modelcontextprotocol/ext-apps/tree/main/plugins/mcp-apps/skills/create-mcp-app",
+      "description": ""
+    },
+    {
+      "name": "migrate-oai-app",
+      "path": "plugins/mcp-apps/skills/migrate-oai-app",
+      "github_url": "https://github.com/modelcontextprotocol/ext-apps/tree/main/plugins/mcp-apps/skills/migrate-oai-app",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/modelcontextprotocol/ext-apps",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:34:42Z"
+}
