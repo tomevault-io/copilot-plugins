@@ -1,24 +1,24 @@
-# scriptorium — distributed by TomeVault
+# scriptorium
 
-> Originally from [lordmos/scriptorium](https://github.com/lordmos/scriptorium). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [lordmos/scriptorium](https://github.com/lordmos/scriptorium) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [lordmos/scriptorium](https://github.com/lordmos/scriptorium).
+Original source: `.windsurf/rules/*.md` in [lordmos/scriptorium](https://github.com/lordmos/scriptorium).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
-- **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/lordmos#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lordmos/scriptorium](https://github.com/lordmos/scriptorium)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/lordmos) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
