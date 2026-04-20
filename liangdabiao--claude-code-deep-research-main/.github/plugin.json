@@ -1,0 +1,14 @@
+{
+  "name": "liangdabiao--claude-code-deep-research-main",
+  "displayName": "Claude-Code",
+  "description": "\u5229\u7528claude code agent\u6846\u67b6\u4e00\u6b65\u4e00\u6b65\u5b9e\u73b0deep research\uff01\u5f88\u5f3a\u5927\u5f88\u7b80\u5355\u7684skills\u3002\u6211\u4e00\u6b65\u4e00\u6b65\u4ecb\u7ecd\u5b9e\u73b0deep research\uff0c\u56e0\u4e3adeep research\u5c31\u662fagent\u6846\u67b6\u7b2c\u4e00\u5e94\u7528\uff0c\u5bf9\u6bd4\u4e00\u4e0b\u5404\u4e2a\u6846\u67b6\u5b9e\u73b0\u8fd9\u4e2adeep research\uff0c\u5c31\u77e5\u9053\u54ea\u4e2a\u6846\u67b6\u624d\u662f\u771f\u5389\u5bb3\u3002",
+  "version": "1.0.0",
+  "author": "liangdabiao",
+  "homepage": "https://github.com/liangdabiao/Claude-Code-Deep-Research-main",
+  "skills": [
+    {
+      "name": "deep-research",
+      "description": ""
+    }
+  ]
+}
