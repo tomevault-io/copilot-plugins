@@ -1,0 +1,14 @@
+{
+  "name": "dvlin-dev--moryflow",
+  "displayName": "moryflow",
+  "description": "AI agents that remember, automate, and learn new skills \u2014 work from desktop or Telegram, publish to the world.",
+  "version": "1.0.0",
+  "author": "dvlin-dev",
+  "homepage": "https://github.com/dvlin-dev/moryflow",
+  "skills": [
+    {
+      "name": "baoyu-article-illustrator",
+      "description": ""
+    }
+  ]
+}
