@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [wtergan/Kanones](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/wtergan)
+From [wtergan/Kanones](https://github.com/wtergan/Kanones) — a repo with 0+ stars on GitHub.
 
 ---
 
