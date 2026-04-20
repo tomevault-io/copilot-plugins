@@ -1,0 +1,50 @@
+{
+  "name": "doccker--cc-use-exp",
+  "displayName": "cc-use-exp",
+  "description": "\u8ba9 Claude Code\u3001Gemini CLI\u3001Codex\u3001Cursor \u5f00\u7bb1\u5373\u7528\u7684\u5206\u5c42\u914d\u7f6e\u6a21\u677f\uff0c\u603b\u7ed3\u65e5\u5e38\u7ecf\u9a8c\uff0c\u6301\u7eed\u5b8c\u5584\u4e2d\u2026\u2026",
+  "version": "1.0.0",
+  "author": "doccker",
+  "homepage": "https://github.com/doccker/cc-use-exp",
+  "skills": [
+    {
+      "name": "bash-style",
+      "description": ""
+    },
+    {
+      "name": "frontend-dev",
+      "description": ""
+    },
+    {
+      "name": "go-dev",
+      "description": ""
+    },
+    {
+      "name": "java-dev",
+      "description": ""
+    },
+    {
+      "name": "ops-safety",
+      "description": ""
+    },
+    {
+      "name": "python-dev",
+      "description": ""
+    },
+    {
+      "name": "ruanzhu",
+      "description": ""
+    },
+    {
+      "name": "python-dev",
+      "description": ""
+    },
+    {
+      "name": "python-dev",
+      "description": ""
+    },
+    {
+      "name": "cc-python-dev",
+      "description": ""
+    }
+  ]
+}
