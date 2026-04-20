@@ -1,0 +1,44 @@
+{
+  "name": "metapi",
+  "owner": "cita-777",
+  "repo": "metapi",
+  "description": "\u628a\u4f60\u5728\u5404\u5904\u6ce8\u518c\u7684 New API / One API / OneHub / DoneHub / Veloera / AnyRouter / Sub2API \u7b49\u7ad9\u70b9\uff0c \u6c47\u805a\u6210 \u4e00\u4e2a API Key\u3001\u4e00\u4e2a\u5165\u53e3\uff0c\u81ea\u52a8\u53d1\u73b0\u6a21\u578b\u3001\u667a\u80fd\u8def\u7531\u3001\u6210\u672c\u6700\u4f18",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cita-777/metapi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T08:55:44Z"
+}
