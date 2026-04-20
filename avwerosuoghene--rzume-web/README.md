@@ -1,6 +1,6 @@
 # rzume-web
 
-> Tome by [Avwerosuoghene](https://github.com/Avwerosuoghene/rzume-web) — distributed by [TomeVault](https://tomevault.io/claim/Avwerosuoghene)
+> Tome by [Avwerosuoghene](https://github.com/Avwerosuoghene/rzume-web) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Avwerosuoghene/rzume-web](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Avwerosuoghene)
+From [Avwerosuoghene/rzume-web](https://github.com/Avwerosuoghene/rzume-web) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Avwerosuoghene/rzume-web
 ```
-Or browse all formats at [https://tomevault.io/claim/Avwerosuoghene](https://tomevault.io/claim/Avwerosuoghene).
+Source: [github.com/Avwerosuoghene/rzume-web](https://github.com/Avwerosuoghene/rzume-web).
 
 <!-- genome:t-i-s -->
