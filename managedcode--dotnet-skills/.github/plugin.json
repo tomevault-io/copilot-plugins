@@ -1,0 +1,9 @@
+{
+  "name": "managedcode--dotnet-skills",
+  "displayName": "dotnet-skills",
+  "description": "Installable .NET skill catalog and CLI for Codex, Claude Code, GitHub Copilot, and Gemini.",
+  "version": "1.0.0",
+  "author": "managedcode",
+  "homepage": "https://github.com/managedcode/dotnet-skills",
+  "skills": []
+}
