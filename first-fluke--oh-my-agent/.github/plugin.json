@@ -1,0 +1,14 @@
+{
+  "name": "first-fluke--oh-my-agent",
+  "displayName": "oh-my-agent",
+  "description": "Portable multi-agent harness for .agents-based skills, workflows, and standards-aware agent teams across Antigravity, Claude Code, Codex, Cursor, OpenCode, and more.",
+  "version": "1.0.0",
+  "author": "first-fluke",
+  "homepage": "https://github.com/first-fluke/oh-my-agent",
+  "skills": [
+    {
+      "name": "oma-mobile",
+      "description": ""
+    }
+  ]
+}
