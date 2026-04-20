@@ -1,0 +1,9 @@
+{
+  "name": "kzahel--yepanywhere",
+  "displayName": "yepanywhere",
+  "description": "Self-hosted web UI for Claude and Codex. Push notifications, file uploads, no accounts, no database. Uses your existing CLI session history.",
+  "version": "1.0.0",
+  "author": "kzahel",
+  "homepage": "https://github.com/kzahel/yepanywhere",
+  "skills": []
+}
