@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--sumak",
+  "displayName": "sumak",
+  "description": "Type-safe SQL query builder. Zero dependencies, AST-first, hookable, tree-shakeable. Pure TypeScript.",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/sumak",
+  "skills": []
+}
