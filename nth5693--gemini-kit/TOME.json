@@ -1,0 +1,69 @@
+{
+  "name": "gemini-kit",
+  "owner": "nth5693",
+  "repo": "gemini-kit",
+  "description": "\ud83d\ude80 19 AI Agents + 44 Commands for Gemini CLI - Code 10x faster with auto planning, testing, review & security",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/nth5693/gemini-kit/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "compound-docs",
+      "path": "skills/compound-docs",
+      "github_url": "https://github.com/nth5693/gemini-kit/tree/main/skills/compound-docs",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": "skills/examples/supabase",
+      "github_url": "https://github.com/nth5693/gemini-kit/tree/main/skills/examples/supabase",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "skills/testing",
+      "github_url": "https://github.com/nth5693/gemini-kit/tree/main/skills/testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nth5693/gemini-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:35:53Z"
+}
