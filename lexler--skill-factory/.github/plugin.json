@@ -1,0 +1,70 @@
+{
+  "name": "lexler--skill-factory",
+  "displayName": "skill-factory",
+  "description": "skill-factory",
+  "version": "1.0.0",
+  "author": "lexler",
+  "homepage": "https://github.com/lexler/skill-factory",
+  "skills": [
+    {
+      "name": "ai-patterns",
+      "description": ""
+    },
+    {
+      "name": "approval-tests",
+      "description": ""
+    },
+    {
+      "name": "bdd-with-approvals",
+      "description": ""
+    },
+    {
+      "name": "collaborative-design",
+      "description": ""
+    },
+    {
+      "name": "creating-hooks",
+      "description": ""
+    },
+    {
+      "name": "creating-process-files",
+      "description": ""
+    },
+    {
+      "name": "event-modeling",
+      "description": ""
+    },
+    {
+      "name": "git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "hexagonal-architecture",
+      "description": ""
+    },
+    {
+      "name": "nullables",
+      "description": ""
+    },
+    {
+      "name": "refactoring",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "description": ""
+    },
+    {
+      "name": "using-uv",
+      "description": ""
+    },
+    {
+      "name": "writing-bash-scripts",
+      "description": ""
+    },
+    {
+      "name": "writing-statuslines",
+      "description": ""
+    }
+  ]
+}
