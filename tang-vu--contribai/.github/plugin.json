@@ -1,0 +1,9 @@
+{
+  "name": "tang-vu--contribai",
+  "displayName": "ContribAI",
+  "description": "Autonomous AI agent that contributes to open source \u2014 discovers repos, analyzes code, generates fixes, and submits PRs",
+  "version": "1.0.0",
+  "author": "tang-vu",
+  "homepage": "https://github.com/tang-vu/ContribAI",
+  "skills": []
+}
