@@ -1,0 +1,74 @@
+{
+  "name": "muratcankoylan--agent-skills-for-context-engineering",
+  "displayName": "Agent-Skills-for-Context-Engineering",
+  "description": "A comprehensive collection of Agent Skills for context engineering, multi-agent architectures, and production agent systems. Use when building, optimizing, or debugging agent systems that require effe",
+  "version": "1.0.0",
+  "author": "muratcankoylan",
+  "homepage": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+  "skills": [
+    {
+      "name": "advanced-evaluation",
+      "description": ""
+    },
+    {
+      "name": "bdi-mental-states",
+      "description": ""
+    },
+    {
+      "name": "book-sft-pipeline",
+      "description": ""
+    },
+    {
+      "name": "context-compression",
+      "description": ""
+    },
+    {
+      "name": "context-degradation",
+      "description": ""
+    },
+    {
+      "name": "context-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "context-optimization",
+      "description": ""
+    },
+    {
+      "name": "digital-brain-skill",
+      "description": ""
+    },
+    {
+      "name": "evaluation",
+      "description": ""
+    },
+    {
+      "name": "filesystem-context",
+      "description": ""
+    },
+    {
+      "name": "hosted-agents",
+      "description": ""
+    },
+    {
+      "name": "memory-systems",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "project-development",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "description": ""
+    },
+    {
+      "name": "tool-design",
+      "description": ""
+    }
+  ]
+}
