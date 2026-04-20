@@ -1,0 +1,14 @@
+{
+  "name": "dgreenheck--webgpu-claude-skill",
+  "displayName": "webgpu-claude-skill",
+  "description": "A Claude skill for developing WebGPU applications with Three.js",
+  "version": "1.0.0",
+  "author": "dgreenheck",
+  "homepage": "https://github.com/dgreenheck/webgpu-claude-skill",
+  "skills": [
+    {
+      "name": "webgpu-threejs-tsl",
+      "description": ""
+    }
+  ]
+}
