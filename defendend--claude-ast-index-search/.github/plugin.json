@@ -1,0 +1,14 @@
+{
+  "name": "defendend--claude-ast-index-search",
+  "displayName": "Claude-ast-index-search",
+  "description": "Cli allows you to index files and greatly speed up Claude/Cursor searches (suitable for any AI agent that can use Bash)",
+  "version": "1.0.0",
+  "author": "defendend",
+  "homepage": "https://github.com/defendend/Claude-ast-index-search",
+  "skills": [
+    {
+      "name": "ast-index",
+      "description": ""
+    }
+  ]
+}
