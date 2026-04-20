@@ -1,0 +1,50 @@
+{
+  "name": "openclaw--lobster",
+  "displayName": "lobster",
+  "description": "Lobster is a Openclaw-native workflow shell: a typed, local-first \u201cmacro engine\u201d that turns skills/tools into composable pipelines and safe automations\u2014and lets Openclaw call those workflows in one st",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/lobster",
+  "skills": [
+    {
+      "name": "jules-and-lobster",
+      "description": ""
+    },
+    {
+      "name": "lobster",
+      "description": ""
+    },
+    {
+      "name": "lobster-jobs",
+      "description": ""
+    },
+    {
+      "name": "lobster-tank",
+      "description": ""
+    },
+    {
+      "name": "lobster-bio-dev",
+      "description": ""
+    },
+    {
+      "name": "lobster-market",
+      "description": ""
+    },
+    {
+      "name": "lobster-bio-use",
+      "description": ""
+    },
+    {
+      "name": "lucky-lobster",
+      "description": ""
+    },
+    {
+      "name": "lucky-lobster-ai",
+      "description": ""
+    },
+    {
+      "name": "perp-lobster",
+      "description": ""
+    }
+  ]
+}
