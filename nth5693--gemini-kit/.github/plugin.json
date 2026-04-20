@@ -1,0 +1,26 @@
+{
+  "name": "nth5693--gemini-kit",
+  "displayName": "gemini-kit",
+  "description": "\ud83d\ude80 19 AI Agents + 44 Commands for Gemini CLI - Code 10x faster with auto planning, testing, review & security",
+  "version": "1.0.0",
+  "author": "nth5693",
+  "homepage": "https://github.com/nth5693/gemini-kit",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "compound-docs",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    }
+  ]
+}
