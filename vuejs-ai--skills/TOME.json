@@ -1,0 +1,93 @@
+{
+  "name": "skills",
+  "owner": "vuejs-ai",
+  "repo": "skills",
+  "description": "Agent skills for Vue 3 development",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue-debug-guides",
+      "path": "skills/vue-debug-guides",
+      "github_url": "https://github.com/vuejs-ai/skills/tree/main/skills/vue-debug-guides",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "path": "skills/vue-best-practices",
+      "github_url": "https://github.com/vuejs-ai/skills/tree/main/skills/vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-pinia-best-practices",
+      "path": "skills/vue-pinia-best-practices",
+      "github_url": "https://github.com/vuejs-ai/skills/tree/main/skills/vue-pinia-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-router-best-practices",
+      "path": "skills/vue-router-best-practices",
+      "github_url": "https://github.com/vuejs-ai/skills/tree/main/skills/vue-router-best-practices",
+      "description": ""
+    },
+    {
+      "name": "create-adaptable-composable",
+      "path": "skills/create-adaptable-composable",
+      "github_url": "https://github.com/vuejs-ai/skills/tree/main/skills/create-adaptable-composable",
+      "description": ""
+    },
+    {
+      "name": "vue-testing-best-practices",
+      "path": "skills/vue-testing-best-practices",
+      "github_url": "https://github.com/vuejs-ai/skills/tree/main/skills/vue-testing-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-jsx-best-practices",
+      "path": "skills/vue-jsx-best-practices",
+      "github_url": "https://github.com/vuejs-ai/skills/tree/main/skills/vue-jsx-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-options-api-best-practices",
+      "path": "skills/vue-options-api-best-practices",
+      "github_url": "https://github.com/vuejs-ai/skills/tree/main/skills/vue-options-api-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vuejs-ai/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:57:52Z"
+}
