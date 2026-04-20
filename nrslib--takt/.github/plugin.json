@@ -1,0 +1,14 @@
+{
+  "name": "nrslib--takt",
+  "displayName": "takt",
+  "description": "TAKT Agent Koordination Topology - Define how AI agents coordinate, where humans intervene, and what gets recorded \u2014 in YAML",
+  "version": "1.0.0",
+  "author": "nrslib",
+  "homepage": "https://github.com/nrslib/takt",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
