@@ -1,0 +1,51 @@
+{
+  "name": "mgrep",
+  "owner": "mixedbread-ai",
+  "repo": "mgrep",
+  "description": "A calm, CLI-native way to semantically grep everything, like code, images, pdfs and more.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mgrep",
+      "path": "plugins/mgrep/skills/mgrep",
+      "github_url": "https://github.com/mixedbread-ai/mgrep/tree/main/plugins/mgrep/skills/mgrep",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mixedbread-ai/mgrep",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:39:52Z"
+}
