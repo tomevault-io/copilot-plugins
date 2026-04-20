@@ -1,0 +1,57 @@
+{
+  "name": "geektime-bootcamp-ai",
+  "owner": "tyrchen",
+  "repo": "geektime-bootcamp-ai",
+  "description": "\u6211\u5728\u6781\u5ba2\u65f6\u95f4\u4e0a\u7684 AI \u8bad\u7ec3\u8425\u8bfe\u7a0b",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gemini-image",
+      "path": ".claude/skills/gemini-image",
+      "github_url": "https://github.com/tyrchen/geektime-bootcamp-ai/tree/main/.claude/skills/gemini-image",
+      "description": ""
+    },
+    {
+      "name": "site-slides",
+      "path": ".claude/skills/site-slides",
+      "github_url": "https://github.com/tyrchen/geektime-bootcamp-ai/tree/main/.claude/skills/site-slides",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tyrchen/geektime-bootcamp-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:36:15Z"
+}
