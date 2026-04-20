@@ -1,0 +1,18 @@
+{
+  "name": "cloudai-x--claude-workflow-v2",
+  "displayName": "claude-workflow-v2",
+  "description": "Universal Claude Code workflow plugin with agents, skills, hooks, and commands",
+  "version": "1.0.0",
+  "author": "CloudAI-X",
+  "homepage": "https://github.com/CloudAI-X/claude-workflow-v2",
+  "skills": [
+    {
+      "name": "managing-git",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    }
+  ]
+}
