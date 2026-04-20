@@ -1,6 +1,6 @@
 # Embarcatech-Etapa-2---Projeto-Final-firmware
 
-> Tome by [ArvoreDosSaberes](https://github.com/ArvoreDosSaberes/Embarcatech-Etapa-2---Projeto-Final-firmware) — distributed by [TomeVault](https://tomevault.io/claim/ArvoreDosSaberes)
+> Tome by [ArvoreDosSaberes](https://github.com/ArvoreDosSaberes/Embarcatech-Etapa-2---Projeto-Final-firmware) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [ArvoreDosSaberes/Embarcatech-Etapa-2
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ArvoreDosSaberes)
+From [ArvoreDosSaberes/Embarcatech-Etapa-2---Projeto-Final-firmware](https://github.com/ArvoreDosSaberes/Embarcatech-Etapa-2---Projeto-Final-firmware) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/ArvoreDosSaberes) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
