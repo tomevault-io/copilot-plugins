@@ -1,0 +1,198 @@
+{
+  "name": "openclaw--clawhub",
+  "displayName": "clawhub",
+  "description": "Skill Directory for OpenClaw",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/clawhub",
+  "skills": [
+    {
+      "name": "clawhub",
+      "description": ""
+    },
+    {
+      "name": "ai-bill-clawhub",
+      "description": ""
+    },
+    {
+      "name": "clawhub-hh1fd",
+      "description": ""
+    },
+    {
+      "name": "clawhub",
+      "description": ""
+    },
+    {
+      "name": "keep-protocol-clawhub",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-remote-agent",
+      "description": ""
+    },
+    {
+      "name": "rey-clawhub-publisher",
+      "description": ""
+    },
+    {
+      "name": "secure-clawhub",
+      "description": ""
+    },
+    {
+      "name": "2026-02-10-clawhub-base-wallet-1-5-0",
+      "description": ""
+    },
+    {
+      "name": "clawhub-6yr3b",
+      "description": ""
+    },
+    {
+      "name": "clawhub-c9y4p",
+      "description": ""
+    },
+    {
+      "name": "clawhub-d4kxr",
+      "description": ""
+    },
+    {
+      "name": "clawhub-f3qcn",
+      "description": ""
+    },
+    {
+      "name": "clawhub-gpcrq",
+      "description": ""
+    },
+    {
+      "name": "clawhub-gpwp7",
+      "description": ""
+    },
+    {
+      "name": "clawhub-gstca",
+      "description": ""
+    },
+    {
+      "name": "clawhub-hh2km",
+      "description": ""
+    },
+    {
+      "name": "clawhub-hylhq",
+      "description": ""
+    },
+    {
+      "name": "clawhub-i7oci",
+      "description": ""
+    },
+    {
+      "name": "clawhub-i9zhz",
+      "description": ""
+    },
+    {
+      "name": "clawhub-ja7eh",
+      "description": ""
+    },
+    {
+      "name": "clawhub-krmvq",
+      "description": ""
+    },
+    {
+      "name": "clawhub-oihpl",
+      "description": ""
+    },
+    {
+      "name": "clawhub-olgys",
+      "description": ""
+    },
+    {
+      "name": "clawhub-osasg",
+      "description": ""
+    },
+    {
+      "name": "clawhub-rkvny",
+      "description": ""
+    },
+    {
+      "name": "clawhub-sxtsn",
+      "description": ""
+    },
+    {
+      "name": "clawhub-tlxx5",
+      "description": ""
+    },
+    {
+      "name": "clawhub-uoeym",
+      "description": ""
+    },
+    {
+      "name": "clawhub-wixce",
+      "description": ""
+    },
+    {
+      "name": "clawhub-wotp2",
+      "description": ""
+    },
+    {
+      "name": "vassili-clawhub-cli",
+      "description": ""
+    },
+    {
+      "name": "clawhub-jira-pat-skill",
+      "description": ""
+    },
+    {
+      "name": "clawhub-publisher",
+      "description": ""
+    },
+    {
+      "name": "clawhub-search-verify",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-2",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skills",
+      "description": ""
+    },
+    {
+      "name": "clawhub-publish-doctor",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-explorer",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-guide",
+      "description": ""
+    },
+    {
+      "name": "clawhub-skill-publisher",
+      "description": ""
+    },
+    {
+      "name": "clawsec-clawhub-checker",
+      "description": ""
+    },
+    {
+      "name": "2026-02-10-clawhub-clawvault-1-5-1",
+      "description": ""
+    },
+    {
+      "name": "exec-clawhub-publish-doctor",
+      "description": ""
+    },
+    {
+      "name": "outlook-skill-clawhub",
+      "description": ""
+    },
+    {
+      "name": "20206-02-10-clawhub-summarize-1-0-0",
+      "description": ""
+    },
+    {
+      "name": "clawhub-zerion-api",
+      "description": ""
+    }
+  ]
+}
