@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [HenderOrlando/booklyapp](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/HenderOrlando#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/HenderOrlando/booklyapp](https://github.com/HenderOrlando/booklyapp)
 
 ---
 
