@@ -1,0 +1,117 @@
+{
+  "name": "roborev",
+  "owner": "roborev-dev",
+  "repo": "roborev",
+  "description": "Continuous background code review database for agents, work faster and smarter with accountability for every line of generated code.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "roborev-design-review",
+      "path": "internal/skills/claude/roborev-design-review",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/claude/roborev-design-review",
+      "description": ""
+    },
+    {
+      "name": "roborev-design-review",
+      "path": "internal/skills/codex/roborev-design-review",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/codex/roborev-design-review",
+      "description": ""
+    },
+    {
+      "name": "roborev-design-review-branch",
+      "path": "internal/skills/claude/roborev-design-review-branch",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/claude/roborev-design-review-branch",
+      "description": ""
+    },
+    {
+      "name": "roborev-design-review-branch",
+      "path": "internal/skills/codex/roborev-design-review-branch",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/codex/roborev-design-review-branch",
+      "description": ""
+    },
+    {
+      "name": "roborev-fix",
+      "path": "internal/skills/claude/roborev-fix",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/claude/roborev-fix",
+      "description": ""
+    },
+    {
+      "name": "roborev-fix",
+      "path": "internal/skills/codex/roborev-fix",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/codex/roborev-fix",
+      "description": ""
+    },
+    {
+      "name": "roborev-respond",
+      "path": "internal/skills/codex/roborev-respond",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/codex/roborev-respond",
+      "description": ""
+    },
+    {
+      "name": "roborev-respond",
+      "path": "internal/skills/claude/roborev-respond",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/claude/roborev-respond",
+      "description": ""
+    },
+    {
+      "name": "roborev-review",
+      "path": "internal/skills/codex/roborev-review",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/codex/roborev-review",
+      "description": ""
+    },
+    {
+      "name": "roborev-review",
+      "path": "internal/skills/claude/roborev-review",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/claude/roborev-review",
+      "description": ""
+    },
+    {
+      "name": "roborev-review-branch",
+      "path": "internal/skills/codex/roborev-review-branch",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/codex/roborev-review-branch",
+      "description": ""
+    },
+    {
+      "name": "roborev-review-branch",
+      "path": "internal/skills/claude/roborev-review-branch",
+      "github_url": "https://github.com/roborev-dev/roborev/tree/main/internal/skills/claude/roborev-review-branch",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/roborev-dev/roborev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:44:46Z"
+}
