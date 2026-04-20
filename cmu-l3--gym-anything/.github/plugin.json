@@ -1,0 +1,9 @@
+{
+  "name": "cmu-l3--gym-anything",
+  "displayName": "gym-anything",
+  "description": "Gym-Anything: Turn any Software into an Agent Environment",
+  "version": "1.0.0",
+  "author": "cmu-l3",
+  "homepage": "https://github.com/cmu-l3/gym-anything",
+  "skills": []
+}
