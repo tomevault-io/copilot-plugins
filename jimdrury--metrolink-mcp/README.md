@@ -1,6 +1,6 @@
 # metrolink-mcp
 
-> Config by [jimdrury](https://github.com/jimdrury/metrolink-mcp) — distributed by [TomeVault](https://tomevault.io/claim/jimdrury)
+> Tome by [jimdrury](https://github.com/jimdrury/metrolink-mcp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [jimdrury/metrolink-mcp](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/jimdrury](https://tomevault.io/claim/jimdrury)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/jimdrury/metrolink-mcp](https://github.com/jimdrury/metrolink-mcp)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jimdrury) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install jimdrury/metrolink-mcp
+```
+Source: [github.com/jimdrury/metrolink-mcp](https://github.com/jimdrury/metrolink-mcp).
+
+<!-- genome:t-i-p -->
