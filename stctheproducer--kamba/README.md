@@ -1,6 +1,6 @@
 # kamba
 
-> Tome by [stctheproducer](https://github.com/stctheproducer/kamba) — distributed by [TomeVault](https://tomevault.io/claim/stctheproducer)
+> Tome by [stctheproducer](https://github.com/stctheproducer/kamba) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [stctheproducer/kamba](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/stctheproducer#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/stctheproducer/kamba](https://github.com/stctheproducer/kamba)
 
 ---
 
