@@ -1,0 +1,9 @@
+{
+  "name": "cisco-ai-defense--defenseclaw",
+  "displayName": "defenseclaw",
+  "description": "Security Governance for Agentic AI",
+  "version": "1.0.0",
+  "author": "cisco-ai-defense",
+  "homepage": "https://github.com/cisco-ai-defense/defenseclaw",
+  "skills": []
+}
