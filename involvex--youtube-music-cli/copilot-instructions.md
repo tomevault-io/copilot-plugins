@@ -1,121 +1,175 @@
 ## youtube-music-cli
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This is a Terminal User Interface (TUI) music player for YouTube Music, built with React and TypeScript using Ink for terminal rendering.
 
-# CLAUDE.md
+# Copilot Instructions for youtube-music-cli
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Quick Start
 
-## Project Overview
+This is a Terminal User Interface (TUI) music player for YouTube Music, built with React and TypeScript using Ink for terminal rendering.
 
-**@involvex/youtube-music-cli** is a terminal-based music player for YouTube Music, built with React and TypeScript using Ink for terminal UI rendering. It provides a full-featured CLI music player with search, playback controls, queue management, and multiple UI themes.
-
-## Commands
-
-### Development
+**Key Commands:**
 
 ```bash
-bun run dev          # TypeScript watch mode
+bun run dev          # Start in watch mode (TypeScript compilation)
 bun run build        # Compile TypeScript to dist/
-bun run start        # Run compiled CLI (dist/source/cli.js)
+bun run start        # Run compiled CLI binary
+bun run lint:fix     # Fix linting and formatting issues
+bun run test         # Run full test suite (formatting + linting + tests)
 ```
 
-### Code Quality
-
-```bash
-bun run format       # Format code with Prettier
-bun run format:check # Check formatting without modifying
-bun run lint         # Lint code with ESLint
-bun run lint:fix     # Fix linting issues automatically
-bun run typecheck    # Type check without emitting
-```
-
-### Testing
-
-```bash
-bun run test         # Run prettier check + XO + AVA
-```
-
-The `prebuild` script automatically runs `format` → `lint:fix` → `typecheck` before building.
-
-## Architecture
+## Architecture Overview
 
 ### Entry Points
 
 - **CLI Entry**: `source/cli.tsx` - Parses CLI arguments with `meow`, handles direct commands (`play`, `search`, `playlist`)
-- **App Root**: `source/app.tsx` → `source/main.tsx` - Root React component
-- **Compiled Binary**: `dist/source/cli.js` (set as `bin` in package.json)
+- **App Root**: `source/app.tsx` → `source/main.tsx` - Root React component that sets up providers
+- **Compiled Binary**: `dist/source/cli.js` (referenced in package.json `bin` field)
 
-### State Management Pattern
+### Core Layers
 
-The codebase uses a custom store pattern built on React Context + useReducer:
+**State Management** (all follow the same pattern: Provider + useHook):
 
-- **`source/stores/player.store.tsx`**: Core player state (playback, queue, volume, shuffle/repeat). Exports `PlayerProvider` and `usePlayer()` hook. State transitions happen through action categories (PLAY, PAUSE, NEXT, SEEK, etc.)
-- **`source/stores/favorites.store.tsx`**: Favorite tracks state management.
-- **`source/stores/navigation.store.tsx`**: View navigation state
-- **`source/contexts/theme.context.tsx`**: Theme management, exports `ThemeProvider` and `useTheme()` hook
+- `source/stores/player.store.tsx` - Player state (playback, queue, volume, shuffle/repeat) with action-based reducers
+- `source/stores/navigation.store.tsx` - View navigation state
+- `source/contexts/theme.context.tsx` - Theme management
 
-Important: All stores follow the same pattern - Provider component wraps children, custom hook throws if used outside provider.
+**Services** (abstraction over external dependencies):
 
-### Service Layer
+- `source/services/youtube-music/` - Wrapper around `node-youtube-music` API for search and track lookup
+- `source/services/player/` - Audio playback via `play-sound`
+- `source/services/config/` - Configuration persistence (theme, volume settings)
 
-Services in `source/services/` provide abstraction over external dependencies:
-
-- **`youtube-music/`**: Wrapper around `node-youtube-music` API for search, track lookup
-- **`player/`**: Audio playback via `play-sound`
-- **`config/`**: Configuration persistence (theme, volume settings)
-
-### Component Structure
+**Components** (organized by feature, use Ink primitives: Box, Text, etc.):
 
 ```
 source/components/
-├── layouts/       # Main layout containers (PlayerLayout, SearchLayout, etc.)
-├── player/        # Player-specific components (PlayerControls, QueueList, etc.)
-├── favorites/     # Favorites list and view components
-├── search/        # Search components (SearchBar, SearchResults)
-├── playlist/      # Playlist management components
-├── theme/         # Theme switching components
-└── common/        # Shared components (Help, etc.)
+├── layouts/       # Main UI containers (PlayerLayout, SearchLayout, etc.)
+├── player/        # Player-specific UI (PlayerControls, QueueList, etc.)
+├── search/        # Search UI (SearchBar, SearchResults)
+├── playlist/      # Playlist management UI
+├── theme/         # Theme switching UI
+└── common/        # Shared components (Help, ErrorBoundary, etc.)
 ```
 
-Components use Ink's terminal UI primitives (Box, Text, etc.) and follow React 18 patterns with hooks.
+**Types** (core domain models):
 
-### CLI Commands
+- `source/types/player.types.ts` - PlayerState, PlayerAction
+- `source/types/youtube-music.types.ts` - Track, Album, Artist, Playlist, SearchResult
+- `source/types/theme.types.ts` - Theme interface
+- `source/types/cli.types.ts` - CLI flags and options
 
-The CLI supports both direct invocation and subcommands:
+### Key Patterns
 
-```
+**React Hooks & Context**: All custom hooks throw an error if used outside their provider. Always verify the provider wrapper is in place before using a hook.
+
+**Action-Based Reducers**: Player state changes happen through action categories (PLAY, PAUSE, NEXT, SEEK, etc.) dispatched to the reducer. Check `PlayerAction` type for available actions.
+
+**Terminal Size Responsiveness**: Use `useTerminalSize()` to scale UI elements and truncate text based on terminal width.
+
+## Development Conventions
+
+### Imports & Modules
+
+- **ESM Modules**: Project uses `"type": "module"` - all imports use ES syntax
+- **TypeScript Extensions**: Imports include `.ts`/`.tsx` extensions (compiler rewrites them)
+- **Bun Runtime**: Primary runtime and package manager (scripts use `bun run`)
+
+### Code Quality
+
+- **Linting**: ESLint with flat config, extends XO and XO-React
+- **Formatting**: Prettier with `@vdemedes/prettier-config` and import organization plugins
+- **TypeScript**: Strict mode via `@sindresorhus/tsconfig`
+- **React Transform**: JSX uses automatic transform (`jsx: "react-jsx"`)
+
+### Testing
+
+- **Test Runner**: AVA (configured for TypeScript modules)
+- **TUI Testing**: `ink-testing-library` for asserting on terminal output
+- **Test Location**: `test.tsx` and other `.test.ts/tsx` files
+- **Single Test**: `bunx ava test.tsx --match "test name"` to run specific test
+
+## CLI Commands
+
+### Interactive Mode
+
+```bash
 youtube-music-cli                    # Launch interactive UI
+youtube-music-cli --theme=matrix     # Set theme via flag
+```
+
+### Subcommands
+
+```bash
 youtube-music-cli play <track-id>    # Play specific track directly
 youtube-music-cli search <query>     # Search and play
 youtube-music-cli playlist <id>      # Play playlist
-youtube-music-cli --theme=matrix     # Set theme
+youtube-music-cli pause              # Pause playback
+youtube-music-cli resume             # Resume playback
+youtube-music-cli skip               # Skip to next track
+youtube-music-cli back               # Go to previous track
+youtube-music-cli --headless         # Run without TUI
 ```
 
-Flags defined in `source/cli.tsx` are passed through to the App.
+## Critical Implementation Details
 
-## Conventions
+### Keyboard Event Management
 
-- **ESM Modules**: Project uses `"type": "module"` - all imports use ES syntax
-- **TypeScript Imports**: Imports include `.ts`/`.tsx` extensions (rewritten by compiler)
-- **Bun Runtime**: Project uses Bun as the runtime and package manager (scripts use `bun run`)
-- **Prettier Config**: Uses `@vdemedes/prettier-config` with import organization plugins
-- **Linting**: ESLint with flat config, extends XO and XO-React configs
+- Use `useKeyBinding` hook to register global shortcuts
+- Keyboard events are centralized to prevent `MaxListenersExceededWarning`
+- Avoid adding raw stdin listeners directly; use the hook instead
 
-## Type Definitions
+### Audio Streaming
 
-Key types are in `source/types/`:
+- High-quality audio URLs are obtained via `youtube-ext` and `youtubei.js`
+- Audio is played via `play-sound` service
+- **Security**: Always sanitize audio URLs to prevent shell injection
 
-- `player.types.ts`: PlayerState, PlayerAction
-- `youtube-music.types.ts`: Track, Album, Artist, Playlist
-- `theme.types.ts`: Theme interface
-- `cli.types.ts`: CLI flags and options
+### Search & Results
 
-## Roadmap & Priorities
+- Search is polymorphic: returns discriminated union of Track/Album/Artist/Playlist results
+- Search triggering happens on Enter key press
+- Results are paginated to avoid excessive API calls
 
-Consult `SUGGESTIONS.md` for the backlog and use `docs/roadmap.md` to see the in-progress work (crossfade/gapless playback, equalizer follow-ups, etc.). The README also links to this roadmap so every contributor or agent knows where to look before starting a new change.
+### Terminal Rendering
+
+- All text must be wrapped in `<Text>` components
+- Use `<Box>` with flexbox-style positioning
+- Never place raw text outside of `<Text>` components (will cause Ink render errors)
+
+## Common Debugging Tips
+
+1. **Type Errors**: Run `bun run typecheck` without emitting to catch TS errors quickly
+2. **Render Crashes**: Check that all text is wrapped in `<Text>` components
+3. **State Not Updating**: Verify the store provider is wrapping the consuming component tree
+4. **Keyboard Events Not Firing**: Use `useKeyBinding` hook instead of raw stdin listeners
+5. **API Failures**: Check `youtube-music` service error handling; Innertube API may require authentication tokens
+
+## File Organization Standards
+
+- Keep component logic surgical: move business logic to hooks/services
+- Place reusable logic in `source/hooks/`
+- Use TypeScript types from `source/types/` for all public APIs
+- Services should be stateless or singleton (like MusicService via `getMusicService()`)
+- Avoid circular dependencies between stores and components
+
+## MCP Servers
+
+The `.mcp/servers.json` file configures Model Context Protocol servers for enhanced Copilot capabilities:
+
+- **Node MCP** - Runtime analysis and module introspection for Node.js dependencies
+- **Filesystem MCP** - Safe directory and file operations within the repo
+- **Git MCP** - Git history, diff, and version control operations
+
+These provide deeper context for code analysis and can be enabled in compatible Copilot environments.
+
+## See Also
+
+- **CLAUDE.md** - Detailed developer documentation
+- **GEMINI.md** - Architecture and recent updates overview
+- **package.json** - Full list of dependencies and scripts
+- **.mcp/servers.json** - MCP server configuration
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/involvex)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/involvex)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [involvex/youtube-music-cli](https://github.com/involvex/youtube-music-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
