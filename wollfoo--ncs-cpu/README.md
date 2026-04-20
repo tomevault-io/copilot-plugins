@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [wollfoo/ncs-cpu](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/wollfoo)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/wollfoo/ncs-cpu](https://github.com/wollfoo/ncs-cpu)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/wollfoo) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-p -->
