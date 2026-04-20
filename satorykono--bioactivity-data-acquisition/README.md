@@ -1,6 +1,6 @@
 # bioactivity_data_acquisition
 
-> Tome by [SatoryKono](https://github.com/SatoryKono/bioactivity_data_acquisition) — distributed by [TomeVault](https://tomevault.io/claim/SatoryKono)
+> Tome by [SatoryKono](https://github.com/SatoryKono/bioactivity_data_acquisition) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [SatoryKono/bioactivity_data_acquisit
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/SatoryKono)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/SatoryKono/bioactivity_data_acquisition](https://github.com/SatoryKono/bioactivity_data_acquisition)
 
 ---
 
