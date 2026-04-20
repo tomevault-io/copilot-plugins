@@ -1,6 +1,6 @@
-# task-w-memory-magic — distributed by TomeVault
+# task-w-memory-magic
 
-> Originally from [miladnoo/task-w-memory-magic](https://github.com/miladnoo/task-w-memory-magic). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [miladnoo/task-w-memory-magic](https://github.com/miladnoo/task-w-memory-magic) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [miladnoo/task-w-memory-magic](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/miladnoo#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/miladnoo/task-w-memory-magic](https://github.com/miladnoo/task-w-memory-magic)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install miladnoo/task-w-memory-magic
 ```
-Or browse all formats at [https://tomevault.io/claim/miladnoo](https://tomevault.io/claim/miladnoo).
+Source: [github.com/miladnoo/task-w-memory-magic](https://github.com/miladnoo/task-w-memory-magic).
 
 <!-- genome:d-i-q -->
