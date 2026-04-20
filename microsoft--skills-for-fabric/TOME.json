@@ -1,0 +1,231 @@
+{
+  "name": "skills",
+  "owner": "microsoft",
+  "repo": "skills-for-fabric",
+  "description": "A collection of skills and MCP systems to enable users of CLI, VSCode, Claude to operate over Microsoft Fabric",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "appinsights-instrumentation",
+      "path": ".github/plugins/azure-skills/skills/appinsights-instrumentation",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/appinsights-instrumentation",
+      "description": ""
+    },
+    {
+      "name": "azure-ai",
+      "path": ".github/plugins/azure-skills/skills/azure-ai",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-ai",
+      "description": ""
+    },
+    {
+      "name": "azure-aigateway",
+      "path": ".github/plugins/azure-skills/skills/azure-aigateway",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-aigateway",
+      "description": ""
+    },
+    {
+      "name": "azure-compliance",
+      "path": ".github/plugins/azure-skills/skills/azure-compliance",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-compliance",
+      "description": ""
+    },
+    {
+      "name": "azure-deploy",
+      "path": ".github/plugins/azure-skills/skills/azure-deploy",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-deploy",
+      "description": ""
+    },
+    {
+      "name": "azure-diagnostics",
+      "path": ".github/plugins/azure-skills/skills/azure-diagnostics",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-diagnostics",
+      "description": ""
+    },
+    {
+      "name": "azure-prepare",
+      "path": ".github/plugins/azure-skills/skills/azure-prepare",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-prepare",
+      "description": ""
+    },
+    {
+      "name": "azure-rbac",
+      "path": ".github/plugins/azure-skills/skills/azure-rbac",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-rbac",
+      "description": ""
+    },
+    {
+      "name": "azure-resource-lookup",
+      "path": ".github/plugins/azure-skills/skills/azure-resource-lookup",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-resource-lookup",
+      "description": ""
+    },
+    {
+      "name": "azure-resource-visualizer",
+      "path": ".github/plugins/azure-skills/skills/azure-resource-visualizer",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-resource-visualizer",
+      "description": ""
+    },
+    {
+      "name": "azure-validate",
+      "path": ".github/plugins/azure-skills/skills/azure-validate",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/azure-validate",
+      "description": ""
+    },
+    {
+      "name": "capacity",
+      "path": ".github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/capacity",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/capacity",
+      "description": ""
+    },
+    {
+      "name": "customize",
+      "path": ".github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/customize",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/customize",
+      "description": ""
+    },
+    {
+      "name": "deploy-model",
+      "path": ".github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model",
+      "description": ""
+    },
+    {
+      "name": "entra-app-registration",
+      "path": ".github/plugins/azure-skills/skills/entra-app-registration",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/entra-app-registration",
+      "description": ""
+    },
+    {
+      "name": "github-issue-creator",
+      "path": ".github/skills/github-issue-creator",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/skills/github-issue-creator",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": ".github/skills/mcp-builder",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/skills/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "microsoft-foundry",
+      "path": ".github/plugins/azure-skills/skills/microsoft-foundry",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/microsoft-foundry",
+      "description": ""
+    },
+    {
+      "name": "podcast-generation",
+      "path": ".github/skills/podcast-generation",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/skills/podcast-generation",
+      "description": ""
+    },
+    {
+      "name": "preset",
+      "path": ".github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/preset",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-skills/skills/microsoft-foundry/models/deploy-model/preset",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".github/skills/skill-creator",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "wiki-ado-convert",
+      "path": ".github/plugins/deep-wiki/skills/wiki-ado-convert",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/deep-wiki/skills/wiki-ado-convert",
+      "description": ""
+    },
+    {
+      "name": "wiki-agents-md",
+      "path": ".github/plugins/deep-wiki/skills/wiki-agents-md",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/deep-wiki/skills/wiki-agents-md",
+      "description": ""
+    },
+    {
+      "name": "wiki-architect",
+      "path": ".github/plugins/deep-wiki/skills/wiki-architect",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/deep-wiki/skills/wiki-architect",
+      "description": ""
+    },
+    {
+      "name": "wiki-changelog",
+      "path": ".github/plugins/deep-wiki/skills/wiki-changelog",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/deep-wiki/skills/wiki-changelog",
+      "description": ""
+    },
+    {
+      "name": "wiki-llms-txt",
+      "path": ".github/plugins/deep-wiki/skills/wiki-llms-txt",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/deep-wiki/skills/wiki-llms-txt",
+      "description": ""
+    },
+    {
+      "name": "wiki-onboarding",
+      "path": ".github/plugins/deep-wiki/skills/wiki-onboarding",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/deep-wiki/skills/wiki-onboarding",
+      "description": ""
+    },
+    {
+      "name": "wiki-page-writer",
+      "path": ".github/plugins/deep-wiki/skills/wiki-page-writer",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/deep-wiki/skills/wiki-page-writer",
+      "description": ""
+    },
+    {
+      "name": "wiki-qa",
+      "path": ".github/plugins/deep-wiki/skills/wiki-qa",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/deep-wiki/skills/wiki-qa",
+      "description": ""
+    },
+    {
+      "name": "wiki-researcher",
+      "path": ".github/plugins/deep-wiki/skills/wiki-researcher",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/deep-wiki/skills/wiki-researcher",
+      "description": ""
+    },
+    {
+      "name": "react-flow-node-ts",
+      "path": ".github/plugins/azure-sdk-typescript/skills/react-flow-node-ts",
+      "github_url": "https://github.com/microsoft/skills-for-fabric/tree/main/.github/plugins/azure-sdk-typescript/skills/react-flow-node-ts",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/skills-for-fabric",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T08:30:53Z"
+}
