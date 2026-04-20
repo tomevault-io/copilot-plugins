@@ -1,0 +1,42 @@
+{
+  "name": "ehmo--platform-design-skills",
+  "displayName": "platform-design-skills",
+  "description": "Platform design skill pack: 300+ rules for Apple HIG, Material Design 3, and WCAG 2.2 across iOS, iPadOS, macOS, watchOS, visionOS, tvOS, Android, and Web.",
+  "version": "1.0.0",
+  "author": "ehmo",
+  "homepage": "https://github.com/ehmo/platform-design-skills",
+  "skills": [
+    {
+      "name": "android",
+      "description": ""
+    },
+    {
+      "name": "ios",
+      "description": ""
+    },
+    {
+      "name": "ipados",
+      "description": ""
+    },
+    {
+      "name": "macos",
+      "description": ""
+    },
+    {
+      "name": "tvos",
+      "description": ""
+    },
+    {
+      "name": "visionos",
+      "description": ""
+    },
+    {
+      "name": "watchos",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "description": ""
+    }
+  ]
+}
