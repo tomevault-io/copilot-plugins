@@ -1,0 +1,14 @@
+{
+  "name": "disler--claude-code-damage-control",
+  "displayName": "claude-code-damage-control",
+  "description": "claude-code-damage-control",
+  "version": "1.0.0",
+  "author": "disler",
+  "homepage": "https://github.com/disler/claude-code-damage-control",
+  "skills": [
+    {
+      "name": "damage-control",
+      "description": ""
+    }
+  ]
+}
