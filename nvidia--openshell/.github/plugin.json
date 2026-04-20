@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--openshell",
+  "displayName": "OpenShell",
+  "description": "OpenShell is the safe, private runtime for autonomous AI agents.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/OpenShell",
+  "skills": []
+}
