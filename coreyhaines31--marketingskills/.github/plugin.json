@@ -1,0 +1,74 @@
+{
+  "name": "coreyhaines31--marketingskills",
+  "displayName": "marketingskills",
+  "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+  "version": "1.0.0",
+  "author": "coreyhaines31",
+  "homepage": "https://github.com/coreyhaines31/marketingskills",
+  "skills": [
+    {
+      "name": "marketing-psychology",
+      "description": ""
+    },
+    {
+      "name": "product-marketing-context",
+      "description": ""
+    },
+    {
+      "name": "marketing-ideas",
+      "description": ""
+    },
+    {
+      "name": "social-content",
+      "description": ""
+    },
+    {
+      "name": "copy-editing",
+      "description": ""
+    },
+    {
+      "name": "pricing-strategy",
+      "description": ""
+    },
+    {
+      "name": "ab-test-setup",
+      "description": ""
+    },
+    {
+      "name": "analytics-tracking",
+      "description": ""
+    },
+    {
+      "name": "cold-email",
+      "description": ""
+    },
+    {
+      "name": "email-sequence",
+      "description": ""
+    },
+    {
+      "name": "form-cro",
+      "description": ""
+    },
+    {
+      "name": "free-tool-strategy",
+      "description": ""
+    },
+    {
+      "name": "launch-strategy",
+      "description": ""
+    },
+    {
+      "name": "paid-ads",
+      "description": ""
+    },
+    {
+      "name": "paywall-upgrade-cro",
+      "description": ""
+    },
+    {
+      "name": "referral-program",
+      "description": ""
+    }
+  ]
+}
