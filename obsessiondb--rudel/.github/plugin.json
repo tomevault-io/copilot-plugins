@@ -1,0 +1,14 @@
+{
+  "name": "obsessiondb--rudel",
+  "displayName": "rudel",
+  "description": "Claude Code & Codex Session Analytics",
+  "version": "1.0.0",
+  "author": "obsessiondb",
+  "homepage": "https://github.com/obsessiondb/rudel",
+  "skills": [
+    {
+      "name": "typescript-standards",
+      "description": ""
+    }
+  ]
+}
