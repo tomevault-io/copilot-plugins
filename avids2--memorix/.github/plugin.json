@@ -1,0 +1,9 @@
+{
+  "name": "avids2--memorix",
+  "displayName": "memorix",
+  "description": "Open-source cross-agent memory layer for coding agents via MCP. Compatible with Cursor, Claude Code, Codex, Windsurf, Gemini CLI, GitHub Copilot, Kiro, OpenCode, Antigravity, and Trae.",
+  "version": "1.0.0",
+  "author": "AVIDS2",
+  "homepage": "https://github.com/AVIDS2/memorix",
+  "skills": []
+}
