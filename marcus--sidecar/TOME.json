@@ -1,0 +1,123 @@
+{
+  "name": "sidecar",
+  "owner": "marcus",
+  "repo": "sidecar",
+  "description": "Use sidecar next to CLI agents for diffs, file trees, conversation history, and task management with td",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-adapter",
+      "path": ".claude/skills/create-adapter",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/create-adapter",
+      "description": ""
+    },
+    {
+      "name": "create-modal",
+      "path": ".claude/skills/create-modal",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/create-modal",
+      "description": ""
+    },
+    {
+      "name": "create-plugin",
+      "path": ".claude/skills/create-plugin",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/create-plugin",
+      "description": ""
+    },
+    {
+      "name": "create-theme",
+      "path": ".claude/skills/create-theme",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/create-theme",
+      "description": ""
+    },
+    {
+      "name": "feature-flags",
+      "path": ".claude/skills/feature-flags",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/feature-flags",
+      "description": ""
+    },
+    {
+      "name": "inline-editor",
+      "path": ".claude/skills/inline-editor",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/inline-editor",
+      "description": ""
+    },
+    {
+      "name": "merge-strategy",
+      "path": ".claude/skills/merge-strategy",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/merge-strategy",
+      "description": ""
+    },
+    {
+      "name": "profile-memory",
+      "path": ".claude/skills/profile-memory",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/profile-memory",
+      "description": ""
+    },
+    {
+      "name": "project-switching",
+      "path": ".claude/skills/project-switching",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/project-switching",
+      "description": ""
+    },
+    {
+      "name": "release-sidecar",
+      "path": ".claude/skills/release-sidecar",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/release-sidecar",
+      "description": ""
+    },
+    {
+      "name": "sidecar-website",
+      "path": ".claude/skills/sidecar-website",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/sidecar-website",
+      "description": ""
+    },
+    {
+      "name": "ui-features",
+      "path": ".claude/skills/ui-features",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/ui-features",
+      "description": ""
+    },
+    {
+      "name": "worktree-switching",
+      "path": ".claude/skills/worktree-switching",
+      "github_url": "https://github.com/marcus/sidecar/tree/main/.claude/skills/worktree-switching",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/marcus/sidecar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:42:39Z"
+}
