@@ -1,0 +1,51 @@
+{
+  "name": "antigravity-workspace-template",
+  "owner": "study8677",
+  "repo": "antigravity-workspace-template",
+  "description": "\ud83e\ude90 The ultimate starter kit for AI IDEs, Claude code\uff0ccodex, and other agentic coding environments.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-repo-init",
+      "path": "skills/agent-repo-init",
+      "github_url": "https://github.com/study8677/antigravity-workspace-template/tree/main/skills/agent-repo-init",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/study8677/antigravity-workspace-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:46:29Z"
+}
