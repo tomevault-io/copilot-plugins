@@ -1,0 +1,70 @@
+{
+  "name": "xiaolai--vmark",
+  "displayName": "vmark",
+  "description": "An AI friendly markdown editor.",
+  "version": "1.0.0",
+  "author": "xiaolai",
+  "homepage": "https://github.com/xiaolai/vmark",
+  "skills": [
+    {
+      "name": "ai-coding-agents",
+      "description": ""
+    },
+    {
+      "name": "css-design-tdd",
+      "description": ""
+    },
+    {
+      "name": "mcp-dev",
+      "description": ""
+    },
+    {
+      "name": "plan-audit",
+      "description": ""
+    },
+    {
+      "name": "planning",
+      "description": ""
+    },
+    {
+      "name": "react-app-dev",
+      "description": ""
+    },
+    {
+      "name": "release-gate",
+      "description": ""
+    },
+    {
+      "name": "rust-tauri-backend",
+      "description": ""
+    },
+    {
+      "name": "shortcut-audit",
+      "description": ""
+    },
+    {
+      "name": "tauri-app-dev",
+      "description": ""
+    },
+    {
+      "name": "tauri-mcp-test-runner",
+      "description": ""
+    },
+    {
+      "name": "tauri-mcp-testing",
+      "description": ""
+    },
+    {
+      "name": "tauri-v2-integration",
+      "description": ""
+    },
+    {
+      "name": "tiptap-dev",
+      "description": ""
+    },
+    {
+      "name": "tiptap-editor",
+      "description": ""
+    }
+  ]
+}
