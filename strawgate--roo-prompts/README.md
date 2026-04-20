@@ -1,6 +1,6 @@
 # roo-prompts
 
-> Tome by [strawgate](https://github.com/strawgate/roo-prompts) — distributed by [TomeVault](https://tomevault.io/claim/strawgate)
+> Tome by [strawgate](https://github.com/strawgate/roo-prompts) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [strawgate/roo-prompts](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/strawgate#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/strawgate/roo-prompts](https://github.com/strawgate/roo-prompts)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install strawgate/roo-prompts
 ```
-Or browse all formats at [https://tomevault.io/claim/strawgate](https://tomevault.io/claim/strawgate).
+Source: [github.com/strawgate/roo-prompts](https://github.com/strawgate/roo-prompts).
 
 <!-- genome:t-i-q -->
