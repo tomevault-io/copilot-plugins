@@ -1,6 +1,6 @@
-# urlshortner — distributed by TomeVault
+# urlshortner
 
-> Originally from [rajat9garg/urlshortner](https://github.com/rajat9garg/urlshortner). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [rajat9garg/urlshortner](https://github.com/rajat9garg/urlshortner) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [rajat9garg/urlshortner](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/rajat9garg#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rajat9garg/urlshortner](https://github.com/rajat9garg/urlshortner)
 
 ---
 
