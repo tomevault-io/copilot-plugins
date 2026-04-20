@@ -1,6 +1,6 @@
-# rag-scraping — distributed by TomeVault
+# rag-scraping
 
-> Originally from [ceferonl/rag-scraping](https://github.com/ceferonl/rag-scraping). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ceferonl/rag-scraping](https://github.com/ceferonl/rag-scraping) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ceferonl/rag-scraping](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ceferonl)
+From [ceferonl/rag-scraping](https://github.com/ceferonl/rag-scraping) — a repo with 0+ stars on GitHub.
 
 ---
 
