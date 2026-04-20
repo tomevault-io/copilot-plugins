@@ -1,0 +1,14 @@
+{
+  "name": "florianbruniaux--claude-code-ultimate-guide",
+  "displayName": "claude-code-ultimate-guide",
+  "description": "A tremendous feat of documentation, this guide covers Claude Code from beginner to power user, with production-ready templates for Claude Code features, guides on agentic workflows, and a lot of great",
+  "version": "1.0.0",
+  "author": "FlorianBruniaux",
+  "homepage": "https://github.com/FlorianBruniaux/claude-code-ultimate-guide",
+  "skills": [
+    {
+      "name": "design-patterns",
+      "description": ""
+    }
+  ]
+}
