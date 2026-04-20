@@ -1,0 +1,51 @@
+{
+  "name": "Dex",
+  "owner": "davekilleen",
+  "repo": "Dex",
+  "description": "Your AI Chief of Staff \u2014 a personal operating system starter kit that adapts to your role. No coding required.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dex-backlog",
+      "path": ".claude/skills/dex-backlog",
+      "github_url": "https://github.com/davekilleen/Dex/tree/main/.claude/skills/dex-backlog",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/davekilleen/Dex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:20:03Z"
+}
