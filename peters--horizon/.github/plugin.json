@@ -1,0 +1,9 @@
+{
+  "name": "peters--horizon",
+  "displayName": "horizon",
+  "description": "GPU-accelerated terminal board that puts all your sessions on an infinite canvas",
+  "version": "1.0.0",
+  "author": "peters",
+  "homepage": "https://github.com/peters/horizon",
+  "skills": []
+}
