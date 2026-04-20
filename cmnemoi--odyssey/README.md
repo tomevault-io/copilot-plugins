@@ -1,6 +1,6 @@
 # odyssey
 
-> Tome by [cmnemoi](https://github.com/cmnemoi/odyssey) — distributed by [TomeVault](https://tomevault.io/claim/cmnemoi)
+> Tome by [cmnemoi](https://github.com/cmnemoi/odyssey) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [cmnemoi/odyssey](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/cmnemoi)
+From [cmnemoi/odyssey](https://github.com/cmnemoi/odyssey) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/cmnemoi) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
