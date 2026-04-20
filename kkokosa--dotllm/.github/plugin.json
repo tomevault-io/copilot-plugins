@@ -1,0 +1,9 @@
+{
+  "name": "kkokosa--dotllm",
+  "displayName": "dotLLM",
+  "description": "LLM inference engine written in .NET",
+  "version": "1.0.0",
+  "author": "kkokosa",
+  "homepage": "https://github.com/kkokosa/dotLLM",
+  "skills": []
+}
