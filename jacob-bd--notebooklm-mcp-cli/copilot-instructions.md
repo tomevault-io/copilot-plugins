@@ -1,149 +1,268 @@
 ## notebooklm-mcp-cli
 
-> **NotebookLM MCP Server & CLI**
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# GEMINI.md
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-**NotebookLM MCP Server & CLI**
+**NotebookLM MCP Server & CLI** - Provides programmatic access to NotebookLM (notebooklm.google.com) via both a Model Context Protocol server and a comprehensive command-line interface.
 
-This project implements a Model Context Protocol (MCP) server **and a full-featured Command Line Interface (CLI)** that provides programmatic access to [NotebookLM](https://notebooklm.google.com). It allows AI agents, developers, and power users to interact with NotebookLM notebooks, sources, query capabilities, and **download generated artifacts** (Audio, Video, PDF, etc.).
+Tested with personal/free tier accounts. May work with Google Workspace accounts but has not been tested.
 
-Tested with personal/free tier accounts. May work with Google Workspace accounts but has not been tested. This project relies on internal APIs (`batchexecute` RPCs).
+## Development Commands
 
-## Environment & Setup
-
-The project uses `uv` for dependency management and tool installation.
-
-### Prerequisites
-- Python 3.11+
-- `uv` (Universal Python Package Manager)
-- Google Chrome (for automated authentication)
-
-### Installation
-
-**From PyPI (Recommended):**
 ```bash
-uv tool install notebooklm-mcp-cli
-# or: pip install notebooklm-mcp-cli
-```
-
-**From Source (Development):**
-```bash
-git clone https://github.com/YOUR_USERNAME/notebooklm-mcp.git
-cd notebooklm-mcp
+# Install dependencies
 uv tool install .
-```
 
-## Authentication
+# Reinstall after code changes (ALWAYS clean cache first)
+uv cache clean && uv tool install --force .
 
-**Preferred: Run the automated authentication CLI:**
-```bash
-nlm login
-```
-This launches Chrome, you log in, and cookies are extracted automatically. Your login is saved to a Chrome profile for future use.
-
-**Auto-refresh (v0.1.9+):**
-The server now automatically handles token expiration:
-1. Refreshes CSRF tokens on expiry (immediate)
-2. Reloads cookies from disk if updated externally
-3. Runs headless Chrome auth if profile has saved login
-
-If headless auth fails (Google login fully expired), you'll see a message to run `nlm login` again.
-
-**Explicit refresh (MCP tool):**
-```
-refresh_auth()  # Reload tokens from disk or run headless auth
-```
-
-**Fallback: Manual extraction (if CLI fails)**
-If the automated tool doesn't work, extract cookies via Chrome DevTools:
-1. Open Chrome DevTools on notebooklm.google.com
-2. Go to Network tab, find a batchexecute request
-3. Copy the Cookie header and call `save_auth_tokens(cookies=...)`
-
-**Environment variable (advanced):**
-```bash
-export NOTEBOOKLM_COOKIES="SID=xxx; HSID=xxx; SSID=xxx; ..."
-```
-
-Cookies last for weeks. The server auto-refreshes as long as Chrome profile login is valid.
-
-## Development Workflow
-
-### Building and Running
-
-**Reinstalling after changes:**
-Because `uv tool install` installs into an isolated environment, you must reinstall to see changes during development.
-```bash
-uv cache clean
-uv tool install --force .
-```
-
-**Running the Server:**
-```bash
-# Standard mode (stdio)
+# Run the MCP server (stdio)
 notebooklm-mcp
 
-# Debug mode (verbose logging)
+# Run with Debug logging
 notebooklm-mcp --debug
 
-# HTTP Server mode
+# Run as HTTP server
 notebooklm-mcp --transport http --port 8000
-```
 
-### Testing
-
-Run the test suite using `pytest` via `uv`:
-```bash
-# Run all tests
+# Run tests
 uv run pytest
 
-# Run a specific test file
-uv run pytest tests/test_api_client.py
+# Run a single test
+uv run pytest tests/test_file.py::test_function -v
 ```
 
-## Project Structure
+**Python requirement:** >=3.11
 
-- `src/notebooklm_tools/`
-    - `services/`: **Shared service layer (v0.3.0+)** — Business logic, validation, error handling
-        - `errors.py`: Custom error hierarchy (`ServiceError`, `ValidationError`, etc.)
-        - `chat.py`, `downloads.py`, `exports.py`, `notebooks.py`, `notes.py`: Domain services
-        - `research.py`, `sharing.py`, `sources.py`, `studio.py`: More domain services
-        - `batch.py`, `cross.py`, `pipeline.py`, `smart_select.py`: Batch, cross-notebook, pipeline, and tagging services
-    - `cli/`: CLI commands and formatting (thin wrapper delegating to `services/`)
-    - `mcp/`: MCP Server implementation (thin wrapper delegating to `services/`)
-        - `tools/`: Modular tool definitions (one file per domain)
-        - `server.py`: Slim server facade (imports tools from modules)
-    - `core/client.py`: Low-level internal API calls (no business logic).
-    - `core/constants.py`: Single source of truth for all API code-name mappings.
-    - `core/auth.py`: Handles token validation, storage, and loading.
-    - `utils/cdp.py`: Chrome DevTools Protocol for cookie extraction and headless auth.
-    - `utils/`: Configuration and browser utilities
-- `tests/services/`: Unit tests for all service modules (576+ tests)
-- `CLAUDE.md`: Contains detailed documentation on the internal RPC IDs and protocol specifics. **Refer to this file for API deep dives.**
-- `pyproject.toml`: Project configuration and dependencies.
+## Authentication (SIMPLIFIED!)
 
-## Key Conventions
+**You only need to provide COOKIES!** The CSRF token and session ID are now **automatically extracted** when needed.
 
-- **Internal APIs:** This project relies on undocumented APIs. Changes to Google's internal API will break functionality.
-- **RPC Protocol:** The API uses Google's `batchexecute` protocol. Responses often contain "anti-XSSI" prefixes (`)]}'`) that must be stripped.
-- **Layering (v0.3.0+):** `cli/` and `mcp/` must NOT import from `core/` — delegate to `services/` instead. Services return TypedDicts and raise `ServiceError`/`ValidationError`.
-- **New features:** Add low-level API in `core/client.py` → business logic in `services/*.py` → thin wrappers in `mcp/tools/*.py` and `cli/commands/*.py` → tests in `tests/services/`.
-- **Constants:** All code-name mappings should be defined in `constants.py` using the `CodeMapper` class.
+### Method 1: Chrome DevTools MCP (Recommended)
 
-## Recent Additions
+**Option A - Fast (Recommended):**
+Extract CSRF token and session ID directly from network request - **no page fetch needed!**
 
-- **v0.4.6 Batch, Cross-Notebook, Pipelines & Smart Select**: Multi-notebook operations, cross-notebook aggregated queries, pipeline workflows, and tag-based notebook discovery. Contributed by @fabianafurtadoff (PR #90).
-- **v0.4.6 MCP Tool Consolidation**: Consolidated 13 new tools into 4 action-based tools (`batch`, `pipeline`, `tag`, `cross_notebook_query`), keeping total MCP tools at 35.
-- **v0.3.0 Service Layer Refactor**: Introduced shared `services/` layer with 10+ domain modules, eliminating duplicated logic between CLI and MCP. 576+ unit tests.
-- **Skill Commands**: `nlm skill install/uninstall/list/show` for AI assistant integration
-- **Verb-First Commands**: Alternative command style (`nlm install skill`, `nlm list skills`)
-- **Interactive Artifact Downloads**: `download_quiz` and `download_flashcards` with JSON/Markdown/HTML formats
-- **Sharing API**: `notebook_share_status`, `notebook_share_public`, `notebook_share_invite` for collaboration
+```python
+# 1. Navigate to NotebookLM page
+navigate_page(url="https://notebooklm.google.com/")
+
+# 2. Get a batchexecute request (any NotebookLM API call)
+get_network_request(reqid=<any_batchexecute_request>)
+
+# 3. Save with all three fields from the network request:
+save_auth_tokens(
+    cookies=<cookie_header>,
+    request_body=<request_body>,  # Contains CSRF token
+    request_url=<request_url>      # Contains session ID
+)
+```
+
+**Option B - Minimal (slower first call):**
+Save only cookies, tokens extracted from page on first API call
+
+```python
+save_auth_tokens(cookies=<cookie_header>)
+```
+
+### Method 2: Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NOTEBOOKLM_COOKIES` | Yes | Full cookie header from Chrome DevTools |
+| `NOTEBOOKLM_CSRF_TOKEN` | No | (DEPRECATED - auto-extracted) |
+| `NOTEBOOKLM_SESSION_ID` | No | (DEPRECATED - auto-extracted) |
+| `NOTEBOOKLM_BL` | No | Override for build label / bl URL param (auto-extracted from page) |
+| `NOTEBOOKLM_HL` | No | Interface language and default artifact language (default: `en`) |
+
+### Token Expiration
+
+- **Cookies**: Stable for weeks, but some rotate on each request
+- **CSRF token**: Auto-refreshed on each client initialization
+- **Session ID**: Auto-refreshed on each client initialization
+- **Build label (bl)**: Auto-extracted during login and CSRF refresh; stays current with Google's build
+
+When API calls fail with auth errors, re-extract fresh cookies from Chrome DevTools.
+
+## Architecture
+
+```
+src/notebooklm_tools/
+├── __init__.py          # Package version
+├── services/            # Shared service layer (v0.3.0+)
+│   ├── errors.py        # ServiceError, ValidationError, NotFoundError, etc.
+│   ├── chat.py          # Chat/query logic
+│   ├── downloads.py     # Artifact downloading
+│   ├── exports.py       # Google Docs/Sheets export
+│   ├── notebooks.py     # Notebook CRUD + describe
+│   ├── notes.py         # Note CRUD
+│   ├── research.py      # Research start/poll/import
+│   ├── sharing.py       # Public link, invite, status
+│   ├── sources.py       # Source add/list/sync/delete
+│   └── studio.py        # Artifact creation, status, rename, delete
+├── cli/                 # CLI commands and formatting (thin wrapper)
+├── mcp/                 # MCP server + tools (thin wrapper)
+│   ├── server.py        # FastMCP server facade
+│   └── tools/           # Modular tool definitions per domain
+├── core/                # Low-level API client (no business logic)
+│   ├── client.py        # Internal batchexecute API calls
+│   ├── constants.py     # Code-name mappings (CodeMapper class)
+│   └── auth.py          # AuthManager for profile-based token caching
+└── utils/
+    ├── config.py        # Configuration and storage paths
+    └── cdp.py           # Chrome DevTools Protocol for cookie extraction
+```
+
+**Layering Rules (v0.3.0+):**
+- `cli/` and `mcp/` are thin wrappers: they handle UX concerns (prompts, spinners, JSON responses) and delegate to `services/`
+- `services/` contains all business logic, validation, and error handling. Returns typed dicts.
+- `cli/` and `mcp/` must NOT import from `core/` directly — always go through `services/`
+- `services/` raises `ServiceError`/`ValidationError` — never raw exceptions
+
+**Storage Structure (`~/.notebooklm-mcp-cli/`):**
+```
+├── config.toml                    # CLI settings (default_profile, output format)
+├── aliases.json                   # Notebook aliases
+├── profiles/<name>/auth.json      # Per-profile credentials and email
+├── chrome-profile/                # Chrome session (single-profile/legacy)
+└── chrome-profiles/<name>/        # Chrome sessions (multi-profile)
+```
+
+**Executables:**
+- `nlm` - Command-line interface
+- `notebooklm-mcp` - The MCP server
+
+## MCP Tools Provided
+
+| Tool | Purpose |
+|------|---------|
+| `notebook_list` | List all notebooks |
+| `notebook_create` | Create new notebook |
+| `notebook_get` | Get notebook details |
+| `notebook_describe` | Get AI-generated summary of notebook content with keywords |
+| `source_describe` | Get AI-generated summary and keyword chips for a source |
+| `source_get_content` | Get raw text content from a source (no AI processing) |
+| `notebook_rename` | Rename a notebook |
+| `chat_configure` | Configure chat goal/style and response length |
+| `notebook_delete` | Delete a notebook (REQUIRES confirmation) |
+| `source_add` | Add source (url, text, drive, file) |
+| `notebook_query` | Ask questions (AI answers!) |
+| `source_list_drive` | List sources with types, check Drive freshness |
+| `source_sync_drive` | Sync stale Drive sources (REQUIRES confirmation) |
+| `source_rename` | Rename a source in a notebook |
+| `source_delete` | Delete a source from notebook (REQUIRES confirmation) |
+| `research_start` | Start Web or Drive research to discover sources |
+| `research_status` | Check research progress and get results |
+| `research_import` | Import discovered sources into notebook |
+| `studio_create` | Generate unified content (audio, video, infographic, slides, etc.) |
+| `download_artifact` | Download any artifact (audio, video, pdf, markdown, json) |
+| `export_artifact` | Export Data Tables to Google Sheets or Reports to Google Docs |
+| `studio_status` | Check studio artifact generation status |
+| `studio_delete` | Delete studio artifacts (REQUIRES confirmation) |
+| `studio_revise` | Revise slides in an existing slide deck (creates new artifact, REQUIRES confirmation) |
+| `notebook_share_status` | Get sharing settings and collaborators |
+| `notebook_share_public` | Enable/disable public link access |
+| `notebook_share_invite` | Invite collaborator by email |
+| `save_auth_tokens` | Save tokens extracted via Chrome DevTools MCP |
+| `refresh_auth` | Reload auth tokens or run headless auth |
+| `note_create` | Create a note in a notebook |
+| `note_list` | List all notes in a notebook |
+| `note_update` | Update a note's content or title |
+| `note_delete` | Delete a note (REQUIRES confirmation) |
+
+**IMPORTANT - Operations Requiring Confirmation:**
+- `notebook_delete` requires `confirm=True` - deletion is IRREVERSIBLE
+- `source_delete` requires `confirm=True` - deletion is IRREVERSIBLE
+- `source_sync_drive` requires `confirm=True` - always show stale sources first via `source_list_drive`
+- All studio creation tools require `confirm=True` - show settings and get user approval first
+- `studio_delete` requires `confirm=True` - list artifacts first via `studio_status`, deletion is IRREVERSIBLE
+- `studio_revise` requires `confirm=True` - creates a new artifact with revisions applied
+- `note_delete` requires `confirm=True` - deletion is IRREVERSIBLE
+
+## Features NOT Yet Implemented
+
+None - all NotebookLM features that can be accessed programmatically are implemented.
+
+## Troubleshooting
+
+### "401 Unauthorized" or "403 Forbidden"
+- Cookies or CSRF token expired
+- Re-extract from Chrome DevTools
+
+### "Invalid CSRF token"
+- The `at=` value expired
+- Must match the current session
+
+### Empty notebook list
+- Session might be for a different Google account
+- Verify you're logged into the correct account
+
+### Rate limit errors
+- Free tier: ~50 queries/day
+- Wait until the next day or upgrade to Plus
+
+## Documentation
+
+### API Reference
+
+**For detailed API documentation** (RPC IDs, parameter structures, response formats), see:
+
+**[docs/API_REFERENCE.md](./docs/API_REFERENCE.md)**
+
+This includes:
+- All discovered RPC endpoints and their parameters
+- Source type structures (URL, text, Drive)
+- Studio content creation (audio, video, reports, etc.)
+- Research workflow details
+- Mind map generation process
+- Source metadata structures
+
+Only read API_REFERENCE.md when:
+- Debugging API issues
+- Adding new features
+- Understanding internal API behavior
+
+### MCP Test Plan
+
+**For comprehensive MCP tool testing**, see:
+
+**[docs/MCP_CLI_TEST_PLAN.md](./docs/MCP_CLI_TEST_PLAN.md)**
+
+This includes:
+- Step-by-step test cases for all 29 MCP tools and CLI commands
+- Authentication and basic operations tests
+- Source management and Drive sync tests
+- Studio content generation tests (audio, video, infographics, etc.)
+- Quick copy-paste test prompts for validation
+
+Use this test plan when:
+- Validating MCP server functionality after code changes
+- Testing new tool implementations
+- Debugging MCP tool issues
+
+## Contributing
+
+When adding new features:
+
+1. Use Chrome DevTools MCP to capture the network request
+2. Document the RPC ID in docs/API_REFERENCE.md
+3. Add the param structure with comments
+4. Add the low-level API method in `core/client.py`
+5. Add business logic in the appropriate `services/*.py` module
+6. Add a thin wrapper in `mcp/tools/*.py` (for MCP) and `cli/commands/*.py` (for CLI)
+7. Write unit tests for the service function in `tests/services/`
+8. Update the "Features NOT Yet Implemented" checklist
+9. Add test case to docs/MCP_TEST_PLAN.md
+
+## License
+
+MIT License
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jacob-bd)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/jacob-bd)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [jacob-bd/notebooklm-mcp-cli](https://github.com/jacob-bd/notebooklm-mcp-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
