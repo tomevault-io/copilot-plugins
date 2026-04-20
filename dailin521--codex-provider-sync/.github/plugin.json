@@ -1,0 +1,9 @@
+{
+  "name": "dailin521--codex-provider-sync",
+  "displayName": "codex-provider-sync",
+  "description": "Synchronize Codex session provider metadata across rollout files and SQLite state.",
+  "version": "1.0.0",
+  "author": "Dailin521",
+  "homepage": "https://github.com/Dailin521/codex-provider-sync",
+  "skills": []
+}
