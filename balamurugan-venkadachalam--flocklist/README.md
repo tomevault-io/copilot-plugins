@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [balamurugan-venkadachalam/FlockList]
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/balamurugan-venkadachalam)
+From [balamurugan-venkadachalam/FlockList](https://github.com/balamurugan-venkadachalam/FlockList) — a repo with 0+ stars on GitHub.
 
 ---
 
