@@ -1,0 +1,9 @@
+{
+  "name": "alexandremendoncaalvaro--corridorkey-runtime",
+  "displayName": "CorridorKey-Runtime",
+  "description": "Native AI keying runtime and OFX plugin for DaVinci Resolve, built in collaboration with Corridor Digital.",
+  "version": "1.0.0",
+  "author": "alexandremendoncaalvaro",
+  "homepage": "https://github.com/alexandremendoncaalvaro/CorridorKey-Runtime",
+  "skills": []
+}
