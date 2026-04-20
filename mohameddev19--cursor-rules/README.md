@@ -1,6 +1,6 @@
-# cursor-rules — distributed by TomeVault
+# cursor-rules
 
-> Originally from [mohameddev19/cursor-rules](https://github.com/mohameddev19/cursor-rules). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [mohameddev19/cursor-rules](https://github.com/mohameddev19/cursor-rules) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [mohameddev19/cursor-rules](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mohameddev19)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mohameddev19/cursor-rules](https://github.com/mohameddev19/cursor-rules)
 
 ---
 
