@@ -1,0 +1,14 @@
+{
+  "name": "nwave-ai--nwave",
+  "displayName": "nWave",
+  "description": "AI agents that guide you from idea to working code, with you in control at every step.",
+  "version": "1.0.0",
+  "author": "nWave-ai",
+  "homepage": "https://github.com/nWave-ai/nWave",
+  "skills": [
+    {
+      "name": "nw-pbt-typescript",
+      "description": ""
+    }
+  ]
+}
