@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [michele-prandina/ClaudE2E](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/michele-prandina)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/michele-prandina/ClaudE2E](https://github.com/michele-prandina/ClaudE2E)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install michele-prandina/ClaudE2E
 ```
-Or browse all formats at [https://tomevault.io/claim/michele-prandina](https://tomevault.io/claim/michele-prandina).
+Source: [github.com/michele-prandina/ClaudE2E](https://github.com/michele-prandina/ClaudE2E).
 
 <!-- genome:a-i-p -->
