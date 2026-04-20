@@ -1,0 +1,66 @@
+{
+  "name": "dokhacgiakhoa--antigravity-ide",
+  "displayName": "antigravity-ide",
+  "description": "Google AntiGravity IDE for Vibe Coding",
+  "version": "1.0.0",
+  "author": "Dokhacgiakhoa",
+  "homepage": "https://github.com/Dokhacgiakhoa/antigravity-ide",
+  "skills": [
+    {
+      "name": "git-pr-workflows-git-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-collaboration-master",
+      "description": ""
+    },
+    {
+      "name": "git-pushing",
+      "description": ""
+    },
+    {
+      "name": "git-advanced-workflows",
+      "description": ""
+    },
+    {
+      "name": "typescript-pro",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "python-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "python-pro",
+      "description": ""
+    },
+    {
+      "name": "python-packaging",
+      "description": ""
+    },
+    {
+      "name": "python-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-pro",
+      "description": ""
+    },
+    {
+      "name": "python-development-python-scaffold",
+      "description": ""
+    }
+  ]
+}
