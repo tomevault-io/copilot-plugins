@@ -4,7 +4,7 @@
   "repo": "honeclaw",
   "description": "HoneClaw (Hone-Financial) is dedicated to being a professional investment assistant that truly understands you.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/B-M-Capital-Research/honeclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T05:33:17Z"
+  "distributed_at": "2026-04-20T23:03:44Z"
 }
