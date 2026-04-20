@@ -1,0 +1,63 @@
+{
+  "name": "screenize",
+  "owner": "syi0808",
+  "repo": "screenize",
+  "description": "Open-source macOS screen recording app with auto-zoom, cursor effects, and timeline editing \u2014 Screen Studio alternative.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "github-planner",
+      "path": ".claude/skills/github-planner",
+      "github_url": "https://github.com/syi0808/screenize/tree/main/.claude/skills/github-planner",
+      "description": ""
+    },
+    {
+      "name": "sqlite-vectordb",
+      "path": ".claude/skills/sqlite-vectordb",
+      "github_url": "https://github.com/syi0808/screenize/tree/main/.claude/skills/sqlite-vectordb",
+      "description": ""
+    },
+    {
+      "name": "work-logger",
+      "path": ".claude/skills/work-logger",
+      "github_url": "https://github.com/syi0808/screenize/tree/main/.claude/skills/work-logger",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/syi0808/screenize",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:54:25Z"
+}
