@@ -1,6 +1,6 @@
 # LearnFunSL
 
-> Tome by [LearnFunSL](https://github.com/LearnFunSL/LearnFunSL) — distributed by [TomeVault](https://tomevault.io/claim/LearnFunSL)
+> Tome by [LearnFunSL](https://github.com/LearnFunSL/LearnFunSL) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [LearnFunSL/LearnFunSL](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/LearnFunSL)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/LearnFunSL/LearnFunSL](https://github.com/LearnFunSL/LearnFunSL)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install LearnFunSL/LearnFunSL
 ```
-Or browse all formats at [https://tomevault.io/claim/LearnFunSL](https://tomevault.io/claim/LearnFunSL).
+Source: [github.com/LearnFunSL/LearnFunSL](https://github.com/LearnFunSL/LearnFunSL).
 
 <!-- genome:t-i-p -->
