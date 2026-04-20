@@ -1,0 +1,14 @@
+{
+  "name": "study8677--antigravity-workspace-template",
+  "displayName": "antigravity-workspace-template",
+  "description": "\ud83e\ude90 The ultimate starter kit for AI IDEs, Claude code\uff0ccodex, and other agentic coding environments.",
+  "version": "1.0.0",
+  "author": "study8677",
+  "homepage": "https://github.com/study8677/antigravity-workspace-template",
+  "skills": [
+    {
+      "name": "agent-repo-init",
+      "description": ""
+    }
+  ]
+}
