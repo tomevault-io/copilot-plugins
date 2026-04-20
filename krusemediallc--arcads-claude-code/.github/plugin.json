@@ -1,0 +1,9 @@
+{
+  "name": "krusemediallc--arcads-claude-code",
+  "displayName": "arcads-claude-code",
+  "description": "Arcads external API: agent skills, prompting library, and Cursor/Claude workspace",
+  "version": "1.0.0",
+  "author": "krusemediallc",
+  "homepage": "https://github.com/krusemediallc/arcads-claude-code",
+  "skills": []
+}
