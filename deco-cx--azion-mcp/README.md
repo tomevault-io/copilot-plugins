@@ -1,6 +1,6 @@
-# azion-mcp — distributed by TomeVault
+# azion-mcp
 
-> Originally from [deco-cx/azion-mcp](https://github.com/deco-cx/azion-mcp). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [deco-cx/azion-mcp](https://github.com/deco-cx/azion-mcp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [deco-cx/azion-mcp](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/deco-cx)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/deco-cx/azion-mcp](https://github.com/deco-cx/azion-mcp)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install deco-cx/azion-mcp
 ```
-Or browse all formats at [https://tomevault.io/claim/deco-cx](https://tomevault.io/claim/deco-cx).
+Source: [github.com/deco-cx/azion-mcp](https://github.com/deco-cx/azion-mcp).
 
 <!-- genome:d-i-p -->
