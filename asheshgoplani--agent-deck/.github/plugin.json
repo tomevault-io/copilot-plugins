@@ -1,0 +1,18 @@
+{
+  "name": "asheshgoplani--agent-deck",
+  "displayName": "agent-deck",
+  "description": "Terminal session manager for AI coding agents. One TUI for Claude, Gemini, OpenCode, Codex, and more.",
+  "version": "1.0.0",
+  "author": "asheshgoplani",
+  "homepage": "https://github.com/asheshgoplani/agent-deck",
+  "skills": [
+    {
+      "name": "agent-deck",
+      "description": ""
+    },
+    {
+      "name": "session-share",
+      "description": ""
+    }
+  ]
+}
