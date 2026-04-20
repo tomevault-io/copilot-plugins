@@ -1,0 +1,81 @@
+{
+  "name": "agent",
+  "owner": "callstackincubator",
+  "repo": "agent-device",
+  "description": "CLI to control iOS and Android devices for AI agents",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-native-best-practices",
+      "path": "skills/react-native-best-practices",
+      "github_url": "https://github.com/callstackincubator/agent-device/tree/main/skills/react-native-best-practices",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "path": "skills/github",
+      "github_url": "https://github.com/callstackincubator/agent-device/tree/main/skills/github",
+      "description": ""
+    },
+    {
+      "name": "upgrading-react-native",
+      "path": "skills/upgrading-react-native",
+      "github_url": "https://github.com/callstackincubator/agent-device/tree/main/skills/upgrading-react-native",
+      "description": ""
+    },
+    {
+      "name": "validate-skills",
+      "path": ".claude/skills/validate-skills",
+      "github_url": "https://github.com/callstackincubator/agent-device/tree/main/.claude/skills/validate-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-device",
+      "path": "skills/agent-device",
+      "github_url": "https://github.com/callstackincubator/agent-device/tree/main/skills/agent-device",
+      "description": ""
+    },
+    {
+      "name": "react-native-brownfield-migration",
+      "path": "skills/react-native-brownfield-migration",
+      "github_url": "https://github.com/callstackincubator/agent-device/tree/main/skills/react-native-brownfield-migration",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/callstackincubator/agent-device",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:08:09Z"
+}
