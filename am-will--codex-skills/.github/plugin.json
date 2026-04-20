@@ -1,0 +1,50 @@
+{
+  "name": "am-will--codex-skills",
+  "displayName": "codex-skills",
+  "description": "codex-skills",
+  "version": "1.0.0",
+  "author": "am-will",
+  "homepage": "https://github.com/am-will/codex-skills",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-responsive-ui",
+      "description": ""
+    },
+    {
+      "name": "gemini-computer-use",
+      "description": ""
+    },
+    {
+      "name": "llm-council",
+      "description": ""
+    },
+    {
+      "name": "markdown-url",
+      "description": ""
+    },
+    {
+      "name": "openai-docs-skill",
+      "description": ""
+    },
+    {
+      "name": "planner",
+      "description": ""
+    },
+    {
+      "name": "read-github",
+      "description": ""
+    },
+    {
+      "name": "swarm-planner",
+      "description": ""
+    }
+  ]
+}
