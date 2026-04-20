@@ -1,24 +1,26 @@
-# learn-docker-and-k8s — distributed by TomeVault
+# learn-docker-and-k8s
 
-> Originally from [ericboy0224/learn-docker-and-k8s](https://github.com/ericboy0224/learn-docker-and-k8s). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ericboy0224/learn-docker-and-k8s](https://github.com/ericboy0224/learn-docker-and-k8s) — distributed by [TomeVault](https://tomevault.io)
+
+Interactive AI-driven game to learn Docker, Linux, networking & Kubernetes. Open in Claude Code or Cursor, type 'let's play'.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [ericboy0224/learn-docker-and-k8s](https://github.com/ericboy0224/learn-docker-and-k8s).
+Original source: `.cursor/rules/*.mdc` in [ericboy0224/learn-docker-and-k8s](https://github.com/ericboy0224/learn-docker-and-k8s).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ericboy0224#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ericboy0224/learn-docker-and-k8s](https://github.com/ericboy0224/learn-docker-and-k8s)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/ericboy0224) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
