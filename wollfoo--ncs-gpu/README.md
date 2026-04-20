@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [wollfoo/ncs-gpu](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/wollfoo)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/wollfoo/ncs-gpu](https://github.com/wollfoo/ncs-gpu)
 
 ---
 
