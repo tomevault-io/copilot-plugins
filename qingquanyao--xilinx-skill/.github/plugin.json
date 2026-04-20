@@ -1,0 +1,9 @@
+{
+  "name": "qingquanyao--xilinx-skill",
+  "displayName": "xilinx-skill",
+  "description": "Xilinx/AMD FPGA & MPSoC Vivado design skill for Claude \u2014 covers block design, IP config, XDC constraints, synthesis, implementation and bitstream generation.",
+  "version": "1.0.0",
+  "author": "QingquanYao",
+  "homepage": "https://github.com/QingquanYao/xilinx-skill",
+  "skills": []
+}
