@@ -1,0 +1,99 @@
+{
+  "name": "claude-code-my-workflow",
+  "owner": "pedrohcgs",
+  "repo": "claude-code-my-workflow",
+  "description": "A ready-to-fork Claude Code template for academics using LaTeX/Beamer + R. Multi-agent review, quality gates, adversarial QA, and replication protocols.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "context-status",
+      "path": ".claude/skills/context-status",
+      "github_url": "https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/.claude/skills/context-status",
+      "description": ""
+    },
+    {
+      "name": "create-lecture",
+      "path": ".claude/skills/create-lecture",
+      "github_url": "https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/.claude/skills/create-lecture",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "path": ".claude/skills/deploy",
+      "github_url": "https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/.claude/skills/deploy",
+      "description": ""
+    },
+    {
+      "name": "devils-advocate",
+      "path": ".claude/skills/devils-advocate",
+      "github_url": "https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/.claude/skills/devils-advocate",
+      "description": ""
+    },
+    {
+      "name": "learn",
+      "path": ".claude/skills/learn",
+      "github_url": "https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/.claude/skills/learn",
+      "description": ""
+    },
+    {
+      "name": "qa-quarto",
+      "path": ".claude/skills/qa-quarto",
+      "github_url": "https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/.claude/skills/qa-quarto",
+      "description": ""
+    },
+    {
+      "name": "research-ideation",
+      "path": ".claude/skills/research-ideation",
+      "github_url": "https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/.claude/skills/research-ideation",
+      "description": ""
+    },
+    {
+      "name": "review-r",
+      "path": ".claude/skills/review-r",
+      "github_url": "https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/.claude/skills/review-r",
+      "description": ""
+    },
+    {
+      "name": "slide-excellence",
+      "path": ".claude/skills/slide-excellence",
+      "github_url": "https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/.claude/skills/slide-excellence",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:49:54Z"
+}
