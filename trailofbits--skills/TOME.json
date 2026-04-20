@@ -1,0 +1,333 @@
+{
+  "name": "skills",
+  "owner": "trailofbits",
+  "repo": "skills",
+  "description": "Trail of Bits Claude Code skills for security research, vulnerability detection, and audit workflows",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "audit-context-building",
+      "path": "plugins/audit-context-building/skills/audit-context-building",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/audit-context-building/skills/audit-context-building",
+      "description": ""
+    },
+    {
+      "name": "audit-prep-assistant",
+      "path": "plugins/building-secure-contracts/skills/audit-prep-assistant",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/building-secure-contracts/skills/audit-prep-assistant",
+      "description": ""
+    },
+    {
+      "name": "code-maturity-assessor",
+      "path": "plugins/building-secure-contracts/skills/code-maturity-assessor",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/building-secure-contracts/skills/code-maturity-assessor",
+      "description": ""
+    },
+    {
+      "name": "codeql",
+      "path": "plugins/static-analysis/skills/codeql",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/static-analysis/skills/codeql",
+      "description": ""
+    },
+    {
+      "name": "constant-time-analysis",
+      "path": "plugins/constant-time-analysis/skills/constant-time-analysis",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/constant-time-analysis/skills/constant-time-analysis",
+      "description": ""
+    },
+    {
+      "name": "debug-buttercup",
+      "path": "plugins/debug-buttercup/skills/debug-buttercup",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/debug-buttercup/skills/debug-buttercup",
+      "description": ""
+    },
+    {
+      "name": "devcontainer-setup",
+      "path": "plugins/devcontainer-setup/skills/devcontainer-setup",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/devcontainer-setup/skills/devcontainer-setup",
+      "description": ""
+    },
+    {
+      "name": "differential-review",
+      "path": "plugins/differential-review/skills/differential-review",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/differential-review/skills/differential-review",
+      "description": ""
+    },
+    {
+      "name": "dwarf-expert",
+      "path": "plugins/dwarf-expert/skills/dwarf-expert",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/dwarf-expert/skills/dwarf-expert",
+      "description": ""
+    },
+    {
+      "name": "entry-point-analyzer",
+      "path": "plugins/entry-point-analyzer/skills/entry-point-analyzer",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/entry-point-analyzer/skills/entry-point-analyzer",
+      "description": ""
+    },
+    {
+      "name": "firebase-apk-scanner",
+      "path": "plugins/firebase-apk-scanner/skills/firebase-apk-scanner",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/firebase-apk-scanner/skills/firebase-apk-scanner",
+      "description": ""
+    },
+    {
+      "name": "git-cleanup",
+      "path": "plugins/git-cleanup/skills/git-cleanup",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/git-cleanup/skills/git-cleanup",
+      "description": ""
+    },
+    {
+      "name": "guidelines-advisor",
+      "path": "plugins/building-secure-contracts/skills/guidelines-advisor",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/building-secure-contracts/skills/guidelines-advisor",
+      "description": ""
+    },
+    {
+      "name": "insecure-defaults",
+      "path": "plugins/insecure-defaults/skills/insecure-defaults",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/insecure-defaults/skills/insecure-defaults",
+      "description": ""
+    },
+    {
+      "name": "modern-python",
+      "path": "plugins/modern-python/skills/modern-python",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/modern-python/skills/modern-python",
+      "description": ""
+    },
+    {
+      "name": "property-based-testing",
+      "path": "plugins/property-based-testing/skills/property-based-testing",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/property-based-testing/skills/property-based-testing",
+      "description": ""
+    },
+    {
+      "name": "second-opinion",
+      "path": "plugins/second-opinion/skills/second-opinion",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/second-opinion/skills/second-opinion",
+      "description": ""
+    },
+    {
+      "name": "secure-workflow-guide",
+      "path": "plugins/building-secure-contracts/skills/secure-workflow-guide",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/building-secure-contracts/skills/secure-workflow-guide",
+      "description": ""
+    },
+    {
+      "name": "semgrep",
+      "path": "plugins/static-analysis/skills/semgrep",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/static-analysis/skills/semgrep",
+      "description": ""
+    },
+    {
+      "name": "semgrep-rule-creator",
+      "path": "plugins/semgrep-rule-creator/skills/semgrep-rule-creator",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/semgrep-rule-creator/skills/semgrep-rule-creator",
+      "description": ""
+    },
+    {
+      "name": "semgrep-rule-variant-creator",
+      "path": "plugins/semgrep-rule-variant-creator/skills/semgrep-rule-variant-creator",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/semgrep-rule-variant-creator/skills/semgrep-rule-variant-creator",
+      "description": ""
+    },
+    {
+      "name": "spec-to-code-compliance",
+      "path": "plugins/spec-to-code-compliance/skills/spec-to-code-compliance",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/spec-to-code-compliance/skills/spec-to-code-compliance",
+      "description": ""
+    },
+    {
+      "name": "variant-analysis",
+      "path": "plugins/variant-analysis/skills/variant-analysis",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/variant-analysis/skills/variant-analysis",
+      "description": ""
+    },
+    {
+      "name": "yara-rule-authoring",
+      "path": "plugins/yara-authoring/skills/yara-rule-authoring",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/yara-authoring/skills/yara-rule-authoring",
+      "description": ""
+    },
+    {
+      "name": "ffuf-web-fuzzing",
+      "path": "plugins/ffuf-web-fuzzing/skills/ffuf-web-fuzzing",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/ffuf-web-fuzzing/skills/ffuf-web-fuzzing",
+      "description": ""
+    },
+    {
+      "name": "humanizer",
+      "path": "plugins/humanizer/skills/humanizer",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/humanizer/skills/humanizer",
+      "description": ""
+    },
+    {
+      "name": "last30days",
+      "path": "plugins/last30days/skills/last30days",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/last30days/skills/last30days",
+      "description": ""
+    },
+    {
+      "name": "openai-cloudflare-deploy",
+      "path": "plugins/openai-cloudflare-deploy/skills/openai-cloudflare-deploy",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-cloudflare-deploy/skills/openai-cloudflare-deploy",
+      "description": ""
+    },
+    {
+      "name": "openai-develop-web-game",
+      "path": "plugins/openai-develop-web-game/skills/openai-develop-web-game",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-develop-web-game/skills/openai-develop-web-game",
+      "description": ""
+    },
+    {
+      "name": "openai-doc",
+      "path": "plugins/openai-doc/skills/openai-doc",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-doc/skills/openai-doc",
+      "description": ""
+    },
+    {
+      "name": "openai-gh-address-comments",
+      "path": "plugins/openai-gh-address-comments/skills/openai-gh-address-comments",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-gh-address-comments/skills/openai-gh-address-comments",
+      "description": ""
+    },
+    {
+      "name": "openai-gh-fix-ci",
+      "path": "plugins/openai-gh-fix-ci/skills/openai-gh-fix-ci",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-gh-fix-ci/skills/openai-gh-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "openai-jupyter-notebook",
+      "path": "plugins/openai-jupyter-notebook/skills/openai-jupyter-notebook",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-jupyter-notebook/skills/openai-jupyter-notebook",
+      "description": ""
+    },
+    {
+      "name": "openai-netlify-deploy",
+      "path": "plugins/openai-netlify-deploy/skills/openai-netlify-deploy",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-netlify-deploy/skills/openai-netlify-deploy",
+      "description": ""
+    },
+    {
+      "name": "openai-pdf",
+      "path": "plugins/openai-pdf/skills/openai-pdf",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-pdf/skills/openai-pdf",
+      "description": ""
+    },
+    {
+      "name": "openai-playwright",
+      "path": "plugins/openai-playwright/skills/openai-playwright",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-playwright/skills/openai-playwright",
+      "description": ""
+    },
+    {
+      "name": "openai-screenshot",
+      "path": "plugins/openai-screenshot/skills/openai-screenshot",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-screenshot/skills/openai-screenshot",
+      "description": ""
+    },
+    {
+      "name": "openai-security-best-practices",
+      "path": "plugins/openai-security-best-practices/skills/openai-security-best-practices",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-security-best-practices/skills/openai-security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "openai-security-ownership-map",
+      "path": "plugins/openai-security-ownership-map/skills/openai-security-ownership-map",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-security-ownership-map/skills/openai-security-ownership-map",
+      "description": ""
+    },
+    {
+      "name": "openai-sentry",
+      "path": "plugins/openai-sentry/skills/openai-sentry",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-sentry/skills/openai-sentry",
+      "description": ""
+    },
+    {
+      "name": "openai-spreadsheet",
+      "path": "plugins/openai-spreadsheet/skills/openai-spreadsheet",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-spreadsheet/skills/openai-spreadsheet",
+      "description": ""
+    },
+    {
+      "name": "openai-yeet",
+      "path": "plugins/openai-yeet/skills/openai-yeet",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/openai-yeet/skills/openai-yeet",
+      "description": ""
+    },
+    {
+      "name": "react-pdf",
+      "path": "plugins/react-pdf/skills/react-pdf",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/react-pdf/skills/react-pdf",
+      "description": ""
+    },
+    {
+      "name": "scv-scan",
+      "path": "plugins/scv-scan/skills/scv-scan",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/scv-scan/skills/scv-scan",
+      "description": ""
+    },
+    {
+      "name": "security-awareness",
+      "path": "plugins/security-awareness/skills/security-awareness",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/security-awareness/skills/security-awareness",
+      "description": ""
+    },
+    {
+      "name": "skill-extractor",
+      "path": "plugins/skill-extractor/skills/skill-extractor",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/skill-extractor/skills/skill-extractor",
+      "description": ""
+    },
+    {
+      "name": "wooyun-legacy",
+      "path": "plugins/wooyun-legacy/skills/wooyun-legacy",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/wooyun-legacy/skills/wooyun-legacy",
+      "description": ""
+    },
+    {
+      "name": "x-research",
+      "path": "plugins/x-research/skills/x-research",
+      "github_url": "https://github.com/trailofbits/skills/tree/main/plugins/x-research/skills/x-research",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/trailofbits/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:56:51Z"
+}
