@@ -1,0 +1,111 @@
+{
+  "name": "convexskills",
+  "owner": "waynesutton",
+  "repo": "convexskills",
+  "description": "AI agent skills and templates for building production ready apps with Convex. Patterns for queries, mutations, cron jobs, webhooks, migrations, and more.",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "convex",
+      "path": "skills/convex",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex",
+      "description": ""
+    },
+    {
+      "name": "convex-best-practices",
+      "path": "skills/convex-best-practices",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-best-practices",
+      "description": ""
+    },
+    {
+      "name": "convex-realtime",
+      "path": "skills/convex-realtime",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-realtime",
+      "description": ""
+    },
+    {
+      "name": "convex-http-actions",
+      "path": "skills/convex-http-actions",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-http-actions",
+      "description": ""
+    },
+    {
+      "name": "convex-security-check",
+      "path": "skills/convex-security-check",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-security-check",
+      "description": ""
+    },
+    {
+      "name": "convex-cron-jobs",
+      "path": "skills/convex-cron-jobs",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-cron-jobs",
+      "description": ""
+    },
+    {
+      "name": "convex-migrations",
+      "path": "skills/convex-migrations",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-migrations",
+      "description": ""
+    },
+    {
+      "name": "avoid-feature-creep",
+      "path": "skills/avoid-feature-creep",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/avoid-feature-creep",
+      "description": ""
+    },
+    {
+      "name": "convex-security-audit",
+      "path": "skills/convex-security-audit",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-security-audit",
+      "description": ""
+    },
+    {
+      "name": "convex-agents",
+      "path": "skills/convex-agents",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-agents",
+      "description": ""
+    },
+    {
+      "name": "convex-component-authoring",
+      "path": "skills/convex-component-authoring",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-component-authoring",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/waynesutton/convexskills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:58:36Z"
+}
