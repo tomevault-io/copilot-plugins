@@ -1,0 +1,26 @@
+{
+  "name": "vstorm-co--pydantic-deepagents",
+  "displayName": "pydantic-deepagents",
+  "description": "Build Claude Code\u2013style deep agents in Python: tool-calling, sandboxed execution, multi-agent teams, skills, checkpoints, and unlimited context \u2014 all on Pydantic AI.",
+  "version": "1.0.0",
+  "author": "vstorm-co",
+  "homepage": "https://github.com/vstorm-co/pydantic-deepagents",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "data-analysis",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
