@@ -1,0 +1,9 @@
+{
+  "name": "muxy-app--muxy",
+  "displayName": "muxy",
+  "description": "Lightweight and Memory efficient terminal for Mac built with SwiftUI and libghostty",
+  "version": "1.0.0",
+  "author": "muxy-app",
+  "homepage": "https://github.com/muxy-app/muxy",
+  "skills": []
+}
