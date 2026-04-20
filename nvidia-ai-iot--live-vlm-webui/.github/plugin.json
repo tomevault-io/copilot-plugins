@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-ai-iot--live-vlm-webui",
+  "displayName": "live-vlm-webui",
+  "description": "Real-time Vision Language Model interaction via webcam - WebRTC-based web interface",
+  "version": "1.0.0",
+  "author": "NVIDIA-AI-IOT",
+  "homepage": "https://github.com/NVIDIA-AI-IOT/live-vlm-webui",
+  "skills": []
+}
