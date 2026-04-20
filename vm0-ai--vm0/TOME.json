@@ -1,0 +1,87 @@
+{
+  "name": "vm0",
+  "owner": "vm0-ai",
+  "repo": "vm0",
+  "description": "the easiest way to run natural language-described workflows automatically",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cli-design",
+      "path": ".claude/skills/cli-design",
+      "github_url": "https://github.com/vm0-ai/vm0/tree/main/.claude/skills/cli-design",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "path": ".claude/skills/code-quality",
+      "github_url": "https://github.com/vm0-ai/vm0/tree/main/.claude/skills/code-quality",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": ".claude/skills/commit",
+      "github_url": "https://github.com/vm0-ai/vm0/tree/main/.claude/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "database-development",
+      "path": ".claude/skills/database-development",
+      "github_url": "https://github.com/vm0-ai/vm0/tree/main/.claude/skills/database-development",
+      "description": ""
+    },
+    {
+      "name": "project-principles",
+      "path": ".claude/skills/project-principles",
+      "github_url": "https://github.com/vm0-ai/vm0/tree/main/.claude/skills/project-principles",
+      "description": ""
+    },
+    {
+      "name": "tech-debt",
+      "path": ".claude/skills/tech-debt",
+      "github_url": "https://github.com/vm0-ai/vm0/tree/main/.claude/skills/tech-debt",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/vm0-ai/vm0/tree/main/.claude/skills/testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vm0-ai/vm0",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:36:42Z"
+}
