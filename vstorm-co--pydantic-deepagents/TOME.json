@@ -1,0 +1,69 @@
+{
+  "name": "pydantic-deepagents",
+  "owner": "vstorm-co",
+  "repo": "pydantic-deepagents",
+  "description": "Build Claude Code\u2013style deep agents in Python: tool-calling, sandboxed execution, multi-agent teams, skills, checkpoints, and unlimited context \u2014 all on Pydantic AI.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "examples/full_app/skills/code-review",
+      "github_url": "https://github.com/vstorm-co/pydantic-deepagents/tree/main/examples/full_app/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "data-analysis",
+      "path": "examples/full_app/skills/data-analysis",
+      "github_url": "https://github.com/vstorm-co/pydantic-deepagents/tree/main/examples/full_app/skills/data-analysis",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "path": "examples/full_app/skills/test-generator",
+      "github_url": "https://github.com/vstorm-co/pydantic-deepagents/tree/main/examples/full_app/skills/test-generator",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "pydantic_deep/bundled_skills/git-workflow",
+      "github_url": "https://github.com/vstorm-co/pydantic-deepagents/tree/main/pydantic_deep/bundled_skills/git-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vstorm-co/pydantic-deepagents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:41:14Z"
+}
