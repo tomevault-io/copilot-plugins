@@ -1,0 +1,118 @@
+{
+  "name": "majiayu000--claude-skill-registry",
+  "displayName": "claude",
+  "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+  "version": "1.0.0",
+  "author": "majiayu000",
+  "homepage": "https://github.com/majiayu000/claude-skill-registry",
+  "skills": [
+    {
+      "name": "app-ui-design",
+      "description": ""
+    },
+    {
+      "name": "harmonyos-app",
+      "description": ""
+    },
+    {
+      "name": "product-ux-expert",
+      "description": ""
+    },
+    {
+      "name": "prd-master",
+      "description": ""
+    },
+    {
+      "name": "technical-spec",
+      "description": ""
+    },
+    {
+      "name": "devops-excellence",
+      "description": ""
+    },
+    {
+      "name": "golang-web",
+      "description": ""
+    },
+    {
+      "name": "observability-sre",
+      "description": ""
+    },
+    {
+      "name": "database-patterns",
+      "description": ""
+    },
+    {
+      "name": "auth-security",
+      "description": ""
+    },
+    {
+      "name": "zig-project",
+      "description": ""
+    },
+    {
+      "name": "auto-optimize",
+      "description": ""
+    },
+    {
+      "name": "codex-agent",
+      "description": ""
+    },
+    {
+      "name": "product-analytics",
+      "description": ""
+    },
+    {
+      "name": "rust-project",
+      "description": ""
+    },
+    {
+      "name": "typescript-project",
+      "description": ""
+    },
+    {
+      "name": "backend-nodejs",
+      "description": ""
+    },
+    {
+      "name": "core-dev",
+      "description": ""
+    },
+    {
+      "name": "backend-node",
+      "description": ""
+    },
+    {
+      "name": "marketing-seo-complete",
+      "description": ""
+    },
+    {
+      "name": "django-model-helper",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "description": ""
+    },
+    {
+      "name": "hashbrown-dev",
+      "description": ""
+    },
+    {
+      "name": "code-antipatterns-analysis",
+      "description": ""
+    },
+    {
+      "name": "i18n-setup-wizard",
+      "description": ""
+    },
+    {
+      "name": "i18n-manager",
+      "description": ""
+    },
+    {
+      "name": "jwt-auth-expert",
+      "description": ""
+    }
+  ]
+}
