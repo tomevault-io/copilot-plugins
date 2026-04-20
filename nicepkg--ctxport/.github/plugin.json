@@ -1,0 +1,14 @@
+{
+  "name": "nicepkg--ctxport",
+  "displayName": "ctxport",
+  "description": "Copy AI conversations as clean Markdown Context Bundles \u2014 one click from ChatGPT, Claude, Gemini, DeepSeek, Grok & GitHub. Copy from sidebar without opening. Zero upload, 100% local, open source.",
+  "version": "1.0.0",
+  "author": "nicepkg",
+  "homepage": "https://github.com/nicepkg/ctxport",
+  "skills": [
+    {
+      "name": "team",
+      "description": ""
+    }
+  ]
+}
