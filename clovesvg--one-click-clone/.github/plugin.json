@@ -1,0 +1,9 @@
+{
+  "name": "clovesvg--one-click-clone",
+  "displayName": "One-Click-Clone",
+  "description": "AI-powered website replication toolkit. Clone any website into a production-ready Next.js codebase.",
+  "version": "1.0.0",
+  "author": "CloveSVG",
+  "homepage": "https://github.com/CloveSVG/One-Click-Clone",
+  "skills": []
+}
