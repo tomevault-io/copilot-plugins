@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [XD3an/awesome-ai-coding-all-in-one](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/XD3an#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install XD3an/awesome-ai-coding-all-in-one
 ```
-Or browse all formats at [https://tomevault.io/claim/XD3an](https://tomevault.io/claim/XD3an).
+Source: [github.com/XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one).
 
 <!-- genome:a-i-q -->
