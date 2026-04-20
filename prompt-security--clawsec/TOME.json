@@ -1,0 +1,87 @@
+{
+  "name": "clawsec",
+  "owner": "prompt-security",
+  "repo": "clawsec",
+  "description": "A complete security skill suite for OpenClaw's and NanoClaw agents (and variants). Protect your SOUL.md (etc') with drift detection, live security recommendations, automated audits, and skill integrity verification. All from one installable suite.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claw-release",
+      "path": "skills/claw-release",
+      "github_url": "https://github.com/prompt-security/clawsec/tree/main/skills/claw-release",
+      "description": ""
+    },
+    {
+      "name": "clawsec-clawhub-checker",
+      "path": "skills/clawsec-clawhub-checker",
+      "github_url": "https://github.com/prompt-security/clawsec/tree/main/skills/clawsec-clawhub-checker",
+      "description": ""
+    },
+    {
+      "name": "clawsec-suite",
+      "path": "skills/clawsec-suite",
+      "github_url": "https://github.com/prompt-security/clawsec/tree/main/skills/clawsec-suite",
+      "description": ""
+    },
+    {
+      "name": "clawtributor",
+      "path": "skills/clawtributor",
+      "github_url": "https://github.com/prompt-security/clawsec/tree/main/skills/clawtributor",
+      "description": ""
+    },
+    {
+      "name": "openclaw-audit-watchdog",
+      "path": "skills/openclaw-audit-watchdog",
+      "github_url": "https://github.com/prompt-security/clawsec/tree/main/skills/openclaw-audit-watchdog",
+      "description": ""
+    },
+    {
+      "name": "prompt-agent",
+      "path": "skills/prompt-agent",
+      "github_url": "https://github.com/prompt-security/clawsec/tree/main/skills/prompt-agent",
+      "description": ""
+    },
+    {
+      "name": "soul-guardian",
+      "path": "skills/soul-guardian",
+      "github_url": "https://github.com/prompt-security/clawsec/tree/main/skills/soul-guardian",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/prompt-security/clawsec",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:50:34Z"
+}
