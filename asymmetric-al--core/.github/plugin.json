@@ -1,0 +1,14 @@
+{
+  "name": "asymmetric-al--core",
+  "displayName": "core",
+  "description": "A high-performance, enterprise-grade Next.js 16 application for mission-focused non-profit organizations. Built for high impact teams. ",
+  "version": "1.0.0",
+  "author": "Asymmetric-al",
+  "homepage": "https://github.com/Asymmetric-al/core",
+  "skills": [
+    {
+      "name": "typescript-expert",
+      "description": ""
+    }
+  ]
+}
