@@ -1,0 +1,93 @@
+{
+  "name": "agent-skills",
+  "owner": "hashicorp",
+  "repo": "agent-skills",
+  "description": "A collection of Agent skills and Claude Code plugins for HashiCorp products.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "terraform-style-guide",
+      "path": "terraform/code-generation/skills/terraform-style-guide",
+      "github_url": "https://github.com/hashicorp/agent-skills/tree/main/terraform/code-generation/skills/terraform-style-guide",
+      "description": ""
+    },
+    {
+      "name": "terraform-test",
+      "path": "terraform/code-generation/skills/terraform-test",
+      "github_url": "https://github.com/hashicorp/agent-skills/tree/main/terraform/code-generation/skills/terraform-test",
+      "description": ""
+    },
+    {
+      "name": "refactor-module",
+      "path": "terraform/module-generation/skills/refactor-module",
+      "github_url": "https://github.com/hashicorp/agent-skills/tree/main/terraform/module-generation/skills/refactor-module",
+      "description": ""
+    },
+    {
+      "name": "terraform-stacks",
+      "path": "terraform/module-generation/skills/terraform-stacks",
+      "github_url": "https://github.com/hashicorp/agent-skills/tree/main/terraform/module-generation/skills/terraform-stacks",
+      "description": ""
+    },
+    {
+      "name": "azure-verified-modules",
+      "path": "terraform/code-generation/skills/azure-verified-modules",
+      "github_url": "https://github.com/hashicorp/agent-skills/tree/main/terraform/code-generation/skills/azure-verified-modules",
+      "description": ""
+    },
+    {
+      "name": "provider-actions",
+      "path": "terraform/provider-development/skills/provider-actions",
+      "github_url": "https://github.com/hashicorp/agent-skills/tree/main/terraform/provider-development/skills/provider-actions",
+      "description": ""
+    },
+    {
+      "name": "provider-resources",
+      "path": "terraform/provider-development/skills/provider-resources",
+      "github_url": "https://github.com/hashicorp/agent-skills/tree/main/terraform/provider-development/skills/provider-resources",
+      "description": ""
+    },
+    {
+      "name": "run-acceptance-tests",
+      "path": "terraform/provider-development/skills/run-acceptance-tests",
+      "github_url": "https://github.com/hashicorp/agent-skills/tree/main/terraform/provider-development/skills/run-acceptance-tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hashicorp/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:32:37Z"
+}
