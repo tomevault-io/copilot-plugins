@@ -1,0 +1,94 @@
+{
+  "name": "mikeyobrien--rho",
+  "displayName": "rho",
+  "description": "An AI agent that stays running, remembers across sessions, and checks in on its own. macOS, Linux, Android. Built on Pi.",
+  "version": "1.0.0",
+  "author": "mikeyobrien",
+  "homepage": "https://github.com/mikeyobrien/rho",
+  "skills": [
+    {
+      "name": "clipboard",
+      "description": ""
+    },
+    {
+      "name": "clipboard",
+      "description": ""
+    },
+    {
+      "name": "clipboard",
+      "description": ""
+    },
+    {
+      "name": "code-assist",
+      "description": ""
+    },
+    {
+      "name": "code-task-generator",
+      "description": ""
+    },
+    {
+      "name": "codebase-summary",
+      "description": ""
+    },
+    {
+      "name": "create-sop",
+      "description": ""
+    },
+    {
+      "name": "device",
+      "description": ""
+    },
+    {
+      "name": "eval",
+      "description": ""
+    },
+    {
+      "name": "location",
+      "description": ""
+    },
+    {
+      "name": "open-url",
+      "description": ""
+    },
+    {
+      "name": "open-url",
+      "description": ""
+    },
+    {
+      "name": "open-url",
+      "description": ""
+    },
+    {
+      "name": "pdd",
+      "description": ""
+    },
+    {
+      "name": "rho-cloud-email",
+      "description": ""
+    },
+    {
+      "name": "rho-cloud-onboard",
+      "description": ""
+    },
+    {
+      "name": "sms",
+      "description": ""
+    },
+    {
+      "name": "stt",
+      "description": ""
+    },
+    {
+      "name": "tts",
+      "description": ""
+    },
+    {
+      "name": "tts",
+      "description": ""
+    },
+    {
+      "name": "tts",
+      "description": ""
+    }
+  ]
+}
