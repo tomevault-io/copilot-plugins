@@ -1,0 +1,57 @@
+{
+  "name": "homunculus",
+  "owner": "humanplane",
+  "repo": "homunculus",
+  "description": "A Claude Code plugin that watches how you work, learns your patterns, and evolves itself to help you better.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "instinct-apply",
+      "path": "plugins/homunculus/skills/instinct-apply",
+      "github_url": "https://github.com/humanplane/homunculus/tree/main/plugins/homunculus/skills/instinct-apply",
+      "description": ""
+    },
+    {
+      "name": "session-memory",
+      "path": "plugins/homunculus/skills/session-memory",
+      "github_url": "https://github.com/humanplane/homunculus/tree/main/plugins/homunculus/skills/session-memory",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/humanplane/homunculus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:41:45Z"
+}
