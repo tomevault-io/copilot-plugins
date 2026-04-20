@@ -1,0 +1,57 @@
+{
+  "name": "Agmente",
+  "owner": "rebornix",
+  "repo": "Agmente",
+  "description": "iOS client for coding agents via ACP or Codex app-server",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "run-agmente-codex-e2e",
+      "path": ".github/skills/run-agmente-codex-e2e",
+      "github_url": "https://github.com/rebornix/Agmente/tree/main/.github/skills/run-agmente-codex-e2e",
+      "description": ""
+    },
+    {
+      "name": "run-agmente-e2e",
+      "path": ".github/skills/run-agmente-e2e",
+      "github_url": "https://github.com/rebornix/Agmente/tree/main/.github/skills/run-agmente-e2e",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rebornix/Agmente",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T08:37:26Z"
+}
