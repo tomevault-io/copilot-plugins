@@ -1,0 +1,9 @@
+{
+  "name": "mkurman--tamux",
+  "displayName": "tamux",
+  "description": "A terminal multiplexer and user interface (TUI) with a super-powerful agent. Tamux is the only agent runtime that treats the daemon like an operating system kernel \u2013 sessions, targets, memory, managem",
+  "version": "1.0.0",
+  "author": "mkurman",
+  "homepage": "https://github.com/mkurman/tamux",
+  "skills": []
+}
