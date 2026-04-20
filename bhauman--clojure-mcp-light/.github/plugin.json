@@ -1,0 +1,14 @@
+{
+  "name": "bhauman--clojure-mcp-light",
+  "displayName": "clojure-mcp-light",
+  "description": "Simple Clojure tooling for AI coding assistants",
+  "version": "1.0.0",
+  "author": "bhauman",
+  "homepage": "https://github.com/bhauman/clojure-mcp-light",
+  "skills": [
+    {
+      "name": "clojure-eval",
+      "description": ""
+    }
+  ]
+}
