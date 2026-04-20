@@ -1,0 +1,78 @@
+{
+  "name": "onmax--nuxt-skills",
+  "displayName": "nuxt-skills",
+  "description": "Vue, Nuxt, and NuxtHub skills for AI coding assistants.",
+  "version": "1.0.0",
+  "author": "onmax",
+  "homepage": "https://github.com/onmax/nuxt-skills",
+  "skills": [
+    {
+      "name": "reka-ui",
+      "description": ""
+    },
+    {
+      "name": "nuxt",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "nuxt-ui",
+      "description": ""
+    },
+    {
+      "name": "vueuse",
+      "description": ""
+    },
+    {
+      "name": "ts-library",
+      "description": ""
+    },
+    {
+      "name": "motion",
+      "description": ""
+    },
+    {
+      "name": "document-writer",
+      "description": ""
+    },
+    {
+      "name": "nuxt-modules",
+      "description": ""
+    },
+    {
+      "name": "nuxt-content",
+      "description": ""
+    },
+    {
+      "name": "nuxt-better-auth",
+      "description": ""
+    },
+    {
+      "name": "nuxthub",
+      "description": ""
+    },
+    {
+      "name": "pnpm",
+      "description": ""
+    },
+    {
+      "name": "tresjs",
+      "description": ""
+    },
+    {
+      "name": "tsdown",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "description": ""
+    }
+  ]
+}
