@@ -1,0 +1,111 @@
+{
+  "name": "cc-thingz",
+  "owner": "umputun",
+  "repo": "cc-thingz",
+  "description": "various things for claude code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clarify",
+      "path": "plugins/workflow/skills/clarify",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/workflow/skills/clarify",
+      "description": ""
+    },
+    {
+      "name": "dialectic",
+      "path": "plugins/thinking-tools/skills/dialectic",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/thinking-tools/skills/dialectic",
+      "description": ""
+    },
+    {
+      "name": "last-tag",
+      "path": "plugins/release-tools/skills/last-tag",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/release-tools/skills/last-tag",
+      "description": ""
+    },
+    {
+      "name": "learn",
+      "path": "plugins/workflow/skills/learn",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/workflow/skills/learn",
+      "description": ""
+    },
+    {
+      "name": "md-copy",
+      "path": "plugins/workflow/skills/md-copy",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/workflow/skills/md-copy",
+      "description": ""
+    },
+    {
+      "name": "new",
+      "path": "plugins/release-tools/skills/new",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/release-tools/skills/new",
+      "description": ""
+    },
+    {
+      "name": "pr",
+      "path": "plugins/review/skills/pr",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/review/skills/pr",
+      "description": ""
+    },
+    {
+      "name": "root-cause-investigator",
+      "path": "plugins/thinking-tools/skills/root-cause-investigator",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/thinking-tools/skills/root-cause-investigator",
+      "description": ""
+    },
+    {
+      "name": "txt-copy",
+      "path": "plugins/workflow/skills/txt-copy",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/workflow/skills/txt-copy",
+      "description": ""
+    },
+    {
+      "name": "writing-style",
+      "path": "plugins/review/skills/writing-style",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/review/skills/writing-style",
+      "description": ""
+    },
+    {
+      "name": "wrong",
+      "path": "plugins/workflow/skills/wrong",
+      "github_url": "https://github.com/umputun/cc-thingz/tree/main/plugins/workflow/skills/wrong",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/umputun/cc-thingz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T08:32:29Z"
+}
