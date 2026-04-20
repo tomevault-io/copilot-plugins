@@ -1,0 +1,26 @@
+{
+  "name": "digitalsamba--claude-code-video-toolkit",
+  "displayName": "claude-code-video-toolkit",
+  "description": "AI-native video production toolkit for Claude Code",
+  "version": "1.0.0",
+  "author": "digitalsamba",
+  "homepage": "https://github.com/digitalsamba/claude-code-video-toolkit",
+  "skills": [
+    {
+      "name": "elevenlabs",
+      "description": ""
+    },
+    {
+      "name": "playwright-recording",
+      "description": ""
+    },
+    {
+      "name": "qwen-edit",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "description": ""
+    }
+  ]
+}
