@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ollieb89/ugro](https://github.com/ol
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ollieb89#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ollieb89/ugro](https://github.com/ollieb89/ugro)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ollieb89/ugro
 ```
-Or browse all formats at [https://tomevault.io/claim/ollieb89](https://tomevault.io/claim/ollieb89).
+Source: [github.com/ollieb89/ugro](https://github.com/ollieb89/ugro).
 
 <!-- genome:a-i-q -->
