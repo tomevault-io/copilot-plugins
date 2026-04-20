@@ -1,0 +1,9 @@
+{
+  "name": "odradekai--bundles-forge",
+  "displayName": "bundles-forge",
+  "description": "An agentic skills framework & bundle-plugin engineering toolkit that works.",
+  "version": "1.0.0",
+  "author": "OdradekAI",
+  "homepage": "https://github.com/OdradekAI/bundles-forge",
+  "skills": []
+}
