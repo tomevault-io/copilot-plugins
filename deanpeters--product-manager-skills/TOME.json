@@ -1,0 +1,195 @@
+{
+  "name": "Product-Manager-Skills",
+  "owner": "deanpeters",
+  "repo": "Product-Manager-Skills",
+  "description": "Product Management skills framework built on battle-tested methods for Claude Code, Cowork, Codex, and AI agents.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "acquisition-channel-advisor",
+      "path": "skills/acquisition-channel-advisor",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/acquisition-channel-advisor",
+      "description": ""
+    },
+    {
+      "name": "ai-shaped-readiness-advisor",
+      "path": "skills/ai-shaped-readiness-advisor",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/ai-shaped-readiness-advisor",
+      "description": ""
+    },
+    {
+      "name": "context-engineering-advisor",
+      "path": "skills/context-engineering-advisor",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/context-engineering-advisor",
+      "description": ""
+    },
+    {
+      "name": "customer-journey-map",
+      "path": "skills/customer-journey-map",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/customer-journey-map",
+      "description": ""
+    },
+    {
+      "name": "customer-journey-mapping-workshop",
+      "path": "skills/customer-journey-mapping-workshop",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/customer-journey-mapping-workshop",
+      "description": ""
+    },
+    {
+      "name": "discovery-interview-prep",
+      "path": "skills/discovery-interview-prep",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/discovery-interview-prep",
+      "description": ""
+    },
+    {
+      "name": "discovery-process",
+      "path": "skills/discovery-process",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/discovery-process",
+      "description": ""
+    },
+    {
+      "name": "epic-breakdown-advisor",
+      "path": "skills/epic-breakdown-advisor",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/epic-breakdown-advisor",
+      "description": ""
+    },
+    {
+      "name": "epic-hypothesis",
+      "path": "skills/epic-hypothesis",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/epic-hypothesis",
+      "description": ""
+    },
+    {
+      "name": "feature-investment-advisor",
+      "path": "skills/feature-investment-advisor",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/feature-investment-advisor",
+      "description": ""
+    },
+    {
+      "name": "finance-based-pricing-advisor",
+      "path": "skills/finance-based-pricing-advisor",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/finance-based-pricing-advisor",
+      "description": ""
+    },
+    {
+      "name": "lean-ux-canvas",
+      "path": "skills/lean-ux-canvas",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/lean-ux-canvas",
+      "description": ""
+    },
+    {
+      "name": "opportunity-solution-tree",
+      "path": "skills/opportunity-solution-tree",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/opportunity-solution-tree",
+      "description": ""
+    },
+    {
+      "name": "pol-probe",
+      "path": "skills/pol-probe",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/pol-probe",
+      "description": ""
+    },
+    {
+      "name": "positioning-workshop",
+      "path": "skills/positioning-workshop",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/positioning-workshop",
+      "description": ""
+    },
+    {
+      "name": "prd-development",
+      "path": "skills/prd-development",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/prd-development",
+      "description": ""
+    },
+    {
+      "name": "prioritization-advisor",
+      "path": "skills/prioritization-advisor",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/prioritization-advisor",
+      "description": ""
+    },
+    {
+      "name": "problem-framing-canvas",
+      "path": "skills/problem-framing-canvas",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/problem-framing-canvas",
+      "description": ""
+    },
+    {
+      "name": "product-strategy-session",
+      "path": "skills/product-strategy-session",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/product-strategy-session",
+      "description": ""
+    },
+    {
+      "name": "recommendation-canvas",
+      "path": "skills/recommendation-canvas",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/recommendation-canvas",
+      "description": ""
+    },
+    {
+      "name": "roadmap-planning",
+      "path": "skills/roadmap-planning",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/roadmap-planning",
+      "description": ""
+    },
+    {
+      "name": "skill-authoring-workflow",
+      "path": "skills/skill-authoring-workflow",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/skill-authoring-workflow",
+      "description": ""
+    },
+    {
+      "name": "tam-sam-som-calculator",
+      "path": "skills/tam-sam-som-calculator",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/tam-sam-som-calculator",
+      "description": ""
+    },
+    {
+      "name": "user-story",
+      "path": "skills/user-story",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/user-story",
+      "description": ""
+    },
+    {
+      "name": "user-story-mapping-workshop",
+      "path": "skills/user-story-mapping-workshop",
+      "github_url": "https://github.com/deanpeters/Product-Manager-Skills/tree/main/skills/user-story-mapping-workshop",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/deanpeters/Product-Manager-Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:19:02Z"
+}
