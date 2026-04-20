@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [chrisamador/unity-house](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/chrisamador#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/chrisamador/unity-house](https://github.com/chrisamador/unity-house)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/chrisamador) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-q -->
