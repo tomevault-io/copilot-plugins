@@ -1,0 +1,22 @@
+{
+  "name": "jarrodwatts--claude-code-config",
+  "displayName": "claude",
+  "description": "My personal Claude Code configuration - rules, hooks, agents, skills, and commands",
+  "version": "1.0.0",
+  "author": "jarrodwatts",
+  "homepage": "https://github.com/jarrodwatts/claude-code-config",
+  "skills": [
+    {
+      "name": "react-useeffect",
+      "description": ""
+    },
+    {
+      "name": "rigorous-coding",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    }
+  ]
+}
