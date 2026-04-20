@@ -1,0 +1,50 @@
+{
+  "name": "hoangnguyen0403--agent-skills-standard",
+  "displayName": "agent-skills-standard",
+  "description": "A collection of Agent Skills Standard and Best Practice for Programming Languages, Frameworks that help our AI Agent follow best practies on frameworks and programming laguages",
+  "version": "1.0.0",
+  "author": "HoangNguyen0403",
+  "homepage": "https://github.com/HoangNguyen0403/agent-skills-standard",
+  "skills": [
+    {
+      "name": "flutter-cicd",
+      "description": ""
+    },
+    {
+      "name": "typescript-language",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "typescript-security",
+      "description": ""
+    },
+    {
+      "name": "typescript-tooling",
+      "description": ""
+    },
+    {
+      "name": "typescript-language",
+      "description": ""
+    },
+    {
+      "name": "typescript-security",
+      "description": ""
+    },
+    {
+      "name": "typescript-tooling",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "nextjs-i18n",
+      "description": ""
+    }
+  ]
+}
