@@ -1,6 +1,6 @@
 # sawaed-webapp
 
-> Tome by [aldhaifani](https://github.com/aldhaifani/sawaed-webapp) — distributed by [TomeVault](https://tomevault.io/claim/aldhaifani)
+> Tome by [aldhaifani](https://github.com/aldhaifani/sawaed-webapp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [aldhaifani/sawaed-webapp](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/aldhaifani)
+From [aldhaifani/sawaed-webapp](https://github.com/aldhaifani/sawaed-webapp) — a repo with 0+ stars on GitHub.
 
 ---
 
