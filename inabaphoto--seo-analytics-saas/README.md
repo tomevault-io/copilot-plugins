@@ -1,6 +1,6 @@
 # seo-analytics-saas
 
-> Tome by [inabaphoto](https://github.com/inabaphoto/seo-analytics-saas) — distributed by [TomeVault](https://tomevault.io/claim/inabaphoto)
+> Tome by [inabaphoto](https://github.com/inabaphoto/seo-analytics-saas) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [inabaphoto/seo-analytics-saas](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/inabaphoto#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/inabaphoto/seo-analytics-saas](https://github.com/inabaphoto/seo-analytics-saas)
 
 ---
 
