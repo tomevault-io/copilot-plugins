@@ -1,0 +1,14 @@
+{
+  "name": "galaxy-dawn--claude-scholar",
+  "displayName": "claude-scholar",
+  "description": "Semi-automated research assistant for academic research and software development. Supports Claude Code, OpenCode, and Codex CLI across ideation, coding, experiments, writing, and publication.",
+  "version": "1.0.0",
+  "author": "Galaxy-Dawn",
+  "homepage": "https://github.com/Galaxy-Dawn/claude-scholar",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
