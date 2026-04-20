@@ -1,0 +1,75 @@
+{
+  "name": "claude-howto",
+  "owner": "luongnv89",
+  "repo": "claude-howto",
+  "description": "A visual, example-driven guide to Claude Code \u2014 from basic concepts to advanced agents, with copy-paste templates that bring immediate value.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "doc-generator",
+      "path": "03-skills/doc-generator",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/doc-generator",
+      "description": ""
+    },
+    {
+      "name": "blog-draft",
+      "path": "03-skills/blog-draft",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/blog-draft",
+      "description": ""
+    },
+    {
+      "name": "brand-voice",
+      "path": "03-skills/brand-voice",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/brand-voice",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "path": "03-skills/refactor",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/refactor",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "03-skills/code-review",
+      "github_url": "https://github.com/luongnv89/claude-howto/tree/main/03-skills/code-review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/luongnv89/claude-howto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T22:33:50Z"
+}
