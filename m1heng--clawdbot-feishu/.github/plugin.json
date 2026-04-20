@@ -1,0 +1,26 @@
+{
+  "name": "m1heng--clawdbot-feishu",
+  "displayName": "clawdbot-feishu",
+  "description": "AI instruction skills by m1heng",
+  "version": "1.0.0",
+  "author": "m1heng",
+  "homepage": "https://github.com/m1heng/clawdbot-feishu",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "feishu-doc",
+      "description": ""
+    },
+    {
+      "name": "feishu-e2e-test",
+      "description": ""
+    },
+    {
+      "name": "feishu-perm",
+      "description": ""
+    }
+  ]
+}
