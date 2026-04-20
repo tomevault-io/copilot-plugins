@@ -1,0 +1,51 @@
+{
+  "name": "ralph",
+  "owner": "iannuttall",
+  "repo": "ralph",
+  "description": "A minimal, file\u2011based agent loop for autonomous coding.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "prd",
+      "path": "skills/prd",
+      "github_url": "https://github.com/iannuttall/ralph/tree/main/skills/prd",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iannuttall/ralph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:58:04Z"
+}
