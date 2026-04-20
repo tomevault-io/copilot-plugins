@@ -1,0 +1,189 @@
+{
+  "name": "skills",
+  "owner": "wondelai",
+  "repo": "skills",
+  "description": "Agent skills for Claude Code and other agentskills.io-compatible agents. See https://developertoolkit.ai for more information about skills in general.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "refactoring-ui",
+      "path": "refactoring-ui",
+      "github_url": "https://github.com/wondelai/skills/tree/main/refactoring-ui",
+      "description": ""
+    },
+    {
+      "name": "cro-methodology",
+      "path": "cro-methodology",
+      "github_url": "https://github.com/wondelai/skills/tree/main/cro-methodology",
+      "description": ""
+    },
+    {
+      "name": "blue-ocean-strategy",
+      "path": "blue-ocean-strategy",
+      "github_url": "https://github.com/wondelai/skills/tree/main/blue-ocean-strategy",
+      "description": ""
+    },
+    {
+      "name": "contagious",
+      "path": "contagious",
+      "github_url": "https://github.com/wondelai/skills/tree/main/contagious",
+      "description": ""
+    },
+    {
+      "name": "crossing-the-chasm",
+      "path": "crossing-the-chasm",
+      "github_url": "https://github.com/wondelai/skills/tree/main/crossing-the-chasm",
+      "description": ""
+    },
+    {
+      "name": "design-everyday-things",
+      "path": "design-everyday-things",
+      "github_url": "https://github.com/wondelai/skills/tree/main/design-everyday-things",
+      "description": ""
+    },
+    {
+      "name": "design-sprint",
+      "path": "design-sprint",
+      "github_url": "https://github.com/wondelai/skills/tree/main/design-sprint",
+      "description": ""
+    },
+    {
+      "name": "drive-motivation",
+      "path": "drive-motivation",
+      "github_url": "https://github.com/wondelai/skills/tree/main/drive-motivation",
+      "description": ""
+    },
+    {
+      "name": "hooked-ux",
+      "path": "hooked-ux",
+      "github_url": "https://github.com/wondelai/skills/tree/main/hooked-ux",
+      "description": ""
+    },
+    {
+      "name": "hundred-million-offers",
+      "path": "hundred-million-offers",
+      "github_url": "https://github.com/wondelai/skills/tree/main/hundred-million-offers",
+      "description": ""
+    },
+    {
+      "name": "influence-psychology",
+      "path": "influence-psychology",
+      "github_url": "https://github.com/wondelai/skills/tree/main/influence-psychology",
+      "description": ""
+    },
+    {
+      "name": "ios-hig-design",
+      "path": "ios-hig-design",
+      "github_url": "https://github.com/wondelai/skills/tree/main/ios-hig-design",
+      "description": ""
+    },
+    {
+      "name": "jobs-to-be-done",
+      "path": "jobs-to-be-done",
+      "github_url": "https://github.com/wondelai/skills/tree/main/jobs-to-be-done",
+      "description": ""
+    },
+    {
+      "name": "lean-startup",
+      "path": "lean-startup",
+      "github_url": "https://github.com/wondelai/skills/tree/main/lean-startup",
+      "description": ""
+    },
+    {
+      "name": "made-to-stick",
+      "path": "made-to-stick",
+      "github_url": "https://github.com/wondelai/skills/tree/main/made-to-stick",
+      "description": ""
+    },
+    {
+      "name": "negotiation",
+      "path": "negotiation",
+      "github_url": "https://github.com/wondelai/skills/tree/main/negotiation",
+      "description": ""
+    },
+    {
+      "name": "obviously-awesome",
+      "path": "obviously-awesome",
+      "github_url": "https://github.com/wondelai/skills/tree/main/obviously-awesome",
+      "description": ""
+    },
+    {
+      "name": "one-page-marketing",
+      "path": "one-page-marketing",
+      "github_url": "https://github.com/wondelai/skills/tree/main/one-page-marketing",
+      "description": ""
+    },
+    {
+      "name": "predictable-revenue",
+      "path": "predictable-revenue",
+      "github_url": "https://github.com/wondelai/skills/tree/main/predictable-revenue",
+      "description": ""
+    },
+    {
+      "name": "scorecard-marketing",
+      "path": "scorecard-marketing",
+      "github_url": "https://github.com/wondelai/skills/tree/main/scorecard-marketing",
+      "description": ""
+    },
+    {
+      "name": "storybrand-messaging",
+      "path": "storybrand-messaging",
+      "github_url": "https://github.com/wondelai/skills/tree/main/storybrand-messaging",
+      "description": ""
+    },
+    {
+      "name": "top-design",
+      "path": "top-design",
+      "github_url": "https://github.com/wondelai/skills/tree/main/top-design",
+      "description": ""
+    },
+    {
+      "name": "ux-heuristics",
+      "path": "ux-heuristics",
+      "github_url": "https://github.com/wondelai/skills/tree/main/ux-heuristics",
+      "description": ""
+    },
+    {
+      "name": "web-typography",
+      "path": "web-typography",
+      "github_url": "https://github.com/wondelai/skills/tree/main/web-typography",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wondelai/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:59:16Z"
+}
