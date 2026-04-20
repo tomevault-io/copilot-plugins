@@ -1,0 +1,93 @@
+{
+  "name": "actionbook",
+  "owner": "actionbook",
+  "repo": "actionbook",
+  "description": "Let your AI agent uses your browser. Actionbook makes it actually work.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "actionbook",
+      "path": "skills/actionbook",
+      "github_url": "https://github.com/actionbook/actionbook/tree/main/skills/actionbook",
+      "description": ""
+    },
+    {
+      "name": "actionbook",
+      "path": "playground/rust-learner/skills/actionbook",
+      "github_url": "https://github.com/actionbook/actionbook/tree/main/playground/rust-learner/skills/actionbook",
+      "description": ""
+    },
+    {
+      "name": "actionbook-scraper",
+      "path": "playground/actionbook-scraper/skills/actionbook-scraper",
+      "github_url": "https://github.com/actionbook/actionbook/tree/main/playground/actionbook-scraper/skills/actionbook-scraper",
+      "description": ""
+    },
+    {
+      "name": "agent-browser",
+      "path": "playground/rust-learner/skills/agent-browser",
+      "github_url": "https://github.com/actionbook/actionbook/tree/main/playground/rust-learner/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "agent-browser",
+      "path": "playground/actionbook-scraper/skills/agent-browser",
+      "github_url": "https://github.com/actionbook/actionbook/tree/main/playground/actionbook-scraper/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "arxiv-viewer",
+      "path": "playground/arxiv-viewer/skills/arxiv-viewer",
+      "github_url": "https://github.com/actionbook/actionbook/tree/main/playground/arxiv-viewer/skills/arxiv-viewer",
+      "description": ""
+    },
+    {
+      "name": "json-ui-skill",
+      "path": "playground/json-ui-skill",
+      "github_url": "https://github.com/actionbook/actionbook/tree/main/playground/json-ui-skill",
+      "description": ""
+    },
+    {
+      "name": "rust-learner",
+      "path": "playground/rust-learner/skills/rust-learner",
+      "github_url": "https://github.com/actionbook/actionbook/tree/main/playground/rust-learner/skills/rust-learner",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/actionbook/actionbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:31:36Z"
+}
