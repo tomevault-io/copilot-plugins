@@ -1,22 +1,25 @@
 ## scholaraio
 
-> This project is an AI-powered research terminal. Full project instructions are in `AGENTS.md` at the repository root. **Read `AGENTS.md` before proceeding with any task.**
+> ScholarAIO project instructions and research workflow router
 
-# ScholarAIO — Cursor Rules
 
-This project is an AI-powered research terminal. Full project instructions are in `AGENTS.md` at the repository root. **Read `AGENTS.md` before proceeding with any task.**
+# ScholarAIO Cursor Entry
 
-## Quick Reference
+Use this Project Rule as the Cursor-native entry point. This rule was checked
+against Cursor's official rules documentation on 2026-04-10. Full project
+instructions live in `AGENTS.md`; do not duplicate them here.
 
-- CLI entry point: `scholaraio --help`
-- Python package: `scholaraio/`
-- Paper data: `data/papers/<Author-Year-Title>/` (meta.json + paper.md)
-- User output: always write to `workspace/`, never to project root or `scholaraio/`
-- Skills (reusable workflows): `.claude/skills/*/SKILL.md`
-- Tests: `python -m pytest tests/ -v`
-- Code style: Google-style docstrings for library modules, Chinese for CLI output, English for code comments
-- Config: `config.yaml` (git-tracked), `config.local.yaml` (secrets, not tracked)
+Before ScholarAIO work:
+
+- Read `AGENTS.md` at the repository root.
+- For paper search, reading, ingest, export, writing, or scientific-runtime
+  tasks, read the matching workflow in `.claude/skills/*/SKILL.md`.
+- Use `scholaraio --help` and the specific skill instructions before running
+  ScholarAIO CLI commands.
+- Write user-facing drafts, reports, exports, and analysis outputs under
+  `workspace/`, not the repository root or `scholaraio/`.
+- Keep Cursor integration on native Project Rules plus the ScholarAIO CLI.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ZimoLiao) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [ZimoLiao/scholaraio](https://github.com/ZimoLiao/scholaraio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
