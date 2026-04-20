@@ -1,0 +1,9 @@
+{
+  "name": "alickh--copool",
+  "displayName": "Copool",
+  "description": "Copool is a macOS SwiftUI app for Codex/ChatGPT account switching and API proxy management\uff5cCopool \u662f\u4e00\u4e2a\u7528\u4e8e Codex/ChatGPT \u8d26\u53f7\u5207\u6362\u4e0e API \u4ee3\u7406\u7ba1\u7406\u7684 macOS SwiftUI \u5e94\u7528",
+  "version": "1.0.0",
+  "author": "AlickH",
+  "homepage": "https://github.com/AlickH/Copool",
+  "skills": []
+}
