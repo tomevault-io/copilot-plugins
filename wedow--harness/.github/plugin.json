@@ -1,0 +1,9 @@
+{
+  "name": "wedow--harness",
+  "displayName": "harness",
+  "description": "Minimal agent loop in bash. Pure state follower core with plugin-based tools, hooks, providers, and commands. Dependencies: bash 4+, jq, curl.",
+  "version": "1.0.0",
+  "author": "wedow",
+  "homepage": "https://github.com/wedow/harness",
+  "skills": []
+}
