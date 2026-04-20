@@ -1,0 +1,9 @@
+{
+  "name": "wavyrai--tmux-ide",
+  "displayName": "tmux-ide",
+  "description": "Turn any project into a tmux-powered terminal IDE with a simple ide.yml",
+  "version": "1.0.0",
+  "author": "wavyrai",
+  "homepage": "https://github.com/wavyrai/tmux-ide",
+  "skills": []
+}
