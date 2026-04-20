@@ -1,0 +1,70 @@
+{
+  "name": "rohunj--claude-build-workflow",
+  "displayName": "claude-build-workflow",
+  "description": "Automated workflow for building apps with Claude Code. Describe what you want, answer questions, let it build autonomously.",
+  "version": "1.0.0",
+  "author": "rohunj",
+  "homepage": "https://github.com/rohunj/claude-build-workflow",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "bugs-to-stories",
+      "description": ""
+    },
+    {
+      "name": "compound-engineering",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "edge-cases",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "description": ""
+    },
+    {
+      "name": "pytm",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "description": ""
+    },
+    {
+      "name": "sast-semgrep",
+      "description": ""
+    },
+    {
+      "name": "sca-trivy",
+      "description": ""
+    },
+    {
+      "name": "secrets-gitleaks",
+      "description": ""
+    },
+    {
+      "name": "test-and-break",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    }
+  ]
+}
