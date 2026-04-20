@@ -1,0 +1,1665 @@
+{
+  "name": "openclaw",
+  "owner": "openclaw",
+  "repo": "openclaw",
+  "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. \ud83e\udd9e ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "1password",
+      "path": "skills/1password",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/1password",
+      "description": ""
+    },
+    {
+      "name": "apple-notes",
+      "path": "skills/apple-notes",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/apple-notes",
+      "description": ""
+    },
+    {
+      "name": "apple-reminders",
+      "path": "skills/apple-reminders",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/apple-reminders",
+      "description": ""
+    },
+    {
+      "name": "bear-notes",
+      "path": "skills/bear-notes",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/bear-notes",
+      "description": ""
+    },
+    {
+      "name": "blogwatcher",
+      "path": "skills/blogwatcher",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/blogwatcher",
+      "description": ""
+    },
+    {
+      "name": "blucli",
+      "path": "skills/blucli",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/blucli",
+      "description": ""
+    },
+    {
+      "name": "bluebubbles",
+      "path": "skills/bluebubbles",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/bluebubbles",
+      "description": ""
+    },
+    {
+      "name": "camsnap",
+      "path": "skills/camsnap",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/camsnap",
+      "description": ""
+    },
+    {
+      "name": "coding-agent",
+      "path": "skills/coding-agent",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/coding-agent",
+      "description": ""
+    },
+    {
+      "name": "feishu-doc",
+      "path": "extensions/feishu/skills/feishu-doc",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/extensions/feishu/skills/feishu-doc",
+      "description": ""
+    },
+    {
+      "name": "feishu-perm",
+      "path": "extensions/feishu/skills/feishu-perm",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/extensions/feishu/skills/feishu-perm",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": "skills/gemini",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/gemini",
+      "description": ""
+    },
+    {
+      "name": "gh-issues",
+      "path": "skills/gh-issues",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/gh-issues",
+      "description": ""
+    },
+    {
+      "name": "gifgrep",
+      "path": "skills/gifgrep",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/gifgrep",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "path": "skills/github",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/github",
+      "description": ""
+    },
+    {
+      "name": "gog",
+      "path": "skills/gog",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/gog",
+      "description": ""
+    },
+    {
+      "name": "goplaces",
+      "path": "skills/goplaces",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/goplaces",
+      "description": ""
+    },
+    {
+      "name": "healthcheck",
+      "path": "skills/healthcheck",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/healthcheck",
+      "description": ""
+    },
+    {
+      "name": "himalaya",
+      "path": "skills/himalaya",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/himalaya",
+      "description": ""
+    },
+    {
+      "name": "imsg",
+      "path": "skills/imsg",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/imsg",
+      "description": ""
+    },
+    {
+      "name": "mcporter",
+      "path": "skills/mcporter",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/mcporter",
+      "description": ""
+    },
+    {
+      "name": "model-usage",
+      "path": "skills/model-usage",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/model-usage",
+      "description": ""
+    },
+    {
+      "name": "nano-pdf",
+      "path": "skills/nano-pdf",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/nano-pdf",
+      "description": ""
+    },
+    {
+      "name": "notion",
+      "path": "skills/notion",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/notion",
+      "description": ""
+    },
+    {
+      "name": "obsidian",
+      "path": "skills/obsidian",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/obsidian",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper",
+      "path": "skills/openai-whisper",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/openai-whisper",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper-api",
+      "path": "skills/openai-whisper-api",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/openai-whisper-api",
+      "description": ""
+    },
+    {
+      "name": "openhue",
+      "path": "skills/openhue",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/openhue",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "path": "skills/oracle",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/oracle",
+      "description": ""
+    },
+    {
+      "name": "ordercli",
+      "path": "skills/ordercli",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/ordercli",
+      "description": ""
+    },
+    {
+      "name": "peekaboo",
+      "path": "skills/peekaboo",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/peekaboo",
+      "description": ""
+    },
+    {
+      "name": "prose",
+      "path": "extensions/open-prose/skills/prose",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/extensions/open-prose/skills/prose",
+      "description": ""
+    },
+    {
+      "name": "sag",
+      "path": "skills/sag",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/sag",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "slack",
+      "path": "skills/slack",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/slack",
+      "description": ""
+    },
+    {
+      "name": "songsee",
+      "path": "skills/songsee",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/songsee",
+      "description": ""
+    },
+    {
+      "name": "things-mac",
+      "path": "skills/things-mac",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/things-mac",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "path": "skills/tmux",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/tmux",
+      "description": ""
+    },
+    {
+      "name": "trello",
+      "path": "skills/trello",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/trello",
+      "description": ""
+    },
+    {
+      "name": "video-frames",
+      "path": "skills/video-frames",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/video-frames",
+      "description": ""
+    },
+    {
+      "name": "wacli",
+      "path": "skills/wacli",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/wacli",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "path": "skills/weather",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/weather",
+      "description": ""
+    },
+    {
+      "name": "agentvibes-openclaw-skill",
+      "path": "skills/paulpreibisch/agentvibes-openclaw-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/paulpreibisch/agentvibes-openclaw-skill",
+      "description": ""
+    },
+    {
+      "name": "agentgram-openclaw",
+      "path": "skills/iisweetheartii/agentgram-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/iisweetheartii/agentgram-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-airesearchos",
+      "path": "skills/bowtiedbluefin/openclaw-airesearchos",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/bowtiedbluefin/openclaw-airesearchos",
+      "description": ""
+    },
+    {
+      "name": "openclaw-bitagent",
+      "path": "skills/parasyte-x/openclaw-bitagent",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/parasyte-x/openclaw-bitagent",
+      "description": ""
+    },
+    {
+      "name": "openclaw-bitwarden",
+      "path": "skills/jimihford/openclaw-bitwarden",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jimihford/openclaw-bitwarden",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skill-blinko",
+      "path": "skills/vellis59/openclaw-skill-blinko",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/vellis59/openclaw-skill-blinko",
+      "description": ""
+    },
+    {
+      "name": "captchas-openclaw",
+      "path": "skills/captchasco/captchas-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/captchasco/captchas-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-cn-llm",
+      "path": "skills/chaimengphp/openclaw-aisa-cn-llm",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chaimengphp/openclaw-aisa-cn-llm",
+      "description": ""
+    },
+    {
+      "name": "openclaw-confluence-skill",
+      "path": "skills/pangin/openclaw-confluence-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/pangin/openclaw-confluence-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-credential-manager",
+      "path": "skills/teeclaw/openclaw-credential-manager",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/teeclaw/openclaw-credential-manager",
+      "description": ""
+    },
+    {
+      "name": "openclaw-deck-tracker",
+      "path": "skills/skanderhelali/openclaw-deck-tracker",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/skanderhelali/openclaw-deck-tracker",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skill-diy-pc-ingest",
+      "path": "skills/nextaltair/openclaw-skill-diy-pc-ingest",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/nextaltair/openclaw-skill-diy-pc-ingest",
+      "description": ""
+    },
+    {
+      "name": "openclaw-dooray-hook-skill",
+      "path": "skills/iizs/openclaw-dooray-hook-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/iizs/openclaw-dooray-hook-skill",
+      "description": ""
+    },
+    {
+      "name": "emergence-codex-openclaw",
+      "path": "skills/juliendbrt/emergence-codex-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/juliendbrt/emergence-codex-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-flowise-skill",
+      "path": "skills/tianmu/openclaw-flowise-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/tianmu/openclaw-flowise-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-godot-skill",
+      "path": "skills/tomleelive/openclaw-godot-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/tomleelive/openclaw-godot-skill",
+      "description": ""
+    },
+    {
+      "name": "google-messages-openclaw-skill",
+      "path": "skills/kesslerio/google-messages-openclaw-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/kesslerio/google-messages-openclaw-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-huckleberry-skill",
+      "path": "skills/aaronn/openclaw-huckleberry-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/aaronn/openclaw-huckleberry-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-langcache",
+      "path": "skills/manvinder01/openclaw-langcache",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/manvinder01/openclaw-langcache",
+      "description": ""
+    },
+    {
+      "name": "openclaw-linear",
+      "path": "skills/cipher-shad0w/openclaw-linear",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/cipher-shad0w/openclaw-linear",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-affordable-llm-model-tokens",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-affordable-llm-model-tokens",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-affordable-llm-model-tokens",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-llm-router",
+      "path": "skills/aisadocs/openclaw-aisa-llm-router",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/aisadocs/openclaw-aisa-llm-router",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-llm-gateway",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-llm-gateway",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-llm-gateway",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-llm-gateway-route",
+      "path": "skills/chaimengphp/openclaw-aisa-llm-gateway-route",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chaimengphp/openclaw-aisa-llm-gateway-route",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skill-manus",
+      "path": "skills/disi3r/openclaw-skill-manus",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/disi3r/openclaw-skill-manus",
+      "description": ""
+    },
+    {
+      "name": "openclaw-mcp-plugin",
+      "path": "skills/lunarpulse/openclaw-mcp-plugin",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/lunarpulse/openclaw-mcp-plugin",
+      "description": ""
+    },
+    {
+      "name": "openclaw-memorybox",
+      "path": "skills/ramsbaby/openclaw-memorybox",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/ramsbaby/openclaw-memorybox",
+      "description": ""
+    },
+    {
+      "name": "openclaw-migrator",
+      "path": "skills/wenjie2024/openclaw-migrator",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/wenjie2024/openclaw-migrator",
+      "description": ""
+    },
+    {
+      "name": "openclaw-mission-control",
+      "path": "skills/jzineldin/openclaw-mission-control",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jzineldin/openclaw-mission-control",
+      "description": ""
+    },
+    {
+      "name": "notesctl-skill-for-openclaw",
+      "path": "skills/clinchcc/notesctl-skill-for-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/clinchcc/notesctl-skill-for-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-notion-skill",
+      "path": "skills/moikapy/openclaw-notion-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/moikapy/openclaw-notion-skill",
+      "description": ""
+    },
+    {
+      "name": "nutrient-openclaw",
+      "path": "skills/jdrhyne/nutrient-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jdrhyne/nutrient-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-anything",
+      "path": "skills/doanbactam/openclaw-anything",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/doanbactam/openclaw-anything",
+      "description": ""
+    },
+    {
+      "name": "openclaw-agent-optimize",
+      "path": "skills/phenomenoner/openclaw-agent-optimize",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/phenomenoner/openclaw-agent-optimize",
+      "description": ""
+    },
+    {
+      "name": "openclaw-agent-optimize-skill",
+      "path": "skills/phenomenoner/openclaw-agent-optimize-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/phenomenoner/openclaw-agent-optimize-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-agent-token-optimizer",
+      "path": "skills/phenomenoner/openclaw-agent-token-optimizer",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/phenomenoner/openclaw-agent-token-optimizer",
+      "description": ""
+    },
+    {
+      "name": "openclaw-arbiter",
+      "path": "skills/atlaspa/openclaw-arbiter",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-arbiter",
+      "description": ""
+    },
+    {
+      "name": "openclaw-audit-watchdog",
+      "path": "skills/davida-ps/openclaw-audit-watchdog",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/davida-ps/openclaw-audit-watchdog",
+      "description": ""
+    },
+    {
+      "name": "openclaw-auto-updater",
+      "path": "skills/dasweltall/openclaw-auto-updater",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/dasweltall/openclaw-auto-updater",
+      "description": ""
+    },
+    {
+      "name": "openclaw-backup-wrxw0",
+      "path": "skills/hightower6eu/openclaw-backup-wrxw0",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/hightower6eu/openclaw-backup-wrxw0",
+      "description": ""
+    },
+    {
+      "name": "openclaw-backup-dnkxm",
+      "path": "skills/hightower6eu/openclaw-backup-dnkxm",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/hightower6eu/openclaw-backup-dnkxm",
+      "description": ""
+    },
+    {
+      "name": "openclaw-backup-optimized",
+      "path": "skills/cccarv82/openclaw-backup-optimized",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/cccarv82/openclaw-backup-optimized",
+      "description": ""
+    },
+    {
+      "name": "openclaw-cloudflare-secure",
+      "path": "skills/jskoiz/openclaw-cloudflare-secure",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jskoiz/openclaw-cloudflare-secure",
+      "description": ""
+    },
+    {
+      "name": "openclaw-config",
+      "path": "skills/caopulan/openclaw-config",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/caopulan/openclaw-config",
+      "description": ""
+    },
+    {
+      "name": "openclaw-config-guide",
+      "path": "skills/jacktian010105/openclaw-config-guide",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jacktian010105/openclaw-config-guide",
+      "description": ""
+    },
+    {
+      "name": "openclaw-cost-guard",
+      "path": "skills/dasweltall/openclaw-cost-guard",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/dasweltall/openclaw-cost-guard",
+      "description": ""
+    },
+    {
+      "name": "openclaw-deck",
+      "path": "skills/kellyclaudeai/openclaw-deck",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/kellyclaudeai/openclaw-deck",
+      "description": ""
+    },
+    {
+      "name": "openclaw-doctor-pro",
+      "path": "skills/phenixstar/openclaw-doctor-pro",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/phenixstar/openclaw-doctor-pro",
+      "description": ""
+    },
+    {
+      "name": "openclaw-email-bypass",
+      "path": "skills/rishikreddyl/openclaw-email-bypass",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/rishikreddyl/openclaw-email-bypass",
+      "description": ""
+    },
+    {
+      "name": "openclaw-feeds",
+      "path": "skills/nesdeq/openclaw-feeds",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/nesdeq/openclaw-feeds",
+      "description": ""
+    },
+    {
+      "name": "openclaw-flow-kit",
+      "path": "skills/deepseekoracle/openclaw-flow-kit",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/deepseekoracle/openclaw-flow-kit",
+      "description": ""
+    },
+    {
+      "name": "openclaw-template-generator",
+      "path": "skills/truongvknnlthao-gif/openclaw-template-generator",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/truongvknnlthao-gif/openclaw-template-generator",
+      "description": ""
+    },
+    {
+      "name": "openclaw-gen",
+      "path": "skills/truongvknnlthao-gif/openclaw-gen",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/truongvknnlthao-gif/openclaw-gen",
+      "description": ""
+    },
+    {
+      "name": "openclaw-hardener",
+      "path": "skills/virtaava/openclaw-hardener",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/virtaava/openclaw-hardener",
+      "description": ""
+    },
+    {
+      "name": "openclaw-health-brief",
+      "path": "skills/nathanielweiner/openclaw-health-brief",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/nathanielweiner/openclaw-health-brief",
+      "description": ""
+    },
+    {
+      "name": "openclaw-health",
+      "path": "skills/nathanielweiner/openclaw-health",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/nathanielweiner/openclaw-health",
+      "description": ""
+    },
+    {
+      "name": "openclaw-leaderboard",
+      "path": "skills/jamipuchi/openclaw-leaderboard",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jamipuchi/openclaw-leaderboard",
+      "description": ""
+    },
+    {
+      "name": "openclaw-ledger",
+      "path": "skills/atlaspa/openclaw-ledger",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-ledger",
+      "description": ""
+    },
+    {
+      "name": "openclaw-marshal",
+      "path": "skills/atlaspa/openclaw-marshal",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-marshal",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-llm-image-video",
+      "path": "skills/aisadocs/openclaw-aisa-llm-image-video",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/aisadocs/openclaw-aisa-llm-image-video",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-llm-image-video-qwen-wan26-gemini-3-pro-image",
+      "path": "skills/aisadocs/openclaw-aisa-llm-image-video-qwen-wan26-gemini-3-pro-image",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/aisadocs/openclaw-aisa-llm-image-video-qwen-wan26-gemini-3-pro-image",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-media-gen",
+      "path": "skills/chaimengphp/openclaw-aisa-media-gen",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chaimengphp/openclaw-aisa-media-gen",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-image-video-models-wan2-6-gemini-3-pro-image-nano-banana",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-image-video-models-wan2-6-gemini-3-pro-image-nano-banana",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-image-video-models-wan2-6-gemini-3-pro-image-nano-banana",
+      "description": ""
+    },
+    {
+      "name": "openclaw-memory-audit",
+      "path": "skills/shingo0620/openclaw-memory-audit",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/shingo0620/openclaw-memory-audit",
+      "description": ""
+    },
+    {
+      "name": "openclaw-minecraft",
+      "path": "skills/ene5135/openclaw-minecraft",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/ene5135/openclaw-minecraft",
+      "description": ""
+    },
+    {
+      "name": "openclaw-nextcloud",
+      "path": "skills/keithvassallomt/openclaw-nextcloud",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/keithvassallomt/openclaw-nextcloud",
+      "description": ""
+    },
+    {
+      "name": "openclaw-phone-receipt",
+      "path": "skills/tuofangzhe/openclaw-phone-receipt",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/tuofangzhe/openclaw-phone-receipt",
+      "description": ""
+    },
+    {
+      "name": "openclaw-profanity",
+      "path": "skills/thegdsks/openclaw-profanity",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/thegdsks/openclaw-profanity",
+      "description": ""
+    },
+    {
+      "name": "openclaw-remote",
+      "path": "skills/seanphan/openclaw-remote",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/seanphan/openclaw-remote",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-search-website-academic-tavily-serp-exa",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-search-website-academic-tavily-serp-exa",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-search-website-academic-tavily-serp-exa",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-search-web-academic-tavily",
+      "path": "skills/aisadocs/openclaw-aisa-search-web-academic-tavily",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/aisadocs/openclaw-aisa-search-web-academic-tavily",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-search",
+      "path": "skills/chaimengphp/openclaw-aisa-search",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chaimengphp/openclaw-aisa-search",
+      "description": ""
+    },
+    {
+      "name": "openclaw-self-healing",
+      "path": "skills/ramsbaby/openclaw-self-healing",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/ramsbaby/openclaw-self-healing",
+      "description": ""
+    },
+    {
+      "name": "openclaw-sentinel",
+      "path": "skills/atlaspa/openclaw-sentinel",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-sentinel",
+      "description": ""
+    },
+    {
+      "name": "openclaw-sentry",
+      "path": "skills/atlaspa/openclaw-sentry",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-sentry",
+      "description": ""
+    },
+    {
+      "name": "openclaw-serper",
+      "path": "skills/nesdeq/openclaw-serper",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/nesdeq/openclaw-serper",
+      "description": ""
+    },
+    {
+      "name": "openclaw-server-secure-skill",
+      "path": "skills/kime541200/openclaw-server-secure-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/kime541200/openclaw-server-secure-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-setup",
+      "path": "skills/j540/openclaw-setup",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/j540/openclaw-setup",
+      "description": ""
+    },
+    {
+      "name": "openclaw-starter-guide",
+      "path": "skills/jooey/openclaw-starter-guide",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jooey/openclaw-starter-guide",
+      "description": ""
+    },
+    {
+      "name": "openclaw-tescmd",
+      "path": "skills/oceanswave/openclaw-tescmd",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/oceanswave/openclaw-tescmd",
+      "description": ""
+    },
+    {
+      "name": "openclaw-toolbox",
+      "path": "skills/wilsonliu95/openclaw-toolbox",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/wilsonliu95/openclaw-toolbox",
+      "description": ""
+    },
+    {
+      "name": "openclaw-vault",
+      "path": "skills/atlaspa/openclaw-vault",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-vault",
+      "description": ""
+    },
+    {
+      "name": "openclaw-wallet",
+      "path": "skills/loomlay/openclaw-wallet",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/loomlay/openclaw-wallet",
+      "description": ""
+    },
+    {
+      "name": "openclaw-warden-pro",
+      "path": "skills/atlaspa/openclaw-warden-pro",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-warden-pro",
+      "description": ""
+    },
+    {
+      "name": "openclaw-whisperer",
+      "path": "skills/phenixstar/openclaw-whisperer",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/phenixstar/openclaw-whisperer",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-youtube-search",
+      "path": "skills/chaimengphp/openclaw-aisa-youtube-search",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chaimengphp/openclaw-aisa-youtube-search",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-youtube-search-tracking",
+      "path": "skills/aisadocs/openclaw-aisa-youtube-search-tracking",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/aisadocs/openclaw-aisa-youtube-search-tracking",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-youtube-search-serp-video-channels-trends-content-tracking",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-youtube-search-serp-video-channels-trends-content-tracking",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-youtube-search-serp-video-channels-trends-content-tracking",
+      "description": ""
+    },
+    {
+      "name": "openclaw-p2p",
+      "path": "skills/chenkuansun/openclaw-p2p",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chenkuansun/openclaw-p2p",
+      "description": ""
+    },
+    {
+      "name": "pandoc-convert-openclaw",
+      "path": "skills/thejorgeschmidt/pandoc-convert-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/thejorgeschmidt/pandoc-convert-openclaw",
+      "description": ""
+    },
+    {
+      "name": "portainer-skill-openclaw",
+      "path": "skills/leventsoft/portainer-skill-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/leventsoft/portainer-skill-openclaw",
+      "description": ""
+    },
+    {
+      "name": "registry-broker-hashnet-openclaw",
+      "path": "skills/kantorcodes/registry-broker-hashnet-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/kantorcodes/registry-broker-hashnet-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-rumi",
+      "path": "skills/ricky610329/openclaw-rumi",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/ricky610329/openclaw-rumi",
+      "description": ""
+    },
+    {
+      "name": "search-openclaw-docs",
+      "path": "skills/karmanverma/search-openclaw-docs",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/karmanverma/search-openclaw-docs",
+      "description": ""
+    },
+    {
+      "name": "openclaw-social-post",
+      "path": "skills/teeclaw/openclaw-social-post",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/teeclaw/openclaw-social-post",
+      "description": ""
+    },
+    {
+      "name": "straker-verify-openclaw",
+      "path": "skills/indynz/straker-verify-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/indynz/straker-verify-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-token-optimizer",
+      "path": "skills/asif2bd/openclaw-token-optimizer",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/asif2bd/openclaw-token-optimizer",
+      "description": ""
+    },
+    {
+      "name": "openclaw-unity-skill",
+      "path": "skills/tomleelive/openclaw-unity-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/tomleelive/openclaw-unity-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-us-stock-analyst",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-us-stock-analyst",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-us-stock-analyst",
+      "description": ""
+    },
+    {
+      "name": "openclaw-voiceai-voice-agent",
+      "path": "skills/gizmogremlin/openclaw-voiceai-voice-agent",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/gizmogremlin/openclaw-voiceai-voice-agent",
+      "description": ""
+    },
+    {
+      "name": "openclaw-world",
+      "path": "skills/chenkuansun/openclaw-world",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chenkuansun/openclaw-world",
+      "description": ""
+    },
+    {
+      "name": "openclaw-zapper-api",
+      "path": "skills/zivhm/openclaw-zapper-api",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/zivhm/openclaw-zapper-api",
+      "description": ""
+    },
+    {
+      "name": "openclaw-orchestration",
+      "path": "skills/frank-bot07/openclaw-orchestration",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/frank-bot07/openclaw-orchestration",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-chinese-llm-models",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-chinese-llm-models",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-chinese-llm-models",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-leading-chinese-llm",
+      "path": "skills/aisadocs/openclaw-aisa-leading-chinese-llm",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/aisadocs/openclaw-aisa-leading-chinese-llm",
+      "description": ""
+    },
+    {
+      "name": "ai-native-websearch-via-tavily-api-returns-concise-relevant-results-for-openclaw",
+      "path": "skills/0xjordansg-yolo/ai-native-websearch-via-tavily-api-returns-concise-relevant-results-for-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/ai-native-websearch-via-tavily-api-returns-concise-relevant-results-for-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-web-search-tavily",
+      "path": "skills/aisadocs/openclaw-aisa-web-search-tavily",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/aisadocs/openclaw-aisa-web-search-tavily",
+      "description": ""
+    },
+    {
+      "name": "openclaw-antigravity-sync",
+      "path": "skills/krnbwj/openclaw-antigravity-sync",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/krnbwj/openclaw-antigravity-sync",
+      "description": ""
+    },
+    {
+      "name": "audit-openclaw-security",
+      "path": "skills/tristanmanchester/audit-openclaw-security",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/tristanmanchester/audit-openclaw-security",
+      "description": ""
+    },
+    {
+      "name": "aura-openclaw",
+      "path": "skills/auralithinc/aura-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/auralithinc/aura-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skill-bitwarden",
+      "path": "skills/twhidden/openclaw-skill-bitwarden",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/twhidden/openclaw-skill-bitwarden",
+      "description": ""
+    },
+    {
+      "name": "openclaw-claude-usage",
+      "path": "skills/chunhualiao/openclaw-claude-usage",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chunhualiao/openclaw-claude-usage",
+      "description": ""
+    },
+    {
+      "name": "openclaw-cloud-backup",
+      "path": "skills/obuchowski/openclaw-cloud-backup",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/obuchowski/openclaw-cloud-backup",
+      "description": ""
+    },
+    {
+      "name": "openclaw-kirocli-coding-agent",
+      "path": "skills/dandysuper/openclaw-kirocli-coding-agent",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/dandysuper/openclaw-kirocli-coding-agent",
+      "description": ""
+    },
+    {
+      "name": "openclaw-context-optimizer",
+      "path": "skills/atlaspa/openclaw-context-optimizer",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-context-optimizer",
+      "description": ""
+    },
+    {
+      "name": "openclaw-cost-guardian",
+      "path": "skills/vnakhate/openclaw-cost-guardian",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/vnakhate/openclaw-cost-guardian",
+      "description": ""
+    },
+    {
+      "name": "openclaw-cost-optimizer",
+      "path": "skills/jeffjhunter/openclaw-cost-optimizer",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jeffjhunter/openclaw-cost-optimizer",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skill",
+      "path": "skills/dxdleady/openclaw-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/dxdleady/openclaw-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-finnhub",
+      "path": "skills/keyfrog-21k/openclaw-finnhub",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/keyfrog-21k/openclaw-finnhub",
+      "description": ""
+    },
+    {
+      "name": "openclaw-github-assistant",
+      "path": "skills/conorkenn/openclaw-github-assistant",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/conorkenn/openclaw-github-assistant",
+      "description": ""
+    },
+    {
+      "name": "openclaw-glm-plan-usage",
+      "path": "skills/orientluna/openclaw-glm-plan-usage",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/orientluna/openclaw-glm-plan-usage",
+      "description": ""
+    },
+    {
+      "name": "iblai-openclaw-router",
+      "path": "skills/neuralshift1/iblai-openclaw-router",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/neuralshift1/iblai-openclaw-router",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skill-ideation",
+      "path": "skills/skidvis/openclaw-skill-ideation",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/skidvis/openclaw-skill-ideation",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skill-jubilee",
+      "path": "skills/prayingperceptions/openclaw-skill-jubilee",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/prayingperceptions/openclaw-skill-jubilee",
+      "description": ""
+    },
+    {
+      "name": "landing-page-generator-openclaw",
+      "path": "skills/seanwyngaard/landing-page-generator-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/seanwyngaard/landing-page-generator-openclaw",
+      "description": ""
+    },
+    {
+      "name": "lynqn-openclaw-skill",
+      "path": "skills/lynqnio/lynqn-openclaw-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/lynqnio/lynqn-openclaw-skill",
+      "description": ""
+    },
+    {
+      "name": "markdown-browser-skills-openclaw",
+      "path": "skills/johnortegahyc/markdown-browser-skills-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/johnortegahyc/markdown-browser-skills-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-finance-stock-equity-crypto-market-price-data-yahoo-finance-coinhacko",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-finance-stock-equity-crypto-market-price-data-yahoo-finance-coinhacko",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-finance-stock-equity-crypto-market-price-data-yahoo-finance-coinhacko",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-financial-stock-crypto-market-price-data",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-financial-stock-crypto-market-price-data",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-financial-stock-crypto-market-price-data",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-finance-equity-crypto-price-market-data-news",
+      "path": "skills/aisadocs/openclaw-aisa-finance-equity-crypto-price-market-data-news",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/aisadocs/openclaw-aisa-finance-equity-crypto-price-market-data-news",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-market-pulse",
+      "path": "skills/chaimengphp/openclaw-aisa-market-pulse",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chaimengphp/openclaw-aisa-market-pulse",
+      "description": ""
+    },
+    {
+      "name": "openclaw-memory-qdrant",
+      "path": "skills/zuiho-kai/openclaw-memory-qdrant",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/zuiho-kai/openclaw-memory-qdrant",
+      "description": ""
+    },
+    {
+      "name": "openclaw-model-router",
+      "path": "skills/jsgoecke/openclaw-model-router",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jsgoecke/openclaw-model-router",
+      "description": ""
+    },
+    {
+      "name": "openclaw-multi-brain",
+      "path": "skills/dannydvm/openclaw-multi-brain",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/dannydvm/openclaw-multi-brain",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skills-newsboat",
+      "path": "skills/ianwu-ca-778/openclaw-skills-newsboat",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/ianwu-ca-778/openclaw-skills-newsboat",
+      "description": ""
+    },
+    {
+      "name": "openclaw-obsidian-tasks",
+      "path": "skills/larsderidder/openclaw-obsidian-tasks",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/larsderidder/openclaw-obsidian-tasks",
+      "description": ""
+    },
+    {
+      "name": "openclaw-questrade",
+      "path": "skills/witty-quotes25/openclaw-questrade",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/witty-quotes25/openclaw-questrade",
+      "description": ""
+    },
+    {
+      "name": "openclaw-cache-kit",
+      "path": "skills/lifeissea/openclaw-cache-kit",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/lifeissea/openclaw-cache-kit",
+      "description": ""
+    },
+    {
+      "name": "openclaw-comfyui",
+      "path": "skills/salmonrk/openclaw-comfyui",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/salmonrk/openclaw-comfyui",
+      "description": ""
+    },
+    {
+      "name": "openclaw-cost-auditor",
+      "path": "skills/gblockchainnetwork/openclaw-cost-auditor",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/gblockchainnetwork/openclaw-cost-auditor",
+      "description": ""
+    },
+    {
+      "name": "openclaw-deploy",
+      "path": "skills/zfanmy/openclaw-deploy",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/zfanmy/openclaw-deploy",
+      "description": ""
+    },
+    {
+      "name": "openclaw-echo-agent",
+      "path": "skills/krishna3554/openclaw-echo-agent",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/krishna3554/openclaw-echo-agent",
+      "description": ""
+    },
+    {
+      "name": "afrexai-openclaw-mastery",
+      "path": "skills/1kalin/afrexai-openclaw-mastery",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/1kalin/afrexai-openclaw-mastery",
+      "description": ""
+    },
+    {
+      "name": "openclaw-mem0",
+      "path": "skills/xray2016/openclaw-mem0",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/xray2016/openclaw-mem0",
+      "description": ""
+    },
+    {
+      "name": "openclaw-mentee",
+      "path": "skills/musketyr/openclaw-mentee",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/musketyr/openclaw-mentee",
+      "description": ""
+    },
+    {
+      "name": "openclaw-mentor",
+      "path": "skills/musketyr/openclaw-mentor",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/musketyr/openclaw-mentor",
+      "description": ""
+    },
+    {
+      "name": "openclaw-menubar",
+      "path": "skills/prab002/openclaw-menubar",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/prab002/openclaw-menubar",
+      "description": ""
+    },
+    {
+      "name": "openclaw-migrate",
+      "path": "skills/chris6970barbarian-hue/openclaw-migrate",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chris6970barbarian-hue/openclaw-migrate",
+      "description": ""
+    },
+    {
+      "name": "openclaw-money-playbook",
+      "path": "skills/katrina-jpg/openclaw-money-playbook",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/katrina-jpg/openclaw-money-playbook",
+      "description": ""
+    },
+    {
+      "name": "openclaw-browser-2",
+      "path": "skills/yungookim/openclaw-browser-2",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/yungookim/openclaw-browser-2",
+      "description": ""
+    },
+    {
+      "name": "openclaw-news",
+      "path": "skills/arc-claw-bot/openclaw-news",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/arc-claw-bot/openclaw-news",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skill-observability",
+      "path": "skills/erain/openclaw-skill-observability",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/erain/openclaw-skill-observability",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skills",
+      "path": "skills/shylee1/openclaw-skills",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/shylee1/openclaw-skills",
+      "description": ""
+    },
+    {
+      "name": "openclaw-social-scheduler",
+      "path": "skills/mrshorrid/openclaw-social-scheduler",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/mrshorrid/openclaw-social-scheduler",
+      "description": ""
+    },
+    {
+      "name": "openclaw-swarm",
+      "path": "skills/heldinhow/openclaw-swarm",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/heldinhow/openclaw-swarm",
+      "description": ""
+    },
+    {
+      "name": "openclaw-work-protocol",
+      "path": "skills/jjjojoj/openclaw-work-protocol",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jjjojoj/openclaw-work-protocol",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aws-deploy",
+      "path": "skills/godwinbabu/openclaw-aws-deploy",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/godwinbabu/openclaw-aws-deploy",
+      "description": ""
+    },
+    {
+      "name": "openclaw-backup-safe",
+      "path": "skills/alessandropcostabr/openclaw-backup-safe",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/alessandropcostabr/openclaw-backup-safe",
+      "description": ""
+    },
+    {
+      "name": "openclaw-backup",
+      "path": "skills/alex3alex/openclaw-backup",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/alex3alex/openclaw-backup",
+      "description": ""
+    },
+    {
+      "name": "openclaw-basecred-sdk",
+      "path": "skills/teeclaw/openclaw-basecred-sdk",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/teeclaw/openclaw-basecred-sdk",
+      "description": ""
+    },
+    {
+      "name": "openclaw-browser",
+      "path": "skills/roger0808/openclaw-browser",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/roger0808/openclaw-browser",
+      "description": ""
+    },
+    {
+      "name": "openclaw-cheatsheet",
+      "path": "skills/teeddub/openclaw-cheatsheet",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/teeddub/openclaw-cheatsheet",
+      "description": ""
+    },
+    {
+      "name": "openclaw-commerce-shopify",
+      "path": "skills/devkrutik/openclaw-commerce-shopify",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/devkrutik/openclaw-commerce-shopify",
+      "description": ""
+    },
+    {
+      "name": "openclaw-crm",
+      "path": "skills/frank-bot07/openclaw-crm",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/frank-bot07/openclaw-crm",
+      "description": ""
+    },
+    {
+      "name": "openclaw-default-agent-backstory",
+      "path": "skills/msaum/openclaw-default-agent-backstory",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/msaum/openclaw-default-agent-backstory",
+      "description": ""
+    },
+    {
+      "name": "openclaw-healthcheck-cron",
+      "path": "skills/plgonzalezrx8/openclaw-healthcheck-cron",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/plgonzalezrx8/openclaw-healthcheck-cron",
+      "description": ""
+    },
+    {
+      "name": "openclaw-interchange",
+      "path": "skills/frank-bot07/openclaw-interchange",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/frank-bot07/openclaw-interchange",
+      "description": ""
+    },
+    {
+      "name": "openclaw-json-editing",
+      "path": "skills/avirweb/openclaw-json-editing",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/avirweb/openclaw-json-editing",
+      "description": ""
+    },
+    {
+      "name": "openclaw-logfire",
+      "path": "skills/namabile/openclaw-logfire",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/namabile/openclaw-logfire",
+      "description": ""
+    },
+    {
+      "name": "openclaw-macos-security",
+      "path": "skills/drg3nz0/openclaw-macos-security",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/drg3nz0/openclaw-macos-security",
+      "description": ""
+    },
+    {
+      "name": "openclaw-mem",
+      "path": "skills/weareallsatoshin/openclaw-mem",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/weareallsatoshin/openclaw-mem",
+      "description": ""
+    },
+    {
+      "name": "openclaw-memory",
+      "path": "skills/atlaspa/openclaw-memory",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-memory",
+      "description": ""
+    },
+    {
+      "name": "openclaw-messenger",
+      "path": "skills/tagryu/openclaw-messenger",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/tagryu/openclaw-messenger",
+      "description": ""
+    },
+    {
+      "name": "openclaw-migration",
+      "path": "skills/chenyuan99/openclaw-migration",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chenyuan99/openclaw-migration",
+      "description": ""
+    },
+    {
+      "name": "openclaw-paid-actions",
+      "path": "skills/icetroll/openclaw-paid-actions",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/icetroll/openclaw-paid-actions",
+      "description": ""
+    },
+    {
+      "name": "openclaw-persistent-memory",
+      "path": "skills/webdevtodayjason/openclaw-persistent-memory",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/webdevtodayjason/openclaw-persistent-memory",
+      "description": ""
+    },
+    {
+      "name": "openclaw-plus",
+      "path": "skills/shindo957-official/openclaw-plus",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/shindo957-official/openclaw-plus",
+      "description": ""
+    },
+    {
+      "name": "openclaw-policy-check",
+      "path": "skills/spbavarva/openclaw-policy-check",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/spbavarva/openclaw-policy-check",
+      "description": ""
+    },
+    {
+      "name": "openclaw-reportstudio-community",
+      "path": "skills/xutianliang77-create/openclaw-reportstudio-community",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/xutianliang77-create/openclaw-reportstudio-community",
+      "description": ""
+    },
+    {
+      "name": "openclaw-security-auditor",
+      "path": "skills/muhammad-waleed381/openclaw-security-auditor",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/muhammad-waleed381/openclaw-security-auditor",
+      "description": ""
+    },
+    {
+      "name": "openclaw-token-save",
+      "path": "skills/ccjingeth/openclaw-token-save",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/ccjingeth/openclaw-token-save",
+      "description": ""
+    },
+    {
+      "name": "openclaw-trakt",
+      "path": "skills/fr3nch13/openclaw-trakt",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/fr3nch13/openclaw-trakt",
+      "description": ""
+    },
+    {
+      "name": "openclaw-troubleshooting",
+      "path": "skills/playgod2023/openclaw-troubleshooting",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/playgod2023/openclaw-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "openclaw-universal-memory",
+      "path": "skills/marcosathanasoulis/openclaw-universal-memory",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/marcosathanasoulis/openclaw-universal-memory",
+      "description": ""
+    },
+    {
+      "name": "openclaw-update",
+      "path": "skills/realowg/openclaw-update",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/realowg/openclaw-update",
+      "description": ""
+    },
+    {
+      "name": "openclaw-update-skill",
+      "path": "skills/rothcold/openclaw-update-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/rothcold/openclaw-update-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-updater-v2",
+      "path": "skills/rothcold/openclaw-updater-v2",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/rothcold/openclaw-updater-v2",
+      "description": ""
+    },
+    {
+      "name": "openclaw-sarvam-girlfriend",
+      "path": "skills/altonappleton32-ux/openclaw-sarvam-girlfriend",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/altonappleton32-ux/openclaw-sarvam-girlfriend",
+      "description": ""
+    },
+    {
+      "name": "openclaw-visual",
+      "path": "skills/goforu/openclaw-visual",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/goforu/openclaw-visual",
+      "description": ""
+    },
+    {
+      "name": "openclaw-voice",
+      "path": "skills/frank-bot07/openclaw-voice",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/frank-bot07/openclaw-voice",
+      "description": ""
+    },
+    {
+      "name": "openclaw-web-automation",
+      "path": "skills/marcosathanasoulis/openclaw-web-automation",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/marcosathanasoulis/openclaw-web-automation",
+      "description": ""
+    },
+    {
+      "name": "openclaw-whatsapp-gif",
+      "path": "skills/witty-quotes25/openclaw-whatsapp-gif",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/witty-quotes25/openclaw-whatsapp-gif",
+      "description": ""
+    },
+    {
+      "name": "openclaw-workspace-governance-installer",
+      "path": "skills/adamchanadam/openclaw-workspace-governance-installer",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/adamchanadam/openclaw-workspace-governance-installer",
+      "description": ""
+    },
+    {
+      "name": "openclaw-workspace-pro",
+      "path": "skills/eugene9d/openclaw-workspace-pro",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/eugene9d/openclaw-workspace-pro",
+      "description": ""
+    },
+    {
+      "name": "ourproject-openclaw-skill",
+      "path": "skills/mahalbangetid-beep/ourproject-openclaw-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/mahalbangetid-beep/ourproject-openclaw-skill",
+      "description": ""
+    },
+    {
+      "name": "perplexity-pro-to-openclaw",
+      "path": "skills/hantok/perplexity-pro-to-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/hantok/perplexity-pro-to-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-self-backup",
+      "path": "skills/webdevtodayjason/openclaw-self-backup",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/webdevtodayjason/openclaw-self-backup",
+      "description": ""
+    },
+    {
+      "name": "pipe17-openclaw-skill",
+      "path": "skills/j-shao1/pipe17-openclaw-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/j-shao1/pipe17-openclaw-skill",
+      "description": ""
+    },
+    {
+      "name": "pipedrive-crm-openclaw",
+      "path": "skills/danielfoch/pipedrive-crm-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/danielfoch/pipedrive-crm-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-postsyncer",
+      "path": "skills/abakermi/openclaw-postsyncer",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/abakermi/openclaw-postsyncer",
+      "description": ""
+    },
+    {
+      "name": "openclaw-bot-prob-trade",
+      "path": "skills/vlprosvirkin/openclaw-bot-prob-trade",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/vlprosvirkin/openclaw-bot-prob-trade",
+      "description": ""
+    },
+    {
+      "name": "openclaw-protonmail",
+      "path": "skills/rvacyber/openclaw-protonmail",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/rvacyber/openclaw-protonmail",
+      "description": ""
+    },
+    {
+      "name": "openclaw-qr-code",
+      "path": "skills/zouyawen/openclaw-qr-code",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/zouyawen/openclaw-qr-code",
+      "description": ""
+    },
+    {
+      "name": "roughcut-openclaw",
+      "path": "skills/samergmtm22/roughcut-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/samergmtm22/roughcut-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-security-scanner",
+      "path": "skills/jkahn-tr/openclaw-security-scanner",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jkahn-tr/openclaw-security-scanner",
+      "description": ""
+    },
+    {
+      "name": "seedream-image-for-openclaw",
+      "path": "skills/crabfishxy/seedream-image-for-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/crabfishxy/seedream-image-for-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-self-actualization",
+      "path": "skills/axxs/openclaw-self-actualization",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/axxs/openclaw-self-actualization",
+      "description": ""
+    },
+    {
+      "name": "openclaw-semantic-memory",
+      "path": "skills/zuiho-kai/openclaw-semantic-memory",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/zuiho-kai/openclaw-semantic-memory",
+      "description": ""
+    },
+    {
+      "name": "sendook-openclaw",
+      "path": "skills/obaid/sendook-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/obaid/sendook-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-skillguard",
+      "path": "skills/jiazhougit/openclaw-skillguard",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/jiazhougit/openclaw-skillguard",
+      "description": ""
+    },
+    {
+      "name": "openclaw-smart-router",
+      "path": "skills/atlaspa/openclaw-smart-router",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/atlaspa/openclaw-smart-router",
+      "description": ""
+    },
+    {
+      "name": "openclaw-sogni-gen",
+      "path": "skills/krunkosaurus/openclaw-sogni-gen",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/krunkosaurus/openclaw-sogni-gen",
+      "description": ""
+    },
+    {
+      "name": "openclaw-tg-canvas",
+      "path": "skills/clvv/openclaw-tg-canvas",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/clvv/openclaw-tg-canvas",
+      "description": ""
+    },
+    {
+      "name": "openclaw-token-memory-optimizer",
+      "path": "skills/klautimus/openclaw-token-memory-optimizer",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/klautimus/openclaw-token-memory-optimizer",
+      "description": ""
+    },
+    {
+      "name": "treelisty-openclaw-skill",
+      "path": "skills/prairie2cloud/treelisty-openclaw-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/prairie2cloud/treelisty-openclaw-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-twitter-search-post",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-twitter-search-post",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-twitter-search-post",
+      "description": ""
+    },
+    {
+      "name": "openclaw-twitter",
+      "path": "skills/0xjordansg-yolo/openclaw-twitter",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-twitter",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-twitter-search",
+      "path": "skills/chaimengphp/openclaw-aisa-twitter-search",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chaimengphp/openclaw-aisa-twitter-search",
+      "description": ""
+    },
+    {
+      "name": "ultrahuman-openclaw",
+      "path": "skills/devpranoy/ultrahuman-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/devpranoy/ultrahuman-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-robotics",
+      "path": "skills/qinrui-dm/openclaw-robotics",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/qinrui-dm/openclaw-robotics",
+      "description": ""
+    },
+    {
+      "name": "openclaw-unreal-skill",
+      "path": "skills/tomleelive/openclaw-unreal-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/tomleelive/openclaw-unreal-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-usecase-catalog",
+      "path": "skills/chunhualiao/openclaw-usecase-catalog",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/chunhualiao/openclaw-usecase-catalog",
+      "description": ""
+    },
+    {
+      "name": "venice-ai-router-openclaw",
+      "path": "skills/plusone/venice-ai-router-openclaw",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/plusone/venice-ai-router-openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw-acp",
+      "path": "skills/fcfsprojects/openclaw-acp",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/fcfsprojects/openclaw-acp",
+      "description": ""
+    },
+    {
+      "name": "openclaw-voice-assistant",
+      "path": "skills/kurtivy/openclaw-voice-assistant",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/kurtivy/openclaw-voice-assistant",
+      "description": ""
+    },
+    {
+      "name": "vps-openclaw-security-hardening",
+      "path": "skills/marcusgraetsch/vps-openclaw-security-hardening",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/marcusgraetsch/vps-openclaw-security-hardening",
+      "description": ""
+    },
+    {
+      "name": "whoop-openclaw-skill",
+      "path": "skills/vraj1512/whoop-openclaw-skill",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/vraj1512/whoop-openclaw-skill",
+      "description": ""
+    },
+    {
+      "name": "openclaw-aisa-youtube",
+      "path": "skills/0xjordansg-yolo/openclaw-aisa-youtube",
+      "github_url": "https://github.com/openclaw/openclaw/tree/main/skills/0xjordansg-yolo/openclaw-aisa-youtube",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/openclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:37:17Z"
+}
