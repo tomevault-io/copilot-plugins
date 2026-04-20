@@ -1,0 +1,75 @@
+{
+  "name": "oh-my-open",
+  "owner": "code-yeongyu",
+  "repo": "oh-my-openagent",
+  "description": "omo; the best agent harness - previously oh-my-opencode",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": "src/features/builtin-skills/agent-browser",
+      "github_url": "https://github.com/code-yeongyu/oh-my-openagent/tree/main/src/features/builtin-skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "dev-browser",
+      "path": "src/features/builtin-skills/dev-browser",
+      "github_url": "https://github.com/code-yeongyu/oh-my-openagent/tree/main/src/features/builtin-skills/dev-browser",
+      "description": ""
+    },
+    {
+      "name": "frontend-ui-ux",
+      "path": "src/features/builtin-skills/frontend-ui-ux",
+      "github_url": "https://github.com/code-yeongyu/oh-my-openagent/tree/main/src/features/builtin-skills/frontend-ui-ux",
+      "description": ""
+    },
+    {
+      "name": "git-master",
+      "path": "src/features/builtin-skills/git-master",
+      "github_url": "https://github.com/code-yeongyu/oh-my-openagent/tree/main/src/features/builtin-skills/git-master",
+      "description": ""
+    },
+    {
+      "name": "github-triage",
+      "path": ".opencode/skills/github-triage",
+      "github_url": "https://github.com/code-yeongyu/oh-my-openagent/tree/main/.opencode/skills/github-triage",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/code-yeongyu/oh-my-openagent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:47:01Z"
+}
