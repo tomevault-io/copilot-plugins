@@ -1,0 +1,14 @@
+{
+  "name": "cloudflare--moltworker",
+  "displayName": "moltworker",
+  "description": "Run OpenClaw, (formerly Moltbot, formerly Clawdbot) on Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/moltworker",
+  "skills": [
+    {
+      "name": "cloudflare-browser",
+      "description": ""
+    }
+  ]
+}
