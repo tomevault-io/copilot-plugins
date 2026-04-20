@@ -1,0 +1,9 @@
+{
+  "name": "nvk--llm-wiki",
+  "displayName": "llm-wiki",
+  "description": "LLM-compiled knowledge bases for any AI agent. Parallel multi-agent research, thesis-driven investigation, source ingestion, wiki compilation, querying, and artifact generation. ",
+  "version": "1.0.0",
+  "author": "nvk",
+  "homepage": "https://github.com/nvk/llm-wiki",
+  "skills": []
+}
