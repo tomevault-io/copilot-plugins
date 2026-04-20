@@ -1,0 +1,9 @@
+{
+  "name": "tyh-labs--unsloth-buddy",
+  "displayName": "unsloth-buddy",
+  "description": "Zero-friction LLM fine-tuning skill for Claude Code, Gemini CLI & any ACP agent. Unsloth on NVIDIA \u00b7 TRL+MPS/MLX on Apple Silicon. Automates env setup, LoRA training (SFT, DPO, GRPO, vision), post-hoc",
+  "version": "1.0.0",
+  "author": "TYH-labs",
+  "homepage": "https://github.com/TYH-labs/unsloth-buddy",
+  "skills": []
+}
