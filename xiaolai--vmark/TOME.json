@@ -1,0 +1,135 @@
+{
+  "name": "vmark",
+  "owner": "xiaolai",
+  "repo": "vmark",
+  "description": "An AI friendly markdown editor.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-coding-agents",
+      "path": ".claude/skills/ai-coding-agents",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/ai-coding-agents",
+      "description": ""
+    },
+    {
+      "name": "css-design-tdd",
+      "path": ".claude/skills/css-design-tdd",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/css-design-tdd",
+      "description": ""
+    },
+    {
+      "name": "mcp-dev",
+      "path": ".claude/skills/mcp-dev",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/mcp-dev",
+      "description": ""
+    },
+    {
+      "name": "plan-audit",
+      "path": ".claude/skills/plan-audit",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/plan-audit",
+      "description": ""
+    },
+    {
+      "name": "planning",
+      "path": ".claude/skills/planning",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/planning",
+      "description": ""
+    },
+    {
+      "name": "react-app-dev",
+      "path": ".claude/skills/react-app-dev",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/react-app-dev",
+      "description": ""
+    },
+    {
+      "name": "release-gate",
+      "path": ".claude/skills/release-gate",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/release-gate",
+      "description": ""
+    },
+    {
+      "name": "rust-tauri-backend",
+      "path": ".claude/skills/rust-tauri-backend",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/rust-tauri-backend",
+      "description": ""
+    },
+    {
+      "name": "shortcut-audit",
+      "path": ".claude/skills/shortcut-audit",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/shortcut-audit",
+      "description": ""
+    },
+    {
+      "name": "tauri-app-dev",
+      "path": ".claude/skills/tauri-app-dev",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/tauri-app-dev",
+      "description": ""
+    },
+    {
+      "name": "tauri-mcp-test-runner",
+      "path": ".claude/skills/tauri-mcp-test-runner",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/tauri-mcp-test-runner",
+      "description": ""
+    },
+    {
+      "name": "tauri-mcp-testing",
+      "path": ".claude/skills/tauri-mcp-testing",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/tauri-mcp-testing",
+      "description": ""
+    },
+    {
+      "name": "tauri-v2-integration",
+      "path": ".claude/skills/tauri-v2-integration",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/tauri-v2-integration",
+      "description": ""
+    },
+    {
+      "name": "tiptap-dev",
+      "path": ".claude/skills/tiptap-dev",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/tiptap-dev",
+      "description": ""
+    },
+    {
+      "name": "tiptap-editor",
+      "path": ".claude/skills/tiptap-editor",
+      "github_url": "https://github.com/xiaolai/vmark/tree/main/.claude/skills/tiptap-editor",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xiaolai/vmark",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:48:16Z"
+}
