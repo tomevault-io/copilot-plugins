@@ -1,0 +1,9 @@
+{
+  "name": "tailscale--tailscale-rs",
+  "displayName": "tailscale-rs",
+  "description": "Rust implementation of Tailscale (preview, experimental)",
+  "version": "1.0.0",
+  "author": "tailscale",
+  "homepage": "https://github.com/tailscale/tailscale-rs",
+  "skills": []
+}
