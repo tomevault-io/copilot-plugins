@@ -1,0 +1,63 @@
+{
+  "name": "jat",
+  "owner": "joewinke",
+  "repo": "jat",
+  "description": "  The World's First Agentic IDE. Visual dashboard: live sessions, task management, code editor, terminal. Epic Swarm parallel workflows. Auto-proceed rules. Automation patterns. Beads + Agent Mail + 50 bash tools. Supervise 20+ agents from one UI.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jat-complete",
+      "path": "skills/jat-complete",
+      "github_url": "https://github.com/joewinke/jat/tree/main/skills/jat-complete",
+      "description": ""
+    },
+    {
+      "name": "jat-start",
+      "path": "skills/jat-start",
+      "github_url": "https://github.com/joewinke/jat/tree/main/skills/jat-start",
+      "description": ""
+    },
+    {
+      "name": "jat-verify",
+      "path": "skills/jat-verify",
+      "github_url": "https://github.com/joewinke/jat/tree/main/skills/jat-verify",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joewinke/jat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T19:33:34Z"
+}
