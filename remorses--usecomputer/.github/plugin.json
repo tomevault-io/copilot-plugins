@@ -1,0 +1,9 @@
+{
+  "name": "remorses--usecomputer",
+  "displayName": "usecomputer",
+  "description": "Fast computer automation CLI for AI agents. Control any desktop with screenshots, clicks, typing, scrolling, and more.",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/usecomputer",
+  "skills": []
+}
