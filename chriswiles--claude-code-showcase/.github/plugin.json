@@ -1,0 +1,14 @@
+{
+  "name": "chriswiles--claude-code-showcase",
+  "displayName": "claude-code-showcase",
+  "description": "Comprehensive Claude Code project configuration example with hooks, skills, agents, commands, and GitHub Actions workflows",
+  "version": "1.0.0",
+  "author": "ChrisWiles",
+  "homepage": "https://github.com/ChrisWiles/claude-code-showcase",
+  "skills": [
+    {
+      "name": "react-ui-patterns",
+      "description": ""
+    }
+  ]
+}
