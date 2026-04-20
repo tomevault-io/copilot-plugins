@@ -1,0 +1,93 @@
+{
+  "name": "platform-design-skills",
+  "owner": "ehmo",
+  "repo": "platform-design-skills",
+  "description": "Platform design skill pack: 300+ rules for Apple HIG, Material Design 3, and WCAG 2.2 across iOS, iPadOS, macOS, watchOS, visionOS, tvOS, Android, and Web.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "android",
+      "path": "skills/android",
+      "github_url": "https://github.com/ehmo/platform-design-skills/tree/main/skills/android",
+      "description": ""
+    },
+    {
+      "name": "ios",
+      "path": "skills/ios",
+      "github_url": "https://github.com/ehmo/platform-design-skills/tree/main/skills/ios",
+      "description": ""
+    },
+    {
+      "name": "ipados",
+      "path": "skills/ipados",
+      "github_url": "https://github.com/ehmo/platform-design-skills/tree/main/skills/ipados",
+      "description": ""
+    },
+    {
+      "name": "macos",
+      "path": "skills/macos",
+      "github_url": "https://github.com/ehmo/platform-design-skills/tree/main/skills/macos",
+      "description": ""
+    },
+    {
+      "name": "tvos",
+      "path": "skills/tvos",
+      "github_url": "https://github.com/ehmo/platform-design-skills/tree/main/skills/tvos",
+      "description": ""
+    },
+    {
+      "name": "visionos",
+      "path": "skills/visionos",
+      "github_url": "https://github.com/ehmo/platform-design-skills/tree/main/skills/visionos",
+      "description": ""
+    },
+    {
+      "name": "watchos",
+      "path": "skills/watchos",
+      "github_url": "https://github.com/ehmo/platform-design-skills/tree/main/skills/watchos",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "path": "skills/web",
+      "github_url": "https://github.com/ehmo/platform-design-skills/tree/main/skills/web",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ehmo/platform-design-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:41:05Z"
+}
