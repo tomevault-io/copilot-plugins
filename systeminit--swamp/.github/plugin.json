@@ -1,0 +1,54 @@
+{
+  "name": "systeminit--swamp",
+  "displayName": "swamp",
+  "description": "Stinemates, Watson, Adam, Mahir, Paul ",
+  "version": "1.0.0",
+  "author": "systeminit",
+  "homepage": "https://github.com/systeminit/swamp",
+  "skills": [
+    {
+      "name": "ddd",
+      "description": ""
+    },
+    {
+      "name": "github-pr",
+      "description": ""
+    },
+    {
+      "name": "jujutsu",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "swamp-extension-model",
+      "description": ""
+    },
+    {
+      "name": "swamp-model",
+      "description": ""
+    },
+    {
+      "name": "swamp-repo",
+      "description": ""
+    },
+    {
+      "name": "swamp-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "swamp-vault",
+      "description": ""
+    },
+    {
+      "name": "swamp-workflow",
+      "description": ""
+    },
+    {
+      "name": "terminal-output",
+      "description": ""
+    }
+  ]
+}
