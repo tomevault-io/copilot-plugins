@@ -1,6 +1,6 @@
-# solospark — distributed by TomeVault
+# solospark
 
-> Originally from [TheRealMongi/solospark](https://github.com/TheRealMongi/solospark). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [TheRealMongi/solospark](https://github.com/TheRealMongi/solospark) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [TheRealMongi/solospark](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/TheRealMongi#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/TheRealMongi/solospark](https://github.com/TheRealMongi/solospark)
 
 ---
 
