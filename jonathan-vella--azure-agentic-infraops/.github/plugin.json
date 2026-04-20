@@ -1,0 +1,66 @@
+{
+  "name": "jonathan-vella--azure-agentic-infraops",
+  "displayName": "azure",
+  "description": "APEX turns Azure platform engineering requirements into verified, deploy-ready IaC \u2014 powered by GitHub Copilot agents, real-time pricing, and built-in compliance.",
+  "version": "1.0.0",
+  "author": "jonathan-vella",
+  "homepage": "https://github.com/jonathan-vella/azure-agentic-infraops",
+  "skills": [
+    {
+      "name": "azure-adr",
+      "description": ""
+    },
+    {
+      "name": "azure-artifacts",
+      "description": ""
+    },
+    {
+      "name": "azure-defaults",
+      "description": ""
+    },
+    {
+      "name": "azure-diagrams",
+      "description": ""
+    },
+    {
+      "name": "docs-writer",
+      "description": ""
+    },
+    {
+      "name": "github-operations",
+      "description": ""
+    },
+    {
+      "name": "make-skill-template",
+      "description": ""
+    },
+    {
+      "name": "azure-diagrams",
+      "description": ""
+    },
+    {
+      "name": "make-skill-template",
+      "description": ""
+    },
+    {
+      "name": "challenge-guide-styler",
+      "description": ""
+    },
+    {
+      "name": "docs-writer",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "github-operations",
+      "description": ""
+    },
+    {
+      "name": "make-skill-template",
+      "description": ""
+    }
+  ]
+}
