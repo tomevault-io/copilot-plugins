@@ -1,0 +1,74 @@
+{
+  "name": "maslennikov-ig--claude-code-orchestrator-kit",
+  "displayName": "claude-code-orchestrator-kit",
+  "description": "\ud83c\udfbc Turn Claude Code into a production powerhouse. 33+ AI agents automate bug fixing, security scanning,   and dependency management. 19 slash commands, 6 MCP configs (600-5000 tokens), quality gates, a",
+  "version": "1.0.0",
+  "author": "maslennikov-ig",
+  "homepage": "https://github.com/maslennikov-ig/claude-code-orchestrator-kit",
+  "skills": [
+    {
+      "name": "artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "description": ""
+    },
+    {
+      "name": "cleanup-health-inline",
+      "description": ""
+    },
+    {
+      "name": "format-commit-message",
+      "description": ""
+    },
+    {
+      "name": "frontend-aesthetics",
+      "description": ""
+    },
+    {
+      "name": "generate-changelog",
+      "description": ""
+    },
+    {
+      "name": "generate-report-header",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "parse-error-logs",
+      "description": ""
+    },
+    {
+      "name": "parse-git-status",
+      "description": ""
+    },
+    {
+      "name": "process-issues",
+      "description": ""
+    },
+    {
+      "name": "reuse-health-inline",
+      "description": ""
+    },
+    {
+      "name": "run-quality-gate",
+      "description": ""
+    },
+    {
+      "name": "senior-architect",
+      "description": ""
+    },
+    {
+      "name": "setup-knip",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "description": ""
+    }
+  ]
+}
