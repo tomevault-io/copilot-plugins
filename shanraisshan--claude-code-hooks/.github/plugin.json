@@ -1,0 +1,22 @@
+{
+  "name": "shanraisshan--claude-code-hooks",
+  "displayName": "claude-code",
+  "description": "claude code hooks - adding voice on each hook",
+  "version": "1.0.0",
+  "author": "shanraisshan",
+  "homepage": "https://github.com/shanraisshan/claude-code-hooks",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "vibe-to-agentic-framework",
+      "description": ""
+    },
+    {
+      "name": "weather-fetcher",
+      "description": ""
+    }
+  ]
+}
