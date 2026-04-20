@@ -1,0 +1,9 @@
+{
+  "name": "kunchenguid--axi",
+  "displayName": "axi",
+  "description": "Design principles for agent ergonomics. Higher accuracy with lower token cost than both MCP and regular CLI.",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/axi",
+  "skills": []
+}
