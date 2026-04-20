@@ -4,7 +4,7 @@
   "repo": "agentidev",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/bigale",
+  "source_url": "https://github.com/bigale/agentidev",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T06:52:29Z"
+  "distributed_at": "2026-04-20T09:40:13Z"
 }
