@@ -1,0 +1,18 @@
+{
+  "name": "geekjourneyx--md2wechat-skill",
+  "displayName": "md2wechat-skill",
+  "description": "  \u7528 Markdown \u5199\u516c\u4f17\u53f7\u6587\u7ae0\uff0c\u4e00\u952e\u8f6c\u6362\u4e3a\u7cbe\u7f8e\u6392\u7248\u5e76\u81ea\u52a8\u4e0a\u4f20\u5230\u5fae\u4fe1\u8349\u7a3f\u7bb1\u3002\u652f\u6301 AI \u591a\u4e3b\u9898\u6837\u5f0f\u548c\u6279\u91cf\u53d1\u5e03\uff0c\u8ba9\u516c\u4f17\u53f7\u5199\u4f5c\u50cf\u53d1\u670b\u53cb\u5708\u4e00\u6837\u7b80\u5355\u3002",
+  "version": "1.0.0",
+  "author": "geekjourneyx",
+  "homepage": "https://github.com/geekjourneyx/md2wechat-skill",
+  "skills": [
+    {
+      "name": "md2wechat",
+      "description": ""
+    },
+    {
+      "name": "ai-daily",
+      "description": ""
+    }
+  ]
+}
