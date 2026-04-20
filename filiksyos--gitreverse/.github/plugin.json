@@ -1,0 +1,9 @@
+{
+  "name": "filiksyos--gitreverse",
+  "displayName": "gitreverse",
+  "description": "Reverse engineer any repo into it's original prompt",
+  "version": "1.0.0",
+  "author": "filiksyos",
+  "homepage": "https://github.com/filiksyos/gitreverse",
+  "skills": []
+}
