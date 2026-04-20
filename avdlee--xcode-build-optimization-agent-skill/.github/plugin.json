@@ -1,0 +1,9 @@
+{
+  "name": "avdlee--xcode-build-optimization-agent-skill",
+  "displayName": "Xcode-Build-Optimization-Agent-Skill",
+  "description": "An Agent Skill helping you to optimize Xcode incremental and clean builds by running benchmarks and optimizing build settings.",
+  "version": "1.0.0",
+  "author": "AvdLee",
+  "homepage": "https://github.com/AvdLee/Xcode-Build-Optimization-Agent-Skill",
+  "skills": []
+}
