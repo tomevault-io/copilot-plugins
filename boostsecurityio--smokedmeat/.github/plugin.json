@@ -1,0 +1,9 @@
+{
+  "name": "boostsecurityio--smokedmeat",
+  "displayName": "smokedmeat",
+  "description": "A CI/CD Red Team Framework for demonstrating Build Pipeline security risks.",
+  "version": "1.0.0",
+  "author": "boostsecurityio",
+  "homepage": "https://github.com/boostsecurityio/smokedmeat",
+  "skills": []
+}
