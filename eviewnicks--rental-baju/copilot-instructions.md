@@ -1,201 +1,318 @@
 ## rental-baju
 
-> - Mendefinisikan sistem desain UI/UX utama untuk aplikasi rental software berbasis gaya Flat Modern Minimalist dengan sentuhan soft neumorphism dan aksen gold/yellow.
+> Dokumen ini berisi protokol standar untuk proses debugging pada aplikasi Maguru, khususnya untuk fitur-fitur kompleks seperti auto-save draft dan toggle mode editor. Protokol ini dirancang untuk membantu developer mengidentifikasi, melacak, dan menyelesaikan masalah secara sistematis.
 
-# UI/UX Design System – Rental Software (v2)
+# Protokol Debugging Maguru
 
-## Rules & Instruksi Utama
+## 1. Pendahuluan
 
-**Tugas:**
+Dokumen ini berisi protokol standar untuk proses debugging pada aplikasi Maguru, khususnya untuk fitur-fitur kompleks seperti auto-save draft dan toggle mode editor. Protokol ini dirancang untuk membantu developer mengidentifikasi, melacak, dan menyelesaikan masalah secara sistematis.
 
-- Mendefinisikan sistem desain UI/UX utama untuk aplikasi rental software berbasis gaya Flat Modern Minimalist dengan sentuhan soft neumorphism dan aksen gold/yellow.
-- Menjadi acuan utama seluruh tim dalam pengembangan, review, dan evaluasi UI/UX.
-- Menjamin konsistensi, aksesibilitas, dan kemudahan scaling di seluruh aplikasi.
+## 2. Persiapan Debugging
 
-**Instruksi Penggunaan:**
+### 2.1 Konfigurasi Logger
 
-- first of All selalu gunakan compoentn SHadcn UI terlebih dahulu, kemudian custom sesuai dengan kebutuhan.
-- Selalu rujuk dokumen ini sebelum membuat, mengubah, atau mereview komponen UI/UX.
-- Semua token warna, radius, shadow, dan font WAJIB didefinisikan di Tailwind config.
-- Gunakan Shadcn UI sebagai basis, custom hanya jika tidak tersedia.
-- Lakukan review berkala dan dokumentasikan perubahan besar di dokumen ini.
+Sebelum memulai debugging, pastikan sistem logging sudah dikonfigurasi dengan benar:
 
----
+```typescript
+// Pastikan level logging sesuai kebutuhan debugging
+logger.setLevel('debug');
+```
 
-## 1. **Gaya Visual**
+### 2.2 Tools Debugging yang Diperlukan
 
-**Flat Modern Minimalist dengan Sentuhan Soft Neumorphism**
+- Browser DevTools (Chrome/Firefox)
+- React DevTools Extension
+- Redux DevTools (jika menggunakan Redux)
+- Network Monitor pada DevTools
+- Winston Logger yang sudah diimplementasikan
 
-- **Flat Design:**
-  - Hampir seluruh elemen menggunakan warna solid tanpa efek 3D, emboss, atau glassmorphism.
-  - Tidak ada shadow berat, hanya shadow sangat halus untuk depth minimal.
-- **Minimalist:**
-  - Banyak whitespace, layout sangat bersih, tidak ada elemen dekoratif berlebihan.
-  - Informasi disajikan secara ringkas dan jelas.
-- **Soft Neumorphism Touch:**
-  - Beberapa card memiliki sudut rounded yang sangat lembut, dan ada sedikit efek inner/outer shadow yang sangat subtle, memberi kesan “floating” tanpa berat.
-- **Modern UI:**
-  - Komponen card, button, dan badge tampil dengan bentuk rounded dan outline tipis.
-  - Ikon-ikon minimalis, micro-interaction implied (misal: tombol dengan lingkaran solid, dropdown dengan arrow sederhana).
+## 3. Protokol Debugging untuk Toggle Mode Editor
 
-**Ciri Khas Visual:**
+### 3.1 Identifikasi Masalah
 
-- Sudut membulat (rounded corners) pada semua card dan komponen.
-- Grid modular, setiap informasi dalam card terpisah.
-- Visual hierarchy sangat jelas: judul besar, subjudul kecil, data/statistik menonjol.
-- Penggunaan icon dan avatar untuk memperkuat identitas dan affordance.
+1. **Persiapan Lingkungan**:
+   - Buka halaman modul yang memiliki masalah
+   - Buka DevTools (F12) dan pilih tab Console
+   - Aktifkan "Preserve log" pada Console untuk menyimpan log saat navigasi
+   - Filter log dengan string "DocumentHeader" atau "ModuleDraftPageContext"
 
----
+2. **Reproduksi Masalah**:
+   - Catat status awal: `editorMode`, `activePage.status`
+   - Klik tombol toggle mode (Edit/View)
+   - Amati perubahan UI dan log yang muncul
 
-## B. Palet Warna
+3. **Analisis Log**:
+   - Cari log dengan format `=== TOGGLE MODE START: Dari [mode] ke [mode] ===`
+   - Periksa urutan eksekusi langkah-langkah dalam `handleToggleMode`
+   - Identifikasi langkah mana yang gagal atau tidak berjalan sesuai ekspektasi
 
-| Warna         | Hex Contoh      | Penggunaan Utama                |
-| ------------- | --------------- | ------------------------------- |
-| Gold          | #FFD700         | Highlight, CTA, progress, badge |
-| Putih         | #FFFFFF         | Background utama, card          |
-| Abu-abu muda  | #F8FAFC         | Background sekunder, card       |
-| Abu kehijauan | #E2E8F0         | Background grid, panel          |
-| Hitam         | #111827         | Teks utama, angka, tombol       |
-| Biru/Olive    | #3B82F6/#84CC16 | Status sekunder, badge          |
+### 3.2 Pemeriksaan State dan Props
 
-**Palet Warna:**
+1. **Gunakan React DevTools**:
+   - Pilih komponen `DocumentHeader`
+   - Periksa props `editorMode` dan `activePage`
+   - Pilih komponen `RichTextEditor`
+   - Periksa props `readOnly` dan state internal editor
 
-- **Dominan:**
-  - Gold (#FFD700 atau sejenis) sebagai warna aksen utama (highlight, progress, CTA).
-  - Putih dan abu-abu muda untuk background card dan area utama.
-  - Abu-abu kehijauan sebagai background utama (bukan putih polos, memberi nuansa modern dan tenang).
-- **Kontras:**
-  - Hitam untuk teks utama dan elemen penting (judul, angka, tombol utama).
-  - Aksen hitam solid pada tombol utama dan beberapa elemen interaktif.
-- **Hierarki Visual:**
-  - Warna aksen digunakan untuk menyorot status, progress, dan elemen penting (misal: tanggal terpilih, progress bar, AI Assistant).
-  - Warna netral untuk background agar konten mudah dibaca.
+2. **Periksa Context Value**:
+   - Pilih provider `ModuleDraftPageContext.Provider`
+   - Periksa nilai `editorMode` dan fungsi `toggleEditorMode`
+   - Bandingkan dengan nilai yang diharapkan
 
-**Tipografi:**
+### 3.3 Debugging Toggle Mode Step-by-Step
 
-- **Jenis Huruf:**
-  - Sans-serif modern, kemungkinan besar menggunakan font seperti Inter, Poppins, atau Graphik.
-- **Ukuran & Konsistensi:**
-  - Judul besar, tebal, sangat readable.
-  - Subjudul dan label lebih kecil, tipis, dan konsisten.
-  - Angka/statistik sangat menonjol (besar, bold).
-- **Konsistensi:**
-  - Semua teks rata kiri, spasi antar elemen sangat rapi.
-  - Tidak ada variasi font yang berlebihan, menjaga kesan profesional.
+1. **Verifikasi Alur Data**:
+   ```
+   Klik tombol Edit/View
+   → handleToggleMode() di DocumentHeader
+   → toggleEditorMode() di ModuleDraftPageContext
+   → Perubahan status halaman di database
+   → Perubahan state React (editorMode)
+   → Perubahan editor.isEditable di RichTextEditor
+   ```
 
----
+2. **Periksa Race Condition**:
+   - Cek apakah ada flag `isTogglingMode` di sessionStorage
+   - Periksa timing antara perubahan state React dan perubahan status halaman
+   - Cek apakah ada multiple request yang berjalan bersamaan
 
-## C. Usage Guidelines
+3. **Debugging Spesifik untuk Toggle Mode**:
+   - Tambahkan breakpoint di fungsi `handleToggleMode`
+   - Tambahkan breakpoint di fungsi `toggleEditorMode`
+   - Tambahkan breakpoint di useEffect yang merespons perubahan `editorMode` di RichTextEditor
+   - Step through kode untuk melihat alur eksekusi
 
-- **Primary:** Gold untuk tombol utama, highlight, dan progress.
-- **Secondary:** Biru/olive untuk status sekunder, badge, atau notifikasi.
-- **Background:** Putih/abu-abu muda untuk latar utama dan card.
-- **Accent:** Gunakan warna aksen hanya untuk elemen penting, jangan berlebihan.
-- **Kontras:** Pastikan teks hitam di atas warna terang, dan sebaliknya.
+4. **Pemeriksaan Database**:
+   - Verifikasi bahwa status halaman di database berubah sesuai harapan
+   - Gunakan Network tab untuk melihat response dari API
+   - Periksa payload request dan response
 
----
+## 4. Protokol Debugging untuk Auto-save Draft
 
-## E. Border Radius & Shadow
+### 4.1 Identifikasi Masalah Auto-save
 
-- **Radius:**
-  - `rounded-lg` untuk card/panel utama
-  - `rounded-full` untuk avatar, icon, dan button bulat
-- **Shadow:**
-  - `shadow-md` untuk card utama (subtle, soft neumorphism)
-  - `shadow-sm`/`shadow-none` untuk data card atau elemen sekunder
-- Semua radius dan shadow didefinisikan sebagai token di Tailwind config.
+1. **Persiapan Monitoring**:
+   - Filter log dengan string "useRichTextAutosave" atau "DraftFeedbackService"
+   - Aktifkan Network tab dan filter untuk request ke endpoint `/api/module/*/pages/*/draft`
 
----
+2. **Reproduksi Masalah**:
+   - Buat perubahan pada editor
+   - Tunggu 5 detik (waktu debounce default)
+   - Amati apakah request auto-save dikirim
+   - Periksa response dan status yang ditampilkan di UI
 
-## H. Interactive States
+3. **Analisis Status Auto-save**:
+   - Periksa nilai `draftSaveStatus` di context
+   - Cek apakah status berubah dari 'idle' → 'saving' → 'saved'
+   - Periksa apakah `lastSavedAt` diperbarui
 
-**Interaksi:**
+### 4.2 Debugging Auto-save Step-by-Step
 
-- **Affordance Jelas:**
-  - Button dan dropdown sangat jelas bisa diklik (warna solid, ikon arrow).
-  - Card dengan highlight warna menandakan status aktif/terpilih.
-- **Micro-interaction (Implied):**
-  - Hover state kemungkinan berupa perubahan warna background atau shadow subtle.
-  - Tidak ada animasi berat, menjaga performa dan fokus pada konten.
+1. **Verifikasi Trigger Auto-save**:
+   - Tambahkan log di event handler editor yang memicu auto-save
+   - Periksa apakah debounce berfungsi dengan benar
+   - Cek apakah throttle membatasi request sesuai konfigurasi
 
-- **Hover:**
-  - Button: bg-gold-400, scale(1.02), shadow-lg
-  - Card: shadow-xl, border-gold-100
-- **Focus:** Outline 2px solid gold/olive, offset 2px
-- **Active:** scale(0.98), bg-gold-600
-- **Disabled:** opacity-50, cursor-not-allowed
-- Semua state diatur di Tailwind config dan utility class.
+2. **Periksa Proses Penyimpanan**:
+   - Tambahkan breakpoint di fungsi `forceSave` atau handler auto-save
+   - Periksa payload yang dikirim ke server
+   - Verifikasi bahwa content editor diambil dengan benar
 
----
+3. **Analisis Response Server**:
+   - Periksa response dari endpoint `/api/module/*/pages/*/draft`
+   - Cek status code dan body response
+   - Verifikasi bahwa response diproses dengan benar di client
 
-## J. Komponen Utama
+4. **Pemeriksaan Status Draft di Database**:
+   - Verifikasi bahwa `draftData` tersimpan di database
+   - Periksa nilai `hasUnpublishedChanges` dan `draftSavedAt`
 
-**Struktur Layout:**
+## 5. Debugging Integrasi RichTextEditor
 
-- **Grid System Modular:**
-  - Layout menggunakan grid modular, setiap card adalah satu modul informasi.
-  - Spasi antar card besar, memberi ruang napas (breathing space).
-- **Card-Based:**
-  - Semua informasi utama ditempatkan dalam card dengan sudut membulat.
-  - Setiap card punya fungsi spesifik: user info, meetings, roadmap, statistik, AI assistant.
-- **Komponen:**
-  - **Button:**
-    - Bulat, solid, dengan ikon sederhana (arrow, plus).
-    - Ada juga tombol dengan outline tipis.
-  - **Dropdown:**
-    - Sangat minimal, hanya teks dan ikon panah.
-  - **Progress Bar:**
-    - Flat, tipis, warna aksen.
-  - **Avatar & Icon:**
-    - Avatar bulat, icon minimalis (notifikasi, waktu, telepon).
-  - **Form/Selector:**
-    - Dropdown dan date selector sangat sederhana, mudah di-scan.
-  - **Chart:**
-    - Line chart sederhana dengan warna aksen, tanpa grid berat.
+### 5.1 Verifikasi Sinkronisasi Mode dan Content
 
-- **Card:** Rounded, shadow, padding, grid/list, modular.
-- **Button:** Solid, outline, ghost, icon button, bulat.
-- **Table:** Responsive, zebra, sortable.
-- **Navbar/Sidebar:** Sticky, minimalis, icon + label.
-- **Form/Input:** Large touch target, clear label, error state.
-- **Chart:** Bar, line, pie, status color, minimalis.
-- **Badge/Status:** Gold, olive, biru, merah.
-- Semua komponen diusahakan reusable dan konsisten.
+1. **Periksa Konsistensi Mode**:
+   - Log nilai `editorMode` dari context
+   - Log nilai `editor.isEditable` dari instance editor
+   - Verifikasi bahwa keduanya konsisten (edit mode → editable: true)
 
-## K. Responsive & Accessibility
+2. **Verifikasi Content yang Ditampilkan**:
+   - Log hasil dari `getDraftOrPublishedContent`
+   - Bandingkan dengan content yang ditampilkan di editor
+   - Periksa apakah content yang benar ditampilkan berdasarkan mode
 
-- **Kontras Cukup:**
-  - Teks hitam di atas warna terang/putih, mudah dibaca.
-  - Angka/statistik sangat menonjol.
-- **Ukuran Font:**
-  - Cukup besar untuk keterbacaan, baik untuk desktop maupun tablet.
-- **Icon & Label:**
-  - Semua icon didampingi label, memudahkan pemahaman.
-- **Whitespace:**
-  - Spasi antar elemen besar, memudahkan navigasi visual.
+3. **Debugging Perubahan Content**:
+   - Tambahkan breakpoint di fungsi yang mengatur content editor
+   - Periksa apakah content diatur ulang saat mode berubah
+   - Verifikasi bahwa perubahan content tidak memicu auto-save yang tidak diinginkan
 
-## L. Performance & Utility
+### 5.2 Pemeriksaan Event Listener
 
-- **Use Transform:** Untuk animasi
-- **Lazy Loading:** Untuk gambar dan komponen berat
-- **Skeleton:** Untuk loading state
-- **Critical Path:** Prioritaskan konten utama
+1. **Verifikasi Event Binding**:
+   - Periksa apakah event listener untuk perubahan content terpasang dengan benar
+   - Cek apakah event listener dibersihkan saat komponen unmount
+   - Verifikasi bahwa tidak ada multiple event listener untuk event yang sama
 
----
+2. **Debugging Event Propagation**:
+   - Tambahkan log di setiap event handler
+   - Periksa urutan eksekusi event handler
+   - Cek apakah event propagation dihentikan jika diperlukan
 
-## Inspirasi & Referensi
+## 6. Troubleshooting Umum
 
-- **Aplikasi SaaS Modern:** Notion, Asana, Linear, Monday.com (untuk modular card, grid, dan warna aksen).
-- **Google Material Design (versi minimal):** Penggunaan card, shadow subtle, dan icon minimalis.
-- **Apple iOS Dashboard:** Rounded card, modular grid, dan tipografi besar.
-- **Tren Dribbble/Behance 2022-2024:** Flat, soft color, modular dashboard, micro-interaction, dan AI assistant card.
+### 6.1 Masalah Umum dan Solusi
 
-## Ringkasan Akhir
+| Masalah | Kemungkinan Penyebab | Solusi |
+|---------|----------------------|--------|
+| Toggle mode tidak mengubah UI | Race condition antara state React dan editor | Tambahkan delay atau gunakan useEffect dengan dependensi yang tepat |
+| Content tidak berubah saat mode berubah | Fungsi getDraftOrPublishedContent tidak dipanggil | Verifikasi bahwa fungsi dipanggil saat mode berubah |
+| Auto-save tidak berfungsi | Debounce terlalu lama atau event tidak terpicu | Kurangi waktu debounce atau periksa binding event |
+| Error saat menyimpan draft | Format content tidak valid atau masalah jaringan | Validasi format content sebelum mengirim atau tambahkan retry mechanism |
+| Draft tidak dimuat saat halaman dibuka | Cache tidak diinvalidasi atau draft tidak ditemukan | Bersihkan cache dan periksa keberadaan draft di database |
 
-Desain baru ini mengadopsi gaya Flat Modern Minimalist dengan sentuhan soft neumorphism, palet warna netral dengan aksen lime/yellow, tipografi sans-serif besar, layout grid modular, dan komponen card-based yang sangat clean dan profesional. Pendekatan ini sangat sesuai untuk aplikasi bisnis modern, SaaS dashboard, dan rental management yang membutuhkan visual yang hidup, profesional, dan mudah di-scale.
+### 6.2 Debugging Masalah Jaringan
 
----
+1. **Analisis Request dan Response**:
+   - Gunakan Network tab untuk melihat detail request
+   - Periksa header, payload, dan response
+   - Cek status code dan error message
+
+2. **Simulasi Kondisi Jaringan**:
+   - Gunakan fitur "Network throttling" di DevTools
+   - Simulasikan koneksi lambat atau terputus
+   - Verifikasi bahwa aplikasi menangani kondisi tersebut dengan benar
+
+3. **Debugging CORS dan Authentication**:
+   - Periksa header CORS di response
+   - Verifikasi bahwa token autentikasi dikirim dengan benar
+   - Cek apakah session masih valid
+
+## 7. Teknik Advanced Debugging
+
+### 7.1 Profiling dan Performance
+
+1. **React Profiler**:
+   - Gunakan React Profiler untuk mengidentifikasi komponen yang re-render berlebihan
+   - Periksa waktu render untuk komponen kritis
+   - Identifikasi bottleneck performa
+
+2. **Performance Tab**:
+   - Rekam timeline saat melakukan operasi yang lambat
+   - Analisis call stack dan execution time
+   - Identifikasi operasi yang memakan waktu lama
+
+### 7.2 Memory Leaks
+
+1. **Heap Snapshots**:
+   - Ambil heap snapshot sebelum dan setelah operasi
+   - Bandingkan untuk menemukan objek yang tidak di-garbage collect
+   - Periksa closure dan event listener yang tidak dibersihkan
+
+2. **Deteksi Memory Leak**:
+   - Monitor penggunaan memori saat menggunakan aplikasi
+   - Cek apakah memori terus meningkat tanpa menurun
+   - Identifikasi komponen yang tidak unmount dengan benar
+
+## 8. Dokumentasi dan Pelaporan Bug
+
+### 8.1 Format Pelaporan Bug
+
+Saat menemukan bug, dokumentasikan dengan format berikut:
+
+```
+## Bug Description
+[Deskripsi singkat masalah]
+
+## Steps to Reproduce
+1. [Langkah 1]
+2. [Langkah 2]
+3. [Langkah 3]
+
+## Expected Behavior
+[Apa yang seharusnya terjadi]
+
+## Actual Behavior
+[Apa yang sebenarnya terjadi]
+
+## Environment
+- Browser: [Chrome/Firefox/Safari] version [x.x]
+- OS: [Windows/Mac/Linux]
+- Screen Resolution: [1920x1080]
+
+## Screenshots/Videos
+[Lampirkan screenshot atau video jika ada]
+
+## Console Logs
+```
+[Salin log konsol yang relevan]
+```
+
+## Network Logs
+[Salin detail request/response yang relevan]
+```
+
+### 8.2 Proses Penyelesaian Bug
+
+1. **Triaging**:
+   - Tentukan tingkat keparahan bug (critical, major, minor, trivial)
+   - Identifikasi komponen yang terdampak
+   - Tentukan prioritas penyelesaian
+
+2. **Investigasi**:
+   - Gunakan protokol debugging yang sesuai
+   - Dokumentasikan temuan dan root cause
+   - Buat reproducer minimal jika memungkinkan
+
+3. **Perbaikan**:
+   - Implementasikan solusi dengan perubahan minimal
+   - Tambahkan test untuk mencegah regresi
+   - Dokumentasikan perubahan dan alasannya
+
+4. **Verifikasi**:
+   - Pastikan bug tidak muncul lagi dengan langkah reproduksi yang sama
+   - Periksa apakah ada side effect dari perbaikan
+   - Jalankan regression test untuk memastikan tidak ada fitur lain yang rusak
+
+## 9. Pencegahan Bug
+
+### 9.1 Best Practices
+
+1. **Defensive Programming**:
+   - Selalu validasi input
+   - Gunakan type checking yang ketat
+   - Tangani edge cases dan error dengan graceful degradation
+
+2. **Testing**:
+   - Tulis unit test untuk fungsi-fungsi kritis
+   - Implementasikan integration test untuk alur utama
+   - Gunakan E2E test untuk user flow penting
+
+3. **Code Review**:
+   - Fokus pada area yang rawan bug
+   - Periksa penanganan error dan edge cases
+   - Verifikasi bahwa perubahan tidak memperkenalkan bug baru
+
+### 9.2 Monitoring dan Logging
+
+1. **Implementasi Logging yang Efektif**:
+   - Log informasi yang cukup untuk debugging tanpa membanjiri konsol
+   - Gunakan level logging yang sesuai (debug, info, warn, error)
+   - Sertakan context yang cukup dalam setiap log
+
+2. **Monitoring Produksi**:
+   - Implementasikan error tracking (misalnya dengan Sentry)
+   - Monitor performa dan penggunaan resource
+   - Set up alerting untuk kondisi error yang kritis
+
+## 10. Referensi
+
+- [React DevTools Documentation](mdc:https:/reactjs.org/blog/2019/08/15/new-react-devtools.html)
+- [Chrome DevTools Documentation](mdc:https:/developers.google.com/web/tools/chrome-devtools)
+- [Winston Logger Documentation](mdc:https:/github.com/winstonjs/winston)
+- [Debugging JavaScript](mdc:https:/developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors)
+- [React Performance Optimization](mdc:https:/reactjs.org/docs/optimizing-performance.html)
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/EviewNicks) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
