@@ -1,0 +1,9 @@
+{
+  "name": "nousresearch--hermes-paperclip-adapter",
+  "displayName": "hermes-paperclip-adapter",
+  "description": "Paperclip adapter for Hermes Agent \u2014 run Hermes as a managed employee in a Paperclip company",
+  "version": "1.0.0",
+  "author": "NousResearch",
+  "homepage": "https://github.com/NousResearch/hermes-paperclip-adapter",
+  "skills": []
+}
