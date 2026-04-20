@@ -1,0 +1,177 @@
+{
+  "name": "alicloud-skills",
+  "owner": "cinience",
+  "repo": "alicloud-skills",
+  "description": "alibaba cloud skills\uff0cqwen \uff0cwan and all skills",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "alicloud-ai-audio-tts-realtime-test",
+      "path": "tests/ai/audio/alicloud-ai-audio-tts-realtime-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/audio/alicloud-ai-audio-tts-realtime-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-audio-tts-test",
+      "path": "tests/ai/audio/alicloud-ai-audio-tts-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/audio/alicloud-ai-audio-tts-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-audio-tts-voice-clone-test",
+      "path": "tests/ai/audio/alicloud-ai-audio-tts-voice-clone-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/audio/alicloud-ai-audio-tts-voice-clone-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-audio-tts-voice-design-test",
+      "path": "tests/ai/audio/alicloud-ai-audio-tts-voice-design-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/audio/alicloud-ai-audio-tts-voice-design-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-entry-modelstudio-matrix-test",
+      "path": "tests/ai/entry/alicloud-ai-entry-modelstudio-matrix-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/entry/alicloud-ai-entry-modelstudio-matrix-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-entry-modelstudio-test",
+      "path": "tests/ai/entry/alicloud-ai-entry-modelstudio-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/entry/alicloud-ai-entry-modelstudio-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-image-qwen-image-edit-test",
+      "path": "tests/ai/image/alicloud-ai-image-qwen-image-edit-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/image/alicloud-ai-image-qwen-image-edit-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-image-qwen-image-test",
+      "path": "tests/ai/image/alicloud-ai-image-qwen-image-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/image/alicloud-ai-image-qwen-image-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-misc-crawl-and-skill-test",
+      "path": "tests/ai/misc/alicloud-ai-misc-crawl-and-skill-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/misc/alicloud-ai-misc-crawl-and-skill-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-video-wan-r2v-test",
+      "path": "tests/ai/video/alicloud-ai-video-wan-r2v-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/video/alicloud-ai-video-wan-r2v-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-ai-video-wan-video-test",
+      "path": "tests/ai/video/alicloud-ai-video-wan-video-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/ai/video/alicloud-ai-video-wan-video-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-compute-ecs-test",
+      "path": "tests/compute/ecs/alicloud-compute-ecs-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/compute/ecs/alicloud-compute-ecs-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-data-lake-dlf-next-test",
+      "path": "tests/data-lake/alicloud-data-lake-dlf-next-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/data-lake/alicloud-data-lake-dlf-next-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-data-lake-dlf-test",
+      "path": "tests/data-lake/alicloud-data-lake-dlf-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/data-lake/alicloud-data-lake-dlf-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-database-rds-supabase-test",
+      "path": "tests/database/rds/alicloud-database-rds-supabase-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/database/rds/alicloud-database-rds-supabase-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-network-dns-cli-test",
+      "path": "tests/network/dns/alicloud-network-dns-cli-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/network/dns/alicloud-network-dns-cli-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-observability-sls-log-query-test",
+      "path": "tests/observability/sls/alicloud-observability-sls-log-query-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/observability/sls/alicloud-observability-sls-log-query-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-platform-openapi-product-api-discovery-test",
+      "path": "tests/platform/openapi/alicloud-platform-openapi-product-api-discovery-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/platform/openapi/alicloud-platform-openapi-product-api-discovery-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-security-center-sas-test",
+      "path": "tests/security/host/alicloud-security-center-sas-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/security/host/alicloud-security-center-sas-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-security-cloudfw-test",
+      "path": "tests/security/firewall/alicloud-security-cloudfw-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/security/firewall/alicloud-security-cloudfw-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-security-kms-test",
+      "path": "tests/security/key-management/alicloud-security-kms-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/security/key-management/alicloud-security-kms-test",
+      "description": ""
+    },
+    {
+      "name": "alicloud-storage-oss-ossutil-test",
+      "path": "tests/storage/oss/alicloud-storage-oss-ossutil-test",
+      "github_url": "https://github.com/cinience/alicloud-skills/tree/main/tests/storage/oss/alicloud-storage-oss-ossutil-test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cinience/alicloud-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:37:20Z"
+}
