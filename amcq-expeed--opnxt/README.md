@@ -1,6 +1,6 @@
-# OPNXT — distributed by TomeVault
+# OPNXT
 
-> Originally from [amcq-expeed/OPNXT](https://github.com/amcq-expeed/OPNXT). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [amcq-expeed/OPNXT](https://github.com/amcq-expeed/OPNXT) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [amcq-expeed/OPNXT](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/amcq-expeed)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/amcq-expeed/OPNXT](https://github.com/amcq-expeed/OPNXT)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install amcq-expeed/OPNXT
 ```
-Or browse all formats at [https://tomevault.io/claim/amcq-expeed](https://tomevault.io/claim/amcq-expeed).
+Source: [github.com/amcq-expeed/OPNXT](https://github.com/amcq-expeed/OPNXT).
 
 <!-- genome:d-i-p -->
