@@ -1,0 +1,9 @@
+{
+  "name": "temporal-community--durable-async-mcp",
+  "displayName": "durable-async-mcp",
+  "description": "durable-async-mcp",
+  "version": "1.0.0",
+  "author": "temporal-community",
+  "homepage": "https://github.com/temporal-community/durable-async-mcp",
+  "skills": []
+}
