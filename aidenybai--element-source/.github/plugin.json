@@ -1,0 +1,9 @@
+{
+  "name": "aidenybai--element-source",
+  "displayName": "element-source",
+  "description": "Get the source file location of any DOM element. Works with React, Vue, Svelte, Solid, Preact",
+  "version": "1.0.0",
+  "author": "aidenybai",
+  "homepage": "https://github.com/aidenybai/element-source",
+  "skills": []
+}
