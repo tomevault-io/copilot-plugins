@@ -1,0 +1,9 @@
+{
+  "name": "millionco--debug-agent",
+  "displayName": "debug-agent",
+  "description": "Debugging skill for AI agents",
+  "version": "1.0.0",
+  "author": "millionco",
+  "homepage": "https://github.com/millionco/debug-agent",
+  "skills": []
+}
