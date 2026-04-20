@@ -1,0 +1,14 @@
+{
+  "name": "scarletkc--vexor",
+  "displayName": "vexor",
+  "description": "A semantic search engine for files and code.",
+  "version": "1.0.0",
+  "author": "scarletkc",
+  "homepage": "https://github.com/scarletkc/vexor",
+  "skills": [
+    {
+      "name": "vexor-cli",
+      "description": ""
+    }
+  ]
+}
