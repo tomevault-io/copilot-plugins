@@ -1,0 +1,9 @@
+{
+  "name": "mitkox--vllm-turboquant",
+  "displayName": "vllm-turboquant",
+  "description": "vLLM TurboQuant",
+  "version": "1.0.0",
+  "author": "mitkox",
+  "homepage": "https://github.com/mitkox/vllm-turboquant",
+  "skills": []
+}
