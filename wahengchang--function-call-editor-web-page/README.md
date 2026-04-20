@@ -1,6 +1,6 @@
 # function-call-editor-web-page
 
-> Tome by [wahengchang](https://github.com/wahengchang/function-call-editor-web-page) — distributed by [TomeVault](https://tomevault.io/claim/wahengchang)
+> Tome by [wahengchang](https://github.com/wahengchang/function-call-editor-web-page) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [wahengchang/function-call-editor-web
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/wahengchang)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/wahengchang/function-call-editor-web-page](https://github.com/wahengchang/function-call-editor-web-page)
 
 ---
 
