@@ -1,0 +1,141 @@
+{
+  "name": "Agent-Skills-for-Context-Engineering",
+  "owner": "muratcankoylan",
+  "repo": "Agent-Skills-for-Context-Engineering",
+  "description": "A comprehensive collection of Agent Skills for context engineering, multi-agent architectures, and production agent systems. Use when building, optimizing, or debugging agent systems that require effective context management.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "advanced-evaluation",
+      "path": "skills/advanced-evaluation",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/advanced-evaluation",
+      "description": ""
+    },
+    {
+      "name": "bdi-mental-states",
+      "path": "skills/bdi-mental-states",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/bdi-mental-states",
+      "description": ""
+    },
+    {
+      "name": "book-sft-pipeline",
+      "path": "examples/book-sft-pipeline",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/examples/book-sft-pipeline",
+      "description": ""
+    },
+    {
+      "name": "context-compression",
+      "path": "skills/context-compression",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/context-compression",
+      "description": ""
+    },
+    {
+      "name": "context-degradation",
+      "path": "skills/context-degradation",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/context-degradation",
+      "description": ""
+    },
+    {
+      "name": "context-fundamentals",
+      "path": "skills/context-fundamentals",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/context-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "context-optimization",
+      "path": "skills/context-optimization",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/context-optimization",
+      "description": ""
+    },
+    {
+      "name": "digital-brain-skill",
+      "path": "examples/digital-brain-skill",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/examples/digital-brain-skill",
+      "description": ""
+    },
+    {
+      "name": "evaluation",
+      "path": "skills/evaluation",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/evaluation",
+      "description": ""
+    },
+    {
+      "name": "filesystem-context",
+      "path": "skills/filesystem-context",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/filesystem-context",
+      "description": ""
+    },
+    {
+      "name": "hosted-agents",
+      "path": "skills/hosted-agents",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/hosted-agents",
+      "description": ""
+    },
+    {
+      "name": "memory-systems",
+      "path": "skills/memory-systems",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/memory-systems",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-patterns",
+      "path": "skills/multi-agent-patterns",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/multi-agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "project-development",
+      "path": "skills/project-development",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/project-development",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "path": "template",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/template",
+      "description": ""
+    },
+    {
+      "name": "tool-design",
+      "path": "skills/tool-design",
+      "github_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/tool-design",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T16:10:55Z"
+}
