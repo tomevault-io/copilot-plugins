@@ -1,6 +1,6 @@
-# cine_search — distributed by TomeVault
+# cine_search
 
-> Originally from [Snowman-Labs/cine_search](https://github.com/Snowman-Labs/cine_search). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Snowman-Labs/cine_search](https://github.com/Snowman-Labs/cine_search) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Snowman-Labs/cine_search](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Snowman-Labs)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Snowman-Labs/cine_search](https://github.com/Snowman-Labs/cine_search)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Snowman-Labs) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
