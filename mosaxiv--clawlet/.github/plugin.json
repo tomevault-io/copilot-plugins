@@ -1,0 +1,22 @@
+{
+  "name": "mosaxiv--clawlet",
+  "displayName": "clawlet",
+  "description": "Ultra-lightweight and efficient personal AI assistant",
+  "version": "1.0.0",
+  "author": "mosaxiv",
+  "homepage": "https://github.com/mosaxiv/clawlet",
+  "skills": [
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "description": ""
+    }
+  ]
+}
