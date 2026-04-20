@@ -1,0 +1,14 @@
+{
+  "name": "disler--agent-sandbox-skill",
+  "displayName": "agent-sandbox-skill",
+  "description": "An agent skill for managing isolated execution environments",
+  "version": "1.0.0",
+  "author": "disler",
+  "homepage": "https://github.com/disler/agent-sandbox-skill",
+  "skills": [
+    {
+      "name": "agent-sandboxes",
+      "description": ""
+    }
+  ]
+}
