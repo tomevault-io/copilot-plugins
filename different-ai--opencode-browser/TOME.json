@@ -1,0 +1,177 @@
+{
+  "name": "open",
+  "owner": "different-ai",
+  "repo": "opencode-browser",
+  "description": "OpenCode plugin to automate Chrome. Inspired by Claude in Chrome.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-creator",
+      "path": ".opencode/skills/agent-creator",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/agent-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "path": ".opencode/skills/command-creator",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/command-creator",
+      "description": ""
+    },
+    {
+      "name": "create-cal-com-link",
+      "path": ".opencode/skills/create-cal-com-link",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/create-cal-com-link",
+      "description": ""
+    },
+    {
+      "name": "get-started",
+      "path": ".opencode/skills/get-started",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/get-started",
+      "description": ""
+    },
+    {
+      "name": "mcp-arch",
+      "path": ".opencode/skills/mcp-arch",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/mcp-arch",
+      "description": ""
+    },
+    {
+      "name": "owpenbot-test",
+      "path": ".opencode/skills/owpenbot-test",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/owpenbot-test",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "path": ".opencode/skills/plugin-creator",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "research-doc",
+      "path": ".opencode/skills/research-doc",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/research-doc",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".opencode/skills/skill-creator",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "sync-submodules",
+      "path": ".opencode/skills/sync-submodules",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/sync-submodules",
+      "description": ""
+    },
+    {
+      "name": "workspace-guide",
+      "path": ".opencode/skills/workspace-guide",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/workspace-guide",
+      "description": ""
+    },
+    {
+      "name": "worktree-ux-pr",
+      "path": ".opencode/skills/worktree-ux-pr",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/worktree-ux-pr",
+      "description": ""
+    },
+    {
+      "name": "worktree-workflow",
+      "path": ".opencode/skills/worktree-workflow",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/.opencode/skills/worktree-workflow",
+      "description": ""
+    },
+    {
+      "name": "agent-creator",
+      "path": "skills/agent-creator",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/skills/agent-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "path": "skills/command-creator",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/skills/command-creator",
+      "description": ""
+    },
+    {
+      "name": "create-cal-com-link",
+      "path": "skills/create-cal-com-link",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/skills/create-cal-com-link",
+      "description": ""
+    },
+    {
+      "name": "owpenbot-test",
+      "path": "skills/owpenbot-test",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/skills/owpenbot-test",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "path": "skills/plugin-creator",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/skills/plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "sandbox-lifecycle-fastlane",
+      "path": "skills/sandbox-lifecycle-fastlane",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/skills/sandbox-lifecycle-fastlane",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "worktree-ux-pr",
+      "path": "skills/worktree-ux-pr",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/skills/worktree-ux-pr",
+      "description": ""
+    },
+    {
+      "name": "worktree-workflow",
+      "path": "skills/worktree-workflow",
+      "github_url": "https://github.com/different-ai/opencode-browser/tree/main/skills/worktree-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/different-ai/opencode-browser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T16:06:58Z"
+}
