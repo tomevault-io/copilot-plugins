@@ -1,0 +1,9 @@
+{
+  "name": "chenhg5--cc-connect",
+  "displayName": "cc-connect",
+  "description": "Bridge local AI coding agents (Claude Code, Cursor, Gemini CLI, Codex) to messaging platforms (Feishu/Lark, DingTalk, Slack, Telegram, Discord, LINE, WeChat Work). Chat with your AI dev assistant from",
+  "version": "1.0.0",
+  "author": "chenhg5",
+  "homepage": "https://github.com/chenhg5/cc-connect",
+  "skills": []
+}
