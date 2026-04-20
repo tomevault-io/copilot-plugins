@@ -1,0 +1,9 @@
+{
+  "name": "librefang--librefang",
+  "displayName": "librefang",
+  "description": "LibreFang is an open-source agent operating system written in Rust. Live demo: https://flyio.librefang.ai",
+  "version": "1.0.0",
+  "author": "librefang",
+  "homepage": "https://github.com/librefang/librefang",
+  "skills": []
+}
