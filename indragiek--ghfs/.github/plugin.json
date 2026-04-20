@@ -1,0 +1,9 @@
+{
+  "name": "indragiek--ghfs",
+  "displayName": "GHFS",
+  "description": "Mount GitHub repositories as a virtual read-only macOS filesystem",
+  "version": "1.0.0",
+  "author": "indragiek",
+  "homepage": "https://github.com/indragiek/GHFS",
+  "skills": []
+}
