@@ -1,0 +1,22 @@
+{
+  "name": "pheuter--claude-agent-desktop",
+  "displayName": "claude-agent-desktop",
+  "description": "Cross-platform desktop app for agentic chat powered by Claude Agent SDK.",
+  "version": "1.0.0",
+  "author": "pheuter",
+  "homepage": "https://github.com/pheuter/claude-agent-desktop",
+  "skills": [
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    }
+  ]
+}
