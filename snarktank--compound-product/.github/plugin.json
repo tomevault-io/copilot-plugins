@@ -1,0 +1,14 @@
+{
+  "name": "snarktank--compound-product",
+  "displayName": "compound-product",
+  "description": "A self-improving product system that reads reports, identifies priorities, and autonomously implements fixes",
+  "version": "1.0.0",
+  "author": "snarktank",
+  "homepage": "https://github.com/snarktank/compound-product",
+  "skills": [
+    {
+      "name": "prd",
+      "description": ""
+    }
+  ]
+}
