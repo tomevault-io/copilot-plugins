@@ -1,0 +1,213 @@
+{
+  "name": "grepai",
+  "owner": "yoanbernabeu",
+  "repo": "grepai",
+  "description": "Semantic Search & Call Graphs for AI Agents (100% Local)",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "grepai",
+      "path": ".claude/skills/grepai",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/.claude/skills/grepai",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": ".claude/skills/release",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/.claude/skills/release",
+      "description": ""
+    },
+    {
+      "name": "grepai-search-basics",
+      "path": "skills/search/grepai-search-basics",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/search/grepai-search-basics",
+      "description": ""
+    },
+    {
+      "name": "grepai-search-advanced",
+      "path": "skills/search/grepai-search-advanced",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/search/grepai-search-advanced",
+      "description": ""
+    },
+    {
+      "name": "grepai-search-tips",
+      "path": "skills/search/grepai-search-tips",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/search/grepai-search-tips",
+      "description": ""
+    },
+    {
+      "name": "grepai-trace-callers",
+      "path": "skills/trace/grepai-trace-callers",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/trace/grepai-trace-callers",
+      "description": ""
+    },
+    {
+      "name": "grepai-search-boosting",
+      "path": "skills/search/grepai-search-boosting",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/search/grepai-search-boosting",
+      "description": ""
+    },
+    {
+      "name": "grepai-trace-callees",
+      "path": "skills/trace/grepai-trace-callees",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/trace/grepai-trace-callees",
+      "description": ""
+    },
+    {
+      "name": "grepai-trace-graph",
+      "path": "skills/trace/grepai-trace-graph",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/trace/grepai-trace-graph",
+      "description": ""
+    },
+    {
+      "name": "grepai-languages",
+      "path": "skills/advanced/grepai-languages",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/advanced/grepai-languages",
+      "description": ""
+    },
+    {
+      "name": "grepai-chunking",
+      "path": "skills/indexing/grepai-chunking",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/indexing/grepai-chunking",
+      "description": ""
+    },
+    {
+      "name": "grepai-ignore-patterns",
+      "path": "skills/configuration/grepai-ignore-patterns",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/configuration/grepai-ignore-patterns",
+      "description": ""
+    },
+    {
+      "name": "grepai-troubleshooting",
+      "path": "skills/advanced/grepai-troubleshooting",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/advanced/grepai-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "grepai-config-reference",
+      "path": "skills/configuration/grepai-config-reference",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/configuration/grepai-config-reference",
+      "description": ""
+    },
+    {
+      "name": "grepai-watch-daemon",
+      "path": "skills/indexing/grepai-watch-daemon",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/indexing/grepai-watch-daemon",
+      "description": ""
+    },
+    {
+      "name": "grepai-init",
+      "path": "skills/configuration/grepai-init",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/configuration/grepai-init",
+      "description": ""
+    },
+    {
+      "name": "grepai-mcp-tools",
+      "path": "skills/integration/grepai-mcp-tools",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/integration/grepai-mcp-tools",
+      "description": ""
+    },
+    {
+      "name": "grepai-workspaces",
+      "path": "skills/advanced/grepai-workspaces",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/advanced/grepai-workspaces",
+      "description": ""
+    },
+    {
+      "name": "grepai-embeddings-ollama",
+      "path": "skills/embeddings/grepai-embeddings-ollama",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/embeddings/grepai-embeddings-ollama",
+      "description": ""
+    },
+    {
+      "name": "grepai-storage-gob",
+      "path": "skills/storage/grepai-storage-gob",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/storage/grepai-storage-gob",
+      "description": ""
+    },
+    {
+      "name": "grepai-quickstart",
+      "path": "skills/getting-started/grepai-quickstart",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/getting-started/grepai-quickstart",
+      "description": ""
+    },
+    {
+      "name": "grepai-ollama-setup",
+      "path": "skills/getting-started/grepai-ollama-setup",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/getting-started/grepai-ollama-setup",
+      "description": ""
+    },
+    {
+      "name": "grepai-mcp-claude",
+      "path": "skills/integration/grepai-mcp-claude",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/integration/grepai-mcp-claude",
+      "description": ""
+    },
+    {
+      "name": "grepai-mcp-cursor",
+      "path": "skills/integration/grepai-mcp-cursor",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/integration/grepai-mcp-cursor",
+      "description": ""
+    },
+    {
+      "name": "grepai-storage-qdrant",
+      "path": "skills/storage/grepai-storage-qdrant",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/storage/grepai-storage-qdrant",
+      "description": ""
+    },
+    {
+      "name": "grepai-storage-postgres",
+      "path": "skills/storage/grepai-storage-postgres",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/storage/grepai-storage-postgres",
+      "description": ""
+    },
+    {
+      "name": "grepai-embeddings-lmstudio",
+      "path": "skills/embeddings/grepai-embeddings-lmstudio",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/embeddings/grepai-embeddings-lmstudio",
+      "description": ""
+    },
+    {
+      "name": "grepai-embeddings-openai",
+      "path": "skills/embeddings/grepai-embeddings-openai",
+      "github_url": "https://github.com/yoanbernabeu/grepai/tree/main/skills/embeddings/grepai-embeddings-openai",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yoanbernabeu/grepai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:49:06Z"
+}
