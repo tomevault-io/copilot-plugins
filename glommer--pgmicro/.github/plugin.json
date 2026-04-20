@@ -1,0 +1,9 @@
+{
+  "name": "glommer--pgmicro",
+  "displayName": "pgmicro",
+  "description": "An in-process reimplementation of PostgreSQL, backed by a SQLite-compatible storage engine",
+  "version": "1.0.0",
+  "author": "glommer",
+  "homepage": "https://github.com/glommer/pgmicro",
+  "skills": []
+}
