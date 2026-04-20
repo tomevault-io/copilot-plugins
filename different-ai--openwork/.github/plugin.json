@@ -1,0 +1,158 @@
+{
+  "name": "different-ai--openwork",
+  "displayName": "openwork",
+  "description": "An open-source alternative to Claude Cowork built for teams, powered by opencode",
+  "version": "1.0.0",
+  "author": "different-ai",
+  "homepage": "https://github.com/different-ai/openwork",
+  "skills": [
+    {
+      "name": "browser-setup-devtools",
+      "description": ""
+    },
+    {
+      "name": "cargo-lock-manager",
+      "description": ""
+    },
+    {
+      "name": "get-started",
+      "description": ""
+    },
+    {
+      "name": "opencode-bridge",
+      "description": ""
+    },
+    {
+      "name": "opencode-mirror",
+      "description": ""
+    },
+    {
+      "name": "opencode-primitives",
+      "description": ""
+    },
+    {
+      "name": "openwork-core",
+      "description": ""
+    },
+    {
+      "name": "openwork-debug",
+      "description": ""
+    },
+    {
+      "name": "openwork-docker-chrome-mcp",
+      "description": ""
+    },
+    {
+      "name": "openwork-orchestrator-npm-publish",
+      "description": ""
+    },
+    {
+      "name": "solidjs-patterns",
+      "description": ""
+    },
+    {
+      "name": "tauri-solidjs",
+      "description": ""
+    },
+    {
+      "name": "agent-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "description": ""
+    },
+    {
+      "name": "create-cal-com-link",
+      "description": ""
+    },
+    {
+      "name": "get-started",
+      "description": ""
+    },
+    {
+      "name": "mcp-arch",
+      "description": ""
+    },
+    {
+      "name": "openwork-chrome-mcp-testing",
+      "description": ""
+    },
+    {
+      "name": "openwork-docker-chrome-mcp",
+      "description": ""
+    },
+    {
+      "name": "owpenbot-test",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "research-doc",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "sync-submodules",
+      "description": ""
+    },
+    {
+      "name": "workspace-guide",
+      "description": ""
+    },
+    {
+      "name": "worktree-ux-pr",
+      "description": ""
+    },
+    {
+      "name": "worktree-workflow",
+      "description": ""
+    },
+    {
+      "name": "agent-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "description": ""
+    },
+    {
+      "name": "create-cal-com-link",
+      "description": ""
+    },
+    {
+      "name": "openwork-chrome-mcp-testing",
+      "description": ""
+    },
+    {
+      "name": "owpenbot-test",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "sandbox-lifecycle-fastlane",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "worktree-ux-pr",
+      "description": ""
+    },
+    {
+      "name": "worktree-workflow",
+      "description": ""
+    }
+  ]
+}
