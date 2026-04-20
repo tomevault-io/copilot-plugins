@@ -1,6 +1,6 @@
-# dashboard_bihar_congress — distributed by TomeVault
+# dashboard_bihar_congress
 
-> Originally from [Divmak11/dashboard_bihar_congress](https://github.com/Divmak11/dashboard_bihar_congress). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Divmak11/dashboard_bihar_congress](https://github.com/Divmak11/dashboard_bihar_congress) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Divmak11/dashboard_bihar_congress](h
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Divmak11)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Divmak11/dashboard_bihar_congress](https://github.com/Divmak11/dashboard_bihar_congress)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Divmak11) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
