@@ -1,0 +1,14 @@
+{
+  "name": "vercel-labs--portless",
+  "displayName": "portless",
+  "description": "Replace port numbers with stable, named local URLs. For humans and agents.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/portless",
+  "skills": [
+    {
+      "name": "portless",
+      "description": ""
+    }
+  ]
+}
