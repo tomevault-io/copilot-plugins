@@ -1,0 +1,22 @@
+{
+  "name": "whisper-money--whisper-money",
+  "displayName": "whisper-money",
+  "description": "Understand your personal finances. Forget Excels, try Whisper Money.",
+  "version": "1.0.0",
+  "author": "whisper-money",
+  "homepage": "https://github.com/whisper-money/whisper-money",
+  "skills": [
+    {
+      "name": "inertia-react-development",
+      "description": ""
+    },
+    {
+      "name": "pennant-development",
+      "description": ""
+    },
+    {
+      "name": "wayfinder-development",
+      "description": ""
+    }
+  ]
+}
