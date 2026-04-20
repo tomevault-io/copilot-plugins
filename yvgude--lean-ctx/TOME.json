@@ -4,7 +4,7 @@
   "repo": "lean-ctx",
   "description": "Reduce AI coding costs by 99% \u2014 MCP Server + Shell Hook for Cursor, Claude Code, Copilot, Windsurf, Gemini CLI & 24 tools. Single Rust binary, zero telemetry.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yvgude/lean-ctx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:01:19Z"
+  "distributed_at": "2026-04-20T03:36:10Z"
 }
