@@ -1,0 +1,62 @@
+{
+  "name": "marcus--sidecar",
+  "displayName": "sidecar",
+  "description": "Use sidecar next to CLI agents for diffs, file trees, conversation history, and task management with td",
+  "version": "1.0.0",
+  "author": "marcus",
+  "homepage": "https://github.com/marcus/sidecar",
+  "skills": [
+    {
+      "name": "create-adapter",
+      "description": ""
+    },
+    {
+      "name": "create-modal",
+      "description": ""
+    },
+    {
+      "name": "create-plugin",
+      "description": ""
+    },
+    {
+      "name": "create-theme",
+      "description": ""
+    },
+    {
+      "name": "feature-flags",
+      "description": ""
+    },
+    {
+      "name": "inline-editor",
+      "description": ""
+    },
+    {
+      "name": "merge-strategy",
+      "description": ""
+    },
+    {
+      "name": "profile-memory",
+      "description": ""
+    },
+    {
+      "name": "project-switching",
+      "description": ""
+    },
+    {
+      "name": "release-sidecar",
+      "description": ""
+    },
+    {
+      "name": "sidecar-website",
+      "description": ""
+    },
+    {
+      "name": "ui-features",
+      "description": ""
+    },
+    {
+      "name": "worktree-switching",
+      "description": ""
+    }
+  ]
+}
