@@ -1,0 +1,198 @@
+{
+  "name": "openclaw--openclaw-windows-node",
+  "displayName": "openclaw",
+  "description": "Windows companion suite for OpenClaw - System Tray app, Shared library, Node, and PowerToys Command Palette extension",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/openclaw-windows-node",
+  "skills": [
+    {
+      "name": "1password",
+      "description": ""
+    },
+    {
+      "name": "apple-notes",
+      "description": ""
+    },
+    {
+      "name": "apple-reminders",
+      "description": ""
+    },
+    {
+      "name": "bear-notes",
+      "description": ""
+    },
+    {
+      "name": "blogwatcher",
+      "description": ""
+    },
+    {
+      "name": "blucli",
+      "description": ""
+    },
+    {
+      "name": "bluebubbles",
+      "description": ""
+    },
+    {
+      "name": "camsnap",
+      "description": ""
+    },
+    {
+      "name": "clawhub",
+      "description": ""
+    },
+    {
+      "name": "coding-agent",
+      "description": ""
+    },
+    {
+      "name": "feishu-doc",
+      "description": ""
+    },
+    {
+      "name": "feishu-perm",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "description": ""
+    },
+    {
+      "name": "gh-issues",
+      "description": ""
+    },
+    {
+      "name": "gifgrep",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "gog",
+      "description": ""
+    },
+    {
+      "name": "goplaces",
+      "description": ""
+    },
+    {
+      "name": "healthcheck",
+      "description": ""
+    },
+    {
+      "name": "himalaya",
+      "description": ""
+    },
+    {
+      "name": "imsg",
+      "description": ""
+    },
+    {
+      "name": "mcporter",
+      "description": ""
+    },
+    {
+      "name": "model-usage",
+      "description": ""
+    },
+    {
+      "name": "nano-pdf",
+      "description": ""
+    },
+    {
+      "name": "notion",
+      "description": ""
+    },
+    {
+      "name": "obsidian",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper-api",
+      "description": ""
+    },
+    {
+      "name": "openhue",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "description": ""
+    },
+    {
+      "name": "ordercli",
+      "description": ""
+    },
+    {
+      "name": "peekaboo",
+      "description": ""
+    },
+    {
+      "name": "prose",
+      "description": ""
+    },
+    {
+      "name": "sag",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "slack",
+      "description": ""
+    },
+    {
+      "name": "songsee",
+      "description": ""
+    },
+    {
+      "name": "things-mac",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "description": ""
+    },
+    {
+      "name": "trello",
+      "description": ""
+    },
+    {
+      "name": "video-frames",
+      "description": ""
+    },
+    {
+      "name": "wacli",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "description": ""
+    },
+    {
+      "name": "windows",
+      "description": ""
+    },
+    {
+      "name": "openclaw",
+      "description": ""
+    }
+  ]
+}
