@@ -1,6 +1,6 @@
-# VFX-Launcher-v2 — distributed by TomeVault
+# VFX-Launcher-v2
 
-> Originally from [NickPittas/VFX-Launcher-v2](https://github.com/NickPittas/VFX-Launcher-v2). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [NickPittas/VFX-Launcher-v2](https://github.com/NickPittas/VFX-Launcher-v2) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [NickPittas/VFX-Launcher-v2](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/NickPittas#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/NickPittas/VFX-Launcher-v2](https://github.com/NickPittas/VFX-Launcher-v2)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install NickPittas/VFX-Launcher-v2
 ```
-Or browse all formats at [https://tomevault.io/claim/NickPittas](https://tomevault.io/claim/NickPittas).
+Source: [github.com/NickPittas/VFX-Launcher-v2](https://github.com/NickPittas/VFX-Launcher-v2).
 
 <!-- genome:d-i-q -->
