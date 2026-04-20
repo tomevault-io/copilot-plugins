@@ -1,0 +1,9 @@
+{
+  "name": "garagon--nanostack",
+  "displayName": "nanostack",
+  "description": "Minimal AI coding agent team skills for the full engineering workflow. ",
+  "version": "1.0.0",
+  "author": "garagon",
+  "homepage": "https://github.com/garagon/nanostack",
+  "skills": []
+}
