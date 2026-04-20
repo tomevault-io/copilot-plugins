@@ -1,0 +1,141 @@
+{
+  "name": "skills",
+  "owner": "antfu",
+  "repo": "skills",
+  "description": "Anthony Fu's curated collection of agent skills.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vite",
+      "path": "skills/vite",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/vite",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "skills/vue",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "path": "skills/vue-best-practices",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "pnpm",
+      "path": "skills/pnpm",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/pnpm",
+      "description": ""
+    },
+    {
+      "name": "vueuse-functions",
+      "path": "skills/vueuse-functions",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/vueuse-functions",
+      "description": ""
+    },
+    {
+      "name": "antfu",
+      "path": "skills/antfu",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/antfu",
+      "description": ""
+    },
+    {
+      "name": "pinia",
+      "path": "skills/pinia",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/pinia",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": "skills/web-design-guidelines",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "nuxt",
+      "path": "skills/nuxt",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/nuxt",
+      "description": ""
+    },
+    {
+      "name": "slidev",
+      "path": "skills/slidev",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/slidev",
+      "description": ""
+    },
+    {
+      "name": "tsdown",
+      "path": "skills/tsdown",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/tsdown",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "path": "skills/turborepo",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/turborepo",
+      "description": ""
+    },
+    {
+      "name": "unocss",
+      "path": "skills/unocss",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/unocss",
+      "description": ""
+    },
+    {
+      "name": "vitepress",
+      "path": "skills/vitepress",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/vitepress",
+      "description": ""
+    },
+    {
+      "name": "vue-router-best-practices",
+      "path": "skills/vue-router-best-practices",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/vue-router-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-testing-best-practices",
+      "path": "skills/vue-testing-best-practices",
+      "github_url": "https://github.com/antfu/skills/tree/main/skills/vue-testing-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/antfu/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:35:22Z"
+}
