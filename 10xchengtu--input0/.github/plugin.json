@@ -1,0 +1,9 @@
+{
+  "name": "10xchengtu--input0",
+  "displayName": "input0",
+  "description": "Input0 \u2014 A macOS voice input tool: hold a hotkey to record, release to transcribe locally via STT, refine with LLM, and auto-paste into the active text field.",
+  "version": "1.0.0",
+  "author": "10xChengTu",
+  "homepage": "https://github.com/10xChengTu/input0",
+  "skills": []
+}
