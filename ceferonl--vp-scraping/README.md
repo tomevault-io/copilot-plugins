@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ceferonl/vp-scraping](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ceferonl)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ceferonl/vp-scraping](https://github.com/ceferonl/vp-scraping)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ceferonl/vp-scraping
 ```
-Or browse all formats at [https://tomevault.io/claim/ceferonl](https://tomevault.io/claim/ceferonl).
+Source: [github.com/ceferonl/vp-scraping](https://github.com/ceferonl/vp-scraping).
 
 <!-- genome:a-i-p -->
