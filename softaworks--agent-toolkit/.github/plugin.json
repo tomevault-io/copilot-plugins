@@ -1,0 +1,46 @@
+{
+  "name": "softaworks--agent-toolkit",
+  "displayName": "agent-toolkit",
+  "description": "A curated collection of skills for AI coding agents. Skills are packaged instructions and scripts that extend agent capabilities across development, documentation, planning, and professional workflows",
+  "version": "1.0.0",
+  "author": "softaworks",
+  "homepage": "https://github.com/softaworks/agent-toolkit",
+  "skills": [
+    {
+      "name": "mermaid-diagrams",
+      "description": ""
+    },
+    {
+      "name": "writing-clearly-and-concisely",
+      "description": ""
+    },
+    {
+      "name": "commit-work",
+      "description": ""
+    },
+    {
+      "name": "reducing-entropy",
+      "description": ""
+    },
+    {
+      "name": "marp-slide",
+      "description": ""
+    },
+    {
+      "name": "lesson-learned",
+      "description": ""
+    },
+    {
+      "name": "web-to-markdown",
+      "description": ""
+    },
+    {
+      "name": "react-dev",
+      "description": ""
+    },
+    {
+      "name": "react-useeffect",
+      "description": ""
+    }
+  ]
+}
