@@ -1,0 +1,14 @@
+{
+  "name": "notedit--happy-skills",
+  "displayName": "happy-skills",
+  "description": "happy skills",
+  "version": "1.0.0",
+  "author": "notedit",
+  "homepage": "https://github.com/notedit/happy-skills",
+  "skills": [
+    {
+      "name": "video-producer",
+      "description": ""
+    }
+  ]
+}
