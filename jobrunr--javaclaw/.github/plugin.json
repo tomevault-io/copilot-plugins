@@ -1,0 +1,9 @@
+{
+  "name": "jobrunr--javaclaw",
+  "displayName": "JavaClaw",
+  "description": "JavaClaw, a Java version of OpenClaw built on Spring Boot, Spring AI and JobRunr",
+  "version": "1.0.0",
+  "author": "jobrunr",
+  "homepage": "https://github.com/jobrunr/JavaClaw",
+  "skills": []
+}
