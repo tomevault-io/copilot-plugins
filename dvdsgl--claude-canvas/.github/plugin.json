@@ -1,0 +1,18 @@
+{
+  "name": "dvdsgl--claude-canvas",
+  "displayName": "claude-canvas",
+  "description": "Give Claude Code an external monitor",
+  "version": "1.0.0",
+  "author": "dvdsgl",
+  "homepage": "https://github.com/dvdsgl/claude-canvas",
+  "skills": [
+    {
+      "name": "canvas",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "description": ""
+    }
+  ]
+}
