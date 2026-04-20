@@ -1,6 +1,6 @@
-# MOBI_MVP_CLEAN — distributed by TomeVault
+# MOBI_MVP_CLEAN
 
-> Originally from [rzrcat/MOBI_MVP_CLEAN](https://github.com/rzrcat/MOBI_MVP_CLEAN). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [rzrcat/MOBI_MVP_CLEAN](https://github.com/rzrcat/MOBI_MVP_CLEAN) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [rzrcat/MOBI_MVP_CLEAN](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/rzrcat#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rzrcat/MOBI_MVP_CLEAN](https://github.com/rzrcat/MOBI_MVP_CLEAN)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install rzrcat/MOBI_MVP_CLEAN
 ```
-Or browse all formats at [https://tomevault.io/claim/rzrcat](https://tomevault.io/claim/rzrcat).
+Source: [github.com/rzrcat/MOBI_MVP_CLEAN](https://github.com/rzrcat/MOBI_MVP_CLEAN).
 
 <!-- genome:d-i-q -->
