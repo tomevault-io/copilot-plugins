@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [dimariabovol/french-teacher](https:/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/dimariabovol)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/dimariabovol/french-teacher](https://github.com/dimariabovol/french-teacher)
 
 ---
 
