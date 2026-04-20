@@ -1,0 +1,9 @@
+{
+  "name": "ataraxy-labs--opensessions",
+  "displayName": "opensessions",
+  "description": "persistent sidebar pane within tmux as a showing AI agent status across all sessions",
+  "version": "1.0.0",
+  "author": "Ataraxy-Labs",
+  "homepage": "https://github.com/Ataraxy-Labs/opensessions",
+  "skills": []
+}
