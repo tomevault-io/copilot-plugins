@@ -1,0 +1,58 @@
+{
+  "name": "a5c-ai--babysitter",
+  "displayName": "babysitter",
+  "description": "Babysitter enforces obedience on agentic workforces and enables them to manage extremely complex tasks and workflows through deterministic, hallucination-free self-orchestration",
+  "version": "1.0.0",
+  "author": "a5c-ai",
+  "homepage": "https://github.com/a5c-ai/babysitter",
+  "skills": [
+    {
+      "name": "babysit",
+      "description": ""
+    },
+    {
+      "name": "process-builder",
+      "description": ""
+    },
+    {
+      "name": "babysitter-breakpoint",
+      "description": ""
+    },
+    {
+      "name": "fastlane-mobile-ci-cd",
+      "description": ""
+    },
+    {
+      "name": "flutter-dart-development",
+      "description": ""
+    },
+    {
+      "name": "aeroelastic-analysis",
+      "description": ""
+    },
+    {
+      "name": "flutter-desktop-config",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "description": ""
+    },
+    {
+      "name": "vue-development",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "typescript-sdk-specialist",
+      "description": ""
+    },
+    {
+      "name": "python-sdk-specialist",
+      "description": ""
+    }
+  ]
+}
