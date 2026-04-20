@@ -1,0 +1,87 @@
+{
+  "name": "full-stack-skills",
+  "owner": "partme-ai",
+  "repo": "full-stack-skills",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u514d\u8d39\u7684\u5168\u6808\u5f00\u53d1\u6240\u9700\u7684\u6280\u80fd\u5e02\u573a\uff0c\u63d0\u4f9b\u5404\u79cd\u5b9e\u7528\u7684 AI \u6280\u80fd\u96c6\u5408\uff0c\u652f\u6301\u591a\u79cd\u5e73\u53f0\u3002",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue-router-v3",
+      "path": "skills/vue-skills/vue-router-v3",
+      "github_url": "https://github.com/partme-ai/full-stack-skills/tree/main/skills/vue-skills/vue-router-v3",
+      "description": ""
+    },
+    {
+      "name": "vue-router-v4",
+      "path": "skills/vue-skills/vue-router-v4",
+      "github_url": "https://github.com/partme-ai/full-stack-skills/tree/main/skills/vue-skills/vue-router-v4",
+      "description": ""
+    },
+    {
+      "name": "vue-router",
+      "path": "skills/vue-skills/vue-router",
+      "github_url": "https://github.com/partme-ai/full-stack-skills/tree/main/skills/vue-skills/vue-router",
+      "description": ""
+    },
+    {
+      "name": "vue3",
+      "path": "skills/vue-skills/vue3",
+      "github_url": "https://github.com/partme-ai/full-stack-skills/tree/main/skills/vue-skills/vue3",
+      "description": ""
+    },
+    {
+      "name": "vue2",
+      "path": "skills/vue-skills/vue2",
+      "github_url": "https://github.com/partme-ai/full-stack-skills/tree/main/skills/vue-skills/vue2",
+      "description": ""
+    },
+    {
+      "name": "vuex-vue2",
+      "path": "skills/vue-skills/vuex-vue2",
+      "github_url": "https://github.com/partme-ai/full-stack-skills/tree/main/skills/vue-skills/vuex-vue2",
+      "description": ""
+    },
+    {
+      "name": "django",
+      "path": "skills/python-skills/django",
+      "github_url": "https://github.com/partme-ai/full-stack-skills/tree/main/skills/python-skills/django",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/partme-ai/full-stack-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T12:04:42Z"
+}
