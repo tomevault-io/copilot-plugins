@@ -1,0 +1,106 @@
+{
+  "name": "wondelai--skills",
+  "displayName": "skills",
+  "description": "Agent skills for Claude Code and other agentskills.io-compatible agents. See https://developertoolkit.ai for more information about skills in general.",
+  "version": "1.0.0",
+  "author": "wondelai",
+  "homepage": "https://github.com/wondelai/skills",
+  "skills": [
+    {
+      "name": "refactoring-ui",
+      "description": ""
+    },
+    {
+      "name": "cro-methodology",
+      "description": ""
+    },
+    {
+      "name": "blue-ocean-strategy",
+      "description": ""
+    },
+    {
+      "name": "contagious",
+      "description": ""
+    },
+    {
+      "name": "crossing-the-chasm",
+      "description": ""
+    },
+    {
+      "name": "design-everyday-things",
+      "description": ""
+    },
+    {
+      "name": "design-sprint",
+      "description": ""
+    },
+    {
+      "name": "drive-motivation",
+      "description": ""
+    },
+    {
+      "name": "hooked-ux",
+      "description": ""
+    },
+    {
+      "name": "hundred-million-offers",
+      "description": ""
+    },
+    {
+      "name": "influence-psychology",
+      "description": ""
+    },
+    {
+      "name": "ios-hig-design",
+      "description": ""
+    },
+    {
+      "name": "jobs-to-be-done",
+      "description": ""
+    },
+    {
+      "name": "lean-startup",
+      "description": ""
+    },
+    {
+      "name": "made-to-stick",
+      "description": ""
+    },
+    {
+      "name": "negotiation",
+      "description": ""
+    },
+    {
+      "name": "obviously-awesome",
+      "description": ""
+    },
+    {
+      "name": "one-page-marketing",
+      "description": ""
+    },
+    {
+      "name": "predictable-revenue",
+      "description": ""
+    },
+    {
+      "name": "scorecard-marketing",
+      "description": ""
+    },
+    {
+      "name": "storybrand-messaging",
+      "description": ""
+    },
+    {
+      "name": "top-design",
+      "description": ""
+    },
+    {
+      "name": "ux-heuristics",
+      "description": ""
+    },
+    {
+      "name": "web-typography",
+      "description": ""
+    }
+  ]
+}
