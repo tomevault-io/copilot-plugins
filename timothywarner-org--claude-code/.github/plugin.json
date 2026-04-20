@@ -1,0 +1,14 @@
+{
+  "name": "timothywarner-org--claude-code",
+  "displayName": "claude-code",
+  "description": "Claude Code and Large-Context Reasoning (O'Reilly Live Learning)",
+  "version": "1.0.0",
+  "author": "timothywarner-org",
+  "homepage": "https://github.com/timothywarner-org/claude-code",
+  "skills": [
+    {
+      "name": "mcp-scaffold",
+      "description": ""
+    }
+  ]
+}
