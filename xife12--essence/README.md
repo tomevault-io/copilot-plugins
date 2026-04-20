@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [xife12/essence](https://github.com/xi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/xife12)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/xife12/essence](https://github.com/xife12/essence)
 
 ---
 
