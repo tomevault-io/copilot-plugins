@@ -1,0 +1,18 @@
+{
+  "name": "absolutelyskilled--absolutelyskilled",
+  "displayName": "AbsolutelySkilled",
+  "description": "Awesome Skills from Around the World",
+  "version": "1.0.0",
+  "author": "AbsolutelySkilled",
+  "homepage": "https://github.com/AbsolutelySkilled/AbsolutelySkilled",
+  "skills": [
+    {
+      "name": "git-advanced",
+      "description": ""
+    },
+    {
+      "name": "absolute-simplify",
+      "description": ""
+    }
+  ]
+}
