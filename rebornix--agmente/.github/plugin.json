@@ -1,0 +1,18 @@
+{
+  "name": "rebornix--agmente",
+  "displayName": "Agmente",
+  "description": "iOS client for coding agents via ACP or Codex app-server",
+  "version": "1.0.0",
+  "author": "rebornix",
+  "homepage": "https://github.com/rebornix/Agmente",
+  "skills": [
+    {
+      "name": "run-agmente-codex-e2e",
+      "description": ""
+    },
+    {
+      "name": "run-agmente-e2e",
+      "description": ""
+    }
+  ]
+}
