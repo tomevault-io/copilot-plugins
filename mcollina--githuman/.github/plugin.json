@@ -1,0 +1,14 @@
+{
+  "name": "mcollina--githuman",
+  "displayName": "githuman",
+  "description": "Keep the Human in the Loop of coding",
+  "version": "1.0.0",
+  "author": "mcollina",
+  "homepage": "https://github.com/mcollina/githuman",
+  "skills": [
+    {
+      "name": "githuman",
+      "description": ""
+    }
+  ]
+}
