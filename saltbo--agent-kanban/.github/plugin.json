@@ -1,0 +1,9 @@
+{
+  "name": "saltbo--agent-kanban",
+  "displayName": "agent-kanban",
+  "description": "An agent-first task board, Mission control for your AI workforce.",
+  "version": "1.0.0",
+  "author": "saltbo",
+  "homepage": "https://github.com/saltbo/agent-kanban",
+  "skills": []
+}
