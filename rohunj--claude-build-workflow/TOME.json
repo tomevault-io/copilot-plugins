@@ -1,0 +1,135 @@
+{
+  "name": "claude-build-workflow",
+  "owner": "rohunj",
+  "repo": "claude-build-workflow",
+  "description": "Automated workflow for building apps with Claude Code. Describe what you want, answer questions, let it build autonomously.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": "skills/agent-browser",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "bugs-to-stories",
+      "path": "skills/bugs-to-stories",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/bugs-to-stories",
+      "description": ""
+    },
+    {
+      "name": "compound-engineering",
+      "path": "skills/compound-engineering",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/compound-engineering",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "skills/docx",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "edge-cases",
+      "path": "skills/edge-cases",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/edge-cases",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "skills/pdf",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "path": "skills/prd",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/prd",
+      "description": ""
+    },
+    {
+      "name": "pytm",
+      "path": "skills/security/pytm",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/security/pytm",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "path": "skills/ralph",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/ralph",
+      "description": ""
+    },
+    {
+      "name": "sast-semgrep",
+      "path": "skills/security/sast-semgrep",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/security/sast-semgrep",
+      "description": ""
+    },
+    {
+      "name": "sca-trivy",
+      "path": "skills/security/sca-trivy",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/security/sca-trivy",
+      "description": ""
+    },
+    {
+      "name": "secrets-gitleaks",
+      "path": "skills/security/secrets-gitleaks",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/security/secrets-gitleaks",
+      "description": ""
+    },
+    {
+      "name": "test-and-break",
+      "path": "skills/test-and-break",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/test-and-break",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "skills/react-best-practices",
+      "github_url": "https://github.com/rohunj/claude-build-workflow/tree/main/skills/react-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rohunj/claude-build-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:52:57Z"
+}
