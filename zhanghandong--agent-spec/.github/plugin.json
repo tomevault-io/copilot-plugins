@@ -1,0 +1,9 @@
+{
+  "name": "zhanghandong--agent-spec",
+  "displayName": "agent-spec",
+  "description": "`agent-spec` is an AI-native BDD/spec verification tool for task execution.",
+  "version": "1.0.0",
+  "author": "ZhangHanDong",
+  "homepage": "https://github.com/ZhangHanDong/agent-spec",
+  "skills": []
+}
