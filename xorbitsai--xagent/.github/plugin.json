@@ -1,0 +1,18 @@
+{
+  "name": "xorbitsai--xagent",
+  "displayName": "xagent",
+  "description": "A production-ready platform for dynamic AI agents \u2014 plan, use tools, and complete real work without hardcoded workflows.",
+  "version": "1.0.0",
+  "author": "xorbitsai",
+  "homepage": "https://github.com/xorbitsai/xagent",
+  "skills": [
+    {
+      "name": "evidence-based-rag",
+      "description": ""
+    },
+    {
+      "name": "poster-design",
+      "description": ""
+    }
+  ]
+}
