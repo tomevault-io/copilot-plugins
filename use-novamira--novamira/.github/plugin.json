@@ -1,0 +1,9 @@
+{
+  "name": "use-novamira--novamira",
+  "displayName": "novamira",
+  "description": "MCP server that gives AI agents full access to WordPress through PHP execution and filesystem operations",
+  "version": "1.0.0",
+  "author": "use-novamira",
+  "homepage": "https://github.com/use-novamira/novamira",
+  "skills": []
+}
