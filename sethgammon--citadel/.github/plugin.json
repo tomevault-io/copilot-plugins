@@ -1,0 +1,9 @@
+{
+  "name": "sethgammon--citadel",
+  "displayName": "Citadel",
+  "description": "Agent orchestration harness for Claude Code. Four-tier routing (/do), campaign persistence across sessions, parallel agents in isolated worktrees, discovery relay between waves, lifecycle hooks, circu",
+  "version": "1.0.0",
+  "author": "SethGammon",
+  "homepage": "https://github.com/SethGammon/Citadel",
+  "skills": []
+}
