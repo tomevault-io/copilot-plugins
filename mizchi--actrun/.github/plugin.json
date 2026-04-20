@@ -1,0 +1,9 @@
+{
+  "name": "mizchi--actrun",
+  "displayName": "actrun",
+  "description": "GitHub Actions compatible local runner",
+  "version": "1.0.0",
+  "author": "mizchi",
+  "homepage": "https://github.com/mizchi/actrun",
+  "skills": []
+}
