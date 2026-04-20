@@ -1,0 +1,14 @@
+{
+  "name": "jihe520--mindpocket",
+  "displayName": "mindpocket",
+  "description": "Open-source, free, multi-platform, one-click deploy, AI Agent\u2013integrated personal bookmarking system\uff5c\u5b8c\u5168\u5f00\u6e90\u3001\u514d\u8d39\u3001\u591a\u7aef\u3001\u4e00\u952e\u90e8\u7f72\u3001AI Agent \u96c6\u6210\u7684\u4e2a\u4eba\u6536\u85cf\u5939\u7cfb\u7edf",
+  "version": "1.0.0",
+  "author": "jihe520",
+  "homepage": "https://github.com/jihe520/mindpocket",
+  "skills": [
+    {
+      "name": "ai-elements",
+      "description": ""
+    }
+  ]
+}
