@@ -1,6 +1,6 @@
-# STM32F429zi-FreeRTOS-LwIP — distributed by TomeVault
+# STM32F429zi-FreeRTOS-LwIP
 
-> Originally from [ArvoreDosSaberes/STM32F429zi-FreeRTOS-LwIP](https://github.com/ArvoreDosSaberes/STM32F429zi-FreeRTOS-LwIP). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ArvoreDosSaberes/STM32F429zi-FreeRTOS-LwIP](https://github.com/ArvoreDosSaberes/STM32F429zi-FreeRTOS-LwIP) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [ArvoreDosSaberes/STM32F429zi-FreeRTO
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ArvoreDosSaberes)
+From [ArvoreDosSaberes/STM32F429zi-FreeRTOS-LwIP](https://github.com/ArvoreDosSaberes/STM32F429zi-FreeRTOS-LwIP) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/ArvoreDosSaberes) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
