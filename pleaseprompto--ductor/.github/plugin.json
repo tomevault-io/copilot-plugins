@@ -1,0 +1,9 @@
+{
+  "name": "pleaseprompto--ductor",
+  "displayName": "ductor",
+  "description": "Control Claude Code, Codex CLI and Gemini CLI from Telegram. Live streaming, persistent memory, cron jobs, webhooks, Docker sandboxing.",
+  "version": "1.0.0",
+  "author": "PleasePrompto",
+  "homepage": "https://github.com/PleasePrompto/ductor",
+  "skills": []
+}
