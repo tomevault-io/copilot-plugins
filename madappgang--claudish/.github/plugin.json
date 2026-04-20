@@ -1,0 +1,14 @@
+{
+  "name": "madappgang--claudish",
+  "displayName": "claud",
+  "description": "Claude Code. Any Model. The most powerful AI coding agent now speaks every language.",
+  "version": "1.0.0",
+  "author": "MadAppGang",
+  "homepage": "https://github.com/MadAppGang/claudish",
+  "skills": [
+    {
+      "name": "vue-typescript",
+      "description": ""
+    }
+  ]
+}
