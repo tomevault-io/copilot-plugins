@@ -1,0 +1,9 @@
+{
+  "name": "pithings--voipi",
+  "displayName": "voipi",
+  "description": "\ud83c\udf99\ufe0f Give your apps, CLIs, and agents a voice. VoiPi is a universal, zero-dependency, free text-to-speech library for JavaScript.",
+  "version": "1.0.0",
+  "author": "pithings",
+  "homepage": "https://github.com/pithings/voipi",
+  "skills": []
+}
