@@ -1,0 +1,14 @@
+{
+  "name": "softspark--ai-toolkit",
+  "displayName": "ai-toolkit",
+  "description": "Professional-grade AI coding toolkit: 94 skills, 44 agents, multi-platform (Claude, Cursor, Windsurf, Copilot, Gemini, Cline, Roo Code, Aider, Augment, Antigravity, Codex CLI, opencode).",
+  "version": "1.0.0",
+  "author": "softspark",
+  "homepage": "https://github.com/softspark/ai-toolkit",
+  "skills": [
+    {
+      "name": "ci-cd-patterns",
+      "description": ""
+    }
+  ]
+}
