@@ -2,9 +2,9 @@
   "name": "langgraphgo",
   "owner": "smallnest",
   "repo": "langgraphgo",
-  "description": "AI instruction files for langgraphgo by smallnest",
+  "description": "\u529f\u80fd\u90a3\u4e48\u5f3a\u5927\uff0c\u4ee3\u7801\u5982\u6b64\u7b80\u5355",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -141,7 +141,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/smallnest",
+  "source_url": "https://github.com/smallnest/langgraphgo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T16:01:55Z"
+  "distributed_at": "2026-04-20T19:39:52Z"
 }
