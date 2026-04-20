@@ -1,0 +1,38 @@
+{
+  "name": "meleantonio--chernycode",
+  "displayName": "ChernyCode",
+  "description": "AI instruction skills by meleantonio",
+  "version": "1.0.0",
+  "author": "meleantonio",
+  "homepage": "https://github.com/meleantonio/ChernyCode",
+  "skills": [
+    {
+      "name": "code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "code-style",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "llm-development",
+      "description": ""
+    },
+    {
+      "name": "techdebt",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
