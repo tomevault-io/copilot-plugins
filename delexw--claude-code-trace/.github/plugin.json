@@ -1,0 +1,9 @@
+{
+  "name": "delexw--claude-code-trace",
+  "displayName": "claude-code-trace",
+  "description": "Real-time Claude Code session log viewer and monitor. Tail, search, and visualize JSONL session files with a native desktop GUI, a web and a tui. Built with Tauri 2, React, and TypeScript.",
+  "version": "1.0.0",
+  "author": "delexw",
+  "homepage": "https://github.com/delexw/claude-code-trace",
+  "skills": []
+}
