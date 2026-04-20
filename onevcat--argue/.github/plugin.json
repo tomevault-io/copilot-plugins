@@ -1,0 +1,9 @@
+{
+  "name": "onevcat--argue",
+  "displayName": "argue",
+  "description": "Harness-agnostic orchestration package for multi-agent consensus workflows",
+  "version": "1.0.0",
+  "author": "onevcat",
+  "homepage": "https://github.com/onevcat/argue",
+  "skills": []
+}
