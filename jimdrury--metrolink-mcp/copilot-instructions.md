@@ -1,100 +1,253 @@
 ## metrolink-mcp
 
-> These rules provides guidance for Unit Testing
+> This rule guides how to build forms using NextJS and React Hook Form
 
 
-# Testing Guide
+# Form Handling & Validation Guide
 
-## Unit Testing with Vitest
+## Form Handling with React Hook Form
 
-- **Use Vitest as the testing framework** for all unit tests
-- Write unit tests for utilities, hooks, and pure functions
-- **Colocate test files in the same directory as the file being tested**
-- **Use `.spec.ts` or `.spec.tsx` suffix** for test files (not `.test.ts`)
-- Pattern:
-  ```ts
-  // src/lib/utils.ts
-  export const formatDate = (date: Date) => {
-    // implementation
-  };
-  
-  // src/lib/utils.spec.ts (colocated in same directory)
-  import { describe, it, expect } from 'vitest';
-  import { formatDate } from './utils';
-  
-  describe('formatDate', () => {
-    it('should format date correctly', () => {
-      const date = new Date('2024-01-01');
-      expect(formatDate(date)).toBe('Jan 1, 2024');
-    });
-  });
-  ```
+### Mandatory Usage
 
-## Component Testing
+- **ONLY use React Hook Form** for all form components
+- **NEVER** hook into events individually (no direct `onChange`, `onSubmit`, `onBlur` handlers on form inputs)
+- All form state management must go through React Hook Form's `useForm` hook
 
-- Test component behavior, not implementation details
-- Use React Testing Library for component tests
-- Test user interactions and outcomes
-- **Colocate test files with components using `.spec.tsx` suffix**
-- Pattern:
+### Basic Form Pattern
+
+- Use `useForm` hook from `react-hook-form`
+- Define form schema/types for type safety
+- Use `register` to connect inputs to the form
+- Use `handleSubmit` for form submission
+- Example:
   ```tsx
-  // src/components/Button.tsx
+  import { useForm } from 'react-hook-form';
   import type { FC } from 'react';
   
-  interface ButtonProps {
-    onClick: () => void;
+  interface FormData {
+    email: string;
+    password: string;
   }
   
-  const Button: FC<ButtonProps> = ({ onClick, children }) => (
-    <button onClick={onClick}>{children}</button>
-  );
+  interface LoginFormProps {
+    onSubmit: (data: FormData) => void;
+  }
   
-  export default Button;
+  const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   
-  // src/components/Button.spec.tsx (colocated in same directory)
-  import { describe, it, expect, vi } from 'vitest';
-  import { render, screen } from '@testing-library/react';
-  import userEvent from '@testing-library/user-event';
-  import Button from './Button';
+    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          {...register('email', { required: 'Email is required' })}
+          type="email"
+        />
+        {errors.email && <span>{errors.email.message}</span>}
   
-  describe('Button', () => {
-    it('should call onClick when clicked', async () => {
-      const handleClick = vi.fn();
-      render(<Button onClick={handleClick}>Click me</Button>);
+        <input
+          {...register('password', { required: 'Password is required' })}
+          type="password"
+        />
+        {errors.password && <span>{errors.password.message}</span>}
   
-      await userEvent.click(screen.getByRole('button'));
-      expect(handleClick).toHaveBeenCalledTimes(1);
-    });
+        <button type="submit">Submit</button>
+      </form>
+    );
+  };
+  
+  export default LoginForm;
+  ```
+
+### Form Validation
+
+- Use React Hook Form's built-in validation rules
+- For complex validation, use schema validation libraries (e.g., Zod, Yup) with `@hookform/resolvers`
+- **Always use `z.infer` to infer form data types from Zod schemas** (never manually define types)
+- Example with Zod:
+  ```tsx
+  import { useForm } from 'react-hook-form';
+  import { zodResolver } from '@hookform/resolvers/zod';
+  import { z } from 'zod';
+  
+  const formSchema = z.object({
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
   });
+  
+  // Infer type from schema
+  type FormData = z.infer<typeof formSchema>;
+  
+  const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+      resolver: zodResolver(formSchema),
+    });
+  
+    // ... rest of component
+  };
   ```
 
-## Test File Organization
+### Form Field Registration
 
-- Colocate test files with source files in the same directory
-- Use `.spec.ts` for TypeScript test files
-- Use `.spec.tsx` for React component test files
-- Example structure:
+- Always use the spread operator with `register()`: `{...register('fieldName')}`
+- Never manually manage `value`, `onChange`, or `onBlur` props
+- For controlled components, use `Controller` or `useController` from React Hook Form
+
+### Form Submission
+
+- Always use `handleSubmit` wrapper for form submission
+- `handleSubmit` takes two callbacks: `onValid` and `onInvalid` (optional)
+- Example:
+  ```tsx
+  const onSubmit = (data: FormData) => {
+    // Handle valid form submission
+    console.log(data);
+  };
+  
+  const onError = (errors: FieldErrors<FormData>) => {
+    // Handle validation errors
+    console.error(errors);
+  };
+  
+  <form onSubmit={handleSubmit(onSubmit, onError)}>
+    {/* form fields */}
+  </form>
   ```
-  src/
-    ├── lib/
-    │   ├── utils.ts
-    │   └── utils.spec.ts          # Colocated test
-    ├── components/
-    │   ├── Button.tsx
-    │   └── Button.spec.tsx       # Colocated test
-    └── hooks/
-        ├── useAuth.ts
-        └── useAuth.spec.ts        # Colocated test
+
+### Prohibited Patterns
+
+- ❌ **DO NOT** use direct event handlers:
+  ```tsx
+  // WRONG - Never do this
+  <input
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    onBlur={handleBlur}
+  />
   ```
 
-## Testing Best Practices
+- ❌ **DO NOT** manually manage form state:
+  ```tsx
+  // WRONG - Never do this
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  ```
 
-- Write tests that describe behavior, not implementation
-- Use descriptive test names
-- Follow AAA pattern (Arrange, Act, Assert)
-- Mock external dependencies
-- Test error cases and edge cases
+- ✅ **DO** use React Hook Form:
+  ```tsx
+  // CORRECT
+  <input {...register('email')} />
+  ```
+
+### Advanced Patterns
+
+- Use `Controller` component for complex inputs (date pickers, rich text editors, etc.)
+- Use `useWatch` for watching specific field values
+- Use `setValue`, `getValues`, `reset` for programmatic form control
+- Use `formState` for accessing form state (isDirty, isValid, isSubmitting, etc.)
+
+## Zod Type Inference
+
+### Prefer Zod-Inferred Types
+
+- **ALWAYS** use `z.infer<typeof schema>` to infer types from Zod schemas
+- Never manually define types that duplicate Zod schema definitions
+- This ensures type safety and keeps types in sync with validation schemas
+- Example:
+  ```ts
+  import { z } from 'zod';
+  
+  // Define schema
+  const userSchema = z.object({
+    email: z.string().email(),
+    name: z.string().min(1),
+    age: z.number().int().positive(),
+  });
+  
+  // ✅ CORRECT - Infer type from schema
+  type User = z.infer<typeof userSchema>;
+  
+  // ❌ WRONG - Don't manually define types
+  // type User = {
+  //   email: string;
+  //   name: string;
+  //   age: number;
+  // };
+  ```
+
+### Type Inference Best Practices
+
+- Use inferred types for function parameters, return types, and component props
+- Export inferred types alongside schemas for reuse
+- Example:
+  ```ts
+  const createUserSchema = z.object({
+    email: z.string().email('Invalid email address'),
+    name: z.string().min(1, 'Name is required'),
+    age: z.number().int().positive('Age must be a positive integer'),
+  });
+  
+  // Export both schema and inferred type
+  export { createUserSchema };
+  export type CreateUserInput = z.infer<typeof createUserSchema>;
+  ```
+
+## Server Action Validation
+
+### Zod Validation for Parameters
+
+- **ALWAYS** validate Server Action parameters using Zod schemas
+- Define Zod schema for action parameters
+- **Use `z.infer` to infer types from schemas** (never manually define types)
+- Parse and validate parameters at the start of the action
+- Return typed, validated data
+- Example:
+  ```tsx
+  'use server';
+  
+  import { z } from 'zod';
+  
+  const createUserSchema = z.object({
+    email: z.string().email('Invalid email address'),
+    name: z.string().min(1, 'Name is required'),
+    age: z.number().int().positive('Age must be a positive integer'),
+  });
+  
+  // Infer type from schema
+  type CreateUserInput = z.infer<typeof createUserSchema>;
+  
+  export const createUser = async (params: unknown) => {
+    // Validate parameters
+    const validatedParams = createUserSchema.parse(params);
+  
+    // Use validatedParams (now type-safe)
+    const { email, name, age } = validatedParams;
+  
+    // Server action implementation
+    // ...
+  };
+  ```
+
+### Error Handling in Server Actions
+
+- Use Zod's `safeParse` for error handling when needed
+- Return consistent error response format
+- Example:
+  ```tsx
+  export const createUser = async (params: unknown) => {
+    const result = createUserSchema.safeParse(params);
+  
+    if (!result.success) {
+      return {
+        success: false,
+        error: result.error.format(),
+      };
+    }
+  
+    const { email, name, age } = result.data;
+    // ... implementation
+    return { success: true, data: user };
+  };
+  ```
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/jimdrury) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
