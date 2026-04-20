@@ -1,0 +1,14 @@
+{
+  "name": "better-auth--better-hub",
+  "displayName": "better",
+  "description": "Re-imagining code collaboration for humans and agents",
+  "version": "1.0.0",
+  "author": "better-auth",
+  "homepage": "https://github.com/better-auth/better-hub",
+  "skills": [
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
