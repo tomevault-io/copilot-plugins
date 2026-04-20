@@ -1,0 +1,9 @@
+{
+  "name": "skywind3000--gamelib",
+  "displayName": "GameLib",
+  "description": "Single-header C++ Game Library for Beginners \u2014 no SDL/DirectX/OpenGL, no setup, just include and play.",
+  "version": "1.0.0",
+  "author": "skywind3000",
+  "homepage": "https://github.com/skywind3000/GameLib",
+  "skills": []
+}
