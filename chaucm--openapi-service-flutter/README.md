@@ -1,6 +1,6 @@
-# openapi_service_flutter — distributed by TomeVault
+# openapi_service_flutter
 
-> Originally from [ChauCM/openapi_service_flutter](https://github.com/ChauCM/openapi_service_flutter). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ChauCM/openapi_service_flutter](https://github.com/ChauCM/openapi_service_flutter) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ChauCM/openapi_service_flutter](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ChauCM#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ChauCM/openapi_service_flutter](https://github.com/ChauCM/openapi_service_flutter)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ChauCM/openapi_service_flutter
 ```
-Or browse all formats at [https://tomevault.io/claim/ChauCM](https://tomevault.io/claim/ChauCM).
+Source: [github.com/ChauCM/openapi_service_flutter](https://github.com/ChauCM/openapi_service_flutter).
 
 <!-- genome:d-i-q -->
