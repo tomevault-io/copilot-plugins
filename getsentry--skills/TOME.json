@@ -1,0 +1,111 @@
+{
+  "name": "skills",
+  "owner": "getsentry",
+  "repo": "skills",
+  "description": "Agent Skills used by the Sentry team for development.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-md",
+      "path": "plugins/sentry-skills/skills/agents-md",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/agents-md",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "path": "plugins/sentry-skills/skills/brand-guidelines",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "claude-settings-audit",
+      "path": "plugins/sentry-skills/skills/claude-settings-audit",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/claude-settings-audit",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "path": "plugins/sentry-skills/skills/code-simplifier",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": "plugins/sentry-skills/skills/commit",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "django-access-review",
+      "path": "plugins/sentry-skills/skills/django-access-review",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/django-access-review",
+      "description": ""
+    },
+    {
+      "name": "django-perf-review",
+      "path": "plugins/sentry-skills/skills/django-perf-review",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/django-perf-review",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "path": "plugins/sentry-skills/skills/doc-coauthoring",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "find-bugs",
+      "path": "plugins/sentry-skills/skills/find-bugs",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/find-bugs",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "path": "plugins/sentry-skills/skills/security-review",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/security-review",
+      "description": ""
+    },
+    {
+      "name": "skill-scanner",
+      "path": "plugins/sentry-skills/skills/skill-scanner",
+      "github_url": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/skill-scanner",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/getsentry/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T15:50:27Z"
+}
