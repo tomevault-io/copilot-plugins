@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [TrevorPLam/agency-platform](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/TrevorPLam#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/TrevorPLam/agency-platform](https://github.com/TrevorPLam/agency-platform)
 
 ---
 
