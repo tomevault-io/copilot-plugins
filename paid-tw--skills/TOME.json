@@ -1,0 +1,87 @@
+{
+  "name": "skills",
+  "owner": "paid-tw",
+  "repo": "skills",
+  "description": "\u53f0\u7063\u7b2c\u4e09\u65b9\u91d1\u6d41 Skills for AI Agents - \u85cd\u65b0\u91d1\u6d41\u3001\u7da0\u754c\u79d1\u6280 ECPay\u3001\u7d71\u4e00\u91d1\u6d41 PAYUNi",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ecpay",
+      "path": "plugins/ecpay/skills/ecpay",
+      "github_url": "https://github.com/paid-tw/skills/tree/main/plugins/ecpay/skills/ecpay",
+      "description": ""
+    },
+    {
+      "name": "newebpay",
+      "path": "plugins/newebpay/skills/newebpay",
+      "github_url": "https://github.com/paid-tw/skills/tree/main/plugins/newebpay/skills/newebpay",
+      "description": ""
+    },
+    {
+      "name": "newebpay-query",
+      "path": "plugins/newebpay/skills/newebpay-query",
+      "github_url": "https://github.com/paid-tw/skills/tree/main/plugins/newebpay/skills/newebpay-query",
+      "description": ""
+    },
+    {
+      "name": "payment-help",
+      "path": "plugins/payment-help/skills/payment-help",
+      "github_url": "https://github.com/paid-tw/skills/tree/main/plugins/payment-help/skills/payment-help",
+      "description": ""
+    },
+    {
+      "name": "payuni",
+      "path": "plugins/payuni/skills/payuni",
+      "github_url": "https://github.com/paid-tw/skills/tree/main/plugins/payuni/skills/payuni",
+      "description": ""
+    },
+    {
+      "name": "payuni-query",
+      "path": "plugins/payuni/skills/payuni-query",
+      "github_url": "https://github.com/paid-tw/skills/tree/main/plugins/payuni/skills/payuni-query",
+      "description": ""
+    },
+    {
+      "name": "payuni-webhook",
+      "path": "plugins/payuni/skills/payuni-webhook",
+      "github_url": "https://github.com/paid-tw/skills/tree/main/plugins/payuni/skills/payuni-webhook",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/paid-tw/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-20T11:48:46Z"
+}
