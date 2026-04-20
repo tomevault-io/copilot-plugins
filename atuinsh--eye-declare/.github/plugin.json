@@ -1,0 +1,9 @@
+{
+  "name": "atuinsh--eye-declare",
+  "displayName": "eye-declare",
+  "description": "A declarative inline TUI rendering library for Rust, built on Ratatui",
+  "version": "1.0.0",
+  "author": "atuinsh",
+  "homepage": "https://github.com/atuinsh/eye-declare",
+  "skills": []
+}
