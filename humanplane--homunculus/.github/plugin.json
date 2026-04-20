@@ -1,0 +1,18 @@
+{
+  "name": "humanplane--homunculus",
+  "displayName": "homunculus",
+  "description": "A Claude Code plugin that watches how you work, learns your patterns, and evolves itself to help you better.",
+  "version": "1.0.0",
+  "author": "humanplane",
+  "homepage": "https://github.com/humanplane/homunculus",
+  "skills": [
+    {
+      "name": "instinct-apply",
+      "description": ""
+    },
+    {
+      "name": "session-memory",
+      "description": ""
+    }
+  ]
+}
