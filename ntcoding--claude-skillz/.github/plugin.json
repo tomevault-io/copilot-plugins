@@ -1,0 +1,14 @@
+{
+  "name": "ntcoding--claude-skillz",
+  "displayName": "claude-skillz",
+  "description": "Random Claude skills for common, simple programming tasks",
+  "version": "1.0.0",
+  "author": "NTCoding",
+  "homepage": "https://github.com/NTCoding/claude-skillz",
+  "skills": [
+    {
+      "name": "typescript-backend-project-setup",
+      "description": ""
+    }
+  ]
+}
