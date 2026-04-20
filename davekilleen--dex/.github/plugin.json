@@ -1,0 +1,14 @@
+{
+  "name": "davekilleen--dex",
+  "displayName": "Dex",
+  "description": "Your AI Chief of Staff \u2014 a personal operating system starter kit that adapts to your role. No coding required.",
+  "version": "1.0.0",
+  "author": "davekilleen",
+  "homepage": "https://github.com/davekilleen/Dex",
+  "skills": [
+    {
+      "name": "dex-backlog",
+      "description": ""
+    }
+  ]
+}
