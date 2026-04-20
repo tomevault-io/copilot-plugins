@@ -1,0 +1,9 @@
+{
+  "name": "oguzbilgic--agent-kernel",
+  "displayName": "agent-kernel",
+  "description": "Minimal kernel to make any AI coding agent stateful. Clone, point your agent, go.",
+  "version": "1.0.0",
+  "author": "oguzbilgic",
+  "homepage": "https://github.com/oguzbilgic/agent-kernel",
+  "skills": []
+}
