@@ -1,0 +1,14 @@
+{
+  "name": "marcus--nightshift",
+  "displayName": "nightshift",
+  "description": "Nightshift uses your leftover Claude / Codex budget to surprise you with useful PRs. Love them or leave them.",
+  "version": "1.0.0",
+  "author": "marcus",
+  "homepage": "https://github.com/marcus/nightshift",
+  "skills": [
+    {
+      "name": "nightshift-release",
+      "description": ""
+    }
+  ]
+}
