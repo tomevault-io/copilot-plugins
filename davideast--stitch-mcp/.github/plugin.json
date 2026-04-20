@@ -1,0 +1,14 @@
+{
+  "name": "davideast--stitch-mcp",
+  "displayName": "stitch-mcp",
+  "description": "A CLI for moving AI-generated UI designs from Google\u2019s Stitch platform into your development workflow.",
+  "version": "1.0.0",
+  "author": "davideast",
+  "homepage": "https://github.com/davideast/stitch-mcp",
+  "skills": [
+    {
+      "name": "typed-service-contract",
+      "description": ""
+    }
+  ]
+}
