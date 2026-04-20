@@ -1,0 +1,86 @@
+{
+  "name": "joelhooks--swarm-tools",
+  "displayName": "swarm-tools",
+  "description": "\ud83d\udc1d Multi-agent swarm coordination for OpenCode with learning capabilities, agent issue tracking, and management",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/swarm-tools",
+  "skills": [
+    {
+      "name": "always-on-guidance",
+      "description": ""
+    },
+    {
+      "name": "always-on-guidance",
+      "description": ""
+    },
+    {
+      "name": "cli-builder",
+      "description": ""
+    },
+    {
+      "name": "gh-issue-triage",
+      "description": ""
+    },
+    {
+      "name": "publish-package-cicd",
+      "description": ""
+    },
+    {
+      "name": "queue",
+      "description": ""
+    },
+    {
+      "name": "ralph-supervisor",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-generator",
+      "description": ""
+    },
+    {
+      "name": "swarm-cli",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "system-design",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    }
+  ]
+}
