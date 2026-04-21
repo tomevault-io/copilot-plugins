@@ -1,0 +1,9 @@
+{
+  "name": "soimy--openclaw-channel-dingtalk",
+  "displayName": "openclaw-channel-dingtalk",
+  "description": "Dingtalk channel plugin for OpenClaw",
+  "version": "1.0.0",
+  "author": "soimy",
+  "homepage": "https://github.com/soimy/openclaw-channel-dingtalk",
+  "skills": []
+}
