@@ -1,0 +1,18 @@
+{
+  "name": "weaviate--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agent Skills to empower developers building AI applications with Weaviate.",
+  "version": "1.0.0",
+  "author": "weaviate",
+  "homepage": "https://github.com/weaviate/agent-skills",
+  "skills": [
+    {
+      "name": "weaviate-cookbooks",
+      "description": ""
+    },
+    {
+      "name": "weaviate",
+      "description": ""
+    }
+  ]
+}
