@@ -1,0 +1,358 @@
+{
+  "name": "pproenca--dot-skills",
+  "displayName": "dot-skills",
+  "description": "A collection of AI agent skills following the Agent Skills open format",
+  "version": "1.0.0",
+  "author": "pproenca",
+  "homepage": "https://github.com/pproenca/dot-skills",
+  "skills": [
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "zod",
+      "description": ""
+    },
+    {
+      "name": "clean-architecture",
+      "description": ""
+    },
+    {
+      "name": "nuqs",
+      "description": ""
+    },
+    {
+      "name": "emilkowal-animations",
+      "description": ""
+    },
+    {
+      "name": "shadcn",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "description": ""
+    },
+    {
+      "name": "ui-design",
+      "description": ""
+    },
+    {
+      "name": "react-hook-form",
+      "description": ""
+    },
+    {
+      "name": "terminal-ui",
+      "description": ""
+    },
+    {
+      "name": "expo",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "tailwind",
+      "description": ""
+    },
+    {
+      "name": "wxt-browser-extensions",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "description": ""
+    },
+    {
+      "name": "msw",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "description": ""
+    },
+    {
+      "name": "feature-spec",
+      "description": ""
+    },
+    {
+      "name": "shell",
+      "description": ""
+    },
+    {
+      "name": "chrome-extension",
+      "description": ""
+    },
+    {
+      "name": "nextjs",
+      "description": ""
+    },
+    {
+      "name": "tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "chrome-extension-ui",
+      "description": ""
+    },
+    {
+      "name": "clean-code",
+      "description": ""
+    },
+    {
+      "name": "feature-arch",
+      "description": ""
+    },
+    {
+      "name": "humanize",
+      "description": ""
+    },
+    {
+      "name": "orval",
+      "description": ""
+    },
+    {
+      "name": "skill-authoring",
+      "description": ""
+    },
+    {
+      "name": "pulumi",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "description": ""
+    },
+    {
+      "name": "mui-base",
+      "description": ""
+    },
+    {
+      "name": "ts-google",
+      "description": ""
+    },
+    {
+      "name": "framer-motion",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "description": ""
+    },
+    {
+      "name": "js-google",
+      "description": ""
+    },
+    {
+      "name": "jscodeshift",
+      "description": ""
+    },
+    {
+      "name": "vhs",
+      "description": ""
+    },
+    {
+      "name": "expo-react-native-performance",
+      "description": ""
+    },
+    {
+      "name": "12-factor-app",
+      "description": ""
+    },
+    {
+      "name": "37signals-rails",
+      "description": ""
+    },
+    {
+      "name": "ast-grep",
+      "description": ""
+    },
+    {
+      "name": "dockerfile-optimise",
+      "description": ""
+    },
+    {
+      "name": "expo-react-native-coder",
+      "description": ""
+    },
+    {
+      "name": "ios-animations",
+      "description": ""
+    },
+    {
+      "name": "ios-chaos-monkey",
+      "description": ""
+    },
+    {
+      "name": "ios-design",
+      "description": ""
+    },
+    {
+      "name": "ios-design-system",
+      "description": ""
+    },
+    {
+      "name": "ios-hig",
+      "description": ""
+    },
+    {
+      "name": "ios-navigation",
+      "description": ""
+    },
+    {
+      "name": "ios-storyboard",
+      "description": ""
+    },
+    {
+      "name": "ios-testing",
+      "description": ""
+    },
+    {
+      "name": "ios-ui-refactor",
+      "description": ""
+    },
+    {
+      "name": "ios-xcode",
+      "description": ""
+    },
+    {
+      "name": "knip-deadcode",
+      "description": ""
+    },
+    {
+      "name": "missing-references",
+      "description": ""
+    },
+    {
+      "name": "nginx-c-module-debug",
+      "description": ""
+    },
+    {
+      "name": "nginx-c-module-design",
+      "description": ""
+    },
+    {
+      "name": "nginx-c-module-perf",
+      "description": ""
+    },
+    {
+      "name": "nginx-c-modules",
+      "description": ""
+    },
+    {
+      "name": "rails-design-system",
+      "description": ""
+    },
+    {
+      "name": "rails-dev",
+      "description": ""
+    },
+    {
+      "name": "rails-hotwire",
+      "description": ""
+    },
+    {
+      "name": "rails-testing",
+      "description": ""
+    },
+    {
+      "name": "react-native-elements",
+      "description": ""
+    },
+    {
+      "name": "react-optimise",
+      "description": ""
+    },
+    {
+      "name": "react-refactor",
+      "description": ""
+    },
+    {
+      "name": "react-testing-library",
+      "description": ""
+    },
+    {
+      "name": "restful-hateoas",
+      "description": ""
+    },
+    {
+      "name": "ruby-optimise",
+      "description": ""
+    },
+    {
+      "name": "ruby-refactor",
+      "description": ""
+    },
+    {
+      "name": "rust-refactor",
+      "description": ""
+    },
+    {
+      "name": "swift-data",
+      "description": ""
+    },
+    {
+      "name": "swift-optimise",
+      "description": ""
+    },
+    {
+      "name": "swift-refactor",
+      "description": ""
+    },
+    {
+      "name": "swift-ui-architect",
+      "description": ""
+    },
+    {
+      "name": "tailwind-refactor",
+      "description": ""
+    },
+    {
+      "name": "tailwind-responsive-ui",
+      "description": ""
+    },
+    {
+      "name": "tailwind-ui-refactor",
+      "description": ""
+    },
+    {
+      "name": "too-long-skill",
+      "description": ""
+    },
+    {
+      "name": "typescript-refactor",
+      "description": ""
+    },
+    {
+      "name": "uniwind",
+      "description": ""
+    },
+    {
+      "name": "unix-cli",
+      "description": ""
+    },
+    {
+      "name": "valid-skill",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "description": ""
+    },
+    {
+      "name": "zustand",
+      "description": ""
+    }
+  ]
+}
