@@ -1,0 +1,9 @@
+{
+  "name": "777genius--claude-agent-teams-ui",
+  "displayName": "claude_agent_teams_ui",
+  "description": "You're the CTO, agents are your team. They handle tasks on their own, message each other, and review each other's work. You just watch the kanban board and give high-level commands. Codex/Claude.",
+  "version": "1.0.0",
+  "author": "777genius",
+  "homepage": "https://github.com/777genius/claude_agent_teams_ui",
+  "skills": []
+}
