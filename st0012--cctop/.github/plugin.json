@@ -1,0 +1,14 @@
+{
+  "name": "st0012--cctop",
+  "displayName": "cctop",
+  "description": "A keyboard-first menubar app to monitor and jump between AI coding sessions. Supports Claude Code, pi, opencode, and Codex",
+  "version": "1.0.0",
+  "author": "st0012",
+  "homepage": "https://github.com/st0012/cctop",
+  "skills": [
+    {
+      "name": "cctop-setup",
+      "description": ""
+    }
+  ]
+}
