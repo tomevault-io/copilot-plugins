@@ -1,0 +1,66 @@
+{
+  "name": "jordanhubbard--loom",
+  "displayName": "loom",
+  "description": "A fully autonomous (no human-in-loop) agentic based project design and coding machine",
+  "version": "1.0.0",
+  "author": "jordanhubbard",
+  "homepage": "https://github.com/jordanhubbard/loom",
+  "skills": [
+    {
+      "name": "ceo",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "cto",
+      "description": ""
+    },
+    {
+      "name": "decision-maker",
+      "description": ""
+    },
+    {
+      "name": "devops-engineer",
+      "description": ""
+    },
+    {
+      "name": "documentation-manager",
+      "description": ""
+    },
+    {
+      "name": "engineering-manager",
+      "description": ""
+    },
+    {
+      "name": "housekeeping-bot",
+      "description": ""
+    },
+    {
+      "name": "project-manager",
+      "description": ""
+    },
+    {
+      "name": "public-relations-manager",
+      "description": ""
+    },
+    {
+      "name": "qa-engineer",
+      "description": ""
+    },
+    {
+      "name": "remediation-specialist",
+      "description": ""
+    },
+    {
+      "name": "web-designer",
+      "description": ""
+    },
+    {
+      "name": "web-designer-engineer",
+      "description": ""
+    }
+  ]
+}
