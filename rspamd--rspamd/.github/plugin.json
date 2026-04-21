@@ -1,0 +1,9 @@
+{
+  "name": "rspamd--rspamd",
+  "displayName": "rspamd",
+  "description": "rspamd",
+  "version": "1.0.0",
+  "author": "rspamd",
+  "homepage": "https://github.com/rspamd/rspamd",
+  "skills": []
+}
