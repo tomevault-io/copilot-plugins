@@ -4,7 +4,7 @@
   "repo": "CubeTimer",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/noinil",
+  "source_url": "https://github.com/noinil/CubeTimer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T06:10:58Z"
+  "distributed_at": "2026-04-21T17:52:17Z"
 }
