@@ -1,0 +1,14 @@
+{
+  "name": "vercel-labs--before-and-after",
+  "displayName": "before-and-after",
+  "description": "AI instruction skills by vercel-labs",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/before-and-after",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
