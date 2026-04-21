@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [cskerritt/lifeplan_genius](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/cskerritt)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/cskerritt/lifeplan_genius](https://github.com/cskerritt/lifeplan_genius)
 
 ---
 
