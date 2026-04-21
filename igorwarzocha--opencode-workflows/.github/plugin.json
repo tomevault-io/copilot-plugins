@@ -1,0 +1,14 @@
+{
+  "name": "igorwarzocha--opencode-workflows",
+  "displayName": "Opencode-Workflows",
+  "description": "An ever evolving repository of Opencode workflow examples that might enhance your experience with it. I only left the stuff that actually works. YMMV.",
+  "version": "1.0.0",
+  "author": "IgorWarzocha",
+  "homepage": "https://github.com/IgorWarzocha/Opencode-Workflows",
+  "skills": [
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
