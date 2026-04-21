@@ -1,6 +1,6 @@
-# DocuMindIntelliOCR — distributed by TomeVault
+# DocuMindIntelliOCR
 
-> Originally from [SSI-Automations/DocuMindIntelliOCR](https://github.com/SSI-Automations/DocuMindIntelliOCR). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [SSI-Automations/DocuMindIntelliOCR](https://github.com/SSI-Automations/DocuMindIntelliOCR) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [SSI-Automations/DocuMindIntelliOCR](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/SSI-Automations#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/SSI-Automations/DocuMindIntelliOCR](https://github.com/SSI-Automations/DocuMindIntelliOCR)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install SSI-Automations/DocuMindIntelliOCR
 ```
-Or browse all formats at [https://tomevault.io/claim/SSI-Automations](https://tomevault.io/claim/SSI-Automations).
+Source: [github.com/SSI-Automations/DocuMindIntelliOCR](https://github.com/SSI-Automations/DocuMindIntelliOCR).
 
 <!-- genome:d-i-q -->
