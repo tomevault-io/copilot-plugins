@@ -1,0 +1,9 @@
+{
+  "name": "ferdinandobons--startup-skill",
+  "displayName": "startup-skill",
+  "description": "AI agent skills for startup validation, competitive intelligence, and planning",
+  "version": "1.0.0",
+  "author": "ferdinandobons",
+  "homepage": "https://github.com/ferdinandobons/startup-skill",
+  "skills": []
+}
