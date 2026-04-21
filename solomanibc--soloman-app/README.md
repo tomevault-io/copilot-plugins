@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [solomanibc/soloman-app](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/solomanibc)
+From [solomanibc/soloman-app](https://github.com/solomanibc/soloman-app) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/solomanibc) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-s -->
