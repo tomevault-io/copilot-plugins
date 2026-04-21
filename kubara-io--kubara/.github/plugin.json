@@ -1,0 +1,9 @@
+{
+  "name": "kubara-io--kubara",
+  "displayName": "kubara",
+  "description": "Kubara is a single binary CLI tool written in Go providing a lightweight framework for bootstrapping Kubernetes platforms with production-proven best practices.",
+  "version": "1.0.0",
+  "author": "kubara-io",
+  "homepage": "https://github.com/kubara-io/kubara",
+  "skills": []
+}
