@@ -1,0 +1,26 @@
+{
+  "name": "joshuadavidthomas--opencode-agent-skills",
+  "displayName": "opencode",
+  "description": "An OpenCode plugin that provides tools for using agent skills",
+  "version": "1.0.0",
+  "author": "joshuadavidthomas",
+  "homepage": "https://github.com/joshuadavidthomas/opencode-agent-skills",
+  "skills": [
+    {
+      "name": "git-helper",
+      "description": ""
+    },
+    {
+      "name": "test-skill",
+      "description": ""
+    },
+    {
+      "name": "researching-codebases",
+      "description": ""
+    },
+    {
+      "name": "writing-clearly-and-concisely",
+      "description": ""
+    }
+  ]
+}
