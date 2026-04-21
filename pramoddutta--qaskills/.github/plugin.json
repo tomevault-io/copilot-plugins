@@ -1,0 +1,18 @@
+{
+  "name": "pramoddutta--qaskills",
+  "displayName": "qaskills",
+  "description": "QA Skills Directory QA Skills is a curated directory of testing-specific skills for AI coding agents (Claude Code, Cursor, Copilot, etc.).",
+  "version": "1.0.0",
+  "author": "PramodDutta",
+  "homepage": "https://github.com/PramodDutta/qaskills",
+  "skills": [
+    {
+      "name": "vue-test-utils-testing",
+      "description": ""
+    },
+    {
+      "name": "django-testing-patterns",
+      "description": ""
+    }
+  ]
+}
