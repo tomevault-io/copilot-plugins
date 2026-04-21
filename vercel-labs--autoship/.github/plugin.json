@@ -1,0 +1,14 @@
+{
+  "name": "vercel-labs--autoship",
+  "displayName": "autoship",
+  "description": "CLI tool to automate changeset-based releases",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/autoship",
+  "skills": [
+    {
+      "name": "autoship",
+      "description": ""
+    }
+  ]
+}
