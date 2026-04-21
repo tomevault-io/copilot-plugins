@@ -1,0 +1,51 @@
+{
+  "name": "extrasuite",
+  "owner": "think41",
+  "repo": "extrasuite",
+  "description": "Token-efficient pull/edit/push workflow for AI agents editing Google Workspace files (Sheets, Docs, Slides, Forms)",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "extrasuite",
+      "path": "server/skills/extrasuite",
+      "github_url": "https://github.com/think41/extrasuite/tree/main/server/skills/extrasuite",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/think41/extrasuite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T14:00:36Z"
+}
