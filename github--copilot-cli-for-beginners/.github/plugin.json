@@ -1,0 +1,9 @@
+{
+  "name": "github--copilot-cli-for-beginners",
+  "displayName": "copilot-cli-for-beginners",
+  "description": "Learn how to get started using the GitHub Copilot CLI!",
+  "version": "1.0.0",
+  "author": "github",
+  "homepage": "https://github.com/github/copilot-cli-for-beginners",
+  "skills": []
+}
