@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/digi4care",
+  "source_url": "https://github.com/digi4care/sveltekit-postgres-devcontainer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T06:53:50Z"
+  "distributed_at": "2026-04-21T10:45:42Z"
 }
