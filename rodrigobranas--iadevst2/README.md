@@ -1,6 +1,6 @@
-# iadevst2 — distributed by TomeVault
+# iadevst2
 
-> Originally from [rodrigobranas/iadevst2](https://github.com/rodrigobranas/iadevst2). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [rodrigobranas/iadevst2](https://github.com/rodrigobranas/iadevst2) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [rodrigobranas/iadevst2](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/rodrigobranas#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rodrigobranas/iadevst2](https://github.com/rodrigobranas/iadevst2)
 
 ---
 
