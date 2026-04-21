@@ -1,6 +1,6 @@
 # kiro-ui-poc
 
-> Tome by [mjones3](https://github.com/mjones3/kiro-ui-poc) — distributed by [TomeVault](https://tomevault.io/claim/mjones3)
+> Tome by [mjones3](https://github.com/mjones3/kiro-ui-poc) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [mjones3/kiro-ui-poc](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/mjones3)
+From [mjones3/kiro-ui-poc](https://github.com/mjones3/kiro-ui-poc) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/mjones3) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
