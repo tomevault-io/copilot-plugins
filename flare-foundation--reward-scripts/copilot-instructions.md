@@ -1,0 +1,86 @@
+## reward-scripts
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+```bash
+pnpm install                              # Install dependencies
+pnpm build                                # Compile TypeScript to dist/
+pnpm test                                 # Run tests (Mocha + Chai)
+pnpm test:coverage                        # Run tests with coverage report (nyc)
+pnpm lint:check                           # Check ESLint rules
+pnpm lint:fix                             # Auto-fix ESLint issues
+pnpm format:check                         # Check Prettier formatting
+pnpm format:fix                           # Auto-fix formatting
+pnpm prepare-initial-data                 # Gather validator/delegator data for epoch
+pnpm prepare-initial-data -e <N>          # Gather data for specific epoch (e.g. -e 378)
+pnpm calculate-staking-rewards            # Calculate reward distribution for epoch
+pnpm calculate-staking-rewards -e <N>     # Calculate rewards for specific epoch
+pnpm calculate-testnet-rewards             # Single-stage testnet reward calculation
+pnpm calculate-testnet-rewards -e <N>      # Calculate testnet rewards for specific epoch
+pnpm sum-staking-rewards                  # Aggregate rewards across epochs
+```
+
+## Architecture
+
+### Mainnet (two-stage)
+
+1. **Prepare initial data** — fetches validators/delegators from P-Chain API, processes on-chain uptime voting events, outputs `generated-files/reward-epoch-{N}/initial-nodes-data.json`
+2. **Calculate staking rewards** — reads initial data + minimal conditions from GitHub, computes per-node rewards with boosting/caps/fees, outputs `generated-files/reward-epoch-{N}/data.json`
+3. **Sum staking rewards** — aggregates across epochs (default 4) for on-chain payout, outputs `generated-files/validator-rewards/epochs-{START}-{END}.json`
+
+### Testnet (single-stage)
+
+**Calculate testnet rewards** — single-stage process that fetches validators/delegators, checks uptime, and calculates rewards in one pass. All uptime-eligible validators are rewarded (no minimal conditions check, no burn). Outputs `nodes-data.json` and `data.json`. Entry point: `src/calculateTestnetRewards.ts`, method: `calculateTestnetRewards()`. Default config: `configs/networks/coston2.json`.
+
+### Service layer
+
+Uses **typescript-ioc** for dependency injection with `@Singleton`, `@Factory`, and `@Inject` decorators. Services are accessed via `iocContainer(null).get(ServiceClass)`.
+
+- **CalculatingRewardsService** — orchestrates all three stages, core business logic
+- **ConfigurationService** — loads config from JSON files → env vars → CLI args (ascending priority)
+- **ContractService** — Web3 v1 contract instances (FlareSystemsManager, ValidatorRewardManager, EntityManager, AddressBinder, PChainStakeMirrorMultiSigVoting)
+- **EventProcessorService** — reads blockchain events in configurable batches with rate limiting
+
+### Entry points
+
+`src/calculateRewards.ts`, `src/prepareInitialData.ts`, `src/sumStakingRewards.ts`, `src/calculateTestnetRewards.ts` — each parses CLI args with yargs (`require("yargs")` pattern due to CJS/ESM incompatibility), sets config, and calls the appropriate service method.
+
+## Post-change checklist
+
+Always use the Node version from `.nvmrc` (must match the `image` in `.gitlab-ci.yml`) before running any commands:
+```bash
+source ~/.nvm/nvm.sh && nvm use
+```
+
+After every code change, run:
+
+1. `pnpm test` — ensure all tests pass
+2. `pnpm lint:check` — fix any lint errors or warnings before proceeding
+3. `pnpm format:check` — fix any formatting issues
+4. `pnpm build` — ensure TypeScript compiles without errors
+5. `pnpm calculate-staking-rewards -e 378` — verify the script still runs
+6. Update `CLAUDE.md` if architecture, commands, or constraints changed
+7. Update `.claude/LEARNINGS.md` if something new was learned during the change
+
+## Key constraints
+
+- **typescript-ioc** requires `experimentalDecorators`, `emitDecoratorMetadata`, and `useDefineForClassFields: false` in tsconfig
+- **strict mode** — tsconfig enables `strict: true`, `noUncheckedIndexedAccess`, and `exactOptionalPropertyTypes`
+  - IoC `@Inject` properties use `!` (definite assignment assertion) since the DI container sets them at runtime
+  - Array indexed access after bounds checks (e.g., `findIndex > -1`) requires `!` since TS can't narrow indexed types from index checks
+  - Optional interface properties accessed in contexts where they're guaranteed present also use `!`
+  - Avoid `undefined!` — if a value can genuinely be undefined, make the type optional (`?`) and add runtime guards at entry points
+- **yargs** must use `require()` with eslint-disable block — ESM import with `.parseSync()` doesn't work under ts-node with `module: commonjs`
+- **web3 v1** — do not upgrade to v4 without a full migration plan (different API, typechain bindings)
+- **BigInt serialization** — `src/utils/big-number-serialization.ts` provides custom JSON replacer/reviver for large numbers
+- Network config files in `configs/networks/` and contract addresses in `deploys/` are per-network (flare, coston2, check)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/flare-foundation) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
