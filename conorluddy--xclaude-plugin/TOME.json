@@ -1,0 +1,93 @@
+{
+  "name": "xclaude-plugin",
+  "owner": "conorluddy",
+  "repo": "xclaude-plugin",
+  "description": "iOS development ClaudeCode plugin for mindful token and context usage. Contains modular MCPs that group various Xcode/IDB tools based on your current workflow.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility-testing",
+      "path": "skills/accessibility-testing",
+      "github_url": "https://github.com/conorluddy/xclaude-plugin/tree/main/skills/accessibility-testing",
+      "description": ""
+    },
+    {
+      "name": "crash-debugging",
+      "path": "skills/crash-debugging",
+      "github_url": "https://github.com/conorluddy/xclaude-plugin/tree/main/skills/crash-debugging",
+      "description": ""
+    },
+    {
+      "name": "ios-testing-patterns",
+      "path": "skills/ios-testing-patterns",
+      "github_url": "https://github.com/conorluddy/xclaude-plugin/tree/main/skills/ios-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "performance-profiling",
+      "path": "skills/performance-profiling",
+      "github_url": "https://github.com/conorluddy/xclaude-plugin/tree/main/skills/performance-profiling",
+      "description": ""
+    },
+    {
+      "name": "simulator-workflows",
+      "path": "skills/simulator-workflows",
+      "github_url": "https://github.com/conorluddy/xclaude-plugin/tree/main/skills/simulator-workflows",
+      "description": ""
+    },
+    {
+      "name": "state-management",
+      "path": "skills/state-management",
+      "github_url": "https://github.com/conorluddy/xclaude-plugin/tree/main/skills/state-management",
+      "description": ""
+    },
+    {
+      "name": "ui-automation-workflows",
+      "path": "skills/ui-automation-workflows",
+      "github_url": "https://github.com/conorluddy/xclaude-plugin/tree/main/skills/ui-automation-workflows",
+      "description": ""
+    },
+    {
+      "name": "xcode-workflows",
+      "path": "skills/xcode-workflows",
+      "github_url": "https://github.com/conorluddy/xclaude-plugin/tree/main/skills/xcode-workflows",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/conorluddy/xclaude-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:31:31Z"
+}
