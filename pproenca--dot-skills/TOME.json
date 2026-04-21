@@ -1,0 +1,567 @@
+{
+  "name": "dot-skills",
+  "owner": "pproenca",
+  "repo": "dot-skills",
+  "description": "A collection of AI agent skills following the Agent Skills open format",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "typescript",
+      "path": "skills/.curated/typescript",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/typescript",
+      "description": ""
+    },
+    {
+      "name": "zod",
+      "path": "skills/.curated/zod",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/zod",
+      "description": ""
+    },
+    {
+      "name": "clean-architecture",
+      "path": "skills/.experimental/clean-architecture",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/clean-architecture",
+      "description": ""
+    },
+    {
+      "name": "nuqs",
+      "path": "skills/.curated/nuqs",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/nuqs",
+      "description": ""
+    },
+    {
+      "name": "emilkowal-animations",
+      "path": "skills/.experimental/emilkowal-animations",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/emilkowal-animations",
+      "description": ""
+    },
+    {
+      "name": "shadcn",
+      "path": "skills/.curated/shadcn",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/shadcn",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "path": "skills/.curated/vitest",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/vitest",
+      "description": ""
+    },
+    {
+      "name": "ui-design",
+      "path": "skills/.curated/ui-design",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/ui-design",
+      "description": ""
+    },
+    {
+      "name": "react-hook-form",
+      "path": "skills/.curated/react-hook-form",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/react-hook-form",
+      "description": ""
+    },
+    {
+      "name": "terminal-ui",
+      "path": "skills/.curated/terminal-ui",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/terminal-ui",
+      "description": ""
+    },
+    {
+      "name": "expo",
+      "path": "skills/.curated/expo",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/expo",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "path": "skills/.curated/playwright",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/playwright",
+      "description": ""
+    },
+    {
+      "name": "tailwind",
+      "path": "skills/.curated/tailwind",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/tailwind",
+      "description": ""
+    },
+    {
+      "name": "wxt-browser-extensions",
+      "path": "skills/.experimental/wxt-browser-extensions",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/wxt-browser-extensions",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "skills/.curated/react",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/react",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "path": "skills/.curated/refactor",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/refactor",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": "skills/.curated/tdd",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/tdd",
+      "description": ""
+    },
+    {
+      "name": "msw",
+      "path": "skills/.curated/msw",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/msw",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "path": "skills/.curated/debug",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/debug",
+      "description": ""
+    },
+    {
+      "name": "feature-spec",
+      "path": "skills/.experimental/feature-spec",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/feature-spec",
+      "description": ""
+    },
+    {
+      "name": "shell",
+      "path": "skills/.experimental/shell",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/shell",
+      "description": ""
+    },
+    {
+      "name": "chrome-extension",
+      "path": "skills/.experimental/chrome-extension",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/chrome-extension",
+      "description": ""
+    },
+    {
+      "name": "nextjs",
+      "path": "skills/.curated/nextjs",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/nextjs",
+      "description": ""
+    },
+    {
+      "name": "tanstack-query",
+      "path": "skills/.curated/tanstack-query",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "chrome-extension-ui",
+      "path": "skills/.experimental/chrome-extension-ui",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/chrome-extension-ui",
+      "description": ""
+    },
+    {
+      "name": "clean-code",
+      "path": "skills/.experimental/clean-code",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/clean-code",
+      "description": ""
+    },
+    {
+      "name": "feature-arch",
+      "path": "skills/.curated/feature-arch",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/feature-arch",
+      "description": ""
+    },
+    {
+      "name": "humanize",
+      "path": "skills/.experimental/humanize",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/humanize",
+      "description": ""
+    },
+    {
+      "name": "orval",
+      "path": "skills/.experimental/orval",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/orval",
+      "description": ""
+    },
+    {
+      "name": "skill-authoring",
+      "path": "skills/.curated/skill-authoring",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/skill-authoring",
+      "description": ""
+    },
+    {
+      "name": "pulumi",
+      "path": "skills/.experimental/pulumi",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/pulumi",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "path": "skills/.curated/python",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/python",
+      "description": ""
+    },
+    {
+      "name": "mui-base",
+      "path": "skills/.curated/mui-base",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/mui-base",
+      "description": ""
+    },
+    {
+      "name": "ts-google",
+      "path": "skills/.experimental/ts-google",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ts-google",
+      "description": ""
+    },
+    {
+      "name": "framer-motion",
+      "path": "skills/.experimental/framer-motion",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/framer-motion",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "path": "skills/.experimental/codemod",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/codemod",
+      "description": ""
+    },
+    {
+      "name": "js-google",
+      "path": "skills/.experimental/js-google",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/js-google",
+      "description": ""
+    },
+    {
+      "name": "jscodeshift",
+      "path": "skills/.experimental/jscodeshift",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/jscodeshift",
+      "description": ""
+    },
+    {
+      "name": "vhs",
+      "path": "skills/.experimental/vhs",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/vhs",
+      "description": ""
+    },
+    {
+      "name": "expo-react-native-performance",
+      "path": "skills/.experimental/expo-react-native-performance",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/expo-react-native-performance",
+      "description": ""
+    },
+    {
+      "name": "12-factor-app",
+      "path": "skills/.experimental/12-factor-app",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/12-factor-app",
+      "description": ""
+    },
+    {
+      "name": "37signals-rails",
+      "path": "skills/.experimental/37signals-rails",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/37signals-rails",
+      "description": ""
+    },
+    {
+      "name": "ast-grep",
+      "path": "skills/.experimental/ast-grep",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ast-grep",
+      "description": ""
+    },
+    {
+      "name": "dockerfile-optimise",
+      "path": "skills/.experimental/dockerfile-optimise",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/dockerfile-optimise",
+      "description": ""
+    },
+    {
+      "name": "expo-react-native-coder",
+      "path": "skills/.experimental/expo-react-native-coder",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/expo-react-native-coder",
+      "description": ""
+    },
+    {
+      "name": "ios-animations",
+      "path": "skills/.experimental/ios-animations",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-animations",
+      "description": ""
+    },
+    {
+      "name": "ios-chaos-monkey",
+      "path": "skills/.experimental/ios-chaos-monkey",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-chaos-monkey",
+      "description": ""
+    },
+    {
+      "name": "ios-design",
+      "path": "skills/.experimental/ios-design",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-design",
+      "description": ""
+    },
+    {
+      "name": "ios-design-system",
+      "path": "skills/.experimental/ios-design-system",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-design-system",
+      "description": ""
+    },
+    {
+      "name": "ios-hig",
+      "path": "skills/.experimental/ios-hig",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-hig",
+      "description": ""
+    },
+    {
+      "name": "ios-navigation",
+      "path": "skills/.experimental/ios-navigation",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-navigation",
+      "description": ""
+    },
+    {
+      "name": "ios-storyboard",
+      "path": "skills/.experimental/ios-storyboard",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-storyboard",
+      "description": ""
+    },
+    {
+      "name": "ios-testing",
+      "path": "skills/.experimental/ios-testing",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-testing",
+      "description": ""
+    },
+    {
+      "name": "ios-ui-refactor",
+      "path": "skills/.experimental/ios-ui-refactor",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-ui-refactor",
+      "description": ""
+    },
+    {
+      "name": "ios-xcode",
+      "path": "skills/.experimental/ios-xcode",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/ios-xcode",
+      "description": ""
+    },
+    {
+      "name": "knip-deadcode",
+      "path": "skills/.experimental/knip-deadcode",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/knip-deadcode",
+      "description": ""
+    },
+    {
+      "name": "missing-references",
+      "path": "tests/fixtures/missing-references",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/tests/fixtures/missing-references",
+      "description": ""
+    },
+    {
+      "name": "nginx-c-module-debug",
+      "path": "skills/.experimental/nginx-c-module-debug",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/nginx-c-module-debug",
+      "description": ""
+    },
+    {
+      "name": "nginx-c-module-design",
+      "path": "skills/.experimental/nginx-c-module-design",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/nginx-c-module-design",
+      "description": ""
+    },
+    {
+      "name": "nginx-c-module-perf",
+      "path": "skills/.experimental/nginx-c-module-perf",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/nginx-c-module-perf",
+      "description": ""
+    },
+    {
+      "name": "nginx-c-modules",
+      "path": "skills/.experimental/nginx-c-modules",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/nginx-c-modules",
+      "description": ""
+    },
+    {
+      "name": "rails-design-system",
+      "path": "skills/.experimental/rails-design-system",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/rails-design-system",
+      "description": ""
+    },
+    {
+      "name": "rails-dev",
+      "path": "skills/.curated/rails-dev",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/rails-dev",
+      "description": ""
+    },
+    {
+      "name": "rails-hotwire",
+      "path": "skills/.experimental/rails-hotwire",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/rails-hotwire",
+      "description": ""
+    },
+    {
+      "name": "rails-testing",
+      "path": "skills/.curated/rails-testing",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/rails-testing",
+      "description": ""
+    },
+    {
+      "name": "react-native-elements",
+      "path": "skills/.experimental/react-native-elements",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/react-native-elements",
+      "description": ""
+    },
+    {
+      "name": "react-optimise",
+      "path": "skills/.experimental/react-optimise",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/react-optimise",
+      "description": ""
+    },
+    {
+      "name": "react-refactor",
+      "path": "skills/.experimental/react-refactor",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/react-refactor",
+      "description": ""
+    },
+    {
+      "name": "react-testing-library",
+      "path": "skills/.experimental/react-testing-library",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/react-testing-library",
+      "description": ""
+    },
+    {
+      "name": "restful-hateoas",
+      "path": "skills/.curated/restful-hateoas",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/restful-hateoas",
+      "description": ""
+    },
+    {
+      "name": "ruby-optimise",
+      "path": "skills/.curated/ruby-optimise",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/ruby-optimise",
+      "description": ""
+    },
+    {
+      "name": "ruby-refactor",
+      "path": "skills/.curated/ruby-refactor",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/ruby-refactor",
+      "description": ""
+    },
+    {
+      "name": "rust-refactor",
+      "path": "skills/.curated/rust-refactor",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.curated/rust-refactor",
+      "description": ""
+    },
+    {
+      "name": "swift-data",
+      "path": "skills/.experimental/swift-data",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/swift-data",
+      "description": ""
+    },
+    {
+      "name": "swift-optimise",
+      "path": "skills/.experimental/swift-optimise",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/swift-optimise",
+      "description": ""
+    },
+    {
+      "name": "swift-refactor",
+      "path": "skills/.experimental/swift-refactor",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/swift-refactor",
+      "description": ""
+    },
+    {
+      "name": "swift-ui-architect",
+      "path": "skills/.experimental/swift-ui-architect",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/swift-ui-architect",
+      "description": ""
+    },
+    {
+      "name": "tailwind-refactor",
+      "path": "skills/.experimental/tailwind-refactor",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/tailwind-refactor",
+      "description": ""
+    },
+    {
+      "name": "tailwind-responsive-ui",
+      "path": "skills/.experimental/tailwind-responsive-ui",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/tailwind-responsive-ui",
+      "description": ""
+    },
+    {
+      "name": "tailwind-ui-refactor",
+      "path": "skills/.experimental/tailwind-ui-refactor",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/tailwind-ui-refactor",
+      "description": ""
+    },
+    {
+      "name": "too-long-skill",
+      "path": "tests/fixtures/too-long-skill",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/tests/fixtures/too-long-skill",
+      "description": ""
+    },
+    {
+      "name": "typescript-refactor",
+      "path": "skills/.experimental/typescript-refactor",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/typescript-refactor",
+      "description": ""
+    },
+    {
+      "name": "uniwind",
+      "path": "skills/.experimental/uniwind",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/uniwind",
+      "description": ""
+    },
+    {
+      "name": "unix-cli",
+      "path": "skills/.experimental/unix-cli",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/unix-cli",
+      "description": ""
+    },
+    {
+      "name": "valid-skill",
+      "path": "tests/fixtures/valid-skill",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/tests/fixtures/valid-skill",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "path": "skills/.experimental/vite",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/vite",
+      "description": ""
+    },
+    {
+      "name": "zustand",
+      "path": "skills/.experimental/zustand",
+      "github_url": "https://github.com/pproenca/dot-skills/tree/main/skills/.experimental/zustand",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pproenca/dot-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:43:05Z"
+}
