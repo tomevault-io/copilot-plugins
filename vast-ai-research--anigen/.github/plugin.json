@@ -1,0 +1,9 @@
+{
+  "name": "vast-ai-research--anigen",
+  "displayName": "AniGen",
+  "description": "[SIGGRAPH 2026] AniGen: Unified S^3 Fields for Animatable 3D Asset Generation",
+  "version": "1.0.0",
+  "author": "VAST-AI-Research",
+  "homepage": "https://github.com/VAST-AI-Research/AniGen",
+  "skills": []
+}
