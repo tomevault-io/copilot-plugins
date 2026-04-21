@@ -1,0 +1,9 @@
+{
+  "name": "netease-youdao--lobsterai",
+  "displayName": "LobsterAI",
+  "description": "Your 24/7 all-scenario AI agent that gets work done for you.",
+  "version": "1.0.0",
+  "author": "netease-youdao",
+  "homepage": "https://github.com/netease-youdao/LobsterAI",
+  "skills": []
+}
