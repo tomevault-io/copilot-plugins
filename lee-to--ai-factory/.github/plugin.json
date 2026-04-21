@@ -1,0 +1,9 @@
+{
+  "name": "lee-to--ai-factory",
+  "displayName": "ai-factory",
+  "description": "You want to build with AI, but setting up the right context, prompts, and workflows takes time. AI Factory handles all of that so you can focus on what matters \u2014 shipping quality code.",
+  "version": "1.0.0",
+  "author": "lee-to",
+  "homepage": "https://github.com/lee-to/ai-factory",
+  "skills": []
+}
