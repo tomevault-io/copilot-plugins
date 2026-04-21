@@ -1,0 +1,18 @@
+{
+  "name": "qtzx06--yolodex",
+  "displayName": "yolodex",
+  "description": "agent skills for autonomous data labeling, winner at openai codex hackathon 2026",
+  "version": "1.0.0",
+  "author": "qtzx06",
+  "homepage": "https://github.com/qtzx06/yolodex",
+  "skills": [
+    {
+      "name": "label",
+      "description": ""
+    },
+    {
+      "name": "yolodex",
+      "description": ""
+    }
+  ]
+}
