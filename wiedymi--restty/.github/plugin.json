@@ -1,0 +1,9 @@
+{
+  "name": "wiedymi--restty",
+  "displayName": "restty",
+  "description": "Powerful, lightweight web terminal. Batteries included. Powered by libghostty-vt, WebGPU, and text-shaper.",
+  "version": "1.0.0",
+  "author": "wiedymi",
+  "homepage": "https://github.com/wiedymi/restty",
+  "skills": []
+}
