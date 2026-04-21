@@ -1,0 +1,9 @@
+{
+  "name": "sonarsource--sonarqube-agent-plugins",
+  "displayName": "sonarqube-agent-plugins",
+  "description": "SonarQube Plugin for AI Agents",
+  "version": "1.0.0",
+  "author": "SonarSource",
+  "homepage": "https://github.com/SonarSource/sonarqube-agent-plugins",
+  "skills": []
+}
