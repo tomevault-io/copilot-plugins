@@ -1,0 +1,42 @@
+{
+  "name": "conorluddy--xclaude-plugin",
+  "displayName": "xclaude-plugin",
+  "description": "iOS development ClaudeCode plugin for mindful token and context usage. Contains modular MCPs that group various Xcode/IDB tools based on your current workflow.",
+  "version": "1.0.0",
+  "author": "conorluddy",
+  "homepage": "https://github.com/conorluddy/xclaude-plugin",
+  "skills": [
+    {
+      "name": "accessibility-testing",
+      "description": ""
+    },
+    {
+      "name": "crash-debugging",
+      "description": ""
+    },
+    {
+      "name": "ios-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "performance-profiling",
+      "description": ""
+    },
+    {
+      "name": "simulator-workflows",
+      "description": ""
+    },
+    {
+      "name": "state-management",
+      "description": ""
+    },
+    {
+      "name": "ui-automation-workflows",
+      "description": ""
+    },
+    {
+      "name": "xcode-workflows",
+      "description": ""
+    }
+  ]
+}
