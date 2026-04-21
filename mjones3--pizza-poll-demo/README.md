@@ -1,6 +1,6 @@
 # pizza-poll-demo
 
-> Tome by [mjones3](https://github.com/mjones3/pizza-poll-demo) — distributed by [TomeVault](https://tomevault.io/claim/mjones3)
+> Tome by [mjones3](https://github.com/mjones3/pizza-poll-demo) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [mjones3/pizza-poll-demo](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mjones3)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mjones3/pizza-poll-demo](https://github.com/mjones3/pizza-poll-demo)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/mjones3) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
