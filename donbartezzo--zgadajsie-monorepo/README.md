@@ -1,6 +1,6 @@
-# zgadajsie-monorepo — distributed by TomeVault
+# zgadajsie-monorepo
 
-> Originally from [donbartezzo/zgadajsie-monorepo](https://github.com/donbartezzo/zgadajsie-monorepo). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [donbartezzo/zgadajsie-monorepo](https://github.com/donbartezzo/zgadajsie-monorepo) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [donbartezzo/zgadajsie-monorepo](http
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/donbartezzo)
+From [donbartezzo/zgadajsie-monorepo](https://github.com/donbartezzo/zgadajsie-monorepo) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/donbartezzo) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
