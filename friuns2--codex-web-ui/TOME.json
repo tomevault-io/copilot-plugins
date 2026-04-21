@@ -1,0 +1,51 @@
+{
+  "name": "codex",
+  "owner": "friuns2",
+  "repo": "codex-web-ui",
+  "description": "Codex App Web UI and SSH remote, project moved to https://github.com/friuns2/codexui",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "launch-codex-unpacked",
+      "path": "skills/launch-codex-unpacked",
+      "github_url": "https://github.com/friuns2/codex-web-ui/tree/main/skills/launch-codex-unpacked",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/friuns2/codex-web-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T07:34:10Z"
+}
