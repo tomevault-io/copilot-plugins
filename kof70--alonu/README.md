@@ -1,6 +1,6 @@
 # alonu
 
-> Tome by [kof70](https://github.com/kof70/alonu) — distributed by [TomeVault](https://tomevault.io/claim/kof70)
+> Tome by [kof70](https://github.com/kof70/alonu) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [kof70/alonu](https://github.com/kof70
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/kof70#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/kof70/alonu](https://github.com/kof70/alonu)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install kof70/alonu
 ```
-Or browse all formats at [https://tomevault.io/claim/kof70](https://tomevault.io/claim/kof70).
+Source: [github.com/kof70/alonu](https://github.com/kof70/alonu).
 
 <!-- genome:t-i-q -->
