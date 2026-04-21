@@ -1,0 +1,38 @@
+{
+  "name": "decentpaste--decentpaste",
+  "displayName": "decentpaste",
+  "description": "Universal Clipboard for Every Device",
+  "version": "1.0.0",
+  "author": "decentpaste",
+  "homepage": "https://github.com/decentpaste/decentpaste",
+  "skills": [
+    {
+      "name": "android-release",
+      "description": ""
+    },
+    {
+      "name": "appstore-screenshots",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "github-release",
+      "description": ""
+    },
+    {
+      "name": "ios-icon-fix",
+      "description": ""
+    },
+    {
+      "name": "ios-release",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
