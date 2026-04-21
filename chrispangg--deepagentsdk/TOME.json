@@ -1,0 +1,75 @@
+{
+  "name": "deepagentsdk",
+  "owner": "chrispangg",
+  "repo": "deepagentsdk",
+  "description": "A Deep Agent Harness framework built with Vercel's AI SDK v6",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "content-writer",
+      "path": ".cursor/skills/content-writer",
+      "github_url": "https://github.com/chrispangg/deepagentsdk/tree/main/.cursor/skills/content-writer",
+      "description": ""
+    },
+    {
+      "name": "custom-frontend-design",
+      "path": ".cursor/skills/custom-frontend-design",
+      "github_url": "https://github.com/chrispangg/deepagentsdk/tree/main/.cursor/skills/custom-frontend-design",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "path": ".cursor/skills/prompt-engineer",
+      "github_url": "https://github.com/chrispangg/deepagentsdk/tree/main/.cursor/skills/prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".cursor/skills/skill-creator",
+      "github_url": "https://github.com/chrispangg/deepagentsdk/tree/main/.cursor/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "path": ".cursor/skills/testing-anti-patterns",
+      "github_url": "https://github.com/chrispangg/deepagentsdk/tree/main/.cursor/skills/testing-anti-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chrispangg/deepagentsdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T20:30:47Z"
+}
