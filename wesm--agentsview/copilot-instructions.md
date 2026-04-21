@@ -1,0 +1,48 @@
+## agentsview
+
+> Instructions for autonomous coding agents working in this repository.
+
+# AGENTS.md
+
+Instructions for autonomous coding agents working in this repository.
+
+## Scope
+
+- Applies to all agent-driven work in this repo.
+- If multiple instruction files exist, follow the most specific one for the
+  files you are editing.
+
+## Required Git Rules
+
+1. Commit every turn.
+1. Do not amend commits.
+1. Do not change branches without explicit user permission.
+
+## Commit Expectations
+
+- Keep commits focused and related to the requested task.
+- Use clear commit messages.
+- Do not push, pull, or rebase unless explicitly requested.
+
+## Validation
+
+- Run relevant tests before committing when practical.
+- If tests cannot be run, state that clearly in the handoff.
+
+## Safety
+
+- Do not revert user-authored or unrelated local changes unless explicitly
+  requested.
+- Avoid destructive git commands unless explicitly requested.
+
+## Data Safety
+
+The SQLite database is a persistent archive. Never delete or recreate it to
+handle data version changes. Schema changes use ALTER TABLE; parser changes
+trigger a full resync (build fresh DB, sync files, copy orphaned sessions from
+old DB, atomic swap). Existing session data must be preserved even when source
+files no longer exist on disk.
+
+---
+> Source: [wesm/agentsview](https://github.com/wesm/agentsview) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
