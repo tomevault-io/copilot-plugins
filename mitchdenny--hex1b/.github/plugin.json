@@ -1,0 +1,38 @@
+{
+  "name": "mitchdenny--hex1b",
+  "displayName": "hex1b",
+  "description": "The .NET Terminal Application Stack",
+  "version": "1.0.0",
+  "author": "mitchdenny",
+  "homepage": "https://github.com/mitchdenny/hex1b",
+  "skills": [
+    {
+      "name": "api-reviewer",
+      "description": ""
+    },
+    {
+      "name": "doc-tester",
+      "description": ""
+    },
+    {
+      "name": "doc-writer",
+      "description": ""
+    },
+    {
+      "name": "surface-benchmarker",
+      "description": ""
+    },
+    {
+      "name": "test-fixer",
+      "description": ""
+    },
+    {
+      "name": "widget-creator",
+      "description": ""
+    },
+    {
+      "name": "writing-unit-tests",
+      "description": ""
+    }
+  ]
+}
