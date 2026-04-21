@@ -1,0 +1,9 @@
+{
+  "name": "grinev--opencode-telegram-bot",
+  "displayName": "opencode-telegram-bot",
+  "description": "OpenCode mobile client via Telegram: run and monitor AI coding tasks from your phone while everything runs locally on your machine. Scheduled tasks support. Can be used as lightweight OpenClaw alterna",
+  "version": "1.0.0",
+  "author": "grinev",
+  "homepage": "https://github.com/grinev/opencode-telegram-bot",
+  "skills": []
+}
