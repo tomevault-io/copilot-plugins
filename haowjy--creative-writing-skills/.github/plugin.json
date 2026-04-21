@@ -1,0 +1,34 @@
+{
+  "name": "haowjy--creative-writing-skills",
+  "displayName": "creative-writing-skills",
+  "description": "claude skills focused on creative writing",
+  "version": "1.0.0",
+  "author": "haowjy",
+  "homepage": "https://github.com/haowjy/creative-writing-skills",
+  "skills": [
+    {
+      "name": "cw-brainstorming",
+      "description": ""
+    },
+    {
+      "name": "cw-official-docs",
+      "description": ""
+    },
+    {
+      "name": "cw-prose-writing",
+      "description": ""
+    },
+    {
+      "name": "cw-router",
+      "description": ""
+    },
+    {
+      "name": "cw-story-critique",
+      "description": ""
+    },
+    {
+      "name": "cw-style-skill-creator",
+      "description": ""
+    }
+  ]
+}
