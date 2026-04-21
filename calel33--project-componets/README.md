@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Calel33/project-componets](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Calel33#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Calel33/project-componets](https://github.com/Calel33/project-componets)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Calel33/project-componets
 ```
-Or browse all formats at [https://tomevault.io/claim/Calel33](https://tomevault.io/claim/Calel33).
+Source: [github.com/Calel33/project-componets](https://github.com/Calel33/project-componets).
 
 <!-- genome:a-i-q -->
