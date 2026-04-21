@@ -1,0 +1,22 @@
+{
+  "name": "ricardoquesada--regenerator2000",
+  "displayName": "regenerator2000",
+  "description": "An interactive disassembler for the CPU 6502, focused mostly on Commodore 8-bit computers. Features a TUI with modern features like x-ref, undo/redo, arrows, keyboard-driven, mcp server, VICE debugger",
+  "version": "1.0.0",
+  "author": "ricardoquesada",
+  "homepage": "https://github.com/ricardoquesada/regenerator2000",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "update-mcp-docs",
+      "description": ""
+    },
+    {
+      "name": "verify-mcp",
+      "description": ""
+    }
+  ]
+}
