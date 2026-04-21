@@ -1,0 +1,87 @@
+{
+  "name": "dorabot",
+  "owner": "suitedaces",
+  "repo": "dorabot",
+  "description": "macOS app for 24/7 AI agents in an IDE with memory, scheduled tasks, browser use + access to Whatsapp, Telegram, Slack.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "github",
+      "path": "skills/github",
+      "github_url": "https://github.com/suitedaces/dorabot/tree/main/skills/github",
+      "description": ""
+    },
+    {
+      "name": "himalaya",
+      "path": "skills/himalaya",
+      "github_url": "https://github.com/suitedaces/dorabot/tree/main/skills/himalaya",
+      "description": ""
+    },
+    {
+      "name": "nano-banana",
+      "path": "skills/nano-banana",
+      "github_url": "https://github.com/suitedaces/dorabot/tree/main/skills/nano-banana",
+      "description": ""
+    },
+    {
+      "name": "macos",
+      "path": "skills/macos",
+      "github_url": "https://github.com/suitedaces/dorabot/tree/main/skills/macos",
+      "description": ""
+    },
+    {
+      "name": "meme",
+      "path": "skills/meme",
+      "github_url": "https://github.com/suitedaces/dorabot/tree/main/skills/meme",
+      "description": ""
+    },
+    {
+      "name": "onboard",
+      "path": "skills/onboard",
+      "github_url": "https://github.com/suitedaces/dorabot/tree/main/skills/onboard",
+      "description": ""
+    },
+    {
+      "name": "agent-swarm-orchestation",
+      "path": "skills/agent-swarm-orchestation",
+      "github_url": "https://github.com/suitedaces/dorabot/tree/main/skills/agent-swarm-orchestation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/suitedaces/dorabot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T10:36:02Z"
+}
