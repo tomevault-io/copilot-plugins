@@ -1,0 +1,14 @@
+{
+  "name": "think41--extrasuite",
+  "displayName": "extrasuite",
+  "description": "Token-efficient pull/edit/push workflow for AI agents editing Google Workspace files (Sheets, Docs, Slides, Forms)",
+  "version": "1.0.0",
+  "author": "think41",
+  "homepage": "https://github.com/think41/extrasuite",
+  "skills": [
+    {
+      "name": "extrasuite",
+      "description": ""
+    }
+  ]
+}
