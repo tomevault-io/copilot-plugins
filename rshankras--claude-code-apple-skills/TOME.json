@@ -1,0 +1,303 @@
+{
+  "name": "claude-code-apple-skills",
+  "owner": "rshankras",
+  "repo": "claude-code-apple-skills",
+  "description": "Claude Code skills for Apple platform development (iOS, macOS, iPadOS) \u2014 product validation, code generation, App Store optimization, and more",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "app-store",
+      "path": "skills/app-store",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/app-store",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": "skills/design",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/design",
+      "description": ""
+    },
+    {
+      "name": "app-planner",
+      "path": "skills/ios/app-planner",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/ios/app-planner",
+      "description": ""
+    },
+    {
+      "name": "app-planner",
+      "path": "skills/macos/app-planner",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/macos/app-planner",
+      "description": ""
+    },
+    {
+      "name": "appkit-swiftui-bridge",
+      "path": "skills/macos/appkit-swiftui-bridge",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/macos/appkit-swiftui-bridge",
+      "description": ""
+    },
+    {
+      "name": "apple-intelligence",
+      "path": "skills/apple-intelligence",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/apple-intelligence",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": "skills/macos/architecture-patterns",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/macos/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "architecture-spec",
+      "path": "skills/product/architecture-spec",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/architecture-spec",
+      "description": ""
+    },
+    {
+      "name": "auth-flow",
+      "path": "skills/generators/auth-flow",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/generators/auth-flow",
+      "description": ""
+    },
+    {
+      "name": "coding-best-practices",
+      "path": "skills/macos/coding-best-practices",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/macos/coding-best-practices",
+      "description": ""
+    },
+    {
+      "name": "coding-best-practices",
+      "path": "skills/ios/coding-best-practices",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/ios/coding-best-practices",
+      "description": ""
+    },
+    {
+      "name": "competitive-analysis",
+      "path": "skills/product/competitive-analysis",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/competitive-analysis",
+      "description": ""
+    },
+    {
+      "name": "foundation-models",
+      "path": "skills/apple-intelligence/foundation-models",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/apple-intelligence/foundation-models",
+      "description": ""
+    },
+    {
+      "name": "generators",
+      "path": "skills/generators",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/generators",
+      "description": ""
+    },
+    {
+      "name": "implementation-guide",
+      "path": "skills/product/implementation-guide",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/implementation-guide",
+      "description": ""
+    },
+    {
+      "name": "implementation-spec",
+      "path": "skills/product/implementation-spec",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/implementation-spec",
+      "description": ""
+    },
+    {
+      "name": "ios",
+      "path": "skills/ios",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/ios",
+      "description": ""
+    },
+    {
+      "name": "liquid-glass",
+      "path": "skills/design/liquid-glass",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/design/liquid-glass",
+      "description": ""
+    },
+    {
+      "name": "logging-setup",
+      "path": "skills/generators/logging-setup",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/generators/logging-setup",
+      "description": ""
+    },
+    {
+      "name": "macos-capabilities",
+      "path": "skills/macos/macos-capabilities",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/macos/macos-capabilities",
+      "description": ""
+    },
+    {
+      "name": "macos",
+      "path": "skills/macos",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/macos",
+      "description": ""
+    },
+    {
+      "name": "macos-tahoe-apis",
+      "path": "skills/macos/macos-tahoe-apis",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/macos/macos-tahoe-apis",
+      "description": ""
+    },
+    {
+      "name": "market-research",
+      "path": "skills/product/market-research",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/market-research",
+      "description": ""
+    },
+    {
+      "name": "networking-layer",
+      "path": "skills/generators/networking-layer",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/generators/networking-layer",
+      "description": ""
+    },
+    {
+      "name": "onboarding-generator",
+      "path": "skills/generators/onboarding-generator",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/generators/onboarding-generator",
+      "description": ""
+    },
+    {
+      "name": "paywall-generator",
+      "path": "skills/generators/paywall-generator",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/generators/paywall-generator",
+      "description": ""
+    },
+    {
+      "name": "prd-generator",
+      "path": "skills/product/prd-generator",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/prd-generator",
+      "description": ""
+    },
+    {
+      "name": "product-agent",
+      "path": "skills/product/product-agent",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/product-agent",
+      "description": ""
+    },
+    {
+      "name": "product",
+      "path": "skills/product",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product",
+      "description": ""
+    },
+    {
+      "name": "release-review",
+      "path": "skills/release-review",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/release-review",
+      "description": ""
+    },
+    {
+      "name": "release-spec",
+      "path": "skills/product/release-spec",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/release-spec",
+      "description": ""
+    },
+    {
+      "name": "review-prompt",
+      "path": "skills/generators/review-prompt",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/generators/review-prompt",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": "skills/security",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/security",
+      "description": ""
+    },
+    {
+      "name": "settings-screen",
+      "path": "skills/generators/settings-screen",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/generators/settings-screen",
+      "description": ""
+    },
+    {
+      "name": "shared",
+      "path": "skills/shared",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/shared",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/shared/skill-creator",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/shared/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "swiftdata-architecture",
+      "path": "skills/macos/swiftdata-architecture",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/macos/swiftdata-architecture",
+      "description": ""
+    },
+    {
+      "name": "test-spec",
+      "path": "skills/product/test-spec",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/test-spec",
+      "description": ""
+    },
+    {
+      "name": "ui-review",
+      "path": "skills/ios/ui-review",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/ios/ui-review",
+      "description": ""
+    },
+    {
+      "name": "ui-review-tahoe",
+      "path": "skills/macos/ui-review-tahoe",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/macos/ui-review-tahoe",
+      "description": ""
+    },
+    {
+      "name": "ux-spec",
+      "path": "skills/product/ux-spec",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product/ux-spec",
+      "description": ""
+    },
+    {
+      "name": "visual-intelligence",
+      "path": "skills/apple-intelligence/visual-intelligence",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/apple-intelligence/visual-intelligence",
+      "description": ""
+    },
+    {
+      "name": "watchos",
+      "path": "skills/watchos",
+      "github_url": "https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/watchos",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rshankras/claude-code-apple-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:35:53Z"
+}
