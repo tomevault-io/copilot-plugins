@@ -1,0 +1,14 @@
+{
+  "name": "amszuidas--mini-opencode",
+  "displayName": "mini-opencode",
+  "description": "mini-OpenCode is a lightweight experimental Coding Agent inspired by Deer-Code and OpenCode. It explores how LLMs can plan, reason, and iteratively write code with minimal infrastructure, aiming to pr",
+  "version": "1.0.0",
+  "author": "amszuidas",
+  "homepage": "https://github.com/amszuidas/mini-opencode",
+  "skills": [
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
