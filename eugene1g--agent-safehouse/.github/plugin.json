@@ -1,0 +1,9 @@
+{
+  "name": "eugene1g--agent-safehouse",
+  "displayName": "agent-safehouse",
+  "description": "Sandbox your local AI agents so they can read/write only what they need",
+  "version": "1.0.0",
+  "author": "eugene1g",
+  "homepage": "https://github.com/eugene1g/agent-safehouse",
+  "skills": []
+}
