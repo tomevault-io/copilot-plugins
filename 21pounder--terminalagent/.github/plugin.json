@@ -1,0 +1,30 @@
+{
+  "name": "21pounder--terminalagent",
+  "displayName": "terminal",
+  "description": "A powerful terminal coding agent based on Claude Agent SDK. Better then Claude Code when start up a new project, or u have no idea. Just try it.",
+  "version": "1.0.0",
+  "author": "21pounder",
+  "homepage": "https://github.com/21pounder/terminalAgent",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "pdf-analyze",
+      "description": ""
+    },
+    {
+      "name": "web-scrape",
+      "description": ""
+    }
+  ]
+}
