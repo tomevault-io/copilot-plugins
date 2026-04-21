@@ -1,0 +1,9 @@
+{
+  "name": "tinyagi--tinyagi",
+  "displayName": "tinyagi",
+  "description": "TinyAGI is the agent teams orchestrator for One Person Company. (fka TinyClaw)",
+  "version": "1.0.0",
+  "author": "TinyAGI",
+  "homepage": "https://github.com/TinyAGI/tinyagi",
+  "skills": []
+}
