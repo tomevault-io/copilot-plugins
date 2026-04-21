@@ -1,6 +1,6 @@
-# et-mlapi — distributed by TomeVault
+# et-mlapi
 
-> Originally from [damvolkov/et-mlapi](https://github.com/damvolkov/et-mlapi). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [damvolkov/et-mlapi](https://github.com/damvolkov/et-mlapi) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [damvolkov/et-mlapi](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/damvolkov)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/damvolkov/et-mlapi](https://github.com/damvolkov/et-mlapi)
 
 ---
 
