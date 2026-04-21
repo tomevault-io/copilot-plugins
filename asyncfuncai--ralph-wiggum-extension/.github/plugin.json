@@ -1,0 +1,9 @@
+{
+  "name": "asyncfuncai--ralph-wiggum-extension",
+  "displayName": "ralph-wiggum-extension",
+  "description": "Ralph Wiggum Gemini CLI Extension",
+  "version": "1.0.0",
+  "author": "AsyncFuncAI",
+  "homepage": "https://github.com/AsyncFuncAI/ralph-wiggum-extension",
+  "skills": []
+}
