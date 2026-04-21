@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--webreel",
+  "displayName": "webreel",
+  "description": "Record scripted browser demos as video",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/webreel",
+  "skills": []
+}
