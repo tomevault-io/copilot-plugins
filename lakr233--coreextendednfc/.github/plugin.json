@@ -1,0 +1,9 @@
+{
+  "name": "lakr233--coreextendednfc",
+  "displayName": "CoreExtendedNFC",
+  "description": "Swift Package porting libnfc protocol-layer logic to iOS via CoreNFC",
+  "version": "1.0.0",
+  "author": "Lakr233",
+  "homepage": "https://github.com/Lakr233/CoreExtendedNFC",
+  "skills": []
+}
