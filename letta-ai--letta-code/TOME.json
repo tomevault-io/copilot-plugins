@@ -1,0 +1,363 @@
+{
+  "name": "letta",
+  "owner": "letta-ai",
+  "repo": "letta-code",
+  "description": "The memory-first coding agent",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adding-models",
+      "path": ".skills/adding-models",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/adding-models",
+      "description": ""
+    },
+    {
+      "name": "converting-mcps-to-skills",
+      "path": "src/skills/builtin/converting-mcps-to-skills",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/src/skills/builtin/converting-mcps-to-skills",
+      "description": ""
+    },
+    {
+      "name": "creating-skills",
+      "path": "src/skills/builtin/creating-skills",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/src/skills/builtin/creating-skills",
+      "description": ""
+    },
+    {
+      "name": "finding-agents",
+      "path": "src/skills/builtin/finding-agents",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/src/skills/builtin/finding-agents",
+      "description": ""
+    },
+    {
+      "name": "initializing-memory",
+      "path": "src/skills/builtin/initializing-memory",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/src/skills/builtin/initializing-memory",
+      "description": ""
+    },
+    {
+      "name": "messaging-agents",
+      "path": "src/skills/builtin/messaging-agents",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/src/skills/builtin/messaging-agents",
+      "description": ""
+    },
+    {
+      "name": "migrating-memory",
+      "path": "src/skills/builtin/migrating-memory",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/src/skills/builtin/migrating-memory",
+      "description": ""
+    },
+    {
+      "name": "searching-messages",
+      "path": "src/skills/builtin/searching-messages",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/src/skills/builtin/searching-messages",
+      "description": ""
+    },
+    {
+      "name": "syncing-memory-filesystem",
+      "path": "src/skills/builtin/syncing-memory-filesystem",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/src/skills/builtin/syncing-memory-filesystem",
+      "description": ""
+    },
+    {
+      "name": "working-in-parallel",
+      "path": "src/skills/builtin/working-in-parallel",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/src/skills/builtin/working-in-parallel",
+      "description": ""
+    },
+    {
+      "name": "apple-notes",
+      "path": ".skills/apple-notes",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/apple-notes",
+      "description": ""
+    },
+    {
+      "name": "apple-reminders",
+      "path": ".skills/apple-reminders",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/apple-reminders",
+      "description": ""
+    },
+    {
+      "name": "bear-notes",
+      "path": ".skills/bear-notes",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/bear-notes",
+      "description": ""
+    },
+    {
+      "name": "bird",
+      "path": ".skills/bird",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/bird",
+      "description": ""
+    },
+    {
+      "name": "blogwatcher",
+      "path": ".skills/blogwatcher",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/blogwatcher",
+      "description": ""
+    },
+    {
+      "name": "blucli",
+      "path": ".skills/blucli",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/blucli",
+      "description": ""
+    },
+    {
+      "name": "camsnap",
+      "path": ".skills/camsnap",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/camsnap",
+      "description": ""
+    },
+    {
+      "name": "cron",
+      "path": ".skills/cron",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/cron",
+      "description": ""
+    },
+    {
+      "name": "eightctl",
+      "path": ".skills/eightctl",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/eightctl",
+      "description": ""
+    },
+    {
+      "name": "food-order",
+      "path": ".skills/food-order",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/food-order",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": ".skills/gemini",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/gemini",
+      "description": ""
+    },
+    {
+      "name": "gifgrep",
+      "path": ".skills/gifgrep",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/gifgrep",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "path": ".skills/github",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/github",
+      "description": ""
+    },
+    {
+      "name": "gog",
+      "path": ".skills/gog",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/gog",
+      "description": ""
+    },
+    {
+      "name": "google",
+      "path": ".skills/google",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/google",
+      "description": ""
+    },
+    {
+      "name": "goplaces",
+      "path": ".skills/goplaces",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/goplaces",
+      "description": ""
+    },
+    {
+      "name": "himalaya",
+      "path": ".skills/himalaya",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/himalaya",
+      "description": ""
+    },
+    {
+      "name": "imsg",
+      "path": ".skills/imsg",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/imsg",
+      "description": ""
+    },
+    {
+      "name": "linear",
+      "path": ".skills/linear",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/linear",
+      "description": ""
+    },
+    {
+      "name": "local-places",
+      "path": ".skills/local-places",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/local-places",
+      "description": ""
+    },
+    {
+      "name": "mcporter",
+      "path": ".skills/mcporter",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/mcporter",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-pro",
+      "path": ".skills/nano-banana-pro",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/nano-banana-pro",
+      "description": ""
+    },
+    {
+      "name": "nano-pdf",
+      "path": ".skills/nano-pdf",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/nano-pdf",
+      "description": ""
+    },
+    {
+      "name": "notion",
+      "path": ".skills/notion",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/notion",
+      "description": ""
+    },
+    {
+      "name": "obsidian",
+      "path": ".skills/obsidian",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/obsidian",
+      "description": ""
+    },
+    {
+      "name": "openai-image-gen",
+      "path": ".skills/openai-image-gen",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/openai-image-gen",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper",
+      "path": ".skills/openai-whisper",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/openai-whisper",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper-api",
+      "path": ".skills/openai-whisper-api",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/openai-whisper-api",
+      "description": ""
+    },
+    {
+      "name": "openhue",
+      "path": ".skills/openhue",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/openhue",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "path": ".skills/oracle",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/oracle",
+      "description": ""
+    },
+    {
+      "name": "ordercli",
+      "path": ".skills/ordercli",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/ordercli",
+      "description": ""
+    },
+    {
+      "name": "peekaboo",
+      "path": ".skills/peekaboo",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/peekaboo",
+      "description": ""
+    },
+    {
+      "name": "sag",
+      "path": ".skills/sag",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/sag",
+      "description": ""
+    },
+    {
+      "name": "scheduling",
+      "path": "skills/scheduling",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/skills/scheduling",
+      "description": ""
+    },
+    {
+      "name": "sherpa-onnx-tts",
+      "path": ".skills/sherpa-onnx-tts",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/sherpa-onnx-tts",
+      "description": ""
+    },
+    {
+      "name": "songsee",
+      "path": ".skills/songsee",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/songsee",
+      "description": ""
+    },
+    {
+      "name": "sonoscli",
+      "path": ".skills/sonoscli",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/sonoscli",
+      "description": ""
+    },
+    {
+      "name": "spotify-player",
+      "path": ".skills/spotify-player",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/spotify-player",
+      "description": ""
+    },
+    {
+      "name": "summarize",
+      "path": ".skills/summarize",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/summarize",
+      "description": ""
+    },
+    {
+      "name": "things-mac",
+      "path": ".skills/things-mac",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/things-mac",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "path": ".skills/tmux",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/tmux",
+      "description": ""
+    },
+    {
+      "name": "video-frames",
+      "path": ".skills/video-frames",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/video-frames",
+      "description": ""
+    },
+    {
+      "name": "wacli",
+      "path": ".skills/wacli",
+      "github_url": "https://github.com/letta-ai/letta-code/tree/main/.skills/wacli",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/letta-ai/letta-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:39:16Z"
+}
