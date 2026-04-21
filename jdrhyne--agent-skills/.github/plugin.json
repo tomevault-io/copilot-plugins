@@ -1,0 +1,94 @@
+{
+  "name": "jdrhyne--agent-skills",
+  "displayName": "agent-skills",
+  "description": "A collection of AI agent skills for Clawdbot, Claude Code, Codex",
+  "version": "1.0.0",
+  "author": "jdrhyne",
+  "homepage": "https://github.com/jdrhyne/agent-skills",
+  "skills": [
+    {
+      "name": "auto-updater",
+      "description": ""
+    },
+    {
+      "name": "clawddocs",
+      "description": ""
+    },
+    {
+      "name": "elegant-reports",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "ga4",
+      "description": ""
+    },
+    {
+      "name": "gallery-scraper",
+      "description": ""
+    },
+    {
+      "name": "gong",
+      "description": ""
+    },
+    {
+      "name": "google-ads",
+      "description": ""
+    },
+    {
+      "name": "humanizer",
+      "description": ""
+    },
+    {
+      "name": "jira",
+      "description": ""
+    },
+    {
+      "name": "munger-observer",
+      "description": ""
+    },
+    {
+      "name": "nudocs",
+      "description": ""
+    },
+    {
+      "name": "nutrient-openclaw",
+      "description": ""
+    },
+    {
+      "name": "planner",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "description": ""
+    },
+    {
+      "name": "salesforce",
+      "description": ""
+    },
+    {
+      "name": "senior-engineering",
+      "description": ""
+    },
+    {
+      "name": "skill-sync",
+      "description": ""
+    },
+    {
+      "name": "sysadmin-toolbox",
+      "description": ""
+    },
+    {
+      "name": "task-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "zendesk",
+      "description": ""
+    }
+  ]
+}
