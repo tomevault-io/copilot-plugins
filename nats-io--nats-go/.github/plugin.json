@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--nats-go",
+  "displayName": "nats.go",
+  "description": "nats.go",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/nats.go",
+  "skills": []
+}
