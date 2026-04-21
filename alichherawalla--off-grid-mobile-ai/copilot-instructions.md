@@ -1,30 +1,8 @@
 ## off-grid-mobile-ai
 
-> **Never push directly to `main`.** All changes must go through a pull request:
+> All quality gates run automatically via Husky on every `git commit`, scoped to the file types you staged:
 
 # Project Instructions
-
-## Branch Policy
-
-**Never push directly to `main`.** All changes must go through a pull request:
-
-0. Always create a branch specific to the change before committing: `feat/`, `fix/`, `docs/`, `chore/`, `test/`, etc.
-1. Push the branch and open a PR — never `git push origin main`.
-2. If you find yourself on `main`, create a branch first: `git checkout -b <branch-name>`.
-
-## Design Standards
-
-**Any change that touches UI (screens, components, styles) must comply with the design system:**
-
-- Read `docs/design/VISUAL_HIERARCHY_STANDARD.md` before writing or modifying any UI code.
-- Check `docs/design/` for any other relevant design documents.
-- Use `TYPOGRAPHY` tokens — never hardcode font sizes or weights.
-- Use `COLORS` tokens — never hardcode color values.
-- Use `SPACING` tokens — never hardcode margin/padding values.
-- Weights must stay ≤ 400 (no bold).
-- Never use emojis or emoticons in UI text — always use `react-native-vector-icons` instead. Feather is the default; MaterialIcons is allowed only when Feather lacks a suitable icon (e.g. `whatshot` for trending).
-- Never use `lucide-react` or any other icon library — only `react-native-vector-icons`.
-- Follow the 5-category text hierarchy: TITLE → BODY → SUBTITLE/DESCRIPTION → META.
 
 ## Pre-Commit Quality Gates
 
@@ -53,26 +31,17 @@ Do not consider a feature complete with only unit tests. Integration tests catch
 
 ## Push = Create PR + Address Review
 
-When the user says "push" (or any equivalent like "ship it", "send it", "push this"), follow this full workflow:
+When asked to push code, follow this full workflow:
 
-### Before pushing
-0. Write tests for any new or changed logic if they don't already exist.
-1. Run `npm run lint && npx tsc --noEmit && npm test` — fix any failures before continuing.
-2. Commit all staged changes with a descriptive message.
-3. Ensure you are NOT on `main`. If you are, create an appropriately named branch first: `git checkout -b feat/...` or `fix/...` or `chore/...` etc.
-
-### Pushing & PR
-4. Push the branch: `git push -u origin <branch>`
-5. If no PR exists for this branch, create one with `gh pr create`. **Do NOT include "Generated with Codex" or any AI attribution in PR descriptions.**
-6. If a PR already exists, update its description to reflect **all commits in the PR** (not just the latest push). Read the full commit history with `git log main..HEAD` and write a coherent description that summarises the entire change set — what it does, why, and how.
-
-### Review loop
-7. Wait for Gemini to review the PR (poll with `gh pr checks` and `gh api repos/{owner}/{repo}/pulls/{number}/reviews` until a review appears).
-8. Pull down review comments: `gh api repos/{owner}/{repo}/pulls/{number}/comments` and `gh api repos/{owner}/{repo}/pulls/{number}/reviews`.
-9. Address every review comment — fix the code, re-run quality gates (lint, tsc, test).
-10. Reply to **each** review comment individually using `gh api` (`/pulls/comments/{id}/replies`). Every comment gets its own reply — do not post a single summary comment.
-11. Push fixes, update the PR description again to stay coherent across all commits.
-12. Report what was changed in response to the review.
+0. ensure that you are on a branch that is specific to this change i.e feat/new-feature or fix/bug-fix or docs/update-readme or chore/update-dependencies, or test/new-test, etc
+1. Push the branch to the remote (`git push -u origin <branch>`)
+2. Create a PR using `gh pr create`. Ensure that you are adhering to the PR template. **Do NOT include "Generated with Codex" or any AI attribution in PR descriptions.**
+3. Wait for Gemini to review the PR (poll with `gh pr checks` and `gh api repos/{owner}/{repo}/pulls/{number}/reviews` until a review appears)
+4. Once a review exists, pull down the review comments: `gh api repos/{owner}/{repo}/pulls/{number}/comments` and `gh api repos/{owner}/{repo}/pulls/{number}/reviews`
+5. Address every review comment — fix the code, re-run the quality gates (tests, lint, tsc).
+6. Reply to **each** review comment individually on the PR using `gh api` (use `/pulls/comments/{id}/replies` endpoint). Every comment must get its own reply confirming what was done — do not post a single summary comment.
+7. Push the fixes
+8. Report what was changed in response to the review
 
 ## CI Review Loop
 
@@ -93,6 +62,5 @@ The repo has three automated reviewers on every PR. After pushing, loop until al
 6. Repeat until all three reviewers pass with no blocking issues
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/alichherawalla)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/alichherawalla)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [alichherawalla/off-grid-mobile-ai](https://github.com/alichherawalla/off-grid-mobile-ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
