@@ -1,0 +1,87 @@
+{
+  "name": "legal-skills",
+  "owner": "cat-xierluo",
+  "repo": "legal-skills",
+  "description": "\u9762\u5411\u6cd5\u5f8b\u4eba\u7684 Skills \u96c6\u5408",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "de-ai-polish",
+      "path": "skills/de-ai-polish",
+      "github_url": "https://github.com/cat-xierluo/legal-skills/tree/main/skills/de-ai-polish",
+      "description": ""
+    },
+    {
+      "name": "git-batch-commit",
+      "path": "skills/git-batch-commit",
+      "github_url": "https://github.com/cat-xierluo/legal-skills/tree/main/skills/git-batch-commit",
+      "description": ""
+    },
+    {
+      "name": "legal-text-format",
+      "path": "skills/legal-text-format",
+      "github_url": "https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-text-format",
+      "description": ""
+    },
+    {
+      "name": "mineru-ocr",
+      "path": "skills/mineru-ocr",
+      "github_url": "https://github.com/cat-xierluo/legal-skills/tree/main/skills/mineru-ocr",
+      "description": ""
+    },
+    {
+      "name": "multi-search",
+      "path": "skills/multi-search",
+      "github_url": "https://github.com/cat-xierluo/legal-skills/tree/main/skills/multi-search",
+      "description": ""
+    },
+    {
+      "name": "repo-research",
+      "path": "skills/repo-research",
+      "github_url": "https://github.com/cat-xierluo/legal-skills/tree/main/skills/repo-research",
+      "description": ""
+    },
+    {
+      "name": "skill-manager",
+      "path": "skills/skill-manager",
+      "github_url": "https://github.com/cat-xierluo/legal-skills/tree/main/skills/skill-manager",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cat-xierluo/legal-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:34:27Z"
+}
