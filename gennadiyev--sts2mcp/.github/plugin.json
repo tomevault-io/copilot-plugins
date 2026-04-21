@@ -1,0 +1,9 @@
+{
+  "name": "gennadiyev--sts2mcp",
+  "displayName": "STS2MCP",
+  "description": "Full agentic runs for Slay the Spire 2. A mod that exposes in-game state, and the MCP server for the mod.",
+  "version": "1.0.0",
+  "author": "Gennadiyev",
+  "homepage": "https://github.com/Gennadiyev/STS2MCP",
+  "skills": []
+}
