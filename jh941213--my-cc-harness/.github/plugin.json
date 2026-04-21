@@ -1,0 +1,74 @@
+{
+  "name": "jh941213--my-cc-harness",
+  "displayName": "my-c",
+  "description": "my-claude-code-asset",
+  "version": "1.0.0",
+  "author": "jh941213",
+  "homepage": "https://github.com/jh941213/my-cc-harness",
+  "skills": [
+    {
+      "name": "async-python-patterns",
+      "description": ""
+    },
+    {
+      "name": "build-fix",
+      "description": ""
+    },
+    {
+      "name": "compact-guide",
+      "description": ""
+    },
+    {
+      "name": "e2e-agent-browser",
+      "description": ""
+    },
+    {
+      "name": "frontend",
+      "description": ""
+    },
+    {
+      "name": "nano-banana",
+      "description": ""
+    },
+    {
+      "name": "python-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-patterns",
+      "description": ""
+    },
+    {
+      "name": "shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "stitch-design-md",
+      "description": ""
+    },
+    {
+      "name": "stitch-enhance-prompt",
+      "description": ""
+    },
+    {
+      "name": "stitch-react",
+      "description": ""
+    },
+    {
+      "name": "tailwind-design-system",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "stitch-design-md",
+      "description": ""
+    }
+  ]
+}
