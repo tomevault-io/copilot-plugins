@@ -1,0 +1,14 @@
+{
+  "name": "vectorize-io--hindsight",
+  "displayName": "hindsight",
+  "description": "Hindsight: Agent Memory That  Learns",
+  "version": "1.0.0",
+  "author": "vectorize-io",
+  "homepage": "https://github.com/vectorize-io/hindsight",
+  "skills": [
+    {
+      "name": "hindsight-docs",
+      "description": ""
+    }
+  ]
+}
