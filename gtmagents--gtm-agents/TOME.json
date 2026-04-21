@@ -1,0 +1,489 @@
+{
+  "name": "gtm-agents",
+  "owner": "gtmagents",
+  "repo": "gtm-agents",
+  "description": "Production-ready collection of GTM agents and specialized skills for claude code. Covers sales, marketing, customer success, and revenue operations workflows.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ab-testing",
+      "path": "plugins/email-marketing/skills/ab-testing",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/email-marketing/skills/ab-testing",
+      "description": ""
+    },
+    {
+      "name": "adoption-playbook",
+      "path": "plugins/customer-success/skills/adoption-playbook",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/customer-success/skills/adoption-playbook",
+      "description": ""
+    },
+    {
+      "name": "advocacy-programs",
+      "path": "plugins/customer-marketing/skills/advocacy-programs",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/customer-marketing/skills/advocacy-programs",
+      "description": ""
+    },
+    {
+      "name": "api-style-guide",
+      "path": "plugins/technical-writing/skills/api-style-guide",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/technical-writing/skills/api-style-guide",
+      "description": ""
+    },
+    {
+      "name": "asset-approval",
+      "path": "plugins/partner-co-marketing-orchestration/skills/asset-approval",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/partner-co-marketing-orchestration/skills/asset-approval",
+      "description": ""
+    },
+    {
+      "name": "attribution-playbook",
+      "path": "plugins/marketing-analytics/skills/attribution-playbook",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/marketing-analytics/skills/attribution-playbook",
+      "description": ""
+    },
+    {
+      "name": "brand-governance",
+      "path": "plugins/design-creative/skills/brand-governance",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/design-creative/skills/brand-governance",
+      "description": ""
+    },
+    {
+      "name": "brand-governance-os",
+      "path": "plugins/brand-strategy/skills/brand-governance-os",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/brand-strategy/skills/brand-governance-os",
+      "description": ""
+    },
+    {
+      "name": "cadence-design",
+      "path": "plugins/email-sequence-orchestration/skills/cadence-design",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/email-sequence-orchestration/skills/cadence-design",
+      "description": ""
+    },
+    {
+      "name": "call-highlights",
+      "path": "plugins/sales-coaching/skills/call-highlights",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/sales-coaching/skills/call-highlights",
+      "description": ""
+    },
+    {
+      "name": "campaign-architecture",
+      "path": "plugins/paid-media/skills/campaign-architecture",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/paid-media/skills/campaign-architecture",
+      "description": ""
+    },
+    {
+      "name": "campaign-planning",
+      "path": "plugins/campaign-orchestration/skills/campaign-planning",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/campaign-orchestration/skills/campaign-planning",
+      "description": ""
+    },
+    {
+      "name": "clinical-proof-library",
+      "path": "plugins/healthcare-marketing/skills/clinical-proof-library",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/healthcare-marketing/skills/clinical-proof-library",
+      "description": ""
+    },
+    {
+      "name": "coaching-framework",
+      "path": "plugins/sales-coaching/skills/coaching-framework",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/sales-coaching/skills/coaching-framework",
+      "description": ""
+    },
+    {
+      "name": "competitive-intel",
+      "path": "plugins/product-marketing/skills/competitive-intel",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/product-marketing/skills/competitive-intel",
+      "description": ""
+    },
+    {
+      "name": "compliance-briefing-kit",
+      "path": "plugins/healthcare-marketing/skills/compliance-briefing-kit",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/healthcare-marketing/skills/compliance-briefing-kit",
+      "description": ""
+    },
+    {
+      "name": "compliance-statement-library",
+      "path": "plugins/financial-services/skills/compliance-statement-library",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/financial-services/skills/compliance-statement-library",
+      "description": ""
+    },
+    {
+      "name": "content-variants",
+      "path": "plugins/personalization-engine/skills/content-variants",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/personalization-engine/skills/content-variants",
+      "description": ""
+    },
+    {
+      "name": "conversion-diagnostic-kit",
+      "path": "plugins/e-commerce/skills/conversion-diagnostic-kit",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/e-commerce/skills/conversion-diagnostic-kit",
+      "description": ""
+    },
+    {
+      "name": "creative-iteration-playbook",
+      "path": "plugins/social-media-marketing/skills/creative-iteration-playbook",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/social-media-marketing/skills/creative-iteration-playbook",
+      "description": ""
+    },
+    {
+      "name": "creative-variants",
+      "path": "plugins/paid-media/skills/creative-variants",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/paid-media/skills/creative-variants",
+      "description": ""
+    },
+    {
+      "name": "crisis-playbooks",
+      "path": "plugins/pr-communications/skills/crisis-playbooks",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/pr-communications/skills/crisis-playbooks",
+      "description": ""
+    },
+    {
+      "name": "crm-hygiene",
+      "path": "plugins/sales-pipeline/skills/crm-hygiene",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/sales-pipeline/skills/crm-hygiene",
+      "description": ""
+    },
+    {
+      "name": "dashboard-playbook",
+      "path": "plugins/business-intelligence/skills/dashboard-playbook",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/business-intelligence/skills/dashboard-playbook",
+      "description": ""
+    },
+    {
+      "name": "deal-desk",
+      "path": "plugins/renewal-orchestration/skills/deal-desk",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/renewal-orchestration/skills/deal-desk",
+      "description": ""
+    },
+    {
+      "name": "decision-trees",
+      "path": "plugins/personalization-engine/skills/decision-trees",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/personalization-engine/skills/decision-trees",
+      "description": ""
+    },
+    {
+      "name": "discovery-calls",
+      "path": "plugins/sales-prospecting/skills/discovery-calls",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/sales-prospecting/skills/discovery-calls",
+      "description": ""
+    },
+    {
+      "name": "doc-requirements-matrix",
+      "path": "plugins/technical-writing/skills/doc-requirements-matrix",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/technical-writing/skills/doc-requirements-matrix",
+      "description": ""
+    },
+    {
+      "name": "editorial-calendar",
+      "path": "plugins/content-pipeline-orchestration/skills/editorial-calendar",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/content-pipeline-orchestration/skills/editorial-calendar",
+      "description": ""
+    },
+    {
+      "name": "engagement-analytics",
+      "path": "plugins/webinar-automation/skills/engagement-analytics",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/webinar-automation/skills/engagement-analytics",
+      "description": ""
+    },
+    {
+      "name": "event-briefs",
+      "path": "plugins/event-marketing/skills/event-briefs",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/event-marketing/skills/event-briefs",
+      "description": ""
+    },
+    {
+      "name": "exec-dashboard-blueprint",
+      "path": "plugins/marketing-analytics/skills/exec-dashboard-blueprint",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/marketing-analytics/skills/exec-dashboard-blueprint",
+      "description": ""
+    },
+    {
+      "name": "experience-system-blueprint",
+      "path": "plugins/brand-strategy/skills/experience-system-blueprint",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/brand-strategy/skills/experience-system-blueprint",
+      "description": ""
+    },
+    {
+      "name": "experiment-design-kit",
+      "path": "plugins/growth-experiments/skills/experiment-design-kit",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/growth-experiments/skills/experiment-design-kit",
+      "description": ""
+    },
+    {
+      "name": "forecast-modeling",
+      "path": "plugins/revenue-forecasting-pipeline/skills/forecast-modeling",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/revenue-forecasting-pipeline/skills/forecast-modeling",
+      "description": ""
+    },
+    {
+      "name": "governance",
+      "path": "plugins/personalization-engine/skills/governance",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/personalization-engine/skills/governance",
+      "description": ""
+    },
+    {
+      "name": "in-app-messaging-kit",
+      "path": "plugins/product-led-growth/skills/in-app-messaging-kit",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/product-led-growth/skills/in-app-messaging-kit",
+      "description": ""
+    },
+    {
+      "name": "incentive-design",
+      "path": "plugins/referral-program-orchestration/skills/incentive-design",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/referral-program-orchestration/skills/incentive-design",
+      "description": ""
+    },
+    {
+      "name": "joint-solution-blueprint",
+      "path": "plugins/partnership-development/skills/joint-solution-blueprint",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/partnership-development/skills/joint-solution-blueprint",
+      "description": ""
+    },
+    {
+      "name": "launch-tiering",
+      "path": "plugins/product-launch-orchestration/skills/launch-tiering",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/product-launch-orchestration/skills/launch-tiering",
+      "description": ""
+    },
+    {
+      "name": "lifecycle-mapping",
+      "path": "plugins/marketing-automation/skills/lifecycle-mapping",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/marketing-automation/skills/lifecycle-mapping",
+      "description": ""
+    },
+    {
+      "name": "metric-governance-kit",
+      "path": "plugins/business-intelligence/skills/metric-governance-kit",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/business-intelligence/skills/metric-governance-kit",
+      "description": ""
+    },
+    {
+      "name": "moderation-safety-playbook",
+      "path": "plugins/community-building/skills/moderation-safety-playbook",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/community-building/skills/moderation-safety-playbook",
+      "description": ""
+    },
+    {
+      "name": "nurture-testing",
+      "path": "plugins/lead-nurture-orchestration/skills/nurture-testing",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/lead-nurture-orchestration/skills/nurture-testing",
+      "description": ""
+    },
+    {
+      "name": "offer-testing",
+      "path": "plugins/copywriting/skills/offer-testing",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/copywriting/skills/offer-testing",
+      "description": ""
+    },
+    {
+      "name": "on-page",
+      "path": "plugins/seo/skills/on-page",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/seo/skills/on-page",
+      "description": ""
+    },
+    {
+      "name": "onboarding-blueprint",
+      "path": "plugins/product-led-growth/skills/onboarding-blueprint",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/product-led-growth/skills/onboarding-blueprint",
+      "description": ""
+    },
+    {
+      "name": "patient-journey-mapping",
+      "path": "plugins/healthcare-marketing/skills/patient-journey-mapping",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/healthcare-marketing/skills/patient-journey-mapping",
+      "description": ""
+    },
+    {
+      "name": "pricing-governance",
+      "path": "plugins/pricing-strategy/skills/pricing-governance",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/pricing-strategy/skills/pricing-governance",
+      "description": ""
+    },
+    {
+      "name": "publishing-process",
+      "path": "plugins/seo-workflow-orchestration/skills/publishing-process",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/seo-workflow-orchestration/skills/publishing-process",
+      "description": ""
+    },
+    {
+      "name": "quality-gates",
+      "path": "plugins/analytics-pipeline-orchestration/skills/quality-gates",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/analytics-pipeline-orchestration/skills/quality-gates",
+      "description": ""
+    },
+    {
+      "name": "quality-review-checklist",
+      "path": "plugins/technical-writing/skills/quality-review-checklist",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/technical-writing/skills/quality-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "registration-ops",
+      "path": "plugins/webinar-automation/skills/registration-ops",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/webinar-automation/skills/registration-ops",
+      "description": ""
+    },
+    {
+      "name": "regulatory-review-checklist",
+      "path": "plugins/healthcare-marketing/skills/regulatory-review-checklist",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/healthcare-marketing/skills/regulatory-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "reinforcement-drills",
+      "path": "plugins/sales-coaching/skills/reinforcement-drills",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/sales-coaching/skills/reinforcement-drills",
+      "description": ""
+    },
+    {
+      "name": "renewal-playbooks",
+      "path": "plugins/renewal-orchestration/skills/renewal-playbooks",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/renewal-orchestration/skills/renewal-playbooks",
+      "description": ""
+    },
+    {
+      "name": "segmentation",
+      "path": "plugins/email-marketing/skills/segmentation",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/email-marketing/skills/segmentation",
+      "description": ""
+    },
+    {
+      "name": "segmentation-framework",
+      "path": "plugins/customer-analytics/skills/segmentation-framework",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/customer-analytics/skills/segmentation-framework",
+      "description": ""
+    },
+    {
+      "name": "signal-scoring",
+      "path": "plugins/intent-signal-orchestration/skills/signal-scoring",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/intent-signal-orchestration/skills/signal-scoring",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "path": "templates",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/templates",
+      "description": ""
+    },
+    {
+      "name": "sla-tracking",
+      "path": "plugins/sales-handoff-orchestration/skills/sla-tracking",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/sales-handoff-orchestration/skills/sla-tracking",
+      "description": ""
+    },
+    {
+      "name": "social-calendar-system",
+      "path": "plugins/social-media-marketing/skills/social-calendar-system",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/social-media-marketing/skills/social-calendar-system",
+      "description": ""
+    },
+    {
+      "name": "stakeholder-ops",
+      "path": "plugins/customer-feedback-orchestration/skills/stakeholder-ops",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/customer-feedback-orchestration/skills/stakeholder-ops",
+      "description": ""
+    },
+    {
+      "name": "survey-design",
+      "path": "plugins/customer-feedback-orchestration/skills/survey-design",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/customer-feedback-orchestration/skills/survey-design",
+      "description": ""
+    },
+    {
+      "name": "thought-leadership",
+      "path": "plugins/content-marketing/skills/thought-leadership",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/content-marketing/skills/thought-leadership",
+      "description": ""
+    },
+    {
+      "name": "versioning-dashboard",
+      "path": "plugins/technical-writing/skills/versioning-dashboard",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/technical-writing/skills/versioning-dashboard",
+      "description": ""
+    },
+    {
+      "name": "visualization-patterns",
+      "path": "plugins/analytics-pipeline-orchestration/skills/visualization-patterns",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/analytics-pipeline-orchestration/skills/visualization-patterns",
+      "description": ""
+    },
+    {
+      "name": "voice-guidelines",
+      "path": "plugins/copywriting/skills/voice-guidelines",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/copywriting/skills/voice-guidelines",
+      "description": ""
+    },
+    {
+      "name": "voice-of-customer",
+      "path": "plugins/customer-journey-orchestration/skills/voice-of-customer",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/customer-journey-orchestration/skills/voice-of-customer",
+      "description": ""
+    },
+    {
+      "name": "waterfall-blueprint",
+      "path": "plugins/data-signal-enrichment/skills/waterfall-blueprint",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/data-signal-enrichment/skills/waterfall-blueprint",
+      "description": ""
+    },
+    {
+      "name": "webinar-design",
+      "path": "plugins/webinar-automation/skills/webinar-design",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/webinar-automation/skills/webinar-design",
+      "description": ""
+    },
+    {
+      "name": "webinars",
+      "path": "plugins/content-marketing/skills/webinars",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/content-marketing/skills/webinars",
+      "description": ""
+    },
+    {
+      "name": "whitepapers",
+      "path": "plugins/content-marketing/skills/whitepapers",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/content-marketing/skills/whitepapers",
+      "description": ""
+    },
+    {
+      "name": "workflow-testing",
+      "path": "plugins/marketing-automation/skills/workflow-testing",
+      "github_url": "https://github.com/gtmagents/gtm-agents/tree/main/plugins/marketing-automation/skills/workflow-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gtmagents/gtm-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:34:42Z"
+}
