@@ -1,0 +1,9 @@
+{
+  "name": "idolaman--galactic",
+  "displayName": "galactic",
+  "description": "The command center to ship 10x faster with a parallel Claude Code fleet, featuring isolated Git Worktrees and zero-conflict networking.",
+  "version": "1.0.0",
+  "author": "idolaman",
+  "homepage": "https://github.com/idolaman/galactic",
+  "skills": []
+}
