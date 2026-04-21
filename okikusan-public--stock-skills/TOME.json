@@ -1,0 +1,57 @@
+{
+  "name": "stock_skills",
+  "owner": "okikusan-public",
+  "repo": "stock_skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "market-research",
+      "path": ".claude/skills/market-research",
+      "github_url": "https://github.com/okikusan-public/stock_skills/tree/main/.claude/skills/market-research",
+      "description": ""
+    },
+    {
+      "name": "stress-test",
+      "path": ".claude/skills/stress-test",
+      "github_url": "https://github.com/okikusan-public/stock_skills/tree/main/.claude/skills/stress-test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/okikusan-public/stock_skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T20:33:33Z"
+}
