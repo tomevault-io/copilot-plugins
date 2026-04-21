@@ -1,0 +1,14 @@
+{
+  "name": "trailofbits--dropkit",
+  "displayName": "dropkit",
+  "description": "A CLI tool for managing DigitalOcean droplets with automated setup, SSH configuration, and lifecycle management.",
+  "version": "1.0.0",
+  "author": "trailofbits",
+  "homepage": "https://github.com/trailofbits/dropkit",
+  "skills": [
+    {
+      "name": "git-worktrees",
+      "description": ""
+    }
+  ]
+}
