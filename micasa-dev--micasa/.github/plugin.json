@@ -1,0 +1,9 @@
+{
+  "name": "micasa-dev--micasa",
+  "displayName": "micasa",
+  "description": "A modal TUI for tracking home projects, maintenance schedules, appliances, and vendor quotes.",
+  "version": "1.0.0",
+  "author": "micasa-dev",
+  "homepage": "https://github.com/micasa-dev/micasa",
+  "skills": []
+}
