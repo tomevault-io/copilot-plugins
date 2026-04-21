@@ -1,0 +1,154 @@
+{
+  "name": "alfredolopez80--multi-agent-ralph-loop",
+  "displayName": "multi-agent-ralph-loop",
+  "description": "Autonomous orchestration framework for Claude Code with MemPalace-inspired memory (4-layer stack, 818-token wake-up), parallel-first Agent Teams (6 teammates), Aristotle First Principles methodology, ",
+  "version": "1.0.0",
+  "author": "alfredolopez80",
+  "homepage": "https://github.com/alfredolopez80/multi-agent-ralph-loop",
+  "skills": [
+    {
+      "name": "adversarial",
+      "description": ""
+    },
+    {
+      "name": "attack-mutator",
+      "description": ""
+    },
+    {
+      "name": "bugs",
+      "description": ""
+    },
+    {
+      "name": "clarify",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "codex-cli",
+      "description": ""
+    },
+    {
+      "name": "context7-usage",
+      "description": ""
+    },
+    {
+      "name": "curator-repo-learn",
+      "description": ""
+    },
+    {
+      "name": "defense-profiler",
+      "description": ""
+    },
+    {
+      "name": "deslop",
+      "description": ""
+    },
+    {
+      "name": "edd",
+      "description": ""
+    },
+    {
+      "name": "gates",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli",
+      "description": ""
+    },
+    {
+      "name": "glm-mcp",
+      "description": ""
+    },
+    {
+      "name": "glm5",
+      "description": ""
+    },
+    {
+      "name": "glm5-parallel",
+      "description": ""
+    },
+    {
+      "name": "kaizen",
+      "description": ""
+    },
+    {
+      "name": "minimax",
+      "description": ""
+    },
+    {
+      "name": "minimax-mcp-usage",
+      "description": ""
+    },
+    {
+      "name": "openai-docs",
+      "description": ""
+    },
+    {
+      "name": "parallel",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "description": ""
+    },
+    {
+      "name": "quality-gates-parallel",
+      "description": ""
+    },
+    {
+      "name": "readme",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "research-blockchain",
+      "description": ""
+    },
+    {
+      "name": "sec-context-depth",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "description": ""
+    },
+    {
+      "name": "senior-software-engineer",
+      "description": ""
+    },
+    {
+      "name": "stop-slop",
+      "description": ""
+    },
+    {
+      "name": "tap-explorer",
+      "description": ""
+    },
+    {
+      "name": "task-batch",
+      "description": ""
+    },
+    {
+      "name": "task-classifier",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "worktree-pr",
+      "description": ""
+    }
+  ]
+}
