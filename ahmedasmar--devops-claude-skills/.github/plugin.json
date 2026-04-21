@@ -1,0 +1,30 @@
+{
+  "name": "ahmedasmar--devops-claude-skills",
+  "displayName": "devops-claude-skills",
+  "description": "A Claude Code Skills Marketplace for DevOps workflows",
+  "version": "1.0.0",
+  "author": "ahmedasmar",
+  "homepage": "https://github.com/ahmedasmar/devops-claude-skills",
+  "skills": [
+    {
+      "name": "monitoring-observability",
+      "description": ""
+    },
+    {
+      "name": "aws-cost-optimization",
+      "description": ""
+    },
+    {
+      "name": "ci-cd",
+      "description": ""
+    },
+    {
+      "name": "gitops-workflows",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
