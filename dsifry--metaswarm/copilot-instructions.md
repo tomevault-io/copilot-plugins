@@ -1,63 +1,85 @@
 ## metaswarm
 
-> Multi-agent orchestration framework for software development. 18 specialized agents, 13 skills, quality gates, TDD enforcement.
+> This project is **metaswarm** — a multi-agent orchestration framework for Claude Code, Gemini CLI, and Codex CLI. It provides 19 specialized agents, 13 orchestration skills, quality gates, and TDD enforcement.
 
-# metaswarm
+# Agent Instructions
 
-Multi-agent orchestration framework for software development. 18 specialized agents, 13 skills, quality gates, TDD enforcement.
+This project is **metaswarm** — a multi-agent orchestration framework for Claude Code, Gemini CLI, and Codex CLI. It provides 19 specialized agents, 13 orchestration skills, quality gates, and TDD enforcement.
 
-## Getting Started
+## Quick Reference
 
-Run `/metaswarm:start-task` to begin tracked work, or `/metaswarm:setup` to configure metaswarm for this project.
+Codex discovers skills by their SKILL.md `name` field. Invoke with `$name` syntax.
 
-## Available Commands
-
-| Command | Purpose |
+| Invoke | Purpose |
 |---|---|
-| `/metaswarm:start-task` | Begin tracked work on a task |
-| `/metaswarm:prime` | Load relevant knowledge before starting |
-| `/metaswarm:review-design` | Trigger design review gate (5 reviewers) |
-| `/metaswarm:pr-shepherd` | Monitor a PR through to merge |
-| `/metaswarm:self-reflect` | Extract learnings after a PR merge |
-| `/metaswarm:handle-pr-comments` | Handle PR review comments |
-| `/metaswarm:brainstorm` | Refine an idea before implementation |
-| `/metaswarm:create-issue` | Create a well-structured GitHub Issue |
-| `/metaswarm:external-tools-health` | Check status of external AI tools |
-| `/metaswarm:setup` | Interactive guided setup |
-| `/metaswarm:status` | Run diagnostic checks |
+| `$start` | Begin tracked work on a task |
+| `$setup` | Interactive guided setup for a project |
+| `$brainstorming-extension` | Refine an idea before implementation |
+| `$design-review-gate` | Trigger design review gate (5 reviewers) |
+| `$plan-review-gate` | Adversarial plan review (3 reviewers) |
+| `$orchestrated-execution` | 4-phase execution loop per work unit |
+| `$pr-shepherd` | Monitor a PR through to merge |
+| `$handling-pr-comments` | Handle PR review comments |
+| `$create-issue` | Create a well-structured GitHub Issue |
+| `$status` | Run diagnostic checks |
 
-## Workflow
+## BEADS Issue Tracking
 
-For complex features, describe what you want with a Definition of Done and say:
-`Use the full metaswarm orchestration workflow.`
+This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
 
-This runs: Research -> Plan -> Design Review Gate -> Work Unit Decomposition -> Orchestrated Execution (4-phase loop per unit) -> Final Review -> PR.
+```bash
+bd ready              # Find available work
+bd show <id>          # View issue details
+bd update <id> --status in_progress  # Claim work
+bd close <id>         # Complete work
+bd sync               # Sync with git
+```
+
+## Landing the Plane (Session Completion)
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   bd sync
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
 
 ## Quality Gates (MANDATORY)
 
-- **After brainstorming** -> MUST run `/metaswarm:review-design` before planning
-- **After any plan** -> MUST run Plan Review Gate before presenting to user
-- **Before finishing branch** -> MUST run `/metaswarm:self-reflect` before PR
-- **Coverage** -> `.coverage-thresholds.json` is the single source of truth. BLOCKING gate.
+- **After brainstorming** -> MUST run `$design-review-gate` before planning
+- **After any plan** -> MUST run `$plan-review-gate` before presenting to user
 - **TDD is mandatory** -> Write tests first, watch them fail, then implement
+- **Coverage** -> `.coverage-thresholds.json` is the single source of truth. BLOCKING gate.
+- **NEVER** use `--no-verify` on git commits
+- **NEVER** use `git push --force` without explicit user approval
+- **NEVER** self-certify -- the orchestrator validates independently
+- **ALWAYS** follow TDD, STAY within file scope
 
-## Rules
+## External Tools Routing
 
-- NEVER use `--no-verify` on git commits
-- NEVER use `git push --force` without explicit user approval
-- ALWAYS follow TDD
-- STAY within declared file scope
+When external AI tools are configured (`.metaswarm/external-tools.yaml`), the orchestrator can delegate implementation and review tasks to OpenAI Codex CLI and Google Gemini CLI for cost savings and cross-model adversarial review.
 
-## Platform Notes
+### Visual Review
 
-Gemini CLI has limited sub-agent support. When sub-agents are unavailable:
-- Design review runs sequentially (each reviewer in-session one at a time)
-- Adversarial review uses rubrics as structured checklists
-- Quality of review is maintained through rubric structure
-
-See `skills/start/references/platform-adaptation.md` for the full cross-platform guide.
+When tasks produce visual output, agents can use `$visual-review` to capture screenshots via Playwright for visual inspection.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/dsifry)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/dsifry)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [dsifry/metaswarm](https://github.com/dsifry/metaswarm) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
