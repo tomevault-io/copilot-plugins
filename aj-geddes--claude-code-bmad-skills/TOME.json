@@ -1,0 +1,105 @@
+{
+  "name": "claude-code-bmad-skills",
+  "owner": "aj-geddes",
+  "repo": "claude-code-bmad-skills",
+  "description": "BMAD Method skills for Claude Code - Auto-detection, Memory integration, Slash commands. Transform Claude Code into a BMAD-powered development environment.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bmad-orchestrator",
+      "path": "bmad-skills/bmad-orchestrator",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-skills/bmad-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "builder",
+      "path": "bmad-skills/builder",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-skills/builder",
+      "description": ""
+    },
+    {
+      "name": "builder",
+      "path": "bmad-v6/skills/bmb/builder",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-v6/skills/bmb/builder",
+      "description": ""
+    },
+    {
+      "name": "developer",
+      "path": "bmad-skills/developer",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-skills/developer",
+      "description": ""
+    },
+    {
+      "name": "developer",
+      "path": "bmad-v6/skills/bmm/developer",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-v6/skills/bmm/developer",
+      "description": ""
+    },
+    {
+      "name": "product-manager",
+      "path": "bmad-skills/product-manager",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-skills/product-manager",
+      "description": ""
+    },
+    {
+      "name": "system-architect",
+      "path": "bmad-skills/system-architect",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-skills/system-architect",
+      "description": ""
+    },
+    {
+      "name": "architect",
+      "path": "bmad-v6/skills/bmm/architect",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-v6/skills/bmm/architect",
+      "description": ""
+    },
+    {
+      "name": "ux-designer",
+      "path": "bmad-skills/ux-designer",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-skills/ux-designer",
+      "description": ""
+    },
+    {
+      "name": "ux-designer",
+      "path": "bmad-v6/skills/bmm/ux-designer",
+      "github_url": "https://github.com/aj-geddes/claude-code-bmad-skills/tree/main/bmad-v6/skills/bmm/ux-designer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aj-geddes/claude-code-bmad-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:30:17Z"
+}
