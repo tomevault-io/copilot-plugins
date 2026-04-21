@@ -4,7 +4,7 @@
   "repo": "cfin_new",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/abc0008",
+  "source_url": "https://github.com/abc0008/cfin_new",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T06:44:54Z"
+  "distributed_at": "2026-04-21T14:44:41Z"
 }
