@@ -1,6 +1,6 @@
-# oxide-ci — distributed by TomeVault
+# oxide-ci
 
-> Originally from [copyleftdev/oxide-ci](https://github.com/copyleftdev/oxide-ci). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [copyleftdev/oxide-ci](https://github.com/copyleftdev/oxide-ci) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [copyleftdev/oxide-ci](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/copyleftdev)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/copyleftdev/oxide-ci](https://github.com/copyleftdev/oxide-ci)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install copyleftdev/oxide-ci
 ```
-Or browse all formats at [https://tomevault.io/claim/copyleftdev](https://tomevault.io/claim/copyleftdev).
+Source: [github.com/copyleftdev/oxide-ci](https://github.com/copyleftdev/oxide-ci).
 
 <!-- genome:d-i-p -->
