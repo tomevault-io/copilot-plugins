@@ -1,0 +1,9 @@
+{
+  "name": "techartdev--openclawhomeassistant",
+  "displayName": "OpenClawHomeAssistant",
+  "description": "OpenClaw Assistant \u2013 Home Assistant Add-on",
+  "version": "1.0.0",
+  "author": "techartdev",
+  "homepage": "https://github.com/techartdev/OpenClawHomeAssistant",
+  "skills": []
+}
