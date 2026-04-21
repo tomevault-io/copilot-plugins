@@ -1,0 +1,111 @@
+{
+  "name": "cc10x",
+  "owner": "romiluz13",
+  "repo": "cc10x",
+  "description": "Router-Owned Claude Code Harness",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecture-patterns",
+      "path": "plugins/cc10x/skills/architecture-patterns",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "plugins/cc10x/skills/brainstorming",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "cc10x-router",
+      "path": "plugins/cc10x/skills/cc10x-router",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/cc10x-router",
+      "description": ""
+    },
+    {
+      "name": "code-generation",
+      "path": "plugins/cc10x/skills/code-generation",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/code-generation",
+      "description": ""
+    },
+    {
+      "name": "code-review-patterns",
+      "path": "plugins/cc10x/skills/code-review-patterns",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/code-review-patterns",
+      "description": ""
+    },
+    {
+      "name": "debugging-patterns",
+      "path": "plugins/cc10x/skills/debugging-patterns",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/debugging-patterns",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "path": "plugins/cc10x/skills/frontend-patterns",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "planning-patterns",
+      "path": "plugins/cc10x/skills/planning-patterns",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/planning-patterns",
+      "description": ""
+    },
+    {
+      "name": "session-memory",
+      "path": "plugins/cc10x/skills/session-memory",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/session-memory",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "plugins/cc10x/skills/test-driven-development",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "verification-before-completion",
+      "path": "plugins/cc10x/skills/verification-before-completion",
+      "github_url": "https://github.com/romiluz13/cc10x/tree/main/plugins/cc10x/skills/verification-before-completion",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/romiluz13/cc10x",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:40:30Z"
+}
