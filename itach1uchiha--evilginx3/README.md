@@ -1,6 +1,6 @@
 # Evilginx3
 
-> Tome by [Itach1Uchiha](https://github.com/Itach1Uchiha/Evilginx3) — distributed by [TomeVault](https://tomevault.io/claim/Itach1Uchiha)
+> Tome by [Itach1Uchiha](https://github.com/Itach1Uchiha/Evilginx3) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Itach1Uchiha/Evilginx3](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Itach1Uchiha)
+From [Itach1Uchiha/Evilginx3](https://github.com/Itach1Uchiha/Evilginx3) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Itach1Uchiha) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
