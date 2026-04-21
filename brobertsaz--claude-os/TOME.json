@@ -1,0 +1,63 @@
+{
+  "name": "claude-os",
+  "owner": "brobertsaz",
+  "repo": "claude-os",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "initialize-project",
+      "path": "templates/skills/initialize-project",
+      "github_url": "https://github.com/brobertsaz/claude-os/tree/main/templates/skills/initialize-project",
+      "description": ""
+    },
+    {
+      "name": "initialize-project",
+      "path": "templates/skill-library/general/initialize-project",
+      "github_url": "https://github.com/brobertsaz/claude-os/tree/main/templates/skill-library/general/initialize-project",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "templates/skills/test-driven-development",
+      "github_url": "https://github.com/brobertsaz/claude-os/tree/main/templates/skills/test-driven-development",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/brobertsaz/claude-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:30:57Z"
+}
