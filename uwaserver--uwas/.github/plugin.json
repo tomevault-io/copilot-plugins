@@ -1,0 +1,9 @@
+{
+  "name": "uwaserver--uwas",
+  "displayName": "uwas",
+  "description": "Unified Web Application Server \u2014 Apache+Nginx+Varnish+Caddy in a single Go binary. Auto HTTPS, built-in caching, PHP/FastCGI, reverse proxy, load balancing, WAF, web dashboard, and MCP server.",
+  "version": "1.0.0",
+  "author": "uwaserver",
+  "homepage": "https://github.com/uwaserver/uwas",
+  "skills": []
+}
