@@ -1,0 +1,9 @@
+{
+  "name": "axeldelafosse--loop",
+  "displayName": "loop",
+  "description": "Dead-simple Bun CLI that runs Codex and Claude Code in a loop.",
+  "version": "1.0.0",
+  "author": "axeldelafosse",
+  "homepage": "https://github.com/axeldelafosse/loop",
+  "skills": []
+}
