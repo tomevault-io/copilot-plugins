@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [mmerlone/ywybase](https://github.com
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mmerlone)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mmerlone/ywybase](https://github.com/mmerlone/ywybase)
 
 ---
 
