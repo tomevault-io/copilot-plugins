@@ -1,0 +1,18 @@
+{
+  "name": "coleam00--custom-agent-with-skills",
+  "displayName": "custom-agent-with-skills",
+  "description": "Pydantic AI agent that implements the idea of Claude Skills (progressive disclosure) with no reliance on Claude itself.",
+  "version": "1.0.0",
+  "author": "coleam00",
+  "homepage": "https://github.com/coleam00/custom-agent-with-skills",
+  "skills": [
+    {
+      "name": "code_review",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "description": ""
+    }
+  ]
+}
