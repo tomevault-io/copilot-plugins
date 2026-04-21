@@ -1,0 +1,14 @@
+{
+  "name": "databricks--databricks-agent-skills",
+  "displayName": "databricks",
+  "description": "AI instruction skills by databricks",
+  "version": "1.0.0",
+  "author": "databricks",
+  "homepage": "https://github.com/databricks/databricks-agent-skills",
+  "skills": [
+    {
+      "name": "databricks-apps",
+      "description": ""
+    }
+  ]
+}
