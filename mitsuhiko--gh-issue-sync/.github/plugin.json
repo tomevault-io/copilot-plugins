@@ -1,0 +1,14 @@
+{
+  "name": "mitsuhiko--gh-issue-sync",
+  "displayName": "gh-issue-sync",
+  "description": "A github issue sync tool for working with issues locally",
+  "version": "1.0.0",
+  "author": "mitsuhiko",
+  "homepage": "https://github.com/mitsuhiko/gh-issue-sync",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
