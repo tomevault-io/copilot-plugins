@@ -1,0 +1,9 @@
+{
+  "name": "mudrii--openclaw-dashboard",
+  "displayName": "openclaw-dashboard",
+  "description": "A beautiful, zero-dependency command center for OpenClaw AI agents",
+  "version": "1.0.0",
+  "author": "mudrii",
+  "homepage": "https://github.com/mudrii/openclaw-dashboard",
+  "skills": []
+}
