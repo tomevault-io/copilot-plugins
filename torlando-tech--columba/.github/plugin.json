@@ -1,0 +1,14 @@
+{
+  "name": "torlando-tech--columba",
+  "displayName": "columba",
+  "description": "Native Android messaging app using Bluetooth LE, TCP, or RNode (LoRa) over LXMF and Reticulum",
+  "version": "1.0.0",
+  "author": "torlando-tech",
+  "homepage": "https://github.com/torlando-tech/columba",
+  "skills": [
+    {
+      "name": "columba-python-migration",
+      "description": ""
+    }
+  ]
+}
