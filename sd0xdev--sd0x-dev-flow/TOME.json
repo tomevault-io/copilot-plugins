@@ -1,0 +1,225 @@
+{
+  "name": "sd0x-dev-flow",
+  "owner": "sd0xdev",
+  "repo": "sd0x-dev-flow",
+  "description": "The harness layer for Claude Code \u2014 a reference implementation of harness engineering with hook-enforced dual review, state-machine gates that survive context compaction, and fail-closed safety where it counts. Quality gates that AI can't skip.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bug-fix",
+      "path": "skills/bug-fix",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/bug-fix",
+      "description": ""
+    },
+    {
+      "name": "claude-health",
+      "path": "skills/claude-health",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/claude-health",
+      "description": ""
+    },
+    {
+      "name": "code-explore",
+      "path": "skills/code-explore",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/code-explore",
+      "description": ""
+    },
+    {
+      "name": "code-investigate",
+      "path": "skills/code-investigate",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/code-investigate",
+      "description": ""
+    },
+    {
+      "name": "codex-architect",
+      "path": "skills/codex-architect",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/codex-architect",
+      "description": ""
+    },
+    {
+      "name": "codex-brainstorm",
+      "path": "skills/codex-brainstorm",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/codex-brainstorm",
+      "description": ""
+    },
+    {
+      "name": "codex-cli-review",
+      "path": "skills/codex-cli-review",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/codex-cli-review",
+      "description": ""
+    },
+    {
+      "name": "codex-code-review",
+      "path": "skills/codex-code-review",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/codex-code-review",
+      "description": ""
+    },
+    {
+      "name": "codex-explain",
+      "path": "skills/codex-explain",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/codex-explain",
+      "description": ""
+    },
+    {
+      "name": "codex-implement",
+      "path": "skills/codex-implement",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/codex-implement",
+      "description": ""
+    },
+    {
+      "name": "create-request",
+      "path": "skills/create-request",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/create-request",
+      "description": ""
+    },
+    {
+      "name": "de-ai-flavor",
+      "path": "skills/de-ai-flavor",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/de-ai-flavor",
+      "description": ""
+    },
+    {
+      "name": "doc-review",
+      "path": "skills/doc-review",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/doc-review",
+      "description": ""
+    },
+    {
+      "name": "feasibility-study",
+      "path": "skills/feasibility-study",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/feasibility-study",
+      "description": ""
+    },
+    {
+      "name": "feature-dev",
+      "path": "skills/feature-dev",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/feature-dev",
+      "description": ""
+    },
+    {
+      "name": "feature-verify",
+      "path": "skills/feature-verify",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/feature-verify",
+      "description": ""
+    },
+    {
+      "name": "git-investigate",
+      "path": "skills/git-investigate",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/git-investigate",
+      "description": ""
+    },
+    {
+      "name": "issue-analyze",
+      "path": "skills/issue-analyze",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/issue-analyze",
+      "description": ""
+    },
+    {
+      "name": "next-step",
+      "path": "skills/next-step",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/next-step",
+      "description": ""
+    },
+    {
+      "name": "portfolio",
+      "path": "skills/portfolio",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/portfolio",
+      "description": ""
+    },
+    {
+      "name": "post-dev-test",
+      "path": "skills/post-dev-test",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/post-dev-test",
+      "description": ""
+    },
+    {
+      "name": "project-audit",
+      "path": "skills/project-audit",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/project-audit",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "path": "skills/project-setup",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/project-setup",
+      "description": ""
+    },
+    {
+      "name": "repo-intake",
+      "path": "skills/repo-intake",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/repo-intake",
+      "description": ""
+    },
+    {
+      "name": "request-tracking",
+      "path": "skills/request-tracking",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/request-tracking",
+      "description": ""
+    },
+    {
+      "name": "risk-assess",
+      "path": "skills/risk-assess",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/risk-assess",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "path": "skills/security-review",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/security-review",
+      "description": ""
+    },
+    {
+      "name": "skill-health-check",
+      "path": "skills/skill-health-check",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/skill-health-check",
+      "description": ""
+    },
+    {
+      "name": "tech-spec",
+      "path": "skills/tech-spec",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/tech-spec",
+      "description": ""
+    },
+    {
+      "name": "test-review",
+      "path": "skills/test-review",
+      "github_url": "https://github.com/sd0xdev/sd0x-dev-flow/tree/main/skills/test-review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sd0xdev/sd0x-dev-flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T10:34:16Z"
+}
