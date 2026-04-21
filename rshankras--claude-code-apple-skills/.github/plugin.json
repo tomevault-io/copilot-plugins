@@ -1,0 +1,182 @@
+{
+  "name": "rshankras--claude-code-apple-skills",
+  "displayName": "claude-code-apple-skills",
+  "description": "Claude Code skills for Apple platform development (iOS, macOS, iPadOS) \u2014 product validation, code generation, App Store optimization, and more",
+  "version": "1.0.0",
+  "author": "rshankras",
+  "homepage": "https://github.com/rshankras/claude-code-apple-skills",
+  "skills": [
+    {
+      "name": "app-store",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "app-planner",
+      "description": ""
+    },
+    {
+      "name": "app-planner",
+      "description": ""
+    },
+    {
+      "name": "appkit-swiftui-bridge",
+      "description": ""
+    },
+    {
+      "name": "apple-intelligence",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "architecture-spec",
+      "description": ""
+    },
+    {
+      "name": "auth-flow",
+      "description": ""
+    },
+    {
+      "name": "coding-best-practices",
+      "description": ""
+    },
+    {
+      "name": "coding-best-practices",
+      "description": ""
+    },
+    {
+      "name": "competitive-analysis",
+      "description": ""
+    },
+    {
+      "name": "foundation-models",
+      "description": ""
+    },
+    {
+      "name": "generators",
+      "description": ""
+    },
+    {
+      "name": "implementation-guide",
+      "description": ""
+    },
+    {
+      "name": "implementation-spec",
+      "description": ""
+    },
+    {
+      "name": "ios",
+      "description": ""
+    },
+    {
+      "name": "liquid-glass",
+      "description": ""
+    },
+    {
+      "name": "logging-setup",
+      "description": ""
+    },
+    {
+      "name": "macos-capabilities",
+      "description": ""
+    },
+    {
+      "name": "macos",
+      "description": ""
+    },
+    {
+      "name": "macos-tahoe-apis",
+      "description": ""
+    },
+    {
+      "name": "market-research",
+      "description": ""
+    },
+    {
+      "name": "networking-layer",
+      "description": ""
+    },
+    {
+      "name": "onboarding-generator",
+      "description": ""
+    },
+    {
+      "name": "paywall-generator",
+      "description": ""
+    },
+    {
+      "name": "prd-generator",
+      "description": ""
+    },
+    {
+      "name": "product-agent",
+      "description": ""
+    },
+    {
+      "name": "product",
+      "description": ""
+    },
+    {
+      "name": "release-review",
+      "description": ""
+    },
+    {
+      "name": "release-spec",
+      "description": ""
+    },
+    {
+      "name": "review-prompt",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "description": ""
+    },
+    {
+      "name": "settings-screen",
+      "description": ""
+    },
+    {
+      "name": "shared",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "swiftdata-architecture",
+      "description": ""
+    },
+    {
+      "name": "test-spec",
+      "description": ""
+    },
+    {
+      "name": "ui-review",
+      "description": ""
+    },
+    {
+      "name": "ui-review-tahoe",
+      "description": ""
+    },
+    {
+      "name": "ux-spec",
+      "description": ""
+    },
+    {
+      "name": "visual-intelligence",
+      "description": ""
+    },
+    {
+      "name": "watchos",
+      "description": ""
+    }
+  ]
+}
