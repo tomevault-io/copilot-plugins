@@ -1,6 +1,6 @@
 # go-grpc
 
-> Tome by [Mrityunjoy99](https://github.com/Mrityunjoy99/go-grpc) — distributed by [TomeVault](https://tomevault.io/claim/Mrityunjoy99)
+> Tome by [Mrityunjoy99](https://github.com/Mrityunjoy99/go-grpc) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Mrityunjoy99/go-grpc](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Mrityunjoy99#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Mrityunjoy99/go-grpc](https://github.com/Mrityunjoy99/go-grpc)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Mrityunjoy99/go-grpc
 ```
-Or browse all formats at [https://tomevault.io/claim/Mrityunjoy99](https://tomevault.io/claim/Mrityunjoy99).
+Source: [github.com/Mrityunjoy99/go-grpc](https://github.com/Mrityunjoy99/go-grpc).
 
 <!-- genome:t-i-q -->
