@@ -1,0 +1,111 @@
+{
+  "name": "formax",
+  "owner": "yusifeng",
+  "repo": "formax",
+  "description": "Terminal-first AI assistant for software engineering tasks (inspired by Claude Code v2.0.67)",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "formax-approval-ui-workflow",
+      "path": ".codex/skills/formax-approval-ui-workflow",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-approval-ui-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-config-settings-workflow",
+      "path": ".codex/skills/formax-config-settings-workflow",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-config-settings-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-dev-loop-workflow",
+      "path": ".codex/skills/formax-dev-loop-workflow",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-dev-loop-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-permissions-workflow",
+      "path": ".codex/skills/formax-permissions-workflow",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-permissions-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-repomix-handoff-workflow",
+      "path": ".codex/skills/formax-repomix-handoff-workflow",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-repomix-handoff-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-semantics-parity-workflow",
+      "path": ".codex/skills/formax-semantics-parity-workflow",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-semantics-parity-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-skill-capture",
+      "path": ".codex/skills/formax-skill-capture",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-skill-capture",
+      "description": ""
+    },
+    {
+      "name": "formax-slash-command-workflow",
+      "path": ".codex/skills/formax-slash-command-workflow",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-slash-command-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-test-stability-workflow",
+      "path": ".codex/skills/formax-test-stability-workflow",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-test-stability-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-tool-ui-blocks-workflow",
+      "path": ".codex/skills/formax-tool-ui-blocks-workflow",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-tool-ui-blocks-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-web-style-system",
+      "path": ".codex/skills/formax-web-style-system",
+      "github_url": "https://github.com/yusifeng/formax/tree/main/.codex/skills/formax-web-style-system",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yusifeng/formax",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T17:36:58Z"
+}
