@@ -1,0 +1,9 @@
+{
+  "name": "el-enderj--neocalculator",
+  "displayName": "NeoCalculator",
+  "description": "This project is a Graphing Scientific Calculator based on the ESP32 microcontroller, designed to compete with commercial models (Casio fx-991EX, TI-84) by means of a color TFT screen, natural display ",
+  "version": "1.0.0",
+  "author": "El-EnderJ",
+  "homepage": "https://github.com/El-EnderJ/NeoCalculator",
+  "skills": []
+}
