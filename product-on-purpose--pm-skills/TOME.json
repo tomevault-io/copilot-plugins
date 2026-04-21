@@ -1,0 +1,69 @@
+{
+  "name": "pm-skills",
+  "owner": "product-on-purpose",
+  "repo": "pm-skills",
+  "description": "Curated, plug-and-play product management skills for AI agents. 38 skills across Triple Diamond phases plus foundation (lean canvas, persona, meeting lifecycle family) and utility (create, validate, iterate). Templates, workflows, thread-aligned samples, CI-enforced skill-family contracts. Apache 2.0.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "init-project",
+      "path": ".claude/skills/init-project",
+      "github_url": "https://github.com/product-on-purpose/pm-skills/tree/main/.claude/skills/init-project",
+      "description": ""
+    },
+    {
+      "name": "init-project-jpkb",
+      "path": ".claude/skills/init-project-jpkb",
+      "github_url": "https://github.com/product-on-purpose/pm-skills/tree/main/.claude/skills/init-project-jpkb",
+      "description": ""
+    },
+    {
+      "name": "skill-template",
+      "path": "docs/templates/skill-template",
+      "github_url": "https://github.com/product-on-purpose/pm-skills/tree/main/docs/templates/skill-template",
+      "description": ""
+    },
+    {
+      "name": "wrap-session",
+      "path": ".claude/skills/wrap-session",
+      "github_url": "https://github.com/product-on-purpose/pm-skills/tree/main/.claude/skills/wrap-session",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/product-on-purpose/pm-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:45:33Z"
+}
