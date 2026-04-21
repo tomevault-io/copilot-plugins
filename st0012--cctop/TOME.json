@@ -1,0 +1,51 @@
+{
+  "name": "cctop",
+  "owner": "st0012",
+  "repo": "cctop",
+  "description": "A keyboard-first menubar app to monitor and jump between AI coding sessions. Supports Claude Code, pi, opencode, and Codex",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cctop-setup",
+      "path": "plugins/cctop/skills/cctop-setup",
+      "github_url": "https://github.com/st0012/cctop/tree/main/plugins/cctop/skills/cctop-setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/st0012/cctop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:46:32Z"
+}
