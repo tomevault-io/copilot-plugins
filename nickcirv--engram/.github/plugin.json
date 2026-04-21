@@ -1,0 +1,9 @@
+{
+  "name": "nickcirv--engram",
+  "displayName": "engram",
+  "description": "The context spine for AI coding agents. 8 providers, 88% proven token savings, 5 IDE integrations (Claude Code, Continue.dev, Cursor, Zed, Aider). Hook-based Read interception, HTTP API, tree-sitter A",
+  "version": "1.0.0",
+  "author": "NickCirv",
+  "homepage": "https://github.com/NickCirv/engram",
+  "skills": []
+}
