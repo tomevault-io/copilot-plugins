@@ -1,0 +1,198 @@
+{
+  "name": "sandgardenhq--sgai",
+  "displayName": "sgai",
+  "description": "Sandgarden AI Software Factory",
+  "version": "1.0.0",
+  "author": "sandgardenhq",
+  "homepage": "https://github.com/sandgardenhq/sgai",
+  "skills": [
+    {
+      "name": "agent-native-architecture",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "browser-bug-testing-workflow",
+      "description": ""
+    },
+    {
+      "name": "code-cleanup",
+      "description": ""
+    },
+    {
+      "name": "collision-zone-thinking",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "create-opencode-agents",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "description": ""
+    },
+    {
+      "name": "detecting-emergent-patterns",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "go-code-review",
+      "description": ""
+    },
+    {
+      "name": "go-http-server-routes",
+      "description": ""
+    },
+    {
+      "name": "go-json-file-reading",
+      "description": ""
+    },
+    {
+      "name": "go-project-layout",
+      "description": ""
+    },
+    {
+      "name": "go-testing-coverage",
+      "description": ""
+    },
+    {
+      "name": "goal-md-composer",
+      "description": ""
+    },
+    {
+      "name": "how-to-use-code-snippets",
+      "description": ""
+    },
+    {
+      "name": "incorporate-snippets",
+      "description": ""
+    },
+    {
+      "name": "inversion-exercise",
+      "description": ""
+    },
+    {
+      "name": "markdown-navigation",
+      "description": ""
+    },
+    {
+      "name": "meta-pattern-recognition",
+      "description": ""
+    },
+    {
+      "name": "new-openai-sdk-app",
+      "description": ""
+    },
+    {
+      "name": "new-sdk-app",
+      "description": ""
+    },
+    {
+      "name": "opencode-plugin-development",
+      "description": ""
+    },
+    {
+      "name": "preserving-productive-tensions",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-sse-patterns",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "run-long-running-processes-in-tmux",
+      "description": ""
+    },
+    {
+      "name": "scale-game",
+      "description": ""
+    },
+    {
+      "name": "set-workflow-state",
+      "description": ""
+    },
+    {
+      "name": "simplification-cascades",
+      "description": ""
+    },
+    {
+      "name": "stpa-overview",
+      "description": ""
+    },
+    {
+      "name": "stpa-step1-define-purpose",
+      "description": ""
+    },
+    {
+      "name": "stpa-step3-unsafe-control-actions",
+      "description": ""
+    },
+    {
+      "name": "stpa-step4-loss-scenarios",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "testing-skills-with-subagents",
+      "description": ""
+    },
+    {
+      "name": "tracing-knowledge-lineages",
+      "description": ""
+    },
+    {
+      "name": "using-jj-instead-of-git",
+      "description": ""
+    },
+    {
+      "name": "using-skills",
+      "description": ""
+    },
+    {
+      "name": "when-stuck",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    }
+  ]
+}
