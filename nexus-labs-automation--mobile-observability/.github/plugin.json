@@ -1,0 +1,22 @@
+{
+  "name": "nexus-labs-automation--mobile-observability",
+  "displayName": "mobile-observability",
+  "description": "Claude Code plugin for mobile app observability: crash reporting, performance monitoring, and instrumentation for iOS, Android, and React Native",
+  "version": "1.0.0",
+  "author": "nexus-labs-automation",
+  "homepage": "https://github.com/nexus-labs-automation/mobile-observability",
+  "skills": [
+    {
+      "name": "instrumentation-planning",
+      "description": ""
+    },
+    {
+      "name": "network-tracing",
+      "description": ""
+    },
+    {
+      "name": "symbolication-setup",
+      "description": ""
+    }
+  ]
+}
