@@ -2,9 +2,9 @@
   "name": "knowns",
   "owner": "knowns-dev",
   "repo": "knowns",
-  "description": "AI instruction files for knowns by knowns-dev",
+  "description": "The memory layer for AI-native development \u2014 giving AI persistent understanding of your software projects.",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -99,7 +99,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/knowns-dev",
+  "source_url": "https://github.com/knowns-dev/knowns",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T15:06:56Z"
+  "distributed_at": "2026-04-21T17:32:13Z"
 }
