@@ -1,0 +1,44 @@
+{
+  "name": "Storyboard-Copilot",
+  "owner": "henjicc",
+  "repo": "Storyboard-Copilot",
+  "description": "\u5206\u955c\u52a9\u624b - \u57fa\u4e8e\u8282\u70b9\u753b\u5e03\u7684 AI \u5206\u955c\u5de5\u4f5c\u53f0\uff0c\u4e00\u7ad9\u5f0f\u5b8c\u6210\u56fe\u7247\u751f\u6210\u3001\u7f16\u8f91\u4e0e\u5206\u955c\u6d41\u7a0b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/henjicc/Storyboard-Copilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T05:06:20Z"
+}
