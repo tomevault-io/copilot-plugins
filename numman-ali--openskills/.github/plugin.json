@@ -1,0 +1,14 @@
+{
+  "name": "numman-ali--openskills",
+  "displayName": "openskills",
+  "description": "Universal skills loader for AI coding agents - npm i -g openskills",
+  "version": "1.0.0",
+  "author": "numman-ali",
+  "homepage": "https://github.com/numman-ali/openskills",
+  "skills": [
+    {
+      "name": "my-first-skill",
+      "description": ""
+    }
+  ]
+}
