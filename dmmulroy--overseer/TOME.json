@@ -1,0 +1,63 @@
+{
+  "name": "overseer",
+  "owner": "dmmulroy",
+  "repo": "overseer",
+  "description": "CLI & Codemode MCP server for agent task management",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "overseer",
+      "path": "skills/overseer",
+      "github_url": "https://github.com/dmmulroy/overseer/tree/main/skills/overseer",
+      "description": ""
+    },
+    {
+      "name": "overseer-plan",
+      "path": "skills/overseer-plan",
+      "github_url": "https://github.com/dmmulroy/overseer/tree/main/skills/overseer-plan",
+      "description": ""
+    },
+    {
+      "name": "remotion-best-practices",
+      "path": ".agents/skills/remotion-best-practices",
+      "github_url": "https://github.com/dmmulroy/overseer/tree/main/.agents/skills/remotion-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dmmulroy/overseer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:53:09Z"
+}
