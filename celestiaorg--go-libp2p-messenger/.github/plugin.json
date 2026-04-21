@@ -1,0 +1,9 @@
+{
+  "name": "celestiaorg--go-libp2p-messenger",
+  "displayName": "go-libp2p-messenger",
+  "description": "go-libp2p-messenger",
+  "version": "1.0.0",
+  "author": "celestiaorg",
+  "homepage": "https://github.com/celestiaorg/go-libp2p-messenger",
+  "skills": []
+}
