@@ -1,0 +1,9 @@
+{
+  "name": "iconben--z-image-studio",
+  "displayName": "z-image-studio",
+  "description": "A Cli, a webUI, and a MCP server for the Z-Image-Turbo text-to-image generation model (Tongyi-MAI/Z-Image-Turbo base model as well as quantized models)",
+  "version": "1.0.0",
+  "author": "iconben",
+  "homepage": "https://github.com/iconben/z-image-studio",
+  "skills": []
+}
