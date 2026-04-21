@@ -1,0 +1,123 @@
+{
+  "name": "oz-skills",
+  "owner": "warpdotdev",
+  "repo": "oz-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ci-fix",
+      "path": ".agents/skills/ci-fix",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/ci-fix",
+      "description": ""
+    },
+    {
+      "name": "create-pull-request",
+      "path": ".agents/skills/create-pull-request",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/create-pull-request",
+      "description": ""
+    },
+    {
+      "name": "docs-update",
+      "path": ".agents/skills/docs-update",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/docs-update",
+      "description": ""
+    },
+    {
+      "name": "github-bug-report-triage",
+      "path": ".agents/skills/github-bug-report-triage",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/github-bug-report-triage",
+      "description": ""
+    },
+    {
+      "name": "github-issue-dedupe",
+      "path": ".agents/skills/github-issue-dedupe",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/github-issue-dedupe",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": ".agents/skills/mcp-builder",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "scheduler",
+      "path": ".agents/skills/scheduler",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/scheduler",
+      "description": ""
+    },
+    {
+      "name": "seo-aeo-audit",
+      "path": ".agents/skills/seo-aeo-audit",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/seo-aeo-audit",
+      "description": ""
+    },
+    {
+      "name": "slack-qa-investigate",
+      "path": ".agents/skills/slack-qa-investigate",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/slack-qa-investigate",
+      "description": ""
+    },
+    {
+      "name": "terraform-style-check",
+      "path": ".agents/skills/terraform-style-check",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/terraform-style-check",
+      "description": ""
+    },
+    {
+      "name": "web-accessibility-audit",
+      "path": ".agents/skills/web-accessibility-audit",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/web-accessibility-audit",
+      "description": ""
+    },
+    {
+      "name": "web-performance-audit",
+      "path": ".agents/skills/web-performance-audit",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/web-performance-audit",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": ".agents/skills/webapp-testing",
+      "github_url": "https://github.com/warpdotdev/oz-skills/tree/main/.agents/skills/webapp-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/warpdotdev/oz-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:41:14Z"
+}
