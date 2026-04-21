@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [apievpiev-dev/mentor-ai-ecosystem](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/apievpiev-dev)
+From [apievpiev-dev/mentor-ai-ecosystem](https://github.com/apievpiev-dev/mentor-ai-ecosystem) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install apievpiev-dev/mentor-ai-ecosystem
 ```
-Or browse all formats at [https://tomevault.io/claim/apievpiev-dev](https://tomevault.io/claim/apievpiev-dev).
+Source: [github.com/apievpiev-dev/mentor-ai-ecosystem](https://github.com/apievpiev-dev/mentor-ai-ecosystem).
 
 <!-- genome:a-i-s -->
