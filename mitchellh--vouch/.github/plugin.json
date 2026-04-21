@@ -1,0 +1,9 @@
+{
+  "name": "mitchellh--vouch",
+  "displayName": "vouch",
+  "description": "A community trust management system based on explicit vouches to participate.",
+  "version": "1.0.0",
+  "author": "mitchellh",
+  "homepage": "https://github.com/mitchellh/vouch",
+  "skills": []
+}
