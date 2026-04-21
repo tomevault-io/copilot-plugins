@@ -1,0 +1,14 @@
+{
+  "name": "babarot--gh-infra",
+  "displayName": "gh-infra",
+  "description": "Declarative GitHub infrastructure management via YAML",
+  "version": "1.0.0",
+  "author": "babarot",
+  "homepage": "https://github.com/babarot/gh-infra",
+  "skills": [
+    {
+      "name": "ci-cd",
+      "description": ""
+    }
+  ]
+}
