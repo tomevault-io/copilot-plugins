@@ -1,0 +1,14 @@
+{
+  "name": "gillkyle--agent-tail",
+  "displayName": "agent-tail",
+  "description": "Pipe logs from all your dev servers into a single place accessible to your agents.",
+  "version": "1.0.0",
+  "author": "gillkyle",
+  "homepage": "https://github.com/gillkyle/agent-tail",
+  "skills": [
+    {
+      "name": "agent-tail",
+      "description": ""
+    }
+  ]
+}
