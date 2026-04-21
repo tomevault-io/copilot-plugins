@@ -1,0 +1,27 @@
+## xmind-mcp
+
+> After any structural change, review and update project documentation
+
+
+# Keep Documentation Current
+
+If your change falls into any category in the table below, update the corresponding documentation before finishing.
+
+## What triggers a doc update
+
+| Change made | What to review/update |
+|---|---|
+| New file added or removed | `Project Structure` tree in `AGENTS.md` |
+| New handler helper added to `handler.go` | Traversal/lookup utilities table in `AGENTS.md` |
+| New tool registered | Conventions section in `AGENTS.md` if a new pattern is introduced |
+| New struct field or codec allowlist entry | Schema Critical Notes in `AGENTS.md` |
+| New convention established | `Conventions` section in `AGENTS.md` |
+| New `.cursor/rules/` or `.cursor/skills/` file | Reflect in `AGENTS.md` if it affects agent behavior |
+
+## Rule
+
+If none of the above changes were made, no doc update is needed. Do not make cosmetic edits to demonstrate compliance — only update docs when something has genuinely changed.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/mab-go) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
