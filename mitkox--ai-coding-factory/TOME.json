@@ -1,0 +1,105 @@
+{
+  "name": "ai-coding-factory",
+  "owner": "mitkox",
+  "repo": "ai-coding-factory",
+  "description": "AI Coding Factory. Replace your software outsourcing vendor contracts with your own AI. ",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "net-agile",
+      "path": ".opencode/skill/net-agile",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-agile",
+      "description": ""
+    },
+    {
+      "name": "net-autopilot",
+      "path": ".opencode/skill/net-autopilot",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-autopilot",
+      "description": ""
+    },
+    {
+      "name": "net-cqrs",
+      "path": ".opencode/skill/net-cqrs",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-cqrs",
+      "description": ""
+    },
+    {
+      "name": "net-docker",
+      "path": ".opencode/skill/net-docker",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-docker",
+      "description": ""
+    },
+    {
+      "name": "net-domain-model",
+      "path": ".opencode/skill/net-domain-model",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-domain-model",
+      "description": ""
+    },
+    {
+      "name": "net-github-actions",
+      "path": ".opencode/skill/net-github-actions",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-github-actions",
+      "description": ""
+    },
+    {
+      "name": "net-jwt-auth",
+      "path": ".opencode/skill/net-jwt-auth",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-jwt-auth",
+      "description": ""
+    },
+    {
+      "name": "net-kubernetes",
+      "path": ".opencode/skill/net-kubernetes",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-kubernetes",
+      "description": ""
+    },
+    {
+      "name": "net-testing",
+      "path": ".opencode/skill/net-testing",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-testing",
+      "description": ""
+    },
+    {
+      "name": "net-web-api",
+      "path": ".opencode/skill/net-web-api",
+      "github_url": "https://github.com/mitkox/ai-coding-factory/tree/main/.opencode/skill/net-web-api",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mitkox/ai-coding-factory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:42:20Z"
+}
