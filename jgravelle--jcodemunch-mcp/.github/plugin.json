@@ -1,0 +1,9 @@
+{
+  "name": "jgravelle--jcodemunch-mcp",
+  "displayName": "jcodemunch-mcp",
+  "description": "The leading, most token-efficient MCP server for GitHub source code exploration via tree-sitter AST parsing",
+  "version": "1.0.0",
+  "author": "jgravelle",
+  "homepage": "https://github.com/jgravelle/jcodemunch-mcp",
+  "skills": []
+}
