@@ -1,0 +1,9 @@
+{
+  "name": "jingkaihe--matchlock",
+  "displayName": "matchlock",
+  "description": "Matchlock secures AI agent workloads with a Linux-based sandbox.",
+  "version": "1.0.0",
+  "author": "jingkaihe",
+  "homepage": "https://github.com/jingkaihe/matchlock",
+  "skills": []
+}
