@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Gustavo-Alves-Araujo/template](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Gustavo-Alves-Araujo)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Gustavo-Alves-Araujo/template](https://github.com/Gustavo-Alves-Araujo/template)
 
 ---
 
