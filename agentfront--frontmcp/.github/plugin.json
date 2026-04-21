@@ -1,0 +1,14 @@
+{
+  "name": "agentfront--frontmcp",
+  "displayName": "frontmcp",
+  "description": "TypeScript-first framework for the Model Context Protocol (MCP). You write clean, typed code; FrontMCP handles the protocol, transport, DI, session/auth, and execution flow.",
+  "version": "1.0.0",
+  "author": "agentfront",
+  "homepage": "https://github.com/agentfront/frontmcp",
+  "skills": [
+    {
+      "name": "fix-pr",
+      "description": ""
+    }
+  ]
+}
