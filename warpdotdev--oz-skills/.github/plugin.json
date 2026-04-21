@@ -1,0 +1,62 @@
+{
+  "name": "warpdotdev--oz-skills",
+  "displayName": "oz-skills",
+  "description": "oz-skills",
+  "version": "1.0.0",
+  "author": "warpdotdev",
+  "homepage": "https://github.com/warpdotdev/oz-skills",
+  "skills": [
+    {
+      "name": "ci-fix",
+      "description": ""
+    },
+    {
+      "name": "create-pull-request",
+      "description": ""
+    },
+    {
+      "name": "docs-update",
+      "description": ""
+    },
+    {
+      "name": "github-bug-report-triage",
+      "description": ""
+    },
+    {
+      "name": "github-issue-dedupe",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "scheduler",
+      "description": ""
+    },
+    {
+      "name": "seo-aeo-audit",
+      "description": ""
+    },
+    {
+      "name": "slack-qa-investigate",
+      "description": ""
+    },
+    {
+      "name": "terraform-style-check",
+      "description": ""
+    },
+    {
+      "name": "web-accessibility-audit",
+      "description": ""
+    },
+    {
+      "name": "web-performance-audit",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    }
+  ]
+}
