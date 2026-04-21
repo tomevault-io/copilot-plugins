@@ -1,6 +1,6 @@
 # deskcoach
 
-> Tome by [robofox96](https://github.com/robofox96/deskcoach) — distributed by [TomeVault](https://tomevault.io/claim/robofox96)
+> Tome by [robofox96](https://github.com/robofox96/deskcoach) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [robofox96/deskcoach](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/robofox96)
+From [robofox96/deskcoach](https://github.com/robofox96/deskcoach) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install robofox96/deskcoach
 ```
-Or browse all formats at [https://tomevault.io/claim/robofox96](https://tomevault.io/claim/robofox96).
+Source: [github.com/robofox96/deskcoach](https://github.com/robofox96/deskcoach).
 
 <!-- genome:t-i-s -->
