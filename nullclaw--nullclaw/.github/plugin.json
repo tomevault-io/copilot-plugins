@@ -1,0 +1,9 @@
+{
+  "name": "nullclaw--nullclaw",
+  "displayName": "nullclaw",
+  "description": "Fastest, smallest, and fully autonomous AI assistant infrastructure written in Zig",
+  "version": "1.0.0",
+  "author": "nullclaw",
+  "homepage": "https://github.com/nullclaw/nullclaw",
+  "skills": []
+}
