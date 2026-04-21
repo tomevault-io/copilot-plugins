@@ -1,0 +1,9 @@
+{
+  "name": "kavinsood--yaos",
+  "displayName": "yaos",
+  "description": "A zero-terminal, real-time sync engine powered by your own Cloudflare Worker.",
+  "version": "1.0.0",
+  "author": "kavinsood",
+  "homepage": "https://github.com/kavinsood/yaos",
+  "skills": []
+}
