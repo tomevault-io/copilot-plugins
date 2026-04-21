@@ -1,0 +1,14 @@
+{
+  "name": "the-momentum--open-wearables",
+  "displayName": "open-wearables",
+  "description": "Self-hosted platform to unify wearable health data through one AI-ready API.",
+  "version": "1.0.0",
+  "author": "the-momentum",
+  "homepage": "https://github.com/the-momentum/open-wearables",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
