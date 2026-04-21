@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--skills",
+  "displayName": "skills",
+  "description": "Repository for skills to assist AI coding agents with .NET and C#",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/skills",
+  "skills": []
+}
