@@ -1,0 +1,166 @@
+{
+  "name": "flpbalada--my-opencode-config",
+  "displayName": "my-opencode-config",
+  "description": "my-opencode-config",
+  "version": "1.0.0",
+  "author": "flpbalada",
+  "homepage": "https://github.com/flpbalada/my-opencode-config",
+  "skills": [
+    {
+      "name": "business-model-canvas",
+      "description": ""
+    },
+    {
+      "name": "code-architecture-tailwind-v4-best-practices",
+      "description": ""
+    },
+    {
+      "name": "code-architecture-wrong-abstraction",
+      "description": ""
+    },
+    {
+      "name": "cognitive-biases",
+      "description": ""
+    },
+    {
+      "name": "cognitive-fluency-psychology",
+      "description": ""
+    },
+    {
+      "name": "cognitive-load",
+      "description": ""
+    },
+    {
+      "name": "css-container-queries",
+      "description": ""
+    },
+    {
+      "name": "curiosity-gap",
+      "description": ""
+    },
+    {
+      "name": "fogg-behavior-model",
+      "description": ""
+    },
+    {
+      "name": "game-theory-tit-for-tat",
+      "description": ""
+    },
+    {
+      "name": "graph-thinking",
+      "description": ""
+    },
+    {
+      "name": "halo-effect-psychology",
+      "description": ""
+    },
+    {
+      "name": "hicks-law",
+      "description": ""
+    },
+    {
+      "name": "hooked-model",
+      "description": ""
+    },
+    {
+      "name": "hypothesis-tree",
+      "description": ""
+    },
+    {
+      "name": "kanban",
+      "description": ""
+    },
+    {
+      "name": "loss-aversion-psychology",
+      "description": ""
+    },
+    {
+      "name": "making-product-decisions",
+      "description": ""
+    },
+    {
+      "name": "naming-cheatsheet",
+      "description": ""
+    },
+    {
+      "name": "nextjs-image-art-direction",
+      "description": ""
+    },
+    {
+      "name": "pest-analysis",
+      "description": ""
+    },
+    {
+      "name": "progressive-disclosure",
+      "description": ""
+    },
+    {
+      "name": "project-structure",
+      "description": ""
+    },
+    {
+      "name": "react-key-prop",
+      "description": ""
+    },
+    {
+      "name": "react-use-callback",
+      "description": ""
+    },
+    {
+      "name": "react-use-client-boundary",
+      "description": ""
+    },
+    {
+      "name": "react-use-state",
+      "description": ""
+    },
+    {
+      "name": "react-useeffect-avoid",
+      "description": ""
+    },
+    {
+      "name": "self-initiated-triggers",
+      "description": ""
+    },
+    {
+      "name": "social-proof-psychology",
+      "description": ""
+    },
+    {
+      "name": "status-quo-bias",
+      "description": ""
+    },
+    {
+      "name": "trust-psychology",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "typescript-interface-vs-type",
+      "description": ""
+    },
+    {
+      "name": "typescript-satisfies-operator",
+      "description": ""
+    },
+    {
+      "name": "user-story-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "visual-cues-cta-psychology",
+      "description": ""
+    },
+    {
+      "name": "what-not-to-do-as-product-manager",
+      "description": ""
+    }
+  ]
+}
