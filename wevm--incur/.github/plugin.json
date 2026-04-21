@@ -1,0 +1,9 @@
+{
+  "name": "wevm--incur",
+  "displayName": "incur",
+  "description": "CLI framework for agents and humans",
+  "version": "1.0.0",
+  "author": "wevm",
+  "homepage": "https://github.com/wevm/incur",
+  "skills": []
+}
