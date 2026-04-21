@@ -1,0 +1,22 @@
+{
+  "name": "severity1--claude-code-auto-memory",
+  "displayName": "claude-code",
+  "description": "Claude Code plugin that automatically maintains CLAUDE.md files",
+  "version": "1.0.0",
+  "author": "severity1",
+  "homepage": "https://github.com/severity1/claude-code-auto-memory",
+  "skills": [
+    {
+      "name": "prompt-improver",
+      "description": ""
+    },
+    {
+      "name": "codebase-analyzer",
+      "description": ""
+    },
+    {
+      "name": "memory-processor",
+      "description": ""
+    }
+  ]
+}
