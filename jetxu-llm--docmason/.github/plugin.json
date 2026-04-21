@@ -1,0 +1,9 @@
+{
+  "name": "jetxu-llm--docmason",
+  "displayName": "DocMason",
+  "description": "DocMason is a repo-native agent that turns your complex office files into a local LLM knowledge base and your second brain. The repo is the app. Codex is the runtime.",
+  "version": "1.0.0",
+  "author": "JetXu-LLM",
+  "homepage": "https://github.com/JetXu-LLM/DocMason",
+  "skills": []
+}
