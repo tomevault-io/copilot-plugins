@@ -1,0 +1,147 @@
+{
+  "name": "ethskills",
+  "owner": "austintgriffith",
+  "repo": "ethskills",
+  "description": "The missing knowledge between AI agents and production Ethereum.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "building-blocks",
+      "path": "building-blocks",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/building-blocks",
+      "description": ""
+    },
+    {
+      "name": "concepts",
+      "path": "concepts",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/concepts",
+      "description": ""
+    },
+    {
+      "name": "contracts",
+      "path": "contracts",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/contracts",
+      "description": ""
+    },
+    {
+      "name": "defi",
+      "path": "defi",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/defi",
+      "description": ""
+    },
+    {
+      "name": "frontend-playbook",
+      "path": "frontend-playbook",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/frontend-playbook",
+      "description": ""
+    },
+    {
+      "name": "frontend-ux",
+      "path": "frontend-ux",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/frontend-ux",
+      "description": ""
+    },
+    {
+      "name": "l2",
+      "path": "l2",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/l2",
+      "description": ""
+    },
+    {
+      "name": "l2s",
+      "path": "l2s",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/l2s",
+      "description": ""
+    },
+    {
+      "name": "layer2",
+      "path": "layer2",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/layer2",
+      "description": ""
+    },
+    {
+      "name": "orchestration",
+      "path": "orchestration",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/orchestration",
+      "description": ""
+    },
+    {
+      "name": "qa",
+      "path": "qa",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/qa",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": "security",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/security",
+      "description": ""
+    },
+    {
+      "name": "ship",
+      "path": "ship",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/ship",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "testing",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/testing",
+      "description": ""
+    },
+    {
+      "name": "tools",
+      "path": "tools",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/tools",
+      "description": ""
+    },
+    {
+      "name": "wallets",
+      "path": "wallets",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/wallets",
+      "description": ""
+    },
+    {
+      "name": "why",
+      "path": "why",
+      "github_url": "https://github.com/austintgriffith/ethskills/tree/main/why",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/austintgriffith/ethskills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T07:30:17Z"
+}
