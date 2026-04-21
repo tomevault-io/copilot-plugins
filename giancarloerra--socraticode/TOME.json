@@ -4,7 +4,7 @@
   "repo": "SocratiCode",
   "description": "Enterprise-grade (40m+ lines) codebase intelligence in a zero-setup, private and local Plugin/Skill or MCP: managed indexing, hybrid semantic search, polyglot code dependency graphs, cross-project/repo & branch-aware search, and DB/API/infra knowledge. Benchmark: 61% less tokens, 84% fewer calls, 37x faster than AI grep. Cloud in private beta.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/giancarloerra/SocratiCode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T05:37:36Z"
+  "distributed_at": "2026-04-21T04:30:39Z"
 }
