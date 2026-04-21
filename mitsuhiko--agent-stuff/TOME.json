@@ -1,0 +1,117 @@
+{
+  "name": "agent-stuff",
+  "owner": "mitsuhiko",
+  "repo": "agent-stuff",
+  "description": "These are commands I use with agents, mostly Claude",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "apple-mail",
+      "path": "skills/apple-mail",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/apple-mail",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": "skills/commit",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "google-workspace",
+      "path": "skills/google-workspace",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/google-workspace",
+      "description": ""
+    },
+    {
+      "name": "mermaid",
+      "path": "skills/mermaid",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/mermaid",
+      "description": ""
+    },
+    {
+      "name": "pi-share",
+      "path": "skills/pi-share",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/pi-share",
+      "description": ""
+    },
+    {
+      "name": "sentry",
+      "path": "skills/sentry",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/sentry",
+      "description": ""
+    },
+    {
+      "name": "summarize",
+      "path": "skills/summarize",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/summarize",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "path": "skills/tmux",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/tmux",
+      "description": ""
+    },
+    {
+      "name": "update-changelog",
+      "path": "skills/update-changelog",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/update-changelog",
+      "description": ""
+    },
+    {
+      "name": "uv",
+      "path": "skills/uv",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/uv",
+      "description": ""
+    },
+    {
+      "name": "web-browser",
+      "path": "skills/web-browser",
+      "github_url": "https://github.com/mitsuhiko/agent-stuff/tree/main/skills/web-browser",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mitsuhiko/agent-stuff",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:34:15Z"
+}
