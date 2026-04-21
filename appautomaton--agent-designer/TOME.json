@@ -1,0 +1,51 @@
+{
+  "name": "agent-designer",
+  "owner": "appautomaton",
+  "repo": "agent-designer",
+  "description": "Purpose Design and maintain Codex/Claude-style SKILLs, plus supporting docs and MCP tool catalog.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-bootstrap",
+      "path": ".codex/skills/agents-bootstrap",
+      "github_url": "https://github.com/appautomaton/agent-designer/tree/main/.codex/skills/agents-bootstrap",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/appautomaton/agent-designer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T17:38:59Z"
+}
