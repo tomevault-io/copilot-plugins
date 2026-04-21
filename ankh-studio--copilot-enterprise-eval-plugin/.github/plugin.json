@@ -1,0 +1,9 @@
+{
+  "name": "ankh-studio--copilot-enterprise-eval-plugin",
+  "displayName": "copilot-enterprise-eval-plugin",
+  "description": "copilot-enterprise-eval-plugin",
+  "version": "1.0.0",
+  "author": "Ankh-Studio",
+  "homepage": "https://github.com/Ankh-Studio/copilot-enterprise-eval-plugin",
+  "skills": []
+}
