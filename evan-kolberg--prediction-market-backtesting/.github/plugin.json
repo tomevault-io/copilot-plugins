@@ -1,0 +1,9 @@
+{
+  "name": "evan-kolberg--prediction-market-backtesting",
+  "displayName": "prediction-market-backtesting",
+  "description": "An extension of Nautilus Trader with custom Polymarket and Kalshi adapters for backtesting",
+  "version": "1.0.0",
+  "author": "evan-kolberg",
+  "homepage": "https://github.com/evan-kolberg/prediction-market-backtesting",
+  "skills": []
+}
