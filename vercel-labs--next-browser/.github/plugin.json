@@ -1,0 +1,30 @@
+{
+  "name": "vercel-labs--next-browser",
+  "displayName": "next",
+  "description": "AI instruction skills by vercel-labs",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/next-browser",
+  "skills": [
+    {
+      "name": "next-cache-components",
+      "description": ""
+    },
+    {
+      "name": "next-upgrade",
+      "description": ""
+    },
+    {
+      "name": "next",
+      "description": ""
+    },
+    {
+      "name": "next",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "description": ""
+    }
+  ]
+}
