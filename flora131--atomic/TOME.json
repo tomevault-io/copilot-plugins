@@ -1,0 +1,75 @@
+{
+  "name": "atomic",
+  "owner": "flora131",
+  "repo": "atomic",
+  "description": "Build your own harness. Understand and research any codebase. Plan complex features. Ship them autonomously.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-spec",
+      "path": ".claude/skills/create-spec",
+      "github_url": "https://github.com/flora131/atomic/tree/main/.claude/skills/create-spec",
+      "description": ""
+    },
+    {
+      "name": "explain-code",
+      "path": ".claude/skills/explain-code",
+      "github_url": "https://github.com/flora131/atomic/tree/main/.claude/skills/explain-code",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".claude/skills/frontend-design",
+      "github_url": "https://github.com/flora131/atomic/tree/main/.claude/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "init",
+      "path": ".claude/skills/init",
+      "github_url": "https://github.com/flora131/atomic/tree/main/.claude/skills/init",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "path": ".claude/skills/prompt-engineer",
+      "github_url": "https://github.com/flora131/atomic/tree/main/.claude/skills/prompt-engineer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/flora131/atomic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:32:09Z"
+}
