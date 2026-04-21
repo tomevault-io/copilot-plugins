@@ -1,6 +1,6 @@
-# 2ly — distributed by TomeVault
+# 2ly
 
-> Originally from [BKstuudio/2ly](https://github.com/BKstuudio/2ly). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [BKstuudio/2ly](https://github.com/BKstuudio/2ly) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [BKstuudio/2ly](https://github.com/BKs
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/BKstuudio)
+From [BKstuudio/2ly](https://github.com/BKstuudio/2ly) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/BKstuudio) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
