@@ -1,0 +1,54 @@
+{
+  "name": "romiluz13--cc10x",
+  "displayName": "cc10x",
+  "description": "Router-Owned Claude Code Harness",
+  "version": "1.0.0",
+  "author": "romiluz13",
+  "homepage": "https://github.com/romiluz13/cc10x",
+  "skills": [
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "cc10x-router",
+      "description": ""
+    },
+    {
+      "name": "code-generation",
+      "description": ""
+    },
+    {
+      "name": "code-review-patterns",
+      "description": ""
+    },
+    {
+      "name": "debugging-patterns",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "planning-patterns",
+      "description": ""
+    },
+    {
+      "name": "session-memory",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "verification-before-completion",
+      "description": ""
+    }
+  ]
+}
