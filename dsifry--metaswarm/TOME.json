@@ -2,9 +2,9 @@
   "name": "metaswarm",
   "owner": "dsifry",
   "repo": "metaswarm",
-  "description": "AI instruction files for metaswarm by dsifry",
+  "description": "A self-improving multi-agent orchestration framework for Claude Code, Gemini CLI, and Codex CLI \u2014 18 agents, 13 skills, 15 commands, TDD enforcement, quality gates, spec-driven development",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -51,7 +51,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/dsifry",
+  "source_url": "https://github.com/dsifry/metaswarm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T14:40:28Z"
+  "distributed_at": "2026-04-21T10:31:56Z"
 }
