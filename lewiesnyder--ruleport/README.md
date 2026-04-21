@@ -1,6 +1,6 @@
 # RulePort
 
-> Tome by [lewiesnyder](https://github.com/lewiesnyder/RulePort) — distributed by [TomeVault](https://tomevault.io/claim/lewiesnyder)
+> Tome by [lewiesnyder](https://github.com/lewiesnyder/RulePort) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [lewiesnyder/RulePort](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/lewiesnyder#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lewiesnyder/RulePort](https://github.com/lewiesnyder/RulePort)
 
 ---
 
