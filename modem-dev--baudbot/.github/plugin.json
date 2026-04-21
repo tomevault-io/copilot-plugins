@@ -1,0 +1,22 @@
+{
+  "name": "modem-dev--baudbot",
+  "displayName": "baudbot",
+  "description": "Multiplayer, always-on AI dev assistant - like OpenClaw but for your whole team on Slack \ud83e\udd16 ",
+  "version": "1.0.0",
+  "author": "modem-dev",
+  "homepage": "https://github.com/modem-dev/baudbot",
+  "skills": [
+    {
+      "name": "control-agent",
+      "description": ""
+    },
+    {
+      "name": "dev-agent",
+      "description": ""
+    },
+    {
+      "name": "sentry-agent",
+      "description": ""
+    }
+  ]
+}
