@@ -1,6 +1,6 @@
 # api-one-word
 
-> Tome by [mariobrusarosco](https://github.com/mariobrusarosco/api-one-word) — distributed by [TomeVault](https://tomevault.io/claim/mariobrusarosco)
+> Tome by [mariobrusarosco](https://github.com/mariobrusarosco/api-one-word) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [mariobrusarosco/api-one-word](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mariobrusarosco)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mariobrusarosco/api-one-word](https://github.com/mariobrusarosco/api-one-word)
 
 ---
 
