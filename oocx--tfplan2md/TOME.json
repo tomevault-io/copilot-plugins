@@ -1,0 +1,207 @@
+{
+  "name": "tfplan2md",
+  "owner": "oocx",
+  "repo": "tfplan2md",
+  "description": "Convert terraform plans (json) into human readable markdown for easier review of changes in pull requests.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-file-structure",
+      "path": ".github/skills/agent-file-structure",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/agent-file-structure",
+      "description": ""
+    },
+    {
+      "name": "agent-model-selection",
+      "path": ".github/skills/agent-model-selection",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/agent-model-selection",
+      "description": ""
+    },
+    {
+      "name": "agent-tool-selection",
+      "path": ".github/skills/agent-tool-selection",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/agent-tool-selection",
+      "description": ""
+    },
+    {
+      "name": "analyze-chat-export",
+      "path": ".github/skills/analyze-chat-export",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/analyze-chat-export",
+      "description": ""
+    },
+    {
+      "name": "arc42-documentation",
+      "path": ".github/skills/arc42-documentation",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/arc42-documentation",
+      "description": ""
+    },
+    {
+      "name": "coding-agent-workflow",
+      "path": ".github/skills/coding-agent-workflow",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/coding-agent-workflow",
+      "description": ""
+    },
+    {
+      "name": "create-agent-skill",
+      "path": ".github/skills/create-agent-skill",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/create-agent-skill",
+      "description": ""
+    },
+    {
+      "name": "create-pr-azdo",
+      "path": ".github/skills/create-pr-azdo",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/create-pr-azdo",
+      "description": ""
+    },
+    {
+      "name": "create-pr-github",
+      "path": ".github/skills/create-pr-github",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/create-pr-github",
+      "description": ""
+    },
+    {
+      "name": "generate-demo-artifacts",
+      "path": ".github/skills/generate-demo-artifacts",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/generate-demo-artifacts",
+      "description": ""
+    },
+    {
+      "name": "generate-release-screenshots",
+      "path": ".github/skills/generate-release-screenshots",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/generate-release-screenshots",
+      "description": ""
+    },
+    {
+      "name": "git-rebase-main",
+      "path": ".github/skills/git-rebase-main",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/git-rebase-main",
+      "description": ""
+    },
+    {
+      "name": "merge-conflict-resolution",
+      "path": ".github/skills/merge-conflict-resolution",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/merge-conflict-resolution",
+      "description": ""
+    },
+    {
+      "name": "next-issue-number",
+      "path": ".github/skills/next-issue-number",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/next-issue-number",
+      "description": ""
+    },
+    {
+      "name": "run-dotnet-tests",
+      "path": ".github/skills/run-dotnet-tests",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/run-dotnet-tests",
+      "description": ""
+    },
+    {
+      "name": "run-uat",
+      "path": ".github/skills/run-uat",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/run-uat",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "path": ".github/skills/create-agent-skill/templates",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/create-agent-skill/templates",
+      "description": ""
+    },
+    {
+      "name": "update-test-snapshots",
+      "path": ".github/skills/update-test-snapshots",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/update-test-snapshots",
+      "description": ""
+    },
+    {
+      "name": "update-workflow-diagram",
+      "path": ".github/skills/update-workflow-diagram",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/update-workflow-diagram",
+      "description": ""
+    },
+    {
+      "name": "validate-agent",
+      "path": ".github/skills/validate-agent",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/validate-agent",
+      "description": ""
+    },
+    {
+      "name": "view-pr-github",
+      "path": ".github/skills/view-pr-github",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/view-pr-github",
+      "description": ""
+    },
+    {
+      "name": "watch-uat-azdo-pr",
+      "path": ".github/skills/watch-uat-azdo-pr",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/watch-uat-azdo-pr",
+      "description": ""
+    },
+    {
+      "name": "watch-uat-github-pr",
+      "path": ".github/skills/watch-uat-github-pr",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/watch-uat-github-pr",
+      "description": ""
+    },
+    {
+      "name": "website-accessibility-check",
+      "path": ".github/skills/website-accessibility-check",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/website-accessibility-check",
+      "description": ""
+    },
+    {
+      "name": "website-devtools",
+      "path": ".github/skills/website-devtools",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/website-devtools",
+      "description": ""
+    },
+    {
+      "name": "website-quality-check",
+      "path": ".github/skills/website-quality-check",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/website-quality-check",
+      "description": ""
+    },
+    {
+      "name": "website-visual-assets",
+      "path": ".github/skills/website-visual-assets",
+      "github_url": "https://github.com/oocx/tfplan2md/tree/main/.github/skills/website-visual-assets",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oocx/tfplan2md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T17:34:44Z"
+}
