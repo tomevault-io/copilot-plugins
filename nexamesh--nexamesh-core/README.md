@@ -1,6 +1,6 @@
-# nexamesh-core — distributed by TomeVault
+# nexamesh-core
 
-> Originally from [Nexamesh/nexamesh-core](https://github.com/Nexamesh/nexamesh-core). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Nexamesh/nexamesh-core](https://github.com/Nexamesh/nexamesh-core) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Nexamesh/nexamesh-core](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Nexamesh#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Nexamesh/nexamesh-core](https://github.com/Nexamesh/nexamesh-core)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Nexamesh) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
