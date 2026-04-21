@@ -1,0 +1,9 @@
+{
+  "name": "sympozium-ai--sympozium",
+  "displayName": "sympozium",
+  "description": "Run a fleet of AI agents on Kubernetes. Administer your cluster agentically",
+  "version": "1.0.0",
+  "author": "sympozium-ai",
+  "homepage": "https://github.com/sympozium-ai/sympozium",
+  "skills": []
+}
