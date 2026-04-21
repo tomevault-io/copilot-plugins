@@ -1,6 +1,6 @@
 # quicktap-backend
 
-> Tome by [tundraray](https://github.com/tundraray/quicktap-backend) — distributed by [TomeVault](https://tomevault.io/claim/tundraray)
+> Tome by [tundraray](https://github.com/tundraray/quicktap-backend) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [tundraray/quicktap-backend](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/tundraray)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/tundraray/quicktap-backend](https://github.com/tundraray/quicktap-backend)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/tundraray) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
