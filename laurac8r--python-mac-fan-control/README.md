@@ -1,6 +1,6 @@
-# python-mac-fan-control — distributed by TomeVault
+# python-mac-fan-control
 
-> Originally from [laurac8r/python-mac-fan-control](https://github.com/laurac8r/python-mac-fan-control). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [laurac8r/python-mac-fan-control](https://github.com/laurac8r/python-mac-fan-control) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [laurac8r/python-mac-fan-control](htt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/laurac8r)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/laurac8r/python-mac-fan-control](https://github.com/laurac8r/python-mac-fan-control)
 
 ---
 
