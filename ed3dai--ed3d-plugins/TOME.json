@@ -1,0 +1,249 @@
+{
+  "name": "ed3d-plugins",
+  "owner": "ed3dai",
+  "repo": "ed3d-plugins",
+  "description": "Ed's repo of Claude Code plugins, centered around a research-plan-implement workflow. Only a tiny bit cursed. If you're lucky.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "asking-clarifying-questions",
+      "path": "plugins/ed3d-plan-and-execute/skills/asking-clarifying-questions",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/asking-clarifying-questions",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "plugins/ed3d-plan-and-execute/skills/brainstorming",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "coding-effectively",
+      "path": "plugins/ed3d-house-style/skills/coding-effectively",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-house-style/skills/coding-effectively",
+      "description": ""
+    },
+    {
+      "name": "creating-an-agent",
+      "path": "plugins/ed3d-extending-claude/skills/creating-an-agent",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-extending-claude/skills/creating-an-agent",
+      "description": ""
+    },
+    {
+      "name": "doing-a-simple-two-stage-fanout",
+      "path": "plugins/ed3d-basic-agents/skills/doing-a-simple-two-stage-fanout",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-basic-agents/skills/doing-a-simple-two-stage-fanout",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "path": "plugins/ed3d-plan-and-execute/skills/finishing-a-development-branch",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "howto-functional-vs-imperative",
+      "path": "plugins/ed3d-house-style/skills/howto-functional-vs-imperative",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-house-style/skills/howto-functional-vs-imperative",
+      "description": ""
+    },
+    {
+      "name": "howto-code-in-typescript",
+      "path": "plugins/ed3d-house-style/skills/howto-code-in-typescript",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-house-style/skills/howto-code-in-typescript",
+      "description": ""
+    },
+    {
+      "name": "howto-develop-with-postgres",
+      "path": "plugins/ed3d-house-style/skills/howto-develop-with-postgres",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-house-style/skills/howto-develop-with-postgres",
+      "description": ""
+    },
+    {
+      "name": "investigating-a-codebase",
+      "path": "plugins/ed3d-research-agents/skills/investigating-a-codebase",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-research-agents/skills/investigating-a-codebase",
+      "description": ""
+    },
+    {
+      "name": "maintaining-a-marketplace",
+      "path": "plugins/ed3d-extending-claude/skills/maintaining-a-marketplace",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-extending-claude/skills/maintaining-a-marketplace",
+      "description": ""
+    },
+    {
+      "name": "maintaining-project-context",
+      "path": "plugins/ed3d-extending-claude/skills/maintaining-project-context",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-extending-claude/skills/maintaining-project-context",
+      "description": ""
+    },
+    {
+      "name": "playwright-debugging",
+      "path": "plugins/ed3d-playwright/skills/playwright-debugging",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-playwright/skills/playwright-debugging",
+      "description": ""
+    },
+    {
+      "name": "playwright-patterns",
+      "path": "plugins/ed3d-playwright/skills/playwright-patterns",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-playwright/skills/playwright-patterns",
+      "description": ""
+    },
+    {
+      "name": "programming-in-react",
+      "path": "plugins/ed3d-house-style/skills/programming-in-react",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-house-style/skills/programming-in-react",
+      "description": ""
+    },
+    {
+      "name": "property-based-testing",
+      "path": "plugins/ed3d-house-style/skills/property-based-testing",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-house-style/skills/property-based-testing",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "path": "plugins/ed3d-plan-and-execute/skills/requesting-code-review",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "researching-on-the-internet",
+      "path": "plugins/ed3d-research-agents/skills/researching-on-the-internet",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-research-agents/skills/researching-on-the-internet",
+      "description": ""
+    },
+    {
+      "name": "starting-a-design-plan",
+      "path": "plugins/ed3d-plan-and-execute/skills/starting-a-design-plan",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/starting-a-design-plan",
+      "description": ""
+    },
+    {
+      "name": "starting-an-implementation-plan",
+      "path": "plugins/ed3d-plan-and-execute/skills/starting-an-implementation-plan",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/starting-an-implementation-plan",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": "plugins/ed3d-plan-and-execute/skills/systematic-debugging",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "plugins/ed3d-plan-and-execute/skills/test-driven-development",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-skills-with-subagents",
+      "path": "plugins/ed3d-extending-claude/skills/testing-skills-with-subagents",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-extending-claude/skills/testing-skills-with-subagents",
+      "description": ""
+    },
+    {
+      "name": "using-generic-agents",
+      "path": "plugins/ed3d-basic-agents/skills/using-generic-agents",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-basic-agents/skills/using-generic-agents",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "path": "plugins/ed3d-plan-and-execute/skills/using-git-worktrees",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-plan-and-execute",
+      "path": "plugins/ed3d-plan-and-execute/skills/using-plan-and-execute",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/using-plan-and-execute",
+      "description": ""
+    },
+    {
+      "name": "writing-claude-directives",
+      "path": "plugins/ed3d-extending-claude/skills/writing-claude-directives",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-extending-claude/skills/writing-claude-directives",
+      "description": ""
+    },
+    {
+      "name": "writing-design-plans",
+      "path": "plugins/ed3d-plan-and-execute/skills/writing-design-plans",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/writing-design-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-for-a-technical-audience",
+      "path": "plugins/ed3d-house-style/skills/writing-for-a-technical-audience",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-house-style/skills/writing-for-a-technical-audience",
+      "description": ""
+    },
+    {
+      "name": "writing-good-tests",
+      "path": "plugins/ed3d-house-style/skills/writing-good-tests",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-house-style/skills/writing-good-tests",
+      "description": ""
+    },
+    {
+      "name": "writing-implementation-plans",
+      "path": "plugins/ed3d-plan-and-execute/skills/writing-implementation-plans",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/writing-implementation-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "plugins/ed3d-extending-claude/skills/writing-skills",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-extending-claude/skills/writing-skills",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "path": "plugins/ed3d-plan-and-execute/skills/requesting-code-review",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "writing-implementation-plans",
+      "path": "plugins/ed3d-plan-and-execute/skills/writing-implementation-plans",
+      "github_url": "https://github.com/ed3dai/ed3d-plugins/tree/main/plugins/ed3d-plan-and-execute/skills/writing-implementation-plans",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ed3dai/ed3d-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:35:10Z"
+}
