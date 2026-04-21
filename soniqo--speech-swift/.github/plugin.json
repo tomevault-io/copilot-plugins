@@ -1,0 +1,9 @@
+{
+  "name": "soniqo--speech-swift",
+  "displayName": "speech-swift",
+  "description": "AI speech toolkit for Apple Silicon \u2014 ASR, TTS, speech-to-speech, VAD, and diarization powered by MLX and CoreML",
+  "version": "1.0.0",
+  "author": "soniqo",
+  "homepage": "https://github.com/soniqo/speech-swift",
+  "skills": []
+}
