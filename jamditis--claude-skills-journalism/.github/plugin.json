@@ -1,0 +1,138 @@
+{
+  "name": "jamditis--claude-skills-journalism",
+  "displayName": "claude-skills-journalism",
+  "description": "Claude Code skills for journalism, media, and academia - verification, FOIA, data journalism, academic writing, and more",
+  "version": "1.0.0",
+  "author": "jamditis",
+  "homepage": "https://github.com/jamditis/claude-skills-journalism",
+  "skills": [
+    {
+      "name": "web-scraping",
+      "description": ""
+    },
+    {
+      "name": "academic-writing",
+      "description": ""
+    },
+    {
+      "name": "accessibility-compliance",
+      "description": ""
+    },
+    {
+      "name": "ai-writing-detox",
+      "description": ""
+    },
+    {
+      "name": "api-hardening",
+      "description": ""
+    },
+    {
+      "name": "crisis-communications",
+      "description": ""
+    },
+    {
+      "name": "digital-archive",
+      "description": ""
+    },
+    {
+      "name": "document-design",
+      "description": ""
+    },
+    {
+      "name": "editorial-workflow",
+      "description": ""
+    },
+    {
+      "name": "electron-dev",
+      "description": ""
+    },
+    {
+      "name": "foia-requests",
+      "description": ""
+    },
+    {
+      "name": "interview-prep",
+      "description": ""
+    },
+    {
+      "name": "mobile-debugging",
+      "description": ""
+    },
+    {
+      "name": "newsletter-publishing",
+      "description": ""
+    },
+    {
+      "name": "one-way-door",
+      "description": ""
+    },
+    {
+      "name": "page-monitoring",
+      "description": ""
+    },
+    {
+      "name": "pdf-design",
+      "description": ""
+    },
+    {
+      "name": "project-memory",
+      "description": ""
+    },
+    {
+      "name": "python-pipeline",
+      "description": ""
+    },
+    {
+      "name": "secure-auth",
+      "description": ""
+    },
+    {
+      "name": "security-checklist",
+      "description": ""
+    },
+    {
+      "name": "social-media-intelligence",
+      "description": ""
+    },
+    {
+      "name": "story-pitch",
+      "description": ""
+    },
+    {
+      "name": "template-selector",
+      "description": ""
+    },
+    {
+      "name": "test-first-bugs",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding",
+      "description": ""
+    },
+    {
+      "name": "web-archiving",
+      "description": ""
+    },
+    {
+      "name": "zero-build-frontend",
+      "description": ""
+    },
+    {
+      "name": "data-journalism",
+      "description": ""
+    },
+    {
+      "name": "source-verification",
+      "description": ""
+    },
+    {
+      "name": "fact-check-workflow",
+      "description": ""
+    },
+    {
+      "name": "newsroom-style",
+      "description": ""
+    }
+  ]
+}
