@@ -1,0 +1,30 @@
+{
+  "name": "chrispangg--deepagentsdk",
+  "displayName": "deepagentsdk",
+  "description": "A Deep Agent Harness framework built with Vercel's AI SDK v6",
+  "version": "1.0.0",
+  "author": "chrispangg",
+  "homepage": "https://github.com/chrispangg/deepagentsdk",
+  "skills": [
+    {
+      "name": "content-writer",
+      "description": ""
+    },
+    {
+      "name": "custom-frontend-design",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "description": ""
+    }
+  ]
+}
