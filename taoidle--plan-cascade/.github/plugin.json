@@ -1,0 +1,14 @@
+{
+  "name": "taoidle--plan-cascade",
+  "displayName": "plan-cascade",
+  "description": "AI-powered cascading development framework. Decompose complex projects into parallel executable tasks with auto-generated PRDs, design docs, and multi-agent collaboration (Claude Code, Codex, Aider).",
+  "version": "1.0.0",
+  "author": "Taoidle",
+  "homepage": "https://github.com/Taoidle/plan-cascade",
+  "skills": [
+    {
+      "name": "typescript-best-practices",
+      "description": ""
+    }
+  ]
+}
