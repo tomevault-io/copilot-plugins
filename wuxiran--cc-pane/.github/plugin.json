@@ -1,0 +1,9 @@
+{
+  "name": "wuxiran--cc-pane",
+  "displayName": "cc-pane",
+  "description": "Multi-instance split-pane manager for Claude Code \u2014 a cross-platform desktop app built with Tauri 2",
+  "version": "1.0.0",
+  "author": "wuxiran",
+  "homepage": "https://github.com/wuxiran/cc-pane",
+  "skills": []
+}
