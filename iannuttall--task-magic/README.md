@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [iannuttall/task-magic](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/iannuttall#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/iannuttall/task-magic](https://github.com/iannuttall/task-magic)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install iannuttall/task-magic
 ```
-Or browse all formats at [https://tomevault.io/claim/iannuttall](https://tomevault.io/claim/iannuttall).
+Source: [github.com/iannuttall/task-magic](https://github.com/iannuttall/task-magic).
 
 <!-- genome:a-i-q -->
