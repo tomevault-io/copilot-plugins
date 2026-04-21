@@ -1,0 +1,81 @@
+{
+  "name": "serverless-openclaw",
+  "owner": "serithemage",
+  "repo": "serverless-openclaw",
+  "description": "Run OpenClaw AI agent on-demand on AWS serverless infrastructure with Web UI and Telegram interfaces. Cost target ~$1/month.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecture",
+      "path": ".claude/skills/architecture",
+      "github_url": "https://github.com/serithemage/serverless-openclaw/tree/main/.claude/skills/architecture",
+      "description": ""
+    },
+    {
+      "name": "context",
+      "path": ".claude/skills/context",
+      "github_url": "https://github.com/serithemage/serverless-openclaw/tree/main/.claude/skills/context",
+      "description": ""
+    },
+    {
+      "name": "cost",
+      "path": ".claude/skills/cost",
+      "github_url": "https://github.com/serithemage/serverless-openclaw/tree/main/.claude/skills/cost",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "path": ".claude/skills/deploy",
+      "github_url": "https://github.com/serithemage/serverless-openclaw/tree/main/.claude/skills/deploy",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "path": ".claude/skills/implement",
+      "github_url": "https://github.com/serithemage/serverless-openclaw/tree/main/.claude/skills/implement",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": ".claude/skills/security",
+      "github_url": "https://github.com/serithemage/serverless-openclaw/tree/main/.claude/skills/security",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/serithemage/serverless-openclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T10:35:25Z"
+}
