@@ -1,0 +1,9 @@
+{
+  "name": "greyhaven-ai--autocontext",
+  "displayName": "autocontext",
+  "description": "a recursive self-improving harness designed to help your agents (and future iterations of those agents) succeed on any task",
+  "version": "1.0.0",
+  "author": "greyhaven-ai",
+  "homepage": "https://github.com/greyhaven-ai/autocontext",
+  "skills": []
+}
