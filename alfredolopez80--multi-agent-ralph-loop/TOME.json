@@ -1,0 +1,261 @@
+{
+  "name": "multi-agent-ralph-loop",
+  "owner": "alfredolopez80",
+  "repo": "multi-agent-ralph-loop",
+  "description": "Autonomous orchestration framework for Claude Code with MemPalace-inspired memory (4-layer stack, 818-token wake-up), parallel-first Agent Teams (6 teammates), Aristotle First Principles methodology, and 4-stage quality gates. 925+ tests, 22 active hooks, automatic learning pipeline.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adversarial",
+      "path": ".claude/skills/adversarial",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/adversarial",
+      "description": ""
+    },
+    {
+      "name": "attack-mutator",
+      "path": ".claude/skills/attack-mutator",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/attack-mutator",
+      "description": ""
+    },
+    {
+      "name": "bugs",
+      "path": ".claude/skills/bugs",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/bugs",
+      "description": ""
+    },
+    {
+      "name": "clarify",
+      "path": ".claude/skills/clarify",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/clarify",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": ".claude/skills/code-reviewer",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "codex-cli",
+      "path": ".claude/skills/codex-cli",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/codex-cli",
+      "description": ""
+    },
+    {
+      "name": "context7-usage",
+      "path": ".claude/skills/context7-usage",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/context7-usage",
+      "description": ""
+    },
+    {
+      "name": "curator-repo-learn",
+      "path": ".claude/skills/curator-repo-learn",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/curator-repo-learn",
+      "description": ""
+    },
+    {
+      "name": "defense-profiler",
+      "path": ".claude/skills/defense-profiler",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/defense-profiler",
+      "description": ""
+    },
+    {
+      "name": "deslop",
+      "path": ".claude/skills/deslop",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/deslop",
+      "description": ""
+    },
+    {
+      "name": "edd",
+      "path": ".claude/skills/edd",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/edd",
+      "description": ""
+    },
+    {
+      "name": "gates",
+      "path": ".claude/skills/gates",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/gates",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli",
+      "path": ".claude/skills/gemini-cli",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/gemini-cli",
+      "description": ""
+    },
+    {
+      "name": "glm-mcp",
+      "path": ".claude/skills/glm-mcp",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/glm-mcp",
+      "description": ""
+    },
+    {
+      "name": "glm5",
+      "path": ".claude/skills/glm5",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/glm5",
+      "description": ""
+    },
+    {
+      "name": "glm5-parallel",
+      "path": ".claude/skills/glm5-parallel",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/glm5-parallel",
+      "description": ""
+    },
+    {
+      "name": "kaizen",
+      "path": ".claude/skills/kaizen",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/kaizen",
+      "description": ""
+    },
+    {
+      "name": "minimax",
+      "path": ".claude/skills/minimax",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/minimax",
+      "description": ""
+    },
+    {
+      "name": "minimax-mcp-usage",
+      "path": ".claude/skills/minimax-mcp-usage",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/minimax-mcp-usage",
+      "description": ""
+    },
+    {
+      "name": "openai-docs",
+      "path": ".claude/skills/openai-docs",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/openai-docs",
+      "description": ""
+    },
+    {
+      "name": "parallel",
+      "path": ".claude/skills/parallel",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/parallel",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "path": ".claude/skills/prd",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/prd",
+      "description": ""
+    },
+    {
+      "name": "quality-gates-parallel",
+      "path": ".claude/skills/quality-gates-parallel",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/quality-gates-parallel",
+      "description": ""
+    },
+    {
+      "name": "readme",
+      "path": ".claude/skills/readme",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/readme",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": ".claude/skills/research",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/research",
+      "description": ""
+    },
+    {
+      "name": "research-blockchain",
+      "path": ".claude/skills/research-blockchain",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/research-blockchain",
+      "description": ""
+    },
+    {
+      "name": "sec-context-depth",
+      "path": ".claude/skills/sec-context-depth",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/sec-context-depth",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": ".claude/skills/security",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/security",
+      "description": ""
+    },
+    {
+      "name": "senior-software-engineer",
+      "path": ".claude/skills/senior-software-engineer",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/senior-software-engineer",
+      "description": ""
+    },
+    {
+      "name": "stop-slop",
+      "path": ".claude/skills/stop-slop",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/stop-slop",
+      "description": ""
+    },
+    {
+      "name": "tap-explorer",
+      "path": ".claude/skills/tap-explorer",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/tap-explorer",
+      "description": ""
+    },
+    {
+      "name": "task-batch",
+      "path": ".claude/skills/task-batch",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/task-batch",
+      "description": ""
+    },
+    {
+      "name": "task-classifier",
+      "path": ".claude/skills/task-classifier",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/task-classifier",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "path": ".claude/skills/testing-anti-patterns",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".claude/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "worktree-pr",
+      "path": ".claude/skills/worktree-pr",
+      "github_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop/tree/main/.claude/skills/worktree-pr",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alfredolopez80/multi-agent-ralph-loop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:32:00Z"
+}
