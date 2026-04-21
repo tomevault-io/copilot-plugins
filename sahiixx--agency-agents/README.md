@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [sahiixx/agency-agents](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/sahiixx#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/sahiixx/agency-agents](https://github.com/sahiixx/agency-agents)
 
 ---
 
