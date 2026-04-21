@@ -1,0 +1,9 @@
+{
+  "name": "gcwing--bitfun",
+  "displayName": "BitFun",
+  "description": "BitFun is a next-generation AI assistant with built-in Code Agent and Cowork Agent. It has memory, personality, and the ability to evolve over time. You can remotely control the desktop through mobile",
+  "version": "1.0.0",
+  "author": "GCWing",
+  "homepage": "https://github.com/GCWing/BitFun",
+  "skills": []
+}
