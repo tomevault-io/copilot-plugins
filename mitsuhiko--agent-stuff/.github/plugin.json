@@ -1,0 +1,58 @@
+{
+  "name": "mitsuhiko--agent-stuff",
+  "displayName": "agent-stuff",
+  "description": "These are commands I use with agents, mostly Claude",
+  "version": "1.0.0",
+  "author": "mitsuhiko",
+  "homepage": "https://github.com/mitsuhiko/agent-stuff",
+  "skills": [
+    {
+      "name": "apple-mail",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "google-workspace",
+      "description": ""
+    },
+    {
+      "name": "mermaid",
+      "description": ""
+    },
+    {
+      "name": "pi-share",
+      "description": ""
+    },
+    {
+      "name": "sentry",
+      "description": ""
+    },
+    {
+      "name": "summarize",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "description": ""
+    },
+    {
+      "name": "update-changelog",
+      "description": ""
+    },
+    {
+      "name": "uv",
+      "description": ""
+    },
+    {
+      "name": "web-browser",
+      "description": ""
+    }
+  ]
+}
