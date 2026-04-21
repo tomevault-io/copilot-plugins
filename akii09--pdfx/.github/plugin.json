@@ -1,0 +1,9 @@
+{
+  "name": "akii09--pdfx",
+  "displayName": "pdfx",
+  "description": "A React PDF component library with pre-built, themeable components and a CLI for seamless PDF document creation.",
+  "version": "1.0.0",
+  "author": "akii09",
+  "homepage": "https://github.com/akii09/pdfx",
+  "skills": []
+}
