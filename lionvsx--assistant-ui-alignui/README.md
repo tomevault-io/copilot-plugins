@@ -1,6 +1,6 @@
-# assistant-ui-alignui — distributed by TomeVault
+# assistant-ui-alignui
 
-> Originally from [Lionvsx/assistant-ui-alignui](https://github.com/Lionvsx/assistant-ui-alignui). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Lionvsx/assistant-ui-alignui](https://github.com/Lionvsx/assistant-ui-alignui) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Lionvsx/assistant-ui-alignui](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Lionvsx)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Lionvsx/assistant-ui-alignui](https://github.com/Lionvsx/assistant-ui-alignui)
 
 ---
 
