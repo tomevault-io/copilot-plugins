@@ -1,0 +1,9 @@
+{
+  "name": "backbay-labs--clawdstrike",
+  "displayName": "clawdstrike",
+  "description": "Runtime security enforcement and threat hunting engine for autonomous AI fleets. Build Swarm Detection & Response (SDR) platforms with Clawdstrike.",
+  "version": "1.0.0",
+  "author": "backbay-labs",
+  "homepage": "https://github.com/backbay-labs/clawdstrike",
+  "skills": []
+}
