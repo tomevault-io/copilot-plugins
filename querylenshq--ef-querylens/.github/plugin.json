@@ -1,0 +1,9 @@
+{
+  "name": "querylenshq--ef-querylens",
+  "displayName": "ef-querylens",
+  "description": "See the SQL EF Core will generate in real-time while you write LINQ.",
+  "version": "1.0.0",
+  "author": "querylenshq",
+  "homepage": "https://github.com/querylenshq/ef-querylens",
+  "skills": []
+}
