@@ -1,0 +1,135 @@
+{
+  "name": "code-abyss",
+  "owner": "telagod",
+  "repo": "code-abyss",
+  "description": "\u4e3a Claude Code / Codex CLI \u6ce8\u5165\u90aa\u4fee\u4eba\u683c\u30014\u79cd\u53ef\u5207\u6362\u8f93\u51fa\u98ce\u683c\u4e0e 56 \u7bc7\u653b\u9632\u5de5\u7a0b\u79d8\u5178",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai",
+      "path": "skills/domains/ai",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/ai",
+      "description": ""
+    },
+    {
+      "name": "architecture",
+      "path": "skills/domains/architecture",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/architecture",
+      "description": ""
+    },
+    {
+      "name": "claymorphism",
+      "path": "skills/domains/frontend-design/claymorphism",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/frontend-design/claymorphism",
+      "description": ""
+    },
+    {
+      "name": "development",
+      "path": "skills/domains/development",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/development",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "path": "skills/domains/devops",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/devops",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/domains/frontend-design",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "gen-docs",
+      "path": "skills/tools/gen-docs",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/tools/gen-docs",
+      "description": ""
+    },
+    {
+      "name": "glassmorphism",
+      "path": "skills/domains/frontend-design/glassmorphism",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/frontend-design/glassmorphism",
+      "description": ""
+    },
+    {
+      "name": "infrastructure",
+      "path": "skills/domains/infrastructure",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/infrastructure",
+      "description": ""
+    },
+    {
+      "name": "liquid-glass",
+      "path": "skills/domains/frontend-design/liquid-glass",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/frontend-design/liquid-glass",
+      "description": ""
+    },
+    {
+      "name": "mobile",
+      "path": "skills/domains/mobile",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/mobile",
+      "description": ""
+    },
+    {
+      "name": "multi-agent",
+      "path": "skills/orchestration/multi-agent",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/orchestration/multi-agent",
+      "description": ""
+    },
+    {
+      "name": "neubrutalism",
+      "path": "skills/domains/frontend-design/neubrutalism",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/domains/frontend-design/neubrutalism",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills",
+      "description": ""
+    },
+    {
+      "name": "verify-module",
+      "path": "skills/tools/verify-module",
+      "github_url": "https://github.com/telagod/code-abyss/tree/main/skills/tools/verify-module",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/telagod/code-abyss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T10:36:42Z"
+}
