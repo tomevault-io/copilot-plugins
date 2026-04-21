@@ -1,0 +1,255 @@
+{
+  "name": "claude-code-skills",
+  "owner": "daymade",
+  "repo": "claude-code-skills",
+  "description": "Professional Claude Code skills marketplace featuring production-ready skills for enhanced development workflows.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-code-history-files-finder",
+      "path": "claude-code-history-files-finder",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/claude-code-history-files-finder",
+      "description": ""
+    },
+    {
+      "name": "claude-skills-troubleshooting",
+      "path": "claude-skills-troubleshooting",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/claude-skills-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "cli-demo-generator",
+      "path": "cli-demo-generator",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/cli-demo-generator",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-troubleshooting",
+      "path": "cloudflare-troubleshooting",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/cloudflare-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "competitors-analysis",
+      "path": "competitors-analysis",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/competitors-analysis",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "path": "deep-research",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/deep-research",
+      "description": ""
+    },
+    {
+      "name": "docs-cleaner",
+      "path": "docs-cleaner",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/docs-cleaner",
+      "description": ""
+    },
+    {
+      "name": "fact-checker",
+      "path": "fact-checker",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/fact-checker",
+      "description": ""
+    },
+    {
+      "name": "github-contributor",
+      "path": "github-contributor",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/github-contributor",
+      "description": ""
+    },
+    {
+      "name": "github-ops",
+      "path": "github-ops",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/github-ops",
+      "description": ""
+    },
+    {
+      "name": "i18n-expert",
+      "path": "i18n-expert",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/i18n-expert",
+      "description": ""
+    },
+    {
+      "name": "llm-icon-finder",
+      "path": "llm-icon-finder",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/llm-icon-finder",
+      "description": ""
+    },
+    {
+      "name": "macos-cleaner",
+      "path": "macos-cleaner",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/macos-cleaner",
+      "description": ""
+    },
+    {
+      "name": "meeting-minutes-taker",
+      "path": "meeting-minutes-taker",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/meeting-minutes-taker",
+      "description": ""
+    },
+    {
+      "name": "mermaid-tools",
+      "path": "mermaid-tools",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/mermaid-tools",
+      "description": ""
+    },
+    {
+      "name": "pdf-creator",
+      "path": "pdf-creator",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/pdf-creator",
+      "description": ""
+    },
+    {
+      "name": "ppt-creator",
+      "path": "ppt-creator",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/ppt-creator",
+      "description": ""
+    },
+    {
+      "name": "prompt-optimizer",
+      "path": "prompt-optimizer",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/prompt-optimizer",
+      "description": ""
+    },
+    {
+      "name": "promptfoo-evaluation",
+      "path": "promptfoo-evaluation",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/promptfoo-evaluation",
+      "description": ""
+    },
+    {
+      "name": "qa-expert",
+      "path": "qa-expert",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/qa-expert",
+      "description": ""
+    },
+    {
+      "name": "repomix-safe-mixer",
+      "path": "repomix-safe-mixer",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/repomix-safe-mixer",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skill-creator",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-reviewer",
+      "path": "skill-reviewer",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/skill-reviewer",
+      "description": ""
+    },
+    {
+      "name": "skills-search",
+      "path": "skills-search",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/skills-search",
+      "description": ""
+    },
+    {
+      "name": "statusline-generator",
+      "path": "statusline-generator",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/statusline-generator",
+      "description": ""
+    },
+    {
+      "name": "teams-channel-post-writer",
+      "path": "teams-channel-post-writer",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/teams-channel-post-writer",
+      "description": ""
+    },
+    {
+      "name": "transcript-fixer",
+      "path": "transcript-fixer",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/transcript-fixer",
+      "description": ""
+    },
+    {
+      "name": "tunnel-doctor",
+      "path": "tunnel-doctor",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/tunnel-doctor",
+      "description": ""
+    },
+    {
+      "name": "twitter-reader",
+      "path": "twitter-reader",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/twitter-reader",
+      "description": ""
+    },
+    {
+      "name": "ui-designer",
+      "path": "ui-designer",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/ui-designer",
+      "description": ""
+    },
+    {
+      "name": "video-comparer",
+      "path": "video-comparer",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/video-comparer",
+      "description": ""
+    },
+    {
+      "name": "windows-remote-desktop-connection-doctor",
+      "path": "windows-remote-desktop-connection-doctor",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/windows-remote-desktop-connection-doctor",
+      "description": ""
+    },
+    {
+      "name": "youtube-downloader",
+      "path": "youtube-downloader",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/youtube-downloader",
+      "description": ""
+    },
+    {
+      "name": "claude-md-progressive-disclosurer",
+      "path": "claude-md-progressive-disclosurer",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/claude-md-progressive-disclosurer",
+      "description": ""
+    },
+    {
+      "name": "repomix-unmixer",
+      "path": "repomix-unmixer",
+      "github_url": "https://github.com/daymade/claude-code-skills/tree/main/repomix-unmixer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/daymade/claude-code-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:32:37Z"
+}
