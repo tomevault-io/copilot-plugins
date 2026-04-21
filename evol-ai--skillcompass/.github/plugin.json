@@ -1,0 +1,9 @@
+{
+  "name": "evol-ai--skillcompass",
+  "displayName": "SkillCompass",
+  "description": "Evaluate agent skill quality. Find the weakest link. Fix it. Prove it worked.",
+  "version": "1.0.0",
+  "author": "Evol-ai",
+  "homepage": "https://github.com/Evol-ai/SkillCompass",
+  "skills": []
+}
