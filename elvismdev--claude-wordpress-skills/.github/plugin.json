@@ -1,0 +1,14 @@
+{
+  "name": "elvismdev--claude-wordpress-skills",
+  "displayName": "claude-wordpress-skills",
+  "description": "Professional WordPress engineering skills for Claude Code - performance optimization, security auditing, Gutenberg block development, and theme/plugin best practices.",
+  "version": "1.0.0",
+  "author": "elvismdev",
+  "homepage": "https://github.com/elvismdev/claude-wordpress-skills",
+  "skills": [
+    {
+      "name": "wp-performance-review",
+      "description": ""
+    }
+  ]
+}
