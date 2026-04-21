@@ -1,0 +1,18 @@
+{
+  "name": "codervisor--lean-spec",
+  "displayName": "lean-spec",
+  "description": "Lightweight, flexible Spec-Driven Development (SDD) for modern AI-powered development",
+  "version": "1.0.0",
+  "author": "codervisor",
+  "homepage": "https://github.com/codervisor/lean-spec",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "leanspec-development",
+      "description": ""
+    }
+  ]
+}
