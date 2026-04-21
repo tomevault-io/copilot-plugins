@@ -1,6 +1,6 @@
 # phil-game
 
-> Tome by [shoshin-labs](https://github.com/shoshin-labs/phil-game) — distributed by [TomeVault](https://tomevault.io/claim/shoshin-labs)
+> Tome by [shoshin-labs](https://github.com/shoshin-labs/phil-game) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [shoshin-labs/phil-game](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/shoshin-labs)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/shoshin-labs/phil-game](https://github.com/shoshin-labs/phil-game)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install shoshin-labs/phil-game
 ```
-Or browse all formats at [https://tomevault.io/claim/shoshin-labs](https://tomevault.io/claim/shoshin-labs).
+Source: [github.com/shoshin-labs/phil-game](https://github.com/shoshin-labs/phil-game).
 
 <!-- genome:t-i-p -->
