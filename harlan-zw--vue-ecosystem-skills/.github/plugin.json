@@ -1,0 +1,62 @@
+{
+  "name": "harlan-zw--vue-ecosystem-skills",
+  "displayName": "vue-ecosystem-skills",
+  "description": "AI agent skills for the bleeding edge Vue ecosystem. Built from real docs, issues, and releases.",
+  "version": "1.0.0",
+  "author": "harlan-zw",
+  "homepage": "https://github.com/harlan-zw/vue-ecosystem-skills",
+  "skills": [
+    {
+      "name": "vuetify-skilld",
+      "description": ""
+    },
+    {
+      "name": "tanstack-ai-vue-skilld",
+      "description": ""
+    },
+    {
+      "name": "vueuse-motion-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-data-ui-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-test-utils-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-i18n-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-router-skilld",
+      "description": ""
+    },
+    {
+      "name": "vueuse-core-skilld",
+      "description": ""
+    },
+    {
+      "name": "vueuse-components-skilld",
+      "description": ""
+    },
+    {
+      "name": "vueuse-math-skilld",
+      "description": ""
+    },
+    {
+      "name": "vueuse-shared-skilld",
+      "description": ""
+    },
+    {
+      "name": "vueuse-integrations-skilld",
+      "description": ""
+    }
+  ]
+}
