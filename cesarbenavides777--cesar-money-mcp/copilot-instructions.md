@@ -1,0 +1,327 @@
+## cesar-money-mcp
+
+> TypeScript MCP server for Monarch Money personal finance data. Provides 20+ tools, MCP resources, and canned prompts for AI assistants to query accounts, transactions, budgets, cash flow, net worth, and more. Includes an analysis engine for spending breakdowns, anomaly detection, cash flow forecasting, subscription tracking, trend detection, and financial health scoring.
+
+# Monarch Money MCP Server
+
+## Project Overview
+
+TypeScript MCP server for Monarch Money personal finance data. Provides 20+ tools, MCP resources, and canned prompts for AI assistants to query accounts, transactions, budgets, cash flow, net worth, and more. Includes an analysis engine for spending breakdowns, anomaly detection, cash flow forecasting, subscription tracking, trend detection, and financial health scoring.
+
+Supports two transports:
+- **stdio** -- for Claude Desktop and Claude Code
+- **HTTP** (Streamable HTTP via Hono) -- for Claude Custom Connectors and remote clients, with full OAuth 2.1 + PKCE
+
+## Tech Stack
+
+- **Runtime**: Bun (>= 1.0)
+- **HTTP Framework**: Hono
+- **MCP**: `@modelcontextprotocol/sdk` (^1.12.0)
+- **Finance API**: `monarchmoney` npm package (^1.1.3)
+- **Auth**: OAuth 2.1 with PKCE, SQLite token storage via `bun:sqlite`
+- **Validation**: Zod
+- **TypeScript**: ^5.7, target ES2022, module ESNext, bundler resolution
+- **CI/CD**: GitHub Actions → Fly.io
+
+## Quick Navigation
+
+| What you're looking for | Where to go |
+|---|---|
+| Entry point | `src/index.ts` |
+| Environment config | `src/config.ts` |
+| Monarch Money API client | `src/monarch/client.ts` |
+| MCP server + tool registration | `src/mcp/server.ts` |
+| HTTP transport bridge | `src/mcp/transport.ts` |
+| Data tools | `src/tools/accounts.ts`, `transactions.ts`, `budgets.ts`, `cashflow.ts`, `recurring.ts`, `categories.ts`, `institutions.ts`, `insights.ts` |
+| Analysis tools | `src/tools/analysis.ts` (wires analysis functions as MCP tools) |
+| Analysis engine (pure functions) | `src/analysis/spending.ts`, `anomalies.ts`, `forecasting.ts`, `subscriptions.ts`, `trends.ts`, `health.ts` |
+| MCP resources | `src/tools/resources.ts` |
+| MCP prompts | `src/tools/prompts.ts` |
+| OAuth 2.1 flow | `src/oauth/routes.ts`, `store.ts`, `provider.ts` |
+| Middleware | `src/middleware/auth.ts`, `rate-limit.ts`, `audit.ts` |
+| Tests | `src/**/*.test.ts` (colocated with source) |
+| CI pipeline | `.github/workflows/ci.yml` |
+| Deploy pipeline | `.github/workflows/deploy.yml` |
+| Fly.io config | `fly.toml`, `Dockerfile` |
+| monarchmoney SDK types | `node_modules/monarchmoney/dist/types/` |
+| MCP SDK types | `node_modules/@modelcontextprotocol/sdk/dist/esm/server/mcp.d.ts` |
+
+## Project Structure
+
+```
+src/
+├── index.ts                  # Entry point: picks stdio or HTTP mode, bootstraps the app
+├── config.ts                 # Loads env vars + CLI flags into a typed Config object
+├── monarch/
+│   └── client.ts             # Singleton MonarchClient with login, session caching, retry, and response caching
+├── mcp/
+│   ├── server.ts             # Creates McpServer and registers all tools, resources, and prompts
+│   └── transport.ts          # HttpTransport: bridges Hono HTTP requests to MCP's Transport interface
+├── tools/
+│   ├── index.ts              # Barrel re-exports for all tool registration functions
+│   ├── accounts.ts           # get_accounts, get_account_history
+│   ├── transactions.ts       # get_transactions, search_transactions
+│   ├── budgets.ts            # get_budgets
+│   ├── cashflow.ts           # get_cashflow, get_cashflow_summary
+│   ├── recurring.ts          # get_recurring_transactions
+│   ├── categories.ts         # get_categories, get_category_groups
+│   ├── institutions.ts       # get_institutions
+│   ├── insights.ts           # get_net_worth, get_net_worth_history
+│   ├── analysis.ts           # Wrappers that call analysis/ functions and expose them as MCP tools
+│   ├── resources.ts          # MCP resource definitions (finance:// URIs)
+│   └── prompts.ts            # MCP prompt templates (monthly-review, budget-check, etc.)
+├── analysis/
+│   ├── index.ts              # Barrel exports for all analysis functions and types
+│   ├── spending.ts           # analyzeSpending — category breakdowns, top merchants, daily averages
+│   ├── anomalies.ts          # detectAnomalies — large purchases, duplicates, unfamiliar merchants
+│   ├── forecasting.ts        # forecastCashflow — 30/60/90-day balance projections
+│   ├── subscriptions.ts      # analyzeSubscriptions — recurring payment analysis, price changes
+│   ├── trends.ts             # detectTrends — multi-month category spending direction
+│   └── health.ts             # calculateHealthScore — composite 0-100 financial health score
+├── oauth/
+│   ├── routes.ts             # Hono routes: .well-known, /oauth/register, /oauth/authorize, /oauth/token
+│   ├── provider.ts           # validateMonarchCredentials — login-to-verify (no storage)
+│   └── store.ts              # SQLite-backed store for auth codes, tokens, and dynamic clients
+└── middleware/
+    ├── auth.ts               # bearerAuth() — validates access tokens from Authorization header
+    ├── rate-limit.ts         # rateLimit() — per-IP sliding window, returns 429 when exceeded
+    └── audit.ts              # auditLog() — structured JSON log line per request with timing
+```
+
+## Key Patterns
+
+### Adding a New Data Tool
+
+1. Create or edit a file in `src/tools/` (e.g., `src/tools/my-feature.ts`)
+2. Export a `registerMyFeatureTools(server: McpServer)` function
+3. Import and call it in `src/mcp/server.ts`
+4. Follow this pattern:
+
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+import { getMonarchClient } from "../monarch/client.js";
+
+export function registerMyFeatureTools(server: McpServer) {
+  server.registerTool(
+    "my_tool_name",
+    {
+      description: "Description of what this tool does and when the AI should use it.",
+      inputSchema: {
+        someParam: z.string().optional().describe("What this parameter does."),
+      },
+      annotations: { readOnlyHint: true },
+    },
+    async ({ someParam }) => {
+      try {
+        const client = await getMonarchClient();
+        const data = await client.someApi.someMethod({ someParam });
+        return {
+          content: [
+            { type: "text" as const, text: JSON.stringify(data, null, 2) },
+          ],
+        };
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        return {
+          content: [{ type: "text" as const, text: `Error: ${message}` }],
+          isError: true,
+        };
+      }
+    }
+  );
+}
+```
+
+### Adding an Analysis Function
+
+1. Create a pure function in `src/analysis/` (no MCP or API dependencies)
+2. Export types and the function from `src/analysis/index.ts`
+3. Wire it up as a tool in `src/tools/analysis.ts` by:
+   - Importing the analysis function
+   - Fetching required data via `getMonarchClient()`
+   - Passing the data to the pure function
+   - Returning the result as JSON text content
+4. Add a test in `src/analysis/my-analysis.test.ts`
+
+Analysis functions should be pure (data in, result out) so they are easy to unit test without mocking the Monarch API.
+
+### Monarch Client Usage
+
+- Always use `getMonarchClient()` from `src/monarch/client.ts`
+- It is a singleton that handles login, session caching, and auto-revalidation
+- If the session expires, it automatically re-authenticates
+- The client is configured with 30s timeout, 3 retries, and a 5-minute memory cache for accounts, categories, transactions, and budgets
+- API sub-domains: `client.accounts`, `client.transactions`, `client.budgets`, `client.categories`, `client.institutions`, `client.insights`, `client.recurring`
+- Use `resetMonarchClient()` to force a fresh login (e.g., after credential changes)
+
+### Monarch API Quick Reference
+
+```typescript
+const client = await getMonarchClient();
+
+// Accounts
+client.accounts.getAll({ includeHidden? })        // → Account[]
+client.accounts.getHistory(id, start?, end?)       // → AccountBalance[]
+client.accounts.getNetWorthHistory(start?, end?)   // → {date, netWorth}[]
+client.accounts.getById(id)                        // → Account
+client.accounts.getBalances(start?, end?)           // → AccountBalance[]
+client.accounts.createManualAccount(input)          // → Account
+client.accounts.updateAccount(id, updates)          // → Account
+client.accounts.requestRefresh(ids?)                // → boolean (trigger sync)
+
+// Transactions
+client.transactions.getTransactions(opts)           // → PaginatedTransactions (.transactions for array!)
+client.transactions.getTransactionDetails(id)       // → TransactionDetails
+client.transactions.createTransaction(data)         // → Transaction
+client.transactions.updateTransaction(id, data)     // → Transaction
+client.transactions.deleteTransaction(id)           // → boolean
+client.transactions.getMerchants(opts?)              // → Merchant[]
+client.transactions.bulkUpdateTransactions(data)    // → BulkUpdateResult
+
+// Transaction Rules
+client.transactions.getTransactionRules()           // → TransactionRule[]
+client.transactions.createTransactionRule(data)     // → TransactionRule
+
+// Budgets & Cash Flow
+client.budgets.getBudgets(opts?)                    // → BudgetData (.budgetData.monthlyAmountsByCategory)
+client.budgets.setCashFlow(opts?)                   // → CashFlowData
+client.budgets.getCashFlowSummary(opts?)            // → CashFlowSummary
+client.budgets.getGoals()                           // → Goal[]
+client.budgets.createGoal(params)                   // → CreateGoalResponse
+client.budgets.getBills(opts?)                      // → BillsData
+
+// Categories & Tags
+client.categories.getCategories()                   // → TransactionCategory[]
+client.categories.getCategoryGroups()               // → CategoryGroup[]
+client.categories.getTags()                         // → TransactionTag[]
+client.categories.createTag(data)                   // → TransactionTag
+client.categories.setTransactionTags(txId, tagIds)  // → boolean
+
+// Recurring
+client.recurring.getRecurringStreams(opts?)          // → {stream: RecurringTransactionStream}[]
+client.recurring.getUpcomingRecurringItems(opts)     // → RecurringTransactionItem[]
+
+// Institutions
+client.institutions.getInstitutions()               // → Institution[]
+
+// Insights
+client.insights.getNetWorthHistory(opts?)            // → NetWorthHistoryPoint[]
+client.insights.getCreditScore(opts?)                // → CreditScore
+client.insights.getSubscriptionDetails()             // → SubscriptionDetails
+client.insights.getNotifications()                   // → Notification[]
+```
+
+### Common Type Gotchas
+
+- `getTransactions()` returns `PaginatedTransactions` — access `.transactions` for the `Transaction[]`
+- Transaction `.category` can be `null` — always use `tx.category?.name ?? "Uncategorized"`
+- Account `.type` is an object `{id, name, display}` not a string — use `a.type.name`
+- Use `categoryIds: string[]` (plural array), NOT `categoryId`
+- `getBudgets()` returns nested `BudgetData` — budget items are at `.budgetData.monthlyAmountsByCategory`
+- Recurring streams: each item is `{stream: RecurringTransactionStream}` — access via `r.stream.*`
+
+### Adding an MCP Resource
+
+Register in `src/tools/resources.ts`:
+
+```typescript
+server.registerResource(
+  "resource-name",
+  "finance://my-uri",
+  { description: "What this resource provides" },
+  async (uri) => {
+    const client = await getMonarchClient();
+    const data = await client.someApi.someMethod();
+    return {
+      contents: [{
+        uri: uri.href,
+        mimeType: "application/json",
+        text: JSON.stringify(data, null, 2),
+      }],
+    };
+  }
+);
+```
+
+### Adding an MCP Prompt
+
+Register in `src/tools/prompts.ts`:
+
+```typescript
+server.registerPrompt(
+  "prompt-name",
+  { description: "What analysis this prompt performs" },
+  async () => ({
+    messages: [{
+      role: "user" as const,
+      content: {
+        type: "text" as const,
+        text: "Detailed instructions for the AI...",
+      },
+    }],
+  })
+);
+```
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `bun dev` | Watch mode (auto-restart on file changes) |
+| `bun start` | Start with default transport (stdio) |
+| `bun start:stdio` | Start in stdio transport mode |
+| `bun start:http` | Start HTTP server on port 3200 |
+| `bun check-types` | TypeScript type checking (`tsc --noEmit`) |
+| `bun test` | Run test suite (68 tests, 7 files) |
+
+## Environment Variables
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `MONARCH_EMAIL` | Yes | -- | Monarch Money account email |
+| `MONARCH_PASSWORD` | Yes | -- | Monarch Money account password |
+| `MONARCH_MFA_SECRET` | No | -- | TOTP secret for accounts with MFA enabled |
+| `PORT` | No | `3200` | HTTP server port |
+| `TRANSPORT` | No | `stdio` | Transport mode: `stdio` or `http` (CLI flag `--transport` overrides) |
+| `OAUTH_CLIENT_ID` | No | -- | Pre-registered OAuth client ID (HTTP mode) |
+| `OAUTH_CLIENT_SECRET` | No | -- | OAuth client secret (HTTP mode) |
+| `CORS_ORIGINS` | No | `https://claude.ai,...` | Comma-separated allowed origins for CORS |
+| `RATE_LIMIT_RPM` | No | `60` | Max requests per minute per IP |
+| `LOG_LEVEL` | No | `info` | Logging level |
+| `DB_PATH` | No | `monarch-mcp.db` | Path to SQLite database for OAuth token storage |
+
+## Testing
+
+- `bun test` runs the full suite (68 tests across 7 files)
+- Test files live alongside source as `*.test.ts` files (e.g., `src/analysis/spending.test.ts`)
+- Analysis functions in `src/analysis/` are pure and can be tested by passing mock data directly — no API mocking needed
+- OAuth store tests use a temporary SQLite DB
+- For integration tests that hit the real Monarch API, set `HAS_REAL_CREDENTIALS=true`
+
+## HTTP Endpoints (HTTP mode only)
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/health` | Health check, returns server status and version |
+| `POST` | `/mcp` | Streamable HTTP MCP endpoint (JSON-RPC) |
+| `GET` | `/.well-known/oauth-authorization-server` | RFC 8414 OAuth metadata |
+| `POST` | `/oauth/register` | RFC 7591 dynamic client registration |
+| `GET` | `/oauth/authorize` | OAuth authorization form |
+| `POST` | `/oauth/authorize` | Process authorization, redirect with code |
+| `POST` | `/oauth/token` | Token exchange (authorization_code, refresh_token) |
+| `GET` | `/api/v1/health` | REST API health check |
+
+## Important Notes
+
+- The Monarch Money client uses a cached singleton. If you change credentials at runtime, call `resetMonarchClient()`.
+- OAuth tokens are stored in SQLite (default `monarch-mcp.db`). In Docker/Fly.io, mount a persistent volume at `/data` and set `DB_PATH=/data/monarch-mcp.db`.
+- All tool handlers return `{ content: [{ type: "text", text: ... }] }`. On error they set `isError: true`.
+- The HTTP transport (`src/mcp/transport.ts`) bridges individual HTTP POST requests to the MCP server's async transport interface using a promise-per-request pattern with a 60-second timeout.
+- Sessions in HTTP mode are tracked by `Mcp-Session-Id` header and auto-expire after 30 minutes of inactivity.
+- Use the non-deprecated APIs: `server.registerTool()`, `server.registerResource()`, `server.registerPrompt()`, `db.run()`.
+- CI runs on every push/PR. Deploys to Fly.io on push to `master`.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/CesarBenavides777) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
