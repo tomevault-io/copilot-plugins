@@ -1,0 +1,519 @@
+{
+  "name": "tandem",
+  "owner": "frumu-ai",
+  "repo": "tandem",
+  "description": "Your AI coworker for any folder: local-first, secure by design, cross-platform, and built for supervised automation.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "algorithmic-art",
+      "path": "src-tauri/resources/skill-templates/algorithmic-art",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/algorithmic-art",
+      "description": ""
+    },
+    {
+      "name": "bio-instrument-data",
+      "path": "src-tauri/resources/skill-templates/bio-instrument-data",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/bio-instrument-data",
+      "description": ""
+    },
+    {
+      "name": "bio-nextflow-manager",
+      "path": "src-tauri/resources/skill-templates/bio-nextflow-manager",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/bio-nextflow-manager",
+      "description": ""
+    },
+    {
+      "name": "bio-research-strategy",
+      "path": "src-tauri/resources/skill-templates/bio-research-strategy",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/bio-research-strategy",
+      "description": ""
+    },
+    {
+      "name": "bio-single-cell",
+      "path": "src-tauri/resources/skill-templates/bio-single-cell",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/bio-single-cell",
+      "description": ""
+    },
+    {
+      "name": "bio-strategy",
+      "path": "src-tauri/resources/skill-templates/bio-strategy",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/bio-strategy",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "src-tauri/resources/skill-templates/brainstorming",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "legal-canned-responses",
+      "path": "src-tauri/resources/skill-templates/legal-canned-responses",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/legal-canned-responses",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "path": "src-tauri/resources/skill-templates/canvas-design",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/canvas-design",
+      "description": ""
+    },
+    {
+      "name": "competitor-alternatives",
+      "path": "src-tauri/resources/skill-templates/competitor-alternatives",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/competitor-alternatives",
+      "description": ""
+    },
+    {
+      "name": "legal-compliance",
+      "path": "src-tauri/resources/skill-templates/legal-compliance",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/legal-compliance",
+      "description": ""
+    },
+    {
+      "name": "content-strategy",
+      "path": "src-tauri/resources/skill-templates/content-strategy",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/content-strategy",
+      "description": ""
+    },
+    {
+      "name": "legal-contract-review",
+      "path": "src-tauri/resources/skill-templates/legal-contract-review",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/legal-contract-review",
+      "description": ""
+    },
+    {
+      "name": "copy-editing",
+      "path": "src-tauri/resources/skill-templates/copy-editing",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/copy-editing",
+      "description": ""
+    },
+    {
+      "name": "copywriting",
+      "path": "src-tauri/resources/skill-templates/copywriting",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/copywriting",
+      "description": ""
+    },
+    {
+      "name": "cowork-mcp-config-assistant",
+      "path": "src-tauri/resources/skill-templates/cowork-mcp-config-assistant",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/cowork-mcp-config-assistant",
+      "description": ""
+    },
+    {
+      "name": "data-analyze",
+      "path": "src-tauri/resources/skill-templates/data-analyze",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/data-analyze",
+      "description": ""
+    },
+    {
+      "name": "data-build-dashboard",
+      "path": "src-tauri/resources/skill-templates/data-build-dashboard",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/data-build-dashboard",
+      "description": ""
+    },
+    {
+      "name": "data-create-viz",
+      "path": "src-tauri/resources/skill-templates/data-create-viz",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/data-create-viz",
+      "description": ""
+    },
+    {
+      "name": "data-explore-data",
+      "path": "src-tauri/resources/skill-templates/data-explore-data",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/data-explore-data",
+      "description": ""
+    },
+    {
+      "name": "data-validate",
+      "path": "src-tauri/resources/skill-templates/data-validate",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/data-validate",
+      "description": ""
+    },
+    {
+      "name": "data-write-query",
+      "path": "src-tauri/resources/skill-templates/data-write-query",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/data-write-query",
+      "description": ""
+    },
+    {
+      "name": "development-estimation",
+      "path": "src-tauri/resources/skill-templates/development-estimation",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/development-estimation",
+      "description": ""
+    },
+    {
+      "name": "email-sequence",
+      "path": "src-tauri/resources/skill-templates/email-sequence",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/email-sequence",
+      "description": ""
+    },
+    {
+      "name": "enterprise-knowledge-synthesis",
+      "path": "src-tauri/resources/skill-templates/enterprise-knowledge-synthesis",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/enterprise-knowledge-synthesis",
+      "description": ""
+    },
+    {
+      "name": "enterprise-search-knowledge",
+      "path": "src-tauri/resources/skill-templates/enterprise-search-knowledge",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/enterprise-search-knowledge",
+      "description": ""
+    },
+    {
+      "name": "enterprise-search-source",
+      "path": "src-tauri/resources/skill-templates/enterprise-search-source",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/enterprise-search-source",
+      "description": ""
+    },
+    {
+      "name": "enterprise-search-strategy",
+      "path": "src-tauri/resources/skill-templates/enterprise-search-strategy",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/enterprise-search-strategy",
+      "description": ""
+    },
+    {
+      "name": "enterprise-source-management",
+      "path": "src-tauri/resources/skill-templates/enterprise-source-management",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/enterprise-source-management",
+      "description": ""
+    },
+    {
+      "name": "finance-income-statement",
+      "path": "src-tauri/resources/skill-templates/finance-income-statement",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/finance-income-statement",
+      "description": ""
+    },
+    {
+      "name": "finance-journal-entry",
+      "path": "src-tauri/resources/skill-templates/finance-journal-entry",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/finance-journal-entry",
+      "description": ""
+    },
+    {
+      "name": "finance-reconciliation",
+      "path": "src-tauri/resources/skill-templates/finance-reconciliation",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/finance-reconciliation",
+      "description": ""
+    },
+    {
+      "name": "finance-sox-testing",
+      "path": "src-tauri/resources/skill-templates/finance-sox-testing",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/finance-sox-testing",
+      "description": ""
+    },
+    {
+      "name": "finance-variance-analysis",
+      "path": "src-tauri/resources/skill-templates/finance-variance-analysis",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/finance-variance-analysis",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "src-tauri/resources/skill-templates/frontend-design",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "inbox-triage",
+      "path": "src-tauri/resources/skill-templates/inbox-triage",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/inbox-triage",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "path": "src-tauri/resources/skill-templates/internal-comms",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/internal-comms",
+      "description": ""
+    },
+    {
+      "name": "launch-strategy",
+      "path": "src-tauri/resources/skill-templates/launch-strategy",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/launch-strategy",
+      "description": ""
+    },
+    {
+      "name": "legal-risk-assessment",
+      "path": "src-tauri/resources/skill-templates/legal-risk-assessment",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/legal-risk-assessment",
+      "description": ""
+    },
+    {
+      "name": "marketing-brand-voice",
+      "path": "src-tauri/resources/skill-templates/marketing-brand-voice",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/marketing-brand-voice",
+      "description": ""
+    },
+    {
+      "name": "marketing-campaign-planning",
+      "path": "src-tauri/resources/skill-templates/marketing-campaign-planning",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/marketing-campaign-planning",
+      "description": ""
+    },
+    {
+      "name": "marketing-competitive-analysis",
+      "path": "src-tauri/resources/skill-templates/marketing-competitive-analysis",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/marketing-competitive-analysis",
+      "description": ""
+    },
+    {
+      "name": "marketing-content-creation",
+      "path": "src-tauri/resources/skill-templates/marketing-content-creation",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/marketing-content-creation",
+      "description": ""
+    },
+    {
+      "name": "marketing-performance-analytics",
+      "path": "src-tauri/resources/skill-templates/marketing-performance-analytics",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/marketing-performance-analytics",
+      "description": ""
+    },
+    {
+      "name": "marketing-research-posting-plan",
+      "path": "src-tauri/resources/skill-templates/marketing-research-posting-plan",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/marketing-research-posting-plan",
+      "description": ""
+    },
+    {
+      "name": "legal-meeting-briefing",
+      "path": "src-tauri/resources/skill-templates/legal-meeting-briefing",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/legal-meeting-briefing",
+      "description": ""
+    },
+    {
+      "name": "meeting-notes",
+      "path": "src-tauri/resources/skill-templates/meeting-notes",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/meeting-notes",
+      "description": ""
+    },
+    {
+      "name": "mode-builder",
+      "path": "src-tauri/resources/skill-templates/mode-builder",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/mode-builder",
+      "description": ""
+    },
+    {
+      "name": "legal-nda-triage",
+      "path": "src-tauri/resources/skill-templates/legal-nda-triage",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/legal-nda-triage",
+      "description": ""
+    },
+    {
+      "name": "plan",
+      "path": "src-tauri/resources/skills/plan",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skills/plan",
+      "description": ""
+    },
+    {
+      "name": "product-competitive-analysis",
+      "path": "src-tauri/resources/skill-templates/product-competitive-analysis",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/product-competitive-analysis",
+      "description": ""
+    },
+    {
+      "name": "product-feature-spec",
+      "path": "src-tauri/resources/skill-templates/product-feature-spec",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/product-feature-spec",
+      "description": ""
+    },
+    {
+      "name": "product-marketing-context",
+      "path": "src-tauri/resources/skill-templates/product-marketing-context",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/product-marketing-context",
+      "description": ""
+    },
+    {
+      "name": "product-metrics",
+      "path": "src-tauri/resources/skill-templates/product-metrics",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/product-metrics",
+      "description": ""
+    },
+    {
+      "name": "product-roadmap",
+      "path": "src-tauri/resources/skill-templates/product-roadmap",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/product-roadmap",
+      "description": ""
+    },
+    {
+      "name": "product-stakeholder-comms",
+      "path": "src-tauri/resources/skill-templates/product-stakeholder-comms",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/product-stakeholder-comms",
+      "description": ""
+    },
+    {
+      "name": "product-user-research",
+      "path": "src-tauri/resources/skill-templates/product-user-research",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/product-user-research",
+      "description": ""
+    },
+    {
+      "name": "productivity-memory",
+      "path": "src-tauri/resources/skill-templates/productivity-memory",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/productivity-memory",
+      "description": ""
+    },
+    {
+      "name": "productivity-start",
+      "path": "src-tauri/resources/skill-templates/productivity-start",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/productivity-start",
+      "description": ""
+    },
+    {
+      "name": "productivity-tasks",
+      "path": "src-tauri/resources/skill-templates/productivity-tasks",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/productivity-tasks",
+      "description": ""
+    },
+    {
+      "name": "productivity-update",
+      "path": "src-tauri/resources/skill-templates/productivity-update",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/productivity-update",
+      "description": ""
+    },
+    {
+      "name": "research-synthesis",
+      "path": "src-tauri/resources/skill-templates/research-synthesis",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/research-synthesis",
+      "description": ""
+    },
+    {
+      "name": "sales-account-research",
+      "path": "src-tauri/resources/skill-templates/sales-account-research",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/sales-account-research",
+      "description": ""
+    },
+    {
+      "name": "sales-call-prep",
+      "path": "src-tauri/resources/skill-templates/sales-call-prep",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/sales-call-prep",
+      "description": ""
+    },
+    {
+      "name": "sales-competitive-intelligence",
+      "path": "src-tauri/resources/skill-templates/sales-competitive-intelligence",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/sales-competitive-intelligence",
+      "description": ""
+    },
+    {
+      "name": "sales-create-asset",
+      "path": "src-tauri/resources/skill-templates/sales-create-asset",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/sales-create-asset",
+      "description": ""
+    },
+    {
+      "name": "sales-daily-briefing",
+      "path": "src-tauri/resources/skill-templates/sales-daily-briefing",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/sales-daily-briefing",
+      "description": ""
+    },
+    {
+      "name": "sales-draft-outreach",
+      "path": "src-tauri/resources/skill-templates/sales-draft-outreach",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/sales-draft-outreach",
+      "description": ""
+    },
+    {
+      "name": "seo-audit",
+      "path": "src-tauri/resources/skill-templates/seo-audit",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/seo-audit",
+      "description": ""
+    },
+    {
+      "name": "social-content",
+      "path": "src-tauri/resources/skill-templates/social-content",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/social-content",
+      "description": ""
+    },
+    {
+      "name": "support-customer-research",
+      "path": "src-tauri/resources/skill-templates/support-customer-research",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/support-customer-research",
+      "description": ""
+    },
+    {
+      "name": "support-escalation",
+      "path": "src-tauri/resources/skill-templates/support-escalation",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/support-escalation",
+      "description": ""
+    },
+    {
+      "name": "support-knowledge-management",
+      "path": "src-tauri/resources/skill-templates/support-knowledge-management",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/support-knowledge-management",
+      "description": ""
+    },
+    {
+      "name": "support-response-drafting",
+      "path": "src-tauri/resources/skill-templates/support-response-drafting",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/support-response-drafting",
+      "description": ""
+    },
+    {
+      "name": "support-ticket-triage",
+      "path": "src-tauri/resources/skill-templates/support-ticket-triage",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/support-ticket-triage",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "path": "src-tauri/resources/skill-templates/theme-factory",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/theme-factory",
+      "description": ""
+    },
+    {
+      "name": "web-artifacts-builder",
+      "path": "src-tauri/resources/skill-templates/web-artifacts-builder",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/web-artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "writing-polish",
+      "path": "src-tauri/resources/skill-templates/writing-polish",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/writing-polish",
+      "description": ""
+    },
+    {
+      "name": "youtube-scriptwriter",
+      "path": "src-tauri/resources/skill-templates/youtube-scriptwriter",
+      "github_url": "https://github.com/frumu-ai/tandem/tree/main/src-tauri/resources/skill-templates/youtube-scriptwriter",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/frumu-ai/tandem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:32:44Z"
+}
