@@ -1,0 +1,26 @@
+{
+  "name": "product-on-purpose--pm-skills",
+  "displayName": "pm-skills",
+  "description": "Curated, plug-and-play product management skills for AI agents. 38 skills across Triple Diamond phases plus foundation (lean canvas, persona, meeting lifecycle family) and utility (create, validate, i",
+  "version": "1.0.0",
+  "author": "product-on-purpose",
+  "homepage": "https://github.com/product-on-purpose/pm-skills",
+  "skills": [
+    {
+      "name": "init-project",
+      "description": ""
+    },
+    {
+      "name": "init-project-jpkb",
+      "description": ""
+    },
+    {
+      "name": "skill-template",
+      "description": ""
+    },
+    {
+      "name": "wrap-session",
+      "description": ""
+    }
+  ]
+}
