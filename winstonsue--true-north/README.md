@@ -1,6 +1,6 @@
-# true-north — distributed by TomeVault
+# true-north
 
-> Originally from [WinstonSue/true-north](https://github.com/WinstonSue/true-north). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [WinstonSue/true-north](https://github.com/WinstonSue/true-north) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [WinstonSue/true-north](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/WinstonSue)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/WinstonSue/true-north](https://github.com/WinstonSue/true-north)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/WinstonSue) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
