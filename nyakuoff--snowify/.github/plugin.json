@@ -1,0 +1,9 @@
+{
+  "name": "nyakuoff--snowify",
+  "displayName": "Snowify",
+  "description": "A desktop music player built with Electron that streams audio from YouTube Music. Clean UI, no accounts, no ads.",
+  "version": "1.0.0",
+  "author": "nyakuoff",
+  "homepage": "https://github.com/nyakuoff/Snowify",
+  "skills": []
+}
