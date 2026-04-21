@@ -1,0 +1,63 @@
+{
+  "name": "opc-starter",
+  "owner": "alibaba",
+  "repo": "opc-starter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "auto-develop",
+      "path": ".qoder/skills/auto-develop",
+      "github_url": "https://github.com/alibaba/opc-starter/tree/main/.qoder/skills/auto-develop",
+      "description": ""
+    },
+    {
+      "name": "auto-develop",
+      "path": ".claude/skills/auto-develop",
+      "github_url": "https://github.com/alibaba/opc-starter/tree/main/.claude/skills/auto-develop",
+      "description": ""
+    },
+    {
+      "name": "design-system-ui",
+      "path": ".qoder/skills/design-system-ui",
+      "github_url": "https://github.com/alibaba/opc-starter/tree/main/.qoder/skills/design-system-ui",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alibaba/opc-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:30:54Z"
+}
