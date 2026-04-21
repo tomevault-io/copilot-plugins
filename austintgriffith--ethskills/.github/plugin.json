@@ -1,0 +1,78 @@
+{
+  "name": "austintgriffith--ethskills",
+  "displayName": "ethskills",
+  "description": "The missing knowledge between AI agents and production Ethereum.",
+  "version": "1.0.0",
+  "author": "austintgriffith",
+  "homepage": "https://github.com/austintgriffith/ethskills",
+  "skills": [
+    {
+      "name": "building-blocks",
+      "description": ""
+    },
+    {
+      "name": "concepts",
+      "description": ""
+    },
+    {
+      "name": "contracts",
+      "description": ""
+    },
+    {
+      "name": "defi",
+      "description": ""
+    },
+    {
+      "name": "frontend-playbook",
+      "description": ""
+    },
+    {
+      "name": "frontend-ux",
+      "description": ""
+    },
+    {
+      "name": "l2",
+      "description": ""
+    },
+    {
+      "name": "l2s",
+      "description": ""
+    },
+    {
+      "name": "layer2",
+      "description": ""
+    },
+    {
+      "name": "orchestration",
+      "description": ""
+    },
+    {
+      "name": "qa",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "description": ""
+    },
+    {
+      "name": "ship",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "tools",
+      "description": ""
+    },
+    {
+      "name": "wallets",
+      "description": ""
+    },
+    {
+      "name": "why",
+      "description": ""
+    }
+  ]
+}
