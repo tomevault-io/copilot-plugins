@@ -1,0 +1,9 @@
+{
+  "name": "typewhisper--typewhisper-mac",
+  "displayName": "typewhisper-mac",
+  "description": "Local speech-to-text for macOS \u2014 on-device AI, fully private, no cloud",
+  "version": "1.0.0",
+  "author": "TypeWhisper",
+  "homepage": "https://github.com/TypeWhisper/typewhisper-mac",
+  "skills": []
+}
