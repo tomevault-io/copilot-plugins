@@ -1,0 +1,9 @@
+{
+  "name": "nickybmon--openemu-silicon",
+  "displayName": "OpenEmu-Silicon",
+  "description": "Native ARM64/Apple Silicon port of OpenEmu for M Series MacBooks",
+  "version": "1.0.0",
+  "author": "nickybmon",
+  "homepage": "https://github.com/nickybmon/OpenEmu-Silicon",
+  "skills": []
+}
