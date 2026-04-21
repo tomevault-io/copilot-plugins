@@ -1,6 +1,6 @@
 # kali
 
-> Tome by [fseitun](https://github.com/fseitun/kali) — distributed by [TomeVault](https://tomevault.io/claim/fseitun)
+> Tome by [fseitun](https://github.com/fseitun/kali) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [fseitun/kali](https://github.com/fsei
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/fseitun)
+From [fseitun/kali](https://github.com/fseitun/kali) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install fseitun/kali
 ```
-Or browse all formats at [https://tomevault.io/claim/fseitun](https://tomevault.io/claim/fseitun).
+Source: [github.com/fseitun/kali](https://github.com/fseitun/kali).
 
 <!-- genome:t-i-s -->
