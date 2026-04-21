@@ -1,6 +1,6 @@
-# streamlit-replicate-boss — distributed by TomeVault
+# streamlit-replicate-boss
 
-> Originally from [bossjones/streamlit-replicate-boss](https://github.com/bossjones/streamlit-replicate-boss). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [bossjones/streamlit-replicate-boss](https://github.com/bossjones/streamlit-replicate-boss) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [bossjones/streamlit-replicate-boss](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/bossjones#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/bossjones/streamlit-replicate-boss](https://github.com/bossjones/streamlit-replicate-boss)
 
 ---
 
