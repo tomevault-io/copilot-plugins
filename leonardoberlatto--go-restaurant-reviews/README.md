@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [LeonardoBerlatto/go-restaurant-review
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/LeonardoBerlatto)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/LeonardoBerlatto/go-restaurant-reviews](https://github.com/LeonardoBerlatto/go-restaurant-reviews)
 
 ---
 
