@@ -1,0 +1,54 @@
+{
+  "name": "yusifeng--formax",
+  "displayName": "formax",
+  "description": "Terminal-first AI assistant for software engineering tasks (inspired by Claude Code v2.0.67)",
+  "version": "1.0.0",
+  "author": "yusifeng",
+  "homepage": "https://github.com/yusifeng/formax",
+  "skills": [
+    {
+      "name": "formax-approval-ui-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-config-settings-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-dev-loop-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-permissions-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-repomix-handoff-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-semantics-parity-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-skill-capture",
+      "description": ""
+    },
+    {
+      "name": "formax-slash-command-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-test-stability-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-tool-ui-blocks-workflow",
+      "description": ""
+    },
+    {
+      "name": "formax-web-style-system",
+      "description": ""
+    }
+  ]
+}
