@@ -1,0 +1,117 @@
+{
+  "name": "RuoYi-SpringBoot3-Pro",
+  "owner": "undsky",
+  "repo": "RuoYi-SpringBoot3-Pro",
+  "description": " RuoYi-Vue \u589e\u5f3a\u7248\u672c\uff0c\u4fdd\u7559\u4e86\u539f\u6709\u7684\u6240\u6709\u529f\u80fd\uff0c\u5e76\u65b0\u589e\u4e86\u591a\u9879\u4f01\u4e1a\u7ea7\u7279\u6027",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "algorithmic-art",
+      "path": ".agent/skills/algorithmic-art",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/algorithmic-art",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "path": ".agent/skills/brand-guidelines",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "path": ".agent/skills/canvas-design",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/canvas-design",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "path": ".agent/skills/doc-coauthoring",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": ".agent/skills/docx",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".agent/skills/frontend-design",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "path": ".agent/skills/internal-comms",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/internal-comms",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": ".agent/skills/mcp-builder",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": ".agent/skills/pdf",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "path": ".agent/skills/theme-factory",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/theme-factory",
+      "description": ""
+    },
+    {
+      "name": "web-artifacts-builder",
+      "path": ".agent/skills/web-artifacts-builder",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/web-artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": ".agent/skills/webapp-testing",
+      "github_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro/tree/main/.agent/skills/webapp-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/undsky/RuoYi-SpringBoot3-Pro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:47:04Z"
+}
