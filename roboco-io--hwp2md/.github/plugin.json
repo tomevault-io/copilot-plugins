@@ -1,0 +1,18 @@
+{
+  "name": "roboco-io--hwp2md",
+  "displayName": "hwp2md",
+  "description": "HWP(\ud55c\uae00 \uc6cc\ub4dc\ud504\ub85c\uc138\uc11c) \ubb38\uc11c\ub97c Markdown\uc73c\ub85c \ubcc0\ud658\ud558\ub294 \ub3c4\uad6c",
+  "version": "1.0.0",
+  "author": "roboco-io",
+  "homepage": "https://github.com/roboco-io/hwp2md",
+  "skills": [
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "update-hwpx-differences",
+      "description": ""
+    }
+  ]
+}
