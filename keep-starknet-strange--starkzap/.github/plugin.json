@@ -1,0 +1,70 @@
+{
+  "name": "keep-starknet-strange--starkzap",
+  "displayName": "stark",
+  "description": "Starknet SDK for seamless wallet integration",
+  "version": "1.0.0",
+  "author": "keep-starknet-strange",
+  "homepage": "https://github.com/keep-starknet-strange/starkzap",
+  "skills": [
+    {
+      "name": "cairo-deploy",
+      "description": ""
+    },
+    {
+      "name": "cairo-optimization",
+      "description": ""
+    },
+    {
+      "name": "cairo-testing",
+      "description": ""
+    },
+    {
+      "name": "controller-cli",
+      "description": ""
+    },
+    {
+      "name": "huginn-onboard",
+      "description": ""
+    },
+    {
+      "name": "starknet-anonymous-wallet",
+      "description": ""
+    },
+    {
+      "name": "starknet-identity",
+      "description": ""
+    },
+    {
+      "name": "starknet-js",
+      "description": ""
+    },
+    {
+      "name": "starknet-mini-pay",
+      "description": ""
+    },
+    {
+      "name": "starknet-wallet",
+      "description": ""
+    },
+    {
+      "name": "app-store-review-aso",
+      "description": ""
+    },
+    {
+      "name": "expo-docs",
+      "description": ""
+    },
+    {
+      "name": "frontend-app-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-store-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "play-store-review-aso",
+      "description": ""
+    }
+  ]
+}
