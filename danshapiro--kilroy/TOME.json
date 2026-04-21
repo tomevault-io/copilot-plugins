@@ -1,0 +1,63 @@
+{
+  "name": "kilroy",
+  "owner": "danshapiro",
+  "repo": "kilroy",
+  "description": "AI instruction skills by danshapiro",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "investigating-kilroy-runs",
+      "path": "skills/investigating-kilroy-runs",
+      "github_url": "https://github.com/danshapiro/kilroy/tree/main/skills/investigating-kilroy-runs",
+      "description": ""
+    },
+    {
+      "name": "release-kilroy",
+      "path": "skills/release-kilroy",
+      "github_url": "https://github.com/danshapiro/kilroy/tree/main/skills/release-kilroy",
+      "description": ""
+    },
+    {
+      "name": "using-kilroy",
+      "path": "skills/using-kilroy",
+      "github_url": "https://github.com/danshapiro/kilroy/tree/main/skills/using-kilroy",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/danshapiro/kilroy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T10:30:48Z"
+}
