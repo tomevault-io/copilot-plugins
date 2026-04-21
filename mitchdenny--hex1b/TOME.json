@@ -1,0 +1,87 @@
+{
+  "name": "hex1b",
+  "owner": "mitchdenny",
+  "repo": "hex1b",
+  "description": "The .NET Terminal Application Stack",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-reviewer",
+      "path": ".github/skills/api-reviewer",
+      "github_url": "https://github.com/mitchdenny/hex1b/tree/main/.github/skills/api-reviewer",
+      "description": ""
+    },
+    {
+      "name": "doc-tester",
+      "path": ".github/skills/doc-tester",
+      "github_url": "https://github.com/mitchdenny/hex1b/tree/main/.github/skills/doc-tester",
+      "description": ""
+    },
+    {
+      "name": "doc-writer",
+      "path": ".github/skills/doc-writer",
+      "github_url": "https://github.com/mitchdenny/hex1b/tree/main/.github/skills/doc-writer",
+      "description": ""
+    },
+    {
+      "name": "surface-benchmarker",
+      "path": ".github/skills/surface-benchmarker",
+      "github_url": "https://github.com/mitchdenny/hex1b/tree/main/.github/skills/surface-benchmarker",
+      "description": ""
+    },
+    {
+      "name": "test-fixer",
+      "path": ".github/skills/test-fixer",
+      "github_url": "https://github.com/mitchdenny/hex1b/tree/main/.github/skills/test-fixer",
+      "description": ""
+    },
+    {
+      "name": "widget-creator",
+      "path": ".github/skills/widget-creator",
+      "github_url": "https://github.com/mitchdenny/hex1b/tree/main/.github/skills/widget-creator",
+      "description": ""
+    },
+    {
+      "name": "writing-unit-tests",
+      "path": ".github/skills/writing-unit-tests",
+      "github_url": "https://github.com/mitchdenny/hex1b/tree/main/.github/skills/writing-unit-tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mitchdenny/hex1b",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T17:33:30Z"
+}
