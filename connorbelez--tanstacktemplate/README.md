@@ -1,6 +1,6 @@
-# tanstackTemplate — distributed by TomeVault
+# tanstackTemplate
 
-> Originally from [Connorbelez/tanstackTemplate](https://github.com/Connorbelez/tanstackTemplate). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Connorbelez/tanstackTemplate](https://github.com/Connorbelez/tanstackTemplate) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Connorbelez/tanstackTemplate](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Connorbelez)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Connorbelez/tanstackTemplate](https://github.com/Connorbelez/tanstackTemplate)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Connorbelez) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
