@@ -1,0 +1,9 @@
+{
+  "name": "lifemate-ai--embodied-claude",
+  "displayName": "embodied-claude",
+  "description": "Claude\u306b\u8eab\u4f53\u6027\u3092\u4e0e\u3048\u308bMCP\u7fa4",
+  "version": "1.0.0",
+  "author": "lifemate-ai",
+  "homepage": "https://github.com/lifemate-ai/embodied-claude",
+  "skills": []
+}
