@@ -1,0 +1,9 @@
+{
+  "name": "pydantic--pydantic-ai-harness",
+  "displayName": "pydantic-ai-harness",
+  "description": "Batteries for your Pydantic AI agent.",
+  "version": "1.0.0",
+  "author": "pydantic",
+  "homepage": "https://github.com/pydantic/pydantic-ai-harness",
+  "skills": []
+}
