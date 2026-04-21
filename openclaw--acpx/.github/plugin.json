@@ -1,0 +1,9 @@
+{
+  "name": "openclaw--acpx",
+  "displayName": "acpx",
+  "description": "Headless CLI client for stateful Agent Client Protocol (ACP) sessions",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/acpx",
+  "skills": []
+}
