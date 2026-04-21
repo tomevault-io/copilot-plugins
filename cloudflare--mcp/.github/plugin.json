@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--mcp",
+  "displayName": "mcp",
+  "description": "MCP server for the Cloudflare API",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/mcp",
+  "skills": []
+}
