@@ -1,6 +1,6 @@
 # fisioapp-management-suite
 
-> Tome by [koncoweb](https://github.com/koncoweb/fisioapp-management-suite) — distributed by [TomeVault](https://tomevault.io/claim/koncoweb)
+> Tome by [koncoweb](https://github.com/koncoweb/fisioapp-management-suite) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [koncoweb/fisioapp-management-suite](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/koncoweb#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/koncoweb/fisioapp-management-suite](https://github.com/koncoweb/fisioapp-management-suite)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install koncoweb/fisioapp-management-suite
 ```
-Or browse all formats at [https://tomevault.io/claim/koncoweb](https://tomevault.io/claim/koncoweb).
+Source: [github.com/koncoweb/fisioapp-management-suite](https://github.com/koncoweb/fisioapp-management-suite).
 
 <!-- genome:t-i-q -->
