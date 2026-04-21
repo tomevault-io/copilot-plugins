@@ -1,0 +1,306 @@
+{
+  "name": "gtmagents--gtm-agents",
+  "displayName": "gtm-agents",
+  "description": "Production-ready collection of GTM agents and specialized skills for claude code. Covers sales, marketing, customer success, and revenue operations workflows.",
+  "version": "1.0.0",
+  "author": "gtmagents",
+  "homepage": "https://github.com/gtmagents/gtm-agents",
+  "skills": [
+    {
+      "name": "ab-testing",
+      "description": ""
+    },
+    {
+      "name": "adoption-playbook",
+      "description": ""
+    },
+    {
+      "name": "advocacy-programs",
+      "description": ""
+    },
+    {
+      "name": "api-style-guide",
+      "description": ""
+    },
+    {
+      "name": "asset-approval",
+      "description": ""
+    },
+    {
+      "name": "attribution-playbook",
+      "description": ""
+    },
+    {
+      "name": "brand-governance",
+      "description": ""
+    },
+    {
+      "name": "brand-governance-os",
+      "description": ""
+    },
+    {
+      "name": "cadence-design",
+      "description": ""
+    },
+    {
+      "name": "call-highlights",
+      "description": ""
+    },
+    {
+      "name": "campaign-architecture",
+      "description": ""
+    },
+    {
+      "name": "campaign-planning",
+      "description": ""
+    },
+    {
+      "name": "clinical-proof-library",
+      "description": ""
+    },
+    {
+      "name": "coaching-framework",
+      "description": ""
+    },
+    {
+      "name": "competitive-intel",
+      "description": ""
+    },
+    {
+      "name": "compliance-briefing-kit",
+      "description": ""
+    },
+    {
+      "name": "compliance-statement-library",
+      "description": ""
+    },
+    {
+      "name": "content-variants",
+      "description": ""
+    },
+    {
+      "name": "conversion-diagnostic-kit",
+      "description": ""
+    },
+    {
+      "name": "creative-iteration-playbook",
+      "description": ""
+    },
+    {
+      "name": "creative-variants",
+      "description": ""
+    },
+    {
+      "name": "crisis-playbooks",
+      "description": ""
+    },
+    {
+      "name": "crm-hygiene",
+      "description": ""
+    },
+    {
+      "name": "dashboard-playbook",
+      "description": ""
+    },
+    {
+      "name": "deal-desk",
+      "description": ""
+    },
+    {
+      "name": "decision-trees",
+      "description": ""
+    },
+    {
+      "name": "discovery-calls",
+      "description": ""
+    },
+    {
+      "name": "doc-requirements-matrix",
+      "description": ""
+    },
+    {
+      "name": "editorial-calendar",
+      "description": ""
+    },
+    {
+      "name": "engagement-analytics",
+      "description": ""
+    },
+    {
+      "name": "event-briefs",
+      "description": ""
+    },
+    {
+      "name": "exec-dashboard-blueprint",
+      "description": ""
+    },
+    {
+      "name": "experience-system-blueprint",
+      "description": ""
+    },
+    {
+      "name": "experiment-design-kit",
+      "description": ""
+    },
+    {
+      "name": "forecast-modeling",
+      "description": ""
+    },
+    {
+      "name": "governance",
+      "description": ""
+    },
+    {
+      "name": "in-app-messaging-kit",
+      "description": ""
+    },
+    {
+      "name": "incentive-design",
+      "description": ""
+    },
+    {
+      "name": "joint-solution-blueprint",
+      "description": ""
+    },
+    {
+      "name": "launch-tiering",
+      "description": ""
+    },
+    {
+      "name": "lifecycle-mapping",
+      "description": ""
+    },
+    {
+      "name": "metric-governance-kit",
+      "description": ""
+    },
+    {
+      "name": "moderation-safety-playbook",
+      "description": ""
+    },
+    {
+      "name": "nurture-testing",
+      "description": ""
+    },
+    {
+      "name": "offer-testing",
+      "description": ""
+    },
+    {
+      "name": "on-page",
+      "description": ""
+    },
+    {
+      "name": "onboarding-blueprint",
+      "description": ""
+    },
+    {
+      "name": "patient-journey-mapping",
+      "description": ""
+    },
+    {
+      "name": "pricing-governance",
+      "description": ""
+    },
+    {
+      "name": "publishing-process",
+      "description": ""
+    },
+    {
+      "name": "quality-gates",
+      "description": ""
+    },
+    {
+      "name": "quality-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "registration-ops",
+      "description": ""
+    },
+    {
+      "name": "regulatory-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "reinforcement-drills",
+      "description": ""
+    },
+    {
+      "name": "renewal-playbooks",
+      "description": ""
+    },
+    {
+      "name": "segmentation",
+      "description": ""
+    },
+    {
+      "name": "segmentation-framework",
+      "description": ""
+    },
+    {
+      "name": "signal-scoring",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "description": ""
+    },
+    {
+      "name": "sla-tracking",
+      "description": ""
+    },
+    {
+      "name": "social-calendar-system",
+      "description": ""
+    },
+    {
+      "name": "stakeholder-ops",
+      "description": ""
+    },
+    {
+      "name": "survey-design",
+      "description": ""
+    },
+    {
+      "name": "thought-leadership",
+      "description": ""
+    },
+    {
+      "name": "versioning-dashboard",
+      "description": ""
+    },
+    {
+      "name": "visualization-patterns",
+      "description": ""
+    },
+    {
+      "name": "voice-guidelines",
+      "description": ""
+    },
+    {
+      "name": "voice-of-customer",
+      "description": ""
+    },
+    {
+      "name": "waterfall-blueprint",
+      "description": ""
+    },
+    {
+      "name": "webinar-design",
+      "description": ""
+    },
+    {
+      "name": "webinars",
+      "description": ""
+    },
+    {
+      "name": "whitepapers",
+      "description": ""
+    },
+    {
+      "name": "workflow-testing",
+      "description": ""
+    }
+  ]
+}
