@@ -1,0 +1,279 @@
+{
+  "name": "my-opencode-config",
+  "owner": "flpbalada",
+  "repo": "my-opencode-config",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "business-model-canvas",
+      "path": "skills/business-model-canvas",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/business-model-canvas",
+      "description": ""
+    },
+    {
+      "name": "code-architecture-tailwind-v4-best-practices",
+      "path": "skills/code-architecture-tailwind-v4-best-practices",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/code-architecture-tailwind-v4-best-practices",
+      "description": ""
+    },
+    {
+      "name": "code-architecture-wrong-abstraction",
+      "path": "skills/code-architecture-wrong-abstraction",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/code-architecture-wrong-abstraction",
+      "description": ""
+    },
+    {
+      "name": "cognitive-biases",
+      "path": "skills/cognitive-biases",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/cognitive-biases",
+      "description": ""
+    },
+    {
+      "name": "cognitive-fluency-psychology",
+      "path": "skills/cognitive-fluency-psychology",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/cognitive-fluency-psychology",
+      "description": ""
+    },
+    {
+      "name": "cognitive-load",
+      "path": "skills/cognitive-load",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/cognitive-load",
+      "description": ""
+    },
+    {
+      "name": "css-container-queries",
+      "path": "skills/css-container-queries",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/css-container-queries",
+      "description": ""
+    },
+    {
+      "name": "curiosity-gap",
+      "path": "skills/curiosity-gap",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/curiosity-gap",
+      "description": ""
+    },
+    {
+      "name": "fogg-behavior-model",
+      "path": "skills/fogg-behavior-model",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/fogg-behavior-model",
+      "description": ""
+    },
+    {
+      "name": "game-theory-tit-for-tat",
+      "path": "skills/game-theory-tit-for-tat",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/game-theory-tit-for-tat",
+      "description": ""
+    },
+    {
+      "name": "graph-thinking",
+      "path": "skills/graph-thinking",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/graph-thinking",
+      "description": ""
+    },
+    {
+      "name": "halo-effect-psychology",
+      "path": "skills/halo-effect-psychology",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/halo-effect-psychology",
+      "description": ""
+    },
+    {
+      "name": "hicks-law",
+      "path": "skills/hicks-law",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/hicks-law",
+      "description": ""
+    },
+    {
+      "name": "hooked-model",
+      "path": "skills/hooked-model",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/hooked-model",
+      "description": ""
+    },
+    {
+      "name": "hypothesis-tree",
+      "path": "skills/hypothesis-tree",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/hypothesis-tree",
+      "description": ""
+    },
+    {
+      "name": "kanban",
+      "path": "skills/kanban",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/kanban",
+      "description": ""
+    },
+    {
+      "name": "loss-aversion-psychology",
+      "path": "skills/loss-aversion-psychology",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/loss-aversion-psychology",
+      "description": ""
+    },
+    {
+      "name": "making-product-decisions",
+      "path": "skills/making-product-decisions",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/making-product-decisions",
+      "description": ""
+    },
+    {
+      "name": "naming-cheatsheet",
+      "path": "skills/naming-cheatsheet",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/naming-cheatsheet",
+      "description": ""
+    },
+    {
+      "name": "nextjs-image-art-direction",
+      "path": "skills/nextjs-image-art-direction",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/nextjs-image-art-direction",
+      "description": ""
+    },
+    {
+      "name": "pest-analysis",
+      "path": "skills/pest-analysis",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/pest-analysis",
+      "description": ""
+    },
+    {
+      "name": "progressive-disclosure",
+      "path": "skills/progressive-disclosure",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/progressive-disclosure",
+      "description": ""
+    },
+    {
+      "name": "project-structure",
+      "path": "skills/project-structure",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/project-structure",
+      "description": ""
+    },
+    {
+      "name": "react-key-prop",
+      "path": "skills/react-key-prop",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/react-key-prop",
+      "description": ""
+    },
+    {
+      "name": "react-use-callback",
+      "path": "skills/react-use-callback",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/react-use-callback",
+      "description": ""
+    },
+    {
+      "name": "react-use-client-boundary",
+      "path": "skills/react-use-client-boundary",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/react-use-client-boundary",
+      "description": ""
+    },
+    {
+      "name": "react-use-state",
+      "path": "skills/react-use-state",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/react-use-state",
+      "description": ""
+    },
+    {
+      "name": "react-useeffect-avoid",
+      "path": "skills/react-useeffect-avoid",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/react-useeffect-avoid",
+      "description": ""
+    },
+    {
+      "name": "self-initiated-triggers",
+      "path": "skills/self-initiated-triggers",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/self-initiated-triggers",
+      "description": ""
+    },
+    {
+      "name": "social-proof-psychology",
+      "path": "skills/social-proof-psychology",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/social-proof-psychology",
+      "description": ""
+    },
+    {
+      "name": "status-quo-bias",
+      "path": "skills/status-quo-bias",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/status-quo-bias",
+      "description": ""
+    },
+    {
+      "name": "trust-psychology",
+      "path": "skills/trust-psychology",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/trust-psychology",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "path": "skills/typescript-advanced-types",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "path": "skills/typescript-best-practices",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "typescript-interface-vs-type",
+      "path": "skills/typescript-interface-vs-type",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/typescript-interface-vs-type",
+      "description": ""
+    },
+    {
+      "name": "typescript-satisfies-operator",
+      "path": "skills/typescript-satisfies-operator",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/typescript-satisfies-operator",
+      "description": ""
+    },
+    {
+      "name": "user-story-fundamentals",
+      "path": "skills/user-story-fundamentals",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/user-story-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "visual-cues-cta-psychology",
+      "path": "skills/visual-cues-cta-psychology",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/visual-cues-cta-psychology",
+      "description": ""
+    },
+    {
+      "name": "what-not-to-do-as-product-manager",
+      "path": "skills/what-not-to-do-as-product-manager",
+      "github_url": "https://github.com/flpbalada/my-opencode-config/tree/main/skills/what-not-to-do-as-product-manager",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/flpbalada/my-opencode-config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:36:32Z"
+}
