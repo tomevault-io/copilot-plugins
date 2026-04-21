@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [peterh-dty/uc-orchestrator](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/peterh-dty#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/peterh-dty/uc-orchestrator](https://github.com/peterh-dty/uc-orchestrator)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/peterh-dty) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-q -->
