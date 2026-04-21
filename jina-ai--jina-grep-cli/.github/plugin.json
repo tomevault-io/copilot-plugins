@@ -1,0 +1,9 @@
+{
+  "name": "jina-ai--jina-grep-cli",
+  "displayName": "jina-grep-cli",
+  "description": "Semantic grep powered by Jina embeddings v5 (MLX on Apple Silicon)",
+  "version": "1.0.0",
+  "author": "jina-ai",
+  "homepage": "https://github.com/jina-ai/jina-grep-cli",
+  "skills": []
+}
