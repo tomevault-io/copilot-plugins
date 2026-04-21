@@ -1,0 +1,66 @@
+{
+  "name": "espennilsen--pi",
+  "displayName": "pi",
+  "description": "AI instruction skills by espennilsen",
+  "version": "1.0.0",
+  "author": "espennilsen",
+  "homepage": "https://github.com/espennilsen/pi",
+  "skills": [
+    {
+      "name": "agents-md-manager",
+      "description": ""
+    },
+    {
+      "name": "blog-post",
+      "description": ""
+    },
+    {
+      "name": "changelog-generator",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "git-project-status",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "handoff",
+      "description": ""
+    },
+    {
+      "name": "npmjs",
+      "description": ""
+    },
+    {
+      "name": "pi-projects",
+      "description": ""
+    },
+    {
+      "name": "project-manager",
+      "description": ""
+    },
+    {
+      "name": "readme-reviewer",
+      "description": ""
+    },
+    {
+      "name": "sales-playbook",
+      "description": ""
+    },
+    {
+      "name": "sample-skill",
+      "description": ""
+    },
+    {
+      "name": "td",
+      "description": ""
+    }
+  ]
+}
