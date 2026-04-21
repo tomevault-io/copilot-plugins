@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ETdoFresh/rga-crdt-web-editor](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ETdoFresh#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ETdoFresh/rga-crdt-web-editor](https://github.com/ETdoFresh/rga-crdt-web-editor)
 
 ---
 
