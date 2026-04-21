@@ -1,6 +1,6 @@
-# nomad-cluster — distributed by TomeVault
+# nomad-cluster
 
-> Originally from [nquirmbach/nomad-cluster](https://github.com/nquirmbach/nomad-cluster). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [nquirmbach/nomad-cluster](https://github.com/nquirmbach/nomad-cluster) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [nquirmbach/nomad-cluster](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/nquirmbach)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/nquirmbach/nomad-cluster](https://github.com/nquirmbach/nomad-cluster)
 
 ---
 
