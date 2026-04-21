@@ -1,0 +1,50 @@
+{
+  "name": "kbanc85--claudia",
+  "displayName": "claudia",
+  "description": "Terminal-based AI chief of staff. Remembers relationships, tracks commitments, helps you think strategically. Runs on Claude Code.",
+  "version": "1.0.0",
+  "author": "kbanc85",
+  "homepage": "https://github.com/kbanc85/claudia",
+  "skills": [
+    {
+      "name": "client-health",
+      "description": ""
+    },
+    {
+      "name": "draft-reply",
+      "description": ""
+    },
+    {
+      "name": "file-document",
+      "description": ""
+    },
+    {
+      "name": "follow-up-draft",
+      "description": ""
+    },
+    {
+      "name": "growth-check",
+      "description": ""
+    },
+    {
+      "name": "ingest-sources",
+      "description": ""
+    },
+    {
+      "name": "new-workspace",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "summarize-doc",
+      "description": ""
+    },
+    {
+      "name": "weekly-review",
+      "description": ""
+    }
+  ]
+}
