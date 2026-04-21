@@ -1,0 +1,63 @@
+{
+  "name": "claude-code",
+  "owner": "shanraisshan",
+  "repo": "claude-code-best-practice",
+  "description": "from vibe coding to agentic engineering - practice makes claude perfect",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": ".claude/skills/agent-browser",
+      "github_url": "https://github.com/shanraisshan/claude-code-best-practice/tree/main/.claude/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "vibe-to-agentic-framework",
+      "path": ".claude/skills/presentation/vibe-to-agentic-framework",
+      "github_url": "https://github.com/shanraisshan/claude-code-best-practice/tree/main/.claude/skills/presentation/vibe-to-agentic-framework",
+      "description": ""
+    },
+    {
+      "name": "weather-fetcher",
+      "path": ".claude/skills/weather-fetcher",
+      "github_url": "https://github.com/shanraisshan/claude-code-best-practice/tree/main/.claude/skills/weather-fetcher",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shanraisshan/claude-code-best-practice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:42:58Z"
+}
