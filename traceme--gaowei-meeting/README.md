@@ -1,24 +1,24 @@
-# gaowei-meeting — distributed by TomeVault
+# gaowei-meeting
 
-> Originally from [traceme/gaowei-meeting](https://github.com/traceme/gaowei-meeting). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [traceme/gaowei-meeting](https://github.com/traceme/gaowei-meeting) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [traceme/gaowei-meeting](https://github.com/traceme/gaowei-meeting).
+Original source: `.cursor/rules/*.mdc` in [traceme/gaowei-meeting](https://github.com/traceme/gaowei-meeting).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/traceme)
+From [traceme/gaowei-meeting](https://github.com/traceme/gaowei-meeting) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/traceme) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
