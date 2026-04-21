@@ -1,0 +1,30 @@
+{
+  "name": "zxkane--aws-skills",
+  "displayName": "aws-skills",
+  "description": "Claude Agent Skills for AWS",
+  "version": "1.0.0",
+  "author": "zxkane",
+  "homepage": "https://github.com/zxkane/aws-skills",
+  "skills": [
+    {
+      "name": "aws-cdk-development",
+      "description": ""
+    },
+    {
+      "name": "aws-agentic-ai",
+      "description": ""
+    },
+    {
+      "name": "aws-cost-operations",
+      "description": ""
+    },
+    {
+      "name": "aws-mcp-setup",
+      "description": ""
+    },
+    {
+      "name": "aws-serverless-eda",
+      "description": ""
+    }
+  ]
+}
