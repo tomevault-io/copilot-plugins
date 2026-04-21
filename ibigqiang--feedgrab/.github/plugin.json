@@ -1,0 +1,9 @@
+{
+  "name": "ibigqiang--feedgrab",
+  "displayName": "feedgrab",
+  "description": "Universal content grabber \u2014 fetch, normalize, and digest content from 7+ platforms (WeChat, XHS, X/Twitter, YouTube, Bilibili, Telegram, RSS)",
+  "version": "1.0.0",
+  "author": "iBigQiang",
+  "homepage": "https://github.com/iBigQiang/feedgrab",
+  "skills": []
+}
