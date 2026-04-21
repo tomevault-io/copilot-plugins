@@ -1,0 +1,327 @@
+{
+  "name": "orchestkit",
+  "owner": "yonatangross",
+  "repo": "orchestkit",
+  "description": "The Complete AI Development Toolkit for Claude Code \u2014 103 skills, 36 agents, 172 hooks. Production-ready patterns for full-stack development.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility",
+      "path": "plugins/ork/skills/accessibility",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/accessibility",
+      "description": ""
+    },
+    {
+      "name": "agent-orchestration",
+      "path": "plugins/ork/skills/agent-orchestration",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/agent-orchestration",
+      "description": ""
+    },
+    {
+      "name": "analytics",
+      "path": "plugins/ork/skills/analytics",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/analytics",
+      "description": ""
+    },
+    {
+      "name": "api-design",
+      "path": "plugins/ork/skills/api-design",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/api-design",
+      "description": ""
+    },
+    {
+      "name": "architecture-decision-record",
+      "path": "plugins/ork/skills/architecture-decision-record",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/architecture-decision-record",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": "plugins/ork/skills/architecture-patterns",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "assess",
+      "path": "plugins/ork/skills/assess",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/assess",
+      "description": ""
+    },
+    {
+      "name": "audit-full",
+      "path": "plugins/ork/skills/audit-full",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/audit-full",
+      "description": ""
+    },
+    {
+      "name": "browser-tools",
+      "path": "plugins/ork/skills/browser-tools",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/browser-tools",
+      "description": ""
+    },
+    {
+      "name": "code-review-playbook",
+      "path": "plugins/ork/skills/code-review-playbook",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/code-review-playbook",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": "plugins/ork/skills/create-pr",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "database-patterns",
+      "path": "plugins/ork/skills/database-patterns",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/database-patterns",
+      "description": ""
+    },
+    {
+      "name": "devops-deployment",
+      "path": "plugins/ork/skills/devops-deployment",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/devops-deployment",
+      "description": ""
+    },
+    {
+      "name": "doctor",
+      "path": "plugins/ork/skills/doctor",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/doctor",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design",
+      "path": "plugins/ork/skills/domain-driven-design",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/domain-driven-design",
+      "description": ""
+    },
+    {
+      "name": "errors",
+      "path": "plugins/ork/skills/errors",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/errors",
+      "description": ""
+    },
+    {
+      "name": "explore",
+      "path": "plugins/ork/skills/explore",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/explore",
+      "description": ""
+    },
+    {
+      "name": "fix-issue",
+      "path": "plugins/ork/skills/fix-issue",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/fix-issue",
+      "description": ""
+    },
+    {
+      "name": "github-operations",
+      "path": "plugins/ork/skills/github-operations",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/github-operations",
+      "description": ""
+    },
+    {
+      "name": "golden-dataset",
+      "path": "plugins/ork/skills/golden-dataset",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/golden-dataset",
+      "description": ""
+    },
+    {
+      "name": "help",
+      "path": "plugins/ork/skills/help",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/help",
+      "description": ""
+    },
+    {
+      "name": "i18n-date-patterns",
+      "path": "plugins/ork/skills/i18n-date-patterns",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/i18n-date-patterns",
+      "description": ""
+    },
+    {
+      "name": "issue-progress-tracking",
+      "path": "plugins/ork/skills/issue-progress-tracking",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/issue-progress-tracking",
+      "description": ""
+    },
+    {
+      "name": "langgraph",
+      "path": "plugins/ork/skills/langgraph",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/langgraph",
+      "description": ""
+    },
+    {
+      "name": "llm-integration",
+      "path": "plugins/ork/skills/llm-integration",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/llm-integration",
+      "description": ""
+    },
+    {
+      "name": "mcp-patterns",
+      "path": "plugins/ork/skills/mcp-patterns",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/mcp-patterns",
+      "description": ""
+    },
+    {
+      "name": "memory-fabric",
+      "path": "plugins/ork/skills/memory-fabric",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/memory-fabric",
+      "description": ""
+    },
+    {
+      "name": "multimodal-llm",
+      "path": "plugins/ork/skills/multimodal-llm",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/multimodal-llm",
+      "description": ""
+    },
+    {
+      "name": "performance",
+      "path": "plugins/ork/skills/performance",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/performance",
+      "description": ""
+    },
+    {
+      "name": "product-frameworks",
+      "path": "plugins/ork/skills/product-frameworks",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/product-frameworks",
+      "description": ""
+    },
+    {
+      "name": "python-backend",
+      "path": "plugins/ork/skills/python-backend",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/python-backend",
+      "description": ""
+    },
+    {
+      "name": "quality-gates",
+      "path": "plugins/ork/skills/quality-gates",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/quality-gates",
+      "description": ""
+    },
+    {
+      "name": "rag-retrieval",
+      "path": "plugins/ork/skills/rag-retrieval",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/rag-retrieval",
+      "description": ""
+    },
+    {
+      "name": "react-server-components-framework",
+      "path": "plugins/ork/skills/react-server-components-framework",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/react-server-components-framework",
+      "description": ""
+    },
+    {
+      "name": "release-management",
+      "path": "plugins/ork/skills/release-management",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/release-management",
+      "description": ""
+    },
+    {
+      "name": "responsive-patterns",
+      "path": "plugins/ork/skills/responsive-patterns",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/responsive-patterns",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "path": "plugins/ork/skills/review-pr",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/review-pr",
+      "description": ""
+    },
+    {
+      "name": "scope-appropriate-architecture",
+      "path": "plugins/ork/skills/scope-appropriate-architecture",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/scope-appropriate-architecture",
+      "description": ""
+    },
+    {
+      "name": "security-patterns",
+      "path": "plugins/ork/skills/security-patterns",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/security-patterns",
+      "description": ""
+    },
+    {
+      "name": "skill-evolution",
+      "path": "plugins/ork/skills/skill-evolution",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/skill-evolution",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": "plugins/ork/skills/testing-patterns",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "ui-components",
+      "path": "plugins/ork/skills/ui-components",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/ui-components",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "path": "plugins/ork/skills/verify",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/verify",
+      "description": ""
+    },
+    {
+      "name": "vite-advanced",
+      "path": "plugins/ork/skills/vite-advanced",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/vite-advanced",
+      "description": ""
+    },
+    {
+      "name": "web-research-workflow",
+      "path": "plugins/ork/skills/web-research-workflow",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/web-research-workflow",
+      "description": ""
+    },
+    {
+      "name": "zustand-patterns",
+      "path": "plugins/ork/skills/zustand-patterns",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/zustand-patterns",
+      "description": ""
+    },
+    {
+      "name": "component-search",
+      "path": "plugins/ork/skills/component-search",
+      "github_url": "https://github.com/yonatangross/orchestkit/tree/main/plugins/ork/skills/component-search",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yonatangross/orchestkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:51:35Z"
+}
