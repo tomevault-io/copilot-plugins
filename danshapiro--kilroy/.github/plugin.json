@@ -1,0 +1,22 @@
+{
+  "name": "danshapiro--kilroy",
+  "displayName": "kilroy",
+  "description": "AI instruction skills by danshapiro",
+  "version": "1.0.0",
+  "author": "danshapiro",
+  "homepage": "https://github.com/danshapiro/kilroy",
+  "skills": [
+    {
+      "name": "investigating-kilroy-runs",
+      "description": ""
+    },
+    {
+      "name": "release-kilroy",
+      "description": ""
+    },
+    {
+      "name": "using-kilroy",
+      "description": ""
+    }
+  ]
+}
