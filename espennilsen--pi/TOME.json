@@ -1,0 +1,129 @@
+{
+  "name": "pi",
+  "owner": "espennilsen",
+  "repo": "pi",
+  "description": "AI instruction skills by espennilsen",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-md-manager",
+      "path": "skills/agents-md-manager",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/agents-md-manager",
+      "description": ""
+    },
+    {
+      "name": "blog-post",
+      "path": "skills/blog-post",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/blog-post",
+      "description": ""
+    },
+    {
+      "name": "changelog-generator",
+      "path": "skills/changelog-generator",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/changelog-generator",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "git-project-status",
+      "path": "skills/git-project-status",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/git-project-status",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "path": "skills/github",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/github",
+      "description": ""
+    },
+    {
+      "name": "handoff",
+      "path": "skills/handoff",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/handoff",
+      "description": ""
+    },
+    {
+      "name": "npmjs",
+      "path": "skills/npmjs",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/npmjs",
+      "description": ""
+    },
+    {
+      "name": "pi-projects",
+      "path": "extensions/pi-projects/skills/pi-projects",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/extensions/pi-projects/skills/pi-projects",
+      "description": ""
+    },
+    {
+      "name": "project-manager",
+      "path": "skills/project-manager",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/project-manager",
+      "description": ""
+    },
+    {
+      "name": "readme-reviewer",
+      "path": "skills/readme-reviewer",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/readme-reviewer",
+      "description": ""
+    },
+    {
+      "name": "sales-playbook",
+      "path": "skills/sales-playbook",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/sales-playbook",
+      "description": ""
+    },
+    {
+      "name": "sample-skill",
+      "path": "skills/sample-skill",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/sample-skill",
+      "description": ""
+    },
+    {
+      "name": "td",
+      "path": "skills/td",
+      "github_url": "https://github.com/espennilsen/pi/tree/main/skills/td",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/espennilsen/pi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T20:32:06Z"
+}
