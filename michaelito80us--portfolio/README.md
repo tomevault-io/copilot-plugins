@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [michaelito80us/portfolio](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/michaelito80us)
+From [michaelito80us/portfolio](https://github.com/michaelito80us/portfolio) — a repo with 0+ stars on GitHub.
 
 ---
 
