@@ -1,0 +1,9 @@
+{
+  "name": "opendev-to--opendev",
+  "displayName": "opendev",
+  "description": "Open-Source Coding Agent in the terminal",
+  "version": "1.0.0",
+  "author": "opendev-to",
+  "homepage": "https://github.com/opendev-to/opendev",
+  "skills": []
+}
