@@ -1,0 +1,78 @@
+{
+  "name": "bitwize-music-studio--claude-ai-music-skills",
+  "displayName": "claude-ai-music-skills",
+  "description": "Human + AI music production workflow for Suno - skills, templates, and tools",
+  "version": "1.0.0",
+  "author": "bitwize-music-studio",
+  "homepage": "https://github.com/bitwize-music-studio/claude-ai-music-skills",
+  "skills": [
+    {
+      "name": "album-art-director",
+      "description": ""
+    },
+    {
+      "name": "album-conceptualizer",
+      "description": ""
+    },
+    {
+      "name": "clipboard",
+      "description": ""
+    },
+    {
+      "name": "document-hunter",
+      "description": ""
+    },
+    {
+      "name": "help",
+      "description": ""
+    },
+    {
+      "name": "mastering-engineer",
+      "description": ""
+    },
+    {
+      "name": "next-step",
+      "description": ""
+    },
+    {
+      "name": "plagiarism-checker",
+      "description": ""
+    },
+    {
+      "name": "researchers-gov",
+      "description": ""
+    },
+    {
+      "name": "researchers-legal",
+      "description": ""
+    },
+    {
+      "name": "researchers-tech",
+      "description": ""
+    },
+    {
+      "name": "resume",
+      "description": ""
+    },
+    {
+      "name": "session-start",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "skill-model-updater",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "tutorial",
+      "description": ""
+    }
+  ]
+}
