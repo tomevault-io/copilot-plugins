@@ -1,0 +1,14 @@
+{
+  "name": "akiselev--ghidra-cli",
+  "displayName": "ghidra-cli",
+  "description": "Rust cli to run ghidra headless on files so that Claude Code and other agents can reverse engineer stuff",
+  "version": "1.0.0",
+  "author": "akiselev",
+  "homepage": "https://github.com/akiselev/ghidra-cli",
+  "skills": [
+    {
+      "name": "ghidra-cli",
+      "description": ""
+    }
+  ]
+}
