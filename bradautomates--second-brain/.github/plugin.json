@@ -1,0 +1,18 @@
+{
+  "name": "bradautomates--second-brain",
+  "displayName": "second-brain",
+  "description": "AI instruction skills by bradautomates",
+  "version": "1.0.0",
+  "author": "bradautomates",
+  "homepage": "https://github.com/bradautomates/second-brain",
+  "skills": [
+    {
+      "name": "history",
+      "description": ""
+    },
+    {
+      "name": "start-second-brain",
+      "description": ""
+    }
+  ]
+}
