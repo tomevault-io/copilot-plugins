@@ -1,0 +1,14 @@
+{
+  "name": "fstandhartinger--ralph-wiggum",
+  "displayName": "ralph-wiggum",
+  "description": "Ralph Wiggum: Autonomous AI coding with spec-driven development. Point your AI agent here to get started.",
+  "version": "1.0.0",
+  "author": "fstandhartinger",
+  "homepage": "https://github.com/fstandhartinger/ralph-wiggum",
+  "skills": [
+    {
+      "name": "ralph-wiggum",
+      "description": ""
+    }
+  ]
+}
