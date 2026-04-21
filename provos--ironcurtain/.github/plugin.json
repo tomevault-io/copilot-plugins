@@ -1,0 +1,9 @@
+{
+  "name": "provos--ironcurtain",
+  "displayName": "ironcurtain",
+  "description": "A secure* runtime for autonomous AI agents. Policy from plain-English constitutions. (*https://ironcurtain.dev)",
+  "version": "1.0.0",
+  "author": "provos",
+  "homepage": "https://github.com/provos/ironcurtain",
+  "skills": []
+}
