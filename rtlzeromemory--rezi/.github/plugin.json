@@ -1,0 +1,9 @@
+{
+  "name": "rtlzeromemory--rezi",
+  "displayName": "Rezi",
+  "description": "Rezi \u2014 TypeScript TUI, Near-Native Performance. Powered by deterministic C engine.",
+  "version": "1.0.0",
+  "author": "RtlZeroMemory",
+  "homepage": "https://github.com/RtlZeroMemory/Rezi",
+  "skills": []
+}
