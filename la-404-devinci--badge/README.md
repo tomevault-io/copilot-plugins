@@ -1,6 +1,6 @@
 # badge
 
-> Tome by [La-404-Devinci](https://github.com/La-404-Devinci/badge) — distributed by [TomeVault](https://tomevault.io/claim/La-404-Devinci)
+> Tome by [La-404-Devinci](https://github.com/La-404-Devinci/badge) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [La-404-Devinci/badge](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/La-404-Devinci#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/La-404-Devinci/badge](https://github.com/La-404-Devinci/badge)
 
 ---
 
