@@ -1,0 +1,9 @@
+{
+  "name": "louistrue--ifc-lite",
+  "displayName": "ifc-lite",
+  "description": "Browser-native IFC viewer with WebGPU rendering and Rust/WASM parser for high-performance BIM visualization",
+  "version": "1.0.0",
+  "author": "louistrue",
+  "homepage": "https://github.com/louistrue/ifc-lite",
+  "skills": []
+}
