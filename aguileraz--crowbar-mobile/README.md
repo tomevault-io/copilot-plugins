@@ -1,6 +1,6 @@
 # crowbar-mobile
 
-> Tome by [aguileraz](https://github.com/aguileraz/crowbar-mobile) — distributed by [TomeVault](https://tomevault.io/claim/aguileraz)
+> Tome by [aguileraz](https://github.com/aguileraz/crowbar-mobile) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [aguileraz/crowbar-mobile](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/aguileraz#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/aguileraz/crowbar-mobile](https://github.com/aguileraz/crowbar-mobile)
 
 ---
 
