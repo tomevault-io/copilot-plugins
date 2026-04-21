@@ -4,7 +4,7 @@
   "repo": "OmniRoute",
   "description": "OmniRoute is an AI gateway for multi-provider LLMs: an OpenAI-compatible endpoint with smart routing, load balancing, retries, and fallbacks. Add policies, rate limits, caching, and observability for reliable, cost-aware inference.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/diegosouzapw/OmniRoute",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T08:39:45Z"
+  "distributed_at": "2026-04-21T08:14:58Z"
 }
