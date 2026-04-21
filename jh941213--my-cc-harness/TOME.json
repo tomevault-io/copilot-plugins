@@ -1,0 +1,141 @@
+{
+  "name": "my-c",
+  "owner": "jh941213",
+  "repo": "my-cc-harness",
+  "description": "my-claude-code-asset",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "async-python-patterns",
+      "path": "skills/async-python-patterns",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/async-python-patterns",
+      "description": ""
+    },
+    {
+      "name": "build-fix",
+      "path": "skills/build-fix",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/build-fix",
+      "description": ""
+    },
+    {
+      "name": "compact-guide",
+      "path": "skills/compact-guide",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/compact-guide",
+      "description": ""
+    },
+    {
+      "name": "e2e-agent-browser",
+      "path": "skills/e2e-agent-browser",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/e2e-agent-browser",
+      "description": ""
+    },
+    {
+      "name": "frontend",
+      "path": "skills/frontend",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/frontend",
+      "description": ""
+    },
+    {
+      "name": "nano-banana",
+      "path": "skills/nano-banana",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/nano-banana",
+      "description": ""
+    },
+    {
+      "name": "python-testing-patterns",
+      "path": "skills/python-testing-patterns",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/python-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-patterns",
+      "path": "skills/react-patterns",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/react-patterns",
+      "description": ""
+    },
+    {
+      "name": "shadcn-ui",
+      "path": "skills/shadcn-ui",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "stitch-design-md",
+      "path": "skills/stitch-design-md",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/stitch-design-md",
+      "description": ""
+    },
+    {
+      "name": "stitch-enhance-prompt",
+      "path": "skills/stitch-enhance-prompt",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/stitch-enhance-prompt",
+      "description": ""
+    },
+    {
+      "name": "stitch-react",
+      "path": "skills/stitch-react",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/stitch-react",
+      "description": ""
+    },
+    {
+      "name": "tailwind-design-system",
+      "path": "skills/tailwind-design-system",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/tailwind-design-system",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": "skills/ui-ux-pro-max",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": "skills/vercel-react-best-practices",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "stitch-design-md",
+      "path": "skills_en/stitch-design-md",
+      "github_url": "https://github.com/jh941213/my-cc-harness/tree/main/skills_en/stitch-design-md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jh941213/my-cc-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:58:19Z"
+}
