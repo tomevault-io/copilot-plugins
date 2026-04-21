@@ -1,0 +1,81 @@
+{
+  "name": "creative-writing-skills",
+  "owner": "haowjy",
+  "repo": "creative-writing-skills",
+  "description": "claude skills focused on creative writing",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cw-brainstorming",
+      "path": "creative-writing-skills/cw-brainstorming",
+      "github_url": "https://github.com/haowjy/creative-writing-skills/tree/main/creative-writing-skills/cw-brainstorming",
+      "description": ""
+    },
+    {
+      "name": "cw-official-docs",
+      "path": "creative-writing-skills/cw-official-docs",
+      "github_url": "https://github.com/haowjy/creative-writing-skills/tree/main/creative-writing-skills/cw-official-docs",
+      "description": ""
+    },
+    {
+      "name": "cw-prose-writing",
+      "path": "creative-writing-skills/cw-prose-writing",
+      "github_url": "https://github.com/haowjy/creative-writing-skills/tree/main/creative-writing-skills/cw-prose-writing",
+      "description": ""
+    },
+    {
+      "name": "cw-router",
+      "path": "creative-writing-skills/cw-router",
+      "github_url": "https://github.com/haowjy/creative-writing-skills/tree/main/creative-writing-skills/cw-router",
+      "description": ""
+    },
+    {
+      "name": "cw-story-critique",
+      "path": "creative-writing-skills/cw-story-critique",
+      "github_url": "https://github.com/haowjy/creative-writing-skills/tree/main/creative-writing-skills/cw-story-critique",
+      "description": ""
+    },
+    {
+      "name": "cw-style-skill-creator",
+      "path": "creative-writing-skills/cw-style-skill-creator",
+      "github_url": "https://github.com/haowjy/creative-writing-skills/tree/main/creative-writing-skills/cw-style-skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/haowjy/creative-writing-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:36:38Z"
+}
