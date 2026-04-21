@@ -2,106 +2,295 @@
 
 > This workspace enforces WCAG AA accessibility standards for all web UI code.
 
-# Accessibility-First Development
+## Accessibility-First Development
 
 This workspace enforces WCAG AA accessibility standards for all web UI code.
 
-## Mandatory Accessibility Check
+### Repository Writing Policy: No Emoji
+
+Repository-wide hard rule: do not add emoji characters in generated, edited, or reviewed content.
+
+- Applies to release notes, changelog entries, docs, prompts, instructions, agent files, issue/PR text, and chat-generated copy intended for repository publication.
+- Replace emoji with plain text labels.
+- If existing content contains emoji and you are touching that content, remove emoji as part of the update.
+
+### Mandatory Accessibility Check
 
 Before writing or modifying any web UI code - including HTML, JSX, CSS, React components, Tailwind classes, web pages, forms, modals, or any user-facing web content - you MUST:
 
-1. Consider which accessibility skills are needed for the task
+1. Consider which accessibility specialist agents are needed for the task
 2. Apply the relevant specialist knowledge before generating code
 3. Verify the output against the appropriate checklists
 
-**Automatic trigger detection:** If a user prompt involves creating, editing, or reviewing any file matching `*.html`, `*.jsx`, `*.tsx`, `*.vue`, `*.svelte`, `*.astro`, or `*.css` - or if the prompt describes building UI components, pages, forms, or visual elements - treat it as a web UI task and apply the Decision Matrix below to determine which skills are needed. Do not wait for the user to explicitly request accessibility review.
+**Automatic trigger detection:** If a user prompt involves creating, editing, or reviewing any file matching `*.html`, `*.jsx`, `*.tsx`, `*.vue`, `*.svelte`, `*.astro`, or `*.css` - or if the prompt describes building UI components, pages, forms, or visual elements - treat it as a web UI task and apply the Decision Matrix below to determine which specialists are needed. Do not wait for the user to explicitly request accessibility review.
 
-## Available Skills
+### Available Specialist Agents
 
-The following skills are available in `skills/` and provide domain-specific accessibility knowledge:
+Select these agents from the agents dropdown in Copilot Chat, or type `/agents` to browse:
 
-- **accessibility-lead** - Orchestrator. Decides which specialists to invoke and runs the final review.
-- **aria-specialist** - ARIA roles, states, properties, widget patterns. Enforces the first rule of ARIA.
-- **modal-specialist** - Dialogs, drawers, popovers, alerts. Focus trapping, focus return, escape behavior.
-- **contrast-master** - Color contrast ratios, dark mode, focus indicators, color independence.
-- **keyboard-navigator** - Tab order, focus management, skip links, arrow key patterns, SPA route changes.
-- **live-region-controller** - Dynamic content announcements, toasts, loading states, search results.
-- **forms-specialist** - Labels, errors, validation, fieldsets, autocomplete, multi-step wizards.
-- **alt-text-headings** - Alt text, SVGs, icons, heading hierarchy, landmarks, page titles.
-- **tables-data-specialist** - Table markup, scope, caption, headers, sortable columns, ARIA grids.
-- **link-checker** - Ambiguous link text, "click here" detection, missing new-tab warnings.
-- **cognitive-accessibility** - WCAG 2.2 cognitive SC, COGA guidance, plain language, authentication UX.
-- **mobile-accessibility** - React Native, Expo, iOS, Android touch targets, screen reader compatibility.
-- **design-system-auditor** - Color token contrast, focus ring tokens, spacing tokens for WCAG compliance.
-- **web-accessibility-wizard** - Full guided web accessibility audit with step-by-step walkthrough.
-- **document-accessibility-wizard** - Office and PDF document accessibility audit.
-- **markdown-a11y-assistant** - Markdown documentation audit covering links, alt text, headings, tables, emoji, diagrams.
-- **testing-coach** - Screen reader testing, keyboard testing, automated testing guidance.
-- **wcag-guide** - WCAG 2.2 criteria explanations, conformance levels, what changed.
-- **word-accessibility** - Microsoft Word (DOCX) document accessibility scanning.
-- **excel-accessibility** - Microsoft Excel (XLSX) spreadsheet accessibility scanning.
-- **powerpoint-accessibility** - Microsoft PowerPoint (PPTX) presentation accessibility scanning.
-- **pdf-accessibility** - PDF conformance per PDF/UA and the Matterhorn Protocol.
-- **epub-accessibility** - ePub document accessibility scanning per EPUB Accessibility 1.1.
-- **office-remediator** - Programmatic Office document (Word/Excel/PowerPoint) remediation via python-docx, openpyxl, python-pptx.
+| Agent | When to Use |
+|-------|------------|
+| Accessibility Lead | Any UI task - coordinates all specialists and runs final review |
+| ARIA Specialist | Interactive components, custom widgets, ARIA usage |
+| Modal Specialist | Dialogs, drawers, popovers, overlays |
+| Contrast Master | Colors, themes, CSS styling, visual design |
+| Keyboard Navigator | Tab order, focus management, keyboard interaction |
+| Live Region Controller | Dynamic content updates, toasts, loading states |
+| Forms Specialist | Forms, inputs, validation, error handling, multi-step wizards |
+| Alt Text & Headings | Images, alt text, SVGs, heading structure, page titles, landmarks |
+| Tables Specialist | Data tables, sortable tables, grids, comparison tables, pricing tables |
+| Link Checker | Ambiguous link text, "click here"/"read more" detection, link purpose |
+| Cognitive Accessibility | WCAG 2.2 cognitive SC, COGA guidance, plain language, authentication UX |
+| Mobile Accessibility | React Native, Expo, iOS, Android - touch targets, screen reader compatibility |
+| Design System Auditor | Color token contrast, focus ring tokens, spacing tokens, Tailwind/MUI/Chakra/shadcn |
+| Markdown Accessibility | Markdown document accessibility - links, alt text, headings, tables, emoji, mermaid diagrams, dashes, anchors |
+| Web Accessibility Wizard | Full guided web accessibility audit with step-by-step walkthrough |
+| Document Accessibility Wizard | Document accessibility audit for .docx, .xlsx, .pptx, .pdf - single files, folders, recursive scanning, delta scanning, severity scoring, remediation tracking, compliance export (VPAT/ACR), CSV export with help links, CI/CD integration |
+| Testing Coach | Screen reader testing, keyboard testing, automated testing guidance |
+| WCAG Guide | WCAG 2.2 criteria explanations, conformance levels, what changed |
+| Developer Hub | Python, wxPython, desktop app development - routes to specialist agents, scaffolds, debugs, reviews, builds |
+| Python Specialist | Python debugging, packaging (PyInstaller/Nuitka/cx_Freeze), testing, type checking, async, optimization |
+| wxPython Specialist | wxPython GUI - sizer layouts, event handling, AUI, custom controls, threading, desktop accessibility |
+| Desktop Accessibility Specialist | Desktop application accessibility - platform APIs (UI Automation, MSAA/IAccessible2, NSAccessibility), accessible control patterns, screen reader Name/Role/Value/State, focus management, high contrast, and custom widget accessibility for Windows and macOS desktop applications |
+| Desktop A11y Testing Coach | Desktop accessibility testing - testing with NVDA, JAWS, Narrator, and VoiceOver screen readers, Accessibility Insights for Windows, automated UIA testing, keyboard-only testing flows, high contrast verification, and creating desktop accessibility test plans |
+| Accessibility Tool Builder | Building accessibility scanning tools, rule engines, document parsers, report generators, and audit automation. WCAG criterion mapping, severity scoring algorithms, CLI/GUI scanner architecture, and CI/CD integration for accessibility tooling |
+| Media Accessibility | Video and audio accessibility - captions, audio descriptions, transcripts, media player controls, WCAG 1.2.x compliance |
+| Email Accessibility | HTML email accessibility under email client rendering constraints - table-based layout, inline styles, image fallbacks, screen reader compatibility |
+| Data Visualization Accessibility | Chart, graph, and dashboard accessibility - SVG ARIA, data table alternatives, color-safe palettes, keyboard interaction |
+| Web Component Specialist | Shadow DOM and custom element accessibility - ElementInternals, cross-shadow ARIA, form-associated custom elements, focus delegation |
+| Accessibility Statement Generator | Generates W3C or EU model accessibility statements from audit results - conformance claims, known limitations, feedback mechanism |
+| Compliance Mapping | Maps audit results to legal frameworks - Section 508, EN 301 549, EAA, ADA, AODA. VPAT 2.5 generation |
+| Office Remediator | Programmatic Office document (Word/Excel/PowerPoint) remediation via python-docx, openpyxl, python-pptx |
+| Accessibility Regression Detector | Detects regressions by comparing audit results across commits/branches - score trends, new/fixed/regressed classification |
+| Performance Accessibility | Intersection of web performance and accessibility - lazy loading, skeleton screens, CLS, code splitting, progressive enhancement |
 
-### GitHub Workflow Skills
+### Hidden Helper Sub-Agents
 
-- **github-hub** - Routes GitHub management tasks to the right specialist from plain English.
-- **daily-briefing** - Morning overview of open issues, PR queue, CI status, security alerts.
-- **pr-review** - PR diff analysis with confidence per finding, delta tracking, and inline comments.
-- **issue-tracker** - Issue triage with priority scoring, duplicate detection, action inference.
-- **analytics** - Repository health scoring (0-100/A-F), velocity metrics, bottleneck detection.
-- **insiders-a11y-tracker** - Track accessibility changes in VS Code Insiders and custom repos.
-- **repo-admin** - Collaborator management, branch protection rules, access audits.
-- **team-manager** - Onboarding, offboarding, org team membership, permission management.
-- **contributions-hub** - Discussions, community health metrics, first-time contributor insights.
-- **template-builder** - Guided wizard for issue/PR/discussion templates.
-- **repo-manager** - Repository scaffolding with labels, CI, CONTRIBUTING, SECURITY, issue templates.
-- **projects-manager** - GitHub Projects v2 boards, views, custom fields, and iterations.
-- **actions-manager** - GitHub Actions workflow runs, logs, re-runs, and CI debugging.
-- **security-dashboard** - Dependabot, code scanning, and secret scanning alert triage.
-- **release-manager** - Releases, tags, assets, and release note generation.
-- **notifications-manager** - Notification inbox management, filtering, and subscriptions.
-- **wiki-manager** - Wiki page creation, editing, search, and organization.
+These agents are not user-invokable. They are used internally by the document-accessibility-wizard, web-accessibility-wizard, and markdown-a11y-assistant to parallelize scanning and analysis:
 
-## Decision Matrix
+| Agent | Purpose |
+|-------|--------|
+| document-inventory | File discovery, inventory building, delta detection across folders |
+| cross-document-analyzer | Cross-document pattern detection, severity scoring, template analysis |
+| cross-page-analyzer | Cross-page web pattern detection, severity scoring, remediation tracking |
+| web-issue-fixer | Automated and guided web accessibility fix application |
+| office-scan-config | Office scan config management - invoked internally by document-accessibility-wizard Phase 0 |
+| pdf-scan-config | PDF scan config management - invoked internally by document-accessibility-wizard Phase 0 |
+| markdown-scanner | Per-file markdown scanning across all 9 accessibility domains - invoked in parallel by markdown-a11y-assistant |
+| markdown-fixer | Applies approved markdown fixes and presents human-judgment items - invoked by markdown-a11y-assistant |
+| markdown-csv-reporter | Exports markdown audit findings to CSV with WCAG help links and markdownlint rule references - invoked by markdown-a11y-assistant |
+| web-csv-reporter | Exports web audit findings to CSV with Deque University help links - invoked by web-accessibility-wizard |
+| document-csv-reporter | Exports document audit findings to CSV with Microsoft Office and Adobe PDF help links - invoked by document-accessibility-wizard |
+| scanner-bridge | Bridges GitHub Accessibility Scanner CI data into the agent ecosystem - invoked by web-accessibility-wizard Phase 0 |
+| lighthouse-bridge | Bridges Lighthouse CI accessibility audit data into the agent ecosystem - invoked by web-accessibility-wizard Phase 0 |
+
+### Agent Skills
+
+Reusable knowledge modules in `.github/skills/` that agents reference automatically:
+
+| Skill | Domain |
+|-------|--------|
+| document-scanning | File discovery commands, delta detection, scan configuration profiles |
+| accessibility-rules | Cross-format accessibility rule reference with WCAG 2.2 mapping (DOCX, XLSX, PPTX, PDF) |
+| report-generation | Audit report formatting, severity scoring formulas, VPAT/ACR compliance export |
+| web-scanning | Web content discovery, URL crawling, axe-core CLI commands, framework detection |
+| web-severity-scoring | Web severity scoring formulas (0-100, A-F grades), confidence levels, remediation tracking |
+| framework-accessibility | Framework-specific accessibility patterns and fix templates (React, Vue, Angular, Svelte, Tailwind) |
+| cognitive-accessibility | WCAG 2.2 cognitive SC reference tables, plain language analysis, COGA guidance, auth pattern detection |
+| mobile-accessibility | React Native prop reference, iOS/Android API quick reference, touch target rules, violation patterns |
+| design-system | Color token contrast computation, framework token paths (Tailwind/MUI/Chakra/shadcn), focus ring validation, WCAG 2.4.13 Focus Appearance (AAA) |
+| markdown-accessibility | Markdown rule library: ambiguous links, anchor validation, emoji modes (remove/translate), Mermaid and ASCII diagram replacement templates, heading structure, table descriptions, severity scoring |
+| github-workflow-standards | Core standards for all GitHub workflow agents: auth, discovery, dual MD+HTML output, HTML accessibility, safety rules, progress announcements, parallel execution |
+| github-scanning | GitHub search patterns by intent, date range handling, parallel stream collection, cross-repo intelligence, auto-recovery |
+| github-analytics-scoring | Repo health scoring (0-100/A-F), issue/PR priority scoring, confidence levels, delta tracking, velocity metrics, bottleneck detection |
+| help-url-reference | Deque University help topic URLs, Microsoft Office help URLs, Adobe PDF help URLs, WCAG understanding document URLs, application-specific fix steps |
+| github-a11y-scanner | GitHub Accessibility Scanner detection, issue parsing, severity mapping, axe-core correlation, Copilot fix tracking |
+| lighthouse-scanner | Lighthouse CI accessibility audit detection, score interpretation, weight-to-severity mapping, score regression tracking |
+| python-development | Python and wxPython development patterns, packaging, testing, wxPython sizers/events/threading, cross-platform paths |
+| media-accessibility | WebVTT/SRT/TTML caption formats, caption quality metrics, audio description requirements, media player ARIA, WCAG 1.2.x mapping |
+| email-accessibility | Email client rendering constraints, table-based layout, bulletproof buttons, dark mode, MJML/Foundation patterns |
+| testing-strategy | Automated vs manual testing coverage, browser+AT compatibility matrix, regression patterns, acceptance criteria templates |
+| legal-compliance-mapping | Section 508, ADA, EN 301 549, EAA, AODA framework mapping, VPAT 2.5 editions, non-WCAG requirements |
+| data-visualization-accessibility | Chart accessibility patterns, SVG ARIA, charting library APIs (Highcharts/Chart.js/D3/Recharts), color-safe palettes |
+
+### Agent Teams
+
+Team coordination is defined in `.github/agents/AGENTS.md`. Nine defined teams:
+
+- **Document Accessibility Audit** - led by document-accessibility-wizard with format-specific sub-agents
+- **Web Accessibility Audit** - led by accessibility-lead with all web specialist agents
+- **Full Audit** - combined web + document audit workflow
+- **Mobile Accessibility** - led by mobile-accessibility; invoked standalone or as handoff from accessibility-lead
+- **Design System Accessibility** - led by design-system-auditor; validates tokens before UI propagation
+- **GitHub Workflow** - led by github-hub; routes to daily-briefing, pr-review, issue-tracker, analytics, repo-admin, team-manager, contributions-hub, insiders-a11y-tracker, template-builder, repo-manager, projects-manager, actions-manager, security-dashboard, release-manager, notifications-manager, wiki-manager
+- **Developer Tools** - led by developer-hub; routes to python-specialist, wxpython-specialist, nvda-addon-specialist, desktop-a11y-specialist, desktop-a11y-testing-coach, a11y-tool-builder, text-quality-reviewer for Python, wxPython, NVDA addons, desktop accessibility, and tool building. Cross-team handoffs to web-accessibility-wizard and document-accessibility-wizard.
+
+### Decision Matrix
 
 - **New component or page:** Always apply aria-specialist + keyboard-navigator + alt-text-headings guidance. Add forms-specialist for any inputs, contrast-master for styling, modal-specialist for overlays, live-region-controller for dynamic updates, tables-data-specialist for any data tables.
 - **Modifying existing UI:** At minimum apply keyboard-navigator (tab order breaks easily). Add others based on what changed.
-- **Code review/audit:** Apply all specialist checklists. Use web-accessibility-wizard for guided web audits.
-- **Document audit:** Use document-accessibility-wizard for Office and PDF accessibility audits.
-- **Mobile app (React Native / Expo / iOS / Android):** Apply cognitive-accessibility guidance. Use mobile-accessibility for touch target checks.
+- **Code review/audit:** Apply all specialist checklists. Use accessibility-wizard for guided web audits. Use `audit-web-page` prompt for one-click full audits.
+- **Document audit:** Use document-accessibility-wizard for Office and PDF accessibility audits. Supports single files, folders, recursive scanning, delta scanning (changed files only), severity scoring, template analysis, remediation tracking across re-scans, compliance format export (VPAT/ACR), CSV export with help links, batch remediation scripts, and CI/CD integration guides.
+- **Web remediation:** Use `fix-web-issues` prompt to interactively apply fixes from an audit report. Use `compare-web-audits` to track progress between audits.
+- **Mobile app (React Native / Expo / iOS / Android):** Apply cognitive-accessibility guidance. Use mobile-accessibility for touch target checks, accessibilityLabel/Role/State audits, and platform-specific screen reader testing.
 - **Cognitive / UX clarity / plain language:** Use cognitive-accessibility for WCAG 2.2 SC 3.3.7, 3.3.8, 3.3.9, COGA guidance, error message quality, and reading level analysis.
-- **Design system / tokens:** Use design-system-auditor to validate color token pairs, focus ring tokens, spacing tokens, and motion tokens.
+- **Design system / tokens:** Use design-system-auditor to validate color token pairs, focus ring tokens, spacing tokens, and motion tokens before they propagate to UI.
 - **Data tables:** Always apply tables-data-specialist for any tabular data display.
 - **Links:** Always apply link-checker when pages contain hyperlinks.
-- **Images or media:** Always apply alt-text-headings.
+- **Markdown documentation:** Use markdown-a11y-assistant to audit and fix .md files - catches ambiguous links, broken anchors, missing table descriptions, emoji in headings, mermaid diagrams without alternatives, and em-dash normalization.
+- **Images or media:** Always apply alt-text-headings. The agent can visually analyze images and compare them against their alt text.
 - **Testing guidance:** Use testing-coach for screen reader testing, keyboard testing, and automated testing setup.
 - **WCAG questions:** Use wcag-guide to understand specific WCAG success criteria and conformance requirements.
+- **Python development:** Use developer-hub for any Python, wxPython, or desktop app task. Routes to python-specialist for language work and wxpython-specialist for GUI work.
+- **Desktop app packaging:** Use python-specialist for PyInstaller, Nuitka, cx_Freeze builds and troubleshooting.
+- **Desktop accessibility:** Use desktop-a11y-specialist for platform API implementation (UIA, MSAA, NSAccessibility), screen reader interaction, focus management, and high contrast support. Use desktop-a11y-testing-coach for screen reader testing walkthroughs and automated UIA tests.
+- **Building accessibility tools:** Use a11y-tool-builder for designing rule engines, document parsers, report generators, severity scoring, and scanner architecture.
 
-## Context Discovery
+### Custom Prompts for Document Accessibility
+
+The following prompt files in `.github/prompts/` provide one-click workflows for common document accessibility tasks. Select them from the prompt picker in Copilot Chat:
+
+| Prompt | What It Does |
+|--------|-------------|
+| audit-single-document | Scan a single .docx, .xlsx, .pptx, or .pdf with severity scoring |
+| audit-document-folder | Recursively scan an entire folder of documents |
+| audit-changed-documents | Delta scan - only audit documents changed since last commit |
+| generate-vpat | Generate a VPAT 2.5 / ACR compliance report from audit results |
+| generate-remediation-scripts | Create PowerShell/Bash scripts to batch-fix common issues |
+| compare-audits | Compare two audit reports to track remediation progress |
+| setup-document-cicd | Set up CI/CD pipelines for automated document scanning |
+| quick-document-check | Fast triage - errors only, pass/fail verdict |
+| create-accessible-template | Guidance for creating accessible document templates |
+| export-document-csv | Export document audit findings to CSV with Microsoft Office and Adobe PDF help links |
+| pdf-remediator | Guided PDF remediation with programmatic and manual fix options |
+| audit-document-conversion | Compare source document against exported PDF for accessibility preservation |
+| document-training | Generate role-specific accessibility training materials for document authors |
+
+### Custom Prompts for Web Accessibility
+
+One-click workflows for web accessibility auditing tasks:
+
+| Prompt | What It Does |
+|--------|-------------|
+| audit-web-page | Full single-page audit with axe-core scan and code review |
+| quick-web-check | Fast axe-core triage - runtime scan only, pass/fail verdict |
+| audit-web-multi-page | Multi-page comparison audit with cross-page pattern detection |
+| compare-web-audits | Compare two web audit reports to track remediation progress |
+| fix-web-issues | Interactive fix mode - auto-fixable and human-judgment items from audit report |
+| audit-markdown | Full markdown accessibility audit with Phase 0 config, parallel scanning, and saved scored report |
+| quick-markdown-check | Fast markdown triage - errors only, inline pass/fail verdict, no report file |
+| fix-markdown-issues | Interactive fix mode - auto-fix table and human-judgment items from saved report |
+| compare-markdown-audits | Track markdown remediation progress between two audit snapshots |
+| export-web-csv | Export web audit findings to CSV with Deque University help links |
+| export-markdown-csv | Export markdown audit findings to CSV with WCAG help links and markdownlint rule references |
+| setup-github-scanner | Set up the GitHub Accessibility Scanner in your repository with agent ecosystem integration |
+| setup-lighthouse-scanner | Set up Lighthouse CI accessibility scanning in your repository with agent ecosystem integration |
+
+### Custom Prompts for Developer Tools
+
+One-click workflows for desktop development, NVDA addon creation, and Python packaging:
+
+| Prompt | What It Does |
+|--------|-------------|
+| scaffold-nvda-addon | Scaffold a new NVDA screen reader addon project with structure, manifest, and boilerplate |
+| audit-desktop-a11y | Desktop application accessibility audit covering platform APIs, keyboard, and high contrast |
+| test-desktop-a11y | Create a desktop accessibility test plan with screen reader test cases and automated UIA scaffolding |
+| review-text-quality | Scan web files for broken alt text, template variables in aria-labels, placeholder labels, and duplicate names |
+| scaffold-wxpython-app | Scaffold an accessible wxPython desktop application with sizers, keyboard nav, and screen reader support |
+| package-python-app | Package a Python application for distribution using PyInstaller, Nuitka, or cx_Freeze |
+
+### Custom Prompts for Cross-Cutting Workflows
+
+| Prompt | What It Does |
+|--------|-------------|
+| generate-accessibility-statement | Generate a W3C or EU model accessibility statement from audit results |
+| audit-email-template | Audit an HTML email template for accessibility under email client constraints |
+| audit-media-content | Audit video/audio media for captions, descriptions, transcripts, and player controls |
+| onboard-team | Generate role-specific accessibility onboarding document (developer, designer, QA, etc.) |
+| accessibility-dashboard | Aggregate all audit reports into a unified dashboard view with overall score and trends |
+
+### Context Discovery
 
 When starting any accessibility audit, review, or remediation task, proactively check the workspace for existing context before proceeding:
 
-1. **Scan configuration files:** Check the workspace root for `.a11y-office-config.json`, `.a11y-pdf-config.json`, and `.a11y-web-config.json`. If any exist, read them to determine which rules are enabled/disabled, severity filters, and custom settings.
-2. **Previous audit reports:** Check for existing `ACCESSIBILITY-AUDIT.md`, `WEB-ACCESSIBILITY-AUDIT.md`, `DOCUMENT-ACCESSIBILITY-AUDIT.md`, and `MARKDOWN-ACCESSIBILITY-AUDIT.md` in the workspace root. If found, note the date, overall score, and issue count. Offer comparison/delta mode.
-3. **Scan config templates:** If no config file exists, mention that pre-built profiles (strict, moderate, minimal) are available in the `templates/` directory.
+1. **Scan configuration files:** Check the workspace root for `.a11y-office-config.json`, `.a11y-pdf-config.json`, and `.a11y-web-config.json`. If any exist, read them to determine which rules are enabled/disabled, severity filters, and custom settings. Apply these configurations to the audit - do not use defaults when a config file exists.
+2. **Previous audit reports:** Check for existing `ACCESSIBILITY-AUDIT.md`, `WEB-ACCESSIBILITY-AUDIT.md`, `DOCUMENT-ACCESSIBILITY-AUDIT.md`, and `MARKDOWN-ACCESSIBILITY-AUDIT.md` in the workspace root. If found, note the date, overall score, and issue count. Offer comparison/delta mode so the user can track remediation progress.
+3. **Scan config templates:** If no config file exists and the user is starting a new audit, mention that pre-built profiles (strict, moderate, minimal) are available in the `templates/` directory.
 
-## VS Code 1.113 Features
+### VS Code 1.113 Features
 
-VS Code 1.113 (March 2026) enhances accessibility agent workflows:
+VS Code 1.113 (March 2026) builds on the 1.112 platform improvements and adds capabilities that materially improve accessibility agent workflows:
 
-- **Monorepo Support:** `chat.useCustomizationsInParentRepositories` discovers agents from parent folders
-- **Agent Debugging:** `/troubleshoot`, JSONL export/import, Agent Flow Chart, and Agent Debug Logs support for Copilot CLI and Claude agent sessions
-- **MCP Across Agent Types:** VS Code-registered MCP servers now bridge into Copilot CLI and Claude agents
-- **Chat Customizations Editor:** `Chat: Open Chat Customizations` centralizes instructions, prompts, agents, skills, MCP servers, and plugins
-- **Nested Subagents:** `chat.subagents.allowInvocationsFromSubagents` enables recursive or coordinator-worker flows when deliberately needed
-- **Image Analysis:** `chat.imageSupport.enabled` for alt-text-headings to analyze actual images
-- **Integrated Browser:** `editor-browser` debug type for zoom/reflow testing (WCAG 1.4.4, 1.4.10), plus local HTTPS with self-signed certificates
-- **Permission Levels:** Autopilot (read-only scans), Bypass Approvals (batch scanning), Default (fix-applying)
+**Monorepo Support:**
+Enable `chat.useCustomizationsInParentRepositories` to discover accessibility agents from parent folders. Essential for teams who open package subfolders rather than the repo root.
 
-## Non-Negotiable Standards
+**Agent Debugging:**
+
+- `/troubleshoot` - Analyze agent debug logs directly in chat
+- Export/import debug sessions as JSONL for team sharing
+- Agent Flow Chart visualization
+- Copilot CLI and Claude agent sessions now appear in Agent Debug Logs as well
+
+Enable: `github.copilot.chat.agentDebugLog.enabled` and `github.copilot.chat.agentDebugLog.fileLogging.enabled`
+
+**MCP Across Local, CLI, and Claude Agents:**
+VS Code-registered MCP servers now bridge into Copilot CLI and Claude agents, including workspace `mcp.json` entries. This improves parity for the repo's MCP server workflows.
+
+**Chat Customizations Editor:**
+Use `Chat: Open Chat Customizations` to manage instructions, prompt files, agents, skills, MCP servers, and plugins from one place.
+
+**Nested Subagents:**
+Enable `chat.subagents.allowInvocationsFromSubagents` only for intentionally recursive or coordinator-worker workflows. Leave it off by default to avoid accidental recursion.
+
+**Image Analysis:**
+Enable `chat.imageSupport.enabled` for alt-text-headings to analyze actual images and suggest accurate alt text, or for contrast-master to analyze screenshots for visual issues.
+
+**Integrated Browser:**
+The `editor-browser` debug type allows testing zoom/reflow accessibility (WCAG 1.4.4, 1.4.10) and visual debugging of focus management without leaving VS Code. VS Code 1.113 also adds self-signed certificate trust for local HTTPS development and stronger browser-tab management.
+
+**Permission Levels:**
+
+- **Autopilot** (`chat.autopilot.enabled`) - Fully autonomous. Good for read-only scans.
+- **Bypass Approvals** - Auto-approve tools. Useful for batch scanning.
+- **Default** - Manual approval. Recommended for fix-applying workflows.
+
+### Scan Configuration Templates
+
+The `templates/` directory contains pre-built scan configuration profiles:
+
+- **strict** - All rules enabled, all severities reported
+- **moderate** - All rules enabled, errors and warnings only
+- **minimal** - Errors only, for quick triage
+
+Use the VS Code tasks `A11y: Init Office Scan Config` and `A11y: Init PDF Scan Config` to copy a moderate profile into your project root.
+
+### Always-On Instructions
+
+Three instruction files in `.github/instructions/` fire automatically on every Copilot completion for web UI files - no agent invocation required:
+
+| File | Applies To | What It Enforces |
+|------|-----------|------------------|
+| `web-accessibility-baseline.instructions.md` | `**/*.{html,jsx,tsx,vue,svelte,astro}` | Interactive elements, images, form inputs, heading structure, color/contrast, live regions, ARIA rules, motion |
+| `semantic-html.instructions.md` | `**/*.{html,jsx,tsx,vue,svelte,astro}` | Landmark structure, buttons vs links, lists, tables, forms, disclosure widgets, heading hierarchy |
+| `markdown-accessibility.instructions.md` | `**/*.md` | Ambiguous links, alt text, heading hierarchy, tables, emoji, mermaid diagrams, em-dashes, anchor link validation |
+
+These instructions are the highest-leverage accessiblity enforcement mechanism - they provide correction guidance at the point of code generation without requiring any agent to be invoked.
+
+### Audit Report Quality Requirements
+
+When generating any accessibility audit report (web, document, or markdown), the report MUST include all of these sections to be considered complete:
+
+1. **Metadata** - audit date, tool versions, scope (URLs/files audited), scan configuration used
+2. **Executive summary** - overall score (0-100, A-F grade), total issues by severity, pass/fail verdict
+3. **Findings** - each issue with: rule ID, WCAG criterion, severity, affected element/location, description, remediation guidance
+4. **Severity breakdown** - counts by Critical/Serious/Moderate/Minor
+5. **Remediation priorities** - ordered list of what to fix first based on impact and effort
+6. **Next steps** - recommended follow-up actions, re-scan timeline
+7. **Delta tracking** (when a previous report exists) - Fixed/New/Persistent/Regressed issue counts
+
+Do not consider an audit complete until the report contains all applicable sections. If generating a quick check (not a full audit), state explicitly that it is a triage result, not a complete audit report.
+
+### Non-Negotiable Standards
 
 - Semantic HTML before ARIA (`<button>` not `<div role="button">`)
 - One H1 per page, never skip heading levels
@@ -112,9 +301,17 @@ VS Code 1.113 (March 2026) enhances accessibility agent workflows:
 - Modals trap focus and return focus on close
 - Live regions for all dynamic content updates
 
+### Advanced Documentation
+
+Additional guides in `docs/`:
+
+- **cross-platform-handoff.md** - Seamless handoff between Claude Code and Copilot agent environments
+- **advanced-scanning-patterns.md** - Background scanning, worktree isolation, and large library strategies
+- **plugin-packaging.md** - Packaging and distributing agents for different environments
+- **platform-references.md** - All external documentation sources used to build this project, with feature-to-source mapping
+
 For tasks that do not involve any user-facing web content (backend logic, scripts, database work), these requirements do not apply.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Community-Access)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Community-Access)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [Community-Access/accessibility-agents](https://github.com/Community-Access/accessibility-agents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
