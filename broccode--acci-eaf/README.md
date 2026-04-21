@@ -1,6 +1,6 @@
-# acci_eaf — distributed by TomeVault
+# acci_eaf
 
-> Originally from [Broccode/acci_eaf](https://github.com/Broccode/acci_eaf). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Broccode/acci_eaf](https://github.com/Broccode/acci_eaf) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Broccode/acci_eaf](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Broccode)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Broccode/acci_eaf](https://github.com/Broccode/acci_eaf)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Broccode/acci_eaf
 ```
-Or browse all formats at [https://tomevault.io/claim/Broccode](https://tomevault.io/claim/Broccode).
+Source: [github.com/Broccode/acci_eaf](https://github.com/Broccode/acci_eaf).
 
 <!-- genome:d-i-p -->
