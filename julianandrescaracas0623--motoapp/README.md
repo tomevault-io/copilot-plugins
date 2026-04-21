@@ -1,6 +1,6 @@
 # MotoApp
 
-> Tome by [julianandrescaracas0623](https://github.com/julianandrescaracas0623/MotoApp) — distributed by [TomeVault](https://tomevault.io/claim/julianandrescaracas0623)
+> Tome by [julianandrescaracas0623](https://github.com/julianandrescaracas0623/MotoApp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [julianandrescaracas0623/MotoApp](htt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/julianandrescaracas0623)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/julianandrescaracas0623/MotoApp](https://github.com/julianandrescaracas0623/MotoApp)
 
 ---
 
