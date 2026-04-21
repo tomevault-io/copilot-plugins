@@ -7,14 +7,14 @@ OmniRoute is an AI gateway for multi-provider LLMs: an OpenAI-compatible endpoin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute).
+Original source: `AGENTS.md` in [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) — a repo with 3184+ stars on GitHub.
