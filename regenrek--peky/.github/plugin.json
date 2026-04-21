@@ -1,0 +1,14 @@
+{
+  "name": "regenrek--peky",
+  "displayName": "peky",
+  "description": "All your AI Agents like Claude Code, Codex CLI in a single TUI to keep things organized.",
+  "version": "1.0.0",
+  "author": "regenrek",
+  "homepage": "https://github.com/regenrek/peky",
+  "skills": [
+    {
+      "name": "peky",
+      "description": ""
+    }
+  ]
+}
