@@ -1,0 +1,69 @@
+{
+  "name": "vibecomfy",
+  "owner": "peteromallet",
+  "repo": "VibeComfy",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "comfy-analyze",
+      "path": ".claude/skills/comfy-analyze",
+      "github_url": "https://github.com/peteromallet/VibeComfy/tree/main/.claude/skills/comfy-analyze",
+      "description": ""
+    },
+    {
+      "name": "comfy-edit",
+      "path": ".claude/skills/comfy-edit",
+      "github_url": "https://github.com/peteromallet/VibeComfy/tree/main/.claude/skills/comfy-edit",
+      "description": ""
+    },
+    {
+      "name": "comfy-nodes",
+      "path": ".claude/skills/comfy-nodes",
+      "github_url": "https://github.com/peteromallet/VibeComfy/tree/main/.claude/skills/comfy-nodes",
+      "description": ""
+    },
+    {
+      "name": "comfy-registry",
+      "path": ".claude/skills/comfy-registry",
+      "github_url": "https://github.com/peteromallet/VibeComfy/tree/main/.claude/skills/comfy-registry",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/peteromallet/VibeComfy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:39:27Z"
+}
