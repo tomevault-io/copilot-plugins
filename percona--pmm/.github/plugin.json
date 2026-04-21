@@ -1,0 +1,9 @@
+{
+  "name": "percona--pmm",
+  "displayName": "pmm",
+  "description": "pmm",
+  "version": "1.0.0",
+  "author": "percona",
+  "homepage": "https://github.com/percona/pmm",
+  "skills": []
+}
