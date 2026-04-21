@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [vedmalex/pipeline.js](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/vedmalex)
+From [vedmalex/pipeline.js](https://github.com/vedmalex/pipeline.js) — a repo with 0+ stars on GitHub.
 
 ---
 
