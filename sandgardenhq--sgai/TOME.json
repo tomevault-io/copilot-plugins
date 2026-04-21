@@ -1,0 +1,327 @@
+{
+  "name": "sgai",
+  "owner": "sandgardenhq",
+  "repo": "sgai",
+  "description": "Sandgarden AI Software Factory",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-native-architecture",
+      "path": "cmd/sgai/skel/.sgai/skills/architecture/agent-native-architecture",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/architecture/agent-native-architecture",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "cmd/sgai/skel/.sgai/skills/product-design/brainstorming",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/product-design/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "browser-bug-testing-workflow",
+      "path": "cmd/sgai/skel/.sgai/skills/browser-bug-testing-workflow",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/browser-bug-testing-workflow",
+      "description": ""
+    },
+    {
+      "name": "code-cleanup",
+      "path": "cmd/sgai/skel/.sgai/skills/code-cleanup",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/code-cleanup",
+      "description": ""
+    },
+    {
+      "name": "collision-zone-thinking",
+      "path": "cmd/sgai/skel/.sgai/skills/problem-solving/collision-zone-thinking",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/problem-solving/collision-zone-thinking",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "path": "cmd/sgai/skel/.sgai/skills/condition-based-waiting",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "create-opencode-agents",
+      "path": "cmd/sgai/skel/.sgai/skills/meta/create-opencode-agents",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/meta/create-opencode-agents",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "path": "cmd/sgai/skel/.sgai/skills/deployment",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/deployment",
+      "description": ""
+    },
+    {
+      "name": "detecting-emergent-patterns",
+      "path": "cmd/sgai/skel/.sgai/skills/architecture/detecting-emergent-patterns",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/architecture/detecting-emergent-patterns",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": "cmd/sgai/skel/.sgai/skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "path": "cmd/sgai/skel/.sgai/skills/finishing-a-development-branch",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "cmd/sgai/skel/.sgai/skills/frontend-design",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "go-code-review",
+      "path": "cmd/sgai/skel/.sgai/skills/coding-practices/go-code-review",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/coding-practices/go-code-review",
+      "description": ""
+    },
+    {
+      "name": "go-http-server-routes",
+      "path": "cmd/sgai/skel/.sgai/skills/coding-practices/go-http-server-routes",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/coding-practices/go-http-server-routes",
+      "description": ""
+    },
+    {
+      "name": "go-json-file-reading",
+      "path": "cmd/sgai/skel/.sgai/skills/coding-practices/go-json-file-reading",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/coding-practices/go-json-file-reading",
+      "description": ""
+    },
+    {
+      "name": "go-project-layout",
+      "path": "cmd/sgai/skel/.sgai/skills/coding-practices/go-project-layout",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/coding-practices/go-project-layout",
+      "description": ""
+    },
+    {
+      "name": "go-testing-coverage",
+      "path": "cmd/sgai/skel/.sgai/skills/coding-practices/go-testing-coverage",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/coding-practices/go-testing-coverage",
+      "description": ""
+    },
+    {
+      "name": "goal-md-composer",
+      "path": "cmd/sgai/skel/.sgai/skills/product-design/goal-md-composer",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/product-design/goal-md-composer",
+      "description": ""
+    },
+    {
+      "name": "how-to-use-code-snippets",
+      "path": "cmd/sgai/skel/.sgai/skills/how-to-use-code-snippets",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/how-to-use-code-snippets",
+      "description": ""
+    },
+    {
+      "name": "incorporate-snippets",
+      "path": "cmd/sgai/skel/.sgai/skills/incorporate-snippets",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/incorporate-snippets",
+      "description": ""
+    },
+    {
+      "name": "inversion-exercise",
+      "path": "cmd/sgai/skel/.sgai/skills/problem-solving/inversion-exercise",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/problem-solving/inversion-exercise",
+      "description": ""
+    },
+    {
+      "name": "markdown-navigation",
+      "path": "cmd/sgai/skel/.sgai/skills/markdown-navigation",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/markdown-navigation",
+      "description": ""
+    },
+    {
+      "name": "meta-pattern-recognition",
+      "path": "cmd/sgai/skel/.sgai/skills/problem-solving/meta-pattern-recognition",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/problem-solving/meta-pattern-recognition",
+      "description": ""
+    },
+    {
+      "name": "new-openai-sdk-app",
+      "path": "cmd/sgai/skel/.sgai/skills/new-openai-sdk-app",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/new-openai-sdk-app",
+      "description": ""
+    },
+    {
+      "name": "new-sdk-app",
+      "path": "cmd/sgai/skel/.sgai/skills/new-sdk-app",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/new-sdk-app",
+      "description": ""
+    },
+    {
+      "name": "opencode-plugin-development",
+      "path": "cmd/sgai/skel/.sgai/skills/opencode-plugin-development",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/opencode-plugin-development",
+      "description": ""
+    },
+    {
+      "name": "preserving-productive-tensions",
+      "path": "cmd/sgai/skel/.sgai/skills/architecture/preserving-productive-tensions",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/architecture/preserving-productive-tensions",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "cmd/sgai/skel/.sgai/skills/coding-practices/react-best-practices",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/coding-practices/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "cmd/sgai/skel/.sgai/skills/react-best-practices",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-sse-patterns",
+      "path": "cmd/sgai/skel/.sgai/skills/coding-practices/react-sse-patterns",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/coding-practices/react-sse-patterns",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "path": "cmd/sgai/skel/.sgai/skills/receiving-code-review",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "path": "cmd/sgai/skel/.sgai/skills/requesting-code-review",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "run-long-running-processes-in-tmux",
+      "path": "cmd/sgai/skel/.sgai/skills/run-long-running-processes-in-tmux",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/run-long-running-processes-in-tmux",
+      "description": ""
+    },
+    {
+      "name": "scale-game",
+      "path": "cmd/sgai/skel/.sgai/skills/problem-solving/scale-game",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/problem-solving/scale-game",
+      "description": ""
+    },
+    {
+      "name": "set-workflow-state",
+      "path": "cmd/sgai/skel/.sgai/skills/set-workflow-state",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/set-workflow-state",
+      "description": ""
+    },
+    {
+      "name": "simplification-cascades",
+      "path": "cmd/sgai/skel/.sgai/skills/problem-solving/simplification-cascades",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/problem-solving/simplification-cascades",
+      "description": ""
+    },
+    {
+      "name": "stpa-overview",
+      "path": "cmd/sgai/skel/.sgai/skills/stpa/stpa-overview",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/stpa/stpa-overview",
+      "description": ""
+    },
+    {
+      "name": "stpa-step1-define-purpose",
+      "path": "cmd/sgai/skel/.sgai/skills/stpa/stpa-step1-define-purpose",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/stpa/stpa-step1-define-purpose",
+      "description": ""
+    },
+    {
+      "name": "stpa-step3-unsafe-control-actions",
+      "path": "cmd/sgai/skel/.sgai/skills/stpa/stpa-step3-unsafe-control-actions",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/stpa/stpa-step3-unsafe-control-actions",
+      "description": ""
+    },
+    {
+      "name": "stpa-step4-loss-scenarios",
+      "path": "cmd/sgai/skel/.sgai/skills/stpa/stpa-step4-loss-scenarios",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/stpa/stpa-step4-loss-scenarios",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": "cmd/sgai/skel/.sgai/skills/systematic-debugging",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "testing-skills-with-subagents",
+      "path": "cmd/sgai/skel/.sgai/skills/testing-skills-with-subagents",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/testing-skills-with-subagents",
+      "description": ""
+    },
+    {
+      "name": "tracing-knowledge-lineages",
+      "path": "cmd/sgai/skel/.sgai/skills/architecture/tracing-knowledge-lineages",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/architecture/tracing-knowledge-lineages",
+      "description": ""
+    },
+    {
+      "name": "using-jj-instead-of-git",
+      "path": "cmd/sgai/skel/.sgai/skills/using-jj-instead-of-git",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/using-jj-instead-of-git",
+      "description": ""
+    },
+    {
+      "name": "using-skills",
+      "path": "cmd/sgai/skel/.sgai/skills/using-skills",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/using-skills",
+      "description": ""
+    },
+    {
+      "name": "when-stuck",
+      "path": "cmd/sgai/skel/.sgai/skills/problem-solving/when-stuck",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/problem-solving/when-stuck",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "cmd/sgai/skel/.sgai/skills/meta/writing-skills",
+      "github_url": "https://github.com/sandgardenhq/sgai/tree/main/cmd/sgai/skel/.sgai/skills/meta/writing-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sandgardenhq/sgai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:47:24Z"
+}
