@@ -1,0 +1,9 @@
+{
+  "name": "valuecell-ai--clawx",
+  "displayName": "ClawX",
+  "description": "ClawX is a desktop app that provides a graphical interface for OpenClaw AI agents. It turns CLI-based AI orchestration into a desktop experience without using the terminal. China website is https://cl",
+  "version": "1.0.0",
+  "author": "ValueCell-ai",
+  "homepage": "https://github.com/ValueCell-ai/ClawX",
+  "skills": []
+}
