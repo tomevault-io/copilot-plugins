@@ -1,0 +1,9 @@
+{
+  "name": "abhi1693--openclaw-mission-control",
+  "displayName": "openclaw-mission-control",
+  "description": "AI Agent Orchestration Dashboard - Manage AI agents, assign tasks, and coordinate multi-agent collaboration via OpenClaw Gateway.",
+  "version": "1.0.0",
+  "author": "abhi1693",
+  "homepage": "https://github.com/abhi1693/openclaw-mission-control",
+  "skills": []
+}
