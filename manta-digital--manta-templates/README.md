@@ -1,6 +1,6 @@
-# manta-templates — distributed by TomeVault
+# manta-templates
 
-> Originally from [manta-digital/manta-templates](https://github.com/manta-digital/manta-templates). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [manta-digital/manta-templates](https://github.com/manta-digital/manta-templates) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [manta-digital/manta-templates](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/manta-digital)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/manta-digital/manta-templates](https://github.com/manta-digital/manta-templates)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/manta-digital) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
