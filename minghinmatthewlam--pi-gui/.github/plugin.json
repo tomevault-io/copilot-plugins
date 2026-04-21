@@ -1,0 +1,9 @@
+{
+  "name": "minghinmatthewlam--pi-gui",
+  "displayName": "pi-gui",
+  "description": "Electron GUI app for the pi coding agent runtime",
+  "version": "1.0.0",
+  "author": "minghinmatthewlam",
+  "homepage": "https://github.com/minghinmatthewlam/pi-gui",
+  "skills": []
+}
