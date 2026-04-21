@@ -1,0 +1,30 @@
+{
+  "name": "mysticaltech--marketingskills",
+  "displayName": "marketingskills",
+  "description": "Marketing skills for AI agents (Agent Skills spec). Fork of coreyhaines31/marketingskills with pre-built .skill files for easy installation.",
+  "version": "1.0.0",
+  "author": "mysticaltech",
+  "homepage": "https://github.com/mysticaltech/marketingskills",
+  "skills": [
+    {
+      "name": "ab-test-setup",
+      "description": ""
+    },
+    {
+      "name": "analytics-tracking",
+      "description": ""
+    },
+    {
+      "name": "email-sequence",
+      "description": ""
+    },
+    {
+      "name": "paywall-upgrade-cro",
+      "description": ""
+    },
+    {
+      "name": "referral-program",
+      "description": ""
+    }
+  ]
+}
