@@ -1,0 +1,90 @@
+## claude-code-apple-skills
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Purpose
+
+This is a collection of Claude Code skills for Apple platform development (iOS, macOS, iPadOS). Skills are markdown files that provide domain knowledge and workflows to Claude Code instances.
+
+**This is NOT a code project** - it contains only markdown documentation files organized as skills.
+
+## Architecture
+
+### Skill Structure
+
+```
+skills/
+├── {category}/
+│   ├── SKILL.md           # Entry point with YAML frontmatter
+│   └── {sub-skill}/
+│       ├── SKILL.md       # Sub-skill entry point
+│       └── *.md           # Supporting reference files
+```
+
+### YAML Frontmatter (Required)
+
+Every SKILL.md must have:
+
+```yaml
+---
+name: skill-name
+description: Brief description and when to use it
+allowed-tools: [Read, Write, Edit, Glob, Grep, Bash]
+---
+```
+
+### Skill Categories
+
+| Category | Purpose |
+|----------|---------|
+| `ios/` | iOS development patterns |
+| `macos/` | macOS development patterns |
+| `product/` | Product development workflow (idea to App Store), beta testing, localization |
+| `generators/` | Code generators producing production-ready Swift |
+| `growth/` | Analytics, press/media, community building, indie business |
+| `legal/` | Privacy policies, terms of service, EULAs |
+| `core-ml/` | Core ML, Vision, NaturalLanguage, on-device ML |
+| `apple-intelligence/` | Foundation Models, Visual Intelligence |
+| `design/` | Liquid Glass, modern design patterns |
+| `app-store/` | ASO, descriptions, screenshots, reviews, search ads, rejections |
+| `monetization/` | Monetization strategy, pricing, tiers |
+| `testing/` | TDD workflows, test infrastructure, snapshot tests |
+| `release-review/` | Pre-release audit checklists |
+| `shared/` | Meta-skills for creating (`skill-creator`) and auditing (`skill-auditor`) skills |
+
+### Generator vs Advisory vs Workflow Skills
+
+- **Advisory skills** (ios/, macos/, release-review/): Review code and provide recommendations
+- **Generator skills** (generators/): Produce production-ready Swift code with templates
+- **Workflow skills** (testing/, monetization/): Guide multi-step processes with methodology and code generation
+
+## Creating New Skills
+
+Use `skills/shared/skill-creator/SKILL.md` as the guide. Key requirements:
+
+1. **Simple skills** (< 400 lines): Single SKILL.md file
+2. **Complex skills** (> 400 lines): Modularize into SKILL.md + reference files
+3. **Naming**: Use `kebab-case` for skill names and files
+4. **Activation triggers**: Clear "When This Skill Activates" section
+5. **Examples**: Always show ✅ good and ❌ bad patterns
+
+## Apple Docs Reference
+
+Apple documentation files are stored at `/Users/ravishankar/Downloads/docs/`. Skills should reference these for latest API patterns.
+
+See `docs/ROADMAP.md` for planned skills based on available Apple docs.
+
+## Conventions
+
+- Code examples must be syntactically correct Swift
+- Use emoji sparingly (✅ ❌ for patterns, priority indicators for issues)
+- Output formats should use: 🔴 Critical, 🟠 High, 🟡 Medium, 🟢 Low, ✅ Strengths
+- Generator templates use protocol-based architecture for swappable implementations
+
+---
+> Source: [rshankras/claude-code-apple-skills](https://github.com/rshankras/claude-code-apple-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
