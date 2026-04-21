@@ -1,0 +1,50 @@
+{
+  "name": "foxj77--claudectx",
+  "displayName": "claude",
+  "description": "Fast way to switch between Claude Code configuration profiles",
+  "version": "1.0.0",
+  "author": "foxj77",
+  "homepage": "https://github.com/foxj77/claudectx",
+  "skills": [
+    {
+      "name": "flux-gitops-patterns",
+      "description": ""
+    },
+    {
+      "name": "flux-operations",
+      "description": ""
+    },
+    {
+      "name": "flux-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-development",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-maintenance",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-review",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-testing",
+      "description": ""
+    },
+    {
+      "name": "k8s-namespace-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "k8s-platform-tenancy",
+      "description": ""
+    },
+    {
+      "name": "kyverno-troubleshooting",
+      "description": ""
+    }
+  ]
+}
