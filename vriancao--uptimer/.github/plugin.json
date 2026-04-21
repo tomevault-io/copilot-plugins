@@ -1,0 +1,9 @@
+{
+  "name": "vriancao--uptimer",
+  "displayName": "Uptimer",
+  "description": "A Powerful Serverless Uptime Monitoring & Status Page on Cloudflare's Edge Network",
+  "version": "1.0.0",
+  "author": "VrianCao",
+  "homepage": "https://github.com/VrianCao/Uptimer",
+  "skills": []
+}
