@@ -1,0 +1,69 @@
+{
+  "name": "repocheckai",
+  "owner": "glaucia86",
+  "repo": "repocheckai",
+  "description": "Agentic CLI Tool for GitHub Repository Health Analysis",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-quality-audit",
+      "path": ".github/skills/code-quality-audit",
+      "github_url": "https://github.com/glaucia86/repocheckai/tree/main/.github/skills/code-quality-audit",
+      "description": ""
+    },
+    {
+      "name": "docs-audit",
+      "path": ".github/skills/docs-audit",
+      "github_url": "https://github.com/glaucia86/repocheckai/tree/main/.github/skills/docs-audit",
+      "description": ""
+    },
+    {
+      "name": "findings-to-github-issues",
+      "path": ".github/skills/findings-to-github-issues",
+      "github_url": "https://github.com/glaucia86/repocheckai/tree/main/.github/skills/findings-to-github-issues",
+      "description": ""
+    },
+    {
+      "name": "testing-posture",
+      "path": ".github/skills/testing-posture",
+      "github_url": "https://github.com/glaucia86/repocheckai/tree/main/.github/skills/testing-posture",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/glaucia86/repocheckai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:37:59Z"
+}
