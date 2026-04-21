@@ -1,0 +1,9 @@
+{
+  "name": "streamlit--agent-skills",
+  "displayName": "agent-skills",
+  "description": "A collection of agent skills for development of Streamlit apps.",
+  "version": "1.0.0",
+  "author": "streamlit",
+  "homepage": "https://github.com/streamlit/agent-skills",
+  "skills": []
+}
