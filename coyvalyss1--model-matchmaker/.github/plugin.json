@@ -1,0 +1,9 @@
+{
+  "name": "coyvalyss1--model-matchmaker",
+  "displayName": "model-matchmaker",
+  "description": "Local hook for Cursor and Claude Code that routes prompts to the right model tier. Stop paying Opus prices to rename files.",
+  "version": "1.0.0",
+  "author": "coyvalyss1",
+  "homepage": "https://github.com/coyvalyss1/model-matchmaker",
+  "skills": []
+}
