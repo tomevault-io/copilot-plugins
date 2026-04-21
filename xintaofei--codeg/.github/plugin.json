@@ -1,0 +1,9 @@
+{
+  "name": "xintaofei--codeg",
+  "displayName": "codeg",
+  "description": "Aggregate and browse AI coding agent sessions (Claude Code, Codex, Gemini CLI, etc.) in one place. Desktop app, self-hosted server, or Docker.",
+  "version": "1.0.0",
+  "author": "xintaofei",
+  "homepage": "https://github.com/xintaofei/codeg",
+  "skills": []
+}
