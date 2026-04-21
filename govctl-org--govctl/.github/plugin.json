@@ -1,0 +1,14 @@
+{
+  "name": "govctl-org--govctl",
+  "displayName": "govctl",
+  "description": "A governance harness for AI coding.",
+  "version": "1.0.0",
+  "author": "govctl-org",
+  "homepage": "https://github.com/govctl-org/govctl",
+  "skills": [
+    {
+      "name": "adr-writer",
+      "description": ""
+    }
+  ]
+}
