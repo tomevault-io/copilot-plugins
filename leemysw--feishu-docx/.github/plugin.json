@@ -1,0 +1,14 @@
+{
+  "name": "leemysw--feishu-docx",
+  "displayName": "feishu-docx",
+  "description": "\ud83d\ude80 Feishu/Lark Docs\u3001Sheet\u3001Bitable <-> Markdown | AI Agent-friendly knowledge base exporter and writer with OAuth 2.0, CLI, TUI & Claude Skills support - \u98de\u4e66\u6587\u6863 <\u5199\u5165/\u5bfc\u51fa> Markdown | AI Agent \u53cb\u597d\u578b\u5bfc\u51fa-\u5199\u5165\u5de5\u5177",
+  "version": "1.0.0",
+  "author": "leemysw",
+  "homepage": "https://github.com/leemysw/feishu-docx",
+  "skills": [
+    {
+      "name": "feishu-docx",
+      "description": ""
+    }
+  ]
+}
