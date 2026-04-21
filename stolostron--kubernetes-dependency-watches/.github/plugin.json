@@ -1,0 +1,9 @@
+{
+  "name": "stolostron--kubernetes-dependency-watches",
+  "displayName": "kubernetes-dependency-watches",
+  "description": "kubernetes-dependency-watches",
+  "version": "1.0.0",
+  "author": "stolostron",
+  "homepage": "https://github.com/stolostron/kubernetes-dependency-watches",
+  "skills": []
+}
