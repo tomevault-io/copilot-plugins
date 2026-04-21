@@ -1,0 +1,147 @@
+{
+  "name": "claude-ai-music-skills",
+  "owner": "bitwize-music-studio",
+  "repo": "claude-ai-music-skills",
+  "description": "Human + AI music production workflow for Suno - skills, templates, and tools",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "album-art-director",
+      "path": "skills/album-art-director",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/album-art-director",
+      "description": ""
+    },
+    {
+      "name": "album-conceptualizer",
+      "path": "skills/album-conceptualizer",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/album-conceptualizer",
+      "description": ""
+    },
+    {
+      "name": "clipboard",
+      "path": "skills/clipboard",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/clipboard",
+      "description": ""
+    },
+    {
+      "name": "document-hunter",
+      "path": "skills/document-hunter",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/document-hunter",
+      "description": ""
+    },
+    {
+      "name": "help",
+      "path": "skills/help",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/help",
+      "description": ""
+    },
+    {
+      "name": "mastering-engineer",
+      "path": "skills/mastering-engineer",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/mastering-engineer",
+      "description": ""
+    },
+    {
+      "name": "next-step",
+      "path": "skills/next-step",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/next-step",
+      "description": ""
+    },
+    {
+      "name": "plagiarism-checker",
+      "path": "skills/plagiarism-checker",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/plagiarism-checker",
+      "description": ""
+    },
+    {
+      "name": "researchers-gov",
+      "path": "skills/researchers-gov",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/researchers-gov",
+      "description": ""
+    },
+    {
+      "name": "researchers-legal",
+      "path": "skills/researchers-legal",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/researchers-legal",
+      "description": ""
+    },
+    {
+      "name": "researchers-tech",
+      "path": "skills/researchers-tech",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/researchers-tech",
+      "description": ""
+    },
+    {
+      "name": "resume",
+      "path": "skills/resume",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/resume",
+      "description": ""
+    },
+    {
+      "name": "session-start",
+      "path": "skills/session-start",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/session-start",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": "skills/setup",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "skill-model-updater",
+      "path": "skills/skill-model-updater",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/skill-model-updater",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": "skills/test",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/test",
+      "description": ""
+    },
+    {
+      "name": "tutorial",
+      "path": "skills/tutorial",
+      "github_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills/tree/main/skills/tutorial",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bitwize-music-studio/claude-ai-music-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:33:29Z"
+}
