@@ -1,0 +1,199 @@
+## model-matchmaker
+
+> This project is independent but follows Valyss ecosystem standards. Apply ALL rules from:
+
+# Model Matchmaker - Cursor AI Rules
+
+## Shared Rules (ALWAYS apply these)
+
+This project is independent but follows Valyss ecosystem standards. Apply ALL rules from:
+- `~/.cursorrules` (global: git safety, secrets, documentation, writing voice, public content security)
+- `~/.cursor/rules/git-workflow.mdc` (commit workflow)
+- `~/.cursor/rules/public-content-security.mdc` (sanitization for open-source/shared content)
+
+---
+
+## Project Overview
+
+Model Matchmaker is a local Cursor hook that classifies prompts before sending and recommends the right Claude model. Three files: `model-advisor.sh`, session-init/track-completion hooks.
+
+---
+
+## Repository Content Rules
+
+**This repo contains ONLY code and technical documentation.**
+
+### What Goes in This Repo
+- Hook scripts (`.sh` files)
+- Configuration files (`hooks.json`)
+- Technical docs (README.md, AUTO_SWITCH_SETUP.md, troubleshooting)
+- Code comments and API documentation
+- Test harnesses and examples
+
+### What Does NOT Go Here
+- **Marketing content** (release posts, social media copies, promotion materials)
+- **Business planning** (strategy docs, roadmap justifications, partnerships)
+- **Personal drafts** (pre-write content, brainstorms, unfinished ideas)
+
+**All marketing/business content goes to:** a separate private directory outside this repo (e.g., `~/private-docs/model-matchmaker-release/`)
+
+This ensures the repo stays technical and doesn't accidentally expose business decisions to the public.
+
+## Git Workflow
+
+### Commit Early, Commit Often
+- Commit after each logical unit (one feature, one fix, one refactor)
+- Commit messages explain WHY, not just WHAT
+- Format: `<type>: <message>` where type is one of: feat, fix, refactor, docs, test, chore
+
+### Examples
+```
+feat: add auto-switch feature for automatic model changing
+fix: handle edge case in prompt classification for long analytics strings  
+docs: update README with auto-switch setup instructions
+refactor: extract keyword lists into separate configuration arrays
+chore: update analytics script output format
+```
+
+### Commits to Avoid
+- Don't combine "add feature + remove old + wire up" - split into separate commits
+- Don't leave >500 lines uncommitted across >3 files
+- Don't mix feature work with documentation rewrites in one commit
+
+## Code Organization
+
+### File Structure
+```
+hooks/
+  model-advisor.sh         # Main classifier (python embedded in bash)
+  session-init.sh          # Session context injection
+  track-completion.sh      # Task outcome logging
+  analytics.sh             # Analytics dashboard
+  auto-switch-model.sh     # Automatic model switching via keyboard automation
+  toggle-auto-switch.sh    # Enable/disable auto-switch
+  AUTO_SWITCH_SETUP.md     # Auto-switch setup and troubleshooting
+
+skills/
+  optimize-classifier/     # Analyze overrides and auto-tune patterns
+  share-analytics/         # Sanitized analytics reporting
+
+README.md                  # Main documentation
+hooks.json                 # Cursor hook configuration
+```
+
+### Python in Bash Safety
+
+When embedding Python in bash `python3 -c '...'` heredocs:
+
+**SAFE (use `chr()` for special characters):**
+```python
+snippet = text[:40].replace(chr(10), " ").replace(chr(34), chr(39))
+newline = chr(10)
+quote = chr(34)
+```
+
+**UNSAFE (breaks bash quoting):**
+```python
+snippet = text[:40].replace("\n", " ")  # Backslash escapes break
+snippet = text[:40].replace("\"", "'")  # Escaped quotes break
+```
+
+This is critical: exit code 2 = Cursor blocks the prompt and locks the user out. Always test:
+```bash
+echo '{"prompt":"test","model":"claude-4-opus"}' | bash hooks/model-advisor.sh
+```
+
+Should output valid JSON, never bash errors.
+
+## Feature Development
+
+### Before Starting New Features
+1. Check if similar functionality was discussed in prior commits
+2. Review current keyword lists and classification logic
+3. Test locally: `echo '{"prompt":"...","model":"..."}' | bash hooks/model-advisor.sh`
+
+### Classification Task
+
+When adding new keyword patterns:
+1. Add to appropriate list in `model-advisor.sh` (haiku_patterns, sonnet_patterns, opus_keywords)
+2. Test with sample prompts: `! git commit test` should recommend Haiku
+3. Document the pattern choice in code comments
+4. Update README if adding new routing rules
+
+### Auto-Switch Development
+
+The auto-switch feature:
+- Uses `Cmd+/` keyboard shortcut (official Cursor shortcut)
+- Proxies through Terminal.app (has macOS Accessibility permissions)
+- Auto-closes Terminal window after each switch
+- Survives hook timeout via `start_new_session=True` (subprocess detachment)
+
+When debugging auto-switch:
+- Check audit log: `tail ~/.cursor/hooks/auto-switch-audit.log`
+- Test manually: `~/.cursor/hooks/auto-switch-model.sh haiku --test`
+- Verify Terminal has Accessibility permission
+
+## Testing
+
+### Manual Testing
+```bash
+# Test the classifier directly
+echo '{"prompt":"git commit -m test","model":"claude-4-opus"}' | bash hooks/model-advisor.sh
+# Should output: {"continue": false, "user_message": "..."}
+
+# Test auto-switch (requires Accessibility permissions)
+~/.cursor/hooks/auto-switch-model.sh haiku --test
+# Should switch model in Cursor
+
+# Test analytics
+./hooks/analytics.sh
+./hooks/analytics.sh --days 7
+```
+
+### Regression Testing
+- Always test override bypass: `! your prompt` should bypass classification
+- Verify analytics still logs correctly after changes
+- Check that hook timeout (2s) doesn't get exceeded
+
+## Documentation
+
+### When to Update Docs
+1. **New feature** → Add to README with examples
+2. **Breaking change** → Add migration guide
+3. **Bug fix** → Update troubleshooting section if user-facing
+4. **Refactor** → No doc changes needed (internal only)
+
+### Doc Files
+- `README.md` - Main guide, setup, results, troubleshooting
+- `hooks/AUTO_SWITCH_SETUP.md` - Auto-switch specific docs
+- Code comments - Explain non-obvious logic (bash quoting rules, classification design)
+
+## Common Pitfalls
+
+1. **Bash quoting in Python**: Use `chr()` always
+2. **Hook timeout**: Scripts must complete in <2 seconds
+3. **Exit codes matter**: 0=allow, 2=block, others=fail-open
+4. **Terminal permissions**: Auto-switch needs Accessibility grant
+5. **Process spawning**: Use `start_new_session=True` for detached subprocesses
+
+## Useful Commands
+
+```bash
+# View recent activity
+tail ~/.cursor/hooks/auto-switch-audit.log
+tail ~/.cursor/hooks/model-matchmaker.ndjson
+
+# Test the pipeline
+echo '{"prompt":"build a react component","model":"claude-4-haiku"}' | bash hooks/model-advisor.sh
+
+# Check git status before committing
+git status
+git diff --stat
+
+# View recent commits
+git log --oneline -10
+```
+
+---
+> Source: [coyvalyss1/model-matchmaker](https://github.com/coyvalyss1/model-matchmaker) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
