@@ -1,0 +1,99 @@
+{
+  "name": "opencode-template",
+  "owner": "julianromli",
+  "repo": "opencode-template",
+  "description": "OpenCode CLI Template by @faizntfd",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "browser",
+      "path": "skill/browser",
+      "github_url": "https://github.com/julianromli/opencode-template/tree/main/skill/browser",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "path": "skill/ralph",
+      "github_url": "https://github.com/julianromli/opencode-template/tree/main/skill/ralph",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "path": "skill/resend-design-skills/brand-guidelines",
+      "github_url": "https://github.com/julianromli/opencode-template/tree/main/skill/resend-design-skills/brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "resend-design-skills",
+      "path": "skill/resend-design-skills",
+      "github_url": "https://github.com/julianromli/opencode-template/tree/main/skill/resend-design-skills",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skill/skill-creator",
+      "github_url": "https://github.com/julianromli/opencode-template/tree/main/skill/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "path": "skill/subagent-driven-development",
+      "github_url": "https://github.com/julianromli/opencode-template/tree/main/skill/subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": "skill/ui-ux-pro-max",
+      "github_url": "https://github.com/julianromli/opencode-template/tree/main/skill/ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": "skill/vercel-react-best-practices",
+      "github_url": "https://github.com/julianromli/opencode-template/tree/main/skill/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "skill/writing-skills",
+      "github_url": "https://github.com/julianromli/opencode-template/tree/main/skill/writing-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/julianromli/opencode-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T17:38:16Z"
+}
