@@ -1,0 +1,30 @@
+{
+  "name": "codemie-ai--codemie-code",
+  "displayName": "codemie-code",
+  "description": "AI Run CodeMie CLI with analytics capabilities",
+  "version": "1.0.0",
+  "author": "codemie-ai",
+  "homepage": "https://github.com/codemie-ai/codemie-code",
+  "skills": [
+    {
+      "name": "codemie-pr",
+      "description": ""
+    },
+    {
+      "name": "codemie-release",
+      "description": ""
+    },
+    {
+      "name": "codemie-worktree",
+      "description": ""
+    },
+    {
+      "name": "spec-reviewer",
+      "description": ""
+    },
+    {
+      "name": "tech-lead",
+      "description": ""
+    }
+  ]
+}
