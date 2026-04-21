@@ -1,0 +1,14 @@
+{
+  "name": "tempoxyz--tempo-apps",
+  "displayName": "tempo-apps",
+  "description": "Monorepo for Tempo Apps",
+  "version": "1.0.0",
+  "author": "tempoxyz",
+  "homepage": "https://github.com/tempoxyz/tempo-apps",
+  "skills": [
+    {
+      "name": "tempo",
+      "description": ""
+    }
+  ]
+}
