@@ -1,0 +1,9 @@
+{
+  "name": "gastownhall--gascity",
+  "displayName": "gascity",
+  "description": "Orchestration-builder SDK for multi-agent coding workflows",
+  "version": "1.0.0",
+  "author": "gastownhall",
+  "homepage": "https://github.com/gastownhall/gascity",
+  "skills": []
+}
