@@ -1,0 +1,22 @@
+{
+  "name": "joa23--linear-cli",
+  "displayName": "linear-cli",
+  "description": "A token-efficient CLI for Linear",
+  "version": "1.0.0",
+  "author": "joa23",
+  "homepage": "https://github.com/joa23/linear-cli",
+  "skills": [
+    {
+      "name": "prd",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
