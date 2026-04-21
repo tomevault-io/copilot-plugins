@@ -1,0 +1,14 @@
+{
+  "name": "searlsco--prove-it",
+  "displayName": "prove_it",
+  "description": "The verification harness that Claude Code should have shipped with",
+  "version": "1.0.0",
+  "author": "searlsco",
+  "homepage": "https://github.com/searlsco/prove_it",
+  "skills": [
+    {
+      "name": "test-local",
+      "description": ""
+    }
+  ]
+}
