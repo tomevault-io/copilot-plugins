@@ -1,0 +1,66 @@
+{
+  "name": "maxvaega--skillkit",
+  "displayName": "skillkit",
+  "description": "Implementing Skills functionality for your agents",
+  "version": "1.0.0",
+  "author": "maxvaega",
+  "homepage": "https://github.com/maxvaega/skillkit",
+  "skills": [
+    {
+      "name": "arguments-test-skill",
+      "description": ""
+    },
+    {
+      "name": "valid-skill",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "file-reference-skill",
+      "description": ""
+    },
+    {
+      "name": "git-helper",
+      "description": ""
+    },
+    {
+      "name": "markdown-formatter",
+      "description": ""
+    },
+    {
+      "name": "category-b",
+      "description": ""
+    },
+    {
+      "name": "subcategory-1",
+      "description": ""
+    },
+    {
+      "name": "category-a",
+      "description": ""
+    },
+    {
+      "name": "nested-example",
+      "description": ""
+    },
+    {
+      "name": "pdf-extractor",
+      "description": ""
+    },
+    {
+      "name": "script-skill",
+      "description": ""
+    },
+    {
+      "name": "edge-special-chars",
+      "description": ""
+    },
+    {
+      "name": "valid-unicode",
+      "description": ""
+    }
+  ]
+}
