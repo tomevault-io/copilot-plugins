@@ -1,0 +1,273 @@
+{
+  "name": "solo-founder-superpowers",
+  "owner": "whawkinsiv",
+  "repo": "solo-founder-superpowers",
+  "description": "Skillset optimized for solo, bootstrapped, and non-technical founders building SaaS applications with AI tools (Lovable, Replit, Claude Code).",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accounting",
+      "path": "skills/accounting",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/accounting",
+      "description": ""
+    },
+    {
+      "name": "ads",
+      "path": "skills/ads",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/ads",
+      "description": ""
+    },
+    {
+      "name": "ai-features",
+      "path": "skills/ai-features",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/ai-features",
+      "description": ""
+    },
+    {
+      "name": "analytics",
+      "path": "skills/analytics",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/analytics",
+      "description": ""
+    },
+    {
+      "name": "build",
+      "path": "skills/build",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/build",
+      "description": ""
+    },
+    {
+      "name": "community",
+      "path": "skills/community",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/community",
+      "description": ""
+    },
+    {
+      "name": "content",
+      "path": "skills/content",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/content",
+      "description": ""
+    },
+    {
+      "name": "conversion",
+      "path": "skills/conversion",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/conversion",
+      "description": ""
+    },
+    {
+      "name": "copywriting",
+      "path": "skills/copywriting",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/copywriting",
+      "description": ""
+    },
+    {
+      "name": "customer-research",
+      "path": "skills/customer-research",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/customer-research",
+      "description": ""
+    },
+    {
+      "name": "database",
+      "path": "skills/database",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/database",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "path": "skills/debug",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/debug",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "path": "skills/deploy",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/deploy",
+      "description": ""
+    },
+    {
+      "name": "email",
+      "path": "skills/email",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/email",
+      "description": ""
+    },
+    {
+      "name": "feedback",
+      "path": "skills/feedback",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/feedback",
+      "description": ""
+    },
+    {
+      "name": "finances",
+      "path": "skills/finances",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/finances",
+      "description": ""
+    },
+    {
+      "name": "growth",
+      "path": "skills/growth",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/growth",
+      "description": ""
+    },
+    {
+      "name": "hiring",
+      "path": "skills/hiring",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/hiring",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": "skills/integrations",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/integrations",
+      "description": ""
+    },
+    {
+      "name": "landing-page",
+      "path": "skills/landing-page",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/landing-page",
+      "description": ""
+    },
+    {
+      "name": "launch",
+      "path": "skills/launch",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/launch",
+      "description": ""
+    },
+    {
+      "name": "legal",
+      "path": "skills/legal",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/legal",
+      "description": ""
+    },
+    {
+      "name": "market-research",
+      "path": "skills/market-research",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/market-research",
+      "description": ""
+    },
+    {
+      "name": "monitor",
+      "path": "skills/monitor",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/monitor",
+      "description": ""
+    },
+    {
+      "name": "optimize",
+      "path": "skills/optimize",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/optimize",
+      "description": ""
+    },
+    {
+      "name": "payments",
+      "path": "skills/payments",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/payments",
+      "description": ""
+    },
+    {
+      "name": "plan",
+      "path": "skills/plan",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/plan",
+      "description": ""
+    },
+    {
+      "name": "pricing",
+      "path": "skills/pricing",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/pricing",
+      "description": ""
+    },
+    {
+      "name": "prioritize",
+      "path": "skills/prioritize",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/prioritize",
+      "description": ""
+    },
+    {
+      "name": "retention",
+      "path": "skills/retention",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/retention",
+      "description": ""
+    },
+    {
+      "name": "sales",
+      "path": "skills/sales",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/sales",
+      "description": ""
+    },
+    {
+      "name": "secure",
+      "path": "skills/secure",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/secure",
+      "description": ""
+    },
+    {
+      "name": "seo",
+      "path": "skills/seo",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/seo",
+      "description": ""
+    },
+    {
+      "name": "social-media",
+      "path": "skills/social-media",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/social-media",
+      "description": ""
+    },
+    {
+      "name": "support",
+      "path": "skills/support",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/support",
+      "description": ""
+    },
+    {
+      "name": "technical-seo",
+      "path": "skills/technical-seo",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/technical-seo",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": "skills/test",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/test",
+      "description": ""
+    },
+    {
+      "name": "validate",
+      "path": "skills/validate",
+      "github_url": "https://github.com/whawkinsiv/solo-founder-superpowers/tree/main/skills/validate",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/whawkinsiv/solo-founder-superpowers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:50:15Z"
+}
