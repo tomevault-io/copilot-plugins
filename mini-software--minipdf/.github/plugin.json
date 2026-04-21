@@ -1,0 +1,9 @@
+{
+  "name": "mini-software--minipdf",
+  "displayName": "MiniPdf",
+  "description": "[Beta] A minimal .NET library convert Word and Excel to PDF.",
+  "version": "1.0.0",
+  "author": "mini-software",
+  "homepage": "https://github.com/mini-software/MiniPdf",
+  "skills": []
+}
