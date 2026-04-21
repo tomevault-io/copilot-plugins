@@ -1,0 +1,9 @@
+{
+  "name": "oasaistudio--symphony-ts",
+  "displayName": "symphony-ts",
+  "description": "Typecript version of https://github.com/openai/symphony",
+  "version": "1.0.0",
+  "author": "OasAIStudio",
+  "homepage": "https://github.com/OasAIStudio/symphony-ts",
+  "skills": []
+}
