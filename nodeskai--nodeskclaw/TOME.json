@@ -2,9 +2,9 @@
   "name": "nodeskclaw",
   "owner": "NoDeskAI",
   "repo": "nodeskclaw",
-  "description": "",
+  "description": "Humans and AI work together \u2764\ufe0f",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/NoDeskAI",
+  "source_url": "https://github.com/NoDeskAI/nodeskclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T12:40:44Z"
+  "distributed_at": "2026-04-21T04:41:03Z"
 }
