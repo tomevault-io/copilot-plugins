@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [rui-tx/jaws](https://github.com/rui-
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rui-tx)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rui-tx/jaws](https://github.com/rui-tx/jaws)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install rui-tx/jaws
 ```
-Or browse all formats at [https://tomevault.io/claim/rui-tx](https://tomevault.io/claim/rui-tx).
+Source: [github.com/rui-tx/jaws](https://github.com/rui-tx/jaws).
 
 <!-- genome:a-i-p -->
