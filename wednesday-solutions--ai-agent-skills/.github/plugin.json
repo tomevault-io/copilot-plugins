@@ -1,0 +1,18 @@
+{
+  "name": "wednesday-solutions--ai-agent-skills",
+  "displayName": "ai-agent-skills",
+  "description": "Pre-configured agent skills for Vibe Coded projects. These skills provide AI coding assistants (Claude Code, Cursor, etc.) with specific guidelines for code quality and design standards.",
+  "version": "1.0.0",
+  "author": "wednesday-solutions",
+  "homepage": "https://github.com/wednesday-solutions/ai-agent-skills",
+  "skills": [
+    {
+      "name": "wednesday-design",
+      "description": ""
+    },
+    {
+      "name": "wednesday-dev",
+      "description": ""
+    }
+  ]
+}
