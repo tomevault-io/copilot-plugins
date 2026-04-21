@@ -1,0 +1,57 @@
+{
+  "name": "mf-dashboard",
+  "owner": "hiroppy",
+  "repo": "mf-dashboard",
+  "description": "\u30de\u30cd\u30fc\u30d5\u30a9\u30ef\u30fc\u30c9Me\u3092\u81ea\u52d5\u5316\u3001\u4fdd\u6709\u8cc7\u7523\u306e\u53ef\u8996\u5316\u3092\u884c\u3044\u307e\u3059",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "db-schema-change",
+      "path": ".claude/skills/db-schema-change",
+      "github_url": "https://github.com/hiroppy/mf-dashboard/tree/main/.claude/skills/db-schema-change",
+      "description": ""
+    },
+    {
+      "name": "ui-component",
+      "path": ".claude/skills/ui-component",
+      "github_url": "https://github.com/hiroppy/mf-dashboard/tree/main/.claude/skills/ui-component",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hiroppy/mf-dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T10:32:27Z"
+}
