@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--pi-agent-rust",
+  "displayName": "pi_agent_rust",
+  "description": "High-performance AI coding agent CLI written in Rust with zero unsafe code",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/pi_agent_rust",
+  "skills": []
+}
