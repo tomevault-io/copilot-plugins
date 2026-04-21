@@ -1,0 +1,326 @@
+{
+  "name": "frumu-ai--tandem",
+  "displayName": "tandem",
+  "description": "Your AI coworker for any folder: local-first, secure by design, cross-platform, and built for supervised automation.",
+  "version": "1.0.0",
+  "author": "frumu-ai",
+  "homepage": "https://github.com/frumu-ai/tandem",
+  "skills": [
+    {
+      "name": "algorithmic-art",
+      "description": ""
+    },
+    {
+      "name": "bio-instrument-data",
+      "description": ""
+    },
+    {
+      "name": "bio-nextflow-manager",
+      "description": ""
+    },
+    {
+      "name": "bio-research-strategy",
+      "description": ""
+    },
+    {
+      "name": "bio-single-cell",
+      "description": ""
+    },
+    {
+      "name": "bio-strategy",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "legal-canned-responses",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "description": ""
+    },
+    {
+      "name": "competitor-alternatives",
+      "description": ""
+    },
+    {
+      "name": "legal-compliance",
+      "description": ""
+    },
+    {
+      "name": "content-strategy",
+      "description": ""
+    },
+    {
+      "name": "legal-contract-review",
+      "description": ""
+    },
+    {
+      "name": "copy-editing",
+      "description": ""
+    },
+    {
+      "name": "copywriting",
+      "description": ""
+    },
+    {
+      "name": "cowork-mcp-config-assistant",
+      "description": ""
+    },
+    {
+      "name": "data-analyze",
+      "description": ""
+    },
+    {
+      "name": "data-build-dashboard",
+      "description": ""
+    },
+    {
+      "name": "data-create-viz",
+      "description": ""
+    },
+    {
+      "name": "data-explore-data",
+      "description": ""
+    },
+    {
+      "name": "data-validate",
+      "description": ""
+    },
+    {
+      "name": "data-write-query",
+      "description": ""
+    },
+    {
+      "name": "development-estimation",
+      "description": ""
+    },
+    {
+      "name": "email-sequence",
+      "description": ""
+    },
+    {
+      "name": "enterprise-knowledge-synthesis",
+      "description": ""
+    },
+    {
+      "name": "enterprise-search-knowledge",
+      "description": ""
+    },
+    {
+      "name": "enterprise-search-source",
+      "description": ""
+    },
+    {
+      "name": "enterprise-search-strategy",
+      "description": ""
+    },
+    {
+      "name": "enterprise-source-management",
+      "description": ""
+    },
+    {
+      "name": "finance-income-statement",
+      "description": ""
+    },
+    {
+      "name": "finance-journal-entry",
+      "description": ""
+    },
+    {
+      "name": "finance-reconciliation",
+      "description": ""
+    },
+    {
+      "name": "finance-sox-testing",
+      "description": ""
+    },
+    {
+      "name": "finance-variance-analysis",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "inbox-triage",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "description": ""
+    },
+    {
+      "name": "launch-strategy",
+      "description": ""
+    },
+    {
+      "name": "legal-risk-assessment",
+      "description": ""
+    },
+    {
+      "name": "marketing-brand-voice",
+      "description": ""
+    },
+    {
+      "name": "marketing-campaign-planning",
+      "description": ""
+    },
+    {
+      "name": "marketing-competitive-analysis",
+      "description": ""
+    },
+    {
+      "name": "marketing-content-creation",
+      "description": ""
+    },
+    {
+      "name": "marketing-performance-analytics",
+      "description": ""
+    },
+    {
+      "name": "marketing-research-posting-plan",
+      "description": ""
+    },
+    {
+      "name": "legal-meeting-briefing",
+      "description": ""
+    },
+    {
+      "name": "meeting-notes",
+      "description": ""
+    },
+    {
+      "name": "mode-builder",
+      "description": ""
+    },
+    {
+      "name": "legal-nda-triage",
+      "description": ""
+    },
+    {
+      "name": "plan",
+      "description": ""
+    },
+    {
+      "name": "product-competitive-analysis",
+      "description": ""
+    },
+    {
+      "name": "product-feature-spec",
+      "description": ""
+    },
+    {
+      "name": "product-marketing-context",
+      "description": ""
+    },
+    {
+      "name": "product-metrics",
+      "description": ""
+    },
+    {
+      "name": "product-roadmap",
+      "description": ""
+    },
+    {
+      "name": "product-stakeholder-comms",
+      "description": ""
+    },
+    {
+      "name": "product-user-research",
+      "description": ""
+    },
+    {
+      "name": "productivity-memory",
+      "description": ""
+    },
+    {
+      "name": "productivity-start",
+      "description": ""
+    },
+    {
+      "name": "productivity-tasks",
+      "description": ""
+    },
+    {
+      "name": "productivity-update",
+      "description": ""
+    },
+    {
+      "name": "research-synthesis",
+      "description": ""
+    },
+    {
+      "name": "sales-account-research",
+      "description": ""
+    },
+    {
+      "name": "sales-call-prep",
+      "description": ""
+    },
+    {
+      "name": "sales-competitive-intelligence",
+      "description": ""
+    },
+    {
+      "name": "sales-create-asset",
+      "description": ""
+    },
+    {
+      "name": "sales-daily-briefing",
+      "description": ""
+    },
+    {
+      "name": "sales-draft-outreach",
+      "description": ""
+    },
+    {
+      "name": "seo-audit",
+      "description": ""
+    },
+    {
+      "name": "social-content",
+      "description": ""
+    },
+    {
+      "name": "support-customer-research",
+      "description": ""
+    },
+    {
+      "name": "support-escalation",
+      "description": ""
+    },
+    {
+      "name": "support-knowledge-management",
+      "description": ""
+    },
+    {
+      "name": "support-response-drafting",
+      "description": ""
+    },
+    {
+      "name": "support-ticket-triage",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "description": ""
+    },
+    {
+      "name": "web-artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "writing-polish",
+      "description": ""
+    },
+    {
+      "name": "youtube-scriptwriter",
+      "description": ""
+    }
+  ]
+}
