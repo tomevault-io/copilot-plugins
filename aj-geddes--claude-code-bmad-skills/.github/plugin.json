@@ -1,0 +1,50 @@
+{
+  "name": "aj-geddes--claude-code-bmad-skills",
+  "displayName": "claude-code-bmad-skills",
+  "description": "BMAD Method skills for Claude Code - Auto-detection, Memory integration, Slash commands. Transform Claude Code into a BMAD-powered development environment.",
+  "version": "1.0.0",
+  "author": "aj-geddes",
+  "homepage": "https://github.com/aj-geddes/claude-code-bmad-skills",
+  "skills": [
+    {
+      "name": "bmad-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "builder",
+      "description": ""
+    },
+    {
+      "name": "builder",
+      "description": ""
+    },
+    {
+      "name": "developer",
+      "description": ""
+    },
+    {
+      "name": "developer",
+      "description": ""
+    },
+    {
+      "name": "product-manager",
+      "description": ""
+    },
+    {
+      "name": "system-architect",
+      "description": ""
+    },
+    {
+      "name": "architect",
+      "description": ""
+    },
+    {
+      "name": "ux-designer",
+      "description": ""
+    },
+    {
+      "name": "ux-designer",
+      "description": ""
+    }
+  ]
+}
