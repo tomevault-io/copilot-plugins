@@ -1,0 +1,9 @@
+{
+  "name": "jrswab--axe",
+  "displayName": "axe",
+  "description": "A lightweight cli for running single-purpose AI agents. Define focused agents in TOML, trigger them from anywhere; pipes, git hooks, cron, or the terminal.",
+  "version": "1.0.0",
+  "author": "jrswab",
+  "homepage": "https://github.com/jrswab/axe",
+  "skills": []
+}
