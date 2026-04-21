@@ -1,0 +1,9 @@
+{
+  "name": "r44vc0rp--pgrok",
+  "displayName": "pgrok",
+  "description": "Personal ngrok alternative. Expose local ports to the internet with automatic HTTPS via SSH tunnels + Caddy.",
+  "version": "1.0.0",
+  "author": "R44VC0RP",
+  "homepage": "https://github.com/R44VC0RP/pgrok",
+  "skills": []
+}
