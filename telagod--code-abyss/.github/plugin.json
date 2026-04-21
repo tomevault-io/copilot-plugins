@@ -1,0 +1,70 @@
+{
+  "name": "telagod--code-abyss",
+  "displayName": "code-abyss",
+  "description": "\u4e3a Claude Code / Codex CLI \u6ce8\u5165\u90aa\u4fee\u4eba\u683c\u30014\u79cd\u53ef\u5207\u6362\u8f93\u51fa\u98ce\u683c\u4e0e 56 \u7bc7\u653b\u9632\u5de5\u7a0b\u79d8\u5178",
+  "version": "1.0.0",
+  "author": "telagod",
+  "homepage": "https://github.com/telagod/code-abyss",
+  "skills": [
+    {
+      "name": "ai",
+      "description": ""
+    },
+    {
+      "name": "architecture",
+      "description": ""
+    },
+    {
+      "name": "claymorphism",
+      "description": ""
+    },
+    {
+      "name": "development",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "gen-docs",
+      "description": ""
+    },
+    {
+      "name": "glassmorphism",
+      "description": ""
+    },
+    {
+      "name": "infrastructure",
+      "description": ""
+    },
+    {
+      "name": "liquid-glass",
+      "description": ""
+    },
+    {
+      "name": "mobile",
+      "description": ""
+    },
+    {
+      "name": "multi-agent",
+      "description": ""
+    },
+    {
+      "name": "neubrutalism",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "verify-module",
+      "description": ""
+    }
+  ]
+}
