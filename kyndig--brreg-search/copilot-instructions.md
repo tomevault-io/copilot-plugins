@@ -1,0 +1,39 @@
+## brreg-search
+
+> - Relaxed and informal on the surface, intellectually sharp underneath
+
+# Documentation Style Guide
+
+## Voice: "Løs i snippen, rask i toppen"
+- Relaxed and informal on the surface, intellectually sharp underneath
+- Prioritise clarity, correctness, and actionable detail
+- Assume the reader is smart and busy
+- Short sentences, strong structure (clear headings, bullets, examples)
+- Zero fluff, no salesy language
+- Max 1–2 dry/intellectual puns per document section (never at expense of precision)
+- If unsure about a fact, say so plainly and suggest verification
+
+## Language
+- UK English spelling (organisation, favour, colour, optimise, centralise, etc.)
+- Technical terms use standard casing (TypeScript, Raycast, API)
+
+## Documentation Structure
+- README: concise, scannable, no redundancy
+- CHANGELOG: follow Raycast convention `## [Short Title] [Version] - [PR_MERGE_DATE]` or date
+- Code comments: explain "why", not "what"
+
+## Accuracy Requirements
+- Every feature claim must map to actual code implementation
+- Don't document features that don't exist or aren't visible to users
+- Verify keyboard shortcuts match `KEYBOARD_SHORTCUTS` constants
+- Privacy section must explicitly list all third-party services and what data is sent
+
+## Code Standards
+- Follow existing architectural patterns
+- Apply DRY principles
+- TypeScript strict mode
+- Raycast API conventions
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/kyndig) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
