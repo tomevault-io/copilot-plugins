@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Valynt/ValueOS](https://github.com/V
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Valynt#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Valynt/ValueOS](https://github.com/Valynt/ValueOS)
 
 ---
 
