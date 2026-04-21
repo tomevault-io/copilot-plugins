@@ -1,0 +1,9 @@
+{
+  "name": "op7418--codepilot",
+  "displayName": "CodePilot",
+  "description": "A multi-model AI agent desktop client \u2014 connect any AI provider, extend with MCP & skills, control from your phone. Built with Electron + Next.js.",
+  "version": "1.0.0",
+  "author": "op7418",
+  "homepage": "https://github.com/op7418/CodePilot",
+  "skills": []
+}
