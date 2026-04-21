@@ -1,0 +1,51 @@
+{
+  "name": "eslint-plugin-react-render-types",
+  "owner": "HorusGoul",
+  "repo": "eslint-plugin-react-render-types",
+  "description": "ESLint plugin that brings Flow's Render Types to TypeScript via JSDoc. Enforce component composition constraints like `@renders {MenuItem}` at lint time.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-render-types-setup",
+      "path": "skills/react-render-types-setup",
+      "github_url": "https://github.com/HorusGoul/eslint-plugin-react-render-types/tree/main/skills/react-render-types-setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HorusGoul/eslint-plugin-react-render-types",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:54:20Z"
+}
