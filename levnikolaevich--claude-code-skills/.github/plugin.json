@@ -1,0 +1,9 @@
+{
+  "name": "levnikolaevich--claude-code-skills",
+  "displayName": "claude-code-skills",
+  "description": "Plugin suite + bundled MCP servers for Claude Code. Full delivery lifecycle: Agile pipeline with multi-model AI review, project bootstrap, documentation generation, codebase audits, performance optimi",
+  "version": "1.0.0",
+  "author": "levnikolaevich",
+  "homepage": "https://github.com/levnikolaevich/claude-code-skills",
+  "skills": []
+}
