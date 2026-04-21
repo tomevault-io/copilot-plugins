@@ -1,0 +1,150 @@
+{
+  "name": "daymade--claude-code-skills",
+  "displayName": "claude-code-skills",
+  "description": "Professional Claude Code skills marketplace featuring production-ready skills for enhanced development workflows.",
+  "version": "1.0.0",
+  "author": "daymade",
+  "homepage": "https://github.com/daymade/claude-code-skills",
+  "skills": [
+    {
+      "name": "claude-code-history-files-finder",
+      "description": ""
+    },
+    {
+      "name": "claude-skills-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "cli-demo-generator",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "competitors-analysis",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "description": ""
+    },
+    {
+      "name": "docs-cleaner",
+      "description": ""
+    },
+    {
+      "name": "fact-checker",
+      "description": ""
+    },
+    {
+      "name": "github-contributor",
+      "description": ""
+    },
+    {
+      "name": "github-ops",
+      "description": ""
+    },
+    {
+      "name": "i18n-expert",
+      "description": ""
+    },
+    {
+      "name": "llm-icon-finder",
+      "description": ""
+    },
+    {
+      "name": "macos-cleaner",
+      "description": ""
+    },
+    {
+      "name": "meeting-minutes-taker",
+      "description": ""
+    },
+    {
+      "name": "mermaid-tools",
+      "description": ""
+    },
+    {
+      "name": "pdf-creator",
+      "description": ""
+    },
+    {
+      "name": "ppt-creator",
+      "description": ""
+    },
+    {
+      "name": "prompt-optimizer",
+      "description": ""
+    },
+    {
+      "name": "promptfoo-evaluation",
+      "description": ""
+    },
+    {
+      "name": "qa-expert",
+      "description": ""
+    },
+    {
+      "name": "repomix-safe-mixer",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-reviewer",
+      "description": ""
+    },
+    {
+      "name": "skills-search",
+      "description": ""
+    },
+    {
+      "name": "statusline-generator",
+      "description": ""
+    },
+    {
+      "name": "teams-channel-post-writer",
+      "description": ""
+    },
+    {
+      "name": "transcript-fixer",
+      "description": ""
+    },
+    {
+      "name": "tunnel-doctor",
+      "description": ""
+    },
+    {
+      "name": "twitter-reader",
+      "description": ""
+    },
+    {
+      "name": "ui-designer",
+      "description": ""
+    },
+    {
+      "name": "video-comparer",
+      "description": ""
+    },
+    {
+      "name": "windows-remote-desktop-connection-doctor",
+      "description": ""
+    },
+    {
+      "name": "youtube-downloader",
+      "description": ""
+    },
+    {
+      "name": "claude-md-progressive-disclosurer",
+      "description": ""
+    },
+    {
+      "name": "repomix-unmixer",
+      "description": ""
+    }
+  ]
+}
