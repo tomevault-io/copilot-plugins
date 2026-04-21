@@ -1,0 +1,9 @@
+{
+  "name": "ilysenko--codex-desktop-linux",
+  "displayName": "codex-desktop-linux",
+  "description": "Run OpenAI Codex Desktop on Linux - automated installer",
+  "version": "1.0.0",
+  "author": "ilysenko",
+  "homepage": "https://github.com/ilysenko/codex-desktop-linux",
+  "skills": []
+}
