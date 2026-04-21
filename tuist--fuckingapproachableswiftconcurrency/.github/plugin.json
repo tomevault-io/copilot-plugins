@@ -1,0 +1,14 @@
+{
+  "name": "tuist--fuckingapproachableswiftconcurrency",
+  "displayName": "fuckingapproachableswiftconcurrency",
+  "description": "A cheatsheet to learn approachable Swift concurrency",
+  "version": "1.0.0",
+  "author": "tuist",
+  "homepage": "https://github.com/tuist/fuckingapproachableswiftconcurrency",
+  "skills": [
+    {
+      "name": "src",
+      "description": ""
+    }
+  ]
+}
