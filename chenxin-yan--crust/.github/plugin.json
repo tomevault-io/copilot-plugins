@@ -1,0 +1,9 @@
+{
+  "name": "chenxin-yan--crust",
+  "displayName": "crust",
+  "description": "A TypeScript-first, Bun-native CLI framework with composable modules.",
+  "version": "1.0.0",
+  "author": "chenxin-yan",
+  "homepage": "https://github.com/chenxin-yan/crust",
+  "skills": []
+}
