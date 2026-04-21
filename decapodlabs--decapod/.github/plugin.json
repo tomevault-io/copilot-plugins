@@ -1,0 +1,9 @@
+{
+  "name": "decapodlabs--decapod",
+  "displayName": "decapod",
+  "description": "Decapod is the daemonless, local-first control plane agents call on demand to converge on human intent, shape context before inference, enforce boundaries, and deliver proof-backed completion across c",
+  "version": "1.0.0",
+  "author": "DecapodLabs",
+  "homepage": "https://github.com/DecapodLabs/decapod",
+  "skills": []
+}
