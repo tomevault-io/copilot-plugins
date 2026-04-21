@@ -1,0 +1,14 @@
+{
+  "name": "cj-vana--claude-swarm",
+  "displayName": "claude-swarm",
+  "description": "MCP server for orchestrating parallel Claude Code worker swarms with protocol-based behavioral governance, persistent state, and real-time monitoring dashboard",
+  "version": "1.0.0",
+  "author": "cj-vana",
+  "homepage": "https://github.com/cj-vana/claude-swarm",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
