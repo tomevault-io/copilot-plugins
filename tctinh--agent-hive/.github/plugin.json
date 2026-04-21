@@ -1,0 +1,42 @@
+{
+  "name": "tctinh--agent-hive",
+  "displayName": "agent-hive",
+  "description": "AI instruction skills by tctinh",
+  "version": "1.0.0",
+  "author": "tctinh",
+  "homepage": "https://github.com/tctinh/agent-hive",
+  "skills": [
+    {
+      "name": "agents-md-mastery",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "docker-mastery",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    }
+  ]
+}
