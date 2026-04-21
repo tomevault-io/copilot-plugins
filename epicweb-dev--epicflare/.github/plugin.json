@@ -1,0 +1,50 @@
+{
+  "name": "epicweb-dev--epicflare",
+  "displayName": "epic",
+  "description": "A starter and reference for building full-stack web applications on Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "epicweb-dev",
+  "homepage": "https://github.com/epicweb-dev/epicflare",
+  "skills": [
+    {
+      "name": "epic-auth",
+      "description": ""
+    },
+    {
+      "name": "epic-caching",
+      "description": ""
+    },
+    {
+      "name": "epic-database",
+      "description": ""
+    },
+    {
+      "name": "epic-deployment",
+      "description": ""
+    },
+    {
+      "name": "epic-forms",
+      "description": ""
+    },
+    {
+      "name": "epic-permissions",
+      "description": ""
+    },
+    {
+      "name": "epic-react-patterns",
+      "description": ""
+    },
+    {
+      "name": "epic-routing",
+      "description": ""
+    },
+    {
+      "name": "epic-security",
+      "description": ""
+    },
+    {
+      "name": "epic-ui-guidelines",
+      "description": ""
+    }
+  ]
+}
