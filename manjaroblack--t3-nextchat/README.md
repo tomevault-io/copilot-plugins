@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [manjaroblack/t3-nextchat](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/manjaroblack#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/manjaroblack/t3-nextchat](https://github.com/manjaroblack/t3-nextchat)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/manjaroblack) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-q -->
