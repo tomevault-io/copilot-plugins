@@ -1,0 +1,9 @@
+{
+  "name": "xiaguan--pegainfer",
+  "displayName": "pegainfer",
+  "description": "Pure Rust + CUDA LLM inference engine",
+  "version": "1.0.0",
+  "author": "xiaguan",
+  "homepage": "https://github.com/xiaguan/pegainfer",
+  "skills": []
+}
