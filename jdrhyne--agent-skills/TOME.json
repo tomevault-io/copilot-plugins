@@ -1,0 +1,171 @@
+{
+  "name": "agent-skills",
+  "owner": "jdrhyne",
+  "repo": "agent-skills",
+  "description": "A collection of AI agent skills for Clawdbot, Claude Code, Codex",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "auto-updater",
+      "path": "clawdbot/auto-updater",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/clawdbot/auto-updater",
+      "description": ""
+    },
+    {
+      "name": "clawddocs",
+      "path": "clawdbot/clawddocs",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/clawdbot/clawddocs",
+      "description": ""
+    },
+    {
+      "name": "elegant-reports",
+      "path": "skills/elegant-reports",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/elegant-reports",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "ga4",
+      "path": "skills/ga4",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/ga4",
+      "description": ""
+    },
+    {
+      "name": "gallery-scraper",
+      "path": "clawdbot/gallery-scraper",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/clawdbot/gallery-scraper",
+      "description": ""
+    },
+    {
+      "name": "gong",
+      "path": "skills/gong",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/gong",
+      "description": ""
+    },
+    {
+      "name": "google-ads",
+      "path": "skills/google-ads",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/google-ads",
+      "description": ""
+    },
+    {
+      "name": "humanizer",
+      "path": "prompts/humanizer",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/prompts/humanizer",
+      "description": ""
+    },
+    {
+      "name": "jira",
+      "path": "skills/jira",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/jira",
+      "description": ""
+    },
+    {
+      "name": "munger-observer",
+      "path": "prompts/munger-observer",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/prompts/munger-observer",
+      "description": ""
+    },
+    {
+      "name": "nudocs",
+      "path": "skills/nudocs",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/nudocs",
+      "description": ""
+    },
+    {
+      "name": "nutrient-openclaw",
+      "path": "skills/nutrient-openclaw",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/nutrient-openclaw",
+      "description": ""
+    },
+    {
+      "name": "planner",
+      "path": "skills/planner",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/planner",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "path": "skills/remotion",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/remotion",
+      "description": ""
+    },
+    {
+      "name": "salesforce",
+      "path": "skills/salesforce",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/salesforce",
+      "description": ""
+    },
+    {
+      "name": "senior-engineering",
+      "path": "prompts/senior-engineering",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/prompts/senior-engineering",
+      "description": ""
+    },
+    {
+      "name": "skill-sync",
+      "path": "clawdbot/skill-sync",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/clawdbot/skill-sync",
+      "description": ""
+    },
+    {
+      "name": "sysadmin-toolbox",
+      "path": "skills/sysadmin-toolbox",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/sysadmin-toolbox",
+      "description": ""
+    },
+    {
+      "name": "task-orchestrator",
+      "path": "skills/task-orchestrator",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/task-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "zendesk",
+      "path": "skills/zendesk",
+      "github_url": "https://github.com/jdrhyne/agent-skills/tree/main/skills/zendesk",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jdrhyne/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:39:14Z"
+}
