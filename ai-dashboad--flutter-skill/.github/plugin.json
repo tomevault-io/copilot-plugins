@@ -1,0 +1,18 @@
+{
+  "name": "ai-dashboad--flutter-skill",
+  "displayName": "flutter-skill",
+  "description": "AI-powered E2E testing for 10 platforms. 253 MCP tools. Zero config. Works with Claude, Cursor, Windsurf, Copilot. Test Flutter, React Native, iOS, Android, Web, Electron, Tauri, KMP, .NET MAUI \u2014 all ",
+  "version": "1.0.0",
+  "author": "ai-dashboad",
+  "homepage": "https://github.com/ai-dashboad/flutter-skill",
+  "skills": [
+    {
+      "name": "e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "flutter-skill",
+      "description": ""
+    }
+  ]
+}
