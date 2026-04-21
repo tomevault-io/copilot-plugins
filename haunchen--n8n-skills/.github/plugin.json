@@ -1,0 +1,14 @@
+{
+  "name": "haunchen--n8n-skills",
+  "displayName": "n8n-skills",
+  "description": "Designed specifically for AI assistants, the n8n Workflow Automation Skills Suite.",
+  "version": "1.0.0",
+  "author": "haunchen",
+  "homepage": "https://github.com/haunchen/n8n-skills",
+  "skills": [
+    {
+      "name": "n8n-skills",
+      "description": ""
+    }
+  ]
+}
