@@ -1,0 +1,9 @@
+{
+  "name": "lalitmaganti--syntaqlite",
+  "displayName": "syntaqlite",
+  "description": "A parser, formatter, validator, and language server for SQLite SQL. Built on SQLite's own grammar and tokenizer",
+  "version": "1.0.0",
+  "author": "LalitMaganti",
+  "homepage": "https://github.com/LalitMaganti/syntaqlite",
+  "skills": []
+}
