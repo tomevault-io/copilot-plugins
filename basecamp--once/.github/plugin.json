@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--once",
+  "displayName": "once",
+  "description": "Easy self-hosting for Docker-based web apps",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/once",
+  "skills": []
+}
