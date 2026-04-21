@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--buffa",
+  "displayName": "buffa",
+  "description": "Rust implementation of protobuf with editions support, JSON serialization, and zero-copy views",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/buffa",
+  "skills": []
+}
