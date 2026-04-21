@@ -1,0 +1,237 @@
+{
+  "name": "claude-skills-journalism",
+  "owner": "jamditis",
+  "repo": "claude-skills-journalism",
+  "description": "Claude Code skills for journalism, media, and academia - verification, FOIA, data journalism, academic writing, and more",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "web-scraping",
+      "path": "web-scraping",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/web-scraping",
+      "description": ""
+    },
+    {
+      "name": "academic-writing",
+      "path": "academic-writing",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/academic-writing",
+      "description": ""
+    },
+    {
+      "name": "accessibility-compliance",
+      "path": "accessibility-compliance",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/accessibility-compliance",
+      "description": ""
+    },
+    {
+      "name": "ai-writing-detox",
+      "path": "ai-writing-detox",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/ai-writing-detox",
+      "description": ""
+    },
+    {
+      "name": "api-hardening",
+      "path": "api-hardening",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/api-hardening",
+      "description": ""
+    },
+    {
+      "name": "crisis-communications",
+      "path": "crisis-communications",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/crisis-communications",
+      "description": ""
+    },
+    {
+      "name": "digital-archive",
+      "path": "digital-archive",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/digital-archive",
+      "description": ""
+    },
+    {
+      "name": "document-design",
+      "path": "pdf-playground/skills/document-design",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/pdf-playground/skills/document-design",
+      "description": ""
+    },
+    {
+      "name": "editorial-workflow",
+      "path": "editorial-workflow",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/editorial-workflow",
+      "description": ""
+    },
+    {
+      "name": "electron-dev",
+      "path": "electron-dev",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/electron-dev",
+      "description": ""
+    },
+    {
+      "name": "foia-requests",
+      "path": "foia-requests",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/foia-requests",
+      "description": ""
+    },
+    {
+      "name": "interview-prep",
+      "path": "interview-prep",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/interview-prep",
+      "description": ""
+    },
+    {
+      "name": "mobile-debugging",
+      "path": "mobile-debugging",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/mobile-debugging",
+      "description": ""
+    },
+    {
+      "name": "newsletter-publishing",
+      "path": "newsletter-publishing",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/newsletter-publishing",
+      "description": ""
+    },
+    {
+      "name": "one-way-door",
+      "path": "one-way-door",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/one-way-door",
+      "description": ""
+    },
+    {
+      "name": "page-monitoring",
+      "path": "page-monitoring",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/page-monitoring",
+      "description": ""
+    },
+    {
+      "name": "pdf-design",
+      "path": "pdf-design",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/pdf-design",
+      "description": ""
+    },
+    {
+      "name": "project-memory",
+      "path": "project-memory",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/project-memory",
+      "description": ""
+    },
+    {
+      "name": "python-pipeline",
+      "path": "python-pipeline",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/python-pipeline",
+      "description": ""
+    },
+    {
+      "name": "secure-auth",
+      "path": "secure-auth",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/secure-auth",
+      "description": ""
+    },
+    {
+      "name": "security-checklist",
+      "path": "security-checklist",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/security-checklist",
+      "description": ""
+    },
+    {
+      "name": "social-media-intelligence",
+      "path": "social-media-intelligence",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/social-media-intelligence",
+      "description": ""
+    },
+    {
+      "name": "story-pitch",
+      "path": "story-pitch",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/story-pitch",
+      "description": ""
+    },
+    {
+      "name": "template-selector",
+      "path": "template-selector",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/template-selector",
+      "description": ""
+    },
+    {
+      "name": "test-first-bugs",
+      "path": "test-first-bugs",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/test-first-bugs",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding",
+      "path": "vibe-coding",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/vibe-coding",
+      "description": ""
+    },
+    {
+      "name": "web-archiving",
+      "path": "web-archiving",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/web-archiving",
+      "description": ""
+    },
+    {
+      "name": "zero-build-frontend",
+      "path": "zero-build-frontend",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/zero-build-frontend",
+      "description": ""
+    },
+    {
+      "name": "data-journalism",
+      "path": "data-journalism",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/data-journalism",
+      "description": ""
+    },
+    {
+      "name": "source-verification",
+      "path": "source-verification",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/source-verification",
+      "description": ""
+    },
+    {
+      "name": "fact-check-workflow",
+      "path": "fact-check-workflow",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/fact-check-workflow",
+      "description": ""
+    },
+    {
+      "name": "newsroom-style",
+      "path": "newsroom-style",
+      "github_url": "https://github.com/jamditis/claude-skills-journalism/tree/main/newsroom-style",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jamditis/claude-skills-journalism",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T17:31:01Z"
+}
