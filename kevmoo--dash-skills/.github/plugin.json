@@ -1,0 +1,34 @@
+{
+  "name": "kevmoo--dash-skills",
+  "displayName": "dash_skills",
+  "description": "Agent Skills for Dart and Flutter ecosytem",
+  "version": "1.0.0",
+  "author": "kevmoo",
+  "homepage": "https://github.com/kevmoo/dash_skills",
+  "skills": [
+    {
+      "name": "dart-best-practices",
+      "description": ""
+    },
+    {
+      "name": "dart-cli-app-best-practices",
+      "description": ""
+    },
+    {
+      "name": "dart-doc-validation",
+      "description": ""
+    },
+    {
+      "name": "dart-matcher-best-practices",
+      "description": ""
+    },
+    {
+      "name": "dart-package-maintenance",
+      "description": ""
+    },
+    {
+      "name": "dart-test-fundamentals",
+      "description": ""
+    }
+  ]
+}
