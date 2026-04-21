@@ -1,0 +1,18 @@
+{
+  "name": "hiroppy--mf-dashboard",
+  "displayName": "mf-dashboard",
+  "description": "\u30de\u30cd\u30fc\u30d5\u30a9\u30ef\u30fc\u30c9Me\u3092\u81ea\u52d5\u5316\u3001\u4fdd\u6709\u8cc7\u7523\u306e\u53ef\u8996\u5316\u3092\u884c\u3044\u307e\u3059",
+  "version": "1.0.0",
+  "author": "hiroppy",
+  "homepage": "https://github.com/hiroppy/mf-dashboard",
+  "skills": [
+    {
+      "name": "db-schema-change",
+      "description": ""
+    },
+    {
+      "name": "ui-component",
+      "description": ""
+    }
+  ]
+}
