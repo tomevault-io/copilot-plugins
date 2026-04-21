@@ -1,6 +1,6 @@
-# TeoMappingProject — distributed by TomeVault
+# TeoMappingProject
 
-> Originally from [rcesaret/TeoMappingProject](https://github.com/rcesaret/TeoMappingProject). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [rcesaret/TeoMappingProject](https://github.com/rcesaret/TeoMappingProject) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [rcesaret/TeoMappingProject](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/rcesaret#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rcesaret/TeoMappingProject](https://github.com/rcesaret/TeoMappingProject)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/rcesaret) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
