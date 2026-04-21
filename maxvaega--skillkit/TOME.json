@@ -1,0 +1,129 @@
+{
+  "name": "skillkit",
+  "owner": "maxvaega",
+  "repo": "skillkit",
+  "description": "Implementing Skills functionality for your agents",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arguments-test-skill",
+      "path": "tests/fixtures/skills/arguments-test-skill",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/tests/fixtures/skills/arguments-test-skill",
+      "description": ""
+    },
+    {
+      "name": "valid-skill",
+      "path": "tests/fixtures/skills/valid-skill",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/tests/fixtures/skills/valid-skill",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "examples/skills/code-reviewer",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/examples/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "file-reference-skill",
+      "path": "examples/skills/file-reference-skill",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/examples/skills/file-reference-skill",
+      "description": ""
+    },
+    {
+      "name": "git-helper",
+      "path": "examples/skills/git-helper",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/examples/skills/git-helper",
+      "description": ""
+    },
+    {
+      "name": "markdown-formatter",
+      "path": "examples/skills/markdown-formatter",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/examples/skills/markdown-formatter",
+      "description": ""
+    },
+    {
+      "name": "category-b",
+      "path": "examples/skills/nested-example/category-b",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/examples/skills/nested-example/category-b",
+      "description": ""
+    },
+    {
+      "name": "subcategory-1",
+      "path": "examples/skills/nested-example/category-a/subcategory-1",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/examples/skills/nested-example/category-a/subcategory-1",
+      "description": ""
+    },
+    {
+      "name": "category-a",
+      "path": "examples/skills/nested-example/category-a",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/examples/skills/nested-example/category-a",
+      "description": ""
+    },
+    {
+      "name": "nested-example",
+      "path": "examples/skills/nested-example",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/examples/skills/nested-example",
+      "description": ""
+    },
+    {
+      "name": "pdf-extractor",
+      "path": "examples/skills/pdf-extractor",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/examples/skills/pdf-extractor",
+      "description": ""
+    },
+    {
+      "name": "script-skill",
+      "path": "tests/fixtures/skills/script-skill",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/tests/fixtures/skills/script-skill",
+      "description": ""
+    },
+    {
+      "name": "edge-special-chars",
+      "path": "tests/fixtures/skills/edge-special-chars",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/tests/fixtures/skills/edge-special-chars",
+      "description": ""
+    },
+    {
+      "name": "valid-unicode",
+      "path": "tests/fixtures/skills/valid-unicode",
+      "github_url": "https://github.com/maxvaega/skillkit/tree/main/tests/fixtures/skills/valid-unicode",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/maxvaega/skillkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:38:40Z"
+}
