@@ -1,0 +1,9 @@
+{
+  "name": "gemini-cli-extensions--jules",
+  "displayName": "jules",
+  "description": "A Gemini CLI extension that allows you to use the Gemini CLI to orchestrate the Jules asynchronous agent to perform coding tasks like bug fixing, refactoring, and dependency updates.",
+  "version": "1.0.0",
+  "author": "gemini-cli-extensions",
+  "homepage": "https://github.com/gemini-cli-extensions/jules",
+  "skills": []
+}
