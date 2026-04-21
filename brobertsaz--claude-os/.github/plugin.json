@@ -1,0 +1,22 @@
+{
+  "name": "brobertsaz--claude-os",
+  "displayName": "claude-os",
+  "description": "claude-os",
+  "version": "1.0.0",
+  "author": "brobertsaz",
+  "homepage": "https://github.com/brobertsaz/claude-os",
+  "skills": [
+    {
+      "name": "initialize-project",
+      "description": ""
+    },
+    {
+      "name": "initialize-project",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    }
+  ]
+}
