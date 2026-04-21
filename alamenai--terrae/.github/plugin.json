@@ -1,0 +1,38 @@
+{
+  "name": "alamenai--terrae",
+  "displayName": "terrae",
+  "description": "Composable and animated components that replace imperative layers with simple props. The perfect companion for shadcn/ui.",
+  "version": "1.0.0",
+  "author": "alamenai",
+  "homepage": "https://github.com/alamenai/terrae",
+  "skills": [
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "issue",
+      "description": ""
+    },
+    {
+      "name": "lint",
+      "description": ""
+    },
+    {
+      "name": "pr",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    }
+  ]
+}
