@@ -1,0 +1,9 @@
+{
+  "name": "getpaykit--paykit",
+  "displayName": "paykit",
+  "description": "The billing framework for TypeScript. Code-first products, handles Stripe, webhooks, and usage state, runs in your app.",
+  "version": "1.0.0",
+  "author": "getpaykit",
+  "homepage": "https://github.com/getpaykit/paykit",
+  "skills": []
+}
