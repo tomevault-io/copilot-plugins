@@ -1,0 +1,93 @@
+{
+  "name": "agent-hive",
+  "owner": "tctinh",
+  "repo": "agent-hive",
+  "description": "AI instruction skills by tctinh",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-md-mastery",
+      "path": "packages/opencode-hive/skills/agents-md-mastery",
+      "github_url": "https://github.com/tctinh/agent-hive/tree/main/packages/opencode-hive/skills/agents-md-mastery",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "packages/opencode-hive/skills/brainstorming",
+      "github_url": "https://github.com/tctinh/agent-hive/tree/main/packages/opencode-hive/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "packages/opencode-hive/skills/code-reviewer",
+      "github_url": "https://github.com/tctinh/agent-hive/tree/main/packages/opencode-hive/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": "packages/opencode-hive/skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/tctinh/agent-hive/tree/main/packages/opencode-hive/skills/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "docker-mastery",
+      "path": "packages/opencode-hive/skills/docker-mastery",
+      "github_url": "https://github.com/tctinh/agent-hive/tree/main/packages/opencode-hive/skills/docker-mastery",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": "packages/opencode-hive/skills/systematic-debugging",
+      "github_url": "https://github.com/tctinh/agent-hive/tree/main/packages/opencode-hive/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "packages/opencode-hive/skills/test-driven-development",
+      "github_url": "https://github.com/tctinh/agent-hive/tree/main/packages/opencode-hive/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "packages/opencode-hive/skills/writing-plans",
+      "github_url": "https://github.com/tctinh/agent-hive/tree/main/packages/opencode-hive/skills/writing-plans",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tctinh/agent-hive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:49:32Z"
+}
