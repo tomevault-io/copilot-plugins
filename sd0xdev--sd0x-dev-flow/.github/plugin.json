@@ -1,0 +1,130 @@
+{
+  "name": "sd0xdev--sd0x-dev-flow",
+  "displayName": "sd0x-dev-flow",
+  "description": "The harness layer for Claude Code \u2014 a reference implementation of harness engineering with hook-enforced dual review, state-machine gates that survive context compaction, and fail-closed safety where ",
+  "version": "1.0.0",
+  "author": "sd0xdev",
+  "homepage": "https://github.com/sd0xdev/sd0x-dev-flow",
+  "skills": [
+    {
+      "name": "bug-fix",
+      "description": ""
+    },
+    {
+      "name": "claude-health",
+      "description": ""
+    },
+    {
+      "name": "code-explore",
+      "description": ""
+    },
+    {
+      "name": "code-investigate",
+      "description": ""
+    },
+    {
+      "name": "codex-architect",
+      "description": ""
+    },
+    {
+      "name": "codex-brainstorm",
+      "description": ""
+    },
+    {
+      "name": "codex-cli-review",
+      "description": ""
+    },
+    {
+      "name": "codex-code-review",
+      "description": ""
+    },
+    {
+      "name": "codex-explain",
+      "description": ""
+    },
+    {
+      "name": "codex-implement",
+      "description": ""
+    },
+    {
+      "name": "create-request",
+      "description": ""
+    },
+    {
+      "name": "de-ai-flavor",
+      "description": ""
+    },
+    {
+      "name": "doc-review",
+      "description": ""
+    },
+    {
+      "name": "feasibility-study",
+      "description": ""
+    },
+    {
+      "name": "feature-dev",
+      "description": ""
+    },
+    {
+      "name": "feature-verify",
+      "description": ""
+    },
+    {
+      "name": "git-investigate",
+      "description": ""
+    },
+    {
+      "name": "issue-analyze",
+      "description": ""
+    },
+    {
+      "name": "next-step",
+      "description": ""
+    },
+    {
+      "name": "portfolio",
+      "description": ""
+    },
+    {
+      "name": "post-dev-test",
+      "description": ""
+    },
+    {
+      "name": "project-audit",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "description": ""
+    },
+    {
+      "name": "repo-intake",
+      "description": ""
+    },
+    {
+      "name": "request-tracking",
+      "description": ""
+    },
+    {
+      "name": "risk-assess",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "description": ""
+    },
+    {
+      "name": "skill-health-check",
+      "description": ""
+    },
+    {
+      "name": "tech-spec",
+      "description": ""
+    },
+    {
+      "name": "test-review",
+      "description": ""
+    }
+  ]
+}
