@@ -2,9 +2,9 @@
   "name": "off-grid-mobile-ai",
   "owner": "alichherawalla",
   "repo": "off-grid-mobile-ai",
-  "description": "",
+  "description": "The Swiss Army Knife of Offline AI. Chat, Speak, and Generate Images - Privacy First, Zero Internet. Download an LLM and use it on your mobile device. No data ever leaves your phone. Supports text-to-text, vision, text-to-image",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/alichherawalla",
+  "source_url": "https://github.com/alichherawalla/off-grid-mobile-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T20:34:42Z"
+  "distributed_at": "2026-04-21T18:09:44Z"
 }
