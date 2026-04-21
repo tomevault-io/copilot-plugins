@@ -1,0 +1,9 @@
+{
+  "name": "saffron-health--libretto",
+  "displayName": "libretto",
+  "description": "The AI toolkit for building and maintaining browser automations",
+  "version": "1.0.0",
+  "author": "saffron-health",
+  "homepage": "https://github.com/saffron-health/libretto",
+  "skills": []
+}
