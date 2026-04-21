@@ -1,0 +1,14 @@
+{
+  "name": "skilld-dev--skilld",
+  "displayName": "skilld",
+  "description": "Generate AI agent skills from your NPM dependencies. npx skilld",
+  "version": "1.0.0",
+  "author": "skilld-dev",
+  "homepage": "https://github.com/skilld-dev/skilld",
+  "skills": [
+    {
+      "name": "microsoft-typescript",
+      "description": ""
+    }
+  ]
+}
