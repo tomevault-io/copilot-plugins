@@ -1,0 +1,9 @@
+{
+  "name": "depalmar--ai-for-the-win",
+  "displayName": "ai_for_the_win",
+  "description": "Build AI-powered security tools. 50+ hands-on labs covering ML, LLMs, RAG, threat detection, DFIR, and red teaming. Includes Colab notebooks, Docker environment, and CTF challenges.",
+  "version": "1.0.0",
+  "author": "depalmar",
+  "homepage": "https://github.com/depalmar/ai_for_the_win",
+  "skills": []
+}
