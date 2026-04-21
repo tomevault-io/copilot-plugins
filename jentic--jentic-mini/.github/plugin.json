@@ -1,0 +1,9 @@
+{
+  "name": "jentic--jentic-mini",
+  "displayName": "jentic-mini",
+  "description": "Self-hosted API execution layer that sits between your agent and the outside world. Your agent says what it wants to do. Jentic Mini handles the how \u2014 finding the right API, injecting credentials at r",
+  "version": "1.0.0",
+  "author": "jentic",
+  "homepage": "https://github.com/jentic/jentic-mini",
+  "skills": []
+}
