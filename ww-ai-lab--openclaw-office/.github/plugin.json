@@ -1,0 +1,9 @@
+{
+  "name": "ww-ai-lab--openclaw-office",
+  "displayName": "openclaw-office",
+  "description": "OpenClaw Office is the visual monitoring and management frontend for the  OpenClaw Multi-Agent system. It connects to the OpenClaw Gateway via WebSocket to visualize Agent collaboration as a \"digital ",
+  "version": "1.0.0",
+  "author": "WW-AI-Lab",
+  "homepage": "https://github.com/WW-AI-Lab/openclaw-office",
+  "skills": []
+}
