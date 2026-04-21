@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [RonFahima1/Global-Remit-Teller3](htt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/RonFahima1)
+From [RonFahima1/Global-Remit-Teller3](https://github.com/RonFahima1/Global-Remit-Teller3) — a repo with 0+ stars on GitHub.
 
 ---
 
