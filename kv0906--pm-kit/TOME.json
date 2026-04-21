@@ -1,0 +1,105 @@
+{
+  "name": "pm-kit",
+  "owner": "kv0906",
+  "repo": "pm-kit",
+  "description": "AI-augmented PM workspace for Coding Agents \u2014 daily standups, decisions, blockers, docs, and sprint reviews as markdown   skills",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ask",
+      "path": ".claude/skills/ask",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/ask",
+      "description": ""
+    },
+    {
+      "name": "decide",
+      "path": ".claude/skills/decide",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/decide",
+      "description": ""
+    },
+    {
+      "name": "doc",
+      "path": ".claude/skills/doc",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/doc",
+      "description": ""
+    },
+    {
+      "name": "interview",
+      "path": ".claude/skills/interview",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/interview",
+      "description": ""
+    },
+    {
+      "name": "mermaid-visualizer",
+      "path": ".claude/skills/mermaid-visualizer",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/mermaid-visualizer",
+      "description": ""
+    },
+    {
+      "name": "obsidian-cli",
+      "path": ".claude/skills/obsidian-cli",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/obsidian-cli",
+      "description": ""
+    },
+    {
+      "name": "push",
+      "path": ".claude/skills/push",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/push",
+      "description": ""
+    },
+    {
+      "name": "today",
+      "path": ".claude/skills/today",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/today",
+      "description": ""
+    },
+    {
+      "name": "update",
+      "path": ".claude/skills/update",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/update",
+      "description": ""
+    },
+    {
+      "name": "weekly",
+      "path": ".claude/skills/weekly",
+      "github_url": "https://github.com/kv0906/pm-kit/tree/main/.claude/skills/weekly",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kv0906/pm-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T20:32:52Z"
+}
