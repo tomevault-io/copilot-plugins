@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ChrisTutorials/flutter](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ChrisTutorials)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ChrisTutorials/flutter](https://github.com/ChrisTutorials/flutter)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ChrisTutorials/flutter
 ```
-Or browse all formats at [https://tomevault.io/claim/ChrisTutorials](https://tomevault.io/claim/ChrisTutorials).
+Source: [github.com/ChrisTutorials/flutter](https://github.com/ChrisTutorials/flutter).
 
 <!-- genome:a-i-p -->
