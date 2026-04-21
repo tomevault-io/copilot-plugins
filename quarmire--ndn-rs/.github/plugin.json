@@ -1,0 +1,9 @@
+{
+  "name": "quarmire--ndn-rs",
+  "displayName": "ndn-rs",
+  "description": "ndn-rs",
+  "version": "1.0.0",
+  "author": "Quarmire",
+  "homepage": "https://github.com/Quarmire/ndn-rs",
+  "skills": []
+}
