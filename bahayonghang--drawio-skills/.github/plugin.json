@@ -1,0 +1,14 @@
+{
+  "name": "bahayonghang--drawio-skills",
+  "displayName": "drawio-skills",
+  "description": "drawio skills for cc,codex",
+  "version": "1.0.0",
+  "author": "bahayonghang",
+  "homepage": "https://github.com/bahayonghang/drawio-skills",
+  "skills": [
+    {
+      "name": "drawio",
+      "description": ""
+    }
+  ]
+}
