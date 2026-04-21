@@ -1,0 +1,75 @@
+{
+  "name": "aws-skills",
+  "owner": "zxkane",
+  "repo": "aws-skills",
+  "description": "Claude Agent Skills for AWS",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aws-cdk-development",
+      "path": "plugins/aws-cdk/skills/aws-cdk-development",
+      "github_url": "https://github.com/zxkane/aws-skills/tree/main/plugins/aws-cdk/skills/aws-cdk-development",
+      "description": ""
+    },
+    {
+      "name": "aws-agentic-ai",
+      "path": "plugins/aws-agentic-ai/skills/aws-agentic-ai",
+      "github_url": "https://github.com/zxkane/aws-skills/tree/main/plugins/aws-agentic-ai/skills/aws-agentic-ai",
+      "description": ""
+    },
+    {
+      "name": "aws-cost-operations",
+      "path": "plugins/aws-cost-ops/skills/aws-cost-operations",
+      "github_url": "https://github.com/zxkane/aws-skills/tree/main/plugins/aws-cost-ops/skills/aws-cost-operations",
+      "description": ""
+    },
+    {
+      "name": "aws-mcp-setup",
+      "path": "plugins/aws-common/skills/aws-mcp-setup",
+      "github_url": "https://github.com/zxkane/aws-skills/tree/main/plugins/aws-common/skills/aws-mcp-setup",
+      "description": ""
+    },
+    {
+      "name": "aws-serverless-eda",
+      "path": "plugins/serverless-eda/skills/aws-serverless-eda",
+      "github_url": "https://github.com/zxkane/aws-skills/tree/main/plugins/serverless-eda/skills/aws-serverless-eda",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zxkane/aws-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:37:42Z"
+}
