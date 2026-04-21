@@ -1,0 +1,9 @@
+{
+  "name": "consensys--ask-o11y-plugin",
+  "displayName": "ask-o11y-plugin",
+  "description": "ask-o11y-plugin",
+  "version": "1.0.0",
+  "author": "Consensys",
+  "homepage": "https://github.com/Consensys/ask-o11y-plugin",
+  "skills": []
+}
