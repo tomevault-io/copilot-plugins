@@ -1,0 +1,36 @@
+## html-prototype-template-jp
+
+> Apply this rule to the entire repository
+
+- 1ページを構成する情報は1つのHTMLファイルに含めるように（JavaScriptなど。ただし後でわかりやすいように、1箇所にまとめること）。
+- スタイリングにはTailwindCSSを使用すること。
+- 後でReact/Next.jsに移行する予定のプロトタイプなので、できるだけ移行しやすいHTMLにすること。
+- モバイル、タブレット、PCで閲覧可能なレスポンシブデザインにすること。
+- ユーザーが登録したくなるような魅力的なコンテンツにすること。
+- 画像が必要な場合で、明確にどう言う画像を使うかの指示がない場合、以下のプレースホルダー画像を使用する。このURLは、サイズは400x225、背景色はEEE、文字色は31343Cの画像を意味するので、必要に応じて変更すること。
+
+https://placehold.co/400x225/EEE/31343C.png
+
+- 新たにページを作成する場合は、以下のテンプレートをベースにして作成すること
+
+```
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[タイトル]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+    </style>
+</head>
+<body class="bg-gray-50">
+
+</body>
+</html>
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/takaaki-mizuno) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
