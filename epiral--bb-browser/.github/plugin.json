@@ -1,0 +1,9 @@
+{
+  "name": "epiral--bb-browser",
+  "displayName": "bb-browser",
+  "description": "Your browser is the API. CLI + MCP server for AI agents to control Chrome with your login state.",
+  "version": "1.0.0",
+  "author": "epiral",
+  "homepage": "https://github.com/epiral/bb-browser",
+  "skills": []
+}
