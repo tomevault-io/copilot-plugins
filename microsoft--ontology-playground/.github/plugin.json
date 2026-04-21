@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--ontology-playground",
+  "displayName": "Ontology-Playground",
+  "description": "Free, open-source web app for learning about ontologies and Microsoft Fabric IQ. Explore a catalogue of pre-built ontologies, design your own visually, export as RDF/XML, and share interactive diagram",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/Ontology-Playground",
+  "skills": []
+}
