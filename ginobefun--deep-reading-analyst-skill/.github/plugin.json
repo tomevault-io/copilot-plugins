@@ -1,0 +1,14 @@
+{
+  "name": "ginobefun--deep-reading-analyst-skill",
+  "displayName": "deep-reading-analyst-skill",
+  "description": "A professional Claude AI skill for deep reading analysis",
+  "version": "1.0.0",
+  "author": "ginobefun",
+  "homepage": "https://github.com/ginobefun/deep-reading-analyst-skill",
+  "skills": [
+    {
+      "name": "deep-reading-analyst",
+      "description": ""
+    }
+  ]
+}
