@@ -1,0 +1,9 @@
+{
+  "name": "tilework-tech--nori-cli",
+  "displayName": "nori-cli",
+  "description": "A CLI built for agentic development",
+  "version": "1.0.0",
+  "author": "tilework-tech",
+  "homepage": "https://github.com/tilework-tech/nori-cli",
+  "skills": []
+}
