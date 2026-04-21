@@ -1,0 +1,104 @@
+## smm
+
+> This is an Electron-based desktop application with the following tech stack:
+
+# Cursor Rules
+
+## Tech Stack
+
+This is an Electron-based desktop application with the following tech stack:
+
+### UI Module (`./ui`)
+
+**Core Framework & Build**
+- React 19.2.0 - UI library with latest React features
+- Vite 7.2.4 - Build tool and dev server
+- TypeScript 5.9.3 - Type safety
+
+**Styling**
+- Tailwind CSS 4.1.17 - Utility-first CSS framework (latest v4)
+- shadcn/ui (New York style) - Component library based on Radix UI
+- Radix UI - Accessible UI primitives (accordion, dialog, dropdown, tooltip, etc.)
+- class-variance-authority (CVA) - Component variants management
+- Lucide React - Icon library
+
+**State Management**
+- Zustand 5.0.9 - State management
+- React Context API - Config, theme, media metadata providers
+
+**Real-time Communication**
+- socket.io-client 4.8.3 - WebSocket for server communication
+
+**AI & Chat Features**
+- Vercel AI SDK (@ai-sdk/openai, @ai-sdk/react) - AI integration
+- @assistant-ui/react - Assistant UI components for chat interfaces
+
+**UI Components & Features**
+- @tanstack/react-table - Data tables
+- react-resizable-panels - Resizable layouts
+- embla-carousel-react - Carousel/slider
+- cmdk - Command palette
+- sonner - Toast notifications
+
+**Content Rendering**
+- react-markdown - Markdown rendering with GitHub Flavored Markdown support
+- react-syntax-highlighter + shiki - Code syntax highlighting
+- katex + remark-math + rehype-katex - Math formula rendering
+
+**Development Tools**
+- babel-plugin-react-compiler - React Compiler for optimizations
+- ESLint - Code linting
+- TypeScript - Type checking
+
+### Backend/CLI Module (`./cli`)
+- Bun - JavaScript runtime and package manager
+- Express.js - HTTP server
+- Socket.IO - Real-time bidirectional communication
+
+### Electron Module (`./electron`)
+- Electron - Desktop application framework
+- electron-builder - Application packaging
+
+## Unit Test Guideline
+
+Unit tests should be verified using the red-green principle, which means:
+
+1. Temporarily break production code in order to let unit test fail
+2. Run unit test and check unit test failed with expected error message
+3. Recover the production code
+
+In step 2, if unit test still passed or failed with unrelated error message, 
+it means the unit test implementation was wrong and didn't test the production code as expected.
+
+## API Design Guidelines
+
+The HTTP API follows specific design principles:
+
+- **RPC Naming Style**: Endpoints use action-based names (e.g., `/readFile`, `/writeMediaMetadata`)
+- **Response Format**: Every response contains both `data` and `error` fields:
+  - `data`: Contains the response payload on success
+  - `error`: Contains error message on failure (format: "Error Reason: detail message")
+- **HTTP Status Codes**: Used only for HTTP layer status, NOT business logic:
+  - `200`: HTTP request succeeded (business logic success/error determined by `error` field)
+  - `400`: Invalid request or validation error
+  - `404`: HTTP endpoint not implemented (NOT resource not found)
+  - `500`: Server error
+  - Resource not found returns 200 with `error: "Error Reason: detail message"`
+
+## Path Handling
+
+Always use the `Path` class from `core/path.ts` for path operations:
+- Handles both Windows and POSIX paths
+- Platform-agnostic path construction
+- Validates paths are within allowed directories
+- Works in both Node.js and browser environments
+
+## Type Safety
+
+- All API responses use Zod for validation
+- Request/response types are defined in `core/types.ts`
+- Media metadata structure is comprehensive with TMDB integration
+
+---
+> Source: [lawrenceching/SMM](https://github.com/lawrenceching/SMM) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
