@@ -1,6 +1,6 @@
-# esdeveniments-frontend — distributed by TomeVault
+# esdeveniments-frontend
 
-> Originally from [Esdeveniments/esdeveniments-frontend](https://github.com/Esdeveniments/esdeveniments-frontend). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Esdeveniments/esdeveniments-frontend](https://github.com/Esdeveniments/esdeveniments-frontend) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Esdeveniments/esdeveniments-frontend]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Esdeveniments)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Esdeveniments/esdeveniments-frontend](https://github.com/Esdeveniments/esdeveniments-frontend)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Esdeveniments/esdeveniments-frontend
 ```
-Or browse all formats at [https://tomevault.io/claim/Esdeveniments](https://tomevault.io/claim/Esdeveniments).
+Source: [github.com/Esdeveniments/esdeveniments-frontend](https://github.com/Esdeveniments/esdeveniments-frontend).
 
 <!-- genome:d-i-p -->
