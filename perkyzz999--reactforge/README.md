@@ -1,6 +1,6 @@
-# ReactForge — distributed by TomeVault
+# ReactForge
 
-> Originally from [PerkyZZ999/ReactForge](https://github.com/PerkyZZ999/ReactForge). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [PerkyZZ999/ReactForge](https://github.com/PerkyZZ999/ReactForge) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [PerkyZZ999/ReactForge](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/PerkyZZ999#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/PerkyZZ999/ReactForge](https://github.com/PerkyZZ999/ReactForge)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install PerkyZZ999/ReactForge
 ```
-Or browse all formats at [https://tomevault.io/claim/PerkyZZ999](https://tomevault.io/claim/PerkyZZ999).
+Source: [github.com/PerkyZZ999/ReactForge](https://github.com/PerkyZZ999/ReactForge).
 
 <!-- genome:d-i-q -->
