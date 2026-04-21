@@ -1,0 +1,14 @@
+{
+  "name": "dynatrace-oss--dtctl",
+  "displayName": "dtctl",
+  "description": "CLI for managing Dynatrace platform resources - built for humans and AI agents alike",
+  "version": "1.0.0",
+  "author": "dynatrace-oss",
+  "homepage": "https://github.com/dynatrace-oss/dtctl",
+  "skills": [
+    {
+      "name": "dtctl",
+      "description": ""
+    }
+  ]
+}
