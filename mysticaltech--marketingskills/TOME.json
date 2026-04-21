@@ -1,0 +1,75 @@
+{
+  "name": "marketingskills",
+  "owner": "mysticaltech",
+  "repo": "marketingskills",
+  "description": "Marketing skills for AI agents (Agent Skills spec). Fork of coreyhaines31/marketingskills with pre-built .skill files for easy installation.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ab-test-setup",
+      "path": "skills/ab-test-setup",
+      "github_url": "https://github.com/mysticaltech/marketingskills/tree/main/skills/ab-test-setup",
+      "description": ""
+    },
+    {
+      "name": "analytics-tracking",
+      "path": "skills/analytics-tracking",
+      "github_url": "https://github.com/mysticaltech/marketingskills/tree/main/skills/analytics-tracking",
+      "description": ""
+    },
+    {
+      "name": "email-sequence",
+      "path": "skills/email-sequence",
+      "github_url": "https://github.com/mysticaltech/marketingskills/tree/main/skills/email-sequence",
+      "description": ""
+    },
+    {
+      "name": "paywall-upgrade-cro",
+      "path": "skills/paywall-upgrade-cro",
+      "github_url": "https://github.com/mysticaltech/marketingskills/tree/main/skills/paywall-upgrade-cro",
+      "description": ""
+    },
+    {
+      "name": "referral-program",
+      "path": "skills/referral-program",
+      "github_url": "https://github.com/mysticaltech/marketingskills/tree/main/skills/referral-program",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mysticaltech/marketingskills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T10:33:01Z"
+}
