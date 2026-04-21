@@ -1,0 +1,87 @@
+{
+  "name": "founder-skills",
+  "owner": "ognjengt",
+  "repo": "founder-skills",
+  "description": "Claude skills for founders",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "competitor-intel",
+      "path": "skills/competitor-intel",
+      "github_url": "https://github.com/ognjengt/founder-skills/tree/main/skills/competitor-intel",
+      "description": ""
+    },
+    {
+      "name": "cro-optimization",
+      "path": "skills/cro-optimization",
+      "github_url": "https://github.com/ognjengt/founder-skills/tree/main/skills/cro-optimization",
+      "description": ""
+    },
+    {
+      "name": "go-to-market-plan",
+      "path": "skills/go-to-market-plan",
+      "github_url": "https://github.com/ognjengt/founder-skills/tree/main/skills/go-to-market-plan",
+      "description": ""
+    },
+    {
+      "name": "marketing-ideas",
+      "path": "skills/marketing-ideas",
+      "github_url": "https://github.com/ognjengt/founder-skills/tree/main/skills/marketing-ideas",
+      "description": ""
+    },
+    {
+      "name": "prd-generator",
+      "path": "skills/prd-generator",
+      "github_url": "https://github.com/ognjengt/founder-skills/tree/main/skills/prd-generator",
+      "description": ""
+    },
+    {
+      "name": "sop-creator",
+      "path": "skills/sop-creator",
+      "github_url": "https://github.com/ognjengt/founder-skills/tree/main/skills/sop-creator",
+      "description": ""
+    },
+    {
+      "name": "strategic-planning",
+      "path": "skills/strategic-planning",
+      "github_url": "https://github.com/ognjengt/founder-skills/tree/main/skills/strategic-planning",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ognjengt/founder-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T10:33:37Z"
+}
