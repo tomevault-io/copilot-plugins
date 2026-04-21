@@ -1,6 +1,6 @@
 # ibcmarketplace
 
-> Tome by [ethantrent](https://github.com/ethantrent/ibcmarketplace) — distributed by [TomeVault](https://tomevault.io/claim/ethantrent)
+> Tome by [ethantrent](https://github.com/ethantrent/ibcmarketplace) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ethantrent/ibcmarketplace](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ethantrent)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ethantrent/ibcmarketplace](https://github.com/ethantrent/ibcmarketplace)
 
 ---
 
