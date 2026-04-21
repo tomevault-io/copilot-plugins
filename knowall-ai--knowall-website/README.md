@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [knowall-ai/knowall-website](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/knowall-ai#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/knowall-ai/knowall-website](https://github.com/knowall-ai/knowall-website)
 
 ---
 
