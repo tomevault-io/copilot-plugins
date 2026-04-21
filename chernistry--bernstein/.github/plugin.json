@@ -1,0 +1,9 @@
+{
+  "name": "chernistry--bernstein",
+  "displayName": "bernstein",
+  "description": "Deterministic orchestrator for 18 CLI AI coding agents. Git worktree isolation, HMAC audit trail, MCP server mode.",
+  "version": "1.0.0",
+  "author": "chernistry",
+  "homepage": "https://github.com/chernistry/bernstein",
+  "skills": []
+}
