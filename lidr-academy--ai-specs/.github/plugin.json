@@ -1,0 +1,9 @@
+{
+  "name": "lidr-academy--ai-specs",
+  "displayName": "ai-specs",
+  "description": "This repository contains a comprehensive set of development rules, standards, and AI agent configurations designed to work seamlessly with multiple AI coding copilots. The setup is portable and can be",
+  "version": "1.0.0",
+  "author": "LIDR-academy",
+  "homepage": "https://github.com/LIDR-academy/ai-specs",
+  "skills": []
+}
