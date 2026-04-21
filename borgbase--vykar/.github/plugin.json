@@ -1,0 +1,9 @@
+{
+  "name": "borgbase--vykar",
+  "displayName": "vykar",
+  "description": "Fast, encrypted, deduplicated backups in Rust \u2014 with friendly YAML config, a desktop GUI, and support for S3, custom REST and SFTP storage.",
+  "version": "1.0.0",
+  "author": "borgbase",
+  "homepage": "https://github.com/borgbase/vykar",
+  "skills": []
+}
