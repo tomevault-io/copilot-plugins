@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [zh667/person-blog](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/zh667)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/zh667/person-blog](https://github.com/zh667/person-blog)
 
 ---
 
