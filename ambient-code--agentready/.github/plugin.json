@@ -1,0 +1,18 @@
+{
+  "name": "ambient-code--agentready",
+  "displayName": "agentready",
+  "description": "Repo Optimizer: Assess git repositories for AI-assisted development readiness. Submit your score!",
+  "version": "1.0.0",
+  "author": "ambient-code",
+  "homepage": "https://github.com/ambient-code/agentready",
+  "skills": [
+    {
+      "name": "implement-type-annotations",
+      "description": ""
+    },
+    {
+      "name": "setup-claude-md",
+      "description": ""
+    }
+  ]
+}
