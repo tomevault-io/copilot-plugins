@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [code-kern-ai/refinery-gateway](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/code-kern-ai)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/code-kern-ai/refinery-gateway](https://github.com/code-kern-ai/refinery-gateway)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install code-kern-ai/refinery-gateway
 ```
-Or browse all formats at [https://tomevault.io/claim/code-kern-ai](https://tomevault.io/claim/code-kern-ai).
+Source: [github.com/code-kern-ai/refinery-gateway](https://github.com/code-kern-ai/refinery-gateway).
 
 <!-- genome:a-i-p -->
