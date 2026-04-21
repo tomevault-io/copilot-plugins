@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [kimshangyup/neulbom](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/kimshangyup)
+From [kimshangyup/neulbom](https://github.com/kimshangyup/neulbom) — a repo with 0+ stars on GitHub.
 
 ---
 
