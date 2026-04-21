@@ -1,0 +1,22 @@
+{
+  "name": "delbaoliveira--learn-claude-code",
+  "displayName": "learn-claude-code",
+  "description": "AI instruction skills by delbaoliveira",
+  "version": "1.0.0",
+  "author": "delbaoliveira",
+  "homepage": "https://github.com/delbaoliveira/learn-claude-code",
+  "skills": [
+    {
+      "name": "course",
+      "description": ""
+    },
+    {
+      "name": "lesson",
+      "description": ""
+    },
+    {
+      "name": "review-lesson",
+      "description": ""
+    }
+  ]
+}
