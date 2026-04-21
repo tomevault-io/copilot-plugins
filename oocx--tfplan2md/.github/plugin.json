@@ -1,0 +1,118 @@
+{
+  "name": "oocx--tfplan2md",
+  "displayName": "tfplan2md",
+  "description": "Convert terraform plans (json) into human readable markdown for easier review of changes in pull requests.",
+  "version": "1.0.0",
+  "author": "oocx",
+  "homepage": "https://github.com/oocx/tfplan2md",
+  "skills": [
+    {
+      "name": "agent-file-structure",
+      "description": ""
+    },
+    {
+      "name": "agent-model-selection",
+      "description": ""
+    },
+    {
+      "name": "agent-tool-selection",
+      "description": ""
+    },
+    {
+      "name": "analyze-chat-export",
+      "description": ""
+    },
+    {
+      "name": "arc42-documentation",
+      "description": ""
+    },
+    {
+      "name": "coding-agent-workflow",
+      "description": ""
+    },
+    {
+      "name": "create-agent-skill",
+      "description": ""
+    },
+    {
+      "name": "create-pr-azdo",
+      "description": ""
+    },
+    {
+      "name": "create-pr-github",
+      "description": ""
+    },
+    {
+      "name": "generate-demo-artifacts",
+      "description": ""
+    },
+    {
+      "name": "generate-release-screenshots",
+      "description": ""
+    },
+    {
+      "name": "git-rebase-main",
+      "description": ""
+    },
+    {
+      "name": "merge-conflict-resolution",
+      "description": ""
+    },
+    {
+      "name": "next-issue-number",
+      "description": ""
+    },
+    {
+      "name": "run-dotnet-tests",
+      "description": ""
+    },
+    {
+      "name": "run-uat",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "description": ""
+    },
+    {
+      "name": "update-test-snapshots",
+      "description": ""
+    },
+    {
+      "name": "update-workflow-diagram",
+      "description": ""
+    },
+    {
+      "name": "validate-agent",
+      "description": ""
+    },
+    {
+      "name": "view-pr-github",
+      "description": ""
+    },
+    {
+      "name": "watch-uat-azdo-pr",
+      "description": ""
+    },
+    {
+      "name": "watch-uat-github-pr",
+      "description": ""
+    },
+    {
+      "name": "website-accessibility-check",
+      "description": ""
+    },
+    {
+      "name": "website-devtools",
+      "description": ""
+    },
+    {
+      "name": "website-quality-check",
+      "description": ""
+    },
+    {
+      "name": "website-visual-assets",
+      "description": ""
+    }
+  ]
+}
