@@ -1,0 +1,9 @@
+{
+  "name": "clawbio--clawbio",
+  "displayName": "ClawBio",
+  "description": "\ud83e\udd96 ClawBio \u2014 The first bioinformatics-native AI agent skill library. Local-first. Reproducible. Built on OpenClaw.",
+  "version": "1.0.0",
+  "author": "ClawBio",
+  "homepage": "https://github.com/ClawBio/ClawBio",
+  "skills": []
+}
