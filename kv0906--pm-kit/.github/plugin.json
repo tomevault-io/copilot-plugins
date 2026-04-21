@@ -1,0 +1,50 @@
+{
+  "name": "kv0906--pm-kit",
+  "displayName": "pm-kit",
+  "description": "AI-augmented PM workspace for Coding Agents \u2014 daily standups, decisions, blockers, docs, and sprint reviews as markdown   skills",
+  "version": "1.0.0",
+  "author": "kv0906",
+  "homepage": "https://github.com/kv0906/pm-kit",
+  "skills": [
+    {
+      "name": "ask",
+      "description": ""
+    },
+    {
+      "name": "decide",
+      "description": ""
+    },
+    {
+      "name": "doc",
+      "description": ""
+    },
+    {
+      "name": "interview",
+      "description": ""
+    },
+    {
+      "name": "mermaid-visualizer",
+      "description": ""
+    },
+    {
+      "name": "obsidian-cli",
+      "description": ""
+    },
+    {
+      "name": "push",
+      "description": ""
+    },
+    {
+      "name": "today",
+      "description": ""
+    },
+    {
+      "name": "update",
+      "description": ""
+    },
+    {
+      "name": "weekly",
+      "description": ""
+    }
+  ]
+}
