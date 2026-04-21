@@ -1,0 +1,14 @@
+{
+  "name": "szymdzum--browser-debugger-cli",
+  "displayName": "browser-debugger-cli",
+  "description": "CLI tool for agents to quickly access browser telemetry (DOM, network, console) via Chrome DevTools Protocol.",
+  "version": "1.0.0",
+  "author": "szymdzum",
+  "homepage": "https://github.com/szymdzum/browser-debugger-cli",
+  "skills": [
+    {
+      "name": "bdg",
+      "description": ""
+    }
+  ]
+}
