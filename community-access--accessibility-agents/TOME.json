@@ -2,9 +2,9 @@
   "name": "accessibility-agents",
   "owner": "Community-Access",
   "repo": "accessibility-agents",
-  "description": "",
+  "description": "Accessibility review agents for Claude Code, GitHub Copilot, and Claude Desktop. Eleven specialists that enforce WCAG 2.2 AA compliance so AI coding tools stop generating inaccessible code.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Community-Access",
+  "source_url": "https://github.com/Community-Access/accessibility-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T16:31:46Z"
+  "distributed_at": "2026-04-21T14:39:35Z"
 }
