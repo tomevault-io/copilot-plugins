@@ -1,0 +1,14 @@
+{
+  "name": "vercel--workflow",
+  "displayName": "workflow",
+  "description": "Workflow SDK: Build durable, reliable, and observable apps and AI Agents in TypeScript",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/workflow",
+  "skills": [
+    {
+      "name": "workflow",
+      "description": ""
+    }
+  ]
+}
