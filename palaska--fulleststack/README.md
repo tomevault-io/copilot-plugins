@@ -1,6 +1,6 @@
 # fulleststack
 
-> Tome by [palaska](https://github.com/palaska/fulleststack) — distributed by [TomeVault](https://tomevault.io/claim/palaska)
+> Tome by [palaska](https://github.com/palaska/fulleststack) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [palaska/fulleststack](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/palaska)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/palaska/fulleststack](https://github.com/palaska/fulleststack)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/palaska) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
