@@ -1,0 +1,129 @@
+{
+  "name": "loom",
+  "owner": "jordanhubbard",
+  "repo": "loom",
+  "description": "A fully autonomous (no human-in-loop) agentic based project design and coding machine",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ceo",
+      "path": "personas/default/ceo",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/ceo",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "personas/default/code-reviewer",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "cto",
+      "path": "personas/default/cto",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/cto",
+      "description": ""
+    },
+    {
+      "name": "decision-maker",
+      "path": "personas/default/decision-maker",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/decision-maker",
+      "description": ""
+    },
+    {
+      "name": "devops-engineer",
+      "path": "personas/default/devops-engineer",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/devops-engineer",
+      "description": ""
+    },
+    {
+      "name": "documentation-manager",
+      "path": "personas/default/documentation-manager",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/documentation-manager",
+      "description": ""
+    },
+    {
+      "name": "engineering-manager",
+      "path": "personas/default/engineering-manager",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/engineering-manager",
+      "description": ""
+    },
+    {
+      "name": "housekeeping-bot",
+      "path": "personas/default/housekeeping-bot",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/housekeeping-bot",
+      "description": ""
+    },
+    {
+      "name": "project-manager",
+      "path": "personas/default/project-manager",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/project-manager",
+      "description": ""
+    },
+    {
+      "name": "public-relations-manager",
+      "path": "personas/default/public-relations-manager",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/public-relations-manager",
+      "description": ""
+    },
+    {
+      "name": "qa-engineer",
+      "path": "personas/default/qa-engineer",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/qa-engineer",
+      "description": ""
+    },
+    {
+      "name": "remediation-specialist",
+      "path": "personas/default/remediation-specialist",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/remediation-specialist",
+      "description": ""
+    },
+    {
+      "name": "web-designer",
+      "path": "personas/default/web-designer",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/web-designer",
+      "description": ""
+    },
+    {
+      "name": "web-designer-engineer",
+      "path": "personas/default/web-designer-engineer",
+      "github_url": "https://github.com/jordanhubbard/loom/tree/main/personas/default/web-designer-engineer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jordanhubbard/loom",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:37:19Z"
+}
