@@ -1,6 +1,6 @@
-# cursor-template — distributed by TomeVault
+# cursor-template
 
-> Originally from [guigeng/cursor-template](https://github.com/guigeng/cursor-template). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [guigeng/cursor-template](https://github.com/guigeng/cursor-template) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [guigeng/cursor-template](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/guigeng)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/guigeng/cursor-template](https://github.com/guigeng/cursor-template)
 
 ---
 
