@@ -1,0 +1,201 @@
+{
+  "name": "claudekit-skills",
+  "owner": "mrgoonie",
+  "repo": "claudekit-skills",
+  "description": "All powerful skills of ClaudeKit.cc!",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aesthetic",
+      "path": ".claude/skills/aesthetic",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/aesthetic",
+      "description": ""
+    },
+    {
+      "name": "ai-multimodal",
+      "path": ".claude/skills/ai-multimodal",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/ai-multimodal",
+      "description": ""
+    },
+    {
+      "name": "backend-development",
+      "path": ".claude/skills/backend-development",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/backend-development",
+      "description": ""
+    },
+    {
+      "name": "better-auth",
+      "path": ".claude/skills/better-auth",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/better-auth",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "path": ".claude/skills/chrome-devtools",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "path": ".claude/skills/context-engineering",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/context-engineering",
+      "description": ""
+    },
+    {
+      "name": "databases",
+      "path": ".claude/skills/databases",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/databases",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "path": ".claude/skills/devops",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/devops",
+      "description": ""
+    },
+    {
+      "name": "docs-seeker",
+      "path": ".claude/skills/docs-seeker",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/docs-seeker",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".claude/skills/frontend-design",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "inversion-exercise",
+      "path": ".claude/skills/problem-solving/inversion-exercise",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/problem-solving/inversion-exercise",
+      "description": ""
+    },
+    {
+      "name": "mcp-management",
+      "path": ".claude/skills/mcp-management",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/mcp-management",
+      "description": ""
+    },
+    {
+      "name": "media-processing",
+      "path": ".claude/skills/media-processing",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/media-processing",
+      "description": ""
+    },
+    {
+      "name": "mermaidjs-v11",
+      "path": ".claude/skills/mermaidjs-v11",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/mermaidjs-v11",
+      "description": ""
+    },
+    {
+      "name": "meta-pattern-recognition",
+      "path": ".claude/skills/problem-solving/meta-pattern-recognition",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/problem-solving/meta-pattern-recognition",
+      "description": ""
+    },
+    {
+      "name": "payment-integration",
+      "path": ".claude/skills/payment-integration",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/payment-integration",
+      "description": ""
+    },
+    {
+      "name": "repomix",
+      "path": ".claude/skills/repomix",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/repomix",
+      "description": ""
+    },
+    {
+      "name": "scale-game",
+      "path": ".claude/skills/problem-solving/scale-game",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/problem-solving/scale-game",
+      "description": ""
+    },
+    {
+      "name": "sequential-thinking",
+      "path": ".claude/skills/sequential-thinking",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/sequential-thinking",
+      "description": ""
+    },
+    {
+      "name": "shopify",
+      "path": ".claude/skills/shopify",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/shopify",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "threejs",
+      "path": ".claude/skills/threejs",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/threejs",
+      "description": ""
+    },
+    {
+      "name": "ui-styling",
+      "path": ".claude/skills/ui-styling",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/ui-styling",
+      "description": ""
+    },
+    {
+      "name": "web-frameworks",
+      "path": ".claude/skills/web-frameworks",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/web-frameworks",
+      "description": ""
+    },
+    {
+      "name": "web-testing",
+      "path": ".claude/skills/web-testing",
+      "github_url": "https://github.com/mrgoonie/claudekit-skills/tree/main/.claude/skills/web-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mrgoonie/claudekit-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:34:56Z"
+}
