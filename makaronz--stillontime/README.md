@@ -1,6 +1,6 @@
 # StillOnTime
 
-> Tome by [makaronz](https://github.com/makaronz/StillOnTime) — distributed by [TomeVault](https://tomevault.io/claim/makaronz)
+> Tome by [makaronz](https://github.com/makaronz/StillOnTime) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [makaronz/StillOnTime](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/makaronz#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/makaronz/StillOnTime](https://github.com/makaronz/StillOnTime)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install makaronz/StillOnTime
 ```
-Or browse all formats at [https://tomevault.io/claim/makaronz](https://tomevault.io/claim/makaronz).
+Source: [github.com/makaronz/StillOnTime](https://github.com/makaronz/StillOnTime).
 
 <!-- genome:t-i-q -->
