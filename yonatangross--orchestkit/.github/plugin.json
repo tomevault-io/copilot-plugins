@@ -1,0 +1,198 @@
+{
+  "name": "yonatangross--orchestkit",
+  "displayName": "orchestkit",
+  "description": "The Complete AI Development Toolkit for Claude Code \u2014 103 skills, 36 agents, 172 hooks. Production-ready patterns for full-stack development.",
+  "version": "1.0.0",
+  "author": "yonatangross",
+  "homepage": "https://github.com/yonatangross/orchestkit",
+  "skills": [
+    {
+      "name": "accessibility",
+      "description": ""
+    },
+    {
+      "name": "agent-orchestration",
+      "description": ""
+    },
+    {
+      "name": "analytics",
+      "description": ""
+    },
+    {
+      "name": "api-design",
+      "description": ""
+    },
+    {
+      "name": "architecture-decision-record",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "assess",
+      "description": ""
+    },
+    {
+      "name": "audit-full",
+      "description": ""
+    },
+    {
+      "name": "browser-tools",
+      "description": ""
+    },
+    {
+      "name": "code-review-playbook",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "database-patterns",
+      "description": ""
+    },
+    {
+      "name": "devops-deployment",
+      "description": ""
+    },
+    {
+      "name": "doctor",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design",
+      "description": ""
+    },
+    {
+      "name": "errors",
+      "description": ""
+    },
+    {
+      "name": "explore",
+      "description": ""
+    },
+    {
+      "name": "fix-issue",
+      "description": ""
+    },
+    {
+      "name": "github-operations",
+      "description": ""
+    },
+    {
+      "name": "golden-dataset",
+      "description": ""
+    },
+    {
+      "name": "help",
+      "description": ""
+    },
+    {
+      "name": "i18n-date-patterns",
+      "description": ""
+    },
+    {
+      "name": "issue-progress-tracking",
+      "description": ""
+    },
+    {
+      "name": "langgraph",
+      "description": ""
+    },
+    {
+      "name": "llm-integration",
+      "description": ""
+    },
+    {
+      "name": "mcp-patterns",
+      "description": ""
+    },
+    {
+      "name": "memory-fabric",
+      "description": ""
+    },
+    {
+      "name": "multimodal-llm",
+      "description": ""
+    },
+    {
+      "name": "performance",
+      "description": ""
+    },
+    {
+      "name": "product-frameworks",
+      "description": ""
+    },
+    {
+      "name": "python-backend",
+      "description": ""
+    },
+    {
+      "name": "quality-gates",
+      "description": ""
+    },
+    {
+      "name": "rag-retrieval",
+      "description": ""
+    },
+    {
+      "name": "react-server-components-framework",
+      "description": ""
+    },
+    {
+      "name": "release-management",
+      "description": ""
+    },
+    {
+      "name": "responsive-patterns",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "description": ""
+    },
+    {
+      "name": "scope-appropriate-architecture",
+      "description": ""
+    },
+    {
+      "name": "security-patterns",
+      "description": ""
+    },
+    {
+      "name": "skill-evolution",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "ui-components",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "description": ""
+    },
+    {
+      "name": "vite-advanced",
+      "description": ""
+    },
+    {
+      "name": "web-research-workflow",
+      "description": ""
+    },
+    {
+      "name": "zustand-patterns",
+      "description": ""
+    },
+    {
+      "name": "component-search",
+      "description": ""
+    }
+  ]
+}
