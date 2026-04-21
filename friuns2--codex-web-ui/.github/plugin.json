@@ -1,0 +1,14 @@
+{
+  "name": "friuns2--codex-web-ui",
+  "displayName": "codex",
+  "description": "Codex App Web UI and SSH remote, project moved to https://github.com/friuns2/codexui",
+  "version": "1.0.0",
+  "author": "friuns2",
+  "homepage": "https://github.com/friuns2/codex-web-ui",
+  "skills": [
+    {
+      "name": "launch-codex-unpacked",
+      "description": ""
+    }
+  ]
+}
