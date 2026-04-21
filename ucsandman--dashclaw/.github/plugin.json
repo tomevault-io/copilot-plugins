@@ -1,0 +1,9 @@
+{
+  "name": "ucsandman--dashclaw",
+  "displayName": "DashClaw",
+  "description": "\ud83d\udee1\ufe0fDecision infrastructure for AI agents. Intercept actions, enforce guard policies, require approvals, and produce audit-ready decision trails.",
+  "version": "1.0.0",
+  "author": "ucsandman",
+  "homepage": "https://github.com/ucsandman/DashClaw",
+  "skills": []
+}
