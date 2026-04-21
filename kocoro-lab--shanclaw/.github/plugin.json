@@ -1,0 +1,9 @@
+{
+  "name": "kocoro-lab--shanclaw",
+  "displayName": "ShanClaw",
+  "description": "AI agent runtime powered by Shannon \u2014 Mac file ops, shell, GUI automation \u2014 with complex task delegation via Shannon Cloud workflows",
+  "version": "1.0.0",
+  "author": "Kocoro-lab",
+  "homepage": "https://github.com/Kocoro-lab/ShanClaw",
+  "skills": []
+}
