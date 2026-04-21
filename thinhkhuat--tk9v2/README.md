@@ -1,6 +1,6 @@
 # tk9v2
 
-> Tome by [thinhkhuat](https://github.com/thinhkhuat/tk9v2) — distributed by [TomeVault](https://tomevault.io/claim/thinhkhuat)
+> Tome by [thinhkhuat](https://github.com/thinhkhuat/tk9v2) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [thinhkhuat/tk9v2](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/thinhkhuat)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/thinhkhuat/tk9v2](https://github.com/thinhkhuat/tk9v2)
 
 ---
 
