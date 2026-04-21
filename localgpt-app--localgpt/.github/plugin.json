@@ -1,0 +1,9 @@
+{
+  "name": "localgpt-app--localgpt",
+  "displayName": "localgpt",
+  "description": "Local AI assistant, dreaming explorable worlds.",
+  "version": "1.0.0",
+  "author": "localgpt-app",
+  "homepage": "https://github.com/localgpt-app/localgpt",
+  "skills": []
+}
