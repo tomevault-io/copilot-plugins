@@ -1,0 +1,146 @@
+{
+  "name": "ed3dai--ed3d-plugins",
+  "displayName": "ed3d-plugins",
+  "description": "Ed's repo of Claude Code plugins, centered around a research-plan-implement workflow. Only a tiny bit cursed. If you're lucky.",
+  "version": "1.0.0",
+  "author": "ed3dai",
+  "homepage": "https://github.com/ed3dai/ed3d-plugins",
+  "skills": [
+    {
+      "name": "asking-clarifying-questions",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "coding-effectively",
+      "description": ""
+    },
+    {
+      "name": "creating-an-agent",
+      "description": ""
+    },
+    {
+      "name": "doing-a-simple-two-stage-fanout",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "howto-functional-vs-imperative",
+      "description": ""
+    },
+    {
+      "name": "howto-code-in-typescript",
+      "description": ""
+    },
+    {
+      "name": "howto-develop-with-postgres",
+      "description": ""
+    },
+    {
+      "name": "investigating-a-codebase",
+      "description": ""
+    },
+    {
+      "name": "maintaining-a-marketplace",
+      "description": ""
+    },
+    {
+      "name": "maintaining-project-context",
+      "description": ""
+    },
+    {
+      "name": "playwright-debugging",
+      "description": ""
+    },
+    {
+      "name": "playwright-patterns",
+      "description": ""
+    },
+    {
+      "name": "programming-in-react",
+      "description": ""
+    },
+    {
+      "name": "property-based-testing",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "researching-on-the-internet",
+      "description": ""
+    },
+    {
+      "name": "starting-a-design-plan",
+      "description": ""
+    },
+    {
+      "name": "starting-an-implementation-plan",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-skills-with-subagents",
+      "description": ""
+    },
+    {
+      "name": "using-generic-agents",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-plan-and-execute",
+      "description": ""
+    },
+    {
+      "name": "writing-claude-directives",
+      "description": ""
+    },
+    {
+      "name": "writing-design-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-for-a-technical-audience",
+      "description": ""
+    },
+    {
+      "name": "writing-good-tests",
+      "description": ""
+    },
+    {
+      "name": "writing-implementation-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "writing-implementation-plans",
+      "description": ""
+    }
+  ]
+}
