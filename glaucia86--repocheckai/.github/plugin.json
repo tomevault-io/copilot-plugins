@@ -1,0 +1,26 @@
+{
+  "name": "glaucia86--repocheckai",
+  "displayName": "repocheckai",
+  "description": "Agentic CLI Tool for GitHub Repository Health Analysis",
+  "version": "1.0.0",
+  "author": "glaucia86",
+  "homepage": "https://github.com/glaucia86/repocheckai",
+  "skills": [
+    {
+      "name": "code-quality-audit",
+      "description": ""
+    },
+    {
+      "name": "docs-audit",
+      "description": ""
+    },
+    {
+      "name": "findings-to-github-issues",
+      "description": ""
+    },
+    {
+      "name": "testing-posture",
+      "description": ""
+    }
+  ]
+}
