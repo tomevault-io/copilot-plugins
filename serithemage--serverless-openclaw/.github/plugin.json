@@ -1,0 +1,34 @@
+{
+  "name": "serithemage--serverless-openclaw",
+  "displayName": "serverless-openclaw",
+  "description": "Run OpenClaw AI agent on-demand on AWS serverless infrastructure with Web UI and Telegram interfaces. Cost target ~$1/month.",
+  "version": "1.0.0",
+  "author": "serithemage",
+  "homepage": "https://github.com/serithemage/serverless-openclaw",
+  "skills": [
+    {
+      "name": "architecture",
+      "description": ""
+    },
+    {
+      "name": "context",
+      "description": ""
+    },
+    {
+      "name": "cost",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "description": ""
+    }
+  ]
+}
