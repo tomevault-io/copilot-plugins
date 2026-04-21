@@ -1,0 +1,93 @@
+{
+  "name": "han",
+  "owner": "TheBushidoCollective",
+  "repo": "han",
+  "description": "A curated marketplace of Claude Code plugins that embody the principles of ethical and professional software development.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cypress-ci-cd",
+      "path": "plugins/tools/cypress/skills/cypress-ci-cd",
+      "github_url": "https://github.com/TheBushidoCollective/han/tree/main/plugins/tools/cypress/skills/cypress-ci-cd",
+      "description": ""
+    },
+    {
+      "name": "vue-component-patterns",
+      "path": "plugins/frameworks/vue/skills/vue-component-patterns",
+      "github_url": "https://github.com/TheBushidoCollective/han/tree/main/plugins/frameworks/vue/skills/vue-component-patterns",
+      "description": ""
+    },
+    {
+      "name": "typescript-utility-types",
+      "path": "plugins/languages/typescript/skills/typescript-utility-types",
+      "github_url": "https://github.com/TheBushidoCollective/han/tree/main/plugins/languages/typescript/skills/typescript-utility-types",
+      "description": ""
+    },
+    {
+      "name": "typescript-async-patterns",
+      "path": "plugins/languages/typescript/skills/typescript-async-patterns",
+      "github_url": "https://github.com/TheBushidoCollective/han/tree/main/plugins/languages/typescript/skills/typescript-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "typescript-type-system",
+      "path": "plugins/languages/typescript/skills/typescript-typescript-type-system",
+      "github_url": "https://github.com/TheBushidoCollective/han/tree/main/plugins/languages/typescript/skills/typescript-typescript-type-system",
+      "description": ""
+    },
+    {
+      "name": "django-cbv-patterns",
+      "path": "plugins/frameworks/django/skills/django-cbv-patterns",
+      "github_url": "https://github.com/TheBushidoCollective/han/tree/main/plugins/frameworks/django/skills/django-cbv-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-orm-patterns",
+      "path": "plugins/frameworks/django/skills/django-orm-patterns",
+      "github_url": "https://github.com/TheBushidoCollective/han/tree/main/plugins/frameworks/django/skills/django-orm-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-rest-framework",
+      "path": "plugins/frameworks/django/skills/django-rest-framework",
+      "github_url": "https://github.com/TheBushidoCollective/han/tree/main/plugins/frameworks/django/skills/django-rest-framework",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TheBushidoCollective/han",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T20:34:07Z"
+}
