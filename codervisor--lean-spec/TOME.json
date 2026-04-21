@@ -1,0 +1,57 @@
+{
+  "name": "lean-spec",
+  "owner": "codervisor",
+  "repo": "lean-spec",
+  "description": "Lightweight, flexible Spec-Driven Development (SDD) for modern AI-powered development",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": ".agents/skills/agent-browser",
+      "github_url": "https://github.com/codervisor/lean-spec/tree/main/.agents/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "leanspec-development",
+      "path": ".agents/skills/leanspec-development",
+      "github_url": "https://github.com/codervisor/lean-spec/tree/main/.agents/skills/leanspec-development",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/codervisor/lean-spec",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:32:06Z"
+}
