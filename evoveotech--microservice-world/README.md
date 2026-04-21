@@ -1,6 +1,6 @@
-# microservice-world — distributed by TomeVault
+# microservice-world
 
-> Originally from [evoveotech/microservice-world](https://github.com/evoveotech/microservice-world). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [evoveotech/microservice-world](https://github.com/evoveotech/microservice-world) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [evoveotech/microservice-world](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/evoveotech)
+From [evoveotech/microservice-world](https://github.com/evoveotech/microservice-world) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install evoveotech/microservice-world
 ```
-Or browse all formats at [https://tomevault.io/claim/evoveotech](https://tomevault.io/claim/evoveotech).
+Source: [github.com/evoveotech/microservice-world](https://github.com/evoveotech/microservice-world).
 
 <!-- genome:d-i-s -->
