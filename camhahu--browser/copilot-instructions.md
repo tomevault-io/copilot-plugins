@@ -1,0 +1,24 @@
+## browser
+
+> - Write OS-agnostic code (avoid platform-specific paths, commands, or APIs)
+
+# AGENTS.md
+
+- Write OS-agnostic code (avoid platform-specific paths, commands, or APIs)
+- Always use Bun (never npm, pnpm, etc.)
+- Use Bun standard library instead of Node standard library where possible
+- Build with `bun run build` to compile to `./dist/browser`
+- For testing, always use `./dist/browser` (not the globally installed `browser` command)
+- See `docs/TODO.md` for planned features and `docs/BUGS.md` for known issues
+- When fixing a bug or implementing a TODO, remove the corresponding entry from `docs/BUGS.md` or `docs/TODO.md`
+- No barrel exports
+- Never add `--json` output flags to the `browser` CLI commands (other CLIs are ok)
+- No fallback logic - each piece of code should do one thing, one way
+- Run `bun run test` after changes (always runs headless) - requires the web server running (`bun run dev:web`)
+- After completing a new feature, manually test it and add integration test coverage
+- When fixing a bug, first add a test case that reproduces the issue, then fix the bug
+- Never stage or commit files unless explicitly asked
+
+---
+> Source: [camhahu/browser](https://github.com/camhahu/browser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
