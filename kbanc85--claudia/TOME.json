@@ -1,0 +1,105 @@
+{
+  "name": "claudia",
+  "owner": "kbanc85",
+  "repo": "claudia",
+  "description": "Terminal-based AI chief of staff. Remembers relationships, tracks commitments, helps you think strategically. Runs on Claude Code.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "client-health",
+      "path": "template-v2/.claude/skills/client-health",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/client-health",
+      "description": ""
+    },
+    {
+      "name": "draft-reply",
+      "path": "template-v2/.claude/skills/draft-reply",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/draft-reply",
+      "description": ""
+    },
+    {
+      "name": "file-document",
+      "path": "template-v2/.claude/skills/file-document",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/file-document",
+      "description": ""
+    },
+    {
+      "name": "follow-up-draft",
+      "path": "template-v2/.claude/skills/follow-up-draft",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/follow-up-draft",
+      "description": ""
+    },
+    {
+      "name": "growth-check",
+      "path": "template-v2/.claude/skills/growth-check",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/growth-check",
+      "description": ""
+    },
+    {
+      "name": "ingest-sources",
+      "path": "template-v2/.claude/skills/ingest-sources",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/ingest-sources",
+      "description": ""
+    },
+    {
+      "name": "new-workspace",
+      "path": "template-v2/.claude/skills/new-workspace",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/new-workspace",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "template-v2/.claude/skills/research",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/research",
+      "description": ""
+    },
+    {
+      "name": "summarize-doc",
+      "path": "template-v2/.claude/skills/summarize-doc",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/summarize-doc",
+      "description": ""
+    },
+    {
+      "name": "weekly-review",
+      "path": "template-v2/.claude/skills/weekly-review",
+      "github_url": "https://github.com/kbanc85/claudia/tree/main/template-v2/.claude/skills/weekly-review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kbanc85/claudia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:40:51Z"
+}
