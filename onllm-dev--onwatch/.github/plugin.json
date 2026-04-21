@@ -1,0 +1,9 @@
+{
+  "name": "onllm-dev--onwatch",
+  "displayName": "onWatch",
+  "description": "Track AI API quotas across Synthetic, Z.ai, Anthropic (Claude Code), Codex, GitHub Copilot & Antigravity in real time. Lightweight background daemon (<50MB RAM), SQLite storage, Material Design 3 dash",
+  "version": "1.0.0",
+  "author": "onllm-dev",
+  "homepage": "https://github.com/onllm-dev/onWatch",
+  "skills": []
+}
