@@ -1,0 +1,9 @@
+{
+  "name": "yeachan-heo--clawhip",
+  "displayName": "clawhip",
+  "description": "claw + whip: Event-to-channel notification router \u2014 bypasses gateway sessions to avoid context pollution",
+  "version": "1.0.0",
+  "author": "Yeachan-Heo",
+  "homepage": "https://github.com/Yeachan-Heo/clawhip",
+  "skills": []
+}
