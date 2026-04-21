@@ -1,0 +1,9 @@
+{
+  "name": "gentleman-programming--agent-teams-lite",
+  "displayName": "agent-teams-lite",
+  "description": "Spec-Driven Development with AI Sub-Agents. An orchestrator + 9 specialized sub-agents for structured feature development. Zero dependencies. Pure Markdown. Works with Claude Code, OpenCode, Cursor, a",
+  "version": "1.0.0",
+  "author": "Gentleman-Programming",
+  "homepage": "https://github.com/Gentleman-Programming/agent-teams-lite",
+  "skills": []
+}
