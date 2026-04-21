@@ -1,0 +1,9 @@
+{
+  "name": "htdt--godogen",
+  "displayName": "godogen",
+  "description": "Claude Code & Codex skills that build complete Godot projects from a game description",
+  "version": "1.0.0",
+  "author": "htdt",
+  "homepage": "https://github.com/htdt/godogen",
+  "skills": []
+}
