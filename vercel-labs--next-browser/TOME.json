@@ -1,0 +1,75 @@
+{
+  "name": "next",
+  "owner": "vercel-labs",
+  "repo": "next-browser",
+  "description": "AI instruction skills by vercel-labs",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "next-cache-components",
+      "path": "skills/next-cache-components",
+      "github_url": "https://github.com/vercel-labs/next-browser/tree/main/skills/next-cache-components",
+      "description": ""
+    },
+    {
+      "name": "next-upgrade",
+      "path": "skills/next-upgrade",
+      "github_url": "https://github.com/vercel-labs/next-browser/tree/main/skills/next-upgrade",
+      "description": ""
+    },
+    {
+      "name": "next",
+      "path": "skills/next",
+      "github_url": "https://github.com/vercel-labs/next-browser/tree/main/skills/next",
+      "description": ""
+    },
+    {
+      "name": "next",
+      "path": "skills/next",
+      "github_url": "https://github.com/vercel-labs/next-browser/tree/main/skills/next",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "path": "skills/next-best-practices",
+      "github_url": "https://github.com/vercel-labs/next-browser/tree/main/skills/next-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vercel-labs/next-browser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T07:34:41Z"
+}
