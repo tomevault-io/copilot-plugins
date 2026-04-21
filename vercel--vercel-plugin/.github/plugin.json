@@ -1,0 +1,22 @@
+{
+  "name": "vercel--vercel-plugin",
+  "displayName": "vercel",
+  "description": "Comprehensive Vercel ecosystem plugin \u2014 relational knowledge graph, skills for every major product, specialized agents, and Vercel conventions. Turns any AI agent into a Vercel expert.",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/vercel-plugin",
+  "skills": [
+    {
+      "name": "vercel-cli",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "description": ""
+    },
+    {
+      "name": "next-cache-components",
+      "description": ""
+    }
+  ]
+}
