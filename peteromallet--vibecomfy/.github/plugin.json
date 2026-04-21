@@ -1,0 +1,26 @@
+{
+  "name": "peteromallet--vibecomfy",
+  "displayName": "vibecomfy",
+  "description": "VibeComfy",
+  "version": "1.0.0",
+  "author": "peteromallet",
+  "homepage": "https://github.com/peteromallet/VibeComfy",
+  "skills": [
+    {
+      "name": "comfy-analyze",
+      "description": ""
+    },
+    {
+      "name": "comfy-edit",
+      "description": ""
+    },
+    {
+      "name": "comfy-nodes",
+      "description": ""
+    },
+    {
+      "name": "comfy-registry",
+      "description": ""
+    }
+  ]
+}
