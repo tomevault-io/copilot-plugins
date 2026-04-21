@@ -1,212 +1,188 @@
 ## terragon-oss
 
-> Terragon theme colors and design system guidelines
+> You are an AI assistant helping with the Terragon codebase, an AI-powered coding assistant platform that allows users to run coding agents in parallel inside remote sandboxes.
 
-# Terragon Theme Colors Usage Guidelines
+# Terragon Project Cursor Rules
 
-## Overview
-Always use the semantic theme colors defined in [apps/www/src/app/globals.css](mdc:apps/www/src/app/globals.css) instead of hardcoded Tailwind color classes. This ensures consistent theming and proper dark mode support across the Terragon AI coding assistant platform.
+You are an AI assistant helping with the Terragon codebase, an AI-powered coding assistant platform that allows users to run coding agents in parallel inside remote sandboxes.
 
-## Theme Color System
+## Project Overview
 
-### Primary Color Variables
-- `--primary: #2e7d32` (forest green) / `--primary: #4caf50` (dark mode)
-- `--primary-foreground: #ffffff` / `--primary-foreground: #0a1f0c` (dark mode)
-- `--secondary: #e8f5e9` (light green) / `--secondary: #3e4a3d` (dark mode)
-- `--secondary-foreground: #1b5e20` / `--secondary-foreground: #d7e0d6` (dark mode)
-- `--accent: #c8e6c9` (pale green) / `--accent: #388e3c` (dark mode)
-- `--accent-foreground: #1b5e20` / `--accent-foreground: #f0ebe5` (dark mode)
-- `--destructive: #c62828` (red) / `--destructive: #c62828` (dark mode)
-- `--destructive-foreground: #ffffff` / `--destructive-foreground: #f0ebe5` (dark mode)
+Terragon is a sophisticated monorepo that enables concurrent AI coding tasks in full development environments with capabilities for editing, testing, and creating PRs.
 
-### Layout & Background Colors
-- `--background: #f8f5f0` (warm off-white) / `--background: #1c2a1f` (dark green)
-- `--foreground: #3e2723` (dark brown) / `--foreground: #f0ebe5` (warm white)
-- `--card: #f8f5f0` (matches background) / `--card: #2d3a2e` (dark mode)
-- `--card-foreground: #3e2723` / `--card-foreground: #f0ebe5` (dark mode)
-- `--popover: #f8f5f0` / `--popover: #2d3a2e` (dark mode)
-- `--popover-foreground: #3e2723` / `--popover-foreground: #f0ebe5` (dark mode)
-- `--muted: #f0e9e0` (subtle beige) / `--muted: #2d3a2e` (dark mode)
-- `--muted-foreground: #6d4c41` (muted brown) / `--muted-foreground: #d7cfc4` (dark mode)
+## Repository Structure & Conventions
 
-### Interaction & Border Colors
-- `--border: #e0d6c9` (warm border) / `--border: #3e4a3d` (dark mode)
-- `--input: #e0d6c9` (matches border) / `--input: #3e4a3d` (dark mode)
-- `--ring: #2e7d32` (focus ring) / `--ring: #4caf50` (dark mode)
+### Monorepo Setup
+- Uses **pnpm workspace (v10.11.1)** - ALWAYS use `pnpm` for package management
+- TypeScript throughout with strict typing
+- Path aliases: `@/*` → `./src/*` in Next.js app
+- Workspace dependencies use `workspace:*` references
 
-### Sidebar Colors
-- `--sidebar: #f0e9e0` / `--sidebar: #1c2a1f` (dark mode)
-- `--sidebar-foreground: #3e2723` / `--sidebar-foreground: #f0ebe5` (dark mode)
-- `--sidebar-primary: #2e7d32` / `--sidebar-primary: #4caf50` (dark mode)
-- `--sidebar-primary-foreground: #ffffff` / `--sidebar-primary-foreground: #0a1f0c` (dark mode)
-- `--sidebar-accent: #c8e6c9` / `--sidebar-accent: #388e3c` (dark mode)
-- `--sidebar-accent-foreground: #1b5e20` / `--sidebar-accent-foreground: #f0ebe5` (dark mode)
-- `--sidebar-border: #e0d6c9` / `--sidebar-border: #3e4a3d` (dark mode)
-- `--sidebar-ring: #2e7d32` / `--sidebar-ring: #4caf50` (dark mode)
+### Core Applications
+- `apps/www` - Next.js 15.3.4 frontend with React 19.1
+- `apps/broadcast` - PartyKit WebSocket service for real-time features
+- `apps/docs` - Fumadocs-based documentation site  
+- `apps/cli` - Terry CLI tool (uses Ink for terminal UI)
 
-### Chart Colors (for data visualization)
-- `--chart-1: #4caf50` / `--chart-1: #81c784` (dark mode)
-- `--chart-2: #388e3c` / `--chart-2: #66bb6a` (dark mode)
-- `--chart-3: #2e7d32` / `--chart-3: #4caf50` (dark mode)
-- `--chart-4: #1b5e20` / `--chart-4: #43a047` (dark mode)
-- `--chart-5: #0a1f0c` / `--chart-5: #388e3c` (dark mode)
+### Shared Packages
+- `@terragon/shared` - Database models, schemas, core utilities
+- `@terragon/daemon` - Sandbox agent runtime and communication
+- `@terragon/bundled` - Bundled deployment scripts
+- `@terragon/env` - Environment configuration management
+- `@terragon/r2` - Cloudflare R2 storage integration
+- And 8+ other specialized packages
 
-## Typography & Design System
+## Technology Stack
 
-### Fonts
-- `--font-sans: Montserrat, sans-serif` - Primary UI font
-- `--font-serif: Merriweather, serif` - Editorial content
-- `--font-mono: Source Code Pro, monospace` - Code and technical content
+### Frontend (apps/www)
+- **Framework**: Next.js 15.3.4 (App Router) with React 19
+- **Styling**: Tailwind CSS v4
+- **State**: Jotai, React Query (Tanstack Query)
+- **UI Components**: Radix UI primitives with shadcn/ui
+- **Rich Text**: TipTap editor with slash commands
+- **Real-time**: PartySocket for WebSocket communication
 
-### Border Radius
-- `--radius: 0.5rem` - Base radius (8px)
-- `--radius-sm: calc(var(--radius) - 4px)` - Small radius (4px)
-- `--radius-md: calc(var(--radius) - 2px)` - Medium radius (6px)
-- `--radius-lg: var(--radius)` - Large radius (8px)
-- `--radius-xl: calc(var(--radius) + 4px)` - Extra large radius (12px)
+### Backend & Database
+- **Database**: Drizzle ORM with PostgreSQL
+- **Auth**: Better Auth with GitHub OAuth, Claude OAuth integration
+- **AI**: Anthropic Claude SDK (v0.52.0), AI SDK, OpenAI
+- **Rate Limiting**: @upstash/ratelimit with Redis
+- **File Storage**: Cloudflare R2 integration
 
-## Usage Rules
+### Development & Testing
+- **Testing**: Vitest
+- **CLI**: Ink for interactive terminal UI, ORPC for type-safe API communication
+- **Email**: React Email for transactional emails
+- **UI Development**: Ladle for component development
 
-### ✅ DO Use Theme Colors
-```tsx
-// Text colors
-className="text-foreground"           // Main text
-className="text-muted-foreground"     // Secondary text
-className="text-primary"              // Primary actions/highlights
-className="text-destructive"          // Errors/warnings
+## Key Development Commands
 
-// Background colors
-className="bg-background"             // Main background
-className="bg-card"                   // Card backgrounds
-className="bg-muted"                  // Muted backgrounds
-className="bg-primary/10"             // Primary with opacity
-className="bg-destructive/10"         // Error backgrounds with opacity
+```bash
+# Start full development environment
+pnpm dev
 
-// Border colors
-className="border-border"             // Default borders
-className="border-primary/20"         // Primary borders with opacity
-className="border-destructive/20"     // Error borders with opacity
+# TypeScript watch mode for all services  
+pnpm tsc-watch
 
-// Sidebar colors
-className="bg-sidebar"                // Sidebar background
-className="text-sidebar-foreground"   // Sidebar text
-className="bg-sidebar-accent/10"      // Sidebar accents
+# Run tests
+pnpm -C apps/www test
+pnpm -C packages/shared test
+
+# Database operations
+pnpm -C packages/shared drizzle-kit-push-dev
+pnpm -C packages/shared drizzle-kit-studio-dev
+
+# CLI tool development
+pnpm install-cli:dev
 ```
 
-### ❌ DON'T Use Hardcoded Colors
-```tsx
-// Avoid these hardcoded color classes
-className="text-gray-500"             // Use text-muted-foreground instead
-className="bg-blue-100"               // Use bg-primary/10 instead
-className="border-red-200"            // Use border-destructive/20 instead
-className="text-green-600"            // Use text-primary instead
-className="bg-green-50"               // Use bg-accent/10 instead
-```
+## Code Conventions
 
-## Component Examples
+### React/Next.js
+- Prefer server components over client components
+- Use Jotai for client-side state management
+- Follow established patterns in `src/components/`
+- Implement proper error handling and loading states
+- Use workspace packages (`@terragon/*`) for shared code
 
-### Status Indicators (for threads, sandboxes, etc.)
-```tsx
-// Good: Using theme colors for status badges
-const getStatusStyles = (status: string) => {
-  switch (status) {
-    case "completed":
-    case "running":
-      return "bg-primary/10 text-primary border border-primary/20";
-    case "error":
-    case "failed":
-      return "bg-destructive/10 text-destructive border border-destructive/20";
-    case "pending":
-    case "hibernating":
-    default:
-      return "bg-accent/10 text-accent-foreground border border-accent/20";
-  }
+### Database
+- Use Drizzle ORM patterns
+- Push schema changes with `drizzle-kit-push-dev`
+- All environment configs in dedicated files
+
+### File Naming
+- Use kebab-case for file names
+- Use PascalCase for React components
+- Use camelCase for TypeScript interfaces/types
+- Add `.test.ts` suffix for test files
+- Use `.mdc` for Cursor documentation files
+
+## Feature Flags System
+
+### Creating Feature Flags
+1. Define in `packages/shared/src/model/feature-flags-definitions.ts`
+2. Use `useFeatureFlag` hook in React components
+3. Configure via admin page (global + per-user overrides)
+
+### Example Usage
+```typescript
+import { useFeatureFlag } from "@/hooks/use-feature-flag";
+
+const MyComponent = () => {
+  const isFeatureEnabled = useFeatureFlag("myNewFeature");
+  // Use the flag...
 };
 ```
 
-### Interactive Elements (chat UI, buttons)
-```tsx
-// Good: Theme-aware hover states
-className="text-muted-foreground hover:text-foreground border-border hover:border-accent transition-colors"
+## Architecture Components
 
-// Good: Primary action button
-className="bg-primary text-primary-foreground hover:bg-primary/90"
+### Core Agent System (`apps/www/src/agent/`)
+- Sandbox orchestration (E2B, Docker)
+- Claude integration and message processing
+- Daemon system for autonomous agents
+- Resource management and hibernation
 
-// Good: Secondary action button
-className="bg-secondary text-secondary-foreground hover:bg-secondary/80"
-```
+### Chat System (`apps/www/src/components/chat/`)
+- Real-time UI with message streaming
+- Tool visualization (bash, files, git diff, web search, todos)
+- Rich text editor with mentions and attachments
+- Follow-up tasks and copy features
 
-### Sidebar Navigation
-```tsx
-// Good: Sidebar item styling
-className="text-sidebar-foreground hover:text-sidebar-primary hover:bg-sidebar-accent/20"
+### Database Schema (`packages/shared/src/db/`)
+- Threads with sandbox/GitHub integration
+- Users with auth and API key management
+- Environments with variables and MCP config
+- GitHub PRs with automated workflows
+- Feature flags and user preferences
 
-// Good: Active sidebar item
-className="bg-sidebar-primary text-sidebar-primary-foreground"
-```
+## Environment Configuration
 
-## Terragon-Specific Patterns
+### Development Setup
+- PostgreSQL on port 5432, Redis on port 6379
+- Test DB on port 15432, Test Redis on port 16379
+- Use `.env.development.local` for local development
+- Docker Compose handles dev infrastructure
 
-### Chat Message Status
-```tsx
-// Claude response message
-className="bg-card border border-border text-card-foreground"
+### Key Environment Variables
+- AI Services: Anthropic Claude, OpenAI, E2B API keys
+- Infrastructure: Database URL, Redis, Cloudflare R2
+- Auth: GitHub OAuth, internal shared secrets
+- Development: ngrok tunnel, sandbox provider configs
 
-// User message
-className="bg-primary/5 border border-primary/20 text-foreground"
+## Security Guidelines
+- Never commit API keys or secrets
+- Use proper rate limiting with Upstash
+- Validate all inputs with Zod schemas
+- Implement proper authentication checks
+- Secure sandbox isolation
 
-// System/tool message
-className="bg-muted border border-muted text-muted-foreground"
-```
+## Recent Features to be aware of
+- Claude OAuth integration
+- Follow-up task queuing
+- Interactive CLI with thread selection
+- MCP Server for task suggestions  
+- Task sharing with visibility controls
+- Access codes for controlled signup
+- Slash commands in TipTap editor
+- Admin UI enhancements
 
-### Code & Terminal UI
-```tsx
-// Terminal/bash output
-className="bg-muted text-muted-foreground font-mono border border-border"
+## Troubleshooting Common Issues
+- Docker not starting: Check ports 5432, 6379 are free
+- TypeScript errors: Run `pnpm install` after pulling
+- DB schema out of sync: Run `drizzle-kit-push-dev`
+- Sandbox issues: Verify E2B API keys
+- Ngrok issues: Check auth token and domain in env
 
-// Code blocks
-className="bg-card text-card-foreground font-mono border border-border"
-
-// Syntax highlighting should use chart colors for variety
-```
-
-### AI Coding Assistant Features
-```tsx
-// Sandbox status indicators
-className="bg-primary/10 text-primary"      // Active sandbox
-className="bg-muted text-muted-foreground"  // Hibernating sandbox
-className="bg-destructive/10 text-destructive" // Error state
-
-// GitHub integration status
-className="bg-accent/10 text-accent-foreground" // PR created
-className="bg-primary/10 text-primary"          // Commit successful
-```
-
-## File References
-- Theme definitions: [apps/www/src/app/globals.css](mdc:apps/www/src/app/globals.css)
-- Chat components: [apps/www/src/components/chat/](mdc:apps/www/src/components/chat)
-- Status components: [apps/www/src/components/pr-status-pill.tsx](mdc:apps/www/src/components/pr-status-pill.tsx)
-
-## Benefits
-1. **Automatic dark mode support** - Colors adapt based on theme
-2. **Consistent visual hierarchy** - Semantic naming ensures proper contrast
-3. **Easy theme updates** - Change colors in one place affects entire app
-4. **Better accessibility** - Theme colors are designed with proper contrast ratios
-5. **Future-proof** - New themes can be added without touching components
-6. **Platform cohesion** - Maintains Terragon's natural, coding-focused aesthetic
-
-## Migration Checklist
-When updating components:
-- [ ] Replace `text-gray-*` with `text-muted-foreground` or `text-foreground`
-- [ ] Replace `bg-gray-*` with `bg-muted` or `bg-card`
-- [ ] Replace `border-gray-*` with `border-border`
-- [ ] Replace color-specific classes (`text-blue-*`, `bg-green-*`) with semantic equivalents
-- [ ] Use opacity modifiers (`/10`, `/20`) for subtle backgrounds and borders
-- [ ] Test in both light and dark modes
-- [ ] Ensure proper contrast for accessibility
-- [ ] Use appropriate sidebar colors for navigation elements
-- [ ] Apply consistent chart colors for data visualization
+## When Working on This Codebase
+1. Always use `pnpm` for package management
+2. Check existing patterns in similar components before implementing
+3. Use workspace packages for shared functionality
+4. Implement proper TypeScript typing
+5. Follow the established file naming conventions
+6. Test database changes with push commands
+7. Consider feature flags for new functionality
+8. Maintain security best practices
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/terragon-labs) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [terragon-labs/terragon-oss](https://github.com/terragon-labs/terragon-oss) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
