@@ -1,0 +1,9 @@
+{
+  "name": "marianfoo--sap-ai-mcp-servers",
+  "displayName": "sap-ai-mcp-servers",
+  "description": "A complete list of SAP MCP Servers and SAP AI Skills",
+  "version": "1.0.0",
+  "author": "marianfoo",
+  "homepage": "https://github.com/marianfoo/sap-ai-mcp-servers",
+  "skills": []
+}
