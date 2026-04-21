@@ -1,0 +1,114 @@
+{
+  "name": "mrgoonie--claudekit-skills",
+  "displayName": "claudekit-skills",
+  "description": "All powerful skills of ClaudeKit.cc!",
+  "version": "1.0.0",
+  "author": "mrgoonie",
+  "homepage": "https://github.com/mrgoonie/claudekit-skills",
+  "skills": [
+    {
+      "name": "aesthetic",
+      "description": ""
+    },
+    {
+      "name": "ai-multimodal",
+      "description": ""
+    },
+    {
+      "name": "backend-development",
+      "description": ""
+    },
+    {
+      "name": "better-auth",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "description": ""
+    },
+    {
+      "name": "databases",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "description": ""
+    },
+    {
+      "name": "docs-seeker",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "inversion-exercise",
+      "description": ""
+    },
+    {
+      "name": "mcp-management",
+      "description": ""
+    },
+    {
+      "name": "media-processing",
+      "description": ""
+    },
+    {
+      "name": "mermaidjs-v11",
+      "description": ""
+    },
+    {
+      "name": "meta-pattern-recognition",
+      "description": ""
+    },
+    {
+      "name": "payment-integration",
+      "description": ""
+    },
+    {
+      "name": "repomix",
+      "description": ""
+    },
+    {
+      "name": "scale-game",
+      "description": ""
+    },
+    {
+      "name": "sequential-thinking",
+      "description": ""
+    },
+    {
+      "name": "shopify",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "threejs",
+      "description": ""
+    },
+    {
+      "name": "ui-styling",
+      "description": ""
+    },
+    {
+      "name": "web-frameworks",
+      "description": ""
+    },
+    {
+      "name": "web-testing",
+      "description": ""
+    }
+  ]
+}
