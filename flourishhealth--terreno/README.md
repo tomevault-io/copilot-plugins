@@ -1,6 +1,6 @@
 # terreno
 
-> Tome by [FlourishHealth](https://github.com/FlourishHealth/terreno) — distributed by [TomeVault](https://tomevault.io/claim/FlourishHealth)
+> Tome by [FlourishHealth](https://github.com/FlourishHealth/terreno) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [FlourishHealth/terreno](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/FlourishHealth)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/FlourishHealth/terreno](https://github.com/FlourishHealth/terreno)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install FlourishHealth/terreno
 ```
-Or browse all formats at [https://tomevault.io/claim/FlourishHealth](https://tomevault.io/claim/FlourishHealth).
+Source: [github.com/FlourishHealth/terreno](https://github.com/FlourishHealth/terreno).
 
 <!-- genome:t-i-p -->
