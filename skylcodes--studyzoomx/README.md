@@ -1,6 +1,6 @@
 # StudyZoomX
 
-> Tome by [Skylcodes](https://github.com/Skylcodes/StudyZoomX) — distributed by [TomeVault](https://tomevault.io/claim/Skylcodes)
+> Tome by [Skylcodes](https://github.com/Skylcodes/StudyZoomX) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [Skylcodes/StudyZoomX](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Skylcodes)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Skylcodes/StudyZoomX](https://github.com/Skylcodes/StudyZoomX)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Skylcodes) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
