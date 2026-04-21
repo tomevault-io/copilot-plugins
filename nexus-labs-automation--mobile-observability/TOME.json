@@ -1,0 +1,63 @@
+{
+  "name": "mobile-observability",
+  "owner": "nexus-labs-automation",
+  "repo": "mobile-observability",
+  "description": "Claude Code plugin for mobile app observability: crash reporting, performance monitoring, and instrumentation for iOS, Android, and React Native",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "instrumentation-planning",
+      "path": "skills/instrumentation-planning",
+      "github_url": "https://github.com/nexus-labs-automation/mobile-observability/tree/main/skills/instrumentation-planning",
+      "description": ""
+    },
+    {
+      "name": "network-tracing",
+      "path": "skills/network-tracing",
+      "github_url": "https://github.com/nexus-labs-automation/mobile-observability/tree/main/skills/network-tracing",
+      "description": ""
+    },
+    {
+      "name": "symbolication-setup",
+      "path": "skills/symbolication-setup",
+      "github_url": "https://github.com/nexus-labs-automation/mobile-observability/tree/main/skills/symbolication-setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nexus-labs-automation/mobile-observability",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T17:34:10Z"
+}
