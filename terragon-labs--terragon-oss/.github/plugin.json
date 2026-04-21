@@ -1,7 +1,7 @@
 {
   "name": "terragon-labs--terragon-oss",
   "displayName": "terragon-oss",
-  "description": "terragon-oss",
+  "description": "This is the website formally known as Terragon Labs. It was a remote background agent orchestrator for running Claude Code, Codex, and other coding clis in the cloud.",
   "version": "1.0.0",
   "author": "terragon-labs",
   "homepage": "https://github.com/terragon-labs/terragon-oss",
