@@ -4,7 +4,7 @@
   "repo": "my-timer",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/swon3210",
+  "source_url": "https://github.com/swon3210/my-timer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T10:44:34Z"
+  "distributed_at": "2026-04-21T14:45:09Z"
 }
