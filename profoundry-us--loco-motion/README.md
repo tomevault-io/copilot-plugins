@@ -1,6 +1,6 @@
-# loco_motion — distributed by TomeVault
+# loco_motion
 
-> Originally from [profoundry-us/loco_motion](https://github.com/profoundry-us/loco_motion). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [profoundry-us/loco_motion](https://github.com/profoundry-us/loco_motion) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [profoundry-us/loco_motion](https://g
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/profoundry-us#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/profoundry-us/loco_motion](https://github.com/profoundry-us/loco_motion)
 
 ---
 
