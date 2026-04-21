@@ -1,0 +1,9 @@
+{
+  "name": "kamathhrishi--finance-agent",
+  "displayName": "finance-agent",
+  "description": "Ask questions and get answers from earnings calls, SEC filings and news",
+  "version": "1.0.0",
+  "author": "kamathhrishi",
+  "homepage": "https://github.com/kamathhrishi/finance-agent",
+  "skills": []
+}
