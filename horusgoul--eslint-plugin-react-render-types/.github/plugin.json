@@ -1,0 +1,14 @@
+{
+  "name": "horusgoul--eslint-plugin-react-render-types",
+  "displayName": "eslint-plugin-react-render-types",
+  "description": "ESLint plugin that brings Flow's Render Types to TypeScript via JSDoc. Enforce component composition constraints like `@renders {MenuItem}` at lint time.",
+  "version": "1.0.0",
+  "author": "HorusGoul",
+  "homepage": "https://github.com/HorusGoul/eslint-plugin-react-render-types",
+  "skills": [
+    {
+      "name": "react-render-types-setup",
+      "description": ""
+    }
+  ]
+}
