@@ -1,0 +1,105 @@
+{
+  "name": "epic",
+  "owner": "epicweb-dev",
+  "repo": "epicflare",
+  "description": "A starter and reference for building full-stack web applications on Cloudflare Workers",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "epic-auth",
+      "path": "docs/skills/epic-auth",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-auth",
+      "description": ""
+    },
+    {
+      "name": "epic-caching",
+      "path": "docs/skills/epic-caching",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-caching",
+      "description": ""
+    },
+    {
+      "name": "epic-database",
+      "path": "docs/skills/epic-database",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-database",
+      "description": ""
+    },
+    {
+      "name": "epic-deployment",
+      "path": "docs/skills/epic-deployment",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-deployment",
+      "description": ""
+    },
+    {
+      "name": "epic-forms",
+      "path": "docs/skills/epic-forms",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-forms",
+      "description": ""
+    },
+    {
+      "name": "epic-permissions",
+      "path": "docs/skills/epic-permissions",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-permissions",
+      "description": ""
+    },
+    {
+      "name": "epic-react-patterns",
+      "path": "docs/skills/epic-react-patterns",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-react-patterns",
+      "description": ""
+    },
+    {
+      "name": "epic-routing",
+      "path": "docs/skills/epic-routing",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-routing",
+      "description": ""
+    },
+    {
+      "name": "epic-security",
+      "path": "docs/skills/epic-security",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-security",
+      "description": ""
+    },
+    {
+      "name": "epic-ui-guidelines",
+      "path": "docs/skills/epic-ui-guidelines",
+      "github_url": "https://github.com/epicweb-dev/epicflare/tree/main/docs/skills/epic-ui-guidelines",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/epicweb-dev/epicflare",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T23:45:03Z"
+}
