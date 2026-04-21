@@ -1,0 +1,50 @@
+{
+  "name": "knowns-dev--knowns",
+  "displayName": "knowns",
+  "description": "The memory layer for AI-native development \u2014 giving AI persistent understanding of your software projects.",
+  "version": "1.0.0",
+  "author": "knowns-dev",
+  "homepage": "https://github.com/knowns-dev/knowns",
+  "skills": [
+    {
+      "name": "kn-commit",
+      "description": ""
+    },
+    {
+      "name": "kn-doc",
+      "description": ""
+    },
+    {
+      "name": "kn-extract",
+      "description": ""
+    },
+    {
+      "name": "kn-implement",
+      "description": ""
+    },
+    {
+      "name": "kn-init",
+      "description": ""
+    },
+    {
+      "name": "kn-plan",
+      "description": ""
+    },
+    {
+      "name": "kn-research",
+      "description": ""
+    },
+    {
+      "name": "kn-spec",
+      "description": ""
+    },
+    {
+      "name": "kn-template",
+      "description": ""
+    },
+    {
+      "name": "kn-verify",
+      "description": ""
+    }
+  ]
+}
