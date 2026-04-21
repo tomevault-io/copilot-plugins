@@ -1,0 +1,57 @@
+{
+  "name": "second-brain",
+  "owner": "bradautomates",
+  "repo": "second-brain",
+  "description": "AI instruction skills by bradautomates",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "history",
+      "path": ".claude/skills/history",
+      "github_url": "https://github.com/bradautomates/second-brain/tree/main/.claude/skills/history",
+      "description": ""
+    },
+    {
+      "name": "start-second-brain",
+      "path": ".claude/skills/start-second-brain",
+      "github_url": "https://github.com/bradautomates/second-brain/tree/main/.claude/skills/start-second-brain",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bradautomates/second-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:53:46Z"
+}
