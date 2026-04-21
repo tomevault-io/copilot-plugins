@@ -1,0 +1,9 @@
+{
+  "name": "smnandre--symfony-ux-skills",
+  "displayName": "symfony-ux-skills",
+  "description": "Symfony UX skills for Claude, Gemini, Codex, ... Live Component, Twig Component, Turbo, Stimulus",
+  "version": "1.0.0",
+  "author": "smnandre",
+  "homepage": "https://github.com/smnandre/symfony-ux-skills",
+  "skills": []
+}
