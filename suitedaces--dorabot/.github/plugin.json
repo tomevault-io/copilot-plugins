@@ -1,0 +1,38 @@
+{
+  "name": "suitedaces--dorabot",
+  "displayName": "dorabot",
+  "description": "macOS app for 24/7 AI agents in an IDE with memory, scheduled tasks, browser use + access to Whatsapp, Telegram, Slack.",
+  "version": "1.0.0",
+  "author": "suitedaces",
+  "homepage": "https://github.com/suitedaces/dorabot",
+  "skills": [
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "himalaya",
+      "description": ""
+    },
+    {
+      "name": "nano-banana",
+      "description": ""
+    },
+    {
+      "name": "macos",
+      "description": ""
+    },
+    {
+      "name": "meme",
+      "description": ""
+    },
+    {
+      "name": "onboard",
+      "description": ""
+    },
+    {
+      "name": "agent-swarm-orchestation",
+      "description": ""
+    }
+  ]
+}
