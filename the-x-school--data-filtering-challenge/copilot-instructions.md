@@ -1,0 +1,104 @@
+## data-filtering-challenge
+
+> description: "LMFlow training and fine-tuning best practices"
+
+---
+description: "LMFlow training and fine-tuning best practices"
+globs: ["train.sh", "examples/finetune*.py", "examples/dpo*.py", "examples/raft*.py", "configs/ds_config*.json"]
+always: true
+---
+
+# LMFlow Training and Fine-tuning Best Practices
+
+## Fine-tuning Strategy Understanding
+1. **DoRA (Weight-Decomposed Low-Rank Adaptation)**:
+   - The main fine-tuning method used in this project, more efficient than LoRA
+   - Fixed hyperparameters: `learning_rate=1e-5`, `lora_r=16`, `num_train_epochs=1`
+   - Enable using `--use_dora 1`, with `--lora_target_modules` to specify target layers
+
+2. **Other Supported Methods**:
+   - **DPO (Direct Preference Optimization)**: Used for human preference alignment
+   - **Iterative DPO**: Iterative preference optimization
+   - **RAFT**: Alignment method for retrieval-augmented generation
+   - **Reward Modeling**: Reward model training
+
+## Training Configuration Management
+1. **DeepSpeed Configuration**:
+   - Select appropriate ZeRO strategy based on GPU memory
+   - `ds_config_zero0_no_offload.json`: Small models, multiple GPUs
+   - `ds_config_zero2.json`: Medium models, parameter sharding
+   - `ds_config_zero3.json`: Large models, full sharding
+
+2. **Fixed Hyperparameter Requirements**:
+   - To eliminate hyperparameter interference, the following must be maintained:
+   - `num_train_epochs = 1`
+   - `learning_rate = 1e-5`  
+   - `lora_r = 16`
+
+3. **Data Processing**:
+   - Supports up to 10B tokens of training data
+   - Use `--block_size 1024` to control sequence length
+   - Optimize data preprocessing via `--preprocessing_num_workers`
+
+## Training Script Usage
+1. **Standard Training Process**:
+   ```bash
+   bash train.sh \
+     --model_name_or_path [MODEL_PATH] \
+     --dataset_path [DATASET_PATH] \
+     --output_dora_path [OUTPUT_PATH]
+   ```
+
+2. **Key Parameter Settings**:
+   - `--per_device_train_batch_size`: Adjust based on GPU memory
+   - `--gradient_accumulation_steps`: Effectively increase batch size
+   - `--save_steps`: Checkpoint saving frequency
+   - `--logging_steps`: Logging frequency
+
+3. **Resume Training**:
+   - Use `--resume_from_checkpoint [CHECKPOINT_PATH]`
+   - Checkpoint path format: `[model-dir]/checkpoint-[index]`
+
+## Validation and Evaluation
+1. **In-training Validation**:
+   - `--validation_split_percentage 5`: Use 5% of data for validation
+   - `--eval_strategy steps`: Evaluate by steps
+   - `--eval_steps 20`: Evaluate every 20 steps
+
+2. **ELMB Benchmark Testing**:
+   - Use `lm-evaluation-harness` for evaluation
+   - Test tasks: `elmb_roleplay`, `elmb_reasoning`, `elmb_functioncalling`, `elmb_chatrag`
+   - DoRA weights need to be merged into the base model before evaluation
+
+## Model Management
+1. **Weight Merging**:
+   ```bash
+   bash ./scripts/run_merge_dora.sh \
+     --model_name_or_path [BASE_MODEL] \
+     --lora_model_path [DORA_PATH] \
+     --output_model_path [MERGED_PATH]
+   ```
+
+2. **Model Upload**:
+   - Refer to `example_upload_peft_model.py`
+   - Upload to HuggingFace Hub for sharing
+
+## Performance Optimization Suggestions
+1. **Memory Optimization**:
+   - Use appropriate ZeRO strategies
+   - Enable gradient checkpointing
+   - Adjust batch size and accumulation steps
+
+2. **Speed Optimization**:
+   - Use `bf16` mixed precision training
+   - Adjust `dataloader_num_workers`
+   - Optimize `preprocessing_num_workers`
+
+3. **Monitoring and Debugging**:
+   - Use WandB to monitor training process
+   - Check training logs in `log/` directory
+   - Pay attention to memory and GPU utilization
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/The-X-School) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
