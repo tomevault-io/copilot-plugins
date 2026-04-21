@@ -1,0 +1,46 @@
+{
+  "name": "julianromli--opencode-template",
+  "displayName": "opencode-template",
+  "description": "OpenCode CLI Template by @faizntfd",
+  "version": "1.0.0",
+  "author": "julianromli",
+  "homepage": "https://github.com/julianromli/opencode-template",
+  "skills": [
+    {
+      "name": "browser",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "resend-design-skills",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    }
+  ]
+}
