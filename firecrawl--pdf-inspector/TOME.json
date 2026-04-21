@@ -2,9 +2,9 @@
   "name": "pdf-inspector",
   "owner": "firecrawl",
   "repo": "pdf-inspector",
-  "description": "",
+  "description": "Fast Rust library for PDF inspection, classification, and text extraction. Intelligently detects scanned vs text-based PDFs to enable smart routing decisions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/firecrawl/pdf-inspector",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:10:12Z"
+  "distributed_at": "2026-04-21T18:38:18Z"
 }
