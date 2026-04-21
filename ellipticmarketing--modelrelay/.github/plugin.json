@@ -1,0 +1,9 @@
+{
+  "name": "ellipticmarketing--modelrelay",
+  "displayName": "modelrelay",
+  "description": "Local router that benchmarks free coding models across providers and forwards requests to the best available model. Compatible with Opencode and Openclaw",
+  "version": "1.0.0",
+  "author": "ellipticmarketing",
+  "homepage": "https://github.com/ellipticmarketing/modelrelay",
+  "skills": []
+}
