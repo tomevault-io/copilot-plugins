@@ -1,0 +1,9 @@
+{
+  "name": "dial9-rs--dial9-tokio-telemetry",
+  "displayName": "dial9-tokio-telemetry",
+  "description": "Tokio Telemetry you can run in production",
+  "version": "1.0.0",
+  "author": "dial9-rs",
+  "homepage": "https://github.com/dial9-rs/dial9-tokio-telemetry",
+  "skills": []
+}
