@@ -1,0 +1,14 @@
+{
+  "name": "hyperb1iss--unifly",
+  "displayName": "unifly",
+  "description": "\ud83c\udf10 Elegant UniFi network management CLI & TUI - for humans and agents",
+  "version": "1.0.0",
+  "author": "hyperb1iss",
+  "homepage": "https://github.com/hyperb1iss/unifly",
+  "skills": [
+    {
+      "name": "unifly",
+      "description": ""
+    }
+  ]
+}
