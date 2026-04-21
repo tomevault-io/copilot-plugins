@@ -1,0 +1,9 @@
+{
+  "name": "memvid--design-memory",
+  "displayName": "design-memory",
+  "description": "Extract and reproduce design systems from any website using deterministic analysis and LLM interpretation.",
+  "version": "1.0.0",
+  "author": "memvid",
+  "homepage": "https://github.com/memvid/design-memory",
+  "skills": []
+}
