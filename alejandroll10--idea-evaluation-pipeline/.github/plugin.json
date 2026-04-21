@@ -1,0 +1,9 @@
+{
+  "name": "alejandroll10--idea-evaluation-pipeline",
+  "displayName": "idea-evaluation-pipeline",
+  "description": "8-step pipeline for evaluating PhD research ideas to top-3 finance journal quality. Works with any AI coding assistant.",
+  "version": "1.0.0",
+  "author": "alejandroll10",
+  "homepage": "https://github.com/alejandroll10/idea-evaluation-pipeline",
+  "skills": []
+}
