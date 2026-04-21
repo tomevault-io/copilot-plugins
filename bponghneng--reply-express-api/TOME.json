@@ -4,7 +4,7 @@
   "repo": "reply-express-api",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/bponghneng",
+  "source_url": "https://github.com/bponghneng/reply-express-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T13:38:51Z"
+  "distributed_at": "2026-04-21T20:56:05Z"
 }
