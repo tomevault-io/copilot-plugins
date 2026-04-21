@@ -1,0 +1,44 @@
+{
+  "name": "openclaw-china",
+  "owner": "BytePioneer-AI",
+  "repo": "openclaw-china",
+  "description": "OpenClaw\u4e2d\u56fd\u63d2\u4ef6\uff1a\u652f\u6301\u98de\u4e66\uff0c\u9489\u9489\uff0cQQ\uff0c\u4f01\u4e1a\u5fae\u4fe1\uff0c\u5fae\u4fe1",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BytePioneer-AI/openclaw-china",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T14:53:33Z"
+}
