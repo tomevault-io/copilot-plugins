@@ -1,0 +1,9 @@
+{
+  "name": "redwoodjs--agent-ci",
+  "displayName": "agent-ci",
+  "description": "Agent-CI is local GitHub Actions for your agents.",
+  "version": "1.0.0",
+  "author": "redwoodjs",
+  "homepage": "https://github.com/redwoodjs/agent-ci",
+  "skills": []
+}
