@@ -1,0 +1,9 @@
+{
+  "name": "macrocosm-os--dataverse-cli",
+  "displayName": "dataverse-cli",
+  "description": "The cli of dataverse",
+  "version": "1.0.0",
+  "author": "macrocosm-os",
+  "homepage": "https://github.com/macrocosm-os/dataverse-cli",
+  "skills": []
+}
