@@ -1,0 +1,58 @@
+{
+  "name": "undsky--ruoyi-springboot3-pro",
+  "displayName": "RuoYi-SpringBoot3-Pro",
+  "description": " RuoYi-Vue \u589e\u5f3a\u7248\u672c\uff0c\u4fdd\u7559\u4e86\u539f\u6709\u7684\u6240\u6709\u529f\u80fd\uff0c\u5e76\u65b0\u589e\u4e86\u591a\u9879\u4f01\u4e1a\u7ea7\u7279\u6027",
+  "version": "1.0.0",
+  "author": "undsky",
+  "homepage": "https://github.com/undsky/RuoYi-SpringBoot3-Pro",
+  "skills": [
+    {
+      "name": "algorithmic-art",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "description": ""
+    },
+    {
+      "name": "web-artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    }
+  ]
+}
