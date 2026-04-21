@@ -1,0 +1,9 @@
+{
+  "name": "rusher--mariadb-connector-go",
+  "displayName": "mariadb-connector-go",
+  "description": "mariadb-connector-go",
+  "version": "1.0.0",
+  "author": "rusher",
+  "homepage": "https://github.com/rusher/mariadb-connector-go",
+  "skills": []
+}
