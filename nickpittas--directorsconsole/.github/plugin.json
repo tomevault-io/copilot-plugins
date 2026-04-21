@@ -1,0 +1,9 @@
+{
+  "name": "nickpittas--directorsconsole",
+  "displayName": "DirectorsConsole",
+  "description": "A web application for prompt generation and multiple ComfyUI remote and local connections for image and video generation in parallel in an infinite canvas",
+  "version": "1.0.0",
+  "author": "NickPittas",
+  "homepage": "https://github.com/NickPittas/DirectorsConsole",
+  "skills": []
+}
