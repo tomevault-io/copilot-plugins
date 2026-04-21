@@ -1,0 +1,50 @@
+{
+  "name": "mitkox--ai-coding-factory",
+  "displayName": "ai-coding-factory",
+  "description": "AI Coding Factory. Replace your software outsourcing vendor contracts with your own AI. ",
+  "version": "1.0.0",
+  "author": "mitkox",
+  "homepage": "https://github.com/mitkox/ai-coding-factory",
+  "skills": [
+    {
+      "name": "net-agile",
+      "description": ""
+    },
+    {
+      "name": "net-autopilot",
+      "description": ""
+    },
+    {
+      "name": "net-cqrs",
+      "description": ""
+    },
+    {
+      "name": "net-docker",
+      "description": ""
+    },
+    {
+      "name": "net-domain-model",
+      "description": ""
+    },
+    {
+      "name": "net-github-actions",
+      "description": ""
+    },
+    {
+      "name": "net-jwt-auth",
+      "description": ""
+    },
+    {
+      "name": "net-kubernetes",
+      "description": ""
+    },
+    {
+      "name": "net-testing",
+      "description": ""
+    },
+    {
+      "name": "net-web-api",
+      "description": ""
+    }
+  ]
+}
