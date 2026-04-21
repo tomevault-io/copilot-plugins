@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [luisalfredoestigarribiasosa85/schedu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/luisalfredoestigarribiasosa85)
+From [luisalfredoestigarribiasosa85/scheduled-tweets](https://github.com/luisalfredoestigarribiasosa85/scheduled-tweets) — a repo with 0+ stars on GitHub.
 
 ---
 
