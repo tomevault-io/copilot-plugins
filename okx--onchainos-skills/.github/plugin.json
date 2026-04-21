@@ -1,0 +1,9 @@
+{
+  "name": "okx--onchainos-skills",
+  "displayName": "onchainos-skills",
+  "description": "Skills for AI agents to integrate with the OKX OnchainOS API \u2014 Wallet, token discovery, market data, DEX swap, and transaction broadcasting.",
+  "version": "1.0.0",
+  "author": "okx",
+  "homepage": "https://github.com/okx/onchainos-skills",
+  "skills": []
+}
