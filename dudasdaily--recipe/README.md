@@ -1,6 +1,6 @@
 # Recipe
 
-> Tome by [dudasdaily](https://github.com/dudasdaily/Recipe) — distributed by [TomeVault](https://tomevault.io/claim/dudasdaily)
+> Tome by [dudasdaily](https://github.com/dudasdaily/Recipe) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [dudasdaily/Recipe](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/dudasdaily)
+From [dudasdaily/Recipe](https://github.com/dudasdaily/Recipe) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install dudasdaily/Recipe
 ```
-Or browse all formats at [https://tomevault.io/claim/dudasdaily](https://tomevault.io/claim/dudasdaily).
+Source: [github.com/dudasdaily/Recipe](https://github.com/dudasdaily/Recipe).
 
 <!-- genome:t-i-s -->
