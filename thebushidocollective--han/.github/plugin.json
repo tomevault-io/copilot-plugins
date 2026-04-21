@@ -1,0 +1,42 @@
+{
+  "name": "thebushidocollective--han",
+  "displayName": "han",
+  "description": "A curated marketplace of Claude Code plugins that embody the principles of ethical and professional software development.",
+  "version": "1.0.0",
+  "author": "TheBushidoCollective",
+  "homepage": "https://github.com/TheBushidoCollective/han",
+  "skills": [
+    {
+      "name": "cypress-ci-cd",
+      "description": ""
+    },
+    {
+      "name": "vue-component-patterns",
+      "description": ""
+    },
+    {
+      "name": "typescript-utility-types",
+      "description": ""
+    },
+    {
+      "name": "typescript-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "typescript-type-system",
+      "description": ""
+    },
+    {
+      "name": "django-cbv-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-orm-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-rest-framework",
+      "description": ""
+    }
+  ]
+}
