@@ -1,0 +1,14 @@
+{
+  "name": "sgl-project--sgl-cookbook",
+  "displayName": "sgl-cookbook",
+  "description": "Cookbook of SGLang - Recipe",
+  "version": "1.0.0",
+  "author": "sgl-project",
+  "homepage": "https://github.com/sgl-project/sgl-cookbook",
+  "skills": [
+    {
+      "name": "add-model",
+      "description": ""
+    }
+  ]
+}
