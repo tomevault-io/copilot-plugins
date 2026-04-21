@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [ClydeShen/mcp-e2e](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ClydeShen)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ClydeShen/mcp-e2e](https://github.com/ClydeShen/mcp-e2e)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ClydeShen/mcp-e2e
 ```
-Or browse all formats at [https://tomevault.io/claim/ClydeShen](https://tomevault.io/claim/ClydeShen).
+Source: [github.com/ClydeShen/mcp-e2e](https://github.com/ClydeShen/mcp-e2e).
 
 <!-- genome:a-i-p -->
