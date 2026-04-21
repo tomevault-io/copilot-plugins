@@ -1,0 +1,109 @@
+## pew-pew-cli
+
+> Apply when preparing a TypeScript CLI tool for distribution via npm, specifically when configuring `package.json`, handling executables, and considering cross-platform compatibility. Covers the `bin` field, shebang line (`#!/usr/bin/env node`), pre-publish checks, installation instructions, and Node engine compatibility.
+
+
+# NPM Packaging and Publishing for CLIs
+
+## Critical Rules
+
+-   Use the `"bin"` field in `package.json` to map the desired CLI command name to the compiled JavaScript entry point file.
+    ```json
+    "bin": {
+      "mycli": "./dist/bin/mycli.js"
+    }
+    ```
+-   Ensure the entry point script specified in `"bin"` starts with the correct shebang line: `#!/usr/bin/env node`. Avoid hardcoding Node paths.
+-   Compile TypeScript to JavaScript (e.g., in `dist/`) before publishing. Ensure the `"bin"` path points to the compiled file.
+-   Use Node.js cross-platform APIs (e.g., `path.join`, `child_process.spawn('node', ...)` ) if the CLI needs to work on Windows, macOS, and Linux.
+-   Perform pre-publish checks:
+    -   Test installation locally using `npm pack` and `npm install -g <packed-file.tgz>`.
+    -   Verify the command runs correctly after global installation.
+    -   Ensure only necessary files are included in the package (use `.npmignore` or `package.json` `"files"` field).
+-   Provide clear installation instructions in the README: `npm install -g your-cli-package-name`. Mention `npx your-cli-package-name` for one-off execution if applicable.
+-   Keep CLI startup time fast, especially if `npx` usage is expected.
+-   Specify the minimum required Node.js version in `package.json` using the `"engines"` field if relying on specific Node features.
+    ```json
+    "engines": {
+      "node": ">=16.0.0"
+    }
+    ```
+-   Follow Semantic Versioning (SemVer) for releases.
+
+## Examples
+
+<example>
+  ```json
+  // package.json (Relevant parts)
+  {
+    "name": "my-cool-cli",
+    "version": "1.2.0",
+    "bin": {
+      "coolcli": "./dist/index.js" // Points to compiled JS entry point
+    },
+    "main": "./dist/lib/index.js", // If also usable as a library
+    "files": [
+      "dist/**/*", // Only include compiled code in the package
+      "README.md",
+      "LICENSE"
+    ],
+    "engines": {
+      "node": ">=16"
+    },
+    "scripts": {
+      "build": "tsc",
+      "prepublishOnly": "npm run build" // Ensure build runs before publishing
+    }
+    // ... other fields ...
+  }
+  ```
+  ```javascript
+  // dist/index.js (Compiled entry point)
+  #!/usr/bin/env node
+  // ... rest of the compiled CLI code ...
+  console.log('Cool CLI running!');
+  ```
+  **README.md:**
+  ```md
+  # My Cool CLI
+
+  ## Installation
+  npm install -g my-cool-cli
+
+  ## Usage
+  coolcli --help
+  ```
+</example>
+
+<example type="invalid">
+  ```json
+  // package.json (Mistakes)
+  {
+    "name": "my-buggy-cli",
+    "version": "0.1", // Not SemVer compliant
+    "bin": {
+      "buggycli": "./src/index.ts" // Points to TS source, not compiled JS
+    },
+    // Missing "files" or .npmignore, will publish src/, node_modules/, etc.
+    // Missing "engines" field
+    "scripts": {
+      "start": "ts-node src/index.ts" // Relies on dev dependencies at runtime
+    }
+    // ...
+  }
+  ```
+  ```typescript
+  // src/index.ts (Missing shebang or incorrect one)
+  // #!/usr/local/bin/node  <-- Hardcoded path, bad practice
+  console.log('Buggy CLI');
+  ```
+  **README.md:**
+  ```md
+  # My Buggy CLI
+  Just run `node index.js`? (Unclear installation/usage)
+  ```
+</example>
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/appboypov) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
