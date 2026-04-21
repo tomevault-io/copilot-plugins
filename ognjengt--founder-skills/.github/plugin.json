@@ -1,0 +1,38 @@
+{
+  "name": "ognjengt--founder-skills",
+  "displayName": "founder-skills",
+  "description": "Claude skills for founders",
+  "version": "1.0.0",
+  "author": "ognjengt",
+  "homepage": "https://github.com/ognjengt/founder-skills",
+  "skills": [
+    {
+      "name": "competitor-intel",
+      "description": ""
+    },
+    {
+      "name": "cro-optimization",
+      "description": ""
+    },
+    {
+      "name": "go-to-market-plan",
+      "description": ""
+    },
+    {
+      "name": "marketing-ideas",
+      "description": ""
+    },
+    {
+      "name": "prd-generator",
+      "description": ""
+    },
+    {
+      "name": "sop-creator",
+      "description": ""
+    },
+    {
+      "name": "strategic-planning",
+      "description": ""
+    }
+  ]
+}
