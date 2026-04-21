@@ -1,0 +1,9 @@
+{
+  "name": "0xranx--golembot",
+  "displayName": "golembot",
+  "description": "Any Agent \u00d7 Any Provider \u00d7 Anywhere. Connect Cursor, Claude Code, OpenCode, or Codex to Slack, Telegram, Discord, Feishu, DingTalk, WeCom, WeChat \u2014 with any LLM provider.",
+  "version": "1.0.0",
+  "author": "0xranx",
+  "homepage": "https://github.com/0xranx/golembot",
+  "skills": []
+}
