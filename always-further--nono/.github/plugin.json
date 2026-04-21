@@ -1,0 +1,9 @@
+{
+  "name": "always-further--nono",
+  "displayName": "nono",
+  "description": "nono - a capability-based, multiplexing sandbox tool, built for developers - lift'n'shift seamless path to prod. Run agents securely without needing any additional infra, zero setup, zero latency. ",
+  "version": "1.0.0",
+  "author": "always-further",
+  "homepage": "https://github.com/always-further/nono",
+  "skills": []
+}
