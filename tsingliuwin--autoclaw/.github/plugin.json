@@ -1,0 +1,9 @@
+{
+  "name": "tsingliuwin--autoclaw",
+  "displayName": "autoclaw",
+  "description": "AutoClaw is a hyper-lightweight AI agent designed to live inside Docker containers. Unlike heavy, GUI-dependent agents, AutoClaw is built for headless, massive-scale concurrency.",
+  "version": "1.0.0",
+  "author": "tsingliuwin",
+  "homepage": "https://github.com/tsingliuwin/autoclaw",
+  "skills": []
+}
