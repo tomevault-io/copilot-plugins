@@ -1,6 +1,6 @@
-# rust-symphony — distributed by TomeVault
+# rust-symphony
 
-> Originally from [Industrial/rust-symphony](https://github.com/Industrial/rust-symphony). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Industrial/rust-symphony](https://github.com/Industrial/rust-symphony) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Industrial/rust-symphony](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Industrial)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Industrial/rust-symphony](https://github.com/Industrial/rust-symphony)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Industrial/rust-symphony
 ```
-Or browse all formats at [https://tomevault.io/claim/Industrial](https://tomevault.io/claim/Industrial).
+Source: [github.com/Industrial/rust-symphony](https://github.com/Industrial/rust-symphony).
 
 <!-- genome:d-i-p -->
