@@ -1,0 +1,30 @@
+{
+  "name": "flora131--atomic",
+  "displayName": "atomic",
+  "description": "Build your own harness. Understand and research any codebase. Plan complex features. Ship them autonomously.",
+  "version": "1.0.0",
+  "author": "flora131",
+  "homepage": "https://github.com/flora131/atomic",
+  "skills": [
+    {
+      "name": "create-spec",
+      "description": ""
+    },
+    {
+      "name": "explain-code",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "init",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "description": ""
+    }
+  ]
+}
