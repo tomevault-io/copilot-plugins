@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--visual-json",
+  "displayName": "visual-json",
+  "description": "The Visual JSON Editor. Schema-aware, embeddable, extensible.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/visual-json",
+  "skills": []
+}
