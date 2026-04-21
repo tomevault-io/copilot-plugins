@@ -1,7 +1,7 @@
 {
   "name": "firecrawl--pdf-inspector",
   "displayName": "pdf-inspector",
-  "description": "pdf-inspector",
+  "description": "Fast Rust library for PDF inspection, classification, and text extraction. Intelligently detects scanned vs text-based PDFs to enable smart routing decisions.",
   "version": "1.0.0",
   "author": "firecrawl",
   "homepage": "https://github.com/firecrawl/pdf-inspector",
