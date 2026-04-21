@@ -1,0 +1,14 @@
+{
+  "name": "techdufus--oh-my-claude",
+  "displayName": "oh-my-claude",
+  "description": "Add ultrawork to any prompt for maximum parallel execution",
+  "version": "1.0.0",
+  "author": "TechDufus",
+  "homepage": "https://github.com/TechDufus/oh-my-claude",
+  "skills": [
+    {
+      "name": "git-commit-validator",
+      "description": ""
+    }
+  ]
+}
