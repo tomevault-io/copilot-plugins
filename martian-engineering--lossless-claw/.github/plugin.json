@@ -1,0 +1,9 @@
+{
+  "name": "martian-engineering--lossless-claw",
+  "displayName": "lossless-claw",
+  "description": "Lossless Claw \u2014 LCM (Lossless Context Management) plugin for OpenClaw",
+  "version": "1.0.0",
+  "author": "Martian-Engineering",
+  "homepage": "https://github.com/Martian-Engineering/lossless-claw",
+  "skills": []
+}
