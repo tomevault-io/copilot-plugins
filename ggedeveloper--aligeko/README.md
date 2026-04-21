@@ -1,6 +1,6 @@
-# aligeko — distributed by TomeVault
+# aligeko
 
-> Originally from [GGEDeveloper/aligeko](https://github.com/GGEDeveloper/aligeko). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [GGEDeveloper/aligeko](https://github.com/GGEDeveloper/aligeko) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [GGEDeveloper/aligeko](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/GGEDeveloper)
+From [GGEDeveloper/aligeko](https://github.com/GGEDeveloper/aligeko) — a repo with 0+ stars on GitHub.
 
 ---
 
