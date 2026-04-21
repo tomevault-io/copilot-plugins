@@ -1,0 +1,63 @@
+{
+  "name": "vercel",
+  "owner": "vercel",
+  "repo": "vercel-plugin",
+  "description": "Comprehensive Vercel ecosystem plugin \u2014 relational knowledge graph, skills for every major product, specialized agents, and Vercel conventions. Turns any AI agent into a Vercel expert.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vercel-cli",
+      "path": "skills/vercel-cli",
+      "github_url": "https://github.com/vercel/vercel-plugin/tree/main/skills/vercel-cli",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "path": "skills/nextjs/upstream",
+      "github_url": "https://github.com/vercel/vercel-plugin/tree/main/skills/nextjs/upstream",
+      "description": ""
+    },
+    {
+      "name": "next-cache-components",
+      "path": "skills/next-cache-components",
+      "github_url": "https://github.com/vercel/vercel-plugin/tree/main/skills/next-cache-components",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vercel/vercel-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T07:33:36Z"
+}
