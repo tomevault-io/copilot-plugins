@@ -1,0 +1,81 @@
+{
+  "name": "dash_skills",
+  "owner": "kevmoo",
+  "repo": "dash_skills",
+  "description": "Agent Skills for Dart and Flutter ecosytem",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dart-best-practices",
+      "path": ".agent/skills/dart-best-practices",
+      "github_url": "https://github.com/kevmoo/dash_skills/tree/main/.agent/skills/dart-best-practices",
+      "description": ""
+    },
+    {
+      "name": "dart-cli-app-best-practices",
+      "path": ".agent/skills/dart-cli-app-best-practices",
+      "github_url": "https://github.com/kevmoo/dash_skills/tree/main/.agent/skills/dart-cli-app-best-practices",
+      "description": ""
+    },
+    {
+      "name": "dart-doc-validation",
+      "path": ".agent/skills/dart-doc-validation",
+      "github_url": "https://github.com/kevmoo/dash_skills/tree/main/.agent/skills/dart-doc-validation",
+      "description": ""
+    },
+    {
+      "name": "dart-matcher-best-practices",
+      "path": ".agent/skills/dart-matcher-best-practices",
+      "github_url": "https://github.com/kevmoo/dash_skills/tree/main/.agent/skills/dart-matcher-best-practices",
+      "description": ""
+    },
+    {
+      "name": "dart-package-maintenance",
+      "path": ".agent/skills/dart-package-maintenance",
+      "github_url": "https://github.com/kevmoo/dash_skills/tree/main/.agent/skills/dart-package-maintenance",
+      "description": ""
+    },
+    {
+      "name": "dart-test-fundamentals",
+      "path": ".agent/skills/dart-test-fundamentals",
+      "github_url": "https://github.com/kevmoo/dash_skills/tree/main/.agent/skills/dart-test-fundamentals",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kevmoo/dash_skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T13:41:42Z"
+}
