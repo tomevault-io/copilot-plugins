@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [shopsys/shopsys](https://github.com/s
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/shopsys#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/shopsys/shopsys](https://github.com/shopsys/shopsys)
 
 ---
 
