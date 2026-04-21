@@ -1,0 +1,9 @@
+{
+  "name": "hazat--pi-config",
+  "displayName": "pi-config",
+  "description": "My personal pi coding agent configuration - skills and extensions",
+  "version": "1.0.0",
+  "author": "HazAT",
+  "homepage": "https://github.com/HazAT/pi-config",
+  "skills": []
+}
