@@ -1,0 +1,75 @@
+{
+  "name": "terminal",
+  "owner": "21pounder",
+  "repo": "terminalAgent",
+  "description": "A powerful terminal coding agent based on Claude Agent SDK. Better then Claude Code when start up a new project, or u have no idea. Just try it.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "deepresearch/.claude/skills/code-review",
+      "github_url": "https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "path": "deepresearch/.claude/skills/deep-research",
+      "github_url": "https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/deep-research",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": "deepresearch/.claude/skills/git-commit",
+      "github_url": "https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "pdf-analyze",
+      "path": "deepresearch/.claude/skills/pdf-analyze",
+      "github_url": "https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/pdf-analyze",
+      "description": ""
+    },
+    {
+      "name": "web-scrape",
+      "path": "deepresearch/.claude/skills/web-scrape",
+      "github_url": "https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/web-scrape",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/21pounder/terminalAgent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T17:42:13Z"
+}
