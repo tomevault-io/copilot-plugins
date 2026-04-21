@@ -1,0 +1,222 @@
+{
+  "name": "letta-ai--letta-code",
+  "displayName": "letta",
+  "description": "The memory-first coding agent",
+  "version": "1.0.0",
+  "author": "letta-ai",
+  "homepage": "https://github.com/letta-ai/letta-code",
+  "skills": [
+    {
+      "name": "adding-models",
+      "description": ""
+    },
+    {
+      "name": "converting-mcps-to-skills",
+      "description": ""
+    },
+    {
+      "name": "creating-skills",
+      "description": ""
+    },
+    {
+      "name": "finding-agents",
+      "description": ""
+    },
+    {
+      "name": "initializing-memory",
+      "description": ""
+    },
+    {
+      "name": "messaging-agents",
+      "description": ""
+    },
+    {
+      "name": "migrating-memory",
+      "description": ""
+    },
+    {
+      "name": "searching-messages",
+      "description": ""
+    },
+    {
+      "name": "syncing-memory-filesystem",
+      "description": ""
+    },
+    {
+      "name": "working-in-parallel",
+      "description": ""
+    },
+    {
+      "name": "apple-notes",
+      "description": ""
+    },
+    {
+      "name": "apple-reminders",
+      "description": ""
+    },
+    {
+      "name": "bear-notes",
+      "description": ""
+    },
+    {
+      "name": "bird",
+      "description": ""
+    },
+    {
+      "name": "blogwatcher",
+      "description": ""
+    },
+    {
+      "name": "blucli",
+      "description": ""
+    },
+    {
+      "name": "camsnap",
+      "description": ""
+    },
+    {
+      "name": "cron",
+      "description": ""
+    },
+    {
+      "name": "eightctl",
+      "description": ""
+    },
+    {
+      "name": "food-order",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "description": ""
+    },
+    {
+      "name": "gifgrep",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "gog",
+      "description": ""
+    },
+    {
+      "name": "google",
+      "description": ""
+    },
+    {
+      "name": "goplaces",
+      "description": ""
+    },
+    {
+      "name": "himalaya",
+      "description": ""
+    },
+    {
+      "name": "imsg",
+      "description": ""
+    },
+    {
+      "name": "linear",
+      "description": ""
+    },
+    {
+      "name": "local-places",
+      "description": ""
+    },
+    {
+      "name": "mcporter",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-pro",
+      "description": ""
+    },
+    {
+      "name": "nano-pdf",
+      "description": ""
+    },
+    {
+      "name": "notion",
+      "description": ""
+    },
+    {
+      "name": "obsidian",
+      "description": ""
+    },
+    {
+      "name": "openai-image-gen",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper",
+      "description": ""
+    },
+    {
+      "name": "openai-whisper-api",
+      "description": ""
+    },
+    {
+      "name": "openhue",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "description": ""
+    },
+    {
+      "name": "ordercli",
+      "description": ""
+    },
+    {
+      "name": "peekaboo",
+      "description": ""
+    },
+    {
+      "name": "sag",
+      "description": ""
+    },
+    {
+      "name": "scheduling",
+      "description": ""
+    },
+    {
+      "name": "sherpa-onnx-tts",
+      "description": ""
+    },
+    {
+      "name": "songsee",
+      "description": ""
+    },
+    {
+      "name": "sonoscli",
+      "description": ""
+    },
+    {
+      "name": "spotify-player",
+      "description": ""
+    },
+    {
+      "name": "summarize",
+      "description": ""
+    },
+    {
+      "name": "things-mac",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "description": ""
+    },
+    {
+      "name": "video-frames",
+      "description": ""
+    },
+    {
+      "name": "wacli",
+      "description": ""
+    }
+  ]
+}
