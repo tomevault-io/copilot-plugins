@@ -1,0 +1,9 @@
+{
+  "name": "kryptobaseddev--cleo",
+  "displayName": "cleo",
+  "description": "Production-grade task management for Claude Code with anti-hallucination protection",
+  "version": "1.0.0",
+  "author": "kryptobaseddev",
+  "homepage": "https://github.com/kryptobaseddev/cleo",
+  "skills": []
+}
