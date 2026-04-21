@@ -1,0 +1,44 @@
+{
+  "name": "jentic-mini",
+  "owner": "jentic",
+  "repo": "jentic-mini",
+  "description": "Self-hosted API execution layer that sits between your agent and the outside world. Your agent says what it wants to do. Jentic Mini handles the how \u2014 finding the right API, injecting credentials at runtime, and brokering the request",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jentic/jentic-mini",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T02:09:27Z"
+}
