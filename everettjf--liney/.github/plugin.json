@@ -1,0 +1,9 @@
+{
+  "name": "everettjf--liney",
+  "displayName": "liney",
+  "description": "Liney is a native macOS terminal workspace built with AppKit, SwiftUI, and Ghostty, designed for multi-repo workflows, worktree switching, and focused vibe coding.",
+  "version": "1.0.0",
+  "author": "everettjf",
+  "homepage": "https://github.com/everettjf/liney",
+  "skills": []
+}
