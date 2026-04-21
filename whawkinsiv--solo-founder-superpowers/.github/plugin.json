@@ -1,0 +1,162 @@
+{
+  "name": "whawkinsiv--solo-founder-superpowers",
+  "displayName": "solo-founder-superpowers",
+  "description": "Skillset optimized for solo, bootstrapped, and non-technical founders building SaaS applications with AI tools (Lovable, Replit, Claude Code).",
+  "version": "1.0.0",
+  "author": "whawkinsiv",
+  "homepage": "https://github.com/whawkinsiv/solo-founder-superpowers",
+  "skills": [
+    {
+      "name": "accounting",
+      "description": ""
+    },
+    {
+      "name": "ads",
+      "description": ""
+    },
+    {
+      "name": "ai-features",
+      "description": ""
+    },
+    {
+      "name": "analytics",
+      "description": ""
+    },
+    {
+      "name": "build",
+      "description": ""
+    },
+    {
+      "name": "community",
+      "description": ""
+    },
+    {
+      "name": "content",
+      "description": ""
+    },
+    {
+      "name": "conversion",
+      "description": ""
+    },
+    {
+      "name": "copywriting",
+      "description": ""
+    },
+    {
+      "name": "customer-research",
+      "description": ""
+    },
+    {
+      "name": "database",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "description": ""
+    },
+    {
+      "name": "email",
+      "description": ""
+    },
+    {
+      "name": "feedback",
+      "description": ""
+    },
+    {
+      "name": "finances",
+      "description": ""
+    },
+    {
+      "name": "growth",
+      "description": ""
+    },
+    {
+      "name": "hiring",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "description": ""
+    },
+    {
+      "name": "landing-page",
+      "description": ""
+    },
+    {
+      "name": "launch",
+      "description": ""
+    },
+    {
+      "name": "legal",
+      "description": ""
+    },
+    {
+      "name": "market-research",
+      "description": ""
+    },
+    {
+      "name": "monitor",
+      "description": ""
+    },
+    {
+      "name": "optimize",
+      "description": ""
+    },
+    {
+      "name": "payments",
+      "description": ""
+    },
+    {
+      "name": "plan",
+      "description": ""
+    },
+    {
+      "name": "pricing",
+      "description": ""
+    },
+    {
+      "name": "prioritize",
+      "description": ""
+    },
+    {
+      "name": "retention",
+      "description": ""
+    },
+    {
+      "name": "sales",
+      "description": ""
+    },
+    {
+      "name": "secure",
+      "description": ""
+    },
+    {
+      "name": "seo",
+      "description": ""
+    },
+    {
+      "name": "social-media",
+      "description": ""
+    },
+    {
+      "name": "support",
+      "description": ""
+    },
+    {
+      "name": "technical-seo",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "validate",
+      "description": ""
+    }
+  ]
+}
