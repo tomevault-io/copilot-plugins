@@ -1,0 +1,9 @@
+{
+  "name": "makenotion--workers-template",
+  "displayName": "workers-template",
+  "description": "Template for new Workers",
+  "version": "1.0.0",
+  "author": "makenotion",
+  "homepage": "https://github.com/makenotion/workers-template",
+  "skills": []
+}
