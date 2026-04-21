@@ -1,0 +1,9 @@
+{
+  "name": "nexmoe--eve",
+  "displayName": "eve",
+  "description": "Eve Recorder: A cross-platform long-running microphone recorder with real-time transcription. It uses Qwen3-ASR by default. VAD keeps only speech segments and transcribes speech-only chunks. ",
+  "version": "1.0.0",
+  "author": "nexmoe",
+  "homepage": "https://github.com/nexmoe/eve",
+  "skills": []
+}
