@@ -1,6 +1,6 @@
-# 10x-cards — distributed by TomeVault
+# 10x-cards
 
-> Originally from [zacol/10x-cards](https://github.com/zacol/10x-cards). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [zacol/10x-cards](https://github.com/zacol/10x-cards) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [zacol/10x-cards](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/zacol)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/zacol/10x-cards](https://github.com/zacol/10x-cards)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/zacol) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
