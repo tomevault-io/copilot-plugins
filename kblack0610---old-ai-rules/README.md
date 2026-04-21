@@ -1,6 +1,6 @@
-# .old_ai_rules — distributed by TomeVault
+# .old_ai_rules
 
-> Originally from [Kblack0610/.old_ai_rules](https://github.com/Kblack0610/.old_ai_rules). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Kblack0610/.old_ai_rules](https://github.com/Kblack0610/.old_ai_rules) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Kblack0610/.old_ai_rules](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Kblack0610#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Kblack0610/.old_ai_rules](https://github.com/Kblack0610/.old_ai_rules)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Kblack0610/.old_ai_rules
 ```
-Or browse all formats at [https://tomevault.io/claim/Kblack0610](https://tomevault.io/claim/Kblack0610).
+Source: [github.com/Kblack0610/.old_ai_rules](https://github.com/Kblack0610/.old_ai_rules).
 
 <!-- genome:d-i-q -->
