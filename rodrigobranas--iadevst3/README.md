@@ -1,6 +1,6 @@
-# iadevst3 — distributed by TomeVault
+# iadevst3
 
-> Originally from [rodrigobranas/iadevst3](https://github.com/rodrigobranas/iadevst3). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [rodrigobranas/iadevst3](https://github.com/rodrigobranas/iadevst3) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [rodrigobranas/iadevst3](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rodrigobranas)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rodrigobranas/iadevst3](https://github.com/rodrigobranas/iadevst3)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/rodrigobranas) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
