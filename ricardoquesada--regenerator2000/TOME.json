@@ -1,0 +1,63 @@
+{
+  "name": "regenerator2000",
+  "owner": "ricardoquesada",
+  "repo": "regenerator2000",
+  "description": "An interactive disassembler for the CPU 6502, focused mostly on Commodore 8-bit computers. Features a TUI with modern features like x-ref, undo/redo, arrows, keyboard-driven, mcp server, VICE debugger and more!",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": ".agent/skills/code-review",
+      "github_url": "https://github.com/ricardoquesada/regenerator2000/tree/main/.agent/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "update-mcp-docs",
+      "path": ".agent/skills/update-mcp-docs",
+      "github_url": "https://github.com/ricardoquesada/regenerator2000/tree/main/.agent/skills/update-mcp-docs",
+      "description": ""
+    },
+    {
+      "name": "verify-mcp",
+      "path": ".agent/skills/verify-mcp",
+      "github_url": "https://github.com/ricardoquesada/regenerator2000/tree/main/.agent/skills/verify-mcp",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ricardoquesada/regenerator2000",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T17:35:48Z"
+}
