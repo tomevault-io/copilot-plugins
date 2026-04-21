@@ -1,0 +1,51 @@
+{
+  "name": "deep-reading-analyst-skill",
+  "owner": "ginobefun",
+  "repo": "deep-reading-analyst-skill",
+  "description": "A professional Claude AI skill for deep reading analysis",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deep-reading-analyst",
+      "path": "src/deep-reading-analyst",
+      "github_url": "https://github.com/ginobefun/deep-reading-analyst-skill/tree/main/src/deep-reading-analyst",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ginobefun/deep-reading-analyst-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-21T01:38:46Z"
+}
