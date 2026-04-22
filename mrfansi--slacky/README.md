@@ -1,6 +1,6 @@
-# slacky — distributed by TomeVault
+# slacky
 
-> Originally from [mrfansi/slacky](https://github.com/mrfansi/slacky). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [mrfansi/slacky](https://github.com/mrfansi/slacky) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [mrfansi/slacky](https://github.com/m
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mrfansi)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mrfansi/slacky](https://github.com/mrfansi/slacky)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/mrfansi) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
