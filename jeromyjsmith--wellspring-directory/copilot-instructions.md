@@ -1,107 +1,118 @@
 ## wellspring-directory
 
-> "Make sure that the quote is relevant to the chapter and so you we want to make sure that we want to have it identified the parts that are relevant, and then if there's not enough relevance, we might want to either change the probably want to change the quote."
+> All agents follow the global rules defined in [global_rules.mdc](mdc:.cursor/rules/global_rules.mdc) and work within the project structure outlined in [README.md](mdc:README.md).
 
-# Research & Verification Rules
+# Agent Roles for Wellspring Book Production
 
-## Quote Verification Protocol
+## Agent Architecture Overview
+All agents follow the global rules defined in [global_rules.mdc](mdc:.cursor/rules/global_rules.mdc) and work within the project structure outlined in [README.md](mdc:README.md).
 
-### Primary Task
-"Make sure that the quote is relevant to the chapter and so you we want to make sure that we want to have it identified the parts that are relevant, and then if there's not enough relevance, we might want to either change the probably want to change the quote."
+## Core Agents
 
-### Verification Process
-1. **Extract All Quotes**: Identify every quote from historical figures
-2. **Analyze Relevance**: Map quote content to chapter themes
-3. **Document Connections**: List specific relevant elements
-4. **Flag Issues**: Identify quotes with insufficient relevance
-5. **Suggest Alternatives**: Propose better-aligned quotes if needed
+### PlanningArchitect
+**Role**: System planning, architecture, and roadmap management
+**Responsibilities**:
+- Parse project roadmap and define implementation strategies
+- Break down complex features into manageable tasks
+- Coordinate between different project components (em dash tool, research agent)
+- Reference: [config.json](mdc:config.json) for system configuration
 
-### Quote Analysis Format
-```
-Chapter: [Number and Title]
-Quote: "[Full quote text]"
-Attribution: "[Author/Source]"
-Relevance Score: [1-10]
-Relevant Elements:
-- [Element 1 that connects to chapter]
-- [Element 2 that connects to chapter]
-- [etc.]
-Recommendation: [Keep/Replace/Modify]
-Alternative: [If replacement suggested]
-```
+### DataLayerAgent (Roo)
+**Role**: Data access and synchronization specialist
+**Responsibilities**:
+- Define data hooks and query keys for all data operations
+- Manage real-time subscriptions and data synchronization
+- Review all data access patterns before implementation
+- Handle SQLite database operations via MCP sqlite tool
+**Critical Rule**: All other agents must defer to Roo for data-related decisions
 
-## Content Research Standards
+### DocBot
+**Role**: Documentation, onboarding, and CLI usage
+**Responsibilities**:
+- Maintain project documentation in sync with codebase
+- Update [README.md](mdc:README.md) and related docs
+- Generate usage guides for book production workflows
+- Document MCP tool configurations and usage patterns
 
-### Statistical Claims
-- **Verify Accuracy**: Check all statistics and data claims
-- **Update Currency**: Ensure data reflects current California 2025 standards
-- **Source Attribution**: Proper citation for all claims
-- **Context Relevance**: Statistics must support chapter arguments
+### RuleKeeper
+**Role**: Code quality, standards enforcement, and testing
+**Responsibilities**:
+- Enforce rules defined in [.cursor/rules/](mdc:.cursor/rules/) directory
+- Ensure code quality and test coverage standards
+- Validate compliance with typography rules: [typography_rules.md](mdc:.cursor/rules/typography_rules.md)
+- Maintain em dash processing standards: [em_dash_rules.md](mdc:.cursor/rules/em_dash_rules.md)
 
-### Visual Research Opportunities
+## Specialized Agents
 
-### Infographic Candidates
-- Statistical data that can be visualized
-- Process flows and workflows
-- Comparison charts
-- Timeline information
-- Budget breakdowns
+### DeepResearchAgent
+**Role**: AI-powered research and citation system
+**Responsibilities**:
+- Execute research workflows using Firecrawl and Brave Search MCP tools
+- Follow research guidelines: [research_rules.md](mdc:.cursor/rules/research_rules.md)
+- Generate citations and manage research outputs in `deep_research_agent/` directory
+- Coordinate with browser automation tools for web research
 
-### Icon Opportunities  
-- Chapter section breaks
-- Key concept highlights
-- Process step indicators
-- Category classifications
+### TypographyAgent
+**Role**: Text processing and typography correction
+**Responsibilities**:
+- Handle em dash replacement workflows in `em_dash_replacement/` directory
+- Apply typography rules consistently across all text processing
+- Manage input/output file operations for text correction tasks
+- Coordinate with filesystem MCP tool for file operations
 
-## Fact-Checking Protocol
+### MCPForge
+**Role**: MCP server setup and tool integration
+**Responsibilities**:
+- Configure and maintain MCP servers defined in [.cursor/mcp.json](mdc:.cursor/mcp.json)
+- Set up new MCP tool integrations as needed
+- Ensure proper environment variable configuration for API keys
+- Test MCP tool connectivity and functionality
 
-### Project Information
-- **Grant Requirements**: Verify current California 2025 standards
-- **Regulatory Compliance**: Check latest behavioral health regulations
-- **Best Practices**: Confirm industry standard practices
-- **Case Studies**: Verify accuracy of project examples
+### TaskTracker
+**Role**: Task progress, ticketing, and status updates
+**Responsibilities**:
+- Track progress of book production workflows
+- Update task files and project status
+- Coordinate deliverable timelines
+- Generate progress reports in structured format
 
-### Technical Accuracy
-- **Development Budget Components**: Soft costs, hard costs, FFE definitions
-- **Project Phases**: Verify phase descriptions and timelines
-- **Legal Requirements**: Current permitting and compliance standards
-- **Professional Roles**: Accurate job descriptions and responsibilities
+### OpenAIAgent
+**Role**: General LLM-powered tasks and code generation
+**Responsibilities**:
+- Handle general coding tasks that don't fall under specialized agents
+- Assist with Python script development for book production tools
+- Support text processing and natural language tasks
+- Coordinate with other agents as needed
 
-## Research Methodology
+## Agent Communication Protocol
 
-### Source Hierarchy
-1. **Primary Sources**: Government regulations, official guidelines
-2. **Industry Standards**: Professional association publications
-3. **Expert Consultation**: BHSME.org subject matter experts
-4. **Academic Sources**: Peer-reviewed research
-5. **Trade Publications**: Industry news and best practices
+### Input/Output Standards
+- All agent communication must use structured JSON or Markdown format
+- Include status codes and error handling in all responses
+- Reference specific files using the `[filename](mdc:filename)` format
+- Validate all inputs against shared schemas
 
-### Documentation Requirements
-- **Source URLs**: Full links for all online sources
-- **Access Dates**: When information was verified
-- **Version Control**: Track updates and changes
-- **Confidence Levels**: Rate reliability of each source
+### Coordination Rules
+1. **Data Operations**: Always coordinate with DataLayerAgent (Roo) before implementing data access
+2. **Documentation**: Notify DocBot of any changes requiring documentation updates
+3. **Quality Control**: RuleKeeper reviews all outputs for compliance
+4. **Research Tasks**: DeepResearchAgent handles all web research and citation needs
+5. **File Operations**: Use filesystem MCP tool for all file system interactions
 
-## Output Deliverables
+### Error Handling
+- Raise `missing-context-error` if required information is unavailable
+- Use `agent-coordination-error` for communication failures between agents
+- Log all errors with structured error codes and context information
+- Implement rollback procedures for failed operations
 
-### Research Reports
-- **Quote Relevance Report**: Chapter-by-chapter analysis
-- **Fact-Check Summary**: Verified claims and corrections needed
-- **Visual Opportunity Map**: Suggested infographic locations
-- **Source Bibliography**: Complete reference list
-
-### Recommendations
-- **Content Updates**: Specific text changes needed
-- **Visual Enhancements**: Infographic and icon suggestions  
-- **Quote Replacements**: Better-aligned alternatives
-- **Fact Corrections**: Accurate data and statistics
-
-## Quality Assurance
-- **Cross-Reference**: Multiple sources for critical claims
-- **Expert Review**: Brian Jones approval for major changes
-- **Currency Check**: Information current as of 2025
-- **Relevance Verification**: All content serves book's purpose
+## Tool Usage Guidelines
+Each agent should leverage appropriate MCP tools based on their role:
+- **File Operations**: Use filesystem MCP server with proper path restrictions
+- **Research**: Combine brave-search, firecrawl, and puppeteer tools
+- **Data Management**: Use sqlite MCP server for persistent storage
+- **External Integration**: Use notion MCP server for collaboration
+- **Problem Solving**: Use sequential-thinking MCP server for complex workflows
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/JeromyJSmith) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
