@@ -1,0 +1,57 @@
+{
+  "name": "zora",
+  "owner": "ryaker",
+  "repo": "zora",
+  "description": "Zora \u2014 a long\u2011running local AI agent with provider registry and secure tool access.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zora-config-advisor",
+      "path": ".claude/skills/zora-config-advisor",
+      "github_url": "https://github.com/ryaker/zora/tree/main/.claude/skills/zora-config-advisor",
+      "description": ""
+    },
+    {
+      "name": "zora-setup-guide",
+      "path": ".claude/skills/zora-setup-guide",
+      "github_url": "https://github.com/ryaker/zora/tree/main/.claude/skills/zora-setup-guide",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ryaker/zora",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:43:44Z"
+}
