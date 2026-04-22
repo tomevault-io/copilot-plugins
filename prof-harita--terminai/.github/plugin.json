@@ -1,0 +1,9 @@
+{
+  "name": "prof-harita--terminai",
+  "displayName": "terminaI",
+  "description": "Open-source, local-first alternative to Cowork-style computer assistants: real PTY terminal ops, explicit approvals, JSONL audit logs. Windows + Linux + macOS. Model agnostic.",
+  "version": "1.0.0",
+  "author": "Prof-Harita",
+  "homepage": "https://github.com/Prof-Harita/terminaI",
+  "skills": []
+}
