@@ -1,0 +1,44 @@
+{
+  "name": "agentrove",
+  "owner": "Mng-dev-ai",
+  "repo": "agentrove",
+  "description": "A self-hosted web and macOS desktop app for Claude Code and Codex, powered by ACP. Work in per-workspace sandboxes with chat, editor, terminal, git/PR tools, and customizable agent workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mng-dev-ai/agentrove",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T19:55:02Z"
+}
