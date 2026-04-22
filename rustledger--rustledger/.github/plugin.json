@@ -1,0 +1,9 @@
+{
+  "name": "rustledger--rustledger",
+  "displayName": "rustledger",
+  "description": "Modern plain text accounting. Beancount compatible.",
+  "version": "1.0.0",
+  "author": "rustledger",
+  "homepage": "https://github.com/rustledger/rustledger",
+  "skills": []
+}
