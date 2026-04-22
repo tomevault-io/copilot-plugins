@@ -1,0 +1,9 @@
+{
+  "name": "validatedev--brewservicesmanager",
+  "displayName": "BrewServicesManager",
+  "description": "A macOS menu bar app for managing Homebrew services",
+  "version": "1.0.0",
+  "author": "validatedev",
+  "homepage": "https://github.com/validatedev/BrewServicesManager",
+  "skills": []
+}
