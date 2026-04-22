@@ -1,0 +1,14 @@
+{
+  "name": "aws--bedrock-agentcore-sdk-typescript",
+  "displayName": "bedrock-agentcore-sdk-typescript",
+  "description": "AI instruction skills by aws",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/bedrock-agentcore-sdk-typescript",
+  "skills": [
+    {
+      "name": "typescript",
+      "description": ""
+    }
+  ]
+}
