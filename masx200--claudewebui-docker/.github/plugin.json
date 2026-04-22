@@ -1,0 +1,9 @@
+{
+  "name": "masx200--claudewebui-docker",
+  "displayName": "ClaudeWebUI-Docker",
+  "description": "ClaudeWebUI-Docker",
+  "version": "1.0.0",
+  "author": "masx200",
+  "homepage": "https://github.com/masx200/ClaudeWebUI-Docker",
+  "skills": []
+}
