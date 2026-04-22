@@ -1,0 +1,234 @@
+## app-store-connect-cli
+
+> Unofficial, fast, lightweight, agent-assisted, reviewer-owned CLI for the App Store Connect API. Built in Go with [ffcli](https://github.com/peterbourgon/ff).
+
+# AGENTS.md
+
+Unofficial, fast, lightweight, agent-assisted, reviewer-owned CLI for the App Store Connect API. Built in Go with [ffcli](https://github.com/peterbourgon/ff).
+
+## asc skills
+
+Agent Skills for automating `asc` workflows including builds, TestFlight, metadata sync, submissions, and signing. https://github.com/rorkai/app-store-connect-cli-skills
+
+## Core Principles
+
+- **Explicit flags**: Use long-form flags in docs/tests/examples (`--app`, `--output`) for clarity
+- **TTY-aware output defaults**: `table` in interactive terminals, `json` for pipes/CI; use `--output` for explicit formats
+- **No interactive prompts**: Use `--confirm` flags for destructive operations
+- **Pagination**: `--paginate` fetches all pages automatically
+
+## Discovering Commands
+
+**Before implementing or testing any command, run `--help` to confirm the exact interface.** The CLI is self-documenting:
+
+```bash
+asc --help                    # List all commands
+asc builds --help             # List builds subcommands
+asc builds list --help        # Show all flags for a command
+```
+
+Do not memorize commands. Always check `--help` for the current interface.
+
+## Documentation
+
+When looking up App Store Connect API docs, prefer the `sosumi.ai` mirror instead of `developer.apple.com`.
+Replace `https://developer.apple.com/documentation/appstoreconnectapi/...` with `https://sosumi.ai/documentation/appstoreconnectapi/...`.
+
+## OpenAPI (offline)
+
+For endpoint existence and request/response schemas, use the offline snapshot:
+`docs/openapi/latest.json` and the quick index `docs/openapi/paths.txt`.
+Update instructions live in `docs/openapi/README.md`.
+
+Notes:
+- Validate flags against the *request* schema for the method you're implementing (create vs update often differ).
+- Validate query params against the specific endpoint (top-level vs relationship endpoints may allow different filters).
+
+## Build & Test
+
+```bash
+make build      # Build binary
+ASC_BYPASS_KEYCHAIN=1 make test  # Run tests with keychain bypass (always run before committing)
+make lint       # Lint code
+make format     # Format code
+make install-hooks  # Install local pre-commit hook (.githooks/pre-commit)
+```
+
+Canonical test rule: all test runs must use `ASC_BYPASS_KEYCHAIN=1` to avoid host keychain prompts and profile bleed-through.
+
+## PR Guardrails
+
+- Before opening or merging a PR, run `make format`, `make check-command-docs`, `make lint`, and `ASC_BYPASS_KEYCHAIN=1 make test`.
+- If command/help text changed, run `make generate-command-docs` and commit `docs/COMMANDS.md` before running checks.
+- Use `make install-hooks` once per clone to enforce local pre-commit checks.
+- CI must enforce formatting + lint + tests on both PR and `main` workflows.
+- Remove unused shared wrappers/helpers when commands are refactored.
+
+## PR Audit Workflow
+
+- When the user says `audit the PR`, treat it as a standing workflow; do not wait for them to restate the same instructions.
+- Check the PR out in an isolated git worktree (preferred) with its own local branch so the user's main checkout stays untouched.
+- Audit the full PR, not just the latest commit: inspect the branch diff, review all commits on the PR, and run the relevant tests/checks.
+- PR audits are fix-forward by default in this repo: if you find concrete issues, fix them, add/update tests, create a new commit, and push to the PR branch unless the user explicitly asks for review-only.
+- After pushing audit fixes, inspect GitHub PR review comments/threads with `gh`, address actionable feedback, commit and push follow-up fixes, and resolve threads you fully handled.
+- After the first push, keep checking for new PR comments/review threads about every minute for 5-10 minutes total, fixing and pushing follow-up changes if needed unless the user tells you to stop.
+- Assume `gh` auth is already available for PR audit tasks; use `gh` directly and only stop to ask if auth actually fails.
+- For all PR-audit test runs and live CLI/API verification, use `ASC_BYPASS_KEYCHAIN=1` so auth resolves from config/env instead of the macOS keychain.
+- Prefer the throwaway App Store Connect app `ASC Test 20260216074703` (`6759231657`) for live mutating verification during PR audits.
+- The `ASC Test` app is disposable: it is acceptable to create/cancel submissions and mutate resources there for validation, but still clean up temporary artifacts when possible.
+- Avoid mutating non-throwaway apps during PR audits unless the user explicitly approves it or there is no safer way to validate the change.
+- In the PR audit handoff, include the audit findings, fixes made, commits/pushes performed, commands run, test results, and any live ASC state that could not be cleaned up.
+
+## Issue Triage & Labeling
+
+- When creating or triaging a GitHub issue, ensure it ends the task with exactly one label
+  from each of these buckets:
+  - type: `bug`, `enhancement`, or `question`
+  - priority: `p0`, `p1`, `p2`, or `p3`
+  - difficulty: `easy`, `medium`, or `hard`
+- If an issue is created without labels, add the missing labels immediately as part of the
+  same task.
+- Use priority for urgency and user impact, not implementation size.
+- Use difficulty for implementation scope/risk, not urgency.
+- Do not leave newly created issues without a type, priority, and difficulty label.
+- If the exact label is ambiguous, prefer the lower priority/difficulty and note the
+  assumption in the handoff.
+
+## Testing Discipline
+
+- Use TDD for behavior changes: bugs, refactors that alter behavior, and new features.
+- Start with a failing test that captures the expected behavior and edge cases.
+- For new features, begin with CLI-level tests (flags, output, errors) and add unit tests for core logic.
+- Verify the test fails for the right reason before implementing; keep tests green incrementally.
+- **Test realistic CLI invocation patterns**, not invented happy paths. For example, when testing argument parsing, always consider:
+  - Flags before subcommands: `asc --flag subcmd` vs `asc subcmd --flag`
+  - Flag values that look like subcommands: `asc --report junit completion`
+  - Multiple flags with values: `asc -a val1 -b val2 subcmd`
+- **Model tests on actual CLI usage**, not assumed patterns. Check `--help` output to understand real command structure before writing tests.
+
+## Debugging & Bug Fixing
+
+- **Reproduce first**: Before fixing, run the failing test locally to confirm the issue. Don't assume you understand the bug.
+- **One change at a time**: Make one small fix, verify it works, then move to the next. Don't batch multiple changes.
+- **Re-run after each fix**: Re-run the specific failing test after each fix before running the full suite.
+- **One logical change per commit**: Keep commits narrowly scoped and reviewable. Avoid mixing refactor + bug fix + test rewrites in a single commit.
+- **Never bypass checks**: Don't use `--no-verify`, don't push directly to `main`, don't skip tests to "get around" failures.
+- **Be honest about pre-existing issues**: If a test was failing before your changes, say so. Don't claim credit for "fixing" something you didn't break.
+- **Verify before claiming done**: Run the specific failing test again to confirm it's fixed, not just "all tests pass".
+- **Avoid broad skip logic**: Don't skip tests with generic string matches (e.g., "Keychain Error") that can hide regressions. Match specific error codes instead.
+- **Isolate test auth/env state**: Tests that touch auth must set/clear relevant env vars (`ASC_BYPASS_KEYCHAIN`, `ASC_PROFILE`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_PRIVATE_KEY_PATH`, `ASC_PRIVATE_KEY`, `ASC_PRIVATE_KEY_B64`, `ASC_STRICT_AUTH`) locally and restore exact original state.
+- **Local test command**: When running repository tests manually, use `ASC_BYPASS_KEYCHAIN=1 make test` to prevent macOS keychain profile prompts from host environment bleed-through.
+- **Strict skip policy**: `t.Skip` is allowed only for specific, documented, reproducible conditions (exact error code/condition). Generic skip patterns are not allowed.
+- **Use proper workflow**: Branch → change → test → PR. Not: main → change → push.
+
+## Definition of Done (Single-Pass)
+
+- Done means checks pass, key exit-code scenarios are validated, and commands run are recorded in handoff.
+- For CLI behavior changes (flags, exit codes, output/reporting), follow this sequence:
+  - Add/adjust failing tests first (RED), then implement (GREEN).
+  - Do not add placeholder tests; every new test must assert exit code, stderr/stdout, and/or parsed structured output.
+  - For every new or changed flag, add:
+    - one valid-path test
+    - one invalid-value test that asserts stderr and exit code `2`
+  - For argument/subcommand parsing, test edge cases: flags before subcommands, flag values that match subcommand names, mixed flag order.
+  - Never silently ignore accepted flags; unsupported values must return an error.
+  - For JSON/XML output tests, parse output (`json.Unmarshal`/`xml.Unmarshal`) instead of relying only on string matching.
+  - For report/artifact file outputs, test both successful write and write-failure behavior.
+  - Verify CLI exit behavior using a built binary (not only `go run`) for black-box checks:
+    - `go build -o /tmp/asc .`
+    - run `/tmp/asc ...` and assert exit code + stderr/stdout
+  - For any new/changed API-facing flag (query params or request attributes), cross-check `docs/openapi/latest.json` to ensure:
+    - the attribute exists in the correct request schema (create-only vs update-only is common)
+    - the query parameter is permitted for that endpoint (top-level vs relationship endpoints can differ)
+    - if the API doesn't support it, don't ship a flag; implement client-side behavior or document the limitation explicitly
+  - If the change depends on ASC API quirks and you have credentials available locally, run a minimal live smoke test with a built binary (`/tmp/asc`).
+    - Prefer read-only commands first; for write operations, use a throwaway app/resource and clean up (create-then-delete).
+- Before opening/updating a PR, always run:
+  - `make format`
+  - `make check-command-docs`
+  - `make lint`
+  - `ASC_BYPASS_KEYCHAIN=1 make test`
+- In the PR description or handoff, include:
+  - commands run
+  - key exit-code scenarios validated
+
+## Operating Mode: Architecture-First Agent Engineering
+
+- Default mode is architecture-first, not vibe-first.
+- Before implementing any new command/flag, produce a short design note covering:
+  1) command placement in existing taxonomy,
+  2) OpenAPI endpoint/schema validation,
+  3) UX shape (flags/output/exit codes),
+  4) backward-compatibility and deprecation impact,
+  5) RED -> GREEN test plan.
+- If command shape is ambiguous, stop and align before coding.
+
+## Command Lifecycle & Compatibility
+
+- User-facing commands/flags must follow lifecycle states: `experimental`, `stable`, `deprecated`, `removed`.
+- Do not delete stable commands directly; deprecate first with migration guidance.
+- Deprecations must include:
+  - warning text in help/output,
+  - tests covering old and new behavior during transition,
+  - changelog entry with upgrade path.
+
+## Agent Explainability Contract
+
+For each substantial change, include:
+- why this approach was chosen,
+- one to two alternatives considered and trade-offs,
+- expected invocation examples and outputs,
+- edge cases and failure modes tested.
+
+A change is not done if the reviewer cannot explain command behavior and trade-offs from the handoff.
+
+## Parallel Agent Policy
+
+- Parallel agents are allowed for independent exploration or test drafting.
+- Final implementation integration must be done in a single coherent pass.
+- Avoid concurrent edits to the same command group.
+
+## CLI Implementation Checklist
+
+- Register new commands in `internal/cli/registry/registry.go`.
+- Always set `UsageFunc: shared.DefaultUsageFunc` for command groups and subcommands.
+- For outbound HTTP, use `shared.ContextWithTimeout` (or `shared.ContextWithUploadTimeout`) so `ASC_TIMEOUT` applies.
+- Validate required flags and assert stderr error messages in tests (not just `flag.ErrHelp`).
+- Add `internal/cli/cmdtest` coverage for new commands; use `httptest` for network payload tests.
+
+## Authentication
+
+API keys are generated at https://appstoreconnect.apple.com/access/integrations/api and stored in the system keychain (with local config fallback). Never commit keys to version control.
+
+## Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_PRIVATE_KEY_PATH`, `ASC_PRIVATE_KEY`, `ASC_PRIVATE_KEY_B64` | Auth fallback |
+| `ASC_BYPASS_KEYCHAIN` | Ignore keychain and use config/env auth |
+| `ASC_STRICT_AUTH` | Fail when credentials resolve from multiple sources (`true/false`, `1/0`, `yes/no`, `y/n`, `on/off`) |
+| `ASC_APP_ID` | Default app ID |
+| `ASC_VENDOR_NUMBER` | Sales/finance reports |
+| `ASC_TIMEOUT` | Request timeout (e.g., `90s`, `2m`) |
+| `ASC_TIMEOUT_SECONDS` | Timeout in seconds (alternative) |
+| `ASC_UPLOAD_TIMEOUT` | Upload timeout (e.g., `60s`, `2m`) |
+| `ASC_UPLOAD_TIMEOUT_SECONDS` | Upload timeout in seconds (alternative) |
+| `ASC_DEBUG` | Enable debug logging (set to `api` for HTTP requests/responses) |
+| `ASC_DEFAULT_OUTPUT` | Default output format: `json`, `table`, `markdown`, or `md` |
+
+When `ASC_DEFAULT_OUTPUT` is unset, defaults are TTY-aware (`table` in terminals, `json` for non-interactive output).
+Explicit `--output` flags always override `ASC_DEFAULT_OUTPUT` and TTY-aware defaults.
+
+## References
+
+Detailed guidance on specific topics (only read when needed):
+
+- **Go coding standards**: `docs/GO_STANDARDS.md`
+- **Testing patterns**: `docs/TESTING.md`
+- **Git workflow, CLI structure, adding features**: `docs/CONTRIBUTING.md`
+- **API quirks (analytics, finance, sandbox)**: `docs/API_NOTES.md`
+- **Development setup, PRs**: `CONTRIBUTING.md` (root)
+
+---
+> Source: [rorkai/App-Store-Connect-CLI](https://github.com/rorkai/App-Store-Connect-CLI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
