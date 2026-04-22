@@ -1,0 +1,81 @@
+{
+  "name": "pypto",
+  "owner": "hw-native-sys",
+  "repo": "pypto",
+  "description": "A community-driven pypto implementation ",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/hw-native-sys/pypto/tree/main/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "create-issue",
+      "path": ".claude/skills/create-issue",
+      "github_url": "https://github.com/hw-native-sys/pypto/tree/main/.claude/skills/create-issue",
+      "description": ""
+    },
+    {
+      "name": "fix-issue",
+      "path": ".claude/skills/fix-issue",
+      "github_url": "https://github.com/hw-native-sys/pypto/tree/main/.claude/skills/fix-issue",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": ".claude/skills/git-commit",
+      "github_url": "https://github.com/hw-native-sys/pypto/tree/main/.claude/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "github-pr",
+      "path": ".claude/skills/github-pr",
+      "github_url": "https://github.com/hw-native-sys/pypto/tree/main/.claude/skills/github-pr",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/hw-native-sys/pypto/tree/main/.claude/skills/testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hw-native-sys/pypto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:33:49Z"
+}
