@@ -1,0 +1,9 @@
+{
+  "name": "dimillian--codexskillmanager",
+  "displayName": "CodexSkillManager",
+  "description": "macOS app to manage your Codex skills",
+  "version": "1.0.0",
+  "author": "Dimillian",
+  "homepage": "https://github.com/Dimillian/CodexSkillManager",
+  "skills": []
+}
