@@ -1,0 +1,9 @@
+{
+  "name": "mulhamna--jira-commands",
+  "displayName": "jira-commands",
+  "description": "Jira toolkit for terminals, coding assistants, and bots.",
+  "version": "1.0.0",
+  "author": "mulhamna",
+  "homepage": "https://github.com/mulhamna/jira-commands",
+  "skills": []
+}
