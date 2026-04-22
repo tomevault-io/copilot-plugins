@@ -1,0 +1,87 @@
+{
+  "name": "holon",
+  "owner": "holon-run",
+  "repo": "holon",
+  "description": "Holon runs AI coding agents headlessly to turn issues into PR-ready patches and summaries \u2014 locally or in CI, without babysitting the agent.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ghx",
+      "path": "skills/ghx",
+      "github_url": "https://github.com/holon-run/holon/tree/main/skills/ghx",
+      "description": ""
+    },
+    {
+      "name": "github-issue-solve",
+      "path": "skills/github-issue-solve",
+      "github_url": "https://github.com/holon-run/holon/tree/main/skills/github-issue-solve",
+      "description": ""
+    },
+    {
+      "name": "github-pr-fix",
+      "path": "skills/github-pr-fix",
+      "github_url": "https://github.com/holon-run/holon/tree/main/skills/github-pr-fix",
+      "description": ""
+    },
+    {
+      "name": "github-review",
+      "path": "skills/github-review",
+      "github_url": "https://github.com/holon-run/holon/tree/main/skills/github-review",
+      "description": ""
+    },
+    {
+      "name": "project-pulse",
+      "path": "skills/project-pulse",
+      "github_url": "https://github.com/holon-run/holon/tree/main/skills/project-pulse",
+      "description": ""
+    },
+    {
+      "name": "testing-go",
+      "path": "examples/skills/testing-go",
+      "github_url": "https://github.com/holon-run/holon/tree/main/examples/skills/testing-go",
+      "description": ""
+    },
+    {
+      "name": "typescript-api",
+      "path": "examples/skills/typescript-api",
+      "github_url": "https://github.com/holon-run/holon/tree/main/examples/skills/typescript-api",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/holon-run/holon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:33:07Z"
+}
