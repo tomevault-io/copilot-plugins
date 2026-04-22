@@ -1,0 +1,26 @@
+{
+  "name": "dceoy--speckit-agent-skills",
+  "displayName": "speckit-agent-skills",
+  "description": "Agent skills for Spec Kit",
+  "version": "1.0.0",
+  "author": "dceoy",
+  "homepage": "https://github.com/dceoy/speckit-agent-skills",
+  "skills": [
+    {
+      "name": "speckit-baseline",
+      "description": ""
+    },
+    {
+      "name": "speckit-plan",
+      "description": ""
+    },
+    {
+      "name": "speckit-tasks",
+      "description": ""
+    },
+    {
+      "name": "speckit-taskstoissues",
+      "description": ""
+    }
+  ]
+}
