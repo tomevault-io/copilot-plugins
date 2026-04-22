@@ -1,0 +1,9 @@
+{
+  "name": "jamesrochabrun--agenthub",
+  "displayName": "AgentHub",
+  "description": "Manage all sessions in Claude Code and Codex. Easily create new worktrees, run multiple terminals in parallel, preview edits before accepting them, make inline changes directly from diffs, and more.",
+  "version": "1.0.0",
+  "author": "jamesrochabrun",
+  "homepage": "https://github.com/jamesrochabrun/AgentHub",
+  "skills": []
+}
