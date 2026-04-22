@@ -1,0 +1,9 @@
+{
+  "name": "brianlovin--agent-config",
+  "displayName": "agent-config",
+  "description": "My coding agent config",
+  "version": "1.0.0",
+  "author": "brianlovin",
+  "homepage": "https://github.com/brianlovin/agent-config",
+  "skills": []
+}
