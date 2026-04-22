@@ -1,77 +1,37 @@
 ## opensre
 
-> Tool development patterns for investigation and chat tools
+> - Build `make install`
 
+## Tracer Development Reference
 
-# Tool Development
+## Build and Run commands
 
-## Two Registration Patterns
+- Build `make install`
+- Run `opensre`
 
-### 1. Function + `@tool` decorator (preferred for simple tools)
+## Lint & Format
 
-Single file under `app/tools/` with a decorated function. The registry auto-discovers it.
+- Lint all: `make lint`
+- Fix linting: `ruff check app/ tests/ --fix`
+- Type check: `make typecheck`
 
-```python
-from app.tools.tool_decorator import tool
+## Testing
 
-@tool(
-    name="my_tool_name",
-    source="grafana",            # Required: EvidenceSource literal
-    description="What this tool does.",
-    use_cases=["When to use it"],
-    requires=["api_key"],
-    input_schema={...},          # Optional: inferred from signature if omitted
-    is_available=my_check_fn,    # (sources: dict) -> bool
-    extract_params=my_extract,   # (sources: dict) -> dict
-    surfaces=("investigation",), # Default; add "chat" to expose in chat mode
-)
-def my_tool_name(param: str) -> dict:
-    ...
-```
+- Test: `make test-cov`
+- Test real alerts: `make test-rca`
 
-### 2. `BaseTool` subclass (for complex tools with helpers)
+## Code Style
 
-PascalCase directory: `app/tools/MyToolName/__init__.py`. Instantiate at module level.
+- Use strict typing, follow DRY principle
+- One clear purpose per file (separation of concerns)
 
-```python
-from app.tools.base import BaseTool
+### Before Push
 
-class MyToolName(BaseTool):
-    name = "my_tool_name"
-    source = "grafana"
-    description = "..."
-    input_schema = {
-        "type": "object",
-        "properties": {...},
-        "required": [...],
-    }
-    use_cases = [...]
-    requires = [...]
-    outputs = {"field": "description"}
-
-    def is_available(self, sources: dict) -> bool: ...
-    def extract_params(self, sources: dict) -> dict: ...
-    def run(self, param: str, **_kwargs) -> dict: ...
-
-my_tool_name = MyToolName()
-```
-
-## Rules
-
-- `source` is **required** — must be a valid `EvidenceSource` literal from `app/state.py`
-- Tool directories use **PascalCase + `Tool`** suffix (`GrafanaLogsTool/`, `S3ListTool/`)
-- The registry in `app/tools/registry.py` auto-discovers via `pkgutil.iter_modules`
-- Do NOT add your module to `_SKIP_MODULE_NAMES` in `registry.py`
-- Module names ending in `_test` are auto-skipped by the registry
-- `surfaces` defaults to `("investigation",)` — add `"chat"` explicitly if needed
-- For `BaseTool`: instantiate the class at module level so the registry can find it
-- Return `dict` from `run()` with an `"error"` key on failure, structured data on success
-
-## Valid `EvidenceSource` Values
-
-`storage`, `batch`, `tracer_web`, `cloudwatch`, `aws_sdk`, `knowledge`, `grafana`, `datadog`, `honeycomb`, `coralogix`, `eks`, `github`, `sentry`, `google_docs`, `vercel`, `opsgenie`, `elasticsearch`
+1. Clean working tree
+2. `make test-cov`
+3. `make lint`
+4. `make typecheck`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Tracer-Cloud)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Tracer-Cloud)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [Tracer-Cloud/opensre](https://github.com/Tracer-Cloud/opensre) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
