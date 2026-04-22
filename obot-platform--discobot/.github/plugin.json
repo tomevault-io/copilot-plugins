@@ -1,0 +1,26 @@
+{
+  "name": "obot-platform--discobot",
+  "displayName": "discobot",
+  "description": "Coding Agent",
+  "version": "1.0.0",
+  "author": "obot-platform",
+  "homepage": "https://github.com/obot-platform/discobot",
+  "skills": [
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": ""
+    }
+  ]
+}
