@@ -1,0 +1,30 @@
+{
+  "name": "minorun365--marp-agent",
+  "displayName": "marp-agent",
+  "description": "\u30d1\u30ef\u30dd\u4f5c\u308b\u30de\u30f3",
+  "version": "1.0.0",
+  "author": "minorun365",
+  "homepage": "https://github.com/minorun365/marp-agent",
+  "skills": [
+    {
+      "name": "check-app-stats",
+      "description": ""
+    },
+    {
+      "name": "check-deploy-status",
+      "description": ""
+    },
+    {
+      "name": "commit-docs",
+      "description": ""
+    },
+    {
+      "name": "start-dev",
+      "description": ""
+    },
+    {
+      "name": "sync-issues",
+      "description": ""
+    }
+  ]
+}
