@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--agent-skills",
+  "displayName": "agent-skills",
+  "description": "The official Agent Skills for ClickHouse and ClickHouse Cloud",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/agent-skills",
+  "skills": []
+}
