@@ -1,0 +1,9 @@
+{
+  "name": "ardanlabs--kronk",
+  "displayName": "kronk",
+  "description": "Your personal engine for running open source models locally. Use Go for hardware accelerated local inference with llama.cpp directly integrated into your Go applications via the yzma module. Kronk pro",
+  "version": "1.0.0",
+  "author": "ardanlabs",
+  "homepage": "https://github.com/ardanlabs/kronk",
+  "skills": []
+}
