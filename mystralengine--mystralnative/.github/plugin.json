@@ -1,0 +1,9 @@
+{
+  "name": "mystralengine--mystralnative",
+  "displayName": "mystralnative",
+  "description": "Native WebGPU JS runtime with SDL3",
+  "version": "1.0.0",
+  "author": "mystralengine",
+  "homepage": "https://github.com/mystralengine/mystralnative",
+  "skills": []
+}
