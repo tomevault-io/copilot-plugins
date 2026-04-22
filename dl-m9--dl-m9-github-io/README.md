@@ -1,6 +1,6 @@
-# dl-m9.github.io — distributed by TomeVault
+# dl-m9.github.io
 
-> Originally from [dl-m9/dl-m9.github.io](https://github.com/dl-m9/dl-m9.github.io). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [dl-m9/dl-m9.github.io](https://github.com/dl-m9/dl-m9.github.io) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [dl-m9/dl-m9.github.io](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/dl-m9)
+From [dl-m9/dl-m9.github.io](https://github.com/dl-m9/dl-m9.github.io) — a repo with 0+ stars on GitHub.
 
 ---
 
