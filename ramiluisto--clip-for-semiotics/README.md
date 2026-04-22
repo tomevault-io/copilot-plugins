@@ -1,6 +1,6 @@
-# CLIP_for_semiotics — distributed by TomeVault
+# CLIP_for_semiotics
 
-> Originally from [ramiluisto/CLIP_for_semiotics](https://github.com/ramiluisto/CLIP_for_semiotics). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ramiluisto/CLIP_for_semiotics](https://github.com/ramiluisto/CLIP_for_semiotics) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ramiluisto/CLIP_for_semiotics](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ramiluisto)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ramiluisto/CLIP_for_semiotics](https://github.com/ramiluisto/CLIP_for_semiotics)
 
 ---
 
