@@ -1,0 +1,9 @@
+{
+  "name": "remorses--tuistory",
+  "displayName": "tuistory",
+  "description": "CLI and library to let agents control & test terminal user interfaces. Like Playwright & agent-browser for terminal user interfaces. ",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/tuistory",
+  "skills": []
+}
