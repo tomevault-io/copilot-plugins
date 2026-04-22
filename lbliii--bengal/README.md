@@ -1,6 +1,6 @@
-# bengal — distributed by TomeVault
+# bengal
 
-> Originally from [lbliii/bengal](https://github.com/lbliii/bengal). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [lbliii/bengal](https://github.com/lbliii/bengal) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [lbliii/bengal](https://github.com/lbl
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/lbliii)
+From [lbliii/bengal](https://github.com/lbliii/bengal) — a repo with 0+ stars on GitHub.
 
 ---
 
