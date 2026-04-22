@@ -1,0 +1,9 @@
+{
+  "name": "fcoury--tsql",
+  "displayName": "tsql",
+  "description": "\ud83d\udc18 tsql \u2014 A modern PostgreSQL and MongoDB manager TUI",
+  "version": "1.0.0",
+  "author": "fcoury",
+  "homepage": "https://github.com/fcoury/tsql",
+  "skills": []
+}
