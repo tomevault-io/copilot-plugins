@@ -1,0 +1,66 @@
+{
+  "name": "cowwoc--cat",
+  "displayName": "cat",
+  "description": "AI Agents that land on their feet",
+  "version": "1.0.0",
+  "author": "cowwoc",
+  "homepage": "https://github.com/cowwoc/cat",
+  "skills": [
+    {
+      "name": "stakeholder-review",
+      "description": ""
+    },
+    {
+      "name": "compare-docs",
+      "description": ""
+    },
+    {
+      "name": "format-documentation",
+      "description": ""
+    },
+    {
+      "name": "get-history",
+      "description": ""
+    },
+    {
+      "name": "git-amend",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "git-rebase",
+      "description": ""
+    },
+    {
+      "name": "git-rewrite-history",
+      "description": ""
+    },
+    {
+      "name": "git-squash",
+      "description": ""
+    },
+    {
+      "name": "render-diff",
+      "description": ""
+    },
+    {
+      "name": "safe-remove-code",
+      "description": ""
+    },
+    {
+      "name": "shrink-doc",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "description": ""
+    },
+    {
+      "name": "validate-git-safety",
+      "description": ""
+    }
+  ]
+}
