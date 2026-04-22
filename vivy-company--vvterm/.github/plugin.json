@@ -1,0 +1,9 @@
+{
+  "name": "vivy-company--vvterm",
+  "displayName": "vvterm",
+  "description": "Ghostty-powered SSH client for iOS, iPad, MacOS.",
+  "version": "1.0.0",
+  "author": "vivy-company",
+  "homepage": "https://github.com/vivy-company/vvterm",
+  "skills": []
+}
