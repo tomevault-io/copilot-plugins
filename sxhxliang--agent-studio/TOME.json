@@ -4,7 +4,7 @@
   "repo": "agent-studio",
   "description": "AgentX is a GPU-accelerated, cross-platform desktop application that brings AI agents to your workflow.  \u8de8\u5e73\u53f0\u3001\u539f\u751f Agent \u684c\u9762\u3002",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sxhxliang/agent-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T19:54:45Z"
+  "distributed_at": "2026-04-22T23:49:19Z"
 }
