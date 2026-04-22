@@ -1,0 +1,18 @@
+{
+  "name": "fictjs--fict",
+  "displayName": "fict",
+  "description": "(WIP)Reactive UI with zero boilerplate",
+  "version": "1.0.0",
+  "author": "fictjs",
+  "homepage": "https://github.com/fictjs/fict",
+  "skills": [
+    {
+      "name": "fict-best-practices",
+      "description": ""
+    },
+    {
+      "name": "fict-devtools-playground",
+      "description": ""
+    }
+  ]
+}
