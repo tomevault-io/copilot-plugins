@@ -1,0 +1,9 @@
+{
+  "name": "qufei1993--skills-hub",
+  "displayName": "skills-hub",
+  "description": "A cross-platform desktop app to manage Agent Skills in one place and sync them to multiple AI coding tools\u2019 global skills directories \u2014 \u201cInstall once, sync everywhere\u201d.",
+  "version": "1.0.0",
+  "author": "qufei1993",
+  "homepage": "https://github.com/qufei1993/skills-hub",
+  "skills": []
+}
