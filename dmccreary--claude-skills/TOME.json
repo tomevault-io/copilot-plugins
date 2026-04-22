@@ -1,0 +1,129 @@
+{
+  "name": "claude-skills",
+  "owner": "dmccreary",
+  "repo": "claude-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "book-chapter-generator",
+      "path": "skills/book-chapter-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/book-chapter-generator",
+      "description": ""
+    },
+    {
+      "name": "book-installer",
+      "path": "skills/book-installer",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/book-installer",
+      "description": ""
+    },
+    {
+      "name": "book-metrics-generator",
+      "path": "skills/book-metrics-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/book-metrics-generator",
+      "description": ""
+    },
+    {
+      "name": "chapter-content-generator",
+      "path": "skills/chapter-content-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/chapter-content-generator",
+      "description": ""
+    },
+    {
+      "name": "course-description-analyzer",
+      "path": "skills/course-description-analyzer",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/course-description-analyzer",
+      "description": ""
+    },
+    {
+      "name": "diagram-reports-generator",
+      "path": "skills/diagram-reports-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/diagram-reports-generator",
+      "description": ""
+    },
+    {
+      "name": "faq-generator",
+      "path": "skills/faq-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/faq-generator",
+      "description": ""
+    },
+    {
+      "name": "glossary-generator",
+      "path": "skills/glossary-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/glossary-generator",
+      "description": ""
+    },
+    {
+      "name": "microsim-generator",
+      "path": "skills/microsim-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/microsim-generator",
+      "description": ""
+    },
+    {
+      "name": "microsim-utils",
+      "path": "skills/microsim-utils",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/microsim-utils",
+      "description": ""
+    },
+    {
+      "name": "quiz-generator",
+      "path": "skills/quiz-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/quiz-generator",
+      "description": ""
+    },
+    {
+      "name": "readme-generator",
+      "path": "skills/readme-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/readme-generator",
+      "description": ""
+    },
+    {
+      "name": "reference-generator",
+      "path": "skills/reference-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/reference-generator",
+      "description": ""
+    },
+    {
+      "name": "story-generator",
+      "path": "skills/story-generator",
+      "github_url": "https://github.com/dmccreary/claude-skills/tree/main/skills/story-generator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dmccreary/claude-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T23:35:17Z"
+}
