@@ -1,0 +1,34 @@
+{
+  "name": "arpitnath--claude-capsule-kit",
+  "displayName": "claude-capsule-kit",
+  "description": "A toolkit that makes Claude Code better at engineering \u2014 session memory, dependency analysis, large file navigation, 18 specialist agents, and crew teams for parallel multi-branch work.",
+  "version": "1.0.0",
+  "author": "arpitnath",
+  "homepage": "https://github.com/arpitnath/claude-capsule-kit",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "crew",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "description": ""
+    },
+    {
+      "name": "deep-context",
+      "description": ""
+    },
+    {
+      "name": "task-router",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "description": ""
+    }
+  ]
+}
