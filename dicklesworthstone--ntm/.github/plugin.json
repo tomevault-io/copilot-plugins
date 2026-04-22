@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--ntm",
+  "displayName": "ntm",
+  "description": "Named Tmux Manager: spawn, tile, and coordinate multiple AI coding agents (Claude, Codex, Gemini) across tmux panes with a TUI command palette",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/ntm",
+  "skills": []
+}
