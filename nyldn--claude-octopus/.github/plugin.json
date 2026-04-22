@@ -1,0 +1,9 @@
+{
+  "name": "nyldn--claude-octopus",
+  "displayName": "claude-octopus",
+  "description": "Put up to 8 AI models on every coding task \u2014 blind spots surface before you ship. Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "nyldn",
+  "homepage": "https://github.com/nyldn/claude-octopus",
+  "skills": []
+}
