@@ -1,0 +1,310 @@
+{
+  "name": "jwynia--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "jwynia",
+  "homepage": "https://github.com/jwynia/agent-skills",
+  "skills": [
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "presentation-design",
+      "description": ""
+    },
+    {
+      "name": "requirements-analysis",
+      "description": ""
+    },
+    {
+      "name": "godot-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "description": ""
+    },
+    {
+      "name": "system-design",
+      "description": ""
+    },
+    {
+      "name": "web-search-tavily",
+      "description": ""
+    },
+    {
+      "name": "godot-asset-generator",
+      "description": ""
+    },
+    {
+      "name": "task-decomposition",
+      "description": ""
+    },
+    {
+      "name": "research-workflow",
+      "description": ""
+    },
+    {
+      "name": "docx-generator",
+      "description": ""
+    },
+    {
+      "name": "shadcn-layouts",
+      "description": ""
+    },
+    {
+      "name": "story-idea-generator",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "architecture-decision",
+      "description": ""
+    },
+    {
+      "name": "pdf-generator",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "description": ""
+    },
+    {
+      "name": "story-collaborator",
+      "description": ""
+    },
+    {
+      "name": "task-breakdown",
+      "description": ""
+    },
+    {
+      "name": "story-sense",
+      "description": ""
+    },
+    {
+      "name": "context-retrospective",
+      "description": ""
+    },
+    {
+      "name": "story-coach",
+      "description": ""
+    },
+    {
+      "name": "naming",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "context-network",
+      "description": ""
+    },
+    {
+      "name": "musical-dna",
+      "description": ""
+    },
+    {
+      "name": "voice-analysis",
+      "description": ""
+    },
+    {
+      "name": "agile-workflow",
+      "description": ""
+    },
+    {
+      "name": "worldbuilding",
+      "description": ""
+    },
+    {
+      "name": "pwa-development",
+      "description": ""
+    },
+    {
+      "name": "interactive-fiction",
+      "description": ""
+    },
+    {
+      "name": "mastra-hono",
+      "description": ""
+    },
+    {
+      "name": "agile-coordinator",
+      "description": ""
+    },
+    {
+      "name": "gentle-teaching",
+      "description": ""
+    },
+    {
+      "name": "devcontainer",
+      "description": ""
+    },
+    {
+      "name": "revision",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "description": ""
+    },
+    {
+      "name": "github-agile",
+      "description": ""
+    },
+    {
+      "name": "non-fiction-revision",
+      "description": ""
+    },
+    {
+      "name": "outline-collaborator",
+      "description": ""
+    },
+    {
+      "name": "abstract-strategy",
+      "description": ""
+    },
+    {
+      "name": "key-moments",
+      "description": ""
+    },
+    {
+      "name": "language-evolution",
+      "description": ""
+    },
+    {
+      "name": "economic-systems",
+      "description": ""
+    },
+    {
+      "name": "endings",
+      "description": ""
+    },
+    {
+      "name": "multi-order-evolution",
+      "description": ""
+    },
+    {
+      "name": "oblique-worldbuilding",
+      "description": ""
+    },
+    {
+      "name": "lyric-diagnostic",
+      "description": ""
+    },
+    {
+      "name": "outline-coach",
+      "description": ""
+    },
+    {
+      "name": "scene-sequencing",
+      "description": ""
+    },
+    {
+      "name": "settlement-design",
+      "description": ""
+    },
+    {
+      "name": "governance-systems",
+      "description": ""
+    },
+    {
+      "name": "cliche-transcendence",
+      "description": ""
+    },
+    {
+      "name": "sleep-story",
+      "description": ""
+    },
+    {
+      "name": "adaptation-synthesis",
+      "description": ""
+    },
+    {
+      "name": "belief-systems",
+      "description": ""
+    },
+    {
+      "name": "chapter-drafter",
+      "description": ""
+    },
+    {
+      "name": "statistical-distance",
+      "description": ""
+    },
+    {
+      "name": "agent-bootstrap",
+      "description": ""
+    },
+    {
+      "name": "competency",
+      "description": ""
+    },
+    {
+      "name": "config-scan",
+      "description": ""
+    },
+    {
+      "name": "document-to-narration",
+      "description": ""
+    },
+    {
+      "name": "electron-best-practices",
+      "description": ""
+    },
+    {
+      "name": "gitea-coordinator",
+      "description": ""
+    },
+    {
+      "name": "gitea-workflow",
+      "description": ""
+    },
+    {
+      "name": "metabolic-cultures",
+      "description": ""
+    },
+    {
+      "name": "npm-package",
+      "description": ""
+    },
+    {
+      "name": "npx-cli",
+      "description": ""
+    },
+    {
+      "name": "product-analysis",
+      "description": ""
+    },
+    {
+      "name": "react-pwa",
+      "description": ""
+    },
+    {
+      "name": "scraper-builder",
+      "description": ""
+    },
+    {
+      "name": "secrets-scan",
+      "description": ""
+    },
+    {
+      "name": "security-scan",
+      "description": ""
+    },
+    {
+      "name": "skill-integrator",
+      "description": ""
+    }
+  ]
+}
