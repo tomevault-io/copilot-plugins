@@ -1,0 +1,18 @@
+{
+  "name": "base44--cli",
+  "displayName": "cli",
+  "description": "Command-line interface for building applications with Base44's backend service.",
+  "version": "1.0.0",
+  "author": "base44",
+  "homepage": "https://github.com/base44/cli",
+  "skills": [
+    {
+      "name": "base44-cli",
+      "description": ""
+    },
+    {
+      "name": "sync-cli-skill",
+      "description": ""
+    }
+  ]
+}
