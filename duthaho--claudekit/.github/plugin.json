@@ -1,0 +1,14 @@
+{
+  "name": "duthaho--claudekit",
+  "displayName": "claudekit",
+  "description": "The open-source AI dev toolkit for Claude Code. Ship faster with 27+ commands, 7 modes, and 34+ skills. Free forever.",
+  "version": "1.0.0",
+  "author": "duthaho",
+  "homepage": "https://github.com/duthaho/claudekit",
+  "skills": [
+    {
+      "name": "django",
+      "description": ""
+    }
+  ]
+}
