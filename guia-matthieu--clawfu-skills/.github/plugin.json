@@ -1,0 +1,410 @@
+{
+  "name": "guia-matthieu--clawfu-skills",
+  "displayName": "clawfu-skills",
+  "description": "172 expert marketing skills for AI agents \u2014 ClawFu MCP Server",
+  "version": "1.0.0",
+  "author": "guia-matthieu",
+  "homepage": "https://github.com/guia-matthieu/clawfu-skills",
+  "skills": [
+    {
+      "name": "persuasion-principles",
+      "description": ""
+    },
+    {
+      "name": "skyscraper-technique",
+      "description": ""
+    },
+    {
+      "name": "forecast-scenarios",
+      "description": ""
+    },
+    {
+      "name": "content-strategy",
+      "description": ""
+    },
+    {
+      "name": "content-writing",
+      "description": ""
+    },
+    {
+      "name": "conversion-copywriting",
+      "description": ""
+    },
+    {
+      "name": "design-trends-2026",
+      "description": ""
+    },
+    {
+      "name": "expert-secrets",
+      "description": ""
+    },
+    {
+      "name": "headline-formulas",
+      "description": ""
+    },
+    {
+      "name": "lean-canvas",
+      "description": ""
+    },
+    {
+      "name": "never-split-difference",
+      "description": ""
+    },
+    {
+      "name": "onboarding-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "pre-mortem",
+      "description": ""
+    },
+    {
+      "name": "sales-letter-writer",
+      "description": ""
+    },
+    {
+      "name": "second-order-thinking",
+      "description": ""
+    },
+    {
+      "name": "seo-content-writer",
+      "description": ""
+    },
+    {
+      "name": "sound-design-film",
+      "description": ""
+    },
+    {
+      "name": "storytelling-storybrand",
+      "description": ""
+    },
+    {
+      "name": "ai-video-concept",
+      "description": ""
+    },
+    {
+      "name": "ai-video-prompting",
+      "description": ""
+    },
+    {
+      "name": "ai-video-qa",
+      "description": ""
+    },
+    {
+      "name": "audiobook-production",
+      "description": ""
+    },
+    {
+      "name": "boron-letters",
+      "description": ""
+    },
+    {
+      "name": "buyer-personas",
+      "description": ""
+    },
+    {
+      "name": "category-design",
+      "description": ""
+    },
+    {
+      "name": "cognitive-biases",
+      "description": ""
+    },
+    {
+      "name": "competitive-analysis",
+      "description": ""
+    },
+    {
+      "name": "cta-writing",
+      "description": ""
+    },
+    {
+      "name": "dns-zonefile-config",
+      "description": ""
+    },
+    {
+      "name": "dotcom-secrets",
+      "description": ""
+    },
+    {
+      "name": "fundraising-narrative",
+      "description": ""
+    },
+    {
+      "name": "growth-loops",
+      "description": ""
+    },
+    {
+      "name": "health-score-monitor",
+      "description": ""
+    },
+    {
+      "name": "high-output-management",
+      "description": ""
+    },
+    {
+      "name": "image-batch",
+      "description": ""
+    },
+    {
+      "name": "landing-page-copy",
+      "description": ""
+    },
+    {
+      "name": "landing-page-optimizer",
+      "description": ""
+    },
+    {
+      "name": "lead-qualification-bant",
+      "description": ""
+    },
+    {
+      "name": "lighthouse-audit",
+      "description": ""
+    },
+    {
+      "name": "link-checker",
+      "description": ""
+    },
+    {
+      "name": "naming-6-gates",
+      "description": ""
+    },
+    {
+      "name": "objection-mapping",
+      "description": ""
+    },
+    {
+      "name": "onboarding-guide",
+      "description": ""
+    },
+    {
+      "name": "one-on-ones",
+      "description": ""
+    },
+    {
+      "name": "outbound-sequencer",
+      "description": ""
+    },
+    {
+      "name": "permission-marketing",
+      "description": ""
+    },
+    {
+      "name": "podcast-interview",
+      "description": ""
+    },
+    {
+      "name": "pricing-validation",
+      "description": ""
+    },
+    {
+      "name": "product-led-growth",
+      "description": ""
+    },
+    {
+      "name": "pydub-automation",
+      "description": ""
+    },
+    {
+      "name": "radical-candor",
+      "description": ""
+    },
+    {
+      "name": "report-generator",
+      "description": ""
+    },
+    {
+      "name": "sandler-system",
+      "description": ""
+    },
+    {
+      "name": "six-thinking-hats",
+      "description": ""
+    },
+    {
+      "name": "sonic-branding",
+      "description": ""
+    },
+    {
+      "name": "value-proposition-canvas",
+      "description": ""
+    },
+    {
+      "name": "video-processing",
+      "description": ""
+    },
+    {
+      "name": "video-testimonial",
+      "description": ""
+    },
+    {
+      "name": "yc-pitch-deck",
+      "description": ""
+    },
+    {
+      "name": "youtube-downloader",
+      "description": ""
+    },
+    {
+      "name": "ab-test-stats",
+      "description": ""
+    },
+    {
+      "name": "ai-storyboard-2x2",
+      "description": ""
+    },
+    {
+      "name": "ai-voice-design",
+      "description": ""
+    },
+    {
+      "name": "audio-logo-design",
+      "description": ""
+    },
+    {
+      "name": "brand-strategy",
+      "description": ""
+    },
+    {
+      "name": "brand-voice",
+      "description": ""
+    },
+    {
+      "name": "brand-voice-learner",
+      "description": ""
+    },
+    {
+      "name": "competitor-monitor",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "description": ""
+    },
+    {
+      "name": "customer-discovery",
+      "description": ""
+    },
+    {
+      "name": "dan-kennedy-copy",
+      "description": ""
+    },
+    {
+      "name": "deliverability-checker",
+      "description": ""
+    },
+    {
+      "name": "design-sprint",
+      "description": ""
+    },
+    {
+      "name": "educational-presentation",
+      "description": ""
+    },
+    {
+      "name": "email-writing",
+      "description": ""
+    },
+    {
+      "name": "engagement-analyzer",
+      "description": ""
+    },
+    {
+      "name": "google-ads-expert",
+      "description": ""
+    },
+    {
+      "name": "image-to-3d-pipeline",
+      "description": ""
+    },
+    {
+      "name": "interview-scheduler",
+      "description": ""
+    },
+    {
+      "name": "inversion",
+      "description": ""
+    },
+    {
+      "name": "lead-scoring",
+      "description": ""
+    },
+    {
+      "name": "llm-optimized-content",
+      "description": ""
+    },
+    {
+      "name": "mom-test",
+      "description": ""
+    },
+    {
+      "name": "nda-generator",
+      "description": ""
+    },
+    {
+      "name": "nurture-sequences",
+      "description": ""
+    },
+    {
+      "name": "podcast-seo",
+      "description": ""
+    },
+    {
+      "name": "pricing-strategy",
+      "description": ""
+    },
+    {
+      "name": "problem-interview",
+      "description": ""
+    },
+    {
+      "name": "product-discovery",
+      "description": ""
+    },
+    {
+      "name": "rlm",
+      "description": ""
+    },
+    {
+      "name": "shape-up",
+      "description": ""
+    },
+    {
+      "name": "skill-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "solution-interview",
+      "description": ""
+    },
+    {
+      "name": "stp-framework",
+      "description": ""
+    },
+    {
+      "name": "ugc-collector",
+      "description": ""
+    },
+    {
+      "name": "ux-sound-design",
+      "description": ""
+    },
+    {
+      "name": "voice-design",
+      "description": ""
+    },
+    {
+      "name": "voice-localization",
+      "description": ""
+    },
+    {
+      "name": "voiceover-direction",
+      "description": ""
+    },
+    {
+      "name": "web-scraper",
+      "description": ""
+    }
+  ]
+}
