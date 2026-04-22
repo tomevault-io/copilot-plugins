@@ -1,0 +1,69 @@
+{
+  "name": "abacus",
+  "owner": "getsentry",
+  "repo": "abacus",
+  "description": "For teams curious about token consumption of their coding agents.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "db-migrate",
+      "path": ".claude/skills/db-migrate",
+      "github_url": "https://github.com/getsentry/abacus/tree/main/.claude/skills/db-migrate",
+      "description": ""
+    },
+    {
+      "name": "write-docs",
+      "path": ".claude/skills/write-docs",
+      "github_url": "https://github.com/getsentry/abacus/tree/main/.claude/skills/write-docs",
+      "description": ""
+    },
+    {
+      "name": "write-tests",
+      "path": ".claude/skills/write-tests",
+      "github_url": "https://github.com/getsentry/abacus/tree/main/.claude/skills/write-tests",
+      "description": ""
+    },
+    {
+      "name": "write-tip",
+      "path": ".claude/skills/write-tip",
+      "github_url": "https://github.com/getsentry/abacus/tree/main/.claude/skills/write-tip",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/getsentry/abacus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:42:32Z"
+}
