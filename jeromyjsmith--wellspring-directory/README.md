@@ -1,6 +1,6 @@
 # wellspring_directory
 
-> Config by [JeromyJSmith](https://github.com/JeromyJSmith/wellspring_directory) — distributed by [TomeVault](https://tomevault.io/claim/JeromyJSmith)
+> Tome by [JeromyJSmith](https://github.com/JeromyJSmith/wellspring_directory) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [JeromyJSmith/wellspring_directory](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/JeromyJSmith](https://tomevault.io/claim/JeromyJSmith)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/JeromyJSmith/wellspring_directory](https://github.com/JeromyJSmith/wellspring_directory)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/JeromyJSmith) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install JeromyJSmith/wellspring_directory
+```
+Source: [github.com/JeromyJSmith/wellspring_directory](https://github.com/JeromyJSmith/wellspring_directory).
+
+<!-- genome:t-i-q -->
