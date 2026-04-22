@@ -1,6 +1,6 @@
-# rails-ai-rules — distributed by TomeVault
+# rails-ai-rules
 
-> Originally from [dpaluy/rails-ai-rules](https://github.com/dpaluy/rails-ai-rules). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [dpaluy/rails-ai-rules](https://github.com/dpaluy/rails-ai-rules) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [dpaluy/rails-ai-rules](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/dpaluy)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/dpaluy/rails-ai-rules](https://github.com/dpaluy/rails-ai-rules)
 
 ---
 
