@@ -1,6 +1,6 @@
 # website
 
-> Tome by [neondatabase](https://github.com/neondatabase/website) — distributed by [TomeVault](https://tomevault.io/claim/neondatabase)
+> Tome by [neondatabase](https://github.com/neondatabase/website) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [neondatabase/website](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/neondatabase)
+From [neondatabase/website](https://github.com/neondatabase/website) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install neondatabase/website
 ```
-Or browse all formats at [https://tomevault.io/claim/neondatabase](https://tomevault.io/claim/neondatabase).
+Source: [github.com/neondatabase/website](https://github.com/neondatabase/website).
 
 <!-- genome:t-i-s -->
