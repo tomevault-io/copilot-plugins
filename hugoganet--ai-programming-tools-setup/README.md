@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [hugoganet/AI_programming_tools_setup]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/hugoganet#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/hugoganet/AI_programming_tools_setup](https://github.com/hugoganet/AI_programming_tools_setup)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/hugoganet) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-q -->
