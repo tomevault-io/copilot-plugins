@@ -1,0 +1,9 @@
+{
+  "name": "agent-sh--agentsys",
+  "displayName": "agentsys",
+  "description": "AI writes code. This automates everything else \u00b7 19 plugins, 47 agents, and 40 skills \u00b7 for Claude Code, OpenCode, Codex, Cursor, Kiro.",
+  "version": "1.0.0",
+  "author": "agent-sh",
+  "homepage": "https://github.com/agent-sh/agentsys",
+  "skills": []
+}
