@@ -1,0 +1,9 @@
+{
+  "name": "draculabo--antigravitymanager",
+  "displayName": "AntigravityManager",
+  "description": "Antigravity Manager is a powerful Electron-based application designed to manage accounts and processes for the Antigravity application. It provides a seamless interface for switching accounts, backing",
+  "version": "1.0.0",
+  "author": "Draculabo",
+  "homepage": "https://github.com/Draculabo/AntigravityManager",
+  "skills": []
+}
