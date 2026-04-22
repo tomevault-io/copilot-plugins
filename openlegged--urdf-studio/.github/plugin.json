@@ -1,0 +1,9 @@
+{
+  "name": "openlegged--urdf-studio",
+  "displayName": "URDF-Studio",
+  "description": "URDF-Studio is a web-based visual URDF robot modeler with 3D workspace, structured skeleton/detail/hardware workflows, motor library integration, MuJoCo export, and AI assistance.",
+  "version": "1.0.0",
+  "author": "OpenLegged",
+  "homepage": "https://github.com/OpenLegged/URDF-Studio",
+  "skills": []
+}
