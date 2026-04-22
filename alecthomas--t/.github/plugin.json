@@ -1,0 +1,9 @@
+{
+  "name": "alecthomas--t",
+  "displayName": "t",
+  "description": "`t` (T-for-text) is a concise language for manipulating text, replacing common usage patterns of Unix utilities like grep, sed, cut, awk, sort, and uniq.",
+  "version": "1.0.0",
+  "author": "alecthomas",
+  "homepage": "https://github.com/alecthomas/t",
+  "skills": []
+}
