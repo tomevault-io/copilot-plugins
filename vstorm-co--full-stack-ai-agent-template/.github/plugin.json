@@ -1,0 +1,9 @@
+{
+  "name": "vstorm-co--full-stack-ai-agent-template",
+  "displayName": "full-stack-ai-agent-template",
+  "description": "Full-stack AI app generator \u2014 FastAPI + Next.js with agents, RAG, streaming, auth, and 20+ integrations out of the box.",
+  "version": "1.0.0",
+  "author": "vstorm-co",
+  "homepage": "https://github.com/vstorm-co/full-stack-ai-agent-template",
+  "skills": []
+}
