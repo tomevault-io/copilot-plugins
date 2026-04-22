@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [cusicafestit-cloud/build-a-page-69](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/cusicafestit-cloud)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/cusicafestit-cloud/build-a-page-69](https://github.com/cusicafestit-cloud/build-a-page-69)
 
 ---
 
