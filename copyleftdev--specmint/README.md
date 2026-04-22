@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [copyleftdev/specmint](https://github
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/copyleftdev)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/copyleftdev/specmint](https://github.com/copyleftdev/specmint)
 
 ---
 
