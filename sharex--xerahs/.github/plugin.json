@@ -1,0 +1,9 @@
+{
+  "name": "sharex--xerahs",
+  "displayName": "XerahS",
+  "description": "XerahS is a cross platform reimagining of the ShareX user interface built with Avalonia. It targets modern UX modular architecture and long term maintainability while preserving core workflows speed a",
+  "version": "1.0.0",
+  "author": "ShareX",
+  "homepage": "https://github.com/ShareX/XerahS",
+  "skills": []
+}
