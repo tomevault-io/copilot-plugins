@@ -1,0 +1,14 @@
+{
+  "name": "smartfrog--opencode-froggy",
+  "displayName": "opencode-froggy",
+  "description": "opencode-froggy",
+  "version": "1.0.0",
+  "author": "smartfrog",
+  "homepage": "https://github.com/smartfrog/opencode-froggy",
+  "skills": [
+    {
+      "name": "tdd",
+      "description": ""
+    }
+  ]
+}
