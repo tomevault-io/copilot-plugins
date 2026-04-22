@@ -1,0 +1,9 @@
+{
+  "name": "watzon--pindrop",
+  "displayName": "pindrop",
+  "description": "A native macOS menu bar dictation app using local speech-to-text with WhisperKit",
+  "version": "1.0.0",
+  "author": "watzon",
+  "homepage": "https://github.com/watzon/pindrop",
+  "skills": []
+}
