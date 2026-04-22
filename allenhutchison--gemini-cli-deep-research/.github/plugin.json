@@ -1,0 +1,9 @@
+{
+  "name": "allenhutchison--gemini-cli-deep-research",
+  "displayName": "gemini-cli-deep-research",
+  "description": "A deep research extension for Gemini CLI",
+  "version": "1.0.0",
+  "author": "allenhutchison",
+  "homepage": "https://github.com/allenhutchison/gemini-cli-deep-research",
+  "skills": []
+}
