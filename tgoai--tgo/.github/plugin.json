@@ -1,0 +1,9 @@
+{
+  "name": "tgoai--tgo",
+  "displayName": "tgo",
+  "description": "Open-source AI Agent Customer Service Platform. Build AI agent teams with LLM orchestration, RAG knowledge base, multi-channel support, and human collaboration.",
+  "version": "1.0.0",
+  "author": "tgoai",
+  "homepage": "https://github.com/tgoai/tgo",
+  "skills": []
+}
