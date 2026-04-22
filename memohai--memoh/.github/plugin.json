@@ -1,0 +1,9 @@
+{
+  "name": "memohai--memoh",
+  "displayName": "Memoh",
+  "description": "\u2728 Self hosted, always-on AI agent platform run in containers. Create multiple bots with long memory, and connect them to Telegram, Discord, Feishu(Lark), Matrix, etc (like OpenClaw).",
+  "version": "1.0.0",
+  "author": "memohai",
+  "homepage": "https://github.com/memohai/Memoh",
+  "skills": []
+}
