@@ -1,0 +1,9 @@
+{
+  "name": "legeling--prompthub",
+  "displayName": "PromptHub",
+  "description": "\u4e00\u6b3e\u5f00\u6e90\u3001\u7eaf\u672c\u5730 Prompt \uff0cSkill \u7ba1\u7406\u5de5\u5177\uff0c\u5e2e\u52a9\u4f60\u9ad8\u6548\u7ba1\u7406\u3001\u7248\u672c\u63a7\u5236\u548c\u590d\u7528 Prompt\uff0c\u5e76\u4e00\u952e\u5206\u53d1skill | An open-source, local-first AI prompt management tool that helps you efficiently manage, version-control, and reuse your prompts",
+  "version": "1.0.0",
+  "author": "legeling",
+  "homepage": "https://github.com/legeling/PromptHub",
+  "skills": []
+}
