@@ -1,0 +1,9 @@
+{
+  "name": "go-drift--drift",
+  "displayName": "drift",
+  "description": "Cross-platform mobile UI framework for Go",
+  "version": "1.0.0",
+  "author": "go-drift",
+  "homepage": "https://github.com/go-drift/drift",
+  "skills": []
+}
