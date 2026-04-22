@@ -1,0 +1,135 @@
+{
+  "name": "stark",
+  "owner": "keep-starknet-strange",
+  "repo": "starknet-agentic",
+  "description": "Smart contracts, tools, and skills for AI agents that transact on Starknet",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cairo-deploy",
+      "path": "skills/cairo-deploy",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/cairo-deploy",
+      "description": ""
+    },
+    {
+      "name": "cairo-optimization",
+      "path": "skills/cairo-optimization",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/cairo-optimization",
+      "description": ""
+    },
+    {
+      "name": "cairo-testing",
+      "path": "skills/cairo-testing",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/cairo-testing",
+      "description": ""
+    },
+    {
+      "name": "controller-cli",
+      "path": "skills/controller-cli",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/controller-cli",
+      "description": ""
+    },
+    {
+      "name": "huginn-onboard",
+      "path": "skills/huginn-onboard",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/huginn-onboard",
+      "description": ""
+    },
+    {
+      "name": "starknet-anonymous-wallet",
+      "path": "skills/starknet-anonymous-wallet",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/starknet-anonymous-wallet",
+      "description": ""
+    },
+    {
+      "name": "starknet-identity",
+      "path": "skills/starknet-identity",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/starknet-identity",
+      "description": ""
+    },
+    {
+      "name": "starknet-js",
+      "path": "skills/starknet-js",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/starknet-js",
+      "description": ""
+    },
+    {
+      "name": "starknet-mini-pay",
+      "path": "skills/starknet-mini-pay",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/starknet-mini-pay",
+      "description": ""
+    },
+    {
+      "name": "starknet-wallet",
+      "path": "skills/starknet-wallet",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/skills/starknet-wallet",
+      "description": ""
+    },
+    {
+      "name": "app-store-review-aso",
+      "path": ".claude/skills/app-store-review-aso",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/.claude/skills/app-store-review-aso",
+      "description": ""
+    },
+    {
+      "name": "expo-docs",
+      "path": ".claude/skills/expo-docs",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/.claude/skills/expo-docs",
+      "description": ""
+    },
+    {
+      "name": "frontend-app-design",
+      "path": ".claude/skills/frontend-app-design",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/.claude/skills/frontend-app-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-store-orchestrator",
+      "path": ".claude/skills/mobile-store-orchestrator",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/.claude/skills/mobile-store-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "play-store-review-aso",
+      "path": ".claude/skills/play-store-review-aso",
+      "github_url": "https://github.com/keep-starknet-strange/starknet-agentic/tree/main/.claude/skills/play-store-review-aso",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/keep-starknet-strange/starknet-agentic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:46:04Z"
+}
