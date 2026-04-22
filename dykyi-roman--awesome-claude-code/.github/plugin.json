@@ -1,0 +1,938 @@
+{
+  "name": "dykyi-roman--awesome-claude-code",
+  "displayName": "awesome-claude-code",
+  "description": "PHP Architecture Toolkit for Claude Code                                                                                                                                (DDD, CQRS, Event Sourcing, Hexa",
+  "version": "1.0.0",
+  "author": "dykyi-roman",
+  "homepage": "https://github.com/dykyi-roman/awesome-claude-code",
+  "skills": [
+    {
+      "name": "adr-knowledge",
+      "description": ""
+    },
+    {
+      "name": "adr-template",
+      "description": ""
+    },
+    {
+      "name": "analyze-ci-config",
+      "description": ""
+    },
+    {
+      "name": "analyze-coupling-cohesion",
+      "description": ""
+    },
+    {
+      "name": "analyze-docker-build-errors",
+      "description": ""
+    },
+    {
+      "name": "analyze-docker-image-size",
+      "description": ""
+    },
+    {
+      "name": "analyze-docker-runtime-errors",
+      "description": ""
+    },
+    {
+      "name": "analyze-php-logs",
+      "description": ""
+    },
+    {
+      "name": "analyze-solid-violations",
+      "description": ""
+    },
+    {
+      "name": "analyze-test-coverage",
+      "description": ""
+    },
+    {
+      "name": "api-design-knowledge",
+      "description": ""
+    },
+    {
+      "name": "api-doc-template",
+      "description": ""
+    },
+    {
+      "name": "architecture-doc-template",
+      "description": ""
+    },
+    {
+      "name": "bug-impact-analyzer",
+      "description": ""
+    },
+    {
+      "name": "bug-regression-preventer",
+      "description": ""
+    },
+    {
+      "name": "bug-root-cause-finder",
+      "description": ""
+    },
+    {
+      "name": "caching-strategies-knowledge",
+      "description": ""
+    },
+    {
+      "name": "changelog-template",
+      "description": ""
+    },
+    {
+      "name": "check-aggregate-consistency",
+      "description": ""
+    },
+    {
+      "name": "check-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "check-authentication",
+      "description": ""
+    },
+    {
+      "name": "check-authorization",
+      "description": ""
+    },
+    {
+      "name": "check-batch-processing",
+      "description": ""
+    },
+    {
+      "name": "check-caching-strategy",
+      "description": ""
+    },
+    {
+      "name": "check-class-length",
+      "description": ""
+    },
+    {
+      "name": "check-code-style",
+      "description": ""
+    },
+    {
+      "name": "check-command-injection",
+      "description": ""
+    },
+    {
+      "name": "check-comments",
+      "description": ""
+    },
+    {
+      "name": "check-connection-pool",
+      "description": ""
+    },
+    {
+      "name": "check-consistency",
+      "description": ""
+    },
+    {
+      "name": "check-crypto-usage",
+      "description": ""
+    },
+    {
+      "name": "check-csrf-protection",
+      "description": ""
+    },
+    {
+      "name": "check-dependency-injection",
+      "description": ""
+    },
+    {
+      "name": "check-deserialization",
+      "description": ""
+    },
+    {
+      "name": "check-doc-examples",
+      "description": ""
+    },
+    {
+      "name": "check-doc-links",
+      "description": ""
+    },
+    {
+      "name": "check-docker-compose-config",
+      "description": ""
+    },
+    {
+      "name": "check-docker-healthcheck",
+      "description": ""
+    },
+    {
+      "name": "check-docker-layer-efficiency",
+      "description": ""
+    },
+    {
+      "name": "check-docker-php-config",
+      "description": ""
+    },
+    {
+      "name": "check-docker-production-readiness",
+      "description": ""
+    },
+    {
+      "name": "check-docker-secrets",
+      "description": ""
+    },
+    {
+      "name": "check-docker-security",
+      "description": ""
+    },
+    {
+      "name": "check-docker-user-permissions",
+      "description": ""
+    },
+    {
+      "name": "check-encapsulation",
+      "description": ""
+    },
+    {
+      "name": "check-file-io",
+      "description": ""
+    },
+    {
+      "name": "check-immutability",
+      "description": ""
+    },
+    {
+      "name": "check-index-usage",
+      "description": ""
+    },
+    {
+      "name": "check-input-validation",
+      "description": ""
+    },
+    {
+      "name": "check-insecure-design",
+      "description": ""
+    },
+    {
+      "name": "check-lazy-loading",
+      "description": ""
+    },
+    {
+      "name": "check-leaky-abstractions",
+      "description": ""
+    },
+    {
+      "name": "check-magic-values",
+      "description": ""
+    },
+    {
+      "name": "check-method-length",
+      "description": ""
+    },
+    {
+      "name": "check-naming",
+      "description": ""
+    },
+    {
+      "name": "check-nesting-depth",
+      "description": ""
+    },
+    {
+      "name": "check-output-encoding",
+      "description": ""
+    },
+    {
+      "name": "check-path-traversal",
+      "description": ""
+    },
+    {
+      "name": "check-pure-functions",
+      "description": ""
+    },
+    {
+      "name": "check-query-efficiency",
+      "description": ""
+    },
+    {
+      "name": "check-sensitive-data",
+      "description": ""
+    },
+    {
+      "name": "check-serialization",
+      "description": ""
+    },
+    {
+      "name": "check-side-effects",
+      "description": ""
+    },
+    {
+      "name": "check-singleton-antipattern",
+      "description": ""
+    },
+    {
+      "name": "check-sql-injection",
+      "description": ""
+    },
+    {
+      "name": "check-ssrf",
+      "description": ""
+    },
+    {
+      "name": "check-test-quality",
+      "description": ""
+    },
+    {
+      "name": "check-timeout-strategy",
+      "description": ""
+    },
+    {
+      "name": "check-version-consistency",
+      "description": ""
+    },
+    {
+      "name": "check-xxe",
+      "description": ""
+    },
+    {
+      "name": "ci-pipeline-knowledge",
+      "description": ""
+    },
+    {
+      "name": "ci-tools-knowledge",
+      "description": ""
+    },
+    {
+      "name": "claude-code-knowledge",
+      "description": ""
+    },
+    {
+      "name": "clean-arch-knowledge",
+      "description": ""
+    },
+    {
+      "name": "code-examples-template",
+      "description": ""
+    },
+    {
+      "name": "cqrs-knowledge",
+      "description": ""
+    },
+    {
+      "name": "create-action",
+      "description": ""
+    },
+    {
+      "name": "create-adapter",
+      "description": ""
+    },
+    {
+      "name": "create-aggregate",
+      "description": ""
+    },
+    {
+      "name": "create-anti-corruption-layer",
+      "description": ""
+    },
+    {
+      "name": "create-api-versioning",
+      "description": ""
+    },
+    {
+      "name": "create-bridge",
+      "description": ""
+    },
+    {
+      "name": "create-builder",
+      "description": ""
+    },
+    {
+      "name": "create-bulkhead",
+      "description": ""
+    },
+    {
+      "name": "create-cache-aside",
+      "description": ""
+    },
+    {
+      "name": "create-chain-of-responsibility",
+      "description": ""
+    },
+    {
+      "name": "create-circuit-breaker",
+      "description": ""
+    },
+    {
+      "name": "create-command",
+      "description": ""
+    },
+    {
+      "name": "create-composite",
+      "description": ""
+    },
+    {
+      "name": "create-correlation-context",
+      "description": ""
+    },
+    {
+      "name": "create-dead-letter-queue",
+      "description": ""
+    },
+    {
+      "name": "create-decorator",
+      "description": ""
+    },
+    {
+      "name": "create-deploy-strategy",
+      "description": ""
+    },
+    {
+      "name": "create-di-container",
+      "description": ""
+    },
+    {
+      "name": "create-docker-compose-dev",
+      "description": ""
+    },
+    {
+      "name": "create-docker-compose-production",
+      "description": ""
+    },
+    {
+      "name": "create-docker-entrypoint",
+      "description": ""
+    },
+    {
+      "name": "create-docker-env-template",
+      "description": ""
+    },
+    {
+      "name": "create-docker-healthcheck",
+      "description": ""
+    },
+    {
+      "name": "create-docker-makefile",
+      "description": ""
+    },
+    {
+      "name": "create-docker-nginx-config",
+      "description": ""
+    },
+    {
+      "name": "create-docker-php-config",
+      "description": ""
+    },
+    {
+      "name": "create-docker-supervisor-config",
+      "description": ""
+    },
+    {
+      "name": "create-dockerfile-ci",
+      "description": ""
+    },
+    {
+      "name": "create-dockerfile-dev",
+      "description": ""
+    },
+    {
+      "name": "create-dockerfile-production",
+      "description": ""
+    },
+    {
+      "name": "create-dockerignore",
+      "description": ""
+    },
+    {
+      "name": "create-domain-event",
+      "description": ""
+    },
+    {
+      "name": "create-domain-service",
+      "description": ""
+    },
+    {
+      "name": "create-dto",
+      "description": ""
+    },
+    {
+      "name": "create-entity",
+      "description": ""
+    },
+    {
+      "name": "create-event-store",
+      "description": ""
+    },
+    {
+      "name": "create-facade",
+      "description": ""
+    },
+    {
+      "name": "create-factory",
+      "description": ""
+    },
+    {
+      "name": "create-feature-flags",
+      "description": ""
+    },
+    {
+      "name": "create-flyweight",
+      "description": ""
+    },
+    {
+      "name": "create-github-actions",
+      "description": ""
+    },
+    {
+      "name": "create-gitlab-ci",
+      "description": ""
+    },
+    {
+      "name": "create-health-check",
+      "description": ""
+    },
+    {
+      "name": "create-idempotent-consumer",
+      "description": ""
+    },
+    {
+      "name": "create-integration-test",
+      "description": ""
+    },
+    {
+      "name": "create-iterator",
+      "description": ""
+    },
+    {
+      "name": "create-mediator",
+      "description": ""
+    },
+    {
+      "name": "create-memento",
+      "description": ""
+    },
+    {
+      "name": "create-message-broker-adapter",
+      "description": ""
+    },
+    {
+      "name": "create-mock-repository",
+      "description": ""
+    },
+    {
+      "name": "create-null-object",
+      "description": ""
+    },
+    {
+      "name": "create-object-pool",
+      "description": ""
+    },
+    {
+      "name": "create-outbox-pattern",
+      "description": ""
+    },
+    {
+      "name": "create-phpstan-config",
+      "description": ""
+    },
+    {
+      "name": "create-policy",
+      "description": ""
+    },
+    {
+      "name": "create-proxy",
+      "description": ""
+    },
+    {
+      "name": "create-psalm-config",
+      "description": ""
+    },
+    {
+      "name": "create-psr11-container",
+      "description": ""
+    },
+    {
+      "name": "create-psr13-link",
+      "description": ""
+    },
+    {
+      "name": "create-psr14-event-dispatcher",
+      "description": ""
+    },
+    {
+      "name": "create-psr15-middleware",
+      "description": ""
+    },
+    {
+      "name": "create-psr16-simple-cache",
+      "description": ""
+    },
+    {
+      "name": "create-psr17-http-factory",
+      "description": ""
+    },
+    {
+      "name": "create-psr18-http-client",
+      "description": ""
+    },
+    {
+      "name": "create-psr20-clock",
+      "description": ""
+    },
+    {
+      "name": "create-psr3-logger",
+      "description": ""
+    },
+    {
+      "name": "create-psr6-cache",
+      "description": ""
+    },
+    {
+      "name": "create-psr7-http-message",
+      "description": ""
+    },
+    {
+      "name": "create-query",
+      "description": ""
+    },
+    {
+      "name": "create-rate-limiter",
+      "description": ""
+    },
+    {
+      "name": "create-read-model",
+      "description": ""
+    },
+    {
+      "name": "create-rector-config",
+      "description": ""
+    },
+    {
+      "name": "create-responder",
+      "description": ""
+    },
+    {
+      "name": "create-retry-pattern",
+      "description": ""
+    },
+    {
+      "name": "create-saga-pattern",
+      "description": ""
+    },
+    {
+      "name": "create-snapshot",
+      "description": ""
+    },
+    {
+      "name": "create-specification",
+      "description": ""
+    },
+    {
+      "name": "create-state",
+      "description": ""
+    },
+    {
+      "name": "create-strategy",
+      "description": ""
+    },
+    {
+      "name": "create-template-method",
+      "description": ""
+    },
+    {
+      "name": "create-test-builder",
+      "description": ""
+    },
+    {
+      "name": "create-test-double",
+      "description": ""
+    },
+    {
+      "name": "create-timeout",
+      "description": ""
+    },
+    {
+      "name": "create-unit-of-work",
+      "description": ""
+    },
+    {
+      "name": "create-unit-test",
+      "description": ""
+    },
+    {
+      "name": "create-use-case",
+      "description": ""
+    },
+    {
+      "name": "create-value-object",
+      "description": ""
+    },
+    {
+      "name": "create-visitor",
+      "description": ""
+    },
+    {
+      "name": "ddd-knowledge",
+      "description": ""
+    },
+    {
+      "name": "deployment-knowledge",
+      "description": ""
+    },
+    {
+      "name": "detect-code-smells",
+      "description": ""
+    },
+    {
+      "name": "detect-docker-antipatterns",
+      "description": ""
+    },
+    {
+      "name": "detect-memory-issues",
+      "description": ""
+    },
+    {
+      "name": "detect-n-plus-one",
+      "description": ""
+    },
+    {
+      "name": "detect-test-smells",
+      "description": ""
+    },
+    {
+      "name": "detect-unnecessary-loops",
+      "description": ""
+    },
+    {
+      "name": "diagram-knowledge",
+      "description": ""
+    },
+    {
+      "name": "discover-project-logs",
+      "description": ""
+    },
+    {
+      "name": "docker-base-images-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-buildkit-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-compose-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-multistage-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-networking-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-orchestration-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-php-extensions-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-production-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-scanning-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-security-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-troubleshooting-knowledge",
+      "description": ""
+    },
+    {
+      "name": "documentation-knowledge",
+      "description": ""
+    },
+    {
+      "name": "documentation-qa-knowledge",
+      "description": ""
+    },
+    {
+      "name": "eda-knowledge",
+      "description": ""
+    },
+    {
+      "name": "estimate-complexity",
+      "description": ""
+    },
+    {
+      "name": "event-sourcing-knowledge",
+      "description": ""
+    },
+    {
+      "name": "explain-output-template",
+      "description": ""
+    },
+    {
+      "name": "extract-business-rules",
+      "description": ""
+    },
+    {
+      "name": "extract-domain-concepts",
+      "description": ""
+    },
+    {
+      "name": "find-boundary-issues",
+      "description": ""
+    },
+    {
+      "name": "find-exception-issues",
+      "description": ""
+    },
+    {
+      "name": "find-infinite-loops",
+      "description": ""
+    },
+    {
+      "name": "find-logic-errors",
+      "description": ""
+    },
+    {
+      "name": "find-null-pointer-issues",
+      "description": ""
+    },
+    {
+      "name": "find-race-conditions",
+      "description": ""
+    },
+    {
+      "name": "find-resource-leaks",
+      "description": ""
+    },
+    {
+      "name": "find-type-issues",
+      "description": ""
+    },
+    {
+      "name": "generate-ci-fix",
+      "description": ""
+    },
+    {
+      "name": "getting-started-template",
+      "description": ""
+    },
+    {
+      "name": "grasp-knowledge",
+      "description": ""
+    },
+    {
+      "name": "hexagonal-knowledge",
+      "description": ""
+    },
+    {
+      "name": "identify-entry-points",
+      "description": ""
+    },
+    {
+      "name": "layer-arch-knowledge",
+      "description": ""
+    },
+    {
+      "name": "map-async-flows",
+      "description": ""
+    },
+    {
+      "name": "mermaid-template",
+      "description": ""
+    },
+    {
+      "name": "microservices-knowledge",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-build-time",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-compose-resources",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-image-size",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-layers",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-opcache",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-php-fpm",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-startup",
+      "description": ""
+    },
+    {
+      "name": "outbox-pattern-knowledge",
+      "description": ""
+    },
+    {
+      "name": "psr-coding-style-knowledge",
+      "description": ""
+    },
+    {
+      "name": "readme-template",
+      "description": ""
+    },
+    {
+      "name": "resolve-entry-point",
+      "description": ""
+    },
+    {
+      "name": "saga-pattern-knowledge",
+      "description": ""
+    },
+    {
+      "name": "scan-codebase-structure",
+      "description": ""
+    },
+    {
+      "name": "solid-knowledge",
+      "description": ""
+    },
+    {
+      "name": "stability-patterns-knowledge",
+      "description": ""
+    },
+    {
+      "name": "suggest-simplification",
+      "description": ""
+    },
+    {
+      "name": "suggest-testability-improvements",
+      "description": ""
+    },
+    {
+      "name": "task-progress-knowledge",
+      "description": ""
+    },
+    {
+      "name": "testing-knowledge",
+      "description": ""
+    },
+    {
+      "name": "trace-request-lifecycle",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting-template",
+      "description": ""
+    }
+  ]
+}
