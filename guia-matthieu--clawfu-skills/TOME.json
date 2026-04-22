@@ -1,0 +1,645 @@
+{
+  "name": "clawfu-skills",
+  "owner": "guia-matthieu",
+  "repo": "clawfu-skills",
+  "description": "172 expert marketing skills for AI agents \u2014 ClawFu MCP Server",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "persuasion-principles",
+      "path": "skills/content/persuasion-principles",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/persuasion-principles",
+      "description": ""
+    },
+    {
+      "name": "skyscraper-technique",
+      "path": "skills/content/skyscraper-technique",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/skyscraper-technique",
+      "description": ""
+    },
+    {
+      "name": "forecast-scenarios",
+      "path": "skills/revops/forecast-scenarios",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/revops/forecast-scenarios",
+      "description": ""
+    },
+    {
+      "name": "content-strategy",
+      "path": "skills/content/content-strategy",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/content-strategy",
+      "description": ""
+    },
+    {
+      "name": "content-writing",
+      "path": "skills/content/content-writing",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/content-writing",
+      "description": ""
+    },
+    {
+      "name": "conversion-copywriting",
+      "path": "skills/content/conversion-copywriting",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/conversion-copywriting",
+      "description": ""
+    },
+    {
+      "name": "design-trends-2026",
+      "path": "skills/ai-design/design-trends-2026",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/ai-design/design-trends-2026",
+      "description": ""
+    },
+    {
+      "name": "expert-secrets",
+      "path": "skills/content/expert-secrets",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/expert-secrets",
+      "description": ""
+    },
+    {
+      "name": "headline-formulas",
+      "path": "skills/content/headline-formulas",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/headline-formulas",
+      "description": ""
+    },
+    {
+      "name": "lean-canvas",
+      "path": "skills/validation/lean-canvas",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/validation/lean-canvas",
+      "description": ""
+    },
+    {
+      "name": "never-split-difference",
+      "path": "skills/sales/never-split-difference",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/sales/never-split-difference",
+      "description": ""
+    },
+    {
+      "name": "onboarding-orchestrator",
+      "path": "skills/customer-success/onboarding-orchestrator",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/customer-success/onboarding-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "pre-mortem",
+      "path": "skills/strategy/pre-mortem",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/pre-mortem",
+      "description": ""
+    },
+    {
+      "name": "sales-letter-writer",
+      "path": "skills/content/sales-letter-writer",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/sales-letter-writer",
+      "description": ""
+    },
+    {
+      "name": "second-order-thinking",
+      "path": "skills/thinking/second-order-thinking",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/thinking/second-order-thinking",
+      "description": ""
+    },
+    {
+      "name": "seo-content-writer",
+      "path": "skills/content/seo-content-writer",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/seo-content-writer",
+      "description": ""
+    },
+    {
+      "name": "sound-design-film",
+      "path": "skills/audio/sound-design-film",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/sound-design-film",
+      "description": ""
+    },
+    {
+      "name": "storytelling-storybrand",
+      "path": "skills/content/storytelling-storybrand",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/storytelling-storybrand",
+      "description": ""
+    },
+    {
+      "name": "ai-video-concept",
+      "path": "skills/video/ai-video-concept",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/video/ai-video-concept",
+      "description": ""
+    },
+    {
+      "name": "ai-video-prompting",
+      "path": "skills/video/ai-video-prompting",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/video/ai-video-prompting",
+      "description": ""
+    },
+    {
+      "name": "ai-video-qa",
+      "path": "skills/video/ai-video-qa",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/video/ai-video-qa",
+      "description": ""
+    },
+    {
+      "name": "audiobook-production",
+      "path": "skills/audio/audiobook-production",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/audiobook-production",
+      "description": ""
+    },
+    {
+      "name": "boron-letters",
+      "path": "skills/content/boron-letters",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/boron-letters",
+      "description": ""
+    },
+    {
+      "name": "buyer-personas",
+      "path": "skills/strategy/buyer-personas",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/buyer-personas",
+      "description": ""
+    },
+    {
+      "name": "category-design",
+      "path": "skills/strategy/category-design",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/category-design",
+      "description": ""
+    },
+    {
+      "name": "cognitive-biases",
+      "path": "skills/strategy/cognitive-biases",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/cognitive-biases",
+      "description": ""
+    },
+    {
+      "name": "competitive-analysis",
+      "path": "skills/strategy/competitive-analysis",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/competitive-analysis",
+      "description": ""
+    },
+    {
+      "name": "cta-writing",
+      "path": "skills/content/cta-writing",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/cta-writing",
+      "description": ""
+    },
+    {
+      "name": "dns-zonefile-config",
+      "path": "skills/devops/dns-zonefile-config",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/devops/dns-zonefile-config",
+      "description": ""
+    },
+    {
+      "name": "dotcom-secrets",
+      "path": "skills/funnels/dotcom-secrets",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/funnels/dotcom-secrets",
+      "description": ""
+    },
+    {
+      "name": "fundraising-narrative",
+      "path": "skills/startup/fundraising-narrative",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/startup/fundraising-narrative",
+      "description": ""
+    },
+    {
+      "name": "growth-loops",
+      "path": "skills/growth/growth-loops",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/growth/growth-loops",
+      "description": ""
+    },
+    {
+      "name": "health-score-monitor",
+      "path": "skills/customer-success/health-score-monitor",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/customer-success/health-score-monitor",
+      "description": ""
+    },
+    {
+      "name": "high-output-management",
+      "path": "skills/leadership/high-output-management",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/leadership/high-output-management",
+      "description": ""
+    },
+    {
+      "name": "image-batch",
+      "path": "skills/automation/image-batch",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/automation/image-batch",
+      "description": ""
+    },
+    {
+      "name": "landing-page-copy",
+      "path": "skills/content/landing-page-copy",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/landing-page-copy",
+      "description": ""
+    },
+    {
+      "name": "landing-page-optimizer",
+      "path": "skills/content/landing-page-optimizer",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/landing-page-optimizer",
+      "description": ""
+    },
+    {
+      "name": "lead-qualification-bant",
+      "path": "skills/sdr-automation/lead-qualification-bant",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/sdr-automation/lead-qualification-bant",
+      "description": ""
+    },
+    {
+      "name": "lighthouse-audit",
+      "path": "skills/seo-tools/lighthouse-audit",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/seo-tools/lighthouse-audit",
+      "description": ""
+    },
+    {
+      "name": "link-checker",
+      "path": "skills/seo-tools/link-checker",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/seo-tools/link-checker",
+      "description": ""
+    },
+    {
+      "name": "naming-6-gates",
+      "path": "skills/branding/naming-6-gates",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/branding/naming-6-gates",
+      "description": ""
+    },
+    {
+      "name": "objection-mapping",
+      "path": "skills/validation/objection-mapping",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/validation/objection-mapping",
+      "description": ""
+    },
+    {
+      "name": "onboarding-guide",
+      "path": "skills/hr-ops/onboarding-guide",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/hr-ops/onboarding-guide",
+      "description": ""
+    },
+    {
+      "name": "one-on-ones",
+      "path": "skills/leadership/one-on-ones",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/leadership/one-on-ones",
+      "description": ""
+    },
+    {
+      "name": "outbound-sequencer",
+      "path": "skills/sdr-automation/outbound-sequencer",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/sdr-automation/outbound-sequencer",
+      "description": ""
+    },
+    {
+      "name": "permission-marketing",
+      "path": "skills/content/permission-marketing",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/permission-marketing",
+      "description": ""
+    },
+    {
+      "name": "podcast-interview",
+      "path": "skills/audio/podcast-interview",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/podcast-interview",
+      "description": ""
+    },
+    {
+      "name": "pricing-validation",
+      "path": "skills/validation/pricing-validation",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/validation/pricing-validation",
+      "description": ""
+    },
+    {
+      "name": "product-led-growth",
+      "path": "skills/growth/product-led-growth",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/growth/product-led-growth",
+      "description": ""
+    },
+    {
+      "name": "pydub-automation",
+      "path": "skills/audio/pydub-automation",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/pydub-automation",
+      "description": ""
+    },
+    {
+      "name": "radical-candor",
+      "path": "skills/leadership/radical-candor",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/leadership/radical-candor",
+      "description": ""
+    },
+    {
+      "name": "report-generator",
+      "path": "skills/automation/report-generator",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/automation/report-generator",
+      "description": ""
+    },
+    {
+      "name": "sandler-system",
+      "path": "skills/sales/sandler-system",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/sales/sandler-system",
+      "description": ""
+    },
+    {
+      "name": "six-thinking-hats",
+      "path": "skills/strategy/six-thinking-hats",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/six-thinking-hats",
+      "description": ""
+    },
+    {
+      "name": "sonic-branding",
+      "path": "skills/audio/sonic-branding",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/sonic-branding",
+      "description": ""
+    },
+    {
+      "name": "value-proposition-canvas",
+      "path": "skills/strategy/value-proposition-canvas",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/value-proposition-canvas",
+      "description": ""
+    },
+    {
+      "name": "video-processing",
+      "path": "skills/automation/video-processing",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/automation/video-processing",
+      "description": ""
+    },
+    {
+      "name": "video-testimonial",
+      "path": "skills/audio/video-testimonial",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/video-testimonial",
+      "description": ""
+    },
+    {
+      "name": "yc-pitch-deck",
+      "path": "skills/startup/yc-pitch-deck",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/startup/yc-pitch-deck",
+      "description": ""
+    },
+    {
+      "name": "youtube-downloader",
+      "path": "skills/automation/youtube-downloader",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/automation/youtube-downloader",
+      "description": ""
+    },
+    {
+      "name": "ab-test-stats",
+      "path": "skills/analytics/ab-test-stats",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/analytics/ab-test-stats",
+      "description": ""
+    },
+    {
+      "name": "ai-storyboard-2x2",
+      "path": "skills/video/ai-storyboard-2x2",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/video/ai-storyboard-2x2",
+      "description": ""
+    },
+    {
+      "name": "ai-voice-design",
+      "path": "skills/video/ai-voice-design",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/video/ai-voice-design",
+      "description": ""
+    },
+    {
+      "name": "audio-logo-design",
+      "path": "skills/audio/audio-logo-design",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/audio-logo-design",
+      "description": ""
+    },
+    {
+      "name": "brand-strategy",
+      "path": "skills/branding/brand-strategy",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/branding/brand-strategy",
+      "description": ""
+    },
+    {
+      "name": "brand-voice",
+      "path": "skills/branding/brand-voice",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/branding/brand-voice",
+      "description": ""
+    },
+    {
+      "name": "brand-voice-learner",
+      "path": "skills/branding/brand-voice-learner",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/branding/brand-voice-learner",
+      "description": ""
+    },
+    {
+      "name": "competitor-monitor",
+      "path": "skills/automation/competitor-monitor",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/automation/competitor-monitor",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "path": "skills/meta/context-engineering",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/meta/context-engineering",
+      "description": ""
+    },
+    {
+      "name": "customer-discovery",
+      "path": "skills/validation/customer-discovery",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/validation/customer-discovery",
+      "description": ""
+    },
+    {
+      "name": "dan-kennedy-copy",
+      "path": "skills/content/dan-kennedy-copy",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/dan-kennedy-copy",
+      "description": ""
+    },
+    {
+      "name": "deliverability-checker",
+      "path": "skills/email-tools/deliverability-checker",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/email-tools/deliverability-checker",
+      "description": ""
+    },
+    {
+      "name": "design-sprint",
+      "path": "skills/product/design-sprint",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/product/design-sprint",
+      "description": ""
+    },
+    {
+      "name": "educational-presentation",
+      "path": "skills/content/educational-presentation",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/educational-presentation",
+      "description": ""
+    },
+    {
+      "name": "email-writing",
+      "path": "skills/content/email-writing",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/content/email-writing",
+      "description": ""
+    },
+    {
+      "name": "engagement-analyzer",
+      "path": "skills/hr-ops/engagement-analyzer",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/hr-ops/engagement-analyzer",
+      "description": ""
+    },
+    {
+      "name": "google-ads-expert",
+      "path": "skills/acquisition/google-ads-expert",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/acquisition/google-ads-expert",
+      "description": ""
+    },
+    {
+      "name": "image-to-3d-pipeline",
+      "path": "skills/ai-design/image-to-3d-pipeline",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/ai-design/image-to-3d-pipeline",
+      "description": ""
+    },
+    {
+      "name": "interview-scheduler",
+      "path": "skills/hr-ops/interview-scheduler",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/hr-ops/interview-scheduler",
+      "description": ""
+    },
+    {
+      "name": "inversion",
+      "path": "skills/strategy/inversion",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/inversion",
+      "description": ""
+    },
+    {
+      "name": "lead-scoring",
+      "path": "skills/revops/lead-scoring",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/revops/lead-scoring",
+      "description": ""
+    },
+    {
+      "name": "llm-optimized-content",
+      "path": "skills/seo-tools/llm-optimized-content",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/seo-tools/llm-optimized-content",
+      "description": ""
+    },
+    {
+      "name": "mom-test",
+      "path": "skills/validation/mom-test",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/validation/mom-test",
+      "description": ""
+    },
+    {
+      "name": "nda-generator",
+      "path": "skills/legal/nda-generator",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/legal/nda-generator",
+      "description": ""
+    },
+    {
+      "name": "nurture-sequences",
+      "path": "skills/funnels/nurture-sequences",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/funnels/nurture-sequences",
+      "description": ""
+    },
+    {
+      "name": "podcast-seo",
+      "path": "skills/audio/podcast-seo",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/podcast-seo",
+      "description": ""
+    },
+    {
+      "name": "pricing-strategy",
+      "path": "skills/strategy/pricing-strategy",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/pricing-strategy",
+      "description": ""
+    },
+    {
+      "name": "problem-interview",
+      "path": "skills/validation/problem-interview",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/validation/problem-interview",
+      "description": ""
+    },
+    {
+      "name": "product-discovery",
+      "path": "skills/product/product-discovery",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/product/product-discovery",
+      "description": ""
+    },
+    {
+      "name": "rlm",
+      "path": "skills/meta/rlm",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/meta/rlm",
+      "description": ""
+    },
+    {
+      "name": "shape-up",
+      "path": "skills/product/shape-up",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/product/shape-up",
+      "description": ""
+    },
+    {
+      "name": "skill-orchestrator",
+      "path": "skills/meta/skill-orchestrator",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/meta/skill-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "solution-interview",
+      "path": "skills/validation/solution-interview",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/validation/solution-interview",
+      "description": ""
+    },
+    {
+      "name": "stp-framework",
+      "path": "skills/strategy/stp-framework",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/strategy/stp-framework",
+      "description": ""
+    },
+    {
+      "name": "ugc-collector",
+      "path": "skills/social/ugc-collector",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/social/ugc-collector",
+      "description": ""
+    },
+    {
+      "name": "ux-sound-design",
+      "path": "skills/audio/ux-sound-design",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/ux-sound-design",
+      "description": ""
+    },
+    {
+      "name": "voice-design",
+      "path": "skills/audio/voice-design",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/voice-design",
+      "description": ""
+    },
+    {
+      "name": "voice-localization",
+      "path": "skills/audio/voice-localization",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/voice-localization",
+      "description": ""
+    },
+    {
+      "name": "voiceover-direction",
+      "path": "skills/audio/voiceover-direction",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/audio/voiceover-direction",
+      "description": ""
+    },
+    {
+      "name": "web-scraper",
+      "path": "skills/automation/web-scraper",
+      "github_url": "https://github.com/guia-matthieu/clawfu-skills/tree/main/skills/automation/web-scraper",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/guia-matthieu/clawfu-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:37:58Z"
+}
