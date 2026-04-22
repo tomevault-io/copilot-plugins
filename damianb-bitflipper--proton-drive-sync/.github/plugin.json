@@ -1,0 +1,9 @@
+{
+  "name": "damianb-bitflipper--proton-drive-sync",
+  "displayName": "proton-drive-sync",
+  "description": "Local folders, automatically synced to Proton Drive. (Unofficial Sync Client)",
+  "version": "1.0.0",
+  "author": "DamianB-BitFlipper",
+  "homepage": "https://github.com/DamianB-BitFlipper/proton-drive-sync",
+  "skills": []
+}
