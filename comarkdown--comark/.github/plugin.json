@@ -1,0 +1,9 @@
+{
+  "name": "comarkdown--comark",
+  "displayName": "comark",
+  "description": "A high-performance Markdown parser and renderer for Vue, React, Svelte, HTML and ANSI.",
+  "version": "1.0.0",
+  "author": "comarkdown",
+  "homepage": "https://github.com/comarkdown/comark",
+  "skills": []
+}
