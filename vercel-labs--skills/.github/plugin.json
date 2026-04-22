@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--skills",
+  "displayName": "skills",
+  "description": "The open agent skills tool - npx skills",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/skills",
+  "skills": []
+}
