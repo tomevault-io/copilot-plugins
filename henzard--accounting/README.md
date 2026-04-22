@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [henzard/Accounting](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/henzard#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/henzard/Accounting](https://github.com/henzard/Accounting)
 
 ---
 
