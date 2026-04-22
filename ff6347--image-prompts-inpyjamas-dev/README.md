@@ -1,6 +1,6 @@
-# image-prompts.inpyjamas.dev — distributed by TomeVault
+# image-prompts.inpyjamas.dev
 
-> Originally from [ff6347/image-prompts.inpyjamas.dev](https://github.com/ff6347/image-prompts.inpyjamas.dev). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ff6347/image-prompts.inpyjamas.dev](https://github.com/ff6347/image-prompts.inpyjamas.dev) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ff6347/image-prompts.inpyjamas.dev](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ff6347)
+From [ff6347/image-prompts.inpyjamas.dev](https://github.com/ff6347/image-prompts.inpyjamas.dev) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ff6347/image-prompts.inpyjamas.dev
 ```
-Or browse all formats at [https://tomevault.io/claim/ff6347](https://tomevault.io/claim/ff6347).
+Source: [github.com/ff6347/image-prompts.inpyjamas.dev](https://github.com/ff6347/image-prompts.inpyjamas.dev).
 
 <!-- genome:d-i-s -->
