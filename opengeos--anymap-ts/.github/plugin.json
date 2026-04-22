@@ -1,0 +1,9 @@
+{
+  "name": "opengeos--anymap-ts",
+  "displayName": "anymap-ts",
+  "description": "A Python package for creating interactive maps with anywidget and mapping libraries using TypeScript",
+  "version": "1.0.0",
+  "author": "opengeos",
+  "homepage": "https://github.com/opengeos/anymap-ts",
+  "skills": []
+}
