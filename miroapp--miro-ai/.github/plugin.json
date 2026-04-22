@@ -1,0 +1,34 @@
+{
+  "name": "miroapp--miro-ai",
+  "displayName": "miro-ai",
+  "description": "Official Miro AI developer tools and integrations. Includes MCP server configuration, Claude Code skills, and resources for building AI-powered experiences with Miro boards.",
+  "version": "1.0.0",
+  "author": "miroapp",
+  "homepage": "https://github.com/miroapp/miro-ai",
+  "skills": [
+    {
+      "name": "documentation-structure",
+      "description": ""
+    },
+    {
+      "name": "miro-code-review",
+      "description": ""
+    },
+    {
+      "name": "miro-mcp",
+      "description": ""
+    },
+    {
+      "name": "miro-mcp",
+      "description": ""
+    },
+    {
+      "name": "miro-platform",
+      "description": ""
+    },
+    {
+      "name": "miro-platform",
+      "description": ""
+    }
+  ]
+}
