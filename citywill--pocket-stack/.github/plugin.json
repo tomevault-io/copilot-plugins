@@ -1,0 +1,9 @@
+{
+  "name": "citywill--pocket-stack",
+  "displayName": "pocket-stack",
+  "description": "AI \u53cb\u597d\u7684\u5168\u6808\u5f00\u53d1\u89e3\u51b3\u65b9\u6848\u3002\u57fa\u4e8e React + shadcn/ui + PocketBase + MCP \u7b49\u6280\u672f\uff0c\u5b9e\u73b0\u5b8c\u6574\u3001\u6d41\u7545\u7684\u5168\u6808 Vibe Coding \u5f00\u53d1\u4f53\u9a8c\u3002  An AI-friendly full-stack development scaffold built on Vite + shadcn/ui + PocketBase, integrated with Shadcn &",
+  "version": "1.0.0",
+  "author": "citywill",
+  "homepage": "https://github.com/citywill/pocket-stack",
+  "skills": []
+}
