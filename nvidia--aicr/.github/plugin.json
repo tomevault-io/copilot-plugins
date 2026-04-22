@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--aicr",
+  "displayName": "aicr",
+  "description": "Tooling for optimized, validated, and reproducible GPU-accelerated AI runtime in Kubernetes",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/aicr",
+  "skills": []
+}
