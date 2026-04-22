@@ -1,0 +1,26 @@
+{
+  "name": "getsentry--abacus",
+  "displayName": "abacus",
+  "description": "For teams curious about token consumption of their coding agents.",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/abacus",
+  "skills": [
+    {
+      "name": "db-migrate",
+      "description": ""
+    },
+    {
+      "name": "write-docs",
+      "description": ""
+    },
+    {
+      "name": "write-tests",
+      "description": ""
+    },
+    {
+      "name": "write-tip",
+      "description": ""
+    }
+  ]
+}
