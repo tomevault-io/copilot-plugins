@@ -1,0 +1,9 @@
+{
+  "name": "remorses--errore",
+  "displayName": "errore",
+  "description": "Errors as values for TypeScript. Fully type safe error handling.",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/errore",
+  "skills": []
+}
