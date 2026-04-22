@@ -1,0 +1,66 @@
+## sovereign-watch
+
+> This file is auto-loaded by Cursor, Windsurf, and compatible VS Code forks.
+
+# Sovereign Watch — Cursor / Windsurf / Antigravity AI Context
+
+This file is auto-loaded by Cursor, Windsurf, and compatible VS Code forks.
+For full development rules, see [AGENTS.md](file:///d:/Projects/SovereignWatch/AGENTS.md).
+
+## Project Overview
+
+Sovereign Watch is a self-hosted, distributed Multi-INT fusion platform that
+ingests and visualizes real-time aviation (ADS-B), maritime (AIS), orbital
+(TLE/SGP4), RF infrastructure, and internet infrastructure data on a WebGL
+tactical map.
+
+Stack:
+
+- Frontend: TypeScript · React 18.2 · Vite 7.3 · Deck.gl 9.0 · MapLibre/Mapbox
+- Backend API: Python 3.11 · FastAPI · asyncpg · LiteLLM · Redis · aiokafka
+- Database: TimescaleDB (PostgreSQL 16 + PostGIS + pgvector)
+- Message bus: Redpanda (Kafka-compatible)
+- Runtime: Docker Compose — all services containerised
+
+## Directory Map
+
+```text
+
+frontend/src/
+  components/map/        — Deck.gl + MapLibre/Mapbox map components
+  components/layouts/    — HUD shell, sidebars, top bar
+  components/js8call/    — HF radio terminal UI
+  layers/                — Deck.gl layer definitions
+  hooks/                 — Custom React hooks
+  workers/               — Web workers (compute-heavy tasks)
+  types.ts               — Shared TypeScript types
+
+backend/api/
+  routers/               — FastAPI route handlers (tracks, analysis, orbital, rf, infra, system)
+  services/              — Business logic (historian, tak, broadcast, schema_context)
+  models/schemas.py      — Pydantic request/response models
+  core/config.py         — Settings (env vars via pydantic-settings)
+  core/database.py       — asyncpg pool + Redis client
+
+backend/ingestion/
+  aviation_poller/       — ADS-B ingest (adsb.fi, adsb.lol, airplanes.live)
+  maritime_poller/       — AIS ingest (AISStream WebSocket)
+  space_pulse/           — Orbital, SatNOGS, Space Weather
+  rf_pulse/              — RF repeaters + NOAA weather radio
+  infra_poller/          — Internet outages + submarine cables
+
+js8call/                 — HF radio terminal + bridge (sovereign-js8call)
+nginx/                   — Reverse proxy configuration (sovereign-nginx)
+```
+
+## Further Reading
+
+- Full development rules: `AGENTS.md`
+- Map layer ordering (required for map work): `agent_docs/z-ordering.md`
+- Deployment: `Documentation/Deployment.md`
+- API reference: `Documentation/API_Reference.md`
+- Dev setup guide: `Documentation/Development.md`
+
+---
+> Source: [d3mocide/Sovereign_Watch](https://github.com/d3mocide/Sovereign_Watch) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
