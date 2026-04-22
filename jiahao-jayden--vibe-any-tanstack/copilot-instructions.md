@@ -1,0 +1,83 @@
+## vibe-any-tanstack
+
+> Use the latest version of Shadcn to install new components, like this command to add a button component:
+
+# shadcn instructions
+
+Use the latest version of Shadcn to install new components, like this command to add a button component:
+
+```bash
+pnpm dlx shadcn@latest add button
+```
+
+# 禁止使用 className 的参数拼接，请你使用 cn 函数来拼接类名
+
+错误：
+```tsx
+<div
+  className={`fixed ${overlapped ? "bg-transparent" : "bg-black"} text-white py-3 px-4 text-center text-sm h-12`}
+>
+</div>
+````
+
+正确:
+```tsx
+import { cn } from "@/shared/lib/utils"
+
+<div className={cn("base-class", isActive && "active-class")} />
+```
+
+# 国际化路由规则
+你不能使用 tanstack 的 `<Link>` 组件，因为它无法处理国际化，正确的做法是:
+```tsx
+import { LocalizedLink, type To } from "@/shared/components/locale/localized-link"
+
+<LocalizedLink to="/">
+```
+
+如果需要函数式跳转，应该使用 `useLocalizedNavigate`:
+
+```ts
+import { useLocalizedNavigate } from "@/shared/hooks/use-localized-navigate"
+
+const navigate = useLocalizedNavigate()
+```
+
+# 图片
+使用 unpic 的 Image 组件来加载图片，比如：
+```tsx
+import { Image } from "@unpic/react"
+
+<Image src="/images/logo.png" alt="Logo" width={100} height={100} />
+```
+
+# 国际化内容
+使用 intlayer 的 useIntlayer 钩子来获取国际化内容，比如：
+```tsx
+import { useIntlayer } from "react-intlayer"
+
+const { powerBy } = useIntlayer("landing")
+
+<div>{powerBy.title.value}</div> // 务必使用 value 属性
+```
+
+# 禁止
+1. 未经用户的允许，禁止修改数据库的迁移文件，禁止允许迁移的命令
+2. aria-label 不需要多语言，保持英文即可
+# 响应规则
+```tsx
+import { createResponse } from "@/shared/lib/tools/response"
+export const Resp = {
+  success: <T = unknown>(data?: T) => createResponse(200, "success", data),
+  error: (message: string, code = 500, error?: string) =>
+    createResponse(code, message, undefined, error),
+  json: <T = unknown>(code: number, message: string, data?: T) => createResponse(code, message, data),
+}
+```
+
+# 类型
+数据库表中有的类型，应该在 shared/types 中推导，比如：
+
+---
+> Source: [jiahao-jayden/vibe-any-tanstack](https://github.com/jiahao-jayden/vibe-any-tanstack) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
