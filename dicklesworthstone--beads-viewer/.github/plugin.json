@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--beads-viewer",
+  "displayName": "beads_viewer",
+  "description": "Graph-aware TUI for the Beads issue tracker: PageRank, critical path, kanban, dependency DAG visualization, and robot-mode JSON API",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/beads_viewer",
+  "skills": []
+}
