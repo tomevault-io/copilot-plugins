@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--just-bash",
+  "displayName": "just-bash",
+  "description": "Bash for Agents",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/just-bash",
+  "skills": []
+}
