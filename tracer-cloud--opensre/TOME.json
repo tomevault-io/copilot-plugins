@@ -2,9 +2,9 @@
   "name": "opensre",
   "owner": "Tracer-Cloud",
   "repo": "opensre",
-  "description": "",
+  "description": "Build your own AI SRE agents. The open source toolkit for the AI era \u2728 ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Tracer-Cloud",
+  "source_url": "https://github.com/Tracer-Cloud/opensre",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T08:38:08Z"
+  "distributed_at": "2026-04-22T00:15:06Z"
 }
