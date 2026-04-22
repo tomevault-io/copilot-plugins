@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--open-agents",
+  "displayName": "open-agents",
+  "description": "An open source template for building cloud agents.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/open-agents",
+  "skills": []
+}
