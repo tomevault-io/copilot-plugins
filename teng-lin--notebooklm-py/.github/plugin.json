@@ -1,0 +1,9 @@
+{
+  "name": "teng-lin--notebooklm-py",
+  "displayName": "notebooklm-py",
+  "description": "Unofficial Python API and agentic skill for Google NotebookLM. Full programmatic access to NotebookLM's features\u2014including capabilities the web UI doesn't expose\u2014via Python, CLI, and AI agents like Cl",
+  "version": "1.0.0",
+  "author": "teng-lin",
+  "homepage": "https://github.com/teng-lin/notebooklm-py",
+  "skills": []
+}
