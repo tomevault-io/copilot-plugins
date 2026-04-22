@@ -1,0 +1,26 @@
+{
+  "name": "sugarforever--01coder-agent-skills",
+  "displayName": "01coder-agent-skills",
+  "description": "01coder-agent-skills",
+  "version": "1.0.0",
+  "author": "sugarforever",
+  "homepage": "https://github.com/sugarforever/01coder-agent-skills",
+  "skills": [
+    {
+      "name": "nextjs-security-scan",
+      "description": ""
+    },
+    {
+      "name": "personal-writing-style",
+      "description": ""
+    },
+    {
+      "name": "python-security-scan",
+      "description": ""
+    },
+    {
+      "name": "subtitle-correction",
+      "description": ""
+    }
+  ]
+}
