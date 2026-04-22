@@ -1,0 +1,9 @@
+{
+  "name": "arcanite24--gb-recompiled",
+  "displayName": "gb-recompiled",
+  "description": "A static recompiler for original GameBoy ROMs that translates Z80 assembly directly into portable, modern C code.",
+  "version": "1.0.0",
+  "author": "arcanite24",
+  "homepage": "https://github.com/arcanite24/gb-recompiled",
+  "skills": []
+}
