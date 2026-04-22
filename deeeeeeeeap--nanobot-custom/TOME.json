@@ -1,0 +1,51 @@
+{
+  "name": "nanobot-custom",
+  "owner": "deeeeeeeeap",
+  "repo": "nanobot-custom",
+  "description": "\u57fa\u4e8e nanobot \u7684\u4e2a\u4eba AI \u52a9\u624b\uff0c\u652f\u6301 MiniMax\u3001Gemini \u7b49\u591a\u6a21\u578b\u5207\u6362",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cron",
+      "path": "nanobot/skills/cron",
+      "github_url": "https://github.com/deeeeeeeeap/nanobot-custom/tree/main/nanobot/skills/cron",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/deeeeeeeeap/nanobot-custom",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:46:48Z"
+}
