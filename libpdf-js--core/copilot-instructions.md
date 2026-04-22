@@ -200,5 +200,5 @@ const bytes = await loadFixture("basic", "rot0.pdf");
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/LibPDF-js) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [LibPDF-js/core](https://github.com/LibPDF-js/core) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
