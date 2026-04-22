@@ -1,6 +1,6 @@
 # database-operations-mcp
 
-> Tome by [sandraschi](https://github.com/sandraschi/database-operations-mcp) — distributed by [TomeVault](https://tomevault.io/claim/sandraschi)
+> Tome by [sandraschi](https://github.com/sandraschi/database-operations-mcp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [sandraschi/database-operations-mcp](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/sandraschi)
+From [sandraschi/database-operations-mcp](https://github.com/sandraschi/database-operations-mcp) — a repo with 0+ stars on GitHub.
 
 ---
 
