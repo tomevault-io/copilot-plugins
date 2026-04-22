@@ -1,0 +1,231 @@
+{
+  "name": "hyperpowers",
+  "owner": "withzombies",
+  "repo": "hyperpowers",
+  "description": "Claude Code superpowers with beads task tracking and refinement",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "analyzing-test-effectiveness",
+      "path": "skills/analyzing-test-effectiveness",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/analyzing-test-effectiveness",
+      "description": ""
+    },
+    {
+      "name": "analyzing-test-effectiveness",
+      "path": ".agents/skills/analyzing-test-effectiveness",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/analyzing-test-effectiveness",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": ".agents/skills/brainstorming",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "skills/brainstorming",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "building-hooks",
+      "path": "skills/building-hooks",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/building-hooks",
+      "description": ""
+    },
+    {
+      "name": "debugging-with-tools",
+      "path": ".agents/skills/debugging-with-tools",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/debugging-with-tools",
+      "description": ""
+    },
+    {
+      "name": "debugging-with-tools",
+      "path": "skills/debugging-with-tools",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/debugging-with-tools",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": ".agents/skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": "skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "executing-plans",
+      "path": "skills/executing-plans",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/executing-plans",
+      "description": ""
+    },
+    {
+      "name": "executing-plans",
+      "path": ".agents/skills/executing-plans",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/executing-plans",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "path": ".agents/skills/finishing-a-development-branch",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "path": "skills/finishing-a-development-branch",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "fixing-bugs",
+      "path": ".agents/skills/fixing-bugs",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/fixing-bugs",
+      "description": ""
+    },
+    {
+      "name": "fixing-bugs",
+      "path": "skills/fixing-bugs",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/fixing-bugs",
+      "description": ""
+    },
+    {
+      "name": "hyperpowers-agents",
+      "path": ".agents/skills/hyperpowers-agents",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/hyperpowers-agents",
+      "description": ""
+    },
+    {
+      "name": "refactoring-design",
+      "path": "skills/refactoring-design",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/refactoring-design",
+      "description": ""
+    },
+    {
+      "name": "refactoring-diagnosis",
+      "path": "skills/refactoring-diagnosis",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/refactoring-diagnosis",
+      "description": ""
+    },
+    {
+      "name": "refactoring-safely",
+      "path": "skills/refactoring-safely",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/refactoring-safely",
+      "description": ""
+    },
+    {
+      "name": "refactoring-safely",
+      "path": ".agents/skills/refactoring-safely",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/refactoring-safely",
+      "description": ""
+    },
+    {
+      "name": "skills-auto-activation",
+      "path": "skills/skills-auto-activation",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/skills-auto-activation",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": ".agents/skills/test-driven-development",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "skills/test-driven-development",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "path": ".agents/skills/testing-anti-patterns",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "path": "skills/testing-anti-patterns",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "using-hyper",
+      "path": ".agents/skills/using-hyper",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/using-hyper",
+      "description": ""
+    },
+    {
+      "name": "using-hyper",
+      "path": "skills/using-hyper",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/using-hyper",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "skills/writing-plans",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": ".agents/skills/writing-plans",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": ".agents/skills/writing-skills",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/.agents/skills/writing-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "skills/writing-skills",
+      "github_url": "https://github.com/withzombies/hyperpowers/tree/main/skills/writing-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/withzombies/hyperpowers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T23:38:36Z"
+}
