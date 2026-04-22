@@ -1,0 +1,9 @@
+{
+  "name": "ycedrick--ghostwriter",
+  "displayName": "ghostwriter",
+  "description": "GhostWriter reduces API costs and improves AI debugging accuracy by ensuring the AI remains focused only on the logic relevant to the failure, even in files that exceed standard token limits.",
+  "version": "1.0.0",
+  "author": "ycedrick",
+  "homepage": "https://github.com/ycedrick/ghostwriter",
+  "skills": []
+}
