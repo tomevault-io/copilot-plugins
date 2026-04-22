@@ -1,0 +1,99 @@
+{
+  "name": "cc-plugins",
+  "owner": "modu-ai",
+  "repo": "cc-plugins",
+  "description": "Collection of Claude Code plugins for various domains - Auth0 security, MFA, token security, compliance",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anti-ai-validator",
+      "path": "plugins/astory-blog-writers/skills/anti-ai-validator",
+      "github_url": "https://github.com/modu-ai/cc-plugins/tree/main/plugins/astory-blog-writers/skills/anti-ai-validator",
+      "description": ""
+    },
+    {
+      "name": "crew-roles",
+      "path": "plugins/astory-blog-writers/skills/crew-roles",
+      "github_url": "https://github.com/modu-ai/cc-plugins/tree/main/plugins/astory-blog-writers/skills/crew-roles",
+      "description": ""
+    },
+    {
+      "name": "moai",
+      "path": ".claude/skills/moai",
+      "github_url": "https://github.com/modu-ai/cc-plugins/tree/main/.claude/skills/moai",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-appintoss",
+      "path": "plugins/moai-platform-appintoss/skills/moai-platform-appintoss",
+      "github_url": "https://github.com/modu-ai/cc-plugins/tree/main/plugins/moai-platform-appintoss/skills/moai-platform-appintoss",
+      "description": ""
+    },
+    {
+      "name": "personas",
+      "path": "plugins/astory-blog-writers/skills/personas",
+      "github_url": "https://github.com/modu-ai/cc-plugins/tree/main/plugins/astory-blog-writers/skills/personas",
+      "description": ""
+    },
+    {
+      "name": "protocols",
+      "path": "plugins/astory-blog-writers/skills/protocols",
+      "github_url": "https://github.com/modu-ai/cc-plugins/tree/main/plugins/astory-blog-writers/skills/protocols",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "plugins/astory-blog-writers/skills/research",
+      "github_url": "https://github.com/modu-ai/cc-plugins/tree/main/plugins/astory-blog-writers/skills/research",
+      "description": ""
+    },
+    {
+      "name": "traits",
+      "path": "plugins/astory-blog-writers/skills/traits",
+      "github_url": "https://github.com/modu-ai/cc-plugins/tree/main/plugins/astory-blog-writers/skills/traits",
+      "description": ""
+    },
+    {
+      "name": "writing-standards",
+      "path": "plugins/astory-blog-writers/skills/writing-standards",
+      "github_url": "https://github.com/modu-ai/cc-plugins/tree/main/plugins/astory-blog-writers/skills/writing-standards",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/modu-ai/cc-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:43:08Z"
+}
