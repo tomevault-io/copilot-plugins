@@ -1,0 +1,9 @@
+{
+  "name": "izwi-ai--izwi",
+  "displayName": "izwi",
+  "description": "Voice AI runtime. Local first transcription, speaker diarization, TTS, and voice cloning with an OpenAI compatible API.",
+  "version": "1.0.0",
+  "author": "izwi-ai",
+  "homepage": "https://github.com/izwi-ai/izwi",
+  "skills": []
+}
