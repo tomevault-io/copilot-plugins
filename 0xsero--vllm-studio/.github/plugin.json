@@ -1,0 +1,9 @@
+{
+  "name": "0xsero--vllm-studio",
+  "displayName": "vllm-studio",
+  "description": "Control panel for VLLM, Sglang, llama.cpp, exllamav3",
+  "version": "1.0.0",
+  "author": "0xSero",
+  "homepage": "https://github.com/0xSero/vllm-studio",
+  "skills": []
+}
