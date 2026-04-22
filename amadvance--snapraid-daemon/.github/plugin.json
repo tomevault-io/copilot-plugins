@@ -1,0 +1,9 @@
+{
+  "name": "amadvance--snapraid-daemon",
+  "displayName": "snapraid-daemon",
+  "description": "A lightweight daemon for SnapRAID featuring a REST API, job scheduler, and web interface",
+  "version": "1.0.0",
+  "author": "amadvance",
+  "homepage": "https://github.com/amadvance/snapraid-daemon",
+  "skills": []
+}
