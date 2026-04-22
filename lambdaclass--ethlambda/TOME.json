@@ -1,0 +1,63 @@
+{
+  "name": "ethlambda",
+  "owner": "lambdaclass",
+  "repo": "ethlambda",
+  "description": "A minimalist and fast Lean Consensus client by LambdaClass, bringing expertise in distributed systems and blockchain infrastructure to deliver a robust and performant implementation.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "devnet-log-review",
+      "path": ".claude/skills/devnet-log-review",
+      "github_url": "https://github.com/lambdaclass/ethlambda/tree/main/.claude/skills/devnet-log-review",
+      "description": ""
+    },
+    {
+      "name": "devnet-runner",
+      "path": ".claude/skills/devnet-runner",
+      "github_url": "https://github.com/lambdaclass/ethlambda/tree/main/.claude/skills/devnet-runner",
+      "description": ""
+    },
+    {
+      "name": "test-pr-devnet",
+      "path": ".claude/skills/test-pr-devnet",
+      "github_url": "https://github.com/lambdaclass/ethlambda/tree/main/.claude/skills/test-pr-devnet",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lambdaclass/ethlambda",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T19:32:07Z"
+}
