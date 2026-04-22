@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [bariscanatakli/mycoflow-core](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/bariscanatakli)
+From [bariscanatakli/mycoflow-core](https://github.com/bariscanatakli/mycoflow-core) — a repo with 0+ stars on GitHub.
 
 ---
 
