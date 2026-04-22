@@ -1,7 +1,7 @@
 {
   "name": "libpdf-js--core",
   "displayName": "core",
-  "description": "core",
+  "description": "A modern PDF library for TypeScript. Parse, modify, and generate PDFs with a clean, intuitive API.",
   "version": "1.0.0",
   "author": "LibPDF-js",
   "homepage": "https://github.com/LibPDF-js/core",
