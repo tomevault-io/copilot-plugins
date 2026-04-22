@@ -1,0 +1,9 @@
+{
+  "name": "xiaoyiweio--deepsafe-scan",
+  "displayName": "deepsafe-scan",
+  "description": "Universal preflight security scanner for AI coding agents \u2014 Detects hooks injection, credential exfiltration & backdoors in .cursorrules, CLAUDE.md, AGENTS.md and more.",
+  "version": "1.0.0",
+  "author": "XiaoYiWeio",
+  "homepage": "https://github.com/XiaoYiWeio/deepsafe-scan",
+  "skills": []
+}
