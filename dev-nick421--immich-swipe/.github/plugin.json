@@ -1,0 +1,9 @@
+{
+  "name": "dev-nick421--immich-swipe",
+  "displayName": "immich-swipe",
+  "description": "Swipe right to keep photos, swipe left to delete them -> just like a dating app, but for immich!",
+  "version": "1.0.0",
+  "author": "dev-nick421",
+  "homepage": "https://github.com/dev-nick421/immich-swipe",
+  "skills": []
+}
