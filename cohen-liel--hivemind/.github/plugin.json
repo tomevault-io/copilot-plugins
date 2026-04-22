@@ -1,0 +1,14 @@
+{
+  "name": "cohen-liel--hivemind",
+  "displayName": "hivemind",
+  "description": "One prompt. A full AI engineering team. Go lie on the couch. \ud83e\udde0",
+  "version": "1.0.0",
+  "author": "cohen-liel",
+  "homepage": "https://github.com/cohen-liel/hivemind",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
