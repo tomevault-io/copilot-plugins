@@ -1,0 +1,81 @@
+{
+  "name": "tokyn",
+  "owner": "jshmllr",
+  "repo": "tokyn",
+  "description": "Opinionated UI design for AI and implementation playbook focused on interaction finesse, typography, anti-AI slop, and component standards for high-clarity product interfaces.",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "design-polish",
+      "path": ".claude/skills/design-polish",
+      "github_url": "https://github.com/jshmllr/tokyn/tree/main/.claude/skills/design-polish",
+      "description": ""
+    },
+    {
+      "name": "design-review",
+      "path": ".claude/skills/design-review",
+      "github_url": "https://github.com/jshmllr/tokyn/tree/main/.claude/skills/design-review",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".cursor/skills/frontend-design",
+      "github_url": "https://github.com/jshmllr/tokyn/tree/main/.cursor/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".claude/skills/frontend-design",
+      "github_url": "https://github.com/jshmllr/tokyn/tree/main/.claude/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "interface-guidelines",
+      "path": ".claude/skills/interface-guidelines",
+      "github_url": "https://github.com/jshmllr/tokyn/tree/main/.claude/skills/interface-guidelines",
+      "description": ""
+    },
+    {
+      "name": "tokyn-workflow",
+      "path": ".claude/skills/tokyn-workflow",
+      "github_url": "https://github.com/jshmllr/tokyn/tree/main/.claude/skills/tokyn-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jshmllr/tokyn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T19:31:33Z"
+}
