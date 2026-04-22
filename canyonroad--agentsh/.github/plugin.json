@@ -1,0 +1,9 @@
+{
+  "name": "canyonroad--agentsh",
+  "displayName": "agentsh",
+  "description": "Execution-Layer Security (ELS) for AI agents \u2014 policy-enforced shell with audit.",
+  "version": "1.0.0",
+  "author": "canyonroad",
+  "homepage": "https://github.com/canyonroad/agentsh",
+  "skills": []
+}
