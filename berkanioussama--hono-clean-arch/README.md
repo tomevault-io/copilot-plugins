@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [berkanioussama/hono-clean-arch](http
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/berkanioussama)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/berkanioussama/hono-clean-arch](https://github.com/berkanioussama/hono-clean-arch)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install berkanioussama/hono-clean-arch
 ```
-Or browse all formats at [https://tomevault.io/claim/berkanioussama](https://tomevault.io/claim/berkanioussama).
+Source: [github.com/berkanioussama/hono-clean-arch](https://github.com/berkanioussama/hono-clean-arch).
 
 <!-- genome:a-i-p -->
