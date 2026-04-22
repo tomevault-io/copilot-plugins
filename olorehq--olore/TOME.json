@@ -1,0 +1,321 @@
+{
+  "name": "olore",
+  "owner": "olorehq",
+  "repo": "olore",
+  "description": "Turn library docs into local Agent Skills",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "build-artifacts",
+      "path": ".claude/skills/build-artifacts",
+      "github_url": "https://github.com/olorehq/olore/tree/main/.claude/skills/build-artifacts",
+      "description": ""
+    },
+    {
+      "name": "build-docs",
+      "path": ".claude/skills/build-docs",
+      "github_url": "https://github.com/olorehq/olore/tree/main/.claude/skills/build-docs",
+      "description": ""
+    },
+    {
+      "name": "download-docs",
+      "path": ".claude/skills/download-docs",
+      "github_url": "https://github.com/olorehq/olore/tree/main/.claude/skills/download-docs",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/a2a/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/a2a/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/agentskills/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/agentskills/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/astro/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/astro/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/axiom/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/axiom/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/cargo/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/cargo/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/checkly/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/checkly/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/claude-code/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/claude-code/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/clerk/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/clerk/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/cloudflare/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/cloudflare/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/codex/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/codex/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/convex/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/convex/latest",
+      "description": ""
+    },
+    {
+      "name": "1.0.0",
+      "path": "vault/packages/docs-packager/1.0.0",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/docs-packager/1.0.0",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/drizzle/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/drizzle/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/hono/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/hono/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/langchain/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/langchain/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/lucia/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/lucia/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/ms-agent-framework/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/ms-agent-framework/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/neon/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/neon/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/neverthrow/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/neverthrow/latest",
+      "description": ""
+    },
+    {
+      "name": "16.1.1",
+      "path": "vault/packages/nextjs/16.1.1",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/nextjs/16.1.1",
+      "description": ""
+    },
+    {
+      "name": "16.1.2",
+      "path": "vault/packages/nextjs/16.1.2",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/nextjs/16.1.2",
+      "description": ""
+    },
+    {
+      "name": "16.1.3",
+      "path": "vault/packages/nextjs/16.1.3",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/nextjs/16.1.3",
+      "description": ""
+    },
+    {
+      "name": "16.1.4",
+      "path": "vault/packages/nextjs/16.1.4",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/nextjs/16.1.4",
+      "description": ""
+    },
+    {
+      "name": "16.1.5",
+      "path": "vault/packages/nextjs/16.1.5",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/nextjs/16.1.5",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/openclaw/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/openclaw/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/opencode/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/opencode/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/opennext/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/opennext/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/partykit/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/partykit/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/partyserver/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/partyserver/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/posthog/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/posthog/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/prisma/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/prisma/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/sentry/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/sentry/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/supabase/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/supabase/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/t3-env/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/t3-env/latest",
+      "description": ""
+    },
+    {
+      "name": "3",
+      "path": "vault/packages/tanstack-query/3",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/tanstack-query/3",
+      "description": ""
+    },
+    {
+      "name": "4",
+      "path": "vault/packages/tanstack-query/4",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/tanstack-query/4",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/tanstack-query/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/tanstack-query/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/trpc/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/trpc/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/turso/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/turso/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/vitest/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/vitest/latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/xstate/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/xstate/latest",
+      "description": ""
+    },
+    {
+      "name": "3",
+      "path": "vault/packages/zod/3",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/zod/3",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "path": "vault/packages/zod/latest",
+      "github_url": "https://github.com/olorehq/olore/tree/main/vault/packages/zod/latest",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/olorehq/olore",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:42:22Z"
+}
