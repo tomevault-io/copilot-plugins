@@ -1,0 +1,9 @@
+{
+  "name": "cybereason-public--owlsm",
+  "displayName": "owLSM",
+  "description": "Sigma Rules Engine inside the Linux Kernel using eBPF. Focusing on prevention capabilities",
+  "version": "1.0.0",
+  "author": "Cybereason-Public",
+  "homepage": "https://github.com/Cybereason-Public/owLSM",
+  "skills": []
+}
