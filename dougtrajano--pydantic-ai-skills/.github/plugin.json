@@ -1,0 +1,9 @@
+{
+  "name": "dougtrajano--pydantic-ai-skills",
+  "displayName": "pydantic-ai-skills",
+  "description": "This package implements Agent Skills (https://agentskills.io) support with progressive disclosure for Pydantic AI. Supports filesystem and programmatic skills.",
+  "version": "1.0.0",
+  "author": "DougTrajano",
+  "homepage": "https://github.com/DougTrajano/pydantic-ai-skills",
+  "skills": []
+}
