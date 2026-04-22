@@ -1,0 +1,14 @@
+{
+  "name": "pproenca--agent-tui",
+  "displayName": "agent-tui",
+  "description": "TUI automation for AI agents. Control any terminal app from code.",
+  "version": "1.0.0",
+  "author": "pproenca",
+  "homepage": "https://github.com/pproenca/agent-tui",
+  "skills": [
+    {
+      "name": "agent-tui",
+      "description": ""
+    }
+  ]
+}
