@@ -1,0 +1,134 @@
+{
+  "name": "withzombies--hyperpowers",
+  "displayName": "hyperpowers",
+  "description": "Claude Code superpowers with beads task tracking and refinement",
+  "version": "1.0.0",
+  "author": "withzombies",
+  "homepage": "https://github.com/withzombies/hyperpowers",
+  "skills": [
+    {
+      "name": "analyzing-test-effectiveness",
+      "description": ""
+    },
+    {
+      "name": "analyzing-test-effectiveness",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "building-hooks",
+      "description": ""
+    },
+    {
+      "name": "debugging-with-tools",
+      "description": ""
+    },
+    {
+      "name": "debugging-with-tools",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "executing-plans",
+      "description": ""
+    },
+    {
+      "name": "executing-plans",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "fixing-bugs",
+      "description": ""
+    },
+    {
+      "name": "fixing-bugs",
+      "description": ""
+    },
+    {
+      "name": "hyperpowers-agents",
+      "description": ""
+    },
+    {
+      "name": "refactoring-design",
+      "description": ""
+    },
+    {
+      "name": "refactoring-diagnosis",
+      "description": ""
+    },
+    {
+      "name": "refactoring-safely",
+      "description": ""
+    },
+    {
+      "name": "refactoring-safely",
+      "description": ""
+    },
+    {
+      "name": "skills-auto-activation",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "using-hyper",
+      "description": ""
+    },
+    {
+      "name": "using-hyper",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    }
+  ]
+}
