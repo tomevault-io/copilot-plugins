@@ -1,0 +1,18 @@
+{
+  "name": "marimo-team--skills",
+  "displayName": "skills",
+  "description": "skills for coding agents related to marimo",
+  "version": "1.0.0",
+  "author": "marimo-team",
+  "homepage": "https://github.com/marimo-team/skills",
+  "skills": [
+    {
+      "name": "marimo-notebook",
+      "description": ""
+    },
+    {
+      "name": "marimo-batch",
+      "description": ""
+    }
+  ]
+}
