@@ -1,6 +1,6 @@
 # voice-pt-ai
 
-> Tome by [wild-mental](https://github.com/wild-mental/voice-pt-ai) — distributed by [TomeVault](https://tomevault.io/claim/wild-mental)
+> Tome by [wild-mental](https://github.com/wild-mental/voice-pt-ai) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [wild-mental/voice-pt-ai](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/wild-mental#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/wild-mental/voice-pt-ai](https://github.com/wild-mental/voice-pt-ai)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install wild-mental/voice-pt-ai
 ```
-Or browse all formats at [https://tomevault.io/claim/wild-mental](https://tomevault.io/claim/wild-mental).
+Source: [github.com/wild-mental/voice-pt-ai](https://github.com/wild-mental/voice-pt-ai).
 
 <!-- genome:t-i-q -->
