@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--cass-memory-system",
+  "displayName": "cass_memory_system",
+  "description": "Procedural memory for AI coding agents: transforms scattered session history into persistent, cross-agent memory so every agent learns from every other",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/cass_memory_system",
+  "skills": []
+}
