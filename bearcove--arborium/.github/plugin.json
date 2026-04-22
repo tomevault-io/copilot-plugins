@@ -1,0 +1,9 @@
+{
+  "name": "bearcove--arborium",
+  "displayName": "arborium",
+  "description": "An opinionated tree-sitter + tree-sitter-highlight + grammars bundle",
+  "version": "1.0.0",
+  "author": "bearcove",
+  "homepage": "https://github.com/bearcove/arborium",
+  "skills": []
+}
