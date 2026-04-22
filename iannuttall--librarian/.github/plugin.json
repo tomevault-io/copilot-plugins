@@ -1,0 +1,14 @@
+{
+  "name": "iannuttall--librarian",
+  "displayName": "librarian",
+  "description": "Local CLI tool for coding agents to search up-to-date developer documentation. Supports GitHub repos and public websites.",
+  "version": "1.0.0",
+  "author": "iannuttall",
+  "homepage": "https://github.com/iannuttall/librarian",
+  "skills": [
+    {
+      "name": "librarian",
+      "description": ""
+    }
+  ]
+}
