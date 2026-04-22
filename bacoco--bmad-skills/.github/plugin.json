@@ -1,0 +1,46 @@
+{
+  "name": "bacoco--bmad-skills",
+  "displayName": "bmad-skills",
+  "description": "AI instruction skills by bacoco",
+  "version": "1.0.0",
+  "author": "bacoco",
+  "homepage": "https://github.com/bacoco/BMad-Skills",
+  "skills": [
+    {
+      "name": "bmad-architecture-design",
+      "description": ""
+    },
+    {
+      "name": "bmad-development-execution",
+      "description": ""
+    },
+    {
+      "name": "bmad-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "bmad-security-review",
+      "description": ""
+    },
+    {
+      "name": "bmad-story-planning",
+      "description": ""
+    },
+    {
+      "name": "bmad-test-strategy",
+      "description": ""
+    },
+    {
+      "name": "bmad-ux-design",
+      "description": ""
+    },
+    {
+      "name": "core-skill-creation",
+      "description": ""
+    },
+    {
+      "name": "main-workflow-router",
+      "description": ""
+    }
+  ]
+}
