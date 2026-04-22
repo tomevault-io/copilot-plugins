@@ -1,6 +1,6 @@
-# optionstrat — distributed by TomeVault
+# optionstrat
 
-> Originally from [voxmenthe/optionstrat](https://github.com/voxmenthe/optionstrat). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [voxmenthe/optionstrat](https://github.com/voxmenthe/optionstrat) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [voxmenthe/optionstrat](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/voxmenthe)
+From [voxmenthe/optionstrat](https://github.com/voxmenthe/optionstrat) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install voxmenthe/optionstrat
 ```
-Or browse all formats at [https://tomevault.io/claim/voxmenthe](https://tomevault.io/claim/voxmenthe).
+Source: [github.com/voxmenthe/optionstrat](https://github.com/voxmenthe/optionstrat).
 
 <!-- genome:d-i-s -->
