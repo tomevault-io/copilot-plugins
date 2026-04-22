@@ -1,0 +1,44 @@
+{
+  "name": "easy-draw",
+  "owner": "grid-oaa",
+  "repo": "easy-draw",
+  "description": "\u4f7f\u7528\u81ea\u7136\u8bed\u8a00\u63cf\u8ff0\u4e1a\u52a1 / \u4fee\u6539\u56fe\u5f62\uff0c\u751f\u6210drawio\u53ef\u7f16\u8f91\u56fe\u5f62\u3001Mermaid\u683c\u5f0f\u56fe\u5f62",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/grid-oaa/easy-draw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T20:04:34Z"
+}
