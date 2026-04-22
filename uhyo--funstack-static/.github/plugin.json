@@ -1,0 +1,42 @@
+{
+  "name": "uhyo--funstack-static",
+  "displayName": "funstack",
+  "description": "A React framework without a server",
+  "version": "1.0.0",
+  "author": "uhyo",
+  "homepage": "https://github.com/uhyo/funstack-static",
+  "skills": [
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "docs-consistency",
+      "description": ""
+    },
+    {
+      "name": "funstack-static-knowledge",
+      "description": ""
+    },
+    {
+      "name": "release-funstack",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "docs-consistency",
+      "description": ""
+    },
+    {
+      "name": "funstack-router-knowledge",
+      "description": ""
+    },
+    {
+      "name": "release-funstack",
+      "description": ""
+    }
+  ]
+}
