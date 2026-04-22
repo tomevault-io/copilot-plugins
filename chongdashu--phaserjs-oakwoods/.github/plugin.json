@@ -1,0 +1,22 @@
+{
+  "name": "chongdashu--phaserjs-oakwoods",
+  "displayName": "phaserjs-oakwoods",
+  "description": "A vibe coded implementation of an RPG platformer",
+  "version": "1.0.0",
+  "author": "chongdashu",
+  "homepage": "https://github.com/chongdashu/phaserjs-oakwoods",
+  "skills": [
+    {
+      "name": "phaser-gamedev",
+      "description": ""
+    },
+    {
+      "name": "playwright-testing",
+      "description": ""
+    },
+    {
+      "name": "playwright-testing",
+      "description": ""
+    }
+  ]
+}
