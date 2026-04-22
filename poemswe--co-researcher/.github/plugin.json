@@ -1,0 +1,50 @@
+{
+  "name": "poemswe--co-researcher",
+  "displayName": "co-researcher",
+  "description": "A professional research suite for conducting rigorous academic research using specialized agents and multi-platform CLI commands. Compatible with Claude Code, Gemini CLI, OpenAI Codex, and OpenCode.",
+  "version": "1.0.0",
+  "author": "poemswe",
+  "homepage": "https://github.com/poemswe/co-researcher",
+  "skills": [
+    {
+      "name": "ethics-review",
+      "description": ""
+    },
+    {
+      "name": "hypothesis-testing",
+      "description": ""
+    },
+    {
+      "name": "lateral-thinking",
+      "description": ""
+    },
+    {
+      "name": "methodology",
+      "description": ""
+    },
+    {
+      "name": "qualitative-research",
+      "description": ""
+    },
+    {
+      "name": "quantitative-analysis",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "research-methodology",
+      "description": ""
+    },
+    {
+      "name": "systematic-review",
+      "description": ""
+    },
+    {
+      "name": "using-co-researcher",
+      "description": ""
+    }
+  ]
+}
