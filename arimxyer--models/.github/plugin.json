@@ -1,0 +1,9 @@
+{
+  "name": "arimxyer--models",
+  "displayName": "models",
+  "description": "TUI and CLI for browsing AI models, benchmarks, coding agents, and statuses for AI providers.",
+  "version": "1.0.0",
+  "author": "arimxyer",
+  "homepage": "https://github.com/arimxyer/models",
+  "skills": []
+}
