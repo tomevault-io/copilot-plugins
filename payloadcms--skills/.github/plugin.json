@@ -1,0 +1,14 @@
+{
+  "name": "payloadcms--skills",
+  "displayName": "skills",
+  "description": "Payload Skills to assist AI agents",
+  "version": "1.0.0",
+  "author": "payloadcms",
+  "homepage": "https://github.com/payloadcms/skills",
+  "skills": [
+    {
+      "name": "payload",
+      "description": ""
+    }
+  ]
+}
