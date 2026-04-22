@@ -1,0 +1,26 @@
+{
+  "name": "nicosuave--memex",
+  "displayName": "memex",
+  "description": "Fast transcript search for humans & agents. Supports Claude Code, Codex CLI & OpenCode",
+  "version": "1.0.0",
+  "author": "nicosuave",
+  "homepage": "https://github.com/nicosuave/memex",
+  "skills": [
+    {
+      "name": "instruction-improver",
+      "description": ""
+    },
+    {
+      "name": "memex-search",
+      "description": ""
+    },
+    {
+      "name": "memex-search",
+      "description": ""
+    },
+    {
+      "name": "memex-search",
+      "description": ""
+    }
+  ]
+}
