@@ -1,0 +1,34 @@
+{
+  "name": "jshmllr--tokyn",
+  "displayName": "tokyn",
+  "description": "Opinionated UI design for AI and implementation playbook focused on interaction finesse, typography, anti-AI slop, and component standards for high-clarity product interfaces.",
+  "version": "1.0.0",
+  "author": "jshmllr",
+  "homepage": "https://github.com/jshmllr/tokyn",
+  "skills": [
+    {
+      "name": "design-polish",
+      "description": ""
+    },
+    {
+      "name": "design-review",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "interface-guidelines",
+      "description": ""
+    },
+    {
+      "name": "tokyn-workflow",
+      "description": ""
+    }
+  ]
+}
