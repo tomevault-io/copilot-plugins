@@ -1,0 +1,9 @@
+{
+  "name": "mistralai--mistral-vibe",
+  "displayName": "mistral-vibe",
+  "description": "Minimal CLI coding agent by Mistral",
+  "version": "1.0.0",
+  "author": "mistralai",
+  "homepage": "https://github.com/mistralai/mistral-vibe",
+  "skills": []
+}
