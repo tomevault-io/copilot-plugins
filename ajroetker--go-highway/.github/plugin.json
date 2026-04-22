@@ -1,0 +1,9 @@
+{
+  "name": "ajroetker--go-highway",
+  "displayName": "go-highway",
+  "description": "Write SIMD once, run everywhere. AVX2, AVX-512, or pure Go fallback. Like Google Highway, but for Go.",
+  "version": "1.0.0",
+  "author": "ajroetker",
+  "homepage": "https://github.com/ajroetker/go-highway",
+  "skills": []
+}
