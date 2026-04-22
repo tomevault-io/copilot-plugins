@@ -1,0 +1,9 @@
+{
+  "name": "amalshaji--dbcooper",
+  "displayName": "dbcooper",
+  "description": "A database client for PostgreSQL, SQLite, Redis, and ClickHouse, built with Tauri, React, and TypeScript.",
+  "version": "1.0.0",
+  "author": "amalshaji",
+  "homepage": "https://github.com/amalshaji/dbcooper",
+  "skills": []
+}
