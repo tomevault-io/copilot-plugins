@@ -1,0 +1,14 @@
+{
+  "name": "butttons--dora",
+  "displayName": "dora",
+  "description": "CLI built for AI agents to help navigate codebases better. An alternative to grep/find/glob",
+  "version": "1.0.0",
+  "author": "butttons",
+  "homepage": "https://github.com/butttons/dora",
+  "skills": [
+    {
+      "name": "docs",
+      "description": ""
+    }
+  ]
+}
