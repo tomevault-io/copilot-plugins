@@ -1,7 +1,7 @@
 {
   "name": "waynesutton--markdown-site",
   "displayName": "markdown-site",
-  "description": "markdown-site",
+  "description": "An open-source publishing framework built for AI agents and developers to ship websites, docs, or blogs. Write markdown, sync from the terminal. Your content is instantly available to browsers, LLMs, ",
   "version": "1.0.0",
   "author": "waynesutton",
   "homepage": "https://github.com/waynesutton/markdown-site",
