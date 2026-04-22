@@ -1,0 +1,51 @@
+{
+  "name": "Claude-Skills",
+  "owner": "borghei",
+  "repo": "Claude-Skills",
+  "description": "245 Claude Code skills & agent plugins for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents \u2014 653 Python tools, 32 agents, 26 slash commands",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ci-cd-pipeline-builder",
+      "path": "engineering/ci-cd-pipeline-builder",
+      "github_url": "https://github.com/borghei/Claude-Skills/tree/main/engineering/ci-cd-pipeline-builder",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/borghei/Claude-Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:46:22Z"
+}
