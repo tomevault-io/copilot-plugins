@@ -1,0 +1,9 @@
+{
+  "name": "tinygrad--asm2464pd-firmware",
+  "displayName": "asm2464pd-firmware",
+  "description": "Firmware for the ASM2464PD",
+  "version": "1.0.0",
+  "author": "tinygrad",
+  "homepage": "https://github.com/tinygrad/asm2464pd-firmware",
+  "skills": []
+}
