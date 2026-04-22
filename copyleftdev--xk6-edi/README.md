@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [copyleftdev/xk6-edi](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/copyleftdev)
+From [copyleftdev/xk6-edi](https://github.com/copyleftdev/xk6-edi) — a repo with 0+ stars on GitHub.
 
 ---
 
