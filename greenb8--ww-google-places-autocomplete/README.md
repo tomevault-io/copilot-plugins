@@ -1,6 +1,6 @@
 # ww-google-places-autocomplete
 
-> Tome by [greenb8](https://github.com/greenb8/ww-google-places-autocomplete) — distributed by [TomeVault](https://tomevault.io/claim/greenb8)
+> Tome by [greenb8](https://github.com/greenb8/ww-google-places-autocomplete) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [greenb8/ww-google-places-autocomplet
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/greenb8)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/greenb8/ww-google-places-autocomplete](https://github.com/greenb8/ww-google-places-autocomplete)
 
 ---
 
