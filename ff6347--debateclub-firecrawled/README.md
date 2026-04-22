@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ff6347/debateclub-firecrawled](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ff6347)
+From [ff6347/debateclub-firecrawled](https://github.com/ff6347/debateclub-firecrawled) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install ff6347/debateclub-firecrawled
 ```
-Or browse all formats at [https://tomevault.io/claim/ff6347](https://tomevault.io/claim/ff6347).
+Source: [github.com/ff6347/debateclub-firecrawled](https://github.com/ff6347/debateclub-firecrawled).
 
 <!-- genome:a-i-s -->
