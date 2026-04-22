@@ -1,6 +1,6 @@
-# trading-control — distributed by TomeVault
+# trading-control
 
-> Originally from [SamuelMatthew95/trading-control](https://github.com/SamuelMatthew95/trading-control). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [SamuelMatthew95/trading-control](https://github.com/SamuelMatthew95/trading-control) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [SamuelMatthew95/trading-control](htt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/SamuelMatthew95)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/SamuelMatthew95/trading-control](https://github.com/SamuelMatthew95/trading-control)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install SamuelMatthew95/trading-control
 ```
-Or browse all formats at [https://tomevault.io/claim/SamuelMatthew95](https://tomevault.io/claim/SamuelMatthew95).
+Source: [github.com/SamuelMatthew95/trading-control](https://github.com/SamuelMatthew95/trading-control).
 
 <!-- genome:d-i-p -->
