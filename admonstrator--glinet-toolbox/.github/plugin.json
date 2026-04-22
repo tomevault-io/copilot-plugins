@@ -1,0 +1,9 @@
+{
+  "name": "admonstrator--glinet-toolbox",
+  "displayName": "glinet-toolbox",
+  "description": "A collection of utility scripts and tools for managing and automating common tasks on GL.iNet (OpenWrt-based) routers.",
+  "version": "1.0.0",
+  "author": "admonstrator",
+  "homepage": "https://github.com/admonstrator/glinet-toolbox",
+  "skills": []
+}
