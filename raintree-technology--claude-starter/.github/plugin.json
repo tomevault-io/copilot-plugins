@@ -1,0 +1,198 @@
+{
+  "name": "raintree-technology--claude-starter",
+  "displayName": "claude-starter",
+  "description": "Advanced Claude Code framework: 40+ skills, meta-commands, TOON format (30-60% token savings), workflow automation & skill orchestration. npx create-claude-starter@latest",
+  "version": "1.0.0",
+  "author": "raintree-technology",
+  "homepage": "https://github.com/raintree-technology/claude-starter",
+  "skills": [
+    {
+      "name": "toon-formatter",
+      "description": ""
+    },
+    {
+      "name": "anthropic",
+      "description": ""
+    },
+    {
+      "name": "anthropic",
+      "description": ""
+    },
+    {
+      "name": "aptos",
+      "description": ""
+    },
+    {
+      "name": "dapp-integration",
+      "description": ""
+    },
+    {
+      "name": "dapp-integration",
+      "description": ""
+    },
+    {
+      "name": "aptos",
+      "description": ""
+    },
+    {
+      "name": "aptos",
+      "description": ""
+    },
+    {
+      "name": "framework",
+      "description": ""
+    },
+    {
+      "name": "move-testing",
+      "description": ""
+    },
+    {
+      "name": "move-testing",
+      "description": ""
+    },
+    {
+      "name": "claude-code",
+      "description": ""
+    },
+    {
+      "name": "claude-command-builder",
+      "description": ""
+    },
+    {
+      "name": "claude-hook-builder",
+      "description": ""
+    },
+    {
+      "name": "claude-mcp-expert",
+      "description": ""
+    },
+    {
+      "name": "claude-mcp-expert",
+      "description": ""
+    },
+    {
+      "name": "claude-settings-expert",
+      "description": ""
+    },
+    {
+      "name": "claude-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "claude-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "decibel",
+      "description": ""
+    },
+    {
+      "name": "decibel",
+      "description": ""
+    },
+    {
+      "name": "eas-build",
+      "description": ""
+    },
+    {
+      "name": "eas-update",
+      "description": ""
+    },
+    {
+      "name": "expo",
+      "description": ""
+    },
+    {
+      "name": "expo-router",
+      "description": ""
+    },
+    {
+      "name": "helius",
+      "description": ""
+    },
+    {
+      "name": "ios",
+      "description": ""
+    },
+    {
+      "name": "plaid",
+      "description": ""
+    },
+    {
+      "name": "accounts",
+      "description": ""
+    },
+    {
+      "name": "auth",
+      "description": ""
+    },
+    {
+      "name": "plaid",
+      "description": ""
+    },
+    {
+      "name": "transactions",
+      "description": ""
+    },
+    {
+      "name": "shelby",
+      "description": ""
+    },
+    {
+      "name": "cli-assistant",
+      "description": ""
+    },
+    {
+      "name": "dapp-builder",
+      "description": ""
+    },
+    {
+      "name": "shelby",
+      "description": ""
+    },
+    {
+      "name": "shelby",
+      "description": ""
+    },
+    {
+      "name": "protocol-expert",
+      "description": ""
+    },
+    {
+      "name": "sdk-developer",
+      "description": ""
+    },
+    {
+      "name": "storage-integration",
+      "description": ""
+    },
+    {
+      "name": "shopify",
+      "description": ""
+    },
+    {
+      "name": "stripe",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "description": ""
+    },
+    {
+      "name": "toon-formatter",
+      "description": ""
+    },
+    {
+      "name": "toon-formatter",
+      "description": ""
+    },
+    {
+      "name": "whop",
+      "description": ""
+    },
+    {
+      "name": "whop",
+      "description": ""
+    }
+  ]
+}
