@@ -1,0 +1,9 @@
+{
+  "name": "orneryd--nornicdb",
+  "displayName": "NornicDB",
+  "description": "Nornicdb is a distributed low-latency, Graph+Vector, Temporal MVCC with all sub-ms HNSW search, graph traversal, and writes. Using Neo4j Bolt/Cypher and qdrant's gRPC means you can switch with no chan",
+  "version": "1.0.0",
+  "author": "orneryd",
+  "homepage": "https://github.com/orneryd/NornicDB",
+  "skills": []
+}
