@@ -1,0 +1,9 @@
+{
+  "name": "heyhuynhgiabuu--proxypal",
+  "displayName": "proxypal",
+  "description": "A desktop app that lets you use your AI subscriptions (Claude, ChatGPT, Gemini, GitHub Copilot) with any coding tool. Wraps CLIProxyAPI with a clean UI for managing connections and tracking usage.",
+  "version": "1.0.0",
+  "author": "heyhuynhgiabuu",
+  "homepage": "https://github.com/heyhuynhgiabuu/proxypal",
+  "skills": []
+}
