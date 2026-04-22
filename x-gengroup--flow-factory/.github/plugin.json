@@ -1,0 +1,9 @@
+{
+  "name": "x-gengroup--flow-factory",
+  "displayName": "Flow-Factory",
+  "description": "A unified framework for easy reinforcement learning in Flow-Matching models",
+  "version": "1.0.0",
+  "author": "X-GenGroup",
+  "homepage": "https://github.com/X-GenGroup/Flow-Factory",
+  "skills": []
+}
