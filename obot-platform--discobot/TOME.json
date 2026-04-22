@@ -1,0 +1,69 @@
+{
+  "name": "discobot",
+  "owner": "obot-platform",
+  "repo": "discobot",
+  "description": "Coding Agent",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "commit",
+      "path": ".claude/commands/commit",
+      "github_url": "https://github.com/obot-platform/discobot/tree/main/.claude/commands/commit",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": ".claude/commands/release",
+      "github_url": "https://github.com/obot-platform/discobot/tree/main/.claude/commands/release",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".claude/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/obot-platform/discobot/tree/main/.claude/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": ".claude/skills/web-design-guidelines",
+      "github_url": "https://github.com/obot-platform/discobot/tree/main/.claude/skills/web-design-guidelines",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/obot-platform/discobot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:39:51Z"
+}
