@@ -1,0 +1,44 @@
+{
+  "name": "knowledge-agent-template",
+  "owner": "vercel-labs",
+  "repo": "knowledge-agent-template",
+  "description": "Open source file-system and knowledge based agent template. Build AI agents that stay up to date with your knowledge base",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vercel-labs/knowledge-agent-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T00:44:40Z"
+}
