@@ -1,0 +1,9 @@
+{
+  "name": "figranium--figranium",
+  "displayName": "figranium",
+  "description": "Build complex browser workflows visually and execute them via API.",
+  "version": "1.0.0",
+  "author": "figranium",
+  "homepage": "https://github.com/figranium/figranium",
+  "skills": []
+}
