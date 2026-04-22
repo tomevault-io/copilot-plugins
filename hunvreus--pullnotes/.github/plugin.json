@@ -1,0 +1,9 @@
+{
+  "name": "hunvreus--pullnotes",
+  "displayName": "pullnotes",
+  "description": "A Notion-like editor for your GitHub repos.",
+  "version": "1.0.0",
+  "author": "hunvreus",
+  "homepage": "https://github.com/hunvreus/pullnotes",
+  "skills": []
+}
