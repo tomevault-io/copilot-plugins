@@ -1,0 +1,9 @@
+{
+  "name": "smol-machines--smolvm",
+  "displayName": "smolvm",
+  "description": "Tool to build & run portable, lightweight, self-contained virtual machines.",
+  "version": "1.0.0",
+  "author": "smol-machines",
+  "homepage": "https://github.com/smol-machines/smolvm",
+  "skills": []
+}
