@@ -1,0 +1,9 @@
+{
+  "name": "yishentu--claudian",
+  "displayName": "claudian",
+  "description": "An Obsidian plugin that embeds Claude Code as an AI collaborator in your vault",
+  "version": "1.0.0",
+  "author": "YishenTu",
+  "homepage": "https://github.com/YishenTu/claudian",
+  "skills": []
+}
