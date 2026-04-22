@@ -1,6 +1,6 @@
-# megarepo — distributed by TomeVault
+# megarepo
 
-> Originally from [HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [HerringtonDarkholme/megarepo](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/HerringtonDarkholme)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo)
 
 ---
 
