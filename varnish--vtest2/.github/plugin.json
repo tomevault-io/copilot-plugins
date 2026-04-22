@@ -1,0 +1,9 @@
+{
+  "name": "varnish--vtest2",
+  "displayName": "VTest2",
+  "description": "VTest2",
+  "version": "1.0.0",
+  "author": "varnish",
+  "homepage": "https://github.com/varnish/VTest2",
+  "skills": []
+}
