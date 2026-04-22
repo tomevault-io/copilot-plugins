@@ -1,0 +1,22 @@
+{
+  "name": "doodledood--manifest-dev",
+  "displayName": "manifest-dev",
+  "description": "Stop iterating with the model after implementation. Define what you'd accept, run two commands, ship it.",
+  "version": "1.0.0",
+  "author": "doodledood",
+  "homepage": "https://github.com/doodledood/manifest-dev",
+  "skills": [
+    {
+      "name": "auto-optimize-prompt",
+      "description": ""
+    },
+    {
+      "name": "harden-task-file",
+      "description": ""
+    },
+    {
+      "name": "learn-from-session",
+      "description": ""
+    }
+  ]
+}
