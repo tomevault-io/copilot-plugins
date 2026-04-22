@@ -1,0 +1,9 @@
+{
+  "name": "kevinmeh--code-container",
+  "displayName": "code-container",
+  "description": "Safely run OpenCode, Codex, Claude Code with full permissions.",
+  "version": "1.0.0",
+  "author": "kevinMEH",
+  "homepage": "https://github.com/kevinMEH/code-container",
+  "skills": []
+}
