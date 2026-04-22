@@ -1,0 +1,801 @@
+{
+  "name": "some_claude_skills",
+  "owner": "curiositech",
+  "repo": "some_claude_skills",
+  "description": "Claude skills that make my life easier.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "2000s-visualization-expert",
+      "path": ".claude/skills/2000s-visualization-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/2000s-visualization-expert",
+      "description": ""
+    },
+    {
+      "name": "2026-legal-research-agent",
+      "path": ".claude/skills/2026-legal-research-agent",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/2026-legal-research-agent",
+      "description": ""
+    },
+    {
+      "name": "3d-cv-labeling-2026",
+      "path": "inbox/3d-cv-labeling-2026",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/inbox/3d-cv-labeling-2026",
+      "description": ""
+    },
+    {
+      "name": "adhd-daily-planner",
+      "path": ".claude/skills/adhd-daily-planner",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/adhd-daily-planner",
+      "description": ""
+    },
+    {
+      "name": "adhd-design-expert",
+      "path": ".claude/skills/adhd-design-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/adhd-design-expert",
+      "description": ""
+    },
+    {
+      "name": "admin-dashboard",
+      "path": ".claude/skills/admin-dashboard",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/admin-dashboard",
+      "description": ""
+    },
+    {
+      "name": "agent-creator",
+      "path": ".claude/skills/agent-creator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/agent-creator",
+      "description": ""
+    },
+    {
+      "name": "ai-engineer",
+      "path": ".claude/skills/ai-engineer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/ai-engineer",
+      "description": ""
+    },
+    {
+      "name": "ai-video-production-master",
+      "path": ".claude/skills/ai-video-production-master",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/ai-video-production-master",
+      "description": ""
+    },
+    {
+      "name": "api-architect",
+      "path": ".claude/skills/api-architect",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/api-architect",
+      "description": ""
+    },
+    {
+      "name": "background-job-orchestrator",
+      "path": ".claude/skills/background-job-orchestrator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/background-job-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "bot-developer",
+      "path": ".claude/skills/bot-developer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/bot-developer",
+      "description": ""
+    },
+    {
+      "name": "career-biographer",
+      "path": ".claude/skills/career-biographer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/career-biographer",
+      "description": ""
+    },
+    {
+      "name": "chatbot-analytics",
+      "path": ".claude/skills/chatbot-analytics",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/chatbot-analytics",
+      "description": ""
+    },
+    {
+      "name": "claude-ecosystem-promoter",
+      "path": ".claude/skills/claude-ecosystem-promoter",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/claude-ecosystem-promoter",
+      "description": ""
+    },
+    {
+      "name": "clip-aware-embeddings",
+      "path": ".claude/skills/clip-aware-embeddings",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/clip-aware-embeddings",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-worker-dev",
+      "path": ".claude/skills/cloudflare-worker-dev",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/cloudflare-worker-dev",
+      "description": ""
+    },
+    {
+      "name": "code-necromancer",
+      "path": ".claude/skills/code-necromancer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/code-necromancer",
+      "description": ""
+    },
+    {
+      "name": "code-review-checklist",
+      "path": ".claude/skills/code-review-checklist",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/code-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "collage-layout-expert",
+      "path": ".claude/skills/collage-layout-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/collage-layout-expert",
+      "description": ""
+    },
+    {
+      "name": "color-contrast-auditor",
+      "path": ".claude/skills/color-contrast-auditor",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/color-contrast-auditor",
+      "description": ""
+    },
+    {
+      "name": "color-theory-palette-harmony-expert",
+      "path": ".claude/skills/color-theory-palette-harmony-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/color-theory-palette-harmony-expert",
+      "description": ""
+    },
+    {
+      "name": "computer-vision-pipeline",
+      "path": ".claude/skills/computer-vision-pipeline",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/computer-vision-pipeline",
+      "description": ""
+    },
+    {
+      "name": "cost-accrual-tracker",
+      "path": ".claude/skills/cost-accrual-tracker",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/cost-accrual-tracker",
+      "description": ""
+    },
+    {
+      "name": "cost-verification-auditor",
+      "path": ".claude/skills/cost-verification-auditor",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/cost-verification-auditor",
+      "description": ""
+    },
+    {
+      "name": "crisis-detection-intervention-ai",
+      "path": ".claude/skills/crisis-detection-intervention-ai",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/crisis-detection-intervention-ai",
+      "description": ""
+    },
+    {
+      "name": "crisis-response-protocol",
+      "path": ".claude/skills/crisis-response-protocol",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/crisis-response-protocol",
+      "description": ""
+    },
+    {
+      "name": "cv-creator",
+      "path": ".claude/skills/cv-creator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/cv-creator",
+      "description": ""
+    },
+    {
+      "name": "dark-mode-design-expert",
+      "path": ".claude/skills/dark-mode-design-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/dark-mode-design-expert",
+      "description": ""
+    },
+    {
+      "name": "data-pipeline-engineer",
+      "path": ".claude/skills/data-pipeline-engineer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/data-pipeline-engineer",
+      "description": ""
+    },
+    {
+      "name": "data-viz-2025",
+      "path": ".claude/skills/data-viz-2025",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/data-viz-2025",
+      "description": ""
+    },
+    {
+      "name": "design-archivist",
+      "path": ".claude/skills/design-archivist",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/design-archivist",
+      "description": ""
+    },
+    {
+      "name": "design-critic",
+      "path": ".claude/skills/design-critic",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/design-critic",
+      "description": ""
+    },
+    {
+      "name": "design-justice",
+      "path": ".claude/skills/design-justice",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/design-justice",
+      "description": ""
+    },
+    {
+      "name": "design-system-creator",
+      "path": ".claude/skills/design-system-creator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/design-system-creator",
+      "description": ""
+    },
+    {
+      "name": "design-system-generator",
+      "path": ".claude/skills/design-system-generator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/design-system-generator",
+      "description": ""
+    },
+    {
+      "name": "devops-automator",
+      "path": ".claude/skills/devops-automator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/devops-automator",
+      "description": ""
+    },
+    {
+      "name": "diagramming-expert",
+      "path": ".claude/skills/diagramming-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/diagramming-expert",
+      "description": ""
+    },
+    {
+      "name": "digital-estate-planner",
+      "path": ".claude/skills/digital-estate-planner",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/digital-estate-planner",
+      "description": ""
+    },
+    {
+      "name": "document-generation-pdf",
+      "path": ".claude/skills/document-generation-pdf",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/document-generation-pdf",
+      "description": ""
+    },
+    {
+      "name": "drone-cv-expert",
+      "path": ".claude/skills/drone-cv-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/drone-cv-expert",
+      "description": ""
+    },
+    {
+      "name": "drone-inspection-specialist",
+      "path": ".claude/skills/drone-inspection-specialist",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/drone-inspection-specialist",
+      "description": ""
+    },
+    {
+      "name": "fancy-yard-landscaper",
+      "path": ".claude/skills/fancy-yard-landscaper",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/fancy-yard-landscaper",
+      "description": ""
+    },
+    {
+      "name": "feature-manifest",
+      "path": ".claude/skills/feature-manifest",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/feature-manifest",
+      "description": ""
+    },
+    {
+      "name": "form-validation-architect",
+      "path": ".claude/skills/form-validation-architect",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/form-validation-architect",
+      "description": ""
+    },
+    {
+      "name": "frontend-architect",
+      "path": ".claude/skills/frontend-architect",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/frontend-architect",
+      "description": ""
+    },
+    {
+      "name": "fullstack-debugger",
+      "path": ".claude/skills/fullstack-debugger",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/fullstack-debugger",
+      "description": ""
+    },
+    {
+      "name": "geospatial-data-pipeline",
+      "path": ".claude/skills/geospatial-data-pipeline",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/geospatial-data-pipeline",
+      "description": ""
+    },
+    {
+      "name": "github-actions-pipeline-builder",
+      "path": ".claude/skills/github-actions-pipeline-builder",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/github-actions-pipeline-builder",
+      "description": ""
+    },
+    {
+      "name": "hipaa-compliance",
+      "path": ".claude/skills/hipaa-compliance",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/hipaa-compliance",
+      "description": ""
+    },
+    {
+      "name": "indie-monetization-strategist",
+      "path": ".claude/skills/indie-monetization-strategist",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/indie-monetization-strategist",
+      "description": ""
+    },
+    {
+      "name": "interior-design-expert",
+      "path": ".claude/skills/interior-design-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/interior-design-expert",
+      "description": ""
+    },
+    {
+      "name": "job-application-optimizer",
+      "path": ".claude/skills/job-application-optimizer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/job-application-optimizer",
+      "description": ""
+    },
+    {
+      "name": "jungian-psychologist",
+      "path": ".claude/skills/jungian-psychologist",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/jungian-psychologist",
+      "description": ""
+    },
+    {
+      "name": "large-scale-map-visualization",
+      "path": ".claude/skills/large-scale-map-visualization",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/large-scale-map-visualization",
+      "description": ""
+    },
+    {
+      "name": "launch-readiness-auditor",
+      "path": ".claude/skills/launch-readiness-auditor",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/launch-readiness-auditor",
+      "description": ""
+    },
+    {
+      "name": "liaison",
+      "path": ".claude/skills/liaison",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/liaison",
+      "description": ""
+    },
+    {
+      "name": "llm-streaming-response-handler",
+      "path": ".claude/skills/llm-streaming-response-handler",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/llm-streaming-response-handler",
+      "description": ""
+    },
+    {
+      "name": "maximalist-wall-decorator",
+      "path": ".claude/skills/maximalist-wall-decorator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/maximalist-wall-decorator",
+      "description": ""
+    },
+    {
+      "name": "mcp-creator",
+      "path": ".claude/skills/mcp-creator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/mcp-creator",
+      "description": ""
+    },
+    {
+      "name": "metal-shader-expert",
+      "path": ".claude/skills/metal-shader-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/metal-shader-expert",
+      "description": ""
+    },
+    {
+      "name": "mobile-ux-optimizer",
+      "path": ".claude/skills/mobile-ux-optimizer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/mobile-ux-optimizer",
+      "description": ""
+    },
+    {
+      "name": "modern-auth-2026",
+      "path": ".claude/skills/modern-auth-2026",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/modern-auth-2026",
+      "description": ""
+    },
+    {
+      "name": "native-app-designer",
+      "path": ".claude/skills/native-app-designer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/native-app-designer",
+      "description": ""
+    },
+    {
+      "name": "neobrutalist-web-designer",
+      "path": ".claude/skills/neobrutalist-web-designer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/neobrutalist-web-designer",
+      "description": ""
+    },
+    {
+      "name": "nextjs-app-router-expert",
+      "path": ".claude/skills/nextjs-app-router-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/nextjs-app-router-expert",
+      "description": ""
+    },
+    {
+      "name": "oauth-oidc-implementer",
+      "path": ".claude/skills/oauth-oidc-implementer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/oauth-oidc-implementer",
+      "description": ""
+    },
+    {
+      "name": "openapi-spec-writer",
+      "path": ".claude/skills/openapi-spec-writer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/openapi-spec-writer",
+      "description": ""
+    },
+    {
+      "name": "orchestrator",
+      "path": ".claude/skills/orchestrator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/orchestrator",
+      "description": ""
+    },
+    {
+      "name": "photo-composition-critic",
+      "path": ".claude/skills/photo-composition-critic",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/photo-composition-critic",
+      "description": ""
+    },
+    {
+      "name": "photo-content-recognition-curation-expert",
+      "path": ".claude/skills/photo-content-recognition-curation-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/photo-content-recognition-curation-expert",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e-tester",
+      "path": ".claude/skills/playwright-e2e-tester",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/playwright-e2e-tester",
+      "description": ""
+    },
+    {
+      "name": "playwright-screenshot-inspector",
+      "path": ".claude/skills/playwright-screenshot-inspector",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/playwright-screenshot-inspector",
+      "description": ""
+    },
+    {
+      "name": "product-appeal-analyzer",
+      "path": ".claude/skills/product-appeal-analyzer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/product-appeal-analyzer",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "path": ".claude/skills/prompt-engineer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "pwa-expert",
+      "path": ".claude/skills/pwa-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/pwa-expert",
+      "description": ""
+    },
+    {
+      "name": "react-performance-optimizer",
+      "path": ".claude/skills/react-performance-optimizer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/react-performance-optimizer",
+      "description": ""
+    },
+    {
+      "name": "reactive-dashboard-performance",
+      "path": ".claude/skills/reactive-dashboard-performance",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/reactive-dashboard-performance",
+      "description": ""
+    },
+    {
+      "name": "real-time-collaboration-engine",
+      "path": ".claude/skills/real-time-collaboration-engine",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/real-time-collaboration-engine",
+      "description": ""
+    },
+    {
+      "name": "recovery-app-legal-terms",
+      "path": ".claude/skills/recovery-app-legal-terms",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/recovery-app-legal-terms",
+      "description": ""
+    },
+    {
+      "name": "recovery-app-onboarding",
+      "path": ".claude/skills/recovery-app-onboarding",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/recovery-app-onboarding",
+      "description": ""
+    },
+    {
+      "name": "recovery-coach-patterns",
+      "path": ".claude/skills/recovery-coach-patterns",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/recovery-coach-patterns",
+      "description": ""
+    },
+    {
+      "name": "recovery-community-moderator",
+      "path": ".claude/skills/recovery-community-moderator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/recovery-community-moderator",
+      "description": ""
+    },
+    {
+      "name": "recovery-social-features",
+      "path": ".claude/skills/recovery-social-features",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/recovery-social-features",
+      "description": ""
+    },
+    {
+      "name": "refactoring-surgeon",
+      "path": ".claude/skills/refactoring-surgeon",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/refactoring-surgeon",
+      "description": ""
+    },
+    {
+      "name": "research-analyst",
+      "path": ".claude/skills/research-analyst",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/research-analyst",
+      "description": ""
+    },
+    {
+      "name": "rest-api-design",
+      "path": ".claude/skills/rest-api-design",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/rest-api-design",
+      "description": ""
+    },
+    {
+      "name": "security-auditor",
+      "path": ".claude/skills/security-auditor",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/security-auditor",
+      "description": ""
+    },
+    {
+      "name": "seo-visibility-expert",
+      "path": ".claude/skills/seo-visibility-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/seo-visibility-expert",
+      "description": ""
+    },
+    {
+      "name": "site-reliability-engineer",
+      "path": ".claude/skills/site-reliability-engineer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/site-reliability-engineer",
+      "description": ""
+    },
+    {
+      "name": "skill-architect",
+      "path": ".claude/skills/skill-architect",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/skill-architect",
+      "description": ""
+    },
+    {
+      "name": "skill-coach",
+      "path": ".claude/skills/skill-coach",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/skill-coach",
+      "description": ""
+    },
+    {
+      "name": "after",
+      "path": "website/src/data/artifacts/single-skill/skill-coach/001-self-improvement/after",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/website/src/data/artifacts/single-skill/skill-coach/001-self-improvement/after",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-documentarian",
+      "path": ".claude/skills/skill-documentarian",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/skill-documentarian",
+      "description": ""
+    },
+    {
+      "name": "skill-logger",
+      "path": ".claude/skills/skill-logger",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/skill-logger",
+      "description": ""
+    },
+    {
+      "name": "sober-addict-protector",
+      "path": ".claude/skills/sober-addict-protector",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/sober-addict-protector",
+      "description": ""
+    },
+    {
+      "name": "sobriety-tools-guardian",
+      "path": ".claude/skills/sobriety-tools-guardian",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/sobriety-tools-guardian",
+      "description": ""
+    },
+    {
+      "name": "sound-engineer",
+      "path": ".claude/skills/sound-engineer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/sound-engineer",
+      "description": ""
+    },
+    {
+      "name": "speech-pathology-ai",
+      "path": ".claude/skills/speech-pathology-ai",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/speech-pathology-ai",
+      "description": ""
+    },
+    {
+      "name": "supabase-admin",
+      "path": ".claude/skills/supabase-admin",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/supabase-admin",
+      "description": ""
+    },
+    {
+      "name": "team-builder",
+      "path": ".claude/skills/team-builder",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/team-builder",
+      "description": ""
+    },
+    {
+      "name": "tech-entrepreneur-coach-adhd",
+      "path": ".claude/skills/tech-entrepreneur-coach-adhd",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/tech-entrepreneur-coach-adhd",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "path": ".claude/skills/technical-writer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/technical-writer",
+      "description": ""
+    },
+    {
+      "name": "terraform-iac-expert",
+      "path": ".claude/skills/terraform-iac-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/terraform-iac-expert",
+      "description": ""
+    },
+    {
+      "name": "test-automation-expert",
+      "path": ".claude/skills/test-automation-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/test-automation-expert",
+      "description": ""
+    },
+    {
+      "name": "typography-expert",
+      "path": ".claude/skills/typography-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/typography-expert",
+      "description": ""
+    },
+    {
+      "name": "ux-friction-analyzer",
+      "path": ".claude/skills/ux-friction-analyzer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/ux-friction-analyzer",
+      "description": ""
+    },
+    {
+      "name": "vaporwave-glassomorphic-ui-designer",
+      "path": ".claude/skills/vaporwave-glassomorphic-ui-designer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/vaporwave-glassomorphic-ui-designer",
+      "description": ""
+    },
+    {
+      "name": "vercel-deployment",
+      "path": ".claude/skills/vercel-deployment",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/vercel-deployment",
+      "description": ""
+    },
+    {
+      "name": "vibe-matcher",
+      "path": ".claude/skills/vibe-matcher",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/vibe-matcher",
+      "description": ""
+    },
+    {
+      "name": "video-processing-editing",
+      "path": ".claude/skills/video-processing-editing",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/video-processing-editing",
+      "description": ""
+    },
+    {
+      "name": "vitest-testing-patterns",
+      "path": ".claude/skills/vitest-testing-patterns",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/vitest-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "voice-audio-engineer",
+      "path": ".claude/skills/voice-audio-engineer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/voice-audio-engineer",
+      "description": ""
+    },
+    {
+      "name": "vr-avatar-engineer",
+      "path": ".claude/skills/vr-avatar-engineer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/vr-avatar-engineer",
+      "description": ""
+    },
+    {
+      "name": "web-cloud-designer",
+      "path": ".claude/skills/web-cloud-designer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/web-cloud-designer",
+      "description": ""
+    },
+    {
+      "name": "web-design-expert",
+      "path": ".claude/skills/web-design-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/web-design-expert",
+      "description": ""
+    },
+    {
+      "name": "web-wave-designer",
+      "path": ".claude/skills/web-wave-designer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/web-wave-designer",
+      "description": ""
+    },
+    {
+      "name": "web-weather-creator",
+      "path": ".claude/skills/web-weather-creator",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/web-weather-creator",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": ".claude/skills/webapp-testing",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "wedding-immortalist",
+      "path": ".claude/skills/wedding-immortalist",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/wedding-immortalist",
+      "description": ""
+    },
+    {
+      "name": "win31-audio-design",
+      "path": ".claude/skills/win31-audio-design",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/win31-audio-design",
+      "description": ""
+    },
+    {
+      "name": "win31-pixel-art-designer",
+      "path": ".claude/skills/win31-pixel-art-designer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/win31-pixel-art-designer",
+      "description": ""
+    },
+    {
+      "name": "windows-3-1-web-designer",
+      "path": ".claude/skills/windows-3-1-web-designer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/windows-3-1-web-designer",
+      "description": ""
+    },
+    {
+      "name": "windows-95-web-designer",
+      "path": ".claude/skills/windows-95-web-designer",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/windows-95-web-designer",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-expert",
+      "path": ".claude/skills/git-workflow-expert",
+      "github_url": "https://github.com/curiositech/some_claude_skills/tree/main/.claude/skills/git-workflow-expert",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/curiositech/some_claude_skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T23:32:23Z"
+}
