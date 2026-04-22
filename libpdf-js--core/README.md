@@ -2,20 +2,22 @@
 
 > Sourced from [LibPDF-js/core](https://github.com/LibPDF-js/core) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+A modern PDF library for TypeScript. Parse, modify, and generate PDFs with a clean, intuitive API.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [LibPDF-js/core](https://github.com/LibPDF-js/core).
+Original source: `AGENTS.md` in [LibPDF-js/core](https://github.com/LibPDF-js/core).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [LibPDF-js/core](https://github.com/LibPDF-js/core) — a repo with 0+ stars on GitHub.
+From [LibPDF-js/core](https://github.com/LibPDF-js/core) — a repo with 1679+ stars on GitHub.
 
 ---
 
