@@ -1,0 +1,63 @@
+{
+  "name": "claude-plugins",
+  "owner": "nicknisi",
+  "repo": "claude-plugins",
+  "description": "Nick's own marketplace of Claude Plugins",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "autoskill",
+      "path": "plugins/meta/skills/autoskill",
+      "github_url": "https://github.com/nicknisi/claude-plugins/tree/main/plugins/meta/skills/autoskill",
+      "description": ""
+    },
+    {
+      "name": "claude-code-analyzer",
+      "path": "plugins/meta/skills/claude-code-analyzer",
+      "github_url": "https://github.com/nicknisi/claude-plugins/tree/main/plugins/meta/skills/claude-code-analyzer",
+      "description": ""
+    },
+    {
+      "name": "ideation",
+      "path": "plugins/ideation/skills/ideation",
+      "github_url": "https://github.com/nicknisi/claude-plugins/tree/main/plugins/ideation/skills/ideation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nicknisi/claude-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T23:36:44Z"
+}
