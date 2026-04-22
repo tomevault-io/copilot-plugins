@@ -1,0 +1,495 @@
+{
+  "name": "agent-skills",
+  "owner": "jwynia",
+  "repo": "agent-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": "skills/tech/frontend/design/frontend-design",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/frontend/design/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "presentation-design",
+      "path": "skills/general/communication/presentation-design",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/communication/presentation-design",
+      "description": ""
+    },
+    {
+      "name": "requirements-analysis",
+      "path": "skills/tech/development/architecture/requirements-analysis",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/architecture/requirements-analysis",
+      "description": ""
+    },
+    {
+      "name": "godot-best-practices",
+      "path": "skills/tech/game-development/godot/godot-best-practices",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/game-development/godot/godot-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "path": "skills/general/research/tools/web-search",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/research/tools/web-search",
+      "description": ""
+    },
+    {
+      "name": "system-design",
+      "path": "skills/tech/development/architecture/system-design",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/architecture/system-design",
+      "description": ""
+    },
+    {
+      "name": "web-search-tavily",
+      "path": "skills/general/research/tools/web-search-tavily",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/research/tools/web-search-tavily",
+      "description": ""
+    },
+    {
+      "name": "godot-asset-generator",
+      "path": "skills/tech/game-development/godot/godot-asset-generator",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/game-development/godot/godot-asset-generator",
+      "description": ""
+    },
+    {
+      "name": "task-decomposition",
+      "path": "skills/tech/development/quality/task-decomposition",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/quality/task-decomposition",
+      "description": ""
+    },
+    {
+      "name": "research-workflow",
+      "path": "skills/general/research/methodology/research-workflow",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/research/methodology/research-workflow",
+      "description": ""
+    },
+    {
+      "name": "docx-generator",
+      "path": "skills/general/document-processing/word/docx-generator",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/document-processing/word/docx-generator",
+      "description": ""
+    },
+    {
+      "name": "shadcn-layouts",
+      "path": "skills/tech/frontend/design/shadcn-layouts",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/frontend/design/shadcn-layouts",
+      "description": ""
+    },
+    {
+      "name": "story-idea-generator",
+      "path": "skills/creative/fiction/core/story-idea-generator",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/core/story-idea-generator",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/tech/development/quality/code-review",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/quality/code-review",
+      "description": ""
+    },
+    {
+      "name": "architecture-decision",
+      "path": "skills/tech/development/architecture/architecture-decision",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/architecture/architecture-decision",
+      "description": ""
+    },
+    {
+      "name": "pdf-generator",
+      "path": "skills/general/document-processing/pdf/pdf-generator",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/document-processing/pdf/pdf-generator",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "path": "skills/tech/development/tooling/typescript-best-practices",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/tooling/typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "path": "skills/general/meta/skill-builder",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/meta/skill-builder",
+      "description": ""
+    },
+    {
+      "name": "story-collaborator",
+      "path": "skills/creative/fiction/core/story-collaborator",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/core/story-collaborator",
+      "description": ""
+    },
+    {
+      "name": "task-breakdown",
+      "path": "skills/general/productivity/task-breakdown",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/productivity/task-breakdown",
+      "description": ""
+    },
+    {
+      "name": "story-sense",
+      "path": "skills/creative/fiction/core/story-sense",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/core/story-sense",
+      "description": ""
+    },
+    {
+      "name": "context-retrospective",
+      "path": "skills/general/meta/context-retrospective",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/meta/context-retrospective",
+      "description": ""
+    },
+    {
+      "name": "story-coach",
+      "path": "skills/creative/fiction/core/story-coach",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/core/story-coach",
+      "description": ""
+    },
+    {
+      "name": "naming",
+      "path": "skills/general/ideation/naming",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/ideation/naming",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "skills/general/research/methodology/research",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/research/methodology/research",
+      "description": ""
+    },
+    {
+      "name": "context-network",
+      "path": "skills/general/meta/context-network",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/meta/context-network",
+      "description": ""
+    },
+    {
+      "name": "musical-dna",
+      "path": "skills/creative/music/musical-dna",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/music/musical-dna",
+      "description": ""
+    },
+    {
+      "name": "voice-analysis",
+      "path": "skills/general/writing/analysis/voice-analysis",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/writing/analysis/voice-analysis",
+      "description": ""
+    },
+    {
+      "name": "agile-workflow",
+      "path": "skills/tech/development/workflow/agile-workflow",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/workflow/agile-workflow",
+      "description": ""
+    },
+    {
+      "name": "worldbuilding",
+      "path": "skills/creative/fiction/worldbuilding/worldbuilding",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/worldbuilding/worldbuilding",
+      "description": ""
+    },
+    {
+      "name": "pwa-development",
+      "path": "skills/tech/frontend/pwa/pwa-development",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/frontend/pwa/pwa-development",
+      "description": ""
+    },
+    {
+      "name": "interactive-fiction",
+      "path": "skills/creative/fiction/application/interactive-fiction",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/application/interactive-fiction",
+      "description": ""
+    },
+    {
+      "name": "mastra-hono",
+      "path": "skills/tech/ai/mastra-hono",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/ai/mastra-hono",
+      "description": ""
+    },
+    {
+      "name": "agile-coordinator",
+      "path": "skills/tech/development/workflow/agile-coordinator",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/workflow/agile-coordinator",
+      "description": ""
+    },
+    {
+      "name": "gentle-teaching",
+      "path": "skills/general/education/gentle-teaching",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/education/gentle-teaching",
+      "description": ""
+    },
+    {
+      "name": "devcontainer",
+      "path": "skills/tech/development/tooling/devcontainer",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/tooling/devcontainer",
+      "description": ""
+    },
+    {
+      "name": "revision",
+      "path": "skills/creative/fiction/craft/revision",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/craft/revision",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "skills/creative/fiction/character/character-arc",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/character/character-arc",
+      "description": ""
+    },
+    {
+      "name": "github-agile",
+      "path": "skills/tech/development/workflow/github-agile",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/workflow/github-agile",
+      "description": ""
+    },
+    {
+      "name": "non-fiction-revision",
+      "path": "skills/general/writing/revision/non-fiction-revision",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/writing/revision/non-fiction-revision",
+      "description": ""
+    },
+    {
+      "name": "outline-collaborator",
+      "path": "skills/creative/fiction/structure/outline-collaborator",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/structure/outline-collaborator",
+      "description": ""
+    },
+    {
+      "name": "abstract-strategy",
+      "path": "skills/tech/game-development/design/abstract-strategy",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/game-development/design/abstract-strategy",
+      "description": ""
+    },
+    {
+      "name": "key-moments",
+      "path": "skills/creative/fiction/structure/key-moments",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/structure/key-moments",
+      "description": ""
+    },
+    {
+      "name": "language-evolution",
+      "path": "skills/creative/fiction/worldbuilding/language-evolution",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/worldbuilding/language-evolution",
+      "description": ""
+    },
+    {
+      "name": "economic-systems",
+      "path": "skills/creative/fiction/worldbuilding/economic-systems",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/worldbuilding/economic-systems",
+      "description": ""
+    },
+    {
+      "name": "endings",
+      "path": "skills/creative/fiction/structure/endings",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/structure/endings",
+      "description": ""
+    },
+    {
+      "name": "multi-order-evolution",
+      "path": "skills/creative/fiction/application/multi-order-evolution",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/application/multi-order-evolution",
+      "description": ""
+    },
+    {
+      "name": "oblique-worldbuilding",
+      "path": "skills/creative/fiction/worldbuilding/oblique-worldbuilding",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/worldbuilding/oblique-worldbuilding",
+      "description": ""
+    },
+    {
+      "name": "lyric-diagnostic",
+      "path": "skills/creative/music/lyric-diagnostic",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/music/lyric-diagnostic",
+      "description": ""
+    },
+    {
+      "name": "outline-coach",
+      "path": "skills/creative/fiction/structure/outline-coach",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/structure/outline-coach",
+      "description": ""
+    },
+    {
+      "name": "scene-sequencing",
+      "path": "skills/creative/fiction/structure/scene-sequencing",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/structure/scene-sequencing",
+      "description": ""
+    },
+    {
+      "name": "settlement-design",
+      "path": "skills/creative/fiction/worldbuilding/settlement-design",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/worldbuilding/settlement-design",
+      "description": ""
+    },
+    {
+      "name": "governance-systems",
+      "path": "skills/creative/fiction/worldbuilding/governance-systems",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/worldbuilding/governance-systems",
+      "description": ""
+    },
+    {
+      "name": "cliche-transcendence",
+      "path": "skills/creative/fiction/craft/cliche-transcendence",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/craft/cliche-transcendence",
+      "description": ""
+    },
+    {
+      "name": "sleep-story",
+      "path": "skills/creative/fiction/application/sleep-story",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/application/sleep-story",
+      "description": ""
+    },
+    {
+      "name": "adaptation-synthesis",
+      "path": "skills/creative/fiction/application/adaptation-synthesis",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/application/adaptation-synthesis",
+      "description": ""
+    },
+    {
+      "name": "belief-systems",
+      "path": "skills/creative/fiction/worldbuilding/belief-systems",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/worldbuilding/belief-systems",
+      "description": ""
+    },
+    {
+      "name": "chapter-drafter",
+      "path": "skills/creative/fiction/orchestrators/chapter-drafter",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/orchestrators/chapter-drafter",
+      "description": ""
+    },
+    {
+      "name": "statistical-distance",
+      "path": "skills/creative/fiction/character/statistical-distance",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/character/statistical-distance",
+      "description": ""
+    },
+    {
+      "name": "agent-bootstrap",
+      "path": "skills/general/meta/agent-bootstrap",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/meta/agent-bootstrap",
+      "description": ""
+    },
+    {
+      "name": "competency",
+      "path": "skills/general/education/competency",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/education/competency",
+      "description": ""
+    },
+    {
+      "name": "config-scan",
+      "path": "skills/tech/security/config-scan",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/security/config-scan",
+      "description": ""
+    },
+    {
+      "name": "document-to-narration",
+      "path": "skills/education/document-to-narration",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/education/document-to-narration",
+      "description": ""
+    },
+    {
+      "name": "electron-best-practices",
+      "path": "skills/tech/development/tooling/electron-best-practices",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/tooling/electron-best-practices",
+      "description": ""
+    },
+    {
+      "name": "gitea-coordinator",
+      "path": "skills/tech/development/workflow/gitea-coordinator",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/workflow/gitea-coordinator",
+      "description": ""
+    },
+    {
+      "name": "gitea-workflow",
+      "path": "skills/tech/development/workflow/gitea-workflow",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/workflow/gitea-workflow",
+      "description": ""
+    },
+    {
+      "name": "metabolic-cultures",
+      "path": "skills/creative/fiction/worldbuilding/metabolic-cultures",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/creative/fiction/worldbuilding/metabolic-cultures",
+      "description": ""
+    },
+    {
+      "name": "npm-package",
+      "path": "skills/tech/development/tooling/npm-package",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/tooling/npm-package",
+      "description": ""
+    },
+    {
+      "name": "npx-cli",
+      "path": "skills/tech/development/tooling/npx-cli",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/tooling/npx-cli",
+      "description": ""
+    },
+    {
+      "name": "product-analysis",
+      "path": "skills/development/architecture/product-analysis",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/development/architecture/product-analysis",
+      "description": ""
+    },
+    {
+      "name": "react-pwa",
+      "path": "skills/tech/frontend/pwa/react-pwa",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/frontend/pwa/react-pwa",
+      "description": ""
+    },
+    {
+      "name": "scraper-builder",
+      "path": "skills/tech/development/tooling/scraper-builder",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/development/tooling/scraper-builder",
+      "description": ""
+    },
+    {
+      "name": "secrets-scan",
+      "path": "skills/tech/security/secrets-scan",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/security/secrets-scan",
+      "description": ""
+    },
+    {
+      "name": "security-scan",
+      "path": "skills/tech/security/security-scan",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/tech/security/security-scan",
+      "description": ""
+    },
+    {
+      "name": "skill-integrator",
+      "path": "skills/general/meta/skill-integrator",
+      "github_url": "https://github.com/jwynia/agent-skills/tree/main/skills/general/meta/skill-integrator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jwynia/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:35:50Z"
+}
