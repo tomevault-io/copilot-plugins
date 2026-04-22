@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [masterpiece-alliances/macc-website](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/masterpiece-alliances)
+From [masterpiece-alliances/macc-website](https://github.com/masterpiece-alliances/macc-website) — a repo with 0+ stars on GitHub.
 
 ---
 
