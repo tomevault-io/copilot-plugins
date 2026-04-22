@@ -1,0 +1,1406 @@
+{
+  "name": "melodic-software--claude-code-plugins",
+  "displayName": "claude-code-plugins",
+  "description": "claude-code-plugins",
+  "version": "1.0.0",
+  "author": "melodic-software",
+  "homepage": "https://github.com/melodic-software/claude-code-plugins",
+  "skills": [
+    {
+      "name": "data-modeling",
+      "description": ""
+    },
+    {
+      "name": "state-machine-design",
+      "description": ""
+    },
+    {
+      "name": "plantuml-syntax",
+      "description": ""
+    },
+    {
+      "name": "acceptance-criteria-authoring",
+      "description": ""
+    },
+    {
+      "name": "adr-management",
+      "description": ""
+    },
+    {
+      "name": "adw-design",
+      "description": ""
+    },
+    {
+      "name": "agent-expert-creation",
+      "description": ""
+    },
+    {
+      "name": "agent-governance",
+      "description": ""
+    },
+    {
+      "name": "agent-lifecycle-management",
+      "description": ""
+    },
+    {
+      "name": "agent-sdk-development",
+      "description": ""
+    },
+    {
+      "name": "agent-specialization",
+      "description": ""
+    },
+    {
+      "name": "agentic-kpi-tracking",
+      "description": ""
+    },
+    {
+      "name": "agentic-layer-assessment",
+      "description": ""
+    },
+    {
+      "name": "agentic-layer-audit",
+      "description": ""
+    },
+    {
+      "name": "ai-governance",
+      "description": ""
+    },
+    {
+      "name": "ai-governance",
+      "description": ""
+    },
+    {
+      "name": "ai-tools",
+      "description": ""
+    },
+    {
+      "name": "ai-writing-assistant",
+      "description": ""
+    },
+    {
+      "name": "analyze",
+      "description": ""
+    },
+    {
+      "name": "analyze-automation-roi",
+      "description": ""
+    },
+    {
+      "name": "analyze-pyramid",
+      "description": ""
+    },
+    {
+      "name": "api-contract",
+      "description": ""
+    },
+    {
+      "name": "api-design-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "api-portal-design",
+      "description": ""
+    },
+    {
+      "name": "api-review",
+      "description": ""
+    },
+    {
+      "name": "api-security",
+      "description": ""
+    },
+    {
+      "name": "api-security",
+      "description": ""
+    },
+    {
+      "name": "api-versioning",
+      "description": ""
+    },
+    {
+      "name": "apply-findings",
+      "description": ""
+    },
+    {
+      "name": "arc42-documentation",
+      "description": ""
+    },
+    {
+      "name": "architecture-documentation",
+      "description": ""
+    },
+    {
+      "name": "architecture-review",
+      "description": ""
+    },
+    {
+      "name": "assess-ai",
+      "description": ""
+    },
+    {
+      "name": "asyncapi-authoring",
+      "description": ""
+    },
+    {
+      "name": "asyncapi-design",
+      "description": ""
+    },
+    {
+      "name": "audit",
+      "description": ""
+    },
+    {
+      "name": "audit-agent-consolidation",
+      "description": ""
+    },
+    {
+      "name": "audit-agents",
+      "description": ""
+    },
+    {
+      "name": "audit-docs-delegation",
+      "description": ""
+    },
+    {
+      "name": "audit-hooks",
+      "description": ""
+    },
+    {
+      "name": "audit-layer",
+      "description": ""
+    },
+    {
+      "name": "audit-log",
+      "description": ""
+    },
+    {
+      "name": "audit-lsp",
+      "description": ""
+    },
+    {
+      "name": "audit-memory",
+      "description": ""
+    },
+    {
+      "name": "audit-output-styles",
+      "description": ""
+    },
+    {
+      "name": "audit-plugins",
+      "description": ""
+    },
+    {
+      "name": "audit-rules",
+      "description": ""
+    },
+    {
+      "name": "audit-schema",
+      "description": ""
+    },
+    {
+      "name": "audit-settings",
+      "description": ""
+    },
+    {
+      "name": "audit-skills",
+      "description": ""
+    },
+    {
+      "name": "audit-statuslines",
+      "description": ""
+    },
+    {
+      "name": "authentication-patterns",
+      "description": ""
+    },
+    {
+      "name": "authorization-models",
+      "description": ""
+    },
+    {
+      "name": "automation-strategy",
+      "description": ""
+    },
+    {
+      "name": "bash-aliases",
+      "description": ""
+    },
+    {
+      "name": "batch-scrape",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "brand-statement",
+      "description": ""
+    },
+    {
+      "name": "broadcast-event",
+      "description": ""
+    },
+    {
+      "name": "business-model-canvas",
+      "description": ""
+    },
+    {
+      "name": "business-rules-analysis",
+      "description": ""
+    },
+    {
+      "name": "c4-documentation",
+      "description": ""
+    },
+    {
+      "name": "cdn-architecture",
+      "description": ""
+    },
+    {
+      "name": "cdn-media-delivery",
+      "description": ""
+    },
+    {
+      "name": "chaos-engineering-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "chaos-plan",
+      "description": ""
+    },
+    {
+      "name": "check-api-status",
+      "description": ""
+    },
+    {
+      "name": "classify-issue",
+      "description": ""
+    },
+    {
+      "name": "claude-desktop",
+      "description": ""
+    },
+    {
+      "name": "closed-loop-design",
+      "description": ""
+    },
+    {
+      "name": "code-review-communication",
+      "description": ""
+    },
+    {
+      "name": "code-reviewing",
+      "description": ""
+    },
+    {
+      "name": "codex-cli-docs",
+      "description": ""
+    },
+    {
+      "name": "commit-with-agent",
+      "description": ""
+    },
+    {
+      "name": "composable-primitives",
+      "description": ""
+    },
+    {
+      "name": "composable-step-design",
+      "description": ""
+    },
+    {
+      "name": "conditional-docs-setup",
+      "description": ""
+    },
+    {
+      "name": "conduct",
+      "description": ""
+    },
+    {
+      "name": "container-security",
+      "description": ""
+    },
+    {
+      "name": "content-relationships",
+      "description": ""
+    },
+    {
+      "name": "content-type-modeling",
+      "description": ""
+    },
+    {
+      "name": "content-versioning",
+      "description": ""
+    },
+    {
+      "name": "content-workflow",
+      "description": ""
+    },
+    {
+      "name": "context-audit",
+      "description": ""
+    },
+    {
+      "name": "context-hierarchy-design",
+      "description": ""
+    },
+    {
+      "name": "contract-first-design",
+      "description": ""
+    },
+    {
+      "name": "contract-test-design",
+      "description": ""
+    },
+    {
+      "name": "coverage-report",
+      "description": ""
+    },
+    {
+      "name": "create-adr",
+      "description": ""
+    },
+    {
+      "name": "create-agent",
+      "description": ""
+    },
+    {
+      "name": "create-expert",
+      "description": ""
+    },
+    {
+      "name": "create-prompt",
+      "description": ""
+    },
+    {
+      "name": "create-runbook",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "description": ""
+    },
+    {
+      "name": "create-strategy",
+      "description": ""
+    },
+    {
+      "name": "create-style-guide",
+      "description": ""
+    },
+    {
+      "name": "create-tool",
+      "description": ""
+    },
+    {
+      "name": "cursor-docs",
+      "description": ""
+    },
+    {
+      "name": "custom-agent-design",
+      "description": ""
+    },
+    {
+      "name": "data-architecture",
+      "description": ""
+    },
+    {
+      "name": "data-flow",
+      "description": ""
+    },
+    {
+      "name": "deploy-team",
+      "description": ""
+    },
+    {
+      "name": "design-interview-methodology",
+      "description": ""
+    },
+    {
+      "name": "design-media-strategy",
+      "description": ""
+    },
+    {
+      "name": "design-navigation",
+      "description": ""
+    },
+    {
+      "name": "design-page-builder",
+      "description": ""
+    },
+    {
+      "name": "design-taxonomy",
+      "description": ""
+    },
+    {
+      "name": "design-theme-system",
+      "description": ""
+    },
+    {
+      "name": "design-token-management",
+      "description": ""
+    },
+    {
+      "name": "detect-over-engineering",
+      "description": ""
+    },
+    {
+      "name": "developer-visibility",
+      "description": ""
+    },
+    {
+      "name": "devsecops-practices",
+      "description": ""
+    },
+    {
+      "name": "diagnose-performance",
+      "description": ""
+    },
+    {
+      "name": "diagram-patterns",
+      "description": ""
+    },
+    {
+      "name": "difficult-conversations",
+      "description": ""
+    },
+    {
+      "name": "discover",
+      "description": ""
+    },
+    {
+      "name": "doc-architecture",
+      "description": ""
+    },
+    {
+      "name": "docs-as-code",
+      "description": ""
+    },
+    {
+      "name": "docs-management",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "description": ""
+    },
+    {
+      "name": "doctrine-assessment",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "description": ""
+    },
+    {
+      "name": "document-extraction",
+      "description": ""
+    },
+    {
+      "name": "domain-research",
+      "description": ""
+    },
+    {
+      "name": "duende-docs",
+      "description": ""
+    },
+    {
+      "name": "dynamic-schema-design",
+      "description": ""
+    },
+    {
+      "name": "e2e-test-design",
+      "description": ""
+    },
+    {
+      "name": "ea-dashboard",
+      "description": ""
+    },
+    {
+      "name": "ea-document",
+      "description": ""
+    },
+    {
+      "name": "ears-author",
+      "description": ""
+    },
+    {
+      "name": "ears-authoring",
+      "description": ""
+    },
+    {
+      "name": "ecosystem-health",
+      "description": ""
+    },
+    {
+      "name": "edge-computing",
+      "description": ""
+    },
+    {
+      "name": "edge-strategy",
+      "description": ""
+    },
+    {
+      "name": "elicitation-methodology",
+      "description": ""
+    },
+    {
+      "name": "enterprise-security",
+      "description": ""
+    },
+    {
+      "name": "estimation-techniques",
+      "description": ""
+    },
+    {
+      "name": "ethics-review",
+      "description": ""
+    },
+    {
+      "name": "etl-elt-patterns",
+      "description": ""
+    },
+    {
+      "name": "event-sourcing-design",
+      "description": ""
+    },
+    {
+      "name": "event-storming",
+      "description": ""
+    },
+    {
+      "name": "expertise-file-design",
+      "description": ""
+    },
+    {
+      "name": "explain",
+      "description": ""
+    },
+    {
+      "name": "explore-migration",
+      "description": ""
+    },
+    {
+      "name": "export-system-prompt",
+      "description": ""
+    },
+    {
+      "name": "extract",
+      "description": ""
+    },
+    {
+      "name": "feature",
+      "description": ""
+    },
+    {
+      "name": "fitness-functions",
+      "description": ""
+    },
+    {
+      "name": "gameday-planning",
+      "description": ""
+    },
+    {
+      "name": "gateway-script-design",
+      "description": ""
+    },
+    {
+      "name": "gemini-analyze",
+      "description": ""
+    },
+    {
+      "name": "gemini-checkpoint-management",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli-docs",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli-execution",
+      "description": ""
+    },
+    {
+      "name": "gemini-command-development",
+      "description": ""
+    },
+    {
+      "name": "gemini-config-management",
+      "description": ""
+    },
+    {
+      "name": "gemini-context-bridge",
+      "description": ""
+    },
+    {
+      "name": "gemini-delegation-patterns",
+      "description": ""
+    },
+    {
+      "name": "gemini-exploration-patterns",
+      "description": ""
+    },
+    {
+      "name": "gemini-explore",
+      "description": ""
+    },
+    {
+      "name": "gemini-extension-development",
+      "description": ""
+    },
+    {
+      "name": "gemini-json-parsing",
+      "description": ""
+    },
+    {
+      "name": "gemini-mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "gemini-query",
+      "description": ""
+    },
+    {
+      "name": "gemini-sandbox-configuration",
+      "description": ""
+    },
+    {
+      "name": "gemini-session-management",
+      "description": ""
+    },
+    {
+      "name": "gemini-token-optimization",
+      "description": ""
+    },
+    {
+      "name": "gemini-workspace-bridge",
+      "description": ""
+    },
+    {
+      "name": "generate-branch-name",
+      "description": ""
+    },
+    {
+      "name": "generate-cases",
+      "description": ""
+    },
+    {
+      "name": "gherkin-author",
+      "description": ""
+    },
+    {
+      "name": "gherkin-authoring",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "git-identity",
+      "description": ""
+    },
+    {
+      "name": "git-worktree-setup",
+      "description": ""
+    },
+    {
+      "name": "github-actions",
+      "description": ""
+    },
+    {
+      "name": "golden-paths",
+      "description": ""
+    },
+    {
+      "name": "gpg-signing",
+      "description": ""
+    },
+    {
+      "name": "headless-api-design",
+      "description": ""
+    },
+    {
+      "name": "hipaa-compliance",
+      "description": ""
+    },
+    {
+      "name": "hook-event-architecture",
+      "description": ""
+    },
+    {
+      "name": "hook-management",
+      "description": ""
+    },
+    {
+      "name": "hook-schema-audit",
+      "description": ""
+    },
+    {
+      "name": "idempotency-patterns",
+      "description": ""
+    },
+    {
+      "name": "image-optimization",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "description": ""
+    },
+    {
+      "name": "improve-expertise",
+      "description": ""
+    },
+    {
+      "name": "incident-response",
+      "description": ""
+    },
+    {
+      "name": "install-worktree",
+      "description": ""
+    },
+    {
+      "name": "internal-developer-platform",
+      "description": ""
+    },
+    {
+      "name": "interview",
+      "description": ""
+    },
+    {
+      "name": "interview-conducting",
+      "description": ""
+    },
+    {
+      "name": "interview-skills",
+      "description": ""
+    },
+    {
+      "name": "issue-classification",
+      "description": ""
+    },
+    {
+      "name": "kiro-integration",
+      "description": ""
+    },
+    {
+      "name": "kiro-sync",
+      "description": ""
+    },
+    {
+      "name": "latency-optimization",
+      "description": ""
+    },
+    {
+      "name": "leverage-point-audit",
+      "description": ""
+    },
+    {
+      "name": "lint-md",
+      "description": ""
+    },
+    {
+      "name": "list",
+      "description": ""
+    },
+    {
+      "name": "list-agent-tools",
+      "description": ""
+    },
+    {
+      "name": "list-prompt-levels",
+      "description": ""
+    },
+    {
+      "name": "llm-serving-patterns",
+      "description": ""
+    },
+    {
+      "name": "log-inspection",
+      "description": ""
+    },
+    {
+      "name": "lsp-management",
+      "description": ""
+    },
+    {
+      "name": "markdown-linting",
+      "description": ""
+    },
+    {
+      "name": "mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "media-asset-management",
+      "description": ""
+    },
+    {
+      "name": "memory-management",
+      "description": ""
+    },
+    {
+      "name": "mentoring-developers",
+      "description": ""
+    },
+    {
+      "name": "mermaid-syntax",
+      "description": ""
+    },
+    {
+      "name": "meta-agentic-creation",
+      "description": ""
+    },
+    {
+      "name": "milan-jovanovic-blog",
+      "description": ""
+    },
+    {
+      "name": "minimum-viable-agentic",
+      "description": ""
+    },
+    {
+      "name": "ml-inference-optimization",
+      "description": ""
+    },
+    {
+      "name": "ml-pipeline",
+      "description": ""
+    },
+    {
+      "name": "ml-system-design",
+      "description": ""
+    },
+    {
+      "name": "mock-interview",
+      "description": ""
+    },
+    {
+      "name": "model-content",
+      "description": ""
+    },
+    {
+      "name": "model-selection",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-observability",
+      "description": ""
+    },
+    {
+      "name": "multi-region-deployment",
+      "description": ""
+    },
+    {
+      "name": "navigation-architecture",
+      "description": ""
+    },
+    {
+      "name": "observability-patterns",
+      "description": ""
+    },
+    {
+      "name": "onboarding",
+      "description": ""
+    },
+    {
+      "name": "onboarding-docs",
+      "description": ""
+    },
+    {
+      "name": "openapi-authoring",
+      "description": ""
+    },
+    {
+      "name": "openapi-design",
+      "description": ""
+    },
+    {
+      "name": "optimize-images",
+      "description": ""
+    },
+    {
+      "name": "orchestrate",
+      "description": ""
+    },
+    {
+      "name": "orchestration-prompts",
+      "description": ""
+    },
+    {
+      "name": "orchestrator-design",
+      "description": ""
+    },
+    {
+      "name": "output-customization",
+      "description": ""
+    },
+    {
+      "name": "page-structure-design",
+      "description": ""
+    },
+    {
+      "name": "patch-design",
+      "description": ""
+    },
+    {
+      "name": "performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "performance-test-planning",
+      "description": ""
+    },
+    {
+      "name": "permission-management",
+      "description": ""
+    },
+    {
+      "name": "piter-setup",
+      "description": ""
+    },
+    {
+      "name": "plan-data",
+      "description": ""
+    },
+    {
+      "name": "platform-design",
+      "description": ""
+    },
+    {
+      "name": "plugin-development",
+      "description": ""
+    },
+    {
+      "name": "policy-engine-builder",
+      "description": ""
+    },
+    {
+      "name": "prime",
+      "description": ""
+    },
+    {
+      "name": "prioritize",
+      "description": ""
+    },
+    {
+      "name": "product-expert-design",
+      "description": ""
+    },
+    {
+      "name": "professional-communication",
+      "description": ""
+    },
+    {
+      "name": "promotion-preparation",
+      "description": ""
+    },
+    {
+      "name": "prompt-improvement",
+      "description": ""
+    },
+    {
+      "name": "prompt-level-selection",
+      "description": ""
+    },
+    {
+      "name": "prompt-section-design",
+      "description": ""
+    },
+    {
+      "name": "protobuf-design",
+      "description": ""
+    },
+    {
+      "name": "pull-request",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "description": ""
+    },
+    {
+      "name": "quality-attributes-taxonomy",
+      "description": ""
+    },
+    {
+      "name": "query-expert",
+      "description": ""
+    },
+    {
+      "name": "rag-architecture",
+      "description": ""
+    },
+    {
+      "name": "rag-design",
+      "description": ""
+    },
+    {
+      "name": "rate-limiting-patterns",
+      "description": ""
+    },
+    {
+      "name": "reduce-delegate-framework",
+      "description": ""
+    },
+    {
+      "name": "refine",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "resolve-failed-e2e-test",
+      "description": ""
+    },
+    {
+      "name": "resolve-failed-test",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "review-comment",
+      "description": ""
+    },
+    {
+      "name": "review-workflow-design",
+      "description": ""
+    },
+    {
+      "name": "sandbox-configuration",
+      "description": ""
+    },
+    {
+      "name": "scaffold-layer",
+      "description": ""
+    },
+    {
+      "name": "scan-secrets",
+      "description": ""
+    },
+    {
+      "name": "scout-and-build",
+      "description": ""
+    },
+    {
+      "name": "search-claude-issues",
+      "description": ""
+    },
+    {
+      "name": "search-issues",
+      "description": ""
+    },
+    {
+      "name": "secrets-management",
+      "description": ""
+    },
+    {
+      "name": "secure-coding",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "description": ""
+    },
+    {
+      "name": "security-test-planning",
+      "description": ""
+    },
+    {
+      "name": "seed-expertise",
+      "description": ""
+    },
+    {
+      "name": "self-improve-prompt-design",
+      "description": ""
+    },
+    {
+      "name": "self-service-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "settings-management",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "setup-aspire",
+      "description": ""
+    },
+    {
+      "name": "setup-dab",
+      "description": ""
+    },
+    {
+      "name": "ship",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "description": ""
+    },
+    {
+      "name": "skill-migration",
+      "description": ""
+    },
+    {
+      "name": "skill-template",
+      "description": ""
+    },
+    {
+      "name": "slo-workshop",
+      "description": ""
+    },
+    {
+      "name": "social-intelligence",
+      "description": ""
+    },
+    {
+      "name": "spec-management",
+      "description": ""
+    },
+    {
+      "name": "speckit-run",
+      "description": ""
+    },
+    {
+      "name": "speckit-workflow",
+      "description": ""
+    },
+    {
+      "name": "standard-out-setup",
+      "description": ""
+    },
+    {
+      "name": "start-adw",
+      "description": ""
+    },
+    {
+      "name": "status-line-customization",
+      "description": ""
+    },
+    {
+      "name": "stream-processing",
+      "description": ""
+    },
+    {
+      "name": "subagent-development",
+      "description": ""
+    },
+    {
+      "name": "swimlane-visualization",
+      "description": ""
+    },
+    {
+      "name": "sysml-modeling",
+      "description": ""
+    },
+    {
+      "name": "system-prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "task-based-multiagent",
+      "description": ""
+    },
+    {
+      "name": "taxonomy-architecture",
+      "description": ""
+    },
+    {
+      "name": "team-api-design",
+      "description": ""
+    },
+    {
+      "name": "team-effectiveness",
+      "description": ""
+    },
+    {
+      "name": "team-structure",
+      "description": ""
+    },
+    {
+      "name": "team-topology-design",
+      "description": ""
+    },
+    {
+      "name": "technical-presentations",
+      "description": ""
+    },
+    {
+      "name": "template-engineering",
+      "description": ""
+    },
+    {
+      "name": "template-meta-prompt-creation",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "test-case-design",
+      "description": ""
+    },
+    {
+      "name": "test-data-strategy",
+      "description": ""
+    },
+    {
+      "name": "test-e2e",
+      "description": ""
+    },
+    {
+      "name": "test-pyramid-design",
+      "description": ""
+    },
+    {
+      "name": "test-strategy-planning",
+      "description": ""
+    },
+    {
+      "name": "test-suite-setup",
+      "description": ""
+    },
+    {
+      "name": "threat-modeling",
+      "description": ""
+    },
+    {
+      "name": "togaf-guidance",
+      "description": ""
+    },
+    {
+      "name": "toml-command-builder",
+      "description": ""
+    },
+    {
+      "name": "tool-design",
+      "description": ""
+    },
+    {
+      "name": "tools",
+      "description": ""
+    },
+    {
+      "name": "track-kpis",
+      "description": ""
+    },
+    {
+      "name": "track-win",
+      "description": ""
+    },
+    {
+      "name": "update-mcp-servers",
+      "description": ""
+    },
+    {
+      "name": "update-settings-schema",
+      "description": ""
+    },
+    {
+      "name": "url-routing-patterns",
+      "description": ""
+    },
+    {
+      "name": "use-case-2.0",
+      "description": ""
+    },
+    {
+      "name": "use-case-authoring",
+      "description": ""
+    },
+    {
+      "name": "user-config",
+      "description": ""
+    },
+    {
+      "name": "user-config-management",
+      "description": ""
+    },
+    {
+      "name": "userstory-author",
+      "description": ""
+    },
+    {
+      "name": "validate-workflow",
+      "description": ""
+    },
+    {
+      "name": "vector-databases",
+      "description": ""
+    },
+    {
+      "name": "visualize-code",
+      "description": ""
+    },
+    {
+      "name": "vulnerability-management",
+      "description": ""
+    },
+    {
+      "name": "workshop",
+      "description": ""
+    },
+    {
+      "name": "write-acceptance",
+      "description": ""
+    },
+    {
+      "name": "zachman-analysis",
+      "description": ""
+    },
+    {
+      "name": "zachman-analyze",
+      "description": ""
+    },
+    {
+      "name": "zero-trust",
+      "description": ""
+    },
+    {
+      "name": "zero-trust-architecture",
+      "description": ""
+    },
+    {
+      "name": "zte-progression",
+      "description": ""
+    }
+  ]
+}
