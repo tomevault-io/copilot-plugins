@@ -1,0 +1,111 @@
+{
+  "name": "claude-agentic-framework",
+  "owner": "dralgorhythm",
+  "repo": "claude-agentic-framework",
+  "description": "A More Effective Agent Harness for Claude",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "application-security",
+      "path": ".claude/skills/security/application-security",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/security/application-security",
+      "description": ""
+    },
+    {
+      "name": "cloud-native-patterns",
+      "path": ".claude/skills/architecture/cloud-native-patterns",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/architecture/cloud-native-patterns",
+      "description": ""
+    },
+    {
+      "name": "data-management",
+      "path": ".claude/skills/core-engineering/data-management",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/core-engineering/data-management",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design",
+      "path": ".claude/skills/architecture/domain-driven-design",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/architecture/domain-driven-design",
+      "description": ""
+    },
+    {
+      "name": "identity-access",
+      "path": ".claude/skills/security/identity-access",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/security/identity-access",
+      "description": ""
+    },
+    {
+      "name": "implementing-code",
+      "path": ".claude/skills/core-engineering/implementing-code",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/core-engineering/implementing-code",
+      "description": ""
+    },
+    {
+      "name": "optimizing-code",
+      "path": ".claude/skills/core-engineering/optimizing-code",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/core-engineering/optimizing-code",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "path": ".claude/skills/security/security-review",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/security/security-review",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "path": ".claude/skills/operations/swarm-coordination",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/operations/swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": ".claude/skills/core-engineering/test-driven-development",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/core-engineering/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/core-engineering/testing",
+      "github_url": "https://github.com/dralgorhythm/claude-agentic-framework/tree/main/.claude/skills/core-engineering/testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dralgorhythm/claude-agentic-framework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T19:30:10Z"
+}
