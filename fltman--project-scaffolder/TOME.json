@@ -1,0 +1,51 @@
+{
+  "name": "project-scaffolder",
+  "owner": "fltman",
+  "repo": "project-scaffolder",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "project-setup",
+      "path": "skills/project-setup",
+      "github_url": "https://github.com/fltman/project-scaffolder/tree/main/skills/project-setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fltman/project-scaffolder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T19:40:14Z"
+}
