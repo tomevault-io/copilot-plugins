@@ -1,0 +1,129 @@
+{
+  "name": "cat",
+  "owner": "cowwoc",
+  "repo": "cat",
+  "description": "AI Agents that land on their feet",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "stakeholder-review",
+      "path": "plugin/skills/stakeholder-review",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/stakeholder-review",
+      "description": ""
+    },
+    {
+      "name": "compare-docs",
+      "path": "plugin/skills/compare-docs",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/compare-docs",
+      "description": ""
+    },
+    {
+      "name": "format-documentation",
+      "path": "plugin/skills/format-documentation",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/format-documentation",
+      "description": ""
+    },
+    {
+      "name": "get-history",
+      "path": "plugin/skills/get-history",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/get-history",
+      "description": ""
+    },
+    {
+      "name": "git-amend",
+      "path": "plugin/skills/git-amend",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/git-amend",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": "plugin/skills/git-commit",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "git-rebase",
+      "path": "plugin/skills/git-rebase",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/git-rebase",
+      "description": ""
+    },
+    {
+      "name": "git-rewrite-history",
+      "path": "plugin/skills/git-rewrite-history",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/git-rewrite-history",
+      "description": ""
+    },
+    {
+      "name": "git-squash",
+      "path": "plugin/skills/git-squash",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/git-squash",
+      "description": ""
+    },
+    {
+      "name": "render-diff",
+      "path": "plugin/skills/render-diff",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/render-diff",
+      "description": ""
+    },
+    {
+      "name": "safe-remove-code",
+      "path": "plugin/skills/safe-remove-code",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/safe-remove-code",
+      "description": ""
+    },
+    {
+      "name": "shrink-doc",
+      "path": "plugin/skills/shrink-doc",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/shrink-doc",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "path": "plugin/skills/skill-builder",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/skill-builder",
+      "description": ""
+    },
+    {
+      "name": "validate-git-safety",
+      "path": "plugin/skills/validate-git-safety",
+      "github_url": "https://github.com/cowwoc/cat/tree/main/plugin/skills/validate-git-safety",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cowwoc/cat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:30:20Z"
+}
