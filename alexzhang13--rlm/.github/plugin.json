@@ -1,0 +1,9 @@
+{
+  "name": "alexzhang13--rlm",
+  "displayName": "rlm",
+  "description": "General plug-and-play inference library for Recursive Language Models (RLMs), supporting various sandboxes.",
+  "version": "1.0.0",
+  "author": "alexzhang13",
+  "homepage": "https://github.com/alexzhang13/rlm",
+  "skills": []
+}
