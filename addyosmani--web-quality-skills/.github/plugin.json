@@ -1,0 +1,9 @@
+{
+  "name": "addyosmani--web-quality-skills",
+  "displayName": "web-quality-skills",
+  "description": "Agent Skills for optimizing web quality based on Lighthouse and Core Web Vitals.",
+  "version": "1.0.0",
+  "author": "addyosmani",
+  "homepage": "https://github.com/addyosmani/web-quality-skills",
+  "skills": []
+}
