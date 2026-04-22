@@ -2,9 +2,9 @@
   "name": "core",
   "owner": "LibPDF-js",
   "repo": "core",
-  "description": "",
+  "description": "A modern PDF library for TypeScript. Parse, modify, and generate PDFs with a clean, intuitive API.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LibPDF-js/core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T11:34:53Z"
+  "distributed_at": "2026-04-22T05:41:08Z"
 }
