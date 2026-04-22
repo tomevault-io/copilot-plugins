@@ -1,6 +1,6 @@
-# subtree — distributed by TomeVault
+# subtree
 
-> Originally from [21-DOT-DEV/subtree](https://github.com/21-DOT-DEV/subtree). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [21-DOT-DEV/subtree](https://github.com/21-DOT-DEV/subtree) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [21-DOT-DEV/subtree](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/21-DOT-DEV)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/21-DOT-DEV/subtree](https://github.com/21-DOT-DEV/subtree)
 
 ---
 
