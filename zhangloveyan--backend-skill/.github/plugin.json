@@ -1,0 +1,30 @@
+{
+  "name": "zhangloveyan--backend-skill",
+  "displayName": "backend-skill",
+  "description": "\u540e\u7aef java \u5f00\u53d1\u7684 claude \u89c4\u5219\u6587\u6863\u548c skill \u6280\u80fd\u6587\u6863\uff0c\u53ef\u4ee5\u4e00\u53e5\u8bdd\u5b9e\u73b0\u4ee3\u7801\u81ea\u52a8\u5f00\u53d1\u3001\u6d4b\u8bd5\u3001\u63d0\u4ea4\u3002",
+  "version": "1.0.0",
+  "author": "zhangloveyan",
+  "homepage": "https://github.com/zhangloveyan/backend-skill",
+  "skills": [
+    {
+      "name": "proj-analyze-design",
+      "description": ""
+    },
+    {
+      "name": "proj-deploy",
+      "description": ""
+    },
+    {
+      "name": "proj-gen",
+      "description": ""
+    },
+    {
+      "name": "proj-gen-test",
+      "description": ""
+    },
+    {
+      "name": "proj-sync-doc",
+      "description": ""
+    }
+  ]
+}
