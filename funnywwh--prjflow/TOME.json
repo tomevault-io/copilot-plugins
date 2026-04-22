@@ -1,0 +1,44 @@
+{
+  "name": "prjflow",
+  "owner": "funnywwh",
+  "repo": "prjflow",
+  "description": "\u9879\u76ee\u7ba1\u7406\u8f6f\u4ef6\uff0c\u652f\u6301\u5fae\u4fe1\u767b\u5f55",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/funnywwh/prjflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T23:41:35Z"
+}
