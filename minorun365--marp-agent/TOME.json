@@ -1,0 +1,75 @@
+{
+  "name": "marp-agent",
+  "owner": "minorun365",
+  "repo": "marp-agent",
+  "description": "\u30d1\u30ef\u30dd\u4f5c\u308b\u30de\u30f3",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "check-app-stats",
+      "path": ".claude/skills/check-app-stats",
+      "github_url": "https://github.com/minorun365/marp-agent/tree/main/.claude/skills/check-app-stats",
+      "description": ""
+    },
+    {
+      "name": "check-deploy-status",
+      "path": ".claude/skills/check-deploy-status",
+      "github_url": "https://github.com/minorun365/marp-agent/tree/main/.claude/skills/check-deploy-status",
+      "description": ""
+    },
+    {
+      "name": "commit-docs",
+      "path": ".claude/skills/commit-docs",
+      "github_url": "https://github.com/minorun365/marp-agent/tree/main/.claude/skills/commit-docs",
+      "description": ""
+    },
+    {
+      "name": "start-dev",
+      "path": ".claude/skills/start-dev",
+      "github_url": "https://github.com/minorun365/marp-agent/tree/main/.claude/skills/start-dev",
+      "description": ""
+    },
+    {
+      "name": "sync-issues",
+      "path": ".claude/skills/sync-issues",
+      "github_url": "https://github.com/minorun365/marp-agent/tree/main/.claude/skills/sync-issues",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/minorun365/marp-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:45:27Z"
+}
