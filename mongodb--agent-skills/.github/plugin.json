@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Use the official MongoDB Skills with your favorite coding agent to build faster.",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/agent-skills",
+  "skills": []
+}
