@@ -1,0 +1,22 @@
+{
+  "name": "amenti-labs--vibecraft",
+  "displayName": "vibecraft",
+  "description": "AI-driven vibe based Minecraft building via MCP. Describe a build, watch your agent construct it in Minecraft.",
+  "version": "1.0.0",
+  "author": "amenti-labs",
+  "homepage": "https://github.com/amenti-labs/vibecraft",
+  "skills": [
+    {
+      "name": "generating-terrain",
+      "description": ""
+    },
+    {
+      "name": "placing-furniture",
+      "description": ""
+    },
+    {
+      "name": "using-worldedit",
+      "description": ""
+    }
+  ]
+}
