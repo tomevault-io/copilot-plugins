@@ -1,0 +1,9 @@
+{
+  "name": "entireio--cli",
+  "displayName": "cli",
+  "description": "Entire CLI hooks into your Git workflow to capture AI agent sessions as you work. Sessions are indexed alongside commits, creating a searchable record of how code was written in your repo.",
+  "version": "1.0.0",
+  "author": "entireio",
+  "homepage": "https://github.com/entireio/cli",
+  "skills": []
+}
