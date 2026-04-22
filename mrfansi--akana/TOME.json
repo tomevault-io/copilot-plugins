@@ -4,7 +4,7 @@
   "repo": "akana",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/mrfansi",
+  "source_url": "https://github.com/mrfansi/akana",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T22:02:41Z"
+  "distributed_at": "2026-04-22T16:14:46Z"
 }
