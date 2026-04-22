@@ -1,0 +1,51 @@
+{
+  "name": "agent-tui",
+  "owner": "pproenca",
+  "repo": "agent-tui",
+  "description": "TUI automation for AI agents. Control any terminal app from code.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-tui",
+      "path": "skills/agent-tui",
+      "github_url": "https://github.com/pproenca/agent-tui/tree/main/skills/agent-tui",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pproenca/agent-tui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:48:55Z"
+}
