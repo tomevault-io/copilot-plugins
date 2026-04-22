@@ -1,0 +1,9 @@
+{
+  "name": "kyutai-labs--pocket-tts",
+  "displayName": "pocket-tts",
+  "description": "A TTS that fits in your CPU (and pocket)",
+  "version": "1.0.0",
+  "author": "kyutai-labs",
+  "homepage": "https://github.com/kyutai-labs/pocket-tts",
+  "skills": []
+}
