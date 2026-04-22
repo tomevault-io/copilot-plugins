@@ -1,6 +1,6 @@
 # alchemist
 
-> Config by [TheCowboyAI](https://github.com/TheCowboyAI/alchemist) — distributed by [TomeVault](https://tomevault.io/claim/TheCowboyAI)
+> Tome by [TheCowboyAI](https://github.com/TheCowboyAI/alchemist) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [TheCowboyAI/alchemist](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/TheCowboyAI](https://tomevault.io/claim/TheCowboyAI)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/TheCowboyAI/alchemist](https://github.com/TheCowboyAI/alchemist)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/TheCowboyAI) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install TheCowboyAI/alchemist
+```
+Source: [github.com/TheCowboyAI/alchemist](https://github.com/TheCowboyAI/alchemist).
+
+<!-- genome:t-i-p -->
