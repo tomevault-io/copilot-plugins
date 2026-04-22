@@ -1,0 +1,46 @@
+{
+  "name": "modu-ai--cc-plugins",
+  "displayName": "cc-plugins",
+  "description": "Collection of Claude Code plugins for various domains - Auth0 security, MFA, token security, compliance",
+  "version": "1.0.0",
+  "author": "modu-ai",
+  "homepage": "https://github.com/modu-ai/cc-plugins",
+  "skills": [
+    {
+      "name": "anti-ai-validator",
+      "description": ""
+    },
+    {
+      "name": "crew-roles",
+      "description": ""
+    },
+    {
+      "name": "moai",
+      "description": ""
+    },
+    {
+      "name": "moai-platform-appintoss",
+      "description": ""
+    },
+    {
+      "name": "personas",
+      "description": ""
+    },
+    {
+      "name": "protocols",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "traits",
+      "description": ""
+    },
+    {
+      "name": "writing-standards",
+      "description": ""
+    }
+  ]
+}
