@@ -1,0 +1,9 @@
+{
+  "name": "luxury-yacht--app",
+  "displayName": "app",
+  "description": "Luxury Yacht - A cross-platform app for managing Kubernetes clusters and resources",
+  "version": "1.0.0",
+  "author": "luxury-yacht",
+  "homepage": "https://github.com/luxury-yacht/app",
+  "skills": []
+}
