@@ -1,0 +1,9 @@
+{
+  "name": "lingframe--lingframe",
+  "displayName": "LingFrame",
+  "description": "LingFrame: A JVM Runtime Security Governance Solution for Long-Running Systems. It implements modular isolation and zero-trust permission control to deliver automatic method-level full-link tracing, s",
+  "version": "1.0.0",
+  "author": "LingFrame",
+  "homepage": "https://github.com/LingFrame/LingFrame",
+  "skills": []
+}
