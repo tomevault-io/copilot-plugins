@@ -1,0 +1,51 @@
+{
+  "name": "pavlok_CLI_agent",
+  "owner": "motoya0118",
+  "repo": "pavlok_CLI_agent",
+  "description": "CLI agent\u306bpavlok\u3092\u4f7f\u7528\u3055\u305b\u305f\u3089\u3069\u3046\u306a\u308b\u304b\u81ea\u50b7\u5b9f\u9a13",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pavlok",
+      "path": ".codex/skills/pavlok",
+      "github_url": "https://github.com/motoya0118/pavlok_CLI_agent/tree/main/.codex/skills/pavlok",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/motoya0118/pavlok_CLI_agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:50:50Z"
+}
