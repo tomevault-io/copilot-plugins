@@ -1,0 +1,44 @@
+{
+  "name": "Pdf_Tools",
+  "owner": "Karna14314",
+  "repo": "Pdf_Tools",
+  "description": "Privacy-first, offline PDF editor for Android. Merge, split, compress, convert and annotate PDFs \u2014 100% on-device, no internet required.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Karna14314/Pdf_Tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T12:37:04Z"
+}
