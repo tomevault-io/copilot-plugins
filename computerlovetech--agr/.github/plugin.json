@@ -1,0 +1,9 @@
+{
+  "name": "computerlovetech--agr",
+  "displayName": "agr",
+  "description": "A package manager for AI agents. Install agent skills from GitHub with a single command.",
+  "version": "1.0.0",
+  "author": "computerlovetech",
+  "homepage": "https://github.com/computerlovetech/agr",
+  "skills": []
+}
