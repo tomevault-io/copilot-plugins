@@ -1,0 +1,81 @@
+{
+  "name": "miro-ai",
+  "owner": "miroapp",
+  "repo": "miro-ai",
+  "description": "Official Miro AI developer tools and integrations. Includes MCP server configuration, Claude Code skills, and resources for building AI-powered experiences with Miro boards.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documentation-structure",
+      "path": ".claude/skills/documentation-structure",
+      "github_url": "https://github.com/miroapp/miro-ai/tree/main/.claude/skills/documentation-structure",
+      "description": ""
+    },
+    {
+      "name": "miro-code-review",
+      "path": "claude-plugins/miro-review/skills/miro-code-review",
+      "github_url": "https://github.com/miroapp/miro-ai/tree/main/claude-plugins/miro-review/skills/miro-code-review",
+      "description": ""
+    },
+    {
+      "name": "miro-mcp",
+      "path": "gemini-extensions/miro/skills/miro-mcp",
+      "github_url": "https://github.com/miroapp/miro-ai/tree/main/gemini-extensions/miro/skills/miro-mcp",
+      "description": ""
+    },
+    {
+      "name": "miro-mcp",
+      "path": "skills/miro-mcp",
+      "github_url": "https://github.com/miroapp/miro-ai/tree/main/skills/miro-mcp",
+      "description": ""
+    },
+    {
+      "name": "miro-platform",
+      "path": "skills/miro-platform",
+      "github_url": "https://github.com/miroapp/miro-ai/tree/main/skills/miro-platform",
+      "description": ""
+    },
+    {
+      "name": "miro-platform",
+      "path": "claude-plugins/miro-solutions/skills/miro-platform",
+      "github_url": "https://github.com/miroapp/miro-ai/tree/main/claude-plugins/miro-solutions/skills/miro-platform",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/miroapp/miro-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:38:34Z"
+}
