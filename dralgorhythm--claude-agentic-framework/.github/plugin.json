@@ -1,0 +1,54 @@
+{
+  "name": "dralgorhythm--claude-agentic-framework",
+  "displayName": "claude-agentic-framework",
+  "description": "A More Effective Agent Harness for Claude",
+  "version": "1.0.0",
+  "author": "dralgorhythm",
+  "homepage": "https://github.com/dralgorhythm/claude-agentic-framework",
+  "skills": [
+    {
+      "name": "application-security",
+      "description": ""
+    },
+    {
+      "name": "cloud-native-patterns",
+      "description": ""
+    },
+    {
+      "name": "data-management",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design",
+      "description": ""
+    },
+    {
+      "name": "identity-access",
+      "description": ""
+    },
+    {
+      "name": "implementing-code",
+      "description": ""
+    },
+    {
+      "name": "optimizing-code",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "description": ""
+    },
+    {
+      "name": "swarm-coordination",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    }
+  ]
+}
