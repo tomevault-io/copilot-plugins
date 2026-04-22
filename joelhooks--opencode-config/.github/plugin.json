@@ -1,0 +1,9 @@
+{
+  "name": "joelhooks--opencode-config",
+  "displayName": "opencode-config",
+  "description": "Personal OpenCode configuration - commands, tools, agents, knowledge",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/opencode-config",
+  "skills": []
+}
