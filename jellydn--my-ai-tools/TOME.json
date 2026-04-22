@@ -1,0 +1,75 @@
+{
+  "name": "my-ai-tools",
+  "owner": "jellydn",
+  "repo": "my-ai-tools",
+  "description": "Comprehensive configuration management for AI coding tools - Replicate my complete setup for Claude Code, OpenCode, Amp, Codex and Claude Code Switch with custom configurations, MCP servers, plugins, and commands.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codemap",
+      "path": "skills/codemap",
+      "github_url": "https://github.com/jellydn/my-ai-tools/tree/main/skills/codemap",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "path": "skills/prd",
+      "github_url": "https://github.com/jellydn/my-ai-tools/tree/main/skills/prd",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "path": "skills/ralph",
+      "github_url": "https://github.com/jellydn/my-ai-tools/tree/main/skills/ralph",
+      "description": ""
+    },
+    {
+      "name": "slop",
+      "path": "skills/slop",
+      "github_url": "https://github.com/jellydn/my-ai-tools/tree/main/skills/slop",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": "skills/tdd",
+      "github_url": "https://github.com/jellydn/my-ai-tools/tree/main/skills/tdd",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jellydn/my-ai-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:34:31Z"
+}
