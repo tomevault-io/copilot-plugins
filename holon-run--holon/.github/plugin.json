@@ -1,0 +1,38 @@
+{
+  "name": "holon-run--holon",
+  "displayName": "holon",
+  "description": "Holon runs AI coding agents headlessly to turn issues into PR-ready patches and summaries \u2014 locally or in CI, without babysitting the agent.",
+  "version": "1.0.0",
+  "author": "holon-run",
+  "homepage": "https://github.com/holon-run/holon",
+  "skills": [
+    {
+      "name": "ghx",
+      "description": ""
+    },
+    {
+      "name": "github-issue-solve",
+      "description": ""
+    },
+    {
+      "name": "github-pr-fix",
+      "description": ""
+    },
+    {
+      "name": "github-review",
+      "description": ""
+    },
+    {
+      "name": "project-pulse",
+      "description": ""
+    },
+    {
+      "name": "testing-go",
+      "description": ""
+    },
+    {
+      "name": "typescript-api",
+      "description": ""
+    }
+  ]
+}
