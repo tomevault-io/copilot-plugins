@@ -1,0 +1,9 @@
+{
+  "name": "rorkai--app-store-connect-cli",
+  "displayName": "App-Store-Connect-CLI",
+  "description": "Fast, scriptable CLI for the App Store Connect API. Automate TestFlight, builds, submissions, signing, analytics, screenshots, subscriptions, and more. JSON-first, no interactive prompts",
+  "version": "1.0.0",
+  "author": "rorkai",
+  "homepage": "https://github.com/rorkai/App-Store-Connect-CLI",
+  "skills": []
+}
