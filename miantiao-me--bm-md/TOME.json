@@ -1,0 +1,44 @@
+{
+  "name": "bm.md",
+  "owner": "miantiao-me",
+  "repo": "bm.md",
+  "description": "\u66f4\u597d\u7528\u7684 Markdown \u6392\u7248\u52a9\u624b\uff5c\u4e00\u952e\u9002\u914d\u5fae\u4fe1\u516c\u4f17\u53f7\u3001\u7f51\u9875\u4e0e\u56fe\u7247\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/miantiao-me/bm.md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T06:07:10Z"
+}
