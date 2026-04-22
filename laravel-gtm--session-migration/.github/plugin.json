@@ -1,0 +1,9 @@
+{
+  "name": "laravel-gtm--session-migration",
+  "displayName": "session-migration",
+  "description": "session-migration",
+  "version": "1.0.0",
+  "author": "laravel-gtm",
+  "homepage": "https://github.com/laravel-gtm/session-migration",
+  "skills": []
+}
