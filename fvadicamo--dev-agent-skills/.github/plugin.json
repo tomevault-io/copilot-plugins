@@ -1,0 +1,30 @@
+{
+  "name": "fvadicamo--dev-agent-skills",
+  "displayName": "dev-agent-skills",
+  "description": "Claude Code skills plugin for Git, GitHub, and skill authoring workflows",
+  "version": "1.0.0",
+  "author": "fvadicamo",
+  "homepage": "https://github.com/fvadicamo/dev-agent-skills",
+  "skills": [
+    {
+      "name": "github-pr-review",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "github-pr-creation",
+      "description": ""
+    },
+    {
+      "name": "github-pr-merge",
+      "description": ""
+    },
+    {
+      "name": "creating-skills",
+      "description": ""
+    }
+  ]
+}
