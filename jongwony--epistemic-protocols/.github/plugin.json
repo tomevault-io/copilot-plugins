@@ -1,0 +1,30 @@
+{
+  "name": "jongwony--epistemic-protocols",
+  "displayName": "epistemic-protocols",
+  "description": "Epistemic protocols for Claude Code \u2014 structure human-AI interaction quality at every decision point - https://epistemic-protocols.com",
+  "version": "1.0.0",
+  "author": "jongwony",
+  "homepage": "https://github.com/jongwony/epistemic-protocols",
+  "skills": [
+    {
+      "name": "gap",
+      "description": ""
+    },
+    {
+      "name": "grasp",
+      "description": ""
+    },
+    {
+      "name": "inquire",
+      "description": ""
+    },
+    {
+      "name": "reflexion",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "description": ""
+    }
+  ]
+}
