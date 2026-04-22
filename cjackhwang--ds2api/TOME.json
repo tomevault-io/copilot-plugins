@@ -1,0 +1,44 @@
+{
+  "name": "ds2api",
+  "owner": "CJackHwang",
+  "repo": "ds2api",
+  "description": "Deepseek to API - \u5ba2\u6237\u7aef\u8f6cAPI\u5168\u6808\u5f00\u6e90\u5de5\u5177\uff0c\u9ad8\u6027\u80fd\uff0c\u591a\u8d26\u53f7\u8f6e\u8be2\uff0c\u652f\u6301\u7eafvercel\u3001docker\u90e8\u7f72\u4f7f\u7528\u3002Google\u3001Claude\u3001ChatGPT\u591a\u63a5\u53e3\u683c\u5f0f\u517c\u5bb9",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CJackHwang/ds2api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T00:21:56Z"
+}
