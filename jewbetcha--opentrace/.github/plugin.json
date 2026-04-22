@@ -1,0 +1,14 @@
+{
+  "name": "jewbetcha--opentrace",
+  "displayName": "open",
+  "description": "opentrace",
+  "version": "1.0.0",
+  "author": "jewbetcha",
+  "homepage": "https://github.com/jewbetcha/opentrace",
+  "skills": [
+    {
+      "name": "skill-lookup",
+      "description": ""
+    }
+  ]
+}
