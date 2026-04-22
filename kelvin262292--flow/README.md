@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [kelvin262292/flow](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/kelvin262292)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/kelvin262292/flow](https://github.com/kelvin262292/flow)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install kelvin262292/flow
 ```
-Or browse all formats at [https://tomevault.io/claim/kelvin262292](https://tomevault.io/claim/kelvin262292).
+Source: [github.com/kelvin262292/flow](https://github.com/kelvin262292/flow).
 
 <!-- genome:a-i-p -->
