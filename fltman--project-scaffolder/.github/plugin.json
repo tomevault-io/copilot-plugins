@@ -1,0 +1,14 @@
+{
+  "name": "fltman--project-scaffolder",
+  "displayName": "project-scaffolder",
+  "description": "project-scaffolder",
+  "version": "1.0.0",
+  "author": "fltman",
+  "homepage": "https://github.com/fltman/project-scaffolder",
+  "skills": [
+    {
+      "name": "project-setup",
+      "description": ""
+    }
+  ]
+}
