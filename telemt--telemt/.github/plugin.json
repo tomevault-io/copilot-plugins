@@ -1,0 +1,9 @@
+{
+  "name": "telemt--telemt",
+  "displayName": "telemt",
+  "description": "MTProxy for Telegram on Rust + Tokio",
+  "version": "1.0.0",
+  "author": "telemt",
+  "homepage": "https://github.com/telemt/telemt",
+  "skills": []
+}
