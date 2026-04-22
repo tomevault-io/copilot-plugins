@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [lips85/makers-second](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/lips85)
+From [lips85/makers-second](https://github.com/lips85/makers-second) — a repo with 0+ stars on GitHub.
 
 ---
 
