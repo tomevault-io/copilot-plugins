@@ -1,0 +1,9 @@
+{
+  "name": "miantiao-me--cloud-code",
+  "displayName": "cloud-code",
+  "description": "Cloud Code (Cloudflare + OpenCode), running OpenCode on Cloudflare to build a dedicated cloud Agent for you.",
+  "version": "1.0.0",
+  "author": "miantiao-me",
+  "homepage": "https://github.com/miantiao-me/cloud-code",
+  "skills": []
+}
