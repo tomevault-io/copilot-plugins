@@ -1,0 +1,514 @@
+{
+  "name": "curiositech--some-claude-skills",
+  "displayName": "some_claude_skills",
+  "description": "Claude skills that make my life easier.",
+  "version": "1.0.0",
+  "author": "curiositech",
+  "homepage": "https://github.com/curiositech/some_claude_skills",
+  "skills": [
+    {
+      "name": "2000s-visualization-expert",
+      "description": ""
+    },
+    {
+      "name": "2026-legal-research-agent",
+      "description": ""
+    },
+    {
+      "name": "3d-cv-labeling-2026",
+      "description": ""
+    },
+    {
+      "name": "adhd-daily-planner",
+      "description": ""
+    },
+    {
+      "name": "adhd-design-expert",
+      "description": ""
+    },
+    {
+      "name": "admin-dashboard",
+      "description": ""
+    },
+    {
+      "name": "agent-creator",
+      "description": ""
+    },
+    {
+      "name": "ai-engineer",
+      "description": ""
+    },
+    {
+      "name": "ai-video-production-master",
+      "description": ""
+    },
+    {
+      "name": "api-architect",
+      "description": ""
+    },
+    {
+      "name": "background-job-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "bot-developer",
+      "description": ""
+    },
+    {
+      "name": "career-biographer",
+      "description": ""
+    },
+    {
+      "name": "chatbot-analytics",
+      "description": ""
+    },
+    {
+      "name": "claude-ecosystem-promoter",
+      "description": ""
+    },
+    {
+      "name": "clip-aware-embeddings",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-worker-dev",
+      "description": ""
+    },
+    {
+      "name": "code-necromancer",
+      "description": ""
+    },
+    {
+      "name": "code-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "collage-layout-expert",
+      "description": ""
+    },
+    {
+      "name": "color-contrast-auditor",
+      "description": ""
+    },
+    {
+      "name": "color-theory-palette-harmony-expert",
+      "description": ""
+    },
+    {
+      "name": "computer-vision-pipeline",
+      "description": ""
+    },
+    {
+      "name": "cost-accrual-tracker",
+      "description": ""
+    },
+    {
+      "name": "cost-verification-auditor",
+      "description": ""
+    },
+    {
+      "name": "crisis-detection-intervention-ai",
+      "description": ""
+    },
+    {
+      "name": "crisis-response-protocol",
+      "description": ""
+    },
+    {
+      "name": "cv-creator",
+      "description": ""
+    },
+    {
+      "name": "dark-mode-design-expert",
+      "description": ""
+    },
+    {
+      "name": "data-pipeline-engineer",
+      "description": ""
+    },
+    {
+      "name": "data-viz-2025",
+      "description": ""
+    },
+    {
+      "name": "design-archivist",
+      "description": ""
+    },
+    {
+      "name": "design-critic",
+      "description": ""
+    },
+    {
+      "name": "design-justice",
+      "description": ""
+    },
+    {
+      "name": "design-system-creator",
+      "description": ""
+    },
+    {
+      "name": "design-system-generator",
+      "description": ""
+    },
+    {
+      "name": "devops-automator",
+      "description": ""
+    },
+    {
+      "name": "diagramming-expert",
+      "description": ""
+    },
+    {
+      "name": "digital-estate-planner",
+      "description": ""
+    },
+    {
+      "name": "document-generation-pdf",
+      "description": ""
+    },
+    {
+      "name": "drone-cv-expert",
+      "description": ""
+    },
+    {
+      "name": "drone-inspection-specialist",
+      "description": ""
+    },
+    {
+      "name": "fancy-yard-landscaper",
+      "description": ""
+    },
+    {
+      "name": "feature-manifest",
+      "description": ""
+    },
+    {
+      "name": "form-validation-architect",
+      "description": ""
+    },
+    {
+      "name": "frontend-architect",
+      "description": ""
+    },
+    {
+      "name": "fullstack-debugger",
+      "description": ""
+    },
+    {
+      "name": "geospatial-data-pipeline",
+      "description": ""
+    },
+    {
+      "name": "github-actions-pipeline-builder",
+      "description": ""
+    },
+    {
+      "name": "hipaa-compliance",
+      "description": ""
+    },
+    {
+      "name": "indie-monetization-strategist",
+      "description": ""
+    },
+    {
+      "name": "interior-design-expert",
+      "description": ""
+    },
+    {
+      "name": "job-application-optimizer",
+      "description": ""
+    },
+    {
+      "name": "jungian-psychologist",
+      "description": ""
+    },
+    {
+      "name": "large-scale-map-visualization",
+      "description": ""
+    },
+    {
+      "name": "launch-readiness-auditor",
+      "description": ""
+    },
+    {
+      "name": "liaison",
+      "description": ""
+    },
+    {
+      "name": "llm-streaming-response-handler",
+      "description": ""
+    },
+    {
+      "name": "maximalist-wall-decorator",
+      "description": ""
+    },
+    {
+      "name": "mcp-creator",
+      "description": ""
+    },
+    {
+      "name": "metal-shader-expert",
+      "description": ""
+    },
+    {
+      "name": "mobile-ux-optimizer",
+      "description": ""
+    },
+    {
+      "name": "modern-auth-2026",
+      "description": ""
+    },
+    {
+      "name": "native-app-designer",
+      "description": ""
+    },
+    {
+      "name": "neobrutalist-web-designer",
+      "description": ""
+    },
+    {
+      "name": "nextjs-app-router-expert",
+      "description": ""
+    },
+    {
+      "name": "oauth-oidc-implementer",
+      "description": ""
+    },
+    {
+      "name": "openapi-spec-writer",
+      "description": ""
+    },
+    {
+      "name": "orchestrator",
+      "description": ""
+    },
+    {
+      "name": "photo-composition-critic",
+      "description": ""
+    },
+    {
+      "name": "photo-content-recognition-curation-expert",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e-tester",
+      "description": ""
+    },
+    {
+      "name": "playwright-screenshot-inspector",
+      "description": ""
+    },
+    {
+      "name": "product-appeal-analyzer",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "pwa-expert",
+      "description": ""
+    },
+    {
+      "name": "react-performance-optimizer",
+      "description": ""
+    },
+    {
+      "name": "reactive-dashboard-performance",
+      "description": ""
+    },
+    {
+      "name": "real-time-collaboration-engine",
+      "description": ""
+    },
+    {
+      "name": "recovery-app-legal-terms",
+      "description": ""
+    },
+    {
+      "name": "recovery-app-onboarding",
+      "description": ""
+    },
+    {
+      "name": "recovery-coach-patterns",
+      "description": ""
+    },
+    {
+      "name": "recovery-community-moderator",
+      "description": ""
+    },
+    {
+      "name": "recovery-social-features",
+      "description": ""
+    },
+    {
+      "name": "refactoring-surgeon",
+      "description": ""
+    },
+    {
+      "name": "research-analyst",
+      "description": ""
+    },
+    {
+      "name": "rest-api-design",
+      "description": ""
+    },
+    {
+      "name": "security-auditor",
+      "description": ""
+    },
+    {
+      "name": "seo-visibility-expert",
+      "description": ""
+    },
+    {
+      "name": "site-reliability-engineer",
+      "description": ""
+    },
+    {
+      "name": "skill-architect",
+      "description": ""
+    },
+    {
+      "name": "skill-coach",
+      "description": ""
+    },
+    {
+      "name": "after",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-documentarian",
+      "description": ""
+    },
+    {
+      "name": "skill-logger",
+      "description": ""
+    },
+    {
+      "name": "sober-addict-protector",
+      "description": ""
+    },
+    {
+      "name": "sobriety-tools-guardian",
+      "description": ""
+    },
+    {
+      "name": "sound-engineer",
+      "description": ""
+    },
+    {
+      "name": "speech-pathology-ai",
+      "description": ""
+    },
+    {
+      "name": "supabase-admin",
+      "description": ""
+    },
+    {
+      "name": "team-builder",
+      "description": ""
+    },
+    {
+      "name": "tech-entrepreneur-coach-adhd",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "description": ""
+    },
+    {
+      "name": "terraform-iac-expert",
+      "description": ""
+    },
+    {
+      "name": "test-automation-expert",
+      "description": ""
+    },
+    {
+      "name": "typography-expert",
+      "description": ""
+    },
+    {
+      "name": "ux-friction-analyzer",
+      "description": ""
+    },
+    {
+      "name": "vaporwave-glassomorphic-ui-designer",
+      "description": ""
+    },
+    {
+      "name": "vercel-deployment",
+      "description": ""
+    },
+    {
+      "name": "vibe-matcher",
+      "description": ""
+    },
+    {
+      "name": "video-processing-editing",
+      "description": ""
+    },
+    {
+      "name": "vitest-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "voice-audio-engineer",
+      "description": ""
+    },
+    {
+      "name": "vr-avatar-engineer",
+      "description": ""
+    },
+    {
+      "name": "web-cloud-designer",
+      "description": ""
+    },
+    {
+      "name": "web-design-expert",
+      "description": ""
+    },
+    {
+      "name": "web-wave-designer",
+      "description": ""
+    },
+    {
+      "name": "web-weather-creator",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "wedding-immortalist",
+      "description": ""
+    },
+    {
+      "name": "win31-audio-design",
+      "description": ""
+    },
+    {
+      "name": "win31-pixel-art-designer",
+      "description": ""
+    },
+    {
+      "name": "windows-3-1-web-designer",
+      "description": ""
+    },
+    {
+      "name": "windows-95-web-designer",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-expert",
+      "description": ""
+    }
+  ]
+}
