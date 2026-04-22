@@ -4,7 +4,7 @@
   "repo": "billhero",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/mawazawa",
+  "source_url": "https://github.com/mawazawa/billhero",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T06:05:36Z"
+  "distributed_at": "2026-04-22T19:56:56Z"
 }
