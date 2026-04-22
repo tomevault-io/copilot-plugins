@@ -1,0 +1,9 @@
+{
+  "name": "avdlee--swiftui-agent-skill",
+  "displayName": "SwiftUI-Agent-Skill",
+  "description": "Add expert SwiftUI Best Practices guidance to your AI coding tool (Agent Skills open format).",
+  "version": "1.0.0",
+  "author": "AvdLee",
+  "homepage": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+  "skills": []
+}
