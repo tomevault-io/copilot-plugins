@@ -1,0 +1,9 @@
+{
+  "name": "aelf-hzz780--ai-bounty-skill",
+  "displayName": "AI-bounty-skill",
+  "description": "Public Codex skill for claiming AI bounty on aelf tDVV via RewardClaimContract, supporting EOA Claim() and Portkey CA ClaimByPortkeyToCa().",
+  "version": "1.0.0",
+  "author": "aelf-hzz780",
+  "homepage": "https://github.com/aelf-hzz780/AI-bounty-skill",
+  "skills": []
+}
