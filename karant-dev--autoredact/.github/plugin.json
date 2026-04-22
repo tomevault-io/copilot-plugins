@@ -1,0 +1,9 @@
+{
+  "name": "karant-dev--autoredact",
+  "displayName": "AutoRedact",
+  "description": "\ud83d\udee1\ufe0f Client-side, privacy-first image redaction tool. Automatically detects and blurs PII (Emails, IPs, Keys) using local OCR. No server, no data leaks.",
+  "version": "1.0.0",
+  "author": "karant-dev",
+  "homepage": "https://github.com/karant-dev/AutoRedact",
+  "skills": []
+}
