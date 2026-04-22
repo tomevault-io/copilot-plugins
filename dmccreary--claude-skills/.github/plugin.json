@@ -1,0 +1,66 @@
+{
+  "name": "dmccreary--claude-skills",
+  "displayName": "claude-skills",
+  "description": "claude-skills",
+  "version": "1.0.0",
+  "author": "dmccreary",
+  "homepage": "https://github.com/dmccreary/claude-skills",
+  "skills": [
+    {
+      "name": "book-chapter-generator",
+      "description": ""
+    },
+    {
+      "name": "book-installer",
+      "description": ""
+    },
+    {
+      "name": "book-metrics-generator",
+      "description": ""
+    },
+    {
+      "name": "chapter-content-generator",
+      "description": ""
+    },
+    {
+      "name": "course-description-analyzer",
+      "description": ""
+    },
+    {
+      "name": "diagram-reports-generator",
+      "description": ""
+    },
+    {
+      "name": "faq-generator",
+      "description": ""
+    },
+    {
+      "name": "glossary-generator",
+      "description": ""
+    },
+    {
+      "name": "microsim-generator",
+      "description": ""
+    },
+    {
+      "name": "microsim-utils",
+      "description": ""
+    },
+    {
+      "name": "quiz-generator",
+      "description": ""
+    },
+    {
+      "name": "readme-generator",
+      "description": ""
+    },
+    {
+      "name": "reference-generator",
+      "description": ""
+    },
+    {
+      "name": "story-generator",
+      "description": ""
+    }
+  ]
+}
