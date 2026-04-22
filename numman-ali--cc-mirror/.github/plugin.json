@@ -1,0 +1,9 @@
+{
+  "name": "numman-ali--cc-mirror",
+  "displayName": "cc-mirror",
+  "description": "Create multiple isolated Claude Code variants with custom providers (Z.ai, MiniMax, OpenRouter, LiteLLM)",
+  "version": "1.0.0",
+  "author": "numman-ali",
+  "homepage": "https://github.com/numman-ali/cc-mirror",
+  "skills": []
+}
