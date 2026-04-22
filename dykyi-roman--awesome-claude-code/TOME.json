@@ -1,0 +1,1437 @@
+{
+  "name": "awesome-claude-code",
+  "owner": "dykyi-roman",
+  "repo": "awesome-claude-code",
+  "description": "PHP Architecture Toolkit for Claude Code                                                                                                                                (DDD, CQRS, Event Sourcing, Hexagonal, Clean Architecture, SOLID, GRASP, PSR, Design Patterns, Testing, Documentation, Code Review)",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adr-knowledge",
+      "path": "skills/adr-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/adr-knowledge",
+      "description": ""
+    },
+    {
+      "name": "adr-template",
+      "path": "skills/adr-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/adr-template",
+      "description": ""
+    },
+    {
+      "name": "analyze-ci-config",
+      "path": "skills/analyze-ci-config",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/analyze-ci-config",
+      "description": ""
+    },
+    {
+      "name": "analyze-coupling-cohesion",
+      "path": "skills/analyze-coupling-cohesion",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/analyze-coupling-cohesion",
+      "description": ""
+    },
+    {
+      "name": "analyze-docker-build-errors",
+      "path": "skills/analyze-docker-build-errors",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/analyze-docker-build-errors",
+      "description": ""
+    },
+    {
+      "name": "analyze-docker-image-size",
+      "path": "skills/analyze-docker-image-size",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/analyze-docker-image-size",
+      "description": ""
+    },
+    {
+      "name": "analyze-docker-runtime-errors",
+      "path": "skills/analyze-docker-runtime-errors",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/analyze-docker-runtime-errors",
+      "description": ""
+    },
+    {
+      "name": "analyze-php-logs",
+      "path": "skills/analyze-php-logs",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/analyze-php-logs",
+      "description": ""
+    },
+    {
+      "name": "analyze-solid-violations",
+      "path": "skills/analyze-solid-violations",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/analyze-solid-violations",
+      "description": ""
+    },
+    {
+      "name": "analyze-test-coverage",
+      "path": "skills/analyze-test-coverage",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/analyze-test-coverage",
+      "description": ""
+    },
+    {
+      "name": "api-design-knowledge",
+      "path": "skills/api-design-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/api-design-knowledge",
+      "description": ""
+    },
+    {
+      "name": "api-doc-template",
+      "path": "skills/api-doc-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/api-doc-template",
+      "description": ""
+    },
+    {
+      "name": "architecture-doc-template",
+      "path": "skills/architecture-doc-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/architecture-doc-template",
+      "description": ""
+    },
+    {
+      "name": "bug-impact-analyzer",
+      "path": "skills/bug-impact-analyzer",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/bug-impact-analyzer",
+      "description": ""
+    },
+    {
+      "name": "bug-regression-preventer",
+      "path": "skills/bug-regression-preventer",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/bug-regression-preventer",
+      "description": ""
+    },
+    {
+      "name": "bug-root-cause-finder",
+      "path": "skills/bug-root-cause-finder",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/bug-root-cause-finder",
+      "description": ""
+    },
+    {
+      "name": "caching-strategies-knowledge",
+      "path": "skills/caching-strategies-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/caching-strategies-knowledge",
+      "description": ""
+    },
+    {
+      "name": "changelog-template",
+      "path": "skills/changelog-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/changelog-template",
+      "description": ""
+    },
+    {
+      "name": "check-aggregate-consistency",
+      "path": "skills/check-aggregate-consistency",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-aggregate-consistency",
+      "description": ""
+    },
+    {
+      "name": "check-async-patterns",
+      "path": "skills/check-async-patterns",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "check-authentication",
+      "path": "skills/check-authentication",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-authentication",
+      "description": ""
+    },
+    {
+      "name": "check-authorization",
+      "path": "skills/check-authorization",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-authorization",
+      "description": ""
+    },
+    {
+      "name": "check-batch-processing",
+      "path": "skills/check-batch-processing",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-batch-processing",
+      "description": ""
+    },
+    {
+      "name": "check-caching-strategy",
+      "path": "skills/check-caching-strategy",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-caching-strategy",
+      "description": ""
+    },
+    {
+      "name": "check-class-length",
+      "path": "skills/check-class-length",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-class-length",
+      "description": ""
+    },
+    {
+      "name": "check-code-style",
+      "path": "skills/check-code-style",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-code-style",
+      "description": ""
+    },
+    {
+      "name": "check-command-injection",
+      "path": "skills/check-command-injection",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-command-injection",
+      "description": ""
+    },
+    {
+      "name": "check-comments",
+      "path": "skills/check-comments",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-comments",
+      "description": ""
+    },
+    {
+      "name": "check-connection-pool",
+      "path": "skills/check-connection-pool",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-connection-pool",
+      "description": ""
+    },
+    {
+      "name": "check-consistency",
+      "path": "skills/check-consistency",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-consistency",
+      "description": ""
+    },
+    {
+      "name": "check-crypto-usage",
+      "path": "skills/check-crypto-usage",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-crypto-usage",
+      "description": ""
+    },
+    {
+      "name": "check-csrf-protection",
+      "path": "skills/check-csrf-protection",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-csrf-protection",
+      "description": ""
+    },
+    {
+      "name": "check-dependency-injection",
+      "path": "skills/check-dependency-injection",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-dependency-injection",
+      "description": ""
+    },
+    {
+      "name": "check-deserialization",
+      "path": "skills/check-deserialization",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-deserialization",
+      "description": ""
+    },
+    {
+      "name": "check-doc-examples",
+      "path": "skills/check-doc-examples",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-doc-examples",
+      "description": ""
+    },
+    {
+      "name": "check-doc-links",
+      "path": "skills/check-doc-links",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-doc-links",
+      "description": ""
+    },
+    {
+      "name": "check-docker-compose-config",
+      "path": "skills/check-docker-compose-config",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-docker-compose-config",
+      "description": ""
+    },
+    {
+      "name": "check-docker-healthcheck",
+      "path": "skills/check-docker-healthcheck",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-docker-healthcheck",
+      "description": ""
+    },
+    {
+      "name": "check-docker-layer-efficiency",
+      "path": "skills/check-docker-layer-efficiency",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-docker-layer-efficiency",
+      "description": ""
+    },
+    {
+      "name": "check-docker-php-config",
+      "path": "skills/check-docker-php-config",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-docker-php-config",
+      "description": ""
+    },
+    {
+      "name": "check-docker-production-readiness",
+      "path": "skills/check-docker-production-readiness",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-docker-production-readiness",
+      "description": ""
+    },
+    {
+      "name": "check-docker-secrets",
+      "path": "skills/check-docker-secrets",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-docker-secrets",
+      "description": ""
+    },
+    {
+      "name": "check-docker-security",
+      "path": "skills/check-docker-security",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-docker-security",
+      "description": ""
+    },
+    {
+      "name": "check-docker-user-permissions",
+      "path": "skills/check-docker-user-permissions",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-docker-user-permissions",
+      "description": ""
+    },
+    {
+      "name": "check-encapsulation",
+      "path": "skills/check-encapsulation",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-encapsulation",
+      "description": ""
+    },
+    {
+      "name": "check-file-io",
+      "path": "skills/check-file-io",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-file-io",
+      "description": ""
+    },
+    {
+      "name": "check-immutability",
+      "path": "skills/check-immutability",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-immutability",
+      "description": ""
+    },
+    {
+      "name": "check-index-usage",
+      "path": "skills/check-index-usage",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-index-usage",
+      "description": ""
+    },
+    {
+      "name": "check-input-validation",
+      "path": "skills/check-input-validation",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-input-validation",
+      "description": ""
+    },
+    {
+      "name": "check-insecure-design",
+      "path": "skills/check-insecure-design",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-insecure-design",
+      "description": ""
+    },
+    {
+      "name": "check-lazy-loading",
+      "path": "skills/check-lazy-loading",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-lazy-loading",
+      "description": ""
+    },
+    {
+      "name": "check-leaky-abstractions",
+      "path": "skills/check-leaky-abstractions",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-leaky-abstractions",
+      "description": ""
+    },
+    {
+      "name": "check-magic-values",
+      "path": "skills/check-magic-values",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-magic-values",
+      "description": ""
+    },
+    {
+      "name": "check-method-length",
+      "path": "skills/check-method-length",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-method-length",
+      "description": ""
+    },
+    {
+      "name": "check-naming",
+      "path": "skills/check-naming",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-naming",
+      "description": ""
+    },
+    {
+      "name": "check-nesting-depth",
+      "path": "skills/check-nesting-depth",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-nesting-depth",
+      "description": ""
+    },
+    {
+      "name": "check-output-encoding",
+      "path": "skills/check-output-encoding",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-output-encoding",
+      "description": ""
+    },
+    {
+      "name": "check-path-traversal",
+      "path": "skills/check-path-traversal",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-path-traversal",
+      "description": ""
+    },
+    {
+      "name": "check-pure-functions",
+      "path": "skills/check-pure-functions",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-pure-functions",
+      "description": ""
+    },
+    {
+      "name": "check-query-efficiency",
+      "path": "skills/check-query-efficiency",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-query-efficiency",
+      "description": ""
+    },
+    {
+      "name": "check-sensitive-data",
+      "path": "skills/check-sensitive-data",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-sensitive-data",
+      "description": ""
+    },
+    {
+      "name": "check-serialization",
+      "path": "skills/check-serialization",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-serialization",
+      "description": ""
+    },
+    {
+      "name": "check-side-effects",
+      "path": "skills/check-side-effects",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-side-effects",
+      "description": ""
+    },
+    {
+      "name": "check-singleton-antipattern",
+      "path": "skills/check-singleton-antipattern",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-singleton-antipattern",
+      "description": ""
+    },
+    {
+      "name": "check-sql-injection",
+      "path": "skills/check-sql-injection",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-sql-injection",
+      "description": ""
+    },
+    {
+      "name": "check-ssrf",
+      "path": "skills/check-ssrf",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-ssrf",
+      "description": ""
+    },
+    {
+      "name": "check-test-quality",
+      "path": "skills/check-test-quality",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-test-quality",
+      "description": ""
+    },
+    {
+      "name": "check-timeout-strategy",
+      "path": "skills/check-timeout-strategy",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-timeout-strategy",
+      "description": ""
+    },
+    {
+      "name": "check-version-consistency",
+      "path": "skills/check-version-consistency",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-version-consistency",
+      "description": ""
+    },
+    {
+      "name": "check-xxe",
+      "path": "skills/check-xxe",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/check-xxe",
+      "description": ""
+    },
+    {
+      "name": "ci-pipeline-knowledge",
+      "path": "skills/ci-pipeline-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/ci-pipeline-knowledge",
+      "description": ""
+    },
+    {
+      "name": "ci-tools-knowledge",
+      "path": "skills/ci-tools-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/ci-tools-knowledge",
+      "description": ""
+    },
+    {
+      "name": "claude-code-knowledge",
+      "path": "skills/claude-code-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/claude-code-knowledge",
+      "description": ""
+    },
+    {
+      "name": "clean-arch-knowledge",
+      "path": "skills/clean-arch-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/clean-arch-knowledge",
+      "description": ""
+    },
+    {
+      "name": "code-examples-template",
+      "path": "skills/code-examples-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/code-examples-template",
+      "description": ""
+    },
+    {
+      "name": "cqrs-knowledge",
+      "path": "skills/cqrs-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/cqrs-knowledge",
+      "description": ""
+    },
+    {
+      "name": "create-action",
+      "path": "skills/create-action",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-action",
+      "description": ""
+    },
+    {
+      "name": "create-adapter",
+      "path": "skills/create-adapter",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-adapter",
+      "description": ""
+    },
+    {
+      "name": "create-aggregate",
+      "path": "skills/create-aggregate",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-aggregate",
+      "description": ""
+    },
+    {
+      "name": "create-anti-corruption-layer",
+      "path": "skills/create-anti-corruption-layer",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-anti-corruption-layer",
+      "description": ""
+    },
+    {
+      "name": "create-api-versioning",
+      "path": "skills/create-api-versioning",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-api-versioning",
+      "description": ""
+    },
+    {
+      "name": "create-bridge",
+      "path": "skills/create-bridge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-bridge",
+      "description": ""
+    },
+    {
+      "name": "create-builder",
+      "path": "skills/create-builder",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-builder",
+      "description": ""
+    },
+    {
+      "name": "create-bulkhead",
+      "path": "skills/create-bulkhead",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-bulkhead",
+      "description": ""
+    },
+    {
+      "name": "create-cache-aside",
+      "path": "skills/create-cache-aside",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-cache-aside",
+      "description": ""
+    },
+    {
+      "name": "create-chain-of-responsibility",
+      "path": "skills/create-chain-of-responsibility",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-chain-of-responsibility",
+      "description": ""
+    },
+    {
+      "name": "create-circuit-breaker",
+      "path": "skills/create-circuit-breaker",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-circuit-breaker",
+      "description": ""
+    },
+    {
+      "name": "create-command",
+      "path": "skills/create-command",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-command",
+      "description": ""
+    },
+    {
+      "name": "create-composite",
+      "path": "skills/create-composite",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-composite",
+      "description": ""
+    },
+    {
+      "name": "create-correlation-context",
+      "path": "skills/create-correlation-context",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-correlation-context",
+      "description": ""
+    },
+    {
+      "name": "create-dead-letter-queue",
+      "path": "skills/create-dead-letter-queue",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-dead-letter-queue",
+      "description": ""
+    },
+    {
+      "name": "create-decorator",
+      "path": "skills/create-decorator",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-decorator",
+      "description": ""
+    },
+    {
+      "name": "create-deploy-strategy",
+      "path": "skills/create-deploy-strategy",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-deploy-strategy",
+      "description": ""
+    },
+    {
+      "name": "create-di-container",
+      "path": "skills/create-di-container",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-di-container",
+      "description": ""
+    },
+    {
+      "name": "create-docker-compose-dev",
+      "path": "skills/create-docker-compose-dev",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-docker-compose-dev",
+      "description": ""
+    },
+    {
+      "name": "create-docker-compose-production",
+      "path": "skills/create-docker-compose-production",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-docker-compose-production",
+      "description": ""
+    },
+    {
+      "name": "create-docker-entrypoint",
+      "path": "skills/create-docker-entrypoint",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-docker-entrypoint",
+      "description": ""
+    },
+    {
+      "name": "create-docker-env-template",
+      "path": "skills/create-docker-env-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-docker-env-template",
+      "description": ""
+    },
+    {
+      "name": "create-docker-healthcheck",
+      "path": "skills/create-docker-healthcheck",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-docker-healthcheck",
+      "description": ""
+    },
+    {
+      "name": "create-docker-makefile",
+      "path": "skills/create-docker-makefile",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-docker-makefile",
+      "description": ""
+    },
+    {
+      "name": "create-docker-nginx-config",
+      "path": "skills/create-docker-nginx-config",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-docker-nginx-config",
+      "description": ""
+    },
+    {
+      "name": "create-docker-php-config",
+      "path": "skills/create-docker-php-config",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-docker-php-config",
+      "description": ""
+    },
+    {
+      "name": "create-docker-supervisor-config",
+      "path": "skills/create-docker-supervisor-config",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-docker-supervisor-config",
+      "description": ""
+    },
+    {
+      "name": "create-dockerfile-ci",
+      "path": "skills/create-dockerfile-ci",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-dockerfile-ci",
+      "description": ""
+    },
+    {
+      "name": "create-dockerfile-dev",
+      "path": "skills/create-dockerfile-dev",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-dockerfile-dev",
+      "description": ""
+    },
+    {
+      "name": "create-dockerfile-production",
+      "path": "skills/create-dockerfile-production",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-dockerfile-production",
+      "description": ""
+    },
+    {
+      "name": "create-dockerignore",
+      "path": "skills/create-dockerignore",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-dockerignore",
+      "description": ""
+    },
+    {
+      "name": "create-domain-event",
+      "path": "skills/create-domain-event",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-domain-event",
+      "description": ""
+    },
+    {
+      "name": "create-domain-service",
+      "path": "skills/create-domain-service",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-domain-service",
+      "description": ""
+    },
+    {
+      "name": "create-dto",
+      "path": "skills/create-dto",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-dto",
+      "description": ""
+    },
+    {
+      "name": "create-entity",
+      "path": "skills/create-entity",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-entity",
+      "description": ""
+    },
+    {
+      "name": "create-event-store",
+      "path": "skills/create-event-store",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-event-store",
+      "description": ""
+    },
+    {
+      "name": "create-facade",
+      "path": "skills/create-facade",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-facade",
+      "description": ""
+    },
+    {
+      "name": "create-factory",
+      "path": "skills/create-factory",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-factory",
+      "description": ""
+    },
+    {
+      "name": "create-feature-flags",
+      "path": "skills/create-feature-flags",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-feature-flags",
+      "description": ""
+    },
+    {
+      "name": "create-flyweight",
+      "path": "skills/create-flyweight",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-flyweight",
+      "description": ""
+    },
+    {
+      "name": "create-github-actions",
+      "path": "skills/create-github-actions",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-github-actions",
+      "description": ""
+    },
+    {
+      "name": "create-gitlab-ci",
+      "path": "skills/create-gitlab-ci",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-gitlab-ci",
+      "description": ""
+    },
+    {
+      "name": "create-health-check",
+      "path": "skills/create-health-check",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-health-check",
+      "description": ""
+    },
+    {
+      "name": "create-idempotent-consumer",
+      "path": "skills/create-idempotent-consumer",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-idempotent-consumer",
+      "description": ""
+    },
+    {
+      "name": "create-integration-test",
+      "path": "skills/create-integration-test",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-integration-test",
+      "description": ""
+    },
+    {
+      "name": "create-iterator",
+      "path": "skills/create-iterator",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-iterator",
+      "description": ""
+    },
+    {
+      "name": "create-mediator",
+      "path": "skills/create-mediator",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-mediator",
+      "description": ""
+    },
+    {
+      "name": "create-memento",
+      "path": "skills/create-memento",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-memento",
+      "description": ""
+    },
+    {
+      "name": "create-message-broker-adapter",
+      "path": "skills/create-message-broker-adapter",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-message-broker-adapter",
+      "description": ""
+    },
+    {
+      "name": "create-mock-repository",
+      "path": "skills/create-mock-repository",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-mock-repository",
+      "description": ""
+    },
+    {
+      "name": "create-null-object",
+      "path": "skills/create-null-object",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-null-object",
+      "description": ""
+    },
+    {
+      "name": "create-object-pool",
+      "path": "skills/create-object-pool",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-object-pool",
+      "description": ""
+    },
+    {
+      "name": "create-outbox-pattern",
+      "path": "skills/create-outbox-pattern",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-outbox-pattern",
+      "description": ""
+    },
+    {
+      "name": "create-phpstan-config",
+      "path": "skills/create-phpstan-config",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-phpstan-config",
+      "description": ""
+    },
+    {
+      "name": "create-policy",
+      "path": "skills/create-policy",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-policy",
+      "description": ""
+    },
+    {
+      "name": "create-proxy",
+      "path": "skills/create-proxy",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-proxy",
+      "description": ""
+    },
+    {
+      "name": "create-psalm-config",
+      "path": "skills/create-psalm-config",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psalm-config",
+      "description": ""
+    },
+    {
+      "name": "create-psr11-container",
+      "path": "skills/create-psr11-container",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr11-container",
+      "description": ""
+    },
+    {
+      "name": "create-psr13-link",
+      "path": "skills/create-psr13-link",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr13-link",
+      "description": ""
+    },
+    {
+      "name": "create-psr14-event-dispatcher",
+      "path": "skills/create-psr14-event-dispatcher",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr14-event-dispatcher",
+      "description": ""
+    },
+    {
+      "name": "create-psr15-middleware",
+      "path": "skills/create-psr15-middleware",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr15-middleware",
+      "description": ""
+    },
+    {
+      "name": "create-psr16-simple-cache",
+      "path": "skills/create-psr16-simple-cache",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr16-simple-cache",
+      "description": ""
+    },
+    {
+      "name": "create-psr17-http-factory",
+      "path": "skills/create-psr17-http-factory",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr17-http-factory",
+      "description": ""
+    },
+    {
+      "name": "create-psr18-http-client",
+      "path": "skills/create-psr18-http-client",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr18-http-client",
+      "description": ""
+    },
+    {
+      "name": "create-psr20-clock",
+      "path": "skills/create-psr20-clock",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr20-clock",
+      "description": ""
+    },
+    {
+      "name": "create-psr3-logger",
+      "path": "skills/create-psr3-logger",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr3-logger",
+      "description": ""
+    },
+    {
+      "name": "create-psr6-cache",
+      "path": "skills/create-psr6-cache",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr6-cache",
+      "description": ""
+    },
+    {
+      "name": "create-psr7-http-message",
+      "path": "skills/create-psr7-http-message",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-psr7-http-message",
+      "description": ""
+    },
+    {
+      "name": "create-query",
+      "path": "skills/create-query",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-query",
+      "description": ""
+    },
+    {
+      "name": "create-rate-limiter",
+      "path": "skills/create-rate-limiter",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-rate-limiter",
+      "description": ""
+    },
+    {
+      "name": "create-read-model",
+      "path": "skills/create-read-model",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-read-model",
+      "description": ""
+    },
+    {
+      "name": "create-rector-config",
+      "path": "skills/create-rector-config",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-rector-config",
+      "description": ""
+    },
+    {
+      "name": "create-responder",
+      "path": "skills/create-responder",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-responder",
+      "description": ""
+    },
+    {
+      "name": "create-retry-pattern",
+      "path": "skills/create-retry-pattern",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-retry-pattern",
+      "description": ""
+    },
+    {
+      "name": "create-saga-pattern",
+      "path": "skills/create-saga-pattern",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-saga-pattern",
+      "description": ""
+    },
+    {
+      "name": "create-snapshot",
+      "path": "skills/create-snapshot",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-snapshot",
+      "description": ""
+    },
+    {
+      "name": "create-specification",
+      "path": "skills/create-specification",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-specification",
+      "description": ""
+    },
+    {
+      "name": "create-state",
+      "path": "skills/create-state",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-state",
+      "description": ""
+    },
+    {
+      "name": "create-strategy",
+      "path": "skills/create-strategy",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-strategy",
+      "description": ""
+    },
+    {
+      "name": "create-template-method",
+      "path": "skills/create-template-method",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-template-method",
+      "description": ""
+    },
+    {
+      "name": "create-test-builder",
+      "path": "skills/create-test-builder",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-test-builder",
+      "description": ""
+    },
+    {
+      "name": "create-test-double",
+      "path": "skills/create-test-double",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-test-double",
+      "description": ""
+    },
+    {
+      "name": "create-timeout",
+      "path": "skills/create-timeout",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-timeout",
+      "description": ""
+    },
+    {
+      "name": "create-unit-of-work",
+      "path": "skills/create-unit-of-work",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-unit-of-work",
+      "description": ""
+    },
+    {
+      "name": "create-unit-test",
+      "path": "skills/create-unit-test",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-unit-test",
+      "description": ""
+    },
+    {
+      "name": "create-use-case",
+      "path": "skills/create-use-case",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-use-case",
+      "description": ""
+    },
+    {
+      "name": "create-value-object",
+      "path": "skills/create-value-object",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-value-object",
+      "description": ""
+    },
+    {
+      "name": "create-visitor",
+      "path": "skills/create-visitor",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/create-visitor",
+      "description": ""
+    },
+    {
+      "name": "ddd-knowledge",
+      "path": "skills/ddd-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/ddd-knowledge",
+      "description": ""
+    },
+    {
+      "name": "deployment-knowledge",
+      "path": "skills/deployment-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/deployment-knowledge",
+      "description": ""
+    },
+    {
+      "name": "detect-code-smells",
+      "path": "skills/detect-code-smells",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/detect-code-smells",
+      "description": ""
+    },
+    {
+      "name": "detect-docker-antipatterns",
+      "path": "skills/detect-docker-antipatterns",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/detect-docker-antipatterns",
+      "description": ""
+    },
+    {
+      "name": "detect-memory-issues",
+      "path": "skills/detect-memory-issues",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/detect-memory-issues",
+      "description": ""
+    },
+    {
+      "name": "detect-n-plus-one",
+      "path": "skills/detect-n-plus-one",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/detect-n-plus-one",
+      "description": ""
+    },
+    {
+      "name": "detect-test-smells",
+      "path": "skills/detect-test-smells",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/detect-test-smells",
+      "description": ""
+    },
+    {
+      "name": "detect-unnecessary-loops",
+      "path": "skills/detect-unnecessary-loops",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/detect-unnecessary-loops",
+      "description": ""
+    },
+    {
+      "name": "diagram-knowledge",
+      "path": "skills/diagram-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/diagram-knowledge",
+      "description": ""
+    },
+    {
+      "name": "discover-project-logs",
+      "path": "skills/discover-project-logs",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/discover-project-logs",
+      "description": ""
+    },
+    {
+      "name": "docker-base-images-knowledge",
+      "path": "skills/docker-base-images-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-base-images-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-buildkit-knowledge",
+      "path": "skills/docker-buildkit-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-buildkit-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-compose-knowledge",
+      "path": "skills/docker-compose-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-compose-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-knowledge",
+      "path": "skills/docker-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-multistage-knowledge",
+      "path": "skills/docker-multistage-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-multistage-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-networking-knowledge",
+      "path": "skills/docker-networking-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-networking-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-orchestration-knowledge",
+      "path": "skills/docker-orchestration-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-orchestration-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-php-extensions-knowledge",
+      "path": "skills/docker-php-extensions-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-php-extensions-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-production-knowledge",
+      "path": "skills/docker-production-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-production-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-scanning-knowledge",
+      "path": "skills/docker-scanning-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-scanning-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-security-knowledge",
+      "path": "skills/docker-security-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-security-knowledge",
+      "description": ""
+    },
+    {
+      "name": "docker-troubleshooting-knowledge",
+      "path": "skills/docker-troubleshooting-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/docker-troubleshooting-knowledge",
+      "description": ""
+    },
+    {
+      "name": "documentation-knowledge",
+      "path": "skills/documentation-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/documentation-knowledge",
+      "description": ""
+    },
+    {
+      "name": "documentation-qa-knowledge",
+      "path": "skills/documentation-qa-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/documentation-qa-knowledge",
+      "description": ""
+    },
+    {
+      "name": "eda-knowledge",
+      "path": "skills/eda-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/eda-knowledge",
+      "description": ""
+    },
+    {
+      "name": "estimate-complexity",
+      "path": "skills/estimate-complexity",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/estimate-complexity",
+      "description": ""
+    },
+    {
+      "name": "event-sourcing-knowledge",
+      "path": "skills/event-sourcing-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/event-sourcing-knowledge",
+      "description": ""
+    },
+    {
+      "name": "explain-output-template",
+      "path": "skills/explain-output-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/explain-output-template",
+      "description": ""
+    },
+    {
+      "name": "extract-business-rules",
+      "path": "skills/extract-business-rules",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/extract-business-rules",
+      "description": ""
+    },
+    {
+      "name": "extract-domain-concepts",
+      "path": "skills/extract-domain-concepts",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/extract-domain-concepts",
+      "description": ""
+    },
+    {
+      "name": "find-boundary-issues",
+      "path": "skills/find-boundary-issues",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/find-boundary-issues",
+      "description": ""
+    },
+    {
+      "name": "find-exception-issues",
+      "path": "skills/find-exception-issues",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/find-exception-issues",
+      "description": ""
+    },
+    {
+      "name": "find-infinite-loops",
+      "path": "skills/find-infinite-loops",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/find-infinite-loops",
+      "description": ""
+    },
+    {
+      "name": "find-logic-errors",
+      "path": "skills/find-logic-errors",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/find-logic-errors",
+      "description": ""
+    },
+    {
+      "name": "find-null-pointer-issues",
+      "path": "skills/find-null-pointer-issues",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/find-null-pointer-issues",
+      "description": ""
+    },
+    {
+      "name": "find-race-conditions",
+      "path": "skills/find-race-conditions",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/find-race-conditions",
+      "description": ""
+    },
+    {
+      "name": "find-resource-leaks",
+      "path": "skills/find-resource-leaks",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/find-resource-leaks",
+      "description": ""
+    },
+    {
+      "name": "find-type-issues",
+      "path": "skills/find-type-issues",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/find-type-issues",
+      "description": ""
+    },
+    {
+      "name": "generate-ci-fix",
+      "path": "skills/generate-ci-fix",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/generate-ci-fix",
+      "description": ""
+    },
+    {
+      "name": "getting-started-template",
+      "path": "skills/getting-started-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/getting-started-template",
+      "description": ""
+    },
+    {
+      "name": "grasp-knowledge",
+      "path": "skills/grasp-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/grasp-knowledge",
+      "description": ""
+    },
+    {
+      "name": "hexagonal-knowledge",
+      "path": "skills/hexagonal-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/hexagonal-knowledge",
+      "description": ""
+    },
+    {
+      "name": "identify-entry-points",
+      "path": "skills/identify-entry-points",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/identify-entry-points",
+      "description": ""
+    },
+    {
+      "name": "layer-arch-knowledge",
+      "path": "skills/layer-arch-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/layer-arch-knowledge",
+      "description": ""
+    },
+    {
+      "name": "map-async-flows",
+      "path": "skills/map-async-flows",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/map-async-flows",
+      "description": ""
+    },
+    {
+      "name": "mermaid-template",
+      "path": "skills/mermaid-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/mermaid-template",
+      "description": ""
+    },
+    {
+      "name": "microservices-knowledge",
+      "path": "skills/microservices-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/microservices-knowledge",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-build-time",
+      "path": "skills/optimize-docker-build-time",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/optimize-docker-build-time",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-compose-resources",
+      "path": "skills/optimize-docker-compose-resources",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/optimize-docker-compose-resources",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-image-size",
+      "path": "skills/optimize-docker-image-size",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/optimize-docker-image-size",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-layers",
+      "path": "skills/optimize-docker-layers",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/optimize-docker-layers",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-opcache",
+      "path": "skills/optimize-docker-opcache",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/optimize-docker-opcache",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-php-fpm",
+      "path": "skills/optimize-docker-php-fpm",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/optimize-docker-php-fpm",
+      "description": ""
+    },
+    {
+      "name": "optimize-docker-startup",
+      "path": "skills/optimize-docker-startup",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/optimize-docker-startup",
+      "description": ""
+    },
+    {
+      "name": "outbox-pattern-knowledge",
+      "path": "skills/outbox-pattern-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/outbox-pattern-knowledge",
+      "description": ""
+    },
+    {
+      "name": "psr-coding-style-knowledge",
+      "path": "skills/psr-coding-style-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/psr-coding-style-knowledge",
+      "description": ""
+    },
+    {
+      "name": "readme-template",
+      "path": "skills/readme-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/readme-template",
+      "description": ""
+    },
+    {
+      "name": "resolve-entry-point",
+      "path": "skills/resolve-entry-point",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/resolve-entry-point",
+      "description": ""
+    },
+    {
+      "name": "saga-pattern-knowledge",
+      "path": "skills/saga-pattern-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/saga-pattern-knowledge",
+      "description": ""
+    },
+    {
+      "name": "scan-codebase-structure",
+      "path": "skills/scan-codebase-structure",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/scan-codebase-structure",
+      "description": ""
+    },
+    {
+      "name": "solid-knowledge",
+      "path": "skills/solid-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/solid-knowledge",
+      "description": ""
+    },
+    {
+      "name": "stability-patterns-knowledge",
+      "path": "skills/stability-patterns-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/stability-patterns-knowledge",
+      "description": ""
+    },
+    {
+      "name": "suggest-simplification",
+      "path": "skills/suggest-simplification",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/suggest-simplification",
+      "description": ""
+    },
+    {
+      "name": "suggest-testability-improvements",
+      "path": "skills/suggest-testability-improvements",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/suggest-testability-improvements",
+      "description": ""
+    },
+    {
+      "name": "task-progress-knowledge",
+      "path": "skills/task-progress-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/task-progress-knowledge",
+      "description": ""
+    },
+    {
+      "name": "testing-knowledge",
+      "path": "skills/testing-knowledge",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/testing-knowledge",
+      "description": ""
+    },
+    {
+      "name": "trace-request-lifecycle",
+      "path": "skills/trace-request-lifecycle",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/trace-request-lifecycle",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting-template",
+      "path": "skills/troubleshooting-template",
+      "github_url": "https://github.com/dykyi-roman/awesome-claude-code/tree/main/skills/troubleshooting-template",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dykyi-roman/awesome-claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:33:12Z"
+}
