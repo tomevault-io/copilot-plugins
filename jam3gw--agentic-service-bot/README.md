@@ -1,6 +1,6 @@
-# agentic-service-bot — distributed by TomeVault
+# agentic-service-bot
 
-> Originally from [jam3gw/agentic-service-bot](https://github.com/jam3gw/agentic-service-bot). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [jam3gw/agentic-service-bot](https://github.com/jam3gw/agentic-service-bot) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [jam3gw/agentic-service-bot](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/jam3gw)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/jam3gw/agentic-service-bot](https://github.com/jam3gw/agentic-service-bot)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/jam3gw) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
