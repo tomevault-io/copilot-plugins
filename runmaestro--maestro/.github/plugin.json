@@ -1,0 +1,9 @@
+{
+  "name": "runmaestro--maestro",
+  "displayName": "Maestro",
+  "description": "Agent Orchestration Command Center",
+  "version": "1.0.0",
+  "author": "RunMaestro",
+  "homepage": "https://github.com/RunMaestro/Maestro",
+  "skills": []
+}
