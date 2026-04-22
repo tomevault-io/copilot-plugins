@@ -1,0 +1,194 @@
+{
+  "name": "olorehq--olore",
+  "displayName": "olore",
+  "description": "Turn library docs into local Agent Skills",
+  "version": "1.0.0",
+  "author": "olorehq",
+  "homepage": "https://github.com/olorehq/olore",
+  "skills": [
+    {
+      "name": "build-artifacts",
+      "description": ""
+    },
+    {
+      "name": "build-docs",
+      "description": ""
+    },
+    {
+      "name": "download-docs",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "1.0.0",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "16.1.1",
+      "description": ""
+    },
+    {
+      "name": "16.1.2",
+      "description": ""
+    },
+    {
+      "name": "16.1.3",
+      "description": ""
+    },
+    {
+      "name": "16.1.4",
+      "description": ""
+    },
+    {
+      "name": "16.1.5",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "3",
+      "description": ""
+    },
+    {
+      "name": "4",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    },
+    {
+      "name": "3",
+      "description": ""
+    },
+    {
+      "name": "latest",
+      "description": ""
+    }
+  ]
+}
