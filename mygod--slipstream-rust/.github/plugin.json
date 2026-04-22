@@ -1,0 +1,9 @@
+{
+  "name": "mygod--slipstream-rust",
+  "displayName": "slipstream-rust",
+  "description": "High-performance multi-path covert channel over DNS in Rust with vibe coding",
+  "version": "1.0.0",
+  "author": "Mygod",
+  "homepage": "https://github.com/Mygod/slipstream-rust",
+  "skills": []
+}
