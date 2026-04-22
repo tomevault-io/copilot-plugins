@@ -1,0 +1,9 @@
+{
+  "name": "marckohlbrugge--sessy",
+  "displayName": "sessy",
+  "description": "Open-source email observability for AWS SES",
+  "version": "1.0.0",
+  "author": "marckohlbrugge",
+  "homepage": "https://github.com/marckohlbrugge/sessy",
+  "skills": []
+}
