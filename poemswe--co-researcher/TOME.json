@@ -1,0 +1,105 @@
+{
+  "name": "co-researcher",
+  "owner": "poemswe",
+  "repo": "co-researcher",
+  "description": "A professional research suite for conducting rigorous academic research using specialized agents and multi-platform CLI commands. Compatible with Claude Code, Gemini CLI, OpenAI Codex, and OpenCode.",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ethics-review",
+      "path": "skills/ethics-review",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/skills/ethics-review",
+      "description": ""
+    },
+    {
+      "name": "hypothesis-testing",
+      "path": "skills/hypothesis-testing",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/skills/hypothesis-testing",
+      "description": ""
+    },
+    {
+      "name": "lateral-thinking",
+      "path": "skills/lateral-thinking",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/skills/lateral-thinking",
+      "description": ""
+    },
+    {
+      "name": "methodology",
+      "path": ".codex/skills/methodology",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/.codex/skills/methodology",
+      "description": ""
+    },
+    {
+      "name": "qualitative-research",
+      "path": "skills/qualitative-research",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/skills/qualitative-research",
+      "description": ""
+    },
+    {
+      "name": "quantitative-analysis",
+      "path": "skills/quantitative-analysis",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/skills/quantitative-analysis",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": ".codex/skills/research",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/.codex/skills/research",
+      "description": ""
+    },
+    {
+      "name": "research-methodology",
+      "path": "skills/research-methodology",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/skills/research-methodology",
+      "description": ""
+    },
+    {
+      "name": "systematic-review",
+      "path": "skills/systematic-review",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/skills/systematic-review",
+      "description": ""
+    },
+    {
+      "name": "using-co-researcher",
+      "path": "skills/using-co-researcher",
+      "github_url": "https://github.com/poemswe/co-researcher/tree/main/skills/using-co-researcher",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/poemswe/co-researcher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:40:32Z"
+}
