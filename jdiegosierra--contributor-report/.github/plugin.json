@@ -1,0 +1,30 @@
+{
+  "name": "jdiegosierra--contributor-report",
+  "displayName": "contributor-report",
+  "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code",
+  "version": "1.0.0",
+  "author": "jdiegosierra",
+  "homepage": "https://github.com/jdiegosierra/contributor-report",
+  "skills": [
+    {
+      "name": "find-skills",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "github-actions-templates",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "description": ""
+    }
+  ]
+}
