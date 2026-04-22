@@ -1,0 +1,75 @@
+{
+  "name": "epistemic-protocols",
+  "owner": "jongwony",
+  "repo": "epistemic-protocols",
+  "description": "Epistemic protocols for Claude Code \u2014 structure human-AI interaction quality at every decision point - https://epistemic-protocols.com",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gap",
+      "path": "syneidesis/skills/gap",
+      "github_url": "https://github.com/jongwony/epistemic-protocols/tree/main/syneidesis/skills/gap",
+      "description": ""
+    },
+    {
+      "name": "grasp",
+      "path": "katalepsis/skills/grasp",
+      "github_url": "https://github.com/jongwony/epistemic-protocols/tree/main/katalepsis/skills/grasp",
+      "description": ""
+    },
+    {
+      "name": "inquire",
+      "path": "aitesis/skills/inquire",
+      "github_url": "https://github.com/jongwony/epistemic-protocols/tree/main/aitesis/skills/inquire",
+      "description": ""
+    },
+    {
+      "name": "reflexion",
+      "path": "reflexion/skills/reflexion",
+      "github_url": "https://github.com/jongwony/epistemic-protocols/tree/main/reflexion/skills/reflexion",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "path": ".claude/skills/verify",
+      "github_url": "https://github.com/jongwony/epistemic-protocols/tree/main/.claude/skills/verify",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jongwony/epistemic-protocols",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T15:35:10Z"
+}
