@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--opensrc",
+  "displayName": "opensrc",
+  "description": "Fetch source code for npm packages to give AI coding agents deeper context",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/opensrc",
+  "skills": []
+}
