@@ -1,0 +1,9 @@
+{
+  "name": "binaricat--netcatty",
+  "displayName": "Netcatty",
+  "description": "SSH workspace, SFTP, and terminals in one",
+  "version": "1.0.0",
+  "author": "binaricat",
+  "homepage": "https://github.com/binaricat/Netcatty",
+  "skills": []
+}
