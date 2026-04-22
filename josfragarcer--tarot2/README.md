@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [JosFraGarCer/tarot2](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/JosFraGarCer)
+From [JosFraGarCer/tarot2](https://github.com/JosFraGarCer/tarot2) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install JosFraGarCer/tarot2
 ```
-Or browse all formats at [https://tomevault.io/claim/JosFraGarCer](https://tomevault.io/claim/JosFraGarCer).
+Source: [github.com/JosFraGarCer/tarot2](https://github.com/JosFraGarCer/tarot2).
 
 <!-- genome:a-i-s -->
