@@ -1,0 +1,9 @@
+{
+  "name": "ursushoribilismusic--agentic-fleet-hub",
+  "displayName": "agentic-fleet-hub",
+  "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy.",
+  "version": "1.0.0",
+  "author": "UrsushoribilisMusic",
+  "homepage": "https://github.com/UrsushoribilisMusic/agentic-fleet-hub",
+  "skills": []
+}
