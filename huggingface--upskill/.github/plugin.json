@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--upskill",
+  "displayName": "upskill",
+  "description": "Generate and evaluate agent skills for code agents like Claude Code, Open Code, OpenAI Codex",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/upskill",
+  "skills": []
+}
