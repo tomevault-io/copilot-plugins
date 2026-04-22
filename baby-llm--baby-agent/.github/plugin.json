@@ -1,0 +1,9 @@
+{
+  "name": "baby-llm--baby-agent",
+  "displayName": "baby-agent",
+  "description": "AI agent tutorials for backend developers without AI background. \u9002\u5408\u540e\u7aef\u5de5\u7a0b\u5e08\u7684\u96f6\u57fa\u7840 AI Agent \u6559\u7a0b",
+  "version": "1.0.0",
+  "author": "baby-llm",
+  "homepage": "https://github.com/baby-llm/baby-agent",
+  "skills": []
+}
