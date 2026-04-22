@@ -1,0 +1,9 @@
+{
+  "name": "ascorbic--cirrus",
+  "displayName": "cirrus",
+  "description": "A single-user ATProto PDS that runs on a Cloudflare Worker",
+  "version": "1.0.0",
+  "author": "ascorbic",
+  "homepage": "https://github.com/ascorbic/cirrus",
+  "skills": []
+}
