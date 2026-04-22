@@ -1,0 +1,14 @@
+{
+  "name": "borghei--claude-skills",
+  "displayName": "Claude-Skills",
+  "description": "245 Claude Code skills & agent plugins for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents \u2014 653 Python tools, 32 agents, 26 slash commands",
+  "version": "1.0.0",
+  "author": "borghei",
+  "homepage": "https://github.com/borghei/Claude-Skills",
+  "skills": [
+    {
+      "name": "ci-cd-pipeline-builder",
+      "description": ""
+    }
+  ]
+}
