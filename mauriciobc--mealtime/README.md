@@ -1,6 +1,6 @@
 # mealtime
 
-> Tome by [mauriciobc](https://github.com/mauriciobc/mealtime) — distributed by [TomeVault](https://tomevault.io/claim/mauriciobc)
+> Tome by [mauriciobc](https://github.com/mauriciobc/mealtime) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [mauriciobc/mealtime](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/mauriciobc)
+From [mauriciobc/mealtime](https://github.com/mauriciobc/mealtime) — a repo with 0+ stars on GitHub.
 
 ---
 
