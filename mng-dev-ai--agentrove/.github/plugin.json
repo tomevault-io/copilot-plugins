@@ -1,0 +1,9 @@
+{
+  "name": "mng-dev-ai--agentrove",
+  "displayName": "agentrove",
+  "description": "A self-hosted web and macOS desktop app for Claude Code and Codex, powered by ACP. Work in per-workspace sandboxes with chat, editor, terminal, git/PR tools, and customizable agent workflows.",
+  "version": "1.0.0",
+  "author": "Mng-dev-ai",
+  "homepage": "https://github.com/Mng-dev-ai/agentrove",
+  "skills": []
+}
