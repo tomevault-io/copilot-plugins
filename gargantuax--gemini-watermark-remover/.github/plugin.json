@@ -1,0 +1,9 @@
+{
+  "name": "gargantuax--gemini-watermark-remover",
+  "displayName": "gemini-watermark-remover",
+  "description": "A high-performance, 100% client-side tool for removing Gemini AI watermarks. Built with pure JavaScript, it leverages a mathematically precise Reverse Alpha Blending algorithm rather than unpredictabl",
+  "version": "1.0.0",
+  "author": "GargantuaX",
+  "homepage": "https://github.com/GargantuaX/gemini-watermark-remover",
+  "skills": []
+}
