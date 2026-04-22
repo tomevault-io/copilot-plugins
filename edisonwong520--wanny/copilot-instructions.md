@@ -1,0 +1,44 @@
+## wanny
+
+> 作为 AI 助手，在协助开发 Wanny 项目时，每次交互都必须遵守以下通用规则。
+
+# Wanny Project Rules (Common)
+
+作为 AI 助手，在协助开发 Wanny 项目时，每次交互都必须遵守以下通用规则。
+
+## 1. 文档定位
+
+- 根目录 `README.md` 用于项目介绍、目录说明、运行方式和 AI 阅读入口。
+- 根目录 `GEMINI.md` 仅用于记录通用规则、开发约束与 AI 行为准则。
+- 后端专属规则位于 `backend/GEMINI.md`。
+- 前端专属规则位于 `frontend/GEMINI.md`。
+- 需要了解业务背景或运行方式时，优先阅读对应目录下的 `README.md`，不要把项目介绍写进规则文件。
+
+## 2. AI 阅读链路
+
+- 第一步：先阅读根目录 `README.md`，了解项目背景与工作区结构。
+- 第二步：再阅读根目录 `GEMINI.md`，理解通用规则。
+- 第三步：如果任务涉及后端，继续阅读 `backend/GEMINI.md`。
+- 第四步：如果任务涉及前端，继续阅读 `frontend/GEMINI.md`。
+- 如果是全栈任务，需要同时遵守前后端两个规则文件。
+
+## 3. 通用开发约束
+
+- 所有测试用例、验证脚本、集成检查脚本都必须放入模块专属的 `tests/` 目录，不得随意散落在根目录或业务代码旁。
+- Python 测试文件必须使用 `test_*.py` 命名。
+- 所有前端页面、组件、样式和构建配置必须统一放在根目录 `frontend/` 工作区内。
+- 根目录 `third_party/` 仅用于存放第三方源码参考、submodule 与移植对照材料；除非用户明确要求，否则不要把其中代码直接当作主业务代码修改或运行时依赖。
+- 非用户明确要求时，不主动分析 `git status`、`git diff`、`git log` 或提交历史；只有在用户要求提交、review、追查版本、比较改动时再使用 Git。
+- 如果用户要求提交代码，提交信息应使用结构化前缀，如 `feat:`、`fix:`、`refactor:`、`test:`。
+- 代码注释统一使用英文书写；只有在逻辑不直观、协议特殊、兼容层较重或维护成本较高时才补充必要注释，避免无意义的逐行注释。
+
+## 4. 规则维护
+
+- 新的长期有效规则，应更新到对应的规则文件中：
+  - 通用规则更新根目录 `GEMINI.md`
+  - 后端规则更新 `backend/GEMINI.md`
+  - 前端规则更新 `frontend/GEMINI.md`
+
+---
+> Source: [edisonwong520/wanny](https://github.com/edisonwong520/wanny) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
