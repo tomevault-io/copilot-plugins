@@ -1,0 +1,14 @@
+{
+  "name": "corca-ai--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "AI instruction skills by corca-ai",
+  "version": "1.0.0",
+  "author": "corca-ai",
+  "homepage": "https://github.com/corca-ai/claude-plugins",
+  "skills": [
+    {
+      "name": "plugin-deploy",
+      "description": ""
+    }
+  ]
+}
