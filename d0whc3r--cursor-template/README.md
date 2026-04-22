@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [d0whc3r/cursor-template](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/d0whc3r)
+From [d0whc3r/cursor-template](https://github.com/d0whc3r/cursor-template) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install d0whc3r/cursor-template
 ```
-Or browse all formats at [https://tomevault.io/claim/d0whc3r](https://tomevault.io/claim/d0whc3r).
+Source: [github.com/d0whc3r/cursor-template](https://github.com/d0whc3r/cursor-template).
 
 <!-- genome:a-i-s -->
