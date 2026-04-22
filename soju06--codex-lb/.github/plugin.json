@@ -1,0 +1,9 @@
+{
+  "name": "soju06--codex-lb",
+  "displayName": "codex-lb",
+  "description": "Codex/ChatGPT multiple account load balancer & proxy with usage tracking, dashboard, and OpenCode-compatible endpoints",
+  "version": "1.0.0",
+  "author": "Soju06",
+  "homepage": "https://github.com/Soju06/codex-lb",
+  "skills": []
+}
