@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [BallLightningAB/balllightning](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/BallLightningAB)
+From [BallLightningAB/balllightning](https://github.com/BallLightningAB/balllightning) — a repo with 0+ stars on GitHub.
 
 ---
 
