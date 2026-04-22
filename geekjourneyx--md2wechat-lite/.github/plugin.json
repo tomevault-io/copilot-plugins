@@ -1,0 +1,14 @@
+{
+  "name": "geekjourneyx--md2wechat-lite",
+  "displayName": "md2wechat",
+  "description": "AI Agent \u81ea\u52a8\u6392\u7248\u516c\u4f17\u53f7 \u2014\u2014 Markdown \u8f6c\u5fae\u4fe1\u6392\u7248 CLI \u5de5\u5177",
+  "version": "1.0.0",
+  "author": "geekjourneyx",
+  "homepage": "https://github.com/geekjourneyx/md2wechat-lite",
+  "skills": [
+    {
+      "name": "md2wechat",
+      "description": ""
+    }
+  ]
+}
