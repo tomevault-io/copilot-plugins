@@ -1,0 +1,9 @@
+{
+  "name": "samwho--llmwalk",
+  "displayName": "llmwalk",
+  "description": "Explore the answer-space of open LLMs",
+  "version": "1.0.0",
+  "author": "samwho",
+  "homepage": "https://github.com/samwho/llmwalk",
+  "skills": []
+}
