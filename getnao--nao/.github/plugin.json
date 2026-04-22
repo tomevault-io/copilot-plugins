@@ -1,0 +1,9 @@
+{
+  "name": "getnao--nao",
+  "displayName": "nao",
+  "description": "\ud83d\udc7e nao is an open source analytics agent. (1) Create context with nao-core cli, (2) deploy nao chat interface for everyone",
+  "version": "1.0.0",
+  "author": "getnao",
+  "homepage": "https://github.com/getnao/nao",
+  "skills": []
+}
