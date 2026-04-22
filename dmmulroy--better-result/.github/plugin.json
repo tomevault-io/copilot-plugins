@@ -1,0 +1,9 @@
+{
+  "name": "dmmulroy--better-result",
+  "displayName": "better-result",
+  "description": "Lightweight Result type for TypeScript with generator-based composition.",
+  "version": "1.0.0",
+  "author": "dmmulroy",
+  "homepage": "https://github.com/dmmulroy/better-result",
+  "skills": []
+}
