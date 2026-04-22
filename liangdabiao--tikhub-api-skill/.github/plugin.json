@@ -1,0 +1,14 @@
+{
+  "name": "liangdabiao--tikhub-api-skill",
+  "displayName": "tikhub_api_skill",
+  "description": "TikHub API \u52a9\u624b\u662f\u4e00\u4e2a Claude Code Agent Skill\uff0c\u7528\u4e8e\u5e2e\u52a9\u7528\u6237\u641c\u7d22\u3001\u53d1\u73b0\u548c\u8c03\u7528 TikHub API\u3002TikHub \u63d0\u4f9b\u4e86\u591a\u5e73\u53f0\u793e\u4ea4\u5a92\u4f53\u6570\u636e API\uff0c\u652f\u6301\u6296\u97f3\u3001TikTok\u3001\u5c0f\u7ea2\u4e66\u3001Instagram\u3001YouTube\u3001Twitter\u3001Reddit \u7b49\u5e73\u53f0\u3002This is a TikHub API skill/documentation repository. Tik",
+  "version": "1.0.0",
+  "author": "liangdabiao",
+  "homepage": "https://github.com/liangdabiao/tikhub_api_skill",
+  "skills": [
+    {
+      "name": "tikhub-api-helper",
+      "description": ""
+    }
+  ]
+}
