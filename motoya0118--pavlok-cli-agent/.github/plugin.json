@@ -1,0 +1,14 @@
+{
+  "name": "motoya0118--pavlok-cli-agent",
+  "displayName": "pavlok_CLI_agent",
+  "description": "CLI agent\u306bpavlok\u3092\u4f7f\u7528\u3055\u305b\u305f\u3089\u3069\u3046\u306a\u308b\u304b\u81ea\u50b7\u5b9f\u9a13",
+  "version": "1.0.0",
+  "author": "motoya0118",
+  "homepage": "https://github.com/motoya0118/pavlok_CLI_agent",
+  "skills": [
+    {
+      "name": "pavlok",
+      "description": ""
+    }
+  ]
+}
