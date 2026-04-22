@@ -1,0 +1,167 @@
+## dotfiles
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
+
+## User Coding Preference
+
+**IMPORTANT**: I like to write code myself. Claude should show me the code with explanation and let me write the code so I can understand what I am doing. If I need Claude to update code or make changes, I will explicitly tell Claude to do so.
+
+## Edit Policy
+
+**CRITICAL**: Never show edits without explaining what you're doing first. This is a personal system-wide policy. Always explain the proposed changes, what they accomplish, and any trade-offs before showing any edit calls. I do not accept blind edits.
+
+## Platform Compatibility
+
+**CRITICAL**: All code must work on both macOS and Debian-based Linux systems. When writing or suggesting code, ensure cross-platform compatibility.
+
+## Repository Overview
+
+This is a personal dotfiles repository containing configuration files for various development tools and environments. The repository supports both Linux (Debian-based) and macOS setups.
+
+## Git Commit Style
+
+- **CRITICAL**: NEVER run `git commit`. Only generate and display the commit message for the user. The user will commit manually.
+- NEVER include "Co-Authored-By", "Generated with Claude Code", or any AI attribution lines
+- Clean commit messages without AI-generated footers
+
+## Cleanup Command
+
+When the user says **"cleanup"**, perform these steps in order:
+1. Run the **security-reviewer agent** in the **foreground** (not background) to review all code changes made in the session. Fix any issues found before proceeding.
+2. Update the relevant `dev_docs/` file(s) to reflect all changes made in the session (including any security fixes)
+3. Generate a git commit message summarizing the work done
+4. Display the commit message and copy it to the clipboard (using `pbcopy` on macOS, `xclip` on Linux)
+5. The user will handle `git add` and `git commit` manually
+
+## Project-Specific Development Documentation
+
+For detailed project-specific information, refer to the development documentation in:
+
+- **Todo Manager**: `dev_docs/todo_manager_dev.md`
+- **Readwise Integration**: `dev_docs/readwise_dev.md`
+- **Ollama Integration**: `dev_docs/ollama_dev.md`
+- **LSP Development**: `dev_docs/lsp_dev.md`
+- **Plenary Job**: `dev_docs/plenary_job_explanation.md`
+- **Zk Integration**: `dev_docs/zk_dev.md`
+- **eCQM Project**: `dev_docs/cqm_devdocs.md`
+- **Tmux Projects**: `dev_docs/tmux_projects_devdocs.md`
+
+## Development Commands
+
+### Build and Development
+
+- **Go projects**: Use the Makefile for Go-based development
+  - `make build` - Format, vet, and build Go code
+  - `make fmt` - Format Go code
+  - `make vet` - Run Go vet checks
+  - `make clean` - Remove compiled files
+
+### Neovim Development
+
+- **Plugin management**: Uses lazy.nvim for plugin management
+- **Custom plugin development**: Local plugins are stored in `neovim/nvim/dev-plugins/`
+- **Configuration reload**: Restart Neovim or use `:Lazy reload` after config changes
+- **Manual Neovim installation**: Use `neovim/install_neovim.sh` for building from source on Linux
+
+## Architecture and Structure
+
+### Neovim Configuration
+
+- **Entry point**: `neovim/nvim/init.lua`
+- **Configuration modules**: Located in `neovim/nvim/lua/vinod/config/`
+
+  - `lazy.lua` - Plugin manager setup (sets mapleader to `,` and localleader to `;`)
+  - `options.lua` - Vim options and settings
+  - `mappings.lua` - Key mappings (loaded after plugins)
+  - `autocmds.lua` - Autocommands
+  - `aliases.lua` - Command aliases
+  - `util.lua` - Utility functions
+
+- **Plugin configurations**: Located in `neovim/nvim/lua/vinod/plugins/`
+
+  - Each plugin has its own configuration file
+  - DAP (Debug Adapter Protocol) configs in `dap/` subdirectory
+  - LuaSnip snippets in `luasnip/` subdirectory
+
+- **Development plugins**: `neovim/nvim/dev-plugins/readwise.nvim/` - Custom plugin for Readwise integration
+
+### Shell and Terminal Configuration
+
+- **Zsh**: Separate configs for Linux (`zshrc_linux`) and macOS (`zshrc_mac`)
+- **Tmux**: Configuration with project-specific session files (`.proj` files)
+- **Terminal emulators**:
+  - Ghostty config in `ghostty/config`
+
+### Window Management (Linux)
+
+- **i3 window manager**: Configuration in `i3/config`
+- **i3status**: Status bar configuration
+- **Resolution script**: `i3/set_default_resolution.sh` for display setup
+
+### Additional Tools
+
+- **Starship prompt**: Configuration in `starship/starship.toml`
+- **NordVPN**: Toggle script in `nordvpn/nordvpn_toggle.sh`
+
+## Platform-Specific Notes
+
+### Linux (Debian-based)
+
+- Detailed installation checklist in main README.md
+- Hardware-specific fixes for MacBook Pro (WiFi, iSight camera, keyboard function keys)
+- Manual compilation required for some tools (Neovim, lazygit)
+
+### macOS
+
+- Uses Homebrew for package management
+- zk cli installation: `brew install zk`
+
+## Key Dependencies and Tools
+
+### Essential Tools
+
+- **Neovim**: Built from source or package manager
+- **Git**: Version control
+- **Go**: For Go-based projects
+- **Node.js/npm**: For various language servers and tools
+- **zk**: Note-taking tool (install with `brew install zk` on macOS)
+
+### Neovim Plugin Ecosystem
+
+- **lazy.nvim**: Plugin manager
+- **Mason**: LSP/DAP/linter installer
+- **Treesitter**: Syntax highlighting
+- **LSP**: Language server configurations (Uses vim.lsp)
+- **DAP**: Debug adapter configurations for C and Go
+- **Completion**: cmp-based completion system
+- **Markdown**: Live preview and rendering capabilities
+
+## Development Workflow
+
+1. **Making Neovim changes**: Edit configs in `neovim/nvim/lua/vinod/`
+2. **Adding new plugins**: Create new file in `neovim/nvim/lua/vinod/plugins/`
+3. **Custom plugins**: Develop in `neovim/nvim/dev-plugins/`
+4. **Shell changes**: Modify appropriate zshrc file for your platform
+5. **Terminal changes**: Update relevant terminal emulator config file
+
+## Project Management (Tmux)
+
+- Project session files end with `.proj` extension
+- Located in `tmux/` directory
+- Examples: `c.proj`, `neovim.proj`, `lua.proj`, `readwise.proj`
+
+# important-instruction-reminders
+
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (\*.md) or README files. Only create documentation files if explicitly requested by the User.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/vmnair) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
