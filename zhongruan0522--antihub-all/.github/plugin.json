@@ -1,0 +1,9 @@
+{
+  "name": "zhongruan0522--antihub-all",
+  "displayName": "AntiHub-ALL",
+  "description": "\u57fa\u4e8eAntiHub\u4e8c\u5f00\u76842API\u7efc\u5408\u6027\u5e73\u53f0\uff0c\u5168\u4ee3\u7801\u5f00\u6e90\uff0c\u8ba9 Claude\u3001Openai \u3001Gemini\u3001AWS(Kiro)\u7684\u8ba2\u9605\u5957\u9910\u53d1\u6325\u6700\u5927\u4ef7\u503c\uff0c\u539f\u751f\u5de5\u5177\u65e0\u7f1d\u4f7f\u7528\u3002",
+  "version": "1.0.0",
+  "author": "zhongruan0522",
+  "homepage": "https://github.com/zhongruan0522/AntiHub-ALL",
+  "skills": []
+}
