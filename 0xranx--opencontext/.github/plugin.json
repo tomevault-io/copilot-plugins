@@ -1,0 +1,9 @@
+{
+  "name": "0xranx--opencontext",
+  "displayName": "OpenContext",
+  "description": "A personal context store for AI agents and assistants\u2014reuse your existing coding agent CLI (Codex/Claude/OpenCode) with built\u2011in Skills/tools and a desktop GUI to capture, search, and reuse project kn",
+  "version": "1.0.0",
+  "author": "0xranx",
+  "homepage": "https://github.com/0xranx/OpenContext",
+  "skills": []
+}
