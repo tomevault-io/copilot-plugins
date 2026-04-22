@@ -1,0 +1,9 @@
+{
+  "name": "michaelliv--psst",
+  "displayName": "psst",
+  "description": "\ud83e\udd2b AI-native secrets manager. Agents use secrets without seeing them.",
+  "version": "1.0.0",
+  "author": "Michaelliv",
+  "homepage": "https://github.com/Michaelliv/psst",
+  "skills": []
+}
