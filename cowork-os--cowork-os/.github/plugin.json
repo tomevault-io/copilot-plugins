@@ -1,0 +1,9 @@
+{
+  "name": "cowork-os--cowork-os",
+  "displayName": "CoWork-OS",
+  "description": "Operating System for your personal AI Agents with Security-first approach. Multi-channel (WhatsApp, Telegram, Discord, Slack, iMessage), multi-provider (Claude, GPT, Gemini, Ollama), fully self-hosted",
+  "version": "1.0.0",
+  "author": "CoWork-OS",
+  "homepage": "https://github.com/CoWork-OS/CoWork-OS",
+  "skills": []
+}
