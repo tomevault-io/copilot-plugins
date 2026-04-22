@@ -1,6 +1,6 @@
-# pubkey — distributed by TomeVault
+# pubkey
 
-> Originally from [fxstein/pubkey](https://github.com/fxstein/pubkey). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [fxstein/pubkey](https://github.com/fxstein/pubkey) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [fxstein/pubkey](https://github.com/fx
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/fxstein)
+From [fxstein/pubkey](https://github.com/fxstein/pubkey) — a repo with 0+ stars on GitHub.
 
 ---
 
