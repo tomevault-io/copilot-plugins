@@ -1,0 +1,14 @@
+{
+  "name": "digitarald--mcp-apps-playground",
+  "displayName": "mcp-apps-playground",
+  "description": "mcp-apps-playground",
+  "version": "1.0.0",
+  "author": "digitarald",
+  "homepage": "https://github.com/digitarald/mcp-apps-playground",
+  "skills": [
+    {
+      "name": "mcp-apps",
+      "description": ""
+    }
+  ]
+}
