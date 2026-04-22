@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--knowledge-agent-template",
+  "displayName": "knowledge-agent-template",
+  "description": "Open source file-system and knowledge based agent template. Build AI agents that stay up to date with your knowledge base",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/knowledge-agent-template",
+  "skills": []
+}
