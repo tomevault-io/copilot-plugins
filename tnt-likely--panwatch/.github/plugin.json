@@ -1,0 +1,9 @@
+{
+  "name": "tnt-likely--panwatch",
+  "displayName": "PanWatch",
+  "description": "\u76ef\u76d8\u4fa0 - AI \u9a71\u52a8\u7684\u80a1\u7968\u76d1\u63a7\u52a9\u624b\uff0c\u652f\u6301 A \u80a1/\u6e2f\u80a1/\u7f8e\u80a1\uff0c\u591a\u8d26\u6237\u6301\u4ed3\u7ba1\u7406\uff0c\u667a\u80fd     Agent \u81ea\u52a8\u5206\u6790\uff0cPWA \u79fb\u52a8\u7aef\u9002\u914d  ",
+  "version": "1.0.0",
+  "author": "TNT-Likely",
+  "homepage": "https://github.com/TNT-Likely/PanWatch",
+  "skills": []
+}
