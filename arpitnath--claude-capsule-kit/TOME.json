@@ -1,0 +1,81 @@
+{
+  "name": "claude-capsule-kit",
+  "owner": "arpitnath",
+  "repo": "claude-capsule-kit",
+  "description": "A toolkit that makes Claude Code better at engineering \u2014 session memory, dependency analysis, large file navigation, 18 specialist agents, and crew teams for parallel multi-branch work.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "crew",
+      "path": "skills/crew",
+      "github_url": "https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/crew",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "path": "skills/debug",
+      "github_url": "https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/debug",
+      "description": ""
+    },
+    {
+      "name": "deep-context",
+      "path": "skills/deep-context",
+      "github_url": "https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/deep-context",
+      "description": ""
+    },
+    {
+      "name": "task-router",
+      "path": "skills/task-router",
+      "github_url": "https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/task-router",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "path": "skills/workflow",
+      "github_url": "https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/arpitnath/claude-capsule-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T23:30:44Z"
+}
