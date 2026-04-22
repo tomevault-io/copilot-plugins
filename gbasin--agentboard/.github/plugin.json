@@ -1,0 +1,9 @@
+{
+  "name": "gbasin--agentboard",
+  "displayName": "agentboard",
+  "description": "Web GUI for tmux optimized for AI agent TUIs, with support for iOS safari and mac w/ keyboard shortcuts",
+  "version": "1.0.0",
+  "author": "gbasin",
+  "homepage": "https://github.com/gbasin/agentboard",
+  "skills": []
+}
