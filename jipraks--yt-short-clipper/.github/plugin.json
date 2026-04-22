@@ -1,0 +1,9 @@
+{
+  "name": "jipraks--yt-short-clipper",
+  "displayName": "yt-short-clipper",
+  "description": "\ud83c\udfac Transform long-form YouTube videos (podcasts, interviews, vlogs) into engaging short-form content for TikTok, Instagram Reels, and YouTube Shorts \u2014 all with a single command.",
+  "version": "1.0.0",
+  "author": "jipraks",
+  "homepage": "https://github.com/jipraks/yt-short-clipper",
+  "skills": []
+}
