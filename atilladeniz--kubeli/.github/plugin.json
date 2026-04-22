@@ -1,0 +1,9 @@
+{
+  "name": "atilladeniz--kubeli",
+  "displayName": "Kubeli",
+  "description": "A modern Kubernetes GUI management desktop app for macOS & Windows. Multi-cluster support, real-time monitoring, AI assistant, terminal access, and more.",
+  "version": "1.0.0",
+  "author": "atilladeniz",
+  "homepage": "https://github.com/atilladeniz/Kubeli",
+  "skills": []
+}
