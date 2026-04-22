@@ -1,0 +1,44 @@
+{
+  "name": "gemini-watermark-remover",
+  "owner": "GargantuaX",
+  "repo": "gemini-watermark-remover",
+  "description": "A high-performance, 100% client-side tool for removing Gemini AI watermarks. Built with pure JavaScript, it leverages a mathematically precise Reverse Alpha Blending algorithm rather than unpredictable AI inpainting. / \u57fa\u4e8e Javascript \u7684\u7eaf\u6d4f\u89c8\u5668\u7aef Gemini AI \u56fe\u50cf\u65e0\u635f\u53bb\u6c34\u5370\u5de5\u5177\uff0c\u4f7f\u7528\u6570\u5b66\u7cbe\u786e\u7684\u53cd\u5411 Alpha \u6df7\u5408\u7b97\u6cd5",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/GargantuaX/gemini-watermark-remover",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T09:08:48Z"
+}
