@@ -1,0 +1,9 @@
+{
+  "name": "limecloud--lime",
+  "displayName": "lime",
+  "description": "\u628a\u7075\u611f\u3001\u5199\u4f5c\u3001\u51fa\u56fe\u3001\u6539\u7a3f\u3001\u6c89\u6dc0\u653e\u8fdb\u540c\u4e00\u4e2a\u5de5\u4f5c\u53f0\uff0c\u8ba9\u521b\u4f5c\u4ece\u201c\u60f3\u5230\u201d\u76f4\u63a5\u8d70\u5230\u201c\u53ef\u53d1\u5e03\u201d",
+  "version": "1.0.0",
+  "author": "limecloud",
+  "homepage": "https://github.com/limecloud/lime",
+  "skills": []
+}
