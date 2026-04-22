@@ -1,9 +1,9 @@
 {
   "name": "tracer-cloud--opensre",
   "displayName": "opensre",
-  "description": "opensre",
+  "description": "Build your own AI SRE agents. The open source toolkit for the AI era \u2728 ",
   "version": "1.0.0",
   "author": "Tracer-Cloud",
-  "homepage": "https://tomevault.io/claim/Tracer-Cloud",
+  "homepage": "https://github.com/Tracer-Cloud/opensre",
   "skills": []
 }
