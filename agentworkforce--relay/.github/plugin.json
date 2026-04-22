@@ -1,0 +1,9 @@
+{
+  "name": "agentworkforce--relay",
+  "displayName": "relay",
+  "description": "Real-time agent to agent communication",
+  "version": "1.0.0",
+  "author": "AgentWorkforce",
+  "homepage": "https://github.com/AgentWorkforce/relay",
+  "skills": []
+}
