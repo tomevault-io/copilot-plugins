@@ -1,6 +1,6 @@
 # gym_project
 
-> Tome by [carlos18bp](https://github.com/carlos18bp/gym_project) — distributed by [TomeVault](https://tomevault.io/claim/carlos18bp)
+> Tome by [carlos18bp](https://github.com/carlos18bp/gym_project) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [carlos18bp/gym_project](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/carlos18bp#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/carlos18bp/gym_project](https://github.com/carlos18bp/gym_project)
 
 ---
 
