@@ -1,0 +1,9 @@
+{
+  "name": "arthurheymans--emacs-tramp-rpc",
+  "displayName": "emacs-tramp-rpc",
+  "description": "High-performance TRAMP backend using JSON-RPC instead of shell parsing",
+  "version": "1.0.0",
+  "author": "ArthurHeymans",
+  "homepage": "https://github.com/ArthurHeymans/emacs-tramp-rpc",
+  "skills": []
+}
