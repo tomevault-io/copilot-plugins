@@ -1,0 +1,18 @@
+{
+  "name": "emanueleielo--deepagents-open-lovable",
+  "displayName": "deepagents-open-lovable",
+  "description": "An open-source AI-powered frontend development platform built on DeepAgents and LangGraph. Generate complete React applications through natural language conversations.",
+  "version": "1.0.0",
+  "author": "emanueleielo",
+  "homepage": "https://github.com/emanueleielo/deepagents-open-lovable",
+  "skills": [
+    {
+      "name": "component-patterns",
+      "description": ""
+    },
+    {
+      "name": "form-patterns",
+      "description": ""
+    }
+  ]
+}
