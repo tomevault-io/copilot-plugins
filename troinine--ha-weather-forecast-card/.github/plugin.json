@@ -1,0 +1,9 @@
+{
+  "name": "troinine--ha-weather-forecast-card",
+  "displayName": "ha-weather-forecast-card",
+  "description": "\u2600\ufe0f Slightly improved weather forecast card for Home Assistant",
+  "version": "1.0.0",
+  "author": "troinine",
+  "homepage": "https://github.com/troinine/ha-weather-forecast-card",
+  "skills": []
+}
