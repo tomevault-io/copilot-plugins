@@ -1,0 +1,9 @@
+{
+  "name": "boxlite-ai--boxlite",
+  "displayName": "boxlite",
+  "description": "Sandboxes for every agent. Embeddable, stateful, snapshots, and hardware isolation.",
+  "version": "1.0.0",
+  "author": "boxlite-ai",
+  "homepage": "https://github.com/boxlite-ai/boxlite",
+  "skills": []
+}
