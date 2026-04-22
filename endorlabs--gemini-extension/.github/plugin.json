@@ -1,0 +1,9 @@
+{
+  "name": "endorlabs--gemini-extension",
+  "displayName": "gemini-extension",
+  "description": "Secure copilot for coding assistants",
+  "version": "1.0.0",
+  "author": "endorlabs",
+  "homepage": "https://github.com/endorlabs/gemini-extension",
+  "skills": []
+}
