@@ -1,0 +1,22 @@
+{
+  "name": "nicknisi--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "Nick's own marketplace of Claude Plugins",
+  "version": "1.0.0",
+  "author": "nicknisi",
+  "homepage": "https://github.com/nicknisi/claude-plugins",
+  "skills": [
+    {
+      "name": "autoskill",
+      "description": ""
+    },
+    {
+      "name": "claude-code-analyzer",
+      "description": ""
+    },
+    {
+      "name": "ideation",
+      "description": ""
+    }
+  ]
+}
