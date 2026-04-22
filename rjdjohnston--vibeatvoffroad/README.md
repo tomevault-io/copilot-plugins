@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [rjdjohnston/vibeatvoffroad](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rjdjohnston)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rjdjohnston/vibeatvoffroad](https://github.com/rjdjohnston/vibeatvoffroad)
 
 ---
 
