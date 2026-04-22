@@ -1,0 +1,9 @@
+{
+  "name": "hugorcd--evlog",
+  "displayName": "evlog",
+  "description": "Logging that makes sense. Wide events, structured errors, zero chaos.",
+  "version": "1.0.0",
+  "author": "HugoRCD",
+  "homepage": "https://github.com/HugoRCD/evlog",
+  "skills": []
+}
