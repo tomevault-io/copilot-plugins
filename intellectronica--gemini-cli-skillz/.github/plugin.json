@@ -1,0 +1,9 @@
+{
+  "name": "intellectronica--gemini-cli-skillz",
+  "displayName": "gemini-cli-skillz",
+  "description": "Gemini CLI extension for Anthropic-style Agent Skills via skillz MCP server",
+  "version": "1.0.0",
+  "author": "intellectronica",
+  "homepage": "https://github.com/intellectronica/gemini-cli-skillz",
+  "skills": []
+}
