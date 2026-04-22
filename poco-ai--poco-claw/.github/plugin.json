@@ -1,0 +1,9 @@
+{
+  "name": "poco-ai--poco-claw",
+  "displayName": "poco-claw",
+  "description": "A more beautiful and easier-to-use alternative to OpenClaw. It features a nicer Web UI, built-in IM support, and a sandboxed runtime for improved safety. Under the hood, it is powered by a Claude Code",
+  "version": "1.0.0",
+  "author": "poco-ai",
+  "homepage": "https://github.com/poco-ai/poco-claw",
+  "skills": []
+}
