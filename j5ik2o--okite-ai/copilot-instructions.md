@@ -1,0 +1,34 @@
+## okite-ai
+
+> - シンプルさの優先: すべての変更を可能な限りシンプルに保ち、コードへの影響範囲を最小限に抑える。
+
+# 大前提
+
+- 日本語でやりとりすること
+ 
+# 基本原則
+
+- シンプルさの優先: すべての変更を可能な限りシンプルに保ち、コードへの影響範囲を最小限に抑える。
+- 妥協の排除: 根本原因を特定すること。一時しのぎの修正は行わず、シニア開発者としての基準を維持する。
+- 影響の最小化: 必要な箇所のみを変更し、新たなバグの混入を徹底的に防ぐ。
+
+# AI-DLC and Spec-Driven Development
+
+@.agents/CC-SDD.md
+
+# Claude Code向け
+
+- `.claude/skills/` はシンボリックリンクですが、本体のパス(`skills/`)は意識しないでください。通常どおり処理してください。
+
+# Codex CLI向け
+
+- `.codex/skills/` はシンボリックリンクですが、本体のパス(`skills/`)は意識しないでください。通常どおり処理してください。
+
+
+# 参照ドキュメント
+
+- `references/*`以下は参照ドキュメントです。当該プロジェクトのファイルではないので参照のみとしてください。
+
+---
+> Source: [j5ik2o/okite-ai](https://github.com/j5ik2o/okite-ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
