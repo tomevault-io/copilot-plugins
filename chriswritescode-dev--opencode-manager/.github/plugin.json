@@ -1,0 +1,9 @@
+{
+  "name": "chriswritescode-dev--opencode-manager",
+  "displayName": "opencode-manager",
+  "description": "Mobile-first web interface for OpenCode AI agents. Manage, control, and code with multiple OpenCode agents from any device - your phone, tablet, or desktop. Features Git integration, file management, ",
+  "version": "1.0.0",
+  "author": "chriswritescode-dev",
+  "homepage": "https://github.com/chriswritescode-dev/opencode-manager",
+  "skills": []
+}
