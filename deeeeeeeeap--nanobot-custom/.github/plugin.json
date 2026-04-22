@@ -1,0 +1,14 @@
+{
+  "name": "deeeeeeeeap--nanobot-custom",
+  "displayName": "nanobot-custom",
+  "description": "\u57fa\u4e8e nanobot \u7684\u4e2a\u4eba AI \u52a9\u624b\uff0c\u652f\u6301 MiniMax\u3001Gemini \u7b49\u591a\u6a21\u578b\u5207\u6362",
+  "version": "1.0.0",
+  "author": "deeeeeeeeap",
+  "homepage": "https://github.com/deeeeeeeeap/nanobot-custom",
+  "skills": [
+    {
+      "name": "cron",
+      "description": ""
+    }
+  ]
+}
