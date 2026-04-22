@@ -1,0 +1,44 @@
+{
+  "name": "GeekFaka",
+  "owner": "huangzijian888",
+  "repo": "GeekFaka",
+  "description": " GeekFaka \u662f\u4e00\u4e2a\u4e13\u4e3a\u72ec\u7acb\u5f00\u53d1\u8005\u548c\u521b\u4f5c\u8005\u6253\u9020\u7684 Headless \u81ea\u52a8\u53d1\u5361\u7cfb\u7edf\u3002\u57fa\u4e8e Next.js + React 18 + Prisma \u6784\u5efa\uff0c\u62e5\u6709\u6781\u81f4\u7684\u6df1\u8272\u6781\u5ba2   UI\u3001Markdown \u6e32\u67d3\u3001\u591a\u6e20\u9053\u6613\u652f\u4ed8\uff08RSA/MD5\uff09\u96c6\u6210\u4ee5\u53ca Docker \u4e00\u952e\u90e8\u7f72\u80fd\u529b\u3002\u629b\u5f03\u7e41\u7410\uff0c\u8ba9\u6570\u5b57\u5546\u54c1\u552e\u5356\u56de\u5f52\u7b80\u5355\u4e0e\u4f18\u96c5\u3002",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/huangzijian888/GeekFaka",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T16:05:14Z"
+}
