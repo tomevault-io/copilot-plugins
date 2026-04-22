@@ -1,0 +1,2139 @@
+{
+  "name": "claude-code-plugins",
+  "owner": "melodic-software",
+  "repo": "claude-code-plugins",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "data-modeling",
+      "path": "plugins/systems-design/skills/data-modeling",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/data-modeling",
+      "description": ""
+    },
+    {
+      "name": "state-machine-design",
+      "path": "plugins/formal-specification/skills/state-machine-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/formal-specification/skills/state-machine-design",
+      "description": ""
+    },
+    {
+      "name": "plantuml-syntax",
+      "path": "plugins/visualization/skills/plantuml-syntax",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/visualization/skills/plantuml-syntax",
+      "description": ""
+    },
+    {
+      "name": "acceptance-criteria-authoring",
+      "path": "plugins/test-strategy/skills/acceptance-criteria-authoring",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/acceptance-criteria-authoring",
+      "description": ""
+    },
+    {
+      "name": "adr-management",
+      "path": "plugins/enterprise-architecture/skills/adr-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/adr-management",
+      "description": ""
+    },
+    {
+      "name": "adw-design",
+      "path": "plugins/tac/skills/adw-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/adw-design",
+      "description": ""
+    },
+    {
+      "name": "agent-expert-creation",
+      "path": "plugins/tac/skills/agent-expert-creation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/agent-expert-creation",
+      "description": ""
+    },
+    {
+      "name": "agent-governance",
+      "path": "plugins/tac/skills/agent-governance",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/agent-governance",
+      "description": ""
+    },
+    {
+      "name": "agent-lifecycle-management",
+      "path": "plugins/tac/skills/agent-lifecycle-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/agent-lifecycle-management",
+      "description": ""
+    },
+    {
+      "name": "agent-sdk-development",
+      "path": "plugins/claude-ecosystem/skills/agent-sdk-development",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/agent-sdk-development",
+      "description": ""
+    },
+    {
+      "name": "agent-specialization",
+      "path": "plugins/tac/skills/agent-specialization",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/agent-specialization",
+      "description": ""
+    },
+    {
+      "name": "agentic-kpi-tracking",
+      "path": "plugins/tac/skills/agentic-kpi-tracking",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/agentic-kpi-tracking",
+      "description": ""
+    },
+    {
+      "name": "agentic-layer-assessment",
+      "path": "plugins/tac/skills/agentic-layer-assessment",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/agentic-layer-assessment",
+      "description": ""
+    },
+    {
+      "name": "agentic-layer-audit",
+      "path": "plugins/tac/skills/agentic-layer-audit",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/agentic-layer-audit",
+      "description": ""
+    },
+    {
+      "name": "ai-governance",
+      "path": "plugins/security/skills/ai-governance",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/ai-governance",
+      "description": ""
+    },
+    {
+      "name": "ai-governance",
+      "path": "plugins/compliance-planning/skills/ai-governance",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/compliance-planning/skills/ai-governance",
+      "description": ""
+    },
+    {
+      "name": "ai-tools",
+      "path": "plugins/melodic-software/skills/ai-tools",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/melodic-software/skills/ai-tools",
+      "description": ""
+    },
+    {
+      "name": "ai-writing-assistant",
+      "path": "plugins/soft-skills/skills/ai-writing-assistant",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/ai-writing-assistant",
+      "description": ""
+    },
+    {
+      "name": "analyze",
+      "path": "plugins/code-quality/skills/analyze",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/code-quality/skills/analyze",
+      "description": ""
+    },
+    {
+      "name": "analyze-automation-roi",
+      "path": "plugins/test-strategy/skills/analyze-automation-roi",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/analyze-automation-roi",
+      "description": ""
+    },
+    {
+      "name": "analyze-pyramid",
+      "path": "plugins/test-strategy/skills/analyze-pyramid",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/analyze-pyramid",
+      "description": ""
+    },
+    {
+      "name": "api-contract",
+      "path": "plugins/formal-specification/skills/api-contract",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/formal-specification/skills/api-contract",
+      "description": ""
+    },
+    {
+      "name": "api-design-fundamentals",
+      "path": "plugins/systems-design/skills/api-design-fundamentals",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/api-design-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "api-portal-design",
+      "path": "plugins/documentation-standards/skills/api-portal-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/documentation-standards/skills/api-portal-design",
+      "description": ""
+    },
+    {
+      "name": "api-review",
+      "path": "plugins/systems-design/skills/api-review",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/api-review",
+      "description": ""
+    },
+    {
+      "name": "api-security",
+      "path": "plugins/security/skills/api-security",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/api-security",
+      "description": ""
+    },
+    {
+      "name": "api-security",
+      "path": "plugins/systems-design/skills/api-security",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/api-security",
+      "description": ""
+    },
+    {
+      "name": "api-versioning",
+      "path": "plugins/systems-design/skills/api-versioning",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/api-versioning",
+      "description": ""
+    },
+    {
+      "name": "apply-findings",
+      "path": "plugins/melodic-software/skills/apply-findings",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/melodic-software/skills/apply-findings",
+      "description": ""
+    },
+    {
+      "name": "arc42-documentation",
+      "path": "plugins/documentation-standards/skills/arc42-documentation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/documentation-standards/skills/arc42-documentation",
+      "description": ""
+    },
+    {
+      "name": "architecture-documentation",
+      "path": "plugins/enterprise-architecture/skills/architecture-documentation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/architecture-documentation",
+      "description": ""
+    },
+    {
+      "name": "architecture-review",
+      "path": "plugins/enterprise-architecture/skills/architecture-review",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/architecture-review",
+      "description": ""
+    },
+    {
+      "name": "assess-ai",
+      "path": "plugins/compliance-planning/skills/assess-ai",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/compliance-planning/skills/assess-ai",
+      "description": ""
+    },
+    {
+      "name": "asyncapi-authoring",
+      "path": "plugins/spec-driven-development/skills/asyncapi-authoring",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/asyncapi-authoring",
+      "description": ""
+    },
+    {
+      "name": "asyncapi-design",
+      "path": "plugins/formal-specification/skills/asyncapi-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/formal-specification/skills/asyncapi-design",
+      "description": ""
+    },
+    {
+      "name": "audit",
+      "path": "plugins/security/skills/audit",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/audit",
+      "description": ""
+    },
+    {
+      "name": "audit-agent-consolidation",
+      "path": "plugins/claude-ecosystem/skills/audit-agent-consolidation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-agent-consolidation",
+      "description": ""
+    },
+    {
+      "name": "audit-agents",
+      "path": "plugins/claude-ecosystem/skills/audit-agents",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-agents",
+      "description": ""
+    },
+    {
+      "name": "audit-docs-delegation",
+      "path": "plugins/claude-ecosystem/skills/audit-docs-delegation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-docs-delegation",
+      "description": ""
+    },
+    {
+      "name": "audit-hooks",
+      "path": "plugins/claude-ecosystem/skills/audit-hooks",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-hooks",
+      "description": ""
+    },
+    {
+      "name": "audit-layer",
+      "path": "plugins/tac/skills/audit-layer",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/audit-layer",
+      "description": ""
+    },
+    {
+      "name": "audit-log",
+      "path": "plugins/claude-ecosystem/skills/audit-log",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-log",
+      "description": ""
+    },
+    {
+      "name": "audit-lsp",
+      "path": "plugins/claude-ecosystem/skills/audit-lsp",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-lsp",
+      "description": ""
+    },
+    {
+      "name": "audit-memory",
+      "path": "plugins/claude-ecosystem/skills/audit-memory",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-memory",
+      "description": ""
+    },
+    {
+      "name": "audit-output-styles",
+      "path": "plugins/claude-ecosystem/skills/audit-output-styles",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-output-styles",
+      "description": ""
+    },
+    {
+      "name": "audit-plugins",
+      "path": "plugins/claude-ecosystem/skills/audit-plugins",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-plugins",
+      "description": ""
+    },
+    {
+      "name": "audit-rules",
+      "path": "plugins/claude-ecosystem/skills/audit-rules",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-rules",
+      "description": ""
+    },
+    {
+      "name": "audit-schema",
+      "path": "plugins/content-management-system/skills/audit-schema",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/audit-schema",
+      "description": ""
+    },
+    {
+      "name": "audit-settings",
+      "path": "plugins/claude-ecosystem/skills/audit-settings",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-settings",
+      "description": ""
+    },
+    {
+      "name": "audit-skills",
+      "path": "plugins/claude-ecosystem/skills/audit-skills",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-skills",
+      "description": ""
+    },
+    {
+      "name": "audit-statuslines",
+      "path": "plugins/claude-ecosystem/skills/audit-statuslines",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/audit-statuslines",
+      "description": ""
+    },
+    {
+      "name": "authentication-patterns",
+      "path": "plugins/security/skills/authentication-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/authentication-patterns",
+      "description": ""
+    },
+    {
+      "name": "authorization-models",
+      "path": "plugins/security/skills/authorization-models",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/authorization-models",
+      "description": ""
+    },
+    {
+      "name": "automation-strategy",
+      "path": "plugins/test-strategy/skills/automation-strategy",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/automation-strategy",
+      "description": ""
+    },
+    {
+      "name": "bash-aliases",
+      "path": "plugins/git/skills/bash-aliases",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/git/skills/bash-aliases",
+      "description": ""
+    },
+    {
+      "name": "batch-scrape",
+      "path": ".claude/skills/batch-scrape",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/.claude/skills/batch-scrape",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "path": "plugins/requirements-elicitation/skills/brainstorm",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/brainstorm",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "path": "plugins/melodic-software/skills/brand-guidelines",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/melodic-software/skills/brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "brand-statement",
+      "path": "plugins/soft-skills/skills/brand-statement",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/brand-statement",
+      "description": ""
+    },
+    {
+      "name": "broadcast-event",
+      "path": "plugins/tac/skills/broadcast-event",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/broadcast-event",
+      "description": ""
+    },
+    {
+      "name": "business-model-canvas",
+      "path": "plugins/business-analysis/skills/business-model-canvas",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/business-analysis/skills/business-model-canvas",
+      "description": ""
+    },
+    {
+      "name": "business-rules-analysis",
+      "path": "plugins/requirements-elicitation/skills/business-rules-analysis",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/business-rules-analysis",
+      "description": ""
+    },
+    {
+      "name": "c4-documentation",
+      "path": "plugins/documentation-standards/skills/c4-documentation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/documentation-standards/skills/c4-documentation",
+      "description": ""
+    },
+    {
+      "name": "cdn-architecture",
+      "path": "plugins/systems-design/skills/cdn-architecture",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/cdn-architecture",
+      "description": ""
+    },
+    {
+      "name": "cdn-media-delivery",
+      "path": "plugins/content-management-system/skills/cdn-media-delivery",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/cdn-media-delivery",
+      "description": ""
+    },
+    {
+      "name": "chaos-engineering-fundamentals",
+      "path": "plugins/systems-design/skills/chaos-engineering-fundamentals",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/chaos-engineering-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "chaos-plan",
+      "path": "plugins/systems-design/skills/chaos-plan",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/chaos-plan",
+      "description": ""
+    },
+    {
+      "name": "check-api-status",
+      "path": "plugins/claude-ecosystem/skills/check-api-status",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/check-api-status",
+      "description": ""
+    },
+    {
+      "name": "classify-issue",
+      "path": "plugins/tac/skills/classify-issue",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/classify-issue",
+      "description": ""
+    },
+    {
+      "name": "claude-desktop",
+      "path": "plugins/claude-ecosystem/skills/claude-desktop",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/claude-desktop",
+      "description": ""
+    },
+    {
+      "name": "closed-loop-design",
+      "path": "plugins/tac/skills/closed-loop-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/closed-loop-design",
+      "description": ""
+    },
+    {
+      "name": "code-review-communication",
+      "path": "plugins/soft-skills/skills/code-review-communication",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/code-review-communication",
+      "description": ""
+    },
+    {
+      "name": "code-reviewing",
+      "path": "plugins/code-quality/skills/code-reviewing",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/code-quality/skills/code-reviewing",
+      "description": ""
+    },
+    {
+      "name": "codex-cli-docs",
+      "path": "plugins/openai-ecosystem/skills/codex-cli-docs",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/openai-ecosystem/skills/codex-cli-docs",
+      "description": ""
+    },
+    {
+      "name": "commit-with-agent",
+      "path": "plugins/tac/skills/commit-with-agent",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/commit-with-agent",
+      "description": ""
+    },
+    {
+      "name": "composable-primitives",
+      "path": "plugins/tac/skills/composable-primitives",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/composable-primitives",
+      "description": ""
+    },
+    {
+      "name": "composable-step-design",
+      "path": "plugins/tac/skills/composable-step-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/composable-step-design",
+      "description": ""
+    },
+    {
+      "name": "conditional-docs-setup",
+      "path": "plugins/tac/skills/conditional-docs-setup",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/conditional-docs-setup",
+      "description": ""
+    },
+    {
+      "name": "conduct",
+      "path": "plugins/research/skills/conduct",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/research/skills/conduct",
+      "description": ""
+    },
+    {
+      "name": "container-security",
+      "path": "plugins/security/skills/container-security",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/container-security",
+      "description": ""
+    },
+    {
+      "name": "content-relationships",
+      "path": "plugins/content-management-system/skills/content-relationships",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/content-relationships",
+      "description": ""
+    },
+    {
+      "name": "content-type-modeling",
+      "path": "plugins/content-management-system/skills/content-type-modeling",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/content-type-modeling",
+      "description": ""
+    },
+    {
+      "name": "content-versioning",
+      "path": "plugins/content-management-system/skills/content-versioning",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/content-versioning",
+      "description": ""
+    },
+    {
+      "name": "content-workflow",
+      "path": "plugins/content-management-system/skills/content-workflow",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/content-workflow",
+      "description": ""
+    },
+    {
+      "name": "context-audit",
+      "path": "plugins/tac/skills/context-audit",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/context-audit",
+      "description": ""
+    },
+    {
+      "name": "context-hierarchy-design",
+      "path": "plugins/tac/skills/context-hierarchy-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/context-hierarchy-design",
+      "description": ""
+    },
+    {
+      "name": "contract-first-design",
+      "path": "plugins/spec-driven-development/skills/contract-first-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/contract-first-design",
+      "description": ""
+    },
+    {
+      "name": "contract-test-design",
+      "path": "plugins/test-strategy/skills/contract-test-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/contract-test-design",
+      "description": ""
+    },
+    {
+      "name": "coverage-report",
+      "path": "plugins/dotnet/skills/coverage-report",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/dotnet/skills/coverage-report",
+      "description": ""
+    },
+    {
+      "name": "create-adr",
+      "path": "plugins/documentation-standards/skills/create-adr",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/documentation-standards/skills/create-adr",
+      "description": ""
+    },
+    {
+      "name": "create-agent",
+      "path": "plugins/tac/skills/create-agent",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/create-agent",
+      "description": ""
+    },
+    {
+      "name": "create-expert",
+      "path": "plugins/tac/skills/create-expert",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/create-expert",
+      "description": ""
+    },
+    {
+      "name": "create-prompt",
+      "path": "plugins/tac/skills/create-prompt",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/create-prompt",
+      "description": ""
+    },
+    {
+      "name": "create-runbook",
+      "path": "plugins/documentation-standards/skills/create-runbook",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/documentation-standards/skills/create-runbook",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "path": "plugins/claude-ecosystem/skills/create-skill",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/create-skill",
+      "description": ""
+    },
+    {
+      "name": "create-strategy",
+      "path": "plugins/test-strategy/skills/create-strategy",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/create-strategy",
+      "description": ""
+    },
+    {
+      "name": "create-style-guide",
+      "path": "plugins/content-management-system/skills/create-style-guide",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/create-style-guide",
+      "description": ""
+    },
+    {
+      "name": "create-tool",
+      "path": "plugins/tac/skills/create-tool",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/create-tool",
+      "description": ""
+    },
+    {
+      "name": "cursor-docs",
+      "path": "plugins/cursor-ecosystem/skills/cursor-docs",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/cursor-ecosystem/skills/cursor-docs",
+      "description": ""
+    },
+    {
+      "name": "custom-agent-design",
+      "path": "plugins/tac/skills/custom-agent-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/custom-agent-design",
+      "description": ""
+    },
+    {
+      "name": "data-architecture",
+      "path": "plugins/systems-design/skills/data-architecture",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/data-architecture",
+      "description": ""
+    },
+    {
+      "name": "data-flow",
+      "path": "plugins/systems-design/skills/data-flow",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/data-flow",
+      "description": ""
+    },
+    {
+      "name": "deploy-team",
+      "path": "plugins/tac/skills/deploy-team",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/deploy-team",
+      "description": ""
+    },
+    {
+      "name": "design-interview-methodology",
+      "path": "plugins/systems-design/skills/design-interview-methodology",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/design-interview-methodology",
+      "description": ""
+    },
+    {
+      "name": "design-media-strategy",
+      "path": "plugins/content-management-system/skills/design-media-strategy",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/design-media-strategy",
+      "description": ""
+    },
+    {
+      "name": "design-navigation",
+      "path": "plugins/content-management-system/skills/design-navigation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/design-navigation",
+      "description": ""
+    },
+    {
+      "name": "design-page-builder",
+      "path": "plugins/content-management-system/skills/design-page-builder",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/design-page-builder",
+      "description": ""
+    },
+    {
+      "name": "design-taxonomy",
+      "path": "plugins/content-management-system/skills/design-taxonomy",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/design-taxonomy",
+      "description": ""
+    },
+    {
+      "name": "design-theme-system",
+      "path": "plugins/content-management-system/skills/design-theme-system",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/design-theme-system",
+      "description": ""
+    },
+    {
+      "name": "design-token-management",
+      "path": "plugins/content-management-system/skills/design-token-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/design-token-management",
+      "description": ""
+    },
+    {
+      "name": "detect-over-engineering",
+      "path": "plugins/enterprise-architecture/skills/detect-over-engineering",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/detect-over-engineering",
+      "description": ""
+    },
+    {
+      "name": "developer-visibility",
+      "path": "plugins/soft-skills/skills/developer-visibility",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/developer-visibility",
+      "description": ""
+    },
+    {
+      "name": "devsecops-practices",
+      "path": "plugins/security/skills/devsecops-practices",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/devsecops-practices",
+      "description": ""
+    },
+    {
+      "name": "diagnose-performance",
+      "path": "plugins/claude-ecosystem/skills/diagnose-performance",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/diagnose-performance",
+      "description": ""
+    },
+    {
+      "name": "diagram-patterns",
+      "path": "plugins/visualization/skills/diagram-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/visualization/skills/diagram-patterns",
+      "description": ""
+    },
+    {
+      "name": "difficult-conversations",
+      "path": "plugins/soft-skills/skills/difficult-conversations",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/difficult-conversations",
+      "description": ""
+    },
+    {
+      "name": "discover",
+      "path": "plugins/requirements-elicitation/skills/discover",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/discover",
+      "description": ""
+    },
+    {
+      "name": "doc-architecture",
+      "path": "plugins/documentation-standards/skills/doc-architecture",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/documentation-standards/skills/doc-architecture",
+      "description": ""
+    },
+    {
+      "name": "docs-as-code",
+      "path": "plugins/documentation-standards/skills/docs-as-code",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/documentation-standards/skills/docs-as-code",
+      "description": ""
+    },
+    {
+      "name": "docs-management",
+      "path": "plugins/claude-ecosystem/skills/docs-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/docs-management",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "path": "plugins/openai-ecosystem/skills/docs-ops",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/openai-ecosystem/skills/docs-ops",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "path": "plugins/claude-ecosystem/skills/docs-ops",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/docs-ops",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "path": "plugins/google-ecosystem/skills/docs-ops",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/docs-ops",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "path": "plugins/duende-ecosystem/skills/docs-ops",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/duende-ecosystem/skills/docs-ops",
+      "description": ""
+    },
+    {
+      "name": "docs-ops",
+      "path": "plugins/cursor-ecosystem/skills/docs-ops",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/cursor-ecosystem/skills/docs-ops",
+      "description": ""
+    },
+    {
+      "name": "doctrine-assessment",
+      "path": "plugins/wardley-mapping/skills/doctrine-assessment",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/wardley-mapping/skills/doctrine-assessment",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "path": "plugins/tac/skills/document",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/document",
+      "description": ""
+    },
+    {
+      "name": "document-extraction",
+      "path": "plugins/requirements-elicitation/skills/document-extraction",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/document-extraction",
+      "description": ""
+    },
+    {
+      "name": "domain-research",
+      "path": "plugins/requirements-elicitation/skills/domain-research",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/domain-research",
+      "description": ""
+    },
+    {
+      "name": "duende-docs",
+      "path": "plugins/duende-ecosystem/skills/duende-docs",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/duende-ecosystem/skills/duende-docs",
+      "description": ""
+    },
+    {
+      "name": "dynamic-schema-design",
+      "path": "plugins/content-management-system/skills/dynamic-schema-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/dynamic-schema-design",
+      "description": ""
+    },
+    {
+      "name": "e2e-test-design",
+      "path": "plugins/tac/skills/e2e-test-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/e2e-test-design",
+      "description": ""
+    },
+    {
+      "name": "ea-dashboard",
+      "path": "plugins/enterprise-architecture/skills/ea-dashboard",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/ea-dashboard",
+      "description": ""
+    },
+    {
+      "name": "ea-document",
+      "path": "plugins/enterprise-architecture/skills/ea-document",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/ea-document",
+      "description": ""
+    },
+    {
+      "name": "ears-author",
+      "path": "plugins/spec-driven-development/skills/ears-author",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/ears-author",
+      "description": ""
+    },
+    {
+      "name": "ears-authoring",
+      "path": "plugins/spec-driven-development/skills/ears-authoring",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/ears-authoring",
+      "description": ""
+    },
+    {
+      "name": "ecosystem-health",
+      "path": "plugins/claude-ecosystem/skills/ecosystem-health",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/ecosystem-health",
+      "description": ""
+    },
+    {
+      "name": "edge-computing",
+      "path": "plugins/systems-design/skills/edge-computing",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/edge-computing",
+      "description": ""
+    },
+    {
+      "name": "edge-strategy",
+      "path": "plugins/systems-design/skills/edge-strategy",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/edge-strategy",
+      "description": ""
+    },
+    {
+      "name": "elicitation-methodology",
+      "path": "plugins/requirements-elicitation/skills/elicitation-methodology",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/elicitation-methodology",
+      "description": ""
+    },
+    {
+      "name": "enterprise-security",
+      "path": "plugins/claude-ecosystem/skills/enterprise-security",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/enterprise-security",
+      "description": ""
+    },
+    {
+      "name": "estimation-techniques",
+      "path": "plugins/systems-design/skills/estimation-techniques",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/estimation-techniques",
+      "description": ""
+    },
+    {
+      "name": "ethics-review",
+      "path": "plugins/compliance-planning/skills/ethics-review",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/compliance-planning/skills/ethics-review",
+      "description": ""
+    },
+    {
+      "name": "etl-elt-patterns",
+      "path": "plugins/systems-design/skills/etl-elt-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/etl-elt-patterns",
+      "description": ""
+    },
+    {
+      "name": "event-sourcing-design",
+      "path": "plugins/event-modeling/skills/event-sourcing-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/event-modeling/skills/event-sourcing-design",
+      "description": ""
+    },
+    {
+      "name": "event-storming",
+      "path": "plugins/enterprise-architecture/skills/event-storming",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/event-storming",
+      "description": ""
+    },
+    {
+      "name": "expertise-file-design",
+      "path": "plugins/tac/skills/expertise-file-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/expertise-file-design",
+      "description": ""
+    },
+    {
+      "name": "explain",
+      "path": "plugins/systems-design/skills/explain",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/explain",
+      "description": ""
+    },
+    {
+      "name": "explore-migration",
+      "path": "plugins/enterprise-architecture/skills/explore-migration",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/explore-migration",
+      "description": ""
+    },
+    {
+      "name": "export-system-prompt",
+      "path": "plugins/claude-ecosystem/skills/export-system-prompt",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/export-system-prompt",
+      "description": ""
+    },
+    {
+      "name": "extract",
+      "path": "plugins/requirements-elicitation/skills/extract",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/extract",
+      "description": ""
+    },
+    {
+      "name": "feature",
+      "path": "plugins/tac/skills/feature",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/feature",
+      "description": ""
+    },
+    {
+      "name": "fitness-functions",
+      "path": "plugins/enterprise-architecture/skills/fitness-functions",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/fitness-functions",
+      "description": ""
+    },
+    {
+      "name": "gameday-planning",
+      "path": "plugins/systems-design/skills/gameday-planning",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/gameday-planning",
+      "description": ""
+    },
+    {
+      "name": "gateway-script-design",
+      "path": "plugins/tac/skills/gateway-script-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/gateway-script-design",
+      "description": ""
+    },
+    {
+      "name": "gemini-analyze",
+      "path": "plugins/google-ecosystem/skills/gemini-analyze",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-analyze",
+      "description": ""
+    },
+    {
+      "name": "gemini-checkpoint-management",
+      "path": "plugins/google-ecosystem/skills/gemini-checkpoint-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-checkpoint-management",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli-docs",
+      "path": "plugins/google-ecosystem/skills/gemini-cli-docs",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-cli-docs",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli-execution",
+      "path": "plugins/google-ecosystem/skills/gemini-cli-execution",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-cli-execution",
+      "description": ""
+    },
+    {
+      "name": "gemini-command-development",
+      "path": "plugins/google-ecosystem/skills/gemini-command-development",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-command-development",
+      "description": ""
+    },
+    {
+      "name": "gemini-config-management",
+      "path": "plugins/google-ecosystem/skills/gemini-config-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-config-management",
+      "description": ""
+    },
+    {
+      "name": "gemini-context-bridge",
+      "path": "plugins/google-ecosystem/skills/gemini-context-bridge",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-context-bridge",
+      "description": ""
+    },
+    {
+      "name": "gemini-delegation-patterns",
+      "path": "plugins/google-ecosystem/skills/gemini-delegation-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-delegation-patterns",
+      "description": ""
+    },
+    {
+      "name": "gemini-exploration-patterns",
+      "path": "plugins/google-ecosystem/skills/gemini-exploration-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-exploration-patterns",
+      "description": ""
+    },
+    {
+      "name": "gemini-explore",
+      "path": "plugins/google-ecosystem/skills/gemini-explore",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-explore",
+      "description": ""
+    },
+    {
+      "name": "gemini-extension-development",
+      "path": "plugins/google-ecosystem/skills/gemini-extension-development",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-extension-development",
+      "description": ""
+    },
+    {
+      "name": "gemini-json-parsing",
+      "path": "plugins/google-ecosystem/skills/gemini-json-parsing",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-json-parsing",
+      "description": ""
+    },
+    {
+      "name": "gemini-mcp-integration",
+      "path": "plugins/google-ecosystem/skills/gemini-mcp-integration",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "gemini-query",
+      "path": "plugins/google-ecosystem/skills/gemini-query",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-query",
+      "description": ""
+    },
+    {
+      "name": "gemini-sandbox-configuration",
+      "path": "plugins/google-ecosystem/skills/gemini-sandbox-configuration",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-sandbox-configuration",
+      "description": ""
+    },
+    {
+      "name": "gemini-session-management",
+      "path": "plugins/google-ecosystem/skills/gemini-session-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-session-management",
+      "description": ""
+    },
+    {
+      "name": "gemini-token-optimization",
+      "path": "plugins/google-ecosystem/skills/gemini-token-optimization",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-token-optimization",
+      "description": ""
+    },
+    {
+      "name": "gemini-workspace-bridge",
+      "path": "plugins/google-ecosystem/skills/gemini-workspace-bridge",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/gemini-workspace-bridge",
+      "description": ""
+    },
+    {
+      "name": "generate-branch-name",
+      "path": "plugins/tac/skills/generate-branch-name",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/generate-branch-name",
+      "description": ""
+    },
+    {
+      "name": "generate-cases",
+      "path": "plugins/test-strategy/skills/generate-cases",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/generate-cases",
+      "description": ""
+    },
+    {
+      "name": "gherkin-author",
+      "path": "plugins/spec-driven-development/skills/gherkin-author",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/gherkin-author",
+      "description": ""
+    },
+    {
+      "name": "gherkin-authoring",
+      "path": "plugins/spec-driven-development/skills/gherkin-authoring",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/gherkin-authoring",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": "plugins/melodic-software/skills/git-commit",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/melodic-software/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "git-identity",
+      "path": "plugins/git/skills/git-identity",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/git/skills/git-identity",
+      "description": ""
+    },
+    {
+      "name": "git-worktree-setup",
+      "path": "plugins/tac/skills/git-worktree-setup",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/git-worktree-setup",
+      "description": ""
+    },
+    {
+      "name": "github-actions",
+      "path": "plugins/ci-cd/skills/github-actions",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/ci-cd/skills/github-actions",
+      "description": ""
+    },
+    {
+      "name": "golden-paths",
+      "path": "plugins/systems-design/skills/golden-paths",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/golden-paths",
+      "description": ""
+    },
+    {
+      "name": "gpg-signing",
+      "path": "plugins/git/skills/gpg-signing",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/git/skills/gpg-signing",
+      "description": ""
+    },
+    {
+      "name": "headless-api-design",
+      "path": "plugins/content-management-system/skills/headless-api-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/headless-api-design",
+      "description": ""
+    },
+    {
+      "name": "hipaa-compliance",
+      "path": "plugins/compliance-planning/skills/hipaa-compliance",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/compliance-planning/skills/hipaa-compliance",
+      "description": ""
+    },
+    {
+      "name": "hook-event-architecture",
+      "path": "plugins/tac/skills/hook-event-architecture",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/hook-event-architecture",
+      "description": ""
+    },
+    {
+      "name": "hook-management",
+      "path": "plugins/claude-ecosystem/skills/hook-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/hook-management",
+      "description": ""
+    },
+    {
+      "name": "hook-schema-audit",
+      "path": "plugins/claude-code-observability/skills/hook-schema-audit",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-code-observability/skills/hook-schema-audit",
+      "description": ""
+    },
+    {
+      "name": "idempotency-patterns",
+      "path": "plugins/systems-design/skills/idempotency-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/idempotency-patterns",
+      "description": ""
+    },
+    {
+      "name": "image-optimization",
+      "path": "plugins/content-management-system/skills/image-optimization",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/image-optimization",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "path": "plugins/spec-driven-development/skills/implement",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/implement",
+      "description": ""
+    },
+    {
+      "name": "improve-expertise",
+      "path": "plugins/tac/skills/improve-expertise",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/improve-expertise",
+      "description": ""
+    },
+    {
+      "name": "incident-response",
+      "path": "plugins/systems-design/skills/incident-response",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/incident-response",
+      "description": ""
+    },
+    {
+      "name": "install-worktree",
+      "path": "plugins/tac/skills/install-worktree",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/install-worktree",
+      "description": ""
+    },
+    {
+      "name": "internal-developer-platform",
+      "path": "plugins/systems-design/skills/internal-developer-platform",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/internal-developer-platform",
+      "description": ""
+    },
+    {
+      "name": "interview",
+      "path": "plugins/requirements-elicitation/skills/interview",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/interview",
+      "description": ""
+    },
+    {
+      "name": "interview-conducting",
+      "path": "plugins/requirements-elicitation/skills/interview-conducting",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/interview-conducting",
+      "description": ""
+    },
+    {
+      "name": "interview-skills",
+      "path": "plugins/soft-skills/skills/interview-skills",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/interview-skills",
+      "description": ""
+    },
+    {
+      "name": "issue-classification",
+      "path": "plugins/tac/skills/issue-classification",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/issue-classification",
+      "description": ""
+    },
+    {
+      "name": "kiro-integration",
+      "path": "plugins/spec-driven-development/skills/kiro-integration",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/kiro-integration",
+      "description": ""
+    },
+    {
+      "name": "kiro-sync",
+      "path": "plugins/spec-driven-development/skills/kiro-sync",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/kiro-sync",
+      "description": ""
+    },
+    {
+      "name": "latency-optimization",
+      "path": "plugins/systems-design/skills/latency-optimization",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/latency-optimization",
+      "description": ""
+    },
+    {
+      "name": "leverage-point-audit",
+      "path": "plugins/tac/skills/leverage-point-audit",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/leverage-point-audit",
+      "description": ""
+    },
+    {
+      "name": "lint-md",
+      "path": "plugins/code-quality/skills/lint-md",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/code-quality/skills/lint-md",
+      "description": ""
+    },
+    {
+      "name": "list",
+      "path": "plugins/claude-ecosystem/skills/list",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/list",
+      "description": ""
+    },
+    {
+      "name": "list-agent-tools",
+      "path": "plugins/tac/skills/list-agent-tools",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/list-agent-tools",
+      "description": ""
+    },
+    {
+      "name": "list-prompt-levels",
+      "path": "plugins/tac/skills/list-prompt-levels",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/list-prompt-levels",
+      "description": ""
+    },
+    {
+      "name": "llm-serving-patterns",
+      "path": "plugins/systems-design/skills/llm-serving-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/llm-serving-patterns",
+      "description": ""
+    },
+    {
+      "name": "log-inspection",
+      "path": "plugins/claude-code-observability/skills/log-inspection",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-code-observability/skills/log-inspection",
+      "description": ""
+    },
+    {
+      "name": "lsp-management",
+      "path": "plugins/claude-ecosystem/skills/lsp-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/lsp-management",
+      "description": ""
+    },
+    {
+      "name": "markdown-linting",
+      "path": "plugins/code-quality/skills/markdown-linting",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/code-quality/skills/markdown-linting",
+      "description": ""
+    },
+    {
+      "name": "mcp-integration",
+      "path": "plugins/claude-ecosystem/skills/mcp-integration",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "media-asset-management",
+      "path": "plugins/content-management-system/skills/media-asset-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/media-asset-management",
+      "description": ""
+    },
+    {
+      "name": "memory-management",
+      "path": "plugins/claude-ecosystem/skills/memory-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/memory-management",
+      "description": ""
+    },
+    {
+      "name": "mentoring-developers",
+      "path": "plugins/soft-skills/skills/mentoring-developers",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/mentoring-developers",
+      "description": ""
+    },
+    {
+      "name": "mermaid-syntax",
+      "path": "plugins/visualization/skills/mermaid-syntax",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/visualization/skills/mermaid-syntax",
+      "description": ""
+    },
+    {
+      "name": "meta-agentic-creation",
+      "path": "plugins/tac/skills/meta-agentic-creation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/meta-agentic-creation",
+      "description": ""
+    },
+    {
+      "name": "milan-jovanovic-blog",
+      "path": "plugins/milan-jovanovic/skills/milan-jovanovic-blog",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/milan-jovanovic/skills/milan-jovanovic-blog",
+      "description": ""
+    },
+    {
+      "name": "minimum-viable-agentic",
+      "path": "plugins/tac/skills/minimum-viable-agentic",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/minimum-viable-agentic",
+      "description": ""
+    },
+    {
+      "name": "ml-inference-optimization",
+      "path": "plugins/systems-design/skills/ml-inference-optimization",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/ml-inference-optimization",
+      "description": ""
+    },
+    {
+      "name": "ml-pipeline",
+      "path": "plugins/systems-design/skills/ml-pipeline",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/ml-pipeline",
+      "description": ""
+    },
+    {
+      "name": "ml-system-design",
+      "path": "plugins/systems-design/skills/ml-system-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/ml-system-design",
+      "description": ""
+    },
+    {
+      "name": "mock-interview",
+      "path": "plugins/systems-design/skills/mock-interview",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/mock-interview",
+      "description": ""
+    },
+    {
+      "name": "model-content",
+      "path": "plugins/content-management-system/skills/model-content",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/model-content",
+      "description": ""
+    },
+    {
+      "name": "model-selection",
+      "path": "plugins/tac/skills/model-selection",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/model-selection",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-observability",
+      "path": "plugins/tac/skills/multi-agent-observability",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/multi-agent-observability",
+      "description": ""
+    },
+    {
+      "name": "multi-region-deployment",
+      "path": "plugins/systems-design/skills/multi-region-deployment",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/multi-region-deployment",
+      "description": ""
+    },
+    {
+      "name": "navigation-architecture",
+      "path": "plugins/content-management-system/skills/navigation-architecture",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/navigation-architecture",
+      "description": ""
+    },
+    {
+      "name": "observability-patterns",
+      "path": "plugins/systems-design/skills/observability-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/observability-patterns",
+      "description": ""
+    },
+    {
+      "name": "onboarding",
+      "path": "plugins/melodic-software/skills/onboarding",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/melodic-software/skills/onboarding",
+      "description": ""
+    },
+    {
+      "name": "onboarding-docs",
+      "path": "plugins/documentation-standards/skills/onboarding-docs",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/documentation-standards/skills/onboarding-docs",
+      "description": ""
+    },
+    {
+      "name": "openapi-authoring",
+      "path": "plugins/spec-driven-development/skills/openapi-authoring",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/openapi-authoring",
+      "description": ""
+    },
+    {
+      "name": "openapi-design",
+      "path": "plugins/formal-specification/skills/openapi-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/formal-specification/skills/openapi-design",
+      "description": ""
+    },
+    {
+      "name": "optimize-images",
+      "path": "plugins/content-management-system/skills/optimize-images",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/optimize-images",
+      "description": ""
+    },
+    {
+      "name": "orchestrate",
+      "path": "plugins/tac/skills/orchestrate",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/orchestrate",
+      "description": ""
+    },
+    {
+      "name": "orchestration-prompts",
+      "path": "plugins/tac/skills/orchestration-prompts",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/orchestration-prompts",
+      "description": ""
+    },
+    {
+      "name": "orchestrator-design",
+      "path": "plugins/tac/skills/orchestrator-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/orchestrator-design",
+      "description": ""
+    },
+    {
+      "name": "output-customization",
+      "path": "plugins/claude-ecosystem/skills/output-customization",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/output-customization",
+      "description": ""
+    },
+    {
+      "name": "page-structure-design",
+      "path": "plugins/content-management-system/skills/page-structure-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/page-structure-design",
+      "description": ""
+    },
+    {
+      "name": "patch-design",
+      "path": "plugins/tac/skills/patch-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/patch-design",
+      "description": ""
+    },
+    {
+      "name": "performance-optimization",
+      "path": "plugins/claude-ecosystem/skills/performance-optimization",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "performance-test-planning",
+      "path": "plugins/test-strategy/skills/performance-test-planning",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/performance-test-planning",
+      "description": ""
+    },
+    {
+      "name": "permission-management",
+      "path": "plugins/claude-ecosystem/skills/permission-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/permission-management",
+      "description": ""
+    },
+    {
+      "name": "piter-setup",
+      "path": "plugins/tac/skills/piter-setup",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/piter-setup",
+      "description": ""
+    },
+    {
+      "name": "plan-data",
+      "path": "plugins/test-strategy/skills/plan-data",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/plan-data",
+      "description": ""
+    },
+    {
+      "name": "platform-design",
+      "path": "plugins/systems-design/skills/platform-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/platform-design",
+      "description": ""
+    },
+    {
+      "name": "plugin-development",
+      "path": "plugins/claude-ecosystem/skills/plugin-development",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/plugin-development",
+      "description": ""
+    },
+    {
+      "name": "policy-engine-builder",
+      "path": "plugins/google-ecosystem/skills/policy-engine-builder",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/policy-engine-builder",
+      "description": ""
+    },
+    {
+      "name": "prime",
+      "path": "plugins/tac/skills/prime",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/prime",
+      "description": ""
+    },
+    {
+      "name": "prioritize",
+      "path": "plugins/requirements-elicitation/skills/prioritize",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/prioritize",
+      "description": ""
+    },
+    {
+      "name": "product-expert-design",
+      "path": "plugins/tac/skills/product-expert-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/product-expert-design",
+      "description": ""
+    },
+    {
+      "name": "professional-communication",
+      "path": "plugins/soft-skills/skills/professional-communication",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/professional-communication",
+      "description": ""
+    },
+    {
+      "name": "promotion-preparation",
+      "path": "plugins/soft-skills/skills/promotion-preparation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/promotion-preparation",
+      "description": ""
+    },
+    {
+      "name": "prompt-improvement",
+      "path": "plugins/claude-ecosystem/skills/prompt-improvement",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/prompt-improvement",
+      "description": ""
+    },
+    {
+      "name": "prompt-level-selection",
+      "path": "plugins/tac/skills/prompt-level-selection",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/prompt-level-selection",
+      "description": ""
+    },
+    {
+      "name": "prompt-section-design",
+      "path": "plugins/tac/skills/prompt-section-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/prompt-section-design",
+      "description": ""
+    },
+    {
+      "name": "protobuf-design",
+      "path": "plugins/formal-specification/skills/protobuf-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/formal-specification/skills/protobuf-design",
+      "description": ""
+    },
+    {
+      "name": "pull-request",
+      "path": "plugins/tac/skills/pull-request",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/pull-request",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "path": "plugins/code-quality/skills/python",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/code-quality/skills/python",
+      "description": ""
+    },
+    {
+      "name": "quality-attributes-taxonomy",
+      "path": "plugins/systems-design/skills/quality-attributes-taxonomy",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/quality-attributes-taxonomy",
+      "description": ""
+    },
+    {
+      "name": "query-expert",
+      "path": "plugins/tac/skills/query-expert",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/query-expert",
+      "description": ""
+    },
+    {
+      "name": "rag-architecture",
+      "path": "plugins/systems-design/skills/rag-architecture",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/rag-architecture",
+      "description": ""
+    },
+    {
+      "name": "rag-design",
+      "path": "plugins/systems-design/skills/rag-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/rag-design",
+      "description": ""
+    },
+    {
+      "name": "rate-limiting-patterns",
+      "path": "plugins/systems-design/skills/rate-limiting-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/rate-limiting-patterns",
+      "description": ""
+    },
+    {
+      "name": "reduce-delegate-framework",
+      "path": "plugins/tac/skills/reduce-delegate-framework",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/reduce-delegate-framework",
+      "description": ""
+    },
+    {
+      "name": "refine",
+      "path": "plugins/spec-driven-development/skills/refine",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/refine",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "plugins/requirements-elicitation/skills/research",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/research",
+      "description": ""
+    },
+    {
+      "name": "resolve-failed-e2e-test",
+      "path": "plugins/tac/skills/resolve-failed-e2e-test",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/resolve-failed-e2e-test",
+      "description": ""
+    },
+    {
+      "name": "resolve-failed-test",
+      "path": "plugins/tac/skills/resolve-failed-test",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/resolve-failed-test",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "plugins/security/skills/review",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/review",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "plugins/code-quality/skills/review",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/code-quality/skills/review",
+      "description": ""
+    },
+    {
+      "name": "review-comment",
+      "path": "plugins/soft-skills/skills/review-comment",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/review-comment",
+      "description": ""
+    },
+    {
+      "name": "review-workflow-design",
+      "path": "plugins/tac/skills/review-workflow-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/review-workflow-design",
+      "description": ""
+    },
+    {
+      "name": "sandbox-configuration",
+      "path": "plugins/claude-ecosystem/skills/sandbox-configuration",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/sandbox-configuration",
+      "description": ""
+    },
+    {
+      "name": "scaffold-layer",
+      "path": "plugins/tac/skills/scaffold-layer",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/scaffold-layer",
+      "description": ""
+    },
+    {
+      "name": "scan-secrets",
+      "path": "plugins/security/skills/scan-secrets",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/scan-secrets",
+      "description": ""
+    },
+    {
+      "name": "scout-and-build",
+      "path": "plugins/tac/skills/scout-and-build",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/scout-and-build",
+      "description": ""
+    },
+    {
+      "name": "search-claude-issues",
+      "path": "plugins/claude-ecosystem/skills/search-claude-issues",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/search-claude-issues",
+      "description": ""
+    },
+    {
+      "name": "search-issues",
+      "path": "plugins/git/skills/search-issues",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/git/skills/search-issues",
+      "description": ""
+    },
+    {
+      "name": "secrets-management",
+      "path": "plugins/systems-design/skills/secrets-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/secrets-management",
+      "description": ""
+    },
+    {
+      "name": "secure-coding",
+      "path": "plugins/security/skills/secure-coding",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/secure-coding",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "path": "plugins/systems-design/skills/security-review",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/security-review",
+      "description": ""
+    },
+    {
+      "name": "security-test-planning",
+      "path": "plugins/test-strategy/skills/security-test-planning",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/security-test-planning",
+      "description": ""
+    },
+    {
+      "name": "seed-expertise",
+      "path": "plugins/tac/skills/seed-expertise",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/seed-expertise",
+      "description": ""
+    },
+    {
+      "name": "self-improve-prompt-design",
+      "path": "plugins/tac/skills/self-improve-prompt-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/self-improve-prompt-design",
+      "description": ""
+    },
+    {
+      "name": "self-service-infrastructure",
+      "path": "plugins/systems-design/skills/self-service-infrastructure",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/self-service-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "settings-management",
+      "path": "plugins/claude-ecosystem/skills/settings-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/settings-management",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": "plugins/git/skills/setup",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/git/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "setup-aspire",
+      "path": "plugins/dotnet/skills/setup-aspire",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/dotnet/skills/setup-aspire",
+      "description": ""
+    },
+    {
+      "name": "setup-dab",
+      "path": "plugins/microsoft/skills/setup-dab",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/microsoft/skills/setup-dab",
+      "description": ""
+    },
+    {
+      "name": "ship",
+      "path": "plugins/tac/skills/ship",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/ship",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "path": "plugins/claude-ecosystem/skills/skill-development",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/skill-development",
+      "description": ""
+    },
+    {
+      "name": "skill-migration",
+      "path": "plugins/claude-ecosystem/skills/skill-migration",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/skill-migration",
+      "description": ""
+    },
+    {
+      "name": "skill-template",
+      "path": "plugins/claude-ecosystem/skills/skill-development/assets/skill-template",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/skill-development/assets/skill-template",
+      "description": ""
+    },
+    {
+      "name": "slo-workshop",
+      "path": "plugins/systems-design/skills/slo-workshop",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/slo-workshop",
+      "description": ""
+    },
+    {
+      "name": "social-intelligence",
+      "path": "plugins/claude-ecosystem/skills/social-intelligence",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/social-intelligence",
+      "description": ""
+    },
+    {
+      "name": "spec-management",
+      "path": "plugins/spec-driven-development/skills/spec-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/spec-management",
+      "description": ""
+    },
+    {
+      "name": "speckit-run",
+      "path": "plugins/spec-driven-development/skills/speckit-run",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/speckit-run",
+      "description": ""
+    },
+    {
+      "name": "speckit-workflow",
+      "path": "plugins/spec-driven-development/skills/speckit-workflow",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/speckit-workflow",
+      "description": ""
+    },
+    {
+      "name": "standard-out-setup",
+      "path": "plugins/tac/skills/standard-out-setup",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/standard-out-setup",
+      "description": ""
+    },
+    {
+      "name": "start-adw",
+      "path": "plugins/tac/skills/start-adw",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/start-adw",
+      "description": ""
+    },
+    {
+      "name": "status-line-customization",
+      "path": "plugins/claude-ecosystem/skills/status-line-customization",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/status-line-customization",
+      "description": ""
+    },
+    {
+      "name": "stream-processing",
+      "path": "plugins/systems-design/skills/stream-processing",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/stream-processing",
+      "description": ""
+    },
+    {
+      "name": "subagent-development",
+      "path": "plugins/claude-ecosystem/skills/subagent-development",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/subagent-development",
+      "description": ""
+    },
+    {
+      "name": "swimlane-visualization",
+      "path": "plugins/tac/skills/swimlane-visualization",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/swimlane-visualization",
+      "description": ""
+    },
+    {
+      "name": "sysml-modeling",
+      "path": "plugins/formal-specification/skills/sysml-modeling",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/formal-specification/skills/sysml-modeling",
+      "description": ""
+    },
+    {
+      "name": "system-prompt-engineering",
+      "path": "plugins/tac/skills/system-prompt-engineering",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/system-prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "task-based-multiagent",
+      "path": "plugins/tac/skills/task-based-multiagent",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/task-based-multiagent",
+      "description": ""
+    },
+    {
+      "name": "taxonomy-architecture",
+      "path": "plugins/content-management-system/skills/taxonomy-architecture",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/taxonomy-architecture",
+      "description": ""
+    },
+    {
+      "name": "team-api-design",
+      "path": "plugins/team-design/skills/team-api-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/team-design/skills/team-api-design",
+      "description": ""
+    },
+    {
+      "name": "team-effectiveness",
+      "path": "plugins/soft-skills/skills/team-effectiveness",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/team-effectiveness",
+      "description": ""
+    },
+    {
+      "name": "team-structure",
+      "path": "plugins/team-design/skills/team-structure",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/team-design/skills/team-structure",
+      "description": ""
+    },
+    {
+      "name": "team-topology-design",
+      "path": "plugins/enterprise-architecture/skills/team-topology-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/team-topology-design",
+      "description": ""
+    },
+    {
+      "name": "technical-presentations",
+      "path": "plugins/soft-skills/skills/technical-presentations",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/technical-presentations",
+      "description": ""
+    },
+    {
+      "name": "template-engineering",
+      "path": "plugins/tac/skills/template-engineering",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/template-engineering",
+      "description": ""
+    },
+    {
+      "name": "template-meta-prompt-creation",
+      "path": "plugins/tac/skills/template-meta-prompt-creation",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/template-meta-prompt-creation",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": "plugins/tac/skills/test",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/test",
+      "description": ""
+    },
+    {
+      "name": "test-case-design",
+      "path": "plugins/test-strategy/skills/test-case-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/test-case-design",
+      "description": ""
+    },
+    {
+      "name": "test-data-strategy",
+      "path": "plugins/test-strategy/skills/test-data-strategy",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/test-data-strategy",
+      "description": ""
+    },
+    {
+      "name": "test-e2e",
+      "path": "plugins/tac/skills/test-e2e",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/test-e2e",
+      "description": ""
+    },
+    {
+      "name": "test-pyramid-design",
+      "path": "plugins/test-strategy/skills/test-pyramid-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/test-pyramid-design",
+      "description": ""
+    },
+    {
+      "name": "test-strategy-planning",
+      "path": "plugins/test-strategy/skills/test-strategy-planning",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/test-strategy-planning",
+      "description": ""
+    },
+    {
+      "name": "test-suite-setup",
+      "path": "plugins/tac/skills/test-suite-setup",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/test-suite-setup",
+      "description": ""
+    },
+    {
+      "name": "threat-modeling",
+      "path": "plugins/security/skills/threat-modeling",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/threat-modeling",
+      "description": ""
+    },
+    {
+      "name": "togaf-guidance",
+      "path": "plugins/enterprise-architecture/skills/togaf-guidance",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/togaf-guidance",
+      "description": ""
+    },
+    {
+      "name": "toml-command-builder",
+      "path": "plugins/google-ecosystem/skills/toml-command-builder",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/google-ecosystem/skills/toml-command-builder",
+      "description": ""
+    },
+    {
+      "name": "tool-design",
+      "path": "plugins/tac/skills/tool-design",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/tool-design",
+      "description": ""
+    },
+    {
+      "name": "tools",
+      "path": "plugins/tac/skills/tools",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/tools",
+      "description": ""
+    },
+    {
+      "name": "track-kpis",
+      "path": "plugins/tac/skills/track-kpis",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/track-kpis",
+      "description": ""
+    },
+    {
+      "name": "track-win",
+      "path": "plugins/soft-skills/skills/track-win",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/soft-skills/skills/track-win",
+      "description": ""
+    },
+    {
+      "name": "update-mcp-servers",
+      "path": "plugins/claude-ecosystem/skills/update-mcp-servers",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/update-mcp-servers",
+      "description": ""
+    },
+    {
+      "name": "update-settings-schema",
+      "path": "plugins/claude-ecosystem/skills/update-settings-schema",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/update-settings-schema",
+      "description": ""
+    },
+    {
+      "name": "url-routing-patterns",
+      "path": "plugins/content-management-system/skills/url-routing-patterns",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/content-management-system/skills/url-routing-patterns",
+      "description": ""
+    },
+    {
+      "name": "use-case-2.0",
+      "path": "plugins/requirements-elicitation/skills/use-case-2.0",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/use-case-2.0",
+      "description": ""
+    },
+    {
+      "name": "use-case-authoring",
+      "path": "plugins/formal-specification/skills/use-case-authoring",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/formal-specification/skills/use-case-authoring",
+      "description": ""
+    },
+    {
+      "name": "user-config",
+      "path": "plugins/claude-ecosystem/skills/user-config",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/user-config",
+      "description": ""
+    },
+    {
+      "name": "user-config-management",
+      "path": "plugins/claude-ecosystem/skills/user-config-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/claude-ecosystem/skills/user-config-management",
+      "description": ""
+    },
+    {
+      "name": "userstory-author",
+      "path": "plugins/spec-driven-development/skills/userstory-author",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/spec-driven-development/skills/userstory-author",
+      "description": ""
+    },
+    {
+      "name": "validate-workflow",
+      "path": "plugins/tac/skills/validate-workflow",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/validate-workflow",
+      "description": ""
+    },
+    {
+      "name": "vector-databases",
+      "path": "plugins/systems-design/skills/vector-databases",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/vector-databases",
+      "description": ""
+    },
+    {
+      "name": "visualize-code",
+      "path": "plugins/visualization/skills/visualize-code",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/visualization/skills/visualize-code",
+      "description": ""
+    },
+    {
+      "name": "vulnerability-management",
+      "path": "plugins/security/skills/vulnerability-management",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/vulnerability-management",
+      "description": ""
+    },
+    {
+      "name": "workshop",
+      "path": "plugins/requirements-elicitation/skills/workshop",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/requirements-elicitation/skills/workshop",
+      "description": ""
+    },
+    {
+      "name": "write-acceptance",
+      "path": "plugins/test-strategy/skills/write-acceptance",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/test-strategy/skills/write-acceptance",
+      "description": ""
+    },
+    {
+      "name": "zachman-analysis",
+      "path": "plugins/enterprise-architecture/skills/zachman-analysis",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/zachman-analysis",
+      "description": ""
+    },
+    {
+      "name": "zachman-analyze",
+      "path": "plugins/enterprise-architecture/skills/zachman-analyze",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/enterprise-architecture/skills/zachman-analyze",
+      "description": ""
+    },
+    {
+      "name": "zero-trust",
+      "path": "plugins/security/skills/zero-trust",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/security/skills/zero-trust",
+      "description": ""
+    },
+    {
+      "name": "zero-trust-architecture",
+      "path": "plugins/systems-design/skills/zero-trust-architecture",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/systems-design/skills/zero-trust-architecture",
+      "description": ""
+    },
+    {
+      "name": "zte-progression",
+      "path": "plugins/tac/skills/zte-progression",
+      "github_url": "https://github.com/melodic-software/claude-code-plugins/tree/main/plugins/tac/skills/zte-progression",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/melodic-software/claude-code-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T19:32:43Z"
+}
