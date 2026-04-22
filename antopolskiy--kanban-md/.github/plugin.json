@@ -1,0 +1,26 @@
+{
+  "name": "antopolskiy--kanban-md",
+  "displayName": "kanban-md",
+  "description": "File-based kanban board CLI and TUI for multi-agent workflows. Skills included.",
+  "version": "1.0.0",
+  "author": "antopolskiy",
+  "homepage": "https://github.com/antopolskiy/kanban-md",
+  "skills": [
+    {
+      "name": "kanban-based-development",
+      "description": ""
+    },
+    {
+      "name": "kanban-based-development",
+      "description": ""
+    },
+    {
+      "name": "kanban-md",
+      "description": ""
+    },
+    {
+      "name": "kanban-md",
+      "description": ""
+    }
+  ]
+}
