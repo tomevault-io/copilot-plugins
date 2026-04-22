@@ -1,0 +1,99 @@
+{
+  "name": "bmad-skills",
+  "owner": "bacoco",
+  "repo": "BMad-Skills",
+  "description": "AI instruction skills by bacoco",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bmad-architecture-design",
+      "path": ".claude/skills/bmad-architecture-design",
+      "github_url": "https://github.com/bacoco/BMad-Skills/tree/main/.claude/skills/bmad-architecture-design",
+      "description": ""
+    },
+    {
+      "name": "bmad-development-execution",
+      "path": ".claude/skills/bmad-development-execution",
+      "github_url": "https://github.com/bacoco/BMad-Skills/tree/main/.claude/skills/bmad-development-execution",
+      "description": ""
+    },
+    {
+      "name": "bmad-performance-optimization",
+      "path": ".claude/skills/bmad-performance-optimization",
+      "github_url": "https://github.com/bacoco/BMad-Skills/tree/main/.claude/skills/bmad-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "bmad-security-review",
+      "path": ".claude/skills/bmad-security-review",
+      "github_url": "https://github.com/bacoco/BMad-Skills/tree/main/.claude/skills/bmad-security-review",
+      "description": ""
+    },
+    {
+      "name": "bmad-story-planning",
+      "path": ".claude/skills/bmad-story-planning",
+      "github_url": "https://github.com/bacoco/BMad-Skills/tree/main/.claude/skills/bmad-story-planning",
+      "description": ""
+    },
+    {
+      "name": "bmad-test-strategy",
+      "path": ".claude/skills/bmad-test-strategy",
+      "github_url": "https://github.com/bacoco/BMad-Skills/tree/main/.claude/skills/bmad-test-strategy",
+      "description": ""
+    },
+    {
+      "name": "bmad-ux-design",
+      "path": ".claude/skills/bmad-ux-design",
+      "github_url": "https://github.com/bacoco/BMad-Skills/tree/main/.claude/skills/bmad-ux-design",
+      "description": ""
+    },
+    {
+      "name": "core-skill-creation",
+      "path": ".claude/skills/core-skill-creation",
+      "github_url": "https://github.com/bacoco/BMad-Skills/tree/main/.claude/skills/core-skill-creation",
+      "description": ""
+    },
+    {
+      "name": "main-workflow-router",
+      "path": ".claude/skills/main-workflow-router",
+      "github_url": "https://github.com/bacoco/BMad-Skills/tree/main/.claude/skills/main-workflow-router",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bacoco/BMad-Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T23:31:20Z"
+}
