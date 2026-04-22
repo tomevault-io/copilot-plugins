@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Thiez-64/remix-nestjs-monorepo](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Thiez-64)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Thiez-64/remix-nestjs-monorepo](https://github.com/Thiez-64/remix-nestjs-monorepo)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Thiez-64/remix-nestjs-monorepo
 ```
-Or browse all formats at [https://tomevault.io/claim/Thiez-64](https://tomevault.io/claim/Thiez-64).
+Source: [github.com/Thiez-64/remix-nestjs-monorepo](https://github.com/Thiez-64/remix-nestjs-monorepo).
 
 <!-- genome:a-i-p -->
