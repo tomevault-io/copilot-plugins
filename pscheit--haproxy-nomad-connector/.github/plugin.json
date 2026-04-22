@@ -1,0 +1,9 @@
+{
+  "name": "pscheit--haproxy-nomad-connector",
+  "displayName": "haproxy-nomad-connector",
+  "description": "haproxy-nomad-connector",
+  "version": "1.0.0",
+  "author": "pscheit",
+  "homepage": "https://github.com/pscheit/haproxy-nomad-connector",
+  "skills": []
+}
