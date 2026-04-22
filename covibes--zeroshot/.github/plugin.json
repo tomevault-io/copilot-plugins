@@ -1,0 +1,9 @@
+{
+  "name": "covibes--zeroshot",
+  "displayName": "zeroshot",
+  "description": "Your autonomous engineering team in a CLI. Point Zeroshot at an issue, walk away, and return to production-grade code. Supports Claude Code, OpenAI Codex, OpenCode, and Gemini CLI.",
+  "version": "1.0.0",
+  "author": "covibes",
+  "homepage": "https://github.com/covibes/zeroshot",
+  "skills": []
+}
