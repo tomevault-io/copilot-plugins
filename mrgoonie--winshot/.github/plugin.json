@@ -1,0 +1,9 @@
+{
+  "name": "mrgoonie--winshot",
+  "displayName": "winshot",
+  "description": "WinShot - A Windows screenshot tool with annotation, crop, and export features built with Wails (Go + React/TypeScript)",
+  "version": "1.0.0",
+  "author": "mrgoonie",
+  "homepage": "https://github.com/mrgoonie/winshot",
+  "skills": []
+}
