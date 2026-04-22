@@ -1,6 +1,6 @@
-# andesoft — distributed by TomeVault
+# andesoft
 
-> Originally from [JorgeEspinosaV/andesoft](https://github.com/JorgeEspinosaV/andesoft). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [JorgeEspinosaV/andesoft](https://github.com/JorgeEspinosaV/andesoft) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [JorgeEspinosaV/andesoft](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/JorgeEspinosaV#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/JorgeEspinosaV/andesoft](https://github.com/JorgeEspinosaV/andesoft)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install JorgeEspinosaV/andesoft
 ```
-Or browse all formats at [https://tomevault.io/claim/JorgeEspinosaV](https://tomevault.io/claim/JorgeEspinosaV).
+Source: [github.com/JorgeEspinosaV/andesoft](https://github.com/JorgeEspinosaV/andesoft).
 
 <!-- genome:d-i-q -->
