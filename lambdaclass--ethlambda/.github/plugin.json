@@ -1,0 +1,22 @@
+{
+  "name": "lambdaclass--ethlambda",
+  "displayName": "ethlambda",
+  "description": "A minimalist and fast Lean Consensus client by LambdaClass, bringing expertise in distributed systems and blockchain infrastructure to deliver a robust and performant implementation.",
+  "version": "1.0.0",
+  "author": "lambdaclass",
+  "homepage": "https://github.com/lambdaclass/ethlambda",
+  "skills": [
+    {
+      "name": "devnet-log-review",
+      "description": ""
+    },
+    {
+      "name": "devnet-runner",
+      "description": ""
+    },
+    {
+      "name": "test-pr-devnet",
+      "description": ""
+    }
+  ]
+}
