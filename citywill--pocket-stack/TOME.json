@@ -1,0 +1,44 @@
+{
+  "name": "pocket-stack",
+  "owner": "citywill",
+  "repo": "pocket-stack",
+  "description": "AI \u53cb\u597d\u7684\u5168\u6808\u5f00\u53d1\u89e3\u51b3\u65b9\u6848\u3002\u57fa\u4e8e React + shadcn/ui + PocketBase + MCP \u7b49\u6280\u672f\uff0c\u5b9e\u73b0\u5b8c\u6574\u3001\u6d41\u7545\u7684\u5168\u6808 Vibe Coding \u5f00\u53d1\u4f53\u9a8c\u3002  An AI-friendly full-stack development scaffold built on Vite + shadcn/ui + PocketBase, integrated with Shadcn & PocketBase MCP to deliver a complete and seamless full-stack Vibe Coding experience.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/citywill/pocket-stack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T16:09:49Z"
+}
