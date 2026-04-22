@@ -1,0 +1,14 @@
+{
+  "name": "alonw0--llm-docs-optimizer",
+  "displayName": "llm-docs-optimizer",
+  "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation",
+  "version": "1.0.0",
+  "author": "alonw0",
+  "homepage": "https://github.com/alonw0/llm-docs-optimizer",
+  "skills": [
+    {
+      "name": "llm-docs-optimizer",
+      "description": ""
+    }
+  ]
+}
