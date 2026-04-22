@@ -1,0 +1,9 @@
+{
+  "name": "hkuds--deeptutor",
+  "displayName": "DeepTutor",
+  "description": "\"DeepTutor: Agent-Native Personalized Learning Assistant\"",
+  "version": "1.0.0",
+  "author": "HKUDS",
+  "homepage": "https://github.com/HKUDS/DeepTutor",
+  "skills": []
+}
