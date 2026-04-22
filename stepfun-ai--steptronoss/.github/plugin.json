@@ -1,0 +1,9 @@
+{
+  "name": "stepfun-ai--steptronoss",
+  "displayName": "SteptronOss",
+  "description": "A lightweight, AI-native training framework for large language models. Designed for fast iteration, reproducible experiments, and modular configuration across SFT, RLVR, and evaluation workflows.",
+  "version": "1.0.0",
+  "author": "stepfun-ai",
+  "homepage": "https://github.com/stepfun-ai/SteptronOss",
+  "skills": []
+}
