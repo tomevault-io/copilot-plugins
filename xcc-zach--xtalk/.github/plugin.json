@@ -1,0 +1,9 @@
+{
+  "name": "xcc-zach--xtalk",
+  "displayName": "xtalk",
+  "description": "X-Talk is an open-source full-duplex cascaded spoken dialogue system framework enabling low-latency, interruptible, and human-like speech interaction with a lightweight, pure-Python, production-ready ",
+  "version": "1.0.0",
+  "author": "xcc-zach",
+  "homepage": "https://github.com/xcc-zach/xtalk",
+  "skills": []
+}
