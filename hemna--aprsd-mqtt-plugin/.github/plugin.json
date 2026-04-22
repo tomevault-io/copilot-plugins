@@ -1,0 +1,9 @@
+{
+  "name": "hemna--aprsd-mqtt-plugin",
+  "displayName": "aprsd-mqtt-plugin",
+  "description": "aprsd-mqtt-plugin",
+  "version": "1.0.0",
+  "author": "hemna",
+  "homepage": "https://github.com/hemna/aprsd-mqtt-plugin",
+  "skills": []
+}
