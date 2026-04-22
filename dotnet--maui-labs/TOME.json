@@ -1,0 +1,111 @@
+{
+  "name": "maui",
+  "owner": "dotnet",
+  "repo": "maui-labs",
+  "description": "Experimental and pre-release tools for .NET MAUI",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "find-reviewable-pr",
+      "path": ".github/skills/find-reviewable-pr",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/find-reviewable-pr",
+      "description": ""
+    },
+    {
+      "name": "issue-triage",
+      "path": ".github/skills/issue-triage",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/issue-triage",
+      "description": ""
+    },
+    {
+      "name": "learn-from-pr",
+      "path": ".github/skills/learn-from-pr",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/learn-from-pr",
+      "description": ""
+    },
+    {
+      "name": "pr-finalize",
+      "path": ".github/skills/pr-finalize",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/pr-finalize",
+      "description": ""
+    },
+    {
+      "name": "run-device-tests",
+      "path": ".github/skills/run-device-tests",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/run-device-tests",
+      "description": ""
+    },
+    {
+      "name": "run-helix-tests",
+      "path": ".github/skills/run-helix-tests",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/run-helix-tests",
+      "description": ""
+    },
+    {
+      "name": "run-integration-tests",
+      "path": ".github/skills/run-integration-tests",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/run-integration-tests",
+      "description": ""
+    },
+    {
+      "name": "try-fix",
+      "path": ".github/skills/try-fix",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/try-fix",
+      "description": ""
+    },
+    {
+      "name": "verify-tests-fail-without-fix",
+      "path": ".github/skills/verify-tests-fail-without-fix",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/verify-tests-fail-without-fix",
+      "description": ""
+    },
+    {
+      "name": "write-ui-tests",
+      "path": ".github/skills/write-ui-tests",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/write-ui-tests",
+      "description": ""
+    },
+    {
+      "name": "write-xaml-tests",
+      "path": ".github/skills/write-xaml-tests",
+      "github_url": "https://github.com/dotnet/maui-labs/tree/main/.github/skills/write-xaml-tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dotnet/maui-labs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T05:30:09Z"
+}
