@@ -1,0 +1,44 @@
+{
+  "name": "LinJun",
+  "owner": "wangdabaoqq",
+  "repo": "LinJun",
+  "description": "\ud83d\udda5\ufe0f \u8de8\u5e73\u53f0GUI\u7ba1\u7406AI\u7f16\u7801\u4ee3\u7406\uff08Claude\u3001Gemini\u3001Codex\u3001Copilot\u3001Kiro\u7b49\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wangdabaoqq/LinJun",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T02:34:30Z"
+}
