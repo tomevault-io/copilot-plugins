@@ -1,0 +1,9 @@
+{
+  "name": "rawwerks--ypi",
+  "displayName": "ypi",
+  "description": "A recursive coding agent inpired by RLMs",
+  "version": "1.0.0",
+  "author": "rawwerks",
+  "homepage": "https://github.com/rawwerks/ypi",
+  "skills": []
+}
