@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [pete-murphy/elm-land-store-pattern](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/pete-murphy)
+From [pete-murphy/elm-land-store-pattern](https://github.com/pete-murphy/elm-land-store-pattern) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install pete-murphy/elm-land-store-pattern
 ```
-Or browse all formats at [https://tomevault.io/claim/pete-murphy](https://tomevault.io/claim/pete-murphy).
+Source: [github.com/pete-murphy/elm-land-store-pattern](https://github.com/pete-murphy/elm-land-store-pattern).
 
 <!-- genome:a-i-s -->
