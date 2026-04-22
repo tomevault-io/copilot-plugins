@@ -1,0 +1,18 @@
+{
+  "name": "ryaker--zora",
+  "displayName": "zora",
+  "description": "Zora \u2014 a long\u2011running local AI agent with provider registry and secure tool access.",
+  "version": "1.0.0",
+  "author": "ryaker",
+  "homepage": "https://github.com/ryaker/zora",
+  "skills": [
+    {
+      "name": "zora-config-advisor",
+      "description": ""
+    },
+    {
+      "name": "zora-setup-guide",
+      "description": ""
+    }
+  ]
+}
