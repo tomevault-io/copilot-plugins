@@ -1,0 +1,9 @@
+{
+  "name": "railwayapp--railway-skills",
+  "displayName": "railway-skills",
+  "description": "Agent skills for interacting with Railway",
+  "version": "1.0.0",
+  "author": "railwayapp",
+  "homepage": "https://github.com/railwayapp/railway-skills",
+  "skills": []
+}
