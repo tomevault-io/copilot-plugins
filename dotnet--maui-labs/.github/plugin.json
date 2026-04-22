@@ -1,0 +1,54 @@
+{
+  "name": "dotnet--maui-labs",
+  "displayName": "maui",
+  "description": "Experimental and pre-release tools for .NET MAUI",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/maui-labs",
+  "skills": [
+    {
+      "name": "find-reviewable-pr",
+      "description": ""
+    },
+    {
+      "name": "issue-triage",
+      "description": ""
+    },
+    {
+      "name": "learn-from-pr",
+      "description": ""
+    },
+    {
+      "name": "pr-finalize",
+      "description": ""
+    },
+    {
+      "name": "run-device-tests",
+      "description": ""
+    },
+    {
+      "name": "run-helix-tests",
+      "description": ""
+    },
+    {
+      "name": "run-integration-tests",
+      "description": ""
+    },
+    {
+      "name": "try-fix",
+      "description": ""
+    },
+    {
+      "name": "verify-tests-fail-without-fix",
+      "description": ""
+    },
+    {
+      "name": "write-ui-tests",
+      "description": ""
+    },
+    {
+      "name": "write-xaml-tests",
+      "description": ""
+    }
+  ]
+}
