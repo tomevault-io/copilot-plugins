@@ -1,0 +1,327 @@
+{
+  "name": "claude-starter",
+  "owner": "raintree-technology",
+  "repo": "claude-starter",
+  "description": "Advanced Claude Code framework: 40+ skills, meta-commands, TOON format (30-60% token savings), workflow automation & skill orchestration. npx create-claude-starter@latest",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "toon-formatter",
+      "path": "skills/toon-formatter",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/skills/toon-formatter",
+      "description": ""
+    },
+    {
+      "name": "anthropic",
+      "path": ".claude/skills/anthropic",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/anthropic",
+      "description": ""
+    },
+    {
+      "name": "anthropic",
+      "path": "templates/.claude/skills/anthropic",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/templates/.claude/skills/anthropic",
+      "description": ""
+    },
+    {
+      "name": "aptos",
+      "path": "skills/aptos",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/skills/aptos",
+      "description": ""
+    },
+    {
+      "name": "dapp-integration",
+      "path": "skills/aptos/dapp-integration",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/skills/aptos/dapp-integration",
+      "description": ""
+    },
+    {
+      "name": "dapp-integration",
+      "path": ".claude/skills/aptos/dapp-integration",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos/dapp-integration",
+      "description": ""
+    },
+    {
+      "name": "aptos",
+      "path": "templates/.claude/skills/aptos",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/templates/.claude/skills/aptos",
+      "description": ""
+    },
+    {
+      "name": "aptos",
+      "path": ".claude/skills/aptos",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos",
+      "description": ""
+    },
+    {
+      "name": "framework",
+      "path": "skills/aptos/framework",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/skills/aptos/framework",
+      "description": ""
+    },
+    {
+      "name": "move-testing",
+      "path": "skills/aptos/move-testing",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/skills/aptos/move-testing",
+      "description": ""
+    },
+    {
+      "name": "move-testing",
+      "path": ".claude/skills/aptos/move-testing",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos/move-testing",
+      "description": ""
+    },
+    {
+      "name": "claude-code",
+      "path": ".claude/skills/anthropic/claude-code",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/anthropic/claude-code",
+      "description": ""
+    },
+    {
+      "name": "claude-command-builder",
+      "path": ".claude/skills/anthropic/claude-command-builder",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/anthropic/claude-command-builder",
+      "description": ""
+    },
+    {
+      "name": "claude-hook-builder",
+      "path": ".claude/skills/anthropic/claude-hook-builder",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/anthropic/claude-hook-builder",
+      "description": ""
+    },
+    {
+      "name": "claude-mcp-expert",
+      "path": ".claude/skills/anthropic/claude-mcp-expert",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/anthropic/claude-mcp-expert",
+      "description": ""
+    },
+    {
+      "name": "claude-mcp-expert",
+      "path": "templates/.claude/skills/anthropic/claude-mcp-expert",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/templates/.claude/skills/anthropic/claude-mcp-expert",
+      "description": ""
+    },
+    {
+      "name": "claude-settings-expert",
+      "path": ".claude/skills/anthropic/claude-settings-expert",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/anthropic/claude-settings-expert",
+      "description": ""
+    },
+    {
+      "name": "claude-skill-builder",
+      "path": "templates/.claude/skills/anthropic/claude-skill-builder",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/templates/.claude/skills/anthropic/claude-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "claude-skill-builder",
+      "path": ".claude/skills/anthropic/claude-skill-builder",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/anthropic/claude-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "decibel",
+      "path": "skills/aptos/decibel",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/skills/aptos/decibel",
+      "description": ""
+    },
+    {
+      "name": "decibel",
+      "path": ".claude/skills/aptos/decibel",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos/decibel",
+      "description": ""
+    },
+    {
+      "name": "eas-build",
+      "path": ".claude/skills/expo/eas-build",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/expo/eas-build",
+      "description": ""
+    },
+    {
+      "name": "eas-update",
+      "path": ".claude/skills/expo/eas-update",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/expo/eas-update",
+      "description": ""
+    },
+    {
+      "name": "expo",
+      "path": ".claude/skills/expo",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/expo",
+      "description": ""
+    },
+    {
+      "name": "expo-router",
+      "path": ".claude/skills/expo/expo-router",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/expo/expo-router",
+      "description": ""
+    },
+    {
+      "name": "helius",
+      "path": ".claude/skills/helius",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/helius",
+      "description": ""
+    },
+    {
+      "name": "ios",
+      "path": ".claude/skills/ios",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/ios",
+      "description": ""
+    },
+    {
+      "name": "plaid",
+      "path": "skills/plaid",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/skills/plaid",
+      "description": ""
+    },
+    {
+      "name": "accounts",
+      "path": ".claude/skills/plaid/accounts",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/plaid/accounts",
+      "description": ""
+    },
+    {
+      "name": "auth",
+      "path": ".claude/skills/plaid/auth",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/plaid/auth",
+      "description": ""
+    },
+    {
+      "name": "plaid",
+      "path": ".claude/skills/plaid",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/plaid",
+      "description": ""
+    },
+    {
+      "name": "transactions",
+      "path": ".claude/skills/plaid/transactions",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/plaid/transactions",
+      "description": ""
+    },
+    {
+      "name": "shelby",
+      "path": "skills/aptos/shelby",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/skills/aptos/shelby",
+      "description": ""
+    },
+    {
+      "name": "cli-assistant",
+      "path": ".claude/skills/aptos/shelby/cli-assistant",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos/shelby/cli-assistant",
+      "description": ""
+    },
+    {
+      "name": "dapp-builder",
+      "path": ".claude/skills/aptos/shelby/dapp-builder",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos/shelby/dapp-builder",
+      "description": ""
+    },
+    {
+      "name": "shelby",
+      "path": "templates/.claude/skills/aptos/shelby",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/templates/.claude/skills/aptos/shelby",
+      "description": ""
+    },
+    {
+      "name": "shelby",
+      "path": ".claude/skills/aptos/shelby",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos/shelby",
+      "description": ""
+    },
+    {
+      "name": "protocol-expert",
+      "path": ".claude/skills/aptos/shelby/protocol-expert",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos/shelby/protocol-expert",
+      "description": ""
+    },
+    {
+      "name": "sdk-developer",
+      "path": ".claude/skills/aptos/shelby/sdk-developer",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos/shelby/sdk-developer",
+      "description": ""
+    },
+    {
+      "name": "storage-integration",
+      "path": ".claude/skills/aptos/shelby/storage-integration",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/aptos/shelby/storage-integration",
+      "description": ""
+    },
+    {
+      "name": "shopify",
+      "path": ".claude/skills/shopify",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/shopify",
+      "description": ""
+    },
+    {
+      "name": "stripe",
+      "path": ".claude/skills/stripe",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/stripe",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": ".claude/skills/supabase",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/supabase",
+      "description": ""
+    },
+    {
+      "name": "toon-formatter",
+      "path": ".claude/skills/toon-formatter",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/toon-formatter",
+      "description": ""
+    },
+    {
+      "name": "toon-formatter",
+      "path": "templates/.claude/skills/toon-formatter",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/templates/.claude/skills/toon-formatter",
+      "description": ""
+    },
+    {
+      "name": "whop",
+      "path": "skills/whop",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/skills/whop",
+      "description": ""
+    },
+    {
+      "name": "whop",
+      "path": ".claude/skills/whop",
+      "github_url": "https://github.com/raintree-technology/claude-starter/tree/main/.claude/skills/whop",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/raintree-technology/claude-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T23:37:17Z"
+}
