@@ -1,0 +1,9 @@
+{
+  "name": "trionking--stm32-drv8311p-bldc-motor",
+  "displayName": "stm32-drv8311p-bldc-motor",
+  "description": "stm32-drv8311p-bldc-motor",
+  "version": "1.0.0",
+  "author": "trionking",
+  "homepage": "https://github.com/trionking/stm32-drv8311p-bldc-motor",
+  "skills": []
+}
