@@ -1,0 +1,75 @@
+{
+  "name": "contributor-report",
+  "owner": "jdiegosierra",
+  "repo": "contributor-report",
+  "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "find-skills",
+      "path": ".agents/skills/find-skills",
+      "github_url": "https://github.com/jdiegosierra/contributor-report/tree/main/.agents/skills/find-skills",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": ".agents/skills/git-commit",
+      "github_url": "https://github.com/jdiegosierra/contributor-report/tree/main/.agents/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "github-actions-templates",
+      "path": ".agents/skills/github-actions-templates",
+      "github_url": "https://github.com/jdiegosierra/contributor-report/tree/main/.agents/skills/github-actions-templates",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "path": ".agents/skills/typescript-advanced-types",
+      "github_url": "https://github.com/jdiegosierra/contributor-report/tree/main/.agents/skills/typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "path": ".agents/skills/typescript-expert",
+      "github_url": "https://github.com/jdiegosierra/contributor-report/tree/main/.agents/skills/typescript-expert",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jdiegosierra/contributor-report",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:40:33Z"
+}
