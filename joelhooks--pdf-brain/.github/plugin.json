@@ -1,0 +1,9 @@
+{
+  "name": "joelhooks--pdf-brain",
+  "displayName": "pdf-brain",
+  "description": "\ud83e\udde0 Local PDF knowledge base with vector search using libsql w/vectors",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/pdf-brain",
+  "skills": []
+}
