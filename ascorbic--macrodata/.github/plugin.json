@@ -1,0 +1,26 @@
+{
+  "name": "ascorbic--macrodata",
+  "displayName": "macrodata",
+  "description": "Give Claude Code and OpenCode persistent, self-refining memory and autonomous scheduling.",
+  "version": "1.0.0",
+  "author": "ascorbic",
+  "homepage": "https://github.com/ascorbic/macrodata",
+  "skills": [
+    {
+      "name": "distill",
+      "description": ""
+    },
+    {
+      "name": "macrodata-distill",
+      "description": ""
+    },
+    {
+      "name": "macrodata-onboarding",
+      "description": ""
+    },
+    {
+      "name": "onboarding",
+      "description": ""
+    }
+  ]
+}
