@@ -1,0 +1,9 @@
+{
+  "name": "wenqingyu--ralphy-openspec",
+  "displayName": "ralphy-openspec",
+  "description": "Ralph loop + OpenSpec integration for Cursor, OpenCode and ClaudeCode heavy lifting.",
+  "version": "1.0.0",
+  "author": "wenqingyu",
+  "homepage": "https://github.com/wenqingyu/ralphy-openspec",
+  "skills": []
+}
