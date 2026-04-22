@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [motech-development/platform](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/motech-development#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/motech-development/platform](https://github.com/motech-development/platform)
 
 ---
 
