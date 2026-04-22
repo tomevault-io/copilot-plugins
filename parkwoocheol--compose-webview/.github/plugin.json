@@ -1,0 +1,9 @@
+{
+  "name": "parkwoocheol--compose-webview",
+  "displayName": "compose-webview",
+  "description": "A powerful, flexible, and feature-rich WebView wrapper for Jetpack Compose and Compose Multiplatform (Android, iOS, Desktop, Web).",
+  "version": "1.0.0",
+  "author": "parkwoocheol",
+  "homepage": "https://github.com/parkwoocheol/compose-webview",
+  "skills": []
+}
