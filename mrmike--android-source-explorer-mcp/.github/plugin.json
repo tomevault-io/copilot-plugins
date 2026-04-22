@@ -1,0 +1,9 @@
+{
+  "name": "mrmike--android-source-explorer-mcp",
+  "displayName": "android-source-explorer-mcp",
+  "description": "MCP server for exploring AOSP internals and Jetpack libraries",
+  "version": "1.0.0",
+  "author": "mrmike",
+  "homepage": "https://github.com/mrmike/android-source-explorer-mcp",
+  "skills": []
+}
