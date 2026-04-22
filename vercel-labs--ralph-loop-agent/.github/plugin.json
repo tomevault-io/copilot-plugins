@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--ralph-loop-agent",
+  "displayName": "ralph-loop-agent",
+  "description": "Continuous Autonomy for the AI SDK",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/ralph-loop-agent",
+  "skills": []
+}
