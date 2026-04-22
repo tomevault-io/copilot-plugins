@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--pump-fun-sdk",
+  "displayName": "pump-fun-sdk",
+  "description": "Token creation launching, bonding curve trading, AMM migration, tiered fees, creator fee sharing, vanity keygen, MCP server, Telegram bot & live dashboards",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/pump-fun-sdk",
+  "skills": []
+}
