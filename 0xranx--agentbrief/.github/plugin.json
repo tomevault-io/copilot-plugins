@@ -1,0 +1,14 @@
+{
+  "name": "0xranx--agentbrief",
+  "displayName": "agentbrief",
+  "description": "Pluggable role definitions for AI coding agents \u2014 one command turns Claude Code / Cursor / OpenCode / Codex into a specialized professional",
+  "version": "1.0.0",
+  "author": "0xranx",
+  "homepage": "https://github.com/0xranx/agentbrief",
+  "skills": [
+    {
+      "name": "ci-cd-github-actions",
+      "description": ""
+    }
+  ]
+}
