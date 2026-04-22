@@ -1,0 +1,18 @@
+{
+  "name": "aidotnet--moyucode",
+  "displayName": "MoYuCode",
+  "description": "AI instruction skills by AIDotNet",
+  "version": "1.0.0",
+  "author": "AIDotNet",
+  "homepage": "https://github.com/AIDotNet/MoYuCode",
+  "skills": [
+    {
+      "name": "ci-cd-generator",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
