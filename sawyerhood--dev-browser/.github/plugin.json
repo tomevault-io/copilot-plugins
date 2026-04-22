@@ -1,0 +1,9 @@
+{
+  "name": "sawyerhood--dev-browser",
+  "displayName": "dev-browser",
+  "description": "A Claude Skill to give your agent the ability to use a web browser",
+  "version": "1.0.0",
+  "author": "SawyerHood",
+  "homepage": "https://github.com/SawyerHood/dev-browser",
+  "skills": []
+}
