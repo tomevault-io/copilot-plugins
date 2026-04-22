@@ -1,0 +1,30 @@
+{
+  "name": "mgratzer--forge",
+  "displayName": "forge",
+  "description": "A collection of agent skills for structured, GitHub-centric development.",
+  "version": "1.0.0",
+  "author": "mgratzer",
+  "homepage": "https://github.com/mgratzer/forge",
+  "skills": [
+    {
+      "name": "forge-address-pr-feedback",
+      "description": ""
+    },
+    {
+      "name": "forge-create-issue",
+      "description": ""
+    },
+    {
+      "name": "forge-implement-issue",
+      "description": ""
+    },
+    {
+      "name": "forge-reflect-pr",
+      "description": ""
+    },
+    {
+      "name": "forge-setup-project",
+      "description": ""
+    }
+  ]
+}
