@@ -1,0 +1,44 @@
+{
+  "name": "vibe-any-tanstack",
+  "owner": "jiahao-jayden",
+  "repo": "vibe-any-tanstack",
+  "description": "Full-stack starter for building AI-powered web apps with TanStack Start.Ships with authentication, database, landing page, blog, docs, i18n, admin panel, and more \u2014 ready to deploy in minutes.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jiahao-jayden/vibe-any-tanstack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-22T11:53:28Z"
+}
