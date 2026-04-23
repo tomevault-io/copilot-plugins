@@ -1,0 +1,14 @@
+{
+  "name": "mastra-ai--skills",
+  "displayName": "skills",
+  "description": "Official agent skills for coding agents working with the Mastra AI framework",
+  "version": "1.0.0",
+  "author": "mastra-ai",
+  "homepage": "https://github.com/mastra-ai/skills",
+  "skills": [
+    {
+      "name": "mastra",
+      "description": ""
+    }
+  ]
+}
