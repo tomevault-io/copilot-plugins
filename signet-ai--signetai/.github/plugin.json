@@ -1,0 +1,9 @@
+{
+  "name": "signet-ai--signetai",
+  "displayName": "signetai",
+  "description": "Local-first identity, memory, and secrets for AI agents. Portable state across models and harnesses.",
+  "version": "1.0.0",
+  "author": "Signet-AI",
+  "homepage": "https://github.com/Signet-AI/signetai",
+  "skills": []
+}
