@@ -1,0 +1,14 @@
+{
+  "name": "respawn-app--ksrc",
+  "displayName": "ksrc",
+  "description": "Let your AI agents search and read 3rd-party Kotlin dependency sources",
+  "version": "1.0.0",
+  "author": "respawn-app",
+  "homepage": "https://github.com/respawn-app/ksrc",
+  "skills": [
+    {
+      "name": "ksrc",
+      "description": ""
+    }
+  ]
+}
