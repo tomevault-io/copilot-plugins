@@ -1,0 +1,51 @@
+{
+  "name": "workspace_2026",
+  "owner": "nwiizo",
+  "repo": "workspace_2026",
+  "description": "\ud83d\udee0\ufe0f Build. Learn. Ship. (and mass produce it.) \u2014 Systems programming, distributed systems, and AI infrastructure.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "memory-optimizer",
+      "path": ".claude/skills/memory-optimizer",
+      "github_url": "https://github.com/nwiizo/workspace_2026/tree/main/.claude/skills/memory-optimizer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nwiizo/workspace_2026",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:51:10Z"
+}
