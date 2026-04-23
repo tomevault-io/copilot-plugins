@@ -1,0 +1,9 @@
+{
+  "name": "stormkit-io--stormkit-io",
+  "displayName": "stormkit-io",
+  "description": "Self-hostable alternative to Vercel/Netlify. Deploy modern web apps with automated CI/CD, custom domains, and environment management.",
+  "version": "1.0.0",
+  "author": "stormkit-io",
+  "homepage": "https://github.com/stormkit-io/stormkit-io",
+  "skills": []
+}
