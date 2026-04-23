@@ -1,0 +1,9 @@
+{
+  "name": "navikt--cplt",
+  "displayName": "cplt",
+  "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS",
+  "version": "1.0.0",
+  "author": "navikt",
+  "homepage": "https://github.com/navikt/cplt",
+  "skills": []
+}
