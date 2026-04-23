@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [CLOCKWORK-TEMPTATION/production-readiness](https://github.com/CLOCKWORK-TEMPTATION/production-readiness).
+Original source: `.windsurf/rules/*.md` in [CLOCKWORK-TEMPTATION/production-readiness](https://github.com/CLOCKWORK-TEMPTATION/production-readiness).
 
 ## Also available for
 
@@ -13,9 +13,9 @@ Original source: `GEMINI.md` in [CLOCKWORK-TEMPTATION/production-readiness](http
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/CLOCKWORK-TEMPTATION)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/CLOCKWORK-TEMPTATION/production-readiness](https://github.com/CLOCKWORK-TEMPTATION/production-readiness)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install CLOCKWORK-TEMPTATION/production-readiness
 ```
-Or browse all formats at [https://tomevault.io/claim/CLOCKWORK-TEMPTATION](https://tomevault.io/claim/CLOCKWORK-TEMPTATION).
+Source: [github.com/CLOCKWORK-TEMPTATION/production-readiness](https://github.com/CLOCKWORK-TEMPTATION/production-readiness).
 
 <!-- genome:a-i-p -->
