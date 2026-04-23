@@ -1,0 +1,28 @@
+## website-monorepo
+
+> Always use rems or ems when possible instead of pixels. This provides better accessibility and responsive design.
+
+# Units Preference
+
+Always use rems or ems when possible instead of pixels. This provides better accessibility and responsive design.
+
+- Use `rem` for most spacing, sizing, and layout properties
+- Use `em` for properties that should scale with the current element's font size
+- Only use `px` when absolutely necessary (e.g., 1px borders, specific design requirements)
+- For shadows and borders, prefer rem-based values
+
+Examples:
+- ✅ `margin: 1rem`
+- ✅ `padding: 0.5rem 1rem`
+- ✅ `font-size: 1.125rem`
+- ✅ `box-shadow: 0.25rem 0.25rem 0 0 var(--color-shadow)`
+- ❌ `margin: 16px`
+- ❌ `padding: 8px 16px`
+description:
+globs:
+alwaysApply: false
+---
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/bracketbear) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
