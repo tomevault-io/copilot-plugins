@@ -1,0 +1,14 @@
+{
+  "name": "agents-squads--squads-cli",
+  "displayName": "squads-cli",
+  "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents.",
+  "version": "1.0.0",
+  "author": "agents-squads",
+  "homepage": "https://github.com/agents-squads/squads-cli",
+  "skills": [
+    {
+      "name": "squads-learn",
+      "description": ""
+    }
+  ]
+}
