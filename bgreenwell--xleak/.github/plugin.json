@@ -1,0 +1,9 @@
+{
+  "name": "bgreenwell--xleak",
+  "displayName": "xleak",
+  "description": "A fast terminal Excel viewer with an interactive TUI. Features full-text search, formula display, lazy loading for large files, clipboard support, and export to CSV/JSON. Built with Rust and ratatui.",
+  "version": "1.0.0",
+  "author": "bgreenwell",
+  "homepage": "https://github.com/bgreenwell/xleak",
+  "skills": []
+}
