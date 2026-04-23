@@ -1,0 +1,14 @@
+{
+  "name": "neondatabase--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agent Skills for Neon Severless Postgres",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/agent-skills",
+  "skills": [
+    {
+      "name": "neon-postgres",
+      "description": ""
+    }
+  ]
+}
