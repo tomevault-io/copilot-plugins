@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [PaulJPhilp/buddy](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/PaulJPhilp)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/PaulJPhilp/buddy](https://github.com/PaulJPhilp/buddy)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install PaulJPhilp/buddy
 ```
-Or browse all formats at [https://tomevault.io/claim/PaulJPhilp](https://tomevault.io/claim/PaulJPhilp).
+Source: [github.com/PaulJPhilp/buddy](https://github.com/PaulJPhilp/buddy).
 
 <!-- genome:a-i-p -->
