@@ -1,0 +1,14 @@
+{
+  "name": "samitugal--bytepad",
+  "displayName": "bytepad",
+  "description": "Your personal productivity companion",
+  "version": "1.0.0",
+  "author": "samitugal",
+  "homepage": "https://github.com/samitugal/bytepad",
+  "skills": [
+    {
+      "name": "internal",
+      "description": ""
+    }
+  ]
+}
