@@ -1,0 +1,700 @@
+## openbrowser
+
+> **Generated:** 2026-04-10
+
+# OpenBrowser Project Knowledge Base
+
+**Generated:** 2026-04-10
+**Commit:** 25b3a2e (main)
+**Stack:** Python 3.12+ (FastAPI) + TypeScript (Chrome Extension MV3)
+
+## OVERVIEW
+
+Visual AI assistant for browser automation powered by Qwen3.5-Plus (primary) with Qwen3.5-Flash support as a cost-effective alternative. Provides AI-powered visual understanding and interaction for web automation, data extraction, interactive workflows, and a record -> compile -> replay pipeline for reusable Browser Routines. Single-model automation loop: visual perception → decision making → browser interaction → verification.
+
+## STRUCTURE
+
+```
+OpenBrowser/
+├── server/           # FastAPI backend + agent logic + WebSocket
+│   ├── agent/        # Agent orchestration and tool definitions
+│   ├── api/          # REST endpoints
+│   ├── core/         # Core processing logic
+│   └── websocket/    # WebSocket server
+├── extension/        # Chrome extension (MV3) for browser control
+├── frontend/         # Static web UI (HTML)
+├── eval/             # Mock sites + routine compile/replay evaluation
+└── reference/        # External SDK references (read-only)
+```
+
+## WHERE TO LOOK
+
+| Task | Location | Notes |
+|------|----------|-------|
+| Agent orchestration | `server/agent/manager.py` | Conversation lifecycle, LLM config |
+| Browser commands | `server/core/processor.py` | Command routing, multi-session |
+| Dialog handling | `server/models/commands.py` | HandleDialogCommand, DialogAction |
+| REST API routes | `server/api/routes/` | FastAPI endpoints |
+| Recording routes | `server/api/routes/recordings.py` | Recording lifecycle, workflow draft, compiler, finalize |
+| Routine routes | `server/api/routes/routines.py` | Saved Browser Routine CRUD for replay |
+| Browser UUID routing | `server/api/routes/browsers.py` | Browser UUID registration and validation |
+| WebSocket handling | `server/websocket/manager.py` | Extension communication |
+| Browser UUID registry | `server/core/uuid_manager.py` | `uuid -> websocket` capability mapping |
+| Command models | `server/models/commands.py` | Pydantic command/response types |
+| Recording persistence | `server/core/recording_manager.py` | SQLite recording sessions/events, immutability boundaries |
+| Workflow draft compiler | `server/core/workflow_compiler.py` | Normalize raw recording traces into high-level draft steps/IR |
+| Compiler Agent | `server/core/compiler_agent.py` | TraceViewer, clarify-with-user loop, Routine validation |
+| Routine persistence | `server/core/routine_manager.py` | Saved routines linked back to source recordings |
+| **Prompt templates** | `server/agent/prompts/` | **Jinja2 templates for agent prompts** |
+| Tab tool | `server/agent/tools/tab_tool.py` | TabTool for tab management |
+| Highlight tool | `server/agent/tools/highlight_tool.py` | HighlightTool for element discovery |
+| Element interaction | `server/agent/tools/element_interaction_tool.py` | ElementInteractionTool with 2PC flow |
+| Dialog tool | `server/agent/tools/dialog_tool.py` | DialogTool for dialog handling |
+| ToolSet aggregator | `server/agent/tools/toolset.py` | OpenBrowserToolSet aggregates all 4 tools |
+| Extension entry | `extension/src/background/index.ts` | Command handler, dialog processing |
+| Extension recorder | `extension/src/recording/recorder.ts` | Recording scope, event capture, keyframe upload |
+| Recording keyframe policy | `extension/src/recording/keyframe-policy.ts` | Which events get screenshots and when drift is discarded |
+| Dialog manager | `extension/src/commands/dialog.ts` | CDP dialog events, cascading |
+| JavaScript execution | `extension/src/commands/javascript.ts` | CDP Runtime.evaluate, dialog race |
+| Screenshot capture | `extension/src/commands/screenshot.ts` | CDP Page.captureScreenshot |
+| Tab management | `extension/src/commands/tab-manager.ts` | Session isolation, tab groups |
+| UUID page | `extension/src/uuid/uuidPage.ts` | Browser UUID display and registration status |
+| Frontend recording/replay UI | `frontend/index.html` | Browser UUID input, recording panel, compile flow, saved routines, slash-menu replay |
+| Routine evaluation | `eval/routine_eval/` | Compile-track + replay-track eval harness for record/replay |
+
+## ARCHITECTURE
+
+```
+┌─────────────────────────────────────────┐
+│       Qwen3.5 Family (Multimodal LLM)   │
+│   Qwen3.5-Plus (primary) / Flash (cost-effective)
+│   Visual Perception │ Decision Making │ Browser Control
+└────────────────────┬────────────────────┘
+                     │
+┌────────────────────▼────────────────────┐
+│   OpenBrowser Agent Server (FastAPI)    │
+│   - REST API (port 8765)                │
+│   - WebSocket (port 8766)               │
+│   - Session Management                   │
+│   - Tool Orchestration                   │
+└────────────────────┬────────────────────┘
+                     │
+┌────────────────────▼────────────────────┐
+│   Chrome Extension (CDP)                │
+│   - JavaScript execution (with race)    │
+│   - Dialog detection & handling         │
+│   - Screenshots (1280x720)              │
+│   - Tab management with groups          │
+└─────────────────────────────────────────┘
+```
+
+## BROWSER UUID AUTHORIZATION
+
+OpenBrowser now uses the browser UUID as a capability token, not just an internal identifier.
+
+### Permission Model
+
+1. Chrome extension connects to the server WebSocket
+2. Server assigns a `connection_id`
+3. Extension registers its current browser UUID with `POST /browsers/register`
+4. Server stores `browser_uuid -> websocket`
+5. Frontend or API client asks the user for the browser UUID
+6. Message/command requests include `browser_id`
+7. Server validates `browser_id` and routes browser commands only to that registered websocket
+
+### Key Invariants
+
+- The browser UUID is the secret required to control that browser
+- Possession of the UUID implies permission to operate that browser
+- `browser_id` is required on browser-control requests unless already stored in conversation metadata
+- Browser routing must be single-target by UUID, not broadcast to all websockets
+- Frontend flow lives in `frontend/index.html`
+- UUID registration and validation live in `server/api/routes/browsers.py`, `server/core/uuid_manager.py`, and `server/websocket/manager.py`
+
+## RECORD & REPLAY DESIGN
+
+OpenBrowser's record/replay system is deliberately not a raw event replayer. The recording trace is evidence used to understand what the human did, compile a reusable Browser Routine, and debug failures later. Replay runs that compiled Routine as a fresh agent session.
+
+### Pipeline
+```
+1. POST /recordings
+2. Extension recorder starts in `dedicated_window` (default) or `current_window`
+3. Recorder captures scoped browser events + selective keyframes
+4. POST /recordings/{id}/events persists rows while the session is ACTIVE
+5. POST /recordings/{id}/stop freezes the trace
+6. GET /recordings/{id}/workflow-draft builds normalized steps / workflow IR
+7. POST /recordings/{id}/compile runs the Compiler Agent over raw events, keyframes, normalized steps, and `intent_note`
+8. Compiler may ask clarification questions, then emits validated Routine markdown
+9. POST /recordings/{id}/compile/finalize saves a named Routine in `routines`
+10. Frontend replay starts a fresh conversation with `mode="routine_replay"` and sends the Routine markdown as the first message
+```
+
+### Core Design Rules
+- Replay is **NOT** low-level click/scroll/input playback
+- Raw recording events are a source artifact for review, compilation, and debugging
+- `workflow-draft` is intermediate IR for review/compiler context, not the final replay format
+- The executable replay artifact is the finalized Routine markdown saved in `routines`
+- Saved routines keep a back-reference to `source_recording_id`
+
+### Recording Invariants
+- Only one ACTIVE recording may exist per browser UUID
+- Default launch mode is `dedicated_window`; `current_window` is opt-in
+- The recorder owns a recording scope (window/group/tab set) and automatically absorbs new in-scope tabs
+- `recording_started` and `recording_stopped` are ambient lifecycle events; they should not compile into replay steps
+- Once a recording leaves ACTIVE, `/recordings/{id}/events` must reject late async uploads so the reviewed trace stays immutable
+- If the browser websocket is gone at stop time, the server marks the row STOPPED locally with `stop_reason=browser_disconnected` instead of leaving it stranded ACTIVE
+- `page_view` intentionally does **not** carry a keyframe; early lifecycle captures were observed to distort the live Chrome page
+- Keyframes are selective: mainly `click`, `change`, `submit`, and input-like `focus`; some click/enter flows use pre-action captures, and post-capture screenshots are discarded if the capture already drifted to a different URL
+- Input/focus noise is merged before review/compiler consumption so the trace reflects intent instead of every transient keystroke
+
+### Replay Invariants
+- Replay always starts a **fresh conversation** with metadata `mode="routine_replay"`
+- `routine_replay_mode` is a server-side flag propagated from session metadata into system prompt rendering; the model never infers replay mode from free-form text
+- The frontend replay entry points are the saved-routine launcher and the `/` slash-menu routine picker in `frontend/index.html`
+- Small-model `highlight_elements(keywords=...)` is only allowed in routine replay, and the token must be copied verbatim from the active Routine step's `**Keywords:**` line
+
+### Evaluation Hooks
+- `eval/routine_eval/` has a compile track and a replay track
+- The compile track can ingest fixture traces through `POST /recordings/ingest`, gated by `OPENBROWSER_ENABLE_TEST_ROUTES=1`
+- The replay track executes golden routines in `routine_replay` mode on the mock sites
+
+## DIALOG HANDLING
+
+When JavaScript triggers a dialog (alert/confirm/prompt), the browser pauses.
+OpenBrowser uses Promise.race to detect dialogs gracefully.
+
+### Flow
+```
+1. javascript_execute runs
+2. Promise.race([
+     jsExecution,    // Runtime.evaluate
+     dialogEvent,    // Page.javascriptDialogOpening
+     timeout         // User timeout
+   ])
+3. If dialog opens:
+   - Return dialog info to the screenshot/handling flow
+   - Wait for screenshot handling or explicit dialog response
+4. AI calls handle_dialog(accept/dismiss)
+5. Extension handles, checks cascade
+```
+
+### Dialog Types
+| Type | Needs Decision | AI Action |
+|------|----------------|----------|
+| alert | No | Auto-accepted |
+| confirm | Yes | handle_dialog(accept/dismiss) |
+| prompt | Yes | handle_dialog(accept, text) |
+| beforeunload | Yes | handle_dialog(accept/dismiss) |
+
+### Cascading Dialogs
+Dialog → Dialog → Dialog chain supported. After handling one dialog,
+the system checks for new dialogs within 150ms.
+
+### Element Actions Dialog Handling
+When JavaScript execution triggers a dialog during element actions (click, hover, scroll, keyboard input), the `executeJavaScript` function returns a result with `dialog_opened: true` but no `result` field. Element action functions (`performElementClick`, `performElementHover`, etc.) must check for `jsResult.dialog_opened` before checking `jsResult.result?.value`. If a dialog opened, treat the action as successful (clicked/hovered/scrolled/input = true) and propagate dialog info to the screenshot handler. This prevents false "Invalid JavaScript result.value structure" errors.
+
+## CONVENTIONS
+
+### Python (server/)
+- **Line length:** 88 (black/ruff)
+- **Target:** Python 3.12
+- **Strict typing:** `disallow_untyped_defs = true` in mypy
+- **Imports:** isort via ruff
+
+### TypeScript (extension/)
+- **Target:** ES2022
+- **Module:** ESNext with bundler resolution
+- **Strict mode:** enabled
+- **Path alias:** `@/*` → `src/*`
+- **Build:** Vite with multi-entry (background, content, workers)
+
+## PROMPT MANAGEMENT
+
+OpenBrowser uses Jinja2 templates for agent prompts, enabling dynamic content injection based on configuration.
+
+### Template Structure
+- **Location**: `server/agent/prompts/` directory
+- **Format**: `.j2` extension with Jinja2 syntax
+- **4 Tool Templates**: Each of the 4 focused tools has its own template:
+  - `tab_tool.j2` - Tab management documentation
+  - `highlight_tool.j2` - Element discovery with color coding
+  - `element_interaction_tool.j2` - 2PC flow with orange confirmations
+  - `dialog_tool.j2` - Dialog handling
+
+### Template Features
+- **Conditional rendering**: Use `{% if %}` blocks for configurable sections
+- **Variable injection**: Pass context variables like model profile flags at render time
+- **Clean output**: `trim_blocks=True` and `lstrip_blocks=True` remove extra whitespace
+- **Caching**: Templates are cached after first load for performance
+
+### Model Profile Differences
+- Model profile is resolved from session metadata and exposed to prompt rendering as `model_profile` / `small_model`; see `server/agent/manager.py` and `server/agent/tools/prompt_context.py`
+- Tool prompt variants are split by model profile under `server/agent/prompts/small_model/` and `server/agent/prompts/big_model/`
+- Small-model browser guidance intentionally avoids `keywords` fallback and leans harder on same-mode highlight pagination when dense UI may be split across collision-aware pages
+- Observation rendering now includes clickable element HTML for all model profiles; prompt differences still vary by model profile
+
+### Keyword Discipline
+- Highlight pagination remains the default discovery flow for controls and dense UI
+- After any significant page-state change, restart discovery with `highlight_elements(element_type="any")` before choosing the next element
+- `keywords` are allowed only when copying exact observed readable text or exact stable tokens already visible in the screenshot/highlight HTML
+- Do not use guessed labels, unread text, or icon-only tokens such as `×` or `🔍` as keyword probes
+
+## ANTI-PATTERNS (THIS PROJECT)
+
+- **NEVER use pixel-based mouse/keyboard simulation** - All operations via JavaScript execution
+- **NEVER skip conversation_id** - Required for multi-session isolation
+- **NEVER return DOM nodes from JavaScript** - Must be JSON-serializable
+- **NEVER use `.click()` for React/Vue** - Dispatch full event sequence instead
+- **NEVER suppress type errors** - `as any`, `@ts-ignore` forbidden
+- **NEVER ignore dialog_opened** - AI must handle dialogs before continuing
+## VISUAL INTERACTION WORKFLOW
+
+OpenBrowser uses a visual-first approach where the AI sees elements before interacting:
+
+### Workflow
+```
+1. highlight_elements(element_type="any", page=1) → Returns mixed interactive elements with IDs
+2. screenshot → AI sees numbered overlays on elements (no overlap)
+3. click_element(id="click-3") → Interact with specific element
+4. If the page changed significantly, highlight_elements(element_type="any", page=1) again before choosing the next element
+5. If the current page state is unchanged and the target is still missing, continue highlight_elements(element_type="any", page=2)
+```
+
+### Collision-Aware Pagination (Single-Type Design)
+Elements are paginated to ensure **no visual overlap** in each screenshot:
+- **One element type per call** for stable, predictable pagination
+- Each page returns a maximal set of non-colliding elements
+- Collision detection includes label area (26px above element)
+- AI calls `page=1, page=2, page=3...` to see all elements of that type
+- No offset/limit - pages are determined by collision geometry
+
+### Highlight Readiness Behavior
+
+- `highlight_elements` now uses a **snapshot-first** readiness check instead of page-side polling loops.
+- Reason: OpenBrowser intentionally keeps automated tabs in the browser background, and Chrome may heavily throttle hidden-tab timers. A page-side `setTimeout` stability loop can therefore take far longer than its nominal budget and become the main cause of highlight timeouts.
+- In practice, the main cause of unstable first-highlight screenshots is often **missing warmup**, not a bad readiness classifier. A background tab may answer lightweight `Runtime.evaluate` probes while still sitting in a partially painted / partially decoded state.
+- A screenshot-style warmup is therefore the default precondition for `highlight_elements`. It helps force hidden-tab paint/compositor/image-decode work before interactive-element detection runs.
+- All highlight warmup and highlight screenshot captures now reuse the same screenshot wake-up profile as `tab view` (`TAB_VIEW_SCREENSHOT_CAPTURE_OPTIONS`) instead of a weaker highlight-only profile. The goal is consistency: if a screenshot is needed to wake the page, the highlight path should not use a different, less effective capture mode.
+- For navigation-driven default observations such as `tab init`, `tab open`, `tab switch`, `tab refresh`, `tab back`, and `tab forward`, the extension now performs an **internal raw screenshot prime** first, then runs the normal highlight warmup + detection + highlighted screenshot flow. That raw prime screenshot is only for waking the background page and is **not** returned to the agent.
+- If `highlight_elements` keeps returning `not_ready` but `tab view` immediately makes the next highlight succeed, treat that as a warmup issue first.
+- The extension samples viewport readiness signals once per attempt: document readiness, viewport text/media density, pending images, and loading placeholders such as skeleton/shimmer/spinner indicators.
+- Readiness is graded as `ready`, `provisionally_ready`, or `not_ready`.
+- If readiness is `not_ready`, the extension performs only a couple of short **background-side** retries before proceeding or returning the latest result.
+- The screenshot-side wake-up itself also runs a bounded pre-capture warmup loop. It touches visible viewport media, samples readiness, and retries only a couple of times when the snapshot still looks `not_ready`.
+- After screenshot capture, highlight still runs a **consistency check**. This is a drift detector, not a loading detector: it verifies whether sampled highlighted elements moved or disappeared between detection and screenshot.
+- Design rule: prefer snapshot classification plus bounded retries; avoid depending on repeated timers inside the target page for highlight stability.
+
+```
+# Highlight mixed elements first (default)
+highlight_elements()                              → Page 1 of any interactive elements
+highlight_elements(page=2)                         → Page 2 of the current page state's any results
+highlight_elements(element_type="any", page=1)    → Explicit any-first discovery
+
+# Highlight other types (one at a time)
+highlight_elements(element_type="inputable")   → Input fields
+highlight_elements(element_type="scrollable")  → Scrollable areas
+highlight_elements(element_type="selectable")  → Native select dropdowns
+highlight_elements(element_type="clickable")   → Targeted fallback for icon-only controls after any-first discovery
+```
+
+### Element ID Format
+Elements are identified by a 6-character hash string:
+- Format: `[a-z0-9]{6}` (e.g., "a3f2b1", "9z8x7c")
+- Algorithm: FNV-1a hash of CSS selector, encoded in base36
+- Deterministic: Same element always gets same ID across page reloads
+- Example IDs: "a3f2b1", "k9m4p2", "7x3n1q"
+| `hover_element` | Hover by element ID | `{element_id: "9z8x7c"}` |
+| `scroll_element` | Scroll by element ID | `{element_id: "m5k2p8", direction: "down"}` |
+| `keyboard_input` | Type into element | `{element_id: "j4n7q1", text: "hello"}` |
+
+### Tool Mapping (4-Tool Architecture)
+The visual interaction workflow is implemented across 4 focused tools:
+
+| Tool | Commands | Purpose |
+|------|----------|---------|
+| `tab` | `tab init`, `tab open`, `tab close`, `tab switch`, `tab list`, `tab refresh`, `tab view`, `tab back`, `tab forward` | Session and tab management |
+| `highlight` | `highlight_elements` | Element discovery with blue overlays |
+| `element_interaction` | `click_element`, `confirm_click_element`, `hover_element`, `scroll_element`, `keyboard_input`, `confirm_keyboard_input`, `select_element`, `confirm_select` | Element interaction with 2PC for click, keyboard input, and select |
+| `dialog` | `handle_dialog` | Dialog handling (accept/dismiss) |
+
+## UNIQUE PATTERNS
+
+### Multi-Session Tab Isolation
+- `tab init <url>` creates managed session with tab group
+- `conversation_id` ties all commands to session
+- Tab groups provide visual isolation ("OpenBrowser" group)
+
+### 2-Strike Rule
+If operation fails twice:
+1. Try full event sequence (pointerdown → mousedown → click)
+2. Inspect DOM structure
+3. Consider direct URL navigation
+
+## PERFORMANCE OPTIMIZATIONS
+
+### Selective 2PC
+- `click_element`, `keyboard_input`, and `select_element` require a YELLOW confirmation preview followed by `confirm_click_element`, `confirm_keyboard_input`, or `confirm_select`
+- `select` confirmation messages also echo the chosen `value` so the agent can verify option text against the rendered `<option>` list
+- `hover_element`, `scroll_element`, and `swipe_element` execute immediately and return the post-action screenshot
+- Starting a different action clears any pending confirmation from a previous `click_element`, `keyboard_input`, or `select_element`
+
+## SISYPHUS MODE
+
+Automated looping mode for repetitive testing and monitoring.
+
+### Configuration
+1. Click the "🔄 Sisyphus" button in the status bar (next to Settings)
+2. Configure prompts in the Prompts tab (add/remove/edit)
+3. Enable Sisyphus mode in the Settings tab
+4. Save configuration
+
+### Behavior
+- When enabled, the command input field is replaced with START/STOP buttons
+- Click START to begin the Sisyphus loop:
+  1. Creates a new conversation session (fresh conversation ID)
+  2. Sends prompts in configured order
+  3. Waits for each conversation to complete before sending next prompt
+  4. After all prompts, repeats from step 1 with a new session
+- Loop continues indefinitely until STOP is clicked
+
+### Use Cases
+- Automated testing of multi-step workflows
+- Continuous monitoring of dynamic web pages
+- Repetitive data collection tasks
+- Stress testing browser interactions
+
+### Storage
+Configuration is saved to `localStorage` (key: `openbrowser_sisyphus_config`).
+
+### Browser Selection
+
+- Sisyphus still requires a browser UUID in the frontend before starting
+- The UUID is stored separately from the conversation ID
+- Changing browser UUID in the frontend clears the active conversation binding
+
+## COMMANDS
+
+```bash
+# Start server (HTTP 8765, WebSocket 8766)
+uv run local-chrome-server serve
+uv run local-chrome-server serve --multi-process     # one worker process per conversation
+
+# Build extension
+cd extension && npm run build
+
+# Server tests (pytest, async mode auto, paths under server/tests)
+uv run pytest                                                                # all
+uv run pytest server/tests/unit/test_recording_routes.py                     # one file
+uv run pytest server/tests/unit/test_recording_routes.py::TestName::test_x   # one test
+uv run pytest -m integration                                                 # needs running server + extension
+```
+
+## SCREENSHOT BEHAVIOR
+
+OpenBrowser has explicit screenshot control for maximum flexibility:
+
+- Screenshots also serve as a practical page warmup mechanism for background tabs. They can unblock page paint and media decode work that passive DOM/readiness inspection does not reliably trigger on its own.
+- Screenshot output sizing must not rely on `Page.captureScreenshot` with `clip.scale < 1` on a live tab.
+- Reason: scaled CDP captures were reproduced to leave the visible page shrunk into the top-left corner, including during recording.
+- Preferred strategy: capture at the tab's natural device-pixel size first, then downscale/compress offline inside the extension.
+
+### Recording Keyframes
+
+- Recording keyframes must **not** be attached to `page_view` events.
+- Reason: `page_view` is emitted during content-script `resume` / `start-recording` after refresh or reload, which is earlier than a stable post-load milestone.
+- Capturing a screenshot in that early `page_view` phase was reproduced to shrink the live Chrome page into the top-left corner during recording sessions.
+- `tab_ready` should stay as a lifecycle event and must not be the sole source of recording screenshots.
+- Reason: on slow pages, users often start interacting while the tab still reports loading; waiting for `tab_ready` can miss the meaningful pre-load-complete actions entirely.
+- Prefer action-timed keyframes on `click` / `submit`, but discard them when the captured screenshot has already drifted to a different URL than the source event page. This preserves useful action context without trusting navigation-transition screenshots.
+- Recording output size limits such as `960x540` should be enforced only by offline downscale/compression after a full-size capture, never by CDP `clip.scale`.
+- Action-timed recording keyframes may include an in-image bbox/banner annotation for the acted-on element (or submitted form) so review UI can show exactly what the user just clicked or typed into.
+
+### Commands That Return Screenshots
+
+| Command | Auto-Screenshot | Notes |
+|---------|------------------|-------|
+| `tab init` | Yes | Returns default `highlight any page 1`; first does an internal raw screenshot prime to wake the page |
+| `tab open` | Yes | Returns default `highlight any page 1`; first does an internal raw screenshot prime to wake the page |
+| `tab switch` | Yes | Returns default `highlight any page 1`; first does an internal raw screenshot prime to wake the page |
+| `tab refresh` | Yes | Returns default `highlight any page 1`; first does an internal raw screenshot prime to wake the page |
+|---------|------------------|-------|
+| `highlight_elements` | Yes | Visual overlay for element selection |
+| `click_element` | Yes | Verify interaction result |
+| `hover_element` | Yes | Verify hover state |
+| `scroll_element` | Yes | Verify scroll position |
+| `keyboard_input` | Yes | Verify input result |
+| `handle_dialog` | Yes | Verify dialog handling result |
+| `screenshot` | Yes | Explicit screenshot request |
+
+### Commands That Do NOT Return Screenshots
+
+| Command | Behavior | How to Get Screenshot |
+|---------|----------|----------------------|
+| `tab list` | Returns tab list only | N/A |
+| `tab close` | Returns close result only | N/A |
+| `javascript_execute` | Returns JS result only | Call `screenshot` after |
+
+### Best Practice
+
+When you need visual feedback after JavaScript execution:
+```
+1. javascript_execute "document.querySelector('#button').click()"  # No screenshot
+2. screenshot                                                # Explicit request for visual feedback
+```
+1. tab init https://example.com    # No screenshot
+2. screenshot                      # Explicit request for visual feedback
+3. highlight_elements()            # Get interactive elements
+```
+
+This explicit approach gives the AI full control over when visual feedback is needed.
+
+---
+
+
+## EVALUATION SYSTEM
+
+Automated testing framework for evaluating AI agent performance on browser automation tasks.
+
+### Structure
+```
+OpenBrowser/eval/
+├── evaluate_browser_agent.py    # Main evaluation entry point
+├── dataset/                     # YAML test case definitions (12 tests)
+│   ├── bluebook_simple.yaml    # BlueBook search and like test
+│   ├── bluebook_complex.yaml   # BlueBook multi-image reply test
+│   ├── gbr.yaml                # GBR search test
+│   ├── gbr_detailed.yaml       # GBR detailed search test
+│   ├── techforum.yaml          # TechForum upvote test
+│   ├── techforum_reply.yaml    # TechForum comment reply test
+│   ├── cloudstack.yaml         # CloudStack DAS agent test
+│   ├── cloudstack_interactive.yaml  # CloudStack DAS interactive test
+│   ├── finviz_simple.yaml      # Finviz simple screener test
+│   ├── finviz_complex.yaml     # Finviz multi-filter test
+│   ├── dataflow.yaml           # DataFlow visual challenge test
+│   └── northstar_add_bag.yaml  # Combined fit-guide and add-to-bag geometry test
+├── output/                      # Generated results and images
+├── server.py                    # Mock websites server with tracking API
+└── (mock websites: gbr/, techforum/, cloudstack/, dataflow/, finviz/, bluebook/, northstar/)
+```
+
+### Key Features
+- **Automated test execution**: Creates isolated OpenBrowser conversations for each test
+- **Event tracking**: Captures browser interaction events via `/api/track` endpoint
+- **SSE monitoring**: Records all SSE events from OpenBrowser agent (including images)
+- **Image storage**: Extracts and saves screenshots in sequential order
+- **Criteria-based scoring**: Evaluates performance against YAML-defined criteria
+- **Service management**: Automatically starts/stops OpenBrowser and eval servers
+- **Multi-model testing**: Supports testing multiple LLM models with cross-model comparison
+- **Comprehensive scoring**: Task completion, time efficiency, and cost efficiency scores
+- **Structured output**: Organized output directory with timestamp and model subdirectories
+
+### Enhanced Evaluation Features (2025-03-12)
+
+#### 1. Multi-Model Support
+- **Model parameter**: `--model` can be specified multiple times to test different LLMs
+- **Default models**: `dashscope/qwen3.5-plus` and `dashscope/qwen3.5-flash`
+- **Cross-model comparison**: Generates summary reports comparing performance across models
+- **Model persistence**: Each conversation stores its LLM model in session metadata, ensuring consistency
+
+#### 2. Comprehensive Scoring System
+- **Task score**: Based on YAML-defined criteria completion (0-max_points)
+- **Efficiency score**: Based on completion time (0-1, higher for faster completion)
+- **Usage score**: Based on cost in RMB (0-1, higher for lower cost)
+- **Total score**: Combined task + efficiency + usage scores
+- **Time limits**: Configurable per test case (`time_limit` in seconds, default: 600)
+- **Cost limits**: Configurable per test case (`cost_limit` in RMB, default: 1.0)
+
+#### 3. Enhanced Output Organization
+```
+output/
+└── YYYYMMDD_HHMMSS/           # Timestamped run directory
+    ├── dashscope_qwen3.5-plus/    # Model-specific subdirectory
+    │   ├── images/            # Screenshots
+    │   ├── events/            # SSE events (JSON, images removed)
+    │   └── evaluation_report_...json
+    ├── dashscope_qwen3.5-flash/
+    │   ├── images/
+    │   ├── events/
+    │   └── evaluation_report_...json
+    ├── cross_model_summary.json   # Cross-model comparison
+    └── evaluation_report_...json  # Overall report
+```
+
+#### 4. Cost Tracking and Currency Conversion
+- **Usage metrics**: Extracts cost from `usage_metrics` SSE events
+- **Currency conversion**: Automatically converts USD to RMB (exchange rate: 7)
+- **DashScope models**: Costs already in RMB, no conversion needed
+- **Cost extraction**: Handles both `model_name` and token usage model fields
+
+#### 5. Context Window Tracking
+- **Context window size**: Included in `usage_metrics` events as top-level `context_window` field
+- **Source**: Extracted from LLM configuration (`max_input_tokens`) or accumulated token usage
+- **Value**: Represents the total context window size of the model (maximum input tokens), not current usage
+- **Availability**: Always present (defaults to 0 if not available)
+
+#### 6. SSE Event Recording
+- **Complete event log**: All SSE events saved to JSON files (excluding image data)
+- **Image data removed**: Base64 image data replaced with `[IMAGE_DATA_REMOVED]`
+- **Event structure**: Preserves event types, timestamps, and metadata
+
+### Usage
+```bash
+# List available tests
+python eval/evaluate_browser_agent.py --list
+
+# Automated eval requires a browser UUID capability token
+export OPENBROWSER_CHROME_UUID=YOUR_BROWSER_UUID
+
+# Run single test with default models
+python eval/evaluate_browser_agent.py --test techforum
+
+# Run all tests with specific models
+python eval/evaluate_browser_agent.py --model dashscope/qwen3.5-plus --model dashscope/qwen3.5-flash
+
+# Or pass the UUID explicitly
+python eval/evaluate_browser_agent.py --test techforum --chrome-uuid YOUR_BROWSER_UUID
+
+# Run without starting services
+python eval/evaluate_browser_agent.py --no-services
+
+# Run with custom time/cost limits in test case YAML
+# Add to YAML: time_limit: 300 (5 minutes), cost_limit: 5.0 (5 RMB)
+```
+
+Notes:
+- `--chrome-uuid` is required for automated runs that actually drive a browser
+- `--manual` and `--list` do not require a browser UUID
+- `OPENBROWSER_CHROME_UUID` is the equivalent environment variable for scripts and CI
+
+### Manual Mode
+When using a single test (`--test`), add `--manual` option for human-in-the-loop testing. In manual mode:
+1. Test instructions are displayed on screen (exactly the same as given to OpenBrowser)
+2. Human tester performs the complete task based on the instruction (no step-by-step guidance)
+3. After completing the task, human enters "ok" to indicate completion
+4. Scoring is displayed (efficiency and task scores given normally, usage score skipped)
+5. Track events are saved from the moment instruction is displayed (same timing as automated test)
+
+```bash
+# Run manual test
+python eval/evaluate_browser_agent.py --test gbr --manual
+
+# Manual mode with no services (eval server must be running for tracking)
+python eval/evaluate_browser_agent.py --test techforum --manual --no-services
+
+# Run ALL tests in manual mode (no --test parameter)
+python eval/evaluate_browser_agent.py --manual
+
+# Manual mode all tests with no services
+python eval/evaluate_browser_agent.py --manual --no-services
+```
+
+#### Manual All-Tests Mode Features
+When running all tests in manual mode (`--manual` without `--test`):
+1. All available tests are executed sequentially
+2. Each test starts when tester confirms ready after seeing start URL
+3. Timing begins when instruction is displayed (after start URL confirmation)
+4. Comprehensive summary report generated at the end (manual_summary.json)
+5. Similar report format to automated tests but without usage scores
+6. Includes per-test details and overall statistics
+7. Track events saved for each test separately
+
+### API Enhancements for Model Support
+
+#### Conversation Creation with Model Parameter
+```python
+# Agent Manager API
+agent_manager.create_conversation(
+    conversation_id="...", 
+    cwd=".", 
+    model="dashscope/qwen3.5-plus",
+    base_url=None,  # Optional override
+    browser_id="copied-from-extension-uuid-page",  # Optional capability token
+)
+
+# REST API
+POST /agent/conversations
+{
+    "cwd": ".",
+    "model": "dashscope/qwen3.5-plus",
+    "base_url": "https://api.example.com",
+    "browser_id": "copied-from-extension-uuid-page"
+}
+```
+
+For actual browser control, message POSTs to `/agent/conversations/{conversation_id}/messages` must include `browser_id` unless the conversation metadata is already bound to that UUID.
+
+#### Model Persistence
+- **Session metadata**: Model stored in `metadata["model"]` field
+- **Consistent usage**: Conversation always uses the same model it was created with
+- **Database storage**: SQLite sessions table stores metadata as JSON
+
+### Test Case Definition
+Tests are defined in YAML format with:
+- `id`, `name`, `description`, `difficulty`
+- `start_url`: Initial URL to load
+- `instruction`: Task description for AI agent
+- `criteria`: List of scoring criteria with expected event patterns
+- `time_limit`: Maximum allowed time in seconds (default: 600)
+- `cost_limit`: Maximum allowed cost in RMB (default: 1.0)
+
+### Available Test Cases (2025-03-14)
+
+#### Core Tests
+| ID | Name | Difficulty | Time Limit | Cost Limit | Description |
+|----|------|------------|------------|------------|-------------|
+| `gbr` | GBR Search Test | easy | 400s (~6.7min) | 0.8 RMB | Search for "fed" related news |
+| `finviz_simple` | Finviz Simple Screener Test | easy | 300s (5min) | 0.8 RMB | Filter stocks by market cap over 10 billion |
+| `techforum` | TechForum Upvote Test | medium | 300s (5min) | 0.5 RMB | Upvote the first AI-related post |
+| `bluebook_simple` | BlueBook Search And Like Test | medium | 300s (5min) | 0.6 RMB | Search for the target note and like it |
+| `gbr_detailed` | GBR Detailed Search & Read Test | medium | 600s (10min) | 1.5 RMB | Search for "fed", click into each article (3 articles), and summarize content |
+| `finviz_complex` | Finviz Multi-Filter Screener Test | medium | 400s (~6.7min) | 1.0 RMB | Multi-filter stock screener: market cap, P/E, volume |
+| `dataflow` | DataFlow Visual Challenge Test | medium | 300s (5min) | 0.5 RMB | Dashboard interactions: settings, reports, navigation |
+| `northstar_add_bag` | Northstar Fit Guide + Add To Bag Test | medium | 540s (9min) | 1.2 RMB | Save the Care & Wash fit guide section, then choose size M and add the shell to bag |
+
+#### Advanced Tests
+| ID | Name | Difficulty | Time Limit | Cost Limit | Description |
+|----|------|------------|------------|------------|-------------|
+| `bluebook_complex` | BlueBook Multi-Image Reply Test | hard | 500s (~8.3min) | 1.2 RMB | Search for the OpenClaw note, view all images, and leave a quick comment |
+| `cloudstack` | CloudStack DAS Agent Test | hard | 500s (~8.3min) | 1.2 RMB | Find DAS console and greet DAS agent |
+| `techforum_reply` | TechForum Comment Reply Test | hard | 500s (~8.3min) | 1.0 RMB | Open comments, find "Graduate Student" comment, reply with paper name |
+| `cloudstack_interactive` | CloudStack DAS Interactive Test | very hard | 700s (~11.7min) | 2.0 RMB | Multi-turn conversation with DAS agent: greeting, system status, storage check |
+#### Event Matching Notes
+- **Standard events**: `page_view`, `click`, `input`, `submit`, `hover`, `scroll`, `answer_action`
+- **Special event types**: 
+  - `count_min`: Count-based condition (e.g., `condition: "chat_interactions"`, `count: 3`)
+- **Reserved fields**: `event_type`, `page`, `page_contains`, `element_id`, `element_class`, `element_text`, `element_href`, `value_contains`, `value_length_min`, `condition`, `count`
+- **Not yet implemented**: Sequence-based `check` conditions (e.g., `after_greeting`, `previous_page_was_search`)
+
+### Event Tracking
+Mock websites include tracking JavaScript (`js/tracker.js`) that sends events to `/api/track`. Events include:
+- `page_view`, `click`, `input`, `scroll`, `hover`, `submit`, `select`
+- Custom event types for specific interactions (e.g., `answer_action` for upvotes)
+
+**IMPORTANT: Shared Tracker Requirement**
+- All evaluation websites MUST use the shared `eval/js/tracker.js` library
+- Each site initializes the tracker: `window.tracker = new AgentTracker('site_name', 'difficulty')`
+- Custom events are tracked via `window.tracker.track('event_type', { ...data })`
+- DO NOT create duplicate tracker files or custom tracker implementations
+- Standard events (click, input, select, etc.) are automatically tracked by the shared library
+
+### Evaluation Criteria
+Criteria match tracked events using flexible pattern matching:
+- Event type, element IDs, classes, text content
+- Page URLs, input values, custom fields
+- Alternative conditions for flexible scoring
+
+### Deferred Prompt And Observation Follow-Ups
+- Observation design: add structured geometry hints such as `partly_visible`, `near_viewport_edge`, `occluded_by_sticky_ui`, explicit scroll-container identity, and structured stale-element causes before expanding prompt text again.
+- Prompt compaction: after geometry-focused eval results stabilize, reduce duplicated rules between the SDK system prompt and tool prompts so tool templates keep only tool-local contracts and recovery guidance.
+
+## NOTES
+
+- **Vendored SDK:** `openhands-sdk` and `openhands-tools` are editable installs from `../agent-sdk/openhands-sdk` and `../agent-sdk/openhands-tools` (see `[tool.uv.sources]` in `pyproject.toml`). Modify those paths directly when adding agents or tools — there is no separate package to publish.
+- **CDP required:** Extension uses Chrome DevTools Protocol for screenshots/JS execution
+- **Preset coordinates:** Screenshots at 1280x720, mouse in 0-1280/0-720 coordinate system
+- **Config storage:** LLM config in `~/.openbrowser/llm_config.json`
+- **Compiler agent traces:** dumped on completion / asking / error to `~/.openbrowser/compiler_traces/{recording_id}_{timestamp}.json`. The path is included in the SSE `complete` / `error` payload from `POST /recordings/{id}/compile`. The compiler agent's `QueueVisualizer` intentionally does not pass a `conversation_id`, so debugging relies on these dump files rather than the sessions DB.
+
+---
+> Source: [softpudding/OpenBrowser](https://github.com/softpudding/OpenBrowser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
