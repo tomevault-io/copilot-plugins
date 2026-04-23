@@ -1,0 +1,14 @@
+{
+  "name": "smith-horn--skillsmith",
+  "displayName": "skillsmith",
+  "description": "Skill discovery, security, optimization, and management for agentic systems",
+  "version": "1.0.0",
+  "author": "smith-horn",
+  "homepage": "https://github.com/smith-horn/skillsmith",
+  "skills": [
+    {
+      "name": "skillsmith-skill",
+      "description": ""
+    }
+  ]
+}
