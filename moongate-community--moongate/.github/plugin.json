@@ -1,0 +1,9 @@
+{
+  "name": "moongate-community--moongate",
+  "displayName": "moongate",
+  "description": "Moongate is modern Ultima Online server built from scratch in C# with AOT compilation for high performance and nostalgic gameplay experience.",
+  "version": "1.0.0",
+  "author": "moongate-community",
+  "homepage": "https://github.com/moongate-community/moongate",
+  "skills": []
+}
