@@ -1,0 +1,9 @@
+{
+  "name": "hyhmrright--brooks-lint",
+  "displayName": "brooks-lint",
+  "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix",
+  "version": "1.0.0",
+  "author": "hyhmrright",
+  "homepage": "https://github.com/hyhmrright/brooks-lint",
+  "skills": []
+}
