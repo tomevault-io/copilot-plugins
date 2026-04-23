@@ -1,0 +1,9 @@
+{
+  "name": "marcbrooker--stability-sim",
+  "displayName": "stability-sim",
+  "description": "Experimental web-based simulator for exploring metastable behaviors in distributed systems",
+  "version": "1.0.0",
+  "author": "marcbrooker",
+  "homepage": "https://github.com/marcbrooker/stability-sim",
+  "skills": []
+}
