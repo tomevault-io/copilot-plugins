@@ -1,0 +1,87 @@
+{
+  "name": "antigravity-compound-engineering-plugin",
+  "owner": "salavender",
+  "repo": "antigravity-compound-engineering-plugin",
+  "description": "Non-Official Antigravity IDE compound engineering plugin",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/salavender/antigravity-compound-engineering-plugin/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "skills/git-workflow",
+      "github_url": "https://github.com/salavender/antigravity-compound-engineering-plugin/tree/main/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "mobile",
+      "path": "skills/mobile",
+      "github_url": "https://github.com/salavender/antigravity-compound-engineering-plugin/tree/main/skills/mobile",
+      "description": ""
+    },
+    {
+      "name": "react-hooks",
+      "path": "skills/react-hooks",
+      "github_url": "https://github.com/salavender/antigravity-compound-engineering-plugin/tree/main/skills/react-hooks",
+      "description": ""
+    },
+    {
+      "name": "standard-security-auth",
+      "path": "skills/standard-security-auth",
+      "github_url": "https://github.com/salavender/antigravity-compound-engineering-plugin/tree/main/skills/standard-security-auth",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "path": "skills/examples/supabase",
+      "github_url": "https://github.com/salavender/antigravity-compound-engineering-plugin/tree/main/skills/examples/supabase",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "skills/testing",
+      "github_url": "https://github.com/salavender/antigravity-compound-engineering-plugin/tree/main/skills/testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/salavender/antigravity-compound-engineering-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:36:44Z"
+}
