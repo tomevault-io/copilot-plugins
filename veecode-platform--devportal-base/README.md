@@ -1,6 +1,6 @@
 # devportal-base
 
-> Tome by [veecode-platform](https://github.com/veecode-platform/devportal-base) — distributed by [TomeVault](https://tomevault.io/claim/veecode-platform)
+> Tome by [veecode-platform](https://github.com/veecode-platform/devportal-base) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [veecode-platform/devportal-base](htt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/veecode-platform)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/veecode-platform/devportal-base](https://github.com/veecode-platform/devportal-base)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install veecode-platform/devportal-base
 ```
-Or browse all formats at [https://tomevault.io/claim/veecode-platform](https://tomevault.io/claim/veecode-platform).
+Source: [github.com/veecode-platform/devportal-base](https://github.com/veecode-platform/devportal-base).
 
 <!-- genome:t-i-p -->
