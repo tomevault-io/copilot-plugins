@@ -1,9 +1,9 @@
 {
   "name": "opensource03--harnss",
   "displayName": "harnss",
-  "description": "harnss",
+  "description": "Open-source, desktop client/UI build to harness Claude Code, Codex and any other Agent accepting Agent Client Protocol. Run multiple AI coding agents side by side with rich tool visualization, MCP int",
   "version": "1.0.0",
   "author": "OpenSource03",
-  "homepage": "https://tomevault.io/claim/OpenSource03",
+  "homepage": "https://github.com/OpenSource03/harnss",
   "skills": []
 }
