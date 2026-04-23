@@ -1,0 +1,9 @@
+{
+  "name": "epiral--pinix",
+  "displayName": "pinix",
+  "description": "Decentralized runtime platform for Clips \u2014 sandboxed execution via BoxLite micro-VMs",
+  "version": "1.0.0",
+  "author": "epiral",
+  "homepage": "https://github.com/epiral/pinix",
+  "skills": []
+}
