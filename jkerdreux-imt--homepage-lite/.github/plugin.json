@@ -1,0 +1,9 @@
+{
+  "name": "jkerdreux-imt--homepage-lite",
+  "displayName": "homepage-lite",
+  "description": "Homepage dashboard for managing and monitoring your homelab services and bookmarks.",
+  "version": "1.0.0",
+  "author": "jkerdreux-imt",
+  "homepage": "https://github.com/jkerdreux-imt/homepage-lite",
+  "skills": []
+}
