@@ -1,0 +1,9 @@
+{
+  "name": "assistant-ui--tool-ui",
+  "displayName": "tool-ui",
+  "description": "UI components for AI interfaces",
+  "version": "1.0.0",
+  "author": "assistant-ui",
+  "homepage": "https://github.com/assistant-ui/tool-ui",
+  "skills": []
+}
