@@ -1,6 +1,6 @@
 # mcp-server-outlook-calendar
 
-> Tome by [jairosoft-com](https://github.com/jairosoft-com/mcp-server-outlook-calendar) — distributed by [TomeVault](https://tomevault.io/claim/jairosoft-com)
+> Tome by [jairosoft-com](https://github.com/jairosoft-com/mcp-server-outlook-calendar) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [jairosoft-com/mcp-server-outlook-cal
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/jairosoft-com)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/jairosoft-com/mcp-server-outlook-calendar](https://github.com/jairosoft-com/mcp-server-outlook-calendar)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/jairosoft-com) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
