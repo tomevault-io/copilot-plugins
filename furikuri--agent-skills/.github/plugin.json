@@ -1,0 +1,9 @@
+{
+  "name": "furikuri--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "FuriKuri",
+  "homepage": "https://github.com/FuriKuri/agent-skills",
+  "skills": []
+}
