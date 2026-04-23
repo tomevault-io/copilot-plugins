@@ -1,0 +1,9 @@
+{
+  "name": "49agents--49agents",
+  "displayName": "49Agents",
+  "description": "Open-source 2D IDE for managing AI agents in native CLIs, terminal, gits, beads issues, and files across multiple projects and machines. Self-host on a single machine via localhost OR host on a cluste",
+  "version": "1.0.0",
+  "author": "49Agents",
+  "homepage": "https://github.com/49Agents/49Agents",
+  "skills": []
+}
