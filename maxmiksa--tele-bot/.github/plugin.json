@@ -1,0 +1,9 @@
+{
+  "name": "maxmiksa--tele-bot",
+  "displayName": "Tele-Bot",
+  "description": "A clean Bot running on your PC, interacting with you on Telegram via Claude or Codex.",
+  "version": "1.0.0",
+  "author": "MaxMiksa",
+  "homepage": "https://github.com/MaxMiksa/Tele-Bot",
+  "skills": []
+}
