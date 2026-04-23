@@ -1,0 +1,44 @@
+{
+  "name": "MD2DOC-Evolution",
+  "owner": "eric861129",
+  "repo": "MD2DOC-Evolution",
+  "description": "A professional Markdown to Word (DOCX) converter for technical writers. Features Mermaid charts, auto-numbering, code highlighting, and print-ready formatting.              \u5c08\u70ba\u6280\u8853\u66f8\u7c4d\u6392\u7248\u8a2d\u8a08\u7684 Markdown \u8f49 Word \u5de5\u5177\u3002",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eric861129/MD2DOC-Evolution",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T21:04:52Z"
+}
