@@ -1,0 +1,9 @@
+{
+  "name": "samwillis--solidtype",
+  "displayName": "solidtype",
+  "description": "A parametric CAD application built on ElectricSQL, Tanstack DB and Durable Streams",
+  "version": "1.0.0",
+  "author": "samwillis",
+  "homepage": "https://github.com/samwillis/solidtype",
+  "skills": []
+}
