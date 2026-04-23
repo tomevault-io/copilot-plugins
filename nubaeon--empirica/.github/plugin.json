@@ -1,9 +1,9 @@
 {
   "name": "nubaeon--empirica",
   "displayName": "empirica",
-  "description": "empirica",
+  "description": "  Make AI agents and AI workflows measurably reliable. Epistemic measurement, Noetic RAG, Sentinel gating, and grounded calibration for Claude Code  and beyond",
   "version": "1.0.0",
   "author": "Nubaeon",
-  "homepage": "https://tomevault.io/claim/Nubaeon",
+  "homepage": "https://github.com/Nubaeon/empirica",
   "skills": []
 }
