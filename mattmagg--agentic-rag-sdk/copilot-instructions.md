@@ -1,0 +1,128 @@
+## agentic-rag-sdk
+
+> This repository provides **ADK workflow templates** for building agentic systems with Google Agent Development Kit (ADK). The RAG pipeline grounds workflow creation in official ADK documentation and source code.
+
+# Repository Guidelines
+
+This repository provides **ADK workflow templates** for building agentic systems with Google Agent Development Kit (ADK). The RAG pipeline grounds workflow creation in official ADK documentation and source code.
+
+## Project Structure
+
+```
+.agent/workflows/     # 44 ADK workflow templates (adk-*.md)
+src/grounding/        # RAG pipeline (Qdrant + Voyage embeddings)
+corpora/              # Ingested ADK docs and Python source
+config/               # Settings and environment config
+```
+## MODELS
+
+**DO NOT USE** ANY MODEL BELOW GEMINI 3!
+
+Always use `gemini-3-pro-preview` or `gemini-3-flash-preview` 
+
+## ADK Workflow System
+
+**Entry Point**: Always start with [adk-master.md](.agent/workflows/adk-master.md) to route to the appropriate workflow.
+
+**Development Pattern**:
+1. Invoke the relevant workflow(s) from `adk-master`
+2. Chain multiple workflows if the task spans categories (e.g., init → agents → tools → deploy)
+3. Conduct additional RAG queries as needed for implementation details
+
+| Category | Prefix | Example Workflows |
+|----------|--------|-------------------|
+| Foundation | `adk-init` | `adk-init`, `adk-init-create-project`, `adk-init-yaml-config` |
+| Agents | `adk-agents` | `adk-agents-create`, `adk-agents-custom`, `adk-agents-multi-model` |
+| Tools | `adk-tools` | `adk-tools-function`, `adk-tools-mcp`, `adk-tools-openapi` |
+| Behavior | `adk-behavior` | `adk-behavior-callbacks`, `adk-behavior-state`, `adk-behavior-plugins` |
+| Multi-Agent | `adk-multi-agent` | `adk-multi-agent-delegation`, `adk-multi-agent-orchestration` |
+| Memory | `adk-memory` | `adk-memory-service`, `adk-memory-grounding` |
+| Security | `adk-security` | `adk-security-guardrails`, `adk-security-auth` |
+| Streaming | `adk-streaming` | `adk-streaming-sse`, `adk-streaming-bidi`, `adk-streaming-multimodal` |
+| Deployment | `adk-deploy` | `adk-deploy-agent-engine`, `adk-deploy-cloudrun`, `adk-deploy-gke` |
+| Quality | `adk-quality` | `adk-quality-evals`, `adk-quality-tracing`, `adk-quality-observability` |
+
+### Creating New Workflows
+
+Use `/adk-create-workflow` to generate new workflows via RAG-grounded research against the ADK corpus.
+
+## Querying the RAG Pipeline
+
+Query results return a balanced mix of docs and code. Use `--sdk` to isolate queries to a specific SDK.
+
+### SDK-based Filtering (Recommended)
+
+```bash
+# Query only Google ADK corpora
+python -m src.grounding.query.query_adk "how to use ToolContext" --sdk adk
+
+# Query only OpenAI Agents SDK corpora
+python -m src.grounding.query.query_adk "how to create handoffs" --sdk openai
+
+# Query LangChain ecosystem (includes LangGraph + DeepAgents)
+python -m src.grounding.query.query_adk "ChatOpenAI model" --sdk langchain
+
+# Query LangGraph-specific (includes DeepAgents)
+python -m src.grounding.query.query_adk "StateGraph checkpoint" --sdk langgraph
+
+# Query Anthropic Claude Agent SDK
+python -m src.grounding.query.query_adk "create Claude agent" --sdk anthropic
+
+# Query CrewAI Framework
+python -m src.grounding.query.query_adk "define a crew" --sdk crewai
+
+# Query only general agent development docs
+python -m src.grounding.query.query_adk "agent architectures" --sdk general
+```
+
+### SDK Groups
+
+| SDK Flag | Corpora Included |
+|----------|------------------|
+| `--sdk adk` | `adk_docs`, `adk_python` |
+| `--sdk openai` | `openai_agents_docs`, `openai_agents_python` |
+| `--sdk langchain` | `langgraph_python`, `langchain_python`, `deepagents_python`, `deepagents_docs` |
+| `--sdk langgraph` | `langgraph_python`, `deepagents_python`, `deepagents_docs` |
+| `--sdk anthropic` | `claude_sdk_docs`, `claude_sdk_python` |
+| `--sdk crewai` | `crewai_docs`, `crewai_python` |
+| `--sdk general` | `agent_dev_docs` |
+
+### Additional Options
+
+```bash
+# With verbose timing breakdown
+python -m src.grounding.query.query_adk "your query" --sdk adk --verbose
+
+# Multi-query expansion for better recall
+python -m src.grounding.query.query_adk "your query" --sdk adk --multi-query
+
+# Filter by specific corpus (multiple allowed)
+python -m src.grounding.query.query_adk "your query" --corpus adk_docs --corpus adk_python
+```
+
+**Python usage:**
+```python
+from src.grounding.query.query_adk import search_adk, SDK_GROUPS
+
+# Query with SDK filter
+results = search_adk("how to use ToolContext", filters={"corpus": SDK_GROUPS["adk"]})
+```
+
+## Build & Test Commands
+
+```bash
+pip install -e .              # Install package in dev mode
+pytest tests/                 # Run test suite
+python -m src.grounding.scripts.03_ingest_corpus  # Re-ingest corpora
+```
+
+## Coding Style
+
+- Python 3.11+, PEP 8
+- Type hints required
+- Docstrings: Google style
+- Linting: `ruff`
+
+---
+> Source: [MattMagg/agentic-rag-sdk](https://github.com/MattMagg/agentic-rag-sdk) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
