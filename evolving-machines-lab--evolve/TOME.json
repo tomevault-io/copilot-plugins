@@ -1,0 +1,93 @@
+{
+  "name": "evolve",
+  "owner": "evolving-machines-lab",
+  "repo": "evolve",
+  "description": "Run, deploy and monitor CLI agents in secure cloud sandboxes. ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": "skills/agent-browser",
+      "github_url": "https://github.com/evolving-machines-lab/evolve/tree/main/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "evolve",
+      "path": "skills/evolve",
+      "github_url": "https://github.com/evolving-machines-lab/evolve/tree/main/skills/evolve",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/evolving-machines-lab/evolve/tree/main/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "path": "skills/remotion",
+      "github_url": "https://github.com/evolving-machines-lab/evolve/tree/main/skills/remotion",
+      "description": ""
+    },
+    {
+      "name": "shadcn-webapp-design",
+      "path": "skills/shadcn-webapp-design",
+      "github_url": "https://github.com/evolving-machines-lab/evolve/tree/main/skills/shadcn-webapp-design",
+      "description": ""
+    },
+    {
+      "name": "slides-as-code",
+      "path": "skills/slides-as-code",
+      "github_url": "https://github.com/evolving-machines-lab/evolve/tree/main/skills/slides-as-code",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": "skills/vercel-react-best-practices",
+      "github_url": "https://github.com/evolving-machines-lab/evolve/tree/main/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-artifacts-builder",
+      "path": "skills/web-artifacts-builder",
+      "github_url": "https://github.com/evolving-machines-lab/evolve/tree/main/skills/web-artifacts-builder",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/evolving-machines-lab/evolve",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:32:39Z"
+}
