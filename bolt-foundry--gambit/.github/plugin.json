@@ -1,0 +1,9 @@
+{
+  "name": "bolt-foundry--gambit",
+  "displayName": "gambit",
+  "description": "Agent harness framework for building, running, and verifying LLM workflows",
+  "version": "1.0.0",
+  "author": "bolt-foundry",
+  "homepage": "https://github.com/bolt-foundry/gambit",
+  "skills": []
+}
