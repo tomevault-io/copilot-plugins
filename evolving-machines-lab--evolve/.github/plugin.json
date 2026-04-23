@@ -1,0 +1,42 @@
+{
+  "name": "evolving-machines-lab--evolve",
+  "displayName": "evolve",
+  "description": "Run, deploy and monitor CLI agents in secure cloud sandboxes. ",
+  "version": "1.0.0",
+  "author": "evolving-machines-lab",
+  "homepage": "https://github.com/evolving-machines-lab/evolve",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "evolve",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "description": ""
+    },
+    {
+      "name": "shadcn-webapp-design",
+      "description": ""
+    },
+    {
+      "name": "slides-as-code",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-artifacts-builder",
+      "description": ""
+    }
+  ]
+}
