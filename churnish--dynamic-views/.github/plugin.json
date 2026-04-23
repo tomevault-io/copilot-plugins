@@ -1,0 +1,9 @@
+{
+  "name": "churnish--dynamic-views",
+  "displayName": "dynamic-views",
+  "description": "Obsidian plugin that adds elegant grid and masonry card views for Bases.",
+  "version": "1.0.0",
+  "author": "churnish",
+  "homepage": "https://github.com/churnish/dynamic-views",
+  "skills": []
+}
