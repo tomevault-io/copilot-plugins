@@ -1,6 +1,6 @@
-# jit-mktg-landing-page — distributed by TomeVault
+# jit-mktg-landing-page
 
-> Originally from [raseniero/jit-mktg-landing-page](https://github.com/raseniero/jit-mktg-landing-page). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [raseniero/jit-mktg-landing-page](https://github.com/raseniero/jit-mktg-landing-page) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [raseniero/jit-mktg-landing-page](htt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/raseniero)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/raseniero/jit-mktg-landing-page](https://github.com/raseniero/jit-mktg-landing-page)
 
 ---
 
