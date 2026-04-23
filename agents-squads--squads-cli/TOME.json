@@ -1,0 +1,51 @@
+{
+  "name": "squads-cli",
+  "owner": "agents-squads",
+  "repo": "squads-cli",
+  "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "squads-learn",
+      "path": "templates/skills/squads-learn",
+      "github_url": "https://github.com/agents-squads/squads-cli/tree/main/templates/skills/squads-learn",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agents-squads/squads-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:49:01Z"
+}
