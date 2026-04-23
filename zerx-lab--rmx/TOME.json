@@ -1,0 +1,87 @@
+{
+  "name": "rmx",
+  "owner": "zerx-lab",
+  "repo": "rmx",
+  "description": "\u26a1 Windows \u9ad8\u6027\u80fd\u5e76\u884c\u76ee\u5f55\u5220\u9664\u5de5\u5177",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gpui-code-quality",
+      "path": ".opencode/skills/gpui-code-quality",
+      "github_url": "https://github.com/zerx-lab/rmx/tree/main/.opencode/skills/gpui-code-quality",
+      "description": ""
+    },
+    {
+      "name": "gpui-fundamentals",
+      "path": ".opencode/skills/gpui-fundamentals",
+      "github_url": "https://github.com/zerx-lab/rmx/tree/main/.opencode/skills/gpui-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "gpui-init",
+      "path": ".opencode/skills/gpui-init",
+      "github_url": "https://github.com/zerx-lab/rmx/tree/main/.opencode/skills/gpui-init",
+      "description": ""
+    },
+    {
+      "name": "gpui-patterns",
+      "path": ".opencode/skills/gpui-patterns",
+      "github_url": "https://github.com/zerx-lab/rmx/tree/main/.opencode/skills/gpui-patterns",
+      "description": ""
+    },
+    {
+      "name": "gpui-styling",
+      "path": ".opencode/skills/gpui-styling",
+      "github_url": "https://github.com/zerx-lab/rmx/tree/main/.opencode/skills/gpui-styling",
+      "description": ""
+    },
+    {
+      "name": "gpui-troubleshooting",
+      "path": ".opencode/skills/gpui-troubleshooting",
+      "github_url": "https://github.com/zerx-lab/rmx/tree/main/.opencode/skills/gpui-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "rust-coding-guidelines",
+      "path": ".opencode/skills/rust-coding-guidelines",
+      "github_url": "https://github.com/zerx-lab/rmx/tree/main/.opencode/skills/rust-coding-guidelines",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zerx-lab/rmx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:42:00Z"
+}
