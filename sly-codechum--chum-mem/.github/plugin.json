@@ -1,0 +1,9 @@
+{
+  "name": "sly-codechum--chum-mem",
+  "displayName": "chum-mem",
+  "description": "Better memory for your AI agents. (Karpathy + Graphify + PCKC)",
+  "version": "1.0.0",
+  "author": "sly-codechum",
+  "homepage": "https://github.com/sly-codechum/chum-mem",
+  "skills": []
+}
