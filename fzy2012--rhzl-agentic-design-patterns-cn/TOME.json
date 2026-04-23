@@ -1,0 +1,44 @@
+{
+  "name": "rhzl-Agentic-Design-Patterns-cn",
+  "owner": "fzy2012",
+  "repo": "rhzl-Agentic-Design-Patterns-cn",
+  "description": "\u667a\u80fd\u4f53\u8bbe\u8ba1\u6a21\u5f0f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fzy2012/rhzl-Agentic-Design-Patterns-cn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T06:16:12Z"
+}
