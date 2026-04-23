@@ -1,0 +1,14 @@
+{
+  "name": "iheanyi--tasuku",
+  "displayName": "tasuku",
+  "description": "Lightweight multi-agent task management that promotes agentic knowledge capture ",
+  "version": "1.0.0",
+  "author": "iheanyi",
+  "homepage": "https://github.com/iheanyi/tasuku",
+  "skills": [
+    {
+      "name": "tasuku",
+      "description": ""
+    }
+  ]
+}
