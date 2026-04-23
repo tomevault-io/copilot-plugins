@@ -1,0 +1,30 @@
+{
+  "name": "thienanblog--awesome-ai-agent-skills",
+  "displayName": "awesome-ai-agent-skills",
+  "description": "A curated list of essential skills, tools, and resources for building and enhancing advanced AI agents.",
+  "version": "1.0.0",
+  "author": "thienanblog",
+  "homepage": "https://github.com/thienanblog/awesome-ai-agent-skills",
+  "skills": [
+    {
+      "name": "laravel-11-12-app-guidelines",
+      "description": ""
+    },
+    {
+      "name": "agents-md-generator",
+      "description": ""
+    },
+    {
+      "name": "design-system-generator",
+      "description": ""
+    },
+    {
+      "name": "docker-local-dev",
+      "description": ""
+    },
+    {
+      "name": "documentation-guidelines",
+      "description": ""
+    }
+  ]
+}
