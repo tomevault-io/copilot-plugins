@@ -1,0 +1,9 @@
+{
+  "name": "matlab--simulink-agentic-toolkit",
+  "displayName": "simulink-agentic-toolkit",
+  "description": "The Simulink Agentic Toolkit gives your AI agent both the tools and the expertise to work effectively with Simulink and Model-Based Design.",
+  "version": "1.0.0",
+  "author": "matlab",
+  "homepage": "https://github.com/matlab/simulink-agentic-toolkit",
+  "skills": []
+}
