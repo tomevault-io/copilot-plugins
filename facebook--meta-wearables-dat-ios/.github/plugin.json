@@ -1,0 +1,9 @@
+{
+  "name": "facebook--meta-wearables-dat-ios",
+  "displayName": "meta-wearables-dat-ios",
+  "description": "Meta Wearables Device Access Toolkit for iOS",
+  "version": "1.0.0",
+  "author": "facebook",
+  "homepage": "https://github.com/facebook/meta-wearables-dat-ios",
+  "skills": []
+}
