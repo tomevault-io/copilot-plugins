@@ -1,21 +1,21 @@
 # recipelabo_flutter
 
-> Tome by [zerodice0](https://github.com/zerodice0/recipelabo_flutter) — distributed by [TomeVault](https://tomevault.io/claim/zerodice0)
+> Tome by [zerodice0](https://github.com/zerodice0/recipelabo_flutter) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [zerodice0/recipelabo_flutter](https://github.com/zerodice0/recipelabo_flutter).
+Original source: `.cursor/rules/*.mdc` in [zerodice0/recipelabo_flutter](https://github.com/zerodice0/recipelabo_flutter).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/zerodice0#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/zerodice0/recipelabo_flutter](https://github.com/zerodice0/recipelabo_flutter)
 
 ---
 
