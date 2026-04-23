@@ -1,6 +1,6 @@
 # yeonsu-library-web
 
-> Tome by [box3101](https://github.com/box3101/yeonsu-library-web) — distributed by [TomeVault](https://tomevault.io/claim/box3101)
+> Tome by [box3101](https://github.com/box3101/yeonsu-library-web) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [box3101/yeonsu-library-web](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/box3101)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/box3101/yeonsu-library-web](https://github.com/box3101/yeonsu-library-web)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install box3101/yeonsu-library-web
 ```
-Or browse all formats at [https://tomevault.io/claim/box3101](https://tomevault.io/claim/box3101).
+Source: [github.com/box3101/yeonsu-library-web](https://github.com/box3101/yeonsu-library-web).
 
 <!-- genome:t-i-p -->
