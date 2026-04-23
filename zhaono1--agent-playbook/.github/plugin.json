@@ -1,0 +1,98 @@
+{
+  "name": "zhaono1--agent-playbook",
+  "displayName": "agent-playbook",
+  "description": "AI instruction skills by zhaono1",
+  "version": "1.0.0",
+  "author": "zhaono1",
+  "homepage": "https://github.com/zhaono1/agent-playbook",
+  "skills": [
+    {
+      "name": "api-designer",
+      "description": ""
+    },
+    {
+      "name": "api-documenter",
+      "description": ""
+    },
+    {
+      "name": "architecting-solutions",
+      "description": ""
+    },
+    {
+      "name": "auto-trigger",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "commit-helper",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "debugger",
+      "description": ""
+    },
+    {
+      "name": "deployment-engineer",
+      "description": ""
+    },
+    {
+      "name": "documentation-engineer",
+      "description": ""
+    },
+    {
+      "name": "figma-designer",
+      "description": ""
+    },
+    {
+      "name": "performance-engineer",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "description": ""
+    },
+    {
+      "name": "prd-implementation-precheck",
+      "description": ""
+    },
+    {
+      "name": "prd-planner",
+      "description": ""
+    },
+    {
+      "name": "qa-expert",
+      "description": ""
+    },
+    {
+      "name": "refactoring-specialist",
+      "description": ""
+    },
+    {
+      "name": "security-auditor",
+      "description": ""
+    },
+    {
+      "name": "self-improving-agent",
+      "description": ""
+    },
+    {
+      "name": "skill-router",
+      "description": ""
+    },
+    {
+      "name": "test-automator",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestrator",
+      "description": ""
+    }
+  ]
+}
