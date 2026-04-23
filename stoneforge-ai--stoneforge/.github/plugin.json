@@ -1,0 +1,9 @@
+{
+  "name": "stoneforge-ai--stoneforge",
+  "displayName": "stoneforge",
+  "description": "A web dashboard and runtime for orchestrating AI coding agents",
+  "version": "1.0.0",
+  "author": "stoneforge-ai",
+  "homepage": "https://github.com/stoneforge-ai/stoneforge",
+  "skills": []
+}
