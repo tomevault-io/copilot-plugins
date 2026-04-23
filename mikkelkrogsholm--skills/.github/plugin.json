@@ -1,0 +1,30 @@
+{
+  "name": "mikkelkrogsholm--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "mikkelkrogsholm",
+  "homepage": "https://github.com/mikkelkrogsholm/skills",
+  "skills": [
+    {
+      "name": "creating-commands",
+      "description": ""
+    },
+    {
+      "name": "creating-skills",
+      "description": ""
+    },
+    {
+      "name": "creating-subagents",
+      "description": ""
+    },
+    {
+      "name": "data-science-tools",
+      "description": ""
+    },
+    {
+      "name": "dst-data",
+      "description": ""
+    }
+  ]
+}
