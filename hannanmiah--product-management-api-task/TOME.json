@@ -4,7 +4,7 @@
   "repo": "product-management-api-task",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/hannanmiah",
+  "source_url": "https://github.com/hannanmiah/product-management-api-task",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T15:51:36Z"
+  "distributed_at": "2026-04-23T02:53:42Z"
 }
