@@ -1,0 +1,58 @@
+{
+  "name": "apollographql--skills",
+  "displayName": "skills",
+  "description": "Apollo GraphQL Agent Skills",
+  "version": "1.0.0",
+  "author": "apollographql",
+  "homepage": "https://github.com/apollographql/skills",
+  "skills": [
+    {
+      "name": "rust-best-practices",
+      "description": ""
+    },
+    {
+      "name": "apollo-client",
+      "description": ""
+    },
+    {
+      "name": "apollo-mcp-server",
+      "description": ""
+    },
+    {
+      "name": "graphql-schema",
+      "description": ""
+    },
+    {
+      "name": "graphql-operations",
+      "description": ""
+    },
+    {
+      "name": "apollo-server",
+      "description": ""
+    },
+    {
+      "name": "apollo-connectors",
+      "description": ""
+    },
+    {
+      "name": "rover",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "apollo-kotlin",
+      "description": ""
+    },
+    {
+      "name": "apollo-federation",
+      "description": ""
+    },
+    {
+      "name": "apollo-router",
+      "description": ""
+    }
+  ]
+}
