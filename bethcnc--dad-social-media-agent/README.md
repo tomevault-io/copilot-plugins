@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [BethCNC/dad-social-media-agent](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/BethCNC)
+From [BethCNC/dad-social-media-agent](https://github.com/BethCNC/dad-social-media-agent) — a repo with 0+ stars on GitHub.
 
 ---
 
