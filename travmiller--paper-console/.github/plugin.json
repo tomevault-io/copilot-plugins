@@ -1,0 +1,9 @@
+{
+  "name": "travmiller--paper-console",
+  "displayName": "paper-console",
+  "description": "A small, self-hosted thermal printer for news, weather, puzzles, email, and more.",
+  "version": "1.0.0",
+  "author": "travmiller",
+  "homepage": "https://github.com/travmiller/paper-console",
+  "skills": []
+}
