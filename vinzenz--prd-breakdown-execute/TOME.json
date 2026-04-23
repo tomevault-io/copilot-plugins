@@ -1,0 +1,117 @@
+{
+  "name": "prd-breakdown-execute",
+  "owner": "vinzenz",
+  "repo": "prd-breakdown-execute",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "breakdown-analyze-prd",
+      "path": ".claude/skills/breakdown-analyze-prd",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/breakdown-analyze-prd",
+      "description": ""
+    },
+    {
+      "name": "breakdown-generate-tasks",
+      "path": ".claude/skills/breakdown-generate-tasks",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/breakdown-generate-tasks",
+      "description": ""
+    },
+    {
+      "name": "breakdown-plan-layers",
+      "path": ".claude/skills/breakdown-plan-layers",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/breakdown-plan-layers",
+      "description": ""
+    },
+    {
+      "name": "breakdown-review-tasks",
+      "path": ".claude/skills/breakdown-review-tasks",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/breakdown-review-tasks",
+      "description": ""
+    },
+    {
+      "name": "crd",
+      "path": ".claude/skills/crd",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/crd",
+      "description": ""
+    },
+    {
+      "name": "crd-context-update",
+      "path": ".claude/skills/crd-context-update",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/crd-context-update",
+      "description": ""
+    },
+    {
+      "name": "crd-impact-analysis",
+      "path": ".claude/skills/crd-impact-analysis",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/crd-impact-analysis",
+      "description": ""
+    },
+    {
+      "name": "crd-investigate",
+      "path": ".claude/skills/crd-investigate",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/crd-investigate",
+      "description": ""
+    },
+    {
+      "name": "execute-batch",
+      "path": ".claude/skills/execute-batch",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/execute-batch",
+      "description": ""
+    },
+    {
+      "name": "execute-layer",
+      "path": ".claude/skills/execute-layer",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/execute-layer",
+      "description": ""
+    },
+    {
+      "name": "execute-task",
+      "path": ".claude/skills/execute-task",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/execute-task",
+      "description": ""
+    },
+    {
+      "name": "execute-verify",
+      "path": ".claude/skills/execute-verify",
+      "github_url": "https://github.com/vinzenz/prd-breakdown-execute/tree/main/.claude/skills/execute-verify",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vinzenz/prd-breakdown-execute",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:38:40Z"
+}
