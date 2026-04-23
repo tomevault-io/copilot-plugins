@@ -1,0 +1,9 @@
+{
+  "name": "surrealdb--docs-surrealdb-com",
+  "displayName": "docs.surrealdb.com",
+  "description": "docs.surrealdb.com",
+  "version": "1.0.0",
+  "author": "surrealdb",
+  "homepage": "https://github.com/surrealdb/docs.surrealdb.com",
+  "skills": []
+}
