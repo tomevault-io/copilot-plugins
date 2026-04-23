@@ -1,0 +1,14 @@
+{
+  "name": "hmohamed01--swift-development",
+  "displayName": "swift-development",
+  "description": "Claude Code skill for Swift iOS/macOS development",
+  "version": "1.0.0",
+  "author": "hmohamed01",
+  "homepage": "https://github.com/hmohamed01/swift-development",
+  "skills": [
+    {
+      "name": "swift-development",
+      "description": ""
+    }
+  ]
+}
