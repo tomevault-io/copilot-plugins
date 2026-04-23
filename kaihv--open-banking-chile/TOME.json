@@ -4,7 +4,7 @@
   "repo": "open-banking-chile",
   "description": "Open source scrapers para bancos chilenos. Obt\u00e9n tus movimientos y saldo como JSON. Contribuye con tu banco!",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kaihv/open-banking-chile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T07:37:34Z"
+  "distributed_at": "2026-04-23T17:03:44Z"
 }
