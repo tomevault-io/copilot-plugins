@@ -1,6 +1,6 @@
 # calendar-app-cursor
 
-> Tome by [bodote](https://github.com/bodote/calendar-app-cursor) — distributed by [TomeVault](https://tomevault.io/claim/bodote)
+> Tome by [bodote](https://github.com/bodote/calendar-app-cursor) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [bodote/calendar-app-cursor](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/bodote)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/bodote/calendar-app-cursor](https://github.com/bodote/calendar-app-cursor)
 
 ---
 
