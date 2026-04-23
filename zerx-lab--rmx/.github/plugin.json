@@ -1,0 +1,38 @@
+{
+  "name": "zerx-lab--rmx",
+  "displayName": "rmx",
+  "description": "\u26a1 Windows \u9ad8\u6027\u80fd\u5e76\u884c\u76ee\u5f55\u5220\u9664\u5de5\u5177",
+  "version": "1.0.0",
+  "author": "zerx-lab",
+  "homepage": "https://github.com/zerx-lab/rmx",
+  "skills": [
+    {
+      "name": "gpui-code-quality",
+      "description": ""
+    },
+    {
+      "name": "gpui-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "gpui-init",
+      "description": ""
+    },
+    {
+      "name": "gpui-patterns",
+      "description": ""
+    },
+    {
+      "name": "gpui-styling",
+      "description": ""
+    },
+    {
+      "name": "gpui-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "rust-coding-guidelines",
+      "description": ""
+    }
+  ]
+}
