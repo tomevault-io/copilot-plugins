@@ -1,0 +1,9 @@
+{
+  "name": "coreworxlab--local-livekit-plugins",
+  "displayName": "local-livekit-plugins",
+  "description": "local-livekit-plugins",
+  "version": "1.0.0",
+  "author": "CoreWorxLab",
+  "homepage": "https://github.com/CoreWorxLab/local-livekit-plugins",
+  "skills": []
+}
