@@ -1,0 +1,117 @@
+{
+  "name": "skills",
+  "owner": "apollographql",
+  "repo": "skills",
+  "description": "Apollo GraphQL Agent Skills",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rust-best-practices",
+      "path": "skills/rust-best-practices",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/rust-best-practices",
+      "description": ""
+    },
+    {
+      "name": "apollo-client",
+      "path": "skills/apollo-client",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/apollo-client",
+      "description": ""
+    },
+    {
+      "name": "apollo-mcp-server",
+      "path": "skills/apollo-mcp-server",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/apollo-mcp-server",
+      "description": ""
+    },
+    {
+      "name": "graphql-schema",
+      "path": "skills/graphql-schema",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/graphql-schema",
+      "description": ""
+    },
+    {
+      "name": "graphql-operations",
+      "path": "skills/graphql-operations",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/graphql-operations",
+      "description": ""
+    },
+    {
+      "name": "apollo-server",
+      "path": "skills/apollo-server",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/apollo-server",
+      "description": ""
+    },
+    {
+      "name": "apollo-connectors",
+      "path": "skills/apollo-connectors",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/apollo-connectors",
+      "description": ""
+    },
+    {
+      "name": "rover",
+      "path": "skills/rover",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/rover",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "apollo-kotlin",
+      "path": "skills/apollo-kotlin",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/apollo-kotlin",
+      "description": ""
+    },
+    {
+      "name": "apollo-federation",
+      "path": "skills/apollo-federation",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/apollo-federation",
+      "description": ""
+    },
+    {
+      "name": "apollo-router",
+      "path": "skills/apollo-router",
+      "github_url": "https://github.com/apollographql/skills/tree/main/skills/apollo-router",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/apollographql/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:30:16Z"
+}
