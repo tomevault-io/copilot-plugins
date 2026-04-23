@@ -1,0 +1,38 @@
+{
+  "name": "artokun--comfyui-mcp",
+  "displayName": "comfyui-mcp",
+  "description": "ComfyUI MCP server + Claude Code plugin \u2014 workflow execution, visualization, composition, model management, and skill generation",
+  "version": "1.0.0",
+  "author": "artokun",
+  "homepage": "https://github.com/artokun/comfyui-mcp",
+  "skills": [
+    {
+      "name": "comfyui-core",
+      "description": ""
+    },
+    {
+      "name": "director",
+      "description": ""
+    },
+    {
+      "name": "flux-txt2img",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "qwen-image-edit",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "wan-flf-video",
+      "description": ""
+    }
+  ]
+}
