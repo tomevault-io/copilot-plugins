@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [MohameddAli/finoria-frontend](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/MohameddAli)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/MohameddAli/finoria-frontend](https://github.com/MohameddAli/finoria-frontend)
 
 ---
 
