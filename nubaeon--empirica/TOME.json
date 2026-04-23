@@ -2,9 +2,9 @@
   "name": "empirica",
   "owner": "Nubaeon",
   "repo": "empirica",
-  "description": "",
+  "description": "  Make AI agents and AI workflows measurably reliable. Epistemic measurement, Noetic RAG, Sentinel gating, and grounded calibration for Claude Code  and beyond",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Nubaeon",
+  "source_url": "https://github.com/Nubaeon/empirica",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T07:42:44Z"
+  "distributed_at": "2026-04-23T06:20:24Z"
 }
