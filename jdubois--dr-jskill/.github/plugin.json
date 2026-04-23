@@ -1,0 +1,9 @@
+{
+  "name": "jdubois--dr-jskill",
+  "displayName": "dr-jskill",
+  "description": "An Agent Skill for creating Spring Boot applications",
+  "version": "1.0.0",
+  "author": "jdubois",
+  "homepage": "https://github.com/jdubois/dr-jskill",
+  "skills": []
+}
