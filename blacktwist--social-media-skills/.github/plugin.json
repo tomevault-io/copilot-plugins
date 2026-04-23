@@ -1,0 +1,9 @@
+{
+  "name": "blacktwist--social-media-skills",
+  "displayName": "social-media-skills",
+  "description": "AI agent skills for social media content strategy, creation, and analysis across text-first platforms",
+  "version": "1.0.0",
+  "author": "blacktwist",
+  "homepage": "https://github.com/blacktwist/social-media-skills",
+  "skills": []
+}
