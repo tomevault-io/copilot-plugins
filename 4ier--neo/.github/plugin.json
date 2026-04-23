@@ -1,0 +1,9 @@
+{
+  "name": "4ier--neo",
+  "displayName": "neo",
+  "description": "Turn any web app into an API. Chrome extension captures browser traffic, auto-generates schemas, lets AI replay APIs directly. No official API needed.",
+  "version": "1.0.0",
+  "author": "4ier",
+  "homepage": "https://github.com/4ier/neo",
+  "skills": []
+}
