@@ -1,0 +1,9 @@
+{
+  "name": "eliornl--applypilot",
+  "displayName": "applypilot",
+  "description": "Self-hosted, AI-powered job search companion. Paste a job posting and five AI agents run an orchestrated pipeline \u2014 analyze the role, score your fit, research the company, rewrite your resume, and wri",
+  "version": "1.0.0",
+  "author": "eliornl",
+  "homepage": "https://github.com/eliornl/applypilot",
+  "skills": []
+}
