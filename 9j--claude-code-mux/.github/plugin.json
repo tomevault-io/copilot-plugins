@@ -1,0 +1,9 @@
+{
+  "name": "9j--claude-code-mux",
+  "displayName": "claude-code-mux",
+  "description": "High-performance AI routing proxy built in Rust with automatic failover, priority-based routing, and    support for 15+ providers (Anthropic, OpenAI, Cerebras, Minimax, Kimi, etc.)",
+  "version": "1.0.0",
+  "author": "9j",
+  "homepage": "https://github.com/9j/claude-code-mux",
+  "skills": []
+}
