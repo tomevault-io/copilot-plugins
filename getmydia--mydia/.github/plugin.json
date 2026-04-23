@@ -1,0 +1,9 @@
+{
+  "name": "getmydia--mydia",
+  "displayName": "mydia",
+  "description": "Your personal media companion, built with Phoenix LiveView",
+  "version": "1.0.0",
+  "author": "getmydia",
+  "homepage": "https://github.com/getmydia/mydia",
+  "skills": []
+}
