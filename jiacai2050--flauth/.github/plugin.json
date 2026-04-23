@@ -1,0 +1,9 @@
+{
+  "name": "jiacai2050--flauth",
+  "displayName": "flauth",
+  "description": "A privacy-first, fully open-source TOTP authenticator for Android, macOS, Windows, and Linux.",
+  "version": "1.0.0",
+  "author": "jiacai2050",
+  "homepage": "https://github.com/jiacai2050/flauth",
+  "skills": []
+}
