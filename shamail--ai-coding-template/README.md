@@ -1,6 +1,6 @@
 # ai-coding-template
 
-> Tome by [Shamail](https://github.com/Shamail/ai-coding-template) — distributed by [TomeVault](https://tomevault.io/claim/Shamail)
+> Tome by [Shamail](https://github.com/Shamail/ai-coding-template) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Shamail/ai-coding-template](https://
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Shamail#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Shamail/ai-coding-template](https://github.com/Shamail/ai-coding-template)
 
 ---
 
