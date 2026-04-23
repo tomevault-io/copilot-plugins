@@ -1,0 +1,15 @@
+## js-cookie-next
+
+> - Use TypeScript with strict mode. No implicit any; prefer explicit types for public API.
+
+- Use TypeScript with strict mode. No implicit any; prefer explicit types for public API.
+- Do not add runtime dependencies unless explicitly required. Dev dependencies are allowed.
+- All library code lives under src/. Core sync in src/core/; async layer in src/async/. No React or framework-specific code.
+- Never access window, document, or navigator at module top-level (SSR-safe). Check at call time inside functions.
+- Repo execution guide (structure, order, testing, CI): docs/DEV-ARCHITECTURE.md. Behavior and API contract: docs/API.md and docs/ARCH.md (locked).
+- Implement one module at a time; add tests with each module. No speculative features beyond docs/PRD.md.
+- Packaging: ESM + CJS via tsup; exports map with types, import, require. Publish dist only.
+
+---
+> Source: [rajudandigam/js-cookie-next](https://github.com/rajudandigam/js-cookie-next) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
