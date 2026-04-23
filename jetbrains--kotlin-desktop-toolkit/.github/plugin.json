@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--kotlin-desktop-toolkit",
+  "displayName": "kotlin-desktop-toolkit",
+  "description": "kotlin-desktop-toolkit",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/kotlin-desktop-toolkit",
+  "skills": []
+}
