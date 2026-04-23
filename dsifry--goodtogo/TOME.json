@@ -1,0 +1,153 @@
+{
+  "name": "goodtogo",
+  "owner": "dsifry",
+  "repo": "goodtogo",
+  "description": "Deterministic PR readiness detection for AI coding agents",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "beads",
+      "path": ".claude/plugins/goodtogo/skills/beads",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/goodtogo/skills/beads",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": ".claude/plugins/superpowers/skills/brainstorming",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "brainstorming-extension",
+      "path": ".claude/plugins/goodtogo/skills/brainstorming-extension",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/goodtogo/skills/brainstorming-extension",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "path": ".claude/plugins/superpowers/skills/condition-based-waiting",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "design-review-gate",
+      "path": ".claude/plugins/goodtogo/skills/design-review-gate",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/goodtogo/skills/design-review-gate",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": ".claude/plugins/superpowers/skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "path": ".claude/plugins/superpowers/skills/receiving-code-review",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "path": ".claude/plugins/superpowers/skills/requesting-code-review",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "sharing-skills",
+      "path": ".claude/plugins/superpowers/skills/sharing-skills",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/sharing-skills",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "path": ".claude/plugins/superpowers/skills/subagent-driven-development",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": ".claude/plugins/superpowers/skills/systematic-debugging",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": ".claude/plugins/superpowers/skills/test-driven-development",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "path": ".claude/plugins/superpowers/skills/testing-anti-patterns",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-skills-with-subagents",
+      "path": ".claude/plugins/superpowers/skills/testing-skills-with-subagents",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/testing-skills-with-subagents",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "path": ".claude/plugins/superpowers/skills/using-git-worktrees",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-superpowers",
+      "path": ".claude/plugins/superpowers/skills/using-superpowers",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/using-superpowers",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": ".claude/plugins/superpowers/skills/writing-plans",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": ".claude/plugins/superpowers/skills/writing-skills",
+      "github_url": "https://github.com/dsifry/goodtogo/tree/main/.claude/plugins/superpowers/skills/writing-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dsifry/goodtogo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:43:43Z"
+}
