@@ -1,0 +1,69 @@
+{
+  "name": "agent-skills",
+  "owner": "rstackjs",
+  "repo": "agent-skills",
+  "description": "A collection of Agent Skills for Rstack.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rsdoctor-analysis",
+      "path": "skills/rsdoctor-analysis",
+      "github_url": "https://github.com/rstackjs/agent-skills/tree/main/skills/rsdoctor-analysis",
+      "description": ""
+    },
+    {
+      "name": "rspack-debugging",
+      "path": "skills/rspack-debugging",
+      "github_url": "https://github.com/rstackjs/agent-skills/tree/main/skills/rspack-debugging",
+      "description": ""
+    },
+    {
+      "name": "rspack-tracing",
+      "path": "skills/rspack-tracing",
+      "github_url": "https://github.com/rstackjs/agent-skills/tree/main/skills/rspack-tracing",
+      "description": ""
+    },
+    {
+      "name": "rspress-v2-upgrade",
+      "path": "skills/rspress-v2-upgrade",
+      "github_url": "https://github.com/rstackjs/agent-skills/tree/main/skills/rspress-v2-upgrade",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rstackjs/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:41:20Z"
+}
