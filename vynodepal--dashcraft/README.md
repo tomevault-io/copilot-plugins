@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [VynoDePal/DashCraft](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/VynoDePal)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/VynoDePal/DashCraft](https://github.com/VynoDePal/DashCraft)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install VynoDePal/DashCraft
 ```
-Or browse all formats at [https://tomevault.io/claim/VynoDePal](https://tomevault.io/claim/VynoDePal).
+Source: [github.com/VynoDePal/DashCraft](https://github.com/VynoDePal/DashCraft).
 
 <!-- genome:a-i-p -->
