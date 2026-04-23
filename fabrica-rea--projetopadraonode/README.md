@@ -1,6 +1,6 @@
-# projetopadraonode — distributed by TomeVault
+# projetopadraonode
 
-> Originally from [Fabrica-REA/projetopadraonode](https://github.com/Fabrica-REA/projetopadraonode). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Fabrica-REA/projetopadraonode](https://github.com/Fabrica-REA/projetopadraonode) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Fabrica-REA/projetopadraonode](https
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Fabrica-REA)
+From [Fabrica-REA/projetopadraonode](https://github.com/Fabrica-REA/projetopadraonode) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Fabrica-REA/projetopadraonode
 ```
-Or browse all formats at [https://tomevault.io/claim/Fabrica-REA](https://tomevault.io/claim/Fabrica-REA).
+Source: [github.com/Fabrica-REA/projetopadraonode](https://github.com/Fabrica-REA/projetopadraonode).
 
 <!-- genome:d-i-s -->
