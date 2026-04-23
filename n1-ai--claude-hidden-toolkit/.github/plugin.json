@@ -1,0 +1,9 @@
+{
+  "name": "n1-ai--claude-hidden-toolkit",
+  "displayName": "claude-hidden-toolkit",
+  "description": "The first comprehensive reverse-engineering of Claude.ai's 37 internal tools. Full parameter schemas, platform-specific behavior across browser/desktop/Android/iOS, and reproducible discovery methodol",
+  "version": "1.0.0",
+  "author": "N1-AI",
+  "homepage": "https://github.com/N1-AI/claude-hidden-toolkit",
+  "skills": []
+}
