@@ -1,0 +1,9 @@
+{
+  "name": "grigio--network-monitor",
+  "displayName": "network-monitor",
+  "description": "A real-time network connection monitoring tool built with Rust and GTK4, displaying active connections with live I/O statistics in a modern graphical interface.",
+  "version": "1.0.0",
+  "author": "grigio",
+  "homepage": "https://github.com/grigio/network-monitor",
+  "skills": []
+}
