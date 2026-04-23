@@ -1,0 +1,99 @@
+{
+  "name": "claude-code-setup",
+  "owner": "b33eep",
+  "repo": "claude-code-setup",
+  "description": "Persistent memory system for Claude Code via Markdown. Setup with /init-project, resume with /catchup, wrap with /wrapup. Includes coding standards, MCP   servers, and modular skills. Solves context loss after /clear.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-slidev-presentation",
+      "path": "skills/create-slidev-presentation",
+      "github_url": "https://github.com/b33eep/claude-code-setup/tree/main/skills/create-slidev-presentation",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/b33eep/claude-code-setup/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "standards-java",
+      "path": "skills/standards-java",
+      "github_url": "https://github.com/b33eep/claude-code-setup/tree/main/skills/standards-java",
+      "description": ""
+    },
+    {
+      "name": "standards-javascript",
+      "path": "skills/standards-javascript",
+      "github_url": "https://github.com/b33eep/claude-code-setup/tree/main/skills/standards-javascript",
+      "description": ""
+    },
+    {
+      "name": "standards-kotlin",
+      "path": "skills/standards-kotlin",
+      "github_url": "https://github.com/b33eep/claude-code-setup/tree/main/skills/standards-kotlin",
+      "description": ""
+    },
+    {
+      "name": "standards-python",
+      "path": "skills/standards-python",
+      "github_url": "https://github.com/b33eep/claude-code-setup/tree/main/skills/standards-python",
+      "description": ""
+    },
+    {
+      "name": "standards-shell",
+      "path": "skills/standards-shell",
+      "github_url": "https://github.com/b33eep/claude-code-setup/tree/main/skills/standards-shell",
+      "description": ""
+    },
+    {
+      "name": "standards-typescript",
+      "path": "skills/standards-typescript",
+      "github_url": "https://github.com/b33eep/claude-code-setup/tree/main/skills/standards-typescript",
+      "description": ""
+    },
+    {
+      "name": "user-stories",
+      "path": "skills/user-stories",
+      "github_url": "https://github.com/b33eep/claude-code-setup/tree/main/skills/user-stories",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/b33eep/claude-code-setup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:31:06Z"
+}
