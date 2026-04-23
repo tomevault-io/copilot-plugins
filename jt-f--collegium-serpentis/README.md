@@ -1,6 +1,6 @@
-# collegium_serpentis — distributed by TomeVault
+# collegium_serpentis
 
-> Originally from [jt-f/collegium_serpentis](https://github.com/jt-f/collegium_serpentis). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [jt-f/collegium_serpentis](https://github.com/jt-f/collegium_serpentis) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [jt-f/collegium_serpentis](https://gi
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/jt-f)
+From [jt-f/collegium_serpentis](https://github.com/jt-f/collegium_serpentis) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/jt-f) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
