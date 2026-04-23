@@ -1,0 +1,30 @@
+{
+  "name": "rbarcante--claude-conductor",
+  "displayName": "claude-conductor",
+  "description": "AI instruction skills by rbarcante",
+  "version": "1.0.0",
+  "author": "rbarcante",
+  "homepage": "https://github.com/rbarcante/claude-conductor",
+  "skills": [
+    {
+      "name": "api-design",
+      "description": ""
+    },
+    {
+      "name": "conductor-methodology",
+      "description": ""
+    },
+    {
+      "name": "java-best-practices",
+      "description": ""
+    },
+    {
+      "name": "testing-strategies",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "description": ""
+    }
+  ]
+}
