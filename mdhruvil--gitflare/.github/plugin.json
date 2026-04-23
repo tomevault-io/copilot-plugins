@@ -1,0 +1,9 @@
+{
+  "name": "mdhruvil--gitflare",
+  "displayName": "gitflare",
+  "description": "Gitflare is a fully open-source serverless git hosting platform. No VMs, No Containers, Just Durable Objects.",
+  "version": "1.0.0",
+  "author": "mdhruvil",
+  "homepage": "https://github.com/mdhruvil/gitflare",
+  "skills": []
+}
