@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [GoranErhartic/cursor-development-rule
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/GoranErhartic)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/GoranErhartic/cursor-development-rules](https://github.com/GoranErhartic/cursor-development-rules)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install GoranErhartic/cursor-development-rules
 ```
-Or browse all formats at [https://tomevault.io/claim/GoranErhartic](https://tomevault.io/claim/GoranErhartic).
+Source: [github.com/GoranErhartic/cursor-development-rules](https://github.com/GoranErhartic/cursor-development-rules).
 
 <!-- genome:a-i-p -->
