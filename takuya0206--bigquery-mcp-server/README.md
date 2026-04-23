@@ -1,6 +1,6 @@
 # bigquery-mcp-server
 
-> Tome by [takuya0206](https://github.com/takuya0206/bigquery-mcp-server) — distributed by [TomeVault](https://tomevault.io/claim/takuya0206)
+> Tome by [takuya0206](https://github.com/takuya0206/bigquery-mcp-server) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [takuya0206/bigquery-mcp-server](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/takuya0206)
+From [takuya0206/bigquery-mcp-server](https://github.com/takuya0206/bigquery-mcp-server) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install takuya0206/bigquery-mcp-server
 ```
-Or browse all formats at [https://tomevault.io/claim/takuya0206](https://tomevault.io/claim/takuya0206).
+Source: [github.com/takuya0206/bigquery-mcp-server](https://github.com/takuya0206/bigquery-mcp-server).
 
 <!-- genome:t-i-s -->
