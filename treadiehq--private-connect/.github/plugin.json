@@ -1,0 +1,14 @@
+{
+  "name": "treadiehq--private-connect",
+  "displayName": "private-connect",
+  "description": "Secure access to private services for developers and AI agents.",
+  "version": "1.0.0",
+  "author": "treadiehq",
+  "homepage": "https://github.com/treadiehq/private-connect",
+  "skills": [
+    {
+      "name": "openclaw",
+      "description": ""
+    }
+  ]
+}
