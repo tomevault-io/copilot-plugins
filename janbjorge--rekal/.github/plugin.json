@@ -1,0 +1,9 @@
+{
+  "name": "janbjorge--rekal",
+  "displayName": "rekal",
+  "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file.",
+  "version": "1.0.0",
+  "author": "janbjorge",
+  "homepage": "https://github.com/janbjorge/rekal",
+  "skills": []
+}
