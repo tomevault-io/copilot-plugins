@@ -4,7 +4,7 @@
   "repo": "packages",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/atopile",
+  "source_url": "https://github.com/atopile/packages",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T07:16:19Z"
+  "distributed_at": "2026-04-23T08:34:19Z"
 }
