@@ -1,0 +1,9 @@
+{
+  "name": "trusttunnel--trusttunnel",
+  "displayName": "TrustTunnel",
+  "description": "Modern, fast and obfuscated VPN protocol",
+  "version": "1.0.0",
+  "author": "TrustTunnel",
+  "homepage": "https://github.com/TrustTunnel/TrustTunnel",
+  "skills": []
+}
