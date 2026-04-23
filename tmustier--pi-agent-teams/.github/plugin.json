@@ -1,0 +1,14 @@
+{
+  "name": "tmustier--pi-agent-teams",
+  "displayName": "pi-agent-teams",
+  "description": "Experimental agent swarm extension for Pi. Inspired by Claude agent teams.",
+  "version": "1.0.0",
+  "author": "tmustier",
+  "homepage": "https://github.com/tmustier/pi-agent-teams",
+  "skills": [
+    {
+      "name": "agent-teams",
+      "description": ""
+    }
+  ]
+}
