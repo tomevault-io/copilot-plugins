@@ -1,6 +1,6 @@
 # azure-certification-renewal-az-204-azure-developer-associate
 
-> Tome by [TheRobBrennan](https://github.com/TheRobBrennan/azure-certification-renewal-az-204-azure-developer-associate) — distributed by [TomeVault](https://tomevault.io/claim/TheRobBrennan)
+> Tome by [TheRobBrennan](https://github.com/TheRobBrennan/azure-certification-renewal-az-204-azure-developer-associate) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [TheRobBrennan/azure-certification-re
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/TheRobBrennan)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/TheRobBrennan/azure-certification-renewal-az-204-azure-developer-associate](https://github.com/TheRobBrennan/azure-certification-renewal-az-204-azure-developer-associate)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install TheRobBrennan/azure-certification-renewal-az-204-azure-developer-associate
 ```
-Or browse all formats at [https://tomevault.io/claim/TheRobBrennan](https://tomevault.io/claim/TheRobBrennan).
+Source: [github.com/TheRobBrennan/azure-certification-renewal-az-204-azure-developer-associate](https://github.com/TheRobBrennan/azure-certification-renewal-az-204-azure-developer-associate).
 
 <!-- genome:t-i-p -->
