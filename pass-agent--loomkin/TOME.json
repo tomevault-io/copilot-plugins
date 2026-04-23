@@ -1,0 +1,44 @@
+{
+  "name": "loomkin",
+  "owner": "pass-agent",
+  "repo": "loomkin",
+  "description": "What if AI agents could form teams as fluidly as humans? Spawn specialists in milliseconds, share discoveries in real-time, review each other's work, and remember everything across sessions. Watch it all unfold in a live mission control UI. Open source.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pass-agent/loomkin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:53:09Z"
+}
