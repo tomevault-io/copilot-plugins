@@ -1,0 +1,9 @@
+{
+  "name": "darkresearch--generative-ui",
+  "displayName": "generative-ui",
+  "description": "Tools and templates for building generative UI applications. Mobile-first, optimized for Expo.",
+  "version": "1.0.0",
+  "author": "darkresearch",
+  "homepage": "https://github.com/darkresearch/generative-ui",
+  "skills": []
+}
