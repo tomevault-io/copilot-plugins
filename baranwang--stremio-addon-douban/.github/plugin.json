@@ -1,0 +1,9 @@
+{
+  "name": "baranwang--stremio-addon-douban",
+  "displayName": "stremio-addon-douban",
+  "description": "Douban addon for Stremio.",
+  "version": "1.0.0",
+  "author": "baranwang",
+  "homepage": "https://github.com/baranwang/stremio-addon-douban",
+  "skills": []
+}
