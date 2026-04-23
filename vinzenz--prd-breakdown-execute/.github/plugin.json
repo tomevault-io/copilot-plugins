@@ -1,0 +1,58 @@
+{
+  "name": "vinzenz--prd-breakdown-execute",
+  "displayName": "prd-breakdown-execute",
+  "description": "prd-breakdown-execute",
+  "version": "1.0.0",
+  "author": "vinzenz",
+  "homepage": "https://github.com/vinzenz/prd-breakdown-execute",
+  "skills": [
+    {
+      "name": "breakdown-analyze-prd",
+      "description": ""
+    },
+    {
+      "name": "breakdown-generate-tasks",
+      "description": ""
+    },
+    {
+      "name": "breakdown-plan-layers",
+      "description": ""
+    },
+    {
+      "name": "breakdown-review-tasks",
+      "description": ""
+    },
+    {
+      "name": "crd",
+      "description": ""
+    },
+    {
+      "name": "crd-context-update",
+      "description": ""
+    },
+    {
+      "name": "crd-impact-analysis",
+      "description": ""
+    },
+    {
+      "name": "crd-investigate",
+      "description": ""
+    },
+    {
+      "name": "execute-batch",
+      "description": ""
+    },
+    {
+      "name": "execute-layer",
+      "description": ""
+    },
+    {
+      "name": "execute-task",
+      "description": ""
+    },
+    {
+      "name": "execute-verify",
+      "description": ""
+    }
+  ]
+}
