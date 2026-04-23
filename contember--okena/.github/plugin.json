@@ -1,0 +1,14 @@
+{
+  "name": "contember--okena",
+  "displayName": "okena",
+  "description": "A fast, native terminal multiplexer built in Rust with GPUI (the UI framework from Zed editor). Tabs, splits, detachable windows, command palette, and automatic workspace restore.",
+  "version": "1.0.0",
+  "author": "contember",
+  "homepage": "https://github.com/contember/okena",
+  "skills": [
+    {
+      "name": "rust-gpui-development",
+      "description": ""
+    }
+  ]
+}
