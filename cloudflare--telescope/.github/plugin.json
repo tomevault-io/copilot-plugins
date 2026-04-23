@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--telescope",
+  "displayName": "telescope",
+  "description": "Cross-browser web performance testing agent",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/telescope",
+  "skills": []
+}
