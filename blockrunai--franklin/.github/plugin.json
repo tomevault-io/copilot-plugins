@@ -1,0 +1,9 @@
+{
+  "name": "blockrunai--franklin",
+  "displayName": "Franklin",
+  "description": "The AI agent with a wallet \u2014 spends USDC autonomously to get real work done. Apache-2.0, TypeScript.",
+  "version": "1.0.0",
+  "author": "BlockRunAI",
+  "homepage": "https://github.com/BlockRunAI/Franklin",
+  "skills": []
+}
