@@ -1,0 +1,9 @@
+{
+  "name": "jossephus--chuchu",
+  "displayName": "chuchu",
+  "description": "native android ssh client based on libghostty",
+  "version": "1.0.0",
+  "author": "jossephus",
+  "homepage": "https://github.com/jossephus/chuchu",
+  "skills": []
+}
