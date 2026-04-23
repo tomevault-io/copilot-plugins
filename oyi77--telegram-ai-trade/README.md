@@ -1,6 +1,6 @@
 # telegram-ai-trade
 
-> Tome by [oyi77](https://github.com/oyi77/telegram-ai-trade) — distributed by [TomeVault](https://tomevault.io/claim/oyi77)
+> Tome by [oyi77](https://github.com/oyi77/telegram-ai-trade) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [oyi77/telegram-ai-trade](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/oyi77)
+From [oyi77/telegram-ai-trade](https://github.com/oyi77/telegram-ai-trade) — a repo with 0+ stars on GitHub.
 
 ---
 
