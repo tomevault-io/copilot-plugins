@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Krekinha/gm-app](https://github.com/K
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Krekinha#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Krekinha/gm-app](https://github.com/Krekinha/gm-app)
 
 ---
 
