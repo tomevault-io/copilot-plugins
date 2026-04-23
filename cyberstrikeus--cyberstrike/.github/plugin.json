@@ -1,0 +1,9 @@
+{
+  "name": "cyberstrikeus--cyberstrike",
+  "displayName": "CyberStrike",
+  "description": "AI-powered offensive security agent. Autonomous pentesting with 13+ specialized agents, 120+ OWASP test cases, 15+ LLM providers, and Bolt remote tool servers. Your AI red team.",
+  "version": "1.0.0",
+  "author": "CyberStrikeus",
+  "homepage": "https://github.com/CyberStrikeus/CyberStrike",
+  "skills": []
+}
