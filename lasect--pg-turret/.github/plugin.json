@@ -1,0 +1,9 @@
+{
+  "name": "lasect--pg-turret",
+  "displayName": "pg_turret",
+  "description": "postgres extension for streaming logs",
+  "version": "1.0.0",
+  "author": "lasect",
+  "homepage": "https://github.com/lasect/pg_turret",
+  "skills": []
+}
