@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--isaacteleop",
+  "displayName": "IsaacTeleop",
+  "description": "The unified framework for sim & real robot teleoperation",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/IsaacTeleop",
+  "skills": []
+}
