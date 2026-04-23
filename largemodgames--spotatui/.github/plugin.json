@@ -1,0 +1,9 @@
+{
+  "name": "largemodgames--spotatui",
+  "displayName": "spotatui",
+  "description": "A fully standalone Spotify client for the terminal. Native streaming included, no daemon required.",
+  "version": "1.0.0",
+  "author": "LargeModGames",
+  "homepage": "https://github.com/LargeModGames/spotatui",
+  "skills": []
+}
