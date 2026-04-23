@@ -1,6 +1,6 @@
-# lk-outbound-caller-scheduler — distributed by TomeVault
+# lk-outbound-caller-scheduler
 
-> Originally from [raseniero/lk-outbound-caller-scheduler](https://github.com/raseniero/lk-outbound-caller-scheduler). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [raseniero/lk-outbound-caller-scheduler](https://github.com/raseniero/lk-outbound-caller-scheduler) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [raseniero/lk-outbound-caller-schedul
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/raseniero)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/raseniero/lk-outbound-caller-scheduler](https://github.com/raseniero/lk-outbound-caller-scheduler)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/raseniero) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
