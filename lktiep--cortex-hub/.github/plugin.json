@@ -1,0 +1,9 @@
+{
+  "name": "lktiep--cortex-hub",
+  "displayName": "cortex-hub",
+  "description": "Self-hosted AI Agent Memory + Code Intelligence Platform \u2014 one MCP endpoint for persistent memory, AST-aware code search, shared knowledge, and quality enforcement across all your AI coding agents.",
+  "version": "1.0.0",
+  "author": "lktiep",
+  "homepage": "https://github.com/lktiep/cortex-hub",
+  "skills": []
+}
