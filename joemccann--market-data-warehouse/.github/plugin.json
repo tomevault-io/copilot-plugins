@@ -1,0 +1,9 @@
+{
+  "name": "joemccann--market-data-warehouse",
+  "displayName": "market-data-warehouse",
+  "description": "A local-first financial data warehouse for universe-scale market data.",
+  "version": "1.0.0",
+  "author": "joemccann",
+  "homepage": "https://github.com/joemccann/market-data-warehouse",
+  "skills": []
+}
