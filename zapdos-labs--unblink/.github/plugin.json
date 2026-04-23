@@ -1,0 +1,9 @@
+{
+  "name": "zapdos-labs--unblink",
+  "displayName": "unblink",
+  "description": "Camera monitoring with VLM",
+  "version": "1.0.0",
+  "author": "zapdos-labs",
+  "homepage": "https://github.com/zapdos-labs/unblink",
+  "skills": []
+}
