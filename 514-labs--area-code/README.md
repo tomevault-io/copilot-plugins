@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [514-labs/area-code](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/514-labs)
+From [514-labs/area-code](https://github.com/514-labs/area-code) — a repo with 0+ stars on GitHub.
 
 ---
 
