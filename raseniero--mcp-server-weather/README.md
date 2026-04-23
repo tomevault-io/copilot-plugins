@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [raseniero/mcp-server-weather](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/raseniero)
+From [raseniero/mcp-server-weather](https://github.com/raseniero/mcp-server-weather) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install raseniero/mcp-server-weather
 ```
-Or browse all formats at [https://tomevault.io/claim/raseniero](https://tomevault.io/claim/raseniero).
+Source: [github.com/raseniero/mcp-server-weather](https://github.com/raseniero/mcp-server-weather).
 
 <!-- genome:a-i-s -->
