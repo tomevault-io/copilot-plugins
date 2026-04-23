@@ -1,0 +1,75 @@
+{
+  "name": "awesome-ai-agent-skills",
+  "owner": "thienanblog",
+  "repo": "awesome-ai-agent-skills",
+  "description": "A curated list of essential skills, tools, and resources for building and enhancing advanced AI agents.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "laravel-11-12-app-guidelines",
+      "path": "skills/laravel-11-12-app-guidelines",
+      "github_url": "https://github.com/thienanblog/awesome-ai-agent-skills/tree/main/skills/laravel-11-12-app-guidelines",
+      "description": ""
+    },
+    {
+      "name": "agents-md-generator",
+      "path": "skills/agents-md-generator",
+      "github_url": "https://github.com/thienanblog/awesome-ai-agent-skills/tree/main/skills/agents-md-generator",
+      "description": ""
+    },
+    {
+      "name": "design-system-generator",
+      "path": "skills/design-system-generator",
+      "github_url": "https://github.com/thienanblog/awesome-ai-agent-skills/tree/main/skills/design-system-generator",
+      "description": ""
+    },
+    {
+      "name": "docker-local-dev",
+      "path": "skills/docker-local-dev",
+      "github_url": "https://github.com/thienanblog/awesome-ai-agent-skills/tree/main/skills/docker-local-dev",
+      "description": ""
+    },
+    {
+      "name": "documentation-guidelines",
+      "path": "skills/documentation-guidelines",
+      "github_url": "https://github.com/thienanblog/awesome-ai-agent-skills/tree/main/skills/documentation-guidelines",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thienanblog/awesome-ai-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:37:21Z"
+}
