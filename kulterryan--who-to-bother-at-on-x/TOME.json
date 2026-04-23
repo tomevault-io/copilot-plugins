@@ -4,7 +4,7 @@
   "repo": "who-to-bother-at-on-x",
   "description": "Find the right people to reach out to at your favorite tech companies",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kulterryan/who-to-bother-at-on-x",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T23:44:16Z"
+  "distributed_at": "2026-04-23T13:07:34Z"
 }
