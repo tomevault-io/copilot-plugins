@@ -1,0 +1,75 @@
+{
+  "name": "reskill",
+  "owner": "kanyun-inc",
+  "repo": "reskill",
+  "description": "reskill - brings the npm experience to AI agent skills.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-confidence-map",
+      "path": "skills/code-confidence-map",
+      "github_url": "https://github.com/kanyun-inc/reskill/tree/main/skills/code-confidence-map",
+      "description": ""
+    },
+    {
+      "name": "find-skills",
+      "path": "skills/find-skills",
+      "github_url": "https://github.com/kanyun-inc/reskill/tree/main/skills/find-skills",
+      "description": ""
+    },
+    {
+      "name": "reskill-usage",
+      "path": "skills/reskill-usage",
+      "github_url": "https://github.com/kanyun-inc/reskill/tree/main/skills/reskill-usage",
+      "description": ""
+    },
+    {
+      "name": "skill-sync-checker",
+      "path": "skills/skill-sync-checker",
+      "github_url": "https://github.com/kanyun-inc/reskill/tree/main/skills/skill-sync-checker",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding-guardian",
+      "path": "skills/vibe-coding-guardian",
+      "github_url": "https://github.com/kanyun-inc/reskill/tree/main/skills/vibe-coding-guardian",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kanyun-inc/reskill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:36:45Z"
+}
