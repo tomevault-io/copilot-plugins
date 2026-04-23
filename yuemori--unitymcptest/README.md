@@ -1,0 +1,28 @@
+# UnityMCPTest
+
+> Source: [yuemori/UnityMCPTest](https://github.com/yuemori/UnityMCPTest) — distributed by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `.cursor/rules/*.mdc` in [yuemori/UnityMCPTest](https://github.com/yuemori/UnityMCPTest).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [yuemori/UnityMCPTest](https://github.com/yuemori/UnityMCPTest) — a repo with 0+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install yuemori/UnityMCPTest
+```
+Source: [github.com/yuemori/UnityMCPTest](https://github.com/yuemori/UnityMCPTest).
+
+<!-- genome:d-i-s -->
