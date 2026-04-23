@@ -1,0 +1,9 @@
+{
+  "name": "s2-streamstore--s2",
+  "displayName": "s2",
+  "description": "Durable Streams API",
+  "version": "1.0.0",
+  "author": "s2-streamstore",
+  "homepage": "https://github.com/s2-streamstore/s2",
+  "skills": []
+}
