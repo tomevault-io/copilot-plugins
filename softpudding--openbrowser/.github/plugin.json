@@ -1,0 +1,9 @@
+{
+  "name": "softpudding--openbrowser",
+  "displayName": "OpenBrowser",
+  "description": "A visual AI assistant powered by Qwen3.5 for browser automation",
+  "version": "1.0.0",
+  "author": "softpudding",
+  "homepage": "https://github.com/softpudding/OpenBrowser",
+  "skills": []
+}
