@@ -1,0 +1,9 @@
+{
+  "name": "smallmain--vscode-unify-chat-provider",
+  "displayName": "vscode-unify-chat-provider",
+  "description": "Integrate multiple LLM API providers into VS Code's GitHub Copilot Chat using the Language Model API. Aggregates the latest free mainstream models, configurable in just a few steps! One-click use of y",
+  "version": "1.0.0",
+  "author": "smallmain",
+  "homepage": "https://github.com/smallmain/vscode-unify-chat-provider",
+  "skills": []
+}
