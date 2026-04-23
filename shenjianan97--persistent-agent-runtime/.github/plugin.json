@@ -1,0 +1,9 @@
+{
+  "name": "shenjianan97--persistent-agent-runtime",
+  "displayName": "persistent-agent-runtime",
+  "description": "Persistent runtime for long-running AI agent tasks with durable checkpoints, lease-based workers, retries, dead letters, and operational visibility",
+  "version": "1.0.0",
+  "author": "shenjianan97",
+  "homepage": "https://github.com/shenjianan97/persistent-agent-runtime",
+  "skills": []
+}
