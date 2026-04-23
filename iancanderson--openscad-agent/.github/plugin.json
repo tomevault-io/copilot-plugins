@@ -1,0 +1,14 @@
+{
+  "name": "iancanderson--openscad-agent",
+  "displayName": "openscad-agent",
+  "description": "A Claude Code-powered 3D modeling agent environment for creating 3D printable designs using OpenSCAD.",
+  "version": "1.0.0",
+  "author": "iancanderson",
+  "homepage": "https://github.com/iancanderson/openscad-agent",
+  "skills": [
+    {
+      "name": "openscad",
+      "description": ""
+    }
+  ]
+}
