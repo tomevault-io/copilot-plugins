@@ -4,7 +4,7 @@
   "repo": "mcp-web",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/geehexx/mcp-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T05:39:30Z"
+  "distributed_at": "2026-04-23T21:48:22Z"
 }
