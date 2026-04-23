@@ -406,5 +406,5 @@ See `.agents/skills/vercel-react-best-practices/` for 62 rules across 8 categori
 - `advanced-event-handler-refs` — callback refs to avoid effect re-subscription
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/OpenSource03) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [OpenSource03/harnss](https://github.com/OpenSource03/harnss) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
