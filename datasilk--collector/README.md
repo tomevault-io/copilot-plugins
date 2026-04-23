@@ -1,6 +1,6 @@
 # Collector
 
-> Tome by [Datasilk](https://github.com/Datasilk/Collector) — distributed by [TomeVault](https://tomevault.io/claim/Datasilk)
+> Tome by [Datasilk](https://github.com/Datasilk/Collector) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Datasilk/Collector](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Datasilk)
+From [Datasilk/Collector](https://github.com/Datasilk/Collector) — a repo with 0+ stars on GitHub.
 
 ---
 
