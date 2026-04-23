@@ -1,0 +1,26 @@
+{
+  "name": "deathbyknowledge--gsv",
+  "displayName": "gsv",
+  "description": "Personal cloud AI computer platform",
+  "version": "1.0.0",
+  "author": "deathbyknowledge",
+  "homepage": "https://github.com/deathbyknowledge/gsv",
+  "skills": [
+    {
+      "name": "coding-agent",
+      "description": ""
+    },
+    {
+      "name": "e2e-proof",
+      "description": ""
+    },
+    {
+      "name": "gsv-cli",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "description": ""
+    }
+  ]
+}
