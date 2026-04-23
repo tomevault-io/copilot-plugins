@@ -2,9 +2,9 @@
   "name": "agent-assistant",
   "owner": "hainamchung",
   "repo": "agent-assistant",
-  "description": "AI instruction files for agent-assistant by hainamchung",
+  "description": "AI instruction skills by hainamchung",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -67,9 +67,609 @@
       "path": "skills/artifacts-builder",
       "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/artifacts-builder",
       "description": ""
+    },
+    {
+      "name": "atlassian-mcp",
+      "path": "skills/atlassian-mcp",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/atlassian-mcp",
+      "description": ""
+    },
+    {
+      "name": "aws-agentic-ai",
+      "path": "skills/aws-agentic-ai",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/aws-agentic-ai",
+      "description": ""
+    },
+    {
+      "name": "aws-cdk-development",
+      "path": "skills/aws-cdk-development",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/aws-cdk-development",
+      "description": ""
+    },
+    {
+      "name": "aws-cost-operations",
+      "path": "skills/aws-cost-operations",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/aws-cost-operations",
+      "description": ""
+    },
+    {
+      "name": "aws-serverless-eda",
+      "path": "skills/aws-serverless-eda",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/aws-serverless-eda",
+      "description": ""
+    },
+    {
+      "name": "azure-ai-agents-python",
+      "path": "skills/azure-ai-agents-python",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/azure-ai-agents-python",
+      "description": ""
+    },
+    {
+      "name": "azure-ai-search-python",
+      "path": "skills/azure-ai-search-python",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/azure-ai-search-python",
+      "description": ""
+    },
+    {
+      "name": "azure-ai-voicelive-skill",
+      "path": "skills/azure-ai-voicelive-skill",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/azure-ai-voicelive-skill",
+      "description": ""
+    },
+    {
+      "name": "chaos-engineer",
+      "path": "skills/chaos-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/chaos-engineer",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "path": "skills/chrome-devtools",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "clean-code",
+      "path": "skills/clean-code",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/clean-code",
+      "description": ""
+    },
+    {
+      "name": "cli-developer",
+      "path": "skills/cli-developer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/cli-developer",
+      "description": ""
+    },
+    {
+      "name": "cloud-architect",
+      "path": "skills/cloud-architect",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/cloud-architect",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-expert",
+      "path": "skills/cloudflare-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/cloudflare-expert",
+      "description": ""
+    },
+    {
+      "name": "code-documenter",
+      "path": "skills/code-documenter",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/code-documenter",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "skills/code-reviewer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "cosmos-db-python-skill",
+      "path": "skills/cosmos-db-python-skill",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/cosmos-db-python-skill",
+      "description": ""
+    },
+    {
+      "name": "cpp-pro",
+      "path": "skills/cpp-pro",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/cpp-pro",
+      "description": ""
+    },
+    {
+      "name": "csharp-developer",
+      "path": "skills/csharp-developer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/csharp-developer",
+      "description": ""
+    },
+    {
+      "name": "database-optimizer",
+      "path": "skills/database-optimizer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/database-optimizer",
+      "description": ""
+    },
+    {
+      "name": "databases",
+      "path": "skills/databases",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/databases",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "path": "skills/devops",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/devops",
+      "description": ""
+    },
+    {
+      "name": "devops-engineer",
+      "path": "skills/devops-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/devops-engineer",
+      "description": ""
+    },
+    {
+      "name": "django-expert",
+      "path": "skills/django-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/django-expert",
+      "description": ""
+    },
+    {
+      "name": "docs-seeker",
+      "path": "skills/docs-seeker",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/docs-seeker",
+      "description": ""
+    },
+    {
+      "name": "dotnet-core-expert",
+      "path": "skills/dotnet-core-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/dotnet-core-expert",
+      "description": ""
+    },
+    {
+      "name": "embedded-systems",
+      "path": "skills/embedded-systems",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/embedded-systems",
+      "description": ""
+    },
+    {
+      "name": "fastapi-expert",
+      "path": "skills/fastapi-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/fastapi-expert",
+      "description": ""
+    },
+    {
+      "name": "fastapi-router",
+      "path": "skills/fastapi-router",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/fastapi-router",
+      "description": ""
+    },
+    {
+      "name": "find-skills",
+      "path": "skills/find-skills",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/find-skills",
+      "description": ""
+    },
+    {
+      "name": "flutter-expert",
+      "path": "skills/flutter-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/flutter-expert",
+      "description": ""
+    },
+    {
+      "name": "foundry-nextgen-frontend",
+      "path": "skills/foundry-nextgen-frontend",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/foundry-nextgen-frontend",
+      "description": ""
+    },
+    {
+      "name": "foundry-sdk-python",
+      "path": "skills/foundry-sdk-python",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/foundry-sdk-python",
+      "description": ""
+    },
+    {
+      "name": "fullstack-guardian",
+      "path": "skills/fullstack-guardian",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/fullstack-guardian",
+      "description": ""
+    },
+    {
+      "name": "game-developer",
+      "path": "skills/game-developer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/game-developer",
+      "description": ""
+    },
+    {
+      "name": "golang-pro",
+      "path": "skills/golang-pro",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/golang-pro",
+      "description": ""
+    },
+    {
+      "name": "graphql-architect",
+      "path": "skills/graphql-architect",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/graphql-architect",
+      "description": ""
+    },
+    {
+      "name": "java-architect",
+      "path": "skills/java-architect",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/java-architect",
+      "description": ""
+    },
+    {
+      "name": "javascript-pro",
+      "path": "skills/javascript-pro",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/javascript-pro",
+      "description": ""
+    },
+    {
+      "name": "kotlin-specialist",
+      "path": "skills/kotlin-specialist",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/kotlin-specialist",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-specialist",
+      "path": "skills/kubernetes-specialist",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/kubernetes-specialist",
+      "description": ""
+    },
+    {
+      "name": "laravel-specialist",
+      "path": "skills/laravel-specialist",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/laravel-specialist",
+      "description": ""
+    },
+    {
+      "name": "lint-and-validate",
+      "path": "skills/lint-and-validate",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/lint-and-validate",
+      "description": ""
+    },
+    {
+      "name": "mcp-developer",
+      "path": "skills/mcp-developer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/mcp-developer",
+      "description": ""
+    },
+    {
+      "name": "microservices-architect",
+      "path": "skills/microservices-architect",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/microservices-architect",
+      "description": ""
+    },
+    {
+      "name": "mobile-design",
+      "path": "skills/mobile-design",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/mobile-design",
+      "description": ""
+    },
+    {
+      "name": "monitoring-expert",
+      "path": "skills/monitoring-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/monitoring-expert",
+      "description": ""
+    },
+    {
+      "name": "nextjs-developer",
+      "path": "skills/nextjs-developer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/nextjs-developer",
+      "description": ""
+    },
+    {
+      "name": "notebooklm-skill",
+      "path": "skills/notebooklm-skill",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/notebooklm-skill",
+      "description": ""
+    },
+    {
+      "name": "php-pro",
+      "path": "skills/php-pro",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/php-pro",
+      "description": ""
+    },
+    {
+      "name": "playwright-expert",
+      "path": "skills/playwright-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/playwright-expert",
+      "description": ""
+    },
+    {
+      "name": "product-manager-toolkit",
+      "path": "skills/product-manager-toolkit",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/product-manager-toolkit",
+      "description": ""
+    },
+    {
+      "name": "product-strategist",
+      "path": "skills/product-strategist",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/product-strategist",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "path": "skills/prompt-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "pydantic-models",
+      "path": "skills/pydantic-models",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/pydantic-models",
+      "description": ""
+    },
+    {
+      "name": "python-pro",
+      "path": "skills/python-pro",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/python-pro",
+      "description": ""
+    },
+    {
+      "name": "rag-architect",
+      "path": "skills/rag-architect",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/rag-architect",
+      "description": ""
+    },
+    {
+      "name": "rails-expert",
+      "path": "skills/rails-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/rails-expert",
+      "description": ""
+    },
+    {
+      "name": "react-expert",
+      "path": "skills/react-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/react-expert",
+      "description": ""
+    },
+    {
+      "name": "react-flow-node",
+      "path": "skills/react-flow-node",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/react-flow-node",
+      "description": ""
+    },
+    {
+      "name": "react-native-expert",
+      "path": "skills/react-native-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/react-native-expert",
+      "description": ""
+    },
+    {
+      "name": "repomix",
+      "path": "skills/repomix",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/repomix",
+      "description": ""
+    },
+    {
+      "name": "rust-engineer",
+      "path": "skills/rust-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/rust-engineer",
+      "description": ""
+    },
+    {
+      "name": "salesforce-developer",
+      "path": "skills/salesforce-developer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/salesforce-developer",
+      "description": ""
+    },
+    {
+      "name": "secure-code-guardian",
+      "path": "skills/secure-code-guardian",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/secure-code-guardian",
+      "description": ""
+    },
+    {
+      "name": "security-reviewer",
+      "path": "skills/security-reviewer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/security-reviewer",
+      "description": ""
+    },
+    {
+      "name": "senior-architect",
+      "path": "skills/senior-architect",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-architect",
+      "description": ""
+    },
+    {
+      "name": "senior-backend",
+      "path": "skills/senior-backend",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-backend",
+      "description": ""
+    },
+    {
+      "name": "senior-computer-vision",
+      "path": "skills/senior-computer-vision",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-computer-vision",
+      "description": ""
+    },
+    {
+      "name": "senior-data-engineer",
+      "path": "skills/senior-data-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-data-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-data-scientist",
+      "path": "skills/senior-data-scientist",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-data-scientist",
+      "description": ""
+    },
+    {
+      "name": "senior-devops",
+      "path": "skills/senior-devops",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-devops",
+      "description": ""
+    },
+    {
+      "name": "senior-frontend",
+      "path": "skills/senior-frontend",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-frontend",
+      "description": ""
+    },
+    {
+      "name": "senior-fullstack",
+      "path": "skills/senior-fullstack",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-fullstack",
+      "description": ""
+    },
+    {
+      "name": "senior-ml-engineer",
+      "path": "skills/senior-ml-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-ml-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-prompt-engineer",
+      "path": "skills/senior-prompt-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-qa",
+      "path": "skills/senior-qa",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-qa",
+      "description": ""
+    },
+    {
+      "name": "senior-secops",
+      "path": "skills/senior-secops",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-secops",
+      "description": ""
+    },
+    {
+      "name": "senior-security",
+      "path": "skills/senior-security",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/senior-security",
+      "description": ""
+    },
+    {
+      "name": "sequential-thinking",
+      "path": "skills/sequential-thinking",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/sequential-thinking",
+      "description": ""
+    },
+    {
+      "name": "shopify-expert",
+      "path": "skills/shopify-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/shopify-expert",
+      "description": ""
+    },
+    {
+      "name": "spark-engineer",
+      "path": "skills/spark-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/spark-engineer",
+      "description": ""
+    },
+    {
+      "name": "spec-miner",
+      "path": "skills/spec-miner",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/spec-miner",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-engineer",
+      "path": "skills/spring-boot-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/spring-boot-engineer",
+      "description": ""
+    },
+    {
+      "name": "sql-pro",
+      "path": "skills/sql-pro",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/sql-pro",
+      "description": ""
+    },
+    {
+      "name": "swift-expert",
+      "path": "skills/swift-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/swift-expert",
+      "description": ""
+    },
+    {
+      "name": "terraform-engineer",
+      "path": "skills/terraform-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/terraform-engineer",
+      "description": ""
+    },
+    {
+      "name": "test-master",
+      "path": "skills/test-master",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/test-master",
+      "description": ""
+    },
+    {
+      "name": "typescript-pro",
+      "path": "skills/typescript-pro",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/typescript-pro",
+      "description": ""
+    },
+    {
+      "name": "ui-design-system",
+      "path": "skills/ui-design-system",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/ui-design-system",
+      "description": ""
+    },
+    {
+      "name": "ui-styling",
+      "path": "skills/ui-styling",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/ui-styling",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": "skills/ui-ux-pro-max",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "ux-researcher-designer",
+      "path": "skills/ux-researcher-designer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/ux-researcher-designer",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "skills/react-best-practices",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-expert",
+      "path": "skills/vue-expert",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/vue-expert",
+      "description": ""
+    },
+    {
+      "name": "vue-expert-js",
+      "path": "skills/vue-expert-js",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/vue-expert-js",
+      "description": ""
+    },
+    {
+      "name": "web-frameworks",
+      "path": "skills/web-frameworks",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/web-frameworks",
+      "description": ""
+    },
+    {
+      "name": "websocket-engineer",
+      "path": "skills/websocket-engineer",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/websocket-engineer",
+      "description": ""
+    },
+    {
+      "name": "wordpress-pro",
+      "path": "skills/wordpress-pro",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/wordpress-pro",
+      "description": ""
+    },
+    {
+      "name": "zustand-store",
+      "path": "skills/zustand-store",
+      "github_url": "https://github.com/hainamchung/agent-assistant/tree/main/skills/zustand-store",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/hainamchung",
+  "source_url": "https://github.com/hainamchung/agent-assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T15:02:27Z"
+  "distributed_at": "2026-04-23T16:33:29Z"
 }
