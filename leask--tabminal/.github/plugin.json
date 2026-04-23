@@ -1,0 +1,9 @@
+{
+  "name": "leask--tabminal",
+  "displayName": "Tabminal",
+  "description": "Tab(ter)minal, a Cloud-Native terminal and ACP agent workspace for desktop, tablet, and phone.",
+  "version": "1.0.0",
+  "author": "Leask",
+  "homepage": "https://github.com/Leask/Tabminal",
+  "skills": []
+}
