@@ -1,0 +1,9 @@
+{
+  "name": "aaronontheweb--dotnet-skills",
+  "displayName": "dotnet-skills",
+  "description": "Claude Code skills and sub-agents for .NET Developers",
+  "version": "1.0.0",
+  "author": "Aaronontheweb",
+  "homepage": "https://github.com/Aaronontheweb/dotnet-skills",
+  "skills": []
+}
