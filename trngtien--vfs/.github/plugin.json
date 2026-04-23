@@ -1,0 +1,9 @@
+{
+  "name": "trngtien--vfs",
+  "displayName": "vfs",
+  "description": "Reduce AI agent token usage by 98% via Virtual Function Signatures. MCP server for Cursor & Claude Desktop. Supports Go, TypeScript, Python, Rust, Java, Swift, Kotlin, C# and more.",
+  "version": "1.0.0",
+  "author": "TrNgTien",
+  "homepage": "https://github.com/TrNgTien/vfs",
+  "skills": []
+}
