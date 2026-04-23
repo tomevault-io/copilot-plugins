@@ -1,0 +1,9 @@
+{
+  "name": "level09--readykit",
+  "displayName": "readykit",
+  "description": "Production-ready Flask SaaS template with multi-tenancy, billing, and teams",
+  "version": "1.0.0",
+  "author": "level09",
+  "homepage": "https://github.com/level09/readykit",
+  "skills": []
+}
