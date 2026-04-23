@@ -1,6 +1,6 @@
 # agentic_browser_automation
 
-> Tome by [Kedhareswer](https://github.com/Kedhareswer/agentic_browser_automation) — distributed by [TomeVault](https://tomevault.io/claim/Kedhareswer)
+> Tome by [Kedhareswer](https://github.com/Kedhareswer/agentic_browser_automation) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [Kedhareswer/agentic_browser_automati
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Kedhareswer#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Kedhareswer/agentic_browser_automation](https://github.com/Kedhareswer/agentic_browser_automation)
 
 ---
 
