@@ -1,0 +1,38 @@
+{
+  "name": "salavender--antigravity-compound-engineering-plugin",
+  "displayName": "antigravity-compound-engineering-plugin",
+  "description": "Non-Official Antigravity IDE compound engineering plugin",
+  "version": "1.0.0",
+  "author": "salavender",
+  "homepage": "https://github.com/salavender/antigravity-compound-engineering-plugin",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "mobile",
+      "description": ""
+    },
+    {
+      "name": "react-hooks",
+      "description": ""
+    },
+    {
+      "name": "standard-security-auth",
+      "description": ""
+    },
+    {
+      "name": "supabase",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    }
+  ]
+}
