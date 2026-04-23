@@ -1,0 +1,44 @@
+{
+  "name": "nodebbs",
+  "owner": "aiprojecthub",
+  "repo": "nodebbs",
+  "description": "\u4e00\u4e2a\u73b0\u4ee3\u5316\u7684\u6280\u672f\u8ba8\u8bba\u8bba\u575b\uff0c\u91c7\u7528 GitHub Issue \u98ce\u683c\u8bbe\u8ba1",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aiprojecthub/nodebbs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T03:10:57Z"
+}
