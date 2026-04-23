@@ -1,0 +1,9 @@
+{
+  "name": "coder--ghostty-web",
+  "displayName": "ghostty-web",
+  "description": "Ghostty for the web with xterm.js API compatibility",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/ghostty-web",
+  "skills": []
+}
