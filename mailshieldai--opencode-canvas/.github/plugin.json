@@ -1,0 +1,18 @@
+{
+  "name": "mailshieldai--opencode-canvas",
+  "displayName": "opencode-canvas",
+  "description": "Interactive terminal canvases for OpenCode - calendars, documents, flight booking",
+  "version": "1.0.0",
+  "author": "mailshieldai",
+  "homepage": "https://github.com/mailshieldai/opencode-canvas",
+  "skills": [
+    {
+      "name": "canvas",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "description": ""
+    }
+  ]
+}
