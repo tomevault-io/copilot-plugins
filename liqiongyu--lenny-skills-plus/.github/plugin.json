@@ -1,0 +1,186 @@
+{
+  "name": "liqiongyu--lenny-skills-plus",
+  "displayName": "lenny_skills_plus",
+  "description": "86 agent-executable skill packs converted from RefoundAI\u2019s Lenny skills (unofficial). Works with Codex + Claude Code.",
+  "version": "1.0.0",
+  "author": "liqiongyu",
+  "homepage": "https://github.com/liqiongyu/lenny_skills_plus",
+  "skills": [
+    {
+      "name": "ai-evals",
+      "description": ""
+    },
+    {
+      "name": "ai-product-strategy",
+      "description": ""
+    },
+    {
+      "name": "analyzing-user-feedback",
+      "description": ""
+    },
+    {
+      "name": "behavioral-product-design",
+      "description": ""
+    },
+    {
+      "name": "building-a-promotion-case",
+      "description": ""
+    },
+    {
+      "name": "building-team-culture",
+      "description": ""
+    },
+    {
+      "name": "building-with-llms",
+      "description": ""
+    },
+    {
+      "name": "career-transitions",
+      "description": ""
+    },
+    {
+      "name": "coaching-pms",
+      "description": ""
+    },
+    {
+      "name": "community-building",
+      "description": ""
+    },
+    {
+      "name": "conducting-user-interviews",
+      "description": ""
+    },
+    {
+      "name": "content-marketing",
+      "description": ""
+    },
+    {
+      "name": "cross-functional-collaboration",
+      "description": ""
+    },
+    {
+      "name": "delegating-work",
+      "description": ""
+    },
+    {
+      "name": "design-engineering",
+      "description": ""
+    },
+    {
+      "name": "design-systems",
+      "description": ""
+    },
+    {
+      "name": "designing-growth-loops",
+      "description": ""
+    },
+    {
+      "name": "designing-surveys",
+      "description": ""
+    },
+    {
+      "name": "engineering-culture",
+      "description": ""
+    },
+    {
+      "name": "evaluating-new-technology",
+      "description": ""
+    },
+    {
+      "name": "fundraising",
+      "description": ""
+    },
+    {
+      "name": "launch-marketing",
+      "description": ""
+    },
+    {
+      "name": "lenny-skillpack-creator",
+      "description": ""
+    },
+    {
+      "name": "onboarding-new-hires",
+      "description": ""
+    },
+    {
+      "name": "organizational-design",
+      "description": ""
+    },
+    {
+      "name": "partnership-bd",
+      "description": ""
+    },
+    {
+      "name": "platform-strategy",
+      "description": ""
+    },
+    {
+      "name": "product-operations",
+      "description": ""
+    },
+    {
+      "name": "product-taste-intuition",
+      "description": ""
+    },
+    {
+      "name": "running-design-reviews",
+      "description": ""
+    },
+    {
+      "name": "running-effective-1-1s",
+      "description": ""
+    },
+    {
+      "name": "running-offsites",
+      "description": ""
+    },
+    {
+      "name": "sales-compensation",
+      "description": ""
+    },
+    {
+      "name": "scoping-cutting",
+      "description": ""
+    },
+    {
+      "name": "shipping-products",
+      "description": ""
+    },
+    {
+      "name": "systems-thinking",
+      "description": ""
+    },
+    {
+      "name": "team-rituals",
+      "description": ""
+    },
+    {
+      "name": "usability-testing",
+      "description": ""
+    },
+    {
+      "name": "user-onboarding",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding",
+      "description": ""
+    },
+    {
+      "name": "writing-prds",
+      "description": ""
+    },
+    {
+      "name": "writing-prds-executable",
+      "description": ""
+    },
+    {
+      "name": "writing-specs-designs",
+      "description": ""
+    },
+    {
+      "name": "written-communication",
+      "description": ""
+    }
+  ]
+}
