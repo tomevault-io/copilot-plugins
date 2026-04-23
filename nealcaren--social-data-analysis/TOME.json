@@ -1,0 +1,129 @@
+{
+  "name": "social-data-analysis",
+  "owner": "nealcaren",
+  "repo": "social-data-analysis",
+  "description": "Claude Code plugins for quantitative and qualitative sociological research",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "abductive-analyst",
+      "path": "plugins/abductive-analyst/skills/abductive-analyst",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/abductive-analyst/skills/abductive-analyst",
+      "description": ""
+    },
+    {
+      "name": "case-justification",
+      "path": "plugins/case-justification/skills/case-justification",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/case-justification/skills/case-justification",
+      "description": ""
+    },
+    {
+      "name": "dag-development",
+      "path": "plugins/dag-development/skills/dag-development",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/dag-development/skills/dag-development",
+      "description": ""
+    },
+    {
+      "name": "genre-skill-builder",
+      "path": "plugins/genre-skill-builder/skills/genre-skill-builder",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/genre-skill-builder/skills/genre-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "interview-analyst",
+      "path": "plugins/interview-analyst/skills/interview-analyst",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/interview-analyst/skills/interview-analyst",
+      "description": ""
+    },
+    {
+      "name": "interview-writeup",
+      "path": "plugins/interview-writeup/skills/interview-writeup",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/interview-writeup/skills/interview-writeup",
+      "description": ""
+    },
+    {
+      "name": "lecture-designer",
+      "path": "plugins/lecture-designer/skills/lecture-designer",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/lecture-designer/skills/lecture-designer",
+      "description": ""
+    },
+    {
+      "name": "lit-search",
+      "path": "plugins/lit-search/skills/lit-search",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/lit-search/skills/lit-search",
+      "description": ""
+    },
+    {
+      "name": "lit-writeup",
+      "path": "plugins/lit-writeup/skills/lit-writeup",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/lit-writeup/skills/lit-writeup",
+      "description": ""
+    },
+    {
+      "name": "methods-writer",
+      "path": "plugins/methods-writer/skills/methods-writer",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/methods-writer/skills/methods-writer",
+      "description": ""
+    },
+    {
+      "name": "r-analyst",
+      "path": "plugins/r-analyst/skills/r-analyst",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/r-analyst/skills/r-analyst",
+      "description": ""
+    },
+    {
+      "name": "revision-coordinator",
+      "path": "plugins/revision-coordinator/skills/revision-coordinator",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/revision-coordinator/skills/revision-coordinator",
+      "description": ""
+    },
+    {
+      "name": "stata-analyst",
+      "path": "plugins/stata-analyst/skills/stata-analyst",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/stata-analyst/skills/stata-analyst",
+      "description": ""
+    },
+    {
+      "name": "text-analyst",
+      "path": "plugins/text-analyst/skills/text-analyst",
+      "github_url": "https://github.com/nealcaren/social-data-analysis/tree/main/plugins/text-analyst/skills/text-analyst",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nealcaren/social-data-analysis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:39:07Z"
+}
