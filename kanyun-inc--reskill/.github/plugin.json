@@ -1,0 +1,30 @@
+{
+  "name": "kanyun-inc--reskill",
+  "displayName": "reskill",
+  "description": "reskill - brings the npm experience to AI agent skills.",
+  "version": "1.0.0",
+  "author": "kanyun-inc",
+  "homepage": "https://github.com/kanyun-inc/reskill",
+  "skills": [
+    {
+      "name": "code-confidence-map",
+      "description": ""
+    },
+    {
+      "name": "find-skills",
+      "description": ""
+    },
+    {
+      "name": "reskill-usage",
+      "description": ""
+    },
+    {
+      "name": "skill-sync-checker",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding-guardian",
+      "description": ""
+    }
+  ]
+}
