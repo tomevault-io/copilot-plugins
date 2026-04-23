@@ -1,0 +1,9 @@
+{
+  "name": "bedrocksharp--bedrock-protocol",
+  "displayName": "bedrock-protocol",
+  "description": "An C# implementation of the Minecraft: Bedrock Edition network protocol.",
+  "version": "1.0.0",
+  "author": "BedrockSharp",
+  "homepage": "https://github.com/BedrockSharp/bedrock-protocol",
+  "skills": []
+}
