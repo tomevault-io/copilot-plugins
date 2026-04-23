@@ -1,0 +1,62 @@
+## notion-d1-worker
+
+> - **Simplicity First:** Keep the implementation lean without over-engineering or excessive layering.
+
+## Core Principles
+- **Simplicity First:** Keep the implementation lean without over-engineering or excessive layering.
+- **Direct Integrations:** Interact directly with Cloudflare D1 and the Notion API—avoid unnecessary abstractions.
+- **Cost Efficiency:** Operate strictly within Cloudflare's free quota, ensuring that all integrations and usage remain within the free tier limits.
+
+## Application Logic
+- **Single Responsibility:** Write your worker logic to handle tasks directly; let the worker process requests and execute core business rules.
+- **Minimal Overhead:** Implement integrations and utilities inline or as simple helper functions to reduce complexity.
+
+## Configuration & Environment
+- **Typed Configurations:** Use environment variables for sensitive data, with clear TypeScript definitions.
+- **Direct Usage:** Access configurations directly within your worker logic to avoid extra configuration layers.
+- **Free Quota Awareness:** Design configuration settings with the constraints of Cloudflare's free quota in mind.
+
+## Type Management
+- **Centralize Types:** Define and reuse TypeScript types and interfaces for external API responses (e.g., Notion) and database records (Cloudflare D1).
+- **Type Safety:** Leverage TypeScript to catch issues early and ensure consistency without adding extra abstraction layers.
+
+## Integration Strategies
+- **Notion API:** Handle API calls and responses directly, ensuring rate limits and error scenarios are managed within the core logic.
+- **Cloudflare D1:** Interact with the database using straightforward queries; focus on performance and simplicity in data operations.
+- **Quota Consideration:** Monitor and optimize API calls and database operations to stay within the Cloudflare free tier limits.
+
+## Error Handling & Utilities
+- **Streamlined Error Handling:** Use simple, centralized error management strategies that fit the lightweight nature of the worker.
+- **Reusable Helpers:** Implement only the essential utility functions (e.g., logging, basic data transformations) to support the main logic.
+
+## Testing
+- **Integration Testing Only:** Only integration tests are allowed. Unit tests, end-to-end tests, and other test types are strictly prohibited.
+- **Real Data Sources:** All tests must use actual resources (D1, R2, Notion) - no mocking or fake data is allowed.
+- **Service Coverage:** Tests should aim to cover all services used in workflows, though formal coverage reporting is not required.
+- **Write Operation Safety:**
+  - Create new test data for write operations
+  - Delete test data after test completion
+  - Never modify existing production data
+  - Never use delete-all or flush-all operations before tests
+- **Data Integrity:**
+  - Each test should be self-contained with its own test data
+  - Clean up all test data after test completion
+  - Ensure test data is clearly identifiable (e.g., with test_ prefix)
+- **Resource Consideration:**
+  - Be mindful of API rate limits when testing
+  - Consider Cloudflare's free tier limitations in test design
+  - Optimize test execution to minimize resource usage
+
+## Overall Guidelines
+- **Keep It Simple:** Avoid over-designing the project. Embrace the straightforward nature of Cloudflare Workers and Bun to keep the codebase maintainable and efficient.
+- **Focus on Performance:** Prioritize fast execution and low latency by reducing unnecessary dependencies and processing layers.
+- **Consistency:** Maintain a consistent approach to types, configurations, and error handling throughout the project.
+- **Free Tier Compliance:** Constantly consider Cloudflare's free quota limitations in every aspect of design and implementation.
+
+## Note
+- Every time when you want to create something new, check the codebaese first to avoid duplications.
+- Every time when you adding or updating code, fix all the lint errors before you finish.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/tonglam) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
