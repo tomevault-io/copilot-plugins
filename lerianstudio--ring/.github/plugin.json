@@ -1,0 +1,9 @@
+{
+  "name": "lerianstudio--ring",
+  "displayName": "ring",
+  "description": "89 skills and 38 specialized agents that enforce proven engineering practices for AI-assisted development. TDD, systematic debugging, parallel code review, and 10-gate development cycles \u2014 as a Claude",
+  "version": "1.0.0",
+  "author": "LerianStudio",
+  "homepage": "https://github.com/LerianStudio/ring",
+  "skills": []
+}
