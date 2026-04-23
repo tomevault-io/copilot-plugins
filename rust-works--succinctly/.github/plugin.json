@@ -1,0 +1,46 @@
+{
+  "name": "rust-works--succinctly",
+  "displayName": "succinctly",
+  "description": "Succinct data structures",
+  "version": "1.0.0",
+  "author": "rust-works",
+  "homepage": "https://github.com/rust-works/succinctly",
+  "skills": [
+    {
+      "name": "benchmark-docs",
+      "description": ""
+    },
+    {
+      "name": "bit-optimization",
+      "description": ""
+    },
+    {
+      "name": "commit-msg",
+      "description": ""
+    },
+    {
+      "name": "json-semi-indexing",
+      "description": ""
+    },
+    {
+      "name": "markdown-tables",
+      "description": ""
+    },
+    {
+      "name": "simd-optimization",
+      "description": ""
+    },
+    {
+      "name": "skill-writing",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "yaml-semi-indexing",
+      "description": ""
+    }
+  ]
+}
