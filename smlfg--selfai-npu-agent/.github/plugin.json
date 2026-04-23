@@ -1,0 +1,9 @@
+{
+  "name": "smlfg--selfai-npu-agent",
+  "displayName": "SelfAi-NPU-AGENT",
+  "description": "SelfAi-NPU-AGENT",
+  "version": "1.0.0",
+  "author": "smlfg",
+  "homepage": "https://github.com/smlfg/SelfAi-NPU-AGENT",
+  "skills": []
+}
