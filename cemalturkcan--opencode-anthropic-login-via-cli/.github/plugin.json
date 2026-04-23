@@ -1,0 +1,9 @@
+{
+  "name": "cemalturkcan--opencode-anthropic-login-via-cli",
+  "displayName": "opencode-anthropic-login-via-cli",
+  "description": "OpenCode plugin for using Anthropic models with your Claude Pro/Max subscription",
+  "version": "1.0.0",
+  "author": "cemalturkcan",
+  "homepage": "https://github.com/cemalturkcan/opencode-anthropic-login-via-cli",
+  "skills": []
+}
