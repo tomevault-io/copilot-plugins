@@ -1,6 +1,6 @@
 # smith
 
-> Tome by [norbu09](https://github.com/norbu09/smith) — distributed by [TomeVault](https://tomevault.io/claim/norbu09)
+> Tome by [norbu09](https://github.com/norbu09/smith) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [norbu09/smith](https://github.com/no
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/norbu09)
+From [norbu09/smith](https://github.com/norbu09/smith) — a repo with 0+ stars on GitHub.
 
 ---
 
