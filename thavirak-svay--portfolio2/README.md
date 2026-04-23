@@ -1,6 +1,6 @@
-# portfolio2
+# AI instruction files for portfolio2
 
-> Config by [thavirak-svay](https://github.com/thavirak-svay/portfolio2) — distributed by [TomeVault](https://tomevault.io/claim/thavirak-svay)
+> Sourced from [thavirak-svay/portfolio2](https://github.com/thavirak-svay/portfolio2) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [thavirak-svay/portfolio2](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/thavirak-svay](https://tomevault.io/claim/thavirak-svay)
+From [thavirak-svay/portfolio2](https://github.com/thavirak-svay/portfolio2) — a repo with 0+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/thavirak-svay) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install thavirak-svay/portfolio2
+```
+Source: [github.com/thavirak-svay/portfolio2](https://github.com/thavirak-svay/portfolio2).
+
+<!-- genome:a-i-s -->
