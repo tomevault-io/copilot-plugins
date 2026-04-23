@@ -1,0 +1,14 @@
+{
+  "name": "lynx-family--lynx-ui",
+  "displayName": "lynx-ui",
+  "description": "Out-of-the-box Lynx Component Library",
+  "version": "1.0.0",
+  "author": "lynx-family",
+  "homepage": "https://github.com/lynx-family/lynx-ui",
+  "skills": [
+    {
+      "name": "lynx-ui-lazy-component",
+      "description": ""
+    }
+  ]
+}
