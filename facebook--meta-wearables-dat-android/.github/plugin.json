@@ -1,0 +1,9 @@
+{
+  "name": "facebook--meta-wearables-dat-android",
+  "displayName": "meta-wearables-dat-android",
+  "description": "Meta Wearables Device Access Toolkit for Android",
+  "version": "1.0.0",
+  "author": "facebook",
+  "homepage": "https://github.com/facebook/meta-wearables-dat-android",
+  "skills": []
+}
