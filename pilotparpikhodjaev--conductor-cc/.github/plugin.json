@@ -1,0 +1,14 @@
+{
+  "name": "pilotparpikhodjaev--conductor-cc",
+  "displayName": "conductor_cc",
+  "description": "Conductor brings context-driven development to Claude Code. It turns your workflow into a disciplined lifecycle: Context -> Spec and Plan -> Implement. The result is deliberate, reviewable work that s",
+  "version": "1.0.0",
+  "author": "pilotparpikhodjaev",
+  "homepage": "https://github.com/pilotparpikhodjaev/conductor_cc",
+  "skills": [
+    {
+      "name": "style-guide",
+      "description": ""
+    }
+  ]
+}
