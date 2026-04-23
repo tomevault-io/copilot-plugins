@@ -1,6 +1,6 @@
-# quran-labs — distributed by TomeVault
+# quran-labs
 
-> Originally from [muhajirdev/quran-labs](https://github.com/muhajirdev/quran-labs). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [muhajirdev/quran-labs](https://github.com/muhajirdev/quran-labs) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [muhajirdev/quran-labs](https://githu
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/muhajirdev)
+From [muhajirdev/quran-labs](https://github.com/muhajirdev/quran-labs) — a repo with 0+ stars on GitHub.
 
 ---
 
