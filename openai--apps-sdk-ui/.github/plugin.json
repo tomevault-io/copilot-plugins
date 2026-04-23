@@ -1,0 +1,9 @@
+{
+  "name": "openai--apps-sdk-ui",
+  "displayName": "apps-sdk-ui",
+  "description": "apps-sdk-ui",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/apps-sdk-ui",
+  "skills": []
+}
