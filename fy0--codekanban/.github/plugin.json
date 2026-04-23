@@ -1,0 +1,9 @@
+{
+  "name": "fy0--codekanban",
+  "displayName": "CodeKanban",
+  "description": "Manage all your terminals and ai coding agents from one unified page.",
+  "version": "1.0.0",
+  "author": "fy0",
+  "homepage": "https://github.com/fy0/CodeKanban",
+  "skills": []
+}
