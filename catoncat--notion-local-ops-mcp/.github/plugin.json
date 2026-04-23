@@ -1,0 +1,9 @@
+{
+  "name": "catoncat--notion-local-ops-mcp",
+  "displayName": "notion-local-ops-mcp",
+  "description": "Use Notion AI with your local files, shell, and fallback local agents.",
+  "version": "1.0.0",
+  "author": "catoncat",
+  "homepage": "https://github.com/catoncat/notion-local-ops-mcp",
+  "skills": []
+}
