@@ -1,0 +1,9 @@
+{
+  "name": "jlynx--browsdr",
+  "displayName": "BrowSDR",
+  "description": "Web-Based SDR Receiver",
+  "version": "1.0.0",
+  "author": "jLynx",
+  "homepage": "https://github.com/jLynx/BrowSDR",
+  "skills": []
+}
