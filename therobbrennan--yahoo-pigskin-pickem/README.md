@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [TheRobBrennan/yahoo-pigskin-pickem](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/TheRobBrennan)
+From [TheRobBrennan/yahoo-pigskin-pickem](https://github.com/TheRobBrennan/yahoo-pigskin-pickem) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/TheRobBrennan) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
