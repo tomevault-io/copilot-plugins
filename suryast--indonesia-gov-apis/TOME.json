@@ -1,0 +1,44 @@
+{
+  "name": "indonesia-gov-apis",
+  "owner": "suryast",
+  "repo": "indonesia-gov-apis",
+  "description": "\ud83c\uddee\ud83c\udde9 50+ Indonesian Government APIs & Data Sources \u2014 BPS, OJK, BPJPH, BPOM, Bank Indonesia, IDX, BMKG + MCP servers. Python examples, scraping patterns, and practical gotchas. It's very challenging to keep up with all the breaking and blocking changes of Indonesian government APIs and digital resources. Always verify and test rigorously.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/suryast/indonesia-gov-apis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T17:13:52Z"
+}
