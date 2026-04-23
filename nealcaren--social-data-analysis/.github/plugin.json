@@ -1,0 +1,66 @@
+{
+  "name": "nealcaren--social-data-analysis",
+  "displayName": "social-data-analysis",
+  "description": "Claude Code plugins for quantitative and qualitative sociological research",
+  "version": "1.0.0",
+  "author": "nealcaren",
+  "homepage": "https://github.com/nealcaren/social-data-analysis",
+  "skills": [
+    {
+      "name": "abductive-analyst",
+      "description": ""
+    },
+    {
+      "name": "case-justification",
+      "description": ""
+    },
+    {
+      "name": "dag-development",
+      "description": ""
+    },
+    {
+      "name": "genre-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "interview-analyst",
+      "description": ""
+    },
+    {
+      "name": "interview-writeup",
+      "description": ""
+    },
+    {
+      "name": "lecture-designer",
+      "description": ""
+    },
+    {
+      "name": "lit-search",
+      "description": ""
+    },
+    {
+      "name": "lit-writeup",
+      "description": ""
+    },
+    {
+      "name": "methods-writer",
+      "description": ""
+    },
+    {
+      "name": "r-analyst",
+      "description": ""
+    },
+    {
+      "name": "revision-coordinator",
+      "description": ""
+    },
+    {
+      "name": "stata-analyst",
+      "description": ""
+    },
+    {
+      "name": "text-analyst",
+      "description": ""
+    }
+  ]
+}
