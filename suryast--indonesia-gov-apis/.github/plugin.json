@@ -1,0 +1,9 @@
+{
+  "name": "suryast--indonesia-gov-apis",
+  "displayName": "indonesia-gov-apis",
+  "description": "\ud83c\uddee\ud83c\udde9 50+ Indonesian Government APIs & Data Sources \u2014 BPS, OJK, BPJPH, BPOM, Bank Indonesia, IDX, BMKG + MCP servers. Python examples, scraping patterns, and practical gotchas. It's very challenging to k",
+  "version": "1.0.0",
+  "author": "suryast",
+  "homepage": "https://github.com/suryast/indonesia-gov-apis",
+  "skills": []
+}
