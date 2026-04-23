@@ -1,0 +1,9 @@
+{
+  "name": "auriti-labs--geo-optimizer-skill",
+  "displayName": "geo-optimizer-skill",
+  "description": "GEO (Generative Engine Optimization) toolkit \u2014 audit, optimize, and make websites visible to AI search engines (ChatGPT, Perplexity, Claude, Gemini). Based on Princeton KDD 2024 research.",
+  "version": "1.0.0",
+  "author": "Auriti-Labs",
+  "homepage": "https://github.com/Auriti-Labs/geo-optimizer-skill",
+  "skills": []
+}
