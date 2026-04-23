@@ -1,0 +1,9 @@
+{
+  "name": "mo-tunn--openguider",
+  "displayName": "OpenGuider",
+  "description": "An AI companion that lives on your desktop - OpenGuider watches your screen, listens to your voice, and guides every step with clear actions.",
+  "version": "1.0.0",
+  "author": "mo-tunn",
+  "homepage": "https://github.com/mo-tunn/OpenGuider",
+  "skills": []
+}
