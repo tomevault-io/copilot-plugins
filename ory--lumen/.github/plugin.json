@@ -1,0 +1,9 @@
+{
+  "name": "ory--lumen",
+  "displayName": "lumen",
+  "description": "Reduce Claude Code, Codex, OpenCode wall clock and token use by 50% with open source, local semantic search. Works for small and large codebases and monorepos! Enterprise-ready and fully compliant via",
+  "version": "1.0.0",
+  "author": "ory",
+  "homepage": "https://github.com/ory/lumen",
+  "skills": []
+}
