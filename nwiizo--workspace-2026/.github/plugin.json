@@ -1,0 +1,14 @@
+{
+  "name": "nwiizo--workspace-2026",
+  "displayName": "workspace_2026",
+  "description": "\ud83d\udee0\ufe0f Build. Learn. Ship. (and mass produce it.) \u2014 Systems programming, distributed systems, and AI infrastructure.",
+  "version": "1.0.0",
+  "author": "nwiizo",
+  "homepage": "https://github.com/nwiizo/workspace_2026",
+  "skills": [
+    {
+      "name": "memory-optimizer",
+      "description": ""
+    }
+  ]
+}
