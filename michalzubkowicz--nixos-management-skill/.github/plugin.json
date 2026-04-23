@@ -1,0 +1,9 @@
+{
+  "name": "michalzubkowicz--nixos-management-skill",
+  "displayName": "nixos-management-skill",
+  "description": "AI Agent Skills for NixOS generated from docs and websites with best practices",
+  "version": "1.0.0",
+  "author": "michalzubkowicz",
+  "homepage": "https://github.com/michalzubkowicz/nixos-management-skill",
+  "skills": []
+}
