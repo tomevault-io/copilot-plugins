@@ -1,0 +1,9 @@
+{
+  "name": "pass-agent--loomkin",
+  "displayName": "loomkin",
+  "description": "What if AI agents could form teams as fluidly as humans? Spawn specialists in milliseconds, share discoveries in real-time, review each other's work, and remember everything across sessions. Watch it ",
+  "version": "1.0.0",
+  "author": "pass-agent",
+  "homepage": "https://github.com/pass-agent/loomkin",
+  "skills": []
+}
