@@ -1,0 +1,9 @@
+{
+  "name": "agent-field--agentfield",
+  "displayName": "agentfield",
+  "description": "Build, run and scale AI agents like API and microservices - observable,auditable and identity-aware from day one.",
+  "version": "1.0.0",
+  "author": "Agent-Field",
+  "homepage": "https://github.com/Agent-Field/agentfield",
+  "skills": []
+}
