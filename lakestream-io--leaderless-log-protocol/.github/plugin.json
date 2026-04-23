@@ -1,0 +1,9 @@
+{
+  "name": "lakestream-io--leaderless-log-protocol",
+  "displayName": "leaderless-log-protocol",
+  "description": "The spec of leaderless log protocol used in Ursa",
+  "version": "1.0.0",
+  "author": "lakestream-io",
+  "homepage": "https://github.com/lakestream-io/leaderless-log-protocol",
+  "skills": []
+}
