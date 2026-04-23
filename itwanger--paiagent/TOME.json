@@ -1,0 +1,44 @@
+{
+  "name": "PaiAgent",
+  "owner": "itwanger",
+  "repo": "PaiAgent",
+  "description": "\ud83d\udd25\u8f7b\u91cf\u7ea7\u7684AI\u5de5\u4f5c\u6d41\u7f16\u6392\u7cfb\u7edf\uff0c\u7c7b\u4f3cdify\u3001n8n\uff0c\u5168\u7a0b\u4f7f\u7528Vibe Coding\uff0cAI\u5de5\u5177\u4e3aQoder+CLI\u3002\u6d89\u53ca\u5230\u7684\u6280\u672f\u6808\u5305\u62ecSpringAI\u3001LangGraph4J\u3001SSE\u3001MinIO\u3001DAG\u81ea\u5b9a\u5f15\u64ce\u7b49\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/itwanger/PaiAgent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T00:07:19Z"
+}
