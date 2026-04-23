@@ -1,6 +1,6 @@
-# SQL.txt — distributed by TomeVault
+# SQL.txt
 
-> Originally from [rhartness/SQL.txt](https://github.com/rhartness/SQL.txt). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [rhartness/SQL.txt](https://github.com/rhartness/SQL.txt) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [rhartness/SQL.txt](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rhartness)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rhartness/SQL.txt](https://github.com/rhartness/SQL.txt)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/rhartness) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
