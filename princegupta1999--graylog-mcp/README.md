@@ -1,6 +1,6 @@
 # graylog-mcp
 
-> Tome by [PrinceGupta1999](https://github.com/PrinceGupta1999/graylog-mcp) — distributed by [TomeVault](https://tomevault.io/claim/PrinceGupta1999)
+> Tome by [PrinceGupta1999](https://github.com/PrinceGupta1999/graylog-mcp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [PrinceGupta1999/graylog-mcp](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/PrinceGupta1999)
+From [PrinceGupta1999/graylog-mcp](https://github.com/PrinceGupta1999/graylog-mcp) — a repo with 0+ stars on GitHub.
 
 ---
 
