@@ -1,7 +1,7 @@
 {
   "name": "asakin--llm-context-base",
   "displayName": "llm-context-base",
-  "description": "llm-context-base",
+  "description": "A git template for building your own LLM-powered personal wiki. Training period, metadata standard, lint system included. Clone and go.",
   "version": "1.0.0",
   "author": "asakin",
   "homepage": "https://github.com/asakin/llm-context-base",
