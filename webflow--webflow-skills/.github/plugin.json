@@ -1,0 +1,50 @@
+{
+  "name": "webflow--webflow-skills",
+  "displayName": "webflow-skills",
+  "description": "Official Webflow Agent Skills",
+  "version": "1.0.0",
+  "author": "webflow",
+  "homepage": "https://github.com/webflow/webflow-skills",
+  "skills": [
+    {
+      "name": "accessibility-audit",
+      "description": ""
+    },
+    {
+      "name": "cms-best-practices",
+      "description": ""
+    },
+    {
+      "name": "link-checker",
+      "description": ""
+    },
+    {
+      "name": "custom-code-management",
+      "description": ""
+    },
+    {
+      "name": "cms-collection-setup",
+      "description": ""
+    },
+    {
+      "name": "asset-audit",
+      "description": ""
+    },
+    {
+      "name": "safe-publish",
+      "description": ""
+    },
+    {
+      "name": "site-audit",
+      "description": ""
+    },
+    {
+      "name": "bulk-cms-update",
+      "description": ""
+    },
+    {
+      "name": "flowkit-naming",
+      "description": ""
+    }
+  ]
+}
