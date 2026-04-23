@@ -1,0 +1,9 @@
+{
+  "name": "sopaco--cortex-mem",
+  "displayName": "cortex-mem",
+  "description": "\ud83e\udde0 The production-ready cognitive foundation for autonomous systems such as OpenClaw and Embodied-AI. For memory management, from extraction and search to automated optimization, with SKILL, CLI, API, ",
+  "version": "1.0.0",
+  "author": "sopaco",
+  "homepage": "https://github.com/sopaco/cortex-mem",
+  "skills": []
+}
