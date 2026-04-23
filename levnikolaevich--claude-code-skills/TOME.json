@@ -4,7 +4,7 @@
   "repo": "claude-code-skills",
   "description": "Plugin suite + bundled MCP servers for Claude Code. Full delivery lifecycle: Agile pipeline with multi-model AI review, project bootstrap, documentation generation, codebase audits, performance optimization, community workflows. Includes hex-line (hash-verified editing), hex-graph (code knowledge graph), and hex-ssh (remote SSH) MCP servers.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/levnikolaevich/claude-code-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T01:46:08Z"
+  "distributed_at": "2026-04-23T06:01:54Z"
 }
