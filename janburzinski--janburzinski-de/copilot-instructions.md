@@ -1,0 +1,145 @@
+## janburzinski-de
+
+> File naming and organization conventions
+
+
+# File Naming and Organization
+
+## File Naming Conventions
+
+### Always Use kebab-case
+- **Components**: `BackgroundEffect.svelte`, `Navbar.svelte`
+- **Pages**: `+page.svelte`, `+layout.svelte`
+- **Directories**: `datenschutz/`, `impressum/`, `kontakt/`
+- **Assets**: `janbewerbungsbild.jpg`, `unterschrift-website.svg`
+- **Config Files**: `svelte.config.js`, `vite.config.ts`
+
+### File Extensions
+- **Svelte Components**: `.svelte`
+- **TypeScript**: `.ts`, `.d.ts`
+- **JavaScript**: `.js`, `.mjs`
+- **Markdown**: `.md`, `.mdx` (with mdsvex)
+- **Images**: `.jpg`, `.png`, `.svg`, `.webp`, `.avif`
+- **CSS**: `.css` (though styles are typically in `.svelte` files)
+
+## Directory Structure
+
+### Routes Organization
+```
+src/routes/
+├── +layout.svelte          # Root layout
+├── +layout.ts             # Layout data loading
+├── +page.svelte           # Homepage
+├── +error.svelte          # Error page
+├── datenschutz/           # Privacy policy (German)
+│   └── +page.svelte
+├── impressum/             # Legal notice (German)
+│   └── +page.svelte
+├── kontakt/               # Contact page
+│   └── +page.svelte
+├── projekte/              # Projects showcase
+│   └── +page.svelte
+├── resume/                # Resume/CV page
+│   └── +page.svelte
+└── sitemap.xml/           # SEO sitemap
+    └── +server.ts
+```
+
+### Components Organization
+```
+src/lib/components/
+├── BackgroundEffect.svelte # Visual effects
+├── Footer.svelte          # Site footer
+├── Navbar.svelte          # Main navigation
+└── Sidebar.svelte         # Mobile sidebar
+```
+
+### Static Assets Organization
+```
+static/
+├── bj_favicon.svg         # Favicon variants
+├── fb_favicon.svg
+├── favicon.png
+├── janbewerbungsbild.jpg  # Profile images
+├── janburzinski_web_20_05_2025.png
+├── fitbylinus_web_20_05_2025.png
+├── private_kant_schule.png
+├── tu_berlin_logo.png     # Logos
+├── unterschrift-website.svg # Signature
+└── robots.txt             # SEO files
+```
+
+## SvelteKit File Conventions
+
+### Special Files
+- **`+page.svelte`**: Page components
+- **`+page.ts`**: Page data loading
+- **`+page.server.ts`**: Server-side page logic
+- **`+layout.svelte`**: Layout components
+- **`+layout.ts`**: Layout data loading
+- **`+layout.server.ts`**: Server-side layout logic
+- **`+error.svelte`**: Error page components
+- **`+server.ts`**: API endpoints
+
+### Component Naming
+- Use **PascalCase** for component file names
+- Use **descriptive names**: `BackgroundEffect.svelte`, not `Bg.svelte`
+- Use **functional names**: `Navbar.svelte`, `Footer.svelte`
+
+### Asset Naming
+- Use **descriptive names**: `janbewerbungsbild.jpg` (profile picture)
+- Include **context**: `tu_berlin_logo.png` (university logo)
+- Use **consistent suffixes**: `_web_20_05_2025.png` (web version, date)
+- Use **appropriate formats**: `.svg` for icons, `.jpg` for photos
+
+## Import Path Conventions
+
+### SvelteKit Aliases
+```typescript
+// Use $lib alias for components
+import Navbar from '$lib/components/Navbar.svelte';
+
+// Use $app imports for SvelteKit features
+import { afterNavigate } from '$app/navigation';
+
+// Use relative imports for same-level files
+import './styles.css';
+```
+
+### Static Asset Imports
+```svelte
+<!-- In templates, use absolute paths from static/ -->
+<img src="/janbewerbungsbild.jpg" alt="Jan Burzinski" />
+<img src="/unterschrift-website.svg" alt="Signature" />
+```
+
+## Configuration Files
+- **`package.json`**: Project dependencies and scripts
+- **`svelte.config.js`**: SvelteKit configuration
+- **`vite.config.ts`**: Vite build configuration
+- **`tsconfig.json`**: TypeScript configuration
+- **`eslint.config.js`**: ESLint configuration
+
+## Best Practices
+
+### File Organization
+- Keep related files together
+- Use descriptive directory names
+- Separate concerns (components, pages, assets)
+- Follow SvelteKit conventions strictly
+
+### Naming Consistency
+- Always use kebab-case for files and directories
+- Use PascalCase for Svelte components
+- Use camelCase for JavaScript/TypeScript variables
+- Use UPPER_CASE for constants
+
+### Asset Management
+- Optimize images for web (use appropriate formats)
+- Use SVG for icons and logos when possible
+- Include alt text for accessibility
+- Organize by type (images, icons, documents)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/janburzinski) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
