@@ -1,6 +1,6 @@
-# Antd-pro-Templete — distributed by TomeVault
+# Antd-pro-Templete
 
-> Originally from [Qw1koa0423/Antd-pro-Templete](https://github.com/Qw1koa0423/Antd-pro-Templete). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Qw1koa0423/Antd-pro-Templete](https://github.com/Qw1koa0423/Antd-pro-Templete) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Qw1koa0423/Antd-pro-Templete](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Qw1koa0423#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Qw1koa0423/Antd-pro-Templete](https://github.com/Qw1koa0423/Antd-pro-Templete)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Qw1koa0423) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
