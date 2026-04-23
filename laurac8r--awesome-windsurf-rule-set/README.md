@@ -1,6 +1,6 @@
 # awesome-windsurf-rule-set
 
-> Tome by [laurac8r](https://github.com/laurac8r/awesome-windsurf-rule-set) — distributed by [TomeVault](https://tomevault.io/claim/laurac8r)
+> Tome by [laurac8r](https://github.com/laurac8r/awesome-windsurf-rule-set) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [laurac8r/awesome-windsurf-rule-set](
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/laurac8r)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/laurac8r/awesome-windsurf-rule-set](https://github.com/laurac8r/awesome-windsurf-rule-set)
 
 ---
 
