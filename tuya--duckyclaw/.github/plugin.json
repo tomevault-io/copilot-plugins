@@ -1,0 +1,9 @@
+{
+  "name": "tuya--duckyclaw",
+  "displayName": "DuckyClaw",
+  "description": "Edge-Hardware (SoC/MCU) oriented Claw\ud83e\udd9e",
+  "version": "1.0.0",
+  "author": "tuya",
+  "homepage": "https://github.com/tuya/DuckyClaw",
+  "skills": []
+}
