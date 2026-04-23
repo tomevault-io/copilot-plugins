@@ -1,0 +1,46 @@
+{
+  "name": "b33eep--claude-code-setup",
+  "displayName": "claude-code-setup",
+  "description": "Persistent memory system for Claude Code via Markdown. Setup with /init-project, resume with /catchup, wrap with /wrapup. Includes coding standards, MCP   servers, and modular skills. Solves context l",
+  "version": "1.0.0",
+  "author": "b33eep",
+  "homepage": "https://github.com/b33eep/claude-code-setup",
+  "skills": [
+    {
+      "name": "create-slidev-presentation",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "standards-java",
+      "description": ""
+    },
+    {
+      "name": "standards-javascript",
+      "description": ""
+    },
+    {
+      "name": "standards-kotlin",
+      "description": ""
+    },
+    {
+      "name": "standards-python",
+      "description": ""
+    },
+    {
+      "name": "standards-shell",
+      "description": ""
+    },
+    {
+      "name": "standards-typescript",
+      "description": ""
+    },
+    {
+      "name": "user-stories",
+      "description": ""
+    }
+  ]
+}
