@@ -1,0 +1,99 @@
+{
+  "name": "succinctly",
+  "owner": "rust-works",
+  "repo": "succinctly",
+  "description": "Succinct data structures",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "benchmark-docs",
+      "path": ".claude/skills/benchmark-docs",
+      "github_url": "https://github.com/rust-works/succinctly/tree/main/.claude/skills/benchmark-docs",
+      "description": ""
+    },
+    {
+      "name": "bit-optimization",
+      "path": ".claude/skills/bit-optimization",
+      "github_url": "https://github.com/rust-works/succinctly/tree/main/.claude/skills/bit-optimization",
+      "description": ""
+    },
+    {
+      "name": "commit-msg",
+      "path": ".claude/skills/commit-msg",
+      "github_url": "https://github.com/rust-works/succinctly/tree/main/.claude/skills/commit-msg",
+      "description": ""
+    },
+    {
+      "name": "json-semi-indexing",
+      "path": ".claude/skills/json-semi-indexing",
+      "github_url": "https://github.com/rust-works/succinctly/tree/main/.claude/skills/json-semi-indexing",
+      "description": ""
+    },
+    {
+      "name": "markdown-tables",
+      "path": ".claude/skills/markdown-tables",
+      "github_url": "https://github.com/rust-works/succinctly/tree/main/.claude/skills/markdown-tables",
+      "description": ""
+    },
+    {
+      "name": "simd-optimization",
+      "path": ".claude/skills/simd-optimization",
+      "github_url": "https://github.com/rust-works/succinctly/tree/main/.claude/skills/simd-optimization",
+      "description": ""
+    },
+    {
+      "name": "skill-writing",
+      "path": ".claude/skills/skill-writing",
+      "github_url": "https://github.com/rust-works/succinctly/tree/main/.claude/skills/skill-writing",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/rust-works/succinctly/tree/main/.claude/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "yaml-semi-indexing",
+      "path": ".claude/skills/yaml-semi-indexing",
+      "github_url": "https://github.com/rust-works/succinctly/tree/main/.claude/skills/yaml-semi-indexing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rust-works/succinctly",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:35:53Z"
+}
