@@ -1,0 +1,105 @@
+{
+  "name": "webflow-skills",
+  "owner": "webflow",
+  "repo": "webflow-skills",
+  "description": "Official Webflow Agent Skills",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility-audit",
+      "path": "plugins/webflow-skills/skills/accessibility-audit",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/accessibility-audit",
+      "description": ""
+    },
+    {
+      "name": "cms-best-practices",
+      "path": "plugins/webflow-skills/skills/cms-best-practices",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/cms-best-practices",
+      "description": ""
+    },
+    {
+      "name": "link-checker",
+      "path": "plugins/webflow-skills/skills/link-checker",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/link-checker",
+      "description": ""
+    },
+    {
+      "name": "custom-code-management",
+      "path": "plugins/webflow-skills/skills/custom-code-management",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/custom-code-management",
+      "description": ""
+    },
+    {
+      "name": "cms-collection-setup",
+      "path": "plugins/webflow-skills/skills/cms-collection-setup",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/cms-collection-setup",
+      "description": ""
+    },
+    {
+      "name": "asset-audit",
+      "path": "plugins/webflow-skills/skills/asset-audit",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/asset-audit",
+      "description": ""
+    },
+    {
+      "name": "safe-publish",
+      "path": "plugins/webflow-skills/skills/safe-publish",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/safe-publish",
+      "description": ""
+    },
+    {
+      "name": "site-audit",
+      "path": "plugins/webflow-skills/skills/site-audit",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/site-audit",
+      "description": ""
+    },
+    {
+      "name": "bulk-cms-update",
+      "path": "plugins/webflow-skills/skills/bulk-cms-update",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/bulk-cms-update",
+      "description": ""
+    },
+    {
+      "name": "flowkit-naming",
+      "path": "plugins/webflow-skills/skills/flowkit-naming",
+      "github_url": "https://github.com/webflow/webflow-skills/tree/main/plugins/webflow-skills/skills/flowkit-naming",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/webflow/webflow-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:42:04Z"
+}
