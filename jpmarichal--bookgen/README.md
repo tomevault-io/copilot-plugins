@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [JPMarichal/bookgen](https://github.c
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/JPMarichal)
+From [JPMarichal/bookgen](https://github.com/JPMarichal/bookgen) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install JPMarichal/bookgen
 ```
-Or browse all formats at [https://tomevault.io/claim/JPMarichal](https://tomevault.io/claim/JPMarichal).
+Source: [github.com/JPMarichal/bookgen](https://github.com/JPMarichal/bookgen).
 
 <!-- genome:a-i-s -->
