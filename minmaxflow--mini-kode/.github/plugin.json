@@ -1,0 +1,9 @@
+{
+  "name": "minmaxflow--mini-kode",
+  "displayName": "mini-kode",
+  "description": "An educational AI coding agent CLI",
+  "version": "1.0.0",
+  "author": "minmaxflow",
+  "homepage": "https://github.com/minmaxflow/mini-kode",
+  "skills": []
+}
