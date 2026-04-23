@@ -1,6 +1,6 @@
 # ds-registry
 
-> Tome by [vmljg](https://github.com/vmljg/ds-registry) — distributed by [TomeVault](https://tomevault.io/claim/vmljg)
+> Tome by [vmljg](https://github.com/vmljg/ds-registry) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [vmljg/ds-registry](https://github.co
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/vmljg)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/vmljg/ds-registry](https://github.com/vmljg/ds-registry)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install vmljg/ds-registry
 ```
-Or browse all formats at [https://tomevault.io/claim/vmljg](https://tomevault.io/claim/vmljg).
+Source: [github.com/vmljg/ds-registry](https://github.com/vmljg/ds-registry).
 
 <!-- genome:t-i-p -->
