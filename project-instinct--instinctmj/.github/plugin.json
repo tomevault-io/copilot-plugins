@@ -1,0 +1,9 @@
+{
+  "name": "project-instinct--instinctmj",
+  "displayName": "InstinctMJ",
+  "description": "mjlab-native port of InstinctLab for humanoid RL and Project-Instinct workflows.",
+  "version": "1.0.0",
+  "author": "project-instinct",
+  "homepage": "https://github.com/project-instinct/InstinctMJ",
+  "skills": []
+}
