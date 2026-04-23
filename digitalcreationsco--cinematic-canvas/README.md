@@ -5,15 +5,15 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [DigitalCreationsCo/cinematic-canvas](https://github.com/DigitalCreationsCo/cinematic-canvas).
+Original source: `.cursor/rules/*.mdc` in [DigitalCreationsCo/cinematic-canvas](https://github.com/DigitalCreationsCo/cinematic-canvas).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [DigitalCreationsCo/cinematic-canvas](https://github.com/DigitalCreationsCo/cinematic-canvas) — a repo with 0+ stars on GitHub.
 
