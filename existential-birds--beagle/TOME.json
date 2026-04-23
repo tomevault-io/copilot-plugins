@@ -1,0 +1,549 @@
+{
+  "name": "beagle",
+  "owner": "existential-birds",
+  "repo": "beagle",
+  "description": "Claude Code plugin for code review skills and verification workflows. Python, Go, React, FastAPI, BubbleTea, and AI frameworks (Pydantic AI, LangGraph, Vercel AI SDK).",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "langgraph-code-review",
+      "path": "plugins/beagle-ai/skills/langgraph-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/langgraph-code-review",
+      "description": ""
+    },
+    {
+      "name": "tailwind-v4",
+      "path": "plugins/beagle-react/skills/tailwind-v4",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/tailwind-v4",
+      "description": ""
+    },
+    {
+      "name": "react-flow",
+      "path": "plugins/beagle-react/skills/react-flow",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/react-flow",
+      "description": ""
+    },
+    {
+      "name": "react-router-v7",
+      "path": "plugins/beagle-react/skills/react-router-v7",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/react-router-v7",
+      "description": ""
+    },
+    {
+      "name": "react-flow-advanced",
+      "path": "plugins/beagle-react/skills/react-flow-advanced",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/react-flow-advanced",
+      "description": ""
+    },
+    {
+      "name": "fastapi-code-review",
+      "path": "plugins/beagle-python/skills/fastapi-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-python/skills/fastapi-code-review",
+      "description": ""
+    },
+    {
+      "name": "langgraph-architecture",
+      "path": "plugins/beagle-ai/skills/langgraph-architecture",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/langgraph-architecture",
+      "description": ""
+    },
+    {
+      "name": "python-code-review",
+      "path": "plugins/beagle-python/skills/python-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-python/skills/python-code-review",
+      "description": ""
+    },
+    {
+      "name": "react-flow-architecture",
+      "path": "plugins/beagle-react/skills/react-flow-architecture",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/react-flow-architecture",
+      "description": ""
+    },
+    {
+      "name": "swiftui-code-review",
+      "path": "plugins/beagle-ios/skills/swiftui-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/swiftui-code-review",
+      "description": ""
+    },
+    {
+      "name": "vitest-testing",
+      "path": "plugins/beagle-react/skills/vitest-testing",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/vitest-testing",
+      "description": ""
+    },
+    {
+      "name": "ai-elements",
+      "path": "plugins/beagle-react/skills/ai-elements",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/ai-elements",
+      "description": ""
+    },
+    {
+      "name": "docling",
+      "path": "plugins/beagle-core/skills/docling",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-core/skills/docling",
+      "description": ""
+    },
+    {
+      "name": "react-flow-implementation",
+      "path": "plugins/beagle-react/skills/react-flow-implementation",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/react-flow-implementation",
+      "description": ""
+    },
+    {
+      "name": "swift-code-review",
+      "path": "plugins/beagle-ios/skills/swift-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/swift-code-review",
+      "description": ""
+    },
+    {
+      "name": "react-flow-code-review",
+      "path": "plugins/beagle-react/skills/react-flow-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/react-flow-code-review",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-common-pitfalls",
+      "path": "plugins/beagle-ai/skills/pydantic-ai-common-pitfalls",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/pydantic-ai-common-pitfalls",
+      "description": ""
+    },
+    {
+      "name": "shadcn-ui",
+      "path": "plugins/beagle-react/skills/shadcn-ui",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "go-code-review",
+      "path": "plugins/beagle-go/skills/go-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/go-code-review",
+      "description": ""
+    },
+    {
+      "name": "langgraph-implementation",
+      "path": "plugins/beagle-ai/skills/langgraph-implementation",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/langgraph-implementation",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-agent-creation",
+      "path": "plugins/beagle-ai/skills/pydantic-ai-agent-creation",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/pydantic-ai-agent-creation",
+      "description": ""
+    },
+    {
+      "name": "adr-writing",
+      "path": "plugins/beagle-analysis/skills/adr-writing",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-analysis/skills/adr-writing",
+      "description": ""
+    },
+    {
+      "name": "shadcn-code-review",
+      "path": "plugins/beagle-react/skills/shadcn-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/shadcn-code-review",
+      "description": ""
+    },
+    {
+      "name": "sqlalchemy-code-review",
+      "path": "plugins/beagle-python/skills/sqlalchemy-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-python/skills/sqlalchemy-code-review",
+      "description": ""
+    },
+    {
+      "name": "swift-testing-code-review",
+      "path": "plugins/beagle-ios/skills/swift-testing-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/swift-testing-code-review",
+      "description": ""
+    },
+    {
+      "name": "dagre-react-flow",
+      "path": "plugins/beagle-react/skills/dagre-react-flow",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/dagre-react-flow",
+      "description": ""
+    },
+    {
+      "name": "deepagents-architecture",
+      "path": "plugins/beagle-ai/skills/deepagents-architecture",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/deepagents-architecture",
+      "description": ""
+    },
+    {
+      "name": "bubbletea-code-review",
+      "path": "plugins/beagle-go/skills/bubbletea-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/bubbletea-code-review",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-dependency-injection",
+      "path": "plugins/beagle-ai/skills/pydantic-ai-dependency-injection",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/pydantic-ai-dependency-injection",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-testing",
+      "path": "plugins/beagle-ai/skills/pydantic-ai-testing",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/pydantic-ai-testing",
+      "description": ""
+    },
+    {
+      "name": "react-router-code-review",
+      "path": "plugins/beagle-react/skills/react-router-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/react-router-code-review",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-tool-system",
+      "path": "plugins/beagle-ai/skills/pydantic-ai-tool-system",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/pydantic-ai-tool-system",
+      "description": ""
+    },
+    {
+      "name": "swiftdata-code-review",
+      "path": "plugins/beagle-ios/skills/swiftdata-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/swiftdata-code-review",
+      "description": ""
+    },
+    {
+      "name": "zustand-state",
+      "path": "plugins/beagle-react/skills/zustand-state",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-react/skills/zustand-state",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-model-integration",
+      "path": "plugins/beagle-ai/skills/pydantic-ai-model-integration",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/pydantic-ai-model-integration",
+      "description": ""
+    },
+    {
+      "name": "healthkit-code-review",
+      "path": "plugins/beagle-ios/skills/healthkit-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/healthkit-code-review",
+      "description": ""
+    },
+    {
+      "name": "watchos-code-review",
+      "path": "plugins/beagle-ios/skills/watchos-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/watchos-code-review",
+      "description": ""
+    },
+    {
+      "name": "github-projects",
+      "path": "plugins/beagle-core/skills/github-projects",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-core/skills/github-projects",
+      "description": ""
+    },
+    {
+      "name": "cloudkit-code-review",
+      "path": "plugins/beagle-ios/skills/cloudkit-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/cloudkit-code-review",
+      "description": ""
+    },
+    {
+      "name": "llm-artifacts-detection",
+      "path": "plugins/beagle-core/skills/llm-artifacts-detection",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-core/skills/llm-artifacts-detection",
+      "description": ""
+    },
+    {
+      "name": "vercel-ai-sdk",
+      "path": "plugins/beagle-ai/skills/vercel-ai-sdk",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/vercel-ai-sdk",
+      "description": ""
+    },
+    {
+      "name": "llm-judge",
+      "path": "plugins/beagle-analysis/skills/llm-judge",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-analysis/skills/llm-judge",
+      "description": ""
+    },
+    {
+      "name": "prometheus-go-code-review",
+      "path": "plugins/beagle-go/skills/prometheus-go-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/prometheus-go-code-review",
+      "description": ""
+    },
+    {
+      "name": "review-feedback-schema",
+      "path": "plugins/beagle-core/skills/review-feedback-schema",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-core/skills/review-feedback-schema",
+      "description": ""
+    },
+    {
+      "name": "widgetkit-code-review",
+      "path": "plugins/beagle-ios/skills/widgetkit-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/widgetkit-code-review",
+      "description": ""
+    },
+    {
+      "name": "receive-feedback",
+      "path": "plugins/beagle-core/skills/receive-feedback",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-core/skills/receive-feedback",
+      "description": ""
+    },
+    {
+      "name": "docs-style",
+      "path": "plugins/beagle-docs/skills/docs-style",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-docs/skills/docs-style",
+      "description": ""
+    },
+    {
+      "name": "combine-code-review",
+      "path": "plugins/beagle-ios/skills/combine-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/combine-code-review",
+      "description": ""
+    },
+    {
+      "name": "howto-docs",
+      "path": "plugins/beagle-docs/skills/howto-docs",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-docs/skills/howto-docs",
+      "description": ""
+    },
+    {
+      "name": "12-factor-apps",
+      "path": "plugins/beagle-analysis/skills/12-factor-apps",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-analysis/skills/12-factor-apps",
+      "description": ""
+    },
+    {
+      "name": "agent-architecture-analysis",
+      "path": "plugins/beagle-analysis/skills/agent-architecture-analysis",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-analysis/skills/agent-architecture-analysis",
+      "description": ""
+    },
+    {
+      "name": "app-intents-code-review",
+      "path": "plugins/beagle-ios/skills/app-intents-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/app-intents-code-review",
+      "description": ""
+    },
+    {
+      "name": "deepagents-code-review",
+      "path": "plugins/beagle-ai/skills/deepagents-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/deepagents-code-review",
+      "description": ""
+    },
+    {
+      "name": "deepagents-implementation",
+      "path": "plugins/beagle-ai/skills/deepagents-implementation",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ai/skills/deepagents-implementation",
+      "description": ""
+    },
+    {
+      "name": "elixir-code-review",
+      "path": "plugins/beagle-elixir/skills/elixir-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/elixir-code-review",
+      "description": ""
+    },
+    {
+      "name": "elixir-docs-review",
+      "path": "plugins/beagle-elixir/skills/elixir-docs-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/elixir-docs-review",
+      "description": ""
+    },
+    {
+      "name": "elixir-performance-review",
+      "path": "plugins/beagle-elixir/skills/elixir-performance-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/elixir-performance-review",
+      "description": ""
+    },
+    {
+      "name": "elixir-security-review",
+      "path": "plugins/beagle-elixir/skills/elixir-security-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/elixir-security-review",
+      "description": ""
+    },
+    {
+      "name": "elixir-writing-docs",
+      "path": "plugins/beagle-elixir/skills/elixir-writing-docs",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/elixir-writing-docs",
+      "description": ""
+    },
+    {
+      "name": "exdoc-config",
+      "path": "plugins/beagle-elixir/skills/exdoc-config",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/exdoc-config",
+      "description": ""
+    },
+    {
+      "name": "explanation-docs",
+      "path": "plugins/beagle-docs/skills/explanation-docs",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-docs/skills/explanation-docs",
+      "description": ""
+    },
+    {
+      "name": "exunit-code-review",
+      "path": "plugins/beagle-elixir/skills/exunit-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/exunit-code-review",
+      "description": ""
+    },
+    {
+      "name": "go-architect",
+      "path": "plugins/beagle-go/skills/go-architect",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/go-architect",
+      "description": ""
+    },
+    {
+      "name": "go-concurrency-web",
+      "path": "plugins/beagle-go/skills/go-concurrency-web",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/go-concurrency-web",
+      "description": ""
+    },
+    {
+      "name": "go-data-persistence",
+      "path": "plugins/beagle-go/skills/go-data-persistence",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/go-data-persistence",
+      "description": ""
+    },
+    {
+      "name": "go-middleware",
+      "path": "plugins/beagle-go/skills/go-middleware",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/go-middleware",
+      "description": ""
+    },
+    {
+      "name": "go-testing-code-review",
+      "path": "plugins/beagle-go/skills/go-testing-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/go-testing-code-review",
+      "description": ""
+    },
+    {
+      "name": "go-web-expert",
+      "path": "plugins/beagle-go/skills/go-web-expert",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/go-web-expert",
+      "description": ""
+    },
+    {
+      "name": "humanize",
+      "path": "plugins/beagle-docs/skills/humanize",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-docs/skills/humanize",
+      "description": ""
+    },
+    {
+      "name": "liveview-code-review",
+      "path": "plugins/beagle-elixir/skills/liveview-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/liveview-code-review",
+      "description": ""
+    },
+    {
+      "name": "phoenix-code-review",
+      "path": "plugins/beagle-elixir/skills/phoenix-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/phoenix-code-review",
+      "description": ""
+    },
+    {
+      "name": "postgres-code-review",
+      "path": "plugins/beagle-python/skills/postgres-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-python/skills/postgres-code-review",
+      "description": ""
+    },
+    {
+      "name": "pytest-code-review",
+      "path": "plugins/beagle-python/skills/pytest-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-python/skills/pytest-code-review",
+      "description": ""
+    },
+    {
+      "name": "reference-docs",
+      "path": "plugins/beagle-docs/skills/reference-docs",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-docs/skills/reference-docs",
+      "description": ""
+    },
+    {
+      "name": "review-ai-writing",
+      "path": "plugins/beagle-docs/skills/review-ai-writing",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-docs/skills/review-ai-writing",
+      "description": ""
+    },
+    {
+      "name": "review-skill-improver",
+      "path": "plugins/beagle-core/skills/review-skill-improver",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-core/skills/review-skill-improver",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "path": "plugins/beagle-core/skills/review-verification-protocol",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-core/skills/review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "path": "plugins/beagle-go/skills/review-verification-protocol",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "path": "plugins/beagle-python/skills/review-verification-protocol",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-python/skills/review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "path": "plugins/beagle-elixir/skills/review-verification-protocol",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-elixir/skills/review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "path": "plugins/beagle-ios/skills/review-verification-protocol",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "tutorial-docs",
+      "path": "plugins/beagle-docs/skills/tutorial-docs",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-docs/skills/tutorial-docs",
+      "description": ""
+    },
+    {
+      "name": "urlsession-code-review",
+      "path": "plugins/beagle-ios/skills/urlsession-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-ios/skills/urlsession-code-review",
+      "description": ""
+    },
+    {
+      "name": "wish-ssh-code-review",
+      "path": "plugins/beagle-go/skills/wish-ssh-code-review",
+      "github_url": "https://github.com/existential-birds/beagle/tree/main/plugins/beagle-go/skills/wish-ssh-code-review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/existential-birds/beagle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:30:55Z"
+}
