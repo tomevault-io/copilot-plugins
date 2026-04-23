@@ -1,0 +1,9 @@
+{
+  "name": "yzhao062--anywhere-agents",
+  "displayName": "anywhere-agents",
+  "description": "One config to rule all your AI agents: portable (every project, every session), effective (curated writing, routing, skills), and safer (destructive-command guard).",
+  "version": "1.0.0",
+  "author": "yzhao062",
+  "homepage": "https://github.com/yzhao062/anywhere-agents",
+  "skills": []
+}
