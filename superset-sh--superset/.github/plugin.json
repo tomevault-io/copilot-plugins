@@ -1,0 +1,9 @@
+{
+  "name": "superset-sh--superset",
+  "displayName": "superset",
+  "description": "Code Editor for the AI Agents Era - Run an army of Claude Code, Codex, etc. on your machine",
+  "version": "1.0.0",
+  "author": "superset-sh",
+  "homepage": "https://github.com/superset-sh/superset",
+  "skills": []
+}
