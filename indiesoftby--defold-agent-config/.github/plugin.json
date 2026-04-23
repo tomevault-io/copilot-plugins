@@ -1,0 +1,34 @@
+{
+  "name": "indiesoftby--defold-agent-config",
+  "displayName": "defold-agent-config",
+  "description": "An example configuration of AGENTS.md and a set of skills for AI-assisted game development with the https://defold.com engine.",
+  "version": "1.0.0",
+  "author": "indiesoftby",
+  "homepage": "https://github.com/indiesoftby/defold-agent-config",
+  "skills": [
+    {
+      "name": "defold-api-fetch",
+      "description": ""
+    },
+    {
+      "name": "defold-docs-fetch",
+      "description": ""
+    },
+    {
+      "name": "defold-examples-fetch",
+      "description": ""
+    },
+    {
+      "name": "defold-native-extension-editing",
+      "description": ""
+    },
+    {
+      "name": "defold-proto-file-editing",
+      "description": ""
+    },
+    {
+      "name": "defold-skill-maintain",
+      "description": ""
+    }
+  ]
+}
