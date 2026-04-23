@@ -1,0 +1,14 @@
+{
+  "name": "sherifkozman--the-llm-council",
+  "displayName": "the-llm-council",
+  "description": "A Claude Code framework for multi-llm planning and development agents",
+  "version": "1.0.0",
+  "author": "sherifkozman",
+  "homepage": "https://github.com/sherifkozman/the-llm-council",
+  "skills": [
+    {
+      "name": "council",
+      "description": ""
+    }
+  ]
+}
