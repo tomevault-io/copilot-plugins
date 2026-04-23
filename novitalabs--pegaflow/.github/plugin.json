@@ -1,0 +1,14 @@
+{
+  "name": "novitalabs--pegaflow",
+  "displayName": "pegaflow",
+  "description": "High-performance KV cache storage for LLM inference \u2014 GPU offloading, SSD caching, and cross-node sharing via RDMA. Works with vLLM and SGLang.",
+  "version": "1.0.0",
+  "author": "novitalabs",
+  "homepage": "https://github.com/novitalabs/pegaflow",
+  "skills": [
+    {
+      "name": "vllm-async-loading-debug",
+      "description": ""
+    }
+  ]
+}
