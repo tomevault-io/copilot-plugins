@@ -7,14 +7,14 @@ A Model Context Protocol (MCP) server and plugin for Tauri v2 development
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [hypothesi/mcp-server-tauri](https://github.com/hypothesi/mcp-server-tauri).
+Original source: `AGENTS.md` in [hypothesi/mcp-server-tauri](https://github.com/hypothesi/mcp-server-tauri).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [hypothesi/mcp-server-tauri](https://github.com/hypothesi/mcp-server-tauri) — a repo with 182+ stars on GitHub.
