@@ -1,0 +1,62 @@
+{
+  "name": "richtabor--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agent skills I use every day.",
+  "version": "1.0.0",
+  "author": "richtabor",
+  "homepage": "https://github.com/richtabor/agent-skills",
+  "skills": [
+    {
+      "name": "accessibility-review",
+      "description": ""
+    },
+    {
+      "name": "create-prd",
+      "description": ""
+    },
+    {
+      "name": "fresh-eyes",
+      "description": ""
+    },
+    {
+      "name": "humanize",
+      "description": ""
+    },
+    {
+      "name": "motion-design",
+      "description": ""
+    },
+    {
+      "name": "og-images",
+      "description": ""
+    },
+    {
+      "name": "ralph-github-create-issues",
+      "description": ""
+    },
+    {
+      "name": "ralph-github-start-loop",
+      "description": ""
+    },
+    {
+      "name": "ralph-json-start-loop",
+      "description": ""
+    },
+    {
+      "name": "review-agents-md",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "description": ""
+    },
+    {
+      "name": "skill-review",
+      "description": ""
+    },
+    {
+      "name": "technical-writing",
+      "description": ""
+    }
+  ]
+}
