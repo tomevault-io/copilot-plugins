@@ -1,6 +1,6 @@
-# mcp-web — distributed by TomeVault
+# mcp-web
 
-> Originally from [geehexx/mcp-web](https://github.com/geehexx/mcp-web). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [geehexx/mcp-web](https://github.com/geehexx/mcp-web) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [geehexx/mcp-web](https://github.com/
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/geehexx#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/geehexx/mcp-web](https://github.com/geehexx/mcp-web)
 
 ---
 
