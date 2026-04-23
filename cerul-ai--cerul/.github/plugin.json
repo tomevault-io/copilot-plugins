@@ -1,0 +1,9 @@
+{
+  "name": "cerul-ai--cerul",
+  "displayName": "cerul",
+  "description": "The video search layer for AI agents. Search video by meaning \u2014 across speech, visuals, and on-screen text.",
+  "version": "1.0.0",
+  "author": "cerul-ai",
+  "homepage": "https://github.com/cerul-ai/cerul",
+  "skills": []
+}
