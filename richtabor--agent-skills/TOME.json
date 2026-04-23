@@ -1,0 +1,123 @@
+{
+  "name": "agent-skills",
+  "owner": "richtabor",
+  "repo": "agent-skills",
+  "description": "Agent skills I use every day.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility-review",
+      "path": "skills/accessibility-review",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/accessibility-review",
+      "description": ""
+    },
+    {
+      "name": "create-prd",
+      "path": "skills/create-prd",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/create-prd",
+      "description": ""
+    },
+    {
+      "name": "fresh-eyes",
+      "path": "skills/fresh-eyes",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/fresh-eyes",
+      "description": ""
+    },
+    {
+      "name": "humanize",
+      "path": "skills/humanize",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/humanize",
+      "description": ""
+    },
+    {
+      "name": "motion-design",
+      "path": "skills/motion-design",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/motion-design",
+      "description": ""
+    },
+    {
+      "name": "og-images",
+      "path": "skills/og-images",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/og-images",
+      "description": ""
+    },
+    {
+      "name": "ralph-github-create-issues",
+      "path": "skills/ralph-github-create-issues",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/ralph-github-create-issues",
+      "description": ""
+    },
+    {
+      "name": "ralph-github-start-loop",
+      "path": "skills/ralph-github-start-loop",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/ralph-github-start-loop",
+      "description": ""
+    },
+    {
+      "name": "ralph-json-start-loop",
+      "path": "skills/ralph-json-start-loop",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/ralph-json-start-loop",
+      "description": ""
+    },
+    {
+      "name": "review-agents-md",
+      "path": "skills/review-agents-md",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/review-agents-md",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "path": "skills/review-pr",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/review-pr",
+      "description": ""
+    },
+    {
+      "name": "skill-review",
+      "path": "skills/skill-review",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/skill-review",
+      "description": ""
+    },
+    {
+      "name": "technical-writing",
+      "path": "skills/technical-writing",
+      "github_url": "https://github.com/richtabor/agent-skills/tree/main/skills/technical-writing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/richtabor/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:35:05Z"
+}
