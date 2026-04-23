@@ -1,0 +1,9 @@
+{
+  "name": "antropos17--aegis",
+  "displayName": "Aegis",
+  "description": "Open-source EDR for AI agents. Monitor processes, files, network, and behavior of autonomous AI agents.",
+  "version": "1.0.0",
+  "author": "antropos17",
+  "homepage": "https://github.com/antropos17/Aegis",
+  "skills": []
+}
