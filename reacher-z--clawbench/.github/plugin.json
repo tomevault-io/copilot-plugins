@@ -1,0 +1,9 @@
+{
+  "name": "reacher-z--clawbench",
+  "displayName": "ClawBench",
+  "description": "Open-source benchmark for browser AI agents on 153 everyday online tasks across 144 live websites. 5-layer recording + DOM-match + LLM judge. Top score 33.3%.",
+  "version": "1.0.0",
+  "author": "reacher-z",
+  "homepage": "https://github.com/reacher-z/ClawBench",
+  "skills": []
+}
