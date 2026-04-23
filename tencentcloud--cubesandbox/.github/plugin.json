@@ -1,0 +1,9 @@
+{
+  "name": "tencentcloud--cubesandbox",
+  "displayName": "CubeSandbox",
+  "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents.",
+  "version": "1.0.0",
+  "author": "TencentCloud",
+  "homepage": "https://github.com/TencentCloud/CubeSandbox",
+  "skills": []
+}
