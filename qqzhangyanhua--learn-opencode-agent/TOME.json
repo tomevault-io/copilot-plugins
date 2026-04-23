@@ -1,0 +1,44 @@
+{
+  "name": "learn-opencode-agent",
+  "owner": "qqzhangyanhua",
+  "repo": "learn-opencode-agent",
+  "description": "\u672c\u9879\u76ee\u662f\u57fa\u4e8e\u62c6\u89e3opencodex\u5b66\u4e60Agent\u7684\u76f8\u5173\u8d44\u6599",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qqzhangyanhua/learn-opencode-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T12:34:15Z"
+}
