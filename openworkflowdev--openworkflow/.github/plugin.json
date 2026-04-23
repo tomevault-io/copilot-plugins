@@ -1,0 +1,9 @@
+{
+  "name": "openworkflowdev--openworkflow",
+  "displayName": "openworkflow",
+  "description": "Open-source TypeScript framework for building durable, resumable workflows. Supports Node.js and Bun.",
+  "version": "1.0.0",
+  "author": "openworkflowdev",
+  "homepage": "https://github.com/openworkflowdev/openworkflow",
+  "skills": []
+}
