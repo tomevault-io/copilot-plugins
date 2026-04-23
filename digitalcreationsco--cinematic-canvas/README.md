@@ -1,6 +1,6 @@
 # cinematic-canvas
 
-> Tome by [DigitalCreationsCo](https://github.com/DigitalCreationsCo/cinematic-canvas) — distributed by [TomeVault](https://tomevault.io/claim/DigitalCreationsCo)
+> Tome by [DigitalCreationsCo](https://github.com/DigitalCreationsCo/cinematic-canvas) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [DigitalCreationsCo/cinematic-canvas]
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/DigitalCreationsCo)
+From [DigitalCreationsCo/cinematic-canvas](https://github.com/DigitalCreationsCo/cinematic-canvas) — a repo with 0+ stars on GitHub.
 
 ---
 
