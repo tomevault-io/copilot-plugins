@@ -1,0 +1,14 @@
+{
+  "name": "jlevy--markform",
+  "displayName": "markform",
+  "description": "Structured Markdown documents for agents and humans",
+  "version": "1.0.0",
+  "author": "jlevy",
+  "homepage": "https://github.com/jlevy/markform",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
