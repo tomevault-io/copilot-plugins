@@ -1,0 +1,9 @@
+{
+  "name": "heizaheiza--charles-mcp",
+  "displayName": "Charles-mcp",
+  "description": "Charles Proxy MCP server for AI agents with live capture, structured traffic analysis, and agent-friendly tool contracts",
+  "version": "1.0.0",
+  "author": "heizaheiza",
+  "homepage": "https://github.com/heizaheiza/Charles-mcp",
+  "skills": []
+}
