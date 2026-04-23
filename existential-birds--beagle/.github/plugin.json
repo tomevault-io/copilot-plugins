@@ -1,0 +1,346 @@
+{
+  "name": "existential-birds--beagle",
+  "displayName": "beagle",
+  "description": "Claude Code plugin for code review skills and verification workflows. Python, Go, React, FastAPI, BubbleTea, and AI frameworks (Pydantic AI, LangGraph, Vercel AI SDK).",
+  "version": "1.0.0",
+  "author": "existential-birds",
+  "homepage": "https://github.com/existential-birds/beagle",
+  "skills": [
+    {
+      "name": "langgraph-code-review",
+      "description": ""
+    },
+    {
+      "name": "tailwind-v4",
+      "description": ""
+    },
+    {
+      "name": "react-flow",
+      "description": ""
+    },
+    {
+      "name": "react-router-v7",
+      "description": ""
+    },
+    {
+      "name": "react-flow-advanced",
+      "description": ""
+    },
+    {
+      "name": "fastapi-code-review",
+      "description": ""
+    },
+    {
+      "name": "langgraph-architecture",
+      "description": ""
+    },
+    {
+      "name": "python-code-review",
+      "description": ""
+    },
+    {
+      "name": "react-flow-architecture",
+      "description": ""
+    },
+    {
+      "name": "swiftui-code-review",
+      "description": ""
+    },
+    {
+      "name": "vitest-testing",
+      "description": ""
+    },
+    {
+      "name": "ai-elements",
+      "description": ""
+    },
+    {
+      "name": "docling",
+      "description": ""
+    },
+    {
+      "name": "react-flow-implementation",
+      "description": ""
+    },
+    {
+      "name": "swift-code-review",
+      "description": ""
+    },
+    {
+      "name": "react-flow-code-review",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-common-pitfalls",
+      "description": ""
+    },
+    {
+      "name": "shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "go-code-review",
+      "description": ""
+    },
+    {
+      "name": "langgraph-implementation",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-agent-creation",
+      "description": ""
+    },
+    {
+      "name": "adr-writing",
+      "description": ""
+    },
+    {
+      "name": "shadcn-code-review",
+      "description": ""
+    },
+    {
+      "name": "sqlalchemy-code-review",
+      "description": ""
+    },
+    {
+      "name": "swift-testing-code-review",
+      "description": ""
+    },
+    {
+      "name": "dagre-react-flow",
+      "description": ""
+    },
+    {
+      "name": "deepagents-architecture",
+      "description": ""
+    },
+    {
+      "name": "bubbletea-code-review",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-dependency-injection",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-testing",
+      "description": ""
+    },
+    {
+      "name": "react-router-code-review",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-tool-system",
+      "description": ""
+    },
+    {
+      "name": "swiftdata-code-review",
+      "description": ""
+    },
+    {
+      "name": "zustand-state",
+      "description": ""
+    },
+    {
+      "name": "pydantic-ai-model-integration",
+      "description": ""
+    },
+    {
+      "name": "healthkit-code-review",
+      "description": ""
+    },
+    {
+      "name": "watchos-code-review",
+      "description": ""
+    },
+    {
+      "name": "github-projects",
+      "description": ""
+    },
+    {
+      "name": "cloudkit-code-review",
+      "description": ""
+    },
+    {
+      "name": "llm-artifacts-detection",
+      "description": ""
+    },
+    {
+      "name": "vercel-ai-sdk",
+      "description": ""
+    },
+    {
+      "name": "llm-judge",
+      "description": ""
+    },
+    {
+      "name": "prometheus-go-code-review",
+      "description": ""
+    },
+    {
+      "name": "review-feedback-schema",
+      "description": ""
+    },
+    {
+      "name": "widgetkit-code-review",
+      "description": ""
+    },
+    {
+      "name": "receive-feedback",
+      "description": ""
+    },
+    {
+      "name": "docs-style",
+      "description": ""
+    },
+    {
+      "name": "combine-code-review",
+      "description": ""
+    },
+    {
+      "name": "howto-docs",
+      "description": ""
+    },
+    {
+      "name": "12-factor-apps",
+      "description": ""
+    },
+    {
+      "name": "agent-architecture-analysis",
+      "description": ""
+    },
+    {
+      "name": "app-intents-code-review",
+      "description": ""
+    },
+    {
+      "name": "deepagents-code-review",
+      "description": ""
+    },
+    {
+      "name": "deepagents-implementation",
+      "description": ""
+    },
+    {
+      "name": "elixir-code-review",
+      "description": ""
+    },
+    {
+      "name": "elixir-docs-review",
+      "description": ""
+    },
+    {
+      "name": "elixir-performance-review",
+      "description": ""
+    },
+    {
+      "name": "elixir-security-review",
+      "description": ""
+    },
+    {
+      "name": "elixir-writing-docs",
+      "description": ""
+    },
+    {
+      "name": "exdoc-config",
+      "description": ""
+    },
+    {
+      "name": "explanation-docs",
+      "description": ""
+    },
+    {
+      "name": "exunit-code-review",
+      "description": ""
+    },
+    {
+      "name": "go-architect",
+      "description": ""
+    },
+    {
+      "name": "go-concurrency-web",
+      "description": ""
+    },
+    {
+      "name": "go-data-persistence",
+      "description": ""
+    },
+    {
+      "name": "go-middleware",
+      "description": ""
+    },
+    {
+      "name": "go-testing-code-review",
+      "description": ""
+    },
+    {
+      "name": "go-web-expert",
+      "description": ""
+    },
+    {
+      "name": "humanize",
+      "description": ""
+    },
+    {
+      "name": "liveview-code-review",
+      "description": ""
+    },
+    {
+      "name": "phoenix-code-review",
+      "description": ""
+    },
+    {
+      "name": "postgres-code-review",
+      "description": ""
+    },
+    {
+      "name": "pytest-code-review",
+      "description": ""
+    },
+    {
+      "name": "reference-docs",
+      "description": ""
+    },
+    {
+      "name": "review-ai-writing",
+      "description": ""
+    },
+    {
+      "name": "review-skill-improver",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "review-verification-protocol",
+      "description": ""
+    },
+    {
+      "name": "tutorial-docs",
+      "description": ""
+    },
+    {
+      "name": "urlsession-code-review",
+      "description": ""
+    },
+    {
+      "name": "wish-ssh-code-review",
+      "description": ""
+    }
+  ]
+}
