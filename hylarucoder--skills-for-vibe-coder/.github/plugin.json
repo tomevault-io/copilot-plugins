@@ -1,0 +1,22 @@
+{
+  "name": "hylarucoder--skills-for-vibe-coder",
+  "displayName": "skills-for-vibe-coder",
+  "description": "skills-for-vibe-coder",
+  "version": "1.0.0",
+  "author": "hylarucoder",
+  "homepage": "https://github.com/hylarucoder/skills-for-vibe-coder",
+  "skills": [
+    {
+      "name": "ast-grep-rule-crafter",
+      "description": ""
+    },
+    {
+      "name": "clean-code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "doc-consistency-reviewer",
+      "description": ""
+    }
+  ]
+}
