@@ -1,0 +1,63 @@
+{
+  "name": "skills-for-vibe-coder",
+  "owner": "hylarucoder",
+  "repo": "skills-for-vibe-coder",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ast-grep-rule-crafter",
+      "path": "skills/ast-grep-rule-crafter",
+      "github_url": "https://github.com/hylarucoder/skills-for-vibe-coder/tree/main/skills/ast-grep-rule-crafter",
+      "description": ""
+    },
+    {
+      "name": "clean-code-reviewer",
+      "path": "skills/clean-code-reviewer",
+      "github_url": "https://github.com/hylarucoder/skills-for-vibe-coder/tree/main/skills/clean-code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "doc-consistency-reviewer",
+      "path": "skills/doc-consistency-reviewer",
+      "github_url": "https://github.com/hylarucoder/skills-for-vibe-coder/tree/main/skills/doc-consistency-reviewer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hylarucoder/skills-for-vibe-coder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:33:18Z"
+}
