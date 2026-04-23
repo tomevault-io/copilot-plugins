@@ -1,0 +1,9 @@
+{
+  "name": "strands-agents--agent-sop",
+  "displayName": "agent-sop",
+  "description": "Natural language workflows that enable AI agents to perform complex, multi-step tasks with consistency and reliability.",
+  "version": "1.0.0",
+  "author": "strands-agents",
+  "homepage": "https://github.com/strands-agents/agent-sop",
+  "skills": []
+}
