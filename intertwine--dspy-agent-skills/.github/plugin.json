@@ -1,0 +1,9 @@
+{
+  "name": "intertwine--dspy-agent-skills",
+  "displayName": "dspy-agent-skills",
+  "description": "DSPy 3.1.x agent skills + validated end-to-end examples for Claude Code and Codex CLI \u2014 fundamentals, evaluation, GEPA optimization, and RLM. Three reproducible GEPA-improvement demos on free OpenRout",
+  "version": "1.0.0",
+  "author": "intertwine",
+  "homepage": "https://github.com/intertwine/dspy-agent-skills",
+  "skills": []
+}
