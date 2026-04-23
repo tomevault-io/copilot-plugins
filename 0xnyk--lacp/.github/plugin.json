@@ -1,0 +1,9 @@
+{
+  "name": "0xnyk--lacp",
+  "displayName": "lacp",
+  "description": "Control-plane-grade agent harness for Claude, Codex & Hermes: policy gates, verification/evidence loops, memory, and auditable execution.",
+  "version": "1.0.0",
+  "author": "0xNyk",
+  "homepage": "https://github.com/0xNyk/lacp",
+  "skills": []
+}
