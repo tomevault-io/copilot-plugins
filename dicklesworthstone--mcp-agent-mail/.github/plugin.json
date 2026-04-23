@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--mcp-agent-mail",
+  "displayName": "mcp_agent_mail",
+  "description": "Asynchronous coordination layer for AI coding agents: identities, inboxes, searchable threads, and advisory file leases over FastMCP + Git + SQLite",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/mcp_agent_mail",
+  "skills": []
+}
