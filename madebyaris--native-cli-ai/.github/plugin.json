@@ -1,0 +1,9 @@
+{
+  "name": "madebyaris--native-cli-ai",
+  "displayName": "native-cli-ai",
+  "description": "A native Rust CLI  for orchestrating AI agents across projects, with persistent sessions, worktrees, and local-first control.",
+  "version": "1.0.0",
+  "author": "madebyaris",
+  "homepage": "https://github.com/madebyaris/native-cli-ai",
+  "skills": []
+}
