@@ -1,0 +1,9 @@
+{
+  "name": "remorses--playwriter",
+  "displayName": "playwriter",
+  "description": "Chrome extension to let agents control your browser. Runs Playwright snippets in a stateful sandbox. Available as CLI or MCP",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/playwriter",
+  "skills": []
+}
