@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--ultimate-bug-scanner",
+  "displayName": "ultimate_bug_scanner",
+  "description": "Static analysis tool that catches 1000+ bug patterns across all popular programming languages, with auto-wiring into AI coding agent quality guardrails",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/ultimate_bug_scanner",
+  "skills": []
+}
