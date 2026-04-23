@@ -1,0 +1,87 @@
+{
+  "name": "comfyui-mcp",
+  "owner": "artokun",
+  "repo": "comfyui-mcp",
+  "description": "ComfyUI MCP server + Claude Code plugin \u2014 workflow execution, visualization, composition, model management, and skill generation",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "comfyui-core",
+      "path": "plugin/skills/comfyui-core",
+      "github_url": "https://github.com/artokun/comfyui-mcp/tree/main/plugin/skills/comfyui-core",
+      "description": ""
+    },
+    {
+      "name": "director",
+      "path": "plugin/skills/director",
+      "github_url": "https://github.com/artokun/comfyui-mcp/tree/main/plugin/skills/director",
+      "description": ""
+    },
+    {
+      "name": "flux-txt2img",
+      "path": "plugin/skills/flux-txt2img",
+      "github_url": "https://github.com/artokun/comfyui-mcp/tree/main/plugin/skills/flux-txt2img",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "path": "plugin/skills/prompt-engineering",
+      "github_url": "https://github.com/artokun/comfyui-mcp/tree/main/plugin/skills/prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "qwen-image-edit",
+      "path": "plugin/skills/qwen-image-edit",
+      "github_url": "https://github.com/artokun/comfyui-mcp/tree/main/plugin/skills/qwen-image-edit",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting",
+      "path": "plugin/skills/troubleshooting",
+      "github_url": "https://github.com/artokun/comfyui-mcp/tree/main/plugin/skills/troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "wan-flf-video",
+      "path": "plugin/skills/wan-flf-video",
+      "github_url": "https://github.com/artokun/comfyui-mcp/tree/main/plugin/skills/wan-flf-video",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/artokun/comfyui-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T12:30:09Z"
+}
