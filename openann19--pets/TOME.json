@@ -4,7 +4,7 @@
   "repo": "pets",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -39,7 +39,6 @@
   ],
   "skills": [],
   "source_url": "https://github.com/openann19/pets",
-  "claim_url": "https://tomevault.io/claim/openann19",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T03:32:55Z"
+  "distributed_at": "2026-04-23T00:04:56Z"
 }
