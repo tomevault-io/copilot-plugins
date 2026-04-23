@@ -1,0 +1,9 @@
+{
+  "name": "kristoferlund--ostt",
+  "displayName": "ostt",
+  "description": "Open Speech-to-Text recording tool with real-time volume metering and transcription.",
+  "version": "1.0.0",
+  "author": "kristoferlund",
+  "homepage": "https://github.com/kristoferlund/ostt",
+  "skills": []
+}
