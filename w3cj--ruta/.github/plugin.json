@@ -1,0 +1,9 @@
+{
+  "name": "w3cj--ruta",
+  "displayName": "ruta",
+  "description": "A tiny type-safe client-side router for hono/jsx",
+  "version": "1.0.0",
+  "author": "w3cj",
+  "homepage": "https://github.com/w3cj/ruta",
+  "skills": []
+}
