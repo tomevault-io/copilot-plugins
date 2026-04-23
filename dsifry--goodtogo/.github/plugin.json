@@ -1,0 +1,82 @@
+{
+  "name": "dsifry--goodtogo",
+  "displayName": "goodtogo",
+  "description": "Deterministic PR readiness detection for AI coding agents",
+  "version": "1.0.0",
+  "author": "dsifry",
+  "homepage": "https://github.com/dsifry/goodtogo",
+  "skills": [
+    {
+      "name": "beads",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "brainstorming-extension",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "design-review-gate",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "sharing-skills",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-skills-with-subagents",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-superpowers",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    }
+  ]
+}
