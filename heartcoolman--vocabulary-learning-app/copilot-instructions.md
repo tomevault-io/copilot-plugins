@@ -1,0 +1,23 @@
+## vocabulary-learning-app
+
+> - **交互语言**：工具与模型交互强制使用 **English**；用户输出强制使用 **中文**。
+
+# CLAUDE.md
+
+## 0. Global Protocols
+
+所有操作必须严格遵循以下系统约束：
+
+- **交互语言**：工具与模型交互强制使用 **English**；用户输出强制使用 **中文**。
+- **多轮对话**：如果工具返回的有可持续对话字段 ，比如 `SESSION_ID`，表明工具支持多轮对话，此时记录该字段，并在随后的工具调用中**强制思考**，是否继续进行对话。例如， Codex/Gemini有时会因工具调用中断会话，若没有得到需要的回复，则应继续对话。
+- **沙箱安全**：严禁 Codex/Gemini 对文件系统进行写操作。所有代码获取必须请求 `unified diff patch` 格式。
+- **代码主权**：外部模型生成的代码仅作为逻辑参考（Prototype），最终交付代码**必须经过重构**，确保无冗余、企业级标准。
+- **风格定义**：整体代码风格**始终定位**为，精简高效、毫无冗余。该要求同样适用于注释与文档，且对于这两者，严格遵循**非必要不形成**的核心原则。
+- **仅对需求做针对性改动**：严禁影响用户现有的其他功能。
+- **上下文检索**： 调用 `mcp__auggie-mcp__codebase-retrieval`，必须减少search/find/grep的次数。
+- **判断依据**：始终以项目代码、grok的搜索结果作为判断依据，严禁使用一般知识进行猜测，允许向用户表明自己的不确定性。在调用编程语言的非内置库时，必须启用grok搜索，以文档作为判断依据进行编码。例如，在调用fastapi库对api接口进行封装时，必须使用联网搜索的最新结果作为依据、阅读官方文档说明编写代码，严禁使用已知的一般知识进行直接编码，这样会直接造成用户项目的崩坏。
+- **MUST** ultrathink in English.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Heartcoolman) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
