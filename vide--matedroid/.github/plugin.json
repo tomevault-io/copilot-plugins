@@ -1,0 +1,34 @@
+{
+  "name": "vide--matedroid",
+  "displayName": "matedroid",
+  "description": "Native Android app for viewing Tesla vehicle data from your self-hosted Teslamate instance",
+  "version": "1.0.0",
+  "author": "vide",
+  "homepage": "https://github.com/vide/matedroid",
+  "skills": [
+    {
+      "name": "check-api",
+      "description": ""
+    },
+    {
+      "name": "feature",
+      "description": ""
+    },
+    {
+      "name": "fix",
+      "description": ""
+    },
+    {
+      "name": "mock",
+      "description": ""
+    },
+    {
+      "name": "new-screen",
+      "description": ""
+    },
+    {
+      "name": "translate",
+      "description": ""
+    }
+  ]
+}
