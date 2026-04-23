@@ -1,6 +1,6 @@
 # ha_strava
 
-> Tome by [craibo](https://github.com/craibo/ha_strava) — distributed by [TomeVault](https://tomevault.io/claim/craibo)
+> Tome by [craibo](https://github.com/craibo/ha_strava) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [craibo/ha_strava](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/craibo#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/craibo/ha_strava](https://github.com/craibo/ha_strava)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install craibo/ha_strava
 ```
-Or browse all formats at [https://tomevault.io/claim/craibo](https://tomevault.io/claim/craibo).
+Source: [github.com/craibo/ha_strava](https://github.com/craibo/ha_strava).
 
 <!-- genome:t-i-q -->
