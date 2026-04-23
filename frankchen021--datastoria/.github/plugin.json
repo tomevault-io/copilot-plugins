@@ -1,0 +1,9 @@
+{
+  "name": "frankchen021--datastoria",
+  "displayName": "datastoria",
+  "description": "AI-native ClickHouse console for your cluster diagnostics and query generation, optimization and data visualization.",
+  "version": "1.0.0",
+  "author": "FrankChen021",
+  "homepage": "https://github.com/FrankChen021/datastoria",
+  "skills": []
+}
