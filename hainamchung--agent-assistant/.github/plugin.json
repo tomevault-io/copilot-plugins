@@ -1,0 +1,430 @@
+{
+  "name": "hainamchung--agent-assistant",
+  "displayName": "agent-assistant",
+  "description": "AI instruction skills by hainamchung",
+  "version": "1.0.0",
+  "author": "hainamchung",
+  "homepage": "https://github.com/hainamchung/agent-assistant",
+  "skills": [
+    {
+      "name": "aesthetic",
+      "description": ""
+    },
+    {
+      "name": "angular-architect",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "description": ""
+    },
+    {
+      "name": "architecture-designer",
+      "description": ""
+    },
+    {
+      "name": "artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "atlassian-mcp",
+      "description": ""
+    },
+    {
+      "name": "aws-agentic-ai",
+      "description": ""
+    },
+    {
+      "name": "aws-cdk-development",
+      "description": ""
+    },
+    {
+      "name": "aws-cost-operations",
+      "description": ""
+    },
+    {
+      "name": "aws-serverless-eda",
+      "description": ""
+    },
+    {
+      "name": "azure-ai-agents-python",
+      "description": ""
+    },
+    {
+      "name": "azure-ai-search-python",
+      "description": ""
+    },
+    {
+      "name": "azure-ai-voicelive-skill",
+      "description": ""
+    },
+    {
+      "name": "chaos-engineer",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "clean-code",
+      "description": ""
+    },
+    {
+      "name": "cli-developer",
+      "description": ""
+    },
+    {
+      "name": "cloud-architect",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-expert",
+      "description": ""
+    },
+    {
+      "name": "code-documenter",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "cosmos-db-python-skill",
+      "description": ""
+    },
+    {
+      "name": "cpp-pro",
+      "description": ""
+    },
+    {
+      "name": "csharp-developer",
+      "description": ""
+    },
+    {
+      "name": "database-optimizer",
+      "description": ""
+    },
+    {
+      "name": "databases",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "description": ""
+    },
+    {
+      "name": "devops-engineer",
+      "description": ""
+    },
+    {
+      "name": "django-expert",
+      "description": ""
+    },
+    {
+      "name": "docs-seeker",
+      "description": ""
+    },
+    {
+      "name": "dotnet-core-expert",
+      "description": ""
+    },
+    {
+      "name": "embedded-systems",
+      "description": ""
+    },
+    {
+      "name": "fastapi-expert",
+      "description": ""
+    },
+    {
+      "name": "fastapi-router",
+      "description": ""
+    },
+    {
+      "name": "find-skills",
+      "description": ""
+    },
+    {
+      "name": "flutter-expert",
+      "description": ""
+    },
+    {
+      "name": "foundry-nextgen-frontend",
+      "description": ""
+    },
+    {
+      "name": "foundry-sdk-python",
+      "description": ""
+    },
+    {
+      "name": "fullstack-guardian",
+      "description": ""
+    },
+    {
+      "name": "game-developer",
+      "description": ""
+    },
+    {
+      "name": "golang-pro",
+      "description": ""
+    },
+    {
+      "name": "graphql-architect",
+      "description": ""
+    },
+    {
+      "name": "java-architect",
+      "description": ""
+    },
+    {
+      "name": "javascript-pro",
+      "description": ""
+    },
+    {
+      "name": "kotlin-specialist",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-specialist",
+      "description": ""
+    },
+    {
+      "name": "laravel-specialist",
+      "description": ""
+    },
+    {
+      "name": "lint-and-validate",
+      "description": ""
+    },
+    {
+      "name": "mcp-developer",
+      "description": ""
+    },
+    {
+      "name": "microservices-architect",
+      "description": ""
+    },
+    {
+      "name": "mobile-design",
+      "description": ""
+    },
+    {
+      "name": "monitoring-expert",
+      "description": ""
+    },
+    {
+      "name": "nextjs-developer",
+      "description": ""
+    },
+    {
+      "name": "notebooklm-skill",
+      "description": ""
+    },
+    {
+      "name": "php-pro",
+      "description": ""
+    },
+    {
+      "name": "playwright-expert",
+      "description": ""
+    },
+    {
+      "name": "product-manager-toolkit",
+      "description": ""
+    },
+    {
+      "name": "product-strategist",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "pydantic-models",
+      "description": ""
+    },
+    {
+      "name": "python-pro",
+      "description": ""
+    },
+    {
+      "name": "rag-architect",
+      "description": ""
+    },
+    {
+      "name": "rails-expert",
+      "description": ""
+    },
+    {
+      "name": "react-expert",
+      "description": ""
+    },
+    {
+      "name": "react-flow-node",
+      "description": ""
+    },
+    {
+      "name": "react-native-expert",
+      "description": ""
+    },
+    {
+      "name": "repomix",
+      "description": ""
+    },
+    {
+      "name": "rust-engineer",
+      "description": ""
+    },
+    {
+      "name": "salesforce-developer",
+      "description": ""
+    },
+    {
+      "name": "secure-code-guardian",
+      "description": ""
+    },
+    {
+      "name": "security-reviewer",
+      "description": ""
+    },
+    {
+      "name": "senior-architect",
+      "description": ""
+    },
+    {
+      "name": "senior-backend",
+      "description": ""
+    },
+    {
+      "name": "senior-computer-vision",
+      "description": ""
+    },
+    {
+      "name": "senior-data-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-data-scientist",
+      "description": ""
+    },
+    {
+      "name": "senior-devops",
+      "description": ""
+    },
+    {
+      "name": "senior-frontend",
+      "description": ""
+    },
+    {
+      "name": "senior-fullstack",
+      "description": ""
+    },
+    {
+      "name": "senior-ml-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-qa",
+      "description": ""
+    },
+    {
+      "name": "senior-secops",
+      "description": ""
+    },
+    {
+      "name": "senior-security",
+      "description": ""
+    },
+    {
+      "name": "sequential-thinking",
+      "description": ""
+    },
+    {
+      "name": "shopify-expert",
+      "description": ""
+    },
+    {
+      "name": "spark-engineer",
+      "description": ""
+    },
+    {
+      "name": "spec-miner",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-engineer",
+      "description": ""
+    },
+    {
+      "name": "sql-pro",
+      "description": ""
+    },
+    {
+      "name": "swift-expert",
+      "description": ""
+    },
+    {
+      "name": "terraform-engineer",
+      "description": ""
+    },
+    {
+      "name": "test-master",
+      "description": ""
+    },
+    {
+      "name": "typescript-pro",
+      "description": ""
+    },
+    {
+      "name": "ui-design-system",
+      "description": ""
+    },
+    {
+      "name": "ui-styling",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "ux-researcher-designer",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-expert",
+      "description": ""
+    },
+    {
+      "name": "vue-expert-js",
+      "description": ""
+    },
+    {
+      "name": "web-frameworks",
+      "description": ""
+    },
+    {
+      "name": "websocket-engineer",
+      "description": ""
+    },
+    {
+      "name": "wordpress-pro",
+      "description": ""
+    },
+    {
+      "name": "zustand-store",
+      "description": ""
+    }
+  ]
+}
