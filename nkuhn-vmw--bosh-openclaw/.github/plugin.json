@@ -1,0 +1,9 @@
+{
+  "name": "nkuhn-vmw--bosh-openclaw",
+  "displayName": "bosh-openclaw",
+  "description": "bosh-openclaw",
+  "version": "1.0.0",
+  "author": "nkuhn-vmw",
+  "homepage": "https://github.com/nkuhn-vmw/bosh-openclaw",
+  "skills": []
+}
