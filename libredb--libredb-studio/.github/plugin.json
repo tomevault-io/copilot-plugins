@@ -1,0 +1,9 @@
+{
+  "name": "libredb--libredb-studio",
+  "displayName": "libredb-studio",
+  "description": "A modern, blazing-fast SQL IDE for the cloud era. Query PostgreSQL, MySQL, SQLite & MongoDB from anywhere \u2014 your browser is your new database studio.",
+  "version": "1.0.0",
+  "author": "libredb",
+  "homepage": "https://github.com/libredb/libredb-studio",
+  "skills": []
+}
