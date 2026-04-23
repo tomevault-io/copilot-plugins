@@ -1,0 +1,9 @@
+{
+  "name": "mantoni--beads-ui",
+  "displayName": "beads-ui",
+  "description": "Local UI for Beads \u2014 Collaborate on issues with your coding agent.",
+  "version": "1.0.0",
+  "author": "mantoni",
+  "homepage": "https://github.com/mantoni/beads-ui",
+  "skills": []
+}
