@@ -1,0 +1,450 @@
+{
+  "name": "vuralserhat86--antigravity-agentic-skills",
+  "displayName": "antigravity-agentic-skills",
+  "description": "OS for Agents: 130+ Agentic Skills, Gemini Protocols, and Autonomous Workflows. (Antigravity System)",
+  "version": "1.0.0",
+  "author": "vuralserhat86",
+  "homepage": "https://github.com/vuralserhat86/antigravity-agentic-skills",
+  "skills": [
+    {
+      "name": "accessibility_testing",
+      "description": ""
+    },
+    {
+      "name": "agent_orchestration",
+      "description": ""
+    },
+    {
+      "name": "agents_md",
+      "description": ""
+    },
+    {
+      "name": "api_design",
+      "description": ""
+    },
+    {
+      "name": "auth_patterns",
+      "description": ""
+    },
+    {
+      "name": "aws_architect",
+      "description": ""
+    },
+    {
+      "name": "backend_api",
+      "description": ""
+    },
+    {
+      "name": "backend_core",
+      "description": ""
+    },
+    {
+      "name": "backend_database",
+      "description": ""
+    },
+    {
+      "name": "better_auth",
+      "description": ""
+    },
+    {
+      "name": "cache_patterns",
+      "description": ""
+    },
+    {
+      "name": "canvas_design",
+      "description": ""
+    },
+    {
+      "name": "clerk_auth",
+      "description": ""
+    },
+    {
+      "name": "cli_developer",
+      "description": ""
+    },
+    {
+      "name": "code_formatter",
+      "description": ""
+    },
+    {
+      "name": "code_review",
+      "description": ""
+    },
+    {
+      "name": "cold_email",
+      "description": ""
+    },
+    {
+      "name": "competitor_intelligence",
+      "description": ""
+    },
+    {
+      "name": "content_strategist",
+      "description": ""
+    },
+    {
+      "name": "context_engineering",
+      "description": ""
+    },
+    {
+      "name": "data_transform",
+      "description": ""
+    },
+    {
+      "name": "database_design",
+      "description": ""
+    },
+    {
+      "name": "database_migration",
+      "description": ""
+    },
+    {
+      "name": "deploy_cicd",
+      "description": ""
+    },
+    {
+      "name": "deploy_monitoring",
+      "description": ""
+    },
+    {
+      "name": "deps_npm",
+      "description": ""
+    },
+    {
+      "name": "design_components",
+      "description": ""
+    },
+    {
+      "name": "design_patterns",
+      "description": ""
+    },
+    {
+      "name": "design_responsive",
+      "description": ""
+    },
+    {
+      "name": "design_tokens",
+      "description": ""
+    },
+    {
+      "name": "docker_optimization",
+      "description": ""
+    },
+    {
+      "name": "docs_api",
+      "description": ""
+    },
+    {
+      "name": "docs_code",
+      "description": ""
+    },
+    {
+      "name": "docs_readme",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "drizzle_orm",
+      "description": ""
+    },
+    {
+      "name": "error_handling",
+      "description": ""
+    },
+    {
+      "name": "figma_integration",
+      "description": ""
+    },
+    {
+      "name": "form_builder",
+      "description": ""
+    },
+    {
+      "name": "frontend_design",
+      "description": ""
+    },
+    {
+      "name": "git_workflow",
+      "description": ""
+    },
+    {
+      "name": "github_project_automation",
+      "description": ""
+    },
+    {
+      "name": "graphql_architect",
+      "description": ""
+    },
+    {
+      "name": "huggingface_transformers",
+      "description": ""
+    },
+    {
+      "name": "hypothesis_generation",
+      "description": ""
+    },
+    {
+      "name": "image_enhancer",
+      "description": ""
+    },
+    {
+      "name": "incident_response",
+      "description": ""
+    },
+    {
+      "name": "kubernetes_specialist",
+      "description": ""
+    },
+    {
+      "name": "langchain_patterns",
+      "description": ""
+    },
+    {
+      "name": "llm_evaluation",
+      "description": ""
+    },
+    {
+      "name": "mcp_builder",
+      "description": ""
+    },
+    {
+      "name": "mcp_server_developer",
+      "description": ""
+    },
+    {
+      "name": "message_queues",
+      "description": ""
+    },
+    {
+      "name": "microservices_architect",
+      "description": ""
+    },
+    {
+      "name": "microservices_patterns",
+      "description": ""
+    },
+    {
+      "name": "mobile_flutter",
+      "description": ""
+    },
+    {
+      "name": "mobile_react_native",
+      "description": ""
+    },
+    {
+      "name": "mongodb_usage",
+      "description": ""
+    },
+    {
+      "name": "multi_agent_patterns",
+      "description": ""
+    },
+    {
+      "name": "nestjs_specialist",
+      "description": ""
+    },
+    {
+      "name": "nextjs_specialist",
+      "description": ""
+    },
+    {
+      "name": "openapi_docs",
+      "description": ""
+    },
+    {
+      "name": "opportunity_scorer",
+      "description": ""
+    },
+    {
+      "name": "optimization",
+      "description": ""
+    },
+    {
+      "name": "opus_4_5_migration",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "peer_review",
+      "description": ""
+    },
+    {
+      "name": "performance_engineering",
+      "description": ""
+    },
+    {
+      "name": "platform_engineering",
+      "description": ""
+    },
+    {
+      "name": "playwright_testing",
+      "description": ""
+    },
+    {
+      "name": "prisma_orm",
+      "description": ""
+    },
+    {
+      "name": "prisma_specialist",
+      "description": ""
+    },
+    {
+      "name": "product_designer",
+      "description": ""
+    },
+    {
+      "name": "professional_docs",
+      "description": ""
+    },
+    {
+      "name": "project_bootstrapper",
+      "description": ""
+    },
+    {
+      "name": "project_management",
+      "description": ""
+    },
+    {
+      "name": "prompt_engineering",
+      "description": ""
+    },
+    {
+      "name": "python_data_stack",
+      "description": ""
+    },
+    {
+      "name": "python_developer",
+      "description": ""
+    },
+    {
+      "name": "python_pro",
+      "description": ""
+    },
+    {
+      "name": "quality_validator",
+      "description": ""
+    },
+    {
+      "name": "rag_architecture",
+      "description": ""
+    },
+    {
+      "name": "rag_implementation",
+      "description": ""
+    },
+    {
+      "name": "react_expert",
+      "description": ""
+    },
+    {
+      "name": "refactoring_patterns",
+      "description": ""
+    },
+    {
+      "name": "refactoring_strategies",
+      "description": ""
+    },
+    {
+      "name": "regex_builder",
+      "description": ""
+    },
+    {
+      "name": "report_generator",
+      "description": ""
+    },
+    {
+      "name": "responsive_design",
+      "description": ""
+    },
+    {
+      "name": "rust_development",
+      "description": ""
+    },
+    {
+      "name": "secops_core",
+      "description": ""
+    },
+    {
+      "name": "skill_creator",
+      "description": ""
+    },
+    {
+      "name": "skill_evaluator",
+      "description": ""
+    },
+    {
+      "name": "sparc_methodology",
+      "description": ""
+    },
+    {
+      "name": "spring_boot",
+      "description": ""
+    },
+    {
+      "name": "state_management",
+      "description": ""
+    },
+    {
+      "name": "stripe_integration",
+      "description": ""
+    },
+    {
+      "name": "supabase_patterns",
+      "description": ""
+    },
+    {
+      "name": "tailwind_mastery",
+      "description": ""
+    },
+    {
+      "name": "tdd_workflow",
+      "description": ""
+    },
+    {
+      "name": "terraform_engineer",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "typescript_advanced",
+      "description": ""
+    },
+    {
+      "name": "user_research",
+      "description": ""
+    },
+    {
+      "name": "vitest_runner",
+      "description": ""
+    },
+    {
+      "name": "vue_expert",
+      "description": ""
+    },
+    {
+      "name": "web_artifacts_builder",
+      "description": ""
+    },
+    {
+      "name": "webapp_testing",
+      "description": ""
+    },
+    {
+      "name": "websocket_engineer",
+      "description": ""
+    },
+    {
+      "name": "zustand_state",
+      "description": ""
+    }
+  ]
+}
