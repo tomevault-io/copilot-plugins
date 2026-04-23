@@ -1,0 +1,9 @@
+{
+  "name": "grapeot--opencode-ios-client",
+  "displayName": "opencode_ios_client",
+  "description": "Native iOS client for OpenCode. AI coding agent on your phone",
+  "version": "1.0.0",
+  "author": "grapeot",
+  "homepage": "https://github.com/grapeot/opencode_ios_client",
+  "skills": []
+}
