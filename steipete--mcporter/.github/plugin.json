@@ -1,0 +1,9 @@
+{
+  "name": "steipete--mcporter",
+  "displayName": "mcporter",
+  "description": "Call MCPs via TypeScript, masquerading as simple TypeScript API. Or package them as cli.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/mcporter",
+  "skills": []
+}
