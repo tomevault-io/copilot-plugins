@@ -1,0 +1,18 @@
+{
+  "name": "nyosegawa--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "nyosegawa",
+  "homepage": "https://github.com/nyosegawa/skills",
+  "skills": [
+    {
+      "name": "anti-human-bottleneck",
+      "description": ""
+    },
+    {
+      "name": "mcp-light-generator",
+      "description": ""
+    }
+  ]
+}
