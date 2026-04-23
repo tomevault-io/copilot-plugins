@@ -1,0 +1,14 @@
+{
+  "name": "brenbuilds1--copilot-ralph",
+  "displayName": "copilot-ralph",
+  "description": "Copilot ralph is an autonomous AI agent loop that runs repeatedly until all PRD items are complete.",
+  "version": "1.0.0",
+  "author": "brenbuilds1",
+  "homepage": "https://github.com/brenbuilds1/copilot-ralph",
+  "skills": [
+    {
+      "name": "prd",
+      "description": ""
+    }
+  ]
+}
