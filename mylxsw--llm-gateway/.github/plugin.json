@@ -1,0 +1,9 @@
+{
+  "name": "mylxsw--llm-gateway",
+  "displayName": "llm-gateway",
+  "description": "Squirrel LLM Gateway is a high-performance, enterprise-grade proxy service designed to unify and manage access to Large Language Model (LLM) providers like OpenAI and Anthropic. It provides intelligen",
+  "version": "1.0.0",
+  "author": "mylxsw",
+  "homepage": "https://github.com/mylxsw/llm-gateway",
+  "skills": []
+}
