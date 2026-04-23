@@ -1,0 +1,9 @@
+{
+  "name": "tsoniclang--tsonic",
+  "displayName": "tsonic",
+  "description": "Compile TS to native code via NativeAOT",
+  "version": "1.0.0",
+  "author": "tsoniclang",
+  "homepage": "https://github.com/tsoniclang/tsonic",
+  "skills": []
+}
