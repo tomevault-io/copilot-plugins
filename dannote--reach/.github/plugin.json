@@ -1,0 +1,9 @@
+{
+  "name": "dannote--reach",
+  "displayName": "reach",
+  "description": "Program dependence graph for Elixir and Erlang \u2014 slicing, data flow, independence, taint analysis, OTP awareness",
+  "version": "1.0.0",
+  "author": "dannote",
+  "homepage": "https://github.com/dannote/reach",
+  "skills": []
+}
