@@ -1,0 +1,309 @@
+{
+  "name": "lenny_skills_plus",
+  "owner": "liqiongyu",
+  "repo": "lenny_skills_plus",
+  "description": "86 agent-executable skill packs converted from RefoundAI\u2019s Lenny skills (unofficial). Works with Codex + Claude Code.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-evals",
+      "path": "skills/ai-evals",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/ai-evals",
+      "description": ""
+    },
+    {
+      "name": "ai-product-strategy",
+      "path": "skills/ai-product-strategy",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/ai-product-strategy",
+      "description": ""
+    },
+    {
+      "name": "analyzing-user-feedback",
+      "path": "skills/analyzing-user-feedback",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/analyzing-user-feedback",
+      "description": ""
+    },
+    {
+      "name": "behavioral-product-design",
+      "path": "skills/behavioral-product-design",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/behavioral-product-design",
+      "description": ""
+    },
+    {
+      "name": "building-a-promotion-case",
+      "path": "skills/building-a-promotion-case",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/building-a-promotion-case",
+      "description": ""
+    },
+    {
+      "name": "building-team-culture",
+      "path": "skills/building-team-culture",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/building-team-culture",
+      "description": ""
+    },
+    {
+      "name": "building-with-llms",
+      "path": "skills/building-with-llms",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/building-with-llms",
+      "description": ""
+    },
+    {
+      "name": "career-transitions",
+      "path": "skills/career-transitions",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/career-transitions",
+      "description": ""
+    },
+    {
+      "name": "coaching-pms",
+      "path": "skills/coaching-pms",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/coaching-pms",
+      "description": ""
+    },
+    {
+      "name": "community-building",
+      "path": "skills/community-building",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/community-building",
+      "description": ""
+    },
+    {
+      "name": "conducting-user-interviews",
+      "path": "skills/conducting-user-interviews",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/conducting-user-interviews",
+      "description": ""
+    },
+    {
+      "name": "content-marketing",
+      "path": "skills/content-marketing",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/content-marketing",
+      "description": ""
+    },
+    {
+      "name": "cross-functional-collaboration",
+      "path": "skills/cross-functional-collaboration",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/cross-functional-collaboration",
+      "description": ""
+    },
+    {
+      "name": "delegating-work",
+      "path": "skills/delegating-work",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/delegating-work",
+      "description": ""
+    },
+    {
+      "name": "design-engineering",
+      "path": "skills/design-engineering",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/design-engineering",
+      "description": ""
+    },
+    {
+      "name": "design-systems",
+      "path": "skills/design-systems",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/design-systems",
+      "description": ""
+    },
+    {
+      "name": "designing-growth-loops",
+      "path": "skills/designing-growth-loops",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/designing-growth-loops",
+      "description": ""
+    },
+    {
+      "name": "designing-surveys",
+      "path": "skills/designing-surveys",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/designing-surveys",
+      "description": ""
+    },
+    {
+      "name": "engineering-culture",
+      "path": "skills/engineering-culture",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/engineering-culture",
+      "description": ""
+    },
+    {
+      "name": "evaluating-new-technology",
+      "path": "skills/evaluating-new-technology",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/evaluating-new-technology",
+      "description": ""
+    },
+    {
+      "name": "fundraising",
+      "path": "skills/fundraising",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/fundraising",
+      "description": ""
+    },
+    {
+      "name": "launch-marketing",
+      "path": "skills/launch-marketing",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/launch-marketing",
+      "description": ""
+    },
+    {
+      "name": "lenny-skillpack-creator",
+      "path": "skills/lenny-skillpack-creator",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/lenny-skillpack-creator",
+      "description": ""
+    },
+    {
+      "name": "onboarding-new-hires",
+      "path": "skills/onboarding-new-hires",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/onboarding-new-hires",
+      "description": ""
+    },
+    {
+      "name": "organizational-design",
+      "path": "skills/organizational-design",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/organizational-design",
+      "description": ""
+    },
+    {
+      "name": "partnership-bd",
+      "path": "skills/partnership-bd",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/partnership-bd",
+      "description": ""
+    },
+    {
+      "name": "platform-strategy",
+      "path": "skills/platform-strategy",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/platform-strategy",
+      "description": ""
+    },
+    {
+      "name": "product-operations",
+      "path": "skills/product-operations",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/product-operations",
+      "description": ""
+    },
+    {
+      "name": "product-taste-intuition",
+      "path": "skills/product-taste-intuition",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/product-taste-intuition",
+      "description": ""
+    },
+    {
+      "name": "running-design-reviews",
+      "path": "skills/running-design-reviews",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/running-design-reviews",
+      "description": ""
+    },
+    {
+      "name": "running-effective-1-1s",
+      "path": "skills/running-effective-1-1s",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/running-effective-1-1s",
+      "description": ""
+    },
+    {
+      "name": "running-offsites",
+      "path": "skills/running-offsites",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/running-offsites",
+      "description": ""
+    },
+    {
+      "name": "sales-compensation",
+      "path": "skills/sales-compensation",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/sales-compensation",
+      "description": ""
+    },
+    {
+      "name": "scoping-cutting",
+      "path": "skills/scoping-cutting",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/scoping-cutting",
+      "description": ""
+    },
+    {
+      "name": "shipping-products",
+      "path": "skills/shipping-products",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/shipping-products",
+      "description": ""
+    },
+    {
+      "name": "systems-thinking",
+      "path": "skills/systems-thinking",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/systems-thinking",
+      "description": ""
+    },
+    {
+      "name": "team-rituals",
+      "path": "skills/team-rituals",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/team-rituals",
+      "description": ""
+    },
+    {
+      "name": "usability-testing",
+      "path": "skills/usability-testing",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/usability-testing",
+      "description": ""
+    },
+    {
+      "name": "user-onboarding",
+      "path": "skills/user-onboarding",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/user-onboarding",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding",
+      "path": "skills/vibe-coding",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/vibe-coding",
+      "description": ""
+    },
+    {
+      "name": "writing-prds",
+      "path": "skills/writing-prds",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/writing-prds",
+      "description": ""
+    },
+    {
+      "name": "writing-prds-executable",
+      "path": "samples/writing-prds-executable",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/samples/writing-prds-executable",
+      "description": ""
+    },
+    {
+      "name": "writing-specs-designs",
+      "path": "skills/writing-specs-designs",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/writing-specs-designs",
+      "description": ""
+    },
+    {
+      "name": "written-communication",
+      "path": "skills/written-communication",
+      "github_url": "https://github.com/liqiongyu/lenny_skills_plus/tree/main/skills/written-communication",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/liqiongyu/lenny_skills_plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:37:33Z"
+}
