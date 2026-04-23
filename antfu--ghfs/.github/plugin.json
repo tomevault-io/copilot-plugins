@@ -1,0 +1,9 @@
+{
+  "name": "antfu--ghfs",
+  "displayName": "ghfs",
+  "description": "GitHub issues/PRs as filesystem, for offline view and operations in batch. Designed for human and agents.",
+  "version": "1.0.0",
+  "author": "antfu",
+  "homepage": "https://github.com/antfu/ghfs",
+  "skills": []
+}
