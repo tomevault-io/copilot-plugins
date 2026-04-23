@@ -1,0 +1,9 @@
+{
+  "name": "pasky--pi-side-agents",
+  "displayName": "pi-side-agents",
+  "description": "Dynamically spin off side agents in their own tmux windows and git worktrees",
+  "version": "1.0.0",
+  "author": "pasky",
+  "homepage": "https://github.com/pasky/pi-side-agents",
+  "skills": []
+}
