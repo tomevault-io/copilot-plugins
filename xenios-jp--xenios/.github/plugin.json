@@ -1,0 +1,9 @@
+{
+  "name": "xenios-jp--xenios",
+  "displayName": "XeniOS",
+  "description": "The iOS and MacOS port of Xenia, the Xbox 360 Emulator Research project.",
+  "version": "1.0.0",
+  "author": "xenios-jp",
+  "homepage": "https://github.com/xenios-jp/XeniOS",
+  "skills": []
+}
