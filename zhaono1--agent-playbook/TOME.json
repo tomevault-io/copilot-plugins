@@ -1,0 +1,177 @@
+{
+  "name": "agent-playbook",
+  "owner": "zhaono1",
+  "repo": "agent-playbook",
+  "description": "AI instruction skills by zhaono1",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-designer",
+      "path": "skills/api-designer",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/api-designer",
+      "description": ""
+    },
+    {
+      "name": "api-documenter",
+      "path": "skills/api-documenter",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/api-documenter",
+      "description": ""
+    },
+    {
+      "name": "architecting-solutions",
+      "path": "skills/architecting-solutions",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/architecting-solutions",
+      "description": ""
+    },
+    {
+      "name": "auto-trigger",
+      "path": "skills/auto-trigger",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/auto-trigger",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "skills/code-reviewer",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "commit-helper",
+      "path": "skills/commit-helper",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/commit-helper",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": "skills/create-pr",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "debugger",
+      "path": "skills/debugger",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/debugger",
+      "description": ""
+    },
+    {
+      "name": "deployment-engineer",
+      "path": "skills/deployment-engineer",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/deployment-engineer",
+      "description": ""
+    },
+    {
+      "name": "documentation-engineer",
+      "path": "skills/documentation-engineer",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/documentation-engineer",
+      "description": ""
+    },
+    {
+      "name": "figma-designer",
+      "path": "skills/figma-designer",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/figma-designer",
+      "description": ""
+    },
+    {
+      "name": "performance-engineer",
+      "path": "skills/performance-engineer",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/performance-engineer",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": "skills/planning-with-files",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/planning-with-files",
+      "description": ""
+    },
+    {
+      "name": "prd-implementation-precheck",
+      "path": "skills/prd-implementation-precheck",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/prd-implementation-precheck",
+      "description": ""
+    },
+    {
+      "name": "prd-planner",
+      "path": "skills/prd-planner",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/prd-planner",
+      "description": ""
+    },
+    {
+      "name": "qa-expert",
+      "path": "skills/qa-expert",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/qa-expert",
+      "description": ""
+    },
+    {
+      "name": "refactoring-specialist",
+      "path": "skills/refactoring-specialist",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/refactoring-specialist",
+      "description": ""
+    },
+    {
+      "name": "security-auditor",
+      "path": "skills/security-auditor",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/security-auditor",
+      "description": ""
+    },
+    {
+      "name": "self-improving-agent",
+      "path": "skills/self-improving-agent",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/self-improving-agent",
+      "description": ""
+    },
+    {
+      "name": "skill-router",
+      "path": "skills/skill-router",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/skill-router",
+      "description": ""
+    },
+    {
+      "name": "test-automator",
+      "path": "skills/test-automator",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/test-automator",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestrator",
+      "path": "skills/workflow-orchestrator",
+      "github_url": "https://github.com/zhaono1/agent-playbook/tree/main/skills/workflow-orchestrator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zhaono1/agent-playbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T20:42:46Z"
+}
