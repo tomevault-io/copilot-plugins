@@ -1,6 +1,6 @@
 # llama-rs-example
 
-> Config by [chand1012](https://github.com/chand1012/llama-rs-example) — distributed by [TomeVault](https://tomevault.io/claim/chand1012)
+> Tome by [chand1012](https://github.com/chand1012/llama-rs-example) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [chand1012/llama-rs-example](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/chand1012](https://tomevault.io/claim/chand1012)
+From [chand1012/llama-rs-example](https://github.com/chand1012/llama-rs-example) — a repo with 0+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/chand1012) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install chand1012/llama-rs-example
+```
+Source: [github.com/chand1012/llama-rs-example](https://github.com/chand1012/llama-rs-example).
+
+<!-- genome:t-i-s -->
