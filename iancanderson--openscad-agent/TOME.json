@@ -1,0 +1,51 @@
+{
+  "name": "openscad-agent",
+  "owner": "iancanderson",
+  "repo": "openscad-agent",
+  "description": "A Claude Code-powered 3D modeling agent environment for creating 3D printable designs using OpenSCAD.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openscad",
+      "path": ".claude/skills/openscad",
+      "github_url": "https://github.com/iancanderson/openscad-agent/tree/main/.claude/skills/openscad",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iancanderson/openscad-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-23T16:43:44Z"
+}
