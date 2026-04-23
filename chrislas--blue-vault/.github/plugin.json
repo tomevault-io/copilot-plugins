@@ -1,0 +1,9 @@
+{
+  "name": "chrislas--blue-vault",
+  "displayName": "blue-vault",
+  "description": "A production-quality TUI app to manage Blu-ray cold storage archives on Linux",
+  "version": "1.0.0",
+  "author": "ChrisLAS",
+  "homepage": "https://github.com/ChrisLAS/blue-vault",
+  "skills": []
+}
