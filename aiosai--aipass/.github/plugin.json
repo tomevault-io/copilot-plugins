@@ -1,0 +1,9 @@
+{
+  "name": "aiosai--aipass",
+  "displayName": "AIPass",
+  "description": "A local multi-agent framework where your AI agents keep their memory, work together, and never ask you to re-explain context",
+  "version": "1.0.0",
+  "author": "AIOSAI",
+  "homepage": "https://github.com/AIOSAI/AIPass",
+  "skills": []
+}
