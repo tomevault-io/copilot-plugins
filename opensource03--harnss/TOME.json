@@ -2,9 +2,9 @@
   "name": "harnss",
   "owner": "OpenSource03",
   "repo": "harnss",
-  "description": "",
+  "description": "Open-source, desktop client/UI build to harness Claude Code, Codex and any other Agent accepting Agent Client Protocol. Run multiple AI coding agents side by side with rich tool visualization, MCP integrations, built-in terminal, git, browser and just about anything else you may need.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/OpenSource03",
+  "source_url": "https://github.com/OpenSource03/harnss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T19:04:47Z"
+  "distributed_at": "2026-04-23T21:03:22Z"
 }
