@@ -1,0 +1,9 @@
+{
+  "name": "duelion--homebox-companion",
+  "displayName": "homebox-companion",
+  "description": "AI-powered companion for Homebox. Snap photos and let AI auto-identify and catalog items into your inventory, then use the AI Chat to organize, search, and update your inventory effortlessly.",
+  "version": "1.0.0",
+  "author": "Duelion",
+  "homepage": "https://github.com/Duelion/homebox-companion",
+  "skills": []
+}
