@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--adbc-scanner",
+  "displayName": "adbc_scanner",
+  "description": "adbc_scanner",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/adbc_scanner",
+  "skills": []
+}
