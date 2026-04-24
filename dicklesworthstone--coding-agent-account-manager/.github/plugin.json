@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--coding-agent-account-manager",
+  "displayName": "coding_agent_account_manager",
+  "description": "Sub-100ms auth switching for AI coding CLIs (Claude Code, Codex, Gemini): swap subscription accounts instantly when you hit usage limits",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/coding_agent_account_manager",
+  "skills": []
+}
