@@ -1,0 +1,9 @@
+{
+  "name": "arvo-ai--aurora",
+  "displayName": "aurora",
+  "description": "Aurora \u2014 Open source AI-powered agentic incident management & root cause analysis for SREs. LangGraph agents investigate across AWS, Azure, GCP, Kubernetes. Integrates with PagerDuty, Datadog, Grafana",
+  "version": "1.0.0",
+  "author": "Arvo-AI",
+  "homepage": "https://github.com/Arvo-AI/aurora",
+  "skills": []
+}
