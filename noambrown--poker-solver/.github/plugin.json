@@ -1,0 +1,9 @@
+{
+  "name": "noambrown--poker-solver",
+  "displayName": "poker_solver",
+  "description": "A no-limit Texas hold'em river solver using CFR variants",
+  "version": "1.0.0",
+  "author": "noambrown",
+  "homepage": "https://github.com/noambrown/poker_solver",
+  "skills": []
+}
