@@ -1,0 +1,9 @@
+{
+  "name": "kaggle--kaggle-benchmarks",
+  "displayName": "kaggle-benchmarks",
+  "description": "Kaggle Benchmarks Python library",
+  "version": "1.0.0",
+  "author": "Kaggle",
+  "homepage": "https://github.com/Kaggle/kaggle-benchmarks",
+  "skills": []
+}
