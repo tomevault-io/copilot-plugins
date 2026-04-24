@@ -1,0 +1,9 @@
+{
+  "name": "z80dev--lemon",
+  "displayName": "lemon",
+  "description": "yet another agent runtime",
+  "version": "1.0.0",
+  "author": "z80dev",
+  "homepage": "https://github.com/z80dev/lemon",
+  "skills": []
+}
