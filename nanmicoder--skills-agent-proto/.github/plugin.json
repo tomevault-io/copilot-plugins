@@ -1,0 +1,9 @@
+{
+  "name": "nanmicoder--skills-agent-proto",
+  "displayName": "skills-agent-proto",
+  "description": "\u4f7f\u7528 LangChain 1.0 \u6784\u5efa\u7684 Skills Agent\uff0c\u6f14\u793a Anthropic Skills \u4e09\u5c42\u52a0\u8f7d\u673a\u5236\u7684\u5e95\u5c42\u539f\u7406\u3002",
+  "version": "1.0.0",
+  "author": "NanmiCoder",
+  "homepage": "https://github.com/NanmiCoder/skills-agent-proto",
+  "skills": []
+}
