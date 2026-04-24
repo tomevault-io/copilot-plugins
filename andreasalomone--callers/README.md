@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [andreasalomone/callers](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/andreasalomone#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/andreasalomone/callers](https://github.com/andreasalomone/callers)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install andreasalomone/callers
 ```
-Or browse all formats at [https://tomevault.io/claim/andreasalomone](https://tomevault.io/claim/andreasalomone).
+Source: [github.com/andreasalomone/callers](https://github.com/andreasalomone/callers).
 
 <!-- genome:a-i-q -->
