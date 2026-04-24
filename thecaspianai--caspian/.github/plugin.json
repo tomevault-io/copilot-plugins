@@ -1,0 +1,9 @@
+{
+  "name": "thecaspianai--caspian",
+  "displayName": "Caspian",
+  "description": "Caspian is a control room for running multiple AI coding agents in parallel",
+  "version": "1.0.0",
+  "author": "TheCaspianAI",
+  "homepage": "https://github.com/TheCaspianAI/Caspian",
+  "skills": []
+}
