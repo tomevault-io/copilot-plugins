@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [lfofelipe2-ux/controlFin](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/lfofelipe2-ux)
+From [lfofelipe2-ux/controlFin](https://github.com/lfofelipe2-ux/controlFin) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install lfofelipe2-ux/controlFin
 ```
-Or browse all formats at [https://tomevault.io/claim/lfofelipe2-ux](https://tomevault.io/claim/lfofelipe2-ux).
+Source: [github.com/lfofelipe2-ux/controlFin](https://github.com/lfofelipe2-ux/controlFin).
 
 <!-- genome:a-i-s -->
