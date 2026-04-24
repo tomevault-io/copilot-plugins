@@ -1,0 +1,44 @@
+{
+  "name": "bounty-challenge",
+  "owner": "PlatformNetwork",
+  "repo": "bounty-challenge",
+  "description": "[\ud83e\udd1d] bounty-challenge incentivizes bug discovery and software improvement through community-driven reports and suggestions, with rewards based on impact and quality.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PlatformNetwork/bounty-challenge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T09:32:14Z"
+}
