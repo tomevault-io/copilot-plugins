@@ -1,0 +1,51 @@
+{
+  "name": "banjo",
+  "owner": "joelreymont",
+  "repo": "banjo",
+  "description": "Zig implementation of Claude Code ACP adapter for Zed",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zed-logs",
+      "path": ".claude/skills/zed-logs",
+      "github_url": "https://github.com/joelreymont/banjo/tree/main/.claude/skills/zed-logs",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joelreymont/banjo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T18:36:47Z"
+}
