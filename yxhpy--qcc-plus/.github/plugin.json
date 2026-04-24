@@ -1,0 +1,22 @@
+{
+  "name": "yxhpy--qcc-plus",
+  "displayName": "qcc_plus",
+  "description": "Claude Code CLI \u4ee3\u7406\u670d\u52a1\u5668 - \u591a\u79df\u6237\u3001\u81ea\u52a8\u6545\u969c\u5207\u6362\u3001Web \u7ba1\u7406\u754c\u9762",
+  "version": "1.0.0",
+  "author": "yxhpy",
+  "homepage": "https://github.com/yxhpy/qcc_plus",
+  "skills": [
+    {
+      "name": "qcc-deploy",
+      "description": ""
+    },
+    {
+      "name": "qcc-dev",
+      "description": ""
+    },
+    {
+      "name": "qcc-git",
+      "description": ""
+    }
+  ]
+}
