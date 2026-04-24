@@ -1,0 +1,34 @@
+{
+  "name": "fugazi--test-automation-skills-agents",
+  "displayName": "test-automation-skills-agents",
+  "description": "A practical library of agents, instructions, and skills designed specifically for QA Automation Engineers, focusing on production-oriented solutions.",
+  "version": "1.0.0",
+  "author": "fugazi",
+  "homepage": "https://github.com/fugazi/test-automation-skills-agents",
+  "skills": [
+    {
+      "name": "a11y-playwright-testing",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "qa-manual-istqb",
+      "description": ""
+    },
+    {
+      "name": "qa-test-planner",
+      "description": ""
+    },
+    {
+      "name": "webapp-playwright-testing",
+      "description": ""
+    },
+    {
+      "name": "webapp-selenium-testing",
+      "description": ""
+    }
+  ]
+}
