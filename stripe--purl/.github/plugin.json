@@ -1,0 +1,9 @@
+{
+  "name": "stripe--purl",
+  "displayName": "purl",
+  "description": "purl",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/purl",
+  "skills": []
+}
