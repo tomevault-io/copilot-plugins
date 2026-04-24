@@ -1,0 +1,50 @@
+{
+  "name": "dkyazzentwatwa--chatgpt-skills",
+  "displayName": "chatgpt-skills",
+  "description": "My comprehensive, tested + audited, library of skills to use for ChatGPT. ",
+  "version": "1.0.0",
+  "author": "dkyazzentwatwa",
+  "homepage": "https://github.com/dkyazzentwatwa/chatgpt-skills",
+  "skills": [
+    {
+      "name": "ocr-document-processor",
+      "description": ""
+    },
+    {
+      "name": "crypto-ta-analyzer",
+      "description": ""
+    },
+    {
+      "name": "document-converter-suite",
+      "description": ""
+    },
+    {
+      "name": "resume-builder",
+      "description": ""
+    },
+    {
+      "name": "qr-code-generator",
+      "description": ""
+    },
+    {
+      "name": "financial-calculator",
+      "description": ""
+    },
+    {
+      "name": "image-enhancement-suite",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "svg-precision-skill",
+      "description": ""
+    }
+  ]
+}
