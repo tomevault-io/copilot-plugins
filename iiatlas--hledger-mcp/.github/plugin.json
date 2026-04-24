@@ -1,0 +1,9 @@
+{
+  "name": "iiatlas--hledger-mcp",
+  "displayName": "hledger-mcp",
+  "description": "hledger-mcp",
+  "version": "1.0.0",
+  "author": "iiAtlas",
+  "homepage": "https://github.com/iiAtlas/hledger-mcp",
+  "skills": []
+}
