@@ -1,6 +1,6 @@
-# LearnQuest — distributed by TomeVault
+# LearnQuest
 
-> Originally from [crien-inc/LearnQuest](https://github.com/crien-inc/LearnQuest). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [crien-inc/LearnQuest](https://github.com/crien-inc/LearnQuest) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [crien-inc/LearnQuest](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/crien-inc#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/crien-inc/LearnQuest](https://github.com/crien-inc/LearnQuest)
 
 ---
 
