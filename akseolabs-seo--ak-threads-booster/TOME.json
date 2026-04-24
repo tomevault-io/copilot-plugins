@@ -1,0 +1,44 @@
+{
+  "name": "AK-Threads-booster",
+  "owner": "akseolabs-seo",
+  "repo": "AK-Threads-booster",
+  "description": "AK\u9ad4 \u00b7 \u6578\u64da\u9a45\u52d5\u7684 Threads \u5beb\u6587\u6c7a\u7b56\u7cfb\u7d71\u3002\u7528\u4f60\u7684\u6b77\u53f2\u8cbc\u6587\u3001\u6f14\u7b97\u6cd5\u8207\u793e\u5a92\u5fc3\u7406\u5b78\uff0c\u5354\u52a9\u9078\u984c\u3001\u8d77\u8349\u3001\u767c\u6587\u524d\u8a3a\u65b7\u3001\u8868\u73fe\u9810\u4f30\u8207\u5fa9\u76e4\u3002Data-driven Threads writing advisor \u2014 topic selection, drafting, diagnosis, prediction & review based on your own post history.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/akseolabs-seo/AK-Threads-booster",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T09:09:41Z"
+}
