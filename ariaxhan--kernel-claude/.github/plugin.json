@@ -1,0 +1,14 @@
+{
+  "name": "ariaxhan--kernel-claude",
+  "displayName": "kernel-claude",
+  "description": "Claude Code learns from itself. Persistent memory, multi-agent orchestration, and a scientific experiment engine that proves which rules actually work.",
+  "version": "1.0.0",
+  "author": "ariaxhan",
+  "homepage": "https://github.com/ariaxhan/kernel-claude",
+  "skills": [
+    {
+      "name": "build",
+      "description": ""
+    }
+  ]
+}
