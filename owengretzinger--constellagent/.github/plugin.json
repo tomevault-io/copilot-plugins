@@ -1,0 +1,9 @@
+{
+  "name": "owengretzinger--constellagent",
+  "displayName": "constellagent",
+  "description": "Desktop app for running multiple AI agents in parallel. Each agent gets its own terminal, editor, and git worktree, all in one window.",
+  "version": "1.0.0",
+  "author": "owengretzinger",
+  "homepage": "https://github.com/owengretzinger/constellagent",
+  "skills": []
+}
