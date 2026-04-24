@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Skills to transform AI Agents into GitOps Engineers",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/agent-skills",
+  "skills": []
+}
