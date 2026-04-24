@@ -1,0 +1,9 @@
+{
+  "name": "krazyjakee--agents-db",
+  "displayName": "AGENTS.db",
+  "description": "AGENTS.db is AGENTS.md on steroids. A file format and toolkit for deterministic context.",
+  "version": "1.0.0",
+  "author": "krazyjakee",
+  "homepage": "https://github.com/krazyjakee/AGENTS.db",
+  "skills": []
+}
