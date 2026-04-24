@@ -1,0 +1,50 @@
+{
+  "name": "ad-repo--nullplayer",
+  "displayName": "nullplayer",
+  "description": "nullPlayer is a free open source macOS media player with some unique features",
+  "version": "1.0.0",
+  "author": "ad-repo",
+  "homepage": "https://github.com/ad-repo/nullplayer",
+  "skills": [
+    {
+      "name": "chromecast-casting",
+      "description": ""
+    },
+    {
+      "name": "jellyfin-integration",
+      "description": ""
+    },
+    {
+      "name": "modern-skin-guide",
+      "description": ""
+    },
+    {
+      "name": "non-retina-fixes",
+      "description": ""
+    },
+    {
+      "name": "plex-integration",
+      "description": ""
+    },
+    {
+      "name": "sonos-casting",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "ui-guide",
+      "description": ""
+    },
+    {
+      "name": "user-guide",
+      "description": ""
+    },
+    {
+      "name": "visualizations",
+      "description": ""
+    }
+  ]
+}
