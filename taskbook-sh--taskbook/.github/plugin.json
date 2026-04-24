@@ -1,0 +1,9 @@
+{
+  "name": "taskbook-sh--taskbook",
+  "displayName": "taskbook",
+  "description": "tasks, boards & notes for the command-line habitat",
+  "version": "1.0.0",
+  "author": "taskbook-sh",
+  "homepage": "https://github.com/taskbook-sh/taskbook",
+  "skills": []
+}
