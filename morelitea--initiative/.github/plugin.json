@@ -1,0 +1,9 @@
+{
+  "name": "morelitea--initiative",
+  "displayName": "initiative",
+  "description": "A self-hosted, multi-tenant project management platform built for teams that need workspace isolation, granular permissions, and rich collaboration features.",
+  "version": "1.0.0",
+  "author": "Morelitea",
+  "homepage": "https://github.com/Morelitea/initiative",
+  "skills": []
+}
