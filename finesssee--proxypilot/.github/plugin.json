@@ -1,0 +1,9 @@
+{
+  "name": "finesssee--proxypilot",
+  "displayName": "ProxyPilot",
+  "description": "Windows-native CLIProxyAPI fork with TUI, system tray, and multi-provider OAuth for AI coding tools - No API key needed",
+  "version": "1.0.0",
+  "author": "Finesssee",
+  "homepage": "https://github.com/Finesssee/ProxyPilot",
+  "skills": []
+}
