@@ -1,0 +1,9 @@
+{
+  "name": "deckardger--tanstack-agent-skills",
+  "displayName": "tanstack-agent-skills",
+  "description": "TanStack Agent Skills: Best practices for TanStack Query, Router, and Start for AI coding agents",
+  "version": "1.0.0",
+  "author": "DeckardGer",
+  "homepage": "https://github.com/DeckardGer/tanstack-agent-skills",
+  "skills": []
+}
