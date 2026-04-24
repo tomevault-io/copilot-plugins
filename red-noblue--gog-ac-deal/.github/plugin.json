@@ -1,0 +1,9 @@
+{
+  "name": "red-noblue--gog-ac-deal",
+  "displayName": "Gog_ac_deal",
+  "description": "Tampermonkey userscripts to batch-create/export Gemini public share links, plus a cross-platform desktop app (Tauri + SQLite) to import, tag, favorite and search them fast with fuzzy/semantic retrieva",
+  "version": "1.0.0",
+  "author": "Red-noblue",
+  "homepage": "https://github.com/Red-noblue/Gog_ac_deal",
+  "skills": []
+}
