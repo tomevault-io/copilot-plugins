@@ -1,0 +1,9 @@
+{
+  "name": "fpytloun--mnemory",
+  "displayName": "mnemory",
+  "description": "A self-hosted, secure, feature-rich memory system for AI agents and assistants. Provides intelligent fact extraction and deduplication, with an artifact store for detailed content.",
+  "version": "1.0.0",
+  "author": "fpytloun",
+  "homepage": "https://github.com/fpytloun/mnemory",
+  "skills": []
+}
