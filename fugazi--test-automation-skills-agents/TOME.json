@@ -1,0 +1,81 @@
+{
+  "name": "test-automation-skills-agents",
+  "owner": "fugazi",
+  "repo": "test-automation-skills-agents",
+  "description": "A practical library of agents, instructions, and skills designed specifically for QA Automation Engineers, focusing on production-oriented solutions.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "a11y-playwright-testing",
+      "path": "skills/a11y-playwright-testing",
+      "github_url": "https://github.com/fugazi/test-automation-skills-agents/tree/main/skills/a11y-playwright-testing",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e-testing",
+      "path": "skills/playwright-e2e-testing",
+      "github_url": "https://github.com/fugazi/test-automation-skills-agents/tree/main/skills/playwright-e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "qa-manual-istqb",
+      "path": "skills/qa-manual-istqb",
+      "github_url": "https://github.com/fugazi/test-automation-skills-agents/tree/main/skills/qa-manual-istqb",
+      "description": ""
+    },
+    {
+      "name": "qa-test-planner",
+      "path": "skills/qa-test-planner",
+      "github_url": "https://github.com/fugazi/test-automation-skills-agents/tree/main/skills/qa-test-planner",
+      "description": ""
+    },
+    {
+      "name": "webapp-playwright-testing",
+      "path": "skills/webapp-playwright-testing",
+      "github_url": "https://github.com/fugazi/test-automation-skills-agents/tree/main/skills/webapp-playwright-testing",
+      "description": ""
+    },
+    {
+      "name": "webapp-selenium-testing",
+      "path": "skills/webapp-selenium-testing",
+      "github_url": "https://github.com/fugazi/test-automation-skills-agents/tree/main/skills/webapp-selenium-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fugazi/test-automation-skills-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T11:30:08Z"
+}
