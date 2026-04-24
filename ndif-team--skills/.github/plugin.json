@@ -1,0 +1,18 @@
+{
+  "name": "ndif-team--skills",
+  "displayName": "skills",
+  "description": "Teach LLMs to use NNSight with Skills",
+  "version": "1.0.0",
+  "author": "ndif-team",
+  "homepage": "https://github.com/ndif-team/skills",
+  "skills": [
+    {
+      "name": "attribution-patching",
+      "description": ""
+    },
+    {
+      "name": "model-steering",
+      "description": ""
+    }
+  ]
+}
