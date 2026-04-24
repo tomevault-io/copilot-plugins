@@ -1,0 +1,9 @@
+{
+  "name": "platformnetwork--bounty-challenge",
+  "displayName": "bounty-challenge",
+  "description": "[\ud83e\udd1d] bounty-challenge incentivizes bug discovery and software improvement through community-driven reports and suggestions, with rewards based on impact and quality.",
+  "version": "1.0.0",
+  "author": "PlatformNetwork",
+  "homepage": "https://github.com/PlatformNetwork/bounty-challenge",
+  "skills": []
+}
