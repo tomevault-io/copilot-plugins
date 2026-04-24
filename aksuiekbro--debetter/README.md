@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Aksuiekbro/debetter](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Aksuiekbro#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Aksuiekbro/debetter](https://github.com/Aksuiekbro/debetter)
 
 ---
 
