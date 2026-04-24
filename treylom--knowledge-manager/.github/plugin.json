@@ -1,0 +1,9 @@
+{
+  "name": "treylom--knowledge-manager",
+  "displayName": "knowledge-manager",
+  "description": "Knowledge Manager Agent for Claude Code - Extract and organize content from web, PDF, social media to Obsidian/Notion",
+  "version": "1.0.0",
+  "author": "treylom",
+  "homepage": "https://github.com/treylom/knowledge-manager",
+  "skills": []
+}
