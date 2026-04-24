@@ -1,0 +1,136 @@
+## basecamp-cli
+
+> See [CONTRIBUTING.md](CONTRIBUTING.md) for build setup, testing, and PR workflow.
+
+@STYLE.md
+
+# Basecamp CLI Development Context
+
+## Getting Started
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for build setup, testing, and PR workflow.
+
+The standard development loop in this repo: make changes, run `bin/ci`, fix
+what it catches, repeat until green, then push. Treat `bin/ci` as your
+inner-loop companion, not a final hurdle.
+
+## Repository Structure
+
+```
+basecamp-cli/
+├── cmd/basecamp/     # Main entrypoint
+├── internal/
+│   ├── appctx/       # Application context
+│   ├── auth/         # OAuth authentication
+│   ├── cli/          # CLI framework
+│   ├── commands/     # Command implementations
+│   ├── completion/   # Shell completion
+│   ├── config/       # Configuration management
+│   ├── dateparse/    # Date parsing
+│   ├── hostutil/     # Host utilities
+│   ├── models/       # Data models
+│   ├── names/        # Name resolution
+│   ├── observability/ # Tracing and metrics
+│   ├── output/       # Output formatting
+│   ├── presenter/    # Output presentation
+│   ├── resilience/   # Retry and backoff
+│   ├── sdk/          # Basecamp SDK wrapper
+│   ├── tui/          # Terminal UI
+│   └── version/      # Version info
+├── e2e/              # BATS integration tests
+├── skills/           # Agent skills
+└── .claude-plugin/   # Claude Code integration
+```
+
+## Basecamp API Reference
+
+API documentation: https://github.com/basecamp/bc3-api
+
+Key endpoints used by the CLI:
+- `/projects.json` - List projects
+- `/buckets/{id}/todolists/{id}/todos.json` - Todos in a list
+- `/buckets/{id}/todos/{id}/completion.json` - Complete todo
+- `/people.json` - List people
+- `/my/profile.json` - Current user
+
+**Search:** Use `basecamp search "query"` for full-text search across projects. The Recordings API (`basecamp recordings`) is for browsing by type/status without a search term.
+
+## Testing
+
+`bin/ci` is the local CI gate. It runs every check that remote CI runs:
+formatting, vetting, linting, unit tests, e2e tests, naming conventions,
+CLI surface snapshots, skill drift detection, SDK provenance, and go mod tidy.
+Run it early and often — after finishing a feature, after fixing a bug, before
+pushing. If you're about to `git push` and haven't run `bin/ci` in this
+session, stop and run it first.
+
+**Skill drift**: when you change CLI commands or flags, `check-skill-drift`
+verifies that `skills/basecamp/SKILL.md` still references valid commands and
+flags from the `.surface` snapshot. If you add, rename, or remove commands/flags,
+update the skill to match.
+
+```bash
+bin/ci                # The single command — run this
+```
+
+When iterating on a specific area, use targeted make targets for faster
+feedback, then finish with `bin/ci` before pushing:
+
+```bash
+make build            # Build binary to ./bin/basecamp
+make test             # Go unit tests
+make test-e2e         # BATS end-to-end tests
+make lint             # Linter
+make check            # All checks (what bin/ci runs)
+```
+
+Requirements: Go 1.26+, [bats-core](https://github.com/bats-core/bats-core) for e2e tests.
+
+## OAuth Development
+
+For local development against BC3:
+```bash
+BASECAMP_BASE_URL=http://3.basecamp.localhost:3001 basecamp auth login
+```
+
+OAuth endpoints are discovered via `.well-known/oauth-authorization-server`.
+
+## Benchmarks
+
+```bash
+make bench            # Run all benchmarks
+make bench-cpu        # Run with CPU profiling
+make bench-mem        # Run with memory profiling
+make bench-save       # Save baseline for comparison
+make bench-compare    # Compare against baseline
+```
+
+## SDK Sync
+
+The CLI depends on the Basecamp SDK (`github.com/basecamp/basecamp-sdk/go`). When the
+SDK adds new API operations, the CLI must add corresponding commands.
+
+**Tracking**: `internal/version/sdk-provenance.json` records the SDK version +
+API revision the CLI is built against. `API-COVERAGE.md` tracks endpoint coverage.
+
+**Workflow** (see also `.claude/skills/sdk-bump.md`):
+1. `make bump-sdk` — updates go.mod + provenance (never edit go.mod directly)
+2. `go build ./...` — detect breaking changes
+3. Fix any compilation errors in `internal/commands/` and `internal/sdk/`
+4. Check for new SDK services/methods → create corresponding CLI commands
+5. `make test` — verify all pass including catalog parity
+6. Update `API-COVERAGE.md` with new endpoint coverage
+
+**Completeness bar**: every new SDK service method needs:
+- Command file in `internal/commands/`
+- Catalog entry in `commands.go`
+- Registration in `root.go` + `commands_test.go`
+- API-COVERAGE.md row
+
+**Andon cord**: if the SDK lacks a Go service wrapper for a generated endpoint,
+stop and open an issue on [basecamp-sdk](https://github.com/basecamp/basecamp-sdk) —
+never call the raw generated client from CLI code.
+
+---
+> Source: [basecamp/basecamp-cli](https://github.com/basecamp/basecamp-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
