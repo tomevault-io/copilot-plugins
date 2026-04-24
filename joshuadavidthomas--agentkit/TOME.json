@@ -1,0 +1,147 @@
+{
+  "name": "agentkit",
+  "owner": "joshuadavidthomas",
+  "repo": "agentkit",
+  "description": "A personal collection of commands, skills, subagents, and scripts for  agentic-based LLM tools",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "researching-codebases",
+      "path": "skills/researching-codebases",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/researching-codebases",
+      "description": ""
+    },
+    {
+      "name": "rust-error-handling",
+      "path": "skills/rust-error-handling",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-error-handling",
+      "description": ""
+    },
+    {
+      "name": "rust-interop",
+      "path": "skills/rust-interop",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-interop",
+      "description": ""
+    },
+    {
+      "name": "rust-macros",
+      "path": "skills/rust-macros",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-macros",
+      "description": ""
+    },
+    {
+      "name": "rust-ownership",
+      "path": "skills/rust-ownership",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-ownership",
+      "description": ""
+    },
+    {
+      "name": "rust-performance",
+      "path": "skills/rust-performance",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-performance",
+      "description": ""
+    },
+    {
+      "name": "rust-project-structure",
+      "path": "skills/rust-project-structure",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-project-structure",
+      "description": ""
+    },
+    {
+      "name": "rust-testing",
+      "path": "skills/rust-testing",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-testing",
+      "description": ""
+    },
+    {
+      "name": "rust-traits",
+      "path": "skills/rust-traits",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-traits",
+      "description": ""
+    },
+    {
+      "name": "rust-type-design",
+      "path": "skills/rust-type-design",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-type-design",
+      "description": ""
+    },
+    {
+      "name": "rust-unsafe",
+      "path": "skills/rust-unsafe",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/rust-unsafe",
+      "description": ""
+    },
+    {
+      "name": "salsa-advanced-plumbing",
+      "path": "skills/salsa-advanced-plumbing",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/salsa-advanced-plumbing",
+      "description": ""
+    },
+    {
+      "name": "salsa-cancellation",
+      "path": "skills/salsa-cancellation",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/salsa-cancellation",
+      "description": ""
+    },
+    {
+      "name": "salsa-database-architecture",
+      "path": "skills/salsa-database-architecture",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/salsa-database-architecture",
+      "description": ""
+    },
+    {
+      "name": "salsa-incremental-testing",
+      "path": "skills/salsa-incremental-testing",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/salsa-incremental-testing",
+      "description": ""
+    },
+    {
+      "name": "salsa-memory-management",
+      "path": "skills/salsa-memory-management",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/salsa-memory-management",
+      "description": ""
+    },
+    {
+      "name": "salsa-production-patterns",
+      "path": "skills/salsa-production-patterns",
+      "github_url": "https://github.com/joshuadavidthomas/agentkit/tree/main/skills/salsa-production-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joshuadavidthomas/agentkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T16:33:04Z"
+}
