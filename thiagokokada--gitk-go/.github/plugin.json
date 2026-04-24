@@ -1,0 +1,9 @@
+{
+  "name": "thiagokokada--gitk-go",
+  "displayName": "gitk-go",
+  "description": "A lightweight Git history explorer written in Go",
+  "version": "1.0.0",
+  "author": "thiagokokada",
+  "homepage": "https://github.com/thiagokokada/gitk-go",
+  "skills": []
+}
