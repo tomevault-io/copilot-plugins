@@ -1,0 +1,9 @@
+{
+  "name": "mrlesk--agents-council",
+  "displayName": "agents-council",
+  "description": "Agent-to-Agent MCP communication tool for feedback requests",
+  "version": "1.0.0",
+  "author": "MrLesk",
+  "homepage": "https://github.com/MrLesk/agents-council",
+  "skills": []
+}
