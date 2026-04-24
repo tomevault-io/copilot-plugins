@@ -1,0 +1,9 @@
+{
+  "name": "swiftedmind--tessera",
+  "displayName": "Tessera",
+  "description": "A Swift package that turns a single generated tile composed of SwiftUI views into an endlessly repeating, seamlessly wrapping pattern.",
+  "version": "1.0.0",
+  "author": "SwiftedMind",
+  "homepage": "https://github.com/SwiftedMind/Tessera",
+  "skills": []
+}
