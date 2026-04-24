@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--telegram-archive",
+  "displayName": "Telegram-Archive",
+  "description": "Own your Telegram history. Automated, incremental backups with a local web viewer that feels just like the real app. Docker-ready and supports public chat sharing",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/Telegram-Archive",
+  "skills": []
+}
