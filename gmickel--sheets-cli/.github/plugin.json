@@ -1,0 +1,14 @@
+{
+  "name": "gmickel--sheets-cli",
+  "displayName": "sheets-cli",
+  "description": "Composable Google Sheets CLI for humans and agents. Read, write, update cells by key\u2014with Agent Skills for Claude Code and OpenAI Codex.",
+  "version": "1.0.0",
+  "author": "gmickel",
+  "homepage": "https://github.com/gmickel/sheets-cli",
+  "skills": [
+    {
+      "name": "sheets-cli",
+      "description": ""
+    }
+  ]
+}
