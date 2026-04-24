@@ -1,0 +1,44 @@
+{
+  "name": "TrendingAI",
+  "owner": "HarlonWang",
+  "repo": "TrendingAI",
+  "description": "\u5168\u7403\u6280\u672f\u70ed\u70b9\uff0cAI \u7cbe\u9009\u901f\u9012\u3002\uff08Global tech trends, fast-picked by AI\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HarlonWang/TrendingAI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T04:42:13Z"
+}
