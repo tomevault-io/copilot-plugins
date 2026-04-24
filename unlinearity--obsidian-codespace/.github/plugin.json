@@ -1,0 +1,9 @@
+{
+  "name": "unlinearity--obsidian-codespace",
+  "displayName": "Obsidian-CodeSpace",
+  "description": "A comprehensive plugin for code file viewing, management, and editing in Obsidian.  \u5728Obsidian \u5f53\u4e2d\u5b9e\u73b0\u4ee3\u7801\u6587\u4ef6\u7684\u67e5\u770b\u3001\u7ba1\u7406\u3001\u7f16\u8f91\u3002",
+  "version": "1.0.0",
+  "author": "UNLINEARITY",
+  "homepage": "https://github.com/UNLINEARITY/Obsidian-CodeSpace",
+  "skills": []
+}
