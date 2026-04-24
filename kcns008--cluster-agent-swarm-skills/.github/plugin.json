@@ -1,0 +1,74 @@
+{
+  "name": "kcns008--cluster-agent-swarm-skills",
+  "displayName": "cluster",
+  "description": "A collection of AI agent skills for orchestrating a platform engineering swarm \u2014 specialized AI agents that collaborate like a real team to manage Kubernetes and OpenShift clusters at scale.",
+  "version": "1.0.0",
+  "author": "kcns008",
+  "homepage": "https://github.com/kcns008/cluster-agent-swarm-skills",
+  "skills": [
+    {
+      "name": "k8s-manifests",
+      "description": ""
+    },
+    {
+      "name": "k8s-security",
+      "description": ""
+    },
+    {
+      "name": "k8s-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "openshift-popeye-analysis",
+      "description": ""
+    },
+    {
+      "name": "artifacts",
+      "description": ""
+    },
+    {
+      "name": "cluster-ops",
+      "description": ""
+    },
+    {
+      "name": "developer-experience",
+      "description": ""
+    },
+    {
+      "name": "gitops",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-gitops",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-manifests",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-operations",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-security",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "observability",
+      "description": ""
+    },
+    {
+      "name": "orchestrator",
+      "description": ""
+    }
+  ]
+}
