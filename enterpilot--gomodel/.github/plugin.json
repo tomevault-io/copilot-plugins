@@ -1,0 +1,9 @@
+{
+  "name": "enterpilot--gomodel",
+  "displayName": "GoModel",
+  "description": "High-performance AI gateway written in Go - unified OpenAI-compatible API for OpenAI, Anthropic, Gemini, Groq, xAI & Ollama. LiteLLM alternative with observability, guardrails & streaming.",
+  "version": "1.0.0",
+  "author": "ENTERPILOT",
+  "homepage": "https://github.com/ENTERPILOT/GoModel",
+  "skills": []
+}
