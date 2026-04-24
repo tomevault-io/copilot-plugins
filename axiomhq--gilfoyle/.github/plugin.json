@@ -1,0 +1,9 @@
+{
+  "name": "axiomhq--gilfoyle",
+  "displayName": "gilfoyle",
+  "description": "An SRE agent that does what you can't. Queries your observability stack. Finds root causes. Doesn't panic. Doesn't guess. Doesn't care about your feelings. You're welcome.",
+  "version": "1.0.0",
+  "author": "axiomhq",
+  "homepage": "https://github.com/axiomhq/gilfoyle",
+  "skills": []
+}
