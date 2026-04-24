@@ -4,7 +4,7 @@
   "repo": "SMM",
   "description": "Simple Media Manger(SMM) is a media library manager powered by AI",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lawrenceching/SMM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T17:48:21Z"
+  "distributed_at": "2026-04-24T19:07:09Z"
 }
