@@ -1,0 +1,9 @@
+{
+  "name": "apexmarkdown--apex",
+  "displayName": "apex",
+  "description": "Universal Markdown Processor compatible with CommonMark, GFM, MultiMarkdown, Kramdown, mmark, and more",
+  "version": "1.0.0",
+  "author": "ApexMarkdown",
+  "homepage": "https://github.com/ApexMarkdown/apex",
+  "skills": []
+}
