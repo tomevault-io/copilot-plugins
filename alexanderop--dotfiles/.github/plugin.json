@@ -1,0 +1,38 @@
+{
+  "name": "alexanderop--dotfiles",
+  "displayName": "dotfiles",
+  "description": "macOS dotfiles - zsh, git, VSCode, Ghostty, Homebrew",
+  "version": "1.0.0",
+  "author": "alexanderop",
+  "homepage": "https://github.com/alexanderop/dotfiles",
+  "skills": [
+    {
+      "name": "brainstorm",
+      "description": ""
+    },
+    {
+      "name": "c4-architecture",
+      "description": ""
+    },
+    {
+      "name": "conversation-search",
+      "description": ""
+    },
+    {
+      "name": "fix-pipeline",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "description": ""
+    },
+    {
+      "name": "review-coderabbit",
+      "description": ""
+    },
+    {
+      "name": "vue-newsletter",
+      "description": ""
+    }
+  ]
+}
