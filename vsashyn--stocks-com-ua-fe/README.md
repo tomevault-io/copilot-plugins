@@ -1,6 +1,6 @@
 # stocks-com-ua-fe
 
-> Tome by [vsashyn](https://github.com/vsashyn/stocks-com-ua-fe) — distributed by [TomeVault](https://tomevault.io/claim/vsashyn)
+> Tome by [vsashyn](https://github.com/vsashyn/stocks-com-ua-fe) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [vsashyn/stocks-com-ua-fe](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/vsashyn)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/vsashyn/stocks-com-ua-fe](https://github.com/vsashyn/stocks-com-ua-fe)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install vsashyn/stocks-com-ua-fe
 ```
-Or browse all formats at [https://tomevault.io/claim/vsashyn](https://tomevault.io/claim/vsashyn).
+Source: [github.com/vsashyn/stocks-com-ua-fe](https://github.com/vsashyn/stocks-com-ua-fe).
 
 <!-- genome:t-i-p -->
