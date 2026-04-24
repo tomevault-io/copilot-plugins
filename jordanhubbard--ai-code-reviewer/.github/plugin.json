@@ -1,0 +1,14 @@
+{
+  "name": "jordanhubbard--ai-code-reviewer",
+  "displayName": "ai-code-reviewer",
+  "description": "Universal AI-powered code reviewer using vLLM and/or Ollama provided local LLMs. Works with any language/project. Features persona system, automatic chunking, and build integration.",
+  "version": "1.0.0",
+  "author": "jordanhubbard",
+  "homepage": "https://github.com/jordanhubbard/ai-code-reviewer",
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "description": ""
+    }
+  ]
+}
