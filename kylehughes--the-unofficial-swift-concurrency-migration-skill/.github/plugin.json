@@ -1,9 +1,18 @@
 {
   "name": "kylehughes--the-unofficial-swift-concurrency-migration-skill",
-  "displayName": "the-unofficial-swift-concurrency-migration-skill",
+  "displayName": "the-unofficial-swift",
   "description": "The Swift Concurrency Migration Guide, packaged as a Skill for LLMs.",
   "version": "1.0.0",
   "author": "kylehughes",
   "homepage": "https://github.com/kylehughes/the-unofficial-swift-concurrency-migration-skill",
-  "skills": []
+  "skills": [
+    {
+      "name": "migrating-to-swift-concurrency",
+      "description": ""
+    },
+    {
+      "name": "programming-swift",
+      "description": ""
+    }
+  ]
 }
