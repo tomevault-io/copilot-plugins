@@ -1,0 +1,9 @@
+{
+  "name": "triton-lang--triton-to-tile-ir",
+  "displayName": "Triton-to-tile-IR",
+  "description": "incubator repo for CUDA-TileIR backend",
+  "version": "1.0.0",
+  "author": "triton-lang",
+  "homepage": "https://github.com/triton-lang/Triton-to-tile-IR",
+  "skills": []
+}
