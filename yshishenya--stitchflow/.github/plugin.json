@@ -1,0 +1,9 @@
+{
+  "name": "yshishenya--stitchflow",
+  "displayName": "stitchflow",
+  "description": "StitchFlow turns prompts into UI directions, Tailwind-friendly HTML, and screenshots across Codex, Claude Code, OpenClaw, GitHub Copilot, and Gemini CLI.",
+  "version": "1.0.0",
+  "author": "yshishenya",
+  "homepage": "https://github.com/yshishenya/stitchflow",
+  "skills": []
+}
