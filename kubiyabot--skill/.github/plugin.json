@@ -1,0 +1,82 @@
+{
+  "name": "kubiyabot--skill",
+  "displayName": "skill",
+  "description": "A universal skill runtime for agents that runs anywhere. No servers, no context bloat, just tools that work.",
+  "version": "1.0.0",
+  "author": "kubiyabot",
+  "homepage": "https://github.com/kubiyabot/skill",
+  "skills": [
+    {
+      "name": "aws-skill",
+      "description": ""
+    },
+    {
+      "name": "azure-skill",
+      "description": ""
+    },
+    {
+      "name": "datadog-skill",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-skill",
+      "description": ""
+    },
+    {
+      "name": "gcp-skill",
+      "description": ""
+    },
+    {
+      "name": "github-oauth-skill",
+      "description": ""
+    },
+    {
+      "name": "github-skill",
+      "description": ""
+    },
+    {
+      "name": "imagemagick-skill",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-skill",
+      "description": ""
+    },
+    {
+      "name": "mongodb-skill",
+      "description": ""
+    },
+    {
+      "name": "mysql-skill",
+      "description": ""
+    },
+    {
+      "name": "postgres-skill",
+      "description": ""
+    },
+    {
+      "name": "python-skill",
+      "description": ""
+    },
+    {
+      "name": "redis-skill",
+      "description": ""
+    },
+    {
+      "name": "simple-skill",
+      "description": ""
+    },
+    {
+      "name": "slack-skill",
+      "description": ""
+    },
+    {
+      "name": "test-skill",
+      "description": ""
+    },
+    {
+      "name": "weather-skill",
+      "description": ""
+    }
+  ]
+}
