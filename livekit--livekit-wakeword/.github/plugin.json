@@ -1,0 +1,9 @@
+{
+  "name": "livekit--livekit-wakeword",
+  "displayName": "livekit-wakeword",
+  "description": "An open-source wake word library for creating voice-enabled applications.",
+  "version": "1.0.0",
+  "author": "livekit",
+  "homepage": "https://github.com/livekit/livekit-wakeword",
+  "skills": []
+}
