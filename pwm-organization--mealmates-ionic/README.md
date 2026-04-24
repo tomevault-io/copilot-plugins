@@ -1,6 +1,6 @@
-# MealMates-Ionic — distributed by TomeVault
+# MealMates-Ionic
 
-> Originally from [PWM-Organization/MealMates-Ionic](https://github.com/PWM-Organization/MealMates-Ionic). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [PWM-Organization/MealMates-Ionic](https://github.com/PWM-Organization/MealMates-Ionic) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [PWM-Organization/MealMates-Ionic](htt
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/PWM-Organization)
+From [PWM-Organization/MealMates-Ionic](https://github.com/PWM-Organization/MealMates-Ionic) — a repo with 0+ stars on GitHub.
 
 ---
 
