@@ -7,14 +7,14 @@ Production-grade task management for Claude Code with anti-hallucination protect
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [kryptobaseddev/cleo](https://github.com/kryptobaseddev/cleo).
+Original source: `AGENTS.md` in [kryptobaseddev/cleo](https://github.com/kryptobaseddev/cleo).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [kryptobaseddev/cleo](https://github.com/kryptobaseddev/cleo) — a repo with 151+ stars on GitHub.
