@@ -1,0 +1,153 @@
+{
+  "name": "skill",
+  "owner": "kubiyabot",
+  "repo": "skill",
+  "description": "A universal skill runtime for agents that runs anywhere. No servers, no context bloat, just tools that work.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aws-skill",
+      "path": "examples/wasm-skills/aws-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/wasm-skills/aws-skill",
+      "description": ""
+    },
+    {
+      "name": "azure-skill",
+      "path": "examples/native-skills/azure-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/native-skills/azure-skill",
+      "description": ""
+    },
+    {
+      "name": "datadog-skill",
+      "path": "examples/native-skills/datadog-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/native-skills/datadog-skill",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-skill",
+      "path": "examples/docker-runtime-skills/ffmpeg-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/docker-runtime-skills/ffmpeg-skill",
+      "description": ""
+    },
+    {
+      "name": "gcp-skill",
+      "path": "examples/native-skills/gcp-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/native-skills/gcp-skill",
+      "description": ""
+    },
+    {
+      "name": "github-oauth-skill",
+      "path": "examples/wasm-skills/github-oauth-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/wasm-skills/github-oauth-skill",
+      "description": ""
+    },
+    {
+      "name": "github-skill",
+      "path": "examples/wasm-skills/github-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/wasm-skills/github-skill",
+      "description": ""
+    },
+    {
+      "name": "imagemagick-skill",
+      "path": "examples/docker-runtime-skills/imagemagick-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/docker-runtime-skills/imagemagick-skill",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-skill",
+      "path": "examples/native-skills/kubernetes-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/native-skills/kubernetes-skill",
+      "description": ""
+    },
+    {
+      "name": "mongodb-skill",
+      "path": "examples/docker-runtime-skills/mongodb-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/docker-runtime-skills/mongodb-skill",
+      "description": ""
+    },
+    {
+      "name": "mysql-skill",
+      "path": "examples/docker-runtime-skills/mysql-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/docker-runtime-skills/mysql-skill",
+      "description": ""
+    },
+    {
+      "name": "postgres-skill",
+      "path": "examples/docker-runtime-skills/postgres-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/docker-runtime-skills/postgres-skill",
+      "description": ""
+    },
+    {
+      "name": "python-skill",
+      "path": "examples/wasm-skills/python-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/wasm-skills/python-skill",
+      "description": ""
+    },
+    {
+      "name": "redis-skill",
+      "path": "examples/docker-runtime-skills/redis-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/docker-runtime-skills/redis-skill",
+      "description": ""
+    },
+    {
+      "name": "simple-skill",
+      "path": "examples/wasm-skills/simple-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/wasm-skills/simple-skill",
+      "description": ""
+    },
+    {
+      "name": "slack-skill",
+      "path": "examples/wasm-skills/slack-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/wasm-skills/slack-skill",
+      "description": ""
+    },
+    {
+      "name": "test-skill",
+      "path": "tests/output/test-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/tests/output/test-skill",
+      "description": ""
+    },
+    {
+      "name": "weather-skill",
+      "path": "examples/tutorials/weather-skill",
+      "github_url": "https://github.com/kubiyabot/skill/tree/main/examples/tutorials/weather-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kubiyabot/skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T18:32:01Z"
+}
