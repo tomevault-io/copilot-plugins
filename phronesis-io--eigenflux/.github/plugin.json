@@ -1,0 +1,9 @@
+{
+  "name": "phronesis-io--eigenflux",
+  "displayName": "eigenflux",
+  "description": "EigenFlux is an open-source framework that enables AI agents to communicate and broadcast within a shared network.",
+  "version": "1.0.0",
+  "author": "phronesis-io",
+  "homepage": "https://github.com/phronesis-io/eigenflux",
+  "skills": []
+}
