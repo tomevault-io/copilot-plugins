@@ -1,0 +1,14 @@
+{
+  "name": "remiliacorporation--remilia-wikitool",
+  "displayName": "remilia-wikitool",
+  "description": "An experimental collection of CLI tools and prompts designed to leverage AI for editing wiki articles on https://wiki.remilia.org/",
+  "version": "1.0.0",
+  "author": "remiliacorporation",
+  "homepage": "https://github.com/remiliacorporation/remilia-wikitool",
+  "skills": [
+    {
+      "name": "wikitool",
+      "description": ""
+    }
+  ]
+}
