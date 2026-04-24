@@ -1,0 +1,9 @@
+{
+  "name": "mdiener21--kanvana",
+  "displayName": "kanvana",
+  "description": "Kanvana, a local offline personal kanban with swim lanes, relations, sub-tasks, no frameworks pure html, css and vanilla javascript.  Unlimited Cards and Boards",
+  "version": "1.0.0",
+  "author": "mdiener21",
+  "homepage": "https://github.com/mdiener21/kanvana",
+  "skills": []
+}
