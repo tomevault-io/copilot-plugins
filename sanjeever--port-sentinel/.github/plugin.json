@@ -1,0 +1,9 @@
+{
+  "name": "sanjeever--port-sentinel",
+  "displayName": "port_sentinel",
+  "description": "Flutter Windows Desktop application for monitoring ports and managing processes.",
+  "version": "1.0.0",
+  "author": "Sanjeever",
+  "homepage": "https://github.com/Sanjeever/port_sentinel",
+  "skills": []
+}
