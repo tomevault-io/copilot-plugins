@@ -1,0 +1,87 @@
+{
+  "name": "skills",
+  "owner": "uni-helper",
+  "repo": "skills",
+  "description": "uni-app skills",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "uni-helper",
+      "path": "skills/uni-helper",
+      "github_url": "https://github.com/uni-helper/skills/tree/main/skills/uni-helper",
+      "description": ""
+    },
+    {
+      "name": "unocss",
+      "path": "skills/unocss",
+      "github_url": "https://github.com/uni-helper/skills/tree/main/skills/unocss",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "skills/vue",
+      "github_url": "https://github.com/uni-helper/skills/tree/main/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "path": "skills/vite",
+      "github_url": "https://github.com/uni-helper/skills/tree/main/skills/vite",
+      "description": ""
+    },
+    {
+      "name": "pinia",
+      "path": "skills/pinia",
+      "github_url": "https://github.com/uni-helper/skills/tree/main/skills/pinia",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "path": "skills/vue-best-practices",
+      "github_url": "https://github.com/uni-helper/skills/tree/main/skills/vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "uniapp",
+      "path": "skills/uniapp",
+      "github_url": "https://github.com/uni-helper/skills/tree/main/skills/uniapp",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/uni-helper/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T13:34:55Z"
+}
