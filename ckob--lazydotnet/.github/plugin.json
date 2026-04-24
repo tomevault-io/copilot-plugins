@@ -1,0 +1,9 @@
+{
+  "name": "ckob--lazydotnet",
+  "displayName": "lazydotnet",
+  "description": "A TUI for managing dotnet solutions and projects",
+  "version": "1.0.0",
+  "author": "ckob",
+  "homepage": "https://github.com/ckob/lazydotnet",
+  "skills": []
+}
