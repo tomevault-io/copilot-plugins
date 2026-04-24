@@ -1,0 +1,9 @@
+{
+  "name": "ajkdrag--otterly",
+  "displayName": "otterly",
+  "description": "A local-first, privacy-focused WYSIWYG Markdown vault with full-text search, wiki-links, and a rich editor. Built with Tauri, Svelte, and Rust.",
+  "version": "1.0.0",
+  "author": "ajkdrag",
+  "homepage": "https://github.com/ajkdrag/otterly",
+  "skills": []
+}
