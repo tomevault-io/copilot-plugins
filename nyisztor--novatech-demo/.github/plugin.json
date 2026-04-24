@@ -1,0 +1,22 @@
+{
+  "name": "nyisztor--novatech-demo",
+  "displayName": "novatech-demo",
+  "description": "novatech-demo",
+  "version": "1.0.0",
+  "author": "nyisztor",
+  "homepage": "https://github.com/nyisztor/novatech-demo",
+  "skills": [
+    {
+      "name": "code-documentation",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "form-validator",
+      "description": ""
+    }
+  ]
+}
