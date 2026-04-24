@@ -1,0 +1,114 @@
+{
+  "name": "benjaminshoemaker--ai-coding-project-base",
+  "displayName": "ai_coding_project_base",
+  "description": "A structured prompt framework for building software products with AI coding assistants. This toolkit guides you through product specification, technical design, and implementation planning\u2014producing d",
+  "version": "1.0.0",
+  "author": "benjaminshoemaker",
+  "homepage": "https://github.com/benjaminshoemaker/ai_coding_project_base",
+  "skills": [
+    {
+      "name": "add-todo",
+      "description": ""
+    },
+    {
+      "name": "analyze-sessions",
+      "description": ""
+    },
+    {
+      "name": "audit-agentsmd",
+      "description": ""
+    },
+    {
+      "name": "audit-skills",
+      "description": ""
+    },
+    {
+      "name": "auto-verify",
+      "description": ""
+    },
+    {
+      "name": "code-verification",
+      "description": ""
+    },
+    {
+      "name": "codex-consult",
+      "description": ""
+    },
+    {
+      "name": "codex-review",
+      "description": ""
+    },
+    {
+      "name": "configure-verification",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "criteria-audit",
+      "description": ""
+    },
+    {
+      "name": "feature-plan",
+      "description": ""
+    },
+    {
+      "name": "feature-spec",
+      "description": ""
+    },
+    {
+      "name": "feature-technical-spec",
+      "description": ""
+    },
+    {
+      "name": "go",
+      "description": ""
+    },
+    {
+      "name": "list-todos",
+      "description": ""
+    },
+    {
+      "name": "oauth-login",
+      "description": ""
+    },
+    {
+      "name": "populate-state",
+      "description": ""
+    },
+    {
+      "name": "security-scan",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "spec-verification",
+      "description": ""
+    },
+    {
+      "name": "tech-debt-check",
+      "description": ""
+    },
+    {
+      "name": "update-docs",
+      "description": ""
+    },
+    {
+      "name": "update-target-projects",
+      "description": ""
+    },
+    {
+      "name": "vercel-preview",
+      "description": ""
+    },
+    {
+      "name": "verify-task",
+      "description": ""
+    }
+  ]
+}
