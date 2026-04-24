@@ -1,0 +1,9 @@
+{
+  "name": "athal7--opencode-devcontainers",
+  "displayName": "opencode-devcontainers",
+  "description": "Run multiple devcontainer instances with auto-assigned ports for OpenCode",
+  "version": "1.0.0",
+  "author": "athal7",
+  "homepage": "https://github.com/athal7/opencode-devcontainers",
+  "skills": []
+}
