@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--cryptocurrency-cv",
+  "displayName": "cryptocurrency.cv",
+  "description": "Free crypto news API - real-time aggregator for Bitcoin, Ethereum, DeFi, Solana & altcoins. No API key required. RSS/Atom feeds, JSON REST API, historical archive with market context, embeddable widge",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/cryptocurrency.cv",
+  "skills": []
+}
