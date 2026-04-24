@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Lovelace-AI/leah-mcp-test-yottagraph]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Lovelace-AI#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Lovelace-AI/leah-mcp-test-yottagraph](https://github.com/Lovelace-AI/leah-mcp-test-yottagraph)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Lovelace-AI/leah-mcp-test-yottagraph
 ```
-Or browse all formats at [https://tomevault.io/claim/Lovelace-AI](https://tomevault.io/claim/Lovelace-AI).
+Source: [github.com/Lovelace-AI/leah-mcp-test-yottagraph](https://github.com/Lovelace-AI/leah-mcp-test-yottagraph).
 
 <!-- genome:a-i-q -->
