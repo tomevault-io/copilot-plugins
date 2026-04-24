@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [taiga-K/cursor-workshop-profile](http
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/taiga-K)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/taiga-K/cursor-workshop-profile](https://github.com/taiga-K/cursor-workshop-profile)
 
 ---
 
