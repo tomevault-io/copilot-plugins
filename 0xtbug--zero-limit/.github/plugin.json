@@ -1,0 +1,9 @@
+{
+  "name": "0xtbug--zero-limit",
+  "displayName": "zero-limit",
+  "description": "ZeroLimit is a cross-platform desktop application for monitoring AI coding assistant quotas using CLIProxyAPI.",
+  "version": "1.0.0",
+  "author": "0xtbug",
+  "homepage": "https://github.com/0xtbug/zero-limit",
+  "skills": []
+}
