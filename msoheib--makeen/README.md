@@ -1,6 +1,6 @@
 # makeen
 
-> Config by [msoheib](https://github.com/msoheib/makeen) — distributed by [TomeVault](https://tomevault.io/claim/msoheib)
+> Source: [msoheib/makeen](https://github.com/msoheib/makeen) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [msoheib/makeen](https://github.com/ms
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/msoheib](https://tomevault.io/claim/msoheib)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/msoheib/makeen](https://github.com/msoheib/makeen)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/msoheib) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install msoheib/makeen
+```
+Source: [github.com/msoheib/makeen](https://github.com/msoheib/makeen).
+
+<!-- genome:d-i-p -->
