@@ -1,6 +1,6 @@
-# smc-workshop — distributed by TomeVault
+# smc-workshop
 
-> Originally from [JustineDevs/smc-workshop](https://github.com/JustineDevs/smc-workshop). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [JustineDevs/smc-workshop](https://github.com/JustineDevs/smc-workshop) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [JustineDevs/smc-workshop](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/JustineDevs#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/JustineDevs/smc-workshop](https://github.com/JustineDevs/smc-workshop)
 
 ---
 
