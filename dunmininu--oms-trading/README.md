@@ -1,6 +1,6 @@
-# oms_trading — distributed by TomeVault
+# oms_trading
 
-> Originally from [dunmininu/oms_trading](https://github.com/dunmininu/oms_trading). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [dunmininu/oms_trading](https://github.com/dunmininu/oms_trading) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [dunmininu/oms_trading](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/dunmininu#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/dunmininu/oms_trading](https://github.com/dunmininu/oms_trading)
 
 ---
 
