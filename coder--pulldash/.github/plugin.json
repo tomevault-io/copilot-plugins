@@ -1,0 +1,9 @@
+{
+  "name": "coder--pulldash",
+  "displayName": "pulldash",
+  "description": "Review pull requests in a high-performance UI, driven by keybinds.",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/pulldash",
+  "skills": []
+}
