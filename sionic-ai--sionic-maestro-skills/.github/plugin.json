@@ -1,0 +1,14 @@
+{
+  "name": "sionic-ai--sionic-maestro-skills",
+  "displayName": "sionic-maestro-skills",
+  "description": "Claude Code Skills implementing Centralized Consult architecture for multi-coding CLI harness.",
+  "version": "1.0.0",
+  "author": "sionic-ai",
+  "homepage": "https://github.com/sionic-ai/sionic-maestro-skills",
+  "skills": [
+    {
+      "name": "maestro-workflow",
+      "description": ""
+    }
+  ]
+}
