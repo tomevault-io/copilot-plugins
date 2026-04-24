@@ -1,0 +1,51 @@
+{
+  "name": "tiny-coding-agent",
+  "owner": "jellydn",
+  "repo": "tiny-coding-agent",
+  "description": "A lightweight, extensible coding agent built in TypeScript that helps developers with coding tasks across TypeScript, React, JavaScript, Node.js, Bash, and markdown/JSON.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-simplifier",
+      "path": "src/skills/builtin/code-simplifier",
+      "github_url": "https://github.com/jellydn/tiny-coding-agent/tree/main/src/skills/builtin/code-simplifier",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jellydn/tiny-coding-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T18:36:14Z"
+}
