@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [davis7dotsh/river](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/davis7dotsh#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/davis7dotsh/river](https://github.com/davis7dotsh/river)
 
 ---
 
