@@ -1,4 +1,4 @@
-# the-unofficial-swift-concurrency-migration-skill
+# the-unofficial-swift
 
 > Source: [kylehughes/the-unofficial-swift-concurrency-migration-skill](https://github.com/kylehughes/the-unofficial-swift-concurrency-migration-skill) — distributed by [TomeVault](https://tomevault.io)
 
@@ -16,6 +16,11 @@ Original source: `CLAUDE.md` in [kylehughes/the-unofficial-swift-concurrency-mig
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (2)
+
+- [migrating-to-swift-concurrency](https://github.com/kylehughes/the-unofficial-swift-concurrency-migration-skill/tree/main/migrating-to-swift-concurrency)
+- [programming-swift](https://github.com/kylehughes/the-unofficial-swift-concurrency-migration-skill/tree/main/programming-swift)
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/kylehughes/the-unofficial-swift-concurrency-migration-skill](https://github.com/kylehughes/the-unofficial-swift-concurrency-migration-skill)
 
