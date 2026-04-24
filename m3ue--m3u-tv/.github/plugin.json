@@ -1,0 +1,9 @@
+{
+  "name": "m3ue--m3u-tv",
+  "displayName": "m3u-tv",
+  "description": "Cross-platform TV front-end player for the M3U Editor app. Provides a convenient way to view your content on Android TV and Apple TV",
+  "version": "1.0.0",
+  "author": "m3ue",
+  "homepage": "https://github.com/m3ue/m3u-tv",
+  "skills": []
+}
