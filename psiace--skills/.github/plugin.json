@@ -1,0 +1,9 @@
+{
+  "name": "psiace--skills",
+  "displayName": "skills",
+  "description": "A small, shared skill library by builders, for builders.",
+  "version": "1.0.0",
+  "author": "PsiACE",
+  "homepage": "https://github.com/PsiACE/skills",
+  "skills": []
+}
