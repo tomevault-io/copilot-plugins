@@ -1,0 +1,9 @@
+{
+  "name": "beam-cloud--airstore",
+  "displayName": "airstore",
+  "description": "The filesystem for AI agents",
+  "version": "1.0.0",
+  "author": "beam-cloud",
+  "homepage": "https://github.com/beam-cloud/airstore",
+  "skills": []
+}
