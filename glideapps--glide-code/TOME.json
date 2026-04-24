@@ -1,0 +1,117 @@
+{
+  "name": "glide-code",
+  "owner": "glideapps",
+  "repo": "glide-code",
+  "description": "Claude Code learns Glide",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai",
+      "path": "glide/skills/ai",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/ai",
+      "description": ""
+    },
+    {
+      "name": "api",
+      "path": "glide/skills/api",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/api",
+      "description": ""
+    },
+    {
+      "name": "app-audit",
+      "path": "glide/skills/app-audit",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/app-audit",
+      "description": ""
+    },
+    {
+      "name": "app-sharing",
+      "path": "glide/skills/app-sharing",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/app-sharing",
+      "description": ""
+    },
+    {
+      "name": "browser",
+      "path": "glide/skills/browser",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/browser",
+      "description": ""
+    },
+    {
+      "name": "data-modeling",
+      "path": "glide/skills/data-modeling",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/data-modeling",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": "glide/skills/design",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/design",
+      "description": ""
+    },
+    {
+      "name": "explain-feature",
+      "path": "glide/skills/explain-feature",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/explain-feature",
+      "description": ""
+    },
+    {
+      "name": "glide",
+      "path": "glide/skills/glide",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/glide",
+      "description": ""
+    },
+    {
+      "name": "learnings-log",
+      "path": "glide/skills/learnings-log",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/learnings-log",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "path": "glide/skills/templates",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/templates",
+      "description": ""
+    },
+    {
+      "name": "workflows",
+      "path": "glide/skills/workflows",
+      "github_url": "https://github.com/glideapps/glide-code/tree/main/glide/skills/workflows",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/glideapps/glide-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T20:30:09Z"
+}
