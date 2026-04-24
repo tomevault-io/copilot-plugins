@@ -1,0 +1,9 @@
+{
+  "name": "bmad-code-org--bmad-builder",
+  "displayName": "bmad-builder",
+  "description": "The BMad Builder and Validator",
+  "version": "1.0.0",
+  "author": "bmad-code-org",
+  "homepage": "https://github.com/bmad-code-org/bmad-builder",
+  "skills": []
+}
