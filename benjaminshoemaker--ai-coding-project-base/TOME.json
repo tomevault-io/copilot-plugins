@@ -1,0 +1,201 @@
+{
+  "name": "ai_coding_project_base",
+  "owner": "benjaminshoemaker",
+  "repo": "ai_coding_project_base",
+  "description": "A structured prompt framework for building software products with AI coding assistants. This toolkit guides you through product specification, technical design, and implementation planning\u2014producing documents that AI agents can execute against.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-todo",
+      "path": ".claude/skills/add-todo",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/add-todo",
+      "description": ""
+    },
+    {
+      "name": "analyze-sessions",
+      "path": ".claude/skills/analyze-sessions",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/analyze-sessions",
+      "description": ""
+    },
+    {
+      "name": "audit-agentsmd",
+      "path": ".claude/skills/audit-agentsmd",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/audit-agentsmd",
+      "description": ""
+    },
+    {
+      "name": "audit-skills",
+      "path": ".claude/skills/audit-skills",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/audit-skills",
+      "description": ""
+    },
+    {
+      "name": "auto-verify",
+      "path": ".claude/skills/auto-verify",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/auto-verify",
+      "description": ""
+    },
+    {
+      "name": "code-verification",
+      "path": ".claude/skills/code-verification",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/code-verification",
+      "description": ""
+    },
+    {
+      "name": "codex-consult",
+      "path": ".claude/skills/codex-consult",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/codex-consult",
+      "description": ""
+    },
+    {
+      "name": "codex-review",
+      "path": ".claude/skills/codex-review",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/codex-review",
+      "description": ""
+    },
+    {
+      "name": "configure-verification",
+      "path": ".claude/skills/configure-verification",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/configure-verification",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": ".claude/skills/create-pr",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "criteria-audit",
+      "path": ".claude/skills/criteria-audit",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/criteria-audit",
+      "description": ""
+    },
+    {
+      "name": "feature-plan",
+      "path": ".claude/skills/feature-plan",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/feature-plan",
+      "description": ""
+    },
+    {
+      "name": "feature-spec",
+      "path": ".claude/skills/feature-spec",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/feature-spec",
+      "description": ""
+    },
+    {
+      "name": "feature-technical-spec",
+      "path": ".claude/skills/feature-technical-spec",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/feature-technical-spec",
+      "description": ""
+    },
+    {
+      "name": "go",
+      "path": ".claude/skills/go",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/go",
+      "description": ""
+    },
+    {
+      "name": "list-todos",
+      "path": ".claude/skills/list-todos",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/list-todos",
+      "description": ""
+    },
+    {
+      "name": "oauth-login",
+      "path": ".claude/skills/oauth-login",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/oauth-login",
+      "description": ""
+    },
+    {
+      "name": "populate-state",
+      "path": ".claude/skills/populate-state",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/populate-state",
+      "description": ""
+    },
+    {
+      "name": "security-scan",
+      "path": ".claude/skills/security-scan",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/security-scan",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": ".claude/skills/setup",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "spec-verification",
+      "path": ".claude/skills/spec-verification",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/spec-verification",
+      "description": ""
+    },
+    {
+      "name": "tech-debt-check",
+      "path": ".claude/skills/tech-debt-check",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/tech-debt-check",
+      "description": ""
+    },
+    {
+      "name": "update-docs",
+      "path": ".claude/skills/update-docs",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/update-docs",
+      "description": ""
+    },
+    {
+      "name": "update-target-projects",
+      "path": ".claude/skills/update-target-projects",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/update-target-projects",
+      "description": ""
+    },
+    {
+      "name": "vercel-preview",
+      "path": ".claude/skills/vercel-preview",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/vercel-preview",
+      "description": ""
+    },
+    {
+      "name": "verify-task",
+      "path": ".claude/skills/verify-task",
+      "github_url": "https://github.com/benjaminshoemaker/ai_coding_project_base/tree/main/.claude/skills/verify-task",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/benjaminshoemaker/ai_coding_project_base",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T18:30:14Z"
+}
