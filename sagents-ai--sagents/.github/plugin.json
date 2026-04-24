@@ -1,0 +1,9 @@
+{
+  "name": "sagents-ai--sagents",
+  "displayName": "sagents",
+  "description": "Build interactive AI agents in Elixir with OTP supervision, middleware composition, human-in-the-loop approvals, sub-agent delegation, and real-time Phoenix LiveView integration. Built on LangChain.",
+  "version": "1.0.0",
+  "author": "sagents-ai",
+  "homepage": "https://github.com/sagents-ai/sagents",
+  "skills": []
+}
