@@ -1,0 +1,18 @@
+{
+  "name": "aibtcdev--aibtc-mcp-server",
+  "displayName": "aibtc-mcp-server",
+  "description": "Bitcoin-native MCP server for AI agents: BTC/STX wallets, DeFi yield, sBTC peg, NFTs, and x402 payments.",
+  "version": "1.0.0",
+  "author": "aibtcdev",
+  "homepage": "https://github.com/aibtcdev/aibtc-mcp-server",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    },
+    {
+      "name": "aibtc",
+      "description": ""
+    }
+  ]
+}
