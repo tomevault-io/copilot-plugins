@@ -1,0 +1,9 @@
+{
+  "name": "everruns--bashkit",
+  "displayName": "bashkit",
+  "description": "Virtual Bash interpreter with a virtual file system for multi-tenant environments.",
+  "version": "1.0.0",
+  "author": "everruns",
+  "homepage": "https://github.com/everruns/bashkit",
+  "skills": []
+}
