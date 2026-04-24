@@ -4,7 +4,7 @@
   "repo": "t3-experiments",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/sparkserian",
+  "source_url": "https://github.com/sparkserian/t3-experiments",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T05:35:40Z"
+  "distributed_at": "2026-04-24T14:21:25Z"
 }
