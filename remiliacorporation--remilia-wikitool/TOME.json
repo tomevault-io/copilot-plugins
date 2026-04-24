@@ -1,0 +1,51 @@
+{
+  "name": "remilia-wikitool",
+  "owner": "remiliacorporation",
+  "repo": "remilia-wikitool",
+  "description": "An experimental collection of CLI tools and prompts designed to leverage AI for editing wiki articles on https://wiki.remilia.org/",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "wikitool",
+      "path": ".claude/skills/wikitool",
+      "github_url": "https://github.com/remiliacorporation/remilia-wikitool/tree/main/.claude/skills/wikitool",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/remiliacorporation/remilia-wikitool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T13:39:57Z"
+}
