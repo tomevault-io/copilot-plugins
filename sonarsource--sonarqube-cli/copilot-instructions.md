@@ -1,0 +1,27 @@
+## sonarqube-cli
+
+> Core conventions for the sonarqube-cli project. Apply when writing or editing any TypeScript source, tests, or command files.
+
+
+# sonarqube-cli conventions
+
+See @CLAUDE.md for the full project guide. Key rules to enforce:
+
+## Never edit `src/index.ts` directly
+The entry point is generated. To add or change commands, edit `src/cli/command-tree.ts` and add the implementation in `src/cli/commands/`.
+
+## Always use `runCommand()` for command handlers
+Every command action must be wrapped in `runCommand()` from `src/lib/run-command.ts`. Never catch or handle errors manually in command handlers.
+
+## After editing any `.ts` file, format
+Run `bun run format` before finishing. Non-negotiable.
+
+## Constants from `config-constants.ts`
+All paths and URLs must be imported from `src/lib/config-constants.ts`. Never hardcode paths or URLs inline.
+
+## Keep documentation in sync
+When adding, removing, or changing commands, scripts, or project structure, update `CLAUDE.md`, and `AGENTS.md` to reflect the change before finishing.
+
+---
+> Source: [SonarSource/sonarqube-cli](https://github.com/SonarSource/sonarqube-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
