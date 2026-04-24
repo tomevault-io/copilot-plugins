@@ -1,0 +1,9 @@
+{
+  "name": "inngest--utah",
+  "displayName": "utah",
+  "description": "Universally Triggered Agent Harness - An OpenClaw-like Inngest-powered personal agent",
+  "version": "1.0.0",
+  "author": "inngest",
+  "homepage": "https://github.com/inngest/utah",
+  "skills": []
+}
