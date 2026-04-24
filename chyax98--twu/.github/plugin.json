@@ -1,0 +1,22 @@
+{
+  "name": "chyax98--twu",
+  "displayName": "twu",
+  "description": "twu",
+  "version": "1.0.0",
+  "author": "chyax98",
+  "homepage": "https://github.com/chyax98/twu",
+  "skills": [
+    {
+      "name": "req-tester",
+      "description": ""
+    },
+    {
+      "name": "testcase-generator",
+      "description": ""
+    },
+    {
+      "name": "testcase-planner",
+      "description": ""
+    }
+  ]
+}
