@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-kotlin",
+  "displayName": "opentelemetry-kotlin",
+  "description": "An implementation of the OpenTelemetry specification as a Kotlin Multiplatform Library",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-kotlin",
+  "skills": []
+}
