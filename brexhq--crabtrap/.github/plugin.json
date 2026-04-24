@@ -1,0 +1,9 @@
+{
+  "name": "brexhq--crabtrap",
+  "displayName": "CrabTrap",
+  "description": "An LLM-as-a-judge HTTP proxy to secure agents in production ",
+  "version": "1.0.0",
+  "author": "brexhq",
+  "homepage": "https://github.com/brexhq/CrabTrap",
+  "skills": []
+}
