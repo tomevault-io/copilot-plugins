@@ -1,0 +1,9 @@
+{
+  "name": "zhensherlock--protocol-launcher",
+  "displayName": "protocol-launcher",
+  "description": "One-click launch URL generator for protocol-based apps",
+  "version": "1.0.0",
+  "author": "zhensherlock",
+  "homepage": "https://github.com/zhensherlock/protocol-launcher",
+  "skills": []
+}
