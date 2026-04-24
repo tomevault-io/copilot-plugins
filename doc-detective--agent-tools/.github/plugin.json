@@ -1,0 +1,9 @@
+{
+  "name": "doc-detective--agent-tools",
+  "displayName": "agent-tools",
+  "description": "Doc Detective agents, skills, plugins, and more.",
+  "version": "1.0.0",
+  "author": "doc-detective",
+  "homepage": "https://github.com/doc-detective/agent-tools",
+  "skills": []
+}
