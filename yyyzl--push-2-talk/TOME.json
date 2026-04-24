@@ -1,0 +1,44 @@
+{
+  "name": "push-2-talk",
+  "owner": "yyyzl",
+  "repo": "push-2-talk",
+  "description": "PushToTalk \u662f\u4e00\u4e2a\u9ad8\u6027\u80fd\u7684\u684c\u9762\u8bed\u97f3\u8f93\u5165\u5de5\u5177\u3002\u5b83\u4e0d\u4ec5\u4ec5\u662f\u4e00\u4e2a\u8bed\u97f3\u8f6c\u6587\u5b57\u5de5\u5177\uff0c\u66f4\u96c6\u6210\u4e86\u5927\u8bed\u8a00\u6a21\u578b\uff08LLM\uff09\u80fd\u529b\u3002\u4f60\u53ef\u4ee5\u6309\u4f4f Ctrl+Win \u8bf4\u8bdd\uff0c\u677e\u5f00\u540e\u5e94\u7528\u4f1a\u81ea\u52a8\u5c06\u4f60\u7684\u8bed\u97f3\u8f6c\u4e3a\u6587\u5b57\uff0c\u5e76\u6839\u636e\u4f60\u7684\u8bbe\u5b9a\u8fdb\u884c\u6da6\u8272\u3001\u7ffb\u8bd1\u6216\u6574\u7406\u6210\u90ae\u4ef6\uff0c\u6700\u540e\u81ea\u52a8\u7c98\u8d34\u5230\u5f53\u524d\u5149\u6807\u4f4d\u7f6e\u3002\u652f\u6301\u8c46\u5305/\u5343\u95ee",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yyyzl/push-2-talk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T18:58:41Z"
+}
