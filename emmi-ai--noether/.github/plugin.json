@@ -1,0 +1,9 @@
+{
+  "name": "emmi-ai--noether",
+  "displayName": "noether",
+  "description": "Deep-learning framework for Engineering AI. Built on transformer building blocks, it delivers the full engineering stack, allowing teams to build,  train, and operate industrial simulation models acro",
+  "version": "1.0.0",
+  "author": "Emmi-AI",
+  "homepage": "https://github.com/Emmi-AI/noether",
+  "skills": []
+}
