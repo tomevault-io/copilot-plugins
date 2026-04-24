@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--basecamp-cli",
+  "displayName": "basecamp-cli",
+  "description": "Basecamp CLI and Agent Skills",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/basecamp-cli",
+  "skills": []
+}
