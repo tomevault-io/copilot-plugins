@@ -1,0 +1,18 @@
+{
+  "name": "marvinrichter--clarc",
+  "displayName": "clarc",
+  "description": "Production-grade Claude Code workflow OS \u2014 agents, skills, hooks, commands, rules, and a continuous learning flywheel.",
+  "version": "1.0.0",
+  "author": "marvinrichter",
+  "homepage": "https://github.com/marvinrichter/clarc",
+  "skills": [
+    {
+      "name": "ci-cd-patterns",
+      "description": ""
+    },
+    {
+      "name": "typescript-coding-standards",
+      "description": ""
+    }
+  ]
+}
