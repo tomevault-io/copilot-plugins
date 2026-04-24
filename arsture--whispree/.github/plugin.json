@@ -1,0 +1,9 @@
+{
+  "name": "arsture--whispree",
+  "displayName": "whispree",
+  "description": "Free, fully local macOS menu bar app for speech-to-text with LLM post-processing. Open-source SuperWhisper alternative for Apple Silicon.",
+  "version": "1.0.0",
+  "author": "Arsture",
+  "homepage": "https://github.com/Arsture/whispree",
+  "skills": []
+}
