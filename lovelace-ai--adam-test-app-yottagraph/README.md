@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Lovelace-AI/adam-test-app-yottagraph]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Lovelace-AI)
+From [Lovelace-AI/adam-test-app-yottagraph](https://github.com/Lovelace-AI/adam-test-app-yottagraph) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Lovelace-AI/adam-test-app-yottagraph
 ```
-Or browse all formats at [https://tomevault.io/claim/Lovelace-AI](https://tomevault.io/claim/Lovelace-AI).
+Source: [github.com/Lovelace-AI/adam-test-app-yottagraph](https://github.com/Lovelace-AI/adam-test-app-yottagraph).
 
 <!-- genome:a-i-s -->
