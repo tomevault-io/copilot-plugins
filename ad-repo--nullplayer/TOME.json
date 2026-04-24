@@ -1,0 +1,105 @@
+{
+  "name": "nullplayer",
+  "owner": "ad-repo",
+  "repo": "nullplayer",
+  "description": "nullPlayer is a free open source macOS media player with some unique features",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "chromecast-casting",
+      "path": "skills/chromecast-casting",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/chromecast-casting",
+      "description": ""
+    },
+    {
+      "name": "jellyfin-integration",
+      "path": "skills/jellyfin-integration",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/jellyfin-integration",
+      "description": ""
+    },
+    {
+      "name": "modern-skin-guide",
+      "path": "skills/modern-skin-guide",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/modern-skin-guide",
+      "description": ""
+    },
+    {
+      "name": "non-retina-fixes",
+      "path": "skills/non-retina-fixes",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/non-retina-fixes",
+      "description": ""
+    },
+    {
+      "name": "plex-integration",
+      "path": "skills/plex-integration",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/plex-integration",
+      "description": ""
+    },
+    {
+      "name": "sonos-casting",
+      "path": "skills/sonos-casting",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/sonos-casting",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "skills/testing",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "ui-guide",
+      "path": "skills/ui-guide",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/ui-guide",
+      "description": ""
+    },
+    {
+      "name": "user-guide",
+      "path": "skills/user-guide",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/user-guide",
+      "description": ""
+    },
+    {
+      "name": "visualizations",
+      "path": "skills/visualizations",
+      "github_url": "https://github.com/ad-repo/nullplayer/tree/main/skills/visualizations",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ad-repo/nullplayer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T16:30:58Z"
+}
