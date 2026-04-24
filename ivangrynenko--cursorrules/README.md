@@ -1,6 +1,6 @@
-# cursorrules — distributed by TomeVault
+# cursorrules
 
-> Originally from [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ivangrynenko/cursorrules](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ivangrynenko#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules)
 
 ---
 
