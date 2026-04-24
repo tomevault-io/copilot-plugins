@@ -1,0 +1,9 @@
+{
+  "name": "bitthebyte--jarida",
+  "displayName": "Jarida",
+  "description": "Jarida (Jadx + Frida) is a Jadx GUI plugin that lets you trace and optionally patch Java method return values at runtime using Frida, directly from Jadx\u2019s decompiled view.",
+  "version": "1.0.0",
+  "author": "BitTheByte",
+  "homepage": "https://github.com/BitTheByte/Jarida",
+  "skills": []
+}
