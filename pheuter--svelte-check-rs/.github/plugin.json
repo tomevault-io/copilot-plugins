@@ -1,0 +1,9 @@
+{
+  "name": "pheuter--svelte-check-rs",
+  "displayName": "svelte-check-rs",
+  "description": "Fast Rust-powered drop-in replacement for svelte-check (Svelte 5+)",
+  "version": "1.0.0",
+  "author": "pheuter",
+  "homepage": "https://github.com/pheuter/svelte-check-rs",
+  "skills": []
+}
