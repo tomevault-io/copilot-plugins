@@ -1,6 +1,6 @@
 # workplace
 
-> Tome by [gnart2k](https://github.com/gnart2k/workplace) — distributed by [TomeVault](https://tomevault.io/claim/gnart2k)
+> Tome by [gnart2k](https://github.com/gnart2k/workplace) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [gnart2k/workplace](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/gnart2k)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/gnart2k/workplace](https://github.com/gnart2k/workplace)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install gnart2k/workplace
 ```
-Or browse all formats at [https://tomevault.io/claim/gnart2k](https://tomevault.io/claim/gnart2k).
+Source: [github.com/gnart2k/workplace](https://github.com/gnart2k/workplace).
 
 <!-- genome:t-i-p -->
