@@ -1,6 +1,6 @@
 # couchcms-ai-toolkit
 
-> Config by [martijnbokma](https://github.com/martijnbokma/couchcms-ai-toolkit) — distributed by [TomeVault](https://tomevault.io/claim/martijnbokma)
+> Source: [martijnbokma/couchcms-ai-toolkit](https://github.com/martijnbokma/couchcms-ai-toolkit) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [martijnbokma/couchcms-ai-toolkit](htt
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/martijnbokma](https://tomevault.io/claim/martijnbokma)
+From [martijnbokma/couchcms-ai-toolkit](https://github.com/martijnbokma/couchcms-ai-toolkit) — a repo with 0+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/martijnbokma) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install martijnbokma/couchcms-ai-toolkit
+```
+Source: [github.com/martijnbokma/couchcms-ai-toolkit](https://github.com/martijnbokma/couchcms-ai-toolkit).
+
+<!-- genome:d-i-s -->
