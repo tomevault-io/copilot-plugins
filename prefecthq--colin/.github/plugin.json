@@ -1,0 +1,9 @@
+{
+  "name": "prefecthq--colin",
+  "displayName": "colin",
+  "description": "A context engine that treats skills as software.",
+  "version": "1.0.0",
+  "author": "PrefectHQ",
+  "homepage": "https://github.com/PrefectHQ/colin",
+  "skills": []
+}
