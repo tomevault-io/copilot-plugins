@@ -1,0 +1,9 @@
+{
+  "name": "laurentenhoor--devclaw",
+  "displayName": "devclaw",
+  "description": "Multi-project dev/qa pipeline orchestration plugin for OpenClaw",
+  "version": "1.0.0",
+  "author": "laurentenhoor",
+  "homepage": "https://github.com/laurentenhoor/devclaw",
+  "skills": []
+}
