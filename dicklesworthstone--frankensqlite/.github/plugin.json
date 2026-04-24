@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankensqlite",
+  "displayName": "frankensqlite",
+  "description": "Independent ground-up Rust reimplementation of SQLite with concurrent writers and information-theoretic durability",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankensqlite",
+  "skills": []
+}
