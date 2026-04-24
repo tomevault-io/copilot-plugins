@@ -4,7 +4,7 @@
   "repo": "DashClaw",
   "description": "\ud83d\udee1\ufe0fDecision infrastructure for AI agents. Intercept actions, enforce guard policies, require approvals, and produce audit-ready decision trails.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ucsandman/DashClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T10:41:26Z"
+  "distributed_at": "2026-04-24T01:00:12Z"
 }
