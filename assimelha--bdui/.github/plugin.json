@@ -1,0 +1,9 @@
+{
+  "name": "assimelha--bdui",
+  "displayName": "bdui",
+  "description": "Real-time Text User Interface for bd (beads) issue tracker with Kanban, Tree, Graph views, and notifications",
+  "version": "1.0.0",
+  "author": "assimelha",
+  "homepage": "https://github.com/assimelha/bdui",
+  "skills": []
+}
