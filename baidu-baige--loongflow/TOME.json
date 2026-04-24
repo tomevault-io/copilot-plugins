@@ -3,8 +3,8 @@
   "owner": "baidu-baige",
   "repo": "LoongFlow",
   "description": "LoongFlow: A Thinking & Learning Framework for Expert-Grade AI Agents.",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "code-analysis",
-      "path": ".claude/skills/code-analysis",
-      "github_url": "https://github.com/baidu-baige/LoongFlow/tree/main/.claude/skills/code-analysis",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/baidu-baige/LoongFlow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:06:25Z"
+  "distributed_at": "2026-04-24T08:32:36Z"
 }
