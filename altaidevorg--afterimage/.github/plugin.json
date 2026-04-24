@@ -1,0 +1,9 @@
+{
+  "name": "altaidevorg--afterimage",
+  "displayName": "afterimage",
+  "description": "Generate conversational, tool-calling, structured-output, and preference datasets \u2014 easily and at scale",
+  "version": "1.0.0",
+  "author": "altaidevorg",
+  "homepage": "https://github.com/altaidevorg/afterimage",
+  "skills": []
+}
