@@ -1,0 +1,9 @@
+{
+  "name": "jahala--tilth",
+  "displayName": "tilth",
+  "description": "Smart(er) code reading for humans and AI agents. Reduces cost per correct answer by ~40% on average. Install: cargo install tilth -or- npx tilth",
+  "version": "1.0.0",
+  "author": "jahala",
+  "homepage": "https://github.com/jahala/tilth",
+  "skills": []
+}
