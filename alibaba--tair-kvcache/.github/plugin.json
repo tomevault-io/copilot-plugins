@@ -1,0 +1,9 @@
+{
+  "name": "alibaba--tair-kvcache",
+  "displayName": "tair-kvcache",
+  "description": "Alibaba Cloud's high-performance KVCache system for LLM inference, with components for global cache management, inference simulation(HiSim), and more.",
+  "version": "1.0.0",
+  "author": "alibaba",
+  "homepage": "https://github.com/alibaba/tair-kvcache",
+  "skills": []
+}
