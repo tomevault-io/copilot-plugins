@@ -1,0 +1,103 @@
+## livekit-wakeword
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project
+
+livekit-wakeword — wake word detection library using frozen ONNX feature extraction with trainable PyTorch classifiers. Hybrid architecture: ONNX mel spectrogram + speech embedding → PyTorch DNN/RNN classifier head.
+
+## Commands
+
+**Always use `uv` for package management. Always use `git` for version separation (branches, commits).**
+
+```bash
+# Install
+uv sync                              # All deps including optional groups
+uv sync --group dev                  # Dev only
+
+# Test
+uv run pytest tests/                 # All tests
+uv run pytest tests/test_config.py   # Single file
+uv run pytest -k "test_name"         # Single test
+uv run pytest --cov=src/livekit/wakeword tests/  # With coverage
+
+# Lint & format
+uv run ruff check src/ tests/       # Lint (rules: E, F, I, UP)
+uv run ruff format src/ tests/      # Auto-format
+uv run mypy src/livekit/wakeword/       # Type check (strict mode)
+
+# CLI (entry point: livekit-wakeword = livekit.wakeword.cli:app)
+uv run livekit-wakeword setup [--config YAML]   # Data deps; Piper if piper_vits / VoxCPM snapshot if voxcpm; else always Piper when no --config
+uv run livekit-wakeword generate <config> # VITS TTS + SLERP speaker blending + adversarial negatives
+uv run livekit-wakeword augment <config>  # Augment + extract features → .npy
+uv run livekit-wakeword train <config>    # 3-phase adaptive training
+uv run livekit-wakeword export <config>   # Export classifier to ONNX
+uv run livekit-wakeword run <config>      # Full pipeline (generate→augment→extract→train→export)
+```
+
+## Architecture
+
+### Processing Pipeline (inference)
+```
+Raw audio (16kHz) → MelSpectrogramFrontend (ONNX) → SpeechEmbedding (ONNX) → Classifier (PyTorch) → [0,1]
+                    n_fft=512, hop=160, n_mels=32     76×32×1 → 96-dim         16×96 → 1 score
+```
+
+### Source Layout (`src/livekit/wakeword/`)
+
+- **`config.py`** — Pydantic models + YAML loading (`load_config(path)`); `TtsBackend`, `PiperTtsConfig`, `VoxCpmTtsConfig`, `piper_checkpoint_path`, `voxcpm_local_model_path`
+- **`cli.py`** — Typer CLI with all commands
+- **`models/`**
+  - `feature_extractor.py` — `MelSpectrogramFrontend` (ONNX primary, torchaudio fallback) and `SpeechEmbedding` (ONNX only)
+  - `classifier.py` — `DNNClassifier` (FC+LayerNorm), `RNNClassifier` (Bi-LSTM), `build_classifier()` factory
+  - `pipeline.py` — `WakeWordClassifier` (training wrapper for classifier head)
+- **`data/`**
+  - `generate.py` — Synthetic clip orchestration (`run_generate`); default TTS via `tts/` backends (`tts_backend` in config)
+  - `tts/` — `SpeechSynthesizer` protocol, `get_tts_backend()`, `PiperVitsBackend`, `VoxCpmBackend`
+  - `piper/` — Piper-style VITS: `generate_samples` (904-speaker SLERP), `vits/` model, `vits_utils.py`, `defaults.py` (checkpoint paths/URLs), `text.py` (CMUDict phrase prep)
+  - `augment.py` — `AudioAugmentor` (EQ, distortion, RIR, background mixing) for all 6 splits; positives aligned to END of window, negatives/backgrounds center-padded
+  - `dataset.py` — `WakeWordDataset` (memory-mapped .npy, mixed-class batch generator)
+  - `features.py` — Extract features through ONNX pipeline → .npy files
+- **`training/`**
+  - `trainer.py` — `WakeWordTrainer` with 3-phase training (full → refinement → fine-tuning), hard example mining, adaptive negative weighting, checkpoint averaging
+  - `metrics.py` — FPPH (false positives per hour), recall, balanced accuracy
+- **`export/onnx.py`** — Export classifier to ONNX with optional INT8 quantization
+- **`inference/`**
+  - `model.py` — `WakeWordModel` class for simple prediction API
+  - `listener.py` — `WakeWordListener` class for async microphone detection
+- **`swift/`** — `LiveKitWakeWord` Swift package: ONNX Runtime-based pipeline for iOS 16+ / macOS 14+. `WakeWordModel` (stateless predict) + `WakeWordListener` (actor around `AVAudioEngine`). The mel + embedding `.onnx` files from `src/livekit/wakeword/resources/` are bundled as package resources; classifier `.onnx` files are loaded from disk. ORT's CoreML Execution Provider (ANE/GPU/CPU) is used by default via `ExecutionProvider.coreML`. Depends on the [official ORT SPM package](https://github.com/microsoft/onnxruntime-swift-package-manager).
+- **`examples/ios_wakeword/`** — SwiftUI demo app (iOS + macOS) that consumes the `swift/` package via a local SPM dependency (`path: ../../swift`). `WakewordEngine` wraps `AVAudioEngine` + a 2 s Int16 ring buffer + background `WakeWordModel.predict()`; `ContentView` renders score/volume graphs and an execution-provider picker. Generated from `project.yml` via `xcodegen`.
+
+### Key Design Decisions
+
+- **Feature extraction is numpy-based** (ONNX runtime), not torch tensors. Both frozen models (`melspectrogram.onnx`, `embedding_model.onnx`) are bundled with the package via `importlib.resources` (see `resources/__init__.py`).
+- **Embedding shape**: always `(batch, 16, 96)` — 16 timesteps of 96-dim vectors. Last 16 steps taken or left-padded.
+- **Model sizes** (tiny/small/medium/large) map to `layer_dim` and `n_blocks` in config. Factory: `build_classifier(model_type, model_size)`.
+- **Training loss**: BCE with hard example mining (only non-trivial predictions contribute) and linearly increasing negative class weight.
+- **Checkpoint averaging**: final model averages top checkpoints by 90th-pct accuracy and 10th-pct FPPH.
+- **Config format**: YAML loaded via `load_config(path)`. See `configs/hey_livekit.yaml` for reference.
+
+## Documentation
+
+For detailed documentation on each pipeline stage, see `docs/`:
+
+- [docs/overview.md](docs/overview.md) — Architecture and data flow
+- [docs/data-generation.md](docs/data-generation.md) — TTS synthesis and adversarial negatives
+- [docs/augmentation.md](docs/augmentation.md) — Audio transforms and alignment
+- [docs/feature-extraction.md](docs/feature-extraction.md) — Mel spectrograms and embeddings
+- [docs/training.md](docs/training.md) — 3-phase training and checkpoint averaging
+- [docs/export-and-inference.md](docs/export-and-inference.md) — ONNX export and Python API
+
+## Code Style
+
+- Python 3.11+, line length 100
+- Ruff for linting/formatting, mypy strict mode
+- Build system: hatchling, src layout (`src/livekit/wakeword/`)
+
+---
+> Source: [livekit/livekit-wakeword](https://github.com/livekit/livekit-wakeword) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
