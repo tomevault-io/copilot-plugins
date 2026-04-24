@@ -1,0 +1,60 @@
+## hledger-mcp
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is an HLedger MCP (Model Context Protocol) server implementation built with TypeScript. The project creates a bridge between HLedger accounting software and MCP-compatible applications using the Model Context Protocol SDK.
+
+## Commands
+
+### Building
+
+- `npm run build` - Compiles TypeScript to JavaScript and makes the output executable
+
+### Development
+
+- Node.js version: v24.7.0 (specified in .nvmrc)
+- Use `nvm use` to set correct Node version
+
+## Architecture
+
+### Core Structure
+
+- **Entry Point**: `src/index.ts` - Main server implementation
+- **Output**: `build/index.js` - Compiled executable with shebang
+- **Binary**: Available as `hledger-mcp` command after build
+
+### Key Components
+
+- **MCP Server**: Uses `@modelcontextprotocol/sdk` for Model Context Protocol implementation
+- **Transport**: StdioServerTransport for stdio-based communication
+- **Validation**: Zod library for schema validation
+- **Configuration**: Configurable via CLI flags for read/write behaviour
+- **Write Tools**: `hledger_add_transaction`, `hledger_import`, `hledger_rewrite`, `hledger_remove_entry`, `hledger_replace_entry`, and `hledger_close` all write through temporary copies with optional backups
+- **Read Tools**: new commands such as `hledger_notes` extend the reporting surface while reusing query + output-format helpers
+
+### Server Structure
+
+The server is configured as:
+
+- Name: "hledger-mcp"
+- Version: "1.0.0"
+- Capabilities: tooling plus resource discovery (we call `hledger files` and register every reported ledger as an MCP resource before the transport connects)
+- Transport: Stdio-based communication
+
+The server runs on stdio and logs startup message to stderr to avoid interfering with the MCP protocol communication on stdout.
+
+### Runtime flags
+
+- `--read-only`: disable the add-transaction tool (all attempts return a validation error). Default: off.
+- `--skip-backup`: skip creating `.bak` files when appending to an existing journal. Default: off.
+- Journal path remains the first non-flag argument; flags can be passed before or after it.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/iiAtlas) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
