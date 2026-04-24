@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--power-platform-skills",
+  "displayName": "power-platform-skills",
+  "description": "A plugin marketplace for Claude Code/GitHub Copilot that provides Power Platform development plugins, including reusable skills, agents, and commands for building and deploying solutions.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/power-platform-skills",
+  "skills": []
+}
