@@ -1,0 +1,9 @@
+{
+  "name": "liorvainer--data-israel",
+  "displayName": "data-israel",
+  "description": " AI agent network that connects to Israeli open data sources - ask questions in Hebrew, get answers grounded in real data with charts and sources.",
+  "version": "1.0.0",
+  "author": "LiorVainer",
+  "homepage": "https://github.com/LiorVainer/data-israel",
+  "skills": []
+}
