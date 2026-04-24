@@ -1,0 +1,9 @@
+{
+  "name": "ghoulr--opencode-websearch-cited",
+  "displayName": "opencode-websearch-cited",
+  "description": "An OpenCode plugin that provides LLM cited web search.",
+  "version": "1.0.0",
+  "author": "ghoulr",
+  "homepage": "https://github.com/ghoulr/opencode-websearch-cited",
+  "skills": []
+}
