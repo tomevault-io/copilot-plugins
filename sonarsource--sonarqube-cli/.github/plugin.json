@@ -1,0 +1,9 @@
+{
+  "name": "sonarsource--sonarqube-cli",
+  "displayName": "sonarqube-cli",
+  "description": "CLI tool to provide access to Sonar features",
+  "version": "1.0.0",
+  "author": "SonarSource",
+  "homepage": "https://github.com/SonarSource/sonarqube-cli",
+  "skills": []
+}
