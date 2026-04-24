@@ -1,6 +1,6 @@
 # eeg_flutter_app
 
-> Tome by [vyhuholl](https://github.com/vyhuholl/eeg_flutter_app) — distributed by [TomeVault](https://tomevault.io/claim/vyhuholl)
+> Tome by [vyhuholl](https://github.com/vyhuholl/eeg_flutter_app) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [vyhuholl/eeg_flutter_app](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/vyhuholl)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/vyhuholl/eeg_flutter_app](https://github.com/vyhuholl/eeg_flutter_app)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install vyhuholl/eeg_flutter_app
 ```
-Or browse all formats at [https://tomevault.io/claim/vyhuholl](https://tomevault.io/claim/vyhuholl).
+Source: [github.com/vyhuholl/eeg_flutter_app](https://github.com/vyhuholl/eeg_flutter_app).
 
 <!-- genome:t-i-p -->
