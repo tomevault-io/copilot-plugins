@@ -1,0 +1,26 @@
+{
+  "name": "freenet--freenet-agent-skills",
+  "displayName": "freenet-agent-skills",
+  "description": "AI coding agent skills for building applications on Freenet",
+  "version": "1.0.0",
+  "author": "freenet",
+  "homepage": "https://github.com/freenet/freenet-agent-skills",
+  "skills": [
+    {
+      "name": "dapp-builder",
+      "description": ""
+    },
+    {
+      "name": "pr-creation",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    }
+  ]
+}
