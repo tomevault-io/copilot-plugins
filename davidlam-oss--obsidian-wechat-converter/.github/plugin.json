@@ -1,9 +1,9 @@
 {
   "name": "davidlam-oss--obsidian-wechat-converter",
   "displayName": "obsidian-wechat-converter",
-  "description": "obsidian-wechat-converter",
+  "description": "Obsidian \u5fae\u4fe1\u516c\u4f17\u53f7\u6392\u7248\u63d2\u4ef6\u3002\u652f\u6301 Markdown \u8f6c\u516c\u4f17\u53f7\u6837\u5f0f\u3001\u4e00\u952e\u540c\u6b65\u8349\u7a3f\u7bb1\u3001\u672c\u5730\u56fe\u7247\u81ea\u52a8\u4e0a\u4f20\u3001\u5b8c\u7f8e\u652f\u6301 LaTeX \u6570\u5b66\u516c\u5f0f (SVG)\u3001\u652f\u6301\u6807\u70b9\u7b26\u53f7\u4e2d\u6587\u6807\u51c6\u5316\u5904\u7406\u3002\u8ba9\u6280\u672f\u5199\u4f5c\u56de\u5f52\u7eaf\u7cb9\u3002",
   "version": "1.0.0",
   "author": "DavidLam-oss",
-  "homepage": "https://tomevault.io/claim/DavidLam-oss",
+  "homepage": "https://github.com/DavidLam-oss/obsidian-wechat-converter",
   "skills": []
 }
