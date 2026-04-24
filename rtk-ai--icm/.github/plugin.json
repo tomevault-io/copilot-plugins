@@ -1,0 +1,9 @@
+{
+  "name": "rtk-ai--icm",
+  "displayName": "icm",
+  "description": "Permanent memory for AI agents. Single binary, zero dependencies, MCP native.",
+  "version": "1.0.0",
+  "author": "rtk-ai",
+  "homepage": "https://github.com/rtk-ai/icm",
+  "skills": []
+}
