@@ -1,0 +1,9 @@
+{
+  "name": "cote-star--agent-chorus",
+  "displayName": "agent-chorus",
+  "description": "Local-first CLI to read, compare, and hand off sessions across Claude Code, Codex, Gemini, and Cursor agents. Checkpoints, cross-agent messaging, zero npm deps.",
+  "version": "1.0.0",
+  "author": "cote-star",
+  "homepage": "https://github.com/cote-star/agent-chorus",
+  "skills": []
+}
