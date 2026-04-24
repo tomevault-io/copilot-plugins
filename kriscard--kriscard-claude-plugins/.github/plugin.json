@@ -1,0 +1,74 @@
+{
+  "name": "kriscard--kriscard-claude-plugins",
+  "displayName": "kriscard-claude-plugins",
+  "description": "Personal Claude Code plugin marketplace - skills, commands, and agents for maximum productivity",
+  "version": "1.0.0",
+  "author": "kriscard",
+  "homepage": "https://github.com/kriscard/kriscard-claude-plugins",
+  "skills": [
+    {
+      "name": "ai-engineer",
+      "description": ""
+    },
+    {
+      "name": "blog-writer",
+      "description": ""
+    },
+    {
+      "name": "claude-code-analyzer",
+      "description": ""
+    },
+    {
+      "name": "code-assistant",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "conference-talk-builder",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "dotfiles-best-practices",
+      "description": ""
+    },
+    {
+      "name": "dotfiles-optimizer",
+      "description": ""
+    },
+    {
+      "name": "lazy-nvim-optimization",
+      "description": ""
+    },
+    {
+      "name": "neovim-best-practices",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "senior-architect",
+      "description": ""
+    },
+    {
+      "name": "studio-startup",
+      "description": ""
+    },
+    {
+      "name": "template-patterns",
+      "description": ""
+    }
+  ]
+}
