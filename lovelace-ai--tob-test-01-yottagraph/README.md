@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Lovelace-AI/tob-test-01-yottagraph](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Lovelace-AI)
+From [Lovelace-AI/tob-test-01-yottagraph](https://github.com/Lovelace-AI/tob-test-01-yottagraph) — a repo with 0+ stars on GitHub.
 
 ---
 
