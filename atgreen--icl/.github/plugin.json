@@ -1,0 +1,9 @@
+{
+  "name": "atgreen--icl",
+  "displayName": "icl",
+  "description": "Interactive Common Lisp: an enhanced REPL",
+  "version": "1.0.0",
+  "author": "atgreen",
+  "homepage": "https://github.com/atgreen/icl",
+  "skills": []
+}
