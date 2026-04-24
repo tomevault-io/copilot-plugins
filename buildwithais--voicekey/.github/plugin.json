@@ -1,0 +1,9 @@
+{
+  "name": "buildwithais--voicekey",
+  "displayName": "voicekey",
+  "description": "Voice to text, one key to input.",
+  "version": "1.0.0",
+  "author": "BuildWithAIs",
+  "homepage": "https://github.com/BuildWithAIs/voicekey",
+  "skills": []
+}
