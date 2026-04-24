@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Sangramjeet-Kumar/SprintFlow---Agile-
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Sangramjeet-Kumar)
+From [Sangramjeet-Kumar/SprintFlow---Agile-Software-Management-Tool](https://github.com/Sangramjeet-Kumar/SprintFlow---Agile-Software-Management-Tool) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Sangramjeet-Kumar/SprintFlow---Agile-Software-Management-Tool
 ```
-Or browse all formats at [https://tomevault.io/claim/Sangramjeet-Kumar](https://tomevault.io/claim/Sangramjeet-Kumar).
+Source: [github.com/Sangramjeet-Kumar/SprintFlow---Agile-Software-Management-Tool](https://github.com/Sangramjeet-Kumar/SprintFlow---Agile-Software-Management-Tool).
 
 <!-- genome:a-i-s -->
