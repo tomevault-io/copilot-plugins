@@ -1,0 +1,9 @@
+{
+  "name": "affaan-m--jarvis",
+  "displayName": "JARVIS",
+  "description": "JARVIS: a real-time agentic intelligence-gathering platform powered by autonomous web scraping & OSINT, streamed via Meta Ray-Ban smart glasses",
+  "version": "1.0.0",
+  "author": "affaan-m",
+  "homepage": "https://github.com/affaan-m/JARVIS",
+  "skills": []
+}
