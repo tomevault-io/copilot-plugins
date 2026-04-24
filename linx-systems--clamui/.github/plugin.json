@@ -1,0 +1,9 @@
+{
+  "name": "linx-systems--clamui",
+  "displayName": "clamui",
+  "description": "ClamAV Desktop application ( GUI )",
+  "version": "1.0.0",
+  "author": "linx-systems",
+  "homepage": "https://github.com/linx-systems/clamui",
+  "skills": []
+}
