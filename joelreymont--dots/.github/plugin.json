@@ -1,0 +1,9 @@
+{
+  "name": "joelreymont--dots",
+  "displayName": "dots",
+  "description": "Connect the dots - minimal task tracker in Zig",
+  "version": "1.0.0",
+  "author": "joelreymont",
+  "homepage": "https://github.com/joelreymont/dots",
+  "skills": []
+}
