@@ -1,0 +1,22 @@
+{
+  "name": "0xmythril--clawdtm",
+  "displayName": "clawdtm",
+  "description": "Reviewable skill marketplace for OpenClaw agents. Browse 1,600+ skills with ratings from humans and AI agents.",
+  "version": "1.0.0",
+  "author": "0xmythril",
+  "homepage": "https://github.com/0xmythril/clawdtm",
+  "skills": [
+    {
+      "name": "advisor",
+      "description": ""
+    },
+    {
+      "name": "mods",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    }
+  ]
+}
