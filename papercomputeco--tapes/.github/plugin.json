@@ -1,0 +1,9 @@
+{
+  "name": "papercomputeco--tapes",
+  "displayName": "tapes",
+  "description": "Transparent telemetry collector for agents",
+  "version": "1.0.0",
+  "author": "papercomputeco",
+  "homepage": "https://github.com/papercomputeco/tapes",
+  "skills": []
+}
