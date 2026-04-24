@@ -1,0 +1,9 @@
+{
+  "name": "hmbown--aleph",
+  "displayName": "aleph",
+  "description": "Skill + MCP server to turn your agent into an RLM. Load context, iterate with search/code/think tools, converge on answers.",
+  "version": "1.0.0",
+  "author": "Hmbown",
+  "homepage": "https://github.com/Hmbown/aleph",
+  "skills": []
+}
