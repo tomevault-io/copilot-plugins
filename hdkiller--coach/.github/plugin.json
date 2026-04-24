@@ -1,0 +1,34 @@
+{
+  "name": "hdkiller--coach",
+  "displayName": "coach",
+  "description": "Your open source AI coach and unified fitness dashboard.",
+  "version": "1.0.0",
+  "author": "hdkiller",
+  "homepage": "https://github.com/hdkiller/coach",
+  "skills": [
+    {
+      "name": "nuxt",
+      "description": ""
+    },
+    {
+      "name": "nuxt-ui",
+      "description": ""
+    },
+    {
+      "name": "reka-ui",
+      "description": ""
+    },
+    {
+      "name": "report-bug",
+      "description": ""
+    },
+    {
+      "name": "ts-library",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    }
+  ]
+}
