@@ -1,0 +1,9 @@
+{
+  "name": "semgrep--skills",
+  "displayName": "skills",
+  "description": "A collection of skills for AI coding agents from Semgrep",
+  "version": "1.0.0",
+  "author": "semgrep",
+  "homepage": "https://github.com/semgrep/skills",
+  "skills": []
+}
