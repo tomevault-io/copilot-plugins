@@ -1,0 +1,9 @@
+{
+  "name": "mitkox--rlmgw",
+  "displayName": "rlmgw",
+  "description": "Recursive Language Models Gateway build using rlm https://arxiv.org/abs/2512.24601v1 ",
+  "version": "1.0.0",
+  "author": "mitkox",
+  "homepage": "https://github.com/mitkox/rlmgw",
+  "skills": []
+}
