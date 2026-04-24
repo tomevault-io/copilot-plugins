@@ -1,0 +1,44 @@
+{
+  "name": "Trae-Account-Manager",
+  "owner": "S-Trespassing",
+  "repo": "Trae-Account-Manager",
+  "description": "  \u8fd9\u662f\u4e00\u6b3e\u4e13\u4e3a Trae IDE \u7528\u6237\u6253\u9020\u7684\u591a\u8d26\u53f7\u9ad8\u6548\u7ba1\u7406\u5de5\u5177\u3002\u901a\u8fc7\u67e5\u770b\u672c\u5de5\u5177\uff0c\u60a8\u53ef\u4ee5\u8f7b\u677e\u7ba1\u7406\u591a\u4e2a Trae \u8d26\u53f7\uff0c\u4e00\u952e\u5207\u6362\u8d26\u53f7\uff0c\u5b9e\u65f6\u4f7f\u7528\u91cf\uff0c\u8ba9\u60a8\u7684 Trae IDE \u4f7f\u7528\u4f53\u9a8c\u66f4\u52a0\u4fbf\u6377\uff01\u672c\u9879\u76ee\u57fa\u4e8e\u5927\u4f6c Yang-505 \u7684 https://github.com/Yang-505/Trae-Account-Manager \u9879\u76ee\u4fee\u6539\u5e76\u4e8c\u6b21\u5f00\u6e90,\u91cd\u6784\u4e86ui\u754c\u9762,\u589e\u52a0\u548c\u4f18\u5316\u82e5\u5e72\u529f\u80fd",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/S-Trespassing/Trae-Account-Manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T05:32:02Z"
+}
