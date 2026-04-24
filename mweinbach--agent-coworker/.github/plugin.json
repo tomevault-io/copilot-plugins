@@ -1,0 +1,14 @@
+{
+  "name": "mweinbach--agent-coworker",
+  "displayName": "agent-coworker",
+  "description": "Terminal-first coworker agent (Bun + OpenTUI)",
+  "version": "1.0.0",
+  "author": "mweinbach",
+  "homepage": "https://github.com/mweinbach/agent-coworker",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
