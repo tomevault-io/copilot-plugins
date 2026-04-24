@@ -1,0 +1,30 @@
+{
+  "name": "ipnet-mesh--meshcore-hub",
+  "displayName": "meshcore-hub",
+  "description": "MeshCore Hub provides a complete solution for monitoring, collecting, and interacting with MeshCore mesh networks",
+  "version": "1.0.0",
+  "author": "ipnet-mesh",
+  "homepage": "https://github.com/ipnet-mesh/meshcore-hub",
+  "skills": [
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "git-branch",
+      "description": ""
+    },
+    {
+      "name": "git-pr",
+      "description": ""
+    },
+    {
+      "name": "quality",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
