@@ -1,0 +1,9 @@
+{
+  "name": "dmmulroy--jj-ryu",
+  "displayName": "jj-ryu",
+  "description": "Stacked PRs for Jujutsu. Push bookmark stacks to GitHub and GitLab as chained pull requests.",
+  "version": "1.0.0",
+  "author": "dmmulroy",
+  "homepage": "https://github.com/dmmulroy/jj-ryu",
+  "skills": []
+}
