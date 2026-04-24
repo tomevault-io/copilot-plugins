@@ -1,0 +1,9 @@
+{
+  "name": "franklesniak--gloryrole",
+  "displayName": "GloryRole",
+  "description": "An unsupervised role mining engine written in PowerShell. Feed it cloud activity logs and it figures out who does what, groups similar principals via K-Means clustering, and generates least-privilege ",
+  "version": "1.0.0",
+  "author": "franklesniak",
+  "homepage": "https://github.com/franklesniak/GloryRole",
+  "skills": []
+}
