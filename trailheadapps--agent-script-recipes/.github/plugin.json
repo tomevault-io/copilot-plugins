@@ -1,0 +1,9 @@
+{
+  "name": "trailheadapps--agent-script-recipes",
+  "displayName": "agent-script-recipes",
+  "description": "A collection of easy-to-digest Agent Script examples.",
+  "version": "1.0.0",
+  "author": "trailheadapps",
+  "homepage": "https://github.com/trailheadapps/agent-script-recipes",
+  "skills": []
+}
