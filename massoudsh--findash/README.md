@@ -1,6 +1,6 @@
 # Findash
 
-> Tome by [massoudsh](https://github.com/massoudsh/Findash) — distributed by [TomeVault](https://tomevault.io/claim/massoudsh)
+> Tome by [massoudsh](https://github.com/massoudsh/Findash) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [massoudsh/Findash](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/massoudsh)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/massoudsh/Findash](https://github.com/massoudsh/Findash)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install massoudsh/Findash
 ```
-Or browse all formats at [https://tomevault.io/claim/massoudsh](https://tomevault.io/claim/massoudsh).
+Source: [github.com/massoudsh/Findash](https://github.com/massoudsh/Findash).
 
 <!-- genome:t-i-p -->
