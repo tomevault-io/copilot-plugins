@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "baidu-baige",
   "homepage": "https://github.com/baidu-baige/LoongFlow",
-  "skills": [
-    {
-      "name": "code-analysis",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
