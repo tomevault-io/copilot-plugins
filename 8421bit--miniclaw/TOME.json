@@ -2,9 +2,9 @@
   "name": "MiniClaw",
   "owner": "8421bit",
   "repo": "MiniClaw",
-  "description": "",
+  "description": "\ud83e\udd9e A Digital Life Embryo for your MCP Client. An intelligent micro-kernel with Nociception, Memory Apoptosis, and a Curiosity Drive. Evolve your AI Copilot into a sentient partner for Claude Desktop, Qoderwork, Cursor, and beyond.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/8421bit",
+  "source_url": "https://github.com/8421bit/MiniClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T10:38:43Z"
+  "distributed_at": "2026-04-24T00:48:40Z"
 }
