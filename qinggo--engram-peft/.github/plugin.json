@@ -1,0 +1,9 @@
+{
+  "name": "qinggo--engram-peft",
+  "displayName": "engram-peft",
+  "description": "\ud83d\ude80 Engram-PEFT: An unofficial implementation of DeepSeek Engram. Inject high-capacity conditional memory into LLMs via sparse retrieval PEFT without increasing inference FLOPs / DeepSeek Engram \u67b6\u6784\u7684\u975e\u5b98\u65b9\u5b9e",
+  "version": "1.0.0",
+  "author": "QingGo",
+  "homepage": "https://github.com/QingGo/engram-peft",
+  "skills": []
+}
