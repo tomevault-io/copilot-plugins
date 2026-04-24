@@ -1,0 +1,22 @@
+{
+  "name": "ocrbase-hq--ocrbase",
+  "displayName": "ocrbase",
+  "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable.",
+  "version": "1.0.0",
+  "author": "ocrbase-hq",
+  "homepage": "https://github.com/ocrbase-hq/ocrbase",
+  "skills": [
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": ""
+    }
+  ]
+}
