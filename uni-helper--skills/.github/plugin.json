@@ -1,0 +1,38 @@
+{
+  "name": "uni-helper--skills",
+  "displayName": "skills",
+  "description": "uni-app skills",
+  "version": "1.0.0",
+  "author": "uni-helper",
+  "homepage": "https://github.com/uni-helper/skills",
+  "skills": [
+    {
+      "name": "uni-helper",
+      "description": ""
+    },
+    {
+      "name": "unocss",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "description": ""
+    },
+    {
+      "name": "pinia",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "uniapp",
+      "description": ""
+    }
+  ]
+}
