@@ -1,0 +1,230 @@
+{
+  "name": "florianbuetow--claude-code",
+  "displayName": "claude-code",
+  "description": "AI instruction skills by florianbuetow",
+  "version": "1.0.0",
+  "author": "florianbuetow",
+  "homepage": "https://github.com/florianbuetow/claude-code",
+  "skills": [
+    {
+      "name": "access-control",
+      "description": ""
+    },
+    {
+      "name": "api",
+      "description": ""
+    },
+    {
+      "name": "attack-surface",
+      "description": ""
+    },
+    {
+      "name": "auth",
+      "description": ""
+    },
+    {
+      "name": "beyond-solid-principles",
+      "description": ""
+    },
+    {
+      "name": "business-logic",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "description": ""
+    },
+    {
+      "name": "crypto",
+      "description": ""
+    },
+    {
+      "name": "data-disclosure",
+      "description": ""
+    },
+    {
+      "name": "data-flows",
+      "description": ""
+    },
+    {
+      "name": "detecting",
+      "description": ""
+    },
+    {
+      "name": "dos",
+      "description": ""
+    },
+    {
+      "name": "explain",
+      "description": ""
+    },
+    {
+      "name": "explain-system-tradeoffs",
+      "description": ""
+    },
+    {
+      "name": "fix",
+      "description": ""
+    },
+    {
+      "name": "fuzz",
+      "description": ""
+    },
+    {
+      "name": "glossary",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "description": ""
+    },
+    {
+      "name": "harden",
+      "description": ""
+    },
+    {
+      "name": "identifying",
+      "description": ""
+    },
+    {
+      "name": "info-disclosure",
+      "description": ""
+    },
+    {
+      "name": "injection",
+      "description": ""
+    },
+    {
+      "name": "insecure-design",
+      "description": ""
+    },
+    {
+      "name": "integrity",
+      "description": ""
+    },
+    {
+      "name": "linddun",
+      "description": ""
+    },
+    {
+      "name": "linking",
+      "description": ""
+    },
+    {
+      "name": "logging",
+      "description": ""
+    },
+    {
+      "name": "misconfig",
+      "description": ""
+    },
+    {
+      "name": "non-compliance",
+      "description": ""
+    },
+    {
+      "name": "non-repudiation-privacy",
+      "description": ""
+    },
+    {
+      "name": "outdated-deps",
+      "description": ""
+    },
+    {
+      "name": "owasp",
+      "description": ""
+    },
+    {
+      "name": "pasta",
+      "description": ""
+    },
+    {
+      "name": "pasta-decompose",
+      "description": ""
+    },
+    {
+      "name": "pasta-objectives",
+      "description": ""
+    },
+    {
+      "name": "pasta-risk",
+      "description": ""
+    },
+    {
+      "name": "pasta-scope",
+      "description": ""
+    },
+    {
+      "name": "pasta-vulns",
+      "description": ""
+    },
+    {
+      "name": "privilege-escalation",
+      "description": ""
+    },
+    {
+      "name": "race-conditions",
+      "description": ""
+    },
+    {
+      "name": "regression",
+      "description": ""
+    },
+    {
+      "name": "repudiation",
+      "description": ""
+    },
+    {
+      "name": "review-plan",
+      "description": ""
+    },
+    {
+      "name": "sans25",
+      "description": ""
+    },
+    {
+      "name": "serverless",
+      "description": ""
+    },
+    {
+      "name": "solid-principles",
+      "description": ""
+    },
+    {
+      "name": "spec-writer",
+      "description": ""
+    },
+    {
+      "name": "spoofing",
+      "description": ""
+    },
+    {
+      "name": "start",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "description": ""
+    },
+    {
+      "name": "stride",
+      "description": ""
+    },
+    {
+      "name": "tampering",
+      "description": ""
+    },
+    {
+      "name": "unawareness",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "description": ""
+    },
+    {
+      "name": "websocket",
+      "description": ""
+    }
+  ]
+}
