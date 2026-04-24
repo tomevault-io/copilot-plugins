@@ -1,0 +1,9 @@
+{
+  "name": "catnoir2006--jellyfin-plugin-mediathekviewdl",
+  "displayName": "jellyfin-plugin-MediathekViewDL",
+  "description": "Ein Plugin mit dem Sendungen von den Mediatheken der \u00d6ffentlich Rechtlichen heruntergladen werden k\u00f6nnen.",
+  "version": "1.0.0",
+  "author": "CatNoir2006",
+  "homepage": "https://github.com/CatNoir2006/jellyfin-plugin-MediathekViewDL",
+  "skills": []
+}
