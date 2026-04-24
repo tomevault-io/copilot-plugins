@@ -1,0 +1,190 @@
+## ichinichi
+
+> Minimalist daily notes app. Year-at-a-glance calendar. Local-first, optional cloud sync. Client-side encryption, IndexedDB. Today editable, past read-only, future disabled.
+
+# Ichinichi
+
+Minimalist daily notes app. Year-at-a-glance calendar. Local-first, optional cloud sync. Client-side encryption, IndexedDB. Today editable, past read-only, future disabled.
+
+## Core Rules
+
+- One note/day, key: DD-MM-YYYY
+- URL params: ?date=DD-MM-YYYY note, ?year=YYYY calendar
+- Escape closes modal; arrows navigate when not editing
+
+## Dev Workflow
+
+1. Write failing test reproducing bug first
+2. Fix with minimal changes
+3. Verify test passes
+4. `npm test` — no regressions
+5. `npm run typecheck` — no type errors
+
+## Tech Stack
+
+React 18 + TypeScript, Vite, IndexedDB, Supabase (optional sync), CSS custom properties
+
+## Architecture
+
+- UI: `src/components` — pure views
+- Controllers: `src/controllers` — view models, orchestration
+- Domain: `src/domain` — use cases (notes, vault, sync)
+- Infra: `src/storage`, `src/services` — crypto, persistence, backend
+
+### Result Type
+
+Functional `Result<T, E>` in domain layer.
+
+### DI
+
+Domain defines interfaces → infra implements (`storage/runtimeAdapters.ts`) → React Context provides → factories compose deps.
+
+### State Management
+
+**Zustand stores** (`src/stores/`): noteContentStore, syncStore, noteDatesStore.
+Thin React hook wrappers in `src/hooks/` subscribe via `useSyncExternalStore`.
+
+**Phase-gated reducers** (`useVault`, `useVaultMachine`, `useAuth`): component-scoped state machines using `useReducer` + `useEffect`. Follow these rules strictly:
+
+1. **Discriminated `Phase` union** — explicit states (e.g. `"idle" | "signingIn" | "signingOut"`). Every async operation gets its own phase.
+2. **Pure exported reducer** — all state transitions are synchronous. Reducer is the single source of truth. Export it for unit testing.
+3. **Phase-gated effects** — each async actor is one `useEffect`. First line: `if (state.phase !== "thePhase") return;`. Effect fires only when entering that phase.
+4. **Effects only dispatch actions** — never mutate state, never set phase, never call other effects. On completion/error, dispatch an action back to the reducer.
+5. **Auto-transitions in the reducer** — when state A should immediately proceed to state B (e.g. locked → unlocking when password available), do it in the reducer (see `maybeAutoUnlock`, `evaluate`), not in an effect.
+6. **Cancellation in cleanup** — every async effect returns a cleanup that sets `cancelled = true` or calls `cancel()` from `createCancellableOperation`.
+
+Reference implementations: `useVault.ts` (simplest), `useAuth.ts` (most effects), `useVaultMachine.ts` (`evaluate` pattern).
+
+### Patterns to Avoid
+
+- **Effect-to-effect communication** → effects reading results of other effects instead of going through the reducer. This is how useEffect hell starts.
+- **Dispatching in a useEffect to trigger another useEffect** → use auto-transitions in the reducer instead.
+- Multiple useEffects on shared state → race conditions; prefer Zustand store or phase-gated reducer
+- Refs updated in one effect, read in async callback of another → stale values
+- `cancelled` flag without operation cancellation → side effects still run
+- Fire-and-forget `void promise.then(...)` → no tracking/cancellation/error handling
+
+## Architecture Invariants
+
+Hard rules. Violations MUST be fixed before commit. Enforced by ESLint, ast-grep, and CI.
+
+### Layer Boundaries (enforced by ESLint `no-restricted-imports`)
+
+- **Components** → may import from: controllers, contexts, hooks, types, utils. NOT from: storage, stores, domain, lib.
+- **Domain** → may import from: storage (interfaces only), types. NOT from: components, controllers, hooks, stores.
+- **Stores** → may import from: domain, storage, services, types, utils. NOT from: components, controllers, hooks.
+- **Infrastructure** (storage/services/lib) → NOT from: components, controllers, hooks, stores.
+- Exception: `NoteEditor` imports editor-specific services. `AppBootstrap` imports `lib/supabase`.
+
+### DO NOT: Use `as` Casts on External Data
+
+All data entering the app from IndexedDB, Supabase, localStorage JSON, or decrypted payloads MUST pass through a parse function in `src/storage/parsers.ts`. Parse functions validate shape and return `T | null`.
+
+```typescript
+// WRONG — silent corruption if schema drifts
+const row = data as RemoteNoteRow;
+
+// RIGHT — fails safely at the boundary
+const row = parseRemoteNoteRow(data);
+if (!row) return err({ type: "ParseError", message: "Invalid remote row" });
+```
+
+### DO NOT: Swallow Errors Silently
+
+Empty `catch {}` blocks hide bugs. Use `reportError()` from `src/utils/errorReporter.ts`:
+
+```typescript
+// WRONG
+} catch {
+  // not critical
+}
+
+// RIGHT
+} catch (error) {
+  reportError("storeName.methodName", error);
+}
+```
+
+### DO NOT: Chain useEffects
+
+New component-level async state MUST use the phase-gated reducer pattern. DO NOT chain useEffects where one effect's output triggers another via shared state or refs. Route ALL async state transitions through a reducer.
+
+- Max 3 useEffect calls per component/hook (lint warning). Max 5 (lint error).
+- If you need 4+ effects, use a phase-gated reducer instead.
+- Reference: `useVault.ts` (simplest), `useAuth.ts` (most effects), `useVaultMachine.ts` (`evaluate` pattern).
+
+### MUST: Generation Counter Discipline in Stores
+
+After every `await` in a Zustand store method:
+1. Check `if (gen !== _generation) return;` — abort if superseded
+2. Check `if (get()._disposed) return;` — abort if store disposed (where applicable)
+3. Re-read state via `get()` — never close over stale pre-await values
+
+### MUST: Use `reportError()` in New Catch Blocks
+
+Every new `catch` block in stores, storage, or domain code must call `reportError(context, error)`. No exceptions. Genuinely intentional suppressions (e.g., DOM range errors, Intl API unavailability) keep `catch {}` but must include `// INTENTIONAL: <reason>`.
+
+## Data Model (src/types/index.ts)
+
+- Note: date, content (sanitized HTML), updatedAt
+- SyncedNote: note + revision, serverUpdatedAt?, deleted?
+- NoteImage: id, noteDate, type, filename, mimeType, width, height, size, createdAt
+
+## App Modes
+
+- Local (default): unified IndexedDB, no account
+- Cloud (opt-in): Supabase auth + encrypted sync, local cache = source of truth
+
+## Storage & Encryption
+
+- DB: `dailynotes-unified` → notes, note_meta, images, image_meta, sync_state
+- AES-GCM; metadata separate. Multi-key: `key_id` on notes/images
+- Vault meta: localStorage `dailynote_vault_meta_v1`
+- Device key: non-exportable CryptoKey in IndexedDB (`dailynotes-vault`)
+- Password wrap: PBKDF2 SHA-256, 600k iterations
+
+## Sync (Cloud)
+
+- Debounced on edit; immediate on close + pagehide/beforeunload
+- Conflict: revision wins, updatedAt tiebreak
+- Pull by `server_updated_at` cursor; push pending ops first
+
+## Editor & Images
+
+- ContentEditable + HTML sanitization save/load
+- Inline image: paste/drop, compressed. `data-image-id` attrs, URLs via `ImageUrlManager`
+
+## UI Flows
+
+- Intro modal → first run
+- Mode choice → local notes exist
+- Vault unlock → device key missing
+- Cloud auth → sign-in/sign-up
+
+## Structure
+
+```
+src/
+  components/    Calendar, NoteEditor, AppModals, SyncIndicator, AuthForm, VaultUnlock
+  controllers/   useAppController, useAppModalsController
+  contexts/      AppMode/UrlState/ActiveVault/NoteRepository providers
+  domain/        notes, sync, vault use cases
+  stores/        Zustand vanilla stores (noteContent, sync, noteDates)
+  hooks/         thin wrappers over stores + auth/vault hooks
+  services/      vaultService, syncService
+  storage/       unified DB, crypto, repositories, keyring, sync
+  utils/         date, note rules, sanitization, URL state, images
+  styles/        reset/theme/components
+  types/         shared types
+```
+
+## Reference Docs
+
+- `docs/app-spec.md` — business logic, flows
+- `docs/architecture.md` — layer boundaries
+- `docs/data-flow.md` — local/cloud sync
+- `docs/key-derivation.md` — KEK/DEK, unlock flow
+
+---
+> Source: [katspaugh/ichinichi](https://github.com/katspaugh/ichinichi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
