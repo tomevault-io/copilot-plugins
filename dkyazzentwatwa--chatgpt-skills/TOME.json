@@ -1,0 +1,105 @@
+{
+  "name": "chatgpt-skills",
+  "owner": "dkyazzentwatwa",
+  "repo": "chatgpt-skills",
+  "description": "My comprehensive, tested + audited, library of skills to use for ChatGPT. ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ocr-document-processor",
+      "path": "ocr-document-processor",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/ocr-document-processor",
+      "description": ""
+    },
+    {
+      "name": "crypto-ta-analyzer",
+      "path": "crypto-ta-analyzer",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/crypto-ta-analyzer",
+      "description": ""
+    },
+    {
+      "name": "document-converter-suite",
+      "path": "document-converter-suite",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/document-converter-suite",
+      "description": ""
+    },
+    {
+      "name": "resume-builder",
+      "path": "resume-builder",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/resume-builder",
+      "description": ""
+    },
+    {
+      "name": "qr-code-generator",
+      "path": "qr-code-generator",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/qr-code-generator",
+      "description": ""
+    },
+    {
+      "name": "financial-calculator",
+      "path": "financial-calculator",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/financial-calculator",
+      "description": ""
+    },
+    {
+      "name": "image-enhancement-suite",
+      "path": "image-enhancement-suite",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/image-enhancement-suite",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "mcp-builder",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skill-creator",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "svg-precision-skill",
+      "path": "svg-precision-skill",
+      "github_url": "https://github.com/dkyazzentwatwa/chatgpt-skills/tree/main/svg-precision-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dkyazzentwatwa/chatgpt-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T00:30:13Z"
+}
