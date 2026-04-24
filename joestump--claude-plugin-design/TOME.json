@@ -1,0 +1,75 @@
+{
+  "name": "claude-plugin-design",
+  "owner": "joestump",
+  "repo": "claude-plugin-design",
+  "description": "A Claude Code plugin for architecture decision records (ADRs), OpenSpec specifications, and Docusaurus documentation generation.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adr",
+      "path": "skills/adr",
+      "github_url": "https://github.com/joestump/claude-plugin-design/tree/main/skills/adr",
+      "description": ""
+    },
+    {
+      "name": "check",
+      "path": "skills/check",
+      "github_url": "https://github.com/joestump/claude-plugin-design/tree/main/skills/check",
+      "description": ""
+    },
+    {
+      "name": "discover",
+      "path": "skills/discover",
+      "github_url": "https://github.com/joestump/claude-plugin-design/tree/main/skills/discover",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "skills/docs",
+      "github_url": "https://github.com/joestump/claude-plugin-design/tree/main/skills/docs",
+      "description": ""
+    },
+    {
+      "name": "init",
+      "path": "skills/init",
+      "github_url": "https://github.com/joestump/claude-plugin-design/tree/main/skills/init",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joestump/claude-plugin-design",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T13:36:15Z"
+}
