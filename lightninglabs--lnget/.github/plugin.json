@@ -1,0 +1,14 @@
+{
+  "name": "lightninglabs--lnget",
+  "displayName": "lnget",
+  "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)",
+  "version": "1.0.0",
+  "author": "lightninglabs",
+  "homepage": "https://github.com/lightninglabs/lnget",
+  "skills": [
+    {
+      "name": "lnget",
+      "description": ""
+    }
+  ]
+}
