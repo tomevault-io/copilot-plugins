@@ -1,0 +1,9 @@
+{
+  "name": "stoobly--stoobly-agent",
+  "displayName": "stoobly-agent",
+  "description": "stoobly-agent",
+  "version": "1.0.0",
+  "author": "Stoobly",
+  "homepage": "https://github.com/Stoobly/stoobly-agent",
+  "skills": []
+}
