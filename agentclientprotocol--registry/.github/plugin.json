@@ -1,0 +1,9 @@
+{
+  "name": "agentclientprotocol--registry",
+  "displayName": "registry",
+  "description": "Registry of agents implementing the Agent Client Protocol (ACP)",
+  "version": "1.0.0",
+  "author": "agentclientprotocol",
+  "homepage": "https://github.com/agentclientprotocol/registry",
+  "skills": []
+}
