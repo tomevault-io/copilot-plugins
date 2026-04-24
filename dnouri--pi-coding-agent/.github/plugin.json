@@ -1,0 +1,9 @@
+{
+  "name": "dnouri--pi-coding-agent",
+  "displayName": "pi-coding-agent",
+  "description": "Emacs frontend for the pi coding agent",
+  "version": "1.0.0",
+  "author": "dnouri",
+  "homepage": "https://github.com/dnouri/pi-coding-agent",
+  "skills": []
+}
