@@ -1,0 +1,375 @@
+{
+  "name": "claude-code",
+  "owner": "florianbuetow",
+  "repo": "claude-code",
+  "description": "AI instruction skills by florianbuetow",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "access-control",
+      "path": "plugins/appsec/skills/access-control",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/access-control",
+      "description": ""
+    },
+    {
+      "name": "api",
+      "path": "plugins/appsec/skills/api",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/api",
+      "description": ""
+    },
+    {
+      "name": "attack-surface",
+      "path": "plugins/appsec/skills/attack-surface",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/attack-surface",
+      "description": ""
+    },
+    {
+      "name": "auth",
+      "path": "plugins/appsec/skills/auth",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/auth",
+      "description": ""
+    },
+    {
+      "name": "beyond-solid-principles",
+      "path": "plugins/beyond-solid-principles/skills/beyond-solid-principles",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/beyond-solid-principles/skills/beyond-solid-principles",
+      "description": ""
+    },
+    {
+      "name": "business-logic",
+      "path": "plugins/appsec/skills/business-logic",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/business-logic",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "plugins/appsec/skills/config",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/config",
+      "description": ""
+    },
+    {
+      "name": "crypto",
+      "path": "plugins/appsec/skills/crypto",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/crypto",
+      "description": ""
+    },
+    {
+      "name": "data-disclosure",
+      "path": "plugins/appsec/skills/data-disclosure",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/data-disclosure",
+      "description": ""
+    },
+    {
+      "name": "data-flows",
+      "path": "plugins/appsec/skills/data-flows",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/data-flows",
+      "description": ""
+    },
+    {
+      "name": "detecting",
+      "path": "plugins/appsec/skills/detecting",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/detecting",
+      "description": ""
+    },
+    {
+      "name": "dos",
+      "path": "plugins/appsec/skills/dos",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/dos",
+      "description": ""
+    },
+    {
+      "name": "explain",
+      "path": "plugins/appsec/skills/explain",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/explain",
+      "description": ""
+    },
+    {
+      "name": "explain-system-tradeoffs",
+      "path": "plugins/explain-system-tradeoffs/skills/explain-system-tradeoffs",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/explain-system-tradeoffs/skills/explain-system-tradeoffs",
+      "description": ""
+    },
+    {
+      "name": "fix",
+      "path": "plugins/appsec/skills/fix",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/fix",
+      "description": ""
+    },
+    {
+      "name": "fuzz",
+      "path": "plugins/appsec/skills/fuzz",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/fuzz",
+      "description": ""
+    },
+    {
+      "name": "glossary",
+      "path": "plugins/appsec/skills/glossary",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/glossary",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "path": "plugins/appsec/skills/graphql",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/graphql",
+      "description": ""
+    },
+    {
+      "name": "harden",
+      "path": "plugins/appsec/skills/harden",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/harden",
+      "description": ""
+    },
+    {
+      "name": "identifying",
+      "path": "plugins/appsec/skills/identifying",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/identifying",
+      "description": ""
+    },
+    {
+      "name": "info-disclosure",
+      "path": "plugins/appsec/skills/info-disclosure",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/info-disclosure",
+      "description": ""
+    },
+    {
+      "name": "injection",
+      "path": "plugins/appsec/skills/injection",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/injection",
+      "description": ""
+    },
+    {
+      "name": "insecure-design",
+      "path": "plugins/appsec/skills/insecure-design",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/insecure-design",
+      "description": ""
+    },
+    {
+      "name": "integrity",
+      "path": "plugins/appsec/skills/integrity",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/integrity",
+      "description": ""
+    },
+    {
+      "name": "linddun",
+      "path": "plugins/appsec/skills/linddun",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/linddun",
+      "description": ""
+    },
+    {
+      "name": "linking",
+      "path": "plugins/appsec/skills/linking",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/linking",
+      "description": ""
+    },
+    {
+      "name": "logging",
+      "path": "plugins/appsec/skills/logging",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/logging",
+      "description": ""
+    },
+    {
+      "name": "misconfig",
+      "path": "plugins/appsec/skills/misconfig",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/misconfig",
+      "description": ""
+    },
+    {
+      "name": "non-compliance",
+      "path": "plugins/appsec/skills/non-compliance",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/non-compliance",
+      "description": ""
+    },
+    {
+      "name": "non-repudiation-privacy",
+      "path": "plugins/appsec/skills/non-repudiation-privacy",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/non-repudiation-privacy",
+      "description": ""
+    },
+    {
+      "name": "outdated-deps",
+      "path": "plugins/appsec/skills/outdated-deps",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/outdated-deps",
+      "description": ""
+    },
+    {
+      "name": "owasp",
+      "path": "plugins/appsec/skills/owasp",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/owasp",
+      "description": ""
+    },
+    {
+      "name": "pasta",
+      "path": "plugins/appsec/skills/pasta",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/pasta",
+      "description": ""
+    },
+    {
+      "name": "pasta-decompose",
+      "path": "plugins/appsec/skills/pasta-decompose",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/pasta-decompose",
+      "description": ""
+    },
+    {
+      "name": "pasta-objectives",
+      "path": "plugins/appsec/skills/pasta-objectives",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/pasta-objectives",
+      "description": ""
+    },
+    {
+      "name": "pasta-risk",
+      "path": "plugins/appsec/skills/pasta-risk",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/pasta-risk",
+      "description": ""
+    },
+    {
+      "name": "pasta-scope",
+      "path": "plugins/appsec/skills/pasta-scope",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/pasta-scope",
+      "description": ""
+    },
+    {
+      "name": "pasta-vulns",
+      "path": "plugins/appsec/skills/pasta-vulns",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/pasta-vulns",
+      "description": ""
+    },
+    {
+      "name": "privilege-escalation",
+      "path": "plugins/appsec/skills/privilege-escalation",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/privilege-escalation",
+      "description": ""
+    },
+    {
+      "name": "race-conditions",
+      "path": "plugins/appsec/skills/race-conditions",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/race-conditions",
+      "description": ""
+    },
+    {
+      "name": "regression",
+      "path": "plugins/appsec/skills/regression",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/regression",
+      "description": ""
+    },
+    {
+      "name": "repudiation",
+      "path": "plugins/appsec/skills/repudiation",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/repudiation",
+      "description": ""
+    },
+    {
+      "name": "review-plan",
+      "path": "plugins/appsec/skills/review-plan",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/review-plan",
+      "description": ""
+    },
+    {
+      "name": "sans25",
+      "path": "plugins/appsec/skills/sans25",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/sans25",
+      "description": ""
+    },
+    {
+      "name": "serverless",
+      "path": "plugins/appsec/skills/serverless",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/serverless",
+      "description": ""
+    },
+    {
+      "name": "solid-principles",
+      "path": "plugins/solid-principles/skills/solid-principles",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/solid-principles/skills/solid-principles",
+      "description": ""
+    },
+    {
+      "name": "spec-writer",
+      "path": "plugins/spec-writer/skills/spec-writer",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/spec-writer/skills/spec-writer",
+      "description": ""
+    },
+    {
+      "name": "spoofing",
+      "path": "plugins/appsec/skills/spoofing",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/spoofing",
+      "description": ""
+    },
+    {
+      "name": "start",
+      "path": "plugins/appsec/skills/start",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/start",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "path": "plugins/appsec/skills/status",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/status",
+      "description": ""
+    },
+    {
+      "name": "stride",
+      "path": "plugins/appsec/skills/stride",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/stride",
+      "description": ""
+    },
+    {
+      "name": "tampering",
+      "path": "plugins/appsec/skills/tampering",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/tampering",
+      "description": ""
+    },
+    {
+      "name": "unawareness",
+      "path": "plugins/appsec/skills/unawareness",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/unawareness",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "path": "plugins/appsec/skills/verify",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/verify",
+      "description": ""
+    },
+    {
+      "name": "websocket",
+      "path": "plugins/appsec/skills/websocket",
+      "github_url": "https://github.com/florianbuetow/claude-code/tree/main/plugins/appsec/skills/websocket",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/florianbuetow/claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T13:32:28Z"
+}
