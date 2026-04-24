@@ -1,0 +1,44 @@
+{
+  "name": "zero-limit",
+  "owner": "0xtbug",
+  "repo": "zero-limit",
+  "description": "ZeroLimit is a cross-platform desktop application for monitoring AI coding assistant quotas using CLIProxyAPI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/0xtbug/zero-limit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T09:37:12Z"
+}
