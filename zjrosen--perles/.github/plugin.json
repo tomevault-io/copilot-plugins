@@ -1,0 +1,9 @@
+{
+  "name": "zjrosen--perles",
+  "displayName": "perles",
+  "description": "A BQL (Beads Query Language) search, dependency and multi-view kanban board Terminal UI for Beads issue tracking and multi-agent orchestration control plane workflow runner.",
+  "version": "1.0.0",
+  "author": "zjrosen",
+  "homepage": "https://github.com/zjrosen/perles",
+  "skills": []
+}
