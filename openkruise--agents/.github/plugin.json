@@ -1,0 +1,9 @@
+{
+  "name": "openkruise--agents",
+  "displayName": "agents",
+  "description": "Rapid and cost-effective operator and best practice for agent sandbox lifecycle management.",
+  "version": "1.0.0",
+  "author": "openkruise",
+  "homepage": "https://github.com/openkruise/agents",
+  "skills": []
+}
