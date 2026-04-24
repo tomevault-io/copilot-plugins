@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [SixtySecondsApp/template-nextjs-full-
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/SixtySecondsApp#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/SixtySecondsApp/template-nextjs-full-stack](https://github.com/SixtySecondsApp/template-nextjs-full-stack)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/SixtySecondsApp) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
