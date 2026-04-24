@@ -1,0 +1,93 @@
+{
+  "name": "funstack",
+  "owner": "uhyo",
+  "repo": "funstack-router",
+  "description": "Router library based on Navigation API. In explocation of a router without History API legacy",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-pr",
+      "path": ".claude/skills/create-pr",
+      "github_url": "https://github.com/uhyo/funstack-router/tree/main/.claude/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "docs-consistency",
+      "path": ".claude/skills/docs-consistency",
+      "github_url": "https://github.com/uhyo/funstack-router/tree/main/.claude/skills/docs-consistency",
+      "description": ""
+    },
+    {
+      "name": "funstack-static-knowledge",
+      "path": "packages/static/skills/funstack-static-knowledge",
+      "github_url": "https://github.com/uhyo/funstack-router/tree/main/packages/static/skills/funstack-static-knowledge",
+      "description": ""
+    },
+    {
+      "name": "release-funstack",
+      "path": ".claude/skills/release-funstack",
+      "github_url": "https://github.com/uhyo/funstack-router/tree/main/.claude/skills/release-funstack",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": ".claude/skills/create-pr",
+      "github_url": "https://github.com/uhyo/funstack-router/tree/main/.claude/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "docs-consistency",
+      "path": ".claude/skills/docs-consistency",
+      "github_url": "https://github.com/uhyo/funstack-router/tree/main/.claude/skills/docs-consistency",
+      "description": ""
+    },
+    {
+      "name": "funstack-router-knowledge",
+      "path": "packages/router/skills/funstack-router-knowledge",
+      "github_url": "https://github.com/uhyo/funstack-router/tree/main/packages/router/skills/funstack-router-knowledge",
+      "description": ""
+    },
+    {
+      "name": "release-funstack",
+      "path": ".claude/skills/release-funstack",
+      "github_url": "https://github.com/uhyo/funstack-router/tree/main/.claude/skills/release-funstack",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/uhyo/funstack-router",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T00:36:18Z"
+}
