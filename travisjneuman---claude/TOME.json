@@ -1,0 +1,369 @@
+{
+  "name": ".claude",
+  "owner": "travisjneuman",
+  "repo": ".claude",
+  "description": "The Ultimate Claude Code Toolkit \u2014 127 skills, 86 agents, 109 marketplace repos (11,700+ community skills), 30 commands, 8 hooks, GSD framework. Drop-in ~/.claude config that auto-activates the right resources from your prompt. Zero config required.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "document-skills",
+      "path": "skills/document-skills",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/document-skills",
+      "description": ""
+    },
+    {
+      "name": "accessibility-a11y",
+      "path": "skills/accessibility-a11y",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/accessibility-a11y",
+      "description": ""
+    },
+    {
+      "name": "agent-teams",
+      "path": "skills/agent-teams",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/agent-teams",
+      "description": ""
+    },
+    {
+      "name": "ai-ml-development",
+      "path": "skills/ai-ml-development",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/ai-ml-development",
+      "description": ""
+    },
+    {
+      "name": "ai-policy-generator",
+      "path": "skills/ai-policy-generator",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/ai-policy-generator",
+      "description": ""
+    },
+    {
+      "name": "android-development",
+      "path": "skills/android-development",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/android-development",
+      "description": ""
+    },
+    {
+      "name": "api-design",
+      "path": "skills/api-design",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/api-design",
+      "description": ""
+    },
+    {
+      "name": "application-security",
+      "path": "skills/application-security",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/application-security",
+      "description": ""
+    },
+    {
+      "name": "authentication-patterns",
+      "path": "skills/authentication-patterns",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/authentication-patterns",
+      "description": ""
+    },
+    {
+      "name": "battle-card-builder",
+      "path": "skills/battle-card-builder",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/battle-card-builder",
+      "description": ""
+    },
+    {
+      "name": "career-path-planner",
+      "path": "skills/career-path-planner",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/career-path-planner",
+      "description": ""
+    },
+    {
+      "name": "case-interview-practice",
+      "path": "skills/case-interview-practice",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/case-interview-practice",
+      "description": ""
+    },
+    {
+      "name": "codebase-documenter",
+      "path": "skills/codebase-documenter",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/codebase-documenter",
+      "description": ""
+    },
+    {
+      "name": "customer-persona-builder",
+      "path": "skills/customer-persona-builder",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/customer-persona-builder",
+      "description": ""
+    },
+    {
+      "name": "customer-success",
+      "path": "skills/customer-success",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/customer-success",
+      "description": ""
+    },
+    {
+      "name": "data-science",
+      "path": "skills/data-science",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/data-science",
+      "description": ""
+    },
+    {
+      "name": "database-expert",
+      "path": "skills/database-expert",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/database-expert",
+      "description": ""
+    },
+    {
+      "name": "debate-practice-coach",
+      "path": "skills/debate-practice-coach",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/debate-practice-coach",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "skills/document-skills/docx",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/document-skills/docx",
+      "description": ""
+    },
+    {
+      "name": "event-driven-architecture",
+      "path": "skills/event-driven-architecture",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/event-driven-architecture",
+      "description": ""
+    },
+    {
+      "name": "example-skill",
+      "path": "templates/plugin-template/skills/example-skill",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/templates/plugin-template/skills/example-skill",
+      "description": ""
+    },
+    {
+      "name": "financial-scenario-planner",
+      "path": "skills/financial-scenario-planner",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/financial-scenario-planner",
+      "description": ""
+    },
+    {
+      "name": "flutter-development",
+      "path": "skills/flutter-development",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/flutter-development",
+      "description": ""
+    },
+    {
+      "name": "frontend-enhancer",
+      "path": "skills/frontend-enhancer",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/frontend-enhancer",
+      "description": ""
+    },
+    {
+      "name": "grant-proposal-builder",
+      "path": "skills/grant-proposal-builder",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/grant-proposal-builder",
+      "description": ""
+    },
+    {
+      "name": "growth-engineering",
+      "path": "skills/growth-engineering",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/growth-engineering",
+      "description": ""
+    },
+    {
+      "name": "health-wellness",
+      "path": "skills/health-wellness",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/health-wellness",
+      "description": ""
+    },
+    {
+      "name": "hr-talent",
+      "path": "skills/hr-talent",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/hr-talent",
+      "description": ""
+    },
+    {
+      "name": "innovation",
+      "path": "skills/innovation",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/innovation",
+      "description": ""
+    },
+    {
+      "name": "investment-memo-generator",
+      "path": "skills/investment-memo-generator",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/investment-memo-generator",
+      "description": ""
+    },
+    {
+      "name": "ios-development",
+      "path": "skills/ios-development",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/ios-development",
+      "description": ""
+    },
+    {
+      "name": "kotlin-multiplatform",
+      "path": "skills/kotlin-multiplatform",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/kotlin-multiplatform",
+      "description": ""
+    },
+    {
+      "name": "leadership",
+      "path": "skills/leadership",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/leadership",
+      "description": ""
+    },
+    {
+      "name": "learning-gap-analyzer",
+      "path": "skills/learning-gap-analyzer",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/learning-gap-analyzer",
+      "description": ""
+    },
+    {
+      "name": "llm-app-development",
+      "path": "skills/llm-app-development",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/llm-app-development",
+      "description": ""
+    },
+    {
+      "name": "mobile-cicd",
+      "path": "skills/mobile-cicd",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/mobile-cicd",
+      "description": ""
+    },
+    {
+      "name": "onboarding-guide-creator",
+      "path": "skills/onboarding-guide-creator",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/onboarding-guide-creator",
+      "description": ""
+    },
+    {
+      "name": "payment-integration",
+      "path": "skills/payment-integration",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/payment-integration",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "skills/document-skills/pdf",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/document-skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "performance-engineering",
+      "path": "skills/performance-engineering",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/performance-engineering",
+      "description": ""
+    },
+    {
+      "name": "process-flowchart-designer",
+      "path": "skills/process-flowchart-designer",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/process-flowchart-designer",
+      "description": ""
+    },
+    {
+      "name": "product-analytics",
+      "path": "skills/product-analytics",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/product-analytics",
+      "description": ""
+    },
+    {
+      "name": "product-management",
+      "path": "skills/product-management",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/product-management",
+      "description": ""
+    },
+    {
+      "name": "research-presenter",
+      "path": "skills/research-presenter",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/research-presenter",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": "skills/security",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/security",
+      "description": ""
+    },
+    {
+      "name": "serverless-development",
+      "path": "skills/serverless-development",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/serverless-development",
+      "description": ""
+    },
+    {
+      "name": "statistics-verifier",
+      "path": "skills/statistics-verifier",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/statistics-verifier",
+      "description": ""
+    },
+    {
+      "name": "status-report-generator",
+      "path": "skills/status-report-generator",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/status-report-generator",
+      "description": ""
+    },
+    {
+      "name": "sustainability-esg",
+      "path": "skills/sustainability-esg",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/sustainability-esg",
+      "description": ""
+    },
+    {
+      "name": "tauri-desktop",
+      "path": "skills/tauri-desktop",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/tauri-desktop",
+      "description": ""
+    },
+    {
+      "name": "tech-debt-analyzer",
+      "path": "skills/tech-debt-analyzer",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/tech-debt-analyzer",
+      "description": ""
+    },
+    {
+      "name": "test-specialist",
+      "path": "skills/test-specialist",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/test-specialist",
+      "description": ""
+    },
+    {
+      "name": "volunteer-coordinator",
+      "path": "skills/volunteer-coordinator",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/volunteer-coordinator",
+      "description": ""
+    },
+    {
+      "name": "vue-development",
+      "path": "skills/vue-development",
+      "github_url": "https://github.com/travisjneuman/.claude/tree/main/skills/vue-development",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/travisjneuman/.claude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T00:32:55Z"
+}
