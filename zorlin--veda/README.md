@@ -1,6 +1,6 @@
-# veda — distributed by TomeVault
+# veda
 
-> Originally from [Zorlin/veda](https://github.com/Zorlin/veda). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Zorlin/veda](https://github.com/Zorlin/veda) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Zorlin/veda](https://github.com/Zorli
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Zorlin)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Zorlin/veda](https://github.com/Zorlin/veda)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Zorlin) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
