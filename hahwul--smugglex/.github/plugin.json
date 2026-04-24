@@ -1,0 +1,9 @@
+{
+  "name": "hahwul--smugglex",
+  "displayName": "smugglex",
+  "description": "Rust-powered HTTP Request Smuggling Scanner.",
+  "version": "1.0.0",
+  "author": "hahwul",
+  "homepage": "https://github.com/hahwul/smugglex",
+  "skills": []
+}
