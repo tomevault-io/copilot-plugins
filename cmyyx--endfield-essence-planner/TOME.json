@@ -1,0 +1,44 @@
+{
+  "name": "endfield-essence-planner",
+  "owner": "cmyyx",
+  "repo": "endfield-essence-planner",
+  "description": "\u660e\u65e5\u65b9\u821f:\u7ec8\u672b\u5730\u89c4\u5212\u5668,\u81ea\u52a8\u8ba1\u7b97\u57fa\u8d28\u6700\u9ad8\u6536\u76ca\u5237\u53d6\u65b9\u6cd5,\u6b64\u5916\u8fd8\u652f\u6301\u88c5\u5907\u7cbe\u953b\u89c4\u5212",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cmyyx/endfield-essence-planner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T04:40:21Z"
+}
