@@ -1,0 +1,9 @@
+{
+  "name": "ultracontext--ultracontext",
+  "displayName": "ultracontext",
+  "description": "Open Source Context infrastructure for AI agents. Auto-capture and share your agents' context everywhere.",
+  "version": "1.0.0",
+  "author": "ultracontext",
+  "homepage": "https://github.com/ultracontext/ultracontext",
+  "skills": []
+}
