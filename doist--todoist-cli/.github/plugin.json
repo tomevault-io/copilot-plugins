@@ -1,0 +1,9 @@
+{
+  "name": "doist--todoist-cli",
+  "displayName": "todoist-cli",
+  "description": "Command-line interface for Todoist",
+  "version": "1.0.0",
+  "author": "Doist",
+  "homepage": "https://github.com/Doist/todoist-cli",
+  "skills": []
+}
