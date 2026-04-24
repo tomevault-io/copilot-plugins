@@ -1,6 +1,6 @@
-# leah-test-10-yottagraph — distributed by TomeVault
+# leah-test-10-yottagraph
 
-> Originally from [Lovelace-AI/leah-test-10-yottagraph](https://github.com/Lovelace-AI/leah-test-10-yottagraph). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Lovelace-AI/leah-test-10-yottagraph](https://github.com/Lovelace-AI/leah-test-10-yottagraph) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Lovelace-AI/leah-test-10-yottagraph](
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Lovelace-AI)
+From [Lovelace-AI/leah-test-10-yottagraph](https://github.com/Lovelace-AI/leah-test-10-yottagraph) — a repo with 0+ stars on GitHub.
 
 ---
 
