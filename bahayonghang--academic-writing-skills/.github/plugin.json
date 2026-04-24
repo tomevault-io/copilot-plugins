@@ -1,0 +1,9 @@
+{
+  "name": "bahayonghang--academic-writing-skills",
+  "displayName": "academic-writing-skills",
+  "description": "AI-powered post-writing toolkit for academic papers \u2014 format validation, grammar/style polishing, de-AI editing, reference checking, and reviewer-style paper audits. 5 skills for LaTeX, Typst & PDF. F",
+  "version": "1.0.0",
+  "author": "bahayonghang",
+  "homepage": "https://github.com/bahayonghang/academic-writing-skills",
+  "skills": []
+}
