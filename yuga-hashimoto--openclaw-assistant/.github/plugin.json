@@ -1,0 +1,9 @@
+{
+  "name": "yuga-hashimoto--openclaw-assistant",
+  "displayName": "openclaw-assistant",
+  "description": "OpenClaw voice assistant app for Android - Wake word activation & system assistant integration",
+  "version": "1.0.0",
+  "author": "yuga-hashimoto",
+  "homepage": "https://github.com/yuga-hashimoto/openclaw-assistant",
+  "skills": []
+}
