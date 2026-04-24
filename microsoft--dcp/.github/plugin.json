@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--dcp",
+  "displayName": "dcp",
+  "description": "Developer Control Plane API server and CLI.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/dcp",
+  "skills": []
+}
