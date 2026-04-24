@@ -1,0 +1,26 @@
+{
+  "name": "webrenew--unicon",
+  "displayName": "unicon",
+  "description": "Shadcn for icons. ",
+  "version": "1.0.0",
+  "author": "webrenew",
+  "homepage": "https://github.com/webrenew/unicon",
+  "skills": [
+    {
+      "name": "unicon",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "unicon",
+      "description": ""
+    },
+    {
+      "name": "unicon-mcp",
+      "description": ""
+    }
+  ]
+}
