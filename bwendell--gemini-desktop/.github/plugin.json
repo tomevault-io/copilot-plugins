@@ -1,0 +1,9 @@
+{
+  "name": "bwendell--gemini-desktop",
+  "displayName": "gemini-desktop",
+  "description": "Native desktop client for Google Gemini on Windows, macOS, and Linux. Features global hotkeys, Spotlight-style Quick Chat, and zero data collection.",
+  "version": "1.0.0",
+  "author": "bwendell",
+  "homepage": "https://github.com/bwendell/gemini-desktop",
+  "skills": []
+}
