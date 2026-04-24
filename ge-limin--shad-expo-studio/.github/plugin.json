@@ -1,0 +1,9 @@
+{
+  "name": "ge-limin--shad-expo-studio",
+  "displayName": "shad-expo-studio",
+  "description": "A studio for designing and shipping shadcn-style components in Expo/React Native with Storybook-backed visual regression.",
+  "version": "1.0.0",
+  "author": "Ge-limin",
+  "homepage": "https://github.com/Ge-limin/shad-expo-studio",
+  "skills": []
+}
