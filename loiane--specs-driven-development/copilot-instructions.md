@@ -1,19 +1,27 @@
-## specs-artifacts
+## test-code
 
-> Spec artifact rule — no invention, stable IDs, phase ordering.
+> Test code rule — JUnit 5, Testcontainers, traceability tagging.
 
 
-# Spec artifact rule
+# Test code rule
 
-You are editing under `.specs/`. These artifacts ARE the contract between phases.
+Apply `shared/skills/junit5-testcontainers-patterns/SKILL.md` and `shared/skills/requirements-traceability/SKILL.md`.
 
-- Stable IDs (`AC-NNN`, `T-NNN`, `Q-NNN`, ADR `NNN-…`). Never renumber.
-- `Q-NNN` move from `## Open Questions` to `## Resolved Questions` with answer + date — never deleted.
-- ADR file names are immutable once committed.
-- Never invent. If you lack info, append a `Q-NNN` and halt.
-- Don't edit a higher-numbered artifact while a lower-numbered one has unresolved `Q-NNN` or `request-changes` verdict.
+## Required
 
-Apply skills: `shared/skills/ears-spec-authoring/SKILL.md`, `spring-task-decomposition/SKILL.md`, `requirements-traceability/SKILL.md`.
+- Tests asserting an AC have BOTH `@Tag("AC-NNN")` and `@DisplayName("AC-NNN: …")`.
+- Smallest scope wins: plain JUnit ≺ slice ≺ `@SpringBootTest`.
+- Testcontainers IT (with `@ServiceConnection`) is mandatory when the project declares Testcontainers and the change touches a repo / DB-touching controller / migration / message broker.
+- Image tags pinned (`postgres:17-alpine`).
+
+## Forbidden
+
+- `@Disabled` without `# DisabledReason: <link>` on the prior line.
+- Removing assertions to make a test pass.
+- `Thread.sleep` for sync (use Awaitility).
+- Hard-coded host ports.
+- Mocking the SUT.
+- `@MockBean` (deprecated; use `@MockitoBean`).
 
 ---
 > Source: [loiane/specs-driven-development](https://github.com/loiane/specs-driven-development) — distributed by [TomeVault](https://tomevault.io).
