@@ -1,0 +1,30 @@
+{
+  "name": "joestump--claude-plugin-design",
+  "displayName": "claude-plugin-design",
+  "description": "A Claude Code plugin for architecture decision records (ADRs), OpenSpec specifications, and Docusaurus documentation generation.",
+  "version": "1.0.0",
+  "author": "joestump",
+  "homepage": "https://github.com/joestump/claude-plugin-design",
+  "skills": [
+    {
+      "name": "adr",
+      "description": ""
+    },
+    {
+      "name": "check",
+      "description": ""
+    },
+    {
+      "name": "discover",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "init",
+      "description": ""
+    }
+  ]
+}
