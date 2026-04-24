@@ -1,0 +1,58 @@
+{
+  "name": "glideapps--glide-code",
+  "displayName": "glide-code",
+  "description": "Claude Code learns Glide",
+  "version": "1.0.0",
+  "author": "glideapps",
+  "homepage": "https://github.com/glideapps/glide-code",
+  "skills": [
+    {
+      "name": "ai",
+      "description": ""
+    },
+    {
+      "name": "api",
+      "description": ""
+    },
+    {
+      "name": "app-audit",
+      "description": ""
+    },
+    {
+      "name": "app-sharing",
+      "description": ""
+    },
+    {
+      "name": "browser",
+      "description": ""
+    },
+    {
+      "name": "data-modeling",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "explain-feature",
+      "description": ""
+    },
+    {
+      "name": "glide",
+      "description": ""
+    },
+    {
+      "name": "learnings-log",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "description": ""
+    },
+    {
+      "name": "workflows",
+      "description": ""
+    }
+  ]
+}
