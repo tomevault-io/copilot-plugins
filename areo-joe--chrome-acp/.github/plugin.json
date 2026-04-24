@@ -1,0 +1,9 @@
+{
+  "name": "areo-joe--chrome-acp",
+  "displayName": "chrome-acp",
+  "description": "Connect to ACP agent in browser.",
+  "version": "1.0.0",
+  "author": "Areo-Joe",
+  "homepage": "https://github.com/Areo-Joe/chrome-acp",
+  "skills": []
+}
