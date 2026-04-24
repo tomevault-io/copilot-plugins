@@ -1,0 +1,9 @@
+{
+  "name": "tmbritton--nixos-configs",
+  "displayName": "nixos-configs",
+  "description": "nixos-configs",
+  "version": "1.0.0",
+  "author": "tmbritton",
+  "homepage": "https://github.com/tmbritton/nixos-configs",
+  "skills": []
+}
