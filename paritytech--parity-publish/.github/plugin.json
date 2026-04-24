@@ -1,0 +1,9 @@
+{
+  "name": "paritytech--parity-publish",
+  "displayName": "parity-publish",
+  "description": "parity-publish",
+  "version": "1.0.0",
+  "author": "paritytech",
+  "homepage": "https://github.com/paritytech/parity-publish",
+  "skills": []
+}
