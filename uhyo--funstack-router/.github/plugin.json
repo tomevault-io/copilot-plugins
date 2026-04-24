@@ -1,0 +1,42 @@
+{
+  "name": "uhyo--funstack-router",
+  "displayName": "funstack",
+  "description": "Router library based on Navigation API. In explocation of a router without History API legacy",
+  "version": "1.0.0",
+  "author": "uhyo",
+  "homepage": "https://github.com/uhyo/funstack-router",
+  "skills": [
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "docs-consistency",
+      "description": ""
+    },
+    {
+      "name": "funstack-static-knowledge",
+      "description": ""
+    },
+    {
+      "name": "release-funstack",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "docs-consistency",
+      "description": ""
+    },
+    {
+      "name": "funstack-router-knowledge",
+      "description": ""
+    },
+    {
+      "name": "release-funstack",
+      "description": ""
+    }
+  ]
+}
