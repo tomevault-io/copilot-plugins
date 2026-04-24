@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [omniharmonic/kinobi-vercel](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/omniharmonic)
+From [omniharmonic/kinobi-vercel](https://github.com/omniharmonic/kinobi-vercel) — a repo with 0+ stars on GitHub.
 
 ---
 
