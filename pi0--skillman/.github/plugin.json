@@ -1,0 +1,9 @@
+{
+  "name": "pi0--skillman",
+  "displayName": "skillman",
+  "description": "\ud83e\udd39 Manage project skills and lock them in skills.json",
+  "version": "1.0.0",
+  "author": "pi0",
+  "homepage": "https://github.com/pi0/skillman",
+  "skills": []
+}
