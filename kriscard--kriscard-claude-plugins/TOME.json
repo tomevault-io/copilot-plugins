@@ -1,0 +1,141 @@
+{
+  "name": "kriscard-claude-plugins",
+  "owner": "kriscard",
+  "repo": "kriscard-claude-plugins",
+  "description": "Personal Claude Code plugin marketplace - skills, commands, and agents for maximum productivity",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-engineer",
+      "path": "plugins/ai-development/skills/ai-engineer",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/ai-development/skills/ai-engineer",
+      "description": ""
+    },
+    {
+      "name": "blog-writer",
+      "path": "plugins/content/skills/blog-writer",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/content/skills/blog-writer",
+      "description": ""
+    },
+    {
+      "name": "claude-code-analyzer",
+      "path": "plugins/essentials/skills/claude-code-analyzer",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/essentials/skills/claude-code-analyzer",
+      "description": ""
+    },
+    {
+      "name": "code-assistant",
+      "path": "plugins/developer-tools/skills/code-assistant",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/developer-tools/skills/code-assistant",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": "plugins/essentials/skills/commit",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/essentials/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "conference-talk-builder",
+      "path": "plugins/content/skills/conference-talk-builder",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/content/skills/conference-talk-builder",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "path": "plugins/content/skills/doc-coauthoring",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/content/skills/doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "dotfiles-best-practices",
+      "path": "plugins/dotfiles-optimizer/skills/dotfiles-best-practices",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/dotfiles-optimizer/skills/dotfiles-best-practices",
+      "description": ""
+    },
+    {
+      "name": "dotfiles-optimizer",
+      "path": "plugins/dotfiles-optimizer/skills/dotfiles-optimizer",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/dotfiles-optimizer/skills/dotfiles-optimizer",
+      "description": ""
+    },
+    {
+      "name": "lazy-nvim-optimization",
+      "path": "plugins/neovim-advisor/skills/lazy-nvim-optimization",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/neovim-advisor/skills/lazy-nvim-optimization",
+      "description": ""
+    },
+    {
+      "name": "neovim-best-practices",
+      "path": "plugins/neovim-advisor/skills/neovim-best-practices",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/neovim-advisor/skills/neovim-best-practices",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "path": "plugins/ai-development/skills/prompt-engineer",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/ai-development/skills/prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "plugins/developer-tools/skills/react-best-practices",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/developer-tools/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "senior-architect",
+      "path": "plugins/architecture/skills/senior-architect",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/architecture/skills/senior-architect",
+      "description": ""
+    },
+    {
+      "name": "studio-startup",
+      "path": "plugins/studio-startup/skills/studio-startup",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/studio-startup/skills/studio-startup",
+      "description": ""
+    },
+    {
+      "name": "template-patterns",
+      "path": "plugins/obsidian-second-brain/skills/template-patterns",
+      "github_url": "https://github.com/kriscard/kriscard-claude-plugins/tree/main/plugins/obsidian-second-brain/skills/template-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kriscard/kriscard-claude-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T18:34:13Z"
+}
