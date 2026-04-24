@@ -1,0 +1,9 @@
+{
+  "name": "opensearch-project--sql",
+  "displayName": "sql",
+  "description": "sql",
+  "version": "1.0.0",
+  "author": "opensearch-project",
+  "homepage": "https://github.com/opensearch-project/sql",
+  "skills": []
+}
