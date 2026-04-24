@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--fizzy-cli",
+  "displayName": "fizzy-cli",
+  "description": "Fizzy CLI and Agent Skills",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/fizzy-cli",
+  "skills": []
+}
