@@ -1,0 +1,9 @@
+{
+  "name": "ehmo--code-overhaul-skill",
+  "displayName": "code-overhaul-skill",
+  "description": "Opinionated, interactive health audit for a codebase.",
+  "version": "1.0.0",
+  "author": "ehmo",
+  "homepage": "https://github.com/ehmo/code-overhaul-skill",
+  "skills": []
+}
