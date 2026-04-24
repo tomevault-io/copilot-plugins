@@ -1,23 +1,28 @@
-# nodetool-lib-image
+# AI instruction files for nodetool-lib-image
 
-> Config by [nodetool-ai](https://github.com/nodetool-ai/nodetool-lib-image) — distributed by [TomeVault](https://tomevault.io/claim/nodetool-ai)
+> Sourced from [nodetool-ai/nodetool-lib-image](https://github.com/nodetool-ai/nodetool-lib-image) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nodetool-ai/nodetool-lib-image](https://github.com/nodetool-ai/nodetool-lib-image).
+Original source: `CLAUDE.md` in [nodetool-ai/nodetool-lib-image](https://github.com/nodetool-ai/nodetool-lib-image).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/nodetool-ai](https://tomevault.io/claim/nodetool-ai)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/nodetool-ai/nodetool-lib-image](https://github.com/nodetool-ai/nodetool-lib-image)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/nodetool-ai) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install nodetool-ai/nodetool-lib-image
+```
+Source: [github.com/nodetool-ai/nodetool-lib-image](https://github.com/nodetool-ai/nodetool-lib-image).
+
+<!-- genome:a-i-p -->
