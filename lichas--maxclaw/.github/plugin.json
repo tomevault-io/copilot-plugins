@@ -1,0 +1,9 @@
+{
+  "name": "lichas--maxclaw",
+  "displayName": "maxclaw",
+  "description": "OpenClaw-Style Local-First AI Agent in Go - Low-Memory, Private, UI-Ready, Out-of-the-Box",
+  "version": "1.0.0",
+  "author": "Lichas",
+  "homepage": "https://github.com/Lichas/maxclaw",
+  "skills": []
+}
