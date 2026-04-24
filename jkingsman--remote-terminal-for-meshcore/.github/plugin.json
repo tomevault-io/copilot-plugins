@@ -1,0 +1,9 @@
+{
+  "name": "jkingsman--remote-terminal-for-meshcore",
+  "displayName": "Remote-Terminal-for-MeshCore",
+  "description": "A remote client for MeshCore radios with packet capture, store-and-decrypt, bots, MQTT, and more!",
+  "version": "1.0.0",
+  "author": "jkingsman",
+  "homepage": "https://github.com/jkingsman/Remote-Terminal-for-MeshCore",
+  "skills": []
+}
