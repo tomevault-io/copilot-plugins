@@ -1,0 +1,22 @@
+{
+  "name": "cosmix--loom",
+  "displayName": "loom",
+  "description": "A Rust-based agent orchestrator enabling a swarm of Claude Code instances building software.",
+  "version": "1.0.0",
+  "author": "cosmix",
+  "homepage": "https://github.com/cosmix/loom",
+  "skills": [
+    {
+      "name": "loom-plan-writer",
+      "description": ""
+    },
+    {
+      "name": "loom-ci-cd",
+      "description": ""
+    },
+    {
+      "name": "loom-typescript",
+      "description": ""
+    }
+  ]
+}
