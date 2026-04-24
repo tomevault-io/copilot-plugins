@@ -1,0 +1,9 @@
+{
+  "name": "jrop--tuis-nvim",
+  "displayName": "tuis.nvim",
+  "description": "A collection of TUIs for Neovim",
+  "version": "1.0.0",
+  "author": "jrop",
+  "homepage": "https://github.com/jrop/tuis.nvim",
+  "skills": []
+}
