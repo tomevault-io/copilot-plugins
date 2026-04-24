@@ -1,0 +1,9 @@
+{
+  "name": "archethect--sc-auditor",
+  "displayName": "sc-auditor",
+  "description": "Solidity smart contract auditor leveraging static analysis, Solodit findings and Map, Hunt, Attack strategy",
+  "version": "1.0.0",
+  "author": "Archethect",
+  "homepage": "https://github.com/Archethect/sc-auditor",
+  "skills": []
+}
