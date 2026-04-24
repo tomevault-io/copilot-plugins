@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [gitwalter/ai-dev-agent](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/gitwalter)
+From [gitwalter/ai-dev-agent](https://github.com/gitwalter/ai-dev-agent) — a repo with 0+ stars on GitHub.
 
 ---
 
