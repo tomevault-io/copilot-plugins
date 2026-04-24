@@ -1,0 +1,30 @@
+{
+  "name": "athola--skrills",
+  "displayName": "skrills",
+  "description": "Coordinate skills between Codex, Copilot, and Claude Code. Validates, analyzes, and syncs skills, subagents, commands, and configuration between multiple CLIs.",
+  "version": "1.0.0",
+  "author": "athola",
+  "homepage": "https://github.com/athola/skrills",
+  "skills": [
+    {
+      "name": "api-designer",
+      "description": ""
+    },
+    {
+      "name": "coding-assistant",
+      "description": ""
+    },
+    {
+      "name": "debug-helper",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "test-writer",
+      "description": ""
+    }
+  ]
+}
