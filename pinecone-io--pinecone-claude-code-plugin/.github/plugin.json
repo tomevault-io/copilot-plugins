@@ -1,0 +1,14 @@
+{
+  "name": "pinecone-io--pinecone-claude-code-plugin",
+  "displayName": "pinecone-claude-code-plugin",
+  "description": "The official Pinecone marketplace for Claude Code Plugins",
+  "version": "1.0.0",
+  "author": "pinecone-io",
+  "homepage": "https://github.com/pinecone-io/pinecone-claude-code-plugin",
+  "skills": [
+    {
+      "name": "assistant",
+      "description": ""
+    }
+  ]
+}
