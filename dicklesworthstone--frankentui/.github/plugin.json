@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankentui",
+  "displayName": "frankentui",
+  "description": "Minimal, high-performance terminal UI kernel with diff-based rendering, inline mode, and RAII terminal cleanup",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankentui",
+  "skills": []
+}
