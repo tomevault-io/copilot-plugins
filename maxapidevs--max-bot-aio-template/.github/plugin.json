@@ -1,0 +1,9 @@
+{
+  "name": "maxapidevs--max-bot-aio-template",
+  "displayName": "max-bot-aio-template",
+  "description": "Production-grade scaffold for highload MAX API bots. Features Clean Architecture, strict Pydantic validation, Alembic migrations, and zero-config Docker IaC.",
+  "version": "1.0.0",
+  "author": "MaxApiDevs",
+  "homepage": "https://github.com/MaxApiDevs/max-bot-aio-template",
+  "skills": []
+}
