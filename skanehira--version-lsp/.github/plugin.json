@@ -1,0 +1,14 @@
+{
+  "name": "skanehira--version-lsp",
+  "displayName": "version-lsp",
+  "description": "A Language Server Protocol (LSP) implementation that provides version checking diagnostics for package dependency files.",
+  "version": "1.0.0",
+  "author": "skanehira",
+  "homepage": "https://github.com/skanehira/version-lsp",
+  "skills": [
+    {
+      "name": "version-bump",
+      "description": ""
+    }
+  ]
+}
