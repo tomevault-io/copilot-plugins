@@ -1,0 +1,9 @@
+{
+  "name": "opsdevcode--eks-addons",
+  "displayName": "eks-addons",
+  "description": "eks-addons",
+  "version": "1.0.0",
+  "author": "opsdevcode",
+  "homepage": "https://github.com/opsdevcode/eks-addons",
+  "skills": []
+}
