@@ -1,0 +1,14 @@
+{
+  "name": "jellydn--tiny-coding-agent",
+  "displayName": "tiny-coding-agent",
+  "description": "A lightweight, extensible coding agent built in TypeScript that helps developers with coding tasks across TypeScript, React, JavaScript, Node.js, Bash, and markdown/JSON.",
+  "version": "1.0.0",
+  "author": "jellydn",
+  "homepage": "https://github.com/jellydn/tiny-coding-agent",
+  "skills": [
+    {
+      "name": "code-simplifier",
+      "description": ""
+    }
+  ]
+}
