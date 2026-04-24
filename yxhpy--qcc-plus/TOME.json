@@ -1,0 +1,63 @@
+{
+  "name": "qcc_plus",
+  "owner": "yxhpy",
+  "repo": "qcc_plus",
+  "description": "Claude Code CLI \u4ee3\u7406\u670d\u52a1\u5668 - \u591a\u79df\u6237\u3001\u81ea\u52a8\u6545\u969c\u5207\u6362\u3001Web \u7ba1\u7406\u754c\u9762",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "qcc-deploy",
+      "path": ".claude/skills/qcc-deploy",
+      "github_url": "https://github.com/yxhpy/qcc_plus/tree/main/.claude/skills/qcc-deploy",
+      "description": ""
+    },
+    {
+      "name": "qcc-dev",
+      "path": ".claude/skills/qcc-dev",
+      "github_url": "https://github.com/yxhpy/qcc_plus/tree/main/.claude/skills/qcc-dev",
+      "description": ""
+    },
+    {
+      "name": "qcc-git",
+      "path": ".claude/skills/qcc-git",
+      "github_url": "https://github.com/yxhpy/qcc_plus/tree/main/.claude/skills/qcc-git",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yxhpy/qcc_plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T00:34:31Z"
+}
