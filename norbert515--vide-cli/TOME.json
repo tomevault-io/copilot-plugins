@@ -4,7 +4,7 @@
   "repo": "vide_cli",
   "description": "An agentic terminal UI for Claude, built for Flutter developers",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Norbert515/vide_cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T18:00:45Z"
+  "distributed_at": "2026-04-24T21:04:39Z"
 }
