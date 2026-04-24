@@ -1,0 +1,226 @@
+{
+  "name": "travisjneuman---claude",
+  "displayName": ".claude",
+  "description": "The Ultimate Claude Code Toolkit \u2014 127 skills, 86 agents, 109 marketplace repos (11,700+ community skills), 30 commands, 8 hooks, GSD framework. Drop-in ~/.claude config that auto-activates the right ",
+  "version": "1.0.0",
+  "author": "travisjneuman",
+  "homepage": "https://github.com/travisjneuman/.claude",
+  "skills": [
+    {
+      "name": "document-skills",
+      "description": ""
+    },
+    {
+      "name": "accessibility-a11y",
+      "description": ""
+    },
+    {
+      "name": "agent-teams",
+      "description": ""
+    },
+    {
+      "name": "ai-ml-development",
+      "description": ""
+    },
+    {
+      "name": "ai-policy-generator",
+      "description": ""
+    },
+    {
+      "name": "android-development",
+      "description": ""
+    },
+    {
+      "name": "api-design",
+      "description": ""
+    },
+    {
+      "name": "application-security",
+      "description": ""
+    },
+    {
+      "name": "authentication-patterns",
+      "description": ""
+    },
+    {
+      "name": "battle-card-builder",
+      "description": ""
+    },
+    {
+      "name": "career-path-planner",
+      "description": ""
+    },
+    {
+      "name": "case-interview-practice",
+      "description": ""
+    },
+    {
+      "name": "codebase-documenter",
+      "description": ""
+    },
+    {
+      "name": "customer-persona-builder",
+      "description": ""
+    },
+    {
+      "name": "customer-success",
+      "description": ""
+    },
+    {
+      "name": "data-science",
+      "description": ""
+    },
+    {
+      "name": "database-expert",
+      "description": ""
+    },
+    {
+      "name": "debate-practice-coach",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "event-driven-architecture",
+      "description": ""
+    },
+    {
+      "name": "example-skill",
+      "description": ""
+    },
+    {
+      "name": "financial-scenario-planner",
+      "description": ""
+    },
+    {
+      "name": "flutter-development",
+      "description": ""
+    },
+    {
+      "name": "frontend-enhancer",
+      "description": ""
+    },
+    {
+      "name": "grant-proposal-builder",
+      "description": ""
+    },
+    {
+      "name": "growth-engineering",
+      "description": ""
+    },
+    {
+      "name": "health-wellness",
+      "description": ""
+    },
+    {
+      "name": "hr-talent",
+      "description": ""
+    },
+    {
+      "name": "innovation",
+      "description": ""
+    },
+    {
+      "name": "investment-memo-generator",
+      "description": ""
+    },
+    {
+      "name": "ios-development",
+      "description": ""
+    },
+    {
+      "name": "kotlin-multiplatform",
+      "description": ""
+    },
+    {
+      "name": "leadership",
+      "description": ""
+    },
+    {
+      "name": "learning-gap-analyzer",
+      "description": ""
+    },
+    {
+      "name": "llm-app-development",
+      "description": ""
+    },
+    {
+      "name": "mobile-cicd",
+      "description": ""
+    },
+    {
+      "name": "onboarding-guide-creator",
+      "description": ""
+    },
+    {
+      "name": "payment-integration",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "performance-engineering",
+      "description": ""
+    },
+    {
+      "name": "process-flowchart-designer",
+      "description": ""
+    },
+    {
+      "name": "product-analytics",
+      "description": ""
+    },
+    {
+      "name": "product-management",
+      "description": ""
+    },
+    {
+      "name": "research-presenter",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "description": ""
+    },
+    {
+      "name": "serverless-development",
+      "description": ""
+    },
+    {
+      "name": "statistics-verifier",
+      "description": ""
+    },
+    {
+      "name": "status-report-generator",
+      "description": ""
+    },
+    {
+      "name": "sustainability-esg",
+      "description": ""
+    },
+    {
+      "name": "tauri-desktop",
+      "description": ""
+    },
+    {
+      "name": "tech-debt-analyzer",
+      "description": ""
+    },
+    {
+      "name": "test-specialist",
+      "description": ""
+    },
+    {
+      "name": "volunteer-coordinator",
+      "description": ""
+    },
+    {
+      "name": "vue-development",
+      "description": ""
+    }
+  ]
+}
