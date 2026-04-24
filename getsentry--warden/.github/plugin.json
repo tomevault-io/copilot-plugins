@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--warden",
+  "displayName": "warden",
+  "description": "Your code is under new management. Agents that review your code.",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/warden",
+  "skills": []
+}
