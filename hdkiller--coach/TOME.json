@@ -1,0 +1,81 @@
+{
+  "name": "coach",
+  "owner": "hdkiller",
+  "repo": "coach",
+  "description": "Your open source AI coach and unified fitness dashboard.",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nuxt",
+      "path": ".gemini/skills/nuxt",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/nuxt",
+      "description": ""
+    },
+    {
+      "name": "nuxt-ui",
+      "path": ".gemini/skills/nuxt-ui",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/nuxt-ui",
+      "description": ""
+    },
+    {
+      "name": "reka-ui",
+      "path": ".gemini/skills/reka-ui",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/reka-ui",
+      "description": ""
+    },
+    {
+      "name": "report-bug",
+      "path": ".claude/skills/report-bug",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.claude/skills/report-bug",
+      "description": ""
+    },
+    {
+      "name": "ts-library",
+      "path": ".gemini/skills/ts-library",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/ts-library",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": ".gemini/skills/vue",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/vue",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hdkiller/coach",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T00:31:01Z"
+}
