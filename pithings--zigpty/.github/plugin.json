@@ -1,0 +1,9 @@
+{
+  "name": "pithings--zigpty",
+  "displayName": "zigpty",
+  "description": "Tiny, cross-platform PTY library for Node.js, built in Zig, also usable as a standalone Zig package. Supports Linux, macOS, Android and Windows.",
+  "version": "1.0.0",
+  "author": "pithings",
+  "homepage": "https://github.com/pithings/zigpty",
+  "skills": []
+}
