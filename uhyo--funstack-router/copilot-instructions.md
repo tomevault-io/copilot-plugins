@@ -1,0 +1,86 @@
+## funstack-router
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+FUNSTACK Router is a modern React router built on the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API) (not the History API). It uses the [URLPattern API](https://developer.mozilla.org/en-US/docs/Web/API/URLPattern) for path matching.
+
+## Monorepo Structure
+
+This is a pnpm monorepo with the following packages:
+
+- `packages/router` - The main `@funstack/router` package
+- `packages/docs` - Documentation site
+- `packages/example` - Example application demonstrating usage
+
+## Commands
+
+- `pnpm build` - Build all packages
+- `pnpm dev` - Build all packages with watch mode
+- `pnpm test` - Run tests in watch mode
+- `pnpm test:run` - Run tests once
+- `pnpm typecheck` - Type check all packages
+- `pnpm lint` - Lint code with oxlint
+- `pnpm format` - Format code with Prettier
+- `pnpm format:check` - Check formatting
+
+### Package-specific commands
+
+- `pnpm --filter @funstack/router build` - Build router package
+- `pnpm --filter @funstack/router test` - Test router package
+- `pnpm --filter funstack-router-example dev` - Run example app dev server
+
+## Architecture
+
+### Two-Context Design
+
+The router uses two React contexts:
+
+1. **RouterContext** (`packages/router/src/context/RouterContext.ts`) - Global router state
+   - Current navigation entry from Navigation API
+   - `navigate` function for programmatic navigation
+
+2. **RouteContext** (`packages/router/src/context/RouteContext.ts`) - Per-route state
+   - Route params extracted from URL
+   - `outlet` ReactNode for nested routing (used by `<Outlet>`)
+
+### Route Matching (`packages/router/src/core/matchRoutes.ts`)
+
+- Returns an array of `MatchedRoute[]` representing the matched route stack (parent to child)
+- Parent routes match as prefixes; leaf routes require exact matches
+- Uses URLPattern with `{/*}?` suffix for prefix matching
+- Params are merged from parent to child routes
+
+### Component Rendering (`packages/router/src/Router/index.tsx`)
+
+- `<Router>` subscribes to Navigation API via `useSyncExternalStore`
+- Intercepts navigation events and matches against route definitions
+- `RouteRenderer` recursively renders matched routes, each wrapped in its own `RouteContext.Provider`
+- Child routes are pre-rendered as `outlet` in the context, consumed by `<Outlet>`
+
+### Testing
+
+Tests run in jsdom (Navigation API is not available, so tests mock navigation behavior via `packages/router/src/__tests__/setup.ts`).
+
+### Commit Messages
+
+- Use conventional commits format: `type(scope): description`
+
+To distinguish what should be included in the changelog, fixes in the docs or example packages should be marked with `docs` or `example` scope, respectively. For example:
+
+- `fix(docs): correct typo in README`
+- `fix(example): update dependencies in example package`
+
+Changes to the main router package can be left without a scope or marked with `router`:
+
+- `feat: add new API for navigation`
+- `feat(router): add new API for navigation`
+
+---
+> Source: [uhyo/funstack-router](https://github.com/uhyo/funstack-router) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
