@@ -1,6 +1,6 @@
-# AutoLeash — distributed by TomeVault
+# AutoLeash
 
-> Originally from [Edison-Watch/AutoLeash](https://github.com/Edison-Watch/AutoLeash). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Edison-Watch/AutoLeash](https://github.com/Edison-Watch/AutoLeash) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Edison-Watch/AutoLeash](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Edison-Watch)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Edison-Watch/AutoLeash](https://github.com/Edison-Watch/AutoLeash)
 
 ---
 
