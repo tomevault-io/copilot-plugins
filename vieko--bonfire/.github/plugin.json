@@ -1,0 +1,14 @@
+{
+  "name": "vieko--bonfire",
+  "displayName": "bonfire",
+  "description": "Your AI coding partner forgets everything between conversations. Bonfire remembers.",
+  "version": "1.0.0",
+  "author": "vieko",
+  "homepage": "https://github.com/vieko/bonfire",
+  "skills": [
+    {
+      "name": "bonfire",
+      "description": ""
+    }
+  ]
+}
