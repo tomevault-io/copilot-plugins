@@ -1,6 +1,6 @@
 # relay-experiment
 
-> Tome by [Zorlin](https://github.com/Zorlin/relay-experiment) — distributed by [TomeVault](https://tomevault.io/claim/Zorlin)
+> Tome by [Zorlin](https://github.com/Zorlin/relay-experiment) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Zorlin/relay-experiment](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Zorlin#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Zorlin/relay-experiment](https://github.com/Zorlin/relay-experiment)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Zorlin/relay-experiment
 ```
-Or browse all formats at [https://tomevault.io/claim/Zorlin](https://tomevault.io/claim/Zorlin).
+Source: [github.com/Zorlin/relay-experiment](https://github.com/Zorlin/relay-experiment).
 
 <!-- genome:t-i-q -->
