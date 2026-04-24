@@ -1,0 +1,9 @@
+{
+  "name": "utensils--nxv",
+  "displayName": "nxv",
+  "description": "nxv \u2014 Nix Version Index. A blazingly fast CLI for finding any version of any Nix package.",
+  "version": "1.0.0",
+  "author": "utensils",
+  "homepage": "https://github.com/utensils/nxv",
+  "skills": []
+}
