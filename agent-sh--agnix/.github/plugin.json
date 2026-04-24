@@ -1,0 +1,9 @@
+{
+  "name": "agent-sh--agnix",
+  "displayName": "agnix",
+  "description": "The missing linter and lsp for AI coding assistants. Validate CLAUDE.md, AGENTS.md, SKILL.md, hooks, MCP. Plugin for all major IDEs included, with autofixes.",
+  "version": "1.0.0",
+  "author": "agent-sh",
+  "homepage": "https://github.com/agent-sh/agnix",
+  "skills": []
+}
