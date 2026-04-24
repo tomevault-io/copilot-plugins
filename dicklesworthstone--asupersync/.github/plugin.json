@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--asupersync",
+  "displayName": "asupersync",
+  "description": "Async runtime for Rust where correctness is structural: region-owned tasks, cancel-correct protocols, capability-gated effects, and deterministic replay testing",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/asupersync",
+  "skills": []
+}
