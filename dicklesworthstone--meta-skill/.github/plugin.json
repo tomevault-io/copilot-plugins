@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--meta-skill",
+  "displayName": "meta_skill",
+  "description": "Local-first skill management platform for AI coding agents: dual SQLite+Git persistence, semantic search, bandit-optimized suggestions, and MCP integration",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/meta_skill",
+  "skills": []
+}
