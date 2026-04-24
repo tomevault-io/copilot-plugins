@@ -1,0 +1,141 @@
+{
+  "name": "cluster",
+  "owner": "kcns008",
+  "repo": "cluster-agent-swarm-skills",
+  "description": "A collection of AI agent skills for orchestrating a platform engineering swarm \u2014 specialized AI agents that collaborate like a real team to manage Kubernetes and OpenShift clusters at scale.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "k8s-manifests",
+      "path": ".claude/skills/k8s-manifests",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/.claude/skills/k8s-manifests",
+      "description": ""
+    },
+    {
+      "name": "k8s-security",
+      "path": ".claude/skills/k8s-security",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/.claude/skills/k8s-security",
+      "description": ""
+    },
+    {
+      "name": "k8s-troubleshooting",
+      "path": ".claude/skills/k8s-troubleshooting",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/.claude/skills/k8s-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "openshift-popeye-analysis",
+      "path": ".claude/skills/openshift-popeye-analysis",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/.claude/skills/openshift-popeye-analysis",
+      "description": ""
+    },
+    {
+      "name": "artifacts",
+      "path": "skills/artifacts",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/artifacts",
+      "description": ""
+    },
+    {
+      "name": "cluster-ops",
+      "path": "skills/cluster-ops",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/cluster-ops",
+      "description": ""
+    },
+    {
+      "name": "developer-experience",
+      "path": "skills/developer-experience",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/developer-experience",
+      "description": ""
+    },
+    {
+      "name": "gitops",
+      "path": "skills/gitops",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/gitops",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "path": "skills/kubernetes",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/kubernetes",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-gitops",
+      "path": "skills/kubernetes-gitops",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/kubernetes-gitops",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-manifests",
+      "path": "skills/kubernetes-manifests",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/kubernetes-manifests",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-operations",
+      "path": "skills/kubernetes-operations",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/kubernetes-operations",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-security",
+      "path": "skills/kubernetes-security",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/kubernetes-security",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-troubleshooting",
+      "path": "skills/kubernetes-troubleshooting",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/kubernetes-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "observability",
+      "path": "skills/observability",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/observability",
+      "description": ""
+    },
+    {
+      "name": "orchestrator",
+      "path": "skills/orchestrator",
+      "github_url": "https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/orchestrator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kcns008/cluster-agent-swarm-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T13:36:56Z"
+}
