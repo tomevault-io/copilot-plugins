@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [qstommyshu/match-matrix](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/qstommyshu)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/qstommyshu/match-matrix](https://github.com/qstommyshu/match-matrix)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install qstommyshu/match-matrix
 ```
-Or browse all formats at [https://tomevault.io/claim/qstommyshu](https://tomevault.io/claim/qstommyshu).
+Source: [github.com/qstommyshu/match-matrix](https://github.com/qstommyshu/match-matrix).
 
 <!-- genome:d-i-p -->
