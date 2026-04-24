@@ -1,0 +1,14 @@
+{
+  "name": "windyboy--opencode-obsidian",
+  "displayName": "opencode-obsidian",
+  "description": "opencode-obsidian",
+  "version": "1.0.0",
+  "author": "windyboy",
+  "homepage": "https://github.com/windyboy/opencode-obsidian",
+  "skills": [
+    {
+      "name": "task-management",
+      "description": ""
+    }
+  ]
+}
