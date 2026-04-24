@@ -1,0 +1,9 @@
+{
+  "name": "maksimzayats--diwire",
+  "displayName": "diwire",
+  "description": "\ud83d\udd0c Extremely fast, type-safe dependency injection for Python with auto-wiring, scopes, async factories, and zero deps",
+  "version": "1.0.0",
+  "author": "maksimzayats",
+  "homepage": "https://github.com/maksimzayats/diwire",
+  "skills": []
+}
