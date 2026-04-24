@@ -1,0 +1,75 @@
+{
+  "name": "skrills",
+  "owner": "athola",
+  "repo": "skrills",
+  "description": "Coordinate skills between Codex, Copilot, and Claude Code. Validates, analyzes, and syncs skills, subagents, commands, and configuration between multiple CLIs.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-designer",
+      "path": "assets/demo-skills/api-designer",
+      "github_url": "https://github.com/athola/skrills/tree/main/assets/demo-skills/api-designer",
+      "description": ""
+    },
+    {
+      "name": "coding-assistant",
+      "path": "assets/demo-skills/coding-assistant",
+      "github_url": "https://github.com/athola/skrills/tree/main/assets/demo-skills/coding-assistant",
+      "description": ""
+    },
+    {
+      "name": "debug-helper",
+      "path": "assets/demo-skills/debug-helper",
+      "github_url": "https://github.com/athola/skrills/tree/main/assets/demo-skills/debug-helper",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "assets/demo-skills/git-workflow",
+      "github_url": "https://github.com/athola/skrills/tree/main/assets/demo-skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "test-writer",
+      "path": "assets/demo-skills/test-writer",
+      "github_url": "https://github.com/athola/skrills/tree/main/assets/demo-skills/test-writer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/athola/skrills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T00:35:06Z"
+}
