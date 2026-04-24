@@ -1,0 +1,9 @@
+{
+  "name": "withastro--flue",
+  "displayName": "flue",
+  "description": "The sandbox agent framework.",
+  "version": "1.0.0",
+  "author": "withastro",
+  "homepage": "https://github.com/withastro/flue",
+  "skills": []
+}
