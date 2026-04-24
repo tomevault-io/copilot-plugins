@@ -1,0 +1,9 @@
+{
+  "name": "mraza007--echovault",
+  "displayName": "echovault",
+  "description": "Local-first memory for coding agents. Decisions, bugs, and context stored as Markdown, indexed locally with FTS5 plus optional semantic search. No RAM overhead at idle, no external servers.",
+  "version": "1.0.0",
+  "author": "mraza007",
+  "homepage": "https://github.com/mraza007/echovault",
+  "skills": []
+}
