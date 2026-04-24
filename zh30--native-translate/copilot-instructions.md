@@ -1,0 +1,40 @@
+## native-translate
+
+> 代码风格、命名与可维护性
+
+# 代码风格与可维护性
+
+- **命名**：函数用动宾短语；变量用有意义的名词短语；避免缩写与 1-2 字母变量。
+- **类型**：公共 API 明确注解；避免 `any`，优先 `unknown`/范型；导出类型统一放在 `types` 或同文件顶部。
+- **控制流**：优先卫语句、处理边界；避免深层嵌套；仅在有意义时捕获异常。
+- **注释**：仅为复杂/决策性逻辑添加简洁注释（解释“为什么”而非“如何”）。
+- **格式**：遵循现有格式；长行换行；避免无关大规模改格式。
+- **UI/状态**：局部用 `useState`/`useReducer`，跨组件用 Context（轻量场景）；必要时再引入更重状态库。
+- **性能**：有需要时使用 `useMemo`/`useCallback`/`React.memo`；避免过度优化。
+
+---
+globs: *.ts,*.tsx
+description: 代码风格、命名与可维护性
+---
+## 代码风格
+
+- **命名**：避免 1-2 字母的短名。函数用动词短语，变量用名词短语。保持清晰可读。
+- **类型**：组件 Props、返回值与公共 API 必须显式类型。尽量避免 `any`。
+- **控制流**：使用早返回，捕获错误需有意义的处理；不要无意义吞错。
+- **注释**：仅在复杂处添加“为什么”，避免赘述“做什么”。
+- **格式化**：遵循 Biome；不要在无关行做大范围重排。
+- **文件组织**：
+  - 组件：`src/components/`
+  - 页面：`src/popup/`、`src/sidePanel/`
+  - 工具：`src/utils/`
+  - 类型：`src/types/`（如新增公共类型）
+
+## React 组件
+
+- 使用函数式组件与自动 JSX 运行时；优先 `React.FC<Props>`。
+- 状态管理优先 `useState`/`useReducer`，跨组件简易场景可用 Context。
+- 需要 Portal/浮层的组件注意 `z-index` 与注入上下文（内容脚本环境）。
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/zh30) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
