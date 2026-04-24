@@ -1,0 +1,44 @@
+{
+  "name": "skills-agent-proto",
+  "owner": "NanmiCoder",
+  "repo": "skills-agent-proto",
+  "description": "\u4f7f\u7528 LangChain 1.0 \u6784\u5efa\u7684 Skills Agent\uff0c\u6f14\u793a Anthropic Skills \u4e09\u5c42\u52a0\u8f7d\u673a\u5236\u7684\u5e95\u5c42\u539f\u7406\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NanmiCoder/skills-agent-proto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T05:03:54Z"
+}
