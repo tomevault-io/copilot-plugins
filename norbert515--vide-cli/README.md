@@ -7,14 +7,14 @@ An agentic terminal UI for Claude, built for Flutter developers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Norbert515/vide_cli](https://github.com/Norbert515/vide_cli).
+Original source: `AGENTS.md` in [Norbert515/vide_cli](https://github.com/Norbert515/vide_cli).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Norbert515/vide_cli](https://github.com/Norbert515/vide_cli)
