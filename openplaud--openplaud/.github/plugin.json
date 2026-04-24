@@ -1,0 +1,9 @@
+{
+  "name": "openplaud--openplaud",
+  "displayName": "openplaud",
+  "description": "Self-hosted AI transcription interface for Plaud Note devices",
+  "version": "1.0.0",
+  "author": "openplaud",
+  "homepage": "https://github.com/openplaud/openplaud",
+  "skills": []
+}
