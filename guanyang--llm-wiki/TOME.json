@@ -1,0 +1,44 @@
+{
+  "name": "llm-wiki",
+  "owner": "guanyang",
+  "repo": "llm-wiki",
+  "description": "A personal knowledge base continuously maintained by Obsidian + LLM. Inspired by Karpathy's LLM Wiki pattern.(\u4e00\u4e2a\u57fa\u4e8e Obsidian + LLM Wiki \u6301\u7eed\u7ef4\u62a4\u7684\u4e2a\u4eba\u77e5\u8bc6\u5e93)",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/guanyang/llm-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T04:47:27Z"
+}
