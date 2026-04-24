@@ -1,0 +1,9 @@
+{
+  "name": "jmerta--codex-skills",
+  "displayName": "codex-skills",
+  "description": "Codex CLI skills catalog",
+  "version": "1.0.0",
+  "author": "jMerta",
+  "homepage": "https://github.com/jMerta/codex-skills",
+  "skills": []
+}
