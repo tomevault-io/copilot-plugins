@@ -1,0 +1,9 @@
+{
+  "name": "dkyazzentwatwa--inkling-bot",
+  "displayName": "inkling-bot",
+  "description": "inkling -- the ai agent inside a raspberry pi. feed it chats & tasks.",
+  "version": "1.0.0",
+  "author": "dkyazzentwatwa",
+  "homepage": "https://github.com/dkyazzentwatwa/inkling-bot",
+  "skills": []
+}
