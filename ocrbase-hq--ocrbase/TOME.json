@@ -1,0 +1,63 @@
+{
+  "name": "ocrbase",
+  "owner": "ocrbase-hq",
+  "repo": "ocrbase",
+  "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": ".agents/skills/frontend-design",
+      "github_url": "https://github.com/ocrbase-hq/ocrbase/tree/main/.agents/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".agents/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/ocrbase-hq/ocrbase/tree/main/.agents/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": ".agents/skills/web-design-guidelines",
+      "github_url": "https://github.com/ocrbase-hq/ocrbase/tree/main/.agents/skills/web-design-guidelines",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ocrbase-hq/ocrbase",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T04:30:07Z"
+}
