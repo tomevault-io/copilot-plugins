@@ -1,0 +1,9 @@
+{
+  "name": "neondatabase--add-mcp",
+  "displayName": "add-mcp",
+  "description": "The open MCP config tool - npx add-mcp",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/add-mcp",
+  "skills": []
+}
