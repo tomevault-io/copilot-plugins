@@ -1,0 +1,9 @@
+{
+  "name": "bearcove--vixen",
+  "displayName": "vixen",
+  "description": "aspiring rust build system",
+  "version": "1.0.0",
+  "author": "bearcove",
+  "homepage": "https://github.com/bearcove/vixen",
+  "skills": []
+}
