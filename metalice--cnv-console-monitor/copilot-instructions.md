@@ -1,0 +1,286 @@
+## cnv-console-monitor
+
+> Testing patterns and guidelines
+
+
+# Testing Guidelines
+
+Testing patterns and best practices using Vitest and Supertest.
+
+---
+
+## 1. Testing Strategy
+
+### What to Test
+- **Server**: poller, analyzer, report builder, store queries, route handlers
+- **Shared**: utility functions (healthScore, timeAgo)
+- **Client**: complex logic (API client, data transforms) — not UI-only components
+
+### Test Runner
+- **Vitest** for all tests (configured in `packages/server`)
+- **Supertest** for HTTP route integration tests
+
+---
+
+## 2. Unit Tests
+
+### File Organization
+- Test file next to source: `analyzer.ts` → `analyzer.test.ts`
+
+### Test Structure
+```typescript
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { buildDailyReport } from './analyzer';
+
+describe('buildDailyReport', () => {
+  describe('when given valid launches', () => {
+    it('should group by version and tier', () => {
+      const result = buildDailyReport(mockLaunches);
+      expect(result.groups).toHaveLength(3);
+    });
+  });
+
+  describe('when no launches found', () => {
+    it('should return empty report', () => {
+      const result = buildDailyReport([]);
+      expect(result.groups).toHaveLength(0);
+    });
+  });
+});
+```
+
+---
+
+## 3. Mocking with Vitest
+
+### Mocking Modules
+```typescript
+import { vi } from 'vitest';
+
+vi.mock('axios');
+vi.mock('../db/store', () => ({
+  upsertLaunch: vi.fn(),
+  getLaunches: vi.fn(() => mockLaunches),
+}));
+```
+
+### Mocking Config
+```typescript
+vi.mock('../config', () => ({
+  config: {
+    reportportal: { url: 'http://test', token: 'test-token', project: 'TEST' },
+    slack: { enabled: false },
+    email: { enabled: false },
+    jira: { enabled: false },
+  },
+}));
+```
+
+### Mock Data Factories
+```typescript
+const createMockLaunch = (overrides = {}): Launch => ({
+  rp_id: 1,
+  uuid: 'uuid-1',
+  name: 'test-kubevirt-console-4.19-tier1',
+  number: 1,
+  status: 'PASSED',
+  cnv_version: '4.19',
+  tier: 'tier1',
+  total: 100,
+  passed: 95,
+  failed: 5,
+  skipped: 0,
+  start_time: Date.now(),
+  ...overrides,
+});
+```
+
+---
+
+## 4. Route Testing with Supertest
+
+```typescript
+import { describe, it, expect } from 'vitest';
+import request from 'supertest';
+import { createApp } from '../api';
+
+const app = createApp();
+
+describe('GET /api/launches', () => {
+  it('should return launches', async () => {
+    const res = await request(app).get('/api/launches');
+    expect(res.status).toBe(200);
+    expect(res.body).toBeInstanceOf(Array);
+  });
+
+  it('should return 500 on database error', async () => {
+    vi.spyOn(store, 'getLaunches').mockImplementation(() => {
+      throw new Error('DB error');
+    });
+    const res = await request(app).get('/api/launches');
+    expect(res.status).toBe(500);
+  });
+});
+```
+
+### Testing Zod Validation
+```typescript
+describe('POST /api/triage/:itemId', () => {
+  it('should reject invalid body', async () => {
+    const res = await request(app)
+      .post('/api/triage/123')
+      .send({ defectType: '' });
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty('details');
+  });
+
+  it('should accept valid triage request', async () => {
+    const res = await request(app)
+      .post('/api/triage/123')
+      .send({ defectType: 'PRODUCT_BUG', comment: 'Known issue' });
+    expect(res.status).toBe(200);
+  });
+});
+```
+
+---
+
+## 5. Database Testing
+
+### In-Memory SQLite
+```typescript
+import Database from 'better-sqlite3';
+
+let testDb: Database.Database;
+
+beforeEach(() => {
+  testDb = new Database(':memory:');
+  initSchema(testDb);
+});
+
+afterEach(() => {
+  testDb.close();
+});
+```
+
+---
+
+## 6. Testing Async Code
+
+```typescript
+it('should handle API errors', async () => {
+  mockedAxios.get.mockRejectedValue(new Error('Network error'));
+  await expect(fetchLaunches()).rejects.toThrow('Network error');
+});
+```
+
+---
+
+## 7. Best Practices
+
+- **Test behavior, not implementation**
+- **Keep tests independent** — each test manages its own setup
+- **Clear test names**: `it('should return empty array when no launches match')`
+- **Arrange-Act-Assert** pattern
+- **Use Vitest's `vi` object** instead of Jest's `jest` for mocks, spies, timers
+
+---
+
+## 8. Running Tests
+
+```bash
+npm run test                                  # All tests (vitest run)
+npm run test:watch -w packages/server         # Watch mode
+npx vitest run src/analyzer.test.ts -w packages/server  # Specific file
+```
+
+---
+
+## 9. Pipeline Integration Tests
+
+### Testing Pipeline Phases
+
+```typescript
+describe('FetchLaunches phase', () => {
+  it('should fetch all pages of launches', async () => {
+    mockRPClient.getLaunches
+      .mockResolvedValueOnce({ content: [launch1], page: { number: 1, totalPages: 2 } })
+      .mockResolvedValueOnce({ content: [launch2], page: { number: 2, totalPages: 2 } });
+
+    const result = await phase.execute(context);
+    expect(result.items).toHaveLength(2);
+    expect(mockRPClient.getLaunches).toHaveBeenCalledTimes(2);
+  });
+
+  it('should handle RP API timeout gracefully', async () => {
+    mockRPClient.getLaunches.mockRejectedValue(new Error('timeout'));
+    const result = await phase.execute(context);
+    expect(result.errors).toHaveLength(1);
+  });
+});
+```
+
+### Testing WebSocket Progress
+
+```typescript
+it('should emit progress events during pipeline execution', async () => {
+  const events: string[] = [];
+  mockWs.on('message', (msg: string) => events.push(msg));
+
+  await pipeline.execute();
+
+  expect(events).toContainEqual(expect.objectContaining({ event: 'pipeline-progress' }));
+});
+```
+
+---
+
+## 10. Mock Factory Conventions
+
+Centralize mock data factories for consistency:
+
+```typescript
+// __tests__/factories.ts
+export const createMockLaunch = (overrides: Partial<Launch> = {}): Launch => ({
+  cnv_version: '4.19',
+  failed: 5,
+  name: 'test-kubevirt-console-4.19-tier1',
+  number: 1,
+  passed: 95,
+  rp_id: 1,
+  skipped: 0,
+  start_time: Date.now(),
+  status: 'PASSED',
+  tier: 'tier1',
+  total: 100,
+  uuid: 'uuid-1',
+  ...overrides,
+});
+
+export const createMockTestItem = (overrides: Partial<TestItem> = {}): TestItem => ({
+  defect_type: 'TO_INVESTIGATE',
+  error_message: 'Expected true to be false',
+  launch_rp_id: 1,
+  name: 'should render VM details',
+  rp_id: 100,
+  status: 'FAILED',
+  ...overrides,
+});
+```
+
+---
+
+## 11. Checklist
+
+- [ ] Tests behavior, not implementation
+- [ ] Covers happy path
+- [ ] Covers error cases
+- [ ] Covers edge cases (empty data, null, boundaries)
+- [ ] Independent (no test order dependency)
+- [ ] Properly mocks external dependencies
+- [ ] Cleans up after itself
+- [ ] Mock factories used for consistent test data
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/metalice) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
