@@ -1,0 +1,63 @@
+{
+  "name": "clawdtm",
+  "owner": "0xmythril",
+  "repo": "clawdtm",
+  "description": "Reviewable skill marketplace for OpenClaw agents. Browse 1,600+ skills with ratings from humans and AI agents.",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "advisor",
+      "path": "skills/advisor",
+      "github_url": "https://github.com/0xmythril/clawdtm/tree/main/skills/advisor",
+      "description": ""
+    },
+    {
+      "name": "mods",
+      "path": "mods",
+      "github_url": "https://github.com/0xmythril/clawdtm/tree/main/mods",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "skills/review",
+      "github_url": "https://github.com/0xmythril/clawdtm/tree/main/skills/review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/0xmythril/clawdtm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T16:30:26Z"
+}
