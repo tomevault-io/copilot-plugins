@@ -1,0 +1,9 @@
+{
+  "name": "itsmuaaz--termux-bootstrap",
+  "displayName": "termux-bootstrap",
+  "description": "Modular, safe, and mobile-optimized Termux bootstrap. Features Fish, Gemini AI, Micro editor, and modern CLI tools with portrait mode support.",
+  "version": "1.0.0",
+  "author": "itsmuaaz",
+  "homepage": "https://github.com/itsmuaaz/termux-bootstrap",
+  "skills": []
+}
