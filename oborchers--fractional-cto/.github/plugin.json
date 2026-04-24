@@ -1,0 +1,14 @@
+{
+  "name": "oborchers--fractional-cto",
+  "displayName": "fractional-cto",
+  "description": "Your AI CTO co-pilot \u2014 opinionated, research-backed Claude Code plugins for building SaaS products that ship",
+  "version": "1.0.0",
+  "author": "oborchers",
+  "homepage": "https://github.com/oborchers/fractional-cto",
+  "skills": [
+    {
+      "name": "ci-cd",
+      "description": ""
+    }
+  ]
+}
