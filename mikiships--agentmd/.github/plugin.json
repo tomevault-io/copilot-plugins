@@ -1,0 +1,9 @@
+{
+  "name": "mikiships--agentmd",
+  "displayName": "agentmd",
+  "description": "Generate high-quality AI agent context files (CLAUDE.md, AGENTS.md, .cursorrules, copilot-instructions.md) from any codebase",
+  "version": "1.0.0",
+  "author": "mikiships",
+  "homepage": "https://github.com/mikiships/agentmd",
+  "skills": []
+}
