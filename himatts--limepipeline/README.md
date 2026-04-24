@@ -1,6 +1,6 @@
-# LimePipeline — distributed by TomeVault
+# LimePipeline
 
-> Originally from [himatts/LimePipeline](https://github.com/himatts/LimePipeline). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [himatts/LimePipeline](https://github.com/himatts/LimePipeline) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [himatts/LimePipeline](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/himatts)
+From [himatts/LimePipeline](https://github.com/himatts/LimePipeline) — a repo with 0+ stars on GitHub.
 
 ---
 
