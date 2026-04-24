@@ -1,0 +1,9 @@
+{
+  "name": "channprj--kmsg",
+  "displayName": "kmsg",
+  "description": "CLI for KakaoTalk.app so your agent can send and receive k-messages.",
+  "version": "1.0.0",
+  "author": "channprj",
+  "homepage": "https://github.com/channprj/kmsg",
+  "skills": []
+}
