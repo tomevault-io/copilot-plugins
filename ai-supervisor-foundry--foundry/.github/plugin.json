@@ -1,0 +1,9 @@
+{
+  "name": "ai-supervisor-foundry--foundry",
+  "displayName": "foundry",
+  "description": "Foundry is a persistent orchestration & control-plane for agentic software development\u2014minimizing context loss and manual restarts. It coordinates AI coding agents nodes that can build, validate, and ",
+  "version": "1.0.0",
+  "author": "ai-supervisor-foundry",
+  "homepage": "https://github.com/ai-supervisor-foundry/foundry",
+  "skills": []
+}
