@@ -1,0 +1,9 @@
+{
+  "name": "ddtamn--svelte-audio-ui",
+  "displayName": "svelte-audio-ui",
+  "description": "A set of accessible and composable Audio UI components.",
+  "version": "1.0.0",
+  "author": "ddtamn",
+  "homepage": "https://github.com/ddtamn/svelte-audio-ui",
+  "skills": []
+}
