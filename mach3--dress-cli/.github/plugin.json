@@ -1,0 +1,9 @@
+{
+  "name": "mach3--dress-cli",
+  "displayName": "dress-cli",
+  "description": "dress-cli",
+  "version": "1.0.0",
+  "author": "mach3",
+  "homepage": "https://github.com/mach3/dress-cli",
+  "skills": []
+}
