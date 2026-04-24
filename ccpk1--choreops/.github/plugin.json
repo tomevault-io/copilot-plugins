@@ -1,0 +1,9 @@
+{
+  "name": "ccpk1--choreops",
+  "displayName": "ChoreOps",
+  "description": "\u2611\ufe0f ChoreOps - A sophisticated household task and routine manager for Home Assistant. Gamify your chores for motivation, or just ensure the trash gets taken out on time.",
+  "version": "1.0.0",
+  "author": "ccpk1",
+  "homepage": "https://github.com/ccpk1/ChoreOps",
+  "skills": []
+}
