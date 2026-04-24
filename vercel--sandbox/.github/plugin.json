@@ -1,0 +1,9 @@
+{
+  "name": "vercel--sandbox",
+  "displayName": "sandbox",
+  "description": "Vercel Sandbox is an ephemeral compute primitive designed to safely run untrusted or user-generated code.",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/sandbox",
+  "skills": []
+}
