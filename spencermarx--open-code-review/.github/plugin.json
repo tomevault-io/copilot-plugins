@@ -1,0 +1,9 @@
+{
+  "name": "spencermarx--open-code-review",
+  "displayName": "open-code-review",
+  "description": "AI-powered multi-agent code review. Simulates a customizable team of Engineers performing code review with built-in discourse.",
+  "version": "1.0.0",
+  "author": "spencermarx",
+  "homepage": "https://github.com/spencermarx/open-code-review",
+  "skills": []
+}
