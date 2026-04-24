@@ -1,0 +1,9 @@
+{
+  "name": "codescv--geminiclaw",
+  "displayName": "geminiclaw",
+  "description": "AI agent running on your computer, controllable from your finger tips, powered by Gemini CLI",
+  "version": "1.0.0",
+  "author": "codescv",
+  "homepage": "https://github.com/codescv/geminiclaw",
+  "skills": []
+}
