@@ -1,0 +1,9 @@
+{
+  "name": "linggen--linggen-memory",
+  "displayName": "linggen-memory",
+  "description": "A local-first memory layer for AI (Cursor, Zed, Claude). Persistent architectural context via semantic search.",
+  "version": "1.0.0",
+  "author": "linggen",
+  "homepage": "https://github.com/linggen/linggen-memory",
+  "skills": []
+}
