@@ -1,0 +1,9 @@
+{
+  "name": "shanselman--winget-tui",
+  "displayName": "winget-tui",
+  "description": "A terminal UI for Windows Package Manager (winget) - search, install, upgrade, and manage packages",
+  "version": "1.0.0",
+  "author": "shanselman",
+  "homepage": "https://github.com/shanselman/winget-tui",
+  "skills": []
+}
