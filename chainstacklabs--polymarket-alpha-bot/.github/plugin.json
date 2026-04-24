@@ -1,0 +1,9 @@
+{
+  "name": "chainstacklabs--polymarket-alpha-bot",
+  "displayName": "polymarket-alpha-bot",
+  "description": "Find alpha, manage positions in Polymarket",
+  "version": "1.0.0",
+  "author": "chainstacklabs",
+  "homepage": "https://github.com/chainstacklabs/polymarket-alpha-bot",
+  "skills": []
+}
