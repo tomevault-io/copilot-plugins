@@ -1,0 +1,9 @@
+{
+  "name": "pageai-pro--ralph-loop",
+  "displayName": "ralph-loop",
+  "description": "A long-running AI agent loop. Ralph automates software development tasks by iteratively working through a task list until completion.",
+  "version": "1.0.0",
+  "author": "PageAI-Pro",
+  "homepage": "https://github.com/PageAI-Pro/ralph-loop",
+  "skills": []
+}
