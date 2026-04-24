@@ -1,0 +1,9 @@
+{
+  "name": "mkubicek--xtap",
+  "displayName": "xTap",
+  "description": "Stealthy, client-side Chrome extension that silently archives X/Twitter tweets from browser GraphQL responses into daily JSONL files.",
+  "version": "1.0.0",
+  "author": "mkubicek",
+  "homepage": "https://github.com/mkubicek/xTap",
+  "skills": []
+}
