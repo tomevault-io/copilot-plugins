@@ -1,0 +1,44 @@
+{
+  "name": "fnos-apps",
+  "owner": "conversun",
+  "repo": "fnos-apps",
+  "description": "\u98de\u725b fnOS NAS \u7b2c\u4e09\u65b9\u5e94\u7528\u5546\u5e97 \u2014 115 \u6b3e\u81ea\u6258\u7ba1\u5e94\u7528\u7684 .fpk \u5b89\u88c5\u5305 | Plex, Emby, Jellyfin, qBittorrent, Immich, Sonarr, Radarr, Vaultwarden, ZeroClaw AI, OpenClaw \u7b49 | \u6bcf\u65e5\u81ea\u52a8\u540c\u6b65\u4e0a\u6e38\u7248\u672c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/conversun/fnos-apps",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T00:59:04Z"
+}
