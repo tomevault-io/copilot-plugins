@@ -1,6 +1,6 @@
 # dlogcover
 
-> Tome by [eric2023](https://github.com/eric2023/dlogcover) — distributed by [TomeVault](https://tomevault.io/claim/eric2023)
+> Tome by [eric2023](https://github.com/eric2023/dlogcover) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [eric2023/dlogcover](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/eric2023)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/eric2023/dlogcover](https://github.com/eric2023/dlogcover)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install eric2023/dlogcover
 ```
-Or browse all formats at [https://tomevault.io/claim/eric2023](https://tomevault.io/claim/eric2023).
+Source: [github.com/eric2023/dlogcover](https://github.com/eric2023/dlogcover).
 
 <!-- genome:t-i-p -->
