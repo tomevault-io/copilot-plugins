@@ -1,0 +1,9 @@
+{
+  "name": "flo-bit--blento",
+  "displayName": "blento",
+  "description": "your bento style website with data hosted on your bluesky PDS, svelte/tailwind",
+  "version": "1.0.0",
+  "author": "flo-bit",
+  "homepage": "https://github.com/flo-bit/blento",
+  "skills": []
+}
