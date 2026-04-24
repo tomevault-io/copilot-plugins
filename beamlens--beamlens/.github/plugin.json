@@ -1,0 +1,9 @@
+{
+  "name": "beamlens--beamlens",
+  "displayName": "beamlens",
+  "description": "Adaptive runtime intelligence for the BEAM.",
+  "version": "1.0.0",
+  "author": "beamlens",
+  "homepage": "https://github.com/beamlens/beamlens",
+  "skills": []
+}
