@@ -1,0 +1,14 @@
+{
+  "name": "arbazkhan971--godmode",
+  "displayName": "godmode",
+  "description": "Autonomous AI coding agent \u2014 126 skills, 7 subagents, 5 platforms. Iterative optimization with automatic rollback, failure memory, and parallel multi-agent execution. Plugin for Claude Code, Cursor, C",
+  "version": "1.0.0",
+  "author": "arbazkhan971",
+  "homepage": "https://github.com/arbazkhan971/godmode",
+  "skills": [
+    {
+      "name": "vue",
+      "description": ""
+    }
+  ]
+}
