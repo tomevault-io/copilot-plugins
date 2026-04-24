@@ -1,88 +1,118 @@
 ## obsidian-wechat-converter
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Handles markdown-it based conversion, HTML sanitization, callouts, image rendering, code block rendering, and WeChat-friendly output shaping.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex when working with code in this repository.
 
 ## Language Preferences
 - Detect the language of the user's prompt (English or Chinese). Always reply in the same language unless explicitly asked otherwise.
 - When drafting replies or documentation intended for Chinese audiences, ensure natural, native-level phrasing.
 
-## Commands
+## Project Summary
+- This is an Obsidian plugin that converts Markdown notes into WeChat Official Account article HTML.
+- The core user workflow is: open the converter panel, preview the rendered article live, copy rich HTML into the WeChat editor, and optionally sync directly to the WeChat draft box.
+- The plugin is aimed at creators who publish from Obsidian to WeChat and care about fidelity for headings, code blocks, math, callouts, tables, local images, and article metadata.
 
-- **Install Dependencies**: `npm install`
-- **Build for Production**: `npm run build` (Minifies code, no sourcemaps)
-- **Start Development Watcher**: `npm run dev` (Builds `main.js` and watches for changes)
-- **Testing**: This project relies on manual visual testing.
-    - Use `TEST.md` to verify rendering logic, style conversion, and WeChat compatibility.
-    - Check the "Live Preview" pane in Obsidian to ensure "What You See Is What You Get".
-- **Automated Testing**: `npm test` (Runs Vitest unit tests).
-    - Always evaluate the need for new unit tests after significant logic changes.
-    - Use the `universal-guardrails` skill to scaffold tests if needed.
+## Commands
+- **Install dependencies**: `npm install`
+- **Generate embedded runtime bundles**: `npm run generate:embedded`
+- **Check embedded runtime bundles are up to date**: `npm run check:embedded`
+- **Build for production**: `npm run build`
+- **Start development watcher**: `npm run dev`
+- **Run unit tests**: `npm test`
+- **Run coverage**: `npm run test:coverage`
+- **Release dry run**: `npm run release:dryrun`
+- **Release validation**: `npm run release:validate`
+
+## Testing Expectations
+- This project still relies on manual visual testing for end-to-end rendering quality and WeChat paste/sync behavior.
+- Use [TEST.md](/Users/davidlin/Documents/Obsidian/MyVault/.obsidian/plugins/obsidian-wechat-converter/TEST.md) for general rendering checks.
+- Use [TEST_MATH.md](/Users/davidlin/Documents/Obsidian/MyVault/.obsidian/plugins/obsidian-wechat-converter/TEST_MATH.md) when touching formula rendering or math upload behavior.
+- The repository also has a substantial Vitest suite under [tests](/Users/davidlin/Documents/Obsidian/MyVault/.obsidian/plugins/obsidian-wechat-converter/tests). For logic changes, especially around rendering, sanitization, path resolution, sync flow, or error handling, add or update unit tests unless the change is purely cosmetic.
 
 ## Architecture & Structure
+- **Entry source**: `input.js`
+  It contains plugin lifecycle, view wiring, settings UI, preview panel logic, and top-level sync actions.
+- **Generated runtime artifact**: `main.js`
+  Do not hand-edit `main.js`; rebuild from source instead.
+- **Markdown conversion core**: `converter.js`
+  Handles markdown-it based conversion, HTML sanitization, callouts, image rendering, code block rendering, and WeChat-friendly output shaping.
+- **Theme system**: `themes/apple-theme.js`
+  There is one theme module with three built-in presets exposed in the UI:
+  - `github` -> `简约`
+  - `wechat` -> `经典`
+  - `serif` -> `优雅`
+- **Service layer**: `services/`
+  The codebase has evolved beyond a single converter file. Important modules include:
+  - `render-pipeline.js`: creates the render pipeline used by the view.
+  - `dependency-loader.js`: loads embedded runtime dependencies.
+  - `native-renderer.js`: native rendering path.
+  - `obsidian-triplet-renderer.js` and `obsidian-triplet-serializer.js`: renderer/serializer helpers used by the newer pipeline.
+  - `markdown-source.js`: resolves the active markdown source.
+  - `path-utils.js`: vault/path helpers.
+  - `wechat-media.js`: image and math asset processing for WeChat.
+  - `wechat-html-cleaner.js`: HTML cleanup for draft sync.
+  - `wechat-sync.js` and `sync-context.js`: draft sync orchestration and user-facing sync messaging.
+- **Generated embedded dependency snapshot**: `services/generated-embedded-deps.js`
+  This is generated. If you change embedded runtime sources such as `converter.js` or `themes/apple-theme.js`, regenerate it before building or testing.
+- **Math bundle**: `lib/mathjax-plugin.js`
+  Built separately via `esbuild.math.mjs` and loaded dynamically.
 
-- **Project Type**: Obsidian Plugin (Node.js environment within Electron).
-- **Entry Point**: `input.js` is the source entry point, which bundles into `main.js`.
-- **Core Components**:
-    - `input.js`: Main plugin logic and lifecycle management.
-    - `converter.js`: Handles Markdown to WeChat-compatible HTML conversion.
-    - `styles.css`: Base plugin styles.
-    - `themes/`: Contains specific visual themes (Simple, Classic, Elegant).
-    - `lib/`: Helper libraries (including the dynamically loaded `mathjax-plugin.js`).
-- **Build System**:
-    - **Main Bundle**: `esbuild` via `esbuild.config.mjs` (Targets `main.js`).
-    - **Math Bundle**: `esbuild` via `esbuild.math.mjs` (Targets `lib/mathjax-plugin.js`).
-    - Targets `es2018` / CommonJS.
-- **WeChat Integration**:
-    - Supports syncing to WeChat Drafts.
-    - Uses a proxy (e.g., Cloudflare Worker) to handle CORS and IP whitelisting for WeChat API calls (logic likely in `input.js` or `converter.js`).
-    - Handles image processing: Local images are converted/uploaded; supports avatars and covers.
+## Current Product Behavior To Keep In Mind
+- Live preview is a first-class feature; the plugin is expected to feel close to WYSIWYG for WeChat publishing.
+- The plugin supports copy-to-editor and direct sync to WeChat drafts.
+- WeChat draft sync supports multiple accounts, frontmatter-aware cover/excerpt defaults, optional cleanup of a configured output directory after successful sync, and optional proxying through a Cloudflare Worker.
+- Local image handling is important: wiki links, relative paths, absolute paths, GIF handling, avatar uploads, and cover selection all matter.
+- Chinese punctuation normalization only affects rendered output, copy output, and sync output. It must not mutate the source Markdown note.
+- The codebase has moved to a `native-only` rendering direction; be careful around old legacy/parity switches and prefer current pipeline behavior.
 
 ## Development Notes
+- **Runtime environment**: Obsidian plugin running in Electron / Node-style CommonJS.
+- **Languages in repo**: mostly JavaScript plus `.mjs` build scripts and test helpers.
+- **External dependencies**: `obsidian`, `electron`, and CodeMirror-related APIs are provided by the Obsidian app/runtime.
+- **Security-sensitive areas**:
+  - HTML sanitization
+  - link validation
+  - proxy URL validation
+  - file/path cleanup after sync
+- **Performance-sensitive areas**:
+  - preview refresh
+  - image processing
+  - math conversion
+  - WeChat upload concurrency and retry behavior
 
-- **Language**: JavaScript/TypeScript (mixed).
-- **External Dependencies**: `obsidian`, `electron`, and `@codemirror/*` packages are peer dependencies provided by the Obsidian app.
-- **UI/UX**: The plugin adds a ribbon icon and a command "Open Wechat Converter". It uses a side panel for live preview.
-- **Image Handling**: Special attention is needed for local image paths (absolute/relative/WikiLink) and GIF handling (size limits).
+## Best Practices & Lessons Learned
 
-## Best Practices & Lessons Learned (v2.1 Math Update & v2.5 Math-to-Image)
-
-### 1. Bundling & Dependencies
-- **Avoid Dynamic Requires**: Libraries that use `require(path.join(__dirname, 'package.json'))` will crash in Obsidian. Use `esbuild`'s `define` to inject static versions or mock the file system if possible.
-- **ESM vs CJS**: When bundling CJS libraries (like `markdown-it` plugins), be wary of default exports. Always check `module.default || module`.
-- **Rebuild Requirement**: `input.js` is the source for `main.js`. **ANY change to `input.js` requires `npm run build` to take effect.** Restarting the plugin is not enough if you haven't rebuilt.
+### 1. Build Artifacts
+- `input.js` is the source of truth for the plugin entry; rebuild after changing it.
+- `main.js` and `services/generated-embedded-deps.js` are generated artifacts and should stay in sync with source edits.
+- If you touch runtime code that is embedded or eval-loaded, always consider whether `npm run generate:embedded` is required before testing.
 
 ### 2. WeChat Compatibility
-- **Zero-CSS Strategy**: WeChat strips `<style>` and class-based styling. All visual elements must be inline styles or self-contained SVGs.
-- **Math Formula Strategy**:
-    - **Upload as Image**: WeChat API has strict content length limits. Complex SVGs (MathJax) must be converted to PNGs and uploaded to WeChat servers to bypass this limit.
-    - **Smart Recoloring**: MathJax formulas should be recolored (e.g., `#333333`) for better readability, but non-formula SVGs (e.g., Mermaid) must retain their original colors.
-- **Circuit Breaker**: Implement fail-fast logic for API rate limits (`45009`) and quota limits (`45001`) to prevent wasted retries and poor UX.
+- WeChat strips `<style>` tags and most class-based styling. Rendered article output must remain robust with inline styles and self-contained markup.
+- Math support is compatibility-sensitive. Complex formulas may need SVG/PNG processing paths depending on the sync target.
+- Non-math SVG content such as diagrams should not be accidentally recolored or mangled by math-specific cleanup.
+- Keep an eye on WeChat API quota and media-limit errors. The circuit-breaker behavior is intentional and user-protective.
 
-### 3. Architecture (Dynamic Loading)
-- **Separate Bundles**: Heavy features (like MathJax) are bundled separately (`lib/mathjax-plugin.js`) and loaded via `eval()` in `input.js` only when needed.
-- **Global Scope**: When `eval`-ing code, do not assume `window` is available or writable in the same way. Use a safe global resolver (`const _global = typeof window ...`) to export functions from the dynamic bundle.
+### 3. Dynamic Loading
+- Heavy or embedded features are loaded indirectly. Avoid assumptions that typical browser globals behave exactly like a normal webpage environment.
+- When editing eval-loaded/global-exported code, preserve safe global export patterns and re-entrancy protections.
 
-### 4. UI/UX & Styling
-- **Native Components First**: Always prefer Obsidian's native UI components and browser-default styles (e.g., standard range inputs) over custom CSS hacks.
-- **Vertical Alignment**: Avoid manually calculating margins for vertical centering (e.g., `margin-top: -8px`). Use flexbox or grid layouts where possible, or rely on standard form controls which are already optimized for the platform.
-- **State Persistence**: For multi-document workflows, use in-memory maps (e.g., `Map<Path, State>`) to temporarily cache UI state (like cover images or toggle positions) per file. Clear this cache on plugin unload or view close to prevent memory leaks.
+### 4. UX Consistency
+- Preserve the fast live-preview workflow.
+- Prefer Obsidian-native controls and simple layout techniques over brittle CSS tricks.
+- Keep copy/sync behavior aligned with preview behavior as much as possible.
+- For multi-document or multi-account workflows, preserve existing state management patterns unless there is a clear bug.
 
-### 5. Engineering & Quality
-- **Unit Testing**: Use `Vitest` + `jsdom`.
-    - Mock Obsidian API (`requestUrl`, `Notice`) robustly using `vi.mock` factory functions or file-system mocks in CI.
-    - **Always** add unit tests for new core logic (especially regex, data transformation, and error handling).
-    - Use the `universal-guardrails` skill to maintain test infrastructure.
-- **CI/CD**: Ensure CI environments (Node version) match toolchain requirements (e.g., Node 20+ for Vitest), even if the runtime target is lower (Node 16).
+### 5. Quality Bar
+- Add tests for core logic changes, especially regex-heavy transformations, sanitizer changes, sync failure handling, path cleanup rules, or rendering edge cases.
+- When changing output HTML, consider both automated tests and manual visual verification because small markup changes can regress WeChat compatibility.
 
 ## Release
-
 发布新版本时，使用 `/project-release` skill 查看完整流程。
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/DavidLam-oss)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/DavidLam-oss)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [DavidLam-oss/obsidian-wechat-converter](https://github.com/DavidLam-oss/obsidian-wechat-converter) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
