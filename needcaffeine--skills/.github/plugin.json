@@ -1,0 +1,14 @@
+{
+  "name": "needcaffeine--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "needcaffeine",
+  "homepage": "https://github.com/needcaffeine/skills",
+  "skills": [
+    {
+      "name": "excalidraw",
+      "description": ""
+    }
+  ]
+}
