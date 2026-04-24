@@ -1,0 +1,105 @@
+{
+  "name": "nexus",
+  "owner": "sameera",
+  "repo": "nexus",
+  "description": "AI instruction skills by sameera",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nxs-env-sync",
+      "path": "claude/.claude/skills/nxs-env-sync",
+      "github_url": "https://github.com/sameera/nexus/tree/main/claude/.claude/skills/nxs-env-sync",
+      "description": ""
+    },
+    {
+      "name": "nxs-env-sync",
+      "path": "gemini/.gemini/skills/nxs-env-sync",
+      "github_url": "https://github.com/sameera/nexus/tree/main/gemini/.gemini/skills/nxs-env-sync",
+      "description": ""
+    },
+    {
+      "name": "nxs-gh-create-epic",
+      "path": "claude/.claude/skills/nxs-gh-create-epic",
+      "github_url": "https://github.com/sameera/nexus/tree/main/claude/.claude/skills/nxs-gh-create-epic",
+      "description": ""
+    },
+    {
+      "name": "nxs-gh-create-epic",
+      "path": "gemini/.gemini/skills/nxs-gh-create-epic",
+      "github_url": "https://github.com/sameera/nexus/tree/main/gemini/.gemini/skills/nxs-gh-create-epic",
+      "description": ""
+    },
+    {
+      "name": "nxs-gh-create-task",
+      "path": "claude/.claude/skills/nxs-gh-create-task",
+      "github_url": "https://github.com/sameera/nexus/tree/main/claude/.claude/skills/nxs-gh-create-task",
+      "description": ""
+    },
+    {
+      "name": "nxs-gh-create-task",
+      "path": "gemini/.gemini/skills/nxs-gh-create-task",
+      "github_url": "https://github.com/sameera/nexus/tree/main/gemini/.gemini/skills/nxs-gh-create-task",
+      "description": ""
+    },
+    {
+      "name": "nxs-ship",
+      "path": "claude/.claude/skills/nxs-ship",
+      "github_url": "https://github.com/sameera/nexus/tree/main/claude/.claude/skills/nxs-ship",
+      "description": ""
+    },
+    {
+      "name": "nxs-ship",
+      "path": "gemini/.gemini/skills/nxs-ship",
+      "github_url": "https://github.com/sameera/nexus/tree/main/gemini/.gemini/skills/nxs-ship",
+      "description": ""
+    },
+    {
+      "name": "nxs-workspace-setup",
+      "path": "claude/.claude/skills/nxs-workspace-setup",
+      "github_url": "https://github.com/sameera/nexus/tree/main/claude/.claude/skills/nxs-workspace-setup",
+      "description": ""
+    },
+    {
+      "name": "nxs-workspace-setup",
+      "path": "gemini/.gemini/skills/nxs-workspace-setup",
+      "github_url": "https://github.com/sameera/nexus/tree/main/gemini/.gemini/skills/nxs-workspace-setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sameera/nexus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T20:30:56Z"
+}
