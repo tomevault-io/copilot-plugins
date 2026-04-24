@@ -1,0 +1,9 @@
+{
+  "name": "dbt-labs--weather-climate-dbt",
+  "displayName": "weather-climate-dbt",
+  "description": "weather-climate-dbt",
+  "version": "1.0.0",
+  "author": "dbt-labs",
+  "homepage": "https://github.com/dbt-labs/weather-climate-dbt",
+  "skills": []
+}
