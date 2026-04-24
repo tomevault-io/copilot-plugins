@@ -1,0 +1,51 @@
+{
+  "name": "bonfire",
+  "owner": "vieko",
+  "repo": "bonfire",
+  "description": "Your AI coding partner forgets everything between conversations. Bonfire remembers.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bonfire",
+      "path": "skills/bonfire",
+      "github_url": "https://github.com/vieko/bonfire/tree/main/skills/bonfire",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vieko/bonfire",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T20:31:41Z"
+}
