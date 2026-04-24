@@ -1,0 +1,9 @@
+{
+  "name": "dunialabs--peta-core",
+  "displayName": "peta-core",
+  "description": "The Control Plane for MCP \u2014 secure vault, managed runtime, audit trail, and policy-based approvals.",
+  "version": "1.0.0",
+  "author": "dunialabs",
+  "homepage": "https://github.com/dunialabs/peta-core",
+  "skills": []
+}
