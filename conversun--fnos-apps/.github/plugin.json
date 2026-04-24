@@ -1,0 +1,9 @@
+{
+  "name": "conversun--fnos-apps",
+  "displayName": "fnos-apps",
+  "description": "\u98de\u725b fnOS NAS \u7b2c\u4e09\u65b9\u5e94\u7528\u5546\u5e97 \u2014 115 \u6b3e\u81ea\u6258\u7ba1\u5e94\u7528\u7684 .fpk \u5b89\u88c5\u5305 | Plex, Emby, Jellyfin, qBittorrent, Immich, Sonarr, Radarr, Vaultwarden, ZeroClaw AI, OpenClaw \u7b49 | \u6bcf\u65e5\u81ea\u52a8\u540c\u6b65\u4e0a\u6e38\u7248\u672c",
+  "version": "1.0.0",
+  "author": "conversun",
+  "homepage": "https://github.com/conversun/fnos-apps",
+  "skills": []
+}
