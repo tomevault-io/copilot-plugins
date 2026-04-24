@@ -1,0 +1,50 @@
+{
+  "name": "sameera--nexus",
+  "displayName": "nexus",
+  "description": "AI instruction skills by sameera",
+  "version": "1.0.0",
+  "author": "sameera",
+  "homepage": "https://github.com/sameera/nexus",
+  "skills": [
+    {
+      "name": "nxs-env-sync",
+      "description": ""
+    },
+    {
+      "name": "nxs-env-sync",
+      "description": ""
+    },
+    {
+      "name": "nxs-gh-create-epic",
+      "description": ""
+    },
+    {
+      "name": "nxs-gh-create-epic",
+      "description": ""
+    },
+    {
+      "name": "nxs-gh-create-task",
+      "description": ""
+    },
+    {
+      "name": "nxs-gh-create-task",
+      "description": ""
+    },
+    {
+      "name": "nxs-ship",
+      "description": ""
+    },
+    {
+      "name": "nxs-ship",
+      "description": ""
+    },
+    {
+      "name": "nxs-workspace-setup",
+      "description": ""
+    },
+    {
+      "name": "nxs-workspace-setup",
+      "description": ""
+    }
+  ]
+}
