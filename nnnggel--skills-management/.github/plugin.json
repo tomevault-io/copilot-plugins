@@ -1,0 +1,9 @@
+{
+  "name": "nnnggel--skills-management",
+  "displayName": "skills-management",
+  "description": "A CLI tool to manage and synchronize AI coding agent skills",
+  "version": "1.0.0",
+  "author": "nnnggel",
+  "homepage": "https://github.com/nnnggel/skills-management",
+  "skills": []
+}
