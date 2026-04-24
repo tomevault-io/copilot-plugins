@@ -1,0 +1,9 @@
+{
+  "name": "miantiao-me--cloud-claw",
+  "displayName": "cloud-claw",
+  "description": "Run OpenClaw with One Click on Cloudflare Containers to Create Your Personal Agent",
+  "version": "1.0.0",
+  "author": "miantiao-me",
+  "homepage": "https://github.com/miantiao-me/cloud-claw",
+  "skills": []
+}
