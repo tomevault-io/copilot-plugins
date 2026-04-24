@@ -1,0 +1,26 @@
+{
+  "name": "browser-use--sdk",
+  "displayName": "browser-use",
+  "description": "Browser Use Cloud SDK",
+  "version": "1.0.0",
+  "author": "browser-use",
+  "homepage": "https://github.com/browser-use/sdk",
+  "skills": [
+    {
+      "name": "browser-use",
+      "description": ""
+    },
+    {
+      "name": "remote-browser",
+      "description": ""
+    },
+    {
+      "name": "cloud",
+      "description": ""
+    },
+    {
+      "name": "open-source",
+      "description": ""
+    }
+  ]
+}
