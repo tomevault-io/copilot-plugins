@@ -1,0 +1,9 @@
+{
+  "name": "merozemory--ida-multi-mcp",
+  "displayName": "ida-multi-mcp",
+  "description": "Multi-instance IDA Pro MCP server \u2014 analyze multiple binaries simultaneously through a single MCP endpoint.",
+  "version": "1.0.0",
+  "author": "MeroZemory",
+  "homepage": "https://github.com/MeroZemory/ida-multi-mcp",
+  "skills": []
+}
