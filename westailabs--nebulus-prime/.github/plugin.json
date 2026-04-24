@@ -1,0 +1,9 @@
+{
+  "name": "westailabs--nebulus-prime",
+  "displayName": "nebulus-prime",
+  "description": "A containerized, general-purpose local AI ecosystem.",
+  "version": "1.0.0",
+  "author": "westailabs",
+  "homepage": "https://github.com/westailabs/nebulus-prime",
+  "skills": []
+}
