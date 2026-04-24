@@ -1,0 +1,75 @@
+{
+  "name": "meshcore-hub",
+  "owner": "ipnet-mesh",
+  "repo": "meshcore-hub",
+  "description": "MeshCore Hub provides a complete solution for monitoring, collecting, and interacting with MeshCore mesh networks",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documentation",
+      "path": ".claude/skills/documentation",
+      "github_url": "https://github.com/ipnet-mesh/meshcore-hub/tree/main/.claude/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "git-branch",
+      "path": ".claude/skills/git-branch",
+      "github_url": "https://github.com/ipnet-mesh/meshcore-hub/tree/main/.claude/skills/git-branch",
+      "description": ""
+    },
+    {
+      "name": "git-pr",
+      "path": ".claude/skills/git-pr",
+      "github_url": "https://github.com/ipnet-mesh/meshcore-hub/tree/main/.claude/skills/git-pr",
+      "description": ""
+    },
+    {
+      "name": "quality",
+      "path": ".claude/skills/quality",
+      "github_url": "https://github.com/ipnet-mesh/meshcore-hub/tree/main/.claude/skills/quality",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": ".claude/skills/release",
+      "github_url": "https://github.com/ipnet-mesh/meshcore-hub/tree/main/.claude/skills/release",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ipnet-mesh/meshcore-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T00:31:37Z"
+}
