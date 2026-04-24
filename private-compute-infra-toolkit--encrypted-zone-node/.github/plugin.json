@@ -1,0 +1,9 @@
+{
+  "name": "private-compute-infra-toolkit--encrypted-zone-node",
+  "displayName": "encrypted-zone-node",
+  "description": "encrypted-zone-node",
+  "version": "1.0.0",
+  "author": "private-compute-infra-toolkit",
+  "homepage": "https://github.com/private-compute-infra-toolkit/encrypted-zone-node",
+  "skills": []
+}
