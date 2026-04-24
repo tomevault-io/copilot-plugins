@@ -1,0 +1,9 @@
+{
+  "name": "hagicode-org--site",
+  "displayName": "site",
+  "description": "Official marketing site for HagiCode product capabilities, AI coding workflows, and getting-started paths.",
+  "version": "1.0.0",
+  "author": "HagiCode-org",
+  "homepage": "https://github.com/HagiCode-org/site",
+  "skills": []
+}
