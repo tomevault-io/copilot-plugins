@@ -1,5 +1,5 @@
 {
-  "name": "the-unofficial-swift-concurrency-migration-skill",
+  "name": "the-unofficial-swift",
   "owner": "kylehughes",
   "repo": "the-unofficial-swift-concurrency-migration-skill",
   "description": "The Swift Concurrency Migration Guide, packaged as a Skill for LLMs.",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "migrating-to-swift-concurrency",
+      "path": "migrating-to-swift-concurrency",
+      "github_url": "https://github.com/kylehughes/the-unofficial-swift-concurrency-migration-skill/tree/main/migrating-to-swift-concurrency",
+      "description": ""
+    },
+    {
+      "name": "programming-swift",
+      "path": "programming-swift",
+      "github_url": "https://github.com/kylehughes/the-unofficial-swift-concurrency-migration-skill/tree/main/programming-swift",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/kylehughes/the-unofficial-swift-concurrency-migration-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T00:37:28Z"
+  "distributed_at": "2026-04-24T00:39:02Z"
 }
