@@ -1,0 +1,57 @@
+{
+  "name": "picadillo",
+  "owner": "normful",
+  "repo": "picadillo",
+  "description": "Personal pi coding agent commands, skills, extensions",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mulch",
+      "path": "skills/mulch",
+      "github_url": "https://github.com/normful/picadillo/tree/main/skills/mulch",
+      "description": ""
+    },
+    {
+      "name": "run-in-tmux",
+      "path": "skills/run-in-tmux",
+      "github_url": "https://github.com/normful/picadillo/tree/main/skills/run-in-tmux",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/normful/picadillo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T13:35:38Z"
+}
