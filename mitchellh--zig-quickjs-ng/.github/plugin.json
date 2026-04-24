@@ -1,0 +1,9 @@
+{
+  "name": "mitchellh--zig-quickjs-ng",
+  "displayName": "zig-quickjs-ng",
+  "description": "Zig build and bindings for quickjs-ng",
+  "version": "1.0.0",
+  "author": "mitchellh",
+  "homepage": "https://github.com/mitchellh/zig-quickjs-ng",
+  "skills": []
+}
