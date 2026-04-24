@@ -1,0 +1,9 @@
+{
+  "name": "eremef--bandcamp-player",
+  "displayName": "bandcamp-player",
+  "description": "Unofficial multi-platform Bandcamp desktop player with mobile remote controller & standalone app",
+  "version": "1.0.0",
+  "author": "eremef",
+  "homepage": "https://github.com/eremef/bandcamp-player",
+  "skills": []
+}
