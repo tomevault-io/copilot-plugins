@@ -1,0 +1,9 @@
+{
+  "name": "ai-ops-manager--claude-code-training",
+  "displayName": "claude-code-training",
+  "description": "claude-code-training",
+  "version": "1.0.0",
+  "author": "AI-Ops-Manager",
+  "homepage": "https://github.com/AI-Ops-Manager/claude-code-training",
+  "skills": []
+}
