@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--scroll-zoom-thing",
+  "displayName": "scroll-zoom-thing",
+  "description": "CSS 3D perspective scrolling \u2014 a pure-CSS parallax. perspective on the scroll container pushes each layer back with translateZ; layers farther from the vanishing point move slower. scale() compensates",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/scroll-zoom-thing",
+  "skills": []
+}
