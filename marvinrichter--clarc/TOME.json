@@ -1,0 +1,57 @@
+{
+  "name": "clarc",
+  "owner": "marvinrichter",
+  "repo": "clarc",
+  "description": "Production-grade Claude Code workflow OS \u2014 agents, skills, hooks, commands, rules, and a continuous learning flywheel.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ci-cd-patterns",
+      "path": "skills/ci-cd-patterns",
+      "github_url": "https://github.com/marvinrichter/clarc/tree/main/skills/ci-cd-patterns",
+      "description": ""
+    },
+    {
+      "name": "typescript-coding-standards",
+      "path": "skills/typescript-coding-standards",
+      "github_url": "https://github.com/marvinrichter/clarc/tree/main/skills/typescript-coding-standards",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/marvinrichter/clarc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-24T08:30:09Z"
+}
