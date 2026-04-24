@@ -1,0 +1,9 @@
+{
+  "name": "amplitude--builder-skills",
+  "displayName": "builder-skills",
+  "description": "Open-source AI skills for product managers \u2014 battle-tested by PMs at Amplitude.",
+  "version": "1.0.0",
+  "author": "amplitude",
+  "homepage": "https://github.com/amplitude/builder-skills",
+  "skills": []
+}
