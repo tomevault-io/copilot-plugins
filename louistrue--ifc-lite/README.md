@@ -7,13 +7,13 @@ Browser-native IFC viewer with WebGPU rendering and Rust/WASM parser for high-pe
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [louistrue/ifc-lite](https://github.com/louistrue/ifc-lite).
+Original source: `AGENTS.md` in [louistrue/ifc-lite](https://github.com/louistrue/ifc-lite).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
