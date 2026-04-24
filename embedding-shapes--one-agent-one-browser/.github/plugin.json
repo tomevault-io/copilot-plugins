@@ -1,0 +1,9 @@
+{
+  "name": "embedding-shapes--one-agent-one-browser",
+  "displayName": "one-agent-one-browser",
+  "description": "One from scratch browser built by one human and one agent, working hand in hand",
+  "version": "1.0.0",
+  "author": "embedding-shapes",
+  "homepage": "https://github.com/embedding-shapes/one-agent-one-browser",
+  "skills": []
+}
