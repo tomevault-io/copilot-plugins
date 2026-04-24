@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nvalchemi-toolkit-ops",
+  "displayName": "nvalchemi-toolkit-ops",
+  "description": "ALCHEMI Toolkit-Ops is a collection of optimized batch kernels to accelerate computational chemistry and material science workflows.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/nvalchemi-toolkit-ops",
+  "skills": []
+}
