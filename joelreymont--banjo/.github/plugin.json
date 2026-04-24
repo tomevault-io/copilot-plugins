@@ -1,0 +1,14 @@
+{
+  "name": "joelreymont--banjo",
+  "displayName": "banjo",
+  "description": "Zig implementation of Claude Code ACP adapter for Zed",
+  "version": "1.0.0",
+  "author": "joelreymont",
+  "homepage": "https://github.com/joelreymont/banjo",
+  "skills": [
+    {
+      "name": "zed-logs",
+      "description": ""
+    }
+  ]
+}
