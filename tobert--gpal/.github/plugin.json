@@ -1,0 +1,14 @@
+{
+  "name": "tobert--gpal",
+  "displayName": "gpal",
+  "description": "Your pal Gemini as an MCP",
+  "version": "1.0.0",
+  "author": "tobert",
+  "homepage": "https://github.com/tobert/gpal",
+  "skills": [
+    {
+      "name": "update-models",
+      "description": ""
+    }
+  ]
+}
