@@ -1,0 +1,9 @@
+{
+  "name": "sendspin--sendspin-cli",
+  "displayName": "sendspin-cli",
+  "description": "Synchronized audio player for Sendspin servers",
+  "version": "1.0.0",
+  "author": "Sendspin",
+  "homepage": "https://github.com/Sendspin/sendspin-cli",
+  "skills": []
+}
