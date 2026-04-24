@@ -1,0 +1,9 @@
+{
+  "name": "jvolkman--re-bzl",
+  "displayName": "re.bzl",
+  "description": "A pure-Starlark regex library",
+  "version": "1.0.0",
+  "author": "jvolkman",
+  "homepage": "https://github.com/jvolkman/re.bzl",
+  "skills": []
+}
