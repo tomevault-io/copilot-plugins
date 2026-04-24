@@ -1,0 +1,9 @@
+{
+  "name": "estebanforge--construct-cli",
+  "displayName": "construct-cli",
+  "description": "The secure loading program (sandbox) for AI Agents",
+  "version": "1.0.0",
+  "author": "EstebanForge",
+  "homepage": "https://github.com/EstebanForge/construct-cli",
+  "skills": []
+}
