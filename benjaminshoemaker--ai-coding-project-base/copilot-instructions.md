@@ -1,0 +1,245 @@
+## ai-coding-project-base
+
+> Workflow guidelines for AI agents making changes inside `ai_coding_project_base/`.
+
+# AGENTS.md (Toolkit Repo)
+
+Workflow guidelines for AI agents making changes inside `ai_coding_project_base/`.
+
+This repository is a **toolkit** (prompts, slash commands, skills). It is not a
+“target app” that you execute phases against.
+
+## Repo Context
+
+- **Primary artifacts:** Markdown prompt templates and Claude Code skills.
+- **Main directories:**
+  - `.claude/skills/` — Skills (`SKILL.md`) — these create `/slash-commands`
+  - `.claude/commands/` — Legacy command format (still works, but prefer skills)
+  - `deprecated/` — Legacy/reference-only prompt files (avoid editing unless required)
+  - `docs/` — Static documentation site assets
+
+**Note:** Skills and commands are now merged in Claude Code. A file at `.claude/skills/review/SKILL.md`
+creates `/review`. The `.claude/commands/` format still works but skills are preferred for new work.
+
+## Operating Principles
+
+- **Be conservative:** Prefer small, targeted edits over rewrites.
+- **Keep behavior compatible:** Existing command names and core workflows should not
+  break without a strong reason and explicit documentation.
+- **Docs are code:** Treat prompt/command changes like API changes—update related
+  docs when behavior or outputs change.
+- **Avoid speculation:** If requirements are unclear, ask the user rather than
+  encoding assumptions into prompts.
+
+## Plan Review Protocol
+
+After writing a plan in plan mode, use AskUserQuestion **before** calling
+ExitPlanMode:
+
+- "Ready to implement (Recommended)" → Call ExitPlanMode
+- "Review with /codex-consult first" → Call ExitPlanMode (Skill/Bash tools
+  are unavailable in plan mode, so you must exit first). After the user
+  approves, **before doing any implementation work**, save the plan to a
+  file if not already on disk, then run `/codex-consult <plan-file>`.
+  Present the findings and use AskUserQuestion to confirm whether to
+  proceed with implementation or revise the plan.
+- "I want to modify the plan" → Stay in plan mode, ask what to change
+
+Do NOT call ExitPlanMode without offering these options first.
+
+## Editing Rules (Markdown / Prompts)
+
+- Preserve existing structure, headings, and code fences unless intentionally changing
+  behavior.
+- When adding examples, keep them minimal and copy-pastable.
+- Avoid introducing new long, duplicated sections—prefer referencing an existing
+  command/skill or consolidating.
+
+## Skills (`.claude/skills/*/SKILL.md` and `.claude/commands/*.md`)
+
+Skills and commands are merged in Claude Code. Both create `/slash-commands`:
+- `.claude/skills/foo/SKILL.md` → `/foo`
+- `.claude/commands/foo.md` → `/foo`
+
+**Prefer skills format** for new work (supports supporting files, better discovery).
+
+Guidelines:
+- Keep the YAML frontmatter valid (`name`, `description`, `argument-hint`, `allowed-tools`).
+- Use `toolkit-only: true` in frontmatter for skills that should NOT sync to target
+  projects (e.g., `setup`, `update-target-projects`). All sync surfaces (setup,
+  update-target-projects, sync, install-codex-skill-pack.sh) check this flag.
+- Keep "Directory Guard" sections accurate; skills should fail fast when run in the
+  wrong directory.
+- Prefer general, reusable workflows (avoid product-specific rules).
+- If a skill references additional assets, link them explicitly.
+- If you add/rename a skill:
+  - Update `docs/commands.md` (command reference) accordingly.
+  - Ensure the skill aligns with constraints in `.claude/settings.json`.
+
+## Global Skill Resolution
+
+The toolkit now uses a global-only policy for skills. Projects should resolve
+skills from `~/.claude/skills/` and should not keep long-lived project-local
+copies in `.claude/skills/`.
+
+Claude Code discovers skills from three tiers with project-local shadowing global:
+
+1. **managed** (`/Library/Application Support/ClaudeCode/.claude/skills`)
+2. **user** (`~/.claude/skills`) ← toolkit symlinks go here
+3. **project** (`.claude/skills/`) ← shadows user/managed if present
+
+**Resolution modes:**
+
+| Mode | Description | When Used |
+|------|-------------|-----------|
+| `global` | All skills resolve via `~/.claude/skills/` | Required default for toolkit-managed projects |
+| `local` | All skills copied to project `.claude/skills/` | Legacy state to migrate away from |
+| `mixed` | Some global, some local | Legacy state to migrate away from |
+
+**Behavior by project type:**
+
+- **New projects:** `/setup` verifies global symlinks, then records global
+  resolution without copying skills into the project.
+- **Existing projects:** `/update-target-projects` should migrate legacy local
+  or mixed projects to global resolution by default.
+- **Shared repos:** Also use global resolution. Portability is handled by each
+  collaborator bootstrapping `~/.claude/skills` from their own toolkit clone.
+
+**Configuration (`toolkit-version.json`):**
+
+```json
+{
+  "force_local_skills": false,
+  "skill_resolution": "global"
+}
+```
+
+- `force_local_skills`: legacy field; keep `false` for global-only behavior
+- `skill_resolution`: expected value is `global` for toolkit-managed projects
+
+**Migration:**
+
+- **Adopt global:** `/update-target-projects` removes local copies, backs up
+  modified skills, and switches to global resolution.
+- **Legacy local projects:** treat as migration debt and convert during normal
+  sync runs.
+
+**Fallback:** If a global symlink is missing or broken, repair global symlinks.
+Do not silently fall back to project-local copies.
+
+## Cross-Model Verification
+
+The toolkit supports cross-model verification using OpenAI Codex CLI:
+
+- `/codex-review` — Review current branch code diffs. Supports
+  `--upstream`, `--research`, `--base`, and `--model` flags.
+- `/codex-consult` — Get a second opinion on documents, specs, or plans (non-code content).
+  Supports `--upstream`, `--research`, and `--model` flags.
+- `/create-pr` — Create GitHub PR with automatic Codex review. Auto-detects code vs
+  doc changes and routes to `/codex-review` or `/codex-consult`. Blocks on critical issues
+  unless `--skip-review` is used.
+- `/phase-checkpoint` — Automatically invokes `/codex-review` when Codex is available
+
+When Codex CLI is installed and authenticated, phase checkpoints include a second-opinion
+review. Generation commands (`/product-spec`, `/technical-spec`, `/feature-spec`, etc.)
+use `/codex-consult` for document review. All generation and feature commands run from the
+target project directory. Only `/setup` and `/update-target-projects` run from the toolkit.
+Codex researches current documentation before reviewing, catching issues where training
+data may differ between models.
+
+**Configuration** (`.claude/settings.local.json`):
+```json
+{
+  "codexReview": {
+    "enabled": true,
+    "codeModel": "gpt-5.3-codex"
+  },
+  "codexConsult": {
+    "enabled": true,
+    "researchModel": "gpt-5.2"
+  }
+}
+```
+
+Codex findings are advisory and don't block workflows.
+
+**Safety guard:** `/codex-review` and `/codex-consult` stash uncommitted changes and
+record HEAD before invocation. Any commits Codex makes are reverted afterward and the
+stash is restored, preventing accidental working tree modifications.
+
+## Workstream Contract (`.workstream/`)
+
+The toolkit includes orchestrator-agnostic scripts for initializing, running, and
+verifying git worktrees. These scripts enable parallel fire-and-forget workstreams
+with any AI agent (Codex App, Claude Code, Conductor) or manual usage.
+
+**Scripts:**
+
+| Script | Purpose |
+|--------|---------|
+| `.workstream/setup.sh` | Initialize a worktree (install deps, copy env files, symlink settings) |
+| `.workstream/dev.sh [PORT]` | Start dev server with auto-allocated port |
+| `.workstream/verify.sh` | Run quality gate (typecheck → lint → test → build) |
+| `.workstream/lib.sh` | Shared utility library (sourced by other scripts) |
+
+**Configuration:** Each project may create a `workstream.json` at the repo root (not
+synced from toolkit — project-specific). See `.workstream/workstream.json.example`
+for the schema and `.workstream/README.md` for full documentation.
+
+**Syncing:** Workstream scripts are synced to target projects alongside skills via
+`/setup` and `/update-target-projects`. The scripts themselves are toolkit-owned
+(always updated on sync); `workstream.json` is project-owned (never overwritten).
+
+**Codex App integration:** The `.codex/setup.sh` wrapper delegates to
+`.workstream/setup.sh`. Configure it in Codex App Settings (Cmd+,) →
+Local Environments → Setup script.
+
+## Validation
+
+- Run `npm run lint` before finishing changes that touch Markdown files.
+- Do not add new tooling/formatters unless requested.
+
+## Git Hygiene (If Asked to Use Git)
+
+- Do not rewrite history (`reset --hard`, force push) unless explicitly requested.
+- Avoid broad formatting churn; keep diffs reviewable.
+
+## Post-Commit Sync Prompt
+
+When you see `TOOLKIT SYNC PENDING` in git commit output, it means skills were
+modified and target projects may need syncing. You MUST:
+
+1. Use `AskUserQuestion` to prompt:
+   - Question: "Skills were modified. Sync target projects now?"
+   - Options: "Yes, sync now" / "No, skip for now"
+
+2. If user says yes, run `/update-target-projects`
+
+3. After sync (or skip), delete the marker file:
+   ```bash
+   rm -f .claude/sync-pending.json
+   ```
+
+This replaces the previous background sync approach which couldn't access other
+project directories due to sandboxing.
+
+## Post-Commit Documentation Update
+
+When you see `DOCUMENTATION SYNC PENDING` or detect `.claude/doc-update-pending.json`:
+
+1. Run `/update-docs` to analyze the commit and update documentation
+2. The skill will:
+   - Analyze what changed in the commit
+   - Update README, AGENTS.md, CHANGELOG, and docs/ as appropriate
+   - Create a follow-up `docs:` commit if changes are made
+3. After completion, delete the marker file:
+   ```bash
+   rm -f .claude/doc-update-pending.json
+   ```
+
+**Note:** This applies to all projects with the doc-update hook installed, not
+just the toolkit.
+
+---
+> Source: [benjaminshoemaker/ai_coding_project_base](https://github.com/benjaminshoemaker/ai_coding_project_base) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
