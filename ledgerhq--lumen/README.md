@@ -1,6 +1,6 @@
-# lumen — distributed by TomeVault
+# lumen
 
-> Originally from [LedgerHQ/lumen](https://github.com/LedgerHQ/lumen). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [LedgerHQ/lumen](https://github.com/LedgerHQ/lumen) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [LedgerHQ/lumen](https://github.com/Le
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/LedgerHQ)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/LedgerHQ/lumen](https://github.com/LedgerHQ/lumen)
 
 ---
 
