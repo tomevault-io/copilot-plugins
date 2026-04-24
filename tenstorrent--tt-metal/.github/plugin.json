@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--tt-metal",
+  "displayName": "tt-metal",
+  "description": "tt-metal",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-metal",
+  "skills": []
+}
