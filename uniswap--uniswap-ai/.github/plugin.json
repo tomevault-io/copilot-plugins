@@ -1,0 +1,9 @@
+{
+  "name": "uniswap--uniswap-ai",
+  "displayName": "uniswap-ai",
+  "description": "AI tools for building on Uniswap \u2014 skills, plugins, and agents for any coding agent.",
+  "version": "1.0.0",
+  "author": "Uniswap",
+  "homepage": "https://github.com/Uniswap/uniswap-ai",
+  "skills": []
+}
