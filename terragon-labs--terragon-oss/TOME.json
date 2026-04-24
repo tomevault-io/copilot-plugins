@@ -4,7 +4,7 @@
   "repo": "terragon-oss",
   "description": "This is the website formally known as Terragon Labs. It was a remote background agent orchestrator for running Claude Code, Codex, and other coding clis in the cloud.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/terragon-labs/terragon-oss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T14:05:40Z"
+  "distributed_at": "2026-04-24T05:01:40Z"
 }
