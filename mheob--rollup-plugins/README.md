@@ -1,6 +1,6 @@
-# rollup-plugins — distributed by TomeVault
+# rollup-plugins
 
-> Originally from [mheob/rollup-plugins](https://github.com/mheob/rollup-plugins). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [mheob/rollup-plugins](https://github.com/mheob/rollup-plugins) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [mheob/rollup-plugins](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/mheob)
+From [mheob/rollup-plugins](https://github.com/mheob/rollup-plugins) — a repo with 0+ stars on GitHub.
 
 ---
 
