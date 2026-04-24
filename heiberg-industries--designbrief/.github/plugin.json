@@ -1,0 +1,9 @@
+{
+  "name": "heiberg-industries--designbrief",
+  "displayName": "designbrief",
+  "description": "Design guardrails, not templates. A library of UI design direction files that give LLMs (and humans) the context to build tasteful, consistent interfaces in any style.",
+  "version": "1.0.0",
+  "author": "Heiberg-Industries",
+  "homepage": "https://github.com/Heiberg-Industries/designbrief",
+  "skills": []
+}
