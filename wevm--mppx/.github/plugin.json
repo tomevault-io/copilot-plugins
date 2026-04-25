@@ -1,0 +1,9 @@
+{
+  "name": "wevm--mppx",
+  "displayName": "mppx",
+  "description": "TypeScript Interface for Machine Payments Protocol",
+  "version": "1.0.0",
+  "author": "wevm",
+  "homepage": "https://github.com/wevm/mppx",
+  "skills": []
+}
