@@ -1,6 +1,6 @@
 # OpenWebUI-Design
 
-> Tome by [cassianwolfe](https://github.com/cassianwolfe/OpenWebUI-Design) — distributed by [TomeVault](https://tomevault.io/claim/cassianwolfe)
+> Tome by [cassianwolfe](https://github.com/cassianwolfe/OpenWebUI-Design) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [cassianwolfe/OpenWebUI-Design](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/cassianwolfe)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/cassianwolfe/OpenWebUI-Design](https://github.com/cassianwolfe/OpenWebUI-Design)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install cassianwolfe/OpenWebUI-Design
 ```
-Or browse all formats at [https://tomevault.io/claim/cassianwolfe](https://tomevault.io/claim/cassianwolfe).
+Source: [github.com/cassianwolfe/OpenWebUI-Design](https://github.com/cassianwolfe/OpenWebUI-Design).
 
 <!-- genome:t-i-p -->
