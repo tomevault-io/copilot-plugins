@@ -1,0 +1,22 @@
+{
+  "name": "cloudbro-kube-ai--k13d",
+  "displayName": "k13d",
+  "description": "Kube AI Dashboard",
+  "version": "1.0.0",
+  "author": "cloudbro-kube-ai",
+  "homepage": "https://github.com/cloudbro-kube-ai/k13d",
+  "skills": [
+    {
+      "name": "docs-drift-detector",
+      "description": ""
+    },
+    {
+      "name": "changelog-sync",
+      "description": ""
+    },
+    {
+      "name": "docs-updater",
+      "description": ""
+    }
+  ]
+}
