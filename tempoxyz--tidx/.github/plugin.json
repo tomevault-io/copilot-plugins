@@ -1,0 +1,9 @@
+{
+  "name": "tempoxyz--tidx",
+  "displayName": "tidx",
+  "description": "tidx indexes Tempo chain data into a hybrid PostgreSQL + ClickHouse architecture for fast point lookups (OLTP) and lightning-fast analytics (OLAP).",
+  "version": "1.0.0",
+  "author": "tempoxyz",
+  "homepage": "https://github.com/tempoxyz/tidx",
+  "skills": []
+}
