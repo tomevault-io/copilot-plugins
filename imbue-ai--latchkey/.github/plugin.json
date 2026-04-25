@@ -1,0 +1,9 @@
+{
+  "name": "imbue-ai--latchkey",
+  "displayName": "latchkey",
+  "description": "A command-line tool that injects credentials to curl requests to known public APIs.",
+  "version": "1.0.0",
+  "author": "imbue-ai",
+  "homepage": "https://github.com/imbue-ai/latchkey",
+  "skills": []
+}
