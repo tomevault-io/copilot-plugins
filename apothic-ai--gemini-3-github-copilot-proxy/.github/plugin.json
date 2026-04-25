@@ -1,0 +1,9 @@
+{
+  "name": "apothic-ai--gemini-3-github-copilot-proxy",
+  "displayName": "gemini-3-github-copilot-proxy",
+  "description": "Use your paid Gemini 3 plan in Github Copilot and elsewhere. Supports Gemini-CLI auth",
+  "version": "1.0.0",
+  "author": "Apothic-AI",
+  "homepage": "https://github.com/Apothic-AI/gemini-3-github-copilot-proxy",
+  "skills": []
+}
