@@ -1,0 +1,9 @@
+{
+  "name": "jayfarei--opentraces",
+  "displayName": "opentraces",
+  "description": "Open schema + CLI for repo-local agent trace capture, review, and upload to Hugging Face Hub.",
+  "version": "1.0.0",
+  "author": "JayFarei",
+  "homepage": "https://github.com/JayFarei/opentraces",
+  "skills": []
+}
