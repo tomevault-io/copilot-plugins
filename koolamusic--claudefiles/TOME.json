@@ -1,0 +1,75 @@
+{
+  "name": "claudefiles",
+  "owner": "koolamusic",
+  "repo": "claudefiles",
+  "description": "A minimal catalog of my favourite skills for working with claude",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": "skills/agent-browser",
+      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "breadboarding",
+      "path": "skills/breadboarding",
+      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/breadboarding",
+      "description": ""
+    },
+    {
+      "name": "golang-best-practices",
+      "path": "skills/golang-best-practices",
+      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/golang-best-practices",
+      "description": ""
+    },
+    {
+      "name": "nestjs-best-practices",
+      "path": "skills/nestjs-best-practices",
+      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/nestjs-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/koolamusic/claudefiles/tree/main/skills/skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/koolamusic/claudefiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T10:31:23Z"
+}
