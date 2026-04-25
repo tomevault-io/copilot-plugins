@@ -1,0 +1,9 @@
+{
+  "name": "theuncharted--zapcode",
+  "displayName": "zapcode",
+  "description": "TypeScript interpreter for AI agents. Written in Rust. 2\u00b5s cold start. Sandboxed. Alternative to MCP tool calling.",
+  "version": "1.0.0",
+  "author": "TheUncharted",
+  "homepage": "https://github.com/TheUncharted/zapcode",
+  "skills": []
+}
