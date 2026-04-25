@@ -1,0 +1,9 @@
+{
+  "name": "newgraphenvironment--stac-dem-bc",
+  "displayName": "stac_dem_bc",
+  "description": "stac_dem_bc",
+  "version": "1.0.0",
+  "author": "NewGraphEnvironment",
+  "homepage": "https://github.com/NewGraphEnvironment/stac_dem_bc",
+  "skills": []
+}
