@@ -1,0 +1,9 @@
+{
+  "name": "remorses--traforo",
+  "displayName": "traforo",
+  "description": "Expose local servers via tunnels. Supports WebSockets, SSE, password protection, Cloudflare CDN caching.",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/traforo",
+  "skills": []
+}
