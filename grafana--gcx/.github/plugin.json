@@ -1,0 +1,9 @@
+{
+  "name": "grafana--gcx",
+  "displayName": "gcx",
+  "description": "A CLI for managing Grafana Cloud resources. Optimized for agentic usage.",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/gcx",
+  "skills": []
+}
