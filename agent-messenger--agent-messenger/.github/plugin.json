@@ -1,0 +1,9 @@
+{
+  "name": "agent-messenger--agent-messenger",
+  "displayName": "agent-messenger",
+  "description": "Messenger automation CLI for AI agents",
+  "version": "1.0.0",
+  "author": "agent-messenger",
+  "homepage": "https://github.com/agent-messenger/agent-messenger",
+  "skills": []
+}
