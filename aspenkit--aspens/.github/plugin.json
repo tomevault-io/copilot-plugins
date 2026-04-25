@@ -1,0 +1,9 @@
+{
+  "name": "aspenkit--aspens",
+  "displayName": "aspens",
+  "description": "Your CLAUDE.md stopped working at 200 lines. Generate scoped skill files from your import graph, auto-sync on every commit. Claude Code, Codex, Cursor.",
+  "version": "1.0.0",
+  "author": "aspenkit",
+  "homepage": "https://github.com/aspenkit/aspens",
+  "skills": []
+}
