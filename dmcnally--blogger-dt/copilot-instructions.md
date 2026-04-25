@@ -1,0 +1,137 @@
+## blogger-dt
+
+> Model patterns for delegated types, Recording/Recordable, state representation, and Person identity
+
+
+# Model Guidelines
+
+## Delegated Type Pattern
+
+Use Rails `delegated_type` for polymorphic relationships where types have different attributes:
+
+- **Delegator table** stores the polymorphic reference and shared attributes
+- **Delegate tables** store type-specific data
+- Each delegate has `has_one :delegator_name, as: :delegator_type, touch: true`
+
+```ruby
+# Delegator
+class Entry < ApplicationRecord
+  delegated_type :entryable, types: %w[TextContent ImageContent VideoContent]
+end
+
+# Delegate
+class TextContent < ApplicationRecord
+  has_one :entry, as: :entryable, touch: true
+end
+```
+
+## Recording/Recordable Pattern
+
+This application uses Recording/Recordable as the core delegated type implementation:
+
+- **Recording** is the delegator (polymorphic pointer)
+- **Recordables** are immutable delegates (Article, Profile, etc.)
+- Recordables must include the `Recordable` concern
+- Recordings form trees via `parent_id` for related data
+
+### Immutability Rules
+
+- Recordables are **immutable** - no updates, no deletes
+- To "update", create a new recordable row and update the Recording's `recordable_id`
+- Multiple recordings can safely share the same recordable
+
+### No Timestamps on Recordables
+
+Recordable tables do NOT need `created_at`/`updated_at` columns:
+
+```ruby
+# Migration for a recordable - no timestamps
+create_table :articles do |t|
+  t.string :title
+  t.text :body
+  # No t.timestamps - event tracking handles this
+end
+```
+
+## State Representation
+
+Avoid storing state as fields on recordables. Instead, choose the appropriate pattern based on the type of state.
+
+### Avoid
+
+```ruby
+class Article < ApplicationRecord
+  # published_at :datetime     # Don't do this
+  # archived_at :datetime      # Don't do this
+end
+```
+
+### Content State (Recordables)
+
+For content evolution and versioning, use immutable recordables in the tree:
+
+- Article revisions, draft versions
+- Content that has intrinsic meaning
+- Data that benefits from tree structure
+
+```ruby
+# app/models/article/revision.rb
+class Article::Revision < ApplicationRecord
+  include Recordable
+  # Stores a version of article content
+end
+
+# Access via children
+article_recording.children.where(recordable_type: 'Article::Revision')
+```
+
+### Operational Metadata (Join Models)
+
+For visibility and access control, use lightweight join models:
+
+- Publication state (published/unpublished)
+- Feature flags, visibility toggles
+- Query-optimized boolean states
+
+Example - the `Publication` model:
+
+```ruby
+class Publication < ApplicationRecord
+  belongs_to :recording
+end
+
+# In Publisher concern - enables efficient scopes
+scope :published, -> { joins(:publication) }
+scope :unpublished, -> { left_joins(:publication).where.missing(:publication) }
+```
+
+This pattern provides:
+- Simple, fast, indexable queries
+- Easy pagination of published content
+- Events track publish/unpublish actions without polluting the recording tree
+
+## Person Model Pattern
+
+Separate identity from authentication:
+
+- **Person** = who someone is (identity, owns records)
+- **User** = how someone authenticates (credentials)
+
+### Key Rules
+
+- All ownership references `Person`, not `User` (e.g., `created_by`, `owned_by`)
+- Set `Current.person = user.person` on authentication
+- Person survives User deletion - data remains intact
+- Events track `Current.person` for audit trails
+
+```ruby
+# In authentication flow
+Current.person = current_user&.person
+
+# In models - reference Person for ownership
+belongs_to :creator, class_name: 'Person'
+```
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/dmcnally) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
