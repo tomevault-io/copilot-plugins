@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--agent-architecture-review-sample",
+  "displayName": "agent-architecture-review-sample",
+  "description": "The Architecture Review Agent is an open-source AI agent sample that reviews software architectures and generates interactive diagrams automatically. ",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/agent-architecture-review-sample",
+  "skills": []
+}
