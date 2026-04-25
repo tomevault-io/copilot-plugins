@@ -1,232 +1,190 @@
 ## abap-mcp-server
 
-> **Guide for understanding ABAP documentation integration in the standard search system.**
+> Operational guide for agents and contributors adding or updating documentation sources in this repository.
 
-# ABAP Multi-Version Integration (Rule)
+# AGENTS.md
 
-**Guide for understanding ABAP documentation integration in the standard search system.**
+Operational guide for agents and contributors adding or updating documentation sources in this repository.
 
-## Overview
+## What This Repository Does
 
-ABAP documentation is **fully integrated** into the standard `search` tool with intelligent version management. No specialized ABAP tools needed - everything works through the unified search interface.
+`sap-docs-mcp` is an MCP server that:
 
-## Key Features
+- pulls documentation from git submodules under `sources/`
+- builds a local search corpus in `dist/data/index.json`
+- builds SQLite FTS and embeddings (`dist/data/docs.sqlite`)
+- serves search/fetch tools for different variants (`sap-docs`, `abap`)
 
-### **Standard Integration (No Special Tools)**
-- Uses standard `search` tool like UI5, CAP, wdi5
-- No separate `abap_search` or `abap_get` tools
-- Same proven architecture as other documentation sources
-- Consistent experience across all SAP development
+Core build/index flow:
 
-### **Multi-Version Support (8 Versions)**
-- **Latest** (default) - `/abap-docs-latest` - Most current features
-- **7.58** - `/abap-docs-758` - Current stable
-- **7.57** - `/abap-docs-757` - Recent stable
-- **7.56 - 7.52** - `/abap-docs-756` through `/abap-docs-752` - Historical versions
-- **Total**: 40,761+ curated ABAP files
+1. `setup.sh` initializes/updates submodules (variant-aware)
+2. `scripts/build-index.ts` scans configured source directories and creates `index.json`
+3. `scripts/build-fts.ts` builds BM25 index from `index.json`
+4. `scripts/build-embeddings.ts` builds semantic vectors
 
-### **Intelligent Version Filtering**
-- **Latest by default**: General queries show only latest ABAP version
-- **Version auto-detection**: "LOOP 7.57" automatically filters to ABAP 7.57
-- **Smart result limiting**: 4-5 focused results vs 25 crowded duplicates
-- **Context boosting**: Requested versions get 2.0x score multiplier
+## Source Onboarding Model (Important)
 
-## Usage Patterns
+Adding a source is **not** one change in one file. A source typically needs coordinated updates in multiple places:
 
-### **General ABAP Queries (Latest Version)**
-```
-search: "inline declarations"          # → Latest ABAP + style guides + cheat sheets
-search: "SELECT statements"            # → Latest ABAP + best practices
-search: "exception handling"           # → Latest ABAP TRY/CATCH + clean code
-search: "class definition"             # → Latest ABAP OOP + examples
-```
+1. `.gitmodules` (submodule URL/path/branch)
+2. `scripts/build-index.ts` (`SOURCES` entry with indexing path + file patterns)
+3. metadata config:
+   - `src/metadata.json` for `sap-docs` profile
+   - `config/variants/abap.metadata.json` if needed for `abap` profile
+4. variant config:
+   - `config/variants/sap-docs.json`
+   - `config/variants/abap.json` (if source should exist in ABAP variant)
+5. `setup.sh` sparse checkout mapping in `get_sparse_paths()` when only subfolders are needed
+6. optional test/docs updates (README, tests, validation docs)
 
-**Result**: 4-5 focused results including latest ABAP docs, Clean ABAP guidelines, and cheat sheets.
+If any of these are missed, the source may clone but never be indexed, or index without usable URL generation, or only work in one variant.
 
-### **Version-Specific Queries (Targeted)**
-```
-search: "LOOP 7.57"                    # → ABAP 7.57 only + related sources
-search: "SELECT statements 7.58"       # → ABAP 7.58 only + related sources
-search: "exception handling latest"    # → Latest ABAP explicitly
-search: "class definition 7.53"        # → ABAP 7.53 only + related sources
-```
+## Where Source Configuration Lives
 
-**Result**: 5-8 targeted results with dramatically boosted scores for requested version.
+### 1) Submodule registration
 
-### **Cross-Source Discovery**
-```
-search: "ABAP class definition best practices"
-# Returns:
-# ✅ Official ABAP docs (version-specific)
-# ✅ Clean ABAP style guides
-# ✅ ABAP cheat sheets with examples
-# ✅ Related content across sources
-```
+- File: `.gitmodules`
+- Purpose: declare repository origin and local path under `sources/`
+- Pattern:
+  - `path = sources/<source-folder>`
+  - `url = https://github.com/<org>/<repo>.git`
+  - `branch = main|master|...`
 
-## Technical Implementation
+### 2) Indexing input
 
-### **Metadata Configuration**
-Located in `src/metadata.json`:
+- File: `scripts/build-index.ts`
+- Purpose: tells indexer exactly where docs live and which files to scan
+- Structure: `SOURCES: SourceConfig[]`
+- Required fields:
+  - `repoName`
+  - `absDir` (often `join("sources", "<folder>", "docs")` or repo root)
+  - `id` (library ID used everywhere, e.g. `"/wdi5"`)
+  - `name`, `description`
+  - `filePattern` (`**/*.md`, `**/*.mdx`, etc.)
+  - `type` (`markdown`, `jsdoc`, `sample`)
 
-```json
-{
-  "sources": [
-    { "id": "abap-docs-latest", "boost": 1.0 },     // Highest priority
-    { "id": "abap-docs-758", "boost": 0.05 },       // Background availability
-    { "id": "abap-docs-757", "boost": 0.02 },       // Background availability
-    // ... 7.56-7.52 with 0.01 boost
-  ],
-  "contextBoosts": {
-    "7.58": { "/abap-docs-758": 2.0 },              // Massive boost when requested
-    "7.57": { "/abap-docs-757": 2.0 },
-    "latest": { "/abap-docs-latest": 1.5 }
-  }
-}
-```
+### 3) Search metadata and URL generation
 
-### **Search Logic (src/lib/localDocs.ts)**
-```typescript
-// Version detection
-const versionMatch = query.match(/\b(7\.\d{2}|latest)\b/i);
+- File: `src/metadata.json` (sap-docs)
+- Purpose:
+  - boosts, tags, synonyms/acronym context
+  - source metadata for ranking and source identity
+  - source URL construction (`baseUrl`, `pathPattern`, `anchorStyle`)
 
-if (!versionMatch) {
-  // General queries: Show ONLY latest ABAP
-  results = results.filter(r => 
-    !r.id.includes('/abap-docs-') || r.id.includes('/abap-docs-latest/')
-  );
-} else {
-  // Version-specific: Show ONLY requested version
-  results = results.filter(r => 
-    !r.id.includes('/abap-docs-') || r.id.includes(`/abap-docs-${versionId}/`)
-  );
-}
-```
+Minimal source entry fields:
 
-### **URL Generation (src/lib/url-generation/abap.ts)**
-Automatic version-specific URL generation:
-```typescript
-"/abap-docs-757/abenloop.md" 
-→ "https://help.sap.com/doc/abapdocu_757_index_htm/7.57/en-US/abenloop.htm"
+- `id`
+- `libraryId` (must match `build-index.ts` `id`)
+- `sourcePath` (relative to `sources/`)
+- `baseUrl`
+- `pathPattern`
+- `anchorStyle`
+- `description`, `tags`, `boost`
 
-"/abap-docs-latest/abenselect.md"
-→ "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenselect.htm"
-```
+### 4) Variant inclusion
 
-## Content Quality
+- File: `config/variants/sap-docs.json`
+  - add source `libraryId` to `sourceAllowlist`
+  - add submodule folder path to `submodulePaths`
+- File: `config/variants/abap.json`
+  - only if source should be available in ABAP variant
 
-### **Rich Frontmatter**
-Every ABAP file includes:
-- **title**: Meaningful document title
-- **description**: Actual explanations (not just filenames)
-- **keywords**: Searchable terms and concepts
-- **category**: Document classification
-- **version**: ABAP version identifier
+### 5) Setup cloning behavior
 
-### **Filtered Noise**
-- Removed 2,156+ irrelevant `abennews` files
-- Focused on actionable documentation
-- Quality over quantity approach
+- File: `setup.sh`
+- Function: `get_sparse_paths()`
+- If source indexing scans only a subfolder (for example `docs`), add sparse mapping so setup pulls only required paths.
+- If whole repo is needed, no sparse mapping is required.
 
-### **YAML-Safe Generation**
-- Proper escaping for complex ABAP syntax
-- Valid frontmatter for all documents
-- Error-resilient content processing
+## Existing Patterns To Reuse
 
-## Benefits for Users
+Examples already in repo:
 
-### **Simplified Experience**
-- **One tool** for all SAP development (ABAP + UI5 + CAP + testing)
-- **Clean results** - no sifting through duplicate versions
-- **Intelligent defaults** - latest ABAP unless otherwise specified
+- Docs in `docs/` folder:
+  - `/btp-cloud-platform` -> `sources/btp-cloud-platform/docs`
+  - `/sap-artificial-intelligence` -> `sources/sap-artificial-intelligence/docs`
+- Docs from repo root:
+  - `/cap` -> `sources/cap-docs`
+- Mixed patterns (`mdx`, code docs, samples) exist in `cloud-sdk*` and `openui5`.
 
-### **Comprehensive Coverage**
-- **40,761+ ABAP files** with rich, searchable content
-- **8 ABAP versions** available with smart targeting
-- **Cross-source intelligence** - related content across all documentation
+## Terraform Provider BTP Candidate
 
-### **Perfect LLM Integration**
-- **Rich content snippets** with actual explanations
-- **Optimal file sizes** (3-8KB) for context windows
-- **Structured metadata** for better AI understanding
-- **Official attribution** with direct SAP documentation links
+Candidate repository:
 
-## Statistics
+- [SAP/terraform-provider-btp docs folder](https://github.com/SAP/terraform-provider-btp/tree/main/docs)
 
-| Metric | Value |
-|--------|-------|
-| **Total ABAP Files** | 40,761+ (curated) |
-| **Versions Supported** | 8 (7.52-7.58 + latest) |
-| **Database Size** | ~33MB (includes all sources) |
-| **Default Results** | 4-5 focused (vs 25 crowded) |
-| **Noise Reduction** | 80%+ cleaner results |
+Observed docs layout:
 
-## Migration Notes
+- `docs/index.md`
+- `docs/data-sources/`
+- `docs/functions/`
+- `docs/list-resources/`
+- `docs/resources/`
 
-### **From Old System (Specialized Tools)**
-**Before:**
-```
-abap_search: "inline declarations"
-abap_get: "abap-7.58-individual-abeninline_declarations"
-```
+This matches the common "docs under `docs/`" onboarding pattern.
 
-**After:**
-```
-search: "inline declarations"                # → Latest ABAP + context
-search: "inline declarations 7.57"           # → ABAP 7.57 specific
-fetch: "/abap-docs-latest/abeninline_declarations"
+### Proposed source identity (suggested)
+
+- submodule path: `sources/terraform-provider-btp`
+- library ID: `/terraform-provider-btp`
+- sourcePath: `terraform-provider-btp/docs`
+- file pattern: `**/*.md`
+- type: `markdown`
+
+### Proposed metadata URL mapping (suggested)
+
+- `baseUrl`: `https://github.com/SAP/terraform-provider-btp/blob/main`
+- `pathPattern`: `/docs/{file}`
+- `anchorStyle`: `github`
+
+This is consistent with existing GitHub-hosted docs sources already configured.
+
+## Step-by-Step Checklist For Adding A New Source
+
+1. Add `.gitmodules` entry for `sources/<new-folder>`
+2. Add new `SOURCES` entry in `scripts/build-index.ts`
+3. Add metadata source in `src/metadata.json`
+4. Add library mapping/context boosts only if useful
+5. Add to `config/variants/sap-docs.json`:
+   - `sourceAllowlist`
+   - `submodulePaths`
+6. Optionally add to `config/variants/abap.json` and ABAP metadata
+7. Add `setup.sh` sparse path mapping if docs are in a subfolder
+8. Run validation:
+   - `npm run build:index`
+   - `npm run build:fts`
+   - `npm run build:embeddings`
+   - or `npm run build`
+9. Smoke test search:
+   - start server
+   - run `search` with source filter and verify URLs/fetch behavior
+
+## Validation Commands
+
+Typical local verification:
+
+```bash
+MCP_VARIANT=sap-docs npm run setup
+MCP_VARIANT=sap-docs npm run build
+MCP_VARIANT=sap-docs npm run start:streamable
 ```
 
-### **Benefits of Migration**
-- ✅ **Simpler interface** - one tool for all SAP development
-- ✅ **Better results** - intelligent filtering and cross-source discovery
-- ✅ **Rich content** - meaningful descriptions and context
-- ✅ **Version flexibility** - automatic management with manual override
+Targeted checks:
 
-## Future Extensibility
-
-The standard integration architecture makes it easy to:
-- **Add new ABAP versions** - just update metadata and rebuild index
-- **Add new sources** - same standard integration process
-- **Adjust version priorities** - modify boost values in metadata
-- **Enhance filtering** - extend version detection patterns
-
-## Common Scenarios
-
-### **Learning ABAP (Latest)**
-```
-search: "inline declarations"
-search: "SELECT statements"
-search: "class definition"
-# Always returns latest ABAP + best practices
+```bash
+MCP_VARIANT=sap-docs npm run build:index
+MCP_VARIANT=sap-docs npm run build:fts
+MCP_VARIANT=sap-docs npm run build:embeddings
 ```
 
-### **Version-Specific Development**
-```
-search: "LOOP variations 7.57"
-search: "NEW operator 7.54"
-# Returns only requested version + related sources
-```
+## Notes For Future Agents
 
-### **Troubleshooting & Best Practices**
-```
-search: "exception handling"              # ABAP + Clean ABAP guidelines
-search: "SELECT performance"              # ABAP syntax + optimization tips
-# Cross-source intelligence finds all relevant content
-```
-
-## Related Files
-
-@file src/metadata.json
-@file src/lib/localDocs.ts
-@file src/lib/search.ts
-@file src/lib/url-generation/abap.ts
-@file scripts/build-index.ts
-@file docs/ABAP-INTEGRATION-SUMMARY.md
-@file docs/ABAP-MULTI-VERSION-INTEGRATION.md
-@file docs/ABAP-USAGE-GUIDE.md
-@file docs/ABAP-STANDARD-INTEGRATION.md
+- `sourceAllowlist` and `SOURCES` must align; mismatches silently exclude content.
+- `libraryId` must match across `build-index.ts`, metadata, and variant allowlists.
+- `submodulePaths` controls what `setup.sh` clones; missing path means source absent locally.
+- If URL generation looks wrong, verify `baseUrl` + `pathPattern` + `anchorStyle` first.
+- `docs/DISCOVERY_CENTER/*` exists as local docs material but is not part of current indexing pipeline unless explicitly wired.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/marianfoo)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/marianfoo)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [marianfoo/abap-mcp-server](https://github.com/marianfoo/abap-mcp-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
