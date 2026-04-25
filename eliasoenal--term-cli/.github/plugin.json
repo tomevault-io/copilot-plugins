@@ -1,0 +1,9 @@
+{
+  "name": "eliasoenal--term-cli",
+  "displayName": "term-cli",
+  "description": "Interactive terminals for AI agents, built for what you can't --yes away. SSH+MFA, GRUB/U-Boot, debconf installers, SOL/serial consoles, fsck, cryptsetup, pdb/gdb, apt, certbot and even Vim in tmux-ba",
+  "version": "1.0.0",
+  "author": "EliasOenal",
+  "homepage": "https://github.com/EliasOenal/term-cli",
+  "skills": []
+}
