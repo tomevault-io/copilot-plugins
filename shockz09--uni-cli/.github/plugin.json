@@ -1,0 +1,66 @@
+{
+  "name": "shockz09--uni-cli",
+  "displayName": "uni-cli",
+  "description": "CLI for AI agents. 25+ services, zero context overhead.",
+  "version": "1.0.0",
+  "author": "shockz09",
+  "homepage": "https://github.com/shockz09/uni-cli",
+  "skills": [
+    {
+      "name": "uni-airtable",
+      "description": ""
+    },
+    {
+      "name": "uni-cli",
+      "description": ""
+    },
+    {
+      "name": "skill",
+      "description": ""
+    },
+    {
+      "name": "uni-google",
+      "description": ""
+    },
+    {
+      "name": "uni-productivity",
+      "description": ""
+    },
+    {
+      "name": "uni-research",
+      "description": ""
+    },
+    {
+      "name": "uni-sendgrid",
+      "description": ""
+    },
+    {
+      "name": "uni-spotify",
+      "description": ""
+    },
+    {
+      "name": "uni-stripe",
+      "description": ""
+    },
+    {
+      "name": "uni-telegram",
+      "description": ""
+    },
+    {
+      "name": "uni-trello",
+      "description": ""
+    },
+    {
+      "name": "uni-twilio",
+      "description": ""
+    },
+    {
+      "name": "uni-utilities",
+      "description": ""
+    },
+    {
+      "name": "uni-wa",
+      "description": ""
+    }
+  ]
+}
