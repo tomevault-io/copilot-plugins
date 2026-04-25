@@ -1,0 +1,14 @@
+{
+  "name": "kerim--zotero-code-execution",
+  "displayName": "zotero-code-execution",
+  "description": "Efficient multi-strategy Zotero search using code execution pattern",
+  "version": "1.0.0",
+  "author": "kerim",
+  "homepage": "https://github.com/kerim/zotero-code-execution",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
