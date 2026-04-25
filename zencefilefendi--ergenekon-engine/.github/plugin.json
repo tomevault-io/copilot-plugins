@@ -1,0 +1,9 @@
+{
+  "name": "zencefilefendi--ergenekon-engine",
+  "displayName": "ergenekon-engine",
+  "description": "\ud83d\udc3a Time-travel debugger for distributed systems. Record production. Replay locally. Byte-for-byte identical.",
+  "version": "1.0.0",
+  "author": "zencefilefendi",
+  "homepage": "https://github.com/zencefilefendi/ergenekon-engine",
+  "skills": []
+}
