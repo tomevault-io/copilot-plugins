@@ -1,0 +1,9 @@
+{
+  "name": "cursortouch--windows-use",
+  "displayName": "Windows-Use",
+  "description": "An AI Agent that interacts with Windows OS at GUI level.",
+  "version": "1.0.0",
+  "author": "CursorTouch",
+  "homepage": "https://github.com/CursorTouch/Windows-Use",
+  "skills": []
+}
