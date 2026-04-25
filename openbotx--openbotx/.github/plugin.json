@@ -1,0 +1,9 @@
+{
+  "name": "openbotx--openbotx",
+  "displayName": "openbotx",
+  "description": "An open-source platform for orchestrating AI agents \u2014 secure, simple, and built for everyone. Multi-agent, real-time task board, web control panel, skills system, browser automation, multi-provider, s",
+  "version": "1.0.0",
+  "author": "openbotx",
+  "homepage": "https://github.com/openbotx/openbotx",
+  "skills": []
+}
