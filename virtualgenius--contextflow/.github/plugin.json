@@ -1,0 +1,9 @@
+{
+  "name": "virtualgenius--contextflow",
+  "displayName": "contextflow",
+  "description": "Visual DDD context mapper with Flow and Strategic views for analyzing bounded contexts and their relationships",
+  "version": "1.0.0",
+  "author": "virtualgenius",
+  "homepage": "https://github.com/virtualgenius/contextflow",
+  "skills": []
+}
