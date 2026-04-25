@@ -1,0 +1,30 @@
+# SongGen-Mac
+
+> Source: [Rdx-ai-art/SongGen-Mac](https://github.com/Rdx-ai-art/SongGen-Mac) — distributed by [TomeVault](https://tomevault.io)
+
+A specialized fork of SongGeneration Studio, engineered to run on Macs with any M series Apple Silicon chips. 
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [Rdx-ai-art/SongGen-Mac](https://github.com/Rdx-ai-art/SongGen-Mac).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Rdx-ai-art/SongGen-Mac](https://github.com/Rdx-ai-art/SongGen-Mac)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install Rdx-ai-art/SongGen-Mac
+```
+Source: [github.com/Rdx-ai-art/SongGen-Mac](https://github.com/Rdx-ai-art/SongGen-Mac).
+
+<!-- genome:d-i-q -->
