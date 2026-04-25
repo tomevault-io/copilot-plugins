@@ -1,0 +1,9 @@
+{
+  "name": "tarampampam--microcheck",
+  "displayName": "microcheck",
+  "description": "\ud83e\uddea Lightweight health check utilities for Docker containers",
+  "version": "1.0.0",
+  "author": "tarampampam",
+  "homepage": "https://github.com/tarampampam/microcheck",
+  "skills": []
+}
