@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--agentic-ai-investment-analysis-sample",
+  "displayName": "Agentic-AI-Investment-Analysis-Sample",
+  "description": "Sample App using Agent Framework for analysis of investment opportunities.",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/Agentic-AI-Investment-Analysis-Sample",
+  "skills": []
+}
