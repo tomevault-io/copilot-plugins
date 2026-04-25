@@ -1,0 +1,9 @@
+{
+  "name": "taekchef--claude-code-zh-cn",
+  "displayName": "claude-code-zh-cn",
+  "description": "Claude Code \u4e2d\u6587\u672c\u5730\u5316\u63d2\u4ef6 \u2014 \u7b80\u4f53\u4e2d\u6587\u652f\u6301",
+  "version": "1.0.0",
+  "author": "taekchef",
+  "homepage": "https://github.com/taekchef/claude-code-zh-cn",
+  "skills": []
+}
