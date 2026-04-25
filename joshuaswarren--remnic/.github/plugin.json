@@ -1,0 +1,9 @@
+{
+  "name": "joshuaswarren--remnic",
+  "displayName": "remnic",
+  "description": "Local-first memory plugin for OpenClaw AI agents. LLM-powered extraction, plain markdown storage, hybrid search via QMD. Gives agents persistent long-term memory across conversations.",
+  "version": "1.0.0",
+  "author": "joshuaswarren",
+  "homepage": "https://github.com/joshuaswarren/remnic",
+  "skills": []
+}
