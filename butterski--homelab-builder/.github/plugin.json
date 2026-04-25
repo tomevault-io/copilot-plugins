@@ -1,0 +1,9 @@
+{
+  "name": "butterski--homelab-builder",
+  "displayName": "homelab-builder",
+  "description": "HLBuilder is a interactive web application designed to simplify the process of planning and architecting home laboratory infrastructure. It provides users with a visual interface to design network top",
+  "version": "1.0.0",
+  "author": "Butterski",
+  "homepage": "https://github.com/Butterski/homelab-builder",
+  "skills": []
+}
