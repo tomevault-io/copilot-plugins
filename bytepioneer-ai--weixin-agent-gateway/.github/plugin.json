@@ -1,0 +1,9 @@
+{
+  "name": "bytepioneer-ai--weixin-agent-gateway",
+  "displayName": "weixin-agent-gateway",
+  "description": "\u4e00\u4e2a\u9762\u5411\u5fae\u4fe1\u5165\u53e3\u7684\u591a\u540e\u7aef AI \u7f51\u5173\uff0c\u89e3\u8026\u5fae\u4fe1\u63a5\u5165\u5c42\u4e0e\u540e\u7aef\u8def\u7531\u5c42\uff0c\u7edf\u4e00\u63a5\u5165 OpenClaw\u3001Codex\u3001Claude Code \u7b49\u5e73\u7ea7\u540e\u7aef\u3002",
+  "version": "1.0.0",
+  "author": "BytePioneer-AI",
+  "homepage": "https://github.com/BytePioneer-AI/weixin-agent-gateway",
+  "skills": []
+}
