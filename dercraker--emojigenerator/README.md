@@ -1,6 +1,6 @@
 # EmojiGenerator
 
-> Tome by [Dercraker](https://github.com/Dercraker/EmojiGenerator) — distributed by [TomeVault](https://tomevault.io/claim/Dercraker)
+> Tome by [Dercraker](https://github.com/Dercraker/EmojiGenerator) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Dercraker/EmojiGenerator](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Dercraker#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Dercraker/EmojiGenerator](https://github.com/Dercraker/EmojiGenerator)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Dercraker/EmojiGenerator
 ```
-Or browse all formats at [https://tomevault.io/claim/Dercraker](https://tomevault.io/claim/Dercraker).
+Source: [github.com/Dercraker/EmojiGenerator](https://github.com/Dercraker/EmojiGenerator).
 
 <!-- genome:t-i-q -->
