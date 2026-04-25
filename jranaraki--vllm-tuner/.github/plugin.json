@@ -1,0 +1,9 @@
+{
+  "name": "jranaraki--vllm-tuner",
+  "displayName": "vllm-tuner",
+  "description": "An intelligent tuner for vLLM that automatically monitors GPU metrics, uses Bayesian optimization to tune parameters ",
+  "version": "1.0.0",
+  "author": "jranaraki",
+  "homepage": "https://github.com/jranaraki/vllm-tuner",
+  "skills": []
+}
