@@ -1,0 +1,9 @@
+{
+  "name": "imbue-ai--offload",
+  "displayName": "offload",
+  "description": "Offload your test computation to ephemeral compute",
+  "version": "1.0.0",
+  "author": "imbue-ai",
+  "homepage": "https://github.com/imbue-ai/offload",
+  "skills": []
+}
