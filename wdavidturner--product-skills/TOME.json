@@ -1,0 +1,117 @@
+{
+  "name": "product-skills",
+  "owner": "wdavidturner",
+  "repo": "product-skills",
+  "description": "20 product management frameworks as AI agent skills \u2014 JTBD, OKRs, Shape Up, 7 Powers, and more",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "okrs",
+      "path": "skills/okrs",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/okrs",
+      "description": ""
+    },
+    {
+      "name": "thinking-in-bets",
+      "path": "skills/thinking-in-bets",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/thinking-in-bets",
+      "description": ""
+    },
+    {
+      "name": "hooked-model",
+      "path": "skills/hooked-model",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/hooked-model",
+      "description": ""
+    },
+    {
+      "name": "growth-loops",
+      "path": "skills/growth-loops",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/growth-loops",
+      "description": ""
+    },
+    {
+      "name": "design-sprint",
+      "path": "skills/design-sprint",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/design-sprint",
+      "description": ""
+    },
+    {
+      "name": "opportunity-solution-trees",
+      "path": "skills/opportunity-solution-trees",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/opportunity-solution-trees",
+      "description": ""
+    },
+    {
+      "name": "shape-up",
+      "path": "skills/shape-up",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/shape-up",
+      "description": ""
+    },
+    {
+      "name": "working-backwards",
+      "path": "skills/working-backwards",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/working-backwards",
+      "description": ""
+    },
+    {
+      "name": "product-led-seo",
+      "path": "skills/product-led-seo",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/product-led-seo",
+      "description": ""
+    },
+    {
+      "name": "monetizing-innovation",
+      "path": "skills/monetizing-innovation",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/monetizing-innovation",
+      "description": ""
+    },
+    {
+      "name": "pmf-survey",
+      "path": "skills/pmf-survey",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/pmf-survey",
+      "description": ""
+    },
+    {
+      "name": "trustworthy-experiments",
+      "path": "skills/trustworthy-experiments",
+      "github_url": "https://github.com/wdavidturner/product-skills/tree/main/skills/trustworthy-experiments",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wdavidturner/product-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T14:32:05Z"
+}
