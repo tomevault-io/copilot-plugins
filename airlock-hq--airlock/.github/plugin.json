@@ -1,0 +1,9 @@
+{
+  "name": "airlock-hq--airlock",
+  "displayName": "airlock",
+  "description": "All slop must die. Airlock is where every git push turns into a slop-free PR.",
+  "version": "1.0.0",
+  "author": "airlock-hq",
+  "homepage": "https://github.com/airlock-hq/airlock",
+  "skills": []
+}
