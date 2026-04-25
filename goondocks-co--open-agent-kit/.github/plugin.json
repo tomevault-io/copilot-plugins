@@ -1,0 +1,26 @@
+{
+  "name": "goondocks-co--open-agent-kit",
+  "displayName": "open-agent-kit",
+  "description": "OAK automatically captures the plans, decisions, and trade-offs that usually vanish. Intelligence powered memories, context injection, autonomous agents, and more.",
+  "version": "1.0.0",
+  "author": "goondocks-co",
+  "homepage": "https://github.com/goondocks-co/open-agent-kit",
+  "skills": [
+    {
+      "name": "context-engineering",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "description": ""
+    },
+    {
+      "name": "project-governance",
+      "description": ""
+    },
+    {
+      "name": "project-governance",
+      "description": ""
+    }
+  ]
+}
