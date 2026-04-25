@@ -1,0 +1,9 @@
+{
+  "name": "benoitc--erlang-quic",
+  "displayName": "erlang_quic",
+  "description": "Pure Erlang QUIC implementation (RFC 9000)",
+  "version": "1.0.0",
+  "author": "benoitc",
+  "homepage": "https://github.com/benoitc/erlang_quic",
+  "skills": []
+}
