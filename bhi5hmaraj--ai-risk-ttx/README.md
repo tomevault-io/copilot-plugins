@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [bhi5hmaraj/ai-risk-ttx](https://github.com/bhi5hmaraj/ai-risk-ttx).
+Original source: `CLAUDE.md` in [bhi5hmaraj/ai-risk-ttx](https://github.com/bhi5hmaraj/ai-risk-ttx).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/bhi5hmaraj)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/bhi5hmaraj/ai-risk-ttx](https://github.com/bhi5hmaraj/ai-risk-ttx)
 
 ---
 
