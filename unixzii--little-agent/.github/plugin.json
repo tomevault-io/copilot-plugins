@@ -1,0 +1,9 @@
+{
+  "name": "unixzii--little-agent",
+  "displayName": "little-agent",
+  "description": "A lightweight embedded agent framework (similar to Claude Code and OpenAI Codex).",
+  "version": "1.0.0",
+  "author": "unixzii",
+  "homepage": "https://github.com/unixzii/little-agent",
+  "skills": []
+}
