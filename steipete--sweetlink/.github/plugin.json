@@ -1,0 +1,9 @@
+{
+  "name": "steipete--sweetlink",
+  "displayName": "sweetlink",
+  "description": "Connect your agent to your web app. Like playwright, but works in your current tab. Close the loop.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/sweetlink",
+  "skills": []
+}
