@@ -1,0 +1,81 @@
+{
+  "name": "purfence",
+  "owner": "lzj960515",
+  "repo": "purfence",
+  "description": "AI instruction skills by lzj960515",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "apple-calendar",
+      "path": "src-tauri/binaries/skills/apple-calendar",
+      "github_url": "https://github.com/lzj960515/purfence/tree/main/src-tauri/binaries/skills/apple-calendar",
+      "description": ""
+    },
+    {
+      "name": "apple-mail",
+      "path": "src-tauri/binaries/skills/apple-mail",
+      "github_url": "https://github.com/lzj960515/purfence/tree/main/src-tauri/binaries/skills/apple-mail",
+      "description": ""
+    },
+    {
+      "name": "apple-mail-search",
+      "path": "src-tauri/binaries/skills/apple-mail-search",
+      "github_url": "https://github.com/lzj960515/purfence/tree/main/src-tauri/binaries/skills/apple-mail-search",
+      "description": ""
+    },
+    {
+      "name": "apple-mail-send",
+      "path": "src-tauri/binaries/skills/apple-mail-send",
+      "github_url": "https://github.com/lzj960515/purfence/tree/main/src-tauri/binaries/skills/apple-mail-send",
+      "description": ""
+    },
+    {
+      "name": "apple-notes",
+      "path": "src-tauri/binaries/skills/apple-notes",
+      "github_url": "https://github.com/lzj960515/purfence/tree/main/src-tauri/binaries/skills/apple-notes",
+      "description": ""
+    },
+    {
+      "name": "apple-reminders",
+      "path": "src-tauri/binaries/skills/apple-reminders",
+      "github_url": "https://github.com/lzj960515/purfence/tree/main/src-tauri/binaries/skills/apple-reminders",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lzj960515/purfence",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T10:32:32Z"
+}
