@@ -1,0 +1,57 @@
+{
+  "name": "agent-workflow",
+  "owner": "jdelfino",
+  "repo": "agent-workflow",
+  "description": "Production-grade, agent-friendly development workflow for any GitHub project. Two commands: /plan and /work.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "implementer",
+      "path": ".claude/skills/implementer",
+      "github_url": "https://github.com/jdelfino/agent-workflow/tree/main/.claude/skills/implementer",
+      "description": ""
+    },
+    {
+      "name": "planner",
+      "path": ".claude/skills/planner",
+      "github_url": "https://github.com/jdelfino/agent-workflow/tree/main/.claude/skills/planner",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jdelfino/agent-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T10:34:49Z"
+}
