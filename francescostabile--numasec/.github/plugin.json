@@ -1,0 +1,9 @@
+{
+  "name": "francescostabile--numasec",
+  "displayName": "numasec",
+  "description": "AI agent for penetration testing. Like Claude Code, but for security. Open source, MCP-native, works with any LLM.",
+  "version": "1.0.0",
+  "author": "FrancescoStabile",
+  "homepage": "https://github.com/FrancescoStabile/numasec",
+  "skills": []
+}
