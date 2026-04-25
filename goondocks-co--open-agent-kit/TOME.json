@@ -1,0 +1,69 @@
+{
+  "name": "open-agent-kit",
+  "owner": "goondocks-co",
+  "repo": "open-agent-kit",
+  "description": "OAK automatically captures the plans, decisions, and trade-offs that usually vanish. Intelligence powered memories, context injection, autonomous agents, and more.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "context-engineering",
+      "path": ".claude/skills/context-engineering",
+      "github_url": "https://github.com/goondocks-co/open-agent-kit/tree/main/.claude/skills/context-engineering",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "path": "src/open_agent_kit/features/context_engineering/skills/context-engineering",
+      "github_url": "https://github.com/goondocks-co/open-agent-kit/tree/main/src/open_agent_kit/features/context_engineering/skills/context-engineering",
+      "description": ""
+    },
+    {
+      "name": "project-governance",
+      "path": ".claude/skills/project-governance",
+      "github_url": "https://github.com/goondocks-co/open-agent-kit/tree/main/.claude/skills/project-governance",
+      "description": ""
+    },
+    {
+      "name": "project-governance",
+      "path": "src/open_agent_kit/features/rules_management/skills/project-governance",
+      "github_url": "https://github.com/goondocks-co/open-agent-kit/tree/main/src/open_agent_kit/features/rules_management/skills/project-governance",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/goondocks-co/open-agent-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T10:34:16Z"
+}
