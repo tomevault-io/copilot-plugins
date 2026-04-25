@@ -2,14 +2,16 @@
 
 > Tome by [jicaiinc](https://github.com/jicaiinc/golemancy) — distributed by [TomeVault](https://tomevault.io)
 
+Golemancy - A free desktop app that gives one person the power of a full AI team for research, writing, translation, data analysis, marketing...
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jicaiinc/golemancy](https://github.com/jicaiinc/golemancy).
+Original source: `AGENTS.md` in [jicaiinc/golemancy](https://github.com/jicaiinc/golemancy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
