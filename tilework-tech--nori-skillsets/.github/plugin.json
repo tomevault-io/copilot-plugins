@@ -1,0 +1,9 @@
+{
+  "name": "tilework-tech--nori-skillsets",
+  "displayName": "nori-skillsets",
+  "description": "System for managing collections of agent skills. Switch between skillsets seamlessly!",
+  "version": "1.0.0",
+  "author": "tilework-tech",
+  "homepage": "https://github.com/tilework-tech/nori-skillsets",
+  "skills": []
+}
