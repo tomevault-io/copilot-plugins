@@ -1,0 +1,105 @@
+{
+  "name": "samara-main",
+  "owner": "claudeaceae",
+  "repo": "samara-main",
+  "description": "Bootstrap specification for giving Claude a persistent body, memory, and agency on a Mac",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "artifact",
+      "path": ".claude/skills/artifact",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/artifact",
+      "description": ""
+    },
+    {
+      "name": "decide",
+      "path": ".claude/skills/decide",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/decide",
+      "description": ""
+    },
+    {
+      "name": "diagnose-leaks",
+      "path": ".claude/skills/diagnose-leaks",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/diagnose-leaks",
+      "description": ""
+    },
+    {
+      "name": "episode",
+      "path": ".claude/skills/episode",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/episode",
+      "description": ""
+    },
+    {
+      "name": "generate-image",
+      "path": ".claude/skills/generate-image",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/generate-image",
+      "description": ""
+    },
+    {
+      "name": "look",
+      "path": ".claude/skills/look",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/look",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "path": ".claude/skills/reflect",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/reflect",
+      "description": ""
+    },
+    {
+      "name": "samara",
+      "path": ".claude/skills/samara",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/samara",
+      "description": ""
+    },
+    {
+      "name": "senses",
+      "path": ".claude/skills/senses",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/senses",
+      "description": ""
+    },
+    {
+      "name": "stream",
+      "path": ".claude/skills/stream",
+      "github_url": "https://github.com/claudeaceae/samara-main/tree/main/.claude/skills/stream",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/claudeaceae/samara-main",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T16:30:09Z"
+}
