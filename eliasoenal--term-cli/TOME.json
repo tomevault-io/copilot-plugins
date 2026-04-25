@@ -1,0 +1,44 @@
+{
+  "name": "term-cli",
+  "owner": "EliasOenal",
+  "repo": "term-cli",
+  "description": "Interactive terminals for AI agents, built for what you can't --yes away. SSH+MFA, GRUB/U-Boot, debconf installers, SOL/serial consoles, fsck, cryptsetup, pdb/gdb, apt, certbot and even Vim in tmux-backed sessions. Agent-driven, human-assisted for secrets/MFA. Single-file Python. Agent Skill. CI with 680+ tests. BSD License.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/EliasOenal/term-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T21:42:29Z"
+}
