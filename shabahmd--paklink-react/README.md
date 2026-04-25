@@ -1,21 +1,21 @@
 # Paklink-React
 
-> Tome by [shabahmd](https://github.com/shabahmd/Paklink-React) — distributed by [TomeVault](https://tomevault.io/claim/shabahmd)
+> Tome by [shabahmd](https://github.com/shabahmd/Paklink-React) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [shabahmd/Paklink-React](https://github.com/shabahmd/Paklink-React).
+Original source: `.cursor/rules/*.mdc` in [shabahmd/Paklink-React](https://github.com/shabahmd/Paklink-React).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/shabahmd)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/shabahmd/Paklink-React](https://github.com/shabahmd/Paklink-React)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install shabahmd/Paklink-React
 ```
-Or browse all formats at [https://tomevault.io/claim/shabahmd](https://tomevault.io/claim/shabahmd).
+Source: [github.com/shabahmd/Paklink-React](https://github.com/shabahmd/Paklink-React).
 
 <!-- genome:t-i-p -->
