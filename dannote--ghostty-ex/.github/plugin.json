@@ -1,0 +1,9 @@
+{
+  "name": "dannote--ghostty-ex",
+  "displayName": "ghostty_ex",
+  "description": "Terminal emulator library for the BEAM \u2014 libghostty-vt NIFs with OTP integration",
+  "version": "1.0.0",
+  "author": "dannote",
+  "homepage": "https://github.com/dannote/ghostty_ex",
+  "skills": []
+}
