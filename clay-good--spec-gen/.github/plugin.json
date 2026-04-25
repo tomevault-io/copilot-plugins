@@ -1,0 +1,9 @@
+{
+  "name": "clay-good--spec-gen",
+  "displayName": "spec-gen",
+  "description": "Automate the reverse-engineering of your codebase into structured OpenSpec specifications using static analysis and LLM-powered generation to extract business logic, verify architectural accuracy, and",
+  "version": "1.0.0",
+  "author": "clay-good",
+  "homepage": "https://github.com/clay-good/spec-gen",
+  "skills": []
+}
