@@ -1,0 +1,9 @@
+{
+  "name": "cybernetix-lab--moss-harness",
+  "displayName": "moss-harness",
+  "description": "A production-grade AI Agent Harness engineering template providing a reliable, observable, and recoverable Agent runtime environment.",
+  "version": "1.0.0",
+  "author": "cybernetix-lab",
+  "homepage": "https://github.com/cybernetix-lab/moss-harness",
+  "skills": []
+}
