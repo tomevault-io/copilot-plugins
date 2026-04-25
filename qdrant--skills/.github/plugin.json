@@ -1,0 +1,9 @@
+{
+  "name": "qdrant--skills",
+  "displayName": "skills",
+  "description": "Agent skills for Qdrant vector search: scaling, performance optimization, search quality, monitoring, deployment, model migration, version upgrades, and SDK usage across Python, TypeScript, Rust, Go, ",
+  "version": "1.0.0",
+  "author": "qdrant",
+  "homepage": "https://github.com/qdrant/skills",
+  "skills": []
+}
