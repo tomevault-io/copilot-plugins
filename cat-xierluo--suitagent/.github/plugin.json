@@ -1,0 +1,9 @@
+{
+  "name": "cat-xierluo--suitagent",
+  "displayName": "SuitAgent",
+  "description": "\u57fa\u4e8e Claude Code \u7684\u8bc9\u8bbc\u6cd5\u5f8b\u670d\u52a1\u667a\u80fd\u5206\u6790\u7cfb\u7edf\uff0c\u91c7\u752810\u4e2a SubAgents \u534f\u4f5c\u7684\u6a21\u5f0f\uff0c\u5c06\u590d\u6742\u7684\u8bc9\u8bbc\u6848\u4ef6\u5206\u6790\u5206\u89e3\u4e3a\u591a\u4e2a\u53ef\u72ec\u7acb\u6267\u884c\u7684\u5de5\u4f5c\u6d41\uff0c\u5b9e\u73b0\u6cd5\u5f8b\u6587\u4e66\u7684\u5de5\u7a0b\u5316\u751f\u6210\u3002",
+  "version": "1.0.0",
+  "author": "cat-xierluo",
+  "homepage": "https://github.com/cat-xierluo/SuitAgent",
+  "skills": []
+}
