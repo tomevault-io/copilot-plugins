@@ -1,0 +1,9 @@
+{
+  "name": "seqeralabs--rustqc",
+  "displayName": "RustQC",
+  "description": "Fast genomics quality control tools for sequencing data, written in Rust.",
+  "version": "1.0.0",
+  "author": "seqeralabs",
+  "homepage": "https://github.com/seqeralabs/RustQC",
+  "skills": []
+}
