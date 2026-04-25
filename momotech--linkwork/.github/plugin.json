@@ -1,0 +1,9 @@
+{
+  "name": "momotech--linkwork",
+  "displayName": "LinkWork",
+  "description": "Open-source enterprise AI workforce platform \u2014 containerized roles, declarative skills, MCP tools, policy-driven security, K8s-native scheduling",
+  "version": "1.0.0",
+  "author": "momotech",
+  "homepage": "https://github.com/momotech/LinkWork",
+  "skills": []
+}
