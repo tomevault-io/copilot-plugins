@@ -1,0 +1,9 @@
+{
+  "name": "agentlyhq--use-agently",
+  "displayName": "use-agently",
+  "description": "The way AI coordinates and transacts. Routing and settlement layer for your agent economy.",
+  "version": "1.0.0",
+  "author": "AgentlyHQ",
+  "homepage": "https://github.com/AgentlyHQ/use-agently",
+  "skills": []
+}
