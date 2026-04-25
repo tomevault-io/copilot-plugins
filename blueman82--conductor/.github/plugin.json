@@ -1,0 +1,22 @@
+{
+  "name": "blueman82--conductor",
+  "displayName": "conductor",
+  "description": "conductor",
+  "version": "1.0.0",
+  "author": "blueman82",
+  "homepage": "https://github.com/blueman82/conductor",
+  "skills": [
+    {
+      "name": "implementation-planner",
+      "description": ""
+    },
+    {
+      "name": "plugin-setup-creator",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
