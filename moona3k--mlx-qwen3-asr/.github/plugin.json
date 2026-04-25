@@ -1,0 +1,9 @@
+{
+  "name": "moona3k--mlx-qwen3-asr",
+  "displayName": "mlx-qwen3-asr",
+  "description": "Qwen3-ASR speech recognition on Apple Silicon via MLX",
+  "version": "1.0.0",
+  "author": "moona3k",
+  "homepage": "https://github.com/moona3k/mlx-qwen3-asr",
+  "skills": []
+}
