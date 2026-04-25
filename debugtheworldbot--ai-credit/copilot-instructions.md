@@ -1,74 +1,97 @@
 ## ai-credit
 
-> `ai-credit` is a command-line interface (CLI) tool designed to track, analyze, and report on contributions made by various AI coding assistants within a software project. It scans specific log directories or files associated with tools like Claude Code, Codex CLI, Gemini CLI, and Aider to quantify their impact.
+> This file provides guidance to agentic coding agents (Claude Code, Codex, etc.) working with this repository.
 
-# ai-credit Project Context
+# AGENTS.md
 
-## Project Overview
+This file provides guidance to agentic coding agents (Claude Code, Codex, etc.) working with this repository.
 
-`ai-credit` is a command-line interface (CLI) tool designed to track, analyze, and report on contributions made by various AI coding assistants within a software project. It scans specific log directories or files associated with tools like Claude Code, Codex CLI, Gemini CLI, and Aider to quantify their impact.
+## Build & Run Commands
 
-**Key Features:**
-*   **Multi-Tool Support:** Detailed scanners for Claude Code, Codex CLI, Gemini CLI, and Aider.
-*   **Metrics:** Calculates lines of code added/removed, files touched, and contribution ratios.
-*   **Reporting:** Outputs analysis in Console (with visual charts), JSON, or Markdown formats.
-*   **Architecture:** Built with TypeScript, utilizing `worker_threads` for non-blocking analysis and `commander` for CLI interactions.
+```bash
+# Build TypeScript to dist/
+npm run build              # tsc
 
-## Building and Running
+# Run directly without building (development)
+npm run dev                # tsx src/cli.ts
 
-This project is a Node.js application using TypeScript.
+# Run compiled CLI
+npm start                  # node dist/cli.js
+node dist/cli.js .         # Analyze current directory
+node dist/cli.js <path> -v # Verbose output
+```
 
-**Prerequisites:**
-*   Node.js (>=18.0.0)
-*   npm
+**No test framework is configured.** Tests are currently not available for this project.
 
-**Key Commands:**
+## Architecture
 
-*   **Install Dependencies:**
-    ```bash
-    npm install
-    ```
+**Pipeline: Scanners → Analyzer → Reporters**
 
-*   **Development Run:**
-    Runs the CLI directly from source using `tsx`.
-    ```bash
-    npm run dev -- [args]
-    # Example: npm run dev -- scan . -v
-    ```
+- `src/scanners/` - Parse AI tool session files from each tool's local storage
+- `src/analyzer.ts` - Orchestrates scanners and aggregates `FileChange` events
+- `src/reporter.ts` - Formats stats for output (Console, JSON, Markdown)
+- `src/cli.ts` - Main CLI entry point with worker thread for analysis
+- `src/types.ts` - Type definitions (FileChange, AISession, ContributionStats)
 
-*   **Build:**
-    Compiles TypeScript to JavaScript in the `dist/` directory.
-    ```bash
-    npm run build
-    ```
+**Adding a new AI tool scanner:**
+1. Create `src/scanners/<tool>.ts` extending `BaseScanner`
+2. Add tool to `AITool` enum in `src/types.ts`
+3. Register scanner in `ContributionAnalyzer` constructor
+4. Add display name/color/path in `src/cli.ts` and `src/reporter.ts`
 
-*   **Run Built Code:**
-    ```bash
-    npm start -- [args]
-    ```
+## Code Style Guidelines
 
-## Development Conventions
+### TypeScript Configuration
+- Target: ES2022, Module: NodeNext (strict mode enabled)
+- Output: `dist/`, Source: `src/`
+- Always use `.js` extension in local imports (required by NodeNext)
 
-**Code Structure:**
-*   `src/cli.ts`: Main entry point. Handles argument parsing, worker thread creation, and UI rendering (spinners, color output).
-*   `src/analyzer.ts`: Core logic class `ContributionAnalyzer` that coordinates the scanning process.
-*   `src/scanners/`: Directory containing scanner implementations.
-    *   `base.ts`: Defines the `BaseScanner` abstract class.
-    *   Specific tool scanners (e.g., `claude.ts`, `gemini.ts`) extend `BaseScanner` to implement tool-specific parsing logic (JSON/JSONL/Markdown).
-*   `src/types.ts`: TypeScript definitions for `AISession`, `FileChange`, `ContributionStats`, etc.
+### Imports
+```typescript
+// Node.js built-ins - use namespace import
+import * as fs from 'fs';
+import * as path from 'path';
 
-**Adding a New AI Tool:**
-1.  Create a new scanner file in `src/scanners/`.
-2.  Extend `BaseScanner` and implement `scan()` and `parseSessionFile()` methods.
-3.  Register the new scanner in `src/analyzer.ts` inside the `ContributionAnalyzer` constructor.
-4.  Add the tool to the `AITool` enum and `TOOL_MAP` in `src/types.ts` and `src/cli.ts`.
+// npm packages - direct import
+import { Command } from 'commander';
+import chalk from 'chalk';
 
-**Tech Stack:**
-*   **Language:** TypeScript (ES Modules)
-*   **CLI Framework:** `commander`
-*   **Utilities:** `chalk` (styling), `glob` (file searching), `tsx` (execution).
+// Local files - MUST include .js extension
+import { BaseScanner } from './base.js';
+import { AISession } from '../types.js';
+```
+
+### Naming Conventions
+- **Classes/Interfaces/Enums**: PascalCase (e.g., `BaseScanner`, `FileChange`, `AITool`)
+- **Methods/Variables**: camelCase (e.g., `parseSessionFile`, `storagePath`)
+- **Enum members**: PascalCase keys with lowercase string values
+- **Private methods**: Use `private` keyword prefix
+
+### Type Annotations
+- Always specify return types on public methods
+- Use explicit parameter types
+- Prefer interfaces for object shapes
+- Use `Map<K, V>` for key-value collections
+
+### Comments
+- Use JSDoc style for classes and public methods
+- Document complex logic with inline comments
+
+### Error Handling
+- Use try-catch blocks, empty catch acceptable for graceful degradation
+- Return null/empty array rather than throwing when possible
+- Example: `catch { return []; }`
+
+### Code Organization
+- Abstract base classes in `base.ts`
+- One scanner per AI tool in `src/scanners/`
+- Re-export all scanners from `src/scanners/index.ts`
+- Keep classes focused on single responsibility
+
+## Agent Run Log
+
+- 2026-02-03 16:59:44 local: ran `pnpm dev` (tsc + `node dist/cli.js`) successfully. Cursor detected with 2 sessions; overall summary showed 19 files, 4501 lines, 14 AI sessions.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/debugtheworldbot)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/debugtheworldbot)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [debugtheworldbot/ai-credit](https://github.com/debugtheworldbot/ai-credit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
