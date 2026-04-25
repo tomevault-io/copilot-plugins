@@ -1,0 +1,9 @@
+{
+  "name": "lizhelang--codexbar",
+  "displayName": "codexbar",
+  "description": "macOS menu bar app for switching Codex providers and accounts without breaking shared session history",
+  "version": "1.0.0",
+  "author": "lizhelang",
+  "homepage": "https://github.com/lizhelang/codexbar",
+  "skills": []
+}
