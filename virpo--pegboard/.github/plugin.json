@@ -1,0 +1,9 @@
+{
+  "name": "virpo--pegboard",
+  "displayName": "pegboard",
+  "description": "AI-generated 3D-printable pegboard toy from a hand-drawn sketch",
+  "version": "1.0.0",
+  "author": "virpo",
+  "homepage": "https://github.com/virpo/pegboard",
+  "skills": []
+}
