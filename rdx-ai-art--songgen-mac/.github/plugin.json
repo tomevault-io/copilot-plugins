@@ -1,0 +1,9 @@
+{
+  "name": "rdx-ai-art--songgen-mac",
+  "displayName": "SongGen-Mac",
+  "description": "A specialized fork of SongGeneration Studio, engineered to run on Macs with any M series Apple Silicon chips. ",
+  "version": "1.0.0",
+  "author": "Rdx-ai-art",
+  "homepage": "https://github.com/Rdx-ai-art/SongGen-Mac",
+  "skills": []
+}
