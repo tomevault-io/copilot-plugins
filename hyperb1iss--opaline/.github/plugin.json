@@ -1,0 +1,9 @@
+{
+  "name": "hyperb1iss--opaline",
+  "displayName": "opaline",
+  "description": "\u2726 A token-based theme engine for Rust TUI applications",
+  "version": "1.0.0",
+  "author": "hyperb1iss",
+  "homepage": "https://github.com/hyperb1iss/opaline",
+  "skills": []
+}
