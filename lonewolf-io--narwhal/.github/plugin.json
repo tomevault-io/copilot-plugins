@@ -1,0 +1,9 @@
+{
+  "name": "lonewolf-io--narwhal",
+  "displayName": "narwhal",
+  "description": "An extensible message broker for edge applications",
+  "version": "1.0.0",
+  "author": "lonewolf-io",
+  "homepage": "https://github.com/lonewolf-io/narwhal",
+  "skills": []
+}
