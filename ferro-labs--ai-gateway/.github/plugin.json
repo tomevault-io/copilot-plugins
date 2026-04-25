@@ -1,0 +1,9 @@
+{
+  "name": "ferro-labs--ai-gateway",
+  "displayName": "ai-gateway",
+  "description": "One API for 25+ LLMs, OpenAI, Anthropic, Bedrock, Azure. Caching, guardrails & cost controls. Go-native LiteLLM & Kong AI Gateway alternative.",
+  "version": "1.0.0",
+  "author": "ferro-labs",
+  "homepage": "https://github.com/ferro-labs/ai-gateway",
+  "skills": []
+}
