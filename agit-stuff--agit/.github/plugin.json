@@ -1,0 +1,9 @@
+{
+  "name": "agit-stuff--agit",
+  "displayName": "agit",
+  "description": "agit - Code Context Management for Git that captures reasoning context alongside code changes, creating a \"Neural Graph\" parallel to Git's commit history. Integrates seamlessly with AI coding assistan",
+  "version": "1.0.0",
+  "author": "agit-stuff",
+  "homepage": "https://github.com/agit-stuff/agit",
+  "skills": []
+}
