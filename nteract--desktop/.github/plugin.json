@@ -1,0 +1,9 @@
+{
+  "name": "nteract--desktop",
+  "displayName": "desktop",
+  "description": "We're back! Now firing notebooks out of a t-shirt gun.",
+  "version": "1.0.0",
+  "author": "nteract",
+  "homepage": "https://github.com/nteract/desktop",
+  "skills": []
+}
