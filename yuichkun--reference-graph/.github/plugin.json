@@ -1,0 +1,9 @@
+{
+  "name": "yuichkun--reference-graph",
+  "displayName": "reference-graph",
+  "description": "Graph UI for code exploration in VS Code (language-agnostic)",
+  "version": "1.0.0",
+  "author": "yuichkun",
+  "homepage": "https://github.com/yuichkun/reference-graph",
+  "skills": []
+}
