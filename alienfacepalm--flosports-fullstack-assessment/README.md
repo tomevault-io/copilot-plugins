@@ -1,6 +1,6 @@
-# flosports-fullstack-assessment
+# AI instruction files for flosports-fullstack-assessment
 
-> Config by [alienfacepalm](https://github.com/alienfacepalm/flosports-fullstack-assessment) — distributed by [TomeVault](https://tomevault.io/claim/alienfacepalm)
+> Sourced from [alienfacepalm/flosports-fullstack-assessment](https://github.com/alienfacepalm/flosports-fullstack-assessment) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [alienfacepalm/flosports-fullstack-ass
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/alienfacepalm](https://tomevault.io/claim/alienfacepalm)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/alienfacepalm/flosports-fullstack-assessment](https://github.com/alienfacepalm/flosports-fullstack-assessment)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/alienfacepalm) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-p -->
