@@ -1,0 +1,9 @@
+{
+  "name": "nooscraft--tokuin",
+  "displayName": "tokuin",
+  "description": "CLI tool \u2013 estimates LLM tokens/costs and runs provider-aware load tests for OpenAI, Anthropic, OpenRouter, or custom endpoints.",
+  "version": "1.0.0",
+  "author": "nooscraft",
+  "homepage": "https://github.com/nooscraft/tokuin",
+  "skills": []
+}
