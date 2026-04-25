@@ -1,0 +1,9 @@
+{
+  "name": "alicankiraz1--codex-sentinel",
+  "displayName": "Codex-Sentinel",
+  "description": "Stage-aware security skills for Codex that surface planning gaps, offer opt-in reviews, and help teams ship safer code without pretending to certify security.",
+  "version": "1.0.0",
+  "author": "alicankiraz1",
+  "homepage": "https://github.com/alicankiraz1/Codex-Sentinel",
+  "skills": []
+}
