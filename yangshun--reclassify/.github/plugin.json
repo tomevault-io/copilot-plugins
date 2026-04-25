@@ -1,0 +1,9 @@
+{
+  "name": "yangshun--reclassify",
+  "displayName": "reclassify",
+  "description": "Construct `className` strings directly in JSX without using clsx() / className()",
+  "version": "1.0.0",
+  "author": "yangshun",
+  "homepage": "https://github.com/yangshun/reclassify",
+  "skills": []
+}
