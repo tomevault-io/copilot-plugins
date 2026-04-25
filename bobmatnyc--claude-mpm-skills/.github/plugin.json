@@ -1,0 +1,554 @@
+{
+  "name": "bobmatnyc--claude-mpm-skills",
+  "displayName": "claude-mpm",
+  "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection",
+  "version": "1.0.0",
+  "author": "bobmatnyc",
+  "homepage": "https://github.com/bobmatnyc/claude-mpm-skills",
+  "skills": [
+    {
+      "name": "daisyui",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "fastify",
+      "description": ""
+    },
+    {
+      "name": "github-actions",
+      "description": ""
+    },
+    {
+      "name": "api-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "drizzle-migrations",
+      "description": ""
+    },
+    {
+      "name": "mypy",
+      "description": ""
+    },
+    {
+      "name": "sveltekit",
+      "description": ""
+    },
+    {
+      "name": "artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "cross-source-research",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "end-of-session",
+      "description": ""
+    },
+    {
+      "name": "env-manager",
+      "description": ""
+    },
+    {
+      "name": "espocrm-development",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "description": ""
+    },
+    {
+      "name": "mpm",
+      "description": ""
+    },
+    {
+      "name": "mpm-doctor",
+      "description": ""
+    },
+    {
+      "name": "mpm-init",
+      "description": ""
+    },
+    {
+      "name": "mpm-ticket-view",
+      "description": ""
+    },
+    {
+      "name": "mpm-bug-reporting",
+      "description": ""
+    },
+    {
+      "name": "mpm-delegation-patterns",
+      "description": ""
+    },
+    {
+      "name": "mpm-git-file-tracking",
+      "description": ""
+    },
+    {
+      "name": "mpm-ticketing-integration",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "desktop-applications",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "test-quality-inspector",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "session-compression",
+      "description": ""
+    },
+    {
+      "name": "axum",
+      "description": ""
+    },
+    {
+      "name": "vercel-deployments-builds",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "description": ""
+    },
+    {
+      "name": "tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "web-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "screenshot",
+      "description": ""
+    },
+    {
+      "name": "celery",
+      "description": ""
+    },
+    {
+      "name": "openrouter",
+      "description": ""
+    },
+    {
+      "name": "flask",
+      "description": ""
+    },
+    {
+      "name": "better-auth-authentication",
+      "description": ""
+    },
+    {
+      "name": "api-documentation",
+      "description": ""
+    },
+    {
+      "name": "software-patterns",
+      "description": ""
+    },
+    {
+      "name": "zustand",
+      "description": ""
+    },
+    {
+      "name": "better-auth-integrations",
+      "description": ""
+    },
+    {
+      "name": "better-auth-plugins",
+      "description": ""
+    },
+    {
+      "name": "vercel-observability",
+      "description": ""
+    },
+    {
+      "name": "local-llm-ops",
+      "description": ""
+    },
+    {
+      "name": "phoenix-api-channels",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "langgraph",
+      "description": ""
+    },
+    {
+      "name": "svelte",
+      "description": ""
+    },
+    {
+      "name": "vercel-security-access",
+      "description": ""
+    },
+    {
+      "name": "better-auth-core",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-overview",
+      "description": ""
+    },
+    {
+      "name": "headlessui",
+      "description": ""
+    },
+    {
+      "name": "homebrew-formula-maintenance",
+      "description": ""
+    },
+    {
+      "name": "vercel-overview",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-networking",
+      "description": ""
+    },
+    {
+      "name": "phoenix-ops",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "description": ""
+    },
+    {
+      "name": "validated-handler",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "anthropic",
+      "description": ""
+    },
+    {
+      "name": "api-review",
+      "description": ""
+    },
+    {
+      "name": "artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "bad-interdependent-skill",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "clap",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-agentic-cloud",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-compute",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-containers-images",
+      "description": ""
+    },
+    {
+      "name": "drizzle",
+      "description": ""
+    },
+    {
+      "name": "dspy",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "env-manager",
+      "description": ""
+    },
+    {
+      "name": "espocrm",
+      "description": ""
+    },
+    {
+      "name": "good-self-contained-skill",
+      "description": ""
+    },
+    {
+      "name": "fastapi-local-dev",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "cli",
+      "description": ""
+    },
+    {
+      "name": "concurrency",
+      "description": ""
+    },
+    {
+      "name": "data",
+      "description": ""
+    },
+    {
+      "name": "grpc",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "description": ""
+    },
+    {
+      "name": "observability",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "cloudflare",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "description": ""
+    },
+    {
+      "name": "rpc",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "jest",
+      "description": ""
+    },
+    {
+      "name": "langchain",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "media-transcoding",
+      "description": ""
+    },
+    {
+      "name": "mongodb",
+      "description": ""
+    },
+    {
+      "name": "neon",
+      "description": ""
+    },
+    {
+      "name": "netlify",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "description": ""
+    },
+    {
+      "name": "nextjs",
+      "description": ""
+    },
+    {
+      "name": "v16",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "prisma",
+      "description": ""
+    },
+    {
+      "name": "pyright",
+      "description": ""
+    },
+    {
+      "name": "state-machine",
+      "description": ""
+    },
+    {
+      "name": "desktop-applications",
+      "description": ""
+    },
+    {
+      "name": "shadcn",
+      "description": ""
+    },
+    {
+      "name": "spring-boot",
+      "description": ""
+    },
+    {
+      "name": "tailwind",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "threat-modeling",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "description": ""
+    },
+    {
+      "name": "adonet",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "description": ""
+    },
+    {
+      "name": "vercel-ai",
+      "description": ""
+    },
+    {
+      "name": "vercel-functions-runtime",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "advanced-architecture",
+      "description": ""
+    },
+    {
+      "name": "block-editor",
+      "description": ""
+    },
+    {
+      "name": "plugin-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "security-validation",
+      "description": ""
+    },
+    {
+      "name": "testing-qa",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
