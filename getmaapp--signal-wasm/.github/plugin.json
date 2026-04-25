@@ -1,0 +1,9 @@
+{
+  "name": "getmaapp--signal-wasm",
+  "displayName": "signal-wasm",
+  "description": "Signal Protocol compiled to WebAssembly for browser-based E2EE messaging",
+  "version": "1.0.0",
+  "author": "getmaapp",
+  "homepage": "https://github.com/getmaapp/signal-wasm",
+  "skills": []
+}
