@@ -1,0 +1,9 @@
+{
+  "name": "oceanbase--powerrag",
+  "displayName": "powerrag",
+  "description": "PowerRAG: Build smarter, more accurate RAG systems with OceanBase's multi-modal retrieval.",
+  "version": "1.0.0",
+  "author": "oceanbase",
+  "homepage": "https://github.com/oceanbase/powerrag",
+  "skills": []
+}
