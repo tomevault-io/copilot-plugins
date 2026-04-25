@@ -1,0 +1,9 @@
+{
+  "name": "penberg--swarm",
+  "displayName": "swarm",
+  "description": "Manage a swarm of coding agents.",
+  "version": "1.0.0",
+  "author": "penberg",
+  "homepage": "https://github.com/penberg/swarm",
+  "skills": []
+}
