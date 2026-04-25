@@ -1,0 +1,861 @@
+{
+  "name": "claude-mpm",
+  "owner": "bobmatnyc",
+  "repo": "claude-mpm-skills",
+  "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "daisyui",
+      "path": "toolchains/ui/components/daisyui",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ui/components/daisyui",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": "toolchains/javascript/tooling/biome",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/tooling/biome",
+      "description": ""
+    },
+    {
+      "name": "fastify",
+      "path": "toolchains/typescript/frameworks/fastify",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/frameworks/fastify",
+      "description": ""
+    },
+    {
+      "name": "github-actions",
+      "path": "toolchains/universal/infrastructure/github-actions",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/universal/infrastructure/github-actions",
+      "description": ""
+    },
+    {
+      "name": "api-design-patterns",
+      "path": "universal/web/api-design-patterns",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/web/api-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "drizzle-migrations",
+      "path": "toolchains/typescript/data/drizzle-migrations",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/data/drizzle-migrations",
+      "description": ""
+    },
+    {
+      "name": "mypy",
+      "path": "toolchains/python/tooling/mypy",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/python/tooling/mypy",
+      "description": ""
+    },
+    {
+      "name": "sveltekit",
+      "path": "toolchains/javascript/frameworks/sveltekit",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/sveltekit",
+      "description": ""
+    },
+    {
+      "name": "artifacts-builder",
+      "path": "src/claude_mpm/skills/bundled/main/artifacts-builder",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/main/artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "src/claude_mpm/skills/bundled/collaboration/brainstorming",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/collaboration/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "path": "src/claude_mpm/skills/bundled/testing/condition-based-waiting",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/testing/condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "cross-source-research",
+      "path": "src/claude_mpm/skills/bundled/main/cross-source-research",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/main/cross-source-research",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": "src/claude_mpm/skills/bundled/collaboration/dispatching-parallel-agents",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/collaboration/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "end-of-session",
+      "path": "src/claude_mpm/skills/bundled/main/end-of-session",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/main/end-of-session",
+      "description": ""
+    },
+    {
+      "name": "env-manager",
+      "path": "src/claude_mpm/skills/bundled/infrastructure/env-manager",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/infrastructure/env-manager",
+      "description": ""
+    },
+    {
+      "name": "espocrm-development",
+      "path": "src/claude_mpm/skills/bundled/php/espocrm-development",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/php/espocrm-development",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "path": "src/claude_mpm/skills/bundled/main/internal-comms",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/main/internal-comms",
+      "description": ""
+    },
+    {
+      "name": "mpm",
+      "path": "src/claude_mpm/skills/bundled/pm/mpm",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/pm/mpm",
+      "description": ""
+    },
+    {
+      "name": "mpm-doctor",
+      "path": "src/claude_mpm/skills/bundled/pm/mpm-doctor",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/pm/mpm-doctor",
+      "description": ""
+    },
+    {
+      "name": "mpm-init",
+      "path": "src/claude_mpm/skills/bundled/pm/mpm-init",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/pm/mpm-init",
+      "description": ""
+    },
+    {
+      "name": "mpm-ticket-view",
+      "path": "src/claude_mpm/skills/bundled/pm/mpm-ticket-view",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/pm/mpm-ticket-view",
+      "description": ""
+    },
+    {
+      "name": "mpm-bug-reporting",
+      "path": "src/claude_mpm/skills/bundled/pm/mpm-bug-reporting",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/pm/mpm-bug-reporting",
+      "description": ""
+    },
+    {
+      "name": "mpm-delegation-patterns",
+      "path": "src/claude_mpm/skills/bundled/pm/mpm-delegation-patterns",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/pm/mpm-delegation-patterns",
+      "description": ""
+    },
+    {
+      "name": "mpm-git-file-tracking",
+      "path": "src/claude_mpm/skills/bundled/pm/mpm-git-file-tracking",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/pm/mpm-git-file-tracking",
+      "description": ""
+    },
+    {
+      "name": "mpm-ticketing-integration",
+      "path": "src/claude_mpm/skills/bundled/pm/mpm-ticketing-integration",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/pm/mpm-ticketing-integration",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "path": "src/claude_mpm/skills/bundled/collaboration/requesting-code-review",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/collaboration/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "desktop-applications",
+      "path": "src/claude_mpm/skills/bundled/rust/desktop-applications",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/rust/desktop-applications",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "src/claude_mpm/skills/bundled/main/skill-creator",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/main/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "src/claude_mpm/skills/bundled/testing/test-driven-development",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/testing/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "test-quality-inspector",
+      "path": "src/claude_mpm/skills/bundled/testing/test-quality-inspector",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/testing/test-quality-inspector",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "path": "src/claude_mpm/skills/bundled/testing/testing-anti-patterns",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/testing/testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": "src/claude_mpm/skills/bundled/testing/webapp-testing",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/testing/webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "src/claude_mpm/skills/bundled/collaboration/writing-plans",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/src/claude_mpm/skills/bundled/collaboration/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "universal/collaboration/git-workflow",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/collaboration/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "session-compression",
+      "path": "toolchains/ai/techniques/session-compression",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ai/techniques/session-compression",
+      "description": ""
+    },
+    {
+      "name": "axum",
+      "path": "toolchains/rust/frameworks/axum",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/rust/frameworks/axum",
+      "description": ""
+    },
+    {
+      "name": "vercel-deployments-builds",
+      "path": "toolchains/platforms/deployment/vercel-deployments-builds",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/vercel-deployments-builds",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "path": "universal/infrastructure/kubernetes",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/infrastructure/kubernetes",
+      "description": ""
+    },
+    {
+      "name": "tanstack-query",
+      "path": "toolchains/typescript/state/tanstack-query",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/state/tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "web-performance-optimization",
+      "path": "universal/web/web-performance-optimization",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/web/web-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "toolchains/javascript/frameworks/vue",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/vue",
+      "description": ""
+    },
+    {
+      "name": "screenshot",
+      "path": "universal/verification/screenshot",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/verification/screenshot",
+      "description": ""
+    },
+    {
+      "name": "celery",
+      "path": "toolchains/python/async/celery",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/python/async/celery",
+      "description": ""
+    },
+    {
+      "name": "openrouter",
+      "path": "toolchains/ai/services/openrouter",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ai/services/openrouter",
+      "description": ""
+    },
+    {
+      "name": "flask",
+      "path": "toolchains/python/frameworks/flask",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/python/frameworks/flask",
+      "description": ""
+    },
+    {
+      "name": "better-auth-authentication",
+      "path": "toolchains/platforms/auth/better-auth/better-auth-authentication",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/auth/better-auth/better-auth-authentication",
+      "description": ""
+    },
+    {
+      "name": "api-documentation",
+      "path": "universal/web/api-documentation",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/web/api-documentation",
+      "description": ""
+    },
+    {
+      "name": "software-patterns",
+      "path": "universal/architecture/software-patterns",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/architecture/software-patterns",
+      "description": ""
+    },
+    {
+      "name": "zustand",
+      "path": "toolchains/typescript/state/zustand",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/state/zustand",
+      "description": ""
+    },
+    {
+      "name": "better-auth-integrations",
+      "path": "toolchains/platforms/auth/better-auth/better-auth-integrations",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/auth/better-auth/better-auth-integrations",
+      "description": ""
+    },
+    {
+      "name": "better-auth-plugins",
+      "path": "toolchains/platforms/auth/better-auth/better-auth-plugins",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/auth/better-auth/better-auth-plugins",
+      "description": ""
+    },
+    {
+      "name": "vercel-observability",
+      "path": "toolchains/platforms/deployment/vercel-observability",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/vercel-observability",
+      "description": ""
+    },
+    {
+      "name": "local-llm-ops",
+      "path": "toolchains/ai/ops/local-llm-ops",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ai/ops/local-llm-ops",
+      "description": ""
+    },
+    {
+      "name": "phoenix-api-channels",
+      "path": "toolchains/elixir/frameworks/phoenix-api-channels",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/elixir/frameworks/phoenix-api-channels",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "universal/main/skill-creator",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/main/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "git-worktrees",
+      "path": "universal/collaboration/git-worktrees",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/collaboration/git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "langgraph",
+      "path": "toolchains/ai/frameworks/langgraph",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ai/frameworks/langgraph",
+      "description": ""
+    },
+    {
+      "name": "svelte",
+      "path": "toolchains/javascript/frameworks/svelte",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/svelte",
+      "description": ""
+    },
+    {
+      "name": "vercel-security-access",
+      "path": "toolchains/platforms/deployment/vercel-security-access",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/vercel-security-access",
+      "description": ""
+    },
+    {
+      "name": "better-auth-core",
+      "path": "toolchains/platforms/auth/better-auth/better-auth-core",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/auth/better-auth/better-auth-core",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-overview",
+      "path": "toolchains/platforms/deployment/digitalocean-overview",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/digitalocean-overview",
+      "description": ""
+    },
+    {
+      "name": "headlessui",
+      "path": "toolchains/ui/components/headlessui",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ui/components/headlessui",
+      "description": ""
+    },
+    {
+      "name": "homebrew-formula-maintenance",
+      "path": "toolchains/universal/infrastructure/homebrew-formula-maintenance",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/universal/infrastructure/homebrew-formula-maintenance",
+      "description": ""
+    },
+    {
+      "name": "vercel-overview",
+      "path": "toolchains/platforms/deployment/vercel-overview",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/vercel-overview",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-networking",
+      "path": "toolchains/platforms/deployment/digitalocean-networking",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/digitalocean-networking",
+      "description": ""
+    },
+    {
+      "name": "phoenix-ops",
+      "path": "toolchains/elixir/ops/phoenix-ops",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/elixir/ops/phoenix-ops",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "path": "universal/infrastructure/terraform",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/infrastructure/terraform",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "path": "toolchains/universal/data/graphql",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/universal/data/graphql",
+      "description": ""
+    },
+    {
+      "name": "validated-handler",
+      "path": "toolchains/nextjs/api/validated-handler",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/nextjs/api/validated-handler",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": "universal/collaboration/dispatching-parallel-agents",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/collaboration/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "path": "universal/collaboration/requesting-code-review",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/collaboration/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "anthropic",
+      "path": "toolchains/ai/sdks/anthropic",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ai/sdks/anthropic",
+      "description": ""
+    },
+    {
+      "name": "api-review",
+      "path": "toolchains/universal/security/api-review",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/universal/security/api-review",
+      "description": ""
+    },
+    {
+      "name": "artifacts-builder",
+      "path": "universal/main/artifacts-builder",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/main/artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "bad-interdependent-skill",
+      "path": "examples/bad-interdependent-skill",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/examples/bad-interdependent-skill",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "universal/collaboration/brainstorming",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/collaboration/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "clap",
+      "path": "toolchains/rust/cli/clap",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/rust/cli/clap",
+      "description": ""
+    },
+    {
+      "name": "condition-based-waiting",
+      "path": "universal/testing/condition-based-waiting",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/testing/condition-based-waiting",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-agentic-cloud",
+      "path": "toolchains/platforms/deployment/digitalocean-agentic-cloud",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/digitalocean-agentic-cloud",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-compute",
+      "path": "toolchains/platforms/deployment/digitalocean-compute",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/digitalocean-compute",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-containers-images",
+      "path": "toolchains/platforms/deployment/digitalocean-containers-images",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/digitalocean-containers-images",
+      "description": ""
+    },
+    {
+      "name": "drizzle",
+      "path": "toolchains/typescript/data/drizzle",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/data/drizzle",
+      "description": ""
+    },
+    {
+      "name": "dspy",
+      "path": "toolchains/ai/frameworks/dspy",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ai/frameworks/dspy",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": "toolchains/universal/emergency/release",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/universal/emergency/release",
+      "description": ""
+    },
+    {
+      "name": "env-manager",
+      "path": "universal/infrastructure/env-manager",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/infrastructure/env-manager",
+      "description": ""
+    },
+    {
+      "name": "espocrm",
+      "path": "toolchains/php/frameworks/espocrm",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/php/frameworks/espocrm",
+      "description": ""
+    },
+    {
+      "name": "good-self-contained-skill",
+      "path": "examples/good-self-contained-skill",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/examples/good-self-contained-skill",
+      "description": ""
+    },
+    {
+      "name": "fastapi-local-dev",
+      "path": "toolchains/python/frameworks/fastapi-local-dev",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/python/frameworks/fastapi-local-dev",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "toolchains/javascript/frameworks/react",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/react",
+      "description": ""
+    },
+    {
+      "name": "cli",
+      "path": "toolchains/golang/cli",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/golang/cli",
+      "description": ""
+    },
+    {
+      "name": "concurrency",
+      "path": "toolchains/golang/concurrency",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/golang/concurrency",
+      "description": ""
+    },
+    {
+      "name": "data",
+      "path": "toolchains/golang/data",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/golang/data",
+      "description": ""
+    },
+    {
+      "name": "grpc",
+      "path": "toolchains/golang/grpc",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/golang/grpc",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "path": "toolchains/golang/web",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/golang/web",
+      "description": ""
+    },
+    {
+      "name": "observability",
+      "path": "toolchains/golang/observability",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/golang/observability",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "toolchains/golang/testing",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/golang/testing",
+      "description": ""
+    },
+    {
+      "name": "cloudflare",
+      "path": "toolchains/javascript/frameworks/hono/cloudflare",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/hono/cloudflare",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "path": "toolchains/javascript/frameworks/hono/core",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/hono/core",
+      "description": ""
+    },
+    {
+      "name": "rpc",
+      "path": "toolchains/javascript/frameworks/hono/rpc",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/hono/rpc",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "toolchains/javascript/frameworks/hono/testing",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/hono/testing",
+      "description": ""
+    },
+    {
+      "name": "jest",
+      "path": "toolchains/typescript/testing/jest",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/testing/jest",
+      "description": ""
+    },
+    {
+      "name": "langchain",
+      "path": "toolchains/ai/frameworks/langchain",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ai/frameworks/langchain",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "universal/main/mcp-builder",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/main/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "media-transcoding",
+      "path": "toolchains/universal/infrastructure/media-transcoding",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/universal/infrastructure/media-transcoding",
+      "description": ""
+    },
+    {
+      "name": "mongodb",
+      "path": "toolchains/databases/mongodb",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/databases/mongodb",
+      "description": ""
+    },
+    {
+      "name": "neon",
+      "path": "toolchains/platforms/database/neon",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/database/neon",
+      "description": ""
+    },
+    {
+      "name": "netlify",
+      "path": "toolchains/platforms/deployment/netlify",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/netlify",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "path": "toolchains/nextjs/core",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/nextjs/core",
+      "description": ""
+    },
+    {
+      "name": "nextjs",
+      "path": "toolchains/javascript/frameworks/nextjs",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/nextjs",
+      "description": ""
+    },
+    {
+      "name": "v16",
+      "path": "toolchains/nextjs/v16",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/nextjs/v16",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "path": "toolchains/javascript/testing/playwright",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/testing/playwright",
+      "description": ""
+    },
+    {
+      "name": "prisma",
+      "path": "toolchains/typescript/data/prisma",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/data/prisma",
+      "description": ""
+    },
+    {
+      "name": "pyright",
+      "path": "toolchains/python/tooling/pyright",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/python/tooling/pyright",
+      "description": ""
+    },
+    {
+      "name": "state-machine",
+      "path": "toolchains/javascript/frameworks/react/state-machine",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/frameworks/react/state-machine",
+      "description": ""
+    },
+    {
+      "name": "desktop-applications",
+      "path": "toolchains/rust/desktop-applications",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/rust/desktop-applications",
+      "description": ""
+    },
+    {
+      "name": "shadcn",
+      "path": "toolchains/ui/components/shadcn",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ui/components/shadcn",
+      "description": ""
+    },
+    {
+      "name": "spring-boot",
+      "path": "toolchains/java/frameworks/spring-boot",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/java/frameworks/spring-boot",
+      "description": ""
+    },
+    {
+      "name": "tailwind",
+      "path": "toolchains/ui/styling/tailwind",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/ui/styling/tailwind",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "universal/testing/test-driven-development",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/testing/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-anti-patterns",
+      "path": "universal/testing/testing-anti-patterns",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/testing/testing-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "threat-modeling",
+      "path": "universal/security/threat-modeling",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/security/threat-modeling",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "toolchains/typescript/api/trpc",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/api/trpc",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "path": "toolchains/typescript/core",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/core",
+      "description": ""
+    },
+    {
+      "name": "adonet",
+      "path": "toolchains/visualbasic/database/adonet",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/visualbasic/database/adonet",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "path": "toolchains/visualbasic/frameworks/winforms",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/visualbasic/frameworks/winforms",
+      "description": ""
+    },
+    {
+      "name": "vercel-ai",
+      "path": "toolchains/platforms/deployment/vercel-ai",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/vercel-ai",
+      "description": ""
+    },
+    {
+      "name": "vercel-functions-runtime",
+      "path": "toolchains/platforms/deployment/vercel-functions-runtime",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/platforms/deployment/vercel-functions-runtime",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "path": "toolchains/javascript/build/vite",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/javascript/build/vite",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": "universal/testing/webapp-testing",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/testing/webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "advanced-architecture",
+      "path": "toolchains/php/frameworks/wordpress/advanced-architecture",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/php/frameworks/wordpress/advanced-architecture",
+      "description": ""
+    },
+    {
+      "name": "block-editor",
+      "path": "toolchains/php/frameworks/wordpress/block-editor",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/php/frameworks/wordpress/block-editor",
+      "description": ""
+    },
+    {
+      "name": "plugin-fundamentals",
+      "path": "toolchains/php/frameworks/wordpress/plugin-fundamentals",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/php/frameworks/wordpress/plugin-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "security-validation",
+      "path": "toolchains/php/frameworks/wordpress/security-validation",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/php/frameworks/wordpress/security-validation",
+      "description": ""
+    },
+    {
+      "name": "testing-qa",
+      "path": "toolchains/php/frameworks/wordpress/testing-qa",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/php/frameworks/wordpress/testing-qa",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "universal/collaboration/writing-plans",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/universal/collaboration/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "plugin/skills/universal-collaboration-git-workflow",
+      "github_url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/plugin/skills/universal-collaboration-git-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bobmatnyc/claude-mpm-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T00:32:29Z"
+}
