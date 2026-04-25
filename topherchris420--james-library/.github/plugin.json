@@ -1,0 +1,9 @@
+{
+  "name": "topherchris420--james-library",
+  "displayName": "james_library",
+  "description": "A local expert panel for questions, grounded in research papers\ud83d\udc19(Predates Karpathy's AutoResearch)",
+  "version": "1.0.0",
+  "author": "topherchris420",
+  "homepage": "https://github.com/topherchris420/james_library",
+  "skills": []
+}
