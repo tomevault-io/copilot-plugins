@@ -1,0 +1,9 @@
+{
+  "name": "shaircast--vvrite",
+  "displayName": "vvrite",
+  "description": "On-device AI transcription macOS app that transcribes your voice and pastes the text",
+  "version": "1.0.0",
+  "author": "shaircast",
+  "homepage": "https://github.com/shaircast/vvrite",
+  "skills": []
+}
