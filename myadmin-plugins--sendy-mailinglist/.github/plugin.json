@@ -1,0 +1,9 @@
+{
+  "name": "myadmin-plugins--sendy-mailinglist",
+  "displayName": "sendy-mailinglist",
+  "description": "sendy-mailinglist",
+  "version": "1.0.0",
+  "author": "myadmin-plugins",
+  "homepage": "https://github.com/myadmin-plugins/sendy-mailinglist",
+  "skills": []
+}
