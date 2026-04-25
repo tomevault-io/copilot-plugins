@@ -1,0 +1,9 @@
+{
+  "name": "pauljoda--obscura",
+  "displayName": "Obscura",
+  "description": "Self host media server, Stash alternative, supports Stash scrapers and hash databases",
+  "version": "1.0.0",
+  "author": "pauljoda",
+  "homepage": "https://github.com/pauljoda/Obscura",
+  "skills": []
+}
