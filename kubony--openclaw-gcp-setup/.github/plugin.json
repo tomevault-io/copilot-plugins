@@ -1,0 +1,18 @@
+{
+  "name": "kubony--openclaw-gcp-setup",
+  "displayName": "openclaw-gcp-setup",
+  "description": "GCP \uc778\ud504\ub77c \uc790\ub3d9\ud654\ub97c \uc704\ud55c Claude Code \uc2a4\ud0ac \ubaa8\uc74c",
+  "version": "1.0.0",
+  "author": "kubony",
+  "homepage": "https://github.com/kubony/openclaw-gcp-setup",
+  "skills": [
+    {
+      "name": "gcp-project-setup",
+      "description": ""
+    },
+    {
+      "name": "gcp-usage",
+      "description": ""
+    }
+  ]
+}
