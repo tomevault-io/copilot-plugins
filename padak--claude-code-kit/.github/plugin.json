@@ -1,0 +1,42 @@
+{
+  "name": "padak--claude-code-kit",
+  "displayName": "claude-code-kit",
+  "description": "AI instruction skills by padak",
+  "version": "1.0.0",
+  "author": "padak",
+  "homepage": "https://github.com/padak/claude-code-kit",
+  "skills": [
+    {
+      "name": "claude-agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "e2b",
+      "description": ""
+    },
+    {
+      "name": "keboola-data-app",
+      "description": ""
+    },
+    {
+      "name": "polymarket",
+      "description": ""
+    },
+    {
+      "name": "post-merge",
+      "description": ""
+    },
+    {
+      "name": "second-opinion",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "swarm",
+      "description": ""
+    }
+  ]
+}
