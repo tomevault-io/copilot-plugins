@@ -1,0 +1,9 @@
+{
+  "name": "pithings--ripgrep-node",
+  "displayName": "ripgrep-node",
+  "description": "ripgrep in a compact and cross-platform npm package. Works with Node.js, Bun, and Deno without native binaries. Bundler-friendly, with the WASM embedded as z85+brotli.",
+  "version": "1.0.0",
+  "author": "pithings",
+  "homepage": "https://github.com/pithings/ripgrep-node",
+  "skills": []
+}
