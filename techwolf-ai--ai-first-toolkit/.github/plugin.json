@@ -1,0 +1,9 @@
+{
+  "name": "techwolf-ai--ai-first-toolkit",
+  "displayName": "ai-first-toolkit",
+  "description": "Open-source Claude Code skills and Codex skills for AI-first work. Audit, re-engineer, and bootstrap projects with AI-first design principles.",
+  "version": "1.0.0",
+  "author": "techwolf-ai",
+  "homepage": "https://github.com/techwolf-ai/ai-first-toolkit",
+  "skills": []
+}
