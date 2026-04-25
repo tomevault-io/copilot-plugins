@@ -1,0 +1,9 @@
+{
+  "name": "anemll--anemll-flash-llama-cpp",
+  "displayName": "anemll-flash-llama.cpp",
+  "description": "Flash-MoE sidecar slot-bank runtime for large GGUF MoE models on Apple Silicon \u2014 llama.cpp fork",
+  "version": "1.0.0",
+  "author": "Anemll",
+  "homepage": "https://github.com/Anemll/anemll-flash-llama.cpp",
+  "skills": []
+}
