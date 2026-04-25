@@ -1,0 +1,9 @@
+{
+  "name": "superposition--ucp-agent",
+  "displayName": "ucp-agent",
+  "description": "ucp-agent",
+  "version": "1.0.0",
+  "author": "superposition",
+  "homepage": "https://github.com/superposition/ucp-agent",
+  "skills": []
+}
