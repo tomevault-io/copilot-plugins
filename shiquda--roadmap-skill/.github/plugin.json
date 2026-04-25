@@ -1,0 +1,9 @@
+{
+  "name": "shiquda--roadmap-skill",
+  "displayName": "roadmap-skill",
+  "description": "Shared roadmap for humans and AI Agents. Visual kanban and graph for you, Skills and MCP server for Agents. Support Claude Code, Codex, Cursor, OpenCode and more!",
+  "version": "1.0.0",
+  "author": "shiquda",
+  "homepage": "https://github.com/shiquda/roadmap-skill",
+  "skills": []
+}
