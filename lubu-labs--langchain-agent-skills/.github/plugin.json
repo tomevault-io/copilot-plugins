@@ -1,0 +1,9 @@
+{
+  "name": "lubu-labs--langchain-agent-skills",
+  "displayName": "langchain-agent-skills",
+  "description": "A collection of agent-optimized LangChain, LangGraph and LangSmith skills for AI coding assistants.",
+  "version": "1.0.0",
+  "author": "Lubu-Labs",
+  "homepage": "https://github.com/Lubu-Labs/langchain-agent-skills",
+  "skills": []
+}
