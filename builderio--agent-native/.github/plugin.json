@@ -1,0 +1,9 @@
+{
+  "name": "builderio--agent-native",
+  "displayName": "agent-native",
+  "description": "A framework for building agent-native applications.",
+  "version": "1.0.0",
+  "author": "BuilderIO",
+  "homepage": "https://github.com/BuilderIO/agent-native",
+  "skills": []
+}
