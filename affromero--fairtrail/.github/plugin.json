@@ -1,0 +1,9 @@
+{
+  "name": "affromero--fairtrail",
+  "displayName": "fairtrail",
+  "description": "The price trail airlines don't show you. Track flight prices over time with natural language search. Self-hosted, open source, bring your own LLM.",
+  "version": "1.0.0",
+  "author": "affromero",
+  "homepage": "https://github.com/affromero/fairtrail",
+  "skills": []
+}
