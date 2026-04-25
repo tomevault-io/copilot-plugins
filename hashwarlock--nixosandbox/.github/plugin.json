@@ -1,0 +1,9 @@
+{
+  "name": "hashwarlock--nixosandbox",
+  "displayName": "nixosandbox",
+  "description": "nixosandbox",
+  "version": "1.0.0",
+  "author": "HashWarlock",
+  "homepage": "https://github.com/HashWarlock/nixosandbox",
+  "skills": []
+}
