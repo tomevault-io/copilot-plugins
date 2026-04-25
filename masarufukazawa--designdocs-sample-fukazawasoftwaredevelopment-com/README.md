@@ -1,6 +1,6 @@
-# designdocs-sample.fukazawasoftwaredevelopment.com — distributed by TomeVault
+# designdocs-sample.fukazawasoftwaredevelopment.com
 
-> Originally from [MasaruFukazawa/designdocs-sample.fukazawasoftwaredevelopment.com](https://github.com/MasaruFukazawa/designdocs-sample.fukazawasoftwaredevelopment.com). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [MasaruFukazawa/designdocs-sample.fukazawasoftwaredevelopment.com](https://github.com/MasaruFukazawa/designdocs-sample.fukazawasoftwaredevelopment.com) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [MasaruFukazawa/designdocs-sample.fuka
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/MasaruFukazawa)
+From [MasaruFukazawa/designdocs-sample.fukazawasoftwaredevelopment.com](https://github.com/MasaruFukazawa/designdocs-sample.fukazawasoftwaredevelopment.com) — a repo with 0+ stars on GitHub.
 
 ---
 
