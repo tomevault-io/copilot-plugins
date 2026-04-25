@@ -1,0 +1,9 @@
+{
+  "name": "minicoohei--ai-agent-camp",
+  "displayName": "ai-agent-camp",
+  "description": "AI Agent Camp \u2014 non-engineer-friendly AI agent training curriculum. Lessons, skills, commands, and hooks for Claude Code, Cursor, and Codex.",
+  "version": "1.0.0",
+  "author": "minicoohei",
+  "homepage": "https://github.com/minicoohei/ai-agent-camp",
+  "skills": []
+}
