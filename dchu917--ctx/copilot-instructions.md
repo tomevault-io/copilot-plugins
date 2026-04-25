@@ -1,0 +1,83 @@
+## ctx
+
+> Use the installed ContextFun commands directly when the user types them as a message.
+
+# ContextFun Agent Guide
+
+Use the installed ContextFun commands directly when the user types them as a message.
+
+Supported chat-style commands in this repo:
+
+- `ctx`
+  - Run `ctx`.
+  - If that is unavailable, run `python3 scripts/ctx_cmd.py`.
+  - Return stdout directly.
+
+- `ctx list`
+  - Run `ctx list`.
+  - If that is unavailable, run `python3 scripts/ctx_cmd.py list`.
+  - Return stdout directly.
+  - If the user typed the plain `ctx list` form, do not describe it as `ctx-list` or say you are using the alias skill. Prefer the exact command the user typed.
+  - `ctx list --this-repo` should show only workstreams linked to the current repo.
+
+- `ctx search <query>`
+  - Run `ctx search <query>`.
+  - If that is unavailable, run `python3 scripts/ctx_cmd.py search <query>`.
+  - Return the grouped search results directly.
+  - Prefer using this when the user asks to find the relevant workstream or recall prior context.
+  - `ctx search <query> --this-repo` should search only workstreams linked to the current repo.
+
+- `ctx start [--pull] <workstream>`
+  - Treat `--pull` strictly as a flag, never as part of the workstream name.
+  - Run `ctx start [--pull] <workstream>`.
+  - If that is unavailable, run `python3 scripts/ctx_cmd.py start [--pull] <workstream> --format markdown`.
+  - `start` means create a new workstream. If that name already exists, ctx automatically creates `<workstream> (1)`, `<workstream> (2)`, and so on.
+  - Do not paste the full ctx pack back unless the user asks for it.
+  - Summarize the loaded workstream briefly, mention the last task that was being worked on, mention the latest relevant activity, and ask how the user wants to proceed.
+  - Make it explicit that in Codex the user can inspect the full command output with `ctrl-t`, and in Claude they can expand the tool output block.
+
+- `ctx resume <workstream>`
+  - Run `ctx resume <workstream>`.
+  - If that is unavailable, run `python3 scripts/ctx_cmd.py resume <workstream> --format markdown`.
+  - `resume` means continue an existing workstream. If no matching workstream exists, tell the user plainly that no matching workstream exists.
+  - If the workstream belongs to a different repo, `ctx resume` should fail unless the user explicitly adds `--allow-other-repo`.
+  - Do not paste the full ctx pack back unless the user asks for it.
+  - Summarize the loaded workstream briefly, mention the last task that was being worked on, mention the latest relevant activity, and ask how the user wants to proceed.
+  - Make it explicit that new context from this conversation will now be appended to the resumed workstream.
+  - If the user wants to explore without changing that workstream, tell them to create a branch first with `ctx branch <source-workstream> <target-workstream>`.
+  - Make it explicit that in Codex the user can inspect the full command output with `ctrl-t`, and in Claude they can expand the tool output block.
+
+- `ctx rename <new-name>` or `ctx rename <new-name> --from <existing-workstream>`
+  - Run `ctx rename ...`.
+  - If that is unavailable, run `python3 scripts/ctx_cmd.py rename ...`.
+  - If the requested new name already exists, ctx auto-suffixes the rename result the same way as `start`.
+
+- `ctx delete <workstream>` or `ctx delete --session-id <id>`
+  - Run `ctx delete ...`.
+  - If that is unavailable, run `python3 scripts/ctx_cmd.py delete ...`.
+  - This is destructive: it deletes the latest session in the named workstream, or the explicit session id.
+
+- `ctx curate <workstream>` or `ctx delete --interactive <workstream>`
+  - Run `ctx curate <workstream>`.
+  - If that is unavailable, run `python3 scripts/ctx_cmd.py curate <workstream>`.
+  - This opens the interactive terminal UI for scrolling saved entries and curating what future loads should include.
+
+- `ctx branch <source-workstream> <target-workstream>`
+  - Run `ctx branch <source-workstream> <target-workstream>`.
+  - If that is unavailable, run `python3 scripts/ctx_cmd.py branch <source-workstream> <target-workstream> --format markdown`.
+  - If the source workstream belongs to a different repo, `ctx branch` should fail unless the user explicitly adds `--allow-other-repo`.
+  - This creates a new workstream seeded from the source workstream snapshot, but future transcript pulls stay independent.
+  - Do not paste the full ctx pack back unless the user asks for it.
+  - Summarize the new branch briefly, mention the last task that was being worked on in the inherited context, mention the latest inherited context, and ask how the user wants to proceed.
+  - Make it explicit that in Codex the user can inspect the full command output with `ctrl-t`, and in Claude they can expand the tool output block.
+
+Behavior notes:
+
+- Claude Code supports local skill folders under `~/.claude/skills`.
+- Codex does not currently support repo-defined custom slash commands like `/ctx list`.
+- In Codex, prefer plain `ctx`, `ctx list`, `ctx search`, `ctx start`, `ctx resume`, `ctx delete`, and `ctx branch` messages or run the same commands in the terminal.
+- If `CTX_AGENT_WORKSTREAM` is set, it is the default workstream when the command omits a name.
+
+---
+> Source: [dchu917/ctx](https://github.com/dchu917/ctx) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
