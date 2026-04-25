@@ -1,0 +1,9 @@
+{
+  "name": "calderbuild--wefinance",
+  "displayName": "WeFinance",
+  "description": "AI-Powered Personal Finance Assistant - Transforming bill images into intelligent financial insights with Vision LLM technology",
+  "version": "1.0.0",
+  "author": "calderbuild",
+  "homepage": "https://github.com/calderbuild/WeFinance",
+  "skills": []
+}
