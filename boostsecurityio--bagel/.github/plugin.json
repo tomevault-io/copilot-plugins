@@ -1,0 +1,9 @@
+{
+  "name": "boostsecurityio--bagel",
+  "displayName": "bagel",
+  "description": "bagel, a CLI that inventories security-relevant metadata on developer workstations",
+  "version": "1.0.0",
+  "author": "boostsecurityio",
+  "homepage": "https://github.com/boostsecurityio/bagel",
+  "skills": []
+}
