@@ -1,0 +1,44 @@
+{
+  "name": "mlx-qwen3-asr",
+  "owner": "moona3k",
+  "repo": "mlx-qwen3-asr",
+  "description": "Qwen3-ASR speech recognition on Apple Silicon via MLX",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/moona3k/mlx-qwen3-asr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T16:37:57Z"
+}
