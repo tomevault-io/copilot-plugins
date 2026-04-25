@@ -1,0 +1,9 @@
+{
+  "name": "imbue-ai--keystone",
+  "displayName": "keystone",
+  "description": "An agentic tool to configure Dockerfiles for any repo",
+  "version": "1.0.0",
+  "author": "imbue-ai",
+  "homepage": "https://github.com/imbue-ai/keystone",
+  "skills": []
+}
