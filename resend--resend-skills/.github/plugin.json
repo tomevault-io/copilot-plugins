@@ -1,0 +1,9 @@
+{
+  "name": "resend--resend-skills",
+  "displayName": "resend-skills",
+  "description": "Agent Skills for working with Resend to send and receive emails.",
+  "version": "1.0.0",
+  "author": "resend",
+  "homepage": "https://github.com/resend/resend-skills",
+  "skills": []
+}
