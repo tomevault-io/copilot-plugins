@@ -1,0 +1,9 @@
+{
+  "name": "hybridaione--hybridclaw",
+  "displayName": "hybridclaw",
+  "description": "Enterprise-ready self-hosted AI assistant runtime with sandboxed execution, secure credentials, approvals, and memory",
+  "version": "1.0.0",
+  "author": "HybridAIOne",
+  "homepage": "https://github.com/HybridAIOne/hybridclaw",
+  "skills": []
+}
