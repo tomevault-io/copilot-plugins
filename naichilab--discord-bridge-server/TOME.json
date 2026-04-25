@@ -1,0 +1,51 @@
+{
+  "name": "discord-bridge-server",
+  "owner": "naichilab",
+  "repo": "discord-bridge-server",
+  "description": "Discord \u7d4c\u7531\u3067 Claude Code / Codex CLI \u3092\u30ea\u30e2\u30fc\u30c8\u64cd\u4f5c\u3067\u304d\u308b\u4e2d\u7d99\u30b5\u30fc\u30d0\u30fc & \u30b9\u30ad\u30eb",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "discord-comm",
+      "path": "plugin/skills/discord-comm",
+      "github_url": "https://github.com/naichilab/discord-bridge-server/tree/main/plugin/skills/discord-comm",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/naichilab/discord-bridge-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T08:30:19Z"
+}
