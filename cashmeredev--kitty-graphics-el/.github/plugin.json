@@ -1,0 +1,9 @@
+{
+  "name": "cashmeredev--kitty-graphics-el",
+  "displayName": "kitty-graphics.el",
+  "description": "Display images in terminal Emacs (emacs -nw) via the Kitty graphics protocol.",
+  "version": "1.0.0",
+  "author": "cashmeredev",
+  "homepage": "https://github.com/cashmeredev/kitty-graphics.el",
+  "skills": []
+}
