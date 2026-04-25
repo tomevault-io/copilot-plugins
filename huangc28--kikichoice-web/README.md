@@ -1,6 +1,6 @@
-# kikichoice-web — distributed by TomeVault
+# kikichoice-web
 
-> Originally from [huangc28/kikichoice-web](https://github.com/huangc28/kikichoice-web). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [huangc28/kikichoice-web](https://github.com/huangc28/kikichoice-web) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [huangc28/kikichoice-web](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/huangc28)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/huangc28/kikichoice-web](https://github.com/huangc28/kikichoice-web)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/huangc28) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
