@@ -1,0 +1,81 @@
+{
+  "name": "oci-agent-skills",
+  "owner": "acedergren",
+  "repo": "oci-agent-skills",
+  "description": "Oracle Cloud Infrastructure operations plugin with intelligent agent skills for managing compute, networking, databases, monitoring, secrets, GenAI, IAM, and infrastructure as code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "best-practices",
+      "path": "skills/best-practices",
+      "github_url": "https://github.com/acedergren/oci-agent-skills/tree/main/skills/best-practices",
+      "description": ""
+    },
+    {
+      "name": "genai-services",
+      "path": "skills/genai-services",
+      "github_url": "https://github.com/acedergren/oci-agent-skills/tree/main/skills/genai-services",
+      "description": ""
+    },
+    {
+      "name": "iam-identity-management",
+      "path": "skills/iam-identity-management",
+      "github_url": "https://github.com/acedergren/oci-agent-skills/tree/main/skills/iam-identity-management",
+      "description": ""
+    },
+    {
+      "name": "infrastructure-as-code",
+      "path": "skills/infrastructure-as-code",
+      "github_url": "https://github.com/acedergren/oci-agent-skills/tree/main/skills/infrastructure-as-code",
+      "description": ""
+    },
+    {
+      "name": "networking-management",
+      "path": "skills/networking-management",
+      "github_url": "https://github.com/acedergren/oci-agent-skills/tree/main/skills/networking-management",
+      "description": ""
+    },
+    {
+      "name": "secrets-management",
+      "path": "skills/secrets-management",
+      "github_url": "https://github.com/acedergren/oci-agent-skills/tree/main/skills/secrets-management",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/acedergren/oci-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T12:30:08Z"
+}
