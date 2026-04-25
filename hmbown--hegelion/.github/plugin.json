@@ -1,0 +1,9 @@
+{
+  "name": "hmbown--hegelion",
+  "displayName": "Hegelion",
+  "description": "Dialectical reasoning architecture for LLMs (Thesis \u2192 Antithesis \u2192 Synthesis)",
+  "version": "1.0.0",
+  "author": "Hmbown",
+  "homepage": "https://github.com/Hmbown/Hegelion",
+  "skills": []
+}
