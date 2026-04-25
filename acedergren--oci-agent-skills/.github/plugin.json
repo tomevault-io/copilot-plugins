@@ -1,0 +1,34 @@
+{
+  "name": "acedergren--oci-agent-skills",
+  "displayName": "oci-agent-skills",
+  "description": "Oracle Cloud Infrastructure operations plugin with intelligent agent skills for managing compute, networking, databases, monitoring, secrets, GenAI, IAM, and infrastructure as code",
+  "version": "1.0.0",
+  "author": "acedergren",
+  "homepage": "https://github.com/acedergren/oci-agent-skills",
+  "skills": [
+    {
+      "name": "best-practices",
+      "description": ""
+    },
+    {
+      "name": "genai-services",
+      "description": ""
+    },
+    {
+      "name": "iam-identity-management",
+      "description": ""
+    },
+    {
+      "name": "infrastructure-as-code",
+      "description": ""
+    },
+    {
+      "name": "networking-management",
+      "description": ""
+    },
+    {
+      "name": "secrets-management",
+      "description": ""
+    }
+  ]
+}
