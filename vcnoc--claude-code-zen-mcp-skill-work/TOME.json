@@ -4,7 +4,7 @@
   "repo": "Claude-Code-Zen-mcp-Skill-Work",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/VCnoC",
+  "source_url": "https://github.com/VCnoC/Claude-Code-Zen-mcp-Skill-Work",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T20:30:47Z"
+  "distributed_at": "2026-04-25T06:38:31Z"
 }
