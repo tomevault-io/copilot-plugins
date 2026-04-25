@@ -1,0 +1,14 @@
+{
+  "name": "vijaypemmaraju--tooey",
+  "displayName": "tooey",
+  "description": "a token-efficient ui library https://vijaypemmaraju.github.io/tooey",
+  "version": "1.0.0",
+  "author": "vijaypemmaraju",
+  "homepage": "https://github.com/vijaypemmaraju/tooey",
+  "skills": [
+    {
+      "name": "tooey-ui",
+      "description": ""
+    }
+  ]
+}
