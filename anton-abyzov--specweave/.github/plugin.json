@@ -1,0 +1,9 @@
+{
+  "name": "anton-abyzov--specweave",
+  "displayName": "specweave",
+  "description": "Spec-first AI development: describe a feature \u2192 AI creates spec + plan + tasks, builds autonomously, syncs to GitHub/JIRA. Domain-expert skills for PM, Architect, Frontend, QA learn your patterns perm",
+  "version": "1.0.0",
+  "author": "anton-abyzov",
+  "homepage": "https://github.com/anton-abyzov/specweave",
+  "skills": []
+}
