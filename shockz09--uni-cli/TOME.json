@@ -1,0 +1,129 @@
+{
+  "name": "uni-cli",
+  "owner": "shockz09",
+  "repo": "uni-cli",
+  "description": "CLI for AI agents. 25+ services, zero context overhead.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "uni-airtable",
+      "path": "skill/skills/uni-airtable",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-airtable",
+      "description": ""
+    },
+    {
+      "name": "uni-cli",
+      "path": "skill/skills/uni-cli",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-cli",
+      "description": ""
+    },
+    {
+      "name": "skill",
+      "path": "skill",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill",
+      "description": ""
+    },
+    {
+      "name": "uni-google",
+      "path": "skill/skills/uni-google",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-google",
+      "description": ""
+    },
+    {
+      "name": "uni-productivity",
+      "path": "skill/skills/uni-productivity",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-productivity",
+      "description": ""
+    },
+    {
+      "name": "uni-research",
+      "path": "skill/skills/uni-research",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-research",
+      "description": ""
+    },
+    {
+      "name": "uni-sendgrid",
+      "path": "skill/skills/uni-sendgrid",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-sendgrid",
+      "description": ""
+    },
+    {
+      "name": "uni-spotify",
+      "path": "skill/skills/uni-spotify",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-spotify",
+      "description": ""
+    },
+    {
+      "name": "uni-stripe",
+      "path": "skill/skills/uni-stripe",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-stripe",
+      "description": ""
+    },
+    {
+      "name": "uni-telegram",
+      "path": "skill/skills/uni-telegram",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-telegram",
+      "description": ""
+    },
+    {
+      "name": "uni-trello",
+      "path": "skill/skills/uni-trello",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-trello",
+      "description": ""
+    },
+    {
+      "name": "uni-twilio",
+      "path": "skill/skills/uni-twilio",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-twilio",
+      "description": ""
+    },
+    {
+      "name": "uni-utilities",
+      "path": "skill/skills/uni-utilities",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-utilities",
+      "description": ""
+    },
+    {
+      "name": "uni-wa",
+      "path": "skill/skills/uni-wa",
+      "github_url": "https://github.com/shockz09/uni-cli/tree/main/skill/skills/uni-wa",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shockz09/uni-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T16:31:27Z"
+}
