@@ -1,0 +1,9 @@
+{
+  "name": "21pounder--nochatbot-data-analyze-helper",
+  "displayName": "nochatbot-data-analyze-helper",
+  "description": "A data analyze helper, a agent based on Python. Focused on \"No Chatbot Revolution\", \"Generatieve UI\" or \"Dynamic UI\".",
+  "version": "1.0.0",
+  "author": "21pounder",
+  "homepage": "https://github.com/21pounder/nochatbot-data-analyze-helper",
+  "skills": []
+}
