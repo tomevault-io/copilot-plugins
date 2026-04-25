@@ -1,0 +1,63 @@
+{
+  "name": "conductor",
+  "owner": "blueman82",
+  "repo": "conductor",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "implementation-planner",
+      "path": "skills/implementation-planner",
+      "github_url": "https://github.com/blueman82/conductor/tree/main/skills/implementation-planner",
+      "description": ""
+    },
+    {
+      "name": "plugin-setup-creator",
+      "path": "skills/plugin-setup-creator",
+      "github_url": "https://github.com/blueman82/conductor/tree/main/skills/plugin-setup-creator",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": "skills/release",
+      "github_url": "https://github.com/blueman82/conductor/tree/main/skills/release",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/blueman82/conductor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T00:31:55Z"
+}
