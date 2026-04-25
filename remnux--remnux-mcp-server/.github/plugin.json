@@ -1,0 +1,9 @@
+{
+  "name": "remnux--remnux-mcp-server",
+  "displayName": "remnux-mcp-server",
+  "description": "MCP server for using the REMnux malware analysis toolkit via AI assistants",
+  "version": "1.0.0",
+  "author": "REMnux",
+  "homepage": "https://github.com/REMnux/remnux-mcp-server",
+  "skills": []
+}
