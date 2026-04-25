@@ -1,0 +1,58 @@
+## contextgit
+
+> This repository is managed with contextgit. The AI assistant MUST follow these workflows:
+
+# Cursor Rules for ContextGit
+
+## This Project Uses contextgit for Requirements Traceability
+
+This repository is managed with contextgit. The AI assistant MUST follow these workflows:
+
+### When Making Changes to Requirements or Documentation
+
+1. **BEFORE editing any file in `docs/`:**
+   - Run `contextgit relevant-for-file <path>` to understand related requirements
+   - Run `contextgit extract <ID>` to get precise context for specific requirements
+
+2. **AFTER editing any file in `docs/`:**
+   - Run `contextgit scan docs/ --recursive` to update the index
+   - Run `contextgit status --stale` to check for broken links
+   - If stale links found, update affected downstream items
+
+### When Adding New Requirements
+
+1. Generate a new ID: `contextgit next-id <type>`
+   - Types: `business`, `system`, `architecture`, `code`, `test`, `decision`
+2. Add YAML frontmatter to the Markdown file with the generated ID
+3. Run `contextgit scan docs/ --recursive` to register it
+
+### When a Requirement Changes
+
+1. After editing, run `contextgit scan docs/ --recursive`
+2. Check for stale downstream items: `contextgit status --stale --format json`
+3. Update downstream items if needed
+4. Mark as synchronized: `contextgit confirm <ID>`
+
+### JSON Output for Parsing
+
+Always use `--format json` when the output needs to be parsed:
+```bash
+contextgit show SR-010 --format json
+contextgit status --stale --format json
+contextgit extract SR-010 --format json
+```
+
+### Detection
+
+This is a contextgit project if `.contextgit/config.yaml` exists.
+
+## Project Info
+
+- **Tool**: contextgit v1.0.1
+- **Purpose**: Requirements traceability for LLM-assisted development
+- **Index file**: `.contextgit/requirements_index.yaml`
+- **Config file**: `.contextgit/config.yaml`
+
+---
+> Source: [Mohamedsaleh14/ContextGit](https://github.com/Mohamedsaleh14/ContextGit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
