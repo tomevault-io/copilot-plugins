@@ -1,6 +1,6 @@
-# r8y-2.0 — distributed by TomeVault
+# r8y-2.0
 
-> Originally from [bmdavis419/r8y-2.0](https://github.com/bmdavis419/r8y-2.0). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [bmdavis419/r8y-2.0](https://github.com/bmdavis419/r8y-2.0) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [bmdavis419/r8y-2.0](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/bmdavis419#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/bmdavis419/r8y-2.0](https://github.com/bmdavis419/r8y-2.0)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/bmdavis419) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
