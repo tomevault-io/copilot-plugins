@@ -1,0 +1,9 @@
+{
+  "name": "xigua-wang--skill-doctor",
+  "displayName": "skill-doctor",
+  "description": "Local-first inspector for coding-agent skills, conflicts, precedence, and risk   analysis.",
+  "version": "1.0.0",
+  "author": "xigua-wang",
+  "homepage": "https://github.com/xigua-wang/skill-doctor",
+  "skills": []
+}
