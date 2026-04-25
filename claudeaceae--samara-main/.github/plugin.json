@@ -1,0 +1,50 @@
+{
+  "name": "claudeaceae--samara-main",
+  "displayName": "samara-main",
+  "description": "Bootstrap specification for giving Claude a persistent body, memory, and agency on a Mac",
+  "version": "1.0.0",
+  "author": "claudeaceae",
+  "homepage": "https://github.com/claudeaceae/samara-main",
+  "skills": [
+    {
+      "name": "artifact",
+      "description": ""
+    },
+    {
+      "name": "decide",
+      "description": ""
+    },
+    {
+      "name": "diagnose-leaks",
+      "description": ""
+    },
+    {
+      "name": "episode",
+      "description": ""
+    },
+    {
+      "name": "generate-image",
+      "description": ""
+    },
+    {
+      "name": "look",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "description": ""
+    },
+    {
+      "name": "samara",
+      "description": ""
+    },
+    {
+      "name": "senses",
+      "description": ""
+    },
+    {
+      "name": "stream",
+      "description": ""
+    }
+  ]
+}
