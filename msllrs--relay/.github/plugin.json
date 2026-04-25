@@ -1,0 +1,9 @@
+{
+  "name": "msllrs--relay",
+  "displayName": "relay",
+  "description": "A macOS menu bar app that lets you build rich LLM prompts by combining files, clipboard captures, and voice notes.",
+  "version": "1.0.0",
+  "author": "msllrs",
+  "homepage": "https://github.com/msllrs/relay",
+  "skills": []
+}
