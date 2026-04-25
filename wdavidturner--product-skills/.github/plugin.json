@@ -1,0 +1,58 @@
+{
+  "name": "wdavidturner--product-skills",
+  "displayName": "product-skills",
+  "description": "20 product management frameworks as AI agent skills \u2014 JTBD, OKRs, Shape Up, 7 Powers, and more",
+  "version": "1.0.0",
+  "author": "wdavidturner",
+  "homepage": "https://github.com/wdavidturner/product-skills",
+  "skills": [
+    {
+      "name": "okrs",
+      "description": ""
+    },
+    {
+      "name": "thinking-in-bets",
+      "description": ""
+    },
+    {
+      "name": "hooked-model",
+      "description": ""
+    },
+    {
+      "name": "growth-loops",
+      "description": ""
+    },
+    {
+      "name": "design-sprint",
+      "description": ""
+    },
+    {
+      "name": "opportunity-solution-trees",
+      "description": ""
+    },
+    {
+      "name": "shape-up",
+      "description": ""
+    },
+    {
+      "name": "working-backwards",
+      "description": ""
+    },
+    {
+      "name": "product-led-seo",
+      "description": ""
+    },
+    {
+      "name": "monetizing-innovation",
+      "description": ""
+    },
+    {
+      "name": "pmf-survey",
+      "description": ""
+    },
+    {
+      "name": "trustworthy-experiments",
+      "description": ""
+    }
+  ]
+}
