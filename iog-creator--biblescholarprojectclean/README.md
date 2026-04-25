@@ -1,6 +1,6 @@
-# BibleScholarProjectClean — distributed by TomeVault
+# BibleScholarProjectClean
 
-> Originally from [iog-creator/BibleScholarProjectClean](https://github.com/iog-creator/BibleScholarProjectClean). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [iog-creator/BibleScholarProjectClean](https://github.com/iog-creator/BibleScholarProjectClean) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [iog-creator/BibleScholarProjectClean]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/iog-creator#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/iog-creator/BibleScholarProjectClean](https://github.com/iog-creator/BibleScholarProjectClean)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/iog-creator) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
