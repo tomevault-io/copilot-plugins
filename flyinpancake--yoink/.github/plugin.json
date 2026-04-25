@@ -1,0 +1,9 @@
+{
+  "name": "flyinpancake--yoink",
+  "displayName": "yoink",
+  "description": "yoink is a self-hosted music library manager that supports multiple metadata sources",
+  "version": "1.0.0",
+  "author": "FlyinPancake",
+  "homepage": "https://github.com/FlyinPancake/yoink",
+  "skills": []
+}
