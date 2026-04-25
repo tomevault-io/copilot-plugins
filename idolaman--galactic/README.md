@@ -7,13 +7,13 @@ The command center to ship 10x faster with a parallel Claude Code fleet, featuri
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [idolaman/galactic](https://github.com/idolaman/galactic).
+Original source: `AGENTS.md` in [idolaman/galactic](https://github.com/idolaman/galactic).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
