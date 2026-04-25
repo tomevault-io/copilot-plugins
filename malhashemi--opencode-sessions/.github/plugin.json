@@ -1,0 +1,9 @@
+{
+  "name": "malhashemi--opencode-sessions",
+  "displayName": "opencode-sessions",
+  "description": "Session management plugin for OpenCode with  multi-agent collaboration support",
+  "version": "1.0.0",
+  "author": "malhashemi",
+  "homepage": "https://github.com/malhashemi/opencode-sessions",
+  "skills": []
+}
