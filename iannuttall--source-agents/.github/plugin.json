@@ -1,0 +1,9 @@
+{
+  "name": "iannuttall--source-agents",
+  "displayName": "source-agents",
+  "description": "Keep AGENTS.md and CLAUDE.md in sync across your projects.",
+  "version": "1.0.0",
+  "author": "iannuttall",
+  "homepage": "https://github.com/iannuttall/source-agents",
+  "skills": []
+}
