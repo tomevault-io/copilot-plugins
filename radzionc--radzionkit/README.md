@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [radzionc/radzionkit](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/radzionc#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/radzionc/radzionkit](https://github.com/radzionc/radzionkit)
 
 ---
 
