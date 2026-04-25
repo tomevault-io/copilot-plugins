@@ -1,0 +1,9 @@
+{
+  "name": "warpdotdev--oz-agent-action",
+  "displayName": "oz-agent-action",
+  "description": "Use the Oz coding agent in GitHub Actions",
+  "version": "1.0.0",
+  "author": "warpdotdev",
+  "homepage": "https://github.com/warpdotdev/oz-agent-action",
+  "skills": []
+}
