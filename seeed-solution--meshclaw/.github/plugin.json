@@ -1,0 +1,9 @@
+{
+  "name": "seeed-solution--meshclaw",
+  "displayName": "MeshClaw",
+  "description": "Bring AI to the Mesh \u2014 OpenClaw plugin for Meshtastic LoRa \u00b7 No Internet Required",
+  "version": "1.0.0",
+  "author": "Seeed-Solution",
+  "homepage": "https://github.com/Seeed-Solution/MeshClaw",
+  "skills": []
+}
