@@ -1,0 +1,9 @@
+{
+  "name": "multivmlabs--aeo-js",
+  "displayName": "aeo.js",
+  "description": "Answer Engine Optimization for the modern web. Make your site discoverable by ChatGPT, Claude, Perplexity & AI search engines. Generates llms.txt, robots.txt, sitemap, JSON-LD & more.",
+  "version": "1.0.0",
+  "author": "multivmlabs",
+  "homepage": "https://github.com/multivmlabs/aeo.js",
+  "skills": []
+}
