@@ -1,0 +1,9 @@
+{
+  "name": "dexforce--embodichain",
+  "displayName": "EmbodiChain",
+  "description": "An end-to-end, GPU-accelerated, and modular platform for building generalized Embodied Intelligence.",
+  "version": "1.0.0",
+  "author": "DexForce",
+  "homepage": "https://github.com/DexForce/EmbodiChain",
+  "skills": []
+}
