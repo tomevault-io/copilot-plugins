@@ -1,0 +1,70 @@
+{
+  "name": "benjaminshafii--digital-empire",
+  "displayName": "digital-empire",
+  "description": "OpenWork config for me and my family",
+  "version": "1.0.0",
+  "author": "benjaminshafii",
+  "homepage": "https://github.com/benjaminshafii/digital-empire",
+  "skills": [
+    {
+      "name": "bitwarden",
+      "description": ""
+    },
+    {
+      "name": "browser",
+      "description": ""
+    },
+    {
+      "name": "git-worktree",
+      "description": ""
+    },
+    {
+      "name": "hevy",
+      "description": ""
+    },
+    {
+      "name": "openwork-notary",
+      "description": ""
+    },
+    {
+      "name": "plugin-introspection",
+      "description": ""
+    },
+    {
+      "name": "plugin-logging",
+      "description": ""
+    },
+    {
+      "name": "recipe-batch-components",
+      "description": ""
+    },
+    {
+      "name": "recipe-testing",
+      "description": ""
+    },
+    {
+      "name": "recipes",
+      "description": ""
+    },
+    {
+      "name": "resume",
+      "description": ""
+    },
+    {
+      "name": "self-improve",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "submodule-dev-flow",
+      "description": ""
+    },
+    {
+      "name": "website-deploy",
+      "description": ""
+    }
+  ]
+}
