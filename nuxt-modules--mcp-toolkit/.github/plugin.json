@@ -1,0 +1,9 @@
+{
+  "name": "nuxt-modules--mcp-toolkit",
+  "displayName": "mcp-toolkit",
+  "description": "Create MCP servers directly in your Nuxt application. Define tools, resources, and prompts with a simple and intuitive API.",
+  "version": "1.0.0",
+  "author": "nuxt-modules",
+  "homepage": "https://github.com/nuxt-modules/mcp-toolkit",
+  "skills": []
+}
