@@ -1,0 +1,9 @@
+{
+  "name": "wesm--middleman",
+  "displayName": "middleman",
+  "description": "Local-first GitHub dashboard for maintainers to triage, review, and merge PRs and issues across repos without needing GitHub's built-in notification emails or dashboard",
+  "version": "1.0.0",
+  "author": "wesm",
+  "homepage": "https://github.com/wesm/middleman",
+  "skills": []
+}
