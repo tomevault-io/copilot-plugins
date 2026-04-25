@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--ncx-infra-controller-core",
+  "displayName": "ncx-infra-controller-core",
+  "description": "NCX Infra Controller - Hardware Lifecycle Management and multitenant networking",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/ncx-infra-controller-core",
+  "skills": []
+}
