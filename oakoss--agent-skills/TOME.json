@@ -1,0 +1,57 @@
+{
+  "name": "agent-skills",
+  "owner": "oakoss",
+  "repo": "agent-skills",
+  "description": "AI instruction skills by oakoss",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ci-cd-architecture",
+      "path": "skills/ci-cd-architecture",
+      "github_url": "https://github.com/oakoss/agent-skills/tree/main/skills/ci-cd-architecture",
+      "description": ""
+    },
+    {
+      "name": "github-actions",
+      "path": "skills/github-actions",
+      "github_url": "https://github.com/oakoss/agent-skills/tree/main/skills/github-actions",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oakoss/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T12:31:22Z"
+}
