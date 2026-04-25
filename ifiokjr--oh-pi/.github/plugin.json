@@ -1,0 +1,9 @@
+{
+  "name": "ifiokjr--oh-pi",
+  "displayName": "oh-pi",
+  "description": "One-click setup for pi-coding-agent \u2014 extensions, themes, prompts, skills, and ant-colony swarm. Like oh-my-zsh for pi.",
+  "version": "1.0.0",
+  "author": "ifiokjr",
+  "homepage": "https://github.com/ifiokjr/oh-pi",
+  "skills": []
+}
