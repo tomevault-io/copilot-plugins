@@ -1,0 +1,18 @@
+{
+  "name": "yoloshii--mcp-code-execution-enhanced",
+  "displayName": "mcp-code-execution-enhanced",
+  "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing",
+  "version": "1.0.0",
+  "author": "yoloshii",
+  "homepage": "https://github.com/yoloshii/mcp-code-execution-enhanced",
+  "skills": [
+    {
+      "name": "multi-tool-pipeline",
+      "description": ""
+    },
+    {
+      "name": "simple-fetch",
+      "description": ""
+    }
+  ]
+}
