@@ -1,0 +1,9 @@
+{
+  "name": "ggprompts--tabzchrome",
+  "displayName": "TabzChrome",
+  "description": "Chrome extension for managing tmux sessions in a persistent sidebar",
+  "version": "1.0.0",
+  "author": "GGPrompts",
+  "homepage": "https://github.com/GGPrompts/TabzChrome",
+  "skills": []
+}
