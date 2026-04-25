@@ -1,0 +1,99 @@
+{
+  "name": "skilljack-mcp",
+  "owner": "olaservo",
+  "repo": "skilljack-mcp",
+  "description": "MCP server that discovers and serves Agent Skills.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-style",
+      "path": "evals/skills/code-style",
+      "github_url": "https://github.com/olaservo/skilljack-mcp/tree/main/evals/skills/code-style",
+      "description": ""
+    },
+    {
+      "name": "greeting",
+      "path": "evals/skills/greeting",
+      "github_url": "https://github.com/olaservo/skilljack-mcp/tree/main/evals/skills/greeting",
+      "description": ""
+    },
+    {
+      "name": "skilljack-docs",
+      "path": "skills/skilljack-docs",
+      "github_url": "https://github.com/olaservo/skilljack-mcp/tree/main/skills/skilljack-docs",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk-ts",
+      "path": "skills/claude-agent-sdk-ts",
+      "github_url": "https://github.com/olaservo/skilljack-mcp/tree/main/skills/claude-agent-sdk-ts",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-terminal-ts",
+      "path": "skills/claude-agent-terminal-ts",
+      "github_url": "https://github.com/olaservo/skilljack-mcp/tree/main/skills/claude-agent-terminal-ts",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-ui-ts",
+      "path": "skills/claude-agent-ui-ts",
+      "github_url": "https://github.com/olaservo/skilljack-mcp/tree/main/skills/claude-agent-ui-ts",
+      "description": ""
+    },
+    {
+      "name": "mcp-apps-ts",
+      "path": "skills/mcp-apps-ts",
+      "github_url": "https://github.com/olaservo/skilljack-mcp/tree/main/skills/mcp-apps-ts",
+      "description": ""
+    },
+    {
+      "name": "mcp-client-ts",
+      "path": "skills/mcp-client-ts",
+      "github_url": "https://github.com/olaservo/skilljack-mcp/tree/main/skills/mcp-client-ts",
+      "description": ""
+    },
+    {
+      "name": "mcp-server-ts",
+      "path": "skills/mcp-server-ts",
+      "github_url": "https://github.com/olaservo/skilljack-mcp/tree/main/skills/mcp-server-ts",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/olaservo/skilljack-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T16:32:48Z"
+}
