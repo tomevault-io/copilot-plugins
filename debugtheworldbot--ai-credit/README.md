@@ -1,23 +1,30 @@
 # ai-credit
 
-> Config by [debugtheworldbot](https://github.com/debugtheworldbot/ai-credit) — distributed by [TomeVault](https://tomevault.io/claim/debugtheworldbot)
+> Source: [debugtheworldbot/ai-credit](https://github.com/debugtheworldbot/ai-credit) — distributed by [TomeVault](https://tomevault.io)
+
+A command-line tool to track and analyze AI coding assistants' contributions in your codebase
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [debugtheworldbot/ai-credit](https://github.com/debugtheworldbot/ai-credit).
+Original source: `AGENTS.md` in [debugtheworldbot/ai-credit](https://github.com/debugtheworldbot/ai-credit).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/debugtheworldbot](https://tomevault.io/claim/debugtheworldbot)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/debugtheworldbot/ai-credit](https://github.com/debugtheworldbot/ai-credit)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/debugtheworldbot) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install debugtheworldbot/ai-credit
+```
+Source: [github.com/debugtheworldbot/ai-credit](https://github.com/debugtheworldbot/ai-credit).
+
+<!-- genome:d-i-p -->
