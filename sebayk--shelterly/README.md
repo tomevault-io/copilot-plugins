@@ -1,6 +1,6 @@
 # Shelterly
 
-> Config by [SebayK](https://github.com/SebayK/Shelterly) — distributed by [TomeVault](https://tomevault.io/claim/SebayK)
+> Source: [SebayK/Shelterly](https://github.com/SebayK/Shelterly) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [SebayK/Shelterly](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/SebayK](https://tomevault.io/claim/SebayK)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/SebayK/Shelterly](https://github.com/SebayK/Shelterly)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/SebayK) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install SebayK/Shelterly
+```
+Source: [github.com/SebayK/Shelterly](https://github.com/SebayK/Shelterly).
+
+<!-- genome:d-i-q -->
