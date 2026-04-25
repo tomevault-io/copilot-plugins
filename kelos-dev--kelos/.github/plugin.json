@@ -1,0 +1,9 @@
+{
+  "name": "kelos-dev--kelos",
+  "displayName": "kelos",
+  "description": "Kelos - The Kubernetes-native framework for orchestrating autonomous AI coding agents.",
+  "version": "1.0.0",
+  "author": "kelos-dev",
+  "homepage": "https://github.com/kelos-dev/kelos",
+  "skills": []
+}
