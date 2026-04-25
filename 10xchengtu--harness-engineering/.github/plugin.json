@@ -1,0 +1,9 @@
+{
+  "name": "10xchengtu--harness-engineering",
+  "displayName": "harness-engineering",
+  "description": "Set up and improve harness engineering (AGENTS.md, docs/, lint rules, eval systems, project-level prompt engineering) for AI-agent-friendly codebases. Triggers on: new/empty project setup for AI agent",
+  "version": "1.0.0",
+  "author": "10xChengTu",
+  "homepage": "https://github.com/10xChengTu/harness-engineering",
+  "skills": []
+}
