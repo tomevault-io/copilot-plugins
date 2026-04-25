@@ -1,0 +1,9 @@
+{
+  "name": "steipete--tautui",
+  "displayName": "TauTUI",
+  "description": "Port of pi-tui - a simple yet powerful tui for Swift.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/TauTUI",
+  "skills": []
+}
