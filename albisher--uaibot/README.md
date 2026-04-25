@@ -1,6 +1,6 @@
-# UaiBot — distributed by TomeVault
+# UaiBot
 
-> Originally from [albisher/UaiBot](https://github.com/albisher/UaiBot). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [albisher/UaiBot](https://github.com/albisher/UaiBot) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [albisher/UaiBot](https://github.com/a
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/albisher#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/albisher/UaiBot](https://github.com/albisher/UaiBot)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/albisher) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
