@@ -1,0 +1,9 @@
+{
+  "name": "agenticdataprotocol--python-sdk",
+  "displayName": "python-sdk",
+  "description": "Python client SDK for connecting agents to any ADP-compliant server",
+  "version": "1.0.0",
+  "author": "agenticdataprotocol",
+  "homepage": "https://github.com/agenticdataprotocol/python-sdk",
+  "skills": []
+}
