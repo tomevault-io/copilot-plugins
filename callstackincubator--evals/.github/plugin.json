@@ -1,0 +1,9 @@
+{
+  "name": "callstackincubator--evals",
+  "displayName": "evals",
+  "description": "A benchmark suite for evaluating how coding models solve real React Native tasks.",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/evals",
+  "skills": []
+}
