@@ -1,0 +1,9 @@
+{
+  "name": "themattberman--seo-kit",
+  "displayName": "seo-kit",
+  "description": "AI agent that finds keywords, writes content, monitors rankings, and self-improves. Two OpenClaw skills that chain into a compounding SEO loop.",
+  "version": "1.0.0",
+  "author": "TheMattBerman",
+  "homepage": "https://github.com/TheMattBerman/seo-kit",
+  "skills": []
+}
