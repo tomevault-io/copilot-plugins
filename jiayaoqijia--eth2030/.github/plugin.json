@@ -1,0 +1,9 @@
+{
+  "name": "jiayaoqijia--eth2030",
+  "displayName": "eth2030",
+  "description": "Ethereum execution client targeting the 2030 roadmap. 50 packages, 18K+ tests, 58 EIPs, 100% EF conformance.",
+  "version": "1.0.0",
+  "author": "jiayaoqijia",
+  "homepage": "https://github.com/jiayaoqijia/eth2030",
+  "skills": []
+}
