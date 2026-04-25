@@ -1,0 +1,105 @@
+{
+  "name": "pubmed-search-mcp",
+  "owner": "u9401066",
+  "repo": "pubmed-search-mcp",
+  "description": "\ud83d\udd2c Professional MCP server for biomedical literature research \u2014 40 tools, multi-source search (PubMed, Europe PMC, CORE, OpenAlex), full-text access, citation networks, PICO analysis, and more",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-refactor",
+      "path": ".claude/skills/code-refactor",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/code-refactor",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": ".claude/skills/code-reviewer",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "ddd-architect",
+      "path": ".claude/skills/ddd-architect",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/ddd-architect",
+      "description": ""
+    },
+    {
+      "name": "git-doc-updater",
+      "path": ".claude/skills/git-doc-updater",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/git-doc-updater",
+      "description": ""
+    },
+    {
+      "name": "git-precommit",
+      "path": ".claude/skills/git-precommit",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/git-precommit",
+      "description": ""
+    },
+    {
+      "name": "pubmed-gene-drug-research",
+      "path": ".claude/skills/pubmed-gene-drug-research",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/pubmed-gene-drug-research",
+      "description": ""
+    },
+    {
+      "name": "pubmed-pico-search",
+      "path": ".claude/skills/pubmed-pico-search",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/pubmed-pico-search",
+      "description": ""
+    },
+    {
+      "name": "readme-updater",
+      "path": ".claude/skills/readme-updater",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/readme-updater",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "path": ".claude/skills/test-generator",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/test-generator",
+      "description": ""
+    },
+    {
+      "name": "tool-sync",
+      "path": ".claude/skills/tool-sync",
+      "github_url": "https://github.com/u9401066/pubmed-search-mcp/tree/main/.claude/skills/tool-sync",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/u9401066/pubmed-search-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T21:31:37Z"
+}
