@@ -1,0 +1,9 @@
+{
+  "name": "iofficeai--aionrs",
+  "displayName": "aionrs",
+  "description": "A multi-provider AI agent CLI with tool orchestration support",
+  "version": "1.0.0",
+  "author": "iOfficeAI",
+  "homepage": "https://github.com/iOfficeAI/aionrs",
+  "skills": []
+}
