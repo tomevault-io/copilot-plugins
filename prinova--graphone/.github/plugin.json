@@ -1,0 +1,9 @@
+{
+  "name": "prinova--graphone",
+  "displayName": "graphone",
+  "description": "A visual workbench for coding agent orchestration for Windows, Linux & macOS. Chat interface for local & remote LLMs. Built with Tauri 2.x and Svelte 5.",
+  "version": "1.0.0",
+  "author": "PriNova",
+  "homepage": "https://github.com/PriNova/graphone",
+  "skills": []
+}
