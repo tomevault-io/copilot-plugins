@@ -1,0 +1,9 @@
+{
+  "name": "iamtouchskyer--logex",
+  "displayName": "logex",
+  "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs",
+  "version": "1.0.0",
+  "author": "iamtouchskyer",
+  "homepage": "https://github.com/iamtouchskyer/logex",
+  "skills": []
+}
