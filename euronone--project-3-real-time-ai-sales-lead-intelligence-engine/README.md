@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [euronone/Project-3-Real-Time-AI-Sales
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/euronone#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/euronone/Project-3-Real-Time-AI-Sales-Lead-Intelligence-Engine](https://github.com/euronone/Project-3-Real-Time-AI-Sales-Lead-Intelligence-Engine)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install euronone/Project-3-Real-Time-AI-Sales-Lead-Intelligence-Engine
 ```
-Or browse all formats at [https://tomevault.io/claim/euronone](https://tomevault.io/claim/euronone).
+Source: [github.com/euronone/Project-3-Real-Time-AI-Sales-Lead-Intelligence-Engine](https://github.com/euronone/Project-3-Real-Time-AI-Sales-Lead-Intelligence-Engine).
 
 <!-- genome:a-i-q -->
