@@ -1,0 +1,9 @@
+{
+  "name": "pansther--note-tui",
+  "displayName": "note-tui",
+  "description": "A Vim-friendly terminal user interface (TUI) application for managing notes.",
+  "version": "1.0.0",
+  "author": "Pansther",
+  "homepage": "https://github.com/Pansther/note-tui",
+  "skills": []
+}
