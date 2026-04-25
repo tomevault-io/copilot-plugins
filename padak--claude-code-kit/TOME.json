@@ -1,0 +1,93 @@
+{
+  "name": "claude-code-kit",
+  "owner": "padak",
+  "repo": "claude-code-kit",
+  "description": "AI instruction skills by padak",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-agent-sdk",
+      "path": ".claude/skills/claude-agent-sdk",
+      "github_url": "https://github.com/padak/claude-code-kit/tree/main/.claude/skills/claude-agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "e2b",
+      "path": ".claude/skills/e2b",
+      "github_url": "https://github.com/padak/claude-code-kit/tree/main/.claude/skills/e2b",
+      "description": ""
+    },
+    {
+      "name": "keboola-data-app",
+      "path": ".claude/skills/keboola-data-app",
+      "github_url": "https://github.com/padak/claude-code-kit/tree/main/.claude/skills/keboola-data-app",
+      "description": ""
+    },
+    {
+      "name": "polymarket",
+      "path": ".claude/skills/polymarket",
+      "github_url": "https://github.com/padak/claude-code-kit/tree/main/.claude/skills/polymarket",
+      "description": ""
+    },
+    {
+      "name": "post-merge",
+      "path": ".claude/skills/post-merge",
+      "github_url": "https://github.com/padak/claude-code-kit/tree/main/.claude/skills/post-merge",
+      "description": ""
+    },
+    {
+      "name": "second-opinion",
+      "path": ".claude/skills/second-opinion",
+      "github_url": "https://github.com/padak/claude-code-kit/tree/main/.claude/skills/second-opinion",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/padak/claude-code-kit/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "swarm",
+      "path": ".claude/skills/swarm",
+      "github_url": "https://github.com/padak/claude-code-kit/tree/main/.claude/skills/swarm",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/padak/claude-code-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T00:30:43Z"
+}
