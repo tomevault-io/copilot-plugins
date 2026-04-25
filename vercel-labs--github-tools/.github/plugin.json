@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--github-tools",
+  "displayName": "github-tools",
+  "description": "GitHub tools and agents for the Vercel AI SDK, wrap GitHub's API as AI SDK tools ready to plug into any agent",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/github-tools",
+  "skills": []
+}
