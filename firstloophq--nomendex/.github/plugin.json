@@ -1,0 +1,38 @@
+{
+  "name": "firstloophq--nomendex",
+  "displayName": "nomendex",
+  "description": "AI instruction skills by firstloophq",
+  "version": "1.0.0",
+  "author": "firstloophq",
+  "homepage": "https://github.com/firstloophq/nomendex",
+  "skills": [
+    {
+      "name": "create-skill",
+      "description": ""
+    },
+    {
+      "name": "macos-scrollbar",
+      "description": ""
+    },
+    {
+      "name": "prosemirror-notes",
+      "description": ""
+    },
+    {
+      "name": "tab-control",
+      "description": ""
+    },
+    {
+      "name": "ui-design",
+      "description": ""
+    },
+    {
+      "name": "version-bump",
+      "description": ""
+    },
+    {
+      "name": "workspace-tabs",
+      "description": ""
+    }
+  ]
+}
