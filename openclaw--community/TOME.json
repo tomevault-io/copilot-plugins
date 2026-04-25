@@ -1,0 +1,81 @@
+{
+  "name": "community",
+  "owner": "openclaw",
+  "repo": "community",
+  "description": "Policies and Documentation for the OpenClaw Discord server",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zoom-meeting-assistance-with-rtms-unofficial-community-skill",
+      "path": "skills/tanchunsiong/zoom-meeting-assistance-with-rtms-unofficial-community-skill",
+      "github_url": "https://github.com/openclaw/community/tree/main/skills/tanchunsiong/zoom-meeting-assistance-with-rtms-unofficial-community-skill",
+      "description": ""
+    },
+    {
+      "name": "zoom-unofficial-community-skill",
+      "path": "skills/tanchunsiong/zoom-unofficial-community-skill",
+      "github_url": "https://github.com/openclaw/community/tree/main/skills/tanchunsiong/zoom-unofficial-community-skill",
+      "description": ""
+    },
+    {
+      "name": "afrexai-community-growth-engine",
+      "path": "skills/1kalin/afrexai-community-growth-engine",
+      "github_url": "https://github.com/openclaw/community/tree/main/skills/1kalin/afrexai-community-growth-engine",
+      "description": ""
+    },
+    {
+      "name": "community-mod-pack",
+      "path": "skills/codedao12/community-mod-pack",
+      "github_url": "https://github.com/openclaw/community/tree/main/skills/codedao12/community-mod-pack",
+      "description": ""
+    },
+    {
+      "name": "openclaw-reportstudio-community",
+      "path": "skills/xutianliang77-create/openclaw-reportstudio-community",
+      "github_url": "https://github.com/openclaw/community/tree/main/skills/xutianliang77-create/openclaw-reportstudio-community",
+      "description": ""
+    },
+    {
+      "name": "steam-community-inventory",
+      "path": "skills/bluesyparty-src/steam-community-inventory",
+      "github_url": "https://github.com/openclaw/community/tree/main/skills/bluesyparty-src/steam-community-inventory",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/community",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T08:30:51Z"
+}
