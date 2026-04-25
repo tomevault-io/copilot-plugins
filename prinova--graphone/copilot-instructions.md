@@ -1,0 +1,243 @@
+## graphone
+
+> - **Check local code first** - Before using GitHub tools (`read_github`, `search_github`, etc.), always explore the local codebase using standard file tools (`read`, `bash` with `find`/`grep`, etc.)
+
+# Graphone - Agent Quick Reference
+
+## Agent Workflow Guidelines
+
+- **Check local code first** - Before using GitHub tools (`read_github`, `search_github`, etc.), always explore the local codebase using standard file tools (`read`, `bash` with `find`/`grep`, etc.)
+- **Check pi-mono first for feature implementations** - Since graphone is a visual wrapper around pi-mono, look up implementations in local `../pi-mono` first (when available). Many features already exist there and can be mimicked or adapted for desktop UI
+- Use GitHub tools only when you need to reference external repositories or when explicitly asked about remote code
+- **Do not track or push `docs/` changes** - The `docs/` folder and all files under it are local-only in this repo context. Do not `git add`/commit/push anything in `docs/` (including with `git add -f`) unless the user explicitly overrides this rule in the current task.
+- **Use title + body commit messages by default** - Unless the user explicitly requests otherwise, write commits with a concise title and a descriptive body (not title-only).
+- **Use robust multiline commit messages** - Do not embed literal `\n` in a single `git commit -m` string. Use multiple `-m` flags (one per paragraph) or `git commit -F` with a heredoc/file so line breaks render correctly on GitHub.
+- **PAT push hygiene** - If pushing with `GITHUB_PAT`, pass it via git auth headers/env only; never echo, print, or otherwise expose the token in commands/output.
+- **Default autonomous iteration guidance** - For general coding-agent-first execution patterns (tests, TDD/debug loops, logs, traces, artifacts, contracts, smokes, escalation), see `docs/agent-first-autonomous-iteration-playbook.md`
+- **Visual verification uses readiness loops, not fixed sleeps** - Follow the global workflow `bash -> readiness loop -> take_screenshot -> bash cleanup`. The readiness wait must happen inside the startup `bash` call because screenshot tools cannot run until that tool call returns.
+- **Do not start and stop dev helpers in parallel** - Startup and cleanup are separate sequential tool calls, with `take_screenshot` between them. Running `start-dev-and-wait.sh` and `stop-dev.sh` in parallel is invalid and defeats the workflow.
+- **Prefer project helper scripts for visual checks** - For Graphone, use `tooling/scripts/start-dev-and-wait.sh` and `tooling/scripts/stop-dev.sh` instead of rewriting startup/cleanup loops inline.
+
+## Visual Verification Hints (Graphone)
+
+- Use the project helper scripts instead of writing long inline readiness loops in `bash` commands.
+- Preferred sequence for visual checks:
+  1. `bash tooling/scripts/start-dev-and-wait.sh`
+  2. `take_screenshot`
+  3. `bash tooling/scripts/stop-dev.sh`
+- Never run steps 1 and 3 in parallel.
+- Startup helper artifacts:
+  - log: `/tmp/graphone-dev.log`
+  - process group: `/tmp/graphone-dev.pgid`
+  - app pid: `/tmp/graphone-dev.app.pid`
+- `tooling/scripts/start-dev-and-wait.sh` waits for these Graphone readiness signals:
+  1. Vite log contains `VITE` and `ready` (or the local URL line)
+  2. Tauri has launched `target/debug/graphone`
+  3. The debug desktop process exists
+- Avoid taking screenshots while only Vite is ready but the Tauri desktop window has not launched yet
+- If startup fails or times out, inspect `/tmp/graphone-dev.log`
+
+## Build Commands
+
+- `npm install` - Install dependencies
+- `npm run check` - Type check Svelte/TypeScript (runs automatically on build)
+- `npm run check:watch` - Type check in watch mode (for development)
+- `npm run check:repo` - Run repository guardrails (legacy path/symlink regression checks)
+- `npm run format` - Format all code (Svelte, TypeScript, Markdown, Rust)
+- `npm run format:check` - Check if code is formatted (CI-style, exits with error if not)
+- `npm run dev:linux` - Dev server (Linux native)
+- `npm run dev:windows` - Dev server (Windows cross-compile)
+- `npm run build` - Type check + build frontend (runs `check` first)
+- `npm run build:linux` - Full Linux AppImage/deb build (includes type check)
+- `npm run build:windows` - Full Windows NSIS installer build (includes type check)
+- `npm run build:windows:exe` - Build Windows .exe only (no installer needed)
+- `npm run build:windows:portable` - Build Windows .exe + stage portable runtime folder with sidecar assets
+- `npm run build:macos:local` - Build local ad-hoc signed macOS `.app` + `.dmg`
+- `npm run build:macos:local:app` - Build local ad-hoc signed macOS `.app` only
+- `npm run build:all` - Build Linux + Windows
+- `npm run run:windows` - Build (if needed), stage portable runtime, and launch the Windows app via host interop (if available)
+
+## Stack & Architecture
+
+- **Frontend**: Svelte 5 + TypeScript + Vite
+- **Desktop shell**: Rust + Tauri 2.0 (`src-tauri`) for native desktop packaging/windowing
+- **Canonical runtime/service**: Graphone-local SDK host sidecar (`services/agent-host`, compiled with bun)
+- **Pattern**: Desktop uses one host sidecar process that multiplexes multiple in-process agent sessions
+- **Strategic direction**: Design new features for **multi-agent orchestration** first (parallel sessions, concurrent windows/views, and coordination-friendly state flows)
+- **Platform strategy**: Keep core behavior **platform-agnostic**; isolate OS-specific behavior behind small adapters and maintain parity across Linux/Windows/macOS (and future targets)
+- **Architecture direction**: Tauri is a **replaceable desktop shell**, not the long-term app/runtime boundary. Build around service + client seams so browser and future mobile clients do not depend on Tauri.
+- **SDK source**: Host sidecar consumes `@mariozechner/pi-coding-agent` from npm
+
+## Project Structure
+
+```
+graphone/
+├── apps/
+│   └── desktop/
+│       └── web/                 # Svelte frontend app
+│           ├── src/
+│           └── static/
+├── src-tauri/                   # Rust/Tauri desktop shell (replaceable host shell)
+│   ├── src/                     # Rust backend
+│   ├── binaries/                # Sidecar binaries (auto-populated by build.rs)
+│   ├── capabilities/            # Tauri permissions (desktop.json, mobile.json)
+│   ├── .cargo/config.toml       # lld linker settings per-target
+│   ├── build.rs                 # Auto-builds host sidecar binary with bun
+│   ├── Cargo.toml
+│   ├── tauri.conf.json          # base bundle config (Windows/macOS)
+│   ├── tauri.linux.conf.json    # Linux resource-based sidecar bundle override
+│   └── tauri.macos.local.conf.json # Local macOS ad-hoc signing/resource bundle config
+├── services/
+│   └── agent-host/              # Graphone host sidecar source
+├── tooling/
+│   └── scripts/                 # Build/run/verify scripts
+└── package.json
+```
+
+Frontend canonical paths:
+
+- `apps/desktop/web/src`
+- `apps/desktop/web/static`
+
+Canonical repo map (quick):
+
+- `apps/desktop/web` → Svelte frontend workspace
+- `src-tauri` → Rust/Tauri desktop shell (not the canonical runtime boundary)
+- `services/agent-host` → host sidecar source (bun)
+- `tooling/scripts` → helper scripts
+
+## Environment Status (February 2026)
+
+### Host System
+
+- **Platform**: Linux VM (3D acceleration enabled)
+- **OS**: Ubuntu 24.04.3 LTS
+- **Arch**: x86_64
+
+### Installed Components
+
+| Component             | Version  | Status                                  |
+| --------------------- | -------- | --------------------------------------- |
+| Node.js               | v22.21.0 | ✅                                      |
+| npm                   | 10.9.4   | ✅                                      |
+| bun                   | 1.x      | ✅ **Required for sidecar compilation** |
+| Rust                  | 1.93.0   | ✅                                      |
+| Tauri CLI             | 2.10.0   | ✅                                      |
+| cargo-xwin            | Latest   | ✅ Windows cross-compile                |
+| lld                   | Latest   | ✅ Fast linking                         |
+| nsis                  | Latest   | ✅ Windows installers                   |
+| libwebkit2gtk-4.1-dev | Latest   | ✅                                      |
+| libappindicator3-dev  | Latest   | ✅                                      |
+| librsvg2-dev          | 2.58.0   | ✅                                      |
+| DISPLAY               | Varies   | ✅ Linux GUI session dependent          |
+| WAYLAND_DISPLAY       | Varies   | ✅ Linux GUI session dependent          |
+| Python3               | 3.12.3   | ✅ python3                              |
+
+### Rust Targets
+
+| Target                   | Status                   |
+| ------------------------ | ------------------------ |
+| x86_64-unknown-linux-gnu | ✅ Linux desktop         |
+| x86_64-pc-windows-msvc   | ✅ Windows cross-compile |
+| aarch64-linux-android    | ✅ Android ARM64         |
+| x86_64-linux-android     | ✅ Android x86_64        |
+
+## Critical Development Notes
+
+### Linux Filesystem (Critical)
+
+- **Store project on a local Linux filesystem** (`/home/<username>/projects/`) and avoid shared/network mounts for best build performance
+
+### Windows Cross-Compilation
+
+- Uses `cargo-xwin` via `--runner cargo-xwin` flag (npm scripts handle this automatically)
+- NSIS creates Windows installers on Linux; MSI requires Windows (WiX toolset)
+- **TaskDialogIndirect issue RESOLVED** - Windows manifest embedded via Tauri's `WindowsAttributes.app_manifest()`
+
+### Sidecar Build (Automatic)
+
+- Sidecar is built automatically during Tauri/Cargo builds via `src-tauri/build.rs`
+- Build source: `services/agent-host` (Graphone-local host multiplexer)
+- Runtime SDK assets: `node_modules/@mariozechner/pi-coding-agent` (pinned npm dependency)
+- Requires **bun**: `curl -fsSL https://bun.sh/install | bash`
+- Binary naming: `pi-<target-triple>` (with `.exe` for Windows)
+- bun compiles host `dist/cli.js` to a standalone binary (not cargo/Rust)
+
+### Linker Configuration (.cargo/config.toml)
+
+- **Linux**: `lld` via `clang -fuse-ld=lld` (2-10x faster than system linker)
+- **Windows**: Handled automatically by `cargo-xwin`
+- **Android**: `lld` (from NDK)
+
+## Common Issues & Solutions
+
+| Issue                                       | Solution                                                                   |
+| ------------------------------------------- | -------------------------------------------------------------------------- |
+| `bun: command not found`                    | `export PATH="$HOME/.bun/bin:$PATH"`                                       |
+| `pi-coding-agent` missing in `node_modules` | Run `npm install` in project root                                          |
+| `makensis.exe: No such file`                | `sudo apt install nsis` or use `build:windows:exe`                         |
+| `shell32.lib` / `kernel32.lib` not found    | Use `npm run build:windows` (handles cargo-xwin)                           |
+| Windows app won't open                      | Install WebView2 Runtime on Windows                                        |
+| Slow builds                                 | Verify project is on a local Linux filesystem (not a shared/network mount) |
+| "TaskDialogIndirect could not be located"   | Fixed - rebuild with `npm run build:windows`                               |
+
+## Frontend Development Rules
+
+### Type Checking
+
+- **`npm run build` now includes type checking** - The build script runs `svelte-check` first to catch TypeScript/Svelte errors
+- **`npm run check`** - Run type checking standalone (uses `svelte-check --fail-on-warnings`)
+- **`npm run check:watch`** - Run type checking in watch mode during development
+- Type errors and warnings will fail the build - fix them before committing
+
+### Tailwind v4 + Svelte 5
+
+- **Single CSS entry**: Use one `index.css` with `@import 'tailwindcss'` - do NOT split into multiple CSS files with `@import`
+- **No CSS imports in Svelte `<style>`**: Import CSS in `<script>` block only: `import '$lib/styles/index.css'`
+
+### Cross-Platform Layout (WebView2 vs WebKitGTK)
+
+Windows WebView2 requires explicit height inheritance for flexbox layouts to work:
+
+```css
+/* Required in global CSS for Windows */
+html,
+body,
+#app,
+#svelte {
+  height: 100%;
+  width: 100%;
+}
+html,
+body {
+  overflow: hidden;
+}
+```
+
+### Flexbox Pattern for Fixed Header/Scrollable Content/Fixed Footer
+
+```svelte
+<!-- Parent must have explicit height (h-screen) -->
+<div class="flex flex-col h-screen overflow-hidden">
+  <!-- Header/Input: prevent shrinking -->
+  <header class="shrink-0">...</header>
+
+  <!-- Scrollable area: flex-1 + min-h-0 is critical -->
+  <div class="flex-1 min-h-0 overflow-y-auto">...</div>
+
+  <!-- Footer/Input: prevent shrinking -->
+  <section class="shrink-0">...</section>
+</div>
+```
+
+**Key classes**: `shrink-0` (fixed elements), `flex-1 min-h-0` (scrollable area), `overflow-hidden` (container)
+
+## External References
+
+- Tauri 2.0: https://v2.tauri.app
+- bun: https://bun.sh/docs
+- cargo-xwin: https://github.com/rust-cross/cargo-xwin
+
+---
+> Source: [PriNova/graphone](https://github.com/PriNova/graphone) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
