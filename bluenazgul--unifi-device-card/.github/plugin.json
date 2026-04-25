@@ -1,0 +1,9 @@
+{
+  "name": "bluenazgul--unifi-device-card",
+  "displayName": "unifi-device-card",
+  "description": "HA Dashboard Card for Unifi Devices (Switches)",
+  "version": "1.0.0",
+  "author": "bluenazgul",
+  "homepage": "https://github.com/bluenazgul/unifi-device-card",
+  "skills": []
+}
