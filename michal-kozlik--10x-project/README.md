@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [michal-kozlik/10x-project](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/michal-kozlik)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/michal-kozlik/10x-project](https://github.com/michal-kozlik/10x-project)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install michal-kozlik/10x-project
 ```
-Or browse all formats at [https://tomevault.io/claim/michal-kozlik](https://tomevault.io/claim/michal-kozlik).
+Source: [github.com/michal-kozlik/10x-project](https://github.com/michal-kozlik/10x-project).
 
 <!-- genome:a-i-p -->
