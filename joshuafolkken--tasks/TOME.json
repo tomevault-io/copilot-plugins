@@ -4,7 +4,7 @@
   "repo": "tasks",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/joshuafolkken",
+  "source_url": "https://github.com/joshuafolkken/tasks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T03:42:24Z"
+  "distributed_at": "2026-04-25T10:54:21Z"
 }
