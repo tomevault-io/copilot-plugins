@@ -1,0 +1,50 @@
+{
+  "name": "u9401066--pubmed-search-mcp",
+  "displayName": "pubmed-search-mcp",
+  "description": "\ud83d\udd2c Professional MCP server for biomedical literature research \u2014 40 tools, multi-source search (PubMed, Europe PMC, CORE, OpenAlex), full-text access, citation networks, PICO analysis, and more",
+  "version": "1.0.0",
+  "author": "u9401066",
+  "homepage": "https://github.com/u9401066/pubmed-search-mcp",
+  "skills": [
+    {
+      "name": "code-refactor",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "ddd-architect",
+      "description": ""
+    },
+    {
+      "name": "git-doc-updater",
+      "description": ""
+    },
+    {
+      "name": "git-precommit",
+      "description": ""
+    },
+    {
+      "name": "pubmed-gene-drug-research",
+      "description": ""
+    },
+    {
+      "name": "pubmed-pico-search",
+      "description": ""
+    },
+    {
+      "name": "readme-updater",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "description": ""
+    },
+    {
+      "name": "tool-sync",
+      "description": ""
+    }
+  ]
+}
