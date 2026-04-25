@@ -1,0 +1,93 @@
+{
+  "name": "vibe-skills",
+  "owner": "cuongtl1992",
+  "repo": "vibe-skills",
+  "description": "The Skills collection for Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bdd-practices",
+      "path": "skills/common/bdd-practices",
+      "github_url": "https://github.com/cuongtl1992/vibe-skills/tree/main/skills/common/bdd-practices",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "skills/common/code-reviewer",
+      "github_url": "https://github.com/cuongtl1992/vibe-skills/tree/main/skills/common/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "dotnet-ddd",
+      "path": "skills/backend/dotnet-ddd",
+      "github_url": "https://github.com/cuongtl1992/vibe-skills/tree/main/skills/backend/dotnet-ddd",
+      "description": ""
+    },
+    {
+      "name": "dotnet-tdd",
+      "path": "skills/backend/dotnet-tdd",
+      "github_url": "https://github.com/cuongtl1992/vibe-skills/tree/main/skills/backend/dotnet-tdd",
+      "description": ""
+    },
+    {
+      "name": "playwright-bdd-analyzer",
+      "path": "skills/testing/playwright-bdd-analyzer",
+      "github_url": "https://github.com/cuongtl1992/vibe-skills/tree/main/skills/testing/playwright-bdd-analyzer",
+      "description": ""
+    },
+    {
+      "name": "playwright-cucumber-e2e-steps-generator",
+      "path": "skills/testing/playwright-cucumber-e2e-steps-generator",
+      "github_url": "https://github.com/cuongtl1992/vibe-skills/tree/main/skills/testing/playwright-cucumber-e2e-steps-generator",
+      "description": ""
+    },
+    {
+      "name": "pom-generator",
+      "path": "skills/testing/pom-generator",
+      "github_url": "https://github.com/cuongtl1992/vibe-skills/tree/main/skills/testing/pom-generator",
+      "description": ""
+    },
+    {
+      "name": "sqlserver-expert",
+      "path": "skills/database/sqlserver-expert",
+      "github_url": "https://github.com/cuongtl1992/vibe-skills/tree/main/skills/database/sqlserver-expert",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cuongtl1992/vibe-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T14:30:08Z"
+}
