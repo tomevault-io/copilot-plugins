@@ -1,0 +1,75 @@
+{
+  "name": "paperpipe",
+  "owner": "hummat",
+  "repo": "paperpipe",
+  "description": "Extract equations and context from research papers for LLM coding assistants (arXiv, LaTeX, RAG)",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "papi",
+      "path": "skills/papi",
+      "github_url": "https://github.com/hummat/paperpipe/tree/main/skills/papi",
+      "description": ""
+    },
+    {
+      "name": "papi-compare",
+      "path": "skills/papi-compare",
+      "github_url": "https://github.com/hummat/paperpipe/tree/main/skills/papi-compare",
+      "description": ""
+    },
+    {
+      "name": "papi-curate",
+      "path": "skills/papi-curate",
+      "github_url": "https://github.com/hummat/paperpipe/tree/main/skills/papi-curate",
+      "description": ""
+    },
+    {
+      "name": "papi-init",
+      "path": "skills/papi-init",
+      "github_url": "https://github.com/hummat/paperpipe/tree/main/skills/papi-init",
+      "description": ""
+    },
+    {
+      "name": "papi-verify",
+      "path": "skills/papi-verify",
+      "github_url": "https://github.com/hummat/paperpipe/tree/main/skills/papi-verify",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hummat/paperpipe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T16:30:51Z"
+}
