@@ -1,0 +1,9 @@
+{
+  "name": "danwahlin--claw-monitor",
+  "displayName": "claw-monitor",
+  "description": "TUI monitor for OpenClaw sub-agents and more",
+  "version": "1.0.0",
+  "author": "DanWahlin",
+  "homepage": "https://github.com/DanWahlin/claw-monitor",
+  "skills": []
+}
