@@ -1,0 +1,9 @@
+{
+  "name": "11me--light-session",
+  "displayName": "light-session",
+  "description": "Keep ChatGPT fast \u2014 Firefox & Chrome extension that trims DOM in long conversations",
+  "version": "1.0.0",
+  "author": "11me",
+  "homepage": "https://github.com/11me/light-session",
+  "skills": []
+}
