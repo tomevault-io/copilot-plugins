@@ -1,0 +1,22 @@
+{
+  "name": "crazynomad--apple-podcast-downloader",
+  "displayName": "apple-podcast-downloader",
+  "description": "A comprehensive Claude Code skill for searching, browsing, and downloading podcast episodes from Apple Podcasts. Features smart search with Unicode support, episode browsing, and audio download with p",
+  "version": "1.0.0",
+  "author": "crazynomad",
+  "homepage": "https://github.com/crazynomad/apple-podcast-downloader",
+  "skills": [
+    {
+      "name": "podcast-downloader",
+      "description": ""
+    },
+    {
+      "name": "podcast-downloader",
+      "description": ""
+    },
+    {
+      "name": "podcast-downloader",
+      "description": ""
+    }
+  ]
+}
