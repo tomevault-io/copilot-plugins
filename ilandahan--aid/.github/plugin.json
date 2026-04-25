@@ -1,0 +1,26 @@
+{
+  "name": "ilandahan--aid",
+  "displayName": "AID",
+  "description": "AID - AI Development process - Complete methodology for AI-assisted full-stack software development. E2E process from raw ideas to deploy.",
+  "version": "1.0.0",
+  "author": "ilandahan",
+  "homepage": "https://github.com/ilandahan/AID",
+  "skills": [
+    {
+      "name": "aid-development",
+      "description": ""
+    },
+    {
+      "name": "aid-impl-plan",
+      "description": ""
+    },
+    {
+      "name": "aid-qa-ship",
+      "description": ""
+    },
+    {
+      "name": "aid-tech-spec",
+      "description": ""
+    }
+  ]
+}
