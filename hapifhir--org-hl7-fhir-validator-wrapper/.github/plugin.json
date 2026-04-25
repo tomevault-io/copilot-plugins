@@ -1,0 +1,9 @@
+{
+  "name": "hapifhir--org-hl7-fhir-validator-wrapper",
+  "displayName": "org.hl7.fhir.validator-wrapper",
+  "description": "org.hl7.fhir.validator-wrapper",
+  "version": "1.0.0",
+  "author": "hapifhir",
+  "homepage": "https://github.com/hapifhir/org.hl7.fhir.validator-wrapper",
+  "skills": []
+}
