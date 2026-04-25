@@ -1,0 +1,34 @@
+{
+  "name": "openclaw--community",
+  "displayName": "community",
+  "description": "Policies and Documentation for the OpenClaw Discord server",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/community",
+  "skills": [
+    {
+      "name": "zoom-meeting-assistance-with-rtms-unofficial-community-skill",
+      "description": ""
+    },
+    {
+      "name": "zoom-unofficial-community-skill",
+      "description": ""
+    },
+    {
+      "name": "afrexai-community-growth-engine",
+      "description": ""
+    },
+    {
+      "name": "community-mod-pack",
+      "description": ""
+    },
+    {
+      "name": "openclaw-reportstudio-community",
+      "description": ""
+    },
+    {
+      "name": "steam-community-inventory",
+      "description": ""
+    }
+  ]
+}
