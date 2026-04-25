@@ -1,0 +1,46 @@
+{
+  "name": "olaservo--skilljack-mcp",
+  "displayName": "skilljack-mcp",
+  "description": "MCP server that discovers and serves Agent Skills.",
+  "version": "1.0.0",
+  "author": "olaservo",
+  "homepage": "https://github.com/olaservo/skilljack-mcp",
+  "skills": [
+    {
+      "name": "code-style",
+      "description": ""
+    },
+    {
+      "name": "greeting",
+      "description": ""
+    },
+    {
+      "name": "skilljack-docs",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk-ts",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-terminal-ts",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-ui-ts",
+      "description": ""
+    },
+    {
+      "name": "mcp-apps-ts",
+      "description": ""
+    },
+    {
+      "name": "mcp-client-ts",
+      "description": ""
+    },
+    {
+      "name": "mcp-server-ts",
+      "description": ""
+    }
+  ]
+}
