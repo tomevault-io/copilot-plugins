@@ -1,0 +1,30 @@
+{
+  "name": "koolamusic--claudefiles",
+  "displayName": "claudefiles",
+  "description": "A minimal catalog of my favourite skills for working with claude",
+  "version": "1.0.0",
+  "author": "koolamusic",
+  "homepage": "https://github.com/koolamusic/claudefiles",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "breadboarding",
+      "description": ""
+    },
+    {
+      "name": "golang-best-practices",
+      "description": ""
+    },
+    {
+      "name": "nestjs-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
