@@ -1,0 +1,9 @@
+{
+  "name": "bilalimamoglu--sift",
+  "displayName": "sift",
+  "description": "Turn noisy command output into a short, actionable first pass for coding agents.",
+  "version": "1.0.0",
+  "author": "bilalimamoglu",
+  "homepage": "https://github.com/bilalimamoglu/sift",
+  "skills": []
+}
