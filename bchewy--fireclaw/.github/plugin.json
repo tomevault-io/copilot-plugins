@@ -1,0 +1,14 @@
+{
+  "name": "bchewy--fireclaw",
+  "displayName": "fireclaw",
+  "description": "Firecracker-based OpenClaw instance manager",
+  "version": "1.0.0",
+  "author": "bchewy",
+  "homepage": "https://github.com/bchewy/fireclaw",
+  "skills": [
+    {
+      "name": "fireclaw-vm-demo",
+      "description": ""
+    }
+  ]
+}
