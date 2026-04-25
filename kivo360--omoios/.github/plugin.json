@@ -1,0 +1,9 @@
+{
+  "name": "kivo360--omoios",
+  "displayName": "OmoiOS",
+  "description": "Spec-driven multi-agent orchestration \u2014 autonomous development workforce powered by Claude & OpenHands",
+  "version": "1.0.0",
+  "author": "kivo360",
+  "homepage": "https://github.com/kivo360/OmoiOS",
+  "skills": []
+}
