@@ -1,6 +1,6 @@
 # ai-agent-unity-rules
 
-> Config by [Common-ka](https://github.com/Common-ka/ai-agent-unity-rules) — distributed by [TomeVault](https://tomevault.io/claim/Common-ka)
+> Tome by [Common-ka](https://github.com/Common-ka/ai-agent-unity-rules) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [Common-ka/ai-agent-unity-rules](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Common-ka](https://tomevault.io/claim/Common-ka)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Common-ka/ai-agent-unity-rules](https://github.com/Common-ka/ai-agent-unity-rules)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Common-ka) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install Common-ka/ai-agent-unity-rules
+```
+Source: [github.com/Common-ka/ai-agent-unity-rules](https://github.com/Common-ka/ai-agent-unity-rules).
+
+<!-- genome:t-i-q -->
