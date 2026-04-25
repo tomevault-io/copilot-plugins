@@ -1,6 +1,6 @@
-# website-template — distributed by TomeVault
+# website-template
 
-> Originally from [Monsoft-Solutions/website-template](https://github.com/Monsoft-Solutions/website-template). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Monsoft-Solutions/website-template](https://github.com/Monsoft-Solutions/website-template) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Monsoft-Solutions/website-template](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Monsoft-Solutions#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Monsoft-Solutions/website-template](https://github.com/Monsoft-Solutions/website-template)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Monsoft-Solutions) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
