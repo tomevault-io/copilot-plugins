@@ -1,0 +1,9 @@
+{
+  "name": "hubblevision--polyhub-skills",
+  "displayName": "polyhub-skills",
+  "description": "Control your Polymarket copy-trading account from any AI \u2014 Telegram, WeChat, Claude Code, OpenClaw, and more.",
+  "version": "1.0.0",
+  "author": "HubbleVision",
+  "homepage": "https://github.com/HubbleVision/polyhub-skills",
+  "skills": []
+}
