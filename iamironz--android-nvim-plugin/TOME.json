@@ -1,0 +1,44 @@
+{
+  "name": "android-nvim-plugin",
+  "owner": "iamironz",
+  "repo": "android-nvim-plugin",
+  "description": "Neovim plugin for Android and KMP: build, run, logcat, AVD management, and Gradle tasks.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iamironz/android-nvim-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T22:17:29Z"
+}
