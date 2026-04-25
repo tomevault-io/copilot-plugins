@@ -1,0 +1,9 @@
+{
+  "name": "jqknono--coding-plans-for-copilot",
+  "displayName": "coding-plans-for-copilot",
+  "description": "\u5728Copilot Chat\u4e2d\u81ea\u7531\u63a5\u5165OpenAI Chat/Response, Anthropic API\u517c\u5bb9\u4f9b\u5e94\u5546",
+  "version": "1.0.0",
+  "author": "jqknono",
+  "homepage": "https://github.com/jqknono/coding-plans-for-copilot",
+  "skills": []
+}
