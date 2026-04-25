@@ -1,0 +1,9 @@
+{
+  "name": "duolaamengweb3--clawquant-trader",
+  "displayName": "clawquant-trader",
+  "description": "Quantitative trading research infrastructure for AI Agents - backtest, sweep, radar, deploy",
+  "version": "1.0.0",
+  "author": "duolaAmengweb3",
+  "homepage": "https://github.com/duolaAmengweb3/clawquant-trader",
+  "skills": []
+}
