@@ -4,7 +4,7 @@
   "repo": "code-executor-MCP",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aberemia24/code-executor-MCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T23:49:15Z"
+  "distributed_at": "2026-04-25T01:00:48Z"
 }
