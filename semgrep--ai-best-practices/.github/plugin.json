@@ -1,0 +1,9 @@
+{
+  "name": "semgrep--ai-best-practices",
+  "displayName": "ai-best-practices",
+  "description": "Semgrep Pro Rules to ensure code using LLMs is following best practices",
+  "version": "1.0.0",
+  "author": "semgrep",
+  "homepage": "https://github.com/semgrep/ai-best-practices",
+  "skills": []
+}
