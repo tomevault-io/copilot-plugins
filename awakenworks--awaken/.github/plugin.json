@@ -1,0 +1,9 @@
+{
+  "name": "awakenworks--awaken",
+  "displayName": "awaken",
+  "description": "AI agent runtime for Rust \u2014 type-safe state, multi-protocol serving, plugin extensibility.",
+  "version": "1.0.0",
+  "author": "awakenworks",
+  "homepage": "https://github.com/awakenworks/awaken",
+  "skills": []
+}
