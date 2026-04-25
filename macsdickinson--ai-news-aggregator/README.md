@@ -1,24 +1,24 @@
-# ai-news-aggregator — distributed by TomeVault
+# ai-news-aggregator
 
-> Originally from [MacsDickinson/ai-news-aggregator](https://github.com/MacsDickinson/ai-news-aggregator). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [MacsDickinson/ai-news-aggregator](https://github.com/MacsDickinson/ai-news-aggregator) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MacsDickinson/ai-news-aggregator](https://github.com/MacsDickinson/ai-news-aggregator).
+Original source: `.cursor/rules/*.mdc` in [MacsDickinson/ai-news-aggregator](https://github.com/MacsDickinson/ai-news-aggregator).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/MacsDickinson)
+From [MacsDickinson/ai-news-aggregator](https://github.com/MacsDickinson/ai-news-aggregator) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/MacsDickinson) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
