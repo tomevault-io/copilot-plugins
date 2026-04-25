@@ -1,0 +1,9 @@
+{
+  "name": "yourdaylight--stock-datasource",
+  "displayName": "stock_datasource",
+  "description": "\u57fa\u4e8etushare\u6784\u5efa\u672c\u5730\u8d22\u7ecf\u6570\u636e\u5e93\u3002AI\u539f\u751f\u7684\u591aAgent\u91d1\u878d\u5206\u6790\u7cfb\u7edf\uff0c\u652f\u6301skill\u62d3\u5c55Agent\u80fd\u529b\u5e76\u81ea\u9002\u5e94\u751f\u6210http\u63a5\u53e3\u4e0emcp\u8c03\u7528\u3002\u652f\u6301\u672c\u5730\u6570\u636e\u5e93\u8bbf\u95ee\u7684skill\u5bf9\u63a5openclaw\u8fdb\u884c\u81ea\u4e3b\u8bbf\u95ee",
+  "version": "1.0.0",
+  "author": "Yourdaylight",
+  "homepage": "https://github.com/Yourdaylight/stock_datasource",
+  "skills": []
+}
