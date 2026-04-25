@@ -1,0 +1,9 @@
+{
+  "name": "dcosson--h2",
+  "displayName": "h2",
+  "description": "An agent runner, messaging, and orchestration layer.",
+  "version": "1.0.0",
+  "author": "dcosson",
+  "homepage": "https://github.com/dcosson/h2",
+  "skills": []
+}
