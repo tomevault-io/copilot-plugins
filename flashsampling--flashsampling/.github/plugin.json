@@ -1,0 +1,9 @@
+{
+  "name": "flashsampling--flashsampling",
+  "displayName": "FlashSampling",
+  "description": "FlashSampling: Fast and Memory-Efficient Exact Sampling (https://huggingface.co/papers/2603.15854)",
+  "version": "1.0.0",
+  "author": "FlashSampling",
+  "homepage": "https://github.com/FlashSampling/FlashSampling",
+  "skills": []
+}
