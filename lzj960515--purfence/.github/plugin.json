@@ -1,0 +1,34 @@
+{
+  "name": "lzj960515--purfence",
+  "displayName": "purfence",
+  "description": "AI instruction skills by lzj960515",
+  "version": "1.0.0",
+  "author": "lzj960515",
+  "homepage": "https://github.com/lzj960515/purfence",
+  "skills": [
+    {
+      "name": "apple-calendar",
+      "description": ""
+    },
+    {
+      "name": "apple-mail",
+      "description": ""
+    },
+    {
+      "name": "apple-mail-search",
+      "description": ""
+    },
+    {
+      "name": "apple-mail-send",
+      "description": ""
+    },
+    {
+      "name": "apple-notes",
+      "description": ""
+    },
+    {
+      "name": "apple-reminders",
+      "description": ""
+    }
+  ]
+}
