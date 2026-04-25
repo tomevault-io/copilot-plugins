@@ -1,0 +1,14 @@
+{
+  "name": "alchaincyf--glm-claude",
+  "displayName": "glm-claude",
+  "description": "\u4e00\u952e\u542f\u52a8\u4f7f\u7528 GLM \u6a21\u578b\u7684 Claude Code - GLM-powered Claude Code wrapper",
+  "version": "1.0.0",
+  "author": "alchaincyf",
+  "homepage": "https://github.com/alchaincyf/glm-claude",
+  "skills": [
+    {
+      "name": "ai-proofreading",
+      "description": ""
+    }
+  ]
+}
