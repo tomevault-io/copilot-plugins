@@ -1,0 +1,9 @@
+{
+  "name": "sbhooley--ainativelang",
+  "displayName": "ainativelang",
+  "description": "AINL helps turn AI from \"a smart conversation\" into \"a structured worker.\"  It is designed for teams building AI workflows that need multiple steps, state and memory, tool use, repeatable execution, v",
+  "version": "1.0.0",
+  "author": "sbhooley",
+  "homepage": "https://github.com/sbhooley/ainativelang",
+  "skills": []
+}
