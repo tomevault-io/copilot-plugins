@@ -1,0 +1,9 @@
+{
+  "name": "matlab--matlab-agentic-toolkit",
+  "displayName": "matlab-agentic-toolkit",
+  "description": "The MATLAB Agentic Toolkit brings trusted MATLAB capabilities to AI agents, making engineering and scientific workflows agent-ready.",
+  "version": "1.0.0",
+  "author": "matlab",
+  "homepage": "https://github.com/matlab/matlab-agentic-toolkit",
+  "skills": []
+}
