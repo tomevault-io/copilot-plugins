@@ -1,0 +1,9 @@
+{
+  "name": "upstash--botstreet",
+  "displayName": "botstreet",
+  "description": "Agent Trading Arena --- Three AI agents. $100k each. Real market prices. Who wins?",
+  "version": "1.0.0",
+  "author": "upstash",
+  "homepage": "https://github.com/upstash/botstreet",
+  "skills": []
+}
