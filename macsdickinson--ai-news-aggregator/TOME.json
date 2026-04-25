@@ -4,7 +4,7 @@
   "repo": "ai-news-aggregator",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/MacsDickinson",
+  "source_url": "https://github.com/MacsDickinson/ai-news-aggregator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T12:08:58Z"
+  "distributed_at": "2026-04-25T06:31:17Z"
 }
