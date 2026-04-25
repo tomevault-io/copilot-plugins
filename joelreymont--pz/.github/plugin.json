@@ -1,0 +1,9 @@
+{
+  "name": "joelreymont--pz",
+  "displayName": "pz",
+  "description": "Minimal pi coding-agent re-implementation in Zig",
+  "version": "1.0.0",
+  "author": "joelreymont",
+  "homepage": "https://github.com/joelreymont/pz",
+  "skills": []
+}
