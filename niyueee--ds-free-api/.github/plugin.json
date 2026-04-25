@@ -1,0 +1,9 @@
+{
+  "name": "niyueee--ds-free-api",
+  "displayName": "ds-free-api",
+  "description": "DeepSeek\u7f51\u9875\u7aefAPI\u4ee3\u7406\uff0c\u652f\u6301OpenAI\u517c\u5bb9\u63a5\u53e3 | OpenAI-compatible API proxy for DeepSeek web",
+  "version": "1.0.0",
+  "author": "NIyueeE",
+  "homepage": "https://github.com/NIyueeE/ds-free-api",
+  "skills": []
+}
