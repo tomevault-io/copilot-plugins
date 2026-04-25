@@ -1,0 +1,9 @@
+{
+  "name": "kilo-org--kilo-marketplace",
+  "displayName": "kilo-marketplace",
+  "description": "Kilo Marketplace - A curated collection of Skills, MCP Servers, and Modes for enhancing AI agent capabilities across the Kilo ecosystem\u2014including Kilo Code (VS Code extension), Kilo CLI, and compatibl",
+  "version": "1.0.0",
+  "author": "Kilo-Org",
+  "homepage": "https://github.com/Kilo-Org/kilo-marketplace",
+  "skills": []
+}
