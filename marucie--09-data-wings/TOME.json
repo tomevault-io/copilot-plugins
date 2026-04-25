@@ -4,7 +4,7 @@
   "repo": "09-data-wings",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/MARUCIE",
+  "source_url": "https://github.com/MARUCIE/09-data-wings",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T01:59:14Z"
+  "distributed_at": "2026-04-25T05:05:31Z"
 }
