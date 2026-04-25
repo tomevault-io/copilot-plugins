@@ -1,0 +1,9 @@
+{
+  "name": "agent0ai--space-agent",
+  "displayName": "space-agent",
+  "description": "The agent that re-shapes the Space",
+  "version": "1.0.0",
+  "author": "agent0ai",
+  "homepage": "https://github.com/agent0ai/space-agent",
+  "skills": []
+}
