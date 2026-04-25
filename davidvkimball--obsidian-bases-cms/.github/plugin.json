@@ -1,0 +1,18 @@
+{
+  "name": "davidvkimball--obsidian-bases-cms",
+  "displayName": "obsidian-bases-cms",
+  "description": "Manage your notes in Obsidian bases like a content management system.",
+  "version": "1.0.0",
+  "author": "davidvkimball",
+  "homepage": "https://github.com/davidvkimball/obsidian-bases-cms",
+  "skills": [
+    {
+      "name": "obsidian-dev",
+      "description": ""
+    },
+    {
+      "name": "obsidian-ref",
+      "description": ""
+    }
+  ]
+}
