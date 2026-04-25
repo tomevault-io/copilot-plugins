@@ -1,0 +1,9 @@
+{
+  "name": "app-devstack--book-vault",
+  "displayName": "book-vault",
+  "description": "book-vault",
+  "version": "1.0.0",
+  "author": "app-devstack",
+  "homepage": "https://github.com/app-devstack/book-vault",
+  "skills": []
+}
