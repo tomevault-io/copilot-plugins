@@ -1,0 +1,14 @@
+{
+  "name": "tobert--kaish",
+  "displayName": "kaish",
+  "description": "\u4f1ash \u2014 A Bourne-lite shell for agents",
+  "version": "1.0.0",
+  "author": "tobert",
+  "homepage": "https://github.com/tobert/kaish",
+  "skills": [
+    {
+      "name": "sync-docs",
+      "description": ""
+    }
+  ]
+}
