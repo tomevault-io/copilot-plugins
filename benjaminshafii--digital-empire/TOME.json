@@ -1,0 +1,135 @@
+{
+  "name": "digital-empire",
+  "owner": "benjaminshafii",
+  "repo": "digital-empire",
+  "description": "OpenWork config for me and my family",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bitwarden",
+      "path": ".opencode/skill/bitwarden",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/bitwarden",
+      "description": ""
+    },
+    {
+      "name": "browser",
+      "path": ".opencode/skill/browser",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/browser",
+      "description": ""
+    },
+    {
+      "name": "git-worktree",
+      "path": ".opencode/skill/git-worktree",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/git-worktree",
+      "description": ""
+    },
+    {
+      "name": "hevy",
+      "path": ".opencode/skill/hevy",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/hevy",
+      "description": ""
+    },
+    {
+      "name": "openwork-notary",
+      "path": ".opencode/skill/openwork-notary",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/openwork-notary",
+      "description": ""
+    },
+    {
+      "name": "plugin-introspection",
+      "path": ".opencode/skill/plugin-introspection",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/plugin-introspection",
+      "description": ""
+    },
+    {
+      "name": "plugin-logging",
+      "path": ".opencode/skill/plugin-logging",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/plugin-logging",
+      "description": ""
+    },
+    {
+      "name": "recipe-batch-components",
+      "path": ".opencode/skill/recipe-batch-components",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/recipe-batch-components",
+      "description": ""
+    },
+    {
+      "name": "recipe-testing",
+      "path": ".opencode/skill/recipe-testing",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/recipe-testing",
+      "description": ""
+    },
+    {
+      "name": "recipes",
+      "path": ".opencode/skill/recipes",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/recipes",
+      "description": ""
+    },
+    {
+      "name": "resume",
+      "path": ".opencode/skill/resume",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/resume",
+      "description": ""
+    },
+    {
+      "name": "self-improve",
+      "path": ".opencode/skill/self-improve",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/self-improve",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".opencode/skill/skill-creator",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "submodule-dev-flow",
+      "path": ".opencode/skill/submodule-dev-flow",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/submodule-dev-flow",
+      "description": ""
+    },
+    {
+      "name": "website-deploy",
+      "path": ".opencode/skill/website-deploy",
+      "github_url": "https://github.com/benjaminshafii/digital-empire/tree/main/.opencode/skill/website-deploy",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/benjaminshafii/digital-empire",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T21:30:09Z"
+}
