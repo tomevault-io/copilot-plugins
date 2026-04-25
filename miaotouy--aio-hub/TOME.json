@@ -1,0 +1,44 @@
+{
+  "name": "aio-hub",
+  "owner": "miaotouy",
+  "repo": "aio-hub",
+  "description": "\u7ec8\u6781\u4e2a\u4ebaAI\u5e73\u53f0\u5e94\u7528\uff0c\u63d0\u4f9b\u8d85\u5f3a\u9ad8\u53ef\u63a7\u6027\u7684LLM\u4ea4\u4e92\uff0c\u548c\u591a\u79cd\u5b9e\u7528\u7684\u5f00\u53d1\u548c\u65e5\u5e38\u5de5\u5177\uff0cVCP\u5206\u5e03\u5f0f\u8054\u52a8\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/miaotouy/aio-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T04:34:26Z"
+}
