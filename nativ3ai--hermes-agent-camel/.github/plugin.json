@@ -1,0 +1,9 @@
+{
+  "name": "nativ3ai--hermes-agent-camel",
+  "displayName": "hermes-agent-camel",
+  "description": "Hermes Agent fork with integrated CaMeL trust boundaries",
+  "version": "1.0.0",
+  "author": "nativ3ai",
+  "homepage": "https://github.com/nativ3ai/hermes-agent-camel",
+  "skills": []
+}
