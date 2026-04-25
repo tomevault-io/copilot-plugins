@@ -1,0 +1,9 @@
+{
+  "name": "zenml-io--kitaru",
+  "displayName": "kitaru",
+  "description": "Open-source platform layer for AI agents in production",
+  "version": "1.0.0",
+  "author": "zenml-io",
+  "homepage": "https://github.com/zenml-io/kitaru",
+  "skills": []
+}
