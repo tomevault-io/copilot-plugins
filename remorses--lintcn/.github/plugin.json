@@ -1,0 +1,9 @@
+{
+  "name": "remorses--lintcn",
+  "displayName": "lintcn",
+  "description": "shadcn for type aware lint rules. Let agents write custom rules that follow your preferences. Prevent agents from adding 'as' and 'in' everywhere. Based on tsgolint & go",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/lintcn",
+  "skills": []
+}
