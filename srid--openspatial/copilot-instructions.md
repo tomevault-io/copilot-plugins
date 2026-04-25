@@ -1,0 +1,90 @@
+## openspatial
+
+> - **No backwards compatibility concerns.** This is a greenfield project — break things freely when improving the design.
+
+# Claude/Gemini AI Assistant Notes
+
+## Design Principles
+
+- **No backwards compatibility concerns.** This is a greenfield project — break things freely when improving the design.
+- **Aggressively remove unused code.** When removing a feature, delete all related code, types, constants, CSS, and tests. Dead code is a liability.
+- **Keep the codebase lean.** Don't leave behind scaffolding, commented-out code, or "just in case" abstractions.
+- **DRY (Don't Repeat Yourself), but respect the [Rule of Three](https://en.wikipedia.org/wiki/Rule_of_three_(computer_programming)).** Don't prematurely abstract. Once you do extract, keep it in reusable functions, components, or modules.
+- **Make invalid states unrepresentable.** Use sum types (discriminated unions) and product types to model state precisely. Prefer exhaustive `switch` over catchall `else`. No stringly-typed dispatch — use typed event maps. See `StreamEntry` in `SpaceContext.tsx` and `SocketEventMap` in `shared/types/events.ts` as examples.
+
+## Styling
+
+**Always use Tailwind CSS utility classes** in JSX. Do not write custom CSS in `base.css` unless it's genuinely impossible with utilities (e.g., complex pseudo-element patterns, CodeMirror/third-party overrides). Prefer inline Tailwind over custom classes.
+
+## Internationalization (i18n)
+
+**All user-facing strings MUST be translated.** Never hardcode text directly into components (e.g. `<button>Submit</button>`).
+1. Extract the string into a new camelCase key in both `client/locales/en.ts` and `client/locales/fr.ts`.
+2. Import `t` from `@/lib/i18n` in your component.
+3. Render using `{t('yourNewKey')}`.
+
+## Git Workflow
+
+**NEVER commit changes.** The user will handle all git commits. Do not mutate the git repository state (no `git add`, `git commit`, etc).
+
+## E2E Testing
+
+**ALWAYS use `just e2e-quick` for e2e tests** - not `npx playwright test` directly.
+
+```bash
+# Fast e2e (use this!)
+just e2e-quick
+
+# Run specific test pattern
+just e2e-quick "pattern"
+```
+
+The full `just e2e` spins up an interactive server which is slow.
+
+### E2E Waiting Pattern
+
+**NEVER use `waitForTimeout` or `user.wait()` in e2e tests.** These cause flakiness under CI load.
+
+Instead, use **declarative waiting**:
+
+```typescript
+// ❌ BAD: imperative wait
+await alice.wait(1000);
+const style = await bob.textNoteOf('any').style();
+expect(style.fontSize).toBe('large');
+
+// ✅ GOOD: declarative poll
+await expect.poll(async () => {
+  const s = await bob.textNoteOf('any').style();
+  return s.fontSize;
+}, { timeout: 5000 }).toBe('large');
+
+// ✅ GOOD: wait for element visibility
+await bob.waitForScreenShare('Alice');
+await bob.waitForTextNote();
+```
+
+The only acceptable use of `wait()` is simulating intentional user pauses (e.g., between disconnect/reconnect).
+
+## Terminal Commands
+
+**Never use `| tail` or `| head`** - run commands directly in terminal so the user can see output in real-time. Use `command_status` to check results after.
+
+**Always use `git --no-pager`** for git commands that produce output (e.g. `git --no-pager diff`, `git --no-pager log`). The default pager will hang.
+
+## GitHub Issues
+
+**Always write issue body to a `.md` file first**, then use `gh issue create --body-file`. Do not pass the body inline — long bodies break in the shell.
+
+```bash
+# Write body to temp file, then:
+gh issue create --title "Issue Title" --body-file /tmp/issue-body.md
+```
+
+## Documentation
+
+**Update `docs/ARCHITECTURE.md`** when making structural changes — new server files, dependency swaps, directory reorganization, etc. Keep it in sync with reality.
+
+---
+> Source: [srid/openspatial](https://github.com/srid/openspatial) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
