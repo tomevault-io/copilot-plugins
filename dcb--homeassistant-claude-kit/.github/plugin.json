@@ -1,0 +1,9 @@
+{
+  "name": "dcb--homeassistant-claude-kit",
+  "displayName": "homeassistant-claude-kit",
+  "description": "AI-guided Home Assistant setup \u2014 automation templates, mobile-first React dashboard, and Claude Code skills for configuration management",
+  "version": "1.0.0",
+  "author": "dcb",
+  "homepage": "https://github.com/dcb/homeassistant-claude-kit",
+  "skills": []
+}
