@@ -1,0 +1,9 @@
+{
+  "name": "harbor-framework--harbor-cookbook",
+  "displayName": "harbor-cookbook",
+  "description": "Realistic examples of building evals and optimizing agents with Harbor",
+  "version": "1.0.0",
+  "author": "harbor-framework",
+  "homepage": "https://github.com/harbor-framework/harbor-cookbook",
+  "skills": []
+}
