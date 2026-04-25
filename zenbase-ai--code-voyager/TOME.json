@@ -1,0 +1,75 @@
+{
+  "name": "code-voyager",
+  "owner": "zenbase-ai",
+  "repo": "code-voyager",
+  "description": "AI instruction skills by zenbase-ai",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "curriculum-planner",
+      "path": ".claude/skills/curriculum-planner",
+      "github_url": "https://github.com/zenbase-ai/code-voyager/tree/main/.claude/skills/curriculum-planner",
+      "description": ""
+    },
+    {
+      "name": "session-brain",
+      "path": ".claude/skills/session-brain",
+      "github_url": "https://github.com/zenbase-ai/code-voyager/tree/main/.claude/skills/session-brain",
+      "description": ""
+    },
+    {
+      "name": "skill-factory",
+      "path": ".claude/skills/skill-factory",
+      "github_url": "https://github.com/zenbase-ai/code-voyager/tree/main/.claude/skills/skill-factory",
+      "description": ""
+    },
+    {
+      "name": "skill-refinement",
+      "path": ".claude/skills/skill-refinement",
+      "github_url": "https://github.com/zenbase-ai/code-voyager/tree/main/.claude/skills/skill-refinement",
+      "description": ""
+    },
+    {
+      "name": "skill-retrieval",
+      "path": ".claude/skills/skill-retrieval",
+      "github_url": "https://github.com/zenbase-ai/code-voyager/tree/main/.claude/skills/skill-retrieval",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zenbase-ai/code-voyager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T16:32:12Z"
+}
