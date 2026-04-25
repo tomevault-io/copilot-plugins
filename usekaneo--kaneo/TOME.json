@@ -4,7 +4,7 @@
   "repo": "kaneo",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/usekaneo/kaneo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T22:51:45Z"
+  "distributed_at": "2026-04-25T12:52:34Z"
 }
