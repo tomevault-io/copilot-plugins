@@ -1,0 +1,9 @@
+{
+  "name": "mozilla-ai--clawbolt",
+  "displayName": "clawbolt",
+  "description": "The AI Assistant that actually does things for the trades",
+  "version": "1.0.0",
+  "author": "mozilla-ai",
+  "homepage": "https://github.com/mozilla-ai/clawbolt",
+  "skills": []
+}
