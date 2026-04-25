@@ -1,0 +1,9 @@
+{
+  "name": "trusttunnel--trusttunnelclient",
+  "displayName": "TrustTunnelClient",
+  "description": "Command-line client for TrustTunnel",
+  "version": "1.0.0",
+  "author": "TrustTunnel",
+  "homepage": "https://github.com/TrustTunnel/TrustTunnelClient",
+  "skills": []
+}
