@@ -1,0 +1,9 @@
+{
+  "name": "raulvidis--hermes-android",
+  "displayName": "hermes-android",
+  "description": "Android device control for hermes-agent \u2014 bridge app + Python toolset",
+  "version": "1.0.0",
+  "author": "raulvidis",
+  "homepage": "https://github.com/raulvidis/hermes-android",
+  "skills": []
+}
