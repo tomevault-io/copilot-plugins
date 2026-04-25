@@ -1,0 +1,9 @@
+{
+  "name": "lee-to--hlv",
+  "displayName": "hlv",
+  "description": "Specs first. Code second. Proof always.  You define the what. LLMs generate the how. hlv validates the proof.",
+  "version": "1.0.0",
+  "author": "lee-to",
+  "homepage": "https://github.com/lee-to/hlv",
+  "skills": []
+}
