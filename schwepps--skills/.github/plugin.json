@@ -1,0 +1,42 @@
+{
+  "name": "schwepps--skills",
+  "displayName": "skills",
+  "description": "Claude Code skills marketplace - documentation-based skills that extend Claude Code with specialized workflows",
+  "version": "1.0.0",
+  "author": "schwepps",
+  "homepage": "https://github.com/schwepps/skills",
+  "skills": [
+    {
+      "name": "linkedin-personal-branding",
+      "description": ""
+    },
+    {
+      "name": "suno-music-creator",
+      "description": ""
+    },
+    {
+      "name": "geo-aeo-optimization",
+      "description": ""
+    },
+    {
+      "name": "solidity-auditor",
+      "description": ""
+    },
+    {
+      "name": "seo-technical-audit",
+      "description": ""
+    },
+    {
+      "name": "linkedin-roast",
+      "description": ""
+    },
+    {
+      "name": "seo-content-audit",
+      "description": ""
+    },
+    {
+      "name": "install-skill",
+      "description": ""
+    }
+  ]
+}
