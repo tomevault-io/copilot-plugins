@@ -1,0 +1,87 @@
+{
+  "name": "nomendex",
+  "owner": "firstloophq",
+  "repo": "nomendex",
+  "description": "AI instruction skills by firstloophq",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-skill",
+      "path": ".claude/skills/create-skill",
+      "github_url": "https://github.com/firstloophq/nomendex/tree/main/.claude/skills/create-skill",
+      "description": ""
+    },
+    {
+      "name": "macos-scrollbar",
+      "path": ".claude/skills/macos-scrollbar",
+      "github_url": "https://github.com/firstloophq/nomendex/tree/main/.claude/skills/macos-scrollbar",
+      "description": ""
+    },
+    {
+      "name": "prosemirror-notes",
+      "path": ".claude/skills/prosemirror-notes",
+      "github_url": "https://github.com/firstloophq/nomendex/tree/main/.claude/skills/prosemirror-notes",
+      "description": ""
+    },
+    {
+      "name": "tab-control",
+      "path": ".claude/skills/tab-control",
+      "github_url": "https://github.com/firstloophq/nomendex/tree/main/.claude/skills/tab-control",
+      "description": ""
+    },
+    {
+      "name": "ui-design",
+      "path": ".claude/skills/ui-design",
+      "github_url": "https://github.com/firstloophq/nomendex/tree/main/.claude/skills/ui-design",
+      "description": ""
+    },
+    {
+      "name": "version-bump",
+      "path": ".claude/skills/version-bump",
+      "github_url": "https://github.com/firstloophq/nomendex/tree/main/.claude/skills/version-bump",
+      "description": ""
+    },
+    {
+      "name": "workspace-tabs",
+      "path": ".claude/skills/workspace-tabs",
+      "github_url": "https://github.com/firstloophq/nomendex/tree/main/.claude/skills/workspace-tabs",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/firstloophq/nomendex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T14:30:48Z"
+}
