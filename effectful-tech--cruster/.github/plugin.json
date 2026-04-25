@@ -1,0 +1,9 @@
+{
+  "name": "effectful-tech--cruster",
+  "displayName": "cruster",
+  "description": "A Rust framework for building distributed, stateful entity systems with durable workflows",
+  "version": "1.0.0",
+  "author": "Effectful-Tech",
+  "homepage": "https://github.com/Effectful-Tech/cruster",
+  "skills": []
+}
