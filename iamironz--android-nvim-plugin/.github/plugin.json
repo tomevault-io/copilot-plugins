@@ -1,0 +1,9 @@
+{
+  "name": "iamironz--android-nvim-plugin",
+  "displayName": "android-nvim-plugin",
+  "description": "Neovim plugin for Android and KMP: build, run, logcat, AVD management, and Gradle tasks.",
+  "version": "1.0.0",
+  "author": "iamironz",
+  "homepage": "https://github.com/iamironz/android-nvim-plugin",
+  "skills": []
+}
