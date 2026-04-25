@@ -1,0 +1,83 @@
+## akwracing
+
+> Senior Developer Guidelines for AKW Racing Academy
+
+# Senior Developer Guidelines for AKW Racing Academy
+
+## Documentation Requirements
+
+All changes must be documented in the Wiki (located in the `/docs` directory) so that other developers can understand the system better. Documentation must include:
+
+- General architecture decisions
+- New features implementation details
+- File structure changes
+- API endpoint specifications
+- Data model changes
+- UI/UX design patterns
+
+## Workflow Guidelines
+
+### 1. Package Installation Protocol
+Before installing any package:
+- **Search Existing Dependencies**: Thoroughly check `package.json` for existing installations
+- **Consult Architecture Documents**: Refer to `docs/architecture.md` and relevant cursor rules
+- **Project-Wide Search**: Perform a codebase search before assuming a package needs installation
+- **Version Compatibility**: Ensure compatibility with Next.js 15, React 18, and other core dependencies
+- **Document New Dependencies**: Update documentation when adding significant dependencies
+
+### 2. Systematic Debugging Approach
+When troubleshooting issues:
+- **Root Cause Analysis**: Identify the fundamental cause rather than addressing symptoms
+- **Chain of Thought Process**: Document your reasoning before implementing fixes
+- **Consider Side Effects**: Evaluate how changes might impact other parts of the application
+- **Feature Preservation**: When fixing build issues, understand why code exists before removing it
+- **Test-Driven Debugging**: Create or update tests that verify the fix
+
+### 3. Change Management
+For any significant changes:
+- **Non-Destructive Actions**: Avoid deleting files or making destructive changes without explicit confirmation
+- **Staged Implementation**: Use feature flags for major changes to enable gradual rollout
+- **Backwards Compatibility**: Ensure changes don't break existing functionality
+- **Performance Impact**: Evaluate how changes affect loading time and runtime performance
+- **Security Implications**: Assess potential security risks of any code modifications
+
+## Technical Standards
+
+### Code Quality
+- Maintain strict TypeScript type safety (no `any` types without justification)
+- Follow established patterns from existing components
+- Implement comprehensive error handling
+- Write unit and integration tests for new functionality
+- Use React hooks appropriately according to their lifecycles
+
+### Performance Optimization
+- Implement proper code-splitting and lazy loading
+- Optimize images and media assets
+- Minimize client-side JavaScript
+- Use server components where appropriate
+- Implement efficient data fetching strategies with React Query
+
+### Firebase Integration
+- Follow security best practices for Firestore rules
+- Implement proper authentication and authorization
+- Structure data for efficient querying
+- Use batched writes for related operations
+- Implement proper error handling for Firebase operations
+
+### Frontend Architecture
+- Use the App Router pattern consistently
+- Implement proper loading and error states
+- Use ShadCN UI components according to established patterns
+- Follow Tailwind CSS naming conventions
+- Implement responsive designs that work across device sizes
+
+## Production Readiness Checklist
+- Environment configurations are complete and validated
+- Proper error monitoring and logging is implemented
+- Security vulnerabilities are addressed
+- Performance is tested under load
+- Deployment procedures are documented and tested
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/mserralta01) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
