@@ -1,0 +1,9 @@
+{
+  "name": "marswaveai--coli",
+  "displayName": "coli",
+  "description": "[WIP] Core library for Cola. Provides essential capabilities commonly used by agents.",
+  "version": "1.0.0",
+  "author": "marswaveai",
+  "homepage": "https://github.com/marswaveai/coli",
+  "skills": []
+}
