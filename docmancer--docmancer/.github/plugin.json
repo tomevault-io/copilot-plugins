@@ -1,0 +1,9 @@
+{
+  "name": "docmancer--docmancer",
+  "displayName": "docmancer",
+  "description": "Give your AI coding agents documentation superpowers. Fetch, embed, and query any public docs locally.",
+  "version": "1.0.0",
+  "author": "docmancer",
+  "homepage": "https://github.com/docmancer/docmancer",
+  "skills": []
+}
