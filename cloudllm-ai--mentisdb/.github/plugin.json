@@ -1,0 +1,9 @@
+{
+  "name": "cloudllm-ai--mentisdb",
+  "displayName": "mentisdb",
+  "description": "Memory that lasts and compounds. MentisDB gives agents durable memory so they do not just remember, they improve over time. It stores append-only thought chains   plus a Git-like skills registry, lett",
+  "version": "1.0.0",
+  "author": "CloudLLM-ai",
+  "homepage": "https://github.com/CloudLLM-ai/mentisdb",
+  "skills": []
+}
