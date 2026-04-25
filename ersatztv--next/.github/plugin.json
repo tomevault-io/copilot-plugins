@@ -1,0 +1,9 @@
+{
+  "name": "ersatztv--next",
+  "displayName": "next",
+  "description": "Transcode and stream your media as live TV channels.",
+  "version": "1.0.0",
+  "author": "ErsatzTV",
+  "homepage": "https://github.com/ErsatzTV/next",
+  "skills": []
+}
