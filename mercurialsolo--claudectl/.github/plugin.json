@@ -1,0 +1,9 @@
+{
+  "name": "mercurialsolo--claudectl",
+  "displayName": "claudectl",
+  "description": "Auto-pilot your Claude Code. Add a local LLM brain that learns from your actions and auto-approves/denies",
+  "version": "1.0.0",
+  "author": "mercurialsolo",
+  "homepage": "https://github.com/mercurialsolo/claudectl",
+  "skills": []
+}
