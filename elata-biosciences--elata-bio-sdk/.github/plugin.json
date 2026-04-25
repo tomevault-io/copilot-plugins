@@ -1,0 +1,9 @@
+{
+  "name": "elata-biosciences--elata-bio-sdk",
+  "displayName": "elata-bio-sdk",
+  "description": "Elata SDK is the cross-platform biosignal toolkit for building neurotechnology and remote biosensing apps on web and native.",
+  "version": "1.0.0",
+  "author": "Elata-Biosciences",
+  "homepage": "https://github.com/Elata-Biosciences/elata-bio-sdk",
+  "skills": []
+}
