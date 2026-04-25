@@ -1,0 +1,9 @@
+{
+  "name": "andre-brandao--gpui-shell",
+  "displayName": "gpui-shell",
+  "description": "Wayland desktop shell and status bar in Rust with GPUI, featuring a modular bar, launcher, and control center for Hyprland and Niri.",
+  "version": "1.0.0",
+  "author": "andre-brandao",
+  "homepage": "https://github.com/andre-brandao/gpui-shell",
+  "skills": []
+}
