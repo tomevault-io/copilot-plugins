@@ -1,6 +1,6 @@
 # DietPlanner
 
-> Config by [GasiorMateusz](https://github.com/GasiorMateusz/DietPlanner) — distributed by [TomeVault](https://tomevault.io/claim/GasiorMateusz)
+> Tome by [GasiorMateusz](https://github.com/GasiorMateusz/DietPlanner) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [GasiorMateusz/DietPlanner](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/GasiorMateusz](https://tomevault.io/claim/GasiorMateusz)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/GasiorMateusz/DietPlanner](https://github.com/GasiorMateusz/DietPlanner)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/GasiorMateusz) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-p -->
