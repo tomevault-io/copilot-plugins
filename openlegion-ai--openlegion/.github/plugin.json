@@ -1,0 +1,9 @@
+{
+  "name": "openlegion-ai--openlegion",
+  "displayName": "openlegion",
+  "description": "Secure autonomous AI agent fleet platform \u2014 Docker-isolated, multi-provider, with built-in cost controls. OpenClaw alternative for production use.",
+  "version": "1.0.0",
+  "author": "openlegion-ai",
+  "homepage": "https://github.com/openlegion-ai/openlegion",
+  "skills": []
+}
