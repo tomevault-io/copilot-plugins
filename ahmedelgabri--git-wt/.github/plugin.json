@@ -1,0 +1,9 @@
+{
+  "name": "ahmedelgabri--git-wt",
+  "displayName": "git-wt",
+  "description": "A git custom command that enhances Git's native worktree functionality with interactive features, automation, and repository migration capabilities.",
+  "version": "1.0.0",
+  "author": "ahmedelgabri",
+  "homepage": "https://github.com/ahmedelgabri/git-wt",
+  "skills": []
+}
