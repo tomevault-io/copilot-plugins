@@ -1,0 +1,9 @@
+{
+  "name": "botrunner64--teleopit",
+  "displayName": "Teleopit",
+  "description": "lightweight and scalable whole-body teleoperation framework for humanoid robots",
+  "version": "1.0.0",
+  "author": "BotRunner64",
+  "homepage": "https://github.com/BotRunner64/Teleopit",
+  "skills": []
+}
