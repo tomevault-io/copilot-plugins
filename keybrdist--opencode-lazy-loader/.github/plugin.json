@@ -1,0 +1,14 @@
+{
+  "name": "keybrdist--opencode-lazy-loader",
+  "displayName": "opencode-lazy-loader",
+  "description": "AI instruction skills by keybrdist",
+  "version": "1.0.0",
+  "author": "keybrdist",
+  "homepage": "https://github.com/keybrdist/opencode-lazy-loader",
+  "skills": [
+    {
+      "name": "playwright-example",
+      "description": ""
+    }
+  ]
+}
