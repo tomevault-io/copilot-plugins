@@ -1,0 +1,63 @@
+{
+  "name": "k13d",
+  "owner": "cloudbro-kube-ai",
+  "repo": "k13d",
+  "description": "Kube AI Dashboard",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docs-drift-detector",
+      "path": "skills/k13d/docs-drift-detector",
+      "github_url": "https://github.com/cloudbro-kube-ai/k13d/tree/main/skills/k13d/docs-drift-detector",
+      "description": ""
+    },
+    {
+      "name": "changelog-sync",
+      "path": "skills/k13d/changelog-sync",
+      "github_url": "https://github.com/cloudbro-kube-ai/k13d/tree/main/skills/k13d/changelog-sync",
+      "description": ""
+    },
+    {
+      "name": "docs-updater",
+      "path": "skills/k13d/docs-updater",
+      "github_url": "https://github.com/cloudbro-kube-ai/k13d/tree/main/skills/k13d/docs-updater",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cloudbro-kube-ai/k13d",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T12:30:46Z"
+}
