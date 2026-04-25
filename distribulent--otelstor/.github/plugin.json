@@ -1,0 +1,9 @@
+{
+  "name": "distribulent--otelstor",
+  "displayName": "otelstor",
+  "description": "OpenTelemetry single-binary store and UI dashboard",
+  "version": "1.0.0",
+  "author": "distribulent",
+  "homepage": "https://github.com/distribulent/otelstor",
+  "skills": []
+}
