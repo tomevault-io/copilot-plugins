@@ -1,0 +1,9 @@
+{
+  "name": "dchu917--ctx",
+  "displayName": "ctx",
+  "description": "Local context manager for Claude Code and Codex with workstreams, transcript binding, and branching.",
+  "version": "1.0.0",
+  "author": "dchu917",
+  "homepage": "https://github.com/dchu917/ctx",
+  "skills": []
+}
