@@ -1,0 +1,9 @@
+{
+  "name": "n4m3z--forge-council",
+  "displayName": "forge-council",
+  "description": "Multi-agent council orchestration via Claude Code agent teams",
+  "version": "1.0.0",
+  "author": "N4M3Z",
+  "homepage": "https://github.com/N4M3Z/forge-council",
+  "skills": []
+}
