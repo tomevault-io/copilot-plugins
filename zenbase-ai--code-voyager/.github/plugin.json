@@ -1,0 +1,30 @@
+{
+  "name": "zenbase-ai--code-voyager",
+  "displayName": "code-voyager",
+  "description": "AI instruction skills by zenbase-ai",
+  "version": "1.0.0",
+  "author": "zenbase-ai",
+  "homepage": "https://github.com/zenbase-ai/code-voyager",
+  "skills": [
+    {
+      "name": "curriculum-planner",
+      "description": ""
+    },
+    {
+      "name": "session-brain",
+      "description": ""
+    },
+    {
+      "name": "skill-factory",
+      "description": ""
+    },
+    {
+      "name": "skill-refinement",
+      "description": ""
+    },
+    {
+      "name": "skill-retrieval",
+      "description": ""
+    }
+  ]
+}
