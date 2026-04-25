@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--librechat-admin-panel",
+  "displayName": "librechat-admin-panel",
+  "description": "A standalone application for managing LibreChat configurations and permissions",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/librechat-admin-panel",
+  "skills": []
+}
