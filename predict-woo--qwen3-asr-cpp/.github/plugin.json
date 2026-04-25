@@ -1,0 +1,9 @@
+{
+  "name": "predict-woo--qwen3-asr-cpp",
+  "displayName": "qwen3-asr.cpp",
+  "description": "Implementation of Qwen3-ASR-0.6B in GGML",
+  "version": "1.0.0",
+  "author": "predict-woo",
+  "homepage": "https://github.com/predict-woo/qwen3-asr.cpp",
+  "skills": []
+}
