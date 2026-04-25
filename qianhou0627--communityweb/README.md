@@ -1,6 +1,6 @@
-# Communityweb — distributed by TomeVault
+# Communityweb
 
-> Originally from [qianhou0627/Communityweb](https://github.com/qianhou0627/Communityweb). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [qianhou0627/Communityweb](https://github.com/qianhou0627/Communityweb) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [qianhou0627/Communityweb](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/qianhou0627#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/qianhou0627/Communityweb](https://github.com/qianhou0627/Communityweb)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install qianhou0627/Communityweb
 ```
-Or browse all formats at [https://tomevault.io/claim/qianhou0627](https://tomevault.io/claim/qianhou0627).
+Source: [github.com/qianhou0627/Communityweb](https://github.com/qianhou0627/Communityweb).
 
 <!-- genome:d-i-q -->
