@@ -1,0 +1,9 @@
+{
+  "name": "choco-robot--homebot",
+  "displayName": "HomeBot",
+  "description": "\u5f00\u6e90\u3001\u8f7b\u91cf\u7684\u5bb6\u5ead\u673a\u5668\u4eba\u9879\u76ee",
+  "version": "1.0.0",
+  "author": "choco-robot",
+  "homepage": "https://github.com/choco-robot/HomeBot",
+  "skills": []
+}
