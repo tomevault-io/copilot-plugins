@@ -1,23 +1,28 @@
-# Claude-Code-Zen-mcp-Skill-Work
+# AI instruction files for Claude-Code-Zen-mcp-Skill-Work
 
-> Config by [VCnoC](https://github.com/VCnoC/Claude-Code-Zen-mcp-Skill-Work) — distributed by [TomeVault](https://tomevault.io/claim/VCnoC)
+> Sourced from [VCnoC/Claude-Code-Zen-mcp-Skill-Work](https://github.com/VCnoC/Claude-Code-Zen-mcp-Skill-Work) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [VCnoC/Claude-Code-Zen-mcp-Skill-Work](https://github.com/VCnoC/Claude-Code-Zen-mcp-Skill-Work).
+Original source: `CLAUDE.md` in [VCnoC/Claude-Code-Zen-mcp-Skill-Work](https://github.com/VCnoC/Claude-Code-Zen-mcp-Skill-Work).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/VCnoC](https://tomevault.io/claim/VCnoC)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/VCnoC/Claude-Code-Zen-mcp-Skill-Work](https://github.com/VCnoC/Claude-Code-Zen-mcp-Skill-Work)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/VCnoC) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install VCnoC/Claude-Code-Zen-mcp-Skill-Work
+```
+Source: [github.com/VCnoC/Claude-Code-Zen-mcp-Skill-Work](https://github.com/VCnoC/Claude-Code-Zen-mcp-Skill-Work).
+
+<!-- genome:a-i-p -->
