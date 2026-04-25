@@ -1,0 +1,9 @@
+{
+  "name": "circleci-public--chunk-cli",
+  "displayName": "chunk-cli",
+  "description": "Chunk from the command line",
+  "version": "1.0.0",
+  "author": "CircleCI-Public",
+  "homepage": "https://github.com/CircleCI-Public/chunk-cli",
+  "skills": []
+}
