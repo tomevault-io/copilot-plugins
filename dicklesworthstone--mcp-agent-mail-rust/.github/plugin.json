@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--mcp-agent-mail-rust",
+  "displayName": "mcp_agent_mail_rust",
+  "description": "Rust MCP server for multi-agent coordination: 34 tools, Git-backed archive, SQLite indexing, advisory file locks, and an interactive TUI console",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/mcp_agent_mail_rust",
+  "skills": []
+}
