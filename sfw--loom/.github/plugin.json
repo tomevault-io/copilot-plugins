@@ -1,0 +1,9 @@
+{
+  "name": "sfw--loom",
+  "displayName": "loom",
+  "description": "Loom is an AI harness, that can be used with local or cloud LLMs, for complex tasks. It decomposes work, drives execution through a verification harness, and keeps models on track with structured stat",
+  "version": "1.0.0",
+  "author": "sfw",
+  "homepage": "https://github.com/sfw/loom",
+  "skills": []
+}
