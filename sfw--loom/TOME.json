@@ -1,0 +1,44 @@
+{
+  "name": "loom",
+  "owner": "sfw",
+  "repo": "loom",
+  "description": "Loom is an AI harness, that can be used with local or cloud LLMs, for complex tasks. It decomposes work, drives execution through a verification harness, and keeps models on track with structured state instead of history. It can route between thinking and acting models, verifies outputs, and exposes an APP/TUI/API/CLI/MCP for both humans & agents.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sfw/loom",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T17:05:15Z"
+}
