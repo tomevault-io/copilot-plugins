@@ -1038,6 +1038,5 @@ AI_TOOLS_NORMALIZE=false claude
 2025 猪哥云-灵阙企业级智能体平台
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/MARUCIE)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/MARUCIE)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/MARUCIE) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
