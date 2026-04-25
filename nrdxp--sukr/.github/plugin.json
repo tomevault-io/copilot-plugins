@@ -1,0 +1,9 @@
+{
+  "name": "nrdxp--sukr",
+  "displayName": "sukr",
+  "description": "Minimal static site compiler \u2014 suckless, Rust, zero JS.",
+  "version": "1.0.0",
+  "author": "nrdxp",
+  "homepage": "https://github.com/nrdxp/sukr",
+  "skills": []
+}
