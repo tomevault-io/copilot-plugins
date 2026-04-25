@@ -1,0 +1,9 @@
+{
+  "name": "saltbo--supabase-auth-site",
+  "displayName": "supabase-auth-site",
+  "description": "A production-ready, fully configurable authentication portal powered by Supabase.",
+  "version": "1.0.0",
+  "author": "saltbo",
+  "homepage": "https://github.com/saltbo/supabase-auth-site",
+  "skills": []
+}
