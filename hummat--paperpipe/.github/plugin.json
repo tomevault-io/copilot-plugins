@@ -1,0 +1,30 @@
+{
+  "name": "hummat--paperpipe",
+  "displayName": "paperpipe",
+  "description": "Extract equations and context from research papers for LLM coding assistants (arXiv, LaTeX, RAG)",
+  "version": "1.0.0",
+  "author": "hummat",
+  "homepage": "https://github.com/hummat/paperpipe",
+  "skills": [
+    {
+      "name": "papi",
+      "description": ""
+    },
+    {
+      "name": "papi-compare",
+      "description": ""
+    },
+    {
+      "name": "papi-curate",
+      "description": ""
+    },
+    {
+      "name": "papi-init",
+      "description": ""
+    },
+    {
+      "name": "papi-verify",
+      "description": ""
+    }
+  ]
+}
