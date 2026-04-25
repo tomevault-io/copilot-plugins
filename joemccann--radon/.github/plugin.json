@@ -1,0 +1,9 @@
+{
+  "name": "joemccann--radon",
+  "displayName": "radon",
+  "description": "Radon is a market-structure reconstruction system that detects institutional positioning and turns it into convex options trades using dark pool flow, volatility signals, and cross-asset positioning d",
+  "version": "1.0.0",
+  "author": "joemccann",
+  "homepage": "https://github.com/joemccann/radon",
+  "skills": []
+}
