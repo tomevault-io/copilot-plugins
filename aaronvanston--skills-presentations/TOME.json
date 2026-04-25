@@ -1,0 +1,117 @@
+{
+  "name": "skills",
+  "owner": "aaronvanston",
+  "repo": "skills-presentations",
+  "description": "AI agent skills for creating bold, minimal presentations",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "presentation-content",
+      "path": "skills/presentation-content",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/presentation-content",
+      "description": ""
+    },
+    {
+      "name": "presentation-design",
+      "path": "skills/presentation-design",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/presentation-design",
+      "description": ""
+    },
+    {
+      "name": "presentation-notes",
+      "path": "skills/presentation-notes",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/presentation-notes",
+      "description": ""
+    },
+    {
+      "name": "presentation-pitch-deck",
+      "path": "skills/presentation-pitch-deck",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/presentation-pitch-deck",
+      "description": ""
+    },
+    {
+      "name": "convex-actions",
+      "path": "skills/convex-actions",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/convex-actions",
+      "description": ""
+    },
+    {
+      "name": "convex-agents",
+      "path": "skills/convex-agents",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/convex-agents",
+      "description": ""
+    },
+    {
+      "name": "convex-http",
+      "path": "skills/convex-http",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/convex-http",
+      "description": ""
+    },
+    {
+      "name": "convex-patterns",
+      "path": "skills/convex-patterns",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/convex-patterns",
+      "description": ""
+    },
+    {
+      "name": "convex-queries",
+      "path": "skills/convex-queries",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/convex-queries",
+      "description": ""
+    },
+    {
+      "name": "convex-realtime",
+      "path": "skills/convex-realtime",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/convex-realtime",
+      "description": ""
+    },
+    {
+      "name": "convex-review",
+      "path": "skills/convex-review",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/convex-review",
+      "description": ""
+    },
+    {
+      "name": "convex-security",
+      "path": "skills/convex-security",
+      "github_url": "https://github.com/aaronvanston/skills-presentations/tree/main/skills/convex-security",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aaronvanston/skills-presentations",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T10:35:21Z"
+}
