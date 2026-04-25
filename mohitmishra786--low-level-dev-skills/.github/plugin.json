@@ -1,0 +1,9 @@
+{
+  "name": "mohitmishra786--low-level-dev-skills",
+  "displayName": "low-level-dev-skills",
+  "description": "A curated suite of AI agent skills for systems and low-level programming with C/C++, Rust, and Zig toolchains, covering compilers, debuggers, profilers, build systems, sanitizers, and binary analysis",
+  "version": "1.0.0",
+  "author": "mohitmishra786",
+  "homepage": "https://github.com/mohitmishra786/low-level-dev-skills",
+  "skills": []
+}
