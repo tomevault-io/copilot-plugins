@@ -1,0 +1,9 @@
+{
+  "name": "yesonsys03-web--vibelign",
+  "displayName": "VibeLign",
+  "description": "AI coding safety CLI for vibe coding workflows. Checkpoints, undo, anchors, MCP, and secret protection for Claude Code, Cursor, Codex, and OpenCode.",
+  "version": "1.0.0",
+  "author": "yesonsys03-web",
+  "homepage": "https://github.com/yesonsys03-web/VibeLign",
+  "skills": []
+}
