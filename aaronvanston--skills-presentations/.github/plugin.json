@@ -1,0 +1,58 @@
+{
+  "name": "aaronvanston--skills-presentations",
+  "displayName": "skills",
+  "description": "AI agent skills for creating bold, minimal presentations",
+  "version": "1.0.0",
+  "author": "aaronvanston",
+  "homepage": "https://github.com/aaronvanston/skills-presentations",
+  "skills": [
+    {
+      "name": "presentation-content",
+      "description": ""
+    },
+    {
+      "name": "presentation-design",
+      "description": ""
+    },
+    {
+      "name": "presentation-notes",
+      "description": ""
+    },
+    {
+      "name": "presentation-pitch-deck",
+      "description": ""
+    },
+    {
+      "name": "convex-actions",
+      "description": ""
+    },
+    {
+      "name": "convex-agents",
+      "description": ""
+    },
+    {
+      "name": "convex-http",
+      "description": ""
+    },
+    {
+      "name": "convex-patterns",
+      "description": ""
+    },
+    {
+      "name": "convex-queries",
+      "description": ""
+    },
+    {
+      "name": "convex-realtime",
+      "description": ""
+    },
+    {
+      "name": "convex-review",
+      "description": ""
+    },
+    {
+      "name": "convex-security",
+      "description": ""
+    }
+  ]
+}
