@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [agwhi/Dotfiles](https://github.com/ag
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/agwhi#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/agwhi/Dotfiles](https://github.com/agwhi/Dotfiles)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install agwhi/Dotfiles
 ```
-Or browse all formats at [https://tomevault.io/claim/agwhi](https://tomevault.io/claim/agwhi).
+Source: [github.com/agwhi/Dotfiles](https://github.com/agwhi/Dotfiles).
 
 <!-- genome:a-i-q -->
