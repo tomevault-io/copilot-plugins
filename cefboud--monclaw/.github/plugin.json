@@ -1,0 +1,9 @@
+{
+  "name": "cefboud--monclaw",
+  "displayName": "MonClaw",
+  "description": "A minimal Openclaw built using the Opencode SDK",
+  "version": "1.0.0",
+  "author": "CefBoud",
+  "homepage": "https://github.com/CefBoud/MonClaw",
+  "skills": []
+}
