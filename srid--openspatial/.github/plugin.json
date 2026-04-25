@@ -1,0 +1,9 @@
+{
+  "name": "srid--openspatial",
+  "displayName": "openspatial",
+  "description": "A virtual space where distance disappears",
+  "version": "1.0.0",
+  "author": "srid",
+  "homepage": "https://github.com/srid/openspatial",
+  "skills": []
+}
