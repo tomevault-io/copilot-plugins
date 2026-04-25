@@ -1,0 +1,9 @@
+{
+  "name": "tma1-ai--tma1",
+  "displayName": "tma1",
+  "description": "Local-first observability for AI agents, with a built-in dashboard. Cost, sessions, anomalies, and conversation replay \u2014 all on your machine.",
+  "version": "1.0.0",
+  "author": "tma1-ai",
+  "homepage": "https://github.com/tma1-ai/tma1",
+  "skills": []
+}
