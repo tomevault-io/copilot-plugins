@@ -1,0 +1,9 @@
+{
+  "name": "jal-co--ui",
+  "displayName": "ui",
+  "description": "Open-source React component library. Polished, composable components for React and Tailwind CSS. Distributed via a shadcn-compatible registry. Never paywalled.",
+  "version": "1.0.0",
+  "author": "jal-co",
+  "homepage": "https://github.com/jal-co/ui",
+  "skills": []
+}
