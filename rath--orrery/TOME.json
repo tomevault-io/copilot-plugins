@@ -1,0 +1,44 @@
+{
+  "name": "orrery",
+  "owner": "rath",
+  "repo": "orrery",
+  "description": "\uc11c\ubc84 \uc5c6\uc774 \ube0c\ub77c\uc6b0\uc800\uc5d0\uc11c \ub3d9\uc791\ud558\ub294 \uc0ac\uc8fc\ud314\uc790\u00b7\uc790\ubbf8\ub450\uc218\u00b7\ucd9c\uc0dd\ucc28\ud2b8 \uacc4\uc0b0\uae30. \uc2ed\uc2e0, \ub300\uc6b4, \uba85\ubc18, \uc0ac\ud654\uae4c\uc9c0 \ud55c \ubc88\uc5d0.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rath/orrery",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T00:44:55Z"
+}
