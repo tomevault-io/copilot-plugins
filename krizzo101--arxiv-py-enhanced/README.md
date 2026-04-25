@@ -1,6 +1,6 @@
 # arxiv-py-enhanced
 
-> Tome by [krizzo101](https://github.com/krizzo101/arxiv-py-enhanced) — distributed by [TomeVault](https://tomevault.io/claim/krizzo101)
+> Tome by [krizzo101](https://github.com/krizzo101/arxiv-py-enhanced) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [krizzo101/arxiv-py-enhanced](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/krizzo101#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/krizzo101/arxiv-py-enhanced](https://github.com/krizzo101/arxiv-py-enhanced)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install krizzo101/arxiv-py-enhanced
 ```
-Or browse all formats at [https://tomevault.io/claim/krizzo101](https://tomevault.io/claim/krizzo101).
+Source: [github.com/krizzo101/arxiv-py-enhanced](https://github.com/krizzo101/arxiv-py-enhanced).
 
 <!-- genome:t-i-q -->
