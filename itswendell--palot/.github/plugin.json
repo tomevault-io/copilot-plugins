@@ -1,0 +1,9 @@
+{
+  "name": "itswendell--palot",
+  "displayName": "palot",
+  "description": "Open-source OpenAI Codex alternative | Multi-agent desktop GUI for OpenCode | manage coding sessions, visualize diffs, and stream in real-time.",
+  "version": "1.0.0",
+  "author": "ItsWendell",
+  "homepage": "https://github.com/ItsWendell/palot",
+  "skills": []
+}
