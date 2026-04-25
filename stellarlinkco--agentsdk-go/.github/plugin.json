@@ -1,0 +1,9 @@
+{
+  "name": "stellarlinkco--agentsdk-go",
+  "displayName": "agentsdk-go",
+  "description": "Build AI agents in light speed",
+  "version": "1.0.0",
+  "author": "stellarlinkco",
+  "homepage": "https://github.com/stellarlinkco/agentsdk-go",
+  "skills": []
+}
