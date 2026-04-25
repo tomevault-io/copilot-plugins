@@ -1,0 +1,9 @@
+{
+  "name": "helgesverre--toon-php",
+  "displayName": "toon-php",
+  "description": "Token-Oriented Object Notation - A compact data format for reducing token consumption when sending structured data to LLMs (PHP implementation)",
+  "version": "1.0.0",
+  "author": "HelgeSverre",
+  "homepage": "https://github.com/HelgeSverre/toon-php",
+  "skills": []
+}
