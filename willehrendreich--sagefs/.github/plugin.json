@@ -1,0 +1,9 @@
+{
+  "name": "willehrendreich--sagefs",
+  "displayName": "SageFs",
+  "description": "Sage Mode for F# development \u2014 REPL with solution or project loading, Live Testing for FREE, Hot Reload, and session management.",
+  "version": "1.0.0",
+  "author": "WillEhrendreich",
+  "homepage": "https://github.com/WillEhrendreich/SageFs",
+  "skills": []
+}
