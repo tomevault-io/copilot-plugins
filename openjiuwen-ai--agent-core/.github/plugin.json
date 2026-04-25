@@ -1,0 +1,9 @@
+{
+  "name": "openjiuwen-ai--agent-core",
+  "displayName": "agent-core",
+  "description": "openJiuwen agent-core provides a complete set of SDK capabilities related to AI Agent development, running, optimization, and evolution.",
+  "version": "1.0.0",
+  "author": "openJiuwen-ai",
+  "homepage": "https://github.com/openJiuwen-ai/agent-core",
+  "skills": []
+}
