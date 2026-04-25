@@ -1,0 +1,42 @@
+{
+  "name": "cuongtl1992--vibe-skills",
+  "displayName": "vibe-skills",
+  "description": "The Skills collection for Claude Code",
+  "version": "1.0.0",
+  "author": "cuongtl1992",
+  "homepage": "https://github.com/cuongtl1992/vibe-skills",
+  "skills": [
+    {
+      "name": "bdd-practices",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "dotnet-ddd",
+      "description": ""
+    },
+    {
+      "name": "dotnet-tdd",
+      "description": ""
+    },
+    {
+      "name": "playwright-bdd-analyzer",
+      "description": ""
+    },
+    {
+      "name": "playwright-cucumber-e2e-steps-generator",
+      "description": ""
+    },
+    {
+      "name": "pom-generator",
+      "description": ""
+    },
+    {
+      "name": "sqlserver-expert",
+      "description": ""
+    }
+  ]
+}
