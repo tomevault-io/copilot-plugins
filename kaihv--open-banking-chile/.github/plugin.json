@@ -1,7 +1,7 @@
 {
   "name": "kaihv--open-banking-chile",
   "displayName": "open-banking-chile",
-  "description": "Open source scrapers para bancos chilenos. Obt\u00e9n tus movimientos y saldo como JSON. Contribuye con tu banco!",
+  "description": "open-banking-chile",
   "version": "1.0.0",
   "author": "kaihv",
   "homepage": "https://github.com/kaihv/open-banking-chile",
