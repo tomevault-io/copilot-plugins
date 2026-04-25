@@ -1,0 +1,9 @@
+{
+  "name": "aprilnea--byokey",
+  "displayName": "BYOKEY",
+  "description": "Turn AI subscriptions into standard API endpoints. OpenAI & Anthropic compatible gateway \u2014 for Amp Code, Cursor, Factory CLI, and more.",
+  "version": "1.0.0",
+  "author": "AprilNEA",
+  "homepage": "https://github.com/AprilNEA/BYOKEY",
+  "skills": []
+}
