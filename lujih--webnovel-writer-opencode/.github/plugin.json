@@ -1,0 +1,9 @@
+{
+  "name": "lujih--webnovel-writer-opencode",
+  "displayName": "webnovel-writer-opencode",
+  "description": "\u672c\u9879\u76ee\u662f\u57fa\u4e8ewebnovel-writer \u6539\u7f16\u7684 OpenCode \u7248\u672c\uff0c\u76ee\u6807\u662f\u8ba9\u7528\u6237\u5728OpenCode \u4f7f\u7528\u957f\u7bc7\u7f51\u6587\u521b\u4f5c\u7cfb\u7edf\uff0c\u89e3\u51b3 AI \u5199\u4f5c\u4e2d\u7684\u300c\u9057\u5fd8\u300d\u548c\u300c\u5e7b\u89c9\u300d\u95ee\u9898\uff0c\u652f\u6301 200 \u4e07\u5b57\u91cf\u7ea7 \u8fde\u8f7d\u521b\u4f5c\u3002",
+  "version": "1.0.0",
+  "author": "lujih",
+  "homepage": "https://github.com/lujih/webnovel-writer-opencode",
+  "skills": []
+}
