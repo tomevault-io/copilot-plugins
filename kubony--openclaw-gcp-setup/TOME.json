@@ -1,0 +1,57 @@
+{
+  "name": "openclaw-gcp-setup",
+  "owner": "kubony",
+  "repo": "openclaw-gcp-setup",
+  "description": "GCP \uc778\ud504\ub77c \uc790\ub3d9\ud654\ub97c \uc704\ud55c Claude Code \uc2a4\ud0ac \ubaa8\uc74c",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gcp-project-setup",
+      "path": ".claude/skills/gcp-project-setup",
+      "github_url": "https://github.com/kubony/openclaw-gcp-setup/tree/main/.claude/skills/gcp-project-setup",
+      "description": ""
+    },
+    {
+      "name": "gcp-usage",
+      "path": ".claude/skills/gcp-usage",
+      "github_url": "https://github.com/kubony/openclaw-gcp-setup/tree/main/.claude/skills/gcp-usage",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kubony/openclaw-gcp-setup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T10:31:58Z"
+}
