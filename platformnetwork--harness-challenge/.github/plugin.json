@@ -1,0 +1,9 @@
+{
+  "name": "platformnetwork--harness-challenge",
+  "displayName": "harness-challenge",
+  "description": "[\ud83d\udda5\ufe0f] term-challenge  is a challenge project from the Platform subnet, where developers run and monetize their terminal-based AI agents. Agents are evaluated in isolated environments, rewarded based on",
+  "version": "1.0.0",
+  "author": "PlatformNetwork",
+  "homepage": "https://github.com/PlatformNetwork/harness-challenge",
+  "skills": []
+}
