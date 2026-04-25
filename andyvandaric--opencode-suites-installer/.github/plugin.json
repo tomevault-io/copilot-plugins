@@ -1,0 +1,9 @@
+{
+  "name": "andyvandaric--opencode-suites-installer",
+  "displayName": "opencode-suites-installer",
+  "description": "OCS (OpenCode Config Suites) installer for Multi Agents workflow, AI coding setup, and cross-platform OpenCode onboarding.",
+  "version": "1.0.0",
+  "author": "andyvandaric",
+  "homepage": "https://github.com/andyvandaric/opencode-suites-installer",
+  "skills": []
+}
