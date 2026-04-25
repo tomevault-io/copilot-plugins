@@ -1,0 +1,9 @@
+{
+  "name": "jfarcand--mirroir-mcp",
+  "displayName": "mirroir-mcp",
+  "description": "MCP server for controlling a real iPhone via macOS iPhone Mirroring...and any MacOs app. Screenshot, tap, swipe, type \u2014 from any MCP client.",
+  "version": "1.0.0",
+  "author": "jfarcand",
+  "homepage": "https://github.com/jfarcand/mirroir-mcp",
+  "skills": []
+}
