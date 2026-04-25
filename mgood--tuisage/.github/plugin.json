@@ -1,0 +1,9 @@
+{
+  "name": "mgood--tuisage",
+  "displayName": "tuisage",
+  "description": "A terminal UI for running mise tasks or other commands supporting the --usage spec.",
+  "version": "1.0.0",
+  "author": "mgood",
+  "homepage": "https://github.com/mgood/tuisage",
+  "skills": []
+}
