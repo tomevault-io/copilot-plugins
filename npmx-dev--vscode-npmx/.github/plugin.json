@@ -1,0 +1,9 @@
+{
+  "name": "npmx-dev--vscode-npmx",
+  "displayName": "vscode-npmx",
+  "description": "A better browser for the npm registry",
+  "version": "1.0.0",
+  "author": "npmx-dev",
+  "homepage": "https://github.com/npmx-dev/vscode-npmx",
+  "skills": []
+}
