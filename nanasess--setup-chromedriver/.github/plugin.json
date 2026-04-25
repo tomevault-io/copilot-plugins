@@ -1,0 +1,9 @@
+{
+  "name": "nanasess--setup-chromedriver",
+  "displayName": "setup-chromedriver",
+  "description": "setup-chromedriver",
+  "version": "1.0.0",
+  "author": "nanasess",
+  "homepage": "https://github.com/nanasess/setup-chromedriver",
+  "skills": []
+}
