@@ -1,0 +1,9 @@
+{
+  "name": "effect-ts--tsgo",
+  "displayName": "tsgo",
+  "description": "TypeScript-go enhanced with the Effect LSP experience",
+  "version": "1.0.0",
+  "author": "Effect-TS",
+  "homepage": "https://github.com/Effect-TS/tsgo",
+  "skills": []
+}
