@@ -7,14 +7,14 @@ A CLI built for agentic development
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [tilework-tech/nori-cli](https://github.com/tilework-tech/nori-cli).
+Original source: `AGENTS.md` in [tilework-tech/nori-cli](https://github.com/tilework-tech/nori-cli).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/tilework-tech/nori-cli](https://github.com/tilework-tech/nori-cli)
