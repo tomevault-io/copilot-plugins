@@ -1,0 +1,9 @@
+{
+  "name": "memex-lab--memex",
+  "displayName": "memex",
+  "description": "A local-first, AI-native personal knowledge management app built with Flutter. Capture thoughts through text, photos, and voice \u2014 a multi-agent system automatically organizes, extracts knowledge, and ",
+  "version": "1.0.0",
+  "author": "memex-lab",
+  "homepage": "https://github.com/memex-lab/memex",
+  "skills": []
+}
