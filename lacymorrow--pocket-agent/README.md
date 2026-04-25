@@ -1,6 +1,6 @@
-# pocket-agent — distributed by TomeVault
+# pocket-agent
 
-> Originally from [lacymorrow/pocket-agent](https://github.com/lacymorrow/pocket-agent). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [lacymorrow/pocket-agent](https://github.com/lacymorrow/pocket-agent) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [lacymorrow/pocket-agent](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/lacymorrow)
+From [lacymorrow/pocket-agent](https://github.com/lacymorrow/pocket-agent) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install lacymorrow/pocket-agent
 ```
-Or browse all formats at [https://tomevault.io/claim/lacymorrow](https://tomevault.io/claim/lacymorrow).
+Source: [github.com/lacymorrow/pocket-agent](https://github.com/lacymorrow/pocket-agent).
 
 <!-- genome:d-i-s -->
