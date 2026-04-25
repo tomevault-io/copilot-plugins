@@ -1,0 +1,9 @@
+{
+  "name": "mp-consulting--homebridge-govee",
+  "displayName": "homebridge-govee",
+  "description": "homebridge-govee",
+  "version": "1.0.0",
+  "author": "mp-consulting",
+  "homepage": "https://github.com/mp-consulting/homebridge-govee",
+  "skills": []
+}
