@@ -1,0 +1,9 @@
+{
+  "name": "aninsomniacy--motrix-next-extension",
+  "displayName": "motrix-next-extension",
+  "description": "Browser extension for Motrix Next \u2014 intercept and redirect downloads with smart filtering and real-time control",
+  "version": "1.0.0",
+  "author": "AnInsomniacy",
+  "homepage": "https://github.com/AnInsomniacy/motrix-next-extension",
+  "skills": []
+}
