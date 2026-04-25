@@ -1,0 +1,9 @@
+{
+  "name": "closedloop-ai--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "Open-source Claude Code plugins for multi-agent software delivery. Plan-first SDLC workflow, code review, LLM quality judges, and self-learning \u2014 grounded in your codebase.  Bootstrap, Plan, & Ship.  ",
+  "version": "1.0.0",
+  "author": "closedloop-ai",
+  "homepage": "https://github.com/closedloop-ai/claude-plugins",
+  "skills": []
+}
