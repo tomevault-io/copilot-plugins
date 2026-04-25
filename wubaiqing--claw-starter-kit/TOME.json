@@ -1,0 +1,57 @@
+{
+  "name": "claw-starter-kit",
+  "owner": "wubaiqing",
+  "repo": "claw-starter-kit",
+  "description": "\u4f60\u7684 AI \u79c1\u4eba\u52a9\u624b\uff0c\u4e00\u952e\u542f\u52a8\u3002\u57fa\u4e8e OpenClaw\uff0c\u4e2d\u6587\u7528\u6237\u53cb\u597d\u3002",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gaode-weather",
+      "path": "skills/gaode-weather",
+      "github_url": "https://github.com/wubaiqing/claw-starter-kit/tree/main/skills/gaode-weather",
+      "description": ""
+    },
+    {
+      "name": "gog",
+      "path": "skills/gog",
+      "github_url": "https://github.com/wubaiqing/claw-starter-kit/tree/main/skills/gog",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wubaiqing/claw-starter-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-25T10:33:43Z"
+}
