@@ -1,0 +1,9 @@
+{
+  "name": "prestonbrown--helixscreen",
+  "displayName": "helixscreen",
+  "description": "A modern, lightweight touchscreen interface for Klipper 3D printers",
+  "version": "1.0.0",
+  "author": "prestonbrown",
+  "homepage": "https://github.com/prestonbrown/helixscreen",
+  "skills": []
+}
