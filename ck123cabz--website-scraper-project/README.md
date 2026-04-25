@@ -1,6 +1,6 @@
-# website-scraper-project — distributed by TomeVault
+# website-scraper-project
 
-> Originally from [ck123cabz/website-scraper-project](https://github.com/ck123cabz/website-scraper-project). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ck123cabz/website-scraper-project](https://github.com/ck123cabz/website-scraper-project) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [ck123cabz/website-scraper-project](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ck123cabz)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ck123cabz/website-scraper-project](https://github.com/ck123cabz/website-scraper-project)
 
 ---
 
