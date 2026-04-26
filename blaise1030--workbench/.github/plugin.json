@@ -1,0 +1,9 @@
+{
+  "name": "blaise1030--workbench",
+  "displayName": "workbench",
+  "description": "Workbench gives Claude Code, Gemini CLI, and Cursor Agent a shared workspace for parallel runs, change review, and project-level organization. Bring your own subscription.",
+  "version": "1.0.0",
+  "author": "Blaise1030",
+  "homepage": "https://github.com/Blaise1030/workbench",
+  "skills": []
+}
