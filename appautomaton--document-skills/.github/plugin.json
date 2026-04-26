@@ -1,0 +1,9 @@
+{
+  "name": "appautomaton--document-skills",
+  "displayName": "document-SKILLs",
+  "description": "A collection of Claude Code / Codex AGENTIC SKILLs for document manipulation - PDF extraction/forms, Excel analysis/formulas, Word, and PowerPoint       ",
+  "version": "1.0.0",
+  "author": "appautomaton",
+  "homepage": "https://github.com/appautomaton/document-SKILLs",
+  "skills": []
+}
