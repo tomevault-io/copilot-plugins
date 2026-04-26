@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--xf",
+  "displayName": "xf",
+  "description": "Search your X/Twitter data archive from the command line with sub-millisecond full-text queries via Tantivy and SQLite",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/xf",
+  "skills": []
+}
