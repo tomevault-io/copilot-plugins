@@ -1,0 +1,9 @@
+{
+  "name": "treyorr--voca",
+  "displayName": "voca",
+  "description": "High-performance WebRTC signaling server in Rust with frontend SDKs. Self-hostable, stateless, and fast.",
+  "version": "1.0.0",
+  "author": "treyorr",
+  "homepage": "https://github.com/treyorr/voca",
+  "skills": []
+}
