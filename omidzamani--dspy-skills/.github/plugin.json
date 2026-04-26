@@ -1,0 +1,9 @@
+{
+  "name": "omidzamani--dspy-skills",
+  "displayName": "dspy-skills",
+  "description": "Collection of Claude Skills for DSPy framework - program language models, optimize prompts, and build RAG pipelines systematically",
+  "version": "1.0.0",
+  "author": "OmidZamani",
+  "homepage": "https://github.com/OmidZamani/dspy-skills",
+  "skills": []
+}
