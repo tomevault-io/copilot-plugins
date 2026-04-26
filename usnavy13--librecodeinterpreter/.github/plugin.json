@@ -1,0 +1,9 @@
+{
+  "name": "usnavy13--librecodeinterpreter",
+  "displayName": "LibreCodeInterpreter",
+  "description": "A secure, open-source code interpreter API with sandboxed Docker execution. Compatible with LibreChat.",
+  "version": "1.0.0",
+  "author": "usnavy13",
+  "homepage": "https://github.com/usnavy13/LibreCodeInterpreter",
+  "skills": []
+}
