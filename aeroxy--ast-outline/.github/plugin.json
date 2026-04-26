@@ -1,0 +1,9 @@
+{
+  "name": "aeroxy--ast-outline",
+  "displayName": "ast-outline",
+  "description": "Fast, AST-based structural outline for source files. Built for LLM coding agents and humans.",
+  "version": "1.0.0",
+  "author": "aeroxy",
+  "homepage": "https://github.com/aeroxy/ast-outline",
+  "skills": []
+}
