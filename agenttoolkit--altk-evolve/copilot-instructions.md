@@ -1,0 +1,85 @@
+## altk-evolve
+
+> Evolve is a Python library and service which enables AI agents to improve through self-reflection.
+
+# What is Evolve?
+Evolve is a Python library and service which enables AI agents to improve through self-reflection.
+
+## Key Concepts
+- **Trajectory**: A recorded agent conversation
+- **Entity**: Anything which is appropriately stored in a vector database, such as a guideline, policy, or some other knowledge.
+- **Namespace**: Isolated storage for entities
+- **Conflict Resolution**: LLM-based merging of duplicate/conflicting entities
+- **Guidelines**: Instructions intended to assist an agent in completing some task
+
+## Architecture Flow
+1. Agent completes some task, and the resulting trajectory is automatically saved into a logging framework such as Langfuse or Arize Phoenix.
+2. The agent can call the sync MCP function, or the user can manually sync, which causes evolve to process the trajectory and save any generated guidelines.
+3. Generated guidelines are stored as entities with conflict resolution applied.
+4. Future agents can query the Evolve MCP server to fetch guidelines for similar tasks
+
+## Project Directory Tree (Some files omitted for brevity)
+```text
+.
+├── demo (Files used by the Claude Code demo)
+│   ├── filesystem
+│   └── workdir
+├── docs (Data used by README files)
+├── explorations (Tangential projects for feeling out future work. Should be avoided unless otherwise prompted.)
+│   └── claudecode
+├── evolve (Primary Source Root)
+│   ├── backend (Entity Database Backend implementations, primarily vector databases)
+│   ├── cli (A CLI wrapper over the native Python client)
+│   ├── config (All configurations which are derived from environment variables or instantiated as an object)
+│   ├── db (A sqlite database for when vector databases are a poor fit for the data)
+│   ├── frontend (Interfaces to interact with the backend)
+│   │   ├── client (A native Python client which thinly wraps the configured backend)
+│   │   └── mcp (An MCP server implementing some high-level methods useful for AI agents)
+│   ├── llm (All code that prompts an LLM)
+│   ├── schema (All well-defined datatypes used throughout the project)
+│   ├── sync (Upstream data sources to be processed and stored in the backend)
+│   └── utils (Small reusable code snippets)
+├── tests (All tests for evolve)
+├── .env.example (Environment variable template file)
+└── .env (Environment variables used to configure evolve)
+```
+
+## First Time Setup
+```bash
+uv sync && source .venv/bin/activate
+cp .env.example .env  # Configure any environment variables, defined in `./altk_evolve/config`
+pre-commit install
+```
+
+## Development Tips
+- This project is managed by `uv`, not `python` or `pip`, so any python commands need to go through `uv`. All dependencies are defined in `pyproject.toml`.
+
+## Testing Instructions
+- Run pytest verbosely with the `-v` flag by default so that you have more context when tests fail.
+- Use `uv run pytest tests/.../<test_name.py>` to run tests individually.
+- We use the pytest markers `e2e` for end-to-end tests, and `unit` for unit tests, and `phoenix` to test integration with Phoenix.
+- When running `uv run pytest` it will skip the tests marked with `phoenix`.
+- To run specific markers: `uv run pytest -m e2e` or `uv run pytest -m unit`
+- To run all tests: `uv run pytest -m "e2e or unit or phoenix"`
+
+## Available Interfaces
+- MCP Server: `get_entities()`, `get_guidelines()`, `save_trajectory()`
+- CLI: Run `evolve --help` if details are needed about its subcommands.
+  Available subcommands include `namespaces`, `entities`, and `sync`
+- Python Client: `EvolveClient()` for programmatic access
+
+## Coding Standards
+- Use Ruff for linting and formatting (configured in pyproject.toml)
+- Always run `uv run ruff format .` and `git add -u` before committing to avoid pre-commit stash conflicts with ruff auto-fixes
+- Write commit messages in the Conventional Commits format expected by `python-semantic-release`:
+  - `feat(scope): description` — new feature, triggers a minor version bump
+  - `fix(scope): description` — bug fix, triggers a patch version bump
+  - `perf(scope): description` — performance improvement, triggers a patch version bump
+  - `test(scope): description`, `chore(scope): description`, `docs(scope): description`, etc. — no version bump
+  - Breaking changes: append `!` after the type/scope (e.g. `feat!:`) or add `BREAKING CHANGE:` in the footer
+- All new features need tests (unit + e2e where applicable)
+- Use uv to run Python commands, including pip.
+
+---
+> Source: [AgentToolkit/altk-evolve](https://github.com/AgentToolkit/altk-evolve) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
