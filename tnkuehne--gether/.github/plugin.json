@@ -1,0 +1,9 @@
+{
+  "name": "tnkuehne--gether",
+  "displayName": "gether",
+  "description": "A collaborative content editor for markdown or static site generators without lock-in",
+  "version": "1.0.0",
+  "author": "tnkuehne",
+  "homepage": "https://github.com/tnkuehne/gether",
+  "skills": []
+}
