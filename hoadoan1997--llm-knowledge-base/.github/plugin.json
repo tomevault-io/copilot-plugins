@@ -1,0 +1,9 @@
+{
+  "name": "hoadoan1997--llm-knowledge-base",
+  "displayName": "llm-knowledge-base",
+  "description": "LLM-powered personal knowledge base \u2014 raw articles \u2192 compiled wiki \u2192 Q&A + outputs. Claude writes, you curate.",
+  "version": "1.0.0",
+  "author": "hoadoan1997",
+  "homepage": "https://github.com/hoadoan1997/llm-knowledge-base",
+  "skills": []
+}
