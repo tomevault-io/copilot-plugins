@@ -1,0 +1,9 @@
+{
+  "name": "mp-consulting--homebridge-lg-thinq",
+  "displayName": "homebridge-lg-thinq",
+  "description": "homebridge-lg-thinq",
+  "version": "1.0.0",
+  "author": "mp-consulting",
+  "homepage": "https://github.com/mp-consulting/homebridge-lg-thinq",
+  "skills": []
+}
