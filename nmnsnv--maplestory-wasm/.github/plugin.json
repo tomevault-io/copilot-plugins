@@ -1,0 +1,9 @@
+{
+  "name": "nmnsnv--maplestory-wasm",
+  "displayName": "maplestory-wasm",
+  "description": "MapleStory Client built on Wasm playable on the web",
+  "version": "1.0.0",
+  "author": "nmnsnv",
+  "homepage": "https://github.com/nmnsnv/maplestory-wasm",
+  "skills": []
+}
