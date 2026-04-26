@@ -1,0 +1,9 @@
+{
+  "name": "qforge-dev--torque",
+  "displayName": "torque",
+  "description": "Torque is a Declarative, typesafe DSL for building synthetic LLM datasets \u2014 compose conversations like React components",
+  "version": "1.0.0",
+  "author": "qforge-dev",
+  "homepage": "https://github.com/qforge-dev/torque",
+  "skills": []
+}
