@@ -1,0 +1,9 @@
+{
+  "name": "ypares--rigup-nix",
+  "displayName": "rigup.nix",
+  "description": "AI agents and Nix: parametrable skills/instructions and tools, packaged together in a reproducible and modular fashion",
+  "version": "1.0.0",
+  "author": "YPares",
+  "homepage": "https://github.com/YPares/rigup.nix",
+  "skills": []
+}
