@@ -1,6 +1,6 @@
 # cam-shift-detector
 
-> Tome by [thamam](https://github.com/thamam/cam-shift-detector) — distributed by [TomeVault](https://tomevault.io/claim/thamam)
+> Tome by [thamam](https://github.com/thamam/cam-shift-detector) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [thamam/cam-shift-detector](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/thamam)
+From [thamam/cam-shift-detector](https://github.com/thamam/cam-shift-detector) — a repo with 0+ stars on GitHub.
 
 ---
 
