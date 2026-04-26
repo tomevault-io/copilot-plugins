@@ -1,0 +1,9 @@
+{
+  "name": "prassaaa--copilot-api",
+  "displayName": "copilot-api",
+  "description": "Expose GitHub Copilot through an OpenAI and Anthropic-compatible API, enabling direct usage with Claude Code.",
+  "version": "1.0.0",
+  "author": "prassaaa",
+  "homepage": "https://github.com/prassaaa/copilot-api",
+  "skills": []
+}
