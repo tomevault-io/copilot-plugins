@@ -1,6 +1,6 @@
 # anubhuta-jogamala
 
-> Tome by [aditya-autoomstudio](https://github.com/aditya-autoomstudio/anubhuta-jogamala) — distributed by [TomeVault](https://tomevault.io/claim/aditya-autoomstudio)
+> Tome by [aditya-autoomstudio](https://github.com/aditya-autoomstudio/anubhuta-jogamala) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [aditya-autoomstudio/anubhuta-jogamala
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/aditya-autoomstudio#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/aditya-autoomstudio/anubhuta-jogamala](https://github.com/aditya-autoomstudio/anubhuta-jogamala)
 
 ---
 
