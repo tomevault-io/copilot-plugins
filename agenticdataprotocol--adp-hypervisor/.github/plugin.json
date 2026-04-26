@@ -1,0 +1,9 @@
+{
+  "name": "agenticdataprotocol--adp-hypervisor",
+  "displayName": "adp-hypervisor",
+  "description": "ADP server \u2014 translates ADP intents to backend queries and enforces policies",
+  "version": "1.0.0",
+  "author": "agenticdataprotocol",
+  "homepage": "https://github.com/agenticdataprotocol/adp-hypervisor",
+  "skills": []
+}
