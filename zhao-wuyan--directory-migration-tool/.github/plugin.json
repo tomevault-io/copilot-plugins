@@ -1,0 +1,9 @@
+{
+  "name": "zhao-wuyan--directory-migration-tool",
+  "displayName": "directory-migration-tool",
+  "description": "\u4e00\u4e2a\u4f7f\u7528\u7b26\u53f7\u94fe\u63a5\u8fc1\u79fb\u5927\u578b\u76ee\u5f55\u7684 Windows \u5de5\u5177\uff0c\u5feb\u901f\u5c06\u6587\u4ef6\u5939\u8fc1\u79fb\u5230\u5176\u4ed6\u78c1\u76d8\uff0c\u4e14\u4fdd\u7559\u539f\u8def\u5f84\uff0c\u4f7f\u7a0b\u5e8f\u6b63\u5e38\u8fd0\u884c\uff0c\u89e3\u51b3\u539f\u78c1\u76d8\u7a7a\u95f4\u4e0d\u8db3\u7684\u95ee\u9898",
+  "version": "1.0.0",
+  "author": "zhao-wuyan",
+  "homepage": "https://github.com/zhao-wuyan/directory-migration-tool",
+  "skills": []
+}
