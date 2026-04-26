@@ -1,0 +1,9 @@
+{
+  "name": "eresende--pitlane-mcp",
+  "displayName": "pitlane-mcp",
+  "description": "Token-efficient navigation substrate for AI coding agents. Index code once and retrieve only the symbols you need.",
+  "version": "1.0.0",
+  "author": "eresende",
+  "homepage": "https://github.com/eresende/pitlane-mcp",
+  "skills": []
+}
