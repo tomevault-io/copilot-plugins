@@ -1,0 +1,19 @@
+## uhc-portal
+
+> TypeScript rules for type safety and code quality
+
+
+- Always define prop types using TypeScript interfaces in tsx files
+- Define interfaces for all props and complex objects in tsx and ts files
+- Use union types for known variations in tsx and ts files
+- Avoid `any` type - use `unknown` if needed
+- Use existing types saved in `src/types` child directories if possible
+- Use proper TypeScript error types instead of generic Error objects
+- Use `Partial<T>` for optional object properties instead of making each property optional
+- Use `Record<string, T>` for object maps instead of `{ [key: string]: T }`
+- Define return types for all functions and methods
+- Import types with `import type` syntax to avoid runtime imports
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/RedHatInsights) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
