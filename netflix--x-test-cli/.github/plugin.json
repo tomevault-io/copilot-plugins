@@ -1,0 +1,9 @@
+{
+  "name": "netflix--x-test-cli",
+  "displayName": "x-test-cli",
+  "description": "x-test-cli",
+  "version": "1.0.0",
+  "author": "Netflix",
+  "homepage": "https://github.com/Netflix/x-test-cli",
+  "skills": []
+}
