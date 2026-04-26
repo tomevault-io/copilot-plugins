@@ -1,0 +1,9 @@
+{
+  "name": "rahmanierfan--abstract-folder",
+  "displayName": "abstract-folder",
+  "description": "An Obsidian plugin to get rid of rigid folders. Create multiple abstract connections between your notes/files using the front matter to declare parent/children notes. ",
+  "version": "1.0.0",
+  "author": "RahmaniErfan",
+  "homepage": "https://github.com/RahmaniErfan/abstract-folder",
+  "skills": []
+}
