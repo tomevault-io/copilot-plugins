@@ -1,0 +1,9 @@
+{
+  "name": "block--ai-rules",
+  "displayName": "ai-rules",
+  "description": "Manage AI rules, commands, and skills across multiple coding agents from one place.",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/ai-rules",
+  "skills": []
+}
