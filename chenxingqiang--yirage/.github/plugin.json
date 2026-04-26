@@ -1,0 +1,9 @@
+{
+  "name": "chenxingqiang--yirage",
+  "displayName": "YiRage",
+  "description": "YiRage (Yield Revolutionary AGile Engine) - Multi-Backend LLM Inference Optimization. Extends Mirage with comprehensive support for CUDA, MPS, CPU, Triton, NKI, cuDNN, and MKL backends.",
+  "version": "1.0.0",
+  "author": "chenxingqiang",
+  "homepage": "https://github.com/chenxingqiang/YiRage",
+  "skills": []
+}
