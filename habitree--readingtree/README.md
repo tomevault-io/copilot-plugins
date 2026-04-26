@@ -1,6 +1,6 @@
 # readingtree
 
-> Config by [habitree](https://github.com/habitree/readingtree) — distributed by [TomeVault](https://tomevault.io/claim/habitree)
+> Tome by [habitree](https://github.com/habitree/readingtree) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [habitree/readingtree](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/habitree](https://tomevault.io/claim/habitree)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/habitree/readingtree](https://github.com/habitree/readingtree)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/habitree) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-q -->
