@@ -1,0 +1,9 @@
+{
+  "name": "fabkury--p3a",
+  "displayName": "p3a",
+  "description": "Pixel art player built on ESP32-P4",
+  "version": "1.0.0",
+  "author": "fabkury",
+  "homepage": "https://github.com/fabkury/p3a",
+  "skills": []
+}
