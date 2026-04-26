@@ -1,0 +1,9 @@
+{
+  "name": "williamagh--tui4j",
+  "displayName": "tui4j",
+  "description": "TUI4J: Terminal User Interface library for Java that includes Bubble Tea ported from Go",
+  "version": "1.0.0",
+  "author": "WilliamAGH",
+  "homepage": "https://github.com/WilliamAGH/tui4j",
+  "skills": []
+}
