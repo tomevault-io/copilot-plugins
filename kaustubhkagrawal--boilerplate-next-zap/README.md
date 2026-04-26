@@ -1,6 +1,6 @@
 # boilerplate-next-zap
 
-> Tome by [kaustubhkagrawal](https://github.com/kaustubhkagrawal/boilerplate-next-zap) — distributed by [TomeVault](https://tomevault.io/claim/kaustubhkagrawal)
+> Tome by [kaustubhkagrawal](https://github.com/kaustubhkagrawal/boilerplate-next-zap) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [kaustubhkagrawal/boilerplate-next-zap
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/kaustubhkagrawal)
+From [kaustubhkagrawal/boilerplate-next-zap](https://github.com/kaustubhkagrawal/boilerplate-next-zap) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install kaustubhkagrawal/boilerplate-next-zap
 ```
-Or browse all formats at [https://tomevault.io/claim/kaustubhkagrawal](https://tomevault.io/claim/kaustubhkagrawal).
+Source: [github.com/kaustubhkagrawal/boilerplate-next-zap](https://github.com/kaustubhkagrawal/boilerplate-next-zap).
 
 <!-- genome:t-i-s -->
