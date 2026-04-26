@@ -1,0 +1,69 @@
+{
+  "name": "harness",
+  "owner": "thisrohangupta",
+  "repo": "harness-mcp-v2",
+  "description": "MCP server for Harness.io ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ci-pipelines",
+      "path": "skills/ci-pipelines",
+      "github_url": "https://github.com/thisrohangupta/harness-mcp-v2/tree/main/skills/ci-pipelines",
+      "description": ""
+    },
+    {
+      "name": "platform-setup",
+      "path": "skills/platform-setup",
+      "github_url": "https://github.com/thisrohangupta/harness-mcp-v2/tree/main/skills/platform-setup",
+      "description": ""
+    },
+    {
+      "name": "secret-management",
+      "path": "skills/secret-management",
+      "github_url": "https://github.com/thisrohangupta/harness-mcp-v2/tree/main/skills/secret-management",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "path": "skills/status",
+      "github_url": "https://github.com/thisrohangupta/harness-mcp-v2/tree/main/skills/status",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thisrohangupta/harness-mcp-v2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T11:31:38Z"
+}
