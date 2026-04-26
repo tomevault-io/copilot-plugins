@@ -1,0 +1,123 @@
+{
+  "name": "cc-skills",
+  "owner": "rube-de",
+  "repo": "cc-skills",
+  "description": "A curated collection of Claude Code plugins: multi-agent dev team, AI council code reviews, and project management",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cdt",
+      "path": "plugins/cdt/skills/cdt",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/cdt/skills/cdt",
+      "description": ""
+    },
+    {
+      "name": "dlc",
+      "path": "plugins/dlc/skills/dlc",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/dlc/skills/dlc",
+      "description": ""
+    },
+    {
+      "name": "jules-review",
+      "path": "plugins/jules-review/skills/jules-review",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/jules-review/skills/jules-review",
+      "description": ""
+    },
+    {
+      "name": "oasis-dev",
+      "path": "plugins/oasis-dev/skills/oasis-dev",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/oasis-dev/skills/oasis-dev",
+      "description": ""
+    },
+    {
+      "name": "perf",
+      "path": "plugins/dlc/skills/perf",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/dlc/skills/perf",
+      "description": ""
+    },
+    {
+      "name": "plugin-dev",
+      "path": "plugins/plugin-dev/skills/plugin-dev",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/plugin-dev/skills/plugin-dev",
+      "description": ""
+    },
+    {
+      "name": "pr-check",
+      "path": "plugins/dlc/skills/pr-check",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/dlc/skills/pr-check",
+      "description": ""
+    },
+    {
+      "name": "pr-validity",
+      "path": "plugins/dlc/skills/pr-validity",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/dlc/skills/pr-validity",
+      "description": ""
+    },
+    {
+      "name": "quality",
+      "path": "plugins/dlc/skills/quality",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/dlc/skills/quality",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "plugins/project-manager/skills/review",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/project-manager/skills/review",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": "plugins/dlc/skills/security",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/dlc/skills/security",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": "plugins/dlc/skills/test",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/dlc/skills/test",
+      "description": ""
+    },
+    {
+      "name": "update",
+      "path": "plugins/project-manager/skills/update",
+      "github_url": "https://github.com/rube-de/cc-skills/tree/main/plugins/project-manager/skills/update",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rube-de/cc-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T11:30:53Z"
+}
