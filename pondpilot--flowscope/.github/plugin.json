@@ -1,0 +1,9 @@
+{
+  "name": "pondpilot--flowscope",
+  "displayName": "flowscope",
+  "description": "Privacy-first SQL lineage engine. Analyze SQL queries in the browser. Supports PostgreSQL, Snowflake, BigQuery, DuckDB and more.",
+  "version": "1.0.0",
+  "author": "pondpilot",
+  "homepage": "https://github.com/pondpilot/flowscope",
+  "skills": []
+}
