@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--house-skills",
+  "displayName": "house-skills",
+  "description": "37signals skills for AI assistants",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/house-skills",
+  "skills": []
+}
