@@ -1,0 +1,9 @@
+{
+  "name": "cxorz--smart-codebase",
+  "displayName": "smart-codebase",
+  "description": "A plugin for OpenCode. Make your coding agent learn and grow with every task.",
+  "version": "1.0.0",
+  "author": "cxOrz",
+  "homepage": "https://github.com/cxOrz/smart-codebase",
+  "skills": []
+}
