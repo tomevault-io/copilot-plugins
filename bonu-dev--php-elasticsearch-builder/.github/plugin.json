@@ -1,0 +1,9 @@
+{
+  "name": "bonu-dev--php-elasticsearch-builder",
+  "displayName": "php-elasticsearch-builder",
+  "description": "PHP Query Builder for Elasticsearch",
+  "version": "1.0.0",
+  "author": "bonu-dev",
+  "homepage": "https://github.com/bonu-dev/php-elasticsearch-builder",
+  "skills": []
+}
