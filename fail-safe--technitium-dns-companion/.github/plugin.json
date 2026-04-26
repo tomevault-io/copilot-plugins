@@ -1,0 +1,9 @@
+{
+  "name": "fail-safe--technitium-dns-companion",
+  "displayName": "Technitium-DNS-Companion",
+  "description": "A multi-node companion tool for aiding in day-to-day management of Technitium DNS servers",
+  "version": "1.0.0",
+  "author": "Fail-Safe",
+  "homepage": "https://github.com/Fail-Safe/Technitium-DNS-Companion",
+  "skills": []
+}
