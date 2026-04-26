@@ -1,0 +1,9 @@
+{
+  "name": "polydera--trueform",
+  "displayName": "trueform",
+  "description": "Real-time geometric processing. Easy to use, robust on real-world data. One engine across C++, Python, and TypeScript.",
+  "version": "1.0.0",
+  "author": "polydera",
+  "homepage": "https://github.com/polydera/trueform",
+  "skills": []
+}
