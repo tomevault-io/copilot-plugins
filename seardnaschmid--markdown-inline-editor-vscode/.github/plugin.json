@@ -1,0 +1,9 @@
+{
+  "name": "seardnaschmid--markdown-inline-editor-vscode",
+  "displayName": "markdown-inline-editor-vscode",
+  "description": "VS Code extension \u00b7 inline markdown \u00b7 WYSIWYG \u00b7 GFM \u00b7 LaTeX \u00b7 Mermaid \u00b7 task lists",
+  "version": "1.0.0",
+  "author": "SeardnaSchmid",
+  "homepage": "https://github.com/SeardnaSchmid/markdown-inline-editor-vscode",
+  "skills": []
+}
