@@ -1,0 +1,9 @@
+{
+  "name": "unraid--apprise-go",
+  "displayName": "apprise-go",
+  "description": "Apprise, Ported to Go",
+  "version": "1.0.0",
+  "author": "unraid",
+  "homepage": "https://github.com/unraid/apprise-go",
+  "skills": []
+}
