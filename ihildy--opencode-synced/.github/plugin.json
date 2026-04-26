@@ -1,0 +1,9 @@
+{
+  "name": "ihildy--opencode-synced",
+  "displayName": "opencode-synced",
+  "description": "Sync opencode global configurations between machines with a plugin",
+  "version": "1.0.0",
+  "author": "iHildy",
+  "homepage": "https://github.com/iHildy/opencode-synced",
+  "skills": []
+}
