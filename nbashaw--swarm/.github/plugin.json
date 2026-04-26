@@ -1,0 +1,14 @@
+{
+  "name": "nbashaw--swarm",
+  "displayName": "swarm",
+  "description": "AI instruction skills by nbashaw",
+  "version": "1.0.0",
+  "author": "nbashaw",
+  "homepage": "https://github.com/nbashaw/swarm",
+  "skills": [
+    {
+      "name": "swarm",
+      "description": ""
+    }
+  ]
+}
