@@ -1,0 +1,9 @@
+{
+  "name": "lance0--prefixd",
+  "displayName": "prefixd",
+  "description": "BGP FlowSpec policy daemon for automated DDoS mitigation",
+  "version": "1.0.0",
+  "author": "lance0",
+  "homepage": "https://github.com/lance0/prefixd",
+  "skills": []
+}
