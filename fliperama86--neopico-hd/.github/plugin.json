@@ -1,0 +1,9 @@
+{
+  "name": "fliperama86--neopico-hd",
+  "displayName": "neopico-hd",
+  "description": "Digital video and audio capture with HDMI output for Neo Geo MVS arcade hardware using Raspberry Pi Pico 2",
+  "version": "1.0.0",
+  "author": "fliperama86",
+  "homepage": "https://github.com/fliperama86/neopico-hd",
+  "skills": []
+}
