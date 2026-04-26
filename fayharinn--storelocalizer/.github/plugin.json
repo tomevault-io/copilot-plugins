@@ -1,0 +1,9 @@
+{
+  "name": "fayharinn--storelocalizer",
+  "displayName": "StoreLocalizer",
+  "description": "Translate iOS/Android store metadata using AI. Create, localize and send screenshots to stores.",
+  "version": "1.0.0",
+  "author": "fayharinn",
+  "homepage": "https://github.com/fayharinn/StoreLocalizer",
+  "skills": []
+}
