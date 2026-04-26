@@ -1,0 +1,9 @@
+{
+  "name": "gajus--teemux",
+  "displayName": "teemux",
+  "description": "Zero-config log multiplexer with built-in MCP server",
+  "version": "1.0.0",
+  "author": "gajus",
+  "homepage": "https://github.com/gajus/teemux",
+  "skills": []
+}
