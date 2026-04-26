@@ -1,0 +1,9 @@
+{
+  "name": "skeeto--dcmake",
+  "displayName": "dcmake",
+  "description": "CMake debugger",
+  "version": "1.0.0",
+  "author": "skeeto",
+  "homepage": "https://github.com/skeeto/dcmake",
+  "skills": []
+}
