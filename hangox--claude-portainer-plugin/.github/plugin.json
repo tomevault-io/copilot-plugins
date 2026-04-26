@@ -1,0 +1,9 @@
+{
+  "name": "hangox--claude-portainer-plugin",
+  "displayName": "claude-portainer-plugin",
+  "description": "claude-portainer-plugin",
+  "version": "1.0.0",
+  "author": "hangox",
+  "homepage": "https://github.com/hangox/claude-portainer-plugin",
+  "skills": []
+}
