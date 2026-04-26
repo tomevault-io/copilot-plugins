@@ -1,9 +1,9 @@
 {
   "name": "eduardo-sl--go-agent-skills",
   "displayName": "go-agent-skills",
-  "description": "go-agent-skills",
+  "description": "Curated AI agent skills for Go projects.",
   "version": "1.0.0",
   "author": "eduardo-sl",
-  "homepage": "https://tomevault.io/claim/eduardo-sl",
+  "homepage": "https://github.com/eduardo-sl/go-agent-skills",
   "skills": []
 }
