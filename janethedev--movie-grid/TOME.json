@@ -1,0 +1,44 @@
+{
+  "name": "movie-grid",
+  "owner": "janethedev",
+  "repo": "movie-grid",
+  "description": "\u7535\u5f71\u751f\u6daf\u4e2a\u4eba\u559c\u597d\u8868 / Movie Preference Grid",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/janethedev/movie-grid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T19:49:43Z"
+}
