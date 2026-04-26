@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--slb",
+  "displayName": "slb",
+  "description": "Two-person rule CLI for AI coding agents: peer review and approval required before running potentially destructive commands",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/slb",
+  "skills": []
+}
