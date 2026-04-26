@@ -1,0 +1,9 @@
+{
+  "name": "truefoundry--cruisekube",
+  "displayName": "CruiseKube",
+  "description": "CruiseKube is an intelligent Kubernetes resource optimization controller that automatically monitors, analyzes, and applies resource recommendations to improve cluster efficiency and reduce costs.",
+  "version": "1.0.0",
+  "author": "truefoundry",
+  "homepage": "https://github.com/truefoundry/CruiseKube",
+  "skills": []
+}
