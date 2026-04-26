@@ -1,0 +1,44 @@
+{
+  "name": "markdown-inline-editor-vscode",
+  "owner": "SeardnaSchmid",
+  "repo": "markdown-inline-editor-vscode",
+  "description": "VS Code extension \u00b7 inline markdown \u00b7 WYSIWYG \u00b7 GFM \u00b7 LaTeX \u00b7 Mermaid \u00b7 task lists",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SeardnaSchmid/markdown-inline-editor-vscode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T04:24:22Z"
+}
