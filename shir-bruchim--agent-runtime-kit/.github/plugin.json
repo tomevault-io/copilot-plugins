@@ -1,0 +1,9 @@
+{
+  "name": "shir-bruchim--agent-runtime-kit",
+  "displayName": "agent-runtime-kit",
+  "description": "\ud83e\udd16 Universal runtime configuration for AI coding agents (Claude Code & Cursor). Auto-detects languages, applies best practices, and standardizes team workflows.",
+  "version": "1.0.0",
+  "author": "shir-bruchim",
+  "homepage": "https://github.com/shir-bruchim/agent-runtime-kit",
+  "skills": []
+}
