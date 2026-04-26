@@ -1,0 +1,9 @@
+{
+  "name": "eva-ics--gateryx",
+  "displayName": "gateryx",
+  "description": "Lightweight WAF with built-in IDP",
+  "version": "1.0.0",
+  "author": "eva-ics",
+  "homepage": "https://github.com/eva-ics/gateryx",
+  "skills": []
+}
