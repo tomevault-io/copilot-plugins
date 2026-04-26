@@ -1,0 +1,9 @@
+{
+  "name": "cppdoc-cc--cppdoc",
+  "displayName": "cppdoc",
+  "description": "An open documentation for the C/C++ programming languages and their standard libraries.",
+  "version": "1.0.0",
+  "author": "cppdoc-cc",
+  "homepage": "https://github.com/cppdoc-cc/cppdoc",
+  "skills": []
+}
