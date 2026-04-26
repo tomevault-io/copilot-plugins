@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--flywheel-connectors",
+  "displayName": "flywheel_connectors",
+  "description": "Mesh-native protocol and Rust connector library for secure AI agent integration with external services: Twitter, Linear, Stripe, Discord, Gmail, GitHub, and more",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/flywheel_connectors",
+  "skills": []
+}
