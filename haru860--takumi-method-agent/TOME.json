@@ -1,0 +1,123 @@
+{
+  "name": "takumi-method-agent",
+  "owner": "haru860",
+  "repo": "takumi-method-agent",
+  "description": "\u30d3\u30b8\u30cd\u30b9\u30c7\u30b6\u30a4\u30f3\u306e\u305f\u3081\u306e\u4f53\u7cfb\u7684\u30e1\u30bd\u30c3\u30c9\u300c\u5320Method\u300d\u3092\u81ea\u52d5\u5316\u30fb\u652f\u63f4\u3059\u308bAI Agent\u30c4\u30fc\u30eb\u3067\u3059\u3002",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "desc-design",
+      "path": ".claude/skills/desc-design",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/desc-design",
+      "description": ""
+    },
+    {
+      "name": "desc-takumi-method-agent",
+      "path": ".claude/skills/desc-takumi-method-agent",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/desc-takumi-method-agent",
+      "description": ""
+    },
+    {
+      "name": "desc-value-design",
+      "path": ".claude/skills/desc-value-design",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/desc-value-design",
+      "description": ""
+    },
+    {
+      "name": "refine-design",
+      "path": ".claude/skills/refine-design",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/refine-design",
+      "description": ""
+    },
+    {
+      "name": "value-design-all-only-text-data",
+      "path": ".claude/skills/value-design-all-only-text-data",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/value-design-all-only-text-data",
+      "description": ""
+    },
+    {
+      "name": "value-design-catch-copy",
+      "path": ".claude/skills/value-design-catch-copy",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/value-design-catch-copy",
+      "description": ""
+    },
+    {
+      "name": "value-design-concept",
+      "path": ".claude/skills/value-design-concept",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/value-design-concept",
+      "description": ""
+    },
+    {
+      "name": "value-design-design",
+      "path": ".claude/skills/value-design-design",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/value-design-design",
+      "description": ""
+    },
+    {
+      "name": "value-design-drawio-generator",
+      "path": ".claude/skills/value-design-drawio-generator",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/value-design-drawio-generator",
+      "description": ""
+    },
+    {
+      "name": "value-design-meaning",
+      "path": ".claude/skills/value-design-meaning",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/value-design-meaning",
+      "description": ""
+    },
+    {
+      "name": "value-design-story",
+      "path": ".claude/skills/value-design-story",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/value-design-story",
+      "description": ""
+    },
+    {
+      "name": "value-design-vision",
+      "path": ".claude/skills/value-design-vision",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/value-design-vision",
+      "description": ""
+    },
+    {
+      "name": "verify-design",
+      "path": ".claude/skills/verify-design",
+      "github_url": "https://github.com/haru860/takumi-method-agent/tree/main/.claude/skills/verify-design",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/haru860/takumi-method-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T11:30:07Z"
+}
