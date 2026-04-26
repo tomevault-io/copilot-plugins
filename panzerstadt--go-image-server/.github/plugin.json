@@ -1,0 +1,9 @@
+{
+  "name": "panzerstadt--go-image-server",
+  "displayName": "go-image-server",
+  "description": "go-image-server",
+  "version": "1.0.0",
+  "author": "panzerstadt",
+  "homepage": "https://github.com/panzerstadt/go-image-server",
+  "skills": []
+}
