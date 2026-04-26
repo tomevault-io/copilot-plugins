@@ -1,0 +1,9 @@
+{
+  "name": "cesarferreira--stax",
+  "displayName": "stax",
+  "description": "The fastest stacked-branch workflow for Git. Interactive TUI, smart PRs, safe undo. Written in Rust.",
+  "version": "1.0.0",
+  "author": "cesarferreira",
+  "homepage": "https://github.com/cesarferreira/stax",
+  "skills": []
+}
