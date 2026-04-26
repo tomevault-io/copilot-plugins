@@ -1,0 +1,9 @@
+{
+  "name": "agentevalhq--agenteval",
+  "displayName": "AgentEval",
+  "description": "AgentEval is the comprehensive .NET toolkit for AI agent evaluation\u2014tool usage validation, RAG quality metrics, stochastic evaluation, and model comparison\u2014built first for Microsoft Agent Framework (M",
+  "version": "1.0.0",
+  "author": "AgentEvalHQ",
+  "homepage": "https://github.com/AgentEvalHQ/AgentEval",
+  "skills": []
+}
