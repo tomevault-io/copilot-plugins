@@ -1,0 +1,9 @@
+{
+  "name": "jc-coder--db-mover",
+  "displayName": "db-mover",
+  "description": "DB Mover is an open-source tool designed to simplify the complex process of database migration. It eliminates the need for complex CLI commands, connection strings wrestling, and manual dump file mana",
+  "version": "1.0.0",
+  "author": "JC-Coder",
+  "homepage": "https://github.com/JC-Coder/db-mover",
+  "skills": []
+}
