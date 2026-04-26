@@ -1,0 +1,26 @@
+{
+  "name": "thisrohangupta--harness-mcp-v2",
+  "displayName": "harness",
+  "description": "MCP server for Harness.io ",
+  "version": "1.0.0",
+  "author": "thisrohangupta",
+  "homepage": "https://github.com/thisrohangupta/harness-mcp-v2",
+  "skills": [
+    {
+      "name": "ci-pipelines",
+      "description": ""
+    },
+    {
+      "name": "platform-setup",
+      "description": ""
+    },
+    {
+      "name": "secret-management",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "description": ""
+    }
+  ]
+}
