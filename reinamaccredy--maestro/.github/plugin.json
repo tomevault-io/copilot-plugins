@@ -1,0 +1,9 @@
+{
+  "name": "reinamaccredy--maestro",
+  "displayName": "maestro",
+  "description": "Conductor for cross-agent coding workflows: structured memory, handoffs, plan-approve-execute coordination across external CLIs (Codex, Claude Code, Gemini).",
+  "version": "1.0.0",
+  "author": "ReinaMacCredy",
+  "homepage": "https://github.com/ReinaMacCredy/maestro",
+  "skills": []
+}
