@@ -1,7 +1,7 @@
 {
   "name": "debugtheworldbot--keystats",
   "displayName": "keyStats",
-  "description": "Keyboard & Mouse Stats for macOS/Windows",
+  "description": "keyStats",
   "version": "1.0.0",
   "author": "debugtheworldbot",
   "homepage": "https://github.com/debugtheworldbot/keyStats",
