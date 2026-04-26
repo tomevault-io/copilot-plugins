@@ -1,0 +1,9 @@
+{
+  "name": "stefanprodan--kswitch",
+  "displayName": "kswitch",
+  "description": "Kubernetes context manager for macOS",
+  "version": "1.0.0",
+  "author": "stefanprodan",
+  "homepage": "https://github.com/stefanprodan/kswitch",
+  "skills": []
+}
