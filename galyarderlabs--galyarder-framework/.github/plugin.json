@@ -1,0 +1,9 @@
+{
+  "name": "galyarderlabs--galyarder-framework",
+  "displayName": "galyarder-framework",
+  "description": "An agentic skills framework orchestration for the 1-Man Army. Implementing Autonomous Goal Integration (AGI) to transform vision into deterministic execution.",
+  "version": "1.0.0",
+  "author": "galyarderlabs",
+  "homepage": "https://github.com/galyarderlabs/galyarder-framework",
+  "skills": []
+}
