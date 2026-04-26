@@ -1,0 +1,9 @@
+{
+  "name": "eulercb--github-agent-orchestrator",
+  "displayName": "github-agent-orchestrator",
+  "description": "github-agent-orchestrator",
+  "version": "1.0.0",
+  "author": "eulercb",
+  "homepage": "https://github.com/eulercb/github-agent-orchestrator",
+  "skills": []
+}
