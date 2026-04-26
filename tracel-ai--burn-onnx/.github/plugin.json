@@ -1,0 +1,9 @@
+{
+  "name": "tracel-ai--burn-onnx",
+  "displayName": "burn-onnx",
+  "description": "Convert ONNX models into native, backend-agnostic Burn code for inference and fine-tuning.",
+  "version": "1.0.0",
+  "author": "tracel-ai",
+  "homepage": "https://github.com/tracel-ai/burn-onnx",
+  "skills": []
+}
