@@ -1,0 +1,21 @@
+## whatesapp-clone
+
+> practical notes for extending chat, audio, and media features
+
+
+## Extending features safely
+
+- When adding new message types (e.g., video), follow the existing `media` schema and storage path convention. Add UI handling in `Message.jsx` and preview/play in dedicated components.
+- For pagination, respect `MESSAGES_LIMIT` from [src/constants/chatConstants.js](mdc:src/constants/chatConstants.js) and extend `useChat` rather than duplicating queries.
+- Any Firestore listeners created in components/hooks must be unsubscribed in cleanup.
+- Keep `useChat` the single place that mutates/reads chat Firestore documents to avoid race conditions.
+- Avoid storing large blobs in Zustand; store only lightweight metadata and URLs.
+
+## Error handling
+
+- Use `toast` for user-facing errors in pages; log `error.message` for diagnostics.
+- Guard against undefined/null when accessing `createdAt.seconds`, `photoURL`, or store getters.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ahmed-abdat) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
