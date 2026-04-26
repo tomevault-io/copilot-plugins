@@ -1,0 +1,67 @@
+## ffos-user
+
+> Go coding, testing, and readability rules for ffos-user services
+
+
+# Go Development Standards
+
+Use this rule for all Go service work.
+
+## Readability and structure
+- Follow standard Go guidance, especially Effective Go and Go Code Review Comments.
+- Prefer short, explicit functions with clear names over highly generic helpers.
+- Keep packages cohesive. If a file grows because it mixes transport, orchestration, parsing, and state logic, split it.
+- Prefer constructor-injected dependencies and small interfaces owned by the consumer package.
+- Keep exported APIs minimal and documented.
+- Avoid hidden global state unless it is a true process singleton and the lifecycle is obvious.
+
+## Service architecture
+- Services should remain explicit daemons with clear startup, steady-state, and shutdown phases.
+- Use structured logging with stable field names.
+- Implement graceful shutdown with signal handling, context propagation, and cleanup ordering.
+- Any retry loops, watchers, or goroutine ownership rules should be documented in comments when non-obvious.
+
+## Error handling
+- Return errors with enough context to explain the failed operation.
+- Do not hide errors unless the failure is intentionally best-effort and the comment explains why that is safe.
+- Prefer explicit sentinel or typed handling only when callers need branching behavior.
+- Avoid panic in production paths. If panic is retained for an invariant, document why the invariant is process-fatal.
+
+## Concurrency and lifecycle
+- Propagate `context.Context` through long-lived or cancelable operations.
+- Make goroutine ownership obvious. The creator should define shutdown and error semantics.
+- Guard shared mutable state deliberately and comment on invariants if synchronization is subtle.
+- Prefer deterministic timers and injected clocks in test-sensitive code.
+
+## Code organization
+- Group related functionality in separate files such as `main.go`, `config.go`, `dbus.go`, `watcher.go`, `logger.go`, or `service.go`.
+- Prefer `internal` seams via package structure and unexported helpers over deeply coupled utility packages.
+- Store configuration, filesystem paths, and external command behavior behind narrow seams so tests can fake them.
+
+## Comments
+- Add comments when logic encodes operational knowledge that future edits could break.
+- Good comment topics:
+  - shutdown ordering and why it matters
+  - D-Bus or systemd contract assumptions
+  - race-prevention invariants
+  - retry or backoff trade-offs
+  - reasons a particular interface seam exists
+- Do not restate obvious control flow.
+
+## Testing and quality
+- Format with `gofmt -s`.
+- Run `go test ./...` and `go vet ./...` only in the touched Go module.
+- Run `golangci-lint run --new-from-rev=HEAD~1 ./...` so linting is scoped to the changed Go diff.
+- Prefer table-driven tests for behavioral branches.
+- Test failure paths and boundary conditions, not only happy paths.
+- Use fakes or test servers for D-Bus, HTTP, filesystem, and time-dependent behavior when possible.
+- Keep tests focused on behavior, not private implementation details.
+
+## Lint posture
+- Prefer strict readability-oriented linting for new code.
+- `nolint` requires a targeted rule name and a short justification when the reason is not obvious from the line itself.
+- If an existing file has legacy lint debt, avoid spreading that pattern into new code.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/feral-file) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
