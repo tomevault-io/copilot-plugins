@@ -1,0 +1,9 @@
+{
+  "name": "jumbocontext--jumbo-cli",
+  "displayName": "jumbo.cli",
+  "description": "Memory and Context Orchestration for Coding Agents",
+  "version": "1.0.0",
+  "author": "jumbocontext",
+  "homepage": "https://github.com/jumbocontext/jumbo.cli",
+  "skills": []
+}
