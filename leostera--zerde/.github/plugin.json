@@ -1,0 +1,9 @@
+{
+  "name": "leostera--zerde",
+  "displayName": "zerde",
+  "description": "comptime-fused serialization library for zig",
+  "version": "1.0.0",
+  "author": "leostera",
+  "homepage": "https://github.com/leostera/zerde",
+  "skills": []
+}
