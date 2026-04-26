@@ -1,0 +1,9 @@
+{
+  "name": "patronus-ai--nvidia-nemo-rl-local",
+  "displayName": "nvidia-nemo-rl-local",
+  "description": "nvidia-nemo-rl-local",
+  "version": "1.0.0",
+  "author": "patronus-ai",
+  "homepage": "https://github.com/patronus-ai/nvidia-nemo-rl-local",
+  "skills": []
+}
