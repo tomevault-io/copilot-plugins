@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Deadwood-ai/deadtrees-backend](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Deadwood-ai)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Deadwood-ai/deadtrees-backend](https://github.com/Deadwood-ai/deadtrees-backend)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Deadwood-ai) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
