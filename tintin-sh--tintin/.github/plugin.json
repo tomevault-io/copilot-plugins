@@ -1,0 +1,9 @@
+{
+  "name": "tintin-sh--tintin",
+  "displayName": "tintin",
+  "description": "Control Coding Agents (Codex, etc.) via Telegram or Slack.",
+  "version": "1.0.0",
+  "author": "tintin-sh",
+  "homepage": "https://github.com/tintin-sh/tintin",
+  "skills": []
+}
