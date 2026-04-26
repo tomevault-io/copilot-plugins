@@ -1,0 +1,9 @@
+{
+  "name": "ibm--iac-spec-kit",
+  "displayName": "iac-spec-kit",
+  "description": "AI-assisted workflows for translating business requirements into infrastructure code",
+  "version": "1.0.0",
+  "author": "IBM",
+  "homepage": "https://github.com/IBM/iac-spec-kit",
+  "skills": []
+}
