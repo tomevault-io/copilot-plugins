@@ -1,31 +1,54 @@
 ## go-agent-skills
 
-> This repository contains curated AI agent skills for Go development,
+> This repository contains curated AI agent skills for Go development.
 
 # Go Agent Skills
 
-This repository contains curated AI agent skills for Go development, 
-grounded in Effective Go, Go Code Review Comments, and real-world patterns from large-scale Go services.
+This repository contains curated AI agent skills for Go development.
+Skills follow the Agent Skills specification (SKILL.md with YAML frontmatter).
 
 ## Installation
 
 ```bash
-npx skills add eduardo-sl/go-agent-skills -a windsurf
+npx skills add eduardo-sl/go-agent-skills -a copilot
 ```
 
-Or manually: copy `skills/*/*/` into `.windsurf/skills/`.
+Or manually: copy `skills/*/*/` into `.github/skills/`.
 
-## Skills
+## Skills Catalog
 
-Code Quality: go-coding-standards, go-code-review, go-error-handling, go-context, go-modernize
-Architecture: go-architecture-review, go-interface-design, go-api-design, go-design-patterns
-Data: go-database
-Safety: go-concurrency-review, go-security-audit, go-performance-review, go-observability
-Testing: go-test-quality, go-test-table-driven
-Workflow: go-dependency-audit, git-commit
+### Code Quality
+- **go-coding-standards** — Style conventions, naming, imports
+- **go-code-review** — Structured review with BLOCKER/WARNING/SUGGESTION severity
+- **go-error-handling** — Error wrapping, sentinel errors, custom types
+- **go-context** — Context propagation, cancellation, timeouts, values
+- **go-modernize** — Generics, slog, errors.Join, slices/maps, iterators
 
-Each skill is a SKILL.md with YAML frontmatter (name + description) and markdown instructions.
+### Architecture & Design
+- **go-architecture-review** — Package layout, dependency direction, layering
+- **go-interface-design** — Consumer-side interfaces, composition, compliance checks
+- **go-api-design** — REST/gRPC handlers, middleware, graceful shutdown
+- **go-design-patterns** — Functional options, factory, strategy, decorator
+
+### Data
+- **go-database** — Connection pools, transactions, sqlc, migrations
+
+### Safety & Performance
+- **go-concurrency-review** — Goroutine lifecycle, channels, mutexes, race detection
+- **go-security-audit** — OWASP, SQL injection, auth, secrets management
+- **go-performance-review** — Allocations, benchmarking, pprof
+- **go-observability** — Structured logging, tracing, metrics, OpenTelemetry
+
+### Testing
+- **go-test-quality** — Subtests, httptest, golden files, fuzz, testcontainers
+- **go-test-table-driven** — Table-driven test patterns, struct design
+
+### Workflow
+- **go-dependency-audit** — govulncheck, go.mod hygiene, dep evaluation
+- **git-commit** — Conventional Commits, atomic commits
+
+All skills are in `skills/(category)/skill-name/SKILL.md`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/eduardo-sl) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [eduardo-sl/go-agent-skills](https://github.com/eduardo-sl/go-agent-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
