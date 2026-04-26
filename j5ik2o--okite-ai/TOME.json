@@ -4,7 +4,7 @@
   "repo": "okite-ai",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/j5ik2o/okite-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T15:58:23Z"
+  "distributed_at": "2026-04-26T04:08:41Z"
 }
