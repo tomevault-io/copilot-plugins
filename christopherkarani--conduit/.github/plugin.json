@@ -1,0 +1,9 @@
+{
+  "name": "christopherkarani--conduit",
+  "displayName": "Conduit",
+  "description": " \ud83e\udd91 Unified Swift SDK for LLM inference across local and cloud providers",
+  "version": "1.0.0",
+  "author": "christopherkarani",
+  "homepage": "https://github.com/christopherkarani/Conduit",
+  "skills": []
+}
