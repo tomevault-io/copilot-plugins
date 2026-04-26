@@ -1,0 +1,9 @@
+{
+  "name": "mbolli--php-via",
+  "displayName": "php-via",
+  "description": "Real-time engine for building reactive web applications in PHP with Swoole.",
+  "version": "1.0.0",
+  "author": "mbolli",
+  "homepage": "https://github.com/mbolli/php-via",
+  "skills": []
+}
