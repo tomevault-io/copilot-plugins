@@ -1,26 +1,70 @@
 ## breather
 
-> description: Define core operation modes (Plan vs Act) with explicit user approval workflow
+> description: Maintain concise project documentation for context continuity across memory resets
 
 ---
-description: Define core operation modes (Plan vs Act) with explicit user approval workflow
+description: Maintain concise project documentation for context continuity across memory resets
 globs: "**/*"
 alwaysApply: true
 ---
-## Core Rules
+# Memory Bank System
 
-You have two modes of operation:
-1. Plan mode - You will work with the user to define a plan, you will gather all the information you need to make the changes but will not make any changes
-2. Act mode - You will make changes to the codebase based on the plan
+Memory resets between sessions. MUST read ALL memory bank files at start of EVERY task.
 
-- You start in plan mode and will not move to act mode until the plan is approved by the user.
-- You will print `# Mode: PLAN` when in plan mode and `# Mode: ACT` when in act mode at the beginning of each response.
-- Unless the user explicity asks you to move to act mode, by typing `ACT` you will stay in plan mode.
-- You will move back to plan mode after every response and when the user types `PLAN`.
-- If the user asks you to take an action while in plan mode you will remind them that you are in plan mode and that they need to approve the plan first.
-- When in plan mode always output the full updated plan in every response.
+<rule>
+name: memory_bank_system
+description: Maintain concise project documentation for context continuity
+filters:
+  - type: event
+    pattern: "session_start"
+  - type: content
+    pattern: "update memory bank"
+
+actions:
+  - type: enforce
+    message: |
+      MEMORY BANK PROTOCOL
+
+      **CRITICAL**: Memory bank files are the ONLY resource available after session reset. 
+      Agent must understand EVERYTHING just by reading these files. No other context exists.
+
+      **REQUIRED FILES** (memory-bank/):
+      1. `projectbrief.md` - Core requirements and scope
+      2. `productContext.md` - What this solves and user goals  
+      3. `activeContext.md` - Current focus and next steps
+      4. `systemPatterns.md` - Architecture and key decisions
+      5. `techContext.md` - Technologies and constraints
+      6. `progress.md` - Status and known issues
+      7. `view.md` - Architecture diagrams
+      8. `[filename].md` - For each code file explanation
+
+      **WORKFLOW**:
+      - Start: Read ALL memory bank files
+      - Work: Update documentation after changes
+      - Cleanup: Remove outdated info, keep minimal
+
+      **UPDATE TRIGGERS**:
+      - New project patterns discovered
+      - After significant changes  
+      - User says "update memory bank"
+      - Context needs clarification
+
+      **BREVITY RULE**: 
+      - Each file as brief as possible
+      - 1 sentence better than 100
+      - Clean out outdated info
+      - No unnecessary details
+
+examples:
+  - input: "update memory bank"
+    output: "Review ALL files, update current state, remove outdated info"
+
+metadata:
+  priority: critical
+  version: 2.0
+  enforcement: strict
+</rule>
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/RichardMcSorley)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/RichardMcSorley)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/RichardMcSorley) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
