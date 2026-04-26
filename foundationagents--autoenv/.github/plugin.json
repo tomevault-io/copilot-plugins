@@ -1,0 +1,9 @@
+{
+  "name": "foundationagents--autoenv",
+  "displayName": "AutoEnv",
+  "description": "Scaling Agentic Environments Automatically. ",
+  "version": "1.0.0",
+  "author": "FoundationAgents",
+  "homepage": "https://github.com/FoundationAgents/AutoEnv",
+  "skills": []
+}
