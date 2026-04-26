@@ -1,0 +1,9 @@
+{
+  "name": "usestring--powhttp-mcp",
+  "displayName": "powhttp-mcp",
+  "description": "MCP server enabling agents to debug HTTP requests better (using powhttp)",
+  "version": "1.0.0",
+  "author": "usestring",
+  "homepage": "https://github.com/usestring/powhttp-mcp",
+  "skills": []
+}
