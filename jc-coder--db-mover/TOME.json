@@ -1,0 +1,44 @@
+{
+  "name": "db-mover",
+  "owner": "JC-Coder",
+  "repo": "db-mover",
+  "description": "DB Mover is an open-source tool designed to simplify the complex process of database migration. It eliminates the need for complex CLI commands, connection strings wrestling, and manual dump file management.  With DB Mover, you can stream multi-cloud enterprise datasets with absolute precision, zero structural loss, and sub-second latency.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JC-Coder/db-mover",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T03:33:49Z"
+}
