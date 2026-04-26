@@ -1,0 +1,9 @@
+{
+  "name": "earthtojake--text-to-cad",
+  "displayName": "text-to-cad",
+  "description": "An open source harness for generating CAD models",
+  "version": "1.0.0",
+  "author": "earthtojake",
+  "homepage": "https://github.com/earthtojake/text-to-cad",
+  "skills": []
+}
