@@ -1,0 +1,9 @@
+{
+  "name": "basilisk-labs--codex-swarm",
+  "displayName": "codex-swarm",
+  "description": "Prompt-defined swarm of local agents for the OpenAI Codex plugin with git-level task tracking.",
+  "version": "1.0.0",
+  "author": "basilisk-labs",
+  "homepage": "https://github.com/basilisk-labs/codex-swarm",
+  "skills": []
+}
