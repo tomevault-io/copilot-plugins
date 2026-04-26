@@ -1,0 +1,9 @@
+{
+  "name": "rawwerks--rlm-cli",
+  "displayName": "rlm-cli",
+  "description": "CLI for Recursive Language Models",
+  "version": "1.0.0",
+  "author": "rawwerks",
+  "homepage": "https://github.com/rawwerks/rlm-cli",
+  "skills": []
+}
