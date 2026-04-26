@@ -1,0 +1,9 @@
+{
+  "name": "xiwcx--obsidian-bases-kanban",
+  "displayName": "obsidian-bases-kanban",
+  "description": "A kanban-style drag-and-drop custom view for Obsidian Bases that allows you to organize your notes into columns based on any property.",
+  "version": "1.0.0",
+  "author": "xiwcx",
+  "homepage": "https://github.com/xiwcx/obsidian-bases-kanban",
+  "skills": []
+}
