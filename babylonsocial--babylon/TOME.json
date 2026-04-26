@@ -4,7 +4,7 @@
   "repo": "babylon",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BabylonSocial/babylon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T23:48:40Z"
+  "distributed_at": "2026-04-26T19:46:18Z"
 }
