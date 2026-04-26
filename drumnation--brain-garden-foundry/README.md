@@ -1,23 +1,28 @@
 # brain-garden-foundry
 
-> Config by [drumnation](https://github.com/drumnation/brain-garden-foundry) — distributed by [TomeVault](https://tomevault.io/claim/drumnation)
+> Tome by [drumnation](https://github.com/drumnation/brain-garden-foundry) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [drumnation/brain-garden-foundry](https://github.com/drumnation/brain-garden-foundry).
+Original source: `.cursor/rules/*.mdc` in [drumnation/brain-garden-foundry](https://github.com/drumnation/brain-garden-foundry).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/drumnation](https://tomevault.io/claim/drumnation)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/drumnation/brain-garden-foundry](https://github.com/drumnation/brain-garden-foundry)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/drumnation) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install drumnation/brain-garden-foundry
+```
+Source: [github.com/drumnation/brain-garden-foundry](https://github.com/drumnation/brain-garden-foundry).
+
+<!-- genome:t-i-p -->
