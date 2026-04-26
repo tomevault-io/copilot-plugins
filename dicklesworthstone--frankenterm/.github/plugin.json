@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankenterm",
+  "displayName": "frankenterm",
+  "description": "Terminal hypervisor for AI agent swarms: real-time pane capture, state-machine pattern detection, and a JSON API for coordinating fleets of coding agents across WezTerm",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankenterm",
+  "skills": []
+}
