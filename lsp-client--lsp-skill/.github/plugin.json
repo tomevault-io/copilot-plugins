@@ -1,0 +1,9 @@
+{
+  "name": "lsp-client--lsp-skill",
+  "displayName": "lsp-skill",
+  "description": "IntelliSense Designed for Coding Agent",
+  "version": "1.0.0",
+  "author": "lsp-client",
+  "homepage": "https://github.com/lsp-client/lsp-skill",
+  "skills": []
+}
