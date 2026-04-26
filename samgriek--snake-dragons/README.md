@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [samgriek/snake-dragons](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/samgriek)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/samgriek/snake-dragons](https://github.com/samgriek/snake-dragons)
 
 ---
 
