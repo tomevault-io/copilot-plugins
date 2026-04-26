@@ -1,0 +1,9 @@
+{
+  "name": "ossianhempel--things3-cli",
+  "displayName": "things3-cli",
+  "description": "CLI for Things 3, implemented in Go",
+  "version": "1.0.0",
+  "author": "ossianhempel",
+  "homepage": "https://github.com/ossianhempel/things3-cli",
+  "skills": []
+}
