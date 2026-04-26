@@ -1,0 +1,9 @@
+{
+  "name": "frequenz-floss--contai",
+  "displayName": "contai",
+  "description": "A very opinionated Docker-based sandbox for AI CLI tools",
+  "version": "1.0.0",
+  "author": "frequenz-floss",
+  "homepage": "https://github.com/frequenz-floss/contai",
+  "skills": []
+}
