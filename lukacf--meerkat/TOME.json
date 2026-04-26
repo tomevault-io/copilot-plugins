@@ -1,0 +1,81 @@
+{
+  "name": "meerkat",
+  "owner": "lukacf",
+  "repo": "meerkat",
+  "description": "Meerkat - A modular, high-performance agent harness built in Rust.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hook-authoring",
+      "path": "meerkat-hooks/skills/hook-authoring",
+      "github_url": "https://github.com/lukacf/meerkat/tree/main/meerkat-hooks/skills/hook-authoring",
+      "description": ""
+    },
+    {
+      "name": "meerkat-platform",
+      "path": ".claude/skills/meerkat-platform",
+      "github_url": "https://github.com/lukacf/meerkat/tree/main/.claude/skills/meerkat-platform",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-comms",
+      "path": "meerkat-comms/skills/multi-agent-comms",
+      "github_url": "https://github.com/lukacf/meerkat/tree/main/meerkat-comms/skills/multi-agent-comms",
+      "description": ""
+    },
+    {
+      "name": "rct-methodology",
+      "path": ".claude/skills/rct-methodology",
+      "github_url": "https://github.com/lukacf/meerkat/tree/main/.claude/skills/rct-methodology",
+      "description": ""
+    },
+    {
+      "name": "rust-cicd-pipeline",
+      "path": ".claude/skills/rust-cicd-pipeline",
+      "github_url": "https://github.com/lukacf/meerkat/tree/main/.claude/skills/rust-cicd-pipeline",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/lukacf/meerkat/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lukacf/meerkat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T15:30:09Z"
+}
