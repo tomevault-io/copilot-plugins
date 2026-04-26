@@ -1,0 +1,9 @@
+{
+  "name": "scalebrick--founder-marketing-skills",
+  "displayName": "founder-marketing-skills",
+  "description": "Open-source marketing skills for founders. Keyword research, growth strategy, social search audit, competitor analysis. Install with npx skills.",
+  "version": "1.0.0",
+  "author": "ScaleBrick",
+  "homepage": "https://github.com/ScaleBrick/founder-marketing-skills",
+  "skills": []
+}
