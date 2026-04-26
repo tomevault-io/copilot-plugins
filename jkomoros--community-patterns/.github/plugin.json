@@ -1,0 +1,50 @@
+{
+  "name": "jkomoros--community-patterns",
+  "displayName": "community-patterns",
+  "description": "A repo for patterns created by the communtiy",
+  "version": "1.0.0",
+  "author": "jkomoros",
+  "homepage": "https://github.com/jkomoros/community-patterns",
+  "skills": [
+    {
+      "name": "claude-permissions-update",
+      "description": ""
+    },
+    {
+      "name": "community-docs",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "issue-filing",
+      "description": ""
+    },
+    {
+      "name": "recovery-strategies",
+      "description": ""
+    },
+    {
+      "name": "session-startup",
+      "description": ""
+    },
+    {
+      "name": "strategic-investigation",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "todo-files",
+      "description": ""
+    }
+  ]
+}
