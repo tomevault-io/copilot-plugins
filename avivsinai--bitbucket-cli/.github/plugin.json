@@ -1,0 +1,9 @@
+{
+  "name": "avivsinai--bitbucket-cli",
+  "displayName": "bitbucket-cli",
+  "description": "Bitbucket CLI with gh-like ergonomics",
+  "version": "1.0.0",
+  "author": "avivsinai",
+  "homepage": "https://github.com/avivsinai/bitbucket-cli",
+  "skills": []
+}
