@@ -10879,6 +10879,11 @@
       "description": "Coordinate skills between Codex, Copilot, and Claude Code. Validates, analyzes, and syncs skills, subagents, commands, and configuration between multiple CLIs."
     },
     {
+      "name": "xiangpenghao--pq-vector",
+      "source": "./xiangpenghao--pq-vector",
+      "description": "Vector search using only Parquet and DataFusion"
+    },
+    {
       "name": "shinchven--nano-banana-skills",
       "source": "./shinchven--nano-banana-skills",
       "description": "Nano Banana Pro Skills"
