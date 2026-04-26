@@ -1,6 +1,6 @@
-# smart-downloader — distributed by TomeVault
+# smart-downloader
 
-> Originally from [eric2023/smart-downloader](https://github.com/eric2023/smart-downloader). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [eric2023/smart-downloader](https://github.com/eric2023/smart-downloader) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [eric2023/smart-downloader](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/eric2023#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/eric2023/smart-downloader](https://github.com/eric2023/smart-downloader)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install eric2023/smart-downloader
 ```
-Or browse all formats at [https://tomevault.io/claim/eric2023](https://tomevault.io/claim/eric2023).
+Source: [github.com/eric2023/smart-downloader](https://github.com/eric2023/smart-downloader).
 
 <!-- genome:d-i-q -->
