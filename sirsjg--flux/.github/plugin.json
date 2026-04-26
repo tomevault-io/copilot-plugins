@@ -1,0 +1,9 @@
+{
+  "name": "sirsjg--flux",
+  "displayName": "flux",
+  "description": "Ship with less chaos. Flux is a fast, simple Kanban board with MCP integration so your LLMs can help run the show.",
+  "version": "1.0.0",
+  "author": "sirsjg",
+  "homepage": "https://github.com/sirsjg/flux",
+  "skills": []
+}
