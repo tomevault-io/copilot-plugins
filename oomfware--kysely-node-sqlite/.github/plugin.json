@@ -1,0 +1,9 @@
+{
+  "name": "oomfware--kysely-node-sqlite",
+  "displayName": "kysely-node-sqlite",
+  "description": "kysely-node-sqlite",
+  "version": "1.0.0",
+  "author": "oomfware",
+  "homepage": "https://github.com/oomfware/kysely-node-sqlite",
+  "skills": []
+}
