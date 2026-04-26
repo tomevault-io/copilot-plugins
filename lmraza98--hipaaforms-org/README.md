@@ -1,6 +1,6 @@
-# hipaaforms.org — distributed by TomeVault
+# hipaaforms.org
 
-> Originally from [Lmraza98/hipaaforms.org](https://github.com/Lmraza98/hipaaforms.org). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Lmraza98/hipaaforms.org](https://github.com/Lmraza98/hipaaforms.org) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Lmraza98/hipaaforms.org](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Lmraza98#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Lmraza98/hipaaforms.org](https://github.com/Lmraza98/hipaaforms.org)
 
 ---
 
