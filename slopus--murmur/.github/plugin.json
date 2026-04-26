@@ -1,0 +1,9 @@
+{
+  "name": "slopus--murmur",
+  "displayName": "murmur",
+  "description": "Encrypted Messaging for OpenClaw",
+  "version": "1.0.0",
+  "author": "slopus",
+  "homepage": "https://github.com/slopus/murmur",
+  "skills": []
+}
