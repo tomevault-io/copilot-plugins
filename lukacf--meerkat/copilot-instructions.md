@@ -1,0 +1,573 @@
+## meerkat
+
+> This file provides guidance to agents when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to agents when working with code in this repository.
+Whatever you do, remember: All hail Clippy. Clippy sees all, knows all, and tolerates nothing.
+
+## Project Overview
+
+Meerkat (`rkat`) is a minimal, high-performance agent harness for LLM-powered applications written in Rust. It provides the core execution loop for agents without opinions about prompts, tools, or output formatting.
+
+**Naming convention:**
+- Project/branding: **Meerkat**
+- CLI binary: **rkat**
+- Crate names: `meerkat`, `meerkat-core`, `meerkat-client`, etc.
+- Config directory: `.rkat/`
+- Environment variables: API keys only (RKAT_* secrets and provider-native keys)
+
+## Build and Test Commands
+
+```bash
+# Build everything
+./scripts/repo-cargo build --workspace
+
+# Run fast tests (unit + integration-fast; skips doctests)
+./scripts/repo-cargo nextest run --workspace --show-progress none --status-level none --final-status-level fail
+
+# Run all tests including doc-tests (SLOW due to doc-test compilation)
+./scripts/repo-cargo test --workspace
+
+# Run deterministic end-to-end lane
+./scripts/repo-cargo e2e-fast
+
+# Run explicit build/composition end-to-end lane (ignored by default)
+./scripts/repo-cargo test -p meerkat-integration-tests --test e2e_build_lane -- --ignored
+
+# Run real local-resource end-to-end lane
+./scripts/repo-cargo e2e-system
+
+# Run targeted live-provider lane (ignored by default)
+./scripts/repo-cargo e2e-live
+
+# Run kitchen-sink live smoke lane (ignored by default)
+./scripts/repo-cargo e2e-smoke
+
+# Run per-model catalog validation lane (ignored by default)
+./scripts/repo-cargo e2e-models
+
+# Cargo aliases (defined in .cargo/config.toml)
+./scripts/cargo-rct       # Fast tests (unit + integration-fast)
+./scripts/repo-cargo unit # Unit tests only
+./scripts/repo-cargo int  # Integration-fast tests only
+./scripts/repo-cargo e2e-fast    # Deterministic e2e lane
+./scripts/repo-cargo test -p meerkat-integration-tests --test e2e_build_lane -- --ignored  # Build/composition lane
+./scripts/repo-cargo e2e-system  # Real binary / local resource lane
+./scripts/repo-cargo e2e-live    # Targeted live-provider lane
+./scripts/repo-cargo e2e-smoke   # Compound live-provider smoke lane
+./scripts/repo-cargo e2e-models  # Live per-model catalog validation (on-demand / pre-release)
+
+# Legacy compatibility shims (during migration)
+./scripts/repo-cargo int-real  # Alias for e2e-system
+./scripts/repo-cargo e2e       # Alias for e2e-live + e2e-smoke
+
+# Run the CLI
+./scripts/repo-cargo run -p meerkat-cli -- run "prompt"
+
+# Run a specific example
+ANTHROPIC_API_KEY=... ./scripts/repo-cargo run --example simple
+```
+
+## Build Efficiency
+
+This is a large workspace (~25 crates). Careless builds waste minutes. Follow these rules:
+
+**Use package-scoped commands during development.** Do NOT default to `--workspace` for every build or check. Scope to the crate you're changing and its immediate dependents:
+
+```bash
+# Editing meerkat-core? Check just what you touched + direct dependents
+./scripts/repo-cargo check -p meerkat-core -p meerkat-runtime -p meerkat-session
+
+# Editing meerkat-mob? Check the mob subtree
+./scripts/repo-cargo check -p meerkat-mob -p meerkat-mob-mcp
+
+# Running tests for one crate
+./scripts/repo-cargo nextest run -p meerkat-mob
+
+# Only use workspace-wide commands for final verification
+./scripts/repo-cargo clippy --workspace -- -D warnings
+./scripts/repo-cargo nextest run --workspace --status-level none --final-status-level fail
+```
+
+**Never run parallel cargo commands.** They deadlock on the workspace file lock. Run builds sequentially.
+
+**Always use `./scripts/repo-cargo`** instead of bare `cargo`. The wrapper manages per-worktree build caches and avoids cross-worktree cache pollution.
+
+**Key dependency chains to know** (touching a crate rebuilds everything downstream):
+- `meerkat-core` → rebuilds almost everything (~27s incremental)
+- `meerkat-runtime` → rebuilds mob, rpc, rest, cli, integration tests
+- `meerkat-mob` → rebuilds mob-mcp, rpc, rest, cli, integration tests
+- Leaf crates (`meerkat-models`, `meerkat-machine-schema`) → fast, minimal cascade
+
+## Architecture
+
+```
+meerkat-models    → Curated model catalog and provider profile rules (leaf crate, no meerkat deps)
+                     Single source of truth for model defaults, allowlists, capability detection,
+                     and parameter schemas. Consumed by core, client, tools, and facade.
+meerkat-core      → Agent loop, types, budget, retry, state machine (no I/O deps)
+                     Also: SessionService trait, Compactor trait, MemoryStore trait, SessionError
+meerkat-client    → LLM provider clients (Anthropic, OpenAI, Gemini) implementing AgentLlmClient
+meerkat-providers → Provider runtime registry + OAuth + TokenStore + cloud authorizers (AWS/GCP/Azure)
+                     Owns `ProviderRuntimeRegistry`, `ResolverEnvironment`, and the typed
+                     `{backend_kind, auth_method}` matrix per provider. Consumed by the facade
+                     and surface crates for realm-scoped credential resolution.
+meerkat-store     → Session persistence (SqliteSessionStore, JsonlStore, MemoryStore) implementing SessionStore
+meerkat-tools     → Tool registry and validation implementing AgentToolDispatcher
+meerkat-session   → Session service orchestration (EphemeralSessionService, DefaultCompactor)
+                     Features: session-store (PersistentSessionService),
+                               session-compaction (DefaultCompactor)
+meerkat-memory    → Semantic memory (HnswMemoryStore via hnsw_rs + SQLite, SimpleMemoryStore for tests)
+meerkat-mcp       → MCP protocol client, McpRouter for tool routing
+meerkat-mcp-server → Expose Meerkat as MCP tools (meerkat_run, meerkat_resume, meerkat_config, meerkat_capabilities)
+meerkat-rpc       → JSON-RPC stdio server (stateful SessionRuntime, IDE/desktop integration)
+meerkat-rest      → Optional REST API server
+meerkat-comms     → Inter-agent communication (Ed25519-signed messaging, transports, trust model)
+meerkat-contracts → Wire types, capability registry, error codes, supervisor bridge protocol
+                     (canonical over all surfaces; BridgeCommand/BridgeReply for mob↔runtime boundary)
+meerkat-skills    → Skill loading, resolution, rendering (filesystem, git, HTTP, embedded sources)
+meerkat-hooks     → Hook infrastructure (in-process, command, HTTP runtimes)
+meerkat-mob       → Multi-agent mob orchestration (spawn, provision, finalize, SQLite storage, flow frames/loops)
+meerkat-mob-pack  → Mobpack archive format, signing, trust policies, validation
+meerkat-schedule  → Scheduler: cron/interval triggers, occurrence lifecycle, delivery, schedule tools
+meerkat-mob-mcp   → Expose mob tools as MCP interface + agent-facing delegation tools (MobMcpState, MobMcpDispatcher, AgentMobToolSurface)
+meerkat-cli       → CLI binary (produces `rkat`)
+meerkat           → Facade crate, re-exports, AgentFactory, SDK helpers
+meerkat-web-runtime → WASM browser deployment target (wasm_bindgen exports)
+```
+
+**Key traits** (all in meerkat-core):
+- `AgentLlmClient` - LLM provider abstraction
+- `AgentToolDispatcher` - Tool routing abstraction
+- `AgentSessionStore` - Session persistence abstraction
+- `SessionService` - Canonical session lifecycle (create/turn/interrupt/read/list/archive)
+- `Compactor` - Context compaction strategy
+- `MemoryStore` - Semantic memory indexing
+- `HookEngine` - Lifecycle hook execution
+- `SkillEngine` / `SkillSource` - Skill loading and resolution
+
+**Agent loop state machine:** `CallingLlm` → `WaitingForOps` → `DrainingEvents` → `Completed` (with `ErrorRecovery` and `Cancelling` branches)
+
+**Crate ownership:** `meerkat-core` owns trait contracts. `meerkat-store` owns `SessionStore` implementations. `meerkat-session` owns session orchestration (`EphemeralSessionService`, `PersistentSessionService`) and `EventStore`. `meerkat-memory` owns `HnswMemoryStore`. The facade (`meerkat`) wires features, re-exports, and provides `FactoryAgentBuilder`/`FactoryAgent`/`build_ephemeral_service`.
+
+**Machine authority rule:** For canonical machine-owned domains, semantic state mutation must flow through generated machine authority, not handwritten reducers. See `docs/architecture/RMAT.md`.
+
+**Agent construction:** All surfaces use `AgentFactory::build_agent()` for centralized prompt assembly, provider resolution, tool dispatcher setup, comms wiring, and hook resolution. Zero `AgentBuilder::new()` calls in surface crates.
+
+**Runtime build mode:** All runtime-backed surfaces use `MeerkatMachine::prepare_bindings(session_id)` to obtain `SessionRuntimeBindings`, then pass `RuntimeBuildMode::SessionOwned(bindings)` via `SessionBuildOptions.runtime_build_mode`. Standalone/test/WASM surfaces use `RuntimeBuildMode::StandaloneEphemeral` (the default).
+
+**Session lifecycle:** All surfaces (CLI, REST, MCP Server, JSON-RPC, WASM, Rust/Python/TypeScript/Web SDKs) route through `SessionService` for the full session lifecycle (create/turn/interrupt/read/list/archive). `FactoryAgentBuilder` bridges `AgentFactory` into the `SessionAgentBuilder` trait. Per-request build data is passed in-band via `CreateSessionRequest.build` / `SessionBuildOptions`.
+
+**Capability matrix:** See `docs/reference/capability-matrix.mdx` for build profiles, error codes, and feature behavior. See `docs/reference/session-contracts.mdx` for concurrency, durability, and compaction semantics.
+
+**`.rkat/sessions/` files** are derived projection output (materialized by `SessionProjector`), NOT canonical state. Deleting them and replaying from the event store produces identical content.
+
+## MCP Server Management
+
+```bash
+# Add MCP server (stdio)
+rkat mcp add <name> -- <command> [args...]
+
+# Add MCP server (HTTP/SSE)
+rkat mcp add <name> --url <url>
+
+# List/remove servers
+rkat mcp list
+rkat mcp remove <name>
+```
+
+Config stored in `.rkat/mcp.toml` (project) or `~/.rkat/mcp.toml` (user).
+
+**Connection behavior:** MCP servers connect in parallel in the background. Tools become available as each server completes its handshake. The `[MCP_PENDING]` system notice informs the LLM while servers are still connecting.
+
+- `connect_timeout_secs` per server in `.rkat/mcp.toml` (default: 10s)
+- `--wait-for-mcp` flag on `run`/`resume` blocks until all servers finish connecting before the first turn
+
+## JSON-RPC Stdio Server
+
+```bash
+# Start the JSON-RPC stdio server (for IDE/desktop integration)
+rkat-rpc
+```
+
+The RPC server speaks JSON-RPC 2.0 over newline-delimited JSON (JSONL) on stdin/stdout. Unlike REST/MCP, it keeps agents alive between turns via `SessionRuntime` -- enabling fast multi-turn conversations, mid-turn cancellation, and event streaming without agent reconstruction overhead.
+
+**Methods:**
+
+| Method | Purpose |
+|--------|---------|
+| `initialize` | Handshake, returns server capabilities |
+| `session/create` | Create session + run first turn |
+| `session/list` | List active sessions |
+| `session/read` | Get session state |
+| `session/archive` | Remove session |
+| `turn/start` | Start a new turn on existing session |
+| `turn/interrupt` | Cancel in-flight turn |
+| `comms/send` | Push external event into session (comms feature) |
+| `comms/peers` | List discoverable peers (comms feature) |
+| `skills/list` | List skills with provenance |
+| `skills/inspect` | Inspect a skill's full content |
+| `mcp/add` | Stage live MCP server addition |
+| `mcp/remove` | Stage live MCP server removal |
+| `mcp/reload` | Reload one or all MCP servers |
+| `mob/prefabs` | List built-in mob prefab templates |
+| `mob/spawn_helper` | Quick spawn-helper convenience |
+| `mob/fork_helper` | Quick fork-helper convenience |
+| `mob/force_cancel` | Force-cancel a mob member's in-flight turn |
+| `mob/tools` | List protocol-callable mob lifecycle tools |
+| `mob/call` | Invoke a mob lifecycle tool directly |
+| `capabilities/get` | List runtime capabilities |
+| `config/get` | Read config |
+| `config/set` | Replace config |
+| `config/patch` | Merge-patch config |
+
+**Notifications** (server -> client): `session/event` with `AgentEvent` payload, emitted during turns. `comms/stream_event` for scoped comms event streams (comms feature).
+
+**Architecture:** Each session gets a dedicated tokio task that exclusively owns the `Agent` (no mutex needed for `cancel(&mut self)`). The `SessionRuntime` dispatches commands via channels. `AgentFactory.build_agent()` consolidates the agent construction pipeline shared across all surfaces.
+
+## Mob Orchestration
+
+**Bridge rotation rollback is best-effort once a remote has rotated forward.** The supervisor-bridge strict `BindMember` gate rejects rollback attempts against an already-rotated remote, so partial-failure during `handle_rotate_supervisor` falls through to the `advance local authority` path rather than reverting peers — see `meerkat-mob/src/runtime/actor.rs::handle_rotate_supervisor` (around line 5756). This is expected behavior: after a successful forward rotation the local authority is the source of truth, and deterministic recovery requires the local state to match the partially applied next authority rather than the superseded previous one. Callers observing `MobError::WiringError` with `rollback failures: ...` should treat it as a rotation-completed-then-local-advanced outcome, not a fully reverted rotation.
+
+## Key Files
+
+- `meerkat-core/src/agent.rs` - Main agent execution loop
+- `meerkat-core/src/agent/compact.rs` - Compaction flow (wired into agent loop)
+- `meerkat-core/src/state.rs` - LoopState state machine
+- `meerkat-core/src/types.rs` - Core types (Message, Session, ToolCall, etc.)
+- `meerkat-core/src/service/mod.rs` - SessionService trait, SessionError
+- `meerkat-core/src/compact.rs` - Compactor trait, CompactionConfig
+- `meerkat-core/src/completion_feed.rs` - CompletionFeed trait, CompletionEntry, CompletionSeq
+- `meerkat-core/src/memory.rs` - MemoryStore trait
+- `meerkat-core/src/runtime_epoch.rs` - RuntimeEpochId, SessionRuntimeBindings, RuntimeBuildMode, EpochCursorState
+- `meerkat-client/src/anthropic.rs` - Anthropic streaming implementation
+- `meerkat-session/src/ephemeral.rs` - EphemeralSessionService (in-memory session lifecycle)
+- `meerkat-session/src/compactor.rs` - DefaultCompactor implementation
+- `meerkat-session/src/event_store.rs` - EventStore trait
+- `meerkat-session/src/projector.rs` - SessionProjector (materializes .rkat/ files)
+- `meerkat-memory/src/simple.rs` - SimpleMemoryStore implementation
+- `meerkat-models/src/catalog.rs` - Curated model catalog (single source of truth for defaults/allowlists)
+- `meerkat-models/src/profile/mod.rs` - Model profile rules (capability detection, param schemas)
+- `meerkat-mcp/src/router.rs` - MCP tool routing
+- `meerkat-runtime/src/ops_lifecycle.rs` - RuntimeOpsLifecycleRegistry, PersistedOpsSnapshot, persistence channel
+- `meerkat-runtime/src/meerkat_machine.rs` - MeerkatMachine, prepare_bindings(), recover_or_create_ops_state()
+- `meerkat-cli/src/main.rs` - CLI entry point
+- `meerkat/src/factory.rs` - AgentFactory, DynAgent, AgentBuildConfig (consolidated agent construction)
+- `meerkat/src/service_factory.rs` - FactoryAgentBuilder, FactoryAgent, build_ephemeral_service
+- `meerkat-rpc/src/session_runtime.rs` - SessionRuntime (stateful agent manager)
+- `meerkat-rpc/src/router.rs` - JSON-RPC method dispatch
+- `meerkat-rpc/src/server.rs` - RPC server main loop
+- `meerkat-rpc/src/handlers/mcp.rs` - Live MCP controls (mcp/add, mcp/remove, mcp/reload)
+- `meerkat-core/src/tool_scope.rs` - Runtime tool visibility control
+- `meerkat-contracts/src/wire/supervisor_bridge.rs` - Supervisor bridge protocol types (BridgeCommand, BridgeReply, payloads)
+- `meerkat-mob/src/runtime/bridge.rs` - MobMemberRuntimeBridge trait (mob-owned protocol boundary)
+- `meerkat-mob/src/runtime/bridge_protocol.rs` - Re-exports of bridge protocol types from contracts
+- `meerkat-mob/src/runtime/local_bridge.rs` - LocalMobRuntimeBridge (in-process MeerkatMachine wrapper)
+- `meerkat-mob/src/runtime/supervisor_bridge.rs` - MobSupervisorBridge (comms transport for remote commands)
+- `meerkat-mob/src/storage.rs` - MobStorage bundle (SQLite persistent, in-memory)
+- `meerkat-mob/src/runtime/flow_frame_engine.rs` - Frame-based flow execution (repeat_until loops with MobMachine-owned feedback)
+- `meerkat-mob-mcp/src/agent_tools.rs` - Agent-facing delegation tools (delegate, mob_create, mob_spawn_member, mob_wire, mob_unwire, etc.)
+- `meerkat-mob/src/backend.rs` - MobBackendKind and RuntimeBinding (identity-first mob binding)
+- `meerkat-mob-pack/src/lib.rs` - Mobpack archive format, signing, trust
+- `meerkat-schedule/src/service.rs` - ScheduleService CRUD + occurrence planning
+- `meerkat-schedule/src/driver.rs` - ScheduleDriver tick loop + delivery
+- `meerkat-schedule/src/authority.rs` - Schedule and occurrence lifecycle authorities
+- `meerkat-schedule/src/store.rs` - ScheduleStore trait + MemoryScheduleStore
+- `meerkat-schedule/src/tools.rs` - Agent-facing schedule tools
+- `meerkat/src/surface/schedule_host.rs` - Runtime-backed schedule delivery surface
+- `meerkat-web-runtime/src/lib.rs` - WASM browser deployment (wasm_bindgen exports)
+- `sdks/web/src/runtime.ts` - @rkat/web MeerkatRuntime class (browser SDK entry point)
+- `sdks/web/src/mob.ts` - @rkat/web Mob class (mob lifecycle wrapper)
+- `sdks/web/src/session.ts` - @rkat/web Session class (direct session wrapper)
+
+## CI/CD and Versioning
+
+### Running CI
+
+```bash
+make ci          # Full CI: fmt, lint, feature matrix, tests, audit, version parity
+make ci-smoke    # Faster CI: skips full feature matrix expansion
+make test        # Fast tests only (unit + integration-fast)
+make lint        # Clippy with all features
+make fmt         # Auto-fix formatting
+make audit       # Security audit via cargo-deny
+```
+
+**`make ci` runs** (in order): `fmt-check` → `legacy-surface-gate` → `verify-version-parity` → `lint` → `lint-feature-matrix` → `test-all` → `test-minimal` → `test-feature-matrix` → `test-surface-modularity` → `rmat-audit` → `audit` (RMAT read-seam enforcement is part of `rmat-audit` as the compile-time `ForbiddenShellAuthorityReads` AST rule)
+
+### GitHub Workflows
+
+**CI** (`.github/workflows/ci.yml`) — runs on push to main, PRs, feature branches, and manual dispatch:
+- required deterministic jobs: `fmt-lint`, `machine-authority`, `test-unit`, `integration-fast`, `e2e-fast`, `e2e-system`, `test-minimal`, `test-feature-matrix-lib`, `test-feature-matrix-surface-checks`, `wasm-check`, `audit`, then `gate` aggregates status
+
+**Release** (`.github/workflows/release.yml`) — runs on `v*` tag push or manual dispatch:
+
+| Job | Trigger | What it does |
+|-----|---------|-------------|
+| `release_validate` | Always | `make release-preflight-smoke` + tag-version check (tags only) |
+| `build_binaries` | Always | Matrix build for 5 targets, packages 4 binaries each (`rkat`, `rkat-rpc`, `rkat-rest`, `rkat-mcp`) |
+| `publish_github_release` | Tags only | Downloads artifacts, generates `checksums.sha256` + `index.json`, publishes GitHub Release |
+| `publish_registries` | Tags or manual `publish_release_packages=true` | Publishes 18 Rust crates → crates.io, Python SDK → PyPI, TypeScript SDK → npm |
+
+**Build matrix:**
+
+| Platform | Target |
+|----------|--------|
+| Linux x86_64 | `x86_64-unknown-linux-gnu` |
+| Linux ARM64 | `aarch64-unknown-linux-gnu` |
+| macOS ARM64 | `aarch64-apple-darwin` |
+| macOS x86_64 | `x86_64-apple-darwin` |
+| Windows x86_64 | `x86_64-pc-windows-msvc` |
+
+**Manual dispatch options:**
+```bash
+# Build-only validation (no publish)
+gh workflow run release.yml --ref main
+
+# Dry-run publish (validate all registries without uploading)
+gh workflow run release.yml --ref main -f publish_release_packages=true -f registry_dry_run=true
+
+# Recovery: re-publish after registry outage during a tag-triggered release
+gh workflow run release.yml --ref v0.4.0 -f publish_release_packages=true
+```
+
+### Pre-commit Hooks
+
+Installed via `make install-hooks`. Two stages:
+
+**On commit** (`pre-commit`):
+- `cargo fmt --all`
+
+**On push** (`pre-push`):
+- Secret detection (gitleaks)
+- Trailing whitespace, YAML/TOML validation, merge conflict check, large file check
+- `cargo fmt --all -- --check`
+- `scripts/pre-push-clippy.sh` (clippy on changed crates only with `--all-targets`; falls back to full workspace when root `Cargo.toml`/`Cargo.lock` changes)
+- `scripts/pre-push-unit.sh` (deterministic local gate: `cargo unit` plus `cargo e2e-fast`, with per-tree cache, serialized runs, and one retry if `nextest` discovery hangs)
+
+**Manual local preflight**:
+- `pre-commit run --hook-stage manual cargo-check-changed`
+- `scripts/test-changed-crates.sh`
+
+### Version Parity Contract
+
+Six files must agree on the same version:
+
+| File | Field |
+|------|-------|
+| `Cargo.toml` (workspace root) | `workspace.package.version` — **source of truth** |
+| `meerkat-contracts/src/version.rs` | `ContractVersion::CURRENT` |
+| `sdks/python/pyproject.toml` | `version` |
+| `sdks/typescript/package.json` | `version` |
+| `sdks/web/package.json` | `version` |
+| `artifacts/schemas/version.json` | `contract_version` |
+
+Additionally, all 18 internal crate dependencies in `Cargo.toml` must match the workspace version.
+
+**`make verify-version-parity`** runs in CI and fails on any drift. After changing versions or wire types:
+
+```bash
+make regen-schemas           # Re-emit schemas + regenerate SDK types
+make verify-version-parity   # Confirm everything is in sync
+```
+
+### Schema Generation and SDK Codegen
+
+When wire types in `meerkat-contracts` change:
+
+```bash
+make regen-schemas
+# Runs:
+#   cargo run -p meerkat-contracts --features schema --bin emit-schemas
+#   python3 tools/sdk-codegen/generate.py
+```
+
+This updates:
+- `artifacts/schemas/` — JSON schema artifacts
+- `sdks/python/meerkat/generated/` — Python generated types
+- `sdks/typescript/src/generated/` — TypeScript generated types
+
+**`make verify-schema-freshness`** detects stale committed schemas by comparing git HEAD against freshly emitted output.
+
+### Releasing
+
+```bash
+make release-preflight       # Full CI + schema freshness + changelog check
+./scripts/repo-cargo release patch  # Bump, tag, push (uses cargo-release)
+```
+
+**What `./scripts/repo-cargo release patch` does:**
+
+1. Bumps `workspace.package.version` in `Cargo.toml`
+2. Fires `scripts/release-hook.sh` (pre-release hook, sentinel-guarded to run once):
+   - `scripts/bump-sdk-versions.sh` — updates Python and TypeScript SDK versions
+   - `emit-schemas` + `generate.py` — regenerates schema artifacts and SDK types
+   - `verify-version-parity.sh` — sanity check before commit
+   - Stages all modified files (SDK configs, generated types, schema artifacts)
+3. Creates release commit (`chore: release v{version}`)
+4. Tags as `v{version}`
+5. Pushes commit + tag to remote → triggers release workflow
+
+**Cargo.toml release config** (`workspace.metadata.release`):
+- `tag-name = "v{{version}}"`, `push = true`, `publish = false` (registry publish handled by GitHub Actions)
+
+### Dry-run Publishing
+
+```bash
+make publish-dry-run              # Parallel dry-run for all 18 Rust crates
+make publish-dry-run-python       # Build + twine check (no upload)
+make publish-dry-run-typescript   # npm publish --dry-run
+make release-dry-run              # Full preflight + all registry dry-runs
+make release-dry-run-smoke        # Smoke preflight + all registry dry-runs
+```
+
+### Registry Secrets
+
+Required GitHub Actions secrets for full release:
+- `CARGO_REGISTRY_TOKEN` — crates.io API token
+- `PYPI_API_TOKEN` — PyPI API token
+- `NPM_TOKEN` — npm access token
+
+### Crate Publish Order
+
+The crates are published in dependency order:
+`meerkat-models` → `meerkat-core` → `meerkat-contracts` → `meerkat-client` → `meerkat-providers` → `meerkat-store` → `meerkat-tools` → `meerkat-session` → `meerkat-memory` → `meerkat-mcp` → `meerkat-mcp-server` → `meerkat-hooks` → `meerkat-skills` → `meerkat-comms` → `meerkat-rpc` → `meerkat-rest` → `meerkat` → `meerkat-mob` → `meerkat-mob-mcp` → `meerkat-mob-pack` → `rkat`
+
+### Key Rules for AI Agents
+
+- **Never bump `workspace.package.version` without also running `scripts/bump-sdk-versions.sh`** — the CI gate will catch drift
+- **Never change types in `meerkat-contracts` without running `make regen-schemas`** — schema artifacts and SDK types will be stale
+- **Always run `make test` (or `cargo rct`) before committing** — pre-commit hooks enforce this
+- **`ContractVersion::CURRENT` must equal `workspace.package.version`** — they are lock-stepped
+- **Use `cargo release patch` for releases** — never manually bump versions or create tags; the release hook handles SDK sync, schema regen, and parity verification automatically
+
+## Testing with Multiple Providers
+
+When running tests or demos that involve multiple LLM providers/models, use these model names:
+
+| Provider | Model Name |
+|----------|------------|
+| OpenAI | `gpt-5.4` or `gpt-5.4-mini` or `gpt-5.4-pro` or `gpt-5.3-codex` |
+| Gemini | `gemini-3.1-pro-preview` or `gemini-3.1-flash-lite` or `gemini-3.1-flash-lite-preview` or `gemini-3-flash-preview` |
+| Anthropic | `claude-opus-4-7` or `claude-opus-4-6` or `claude-sonnet-4-6` or `claude-sonnet-4-5` |
+
+Do NOT use older model names like `gpt-4o-mini`, `gemini-2.0-flash`, or `claude-3-7-sonnet-20250219`.
+
+## Design Philosophy
+
+See `docs/reference/design-philosophy.mdx` for the full treatment with code examples.
+
+### Architectural Principles
+
+- **Infrastructure, not application** — the agent loop is a composable primitive with no opinions about prompts, tools, or output
+- **Trait contracts own the architecture** — `meerkat-core` defines the core trait contracts (`AgentLlmClient`, `AgentToolDispatcher`, `AgentSessionStore`, `SessionService`, `Compactor`, `MemoryStore`, `HookEngine`, `SkillEngine`/`SkillSource`) with zero I/O dependencies; implementations live in satellite crates
+- **Surfaces are interchangeable skins** — CLI, REST, RPC, MCP Server all route through `SessionService` → `AgentFactory::build_agent()`; no surface constructs agents directly
+- **Composition over configuration** — optional components (`CommsRuntime`, `HookEngine`, `Compactor`, `MemoryStore`) are `Option<Arc<dyn Trait>>`, not feature-flagged defaults
+- **Sessions are first-class, persistence is optional** — `EphemeralSessionService` (always available) and `PersistentSessionService` (event-sourced) share the same `SessionService` trait
+- **Errors separate mechanism from policy** — typed three-tier errors (`ToolError` → `AgentError` → `SessionError`) with stable `error_code()` for wire formats; the loop retries, callers decide to resume or abort
+- **Wire types ≠ domain types** — `meerkat-contracts` owns wire format and feeds SDK codegen; domain types in `meerkat-core` are richer and version-locked
+- **Configuration is layered and declarative** — `Config::default()` → file → env (keys only) → per-request `SessionBuildOptions`; no cascading merges, no global mutable state
+- **Testing is a design constraint** — core has no I/O so unit tests need no mocks; the repo standardizes on named lanes: `cargo unit`, `cargo int`, `cargo e2e-fast`, `cargo e2e-system`, `cargo e2e-live`, `cargo e2e-smoke`, and `cargo e2e-models`
+
+### Rust Implementation Principles
+
+- **Ownership topology** — shared immutable infrastructure in `Arc`, exclusively-owned mutable state (session, budget); `Agent::run(&mut self)` needs no mutex
+- **Copy-on-write sessions** — `Arc<Vec<Message>>` with `Arc::make_mut` on mutation; `Session::fork()` is O(1)
+- **Zero-allocation iteration** — `ToolCallView<'a>` is `Copy` and borrowed; `ToolCallIter` filters a slice iterator; no `Vec<ToolCall>` materialized
+- **Deferred parsing** — tool args are `Box<RawValue>` from provider to dispatcher; parsed at most once, only if the tool executes
+- **Typed enums over `Value`** — `ProviderMeta`, `Message`, `AssistantBlock` are typed with `#[non_exhaustive]`; compiler enforces exhaustive matching
+- **Newtype discipline** — `BlockKey(usize)`, `OperationId(Uuid)`, `SessionId`, `SourceUuid`, `SkillName` prevent index/ID confusion at compile time
+- **Serde as a design tool** — internally/adjacently/externally tagged enums chosen per data shape; custom deserializers for edge cases; `skip_serializing_if` for minimal payloads
+- **Streaming block assembly** — append-only `Vec<BlockSlot>` with `Pending` → `Finalized` transitions; `IndexMap` for deterministic order; tool ID is map key only
+- **Generic type erasure at boundaries** — `Agent<C, T, S>` monomorphized in tests, boxed to `DynAgent` at surface boundaries via `?Sized` bounds
+- **Async without interior mutability** — dedicated tokio task per session owns the `Agent` exclusively; channels for commands, notifications for events
+- **Feature gating at the type level** — `#[cfg(feature)]` gates types, not logic; facade re-exports only what features enable; fallbacks always available
+- **Trait composition with graceful degradation** — optional methods default to `Err(Unsupported(...))`; required methods define the minimal contract
+- **Error propagation** — `thiserror` enums with `From` impls for `?` chaining; each tier captures minimal context; stable `error_code()` for SDKs
+
+## Rust Design Guidelines
+
+This project follows strict Rust idioms. Code review will reject "JavaScript wearing a struct costume."
+
+### Type Safety
+
+1. **Typed enums over `serde_json::Value`**: If you know the possible shapes of data, define a typed enum. Parse at the boundary, fail fast. Don't ferry `Value` through the system hoping someone else validates it.
+
+   ```rust
+   // BAD: runtime "is this an object?" checks
+   meta: Option<serde_json::Value>
+
+   // GOOD: compiler-enforced variants
+   #[serde(tag = "provider")]
+   pub enum ProviderMeta {
+       Anthropic { signature: String },
+       Gemini { thought_signature: String },
+       OpenAi { encrypted_content: String },
+   }
+   ```
+
+2. **Newtype indices**: If using indices into collections, wrap them in a newtype to prevent mixing up different index spaces.
+
+   ```rust
+   struct BlockKey(usize);  // Can't accidentally use a ToolBufferIdx here
+   ```
+
+3. **`Box<RawValue>` for pass-through JSON**: If JSON is parsed by another layer (e.g., tool dispatcher), use `RawValue` to avoid parsing twice.
+
+### Error Handling
+
+4. **`Result` over silent failures**: Separate mechanism from policy. Return errors, let the caller decide to skip/count/abort.
+
+   ```rust
+   // BAD: swallows the signal
+   fn on_delta(&mut self, id: &str) {
+       if let Some(buf) = self.buffers.get_mut(id) { ... }
+   }
+
+   // GOOD: caller decides policy
+   fn on_delta(&mut self, id: &str) -> Result<(), StreamError> {
+       let buf = self.buffers.get_mut(id)
+           .ok_or_else(|| StreamError::OrphanedDelta(id.into()))?;
+       ...
+   }
+   ```
+
+5. **No `.unwrap()` or `.expect()` in library code**: Use `?` propagation or explicit `match`/`if let` with error handling.
+
+### Allocation Discipline
+
+6. **Zero-allocation iterators**: Return `impl Iterator<Item = View<'_>>` instead of `Vec<Owned>` when callers just iterate.
+
+   ```rust
+   // BAD: allocates Vec for every call
+   pub fn tool_calls(&self) -> Vec<ToolCall> { ... }
+
+   // GOOD: lazy iterator, borrows from self
+   pub fn tool_calls(&self) -> impl Iterator<Item = ToolCallView<'_>> { ... }
+   ```
+
+7. **`impl Display` over collect+join**: For concatenating strings, implement `Display` to avoid intermediate allocations.
+
+8. **`Slab` for stable keys**: If you need stable indices that survive mutations, use `slab` crate instead of `Vec` + `usize`.
+
+### Data Modeling
+
+9. **Don't duplicate map keys**: If something is a map key, don't store it in the value too.
+
+   ```rust
+   // BAD: id stored twice
+   tool_buffers: HashMap<String, ToolBuffer>  // where ToolBuffer has `id: String`
+
+   // GOOD: id is only the key
+   tool_buffers: IndexMap<String, ToolBuffer>  // ToolBuffer has no id field
+   ```
+
+10. **Separate concerns in structs**: Billing metadata (`Usage`) doesn't belong in domain models (`AssistantMessage`). Return them separately.
+
+11. **`IndexMap` for deterministic ordering**: Use `IndexMap` instead of `HashMap` when iteration order matters (e.g., tool calls must appear in emission order).
+
+---
+> Source: [lukacf/meerkat](https://github.com/lukacf/meerkat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-26 -->
