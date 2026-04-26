@@ -1,0 +1,9 @@
+{
+  "name": "vertopolkalf--silence",
+  "displayName": "silence",
+  "description": "Simple WinUI app to mute your mic on global level (for all apps). Sounds, overlay and customization included!",
+  "version": "1.0.0",
+  "author": "vertopolkaLF",
+  "homepage": "https://github.com/vertopolkaLF/silence",
+  "skills": []
+}
