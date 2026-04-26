@@ -1,0 +1,9 @@
+{
+  "name": "zenobi-us--opencode-background",
+  "displayName": "opencode-background",
+  "description": "Opencode plugin to manage and communicate with background tasks",
+  "version": "1.0.0",
+  "author": "zenobi-us",
+  "homepage": "https://github.com/zenobi-us/opencode-background",
+  "skills": []
+}
