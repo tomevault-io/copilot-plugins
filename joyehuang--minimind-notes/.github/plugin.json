@@ -1,0 +1,9 @@
+{
+  "name": "joyehuang--minimind-notes",
+  "displayName": "minimind-notes",
+  "description": "\ud83d\ude80 [\u4ece\u96f6\u6784\u5efa LLM] \u6781\u7b80\u5927\u6a21\u578b\u8bad\u7ec3\u539f\u7406\u4e0e\u5b9e\u8df5\u6307\u5357\u3002\u5305\u542b Transformer, Pretraining, SFT \u6838\u5fc3\u4ee3\u7801\u4e0e\u5bf9\u7167\u5b9e\u9a8c\u3002 | A minimal, principle-first guide to understanding and building LLMs from scratch.",
+  "version": "1.0.0",
+  "author": "joyehuang",
+  "homepage": "https://github.com/joyehuang/minimind-notes",
+  "skills": []
+}
