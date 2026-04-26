@@ -1,0 +1,9 @@
+{
+  "name": "ominiverdi--opencode-chat-bridge",
+  "displayName": "opencode-chat-bridge",
+  "description": "Bridge OpenCode to Matrix, Slack, Mattermost, WhatsApp, and Discord with permission-based security",
+  "version": "1.0.0",
+  "author": "ominiverdi",
+  "homepage": "https://github.com/ominiverdi/opencode-chat-bridge",
+  "skills": []
+}
