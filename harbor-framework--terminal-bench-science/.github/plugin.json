@@ -1,0 +1,9 @@
+{
+  "name": "harbor-framework--terminal-bench-science",
+  "displayName": "terminal-bench-science",
+  "description": "Terminal-Bench-Science: Evaluating AI Agents on Complex Real-World Scientific Workflows in the Terminal",
+  "version": "1.0.0",
+  "author": "harbor-framework",
+  "homepage": "https://github.com/harbor-framework/terminal-bench-science",
+  "skills": []
+}
