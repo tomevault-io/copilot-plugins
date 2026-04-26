@@ -1,0 +1,9 @@
+{
+  "name": "openhands--extensions",
+  "displayName": "extensions",
+  "description": "Public registry for OpenHands extensions.",
+  "version": "1.0.0",
+  "author": "OpenHands",
+  "homepage": "https://github.com/OpenHands/extensions",
+  "skills": []
+}
