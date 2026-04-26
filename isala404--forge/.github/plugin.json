@@ -1,0 +1,9 @@
+{
+  "name": "isala404--forge",
+  "displayName": "forge",
+  "description": "Rust framework that compiles entire infrastructure into one binary",
+  "version": "1.0.0",
+  "author": "isala404",
+  "homepage": "https://github.com/isala404/forge",
+  "skills": []
+}
