@@ -1,0 +1,9 @@
+{
+  "name": "frap129--opencode-rules",
+  "displayName": "opencode-rules",
+  "description": "An opencode plugin to dynamically inject rules into context, like cursor",
+  "version": "1.0.0",
+  "author": "frap129",
+  "homepage": "https://github.com/frap129/opencode-rules",
+  "skills": []
+}
