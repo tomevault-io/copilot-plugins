@@ -1,0 +1,9 @@
+{
+  "name": "posthog--duckgres",
+  "displayName": "duckgres",
+  "description": "DuckDB Postgres Server",
+  "version": "1.0.0",
+  "author": "PostHog",
+  "homepage": "https://github.com/PostHog/duckgres",
+  "skills": []
+}
