@@ -1,6 +1,6 @@
 # nextjs-template
 
-> Tome by [gfernandez-me](https://github.com/gfernandez-me/nextjs-template) — distributed by [TomeVault](https://tomevault.io/claim/gfernandez-me)
+> Tome by [gfernandez-me](https://github.com/gfernandez-me/nextjs-template) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [gfernandez-me/nextjs-template](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/gfernandez-me#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/gfernandez-me/nextjs-template](https://github.com/gfernandez-me/nextjs-template)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install gfernandez-me/nextjs-template
 ```
-Or browse all formats at [https://tomevault.io/claim/gfernandez-me](https://tomevault.io/claim/gfernandez-me).
+Source: [github.com/gfernandez-me/nextjs-template](https://github.com/gfernandez-me/nextjs-template).
 
 <!-- genome:t-i-q -->
