@@ -1,0 +1,9 @@
+{
+  "name": "peramatog--perastage",
+  "displayName": "Perastage",
+  "description": "Stage planning tool for lighting professionals, providing 2D and 3D visualization from MVR and GDTF files, with technical layout management.",
+  "version": "1.0.0",
+  "author": "PeramatoG",
+  "homepage": "https://github.com/PeramatoG/Perastage",
+  "skills": []
+}
