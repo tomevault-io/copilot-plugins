@@ -1,6 +1,6 @@
 # cursor-designer
 
-> Tome by [spencergoldade](https://github.com/spencergoldade/cursor-designer) — distributed by [TomeVault](https://tomevault.io/claim/spencergoldade)
+> Tome by [spencergoldade](https://github.com/spencergoldade/cursor-designer) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [spencergoldade/cursor-designer](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/spencergoldade)
+From [spencergoldade/cursor-designer](https://github.com/spencergoldade/cursor-designer) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install spencergoldade/cursor-designer
 ```
-Or browse all formats at [https://tomevault.io/claim/spencergoldade](https://tomevault.io/claim/spencergoldade).
+Source: [github.com/spencergoldade/cursor-designer](https://github.com/spencergoldade/cursor-designer).
 
 <!-- genome:t-i-s -->
