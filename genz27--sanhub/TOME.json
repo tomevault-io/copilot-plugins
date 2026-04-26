@@ -1,0 +1,44 @@
+{
+  "name": "SanHub",
+  "owner": "genz27",
+  "repo": "SanHub",
+  "description": "\u878d\u5408 OpenAI Sora\u3001Google Gemini\u3001Z-Image\u3001Gitee AI \u7b49\u591a\u79cd AI \u751f\u6210\u670d\u52a1\u7684\u7edf\u4e00\u521b\u4f5c\u5e73\u53f0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/genz27/SanHub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T11:56:08Z"
+}
