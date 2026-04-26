@@ -1,0 +1,9 @@
+{
+  "name": "dennisonbertram--lgrep",
+  "displayName": "lgrep",
+  "description": "Local semantic code search CLI with multi-language support",
+  "version": "1.0.0",
+  "author": "dennisonbertram",
+  "homepage": "https://github.com/dennisonbertram/lgrep",
+  "skills": []
+}
