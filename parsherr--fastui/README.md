@@ -1,6 +1,6 @@
 # fastui
 
-> Tome by [parsherr](https://github.com/parsherr/fastui) — distributed by [TomeVault](https://tomevault.io/claim/parsherr)
+> Tome by [parsherr](https://github.com/parsherr/fastui) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [parsherr/fastui](https://github.com/p
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/parsherr)
+From [parsherr/fastui](https://github.com/parsherr/fastui) — a repo with 0+ stars on GitHub.
 
 ---
 
