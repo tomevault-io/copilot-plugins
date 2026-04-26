@@ -1,0 +1,9 @@
+{
+  "name": "steipete--ordercli",
+  "displayName": "ordercli",
+  "description": "CLI for Foodora and Deliveroo",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/ordercli",
+  "skills": []
+}
