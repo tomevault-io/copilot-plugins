@@ -1,0 +1,34 @@
+{
+  "name": "lukacf--meerkat",
+  "displayName": "meerkat",
+  "description": "Meerkat - A modular, high-performance agent harness built in Rust.",
+  "version": "1.0.0",
+  "author": "lukacf",
+  "homepage": "https://github.com/lukacf/meerkat",
+  "skills": [
+    {
+      "name": "hook-authoring",
+      "description": ""
+    },
+    {
+      "name": "meerkat-platform",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-comms",
+      "description": ""
+    },
+    {
+      "name": "rct-methodology",
+      "description": ""
+    },
+    {
+      "name": "rust-cicd-pipeline",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
