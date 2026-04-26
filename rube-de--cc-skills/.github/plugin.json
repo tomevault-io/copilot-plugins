@@ -1,0 +1,62 @@
+{
+  "name": "rube-de--cc-skills",
+  "displayName": "cc-skills",
+  "description": "A curated collection of Claude Code plugins: multi-agent dev team, AI council code reviews, and project management",
+  "version": "1.0.0",
+  "author": "rube-de",
+  "homepage": "https://github.com/rube-de/cc-skills",
+  "skills": [
+    {
+      "name": "cdt",
+      "description": ""
+    },
+    {
+      "name": "dlc",
+      "description": ""
+    },
+    {
+      "name": "jules-review",
+      "description": ""
+    },
+    {
+      "name": "oasis-dev",
+      "description": ""
+    },
+    {
+      "name": "perf",
+      "description": ""
+    },
+    {
+      "name": "plugin-dev",
+      "description": ""
+    },
+    {
+      "name": "pr-check",
+      "description": ""
+    },
+    {
+      "name": "pr-validity",
+      "description": ""
+    },
+    {
+      "name": "quality",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "update",
+      "description": ""
+    }
+  ]
+}
