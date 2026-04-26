@@ -1,0 +1,9 @@
+{
+  "name": "programasweights--programasweights-python",
+  "displayName": "programasweights-python",
+  "description": "Python SDK for ProgramAsWeights \u2014 compile natural language specs into neural programs that run locally",
+  "version": "1.0.0",
+  "author": "programasweights",
+  "homepage": "https://github.com/programasweights/programasweights-python",
+  "skills": []
+}
