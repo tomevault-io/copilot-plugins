@@ -82,6 +82,5 @@ go build -o tin ./cmd/tin
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/dadlerj)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/dadlerj)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [dadlerj/tin](https://github.com/dadlerj/tin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
