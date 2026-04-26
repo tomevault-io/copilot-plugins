@@ -1,0 +1,9 @@
+{
+  "name": "yogthos--chiasmus",
+  "displayName": "chiasmus",
+  "description": "Chiasmus is an MCP server that gives language models access to formal verification",
+  "version": "1.0.0",
+  "author": "yogthos",
+  "homepage": "https://github.com/yogthos/chiasmus",
+  "skills": []
+}
