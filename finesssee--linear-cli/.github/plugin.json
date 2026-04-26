@@ -1,0 +1,9 @@
+{
+  "name": "finesssee--linear-cli",
+  "displayName": "linear-cli",
+  "description": "A powerful CLI for Linear.app built with Rust",
+  "version": "1.0.0",
+  "author": "Finesssee",
+  "homepage": "https://github.com/Finesssee/linear-cli",
+  "skills": []
+}
