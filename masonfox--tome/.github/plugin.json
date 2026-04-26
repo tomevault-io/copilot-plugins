@@ -1,0 +1,9 @@
+{
+  "name": "masonfox--tome",
+  "displayName": "tome",
+  "description": "A Calibre-integrated book tracker; Goodreads but powered by your Calibre Library.",
+  "version": "1.0.0",
+  "author": "masonfox",
+  "homepage": "https://github.com/masonfox/tome",
+  "skills": []
+}
