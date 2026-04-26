@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--repo-updater",
+  "displayName": "repo_updater",
+  "description": "Pure-bash CLI for keeping hundreds of GitHub repos in sync: parallel clone/pull, conflict detection, JSON output, and meaningful exit codes for CI",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/repo_updater",
+  "skills": []
+}
