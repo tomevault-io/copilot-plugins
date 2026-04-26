@@ -1,0 +1,9 @@
+{
+  "name": "cnicolov--opencode-plugin-simple-memory",
+  "displayName": "opencode-plugin-simple-memory",
+  "description": "A persistent memory plugin for OpenCode that enables the AI assistant to remember context across sessions",
+  "version": "1.0.0",
+  "author": "cnicolov",
+  "homepage": "https://github.com/cnicolov/opencode-plugin-simple-memory",
+  "skills": []
+}
