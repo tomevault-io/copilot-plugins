@@ -1,6 +1,6 @@
-# formchat — distributed by TomeVault
+# formchat
 
-> Originally from [nicolasguelfi/formchat](https://github.com/nicolasguelfi/formchat). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [nicolasguelfi/formchat](https://github.com/nicolasguelfi/formchat) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [nicolasguelfi/formchat](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/nicolasguelfi)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/nicolasguelfi/formchat](https://github.com/nicolasguelfi/formchat)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/nicolasguelfi) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
