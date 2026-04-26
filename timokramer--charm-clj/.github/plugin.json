@@ -1,0 +1,9 @@
+{
+  "name": "timokramer--charm-clj",
+  "displayName": "charm.clj",
+  "description": " A Clojure TUI (Terminal User Interface) library inspired by Bubble Tea",
+  "version": "1.0.0",
+  "author": "TimoKramer",
+  "homepage": "https://github.com/TimoKramer/charm.clj",
+  "skills": []
+}
