@@ -1,0 +1,9 @@
+{
+  "name": "arcboxlabs--arcbox",
+  "displayName": "arcbox",
+  "description": "Run AI agents on real and isolated machines \u2014 own kernel, filesystem, and network \u2014 with <200ms boot. Local first, OCI compatible, pure Rust.",
+  "version": "1.0.0",
+  "author": "arcboxlabs",
+  "homepage": "https://github.com/arcboxlabs/arcbox",
+  "skills": []
+}
