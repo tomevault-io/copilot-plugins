@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [educep/tools](https://github.com/educ
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/educep)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/educep/tools](https://github.com/educep/tools)
 
 ---
 
