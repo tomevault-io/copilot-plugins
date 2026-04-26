@@ -1,0 +1,9 @@
+{
+  "name": "steipete--tokentally",
+  "displayName": "tokentally",
+  "description": "One tiny lib for LLM token + cost math",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/tokentally",
+  "skills": []
+}
