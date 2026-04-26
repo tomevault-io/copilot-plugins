@@ -1,17 +1,19 @@
 ## hipaaforms-org
 
-> description: "Architectural guidance for the planned dynamic form builder"
+> description: "File and folder conventions for Next.js 15 App Router"
 
 ---
-description: "Architectural guidance for the planned dynamic form builder"
+description: "File and folder conventions for Next.js 15 App Router"
+globs: src/app/**
 ---
-# Dynamic Form Builder Planning
-- Use a modular component architecture for the form builder UI:contentReference[oaicite:22]{index=22}: e.g. `FormBuilder` (main interface), `FieldPalette` (list of field types), `Canvas` (drag-and-drop area), `FieldConfigurator`, etc.
-- Maintain form schema in a central state (e.g. React Context or Redux):contentReference[oaicite:23]{index=23}. The schema should be a JSON object/array describing fields, labels, types, validation, and conditional logic.
-- Consider a **FormFactory** component: it takes a form schema object and renders appropriate input components dynamically:contentReference[oaicite:24]{index=24}. Each field type (text, date, etc.) is a reusable React component.
-- Decouple form definition from rendering: the builder creates/saves a JSON form definition (backend storage), and a runtime component reads that definition to render the actual form.
-- Ensure validations and conditional logic are part of the schema. On submission, use Server Actions or API routes to process form data securely.
+# Next.js App Router Structure
+- Organize code under the `src/app/` directory. Each folder under `app` creates a route segment:contentReference[oaicite:9]{index=9}.
+- Every route folder needs a `page.tsx` (or `page.jsx/ts`) file to be publicly accessible:contentReference[oaicite:10]{index=10}. Example: `src/app/dashboard/page.tsx` serves `/dashboard`.
+- Use `layout.tsx` files in route folders to wrap child pages (e.g. common headers/footers):contentReference[oaicite:11]{index=11}. Each layout defines UI that persists across its sub-routes.
+- Place API endpoints as `route.ts` (or `route.js/ts`) in the App Router (e.g. `src/app/api/submit/route.ts` for a POST handler).
+- Use Next.js dynamic route syntax: `[param]` for parameters and `[...slug]` for catch-all segments:contentReference[oaicite:12]{index=12}. For example, `src/app/forms/[id]/page.tsx` matches `/forms/{id}`.
+- Keep static assets in `public/`. Use `next/image` or `<img>` for images. Shared UI components can live in `src/components/` or under `app/components/`, imported into pages/layouts.
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/Lmraza98) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
