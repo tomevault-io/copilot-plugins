@@ -1,0 +1,105 @@
+{
+  "name": "community-patterns",
+  "owner": "jkomoros",
+  "repo": "community-patterns",
+  "description": "A repo for patterns created by the communtiy",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-permissions-update",
+      "path": ".claude/skills/claude-permissions-update",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/claude-permissions-update",
+      "description": ""
+    },
+    {
+      "name": "community-docs",
+      "path": ".claude/skills/community-docs",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/community-docs",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "path": ".claude/skills/deployment",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/deployment",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": ".claude/skills/git-workflow",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "issue-filing",
+      "path": ".claude/skills/issue-filing",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/issue-filing",
+      "description": ""
+    },
+    {
+      "name": "recovery-strategies",
+      "path": ".claude/skills/recovery-strategies",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/recovery-strategies",
+      "description": ""
+    },
+    {
+      "name": "session-startup",
+      "path": ".claude/skills/session-startup",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/session-startup",
+      "description": ""
+    },
+    {
+      "name": "strategic-investigation",
+      "path": ".claude/skills/strategic-investigation",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/strategic-investigation",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "todo-files",
+      "path": ".claude/skills/todo-files",
+      "github_url": "https://github.com/jkomoros/community-patterns/tree/main/.claude/skills/todo-files",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jkomoros/community-patterns",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T00:30:48Z"
+}
