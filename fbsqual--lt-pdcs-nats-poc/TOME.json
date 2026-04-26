@@ -4,7 +4,7 @@
   "repo": "LT-pdcs-nats-poc",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fbsqual/LT-pdcs-nats-poc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:03:12Z"
+  "distributed_at": "2026-04-26T03:37:11Z"
 }
