@@ -1,0 +1,9 @@
+{
+  "name": "agentlyhq--aixyz",
+  "displayName": "aixyz",
+  "description": "Next.js-like framework building AI Agents that are payment-native. Bootstrap your agent with A2A, MCP, x402 payments, and ERC-8004 identity.",
+  "version": "1.0.0",
+  "author": "AgentlyHQ",
+  "homepage": "https://github.com/AgentlyHQ/aixyz",
+  "skills": []
+}
