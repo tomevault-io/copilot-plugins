@@ -1,0 +1,44 @@
+{
+  "name": "opencode-planning-toolkit",
+  "owner": "IgorWarzocha",
+  "repo": "opencode-planning-toolkit",
+  "description": "A set of tools that allow sharing a repo-wide todoliist between sessions.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/IgorWarzocha/opencode-planning-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T15:56:08Z"
+}
