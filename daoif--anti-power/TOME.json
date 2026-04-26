@@ -1,0 +1,44 @@
+{
+  "name": "anti-power",
+  "owner": "daoif",
+  "repo": "anti-power",
+  "description": "Antigravity AI IDE \u589e\u5f3a\u8865\u4e01 - \u4e00\u952e\u590d\u5236 + \u6570\u5b66\u516c\u5f0f\u6e32\u67d3 + Mermaid \u56fe\u8868\u6e32\u67d3 + \u8868\u683c\u989c\u8272\u4fee\u590d",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daoif/anti-power",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T03:41:55Z"
+}
