@@ -1,6 +1,6 @@
-# scriblink_frontend — distributed by TomeVault
+# scriblink_frontend
 
-> Originally from [muktharamesh20/scriblink_frontend](https://github.com/muktharamesh20/scriblink_frontend). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [muktharamesh20/scriblink_frontend](https://github.com/muktharamesh20/scriblink_frontend) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [muktharamesh20/scriblink_frontend](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/muktharamesh20#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/muktharamesh20/scriblink_frontend](https://github.com/muktharamesh20/scriblink_frontend)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install muktharamesh20/scriblink_frontend
 ```
-Or browse all formats at [https://tomevault.io/claim/muktharamesh20](https://tomevault.io/claim/muktharamesh20).
+Source: [github.com/muktharamesh20/scriblink_frontend](https://github.com/muktharamesh20/scriblink_frontend).
 
 <!-- genome:d-i-q -->
