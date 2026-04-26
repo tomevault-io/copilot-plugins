@@ -1,0 +1,14 @@
+{
+  "name": "reporails--rules",
+  "displayName": "rules",
+  "description": "Evidence-backed rules for validating AI coding agent instructions. Core rules for structure, content, efficiency, governance, and maintenance.",
+  "version": "1.0.0",
+  "author": "reporails",
+  "homepage": "https://github.com/reporails/rules",
+  "skills": [
+    {
+      "name": "manage-agent-config",
+      "description": ""
+    }
+  ]
+}
