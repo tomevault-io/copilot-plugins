@@ -1,0 +1,9 @@
+{
+  "name": "ndycode--oc-codex-multi-auth",
+  "displayName": "oc-codex-multi-auth",
+  "description": "OpenCode plugin for using ChatGPT Plus/Pro in GPT-5 and Codex workflows with OAuth login, multi-account rotation, failover, and guided setup",
+  "version": "1.0.0",
+  "author": "ndycode",
+  "homepage": "https://github.com/ndycode/oc-codex-multi-auth",
+  "skills": []
+}
