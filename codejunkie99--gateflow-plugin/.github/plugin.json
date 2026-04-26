@@ -1,0 +1,9 @@
+{
+  "name": "codejunkie99--gateflow-plugin",
+  "displayName": "Gateflow-Plugin",
+  "description": "AI-powered SystemVerilog development assistant \u2014 design, verify, debug, and deliver working RTL with natural language.",
+  "version": "1.0.0",
+  "author": "codejunkie99",
+  "homepage": "https://github.com/codejunkie99/Gateflow-Plugin",
+  "skills": []
+}
