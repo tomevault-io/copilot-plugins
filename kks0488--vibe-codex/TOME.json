@@ -1,0 +1,69 @@
+{
+  "name": "vibe-codex",
+  "owner": "kks0488",
+  "repo": "vibe-codex",
+  "description": "\u26a1 AI-first skills for autonomous coding. Fast loops, zero-setup, Codex & OpenCode compatible.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "template",
+      "path": "template",
+      "github_url": "https://github.com/kks0488/vibe-codex/tree/main/template",
+      "description": ""
+    },
+    {
+      "name": "vc-agent-teams",
+      "path": ".codex/skills/vc-agent-teams",
+      "github_url": "https://github.com/kks0488/vibe-codex/tree/main/.codex/skills/vc-agent-teams",
+      "description": ""
+    },
+    {
+      "name": "vc-phase-loop",
+      "path": ".codex/skills/vc-phase-loop",
+      "github_url": "https://github.com/kks0488/vibe-codex/tree/main/.codex/skills/vc-phase-loop",
+      "description": ""
+    },
+    {
+      "name": "vc-router",
+      "path": ".codex/skills/vc-router",
+      "github_url": "https://github.com/kks0488/vibe-codex/tree/main/.codex/skills/vc-router",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kks0488/vibe-codex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T19:35:12Z"
+}
