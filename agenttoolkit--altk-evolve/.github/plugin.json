@@ -1,0 +1,9 @@
+{
+  "name": "agenttoolkit--altk-evolve",
+  "displayName": "altk-evolve",
+  "description": "Self improving agents through iterations",
+  "version": "1.0.0",
+  "author": "AgentToolkit",
+  "homepage": "https://github.com/AgentToolkit/altk-evolve",
+  "skills": []
+}
