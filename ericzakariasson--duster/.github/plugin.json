@@ -1,0 +1,9 @@
+{
+  "name": "ericzakariasson--duster",
+  "displayName": "duster",
+  "description": "A developer-focused CLI tool to clean up unused files and free disk space",
+  "version": "1.0.0",
+  "author": "ericzakariasson",
+  "homepage": "https://github.com/ericzakariasson/duster",
+  "skills": []
+}
