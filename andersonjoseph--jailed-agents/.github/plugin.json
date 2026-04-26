@@ -1,0 +1,9 @@
+{
+  "name": "andersonjoseph--jailed-agents",
+  "displayName": "jailed-agents",
+  "description": "Secure Nix sandbox for LLM agents",
+  "version": "1.0.0",
+  "author": "andersonjoseph",
+  "homepage": "https://github.com/andersonjoseph/jailed-agents",
+  "skills": []
+}
