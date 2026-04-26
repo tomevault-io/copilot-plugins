@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--teamcity-cli",
+  "displayName": "teamcity-cli",
+  "description": "TeamCity from your terminal \u2013 or your AI's. Builds, logs, agents, agent terminals, queues.",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/teamcity-cli",
+  "skills": []
+}
