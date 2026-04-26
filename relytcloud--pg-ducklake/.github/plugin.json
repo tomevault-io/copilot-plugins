@@ -1,0 +1,9 @@
+{
+  "name": "relytcloud--pg-ducklake",
+  "displayName": "pg_ducklake",
+  "description": "Native lakehouse experience in Postgres powered by DuckDB & Ducklake",
+  "version": "1.0.0",
+  "author": "relytcloud",
+  "homepage": "https://github.com/relytcloud/pg_ducklake",
+  "skills": []
+}
