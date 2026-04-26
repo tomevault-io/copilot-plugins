@@ -1,0 +1,9 @@
+{
+  "name": "kevint-cerebras--cerebras-code-cli",
+  "displayName": "cerebras-code-cli",
+  "description": "The open source coding agent.",
+  "version": "1.0.0",
+  "author": "kevint-cerebras",
+  "homepage": "https://github.com/kevint-cerebras/cerebras-code-cli",
+  "skills": []
+}
