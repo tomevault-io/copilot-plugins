@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Archive-drj/icee-y](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Archive-drj)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Archive-drj/icee-y](https://github.com/Archive-drj/icee-y)
 
 ---
 
