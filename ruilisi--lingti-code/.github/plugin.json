@@ -1,0 +1,26 @@
+{
+  "name": "ruilisi--lingti-code",
+  "displayName": "lingti",
+  "description": "AI instruction skills by ruilisi",
+  "version": "1.0.0",
+  "author": "ruilisi",
+  "homepage": "https://github.com/ruilisi/lingti-code",
+  "skills": [
+    {
+      "name": "discord",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "description": ""
+    }
+  ]
+}
