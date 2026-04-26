@@ -1,0 +1,9 @@
+{
+  "name": "redhatinsights--uhc-portal",
+  "displayName": "uhc-portal",
+  "description": "uhc-portal",
+  "version": "1.0.0",
+  "author": "RedHatInsights",
+  "homepage": "https://github.com/RedHatInsights/uhc-portal",
+  "skills": []
+}
