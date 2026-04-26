@@ -1,0 +1,9 @@
+{
+  "name": "buildnbuzz--buzzform",
+  "displayName": "buzzform",
+  "description": "BuzzForm: A simple, customizable React form library for shadcn/ui and Next.js. Declare fields once, fully control rendering, and get live validation + server actions with minimal boilerplate. Powered ",
+  "version": "1.0.0",
+  "author": "buildnbuzz",
+  "homepage": "https://github.com/buildnbuzz/buzzform",
+  "skills": []
+}
