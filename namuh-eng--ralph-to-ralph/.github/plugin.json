@@ -1,0 +1,9 @@
+{
+  "name": "namuh-eng--ralph-to-ralph",
+  "displayName": "ralph-to-ralph",
+  "description": "Autonomous Product Cloning Loop \u2014 Give it any URL, it inspects, builds, tests, and deploys a working clone",
+  "version": "1.0.0",
+  "author": "namuh-eng",
+  "homepage": "https://github.com/namuh-eng/ralph-to-ralph",
+  "skills": []
+}
