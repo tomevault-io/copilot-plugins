@@ -1,0 +1,9 @@
+{
+  "name": "amesianx--turboquant",
+  "displayName": "TurboQuant",
+  "description": "TurboQuant KV Cache Compression for llama.cpp \u2014 5.2x memory reduction with near-lossless quality |   Implementation of Google DeepMind's TurboQuant (ICLR 2026)",
+  "version": "1.0.0",
+  "author": "AmesianX",
+  "homepage": "https://github.com/AmesianX/TurboQuant",
+  "skills": []
+}
