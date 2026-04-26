@@ -1,0 +1,9 @@
+{
+  "name": "bearcove--vox",
+  "displayName": "vox",
+  "description": "Rust-native RPC, friendly to other languages via facet-powered codegen",
+  "version": "1.0.0",
+  "author": "bearcove",
+  "homepage": "https://github.com/bearcove/vox",
+  "skills": []
+}
