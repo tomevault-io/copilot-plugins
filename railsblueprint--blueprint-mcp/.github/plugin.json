@@ -1,0 +1,9 @@
+{
+  "name": "railsblueprint--blueprint-mcp",
+  "displayName": "blueprint-mcp",
+  "description": "MCP server for browser automation across Chrome, Firefox, and Safari using real browser profiles",
+  "version": "1.0.0",
+  "author": "railsblueprint",
+  "homepage": "https://github.com/railsblueprint/blueprint-mcp",
+  "skills": []
+}
