@@ -1,0 +1,9 @@
+{
+  "name": "neotavern--neotavern-frontend",
+  "displayName": "NeoTavern-Frontend",
+  "description": "Rewritten frontend for SillyTavern",
+  "version": "1.0.0",
+  "author": "NeoTavern",
+  "homepage": "https://github.com/NeoTavern/NeoTavern-Frontend",
+  "skills": []
+}
