@@ -1,0 +1,9 @@
+{
+  "name": "linuxmatters--jivetalking",
+  "displayName": "jivetalking",
+  "description": "Raw microphone recordings into broadcast-ready audio in one command. No configuration, and no surprises\ud83d\udd7a",
+  "version": "1.0.0",
+  "author": "linuxmatters",
+  "homepage": "https://github.com/linuxmatters/jivetalking",
+  "skills": []
+}
