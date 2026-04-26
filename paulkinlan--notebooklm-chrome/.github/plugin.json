@@ -1,0 +1,9 @@
+{
+  "name": "paulkinlan--notebooklm-chrome",
+  "displayName": "NotebookLM-Chrome",
+  "description": "A Chrome Extension to do what NotebookLM does but for your tabs",
+  "version": "1.0.0",
+  "author": "PaulKinlan",
+  "homepage": "https://github.com/PaulKinlan/NotebookLM-Chrome",
+  "skills": []
+}
