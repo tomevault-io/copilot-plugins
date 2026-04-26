@@ -1,0 +1,9 @@
+{
+  "name": "sjkim1127--reversecore-mcp",
+  "displayName": "Reversecore_MCP",
+  "description": "A security-first MCP server empowering AI agents to orchestrate Ghidra, Radare2, and YARA for automated reverse engineering.",
+  "version": "1.0.0",
+  "author": "sjkim1127",
+  "homepage": "https://github.com/sjkim1127/Reversecore_MCP",
+  "skills": []
+}
