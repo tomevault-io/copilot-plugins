@@ -1,0 +1,9 @@
+{
+  "name": "ferro-labs--ferrotunnel",
+  "displayName": "ferrotunnel",
+  "description": "Secure, embedded, API-first tunneling with public URLs, acting as a lightweight ingress and HTTP proxy focused on low-latency forwarding",
+  "version": "1.0.0",
+  "author": "ferro-labs",
+  "homepage": "https://github.com/ferro-labs/ferrotunnel",
+  "skills": []
+}
