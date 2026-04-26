@@ -1,0 +1,9 @@
+{
+  "name": "spillwavesolutions--agent-brain",
+  "displayName": "agent-brain",
+  "description": "Private RAG system with semantic context ingestion to improve source of truth of reliable sources",
+  "version": "1.0.0",
+  "author": "SpillwaveSolutions",
+  "homepage": "https://github.com/SpillwaveSolutions/agent-brain",
+  "skills": []
+}
