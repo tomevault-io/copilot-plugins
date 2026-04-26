@@ -1,0 +1,9 @@
+{
+  "name": "jupyter-xeus--xeus-haskell",
+  "displayName": "xeus-haskell",
+  "description": "jupyter / jupyterlite kernel for Haskell powered by WebAssembly",
+  "version": "1.0.0",
+  "author": "jupyter-xeus",
+  "homepage": "https://github.com/jupyter-xeus/xeus-haskell",
+  "skills": []
+}
