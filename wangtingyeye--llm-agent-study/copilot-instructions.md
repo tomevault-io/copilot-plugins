@@ -1,25 +1,55 @@
 ## llm-agent-study
 
-> description: 该规则解释了 Flask 轻量级 Python Web 应用程序的约定和最佳实践。
+> 辅助生成 git 提交信息
+
+# Git 规则
+
+## 重要原则
+- **重要**：不要自动提交 git 代码，除非有明确的提示
+- 提交前确保代码通过所有测试
+- 保持提交信息简洁明了，描述清楚变更内容
+- 避免大型提交，尽量将变更分解为小的、相关的提交
+
+## 提交规范
+git 提交模板<type>(<scope>): <subject>，具体要求如下：
+1. 注意冒号 : 后有空格
+2. type 的枚举值有：
+- feat: 新增功能
+- fix: 修复 bug
+- docs: 文档注释
+- style: 代码格式(不影响代码运行的变动)
+- refactor: 重构、优化(既不增加新功能, 也不是修复bug)
+- perf: 性能优化
+- test: 增加测试
+- chore: 构建过程或辅助工具的变动
+- revert: 回退
+- build: 打包
+3. 若 subject 中描述超过两种要点，请使用要点列表描述详情，每个要点使用-符号开头，多个换行，参考如下样例：
+```
+feat(web): implement email verification workflow
+
+- Add email verification token generation service
+- Create verification email template with dynamic links
+- Add API endpoint for token validation
+- Update user model with verification status field
+```
+
+## 分支管理
+- main/master: 主分支，保持稳定可发布状态
+- develop: 开发分支，包含最新开发特性
+- feature/*: 功能分支，用于开发新功能
+- bugfix/*: 修复分支，用于修复bug
+- release/*: 发布分支，用于准备发布
+
+**常用分支命名约定**：
+
+| 分支类型   | 命名格式             | 示例                      |
+| ---------- | -------------------- | ------------------------- |
+| 功能分支   | feature/[描述]       | feature/user-auth         |
+| 修复分支   | fix/[问题ID]-[描述]  | fix/issue-42-login-crash  |
+| 发布分支   | release/[版本]       | release/v2.1.0            |
+| 热修复分支 | hotfix/[版本]-[描述] | hotfix/v2.0.1-payment-fix |
 
 ---
-description: 该规则解释了 Flask 轻量级 Python Web 应用程序的约定和最佳实践。
-globs: **/*.py
-alwaysApply: false
----
-
-# Flask 规则
-
-- 使用 Blueprints 按功能或资源组织路由
-- 使用 Flask-SQLAlchemy 处理数据库模型和 ORM
-- 使用应用工厂（application factories）实现灵活的应用初始化
-- 使用 Flask 扩展实现常见功能（Flask-Login、Flask-WTF 等）
-- 在环境变量中存储配置
-- 使用 Flask-Migrate 进行数据库迁移
-- 使用错误处理器实现适当的错误处理
-- 使用 Flask-RESTful 或类似工具构建 API 
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/WangTingYeYe)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/WangTingYeYe)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/WangTingYeYe) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-15 -->
