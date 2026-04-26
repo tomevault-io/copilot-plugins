@@ -4,7 +4,7 @@
   "repo": "Typing_System_MindMap",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/nmhjklnm",
+  "source_url": "https://github.com/nmhjklnm/Typing_System_MindMap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T02:01:21Z"
+  "distributed_at": "2026-04-26T00:43:22Z"
 }
