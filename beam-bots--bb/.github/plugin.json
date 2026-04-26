@@ -1,0 +1,9 @@
+{
+  "name": "beam-bots--bb",
+  "displayName": "bb",
+  "description": "The resilient robotics framework",
+  "version": "1.0.0",
+  "author": "beam-bots",
+  "homepage": "https://github.com/beam-bots/bb",
+  "skills": []
+}
