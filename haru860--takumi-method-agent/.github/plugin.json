@@ -1,0 +1,62 @@
+{
+  "name": "haru860--takumi-method-agent",
+  "displayName": "takumi-method-agent",
+  "description": "\u30d3\u30b8\u30cd\u30b9\u30c7\u30b6\u30a4\u30f3\u306e\u305f\u3081\u306e\u4f53\u7cfb\u7684\u30e1\u30bd\u30c3\u30c9\u300c\u5320Method\u300d\u3092\u81ea\u52d5\u5316\u30fb\u652f\u63f4\u3059\u308bAI Agent\u30c4\u30fc\u30eb\u3067\u3059\u3002",
+  "version": "1.0.0",
+  "author": "haru860",
+  "homepage": "https://github.com/haru860/takumi-method-agent",
+  "skills": [
+    {
+      "name": "desc-design",
+      "description": ""
+    },
+    {
+      "name": "desc-takumi-method-agent",
+      "description": ""
+    },
+    {
+      "name": "desc-value-design",
+      "description": ""
+    },
+    {
+      "name": "refine-design",
+      "description": ""
+    },
+    {
+      "name": "value-design-all-only-text-data",
+      "description": ""
+    },
+    {
+      "name": "value-design-catch-copy",
+      "description": ""
+    },
+    {
+      "name": "value-design-concept",
+      "description": ""
+    },
+    {
+      "name": "value-design-design",
+      "description": ""
+    },
+    {
+      "name": "value-design-drawio-generator",
+      "description": ""
+    },
+    {
+      "name": "value-design-meaning",
+      "description": ""
+    },
+    {
+      "name": "value-design-story",
+      "description": ""
+    },
+    {
+      "name": "value-design-vision",
+      "description": ""
+    },
+    {
+      "name": "verify-design",
+      "description": ""
+    }
+  ]
+}
