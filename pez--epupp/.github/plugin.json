@@ -1,0 +1,9 @@
+{
+  "name": "pez--epupp",
+  "displayName": "epupp",
+  "description": "A web browser extension that lets you tamper with web pages, live and/or with userscripts.",
+  "version": "1.0.0",
+  "author": "PEZ",
+  "homepage": "https://github.com/PEZ/epupp",
+  "skills": []
+}
