@@ -1,0 +1,9 @@
+{
+  "name": "everpcpc--kmreader",
+  "displayName": "KMReader",
+  "description": "A full-featured, native Komga client for iOS, macOS, and tvOS",
+  "version": "1.0.0",
+  "author": "everpcpc",
+  "homepage": "https://github.com/everpcpc/KMReader",
+  "skills": []
+}
