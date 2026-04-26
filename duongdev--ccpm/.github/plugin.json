@@ -1,0 +1,38 @@
+{
+  "name": "duongdev--ccpm",
+  "displayName": "ccpm",
+  "description": "AI instruction skills by duongdev",
+  "version": "1.0.0",
+  "author": "duongdev",
+  "homepage": "https://github.com/duongdev/ccpm",
+  "skills": [
+    {
+      "name": "ccpm-mcp-management",
+      "description": ""
+    },
+    {
+      "name": "ccpm-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "docs-seeker",
+      "description": ""
+    },
+    {
+      "name": "planning-strategy-guide",
+      "description": ""
+    },
+    {
+      "name": "project-detection",
+      "description": ""
+    },
+    {
+      "name": "project-operations",
+      "description": ""
+    },
+    {
+      "name": "sequential-thinking",
+      "description": ""
+    }
+  ]
+}
