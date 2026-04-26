@@ -1,0 +1,9 @@
+{
+  "name": "igorwarzocha--opencode-planning-toolkit",
+  "displayName": "opencode-planning-toolkit",
+  "description": "A set of tools that allow sharing a repo-wide todoliist between sessions.",
+  "version": "1.0.0",
+  "author": "IgorWarzocha",
+  "homepage": "https://github.com/IgorWarzocha/opencode-planning-toolkit",
+  "skills": []
+}
