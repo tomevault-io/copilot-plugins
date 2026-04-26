@@ -1,0 +1,9 @@
+{
+  "name": "mr-karan--hodor",
+  "displayName": "hodor",
+  "description": "Agentic code reviewer for GitHub PRs and GitLab MRs. Multi-step reasoning with autonomous tool orchestration \u2014 catches bugs requiring analysis across files.",
+  "version": "1.0.0",
+  "author": "mr-karan",
+  "homepage": "https://github.com/mr-karan/hodor",
+  "skills": []
+}
