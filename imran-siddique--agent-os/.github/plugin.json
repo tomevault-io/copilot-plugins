@@ -1,0 +1,9 @@
+{
+  "name": "imran-siddique--agent-os",
+  "displayName": "agent-os",
+  "description": "[DEPRECATED] Moved to microsoft/agent-governance-toolkit",
+  "version": "1.0.0",
+  "author": "imran-siddique",
+  "homepage": "https://github.com/imran-siddique/agent-os",
+  "skills": []
+}
