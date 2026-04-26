@@ -1,0 +1,9 @@
+{
+  "name": "kaskol10--karpenter-optimizer",
+  "displayName": "karpenter-optimizer",
+  "description": "\ud83d\udcb0 Cost optimization tool for Karpenter NodePools. Analyzes Kubernetes cluster usage and provides AI-powered recommendations to reduce AWS EC2 costs while maintaining performance.",
+  "version": "1.0.0",
+  "author": "kaskol10",
+  "homepage": "https://github.com/kaskol10/karpenter-optimizer",
+  "skills": []
+}
