@@ -1,0 +1,9 @@
+{
+  "name": "vtxf--mcp-all-in-one",
+  "displayName": "mcp-all-in-one",
+  "description": "A powerful MCP (Model Context Protocol) service aggregator that combines multiple MCP services into a single unified MCP service with self-configuration capabilities.",
+  "version": "1.0.0",
+  "author": "vtxf",
+  "homepage": "https://github.com/vtxf/mcp-all-in-one",
+  "skills": []
+}
