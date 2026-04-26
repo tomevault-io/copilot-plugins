@@ -1,0 +1,87 @@
+{
+  "name": "ccpm",
+  "owner": "duongdev",
+  "repo": "ccpm",
+  "description": "AI instruction skills by duongdev",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ccpm-mcp-management",
+      "path": "skills/ccpm-mcp-management",
+      "github_url": "https://github.com/duongdev/ccpm/tree/main/skills/ccpm-mcp-management",
+      "description": ""
+    },
+    {
+      "name": "ccpm-skill-creator",
+      "path": "skills/ccpm-skill-creator",
+      "github_url": "https://github.com/duongdev/ccpm/tree/main/skills/ccpm-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "docs-seeker",
+      "path": "skills/docs-seeker",
+      "github_url": "https://github.com/duongdev/ccpm/tree/main/skills/docs-seeker",
+      "description": ""
+    },
+    {
+      "name": "planning-strategy-guide",
+      "path": "skills/planning-strategy-guide",
+      "github_url": "https://github.com/duongdev/ccpm/tree/main/skills/planning-strategy-guide",
+      "description": ""
+    },
+    {
+      "name": "project-detection",
+      "path": "skills/project-detection",
+      "github_url": "https://github.com/duongdev/ccpm/tree/main/skills/project-detection",
+      "description": ""
+    },
+    {
+      "name": "project-operations",
+      "path": "skills/project-operations",
+      "github_url": "https://github.com/duongdev/ccpm/tree/main/skills/project-operations",
+      "description": ""
+    },
+    {
+      "name": "sequential-thinking",
+      "path": "skills/sequential-thinking",
+      "github_url": "https://github.com/duongdev/ccpm/tree/main/skills/sequential-thinking",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/duongdev/ccpm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T00:30:07Z"
+}
