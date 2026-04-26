@@ -1,0 +1,9 @@
+{
+  "name": "studentweis--ropy",
+  "displayName": "ropy",
+  "description": "Cross-platform, lightweight clipboard manager written in Rust and GPUI.",
+  "version": "1.0.0",
+  "author": "StudentWeis",
+  "homepage": "https://github.com/StudentWeis/ropy",
+  "skills": []
+}
