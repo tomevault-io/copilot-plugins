@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [zccrs/git-commit-helper](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/zccrs)
+From [zccrs/git-commit-helper](https://github.com/zccrs/git-commit-helper) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install zccrs/git-commit-helper
 ```
-Or browse all formats at [https://tomevault.io/claim/zccrs](https://tomevault.io/claim/zccrs).
+Source: [github.com/zccrs/git-commit-helper](https://github.com/zccrs/git-commit-helper).
 
 <!-- genome:a-i-s -->
