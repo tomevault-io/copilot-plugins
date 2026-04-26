@@ -1,0 +1,14 @@
+{
+  "name": "dabstractor--mdsel",
+  "displayName": "mdsel",
+  "description": "Progressive Disclosure via Semantic Selection for Markdown Docs",
+  "version": "1.0.0",
+  "author": "dabstractor",
+  "homepage": "https://github.com/dabstractor/mdsel",
+  "skills": [
+    {
+      "name": "mdsel",
+      "description": ""
+    }
+  ]
+}
