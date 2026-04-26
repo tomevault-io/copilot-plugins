@@ -1,0 +1,9 @@
+{
+  "name": "longtheta--agent-skills-pack",
+  "displayName": "agent-skills-pack",
+  "description": "agent-skills-pack",
+  "version": "1.0.0",
+  "author": "LongTheta",
+  "homepage": "https://github.com/LongTheta/agent-skills-pack",
+  "skills": []
+}
