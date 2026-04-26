@@ -1,0 +1,9 @@
+{
+  "name": "azw413--ternos",
+  "displayName": "TernOS",
+  "description": "TernOS - A rust based firmware with reading and PalmOS functionality for XTEink X4 pocket reader",
+  "version": "1.0.0",
+  "author": "azw413",
+  "homepage": "https://github.com/azw413/TernOS",
+  "skills": []
+}
