@@ -1,0 +1,9 @@
+{
+  "name": "ericmjl--canvas-chat",
+  "displayName": "canvas-chat",
+  "description": "A visual, non-linear chat interface where conversations are nodes on an infinite canvas",
+  "version": "1.0.0",
+  "author": "ericmjl",
+  "homepage": "https://github.com/ericmjl/canvas-chat",
+  "skills": []
+}
