@@ -5,15 +5,15 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [JPH44-pro/adk-artisan](https://github.com/JPH44-pro/adk-artisan).
+Original source: `.cursor/rules/*.mdc` in [JPH44-pro/adk-artisan](https://github.com/JPH44-pro/adk-artisan).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [JPH44-pro/adk-artisan](https://github.com/JPH44-pro/adk-artisan) — a repo with 0+ stars on GitHub.
 
