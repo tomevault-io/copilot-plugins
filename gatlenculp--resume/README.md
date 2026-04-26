@@ -1,6 +1,6 @@
-# resume — distributed by TomeVault
+# resume
 
-> Originally from [GatlenCulp/resume](https://github.com/GatlenCulp/resume). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [GatlenCulp/resume](https://github.com/GatlenCulp/resume) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [GatlenCulp/resume](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/GatlenCulp)
+From [GatlenCulp/resume](https://github.com/GatlenCulp/resume) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install GatlenCulp/resume
 ```
-Or browse all formats at [https://tomevault.io/claim/GatlenCulp](https://tomevault.io/claim/GatlenCulp).
+Source: [github.com/GatlenCulp/resume](https://github.com/GatlenCulp/resume).
 
 <!-- genome:d-i-s -->
