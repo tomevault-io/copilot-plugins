@@ -1,0 +1,9 @@
+{
+  "name": "coreos--chunkah",
+  "displayName": "chunkah",
+  "description": "An OCI building tool for content-based layers",
+  "version": "1.0.0",
+  "author": "coreos",
+  "homepage": "https://github.com/coreos/chunkah",
+  "skills": []
+}
