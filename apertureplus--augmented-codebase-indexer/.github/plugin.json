@@ -1,0 +1,9 @@
+{
+  "name": "apertureplus--augmented-codebase-indexer",
+  "displayName": "augmented-codebase-indexer",
+  "description": "Semantic level code search/indexer with tree-sitter parsing, Qdrant vector store, and Typer/FastAPI interfaces. Supports calling via MCP.",
+  "version": "1.0.0",
+  "author": "AperturePlus",
+  "homepage": "https://github.com/AperturePlus/augmented-codebase-indexer",
+  "skills": []
+}
