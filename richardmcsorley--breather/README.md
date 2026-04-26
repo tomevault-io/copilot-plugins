@@ -1,6 +1,6 @@
 # breather
 
-> Config by [RichardMcSorley](https://github.com/RichardMcSorley/breather) — distributed by [TomeVault](https://tomevault.io/claim/RichardMcSorley)
+> Source: [RichardMcSorley/breather](https://github.com/RichardMcSorley/breather) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [RichardMcSorley/breather](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/RichardMcSorley](https://tomevault.io/claim/RichardMcSorley)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/RichardMcSorley/breather](https://github.com/RichardMcSorley/breather)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/RichardMcSorley) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install RichardMcSorley/breather
+```
+Source: [github.com/RichardMcSorley/breather](https://github.com/RichardMcSorley/breather).
+
+<!-- genome:d-i-q -->
