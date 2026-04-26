@@ -1,0 +1,9 @@
+{
+  "name": "techdufus--openkanban",
+  "displayName": "openkanban",
+  "description": "TUI kanban board for orchestrating AI coding agents",
+  "version": "1.0.0",
+  "author": "TechDufus",
+  "homepage": "https://github.com/TechDufus/openkanban",
+  "skills": []
+}
