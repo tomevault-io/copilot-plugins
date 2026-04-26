@@ -1,0 +1,44 @@
+{
+  "name": "minimind-notes",
+  "owner": "joyehuang",
+  "repo": "minimind-notes",
+  "description": "\ud83d\ude80 [\u4ece\u96f6\u6784\u5efa LLM] \u6781\u7b80\u5927\u6a21\u578b\u8bad\u7ec3\u539f\u7406\u4e0e\u5b9e\u8df5\u6307\u5357\u3002\u5305\u542b Transformer, Pretraining, SFT \u6838\u5fc3\u4ee3\u7801\u4e0e\u5bf9\u7167\u5b9e\u9a8c\u3002 | A minimal, principle-first guide to understanding and building LLMs from scratch.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/joyehuang/minimind-notes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T15:55:00Z"
+}
