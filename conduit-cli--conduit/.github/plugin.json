@@ -1,0 +1,9 @@
+{
+  "name": "conduit-cli--conduit",
+  "displayName": "conduit",
+  "description": "\ud83d\udda5\ufe0f Run a Team of AI Agents. In Your Terminal.",
+  "version": "1.0.0",
+  "author": "conduit-cli",
+  "homepage": "https://github.com/conduit-cli/conduit",
+  "skills": []
+}
