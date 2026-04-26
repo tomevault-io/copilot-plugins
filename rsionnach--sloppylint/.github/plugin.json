@@ -1,0 +1,9 @@
+{
+  "name": "rsionnach--sloppylint",
+  "displayName": "sloppylint",
+  "description": "Python AI Slop Detector - Find over-engineering, hallucinations, and dead code in Python codebases",
+  "version": "1.0.0",
+  "author": "rsionnach",
+  "homepage": "https://github.com/rsionnach/sloppylint",
+  "skills": []
+}
