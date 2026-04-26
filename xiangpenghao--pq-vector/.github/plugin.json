@@ -1,0 +1,9 @@
+{
+  "name": "xiangpenghao--pq-vector",
+  "displayName": "pq-vector",
+  "description": "Vector search using only Parquet and DataFusion",
+  "version": "1.0.0",
+  "author": "XiangpengHao",
+  "homepage": "https://github.com/XiangpengHao/pq-vector",
+  "skills": []
+}
