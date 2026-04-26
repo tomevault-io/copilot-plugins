@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--ovrtx",
+  "displayName": "ovrtx",
+  "description": "A C and Python library for physically accurate, real-time, sensor simulation and visualization using NVIDIA Omniverse RTX",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/ovrtx",
+  "skills": []
+}
