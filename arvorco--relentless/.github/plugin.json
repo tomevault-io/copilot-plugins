@@ -1,0 +1,9 @@
+{
+  "name": "arvorco--relentless",
+  "displayName": "Relentless",
+  "description": "Universal AI Agent Orchestrator - Run any AI coding agent (Claude Code, Amp, OpenCode, Codex, Droid, Gemini) repeatedly until all tasks are complete",
+  "version": "1.0.0",
+  "author": "ArvorCo",
+  "homepage": "https://github.com/ArvorCo/Relentless",
+  "skills": []
+}
