@@ -1,0 +1,9 @@
+{
+  "name": "itsmontoya--scribble",
+  "displayName": "scribble",
+  "description": "Transcription server and library written in Rust",
+  "version": "1.0.0",
+  "author": "itsmontoya",
+  "homepage": "https://github.com/itsmontoya/scribble",
+  "skills": []
+}
