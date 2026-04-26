@@ -1,0 +1,99 @@
+{
+  "name": "moicle",
+  "owner": "phuthuycoding",
+  "repo": "moicle",
+  "description": "Reusable AI agents, commands, skills, and architecture references for Claude Code, Antigravity, Cursor or AI IDE",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-integration",
+      "path": "assets/skills/api-integration",
+      "github_url": "https://github.com/phuthuycoding/moicle/tree/main/assets/skills/api-integration",
+      "description": ""
+    },
+    {
+      "name": "deprecation",
+      "path": "assets/skills/deprecation",
+      "github_url": "https://github.com/phuthuycoding/moicle/tree/main/assets/skills/deprecation",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "assets/skills/documentation",
+      "github_url": "https://github.com/phuthuycoding/moicle/tree/main/assets/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "go-module",
+      "path": "assets/skills/go-module",
+      "github_url": "https://github.com/phuthuycoding/moicle/tree/main/assets/skills/go-module",
+      "description": ""
+    },
+    {
+      "name": "new-feature",
+      "path": "assets/skills/new-feature",
+      "github_url": "https://github.com/phuthuycoding/moicle/tree/main/assets/skills/new-feature",
+      "description": ""
+    },
+    {
+      "name": "onboarding",
+      "path": "assets/skills/onboarding",
+      "github_url": "https://github.com/phuthuycoding/moicle/tree/main/assets/skills/onboarding",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "path": "assets/skills/pr-review",
+      "github_url": "https://github.com/phuthuycoding/moicle/tree/main/assets/skills/pr-review",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "path": "assets/skills/refactor",
+      "github_url": "https://github.com/phuthuycoding/moicle/tree/main/assets/skills/refactor",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": "assets/skills/tdd",
+      "github_url": "https://github.com/phuthuycoding/moicle/tree/main/assets/skills/tdd",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/phuthuycoding/moicle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-26T19:30:08Z"
+}
