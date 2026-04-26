@@ -1,0 +1,9 @@
+{
+  "name": "steipete--sweetcookiekit",
+  "displayName": "SweetCookieKit",
+  "description": "Extract browser cookies from macOS in Swift",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/SweetCookieKit",
+  "skills": []
+}
