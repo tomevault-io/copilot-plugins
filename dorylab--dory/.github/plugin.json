@@ -1,0 +1,9 @@
+{
+  "name": "dorylab--dory",
+  "displayName": "dory",
+  "description": "AI-native SQL workspace for modern databases. SQL Copilot, schema-aware editor, database chat, and operational tools in one place.",
+  "version": "1.0.0",
+  "author": "dorylab",
+  "homepage": "https://github.com/dorylab/dory",
+  "skills": []
+}
