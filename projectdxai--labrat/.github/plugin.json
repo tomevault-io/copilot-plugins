@@ -1,0 +1,9 @@
+{
+  "name": "projectdxai--labrat",
+  "displayName": "labrat",
+  "description": "Autonomous multi-branch research lab. Branches compete for compute budget. The system converges on what works.",
+  "version": "1.0.0",
+  "author": "ProjectDXAI",
+  "homepage": "https://github.com/ProjectDXAI/labrat",
+  "skills": []
+}
