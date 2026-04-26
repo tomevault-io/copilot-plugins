@@ -2,9 +2,9 @@
   "name": "go-agent-skills",
   "owner": "eduardo-sl",
   "repo": "go-agent-skills",
-  "description": "",
+  "description": "Curated AI agent skills for Go projects.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/eduardo-sl",
+  "source_url": "https://github.com/eduardo-sl/go-agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T11:05:22Z"
+  "distributed_at": "2026-04-26T20:40:14Z"
 }
