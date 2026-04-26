@@ -1,0 +1,14 @@
+{
+  "name": "anomalousventures--democracy-direct",
+  "displayName": "democracy-direct",
+  "description": "Direct access to your democracy.",
+  "version": "1.0.0",
+  "author": "anomalousventures",
+  "homepage": "https://github.com/anomalousventures/democracy-direct",
+  "skills": [
+    {
+      "name": "new-query",
+      "description": ""
+    }
+  ]
+}
