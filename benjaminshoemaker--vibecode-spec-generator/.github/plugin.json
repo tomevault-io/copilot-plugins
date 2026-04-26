@@ -1,0 +1,9 @@
+{
+  "name": "benjaminshoemaker--vibecode-spec-generator",
+  "displayName": "vibecode_spec_generator",
+  "description": "Wizard-style app to help people generate specs that AI coding agents can execute & keep track of status",
+  "version": "1.0.0",
+  "author": "benjaminshoemaker",
+  "homepage": "https://github.com/benjaminshoemaker/vibecode_spec_generator",
+  "skills": []
+}
