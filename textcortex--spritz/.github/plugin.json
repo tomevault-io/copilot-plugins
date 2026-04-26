@@ -1,0 +1,9 @@
+{
+  "name": "textcortex--spritz",
+  "displayName": "spritz",
+  "description": "Kubernetes\u2011native control plane for running AI agents in containers",
+  "version": "1.0.0",
+  "author": "textcortex",
+  "homepage": "https://github.com/textcortex/spritz",
+  "skills": []
+}
