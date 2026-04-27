@@ -1,0 +1,44 @@
+{
+  "name": "dingtalk-skills",
+  "owner": "breath57",
+  "repo": "dingtalk-skills",
+  "description": "\u3010\u9002\u914dOpenclaw\ud83e\udd9e & \u4f01\u4e1a\u673a\u5668\u4eba\ud83e\udd16\u3011\u9489\u9489Skill\u5e93\uff0c\u542b\uff1a\u6587\u6863\u3001AI(\u591a\u7ef4)\u8868\u683c\u3001\u7fa4(\u5355)\u804a\u3001\u4f1a\u8bae\u5ba4\u3001\u65e5\u7a0b\u3001\u5f85\u529e\u3001\u901a\u8baf\u5f55\u3001AI\u641c\u7d22\u7b49\uff0c\u81ea\u52a8\u7ba1\u7406\u914d\u7f6e\uff0c\u8f7b\u91cf\u7ea7\u2014\u4ec5\u4f9d\u8d56curl\uff0c skill\u7ecf\u8fc7\u4e25\u683c\u6d4b\u8bd5\u3002Lightweight DingTalk Skill Library (curl only). Includes AI search, docs, sheets, chat, meetings, calendar, todos & contacts. Auto-configured & rigorously tested.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/breath57/dingtalk-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T08:36:28Z"
+}
