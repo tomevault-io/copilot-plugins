@@ -1,0 +1,81 @@
+{
+  "name": "keyforge",
+  "owner": "infodungeon",
+  "repo": "keyforge",
+  "description": "AI instruction skills by infodungeon",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rust-guardian",
+      "path": ".gemini/skills/rust-guardian",
+      "github_url": "https://github.com/infodungeon/keyforge/tree/main/.gemini/skills/rust-guardian",
+      "description": ""
+    },
+    {
+      "name": "sovereign-consultant",
+      "path": ".gemini/skills/sovereign-consultant",
+      "github_url": "https://github.com/infodungeon/keyforge/tree/main/.gemini/skills/sovereign-consultant",
+      "description": ""
+    },
+    {
+      "name": "stabilization-unit",
+      "path": ".gemini/skills/stabilization-unit",
+      "github_url": "https://github.com/infodungeon/keyforge/tree/main/.gemini/skills/stabilization-unit",
+      "description": ""
+    },
+    {
+      "name": "type-level-architect",
+      "path": ".gemini/skills/type-level-architect",
+      "github_url": "https://github.com/infodungeon/keyforge/tree/main/.gemini/skills/type-level-architect",
+      "description": ""
+    },
+    {
+      "name": "ui-perfectionist",
+      "path": ".gemini/skills/ui-perfectionist",
+      "github_url": "https://github.com/infodungeon/keyforge/tree/main/.gemini/skills/ui-perfectionist",
+      "description": ""
+    },
+    {
+      "name": "ui-performance-guard",
+      "path": ".gemini/skills/ui-performance-guard",
+      "github_url": "https://github.com/infodungeon/keyforge/tree/main/.gemini/skills/ui-performance-guard",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/infodungeon/keyforge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T00:30:46Z"
+}
