@@ -1,0 +1,9 @@
+{
+  "name": "anand-92--droidproxy",
+  "displayName": "droidproxy",
+  "description": "A native macOS menu bar app that proxies Claude/Codex/Gemini subscriptions for use with Factory Droid CLI",
+  "version": "1.0.0",
+  "author": "anand-92",
+  "homepage": "https://github.com/anand-92/droidproxy",
+  "skills": []
+}
