@@ -1,0 +1,88 @@
+## cli-gateway
+
+> This file is for coding agents (Codex/Claude/etc) working in this repository.
+
+# AGENTS.md (cli-gateway)
+
+This file is for coding agents (Codex/Claude/etc) working in this repository.
+
+## Project summary
+
+`cli-gateway` is a chat-channel ↔ ACP (Agent Client Protocol) gateway with:
+
+- Discord + Telegram + Feishu adapters
+- Per-binding ACP stdio runtime isolation (one agent process per binding)
+- SQLite persistence (sessions/bindings/runs/events/jobs)
+- Deny-by-default tool execution via ACP `session/request_permission` (interactive buttons on DC/TG + Discord reaction shortcuts)
+
+## Key paths
+
+- Entry: `src/main.ts`
+- Router/runtime: `src/gateway/router.ts`, `src/gateway/bindingRuntime.ts`
+- ACP stdio client: `src/acp/client.ts`
+- DB schema/migrations: `src/db/migrations.ts`
+- Scheduler: `src/scheduler/scheduler.ts`
+- Channel sinks: `src/channels/discord.ts`, `src/channels/telegram.ts`, `src/channels/feishu.ts`
+- Process guard/restart bridge: `scripts/run-guard.sh`, `scripts/restart-watcher.sh`
+
+## UI
+
+- UI modes: `verbose` (default) and `summary`.
+- Per-conversation override: `/ui verbose|summary` (stored in DB `ui_prefs`).
+- Per-conversation runtime prefs include `/workspace` and `/cli` (persist across `/new`).
+- Permission allowlist can be managed per conversation via `/whitelist` (`tool_kind` + optional prefix scoped, persisted via `tool_policies` and `tool_allow_prefixes`).
+
+## Local dev
+
+- Install: `npm i`
+- Run: `npm run dev`
+- Build: `npm run build`
+- Lint: `npm run lint`
+
+Config is file-based; see `~/.cli-gateway/config.json` (example in `skills.md`).
+
+## Conventions / constraints
+
+- TypeScript + ESM (`"type": "module"`). Keep imports with `.js` suffix in TS source.
+- Prefer small, composable modules; avoid over-abstracting.
+- Keep tool execution **deny-by-default**. Any expansion of tool surface must be explicitly gated.
+- File/terminal tool calls must remain restricted to `WORKSPACE_ROOT`.
+- Avoid adding new dependencies unless necessary.
+
+## Persistence & migrations
+
+- All DB schema changes go through `src/db/migrations.ts`.
+- Bump `LATEST_VERSION` when adding a migration.
+- Migrations must be additive and safe on existing DBs.
+
+## "Memory" / continuity design
+
+ACP sessions are process-local; after restart/GC the agent will start with no state.
+
+Current mitigation:
+- Context replay on fresh ACP sessions via `CONTEXT_REPLAY_*` (DB-backed replay of recent runs).
+- Discord fresh sessions also prepend channel topic/description as global context when available.
+
+If you change how context is built or injected, update:
+- `src/gateway/history.ts`
+- `.env.example`
+- `README.md` (Memory section)
+
+## Delivery reliability
+
+- `events` is append-only per run (run_id + seq).
+- `delivery_checkpoints` stores last delivery state (best-effort).
+- `/replay` is a best-effort recovery tool.
+
+If you implement real resume/ack semantics, also update `ROADMAP.md`.
+
+## Keep docs in sync
+
+When making non-trivial changes:
+- Update `ROADMAP.md`
+- Update `README.md` (commands/config)
+- Keep this `AGENTS.md` accurate
+
+---
+> Source: [clawbot7/cli-gateway](https://github.com/clawbot7/cli-gateway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
