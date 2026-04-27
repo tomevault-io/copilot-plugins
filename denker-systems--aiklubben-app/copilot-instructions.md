@@ -1,432 +1,482 @@
-## 09-state-management-rules
+## 10-performance-rules
 
-> handleSubmit,
+> - **Mode**: Always On
 
-# State Management Rules - React Context & Hooks
+# Performance Rules - React Native iOS Optimization
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: State management patterns for React Native apps
+- **Description**: Performance optimization patterns for smooth 60fps iOS apps
 
 ---
 
-## State Management Hierarchy
+## Rendering Performance
 
-### Choose the Right Level
-
-```
-1. Local State (useState)
-   - UI state: open/closed, selected, hover
-   - Form inputs
-   - Temporary values
-
-2. Lifted State (props)
-   - Shared between 2-3 sibling components
-   - Parent-child communication
-
-3. Context (useContext)
-   - Theme, language, auth state
-   - User preferences
-   - App-wide settings
-
-4. Server State (React Query)
-   - API data
-   - Cached responses
-   - Pagination state
-
-5. Global State (Zustand - if needed)
-   - Complex cross-feature state
-   - Real-time updates
-```
-
----
-
-## useState Patterns
-
-### Basic useState
+### Component Memoization
 
 ```typescript
-// Simple state
-const [count, setCount] = useState(0);
-const [name, setName] = useState('');
-const [isOpen, setIsOpen] = useState(false);
+// Memoize components that receive stable props
+// CORRECT: Prevent unnecessary re-renders
+export const ExpensiveList = React.memo(({ items, onItemPress }: Props) => {
+  return (
+    <FlatList
+      data={items}
+      renderItem={renderItem}
+      keyExtractor={item => item.id}
+    />
+  );
+});
 
-// State with type annotation
-const [user, setUser] = useState<User | null>(null);
-const [items, setItems] = useState<Item[]>([]);
-
-// Lazy initial state (for expensive computations)
-const [data, setData] = useState(() => computeExpensiveInitialValue());
-```
-
-### State Update Patterns
-
-```typescript
-// CORRECT: Functional updates for state that depends on previous value
-setCount((prev) => prev + 1);
-setItems((prev) => [...prev, newItem]);
-setUser((prev) => (prev ? { ...prev, name: newName } : null));
-
-// WRONG: Direct reference (may cause stale state)
-setCount(count + 1);
-setItems([...items, newItem]);
-```
-
-### Complex State with useReducer
-
-```typescript
-// Use useReducer for complex state logic
-interface FormState {
-  values: Record<string, string>;
-  errors: Record<string, string>;
-  isSubmitting: boolean;
-  isValid: boolean;
-}
-
-type FormAction =
-  | { type: 'SET_FIELD'; field: string; value: string }
-  | { type: 'SET_ERROR'; field: string; error: string }
-  | { type: 'CLEAR_ERRORS' }
-  | { type: 'SUBMIT_START' }
-  | { type: 'SUBMIT_END' };
-
-const formReducer = (state: FormState, action: FormAction): FormState => {
-  switch (action.type) {
-    case 'SET_FIELD':
-      return {
-        ...state,
-        values: { ...state.values, [action.field]: action.value },
-        errors: { ...state.errors, [action.field]: '' },
-      };
-    case 'SET_ERROR':
-      return {
-        ...state,
-        errors: { ...state.errors, [action.field]: action.error },
-        isValid: false,
-      };
-    case 'CLEAR_ERRORS':
-      return { ...state, errors: {}, isValid: true };
-    case 'SUBMIT_START':
-      return { ...state, isSubmitting: true };
-    case 'SUBMIT_END':
-      return { ...state, isSubmitting: false };
-    default:
-      return state;
+// CORRECT: Custom comparison for complex props
+export const UserCard = React.memo(
+  ({ user, onPress }: Props) => { /* render */ },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.user.id === nextProps.user.id &&
+      prevProps.user.updatedAt === nextProps.user.updatedAt
+    );
   }
-};
-
-// Usage
-const [state, dispatch] = useReducer(formReducer, initialState);
-dispatch({ type: 'SET_FIELD', field: 'email', value: 'test@example.com' });
+);
 ```
 
----
-
-## Context Pattern
-
-### Context Structure
+### useCallback & useMemo
 
 ```typescript
-// contexts/AuthContext.tsx
+// useCallback: Memoize functions passed to child components
+const ParentComponent = () => {
+  const [count, setCount] = useState(0);
 
-// 1. Define types
-interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-}
-
-interface AuthContextValue extends AuthState {
-  login: (credentials: Credentials) => Promise<void>;
-  logout: () => Promise<void>;
-  refreshToken: () => Promise<void>;
-}
-
-// 2. Create context with undefined default
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
-
-// 3. Create provider component
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [state, setState] = useState<AuthState>({
-    user: null,
-    isAuthenticated: false,
-    isLoading: true,
-  });
-
-  const login = useCallback(async (credentials: Credentials) => {
-    setState(prev => ({ ...prev, isLoading: true }));
-    try {
-      const user = await authService.login(credentials);
-      setState({ user, isAuthenticated: true, isLoading: false });
-    } catch (error) {
-      setState(prev => ({ ...prev, isLoading: false }));
-      throw error;
-    }
+  // CORRECT: Memoized callback
+  const handlePress = useCallback(() => {
+    setCount(c => c + 1);
   }, []);
 
-  const logout = useCallback(async () => {
-    await authService.logout();
-    setState({ user: null, isAuthenticated: false, isLoading: false });
-  }, []);
+  // WRONG: New function every render
+  const handlePressBad = () => {
+    setCount(c => c + 1);
+  };
 
-  const refreshToken = useCallback(async () => {
-    try {
-      const user = await authService.refreshToken();
-      setState(prev => ({ ...prev, user }));
-    } catch {
-      await logout();
-    }
-  }, [logout]);
-
-  const value = useMemo(() => ({
-    ...state,
-    login,
-    logout,
-    refreshToken,
-  }), [state, login, logout, refreshToken]);
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <ChildComponent onPress={handlePress} />;
 };
 
-// 4. Create custom hook with error handling
-export const useAuth = (): AuthContextValue => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+// useMemo: Memoize expensive calculations
+const Component = ({ items }: Props) => {
+  // CORRECT: Only recalculate when items change
+  const sortedItems = useMemo(() => {
+    return [...items].sort((a, b) => a.name.localeCompare(b.name));
+  }, [items]);
+
+  // CORRECT: Expensive filtering
+  const filteredItems = useMemo(() => {
+    return items.filter(item => complexFilter(item));
+  }, [items]);
+
+  // WRONG: Don't memoize simple operations
+  const itemCount = useMemo(() => items.length, [items]); // Overkill
 };
 ```
 
-### Context Performance Optimization
+### When NOT to Memoize
 
 ```typescript
-// Split context to avoid unnecessary re-renders
-// Separate state from actions
+// DON'T memoize:
+// 1. Primitive props (strings, numbers, booleans)
+// 2. Components that always re-render anyway
+// 3. Simple calculations
+// 4. Root-level components
 
-const AuthStateContext = createContext<AuthState | undefined>(undefined);
-const AuthActionsContext = createContext<AuthActions | undefined>(undefined);
+// WRONG: Unnecessary memoization
+const title = useMemo(() => `Hello ${name}`, [name]); // Simple string
+const doubled = useMemo(() => count * 2, [count]); // Simple math
+```
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [state, setState] = useState<AuthState>(initialState);
+---
 
-  // Actions are stable references
-  const actions = useMemo(() => ({
-    login: async (credentials: Credentials) => { /* ... */ },
-    logout: async () => { /* ... */ },
-  }), []);
+## List Performance
 
-  return (
-    <AuthStateContext.Provider value={state}>
-      <AuthActionsContext.Provider value={actions}>
-        {children}
-      </AuthActionsContext.Provider>
-    </AuthStateContext.Provider>
-  );
-};
+### FlatList Optimization
 
-// Separate hooks
-export const useAuthState = () => {
-  const context = useContext(AuthStateContext);
-  if (!context) throw new Error('useAuthState must be used within AuthProvider');
-  return context;
-};
+```typescript
+// Optimized FlatList configuration
+<FlatList
+  data={items}
+  renderItem={renderItem}
+  keyExtractor={item => item.id}
 
-export const useAuthActions = () => {
-  const context = useContext(AuthActionsContext);
-  if (!context) throw new Error('useAuthActions must be used within AuthProvider');
-  return context;
+  // CRITICAL: Define item layout for virtualization
+  getItemLayout={(data, index) => ({
+    length: ITEM_HEIGHT,
+    offset: ITEM_HEIGHT * index,
+    index,
+  })}
+
+  // Performance settings
+  removeClippedSubviews={true}      // Remove off-screen items
+  maxToRenderPerBatch={10}          // Items per batch
+  updateCellsBatchingPeriod={50}    // Batch update interval
+  windowSize={5}                     // Viewport multiplier
+  initialNumToRender={10}           // Initial render count
+
+  // Avoid inline functions
+  // WRONG: Creates new function each render
+  // renderItem={({ item }) => <Item item={item} />}
+/>
+```
+
+### Optimized renderItem
+
+```typescript
+// Extract renderItem outside component or memoize
+const renderItem = useCallback(({ item, index }: ListRenderItemInfo<Item>) => (
+  <ItemComponent item={item} index={index} />
+), []);
+
+// OR define outside component
+const renderItem = ({ item }: ListRenderItemInfo<Item>) => (
+  <ItemComponent item={item} />
+);
+
+// Item component should be memoized
+const ItemComponent = React.memo(({ item }: { item: Item }) => (
+  <View style={styles.item}>
+    <Text>{item.title}</Text>
+  </View>
+));
+```
+
+### Avoid Nested VirtualizedLists
+
+```typescript
+// WRONG: Nested FlatLists cause performance issues
+<FlatList
+  data={sections}
+  renderItem={({ item: section }) => (
+    <FlatList // NESTED - BAD!
+      data={section.items}
+      renderItem={renderItem}
+    />
+  )}
+/>
+
+// CORRECT: Use SectionList for grouped data
+<SectionList
+  sections={sections}
+  renderItem={renderItem}
+  renderSectionHeader={renderHeader}
+  stickySectionHeadersEnabled={false}
+/>
+
+// CORRECT: Flatten data for single FlatList
+const flattenedData = sections.flatMap(section => [
+  { type: 'header', data: section },
+  ...section.items.map(item => ({ type: 'item', data: item })),
+]);
+```
+
+---
+
+## Image Optimization
+
+### Image Loading
+
+```typescript
+// Use expo-image for better performance
+import { Image } from 'expo-image';
+
+<Image
+  source={{ uri: imageUrl }}
+  style={styles.image}
+  contentFit="cover"
+  transition={200}
+  // Caching
+  cachePolicy="memory-disk"
+  // Placeholder
+  placeholder={blurhash}
+  placeholderContentFit="cover"
+/>
+
+// Preload critical images
+import { Image } from 'expo-image';
+
+useEffect(() => {
+  Image.prefetch([
+    'https://example.com/image1.jpg',
+    'https://example.com/image2.jpg',
+  ]);
+}, []);
+```
+
+### Image Dimensions
+
+```typescript
+// ALWAYS specify image dimensions
+// CORRECT: Explicit dimensions prevent layout shift
+<Image
+  source={{ uri: imageUrl }}
+  style={{ width: 100, height: 100 }}
+/>
+
+// WRONG: Missing dimensions
+<Image
+  source={{ uri: imageUrl }}
+  style={{ flex: 1 }} // Layout may jump
+/>
+
+// Use aspect ratio with one dimension
+<Image
+  source={{ uri: imageUrl }}
+  style={{ width: '100%', aspectRatio: 16/9 }}
+/>
+```
+
+---
+
+## Animation Performance
+
+### Use Native Driver
+
+```typescript
+// Animated API with native driver
+import { Animated } from 'react-native';
+
+const fadeAnim = useRef(new Animated.Value(0)).current;
+
+Animated.timing(fadeAnim, {
+  toValue: 1,
+  duration: 300,
+  useNativeDriver: true, // CRITICAL for performance
+}).start();
+
+// Native driver supports:
+// - opacity
+// - transform (translateX, translateY, scale, rotate)
+
+// Native driver does NOT support:
+// - width, height, padding, margin
+// - backgroundColor
+// - borderRadius
+```
+
+### Reanimated 2 for Complex Animations
+
+```typescript
+// Use Reanimated for gesture-driven animations
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
+
+const Component = () => {
+  const offset = useSharedValue(0);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: offset.value }],
+  }));
+
+  // Runs on UI thread - 60fps guaranteed
+  return <Animated.View style={animatedStyle} />;
 };
 ```
 
 ---
 
-## Server State with React Query
+## JavaScript Thread Optimization
 
-### Query Setup
+### Avoid Heavy Operations on JS Thread
 
 ```typescript
-// lib/queryClient.ts
-import { QueryClient } from '@tanstack/react-query';
+// WRONG: Heavy computation blocks JS thread
+const processLargeArray = (items: Item[]) => {
+  return items.map((item) => expensiveTransform(item));
+};
 
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
-      retry: 2,
-      refetchOnWindowFocus: false,
-    },
-  },
+// CORRECT: Use InteractionManager
+import { InteractionManager } from 'react-native';
+
+const loadData = async () => {
+  // Wait for animations to complete
+  await InteractionManager.runAfterInteractions();
+
+  // Then do heavy work
+  const result = processLargeArray(items);
+  setData(result);
+};
+
+// CORRECT: Batch updates
+import { unstable_batchedUpdates } from 'react-native';
+
+unstable_batchedUpdates(() => {
+  setItems(newItems);
+  setCount(newCount);
+  setLoading(false);
 });
 ```
 
-### Query Patterns
+### Debounce & Throttle
 
 ```typescript
-// hooks/useCourses.ts
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+// Debounce for search input
+import { useMemo } from 'react';
+import debounce from 'lodash/debounce';
 
-// Query keys as constants
-export const courseKeys = {
-  all: ['courses'] as const,
-  lists: () => [...courseKeys.all, 'list'] as const,
-  list: (filters: CourseFilters) => [...courseKeys.lists(), filters] as const,
-  details: () => [...courseKeys.all, 'detail'] as const,
-  detail: (id: string) => [...courseKeys.details(), id] as const,
-};
+const SearchInput = () => {
+  const [query, setQuery] = useState('');
 
-// Fetch hook
-export const useCourses = (filters: CourseFilters) => {
-  return useQuery({
-    queryKey: courseKeys.list(filters),
-    queryFn: () => api.getCourses(filters),
-    select: (data) => data.courses, // Transform data
-  });
-};
-
-// Single item hook
-export const useCourse = (id: string) => {
-  return useQuery({
-    queryKey: courseKeys.detail(id),
-    queryFn: () => api.getCourse(id),
-    enabled: !!id, // Only fetch when id exists
-  });
-};
-
-// Mutation hook
-export const useUpdateCourse = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (data: UpdateCourseData) => api.updateCourse(data),
-    onSuccess: (data, variables) => {
-      // Update cache
-      queryClient.setQueryData(courseKeys.detail(variables.id), data);
-      // Invalidate list
-      queryClient.invalidateQueries({ queryKey: courseKeys.lists() });
-    },
-  });
-};
-```
-
----
-
-## Custom Hooks
-
-### Hook Structure
-
-```typescript
-// hooks/useForm.ts
-interface UseFormOptions<T> {
-  initialValues: T;
-  validate?: (values: T) => Partial<Record<keyof T, string>>;
-  onSubmit: (values: T) => Promise<void>;
-}
-
-export const useForm = <T extends Record<string, unknown>>({
-  initialValues,
-  validate,
-  onSubmit,
-}: UseFormOptions<T>) => {
-  const [values, setValues] = useState<T>(initialValues);
-  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const setValue = useCallback(<K extends keyof T>(field: K, value: T[K]) => {
-    setValues((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => ({ ...prev, [field]: undefined }));
-  }, []);
-
-  const handleSubmit = useCallback(async () => {
-    if (validate) {
-      const validationErrors = validate(values);
-      if (Object.keys(validationErrors).length > 0) {
-        setErrors(validationErrors);
-        return;
-      }
-    }
-
-    setIsSubmitting(true);
-    try {
-      await onSubmit(values);
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [values, validate, onSubmit]);
-
-  const reset = useCallback(() => {
-    setValues(initialValues);
-    setErrors({});
-  }, [initialValues]);
-
-  return {
-    values,
-    errors,
-    isSubmitting,
-    setValue,
-    handleSubmit,
-    reset,
-  };
-};
-```
-
----
-
-## State Persistence
-
-### AsyncStorage Pattern
-
-```typescript
-// hooks/usePersistedState.ts
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export const usePersistedState = <T>(
-  key: string,
-  initialValue: T,
-): [T, (value: T) => void, boolean] => {
-  const [value, setValue] = useState<T>(initialValue);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    AsyncStorage.getItem(key)
-      .then((stored) => {
-        if (stored) {
-          setValue(JSON.parse(stored));
-        }
-      })
-      .finally(() => setIsLoading(false));
-  }, [key]);
-
-  const setPersistedValue = useCallback(
-    (newValue: T) => {
-      setValue(newValue);
-      AsyncStorage.setItem(key, JSON.stringify(newValue));
-    },
-    [key],
+  const debouncedSearch = useMemo(
+    () => debounce((text: string) => {
+      performSearch(text);
+    }, 300),
+    []
   );
 
-  return [value, setPersistedValue, isLoading];
+  const handleChange = (text: string) => {
+    setQuery(text);
+    debouncedSearch(text);
+  };
+
+  // Cleanup
+  useEffect(() => {
+    return () => debouncedSearch.cancel();
+  }, [debouncedSearch]);
+
+  return <TextInput value={query} onChangeText={handleChange} />;
 };
 ```
 
 ---
 
-## Forbidden State Management Practices
+## Memory Management
 
-1. **NEVER** store derived state (calculate from source state)
-2. **NEVER** duplicate state across contexts
-3. **NEVER** use global state for local UI state
-4. **NEVER** forget cleanup in useEffect
-5. **NEVER** mutate state directly
-6. **NEVER** create context without custom hook
-7. **NEVER** use useState for server data (use React Query)
-8. **NEVER** pass unstable references to context value
+### Cleanup Effects
+
+```typescript
+// ALWAYS cleanup subscriptions and timers
+useEffect(() => {
+  const subscription = eventEmitter.addListener('event', handler);
+
+  return () => {
+    subscription.remove(); // Cleanup
+  };
+}, []);
+
+useEffect(() => {
+  const timer = setTimeout(() => {
+    // Do something
+  }, 1000);
+
+  return () => {
+    clearTimeout(timer); // Cleanup
+  };
+}, []);
+```
+
+### Avoid Memory Leaks
+
+```typescript
+// WRONG: Setting state after unmount
+useEffect(() => {
+  fetchData().then((data) => {
+    setData(data); // May leak if component unmounted
+  });
+}, []);
+
+// CORRECT: Check if mounted
+useEffect(() => {
+  let isMounted = true;
+
+  fetchData().then((data) => {
+    if (isMounted) {
+      setData(data);
+    }
+  });
+
+  return () => {
+    isMounted = false;
+  };
+}, []);
+
+// CORRECT: Use AbortController
+useEffect(() => {
+  const controller = new AbortController();
+
+  fetch(url, { signal: controller.signal })
+    .then((res) => res.json())
+    .then(setData)
+    .catch((err) => {
+      if (err.name !== 'AbortError') {
+        setError(err);
+      }
+    });
+
+  return () => controller.abort();
+}, [url]);
+```
+
+---
+
+## Bundle Size Optimization
+
+### Tree Shaking
+
+```typescript
+// CORRECT: Named imports for tree shaking
+import { map, filter } from 'lodash-es';
+import { format } from 'date-fns';
+
+// WRONG: Full library imports
+import _ from 'lodash';
+import * as dateFns from 'date-fns';
+```
+
+### Lazy Loading
+
+```typescript
+// Lazy load heavy screens
+const HeavyScreen = React.lazy(() => import('./HeavyScreen'));
+
+// With Suspense
+<Suspense fallback={<LoadingScreen />}>
+  <HeavyScreen />
+</Suspense>
+```
+
+---
+
+## Profiling Tools
+
+### React DevTools Profiler
+
+```typescript
+// Wrap components to profile
+import { Profiler } from 'react';
+
+const onRenderCallback = (
+  id: string,
+  phase: 'mount' | 'update',
+  actualDuration: number,
+) => {
+  console.log(`${id} ${phase}: ${actualDuration}ms`);
+};
+
+<Profiler id="MyComponent" onRender={onRenderCallback}>
+  <MyComponent />
+</Profiler>
+```
+
+---
+
+## Forbidden Performance Practices
+
+1. **NEVER** create inline functions in render for callbacks
+2. **NEVER** use index as key for dynamic lists
+3. **NEVER** nest VirtualizedLists (FlatList inside FlatList)
+4. **NEVER** omit useNativeDriver for supported animations
+5. **NEVER** forget to cleanup effects (subscriptions, timers)
+6. **NEVER** import full libraries when tree-shaking is available
+7. **NEVER** set state without checking mount status in async operations
+8. **NEVER** skip getItemLayout for FlatLists with fixed item heights
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
