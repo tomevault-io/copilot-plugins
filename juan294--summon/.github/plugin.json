@@ -1,0 +1,9 @@
+{
+  "name": "juan294--summon",
+  "displayName": "summon",
+  "description": "CLI tool that launches configurable multi-pane Ghostty workspaces with one command using native splits \u2014 no tmux needed. Features an interactive setup wizard, project registration, and layout presets.",
+  "version": "1.0.0",
+  "author": "juan294",
+  "homepage": "https://github.com/juan294/summon",
+  "skills": []
+}
