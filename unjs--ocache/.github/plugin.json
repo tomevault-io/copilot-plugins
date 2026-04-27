@@ -1,0 +1,9 @@
+{
+  "name": "unjs--ocache",
+  "displayName": "ocache",
+  "description": "Standalone caching utilities with TTL, SWR, and HTTP response caching",
+  "version": "1.0.0",
+  "author": "unjs",
+  "homepage": "https://github.com/unjs/ocache",
+  "skills": []
+}
