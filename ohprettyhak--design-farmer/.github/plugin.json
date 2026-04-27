@@ -1,0 +1,9 @@
+{
+  "name": "ohprettyhak--design-farmer",
+  "displayName": "design-farmer",
+  "description": "Agent skill that turns design system quality from \"best effort\" into a repeatable engineering workflow.",
+  "version": "1.0.0",
+  "author": "ohprettyhak",
+  "homepage": "https://github.com/ohprettyhak/design-farmer",
+  "skills": []
+}
