@@ -1,0 +1,82 @@
+{
+  "name": "mjunaidca--robolearn",
+  "displayName": "robolearn",
+  "description": "Book + RAG ChatAgent + SSO + Compunding RI Intelligence built in 2 days. Robolearn is what AI-driven development with Spec-Driven methodology and Reusable Intelligence makes possible.",
+  "version": "1.0.0",
+  "author": "mjunaidca",
+  "homepage": "https://github.com/mjunaidca/robolearn",
+  "skills": [
+    {
+      "name": "assessment-builder",
+      "description": ""
+    },
+    {
+      "name": "chatkit-integration",
+      "description": ""
+    },
+    {
+      "name": "concept-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "docusaurus-conventions",
+      "description": ""
+    },
+    {
+      "name": "docusaurus-deployer",
+      "description": ""
+    },
+    {
+      "name": "gazebo-world-builder",
+      "description": ""
+    },
+    {
+      "name": "image-generator",
+      "description": ""
+    },
+    {
+      "name": "learning-objectives",
+      "description": ""
+    },
+    {
+      "name": "lesson-generator",
+      "description": ""
+    },
+    {
+      "name": "notebooklm-slides",
+      "description": ""
+    },
+    {
+      "name": "pyodide-exercise",
+      "description": ""
+    },
+    {
+      "name": "quiz-generator",
+      "description": ""
+    },
+    {
+      "name": "ros2-custom-interfaces",
+      "description": ""
+    },
+    {
+      "name": "ros2-launch-system",
+      "description": ""
+    },
+    {
+      "name": "ros2-publisher-subscriber",
+      "description": ""
+    },
+    {
+      "name": "ros2-service-pattern",
+      "description": ""
+    },
+    {
+      "name": "summary-generator",
+      "description": ""
+    },
+    {
+      "name": "visual-asset-workflow",
+      "description": ""
+    }
+  ]
+}
