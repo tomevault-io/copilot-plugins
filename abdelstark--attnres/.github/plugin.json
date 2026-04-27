@@ -1,0 +1,9 @@
+{
+  "name": "abdelstark--attnres",
+  "displayName": "attnres",
+  "description": "Rust implementation of Attention Residuals from MoonshotAI/Kimi",
+  "version": "1.0.0",
+  "author": "AbdelStark",
+  "homepage": "https://github.com/AbdelStark/attnres",
+  "skills": []
+}
