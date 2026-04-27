@@ -1,0 +1,278 @@
+## netraven
+
+> This document outlines the complete architecture for NetRaven, a network device configuration backup system designed for deployment in customer environments. NetRaven retrieves and stores device configurations for auditing, historical tracking, and operational assurance. The system prioritizes simplicity, testability, and maintainability, while still supporting targeted concurrency for tasks like device polling.
+
+## NetRaven Architecture
+
+### Executive Summary
+
+This document outlines the complete architecture for NetRaven, a network device configuration backup system designed for deployment in customer environments. NetRaven retrieves and stores device configurations for auditing, historical tracking, and operational assurance. The system prioritizes simplicity, testability, and maintainability, while still supporting targeted concurrency for tasks like device polling.
+
+### System Overview
+
+#### System Diagram (ASCII)
+```
+                        ┌────────────────────┐
+                        │     Frontend UI     │
+                        │    (Vue 3 + REST)   │
+                        └────────▲───────────┘
+                                 │ REST API
+                                 ▼
+                        ┌────────────────────┐
+                        │    API Service      │
+                        │     (FastAPI)       │
+                        └────────▲───────────┘
+                                 │
+             ┌──────────────────┼────────────────────┐
+             │                  │                    │
+      Device │          Job CRUD│           User/Auth│
+     Records │                  ▼                    ▼
+         ┌───┴────┐     ┌──────────────┐      ┌──────────────┐
+         │Devices │     │   Jobs Table │      │   Users/Roles│
+         └───┬────┘     └──────┬───────┘      └────┬─────────┘
+             │                │                    │
+             ▼                ▼                    ▼
+      ┌────────────┐  ┌──────────────┐      ┌──────────────┐
+      │ PostgreSQL │  │  Redis Queue │      │ JWT Security │
+      └────┬───────┘  └──────┬───────┘      └──────────────┘
+           │                 │
+           ▼                 ▼
+   ┌─────────────────────────────────┐
+   │        Job Scheduler            │
+   │    (RQ + RQ Scheduler)          │
+   └────────────┬───────────────────┘
+                ▼
+       ┌──────────────────────────────┐
+       │ Dedicated Worker Container   │
+       │ (RQ Worker, Python, Docker) │
+       └────────┬────────────────────┘
+                ▼
+       ┌───────────────────┐
+       │  Device Comm Job  │
+       │   (Netmiko-based) │
+       └────────┬──────────┘
+                ▼
+        ┌─────────────┐
+        │ Network Gear│
+        └─────────────┘
+                │
+                ▼
+        ┌───────────────────────────┐
+        │ Git Repo (Config Storage) │
+        └───────────────────────────┘
+```
+
+
+NetRaven supports:
+
+1. Retrieval of running configuration and identifying information from network devices (primarily via SSH).
+2. Storing configuration snapshots in a Git repository for version control.
+3. Job scheduling for one-time or recurring configuration backups.
+4. REST API access for external integrations.
+5. Role-based web UI for inventory management and job monitoring.
+
+The system is installed locally using Python-based services with PostgreSQL and Redis (required for RQ and RQ Scheduler). The directory structure and service boundaries support future containerization but do not require it.
+
+### Core Architectural Principles
+
+- **Local Redis Required**: Redis is a core local dependency for job queuing and scheduling. All job execution flows rely on it via RQ and RQ Scheduler.
+- **Synchronous-First Design**: Synchronous services simplify development and debugging.
+- **Targeted Concurrency**: Uses threads only where concurrency offers clear benefits (e.g., connecting to multiple devices).
+- **Modular Design**: Isolated services for API, job scheduling, communication, and logging.
+- **Detailed Logging**: Per-device and per-job logs with redacted and raw entries.
+- **Secure by Default**: JWT authentication and role-based access controls.
+
+### Core Services
+
+#### 1. API Service (FastAPI - Sync Mode)
+
+- Exposes REST API endpoints for all system functions.
+- JWT-based authentication with role enforcement (admin/user).
+- CRUD for:
+  - Devices
+  - Device groups (tags)
+  - Jobs
+  - Users and roles
+- Status endpoints for job monitoring.
+
+#### 2. Device Communication Worker (now Dedicated Container)
+
+- Executes device jobs triggered by scheduler or on demand.
+- Runs as a dedicated Docker container (`worker` service) using RQ Worker.
+- Connects to network devices using **Netmiko**.
+- Retrieves `show running-config` and basic facts (hostname, serial number).
+- Uses `ThreadPoolExecutor` for concurrent device access (default: 5).
+- Reports logs and results to database.
+- Picks up jobs from the Redis queue and updates job status in the database.
+
+#### 2a. System Jobs (e.g., Reachability)
+- System jobs are created automatically during system installation (e.g., reachability job).
+- System jobs are associated with a default tag and credentials.
+- System jobs are not user-deletable or editable.
+- The worker processes system jobs just like regular jobs, but with special handling for job type and status.
+- If no devices are associated with the job's tags, the job is marked as `COMPLETED_NO_DEVICES`.
+
+#### 3. Job Scheduler
+
+- Based on **RQ + RQ Scheduler**.
+- Queues and schedules jobs:
+  - One-time
+  - Recurring (daily, weekly, monthly)
+  - With start/end window support
+- Triggers device communication jobs in the background.
+
+#### 4. PostgreSQL Database
+
+- Stores all persistent data:
+  - Devices, jobs, logs
+  - Credentials (encrypted)
+  - User accounts and roles
+  - System configuration
+- Managed with **SQLAlchemy (sync)** + **Alembic**.
+
+#### 5. Frontend UI (Vue 3 + Vite)
+
+- Built with Vue 3 using Vite, Pinia, and TailwindCSS for a responsive, component-based user experience.
+- Integrates via REST API.
+- Supports:
+  - Device inventory views
+  - Job creation and monitoring
+  - User settings and preferences
+  - Git-based configuration diff viewer
+  - Real-time job progress per device
+  - Log inspection
+
+#### Logging & Log Endpoints
+
+NetRaven's unified logging system provides a single, extensible, and high-performance log table in PostgreSQL to store all log events (job, connection, session, system, etc.) with rich metadata and robust filtering support. This system is designed for auditability, operational insight, and future extensibility.
+
+## 2. Log Table Schema
+
+**Table:** `logs`
+
+| Column      | Type                | Description                                      |
+|-------------|---------------------|--------------------------------------------------|
+| id          | SERIAL PRIMARY KEY  | Unique log entry ID                              |
+| timestamp   | TIMESTAMPTZ        | Log event time (UTC, indexed)                    |
+| log_type    | VARCHAR(32)        | Log type: 'job', 'connection', 'session', etc.   |
+| level       | VARCHAR(16)        | Log level: 'info', 'warning', 'error', 'debug'   |
+| job_id      | INTEGER (nullable) | FK to jobs.id (optional, indexed)                |
+| device_id   | INTEGER (nullable) | FK to devices.id (optional, indexed)             |
+| source      | VARCHAR(64)        | Module/service name (e.g., 'worker.executor')    |
+| message     | TEXT               | Log message                                      |
+| meta        | JSONB (nullable)   | Arbitrary extra fields (structured metadata)      |
+
+**Indexes:**
+- `idx_logs_job_id` on `job_id`
+- `idx_logs_device_id` on `device_id`
+- `idx_logs_log_type` on `log_type`
+- `idx_logs_level` on `level`
+- `idx_logs_timestamp` on `timestamp`
+
+**Notes:**
+- No `user_id` or `job_type_id` fields in the current schema.
+- Designed for future partitioning by date or log_type if needed.
+
+---
+
+## 3. API Endpoints (Built)
+
+- `GET /logs/` — List logs with filters (job_id, device_id, log_type, level, source, time range, pagination)
+- `GET /logs/{log_id}` — Retrieve a single log entry by ID
+- `GET /logs/types` — List available log types
+- `GET /logs/levels` — List available log levels
+- `GET /logs/stats` — Get log statistics (total, by type, by level, last log time)
+
+**Filtering Parameters:**
+- `job_id`, `device_id`, `log_type`, `level`, `source`, `start_time`, `end_time`, `page`, `size`
+
+---
+
+### Device Communication
+
+- Primary protocol: **SSH via Netmiko**
+- Vendor extensibility via Netmiko platform mapping
+- Device grouping (tags) determines credential selection
+- Detailed logs include:
+  - Start/end time
+  - Auth failures
+  - Unreachable device errors
+  - Output with sensitive line redaction
+
+### Authentication & Authorization
+
+- JWT-based access for both API and UI users
+- Admin and user roles
+- Users can be assigned visibility to specific device groups
+
+### Configuration Management
+
+- Hierarchical loading:
+  1. Environment variables
+  2. Admin-set values from DB
+  3. YAML files in `/netraven/config/`
+- All components read configuration via a common loader
+
+### Git Integration
+
+NetRaven uses a local Git repository as the versioned storage backend for device configuration files. This approach offers simplicity, traceability, and built-in change tracking with minimal infrastructure overhead.
+
+- Each configuration snapshot is saved as a text file and committed to a local Git repository.
+- Commit messages include structured metadata such as job ID, device hostname, and timestamp.
+- Git provides built-in versioning, rollback, and readable diffs to show changes between snapshots.
+- The Git repository is stored in a dedicated project folder (e.g., `/data/git-repo/`) and initialized on first use.
+- GitPython is used to interface with the repository programmatically.
+
+This design avoids the need for an external version control system while ensuring historical tracking and auditability of all config changes. It also complements the relational database, which stores job metadata and connection logs.
+
+### Deployment
+
+#### Required Services:
+- **PostgreSQL 14**: For all persistent storage
+- **Redis 7**: Required for RQ job queuing and RQ Scheduler
+
+These are installed locally via setup scripts. Containerization is optional and not used by default.
+
+
+NetRaven uses a monorepo structure and is designed for local installation using Python with [Poetry](mdc:https:/python-poetry.org) for dependency management. All services share a unified environment and can be run individually using developer scripts.
+
+- PostgreSQL 14 and Redis 7 are installed locally using scripts provided in the `/setup/` directory. Containerization is not required and not used by default
+- Developer runner scripts for DB schema creation, job execution, and job debugging live in `/setup/`
+- Each service lives under the `netraven/` namespace and is importable as `netraven.api`, `netraven.worker`, etc.
+- The root `pyproject.toml` file governs dependencies across the system
+
+```
+/netraven/
+├── api/          # FastAPI service
+├── worker/       # Device command execution logic
+├── scheduler/    # RQ-based job scheduler
+├── db/           # SQLAlchemy models and session mgmt
+├── config/       # YAML and env-based config
+├── git/          # Git commit logic
+├── frontend/     # React app (built separately)
+├── setup/        # Developer runners and bootstrap scripts
+├── tests/        # Tests organized by feature
+├── pyproject.toml
+└── poetry.lock
+```
+
+### Testing Strategy
+
+- **Unit Tests**: Business logic, validation, utilities
+- **Integration Tests**: DB transactions, API/worker behavior
+- **E2E Tests**: Simulate full workflows from API → device → Git → UI
+- Test database with Alembic-migrated schemas
+- Threaded jobs tested for isolation, timing, logging
+
+---
+
+#### Job Lifecycle & Orchestration (Updated)
+- Jobs are created via the API or automatically (system jobs).
+- Jobs are enqueued in Redis and picked up by the dedicated worker container.
+- The worker updates job status (`QUEUED` → `RUNNING` → `COMPLETED`/`FAILED`/`COMPLETED_NO_DEVICES`).
+- Job logs and connection logs are written to the database for UI consumption.
+- System jobs are protected from deletion and have special status handling in the UI and backend.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/ccieblogger) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
