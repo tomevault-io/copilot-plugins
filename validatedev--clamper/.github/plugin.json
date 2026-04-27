@@ -1,0 +1,9 @@
+{
+  "name": "validatedev--clamper",
+  "displayName": "Clamper",
+  "description": "The app that \"clamps\" your precious menu bar.",
+  "version": "1.0.0",
+  "author": "validatedev",
+  "homepage": "https://github.com/validatedev/Clamper",
+  "skills": []
+}
