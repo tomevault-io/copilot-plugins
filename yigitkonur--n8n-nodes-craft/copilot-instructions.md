@@ -1,205 +1,152 @@
-## n8n-nodes-craft
+## credentials
 
-> n8n node development rules - auto-applies when editing node files
+> n8n credential development rules - auto-applies when editing credential files
 
 
-# n8n Node Development Rules
+# n8n Credential Development Rules
 
-## Technology Stack
+## Reference Files
 
-| Component | Version | Notes |
-|-----------|---------|-------|
-| Runtime | Node.js v22+ | LTS required |
-| Language | TypeScript 5.x | strict mode enabled |
-| Framework | n8n Node SDK | INodeType, INodeProperties |
-| CLI | @n8n/node-cli | dev, build, lint |
+| Auth Type | File | Doc |
+|-----------|------|-----|
+| API Key | `credentials/GithubIssuesApi.credentials.ts` | `docs/08-api-key-credentials.md` |
+| OAuth2 | `credentials/GithubIssuesOAuth2Api.credentials.ts` | `docs/09-oauth2-credentials.md` |
 
 ---
 
-## Architecture Decision
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ Is it a REST API with standard CRUD operations?             │
-│   YES → DECLARATIVE style                                   │
-│   └─ Reference: nodes/GithubIssues/GithubIssues.node.ts     │
-│   └─ Doc: docs/12-declarative-routing.md                    │
-├─────────────────────────────────────────────────────────────┤
-│ Does it have an official SDK/client library?                │
-│   YES → PROGRAMMATIC style                                  │
-│   └─ Reference: nodes/Example/Example.node.ts               │
-│   └─ Doc: docs/13-custom-execute-methods.md                 │
-├─────────────────────────────────────────────────────────────┤
-│ Is it GraphQL, WebSocket, or non-REST?                      │
-│   YES → PROGRAMMATIC style                                  │
-├─────────────────────────────────────────────────────────────┤
-│ Complex authentication (request signing, multi-step)?       │
-│   YES → PROGRAMMATIC style                                  │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## File Structure (Declarative Multi-Resource)
-
-```
-nodes/MyService/
-├── MyService.node.ts              # Main entry with requestDefaults
-├── MyService.node.json            # Metadata
-├── myservice.svg                  # Icon (SVG)
-├── resources/                     # One folder per resource
-│   ├── user/
-│   │   ├── index.ts              # Resource description + operations
-│   │   ├── create.ts             # Create operation fields
-│   │   ├── get.ts                # Get operation fields
-│   │   ├── getAll.ts             # List with pagination
-│   │   ├── update.ts             # Update operation fields
-│   │   └── delete.ts             # Delete operation fields
-│   └── project/
-│       └── [same structure]
-├── listSearch/                    # Dynamic dropdown methods
-│   ├── getUsers.ts
-│   └── getProjects.ts
-└── shared/
-    ├── descriptions.ts            # Reusable UI (resourceLocator)
-    ├── transport.ts               # API request wrapper
-    └── utils.ts                   # Helper functions
-```
-
----
-
-## Declarative Routing Pattern
+## API Key Credential Pattern
 
 ```typescript
-// Main node: nodes/MyService/MyService.node.ts
-import type { INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { userDescription } from './resources/user';
+import type { 
+  ICredentialType, 
+  INodeProperties, 
+  IAuthenticateGeneric 
+} from 'n8n-workflow';
 
-export class MyService implements INodeType {
-  description: INodeTypeDescription = {
-    displayName: 'My Service',
-    name: 'myService',
-    icon: 'file:myservice.svg',
-    group: ['transform'],
-    version: 1,
-    subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-    description: 'Interact with My Service API',
-    defaults: { name: 'My Service' },
-    inputs: ['main'],
-    outputs: ['main'],
-    credentials: [{ name: 'myServiceApi', required: true }],
-    requestDefaults: {
-      baseURL: 'https://api.myservice.com/v1',
-      headers: { 'Content-Type': 'application/json' },
+export class MyServiceApi implements ICredentialType {
+  name = 'myServiceApi';
+  displayName = 'My Service API';
+  documentationUrl = 'https://docs.myservice.com/api-keys';
+  
+  properties: INodeProperties[] = [
+    {
+      displayName: 'API Key',
+      name: 'apiKey',
+      type: 'string',
+      typeOptions: { password: true },
+      default: '',
+      required: true,
     },
-    properties: [
-      {
-        displayName: 'Resource',
-        name: 'resource',
-        type: 'options',
-        noDataExpression: true,
-        options: [{ name: 'User', value: 'user' }],
-        default: 'user',
+    {
+      displayName: 'Base URL',
+      name: 'baseUrl',
+      type: 'string',
+      default: 'https://api.myservice.com',
+      description: 'Override for self-hosted instances',
+    },
+  ];
+
+  authenticate: IAuthenticateGeneric = {
+    type: 'generic',
+    properties: {
+      headers: {
+        Authorization: '=Bearer {{$credentials.apiKey}}',
       },
-      ...userDescription,
-    ],
+    },
   };
 }
 ```
 
-```typescript
-// Resource: resources/user/create.ts
-import type { INodeProperties } from 'n8n-workflow';
-
-export const userCreateFields: INodeProperties[] = [
-  {
-    displayName: 'Name',
-    name: 'name',
-    type: 'string',
-    required: true,
-    default: '',
-    displayOptions: { show: { resource: ['user'], operation: ['create'] } },
-    routing: { send: { type: 'body', property: 'name' } },
-  },
-];
-```
-
 ---
 
-## Programmatic Execute Pattern
+## OAuth2 Credential Pattern
 
 ```typescript
-async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-  // 1. Get credentials ONCE (before the loop)
-  const credentials = await this.getCredentials('myServiceApi');
-  const client = new SDK(credentials.apiKey);
+import type { ICredentialType, INodeProperties } from 'n8n-workflow';
 
-  // 2. Process items
-  const items = this.getInputData();
-  const returnData: INodeExecutionData[] = [];
+export class MyServiceOAuth2Api implements ICredentialType {
+  name = 'myServiceOAuth2Api';
+  displayName = 'My Service OAuth2 API';
+  extends = ['oAuth2Api'];
+  documentationUrl = 'https://docs.myservice.com/oauth2';
 
-  for (let i = 0; i < items.length; i++) {
-    try {
-      const result = await client.operation();
-      returnData.push({ json: result, pairedItem: { item: i } });
-    } catch (error) {
-      if (this.continueOnFail()) {
-        returnData.push({ json: { error: error.message }, pairedItem: { item: i } });
-        continue;
-      }
-      throw new NodeOperationError(this.getNode(), error, { itemIndex: i });
-    }
-  }
-  return [returnData];
+  properties: INodeProperties[] = [
+    {
+      displayName: 'Grant Type',
+      name: 'grantType',
+      type: 'hidden',
+      default: 'authorizationCode',
+    },
+    {
+      displayName: 'Authorization URL',
+      name: 'authUrl',
+      type: 'hidden',
+      default: 'https://myservice.com/oauth/authorize',
+    },
+    {
+      displayName: 'Access Token URL',
+      name: 'accessTokenUrl',
+      type: 'hidden',
+      default: 'https://myservice.com/oauth/token',
+    },
+    {
+      displayName: 'Scope',
+      name: 'scope',
+      type: 'hidden',
+      default: 'read write',
+    },
+    {
+      displayName: 'Authentication',
+      name: 'authentication',
+      type: 'hidden',
+      default: 'header',
+    },
+  ];
 }
 ```
 
 ---
 
-## Routing Types
+## Authentication Methods
 
-| Type | Purpose | Example |
-|------|---------|---------|
-| `routing.send.type: 'body'` | Request body | `{ send: { type: 'body', property: 'name' } }` |
-| `routing.send.type: 'query'` | URL parameter | `{ send: { type: 'query', property: 'limit' } }` |
-| `routing.send.type: 'header'` | HTTP header | `{ send: { type: 'header', property: 'X-Custom' } }` |
-| `routing.output.maxResults` | Limit results | `{ output: { maxResults: '={{$value}}' } }` |
-
----
-
-## Common Mistakes
-
-| ❌ DON'T | ✅ DO |
-|----------|-------|
-| Init SDK per item | Init SDK ONCE before loop |
-| Forget pairedItem | Always include `pairedItem: { item: i }` |
-| Hardcode credentials | Use `this.getCredentials()` |
-| Skip error handling | Use `this.continueOnFail()` |
-| Use `any` types | Define TypeScript interfaces |
+| Method | Property | Example |
+|--------|----------|---------|
+| Bearer Token | `headers.Authorization` | `'=Bearer {{$credentials.apiKey}}'` |
+| API Key Header | `headers.X-API-Key` | `'={{$credentials.apiKey}}'` |
+| Basic Auth | `headers.Authorization` | `'=Basic {{$credentials.username}}:{{$credentials.password}}'` |
+| Query Parameter | `qs.api_key` | `'={{$credentials.apiKey}}'` |
 
 ---
 
-## Commands
+## Credential Testing
 
-```bash
-pnpm dev      # Development with hot reload
-pnpm build    # Compile TypeScript
-pnpm lint:fix # Auto-fix lint issues
+```typescript
+export class MyServiceApi implements ICredentialType {
+  // ... properties ...
+
+  test: ICredentialTestRequest = {
+    request: {
+      baseURL: '={{$credentials.baseUrl}}',
+      url: '/me',
+    },
+  };
+}
 ```
 
 ---
 
-## Package.json Registration
+## Registration
 
 ```json
 {
   "n8n": {
-    "nodes": ["dist/nodes/MyService/MyService.node.js"],
-    "credentials": ["dist/credentials/MyServiceApi.credentials.js"]
+    "credentials": [
+      "dist/credentials/MyServiceApi.credentials.js"
+    ]
   }
 }
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/yigitkonur) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [yigitkonur/n8n-nodes-craft](https://github.com/yigitkonur/n8n-nodes-craft) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-26 -->
