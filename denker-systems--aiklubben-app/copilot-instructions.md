@@ -1,418 +1,432 @@
-## 08-code-quality-rules
+## 09-state-management-rules
 
-> - **Mode**: Always On
+> handleSubmit,
 
-# Code Quality Rules - TypeScript & React Native
+# State Management Rules - React Context & Hooks
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: Code quality standards and TypeScript best practices
+- **Description**: State management patterns for React Native apps
 
 ---
 
-## TypeScript Configuration
+## State Management Hierarchy
 
-### Strict Mode Requirements
+### Choose the Right Level
 
-```json
-// tsconfig.json - REQUIRED settings
-{
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "useUnknownInCatchVariables": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  }
-}
 ```
+1. Local State (useState)
+   - UI state: open/closed, selected, hover
+   - Form inputs
+   - Temporary values
 
----
+2. Lifted State (props)
+   - Shared between 2-3 sibling components
+   - Parent-child communication
 
-## Type Definitions
+3. Context (useContext)
+   - Theme, language, auth state
+   - User preferences
+   - App-wide settings
 
-### NEVER Use `any`
+4. Server State (React Query)
+   - API data
+   - Cached responses
+   - Pagination state
 
-```typescript
-// WRONG: Using any
-const processData = (data: any) => {};
-const items: any[] = [];
-
-// CORRECT: Use specific types
-const processData = (data: UserData) => {};
-const items: User[] = [];
-
-// CORRECT: Use unknown for truly unknown data
-const parseJSON = (json: string): unknown => JSON.parse(json);
-
-// CORRECT: Use generics for flexible types
-const processArray = <T>(items: T[]): T[] => items;
-```
-
-### Type vs Interface
-
-```typescript
-// USE interface for:
-// - Object shapes that may be extended
-// - Component props
-// - API responses
-
-interface UserProps {
-  name: string;
-  email: string;
-}
-
-interface AdminProps extends UserProps {
-  permissions: string[];
-}
-
-// USE type for:
-// - Union types
-// - Intersection types
-// - Mapped types
-// - Utility types
-
-type Status = 'idle' | 'loading' | 'success' | 'error';
-type Nullable<T> = T | null;
-type UserOrAdmin = User | Admin;
-```
-
-### Type Assertions
-
-```typescript
-// AVOID type assertions when possible
-// WRONG: Unsafe assertion
-const user = data as User;
-
-// CORRECT: Type guard
-const isUser = (data: unknown): data is User => {
-  return typeof data === 'object' && data !== null && 'name' in data && 'email' in data;
-};
-
-if (isUser(data)) {
-  // data is now typed as User
-  console.log(data.name);
-}
-
-// ACCEPTABLE: Assertion with validation
-const element = document.getElementById('root') as HTMLElement | null;
-if (!element) throw new Error('Root element not found');
+5. Global State (Zustand - if needed)
+   - Complex cross-feature state
+   - Real-time updates
 ```
 
 ---
 
-## Null Safety
+## useState Patterns
 
-### Defensive Null Checks
+### Basic useState
 
 ```typescript
-// ALWAYS check for null/undefined before use
-// WRONG: Unsafe access
-const name = user.profile.name;
+// Simple state
+const [count, setCount] = useState(0);
+const [name, setName] = useState('');
+const [isOpen, setIsOpen] = useState(false);
 
-// CORRECT: Optional chaining
-const name = user?.profile?.name;
+// State with type annotation
+const [user, setUser] = useState<User | null>(null);
+const [items, setItems] = useState<Item[]>([]);
 
-// CORRECT: Nullish coalescing for defaults
-const name = user?.profile?.name ?? 'Unknown';
-
-// CORRECT: Type narrowing
-if (user && user.profile) {
-  const name = user.profile.name;
-}
+// Lazy initial state (for expensive computations)
+const [data, setData] = useState(() => computeExpensiveInitialValue());
 ```
 
-### Non-Null Assertion Usage
+### State Update Patterns
 
 ```typescript
-// AVOID non-null assertion (!) when possible
-// WRONG: Hiding potential null issues
-const value = possiblyNull!.property;
+// CORRECT: Functional updates for state that depends on previous value
+setCount((prev) => prev + 1);
+setItems((prev) => [...prev, newItem]);
+setUser((prev) => (prev ? { ...prev, name: newName } : null));
 
-// CORRECT: Explicit check
-if (possiblyNull) {
-  const value = possiblyNull.property;
+// WRONG: Direct reference (may cause stale state)
+setCount(count + 1);
+setItems([...items, newItem]);
+```
+
+### Complex State with useReducer
+
+```typescript
+// Use useReducer for complex state logic
+interface FormState {
+  values: Record<string, string>;
+  errors: Record<string, string>;
+  isSubmitting: boolean;
+  isValid: boolean;
 }
 
-// ACCEPTABLE: After explicit null check
-const items = data?.items;
-if (!items) return null;
-const firstItem = items[0]; // Safe after check
+type FormAction =
+  | { type: 'SET_FIELD'; field: string; value: string }
+  | { type: 'SET_ERROR'; field: string; error: string }
+  | { type: 'CLEAR_ERRORS' }
+  | { type: 'SUBMIT_START' }
+  | { type: 'SUBMIT_END' };
+
+const formReducer = (state: FormState, action: FormAction): FormState => {
+  switch (action.type) {
+    case 'SET_FIELD':
+      return {
+        ...state,
+        values: { ...state.values, [action.field]: action.value },
+        errors: { ...state.errors, [action.field]: '' },
+      };
+    case 'SET_ERROR':
+      return {
+        ...state,
+        errors: { ...state.errors, [action.field]: action.error },
+        isValid: false,
+      };
+    case 'CLEAR_ERRORS':
+      return { ...state, errors: {}, isValid: true };
+    case 'SUBMIT_START':
+      return { ...state, isSubmitting: true };
+    case 'SUBMIT_END':
+      return { ...state, isSubmitting: false };
+    default:
+      return state;
+  }
+};
+
+// Usage
+const [state, dispatch] = useReducer(formReducer, initialState);
+dispatch({ type: 'SET_FIELD', field: 'email', value: 'test@example.com' });
 ```
 
 ---
 
-## Function Patterns
+## Context Pattern
 
-### Early Returns
-
-```typescript
-// CORRECT: Early returns reduce nesting
-const processUser = (user: User | null): Result => {
-  if (!user) {
-    return { error: 'No user provided' };
-  }
-
-  if (!user.isActive) {
-    return { error: 'User is not active' };
-  }
-
-  if (!user.hasPermission) {
-    return { error: 'User lacks permission' };
-  }
-
-  // Main logic with all checks passed
-  return { data: process(user) };
-};
-
-// WRONG: Deep nesting
-const processUserBad = (user: User | null): Result => {
-  if (user) {
-    if (user.isActive) {
-      if (user.hasPermission) {
-        return { data: process(user) };
-      } else {
-        return { error: 'User lacks permission' };
-      }
-    } else {
-      return { error: 'User is not active' };
-    }
-  } else {
-    return { error: 'No user provided' };
-  }
-};
-```
-
-### Function Parameter Limits
+### Context Structure
 
 ```typescript
-// WRONG: Too many parameters
-const createUser = (
-  name: string,
-  email: string,
-  age: number,
-  role: string,
-  department: string,
-  startDate: Date,
-) => {};
+// contexts/AuthContext.tsx
 
-// CORRECT: Use options object for 3+ parameters
-interface CreateUserOptions {
-  name: string;
-  email: string;
-  age?: number;
-  role?: string;
-  department?: string;
-  startDate?: Date;
+// 1. Define types
+interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
 }
 
-const createUser = (options: CreateUserOptions) => {};
-```
+interface AuthContextValue extends AuthState {
+  login: (credentials: Credentials) => Promise<void>;
+  logout: () => Promise<void>;
+  refreshToken: () => Promise<void>;
+}
 
----
+// 2. Create context with undefined default
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-## Async/Await Patterns
+// 3. Create provider component
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [state, setState] = useState<AuthState>({
+    user: null,
+    isAuthenticated: false,
+    isLoading: true,
+  });
 
-### Error Handling
-
-```typescript
-// CORRECT: Explicit try-catch with typed errors
-const fetchUser = async (id: string): Promise<User | null> => {
-  try {
-    const response = await api.get(`/users/${id}`);
-    return response.data;
-  } catch (error) {
-    if (error instanceof ApiError) {
-      console.error('API Error:', error.message);
-    } else if (error instanceof Error) {
-      console.error('Error:', error.message);
-    }
-    return null;
-  }
-};
-
-// CORRECT: Result type pattern
-type Result<T, E = Error> = { success: true; data: T } | { success: false; error: E };
-
-const fetchUserResult = async (id: string): Promise<Result<User>> => {
-  try {
-    const response = await api.get(`/users/${id}`);
-    return { success: true, data: response.data };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error : new Error('Unknown error'),
-    };
-  }
-};
-```
-
-### Avoid Floating Promises
-
-```typescript
-// WRONG: Floating promise
-useEffect(() => {
-  fetchData(); // Promise not handled
-}, []);
-
-// CORRECT: Handle promise
-useEffect(() => {
-  const load = async () => {
+  const login = useCallback(async (credentials: Credentials) => {
+    setState(prev => ({ ...prev, isLoading: true }));
     try {
-      await fetchData();
+      const user = await authService.login(credentials);
+      setState({ user, isAuthenticated: true, isLoading: false });
     } catch (error) {
-      console.error(error);
+      setState(prev => ({ ...prev, isLoading: false }));
+      throw error;
     }
-  };
-  load();
-}, []);
+  }, []);
 
-// CORRECT: Using .then/.catch
-useEffect(() => {
-  fetchData().then(setData).catch(console.error);
-}, []);
-```
+  const logout = useCallback(async () => {
+    await authService.logout();
+    setState({ user: null, isAuthenticated: false, isLoading: false });
+  }, []);
 
----
+  const refreshToken = useCallback(async () => {
+    try {
+      const user = await authService.refreshToken();
+      setState(prev => ({ ...prev, user }));
+    } catch {
+      await logout();
+    }
+  }, [logout]);
 
-## Import Organization
+  const value = useMemo(() => ({
+    ...state,
+    login,
+    logout,
+    refreshToken,
+  }), [state, login, logout, refreshToken]);
 
-### Import Order (Enforced)
-
-```typescript
-// 1. React imports
-import React, { useState, useEffect, useCallback } from 'react';
-
-// 2. React Native imports
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-
-// 3. Third-party libraries (alphabetical)
-import { MotiView } from 'moti';
-import * as Haptics from 'expo-haptics';
-
-// 4. Navigation
-import { useNavigation } from '@react-navigation/native';
-
-// 5. Local components (absolute imports)
-import { Button, Card, Text as UIText } from '@/components/ui';
-import { ScreenLayout } from '@/components/layout';
-
-// 6. Hooks
-import { useAuth } from '@/hooks/useAuth';
-
-// 7. Utils/helpers
-import { formatDate } from '@/lib/utils';
-
-// 8. Types
-import type { User, Course } from '@/types';
-
-// 9. Constants
-import { COLORS, SPACING } from '@/constants';
-```
-
-### Absolute Imports
-
-```typescript
-// CORRECT: Use absolute imports with @ alias
-import { Button } from '@/components/ui';
-import { useAuth } from '@/hooks/useAuth';
-import type { User } from '@/types';
-
-// WRONG: Relative imports (except for local files)
-import { Button } from '../../../components/ui';
-import { useAuth } from '../../hooks/useAuth';
-
-// EXCEPTION: Local file in same directory
-import { HelperFunction } from './helpers';
-```
-
----
-
-## Naming Conventions
-
-### File Naming
-
-```
-Components:     PascalCase.tsx     (Button.tsx, UserCard.tsx)
-Hooks:          camelCase.ts       (useAuth.ts, useFetch.ts)
-Utils:          camelCase.ts       (formatDate.ts, validation.ts)
-Types:          camelCase.ts       (user.ts, navigation.ts)
-Constants:      camelCase.ts       (colors.ts, theme.ts)
-Screens:        PascalCase.tsx     (HomeScreen.tsx)
-```
-
-### Variable/Function Naming
-
-```typescript
-// Components: PascalCase
-const UserProfile: React.FC = () => {};
-
-// Hooks: camelCase starting with 'use'
-const useUserData = () => {};
-
-// Event handlers: handle + Event
-const handlePress = () => {};
-const handleSubmit = () => {};
-const handleChange = (value: string) => {};
-
-// Booleans: is/has/should/can prefix
-const isLoading = true;
-const hasError = false;
-const shouldRefresh = true;
-const canSubmit = form.isValid;
-
-// Constants: SCREAMING_SNAKE_CASE
-const MAX_RETRY_COUNT = 3;
-const API_BASE_URL = 'https://api.example.com';
-```
-
----
-
-## Comments
-
-### When to Comment
-
-```typescript
-// COMMENT: Complex business logic
-// Calculate discount based on user tier and purchase history
-// Tier multipliers: Gold=0.8, Silver=0.9, Bronze=0.95
-const calculateDiscount = (user: User, amount: number): number => {
-  const tierMultiplier = TIER_MULTIPLIERS[user.tier];
-  return amount * tierMultiplier;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-// COMMENT: Non-obvious workarounds
-// iOS requires explicit height for ScrollView inside flex container
-// See: https://github.com/facebook/react-native/issues/XXX
-<ScrollView style={{ flex: 1 }} />
+// 4. Create custom hook with error handling
+export const useAuth = (): AuthContextValue => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+```
 
-// DON'T COMMENT: Obvious code
-// WRONG:
-// Set loading to true
-setLoading(true);
+### Context Performance Optimization
+
+```typescript
+// Split context to avoid unnecessary re-renders
+// Separate state from actions
+
+const AuthStateContext = createContext<AuthState | undefined>(undefined);
+const AuthActionsContext = createContext<AuthActions | undefined>(undefined);
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [state, setState] = useState<AuthState>(initialState);
+
+  // Actions are stable references
+  const actions = useMemo(() => ({
+    login: async (credentials: Credentials) => { /* ... */ },
+    logout: async () => { /* ... */ },
+  }), []);
+
+  return (
+    <AuthStateContext.Provider value={state}>
+      <AuthActionsContext.Provider value={actions}>
+        {children}
+      </AuthActionsContext.Provider>
+    </AuthStateContext.Provider>
+  );
+};
+
+// Separate hooks
+export const useAuthState = () => {
+  const context = useContext(AuthStateContext);
+  if (!context) throw new Error('useAuthState must be used within AuthProvider');
+  return context;
+};
+
+export const useAuthActions = () => {
+  const context = useContext(AuthActionsContext);
+  if (!context) throw new Error('useAuthActions must be used within AuthProvider');
+  return context;
+};
 ```
 
 ---
 
-## Forbidden Code Quality Practices
+## Server State with React Query
 
-1. **NEVER** use `any` type - use `unknown` or proper types
-2. **NEVER** use non-null assertion without prior validation
-3. **NEVER** leave console.log in production code
-4. **NEVER** use var - always use const or let
-5. **NEVER** mutate function parameters
-6. **NEVER** use == for comparison - always use ===
-7. **NEVER** nest ternary operators more than once
-8. **NEVER** exceed 3 levels of callback nesting
+### Query Setup
+
+```typescript
+// lib/queryClient.ts
+import { QueryClient } from '@tanstack/react-query';
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
+      retry: 2,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+```
+
+### Query Patterns
+
+```typescript
+// hooks/useCourses.ts
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+// Query keys as constants
+export const courseKeys = {
+  all: ['courses'] as const,
+  lists: () => [...courseKeys.all, 'list'] as const,
+  list: (filters: CourseFilters) => [...courseKeys.lists(), filters] as const,
+  details: () => [...courseKeys.all, 'detail'] as const,
+  detail: (id: string) => [...courseKeys.details(), id] as const,
+};
+
+// Fetch hook
+export const useCourses = (filters: CourseFilters) => {
+  return useQuery({
+    queryKey: courseKeys.list(filters),
+    queryFn: () => api.getCourses(filters),
+    select: (data) => data.courses, // Transform data
+  });
+};
+
+// Single item hook
+export const useCourse = (id: string) => {
+  return useQuery({
+    queryKey: courseKeys.detail(id),
+    queryFn: () => api.getCourse(id),
+    enabled: !!id, // Only fetch when id exists
+  });
+};
+
+// Mutation hook
+export const useUpdateCourse = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: UpdateCourseData) => api.updateCourse(data),
+    onSuccess: (data, variables) => {
+      // Update cache
+      queryClient.setQueryData(courseKeys.detail(variables.id), data);
+      // Invalidate list
+      queryClient.invalidateQueries({ queryKey: courseKeys.lists() });
+    },
+  });
+};
+```
+
+---
+
+## Custom Hooks
+
+### Hook Structure
+
+```typescript
+// hooks/useForm.ts
+interface UseFormOptions<T> {
+  initialValues: T;
+  validate?: (values: T) => Partial<Record<keyof T, string>>;
+  onSubmit: (values: T) => Promise<void>;
+}
+
+export const useForm = <T extends Record<string, unknown>>({
+  initialValues,
+  validate,
+  onSubmit,
+}: UseFormOptions<T>) => {
+  const [values, setValues] = useState<T>(initialValues);
+  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const setValue = useCallback(<K extends keyof T>(field: K, value: T[K]) => {
+    setValues((prev) => ({ ...prev, [field]: value }));
+    setErrors((prev) => ({ ...prev, [field]: undefined }));
+  }, []);
+
+  const handleSubmit = useCallback(async () => {
+    if (validate) {
+      const validationErrors = validate(values);
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+      }
+    }
+
+    setIsSubmitting(true);
+    try {
+      await onSubmit(values);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [values, validate, onSubmit]);
+
+  const reset = useCallback(() => {
+    setValues(initialValues);
+    setErrors({});
+  }, [initialValues]);
+
+  return {
+    values,
+    errors,
+    isSubmitting,
+    setValue,
+    handleSubmit,
+    reset,
+  };
+};
+```
+
+---
+
+## State Persistence
+
+### AsyncStorage Pattern
+
+```typescript
+// hooks/usePersistedState.ts
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const usePersistedState = <T>(
+  key: string,
+  initialValue: T,
+): [T, (value: T) => void, boolean] => {
+  const [value, setValue] = useState<T>(initialValue);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    AsyncStorage.getItem(key)
+      .then((stored) => {
+        if (stored) {
+          setValue(JSON.parse(stored));
+        }
+      })
+      .finally(() => setIsLoading(false));
+  }, [key]);
+
+  const setPersistedValue = useCallback(
+    (newValue: T) => {
+      setValue(newValue);
+      AsyncStorage.setItem(key, JSON.stringify(newValue));
+    },
+    [key],
+  );
+
+  return [value, setPersistedValue, isLoading];
+};
+```
+
+---
+
+## Forbidden State Management Practices
+
+1. **NEVER** store derived state (calculate from source state)
+2. **NEVER** duplicate state across contexts
+3. **NEVER** use global state for local UI state
+4. **NEVER** forget cleanup in useEffect
+5. **NEVER** mutate state directly
+6. **NEVER** create context without custom hook
+7. **NEVER** use useState for server data (use React Query)
+8. **NEVER** pass unstable references to context value
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
