@@ -1,0 +1,9 @@
+{
+  "name": "renjfk--openneato",
+  "displayName": "OpenNeato",
+  "description": "Open-source replacement for Neato's discontinued cloud and mobile app.",
+  "version": "1.0.0",
+  "author": "renjfk",
+  "homepage": "https://github.com/renjfk/OpenNeato",
+  "skills": []
+}
