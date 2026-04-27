@@ -1,0 +1,44 @@
+{
+  "name": "hermes-for-web",
+  "owner": "reallygood83",
+  "repo": "hermes-for-web",
+  "description": "A personalized web workbench for Hermes Agent with setup packs, artifacts, memory-aware onboarding, and local+remote model workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/reallygood83/hermes-for-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T00:51:27Z"
+}
