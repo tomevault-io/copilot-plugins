@@ -1,0 +1,44 @@
+{
+  "name": "openclaw-knowledge-distiller",
+  "owner": "destinyfrancis",
+  "repo": "openclaw-knowledge-distiller",
+  "description": "Open CLAW Knowledge Distiller \u00b7 \u9f8d\u8766\u77e5\u8b58\u84b8\u993e\u5668 \u2014 Turn YouTube/Bilibili videos into structured knowledge articles. Local Qwen3-ASR MLX + AI summarization. MCP server for Claude Code / Open CLAW agents.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/destinyfrancis/openclaw-knowledge-distiller",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T05:22:54Z"
+}
