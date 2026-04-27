@@ -1,0 +1,153 @@
+{
+  "name": "robolearn",
+  "owner": "mjunaidca",
+  "repo": "robolearn",
+  "description": "Book + RAG ChatAgent + SSO + Compunding RI Intelligence built in 2 days. Robolearn is what AI-driven development with Spec-Driven methodology and Reusable Intelligence makes possible.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "assessment-builder",
+      "path": ".claude/skills/assessment-builder",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/assessment-builder",
+      "description": ""
+    },
+    {
+      "name": "chatkit-integration",
+      "path": ".claude/skills/chatkit-integration",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/chatkit-integration",
+      "description": ""
+    },
+    {
+      "name": "concept-scaffolding",
+      "path": ".claude/skills/concept-scaffolding",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/concept-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "docusaurus-conventions",
+      "path": ".claude/skills/docusaurus-conventions",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/docusaurus-conventions",
+      "description": ""
+    },
+    {
+      "name": "docusaurus-deployer",
+      "path": ".claude/skills/docusaurus-deployer",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/docusaurus-deployer",
+      "description": ""
+    },
+    {
+      "name": "gazebo-world-builder",
+      "path": ".claude/skills/gazebo-world-builder",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/gazebo-world-builder",
+      "description": ""
+    },
+    {
+      "name": "image-generator",
+      "path": ".claude/skills/image-generator",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/image-generator",
+      "description": ""
+    },
+    {
+      "name": "learning-objectives",
+      "path": ".claude/skills/learning-objectives",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/learning-objectives",
+      "description": ""
+    },
+    {
+      "name": "lesson-generator",
+      "path": ".claude/skills/lesson-generator",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/lesson-generator",
+      "description": ""
+    },
+    {
+      "name": "notebooklm-slides",
+      "path": ".claude/skills/notebooklm-slides",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/notebooklm-slides",
+      "description": ""
+    },
+    {
+      "name": "pyodide-exercise",
+      "path": ".claude/skills/pyodide-exercise",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/pyodide-exercise",
+      "description": ""
+    },
+    {
+      "name": "quiz-generator",
+      "path": ".claude/skills/quiz-generator",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/quiz-generator",
+      "description": ""
+    },
+    {
+      "name": "ros2-custom-interfaces",
+      "path": ".claude/skills/ros2-custom-interfaces",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/ros2-custom-interfaces",
+      "description": ""
+    },
+    {
+      "name": "ros2-launch-system",
+      "path": ".claude/skills/ros2-launch-system",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/ros2-launch-system",
+      "description": ""
+    },
+    {
+      "name": "ros2-publisher-subscriber",
+      "path": ".claude/skills/ros2-publisher-subscriber",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/ros2-publisher-subscriber",
+      "description": ""
+    },
+    {
+      "name": "ros2-service-pattern",
+      "path": ".claude/skills/ros2-service-pattern",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/ros2-service-pattern",
+      "description": ""
+    },
+    {
+      "name": "summary-generator",
+      "path": ".claude/skills/summary-generator",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/summary-generator",
+      "description": ""
+    },
+    {
+      "name": "visual-asset-workflow",
+      "path": ".claude/skills/visual-asset-workflow",
+      "github_url": "https://github.com/mjunaidca/robolearn/tree/main/.claude/skills/visual-asset-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mjunaidca/robolearn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T00:31:57Z"
+}
