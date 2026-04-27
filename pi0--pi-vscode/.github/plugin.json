@@ -1,0 +1,9 @@
+{
+  "name": "pi0--pi-vscode",
+  "displayName": "pi-vscode",
+  "description": "Minimal VS Code extension for PI Coding Agent.",
+  "version": "1.0.0",
+  "author": "pi0",
+  "homepage": "https://github.com/pi0/pi-vscode",
+  "skills": []
+}
