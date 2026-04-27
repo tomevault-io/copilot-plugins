@@ -1,0 +1,9 @@
+{
+  "name": "saschb2b--cant-maintain",
+  "displayName": "cant-maintain",
+  "description": "A \"Can't Unsee\"-style training game that teaches junior React/TypeScript developers proper prop naming conventions and JSDoc documentation.",
+  "version": "1.0.0",
+  "author": "saschb2b",
+  "homepage": "https://github.com/saschb2b/cant-maintain",
+  "skills": []
+}
