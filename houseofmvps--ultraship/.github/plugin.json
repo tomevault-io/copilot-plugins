@@ -1,0 +1,9 @@
+{
+  "name": "houseofmvps--ultraship",
+  "displayName": "ultraship",
+  "description": "\"ULTRASHIP\" Claude Code plugin \u2014 39 skills, 33 tools, 11 agents for ship-ready workflows: planning, review, pentesting, safety guardrails, canary monitoring, SEO/AI-readiness check, penetration testin",
+  "version": "1.0.0",
+  "author": "Houseofmvps",
+  "homepage": "https://github.com/Houseofmvps/ultraship",
+  "skills": []
+}
