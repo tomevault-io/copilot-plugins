@@ -1,0 +1,9 @@
+{
+  "name": "pokt-network--pocket-relay-miner",
+  "displayName": "pocket-relay-miner",
+  "description": "pocket-relay-miner",
+  "version": "1.0.0",
+  "author": "pokt-network",
+  "homepage": "https://github.com/pokt-network/pocket-relay-miner",
+  "skills": []
+}
