@@ -1,0 +1,9 @@
+{
+  "name": "zendev-sh--goai",
+  "displayName": "goai",
+  "description": "Go AI SDK, the Go way.  One unified API across 21+ providers. Streaming, structured output, MCP support, stdlib only. Go AI SDK for AI applications inspired by Vercel AI SDK.",
+  "version": "1.0.0",
+  "author": "zendev-sh",
+  "homepage": "https://github.com/zendev-sh/goai",
+  "skills": []
+}
