@@ -1,0 +1,9 @@
+{
+  "name": "sim-xia--blind-auditor",
+  "displayName": "Blind-Auditor",
+  "description": "MCP tool for improving model coding quality by mandatory self-audition",
+  "version": "1.0.0",
+  "author": "Sim-xia",
+  "homepage": "https://github.com/Sim-xia/Blind-Auditor",
+  "skills": []
+}
