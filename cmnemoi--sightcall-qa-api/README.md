@@ -5,15 +5,15 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [cmnemoi/sightcall_qa_api](https://github.com/cmnemoi/sightcall_qa_api).
+Original source: `.cursor/rules/*.mdc` in [cmnemoi/sightcall_qa_api](https://github.com/cmnemoi/sightcall_qa_api).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [cmnemoi/sightcall_qa_api](https://github.com/cmnemoi/sightcall_qa_api) — a repo with 0+ stars on GitHub.
 
