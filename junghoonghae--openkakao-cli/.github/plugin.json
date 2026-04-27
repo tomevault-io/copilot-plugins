@@ -1,0 +1,9 @@
+{
+  "name": "junghoonghae--openkakao-cli",
+  "displayName": "openkakao-cli",
+  "description": "Beta-stage unofficial KakaoTalk CLI for macOS with chat access and LOCO messaging.",
+  "version": "1.0.0",
+  "author": "JungHoonGhae",
+  "homepage": "https://github.com/JungHoonGhae/openkakao-cli",
+  "skills": []
+}
