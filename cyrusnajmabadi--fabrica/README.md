@@ -1,6 +1,6 @@
 # Fabrica
 
-> Tome by [CyrusNajmabadi](https://github.com/CyrusNajmabadi/Fabrica) — distributed by [TomeVault](https://tomevault.io/claim/CyrusNajmabadi)
+> Tome by [CyrusNajmabadi](https://github.com/CyrusNajmabadi/Fabrica) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [CyrusNajmabadi/Fabrica](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/CyrusNajmabadi)
+From [CyrusNajmabadi/Fabrica](https://github.com/CyrusNajmabadi/Fabrica) — a repo with 0+ stars on GitHub.
 
 ---
 
