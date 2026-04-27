@@ -1,425 +1,428 @@
-## 06-navigation-rules
+## 07-accessibility-rules
 
 > - **Mode**: Always On
 
-# Navigation Rules - React Navigation for iOS
+# Accessibility Rules - iOS VoiceOver & WCAG 2.1
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: Navigation patterns and structure for React Native iOS apps
+- **Description**: Accessibility requirements for iOS apps per Apple guidelines
 
 ---
 
-## Navigation Structure
+## Core Accessibility Properties
 
-### Navigator Hierarchy
-
-```typescript
-// App.tsx - Root navigation structure
-<NavigationContainer>
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    {isAuthenticated ? (
-      <Stack.Screen name="Main" component={MainNavigator} />
-    ) : (
-      <Stack.Screen name="Auth" component={AuthNavigator} />
-    )}
-  </Stack.Navigator>
-</NavigationContainer>
-```
-
-### Tab Navigator Setup
+### Required Properties for Interactive Elements
 
 ```typescript
-// MainNavigator.tsx
-const Tab = createBottomTabNavigator();
-
-<Tab.Navigator
-  screenOptions={{
-    headerShown: false,
-    tabBarStyle: {
-      backgroundColor: '#0C0A17',
-      borderTopColor: '#1F2937',
-      height: 49 + insets.bottom, // iOS tab bar height + safe area
-      paddingBottom: insets.bottom,
-    },
-    tabBarActiveTintColor: '#8B5CF6',
-    tabBarInactiveTintColor: '#6B7280',
+// EVERY interactive element MUST have accessibility properties
+<Pressable
+  accessible={true}
+  accessibilityRole="button"
+  accessibilityLabel="Start lesson"
+  accessibilityHint="Opens the lesson screen"
+  accessibilityState={{
+    disabled: isDisabled,
+    selected: isSelected,
   }}
+  onPress={handlePress}
 >
-  <Tab.Screen
-    name="Home"
-    component={HomeScreen}
-    options={{
-      tabBarIcon: ({ color, size }) => (
-        <Home size={size} color={color} />
-      ),
-    }}
-  />
-  {/* More tabs */}
-</Tab.Navigator>
+  <Text>Start</Text>
+</Pressable>
+```
+
+### Accessibility Roles (iOS Standard)
+
+```typescript
+type AccessibilityRole =
+  | 'none' // No role
+  | 'button' // Tappable elements
+  | 'link' // Navigation links
+  | 'search' // Search fields
+  | 'image' // Images
+  | 'imagebutton' // Tappable images
+  | 'text' // Static text
+  | 'header' // Section headers
+  | 'adjustable' // Sliders, steppers
+  | 'alert' // Alert dialogs
+  | 'checkbox' // Checkboxes
+  | 'combobox' // Dropdown selects
+  | 'menu' // Menu containers
+  | 'menubar' // Menu bars
+  | 'menuitem' // Menu items
+  | 'progressbar' // Progress indicators
+  | 'radio' // Radio buttons
+  | 'radiogroup' // Radio button groups
+  | 'scrollbar' // Scroll indicators
+  | 'spinbutton' // Numeric steppers
+  | 'switch' // Toggle switches
+  | 'tab' // Tab buttons
+  | 'tablist' // Tab containers
+  | 'timer' // Countdown timers
+  | 'toolbar'; // Toolbars
 ```
 
 ---
 
-## Screen Types
+## Accessibility Labels
 
-### Root Screens (Tab Bar Visible)
+### Label Writing Rules
 
 ```typescript
-// Screens accessible from bottom tab bar
-type RootScreens = {
-  Home: undefined;
-  Courses: undefined;
-  Profile: undefined;
-  Settings: undefined;
-};
+// GOOD: Descriptive, action-oriented
+accessibilityLabel="Play audio"
+accessibilityLabel="Delete message"
+accessibilityLabel="Mark as complete"
 
-// Root screens use isRoot={true} for header
-<ScreenLayout isRoot={true} title="Home">
-  <HomeContent />
-</ScreenLayout>
+// BAD: Vague, non-descriptive
+accessibilityLabel="Button"
+accessibilityLabel="Icon"
+accessibilityLabel="Press here"
+
+// GOOD: Include state information
+accessibilityLabel={`Lesson ${index + 1}, ${isCompleted ? 'completed' : 'not completed'}`}
+
+// BAD: Redundant information
+accessibilityLabel="Button: Submit button" // Don't repeat "button"
 ```
 
-### Sub Screens (Back Button)
+### Label Patterns by Element Type
 
 ```typescript
-// Screens navigated to FROM root screens
-type SubScreens = {
-  CourseDetail: { courseId: string };
-  Lesson: { lessonId: string; courseId: string };
-  EditProfile: undefined;
-};
+// Buttons
+accessibilityLabel="Submit form"
+accessibilityHint="Saves your changes and closes the screen"
 
-// Sub screens show back button
-<ScreenLayout title="Course Details">
-  <CourseDetailContent />
-</ScreenLayout>
-```
+// Icons
+accessibilityLabel="Settings"
+// Note: Decorative icons should be hidden
+accessibilityElementsHidden={true}
 
----
+// Images
+accessibilityLabel="Profile photo of John Doe"
+// OR for decorative images:
+accessible={false}
 
-## Navigation Patterns
-
-### Type-Safe Navigation
-
-```typescript
-// types/navigation.ts
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RouteProp } from '@react-navigation/native';
-
-// Define all routes and their params
-export type RootStackParamList = {
-  // Auth Stack
-  Login: undefined;
-  Register: undefined;
-
-  // Main Stack
-  Main: undefined;
-
-  // Course Stack
-  Courses: undefined;
-  CourseDetail: { courseId: string };
-  Lesson: { lessonId: string; courseId: string };
-};
-
-// Navigation prop type
-export type NavigationProp<T extends keyof RootStackParamList> = NativeStackNavigationProp<
-  RootStackParamList,
-  T
->;
-
-// Route prop type
-export type RouteProps<T extends keyof RootStackParamList> = RouteProp<RootStackParamList, T>;
-```
-
-### Using Navigation Hook
-
-```typescript
-import { useNavigation, useRoute } from '@react-navigation/native';
-import type { NavigationProp, RouteProps } from '@/types/navigation';
-
-const CourseDetailScreen = () => {
-  const navigation = useNavigation<NavigationProp<'CourseDetail'>>();
-  const route = useRoute<RouteProps<'CourseDetail'>>();
-
-  const { courseId } = route.params;
-
-  const handleLessonPress = (lessonId: string) => {
-    navigation.navigate('Lesson', { lessonId, courseId });
-  };
-
-  const handleBack = () => {
-    navigation.goBack();
-  };
-
-  return (/* Screen content */);
-};
+// Progress indicators
+accessibilityLabel={`Loading, ${progress}% complete`}
+accessibilityRole="progressbar"
+accessibilityValue={{
+  min: 0,
+  max: 100,
+  now: progress,
+}}
 ```
 
 ---
 
-## Header Configuration
+## Accessibility Hints
 
-### Custom Header Component
+### Hint Guidelines
 
 ```typescript
-// components/layout/Header.tsx
-interface HeaderProps {
-  title?: string;
-  showBack?: boolean;
-  showMenu?: boolean;
-  rightElement?: React.ReactNode;
-}
+// Hints describe the RESULT of the action
+// GOOD: Describes outcome
+accessibilityHint = 'Opens your profile settings';
+accessibilityHint = 'Removes this item from your cart';
+accessibilityHint = 'Navigates to the previous screen';
 
-export const Header: React.FC<HeaderProps> = ({
-  title,
-  showBack = true,
-  showMenu = false,
-  rightElement,
-}) => {
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
+// BAD: Describes how to interact
+accessibilityHint = 'Tap to open'; // VoiceOver already says this
+accessibilityHint = 'Double tap to activate'; // Redundant
+```
+
+### When to Use Hints
+
+```typescript
+// USE hints for:
+// - Non-obvious actions
+// - Actions with consequences
+// - Navigation actions
+
+// DON'T use hints for:
+// - Obvious actions (e.g., "Save" button saves)
+// - Simple toggles (state is announced)
+// - Standard navigation patterns
+```
+
+---
+
+## Accessibility State
+
+### State Properties
+
+```typescript
+<Pressable
+  accessibilityState={{
+    disabled: boolean,    // Element cannot be interacted with
+    selected: boolean,    // Element is selected (tabs, options)
+    checked: boolean,     // Checkbox/radio is checked
+    busy: boolean,        // Element is loading/processing
+    expanded: boolean,    // Expandable element is open
+  }}
+/>
+```
+
+### Dynamic State Updates
+
+```typescript
+// Update state for live feedback
+const [isLoading, setIsLoading] = useState(false);
+
+<Pressable
+  accessibilityState={{
+    busy: isLoading,
+    disabled: isLoading,
+  }}
+  accessibilityLabel={isLoading ? "Submitting..." : "Submit"}
+>
+  {isLoading ? <ActivityIndicator /> : <Text>Submit</Text>}
+</Pressable>
+```
+
+---
+
+## Accessibility Value
+
+### For Adjustable Elements
+
+```typescript
+// Sliders, steppers, progress bars
+<View
+  accessibilityRole="adjustable"
+  accessibilityValue={{
+    min: 0,
+    max: 100,
+    now: currentValue,
+    text: `${currentValue} percent`,
+  }}
+  accessibilityActions={[
+    { name: 'increment', label: 'Increase' },
+    { name: 'decrement', label: 'Decrease' },
+  ]}
+  onAccessibilityAction={(event) => {
+    switch (event.nativeEvent.actionName) {
+      case 'increment':
+        setValue(Math.min(max, currentValue + step));
+        break;
+      case 'decrement':
+        setValue(Math.max(min, currentValue - step));
+        break;
+    }
+  }}
+/>
+```
+
+---
+
+## Color & Contrast
+
+### Minimum Contrast Requirements (WCAG 2.1 AA)
+
+```typescript
+// Text contrast ratios
+const CONTRAST_RATIOS = {
+  normalText: 4.5, // Text < 18pt
+  largeText: 3.0, // Text >= 18pt or bold >= 14pt
+  uiComponents: 3.0, // Icons, borders, controls
+  graphicalObjects: 3.0, // Charts, diagrams
+};
+
+// Example compliant color pairs
+const accessibleColors = {
+  // Dark background
+  darkBg: '#0C0A17',
+  textOnDark: '#F9FAFB', // Contrast: 15.8:1 ✓
+  secondaryOnDark: '#9CA3AF', // Contrast: 5.4:1 ✓
+
+  // Light background
+  lightBg: '#FFFFFF',
+  textOnLight: '#1F2937', // Contrast: 14.7:1 ✓
+};
+```
+
+### Never Use Color Alone
+
+```typescript
+// WRONG: Color only indicates status
+<View style={{ backgroundColor: isError ? 'red' : 'green' }} />
+
+// CORRECT: Color + icon + text
+<View style={{ backgroundColor: isError ? colors.error : colors.success }}>
+  {isError ? <XIcon /> : <CheckIcon />}
+  <Text>{isError ? 'Error occurred' : 'Success'}</Text>
+</View>
+```
+
+---
+
+## Focus Management
+
+### Accessibility Focus
+
+```typescript
+import { AccessibilityInfo, findNodeHandle } from 'react-native';
+
+// Move focus to element
+const ref = useRef<View>(null);
+
+const focusOnElement = () => {
+  const node = findNodeHandle(ref.current);
+  if (node) {
+    AccessibilityInfo.setAccessibilityFocus(node);
+  }
+};
+
+// Use after navigation or content changes
+useEffect(() => {
+  if (showNewContent) {
+    focusOnElement();
+  }
+}, [showNewContent]);
+```
+
+### Focus Order
+
+```typescript
+// Use accessibilityElementsHidden to exclude decorative elements
+<View>
+  <DecorationView accessibilityElementsHidden={true} />
+  <MainContent accessible={true} />
+</View>
+
+// Group related elements
+<View
+  accessible={true}
+  accessibilityLabel="User profile: John Doe, Premium member"
+>
+  <Avatar />
+  <Text>John Doe</Text>
+  <Badge>Premium</Badge>
+</View>
+```
+
+---
+
+## Live Regions
+
+### Announce Dynamic Content
+
+```typescript
+import { AccessibilityInfo } from 'react-native';
+
+// Announce important changes
+const announceToVoiceOver = (message: string) => {
+  AccessibilityInfo.announceForAccessibility(message);
+};
+
+// Example: Toast notification
+const showToast = (message: string) => {
+  setToastMessage(message);
+  announceToVoiceOver(message);
+};
+
+// Example: Form validation
+const handleSubmit = () => {
+  if (hasErrors) {
+    announceToVoiceOver(`Form has ${errors.length} errors. First error: ${errors[0]}`);
+  }
+};
+```
+
+### Live Region Properties
+
+```typescript
+// For elements that update dynamically
+<Text
+  accessibilityLiveRegion="polite" // Announces when idle
+  // or "assertive" for critical updates
+>
+  {statusMessage}
+</Text>
+```
+
+---
+
+## Reduced Motion
+
+### Respect User Preferences
+
+```typescript
+import { useReducedMotion } from 'moti';
+// OR
+import { AccessibilityInfo } from 'react-native';
+
+// Using Moti hook
+const Component = () => {
+  const reducedMotion = useReducedMotion();
 
   return (
-    <View style={[styles.header, { paddingTop: insets.top }]}>
-      {/* Left: Back or placeholder */}
-      <View style={styles.headerLeft}>
-        {showBack && (
-          <Pressable
-            onPress={() => navigation.goBack()}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-            style={styles.backButton}
-          >
-            <ArrowLeft size={24} color="#F9FAFB" />
-          </Pressable>
-        )}
-      </View>
-
-      {/* Center: Title */}
-      <View style={styles.headerCenter}>
-        {title && (
-          <Text style={styles.headerTitle} numberOfLines={1}>
-            {title}
-          </Text>
-        )}
-      </View>
-
-      {/* Right: Menu or custom */}
-      <View style={styles.headerRight}>
-        {showMenu && (
-          <Pressable style={styles.menuButton}>
-            <Menu size={24} color="#F9FAFB" />
-          </Pressable>
-        )}
-        {rightElement}
-      </View>
-    </View>
+    <MotiView
+      animate={{ opacity: 1 }}
+      transition={reducedMotion
+        ? { type: 'timing', duration: 0 }
+        : { type: 'spring' }
+      }
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingBottom: 12,
-    backgroundColor: '#0C0A17',
-  },
-  headerLeft: {
-    width: 44,
-    alignItems: 'flex-start',
-  },
-  headerCenter: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  headerRight: {
-    width: 44,
-    alignItems: 'flex-end',
-  },
-  headerTitle: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: '#F9FAFB',
-  },
-  backButton: {
-    width: 44,
-    height: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  menuButton: {
-    width: 44,
-    height: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+// Using native API
+const [reduceMotion, setReduceMotion] = useState(false);
+
+useEffect(() => {
+  AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
+
+  const subscription = AccessibilityInfo.addEventListener(
+    'reduceMotionChanged',
+    setReduceMotion
+  );
+
+  return () => subscription.remove();
+}, []);
+```
+
+---
+
+## Testing Accessibility
+
+### Manual Testing Checklist
+
+```
+□ VoiceOver: Enable and navigate entire app
+□ Dynamic Type: Test with largest text size
+□ Reduce Motion: Verify animations respect preference
+□ Color Filters: Test with grayscale enabled
+□ Switch Control: Verify all interactive elements reachable
+□ Bold Text: Verify text remains legible
+```
+
+### Automated Testing
+
+```typescript
+// Use react-native-testing-library
+import { render, screen } from '@testing-library/react-native';
+
+test('button has accessibility label', () => {
+  render(<MyButton label="Submit" />);
+
+  expect(screen.getByRole('button', { name: 'Submit' })).toBeTruthy();
 });
 ```
 
 ---
 
-## Screen Transitions
+## Forbidden Accessibility Practices
 
-### iOS Standard Transitions
-
-```typescript
-// Stack Navigator with iOS transitions
-<Stack.Navigator
-  screenOptions={{
-    headerShown: false,
-    // iOS native transitions
-    animation: 'slide_from_right',
-    gestureEnabled: true,
-    gestureDirection: 'horizontal',
-  }}
->
-```
-
-### Modal Presentations
-
-```typescript
-// Present screen as modal
-<Stack.Screen
-  name="Settings"
-  component={SettingsScreen}
-  options={{
-    presentation: 'modal',
-    animation: 'slide_from_bottom',
-  }}
-/>
-
-// Full-screen modal
-<Stack.Screen
-  name="Lesson"
-  component={LessonScreen}
-  options={{
-    presentation: 'fullScreenModal',
-    animation: 'fade',
-  }}
-/>
-```
-
----
-
-## Deep Linking
-
-### Configure Deep Links
-
-```typescript
-// App.tsx
-const linking = {
-  prefixes: ['aiklubben://', 'https://aiklubben.se'],
-  config: {
-    screens: {
-      Main: {
-        screens: {
-          Home: 'home',
-          Courses: 'courses',
-        },
-      },
-      CourseDetail: 'course/:courseId',
-      Lesson: 'lesson/:lessonId',
-    },
-  },
-};
-
-<NavigationContainer linking={linking}>
-  {/* Navigators */}
-</NavigationContainer>
-```
-
----
-
-## Navigation State Persistence
-
-### Persist Navigation State
-
-```typescript
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const PERSISTENCE_KEY = 'NAVIGATION_STATE';
-
-const App = () => {
-  const [isReady, setIsReady] = useState(false);
-  const [initialState, setInitialState] = useState();
-
-  useEffect(() => {
-    const restoreState = async () => {
-      try {
-        const savedState = await AsyncStorage.getItem(PERSISTENCE_KEY);
-        if (savedState) {
-          setInitialState(JSON.parse(savedState));
-        }
-      } finally {
-        setIsReady(true);
-      }
-    };
-
-    restoreState();
-  }, []);
-
-  if (!isReady) return <SplashScreen />;
-
-  return (
-    <NavigationContainer
-      initialState={initialState}
-      onStateChange={(state) =>
-        AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
-      }
-    >
-      {/* Navigators */}
-    </NavigationContainer>
-  );
-};
-```
-
----
-
-## Navigation Guards
-
-### Auth Guard Pattern
-
-```typescript
-// Use in navigation container
-const Navigation = () => {
-  const { isAuthenticated, isLoading } = useAuth();
-
-  if (isLoading) {
-    return <SplashScreen />;
-  }
-
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {isAuthenticated ? (
-        <>
-          <Stack.Screen name="Main" component={MainNavigator} />
-          <Stack.Screen name="CourseDetail" component={CourseDetailScreen} />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-        </>
-      )}
-    </Stack.Navigator>
-  );
-};
-```
-
----
-
-## Forbidden Navigation Practices
-
-1. **NEVER** use string-based navigation without type checking
-2. **NEVER** navigate from outside React components
-3. **NEVER** deep nest navigators more than 3 levels
-4. **NEVER** use headerShown: true with custom headers
-5. **NEVER** forget to handle hardware back button on Android
-6. **NEVER** use navigation.reset() without clear UX reason
-7. **NEVER** pass complex objects as route params (use IDs)
-8. **NEVER** ignore safe areas in custom headers
+1. **NEVER** omit accessibility labels on interactive elements
+2. **NEVER** use color alone to convey information
+3. **NEVER** use contrast ratios below WCAG AA standards
+4. **NEVER** disable accessibility on form inputs
+5. **NEVER** ignore reduced motion preferences
+6. **NEVER** use time-based interactions without alternatives
+7. **NEVER** trap keyboard/switch control focus
+8. **NEVER** hide critical content from screen readers
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
