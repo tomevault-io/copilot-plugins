@@ -1,0 +1,93 @@
+{
+  "name": "deep",
+  "owner": "langchain-ai",
+  "repo": "deep-agent-template",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arxiv-search",
+      "path": "libs/cli/examples/skills/arxiv-search",
+      "github_url": "https://github.com/langchain-ai/deep-agent-template/tree/main/libs/cli/examples/skills/arxiv-search",
+      "description": ""
+    },
+    {
+      "name": "blog-post",
+      "path": "examples/content-builder-agent/skills/blog-post",
+      "github_url": "https://github.com/langchain-ai/deep-agent-template/tree/main/examples/content-builder-agent/skills/blog-post",
+      "description": ""
+    },
+    {
+      "name": "query-writing",
+      "path": "examples/text-to-sql-agent/skills/query-writing",
+      "github_url": "https://github.com/langchain-ai/deep-agent-template/tree/main/examples/text-to-sql-agent/skills/query-writing",
+      "description": ""
+    },
+    {
+      "name": "schema-exploration",
+      "path": "examples/text-to-sql-agent/skills/schema-exploration",
+      "github_url": "https://github.com/langchain-ai/deep-agent-template/tree/main/examples/text-to-sql-agent/skills/schema-exploration",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "libs/cli/deepagents_cli/built_in_skills/skill-creator",
+      "github_url": "https://github.com/langchain-ai/deep-agent-template/tree/main/libs/cli/deepagents_cli/built_in_skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "libs/cli/examples/skills/skill-creator",
+      "github_url": "https://github.com/langchain-ai/deep-agent-template/tree/main/libs/cli/examples/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "social-media",
+      "path": "examples/content-builder-agent/skills/social-media",
+      "github_url": "https://github.com/langchain-ai/deep-agent-template/tree/main/examples/content-builder-agent/skills/social-media",
+      "description": ""
+    },
+    {
+      "name": "web-research",
+      "path": "libs/cli/examples/skills/web-research",
+      "github_url": "https://github.com/langchain-ai/deep-agent-template/tree/main/libs/cli/examples/skills/web-research",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/langchain-ai/deep-agent-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T08:30:11Z"
+}
