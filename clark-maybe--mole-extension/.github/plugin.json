@@ -1,0 +1,9 @@
+{
+  "name": "clark-maybe--mole-extension",
+  "displayName": "mole-extension",
+  "description": "Mole - AI-powered browser assistant with workflow automation",
+  "version": "1.0.0",
+  "author": "clark-maybe",
+  "homepage": "https://github.com/clark-maybe/mole-extension",
+  "skills": []
+}
