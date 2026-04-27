@@ -1,0 +1,9 @@
+{
+  "name": "kentcdodds--kody",
+  "displayName": "kody",
+  "description": "An experimental personal assistant platform built on Cloudflare Workers and MCP",
+  "version": "1.0.0",
+  "author": "kentcdodds",
+  "homepage": "https://github.com/kentcdodds/kody",
+  "skills": []
+}
