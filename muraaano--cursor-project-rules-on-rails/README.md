@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [muraaano/cursor-project-rules-on-rail
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/muraaano)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/muraaano/cursor-project-rules-on-rails](https://github.com/muraaano/cursor-project-rules-on-rails)
 
 ---
 
