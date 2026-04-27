@@ -1,6 +1,6 @@
 # fietsberaad-veiligstallen-app
 
-> Tome by [Stichting-CROW](https://github.com/Stichting-CROW/fietsberaad-veiligstallen-app) — distributed by [TomeVault](https://tomevault.io/claim/Stichting-CROW)
+> Tome by [Stichting-CROW](https://github.com/Stichting-CROW/fietsberaad-veiligstallen-app) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Stichting-CROW/fietsberaad-veiligstal
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Stichting-CROW)
+From [Stichting-CROW/fietsberaad-veiligstallen-app](https://github.com/Stichting-CROW/fietsberaad-veiligstallen-app) — a repo with 0+ stars on GitHub.
 
 ---
 
