@@ -1,0 +1,9 @@
+{
+  "name": "runfusion--fusion",
+  "displayName": "Fusion",
+  "description": "Multi node agent orchestrator - build faster and better",
+  "version": "1.0.0",
+  "author": "Runfusion",
+  "homepage": "https://github.com/Runfusion/Fusion",
+  "skills": []
+}
