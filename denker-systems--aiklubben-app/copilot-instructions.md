@@ -1,294 +1,360 @@
-## 02-ios-layout-system
+## 03-component-architecture
 
 > - **Mode**: Always On
 
-# iOS Layout System - React Native Flexbox & Positioning
+# Component Architecture Rules
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: Layout rules for iOS compatibility in React Native
+- **Description**: React Native component structure and organization rules
 
 ---
 
-## Flexbox Layout System
+## Component File Structure
 
-### Core Flexbox Rules for iOS
-
-```typescript
-// React Native uses Flexbox with flexDirection: 'column' as DEFAULT
-// This is OPPOSITE of web CSS (row is default on web)
-
-// CORRECT: Explicit flex direction
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column', // Explicit is better
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});
-```
-
-### Flex Property Rules
+### Standard Component Template
 
 ```typescript
-// flex: 1 means "take remaining space"
-// ALWAYS use flex: 1 on scrollable content containers
+// ComponentName.tsx
 
-// CORRECT
-<View style={{ flex: 1 }}>
-  <ScrollView style={{ flex: 1 }}>
-    {/* Content */}
-  </ScrollView>
-</View>
+import React from 'react';
+import { View, StyleSheet, ViewStyle } from 'react-native';
+// 1. React imports first
+// 2. React Native imports
+// 3. Third-party libraries
+// 4. Local imports (components, hooks, utils)
+// 5. Types/interfaces
+// 6. Constants
 
-// WRONG - ScrollView won't scroll properly
-<View>
-  <ScrollView>
-    {/* Content */}
-  </ScrollView>
-</View>
-```
+// ============================================
+// TYPES
+// ============================================
+interface ComponentNameProps {
+  /** Required prop description */
+  requiredProp: string;
+  /** Optional prop with default */
+  optionalProp?: number;
+  /** Style override */
+  style?: ViewStyle;
+  /** Callback function */
+  onPress?: () => void;
+}
 
----
+// ============================================
+// CONSTANTS
+// ============================================
+const DEFAULT_VALUE = 10;
 
-## Position Absolute Rules (CRITICAL)
-
-### The Golden Rule of Position Absolute
-
-```
-CRITICAL: Elements with position: 'absolute' do NOT contribute to parent's
-layout dimensions. Parent container MUST have explicit width/height.
-```
-
-### Correct Absolute Positioning
-
-```typescript
-// CORRECT: Parent has explicit dimensions
-const styles = StyleSheet.create({
-  container: {
-    width: 100,
-    height: 100, // EXPLICIT HEIGHT
-    position: 'relative',
-  },
-  absoluteChild: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: 50,
-    height: 50,
-  },
-});
-
-// WRONG: Parent has no height - children will overlap/collapse
-const wrongStyles = StyleSheet.create({
-  container: {
-    // NO HEIGHT SPECIFIED - WILL CAUSE iOS LAYOUT ISSUES
-    position: 'relative',
-  },
-  absoluteChild: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-  },
-});
-```
-
-### When to Use Absolute Positioning
-
-1. **Overlays and modals** - positioned over content
-2. **Floating action buttons** - pinned to corners
-3. **Progress indicators** - overlaid on content
-4. **Badge indicators** - positioned on icons
-5. **Background decorations** - behind main content
-
-### When NOT to Use Absolute Positioning
-
-1. **Regular layout flows** - use Flexbox instead
-2. **List items** - use FlatList with proper item heights
-3. **Stacked content** - use flexDirection: 'column'
-4. **Side-by-side content** - use flexDirection: 'row'
-
----
-
-## Explicit Dimensions (iOS Requirement)
-
-### Always Specify Dimensions for Complex Layouts
-
-```typescript
-// CORRECT: Explicit dimensions for 3D button effect
-const BUTTON_SIZE = 72;
-const BUTTON_DEPTH = 8;
-
-<View style={{
-  width: BUTTON_SIZE,
-  height: BUTTON_SIZE + BUTTON_DEPTH, // Total height including depth
-}}>
-  {/* Button layers with absolute positioning */}
-</View>
-
-// WRONG: Relying on content to determine size
-<View>
-  {/* Absolute children - parent will have 0 height */}
-</View>
-```
-
-### Component Height Calculation
-
-```typescript
-// Always calculate total height for components with depth/shadows
-const calculateTotalHeight = (
-  baseHeight: number,
-  depth: number,
-  shadowOffset: number = 0,
-): number => {
-  return baseHeight + depth + shadowOffset;
-};
-
-// Usage
-const TOTAL_HEIGHT = calculateTotalHeight(72, 8, 4); // 84
-```
-
----
-
-## Safe Area Implementation
-
-### SafeAreaView Usage
-
-```typescript
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-// CORRECT: Wrap entire screen
-const Screen = () => (
-  <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
-    <Content />
-  </SafeAreaView>
-);
-
-// CORRECT: Use insets hook for fine control
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-const Screen = () => {
-  const insets = useSafeAreaInsets();
+// ============================================
+// COMPONENT
+// ============================================
+export const ComponentName: React.FC<ComponentNameProps> = ({
+  requiredProp,
+  optionalProp = DEFAULT_VALUE,
+  style,
+  onPress,
+}) => {
+  // 1. Hooks (in consistent order)
+  // 2. Derived state/calculations
+  // 3. Event handlers
+  // 4. Effects
+  // 5. Render helpers
+  // 6. Return JSX
 
   return (
-    <View style={{
-      flex: 1,
-      paddingTop: insets.top,
-      paddingBottom: insets.bottom,
-    }}>
-      <Content />
+    <View style={[styles.container, style]}>
+      {/* Content */}
     </View>
+  );
+};
+
+// ============================================
+// STYLES
+// ============================================
+const styles = StyleSheet.create({
+  container: {
+    // Styles here
+  },
+});
+```
+
+---
+
+## Component Categories
+
+### 1. UI Components (`src/components/ui/`)
+
+Base-level, reusable UI elements:
+
+```
+ui/
+├── Button.tsx          # Primary button component
+├── Text.tsx            # Typography component
+├── Card.tsx            # Card container
+├── Input.tsx           # Form input
+├── Badge.tsx           # Badge/chip
+├── Avatar.tsx          # User avatar
+├── Icon.tsx            # Icon wrapper
+├── Skeleton.tsx        # Loading skeleton
+├── Divider.tsx         # Visual divider
+└── index.ts            # Barrel export
+```
+
+### 2. Layout Components (`src/components/layout/`)
+
+Screen structure and navigation:
+
+```
+layout/
+├── ScreenLayout.tsx    # Base screen wrapper
+├── Header.tsx          # Screen header
+├── TabBar.tsx          # Bottom navigation
+├── SafeContainer.tsx   # Safe area wrapper
+├── KeyboardAvoid.tsx   # Keyboard avoiding view
+└── index.ts
+```
+
+### 3. Feature Components (`src/screens/[feature]/components/`)
+
+Feature-specific components:
+
+```
+screens/
+├── courses/
+│   └── components/
+│       ├── LessonNode.tsx
+│       ├── LessonPath.tsx
+│       └── index.ts
+├── lessons/
+│   └── components/
+│       ├── ProgressBar.tsx
+│       └── index.ts
+```
+
+### 4. Shared Components (`src/components/shared/`)
+
+Cross-feature reusable components:
+
+```
+shared/
+├── EmptyState.tsx      # Empty state display
+├── ErrorBoundary.tsx   # Error handling
+├── LoadingState.tsx    # Loading indicator
+└── index.ts
+```
+
+---
+
+## Component Props Interface Rules
+
+### Required Props Pattern
+
+```typescript
+interface ButtonProps {
+  // Required props first (no ?)
+  label: string;
+  onPress: () => void;
+
+  // Optional props after (with ?)
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+  loading?: boolean;
+
+  // Style overrides last
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+}
+```
+
+### Props with Defaults
+
+```typescript
+// Define defaults as constants
+const BUTTON_DEFAULTS = {
+  variant: 'primary' as const,
+  size: 'md' as const,
+  disabled: false,
+  loading: false,
+};
+
+// Destructure with defaults
+export const Button: React.FC<ButtonProps> = ({
+  label,
+  onPress,
+  variant = BUTTON_DEFAULTS.variant,
+  size = BUTTON_DEFAULTS.size,
+  disabled = BUTTON_DEFAULTS.disabled,
+  loading = BUTTON_DEFAULTS.loading,
+  style,
+  textStyle,
+}) => {
+  // Implementation
+};
+```
+
+---
+
+## Component Size Configurations
+
+### Size System Pattern
+
+```typescript
+// Define sizes as typed constant object
+const SIZES = {
+  sm: {
+    height: 32,
+    paddingHorizontal: 12,
+    fontSize: 14,
+    iconSize: 16,
+  },
+  md: {
+    height: 44, // iOS minimum
+    paddingHorizontal: 16,
+    fontSize: 16,
+    iconSize: 20,
+  },
+  lg: {
+    height: 56,
+    paddingHorizontal: 24,
+    fontSize: 18,
+    iconSize: 24,
+  },
+} as const;
+
+type Size = keyof typeof SIZES;
+
+// Usage in component
+const Button: React.FC<{ size?: Size }> = ({ size = 'md' }) => {
+  const dimensions = SIZES[size];
+
+  return (
+    <Pressable style={{
+      height: dimensions.height,
+      paddingHorizontal: dimensions.paddingHorizontal,
+    }}>
+      <Text style={{ fontSize: dimensions.fontSize }}>
+        Label
+      </Text>
+    </Pressable>
   );
 };
 ```
 
-### Safe Area Edge Cases
+---
+
+## Component Export Rules
+
+### Barrel Exports (index.ts)
 
 ```typescript
-// Modal with bottom sheet - only bottom safe area
-<SafeAreaView edges={['bottom']}>
-  <BottomSheet />
-</SafeAreaView>
+// src/components/ui/index.ts
+export { Button } from './Button';
+export { Text } from './Text';
+export { Card } from './Card';
+export { Input } from './Input';
 
-// Full screen content behind status bar
-<View style={{ flex: 1 }}>
-  <StatusBar translucent backgroundColor="transparent" />
-  <ImageBackground style={{ flex: 1, paddingTop: insets.top }}>
-    {/* Content */}
-  </ImageBackground>
-</View>
+// Also export types if needed externally
+export type { ButtonProps } from './Button';
+export type { TextVariant } from './Text';
+```
+
+### Named Exports Only
+
+```typescript
+// CORRECT: Named export
+export const MyComponent: React.FC<Props> = () => {};
+
+// WRONG: Default export
+export default function MyComponent() {}
 ```
 
 ---
 
-## ScrollView Layout Rules
+## Component Composition Patterns
 
-### ScrollView Container Requirements
-
-```typescript
-// CORRECT: ScrollView inside flex: 1 container
-<View style={{ flex: 1 }}>
-  <ScrollView
-    style={{ flex: 1 }}
-    contentContainerStyle={{
-      paddingBottom: insets.bottom + 20,
-      paddingHorizontal: 16,
-    }}
-    showsVerticalScrollIndicator={false}
-  >
-    {/* Content */}
-  </ScrollView>
-</View>
-
-// WRONG: No flex on parent
-<View>
-  <ScrollView>
-    {/* Will not scroll on iOS */}
-  </ScrollView>
-</View>
-```
-
-### FlatList Performance Rules
+### Compound Components
 
 ```typescript
-// CORRECT: Optimized FlatList
-<FlatList
-  data={items}
-  renderItem={renderItem}
-  keyExtractor={(item) => item.id}
-  getItemLayout={(data, index) => ({
-    length: ITEM_HEIGHT,
-    offset: ITEM_HEIGHT * index,
-    index,
-  })}
-  removeClippedSubviews={true}
-  maxToRenderPerBatch={10}
-  windowSize={5}
-  initialNumToRender={10}
-/>
+// Card with sub-components
+interface CardContextValue {
+  variant: 'default' | 'elevated';
+}
+
+const CardContext = React.createContext<CardContextValue | null>(null);
+
+const Card = ({ children, variant = 'default' }) => (
+  <CardContext.Provider value={{ variant }}>
+    <View style={styles.card}>
+      {children}
+    </View>
+  </CardContext.Provider>
+);
+
+Card.Header = ({ children }) => (
+  <View style={styles.header}>{children}</View>
+);
+
+Card.Body = ({ children }) => (
+  <View style={styles.body}>{children}</View>
+);
+
+Card.Footer = ({ children }) => (
+  <View style={styles.footer}>{children}</View>
+);
+
+// Usage
+<Card variant="elevated">
+  <Card.Header>Title</Card.Header>
+  <Card.Body>Content</Card.Body>
+  <Card.Footer>Actions</Card.Footer>
+</Card>
 ```
 
 ---
 
-## Dimension Constants
+## Performance Rules
 
-### Screen Dimensions
+### Memoization Rules
 
 ```typescript
-import { Dimensions, Platform, StatusBar } from 'react-native';
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
-
-// iOS specific status bar height
-const STATUS_BAR_HEIGHT = Platform.select({
-  ios: 44, // Default for notched iPhones
-  android: StatusBar.currentHeight || 24,
-  default: 0,
+// Memoize expensive components
+export const ExpensiveList = React.memo(({ items }) => {
+  // Render logic
 });
 
-// Tab bar height (iOS standard)
-const TAB_BAR_HEIGHT = 49;
+// Memoize callbacks passed to children
+const ParentComponent = () => {
+  const handlePress = useCallback(() => {
+    // Handler logic
+  }, [dependencies]);
 
-// Navigation bar height
-const NAV_BAR_HEIGHT = 44;
+  return <ChildComponent onPress={handlePress} />;
+};
+
+// Memoize expensive calculations
+const Component = ({ data }) => {
+  const processedData = useMemo(() => {
+    return expensiveCalculation(data);
+  }, [data]);
+
+  return <View>{/* Use processedData */}</View>;
+};
 ```
 
 ---
 
-## Forbidden Layout Practices
+## Forbidden Component Practices
 
-1. **NEVER** use position: absolute without explicit parent dimensions
-2. **NEVER** omit flex: 1 on ScrollView parent containers
-3. **NEVER** use percentage heights without explicit parent height
-4. **NEVER** mix fixed and flex dimensions incorrectly
-5. **NEVER** ignore safe areas on notched devices
-6. **NEVER** use negative margins for layout (use padding instead)
-7. **NEVER** rely on content size for containers with absolute children
-8. **NEVER** use aspectRatio without at least one explicit dimension
+1. **NEVER** use default exports for components
+2. **NEVER** define styles inline (always use StyleSheet.create)
+3. **NEVER** create components inside other components
+4. **NEVER** use anonymous functions in render for callbacks
+5. **NEVER** mutate props or state directly
+6. **NEVER** skip TypeScript types for props
+7. **NEVER** use `any` type for props
+8. **NEVER** mix business logic with presentation
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
