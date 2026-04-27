@@ -4,7 +4,7 @@
   "repo": "moneybin",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/bsaffel",
+  "source_url": "https://github.com/bsaffel/moneybin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T02:42:18Z"
+  "distributed_at": "2026-04-27T00:38:20Z"
 }
