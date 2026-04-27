@@ -1,527 +1,365 @@
-## 13-forms-input-rules
+## 14-project-structure-rules
 
-> handleSubmit,
+> - **Mode**: Always On
 
-# Forms & Input Rules - React Native iOS
+# Project Structure Rules - React Native Expo
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: Form handling patterns for iOS-compliant user input
+- **Description**: Directory structure and file organization standards
 
 ---
 
-## Input Component Standards
+## Root Directory Structure
 
-### TextInput iOS Configuration
+### Standard Project Layout
 
-```typescript
-// Standard TextInput with iOS optimizations
-<TextInput
-  // Required props
-  value={value}
-  onChangeText={setValue}
-
-  // iOS-specific props
-  clearButtonMode="while-editing"    // Show clear button
-  keyboardType="default"             // Appropriate keyboard
-  returnKeyType="done"               // Return key label
-  autoCapitalize="none"              // For email/username
-  autoCorrect={false}                // Disable for sensitive fields
-  autoComplete="email"               // iOS autofill
-  textContentType="emailAddress"     // iOS password manager
-
-  // Accessibility
-  accessible={true}
-  accessibilityLabel="Email address"
-  accessibilityHint="Enter your email"
-
-  // Styling
-  style={styles.input}
-  placeholderTextColor="#9CA3AF"
-/>
 ```
-
-### Keyboard Types by Field
-
-```typescript
-const KEYBOARD_CONFIGS = {
-  email: {
-    keyboardType: 'email-address' as const,
-    autoCapitalize: 'none' as const,
-    autoComplete: 'email' as const,
-    textContentType: 'emailAddress' as const,
-  },
-  password: {
-    secureTextEntry: true,
-    autoCapitalize: 'none' as const,
-    autoComplete: 'password' as const,
-    textContentType: 'password' as const,
-  },
-  phone: {
-    keyboardType: 'phone-pad' as const,
-    autoComplete: 'tel' as const,
-    textContentType: 'telephoneNumber' as const,
-  },
-  number: {
-    keyboardType: 'numeric' as const,
-  },
-  decimal: {
-    keyboardType: 'decimal-pad' as const,
-  },
-  url: {
-    keyboardType: 'url' as const,
-    autoCapitalize: 'none' as const,
-    autoCorrect: false,
-  },
-  name: {
-    autoCapitalize: 'words' as const,
-    autoComplete: 'name' as const,
-    textContentType: 'name' as const,
-  },
-};
+aiklubben-app/
+├── .expo/                    # Expo configuration (gitignored)
+├── .windsurf/
+│   └── rules/               # Cascade rules
+├── assets/                   # Static assets (images, fonts)
+│   ├── images/
+│   └── fonts/
+├── docs/                     # Documentation
+├── src/                      # Source code
+├── .env                      # Environment variables (gitignored)
+├── .env.example              # Environment template
+├── .eslintrc.cjs             # ESLint config
+├── .gitignore
+├── .prettierrc               # Prettier config
+├── App.tsx                   # Entry point
+├── app.json                  # Expo config
+├── babel.config.js           # Babel config
+├── metro.config.js           # Metro bundler config
+├── package.json
+├── tailwind.config.js        # NativeWind config
+└── tsconfig.json             # TypeScript config
 ```
 
 ---
 
-## Keyboard Avoiding
+## Source Directory Structure
 
-### KeyboardAvoidingView Setup
+### /src Organization
 
-```typescript
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-const FormScreen = () => {
-  const insets = useSafeAreaInsets();
-
-  return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
-    >
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingBottom: insets.bottom + 20,
-        }}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
-        <FormContent />
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
-};
 ```
-
-### Keyboard Dismiss Patterns
-
-```typescript
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
-
-// Dismiss on tap outside
-const DismissKeyboardView = ({ children }: { children: ReactNode }) => (
-  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={{ flex: 1 }}>
-      {children}
-    </View>
-  </TouchableWithoutFeedback>
-);
-
-// Dismiss on scroll
-<ScrollView
-  keyboardDismissMode="on-drag"
-  keyboardShouldPersistTaps="handled"
->
+src/
+├── components/               # Reusable components
+│   ├── ui/                   # Base UI components
+│   │   ├── Button.tsx
+│   │   ├── Text.tsx
+│   │   ├── Card.tsx
+│   │   ├── Input.tsx
+│   │   └── index.ts          # Barrel export
+│   ├── layout/               # Layout components
+│   │   ├── ScreenLayout.tsx
+│   │   ├── Header.tsx
+│   │   └── index.ts
+│   └── shared/               # Shared feature components
+│       ├── EmptyState.tsx
+│       ├── ErrorState.tsx
+│       ├── LoadingState.tsx
+│       └── index.ts
+├── config/                   # App configuration
+│   ├── supabase.ts           # Supabase client
+│   ├── theme.ts              # Theme constants
+│   └── index.ts
+├── constants/                # App constants
+│   ├── colors.ts
+│   ├── spacing.ts
+│   └── index.ts
+├── contexts/                 # React Context providers
+│   ├── AuthContext.tsx
+│   ├── ThemeContext.tsx
+│   └── index.ts
+├── hooks/                    # Custom hooks
+│   ├── useAuth.ts
+│   ├── useFetch.ts
+│   └── index.ts
+├── lib/                      # Utilities and helpers
+│   ├── api/                  # API client
+│   ├── utils/                # Utility functions
+│   ├── validation/           # Validation schemas
+│   └── animations.ts         # Animation configs
+├── navigation/               # Navigation setup
+│   ├── AppNavigator.tsx
+│   ├── AuthNavigator.tsx
+│   └── types.ts
+├── screens/                  # Screen components
+│   ├── auth/                 # Auth screens
+│   │   ├── LoginScreen.tsx
+│   │   └── RegisterScreen.tsx
+│   ├── courses/              # Course feature
+│   │   ├── components/       # Feature-specific components
+│   │   ├── hooks/            # Feature-specific hooks
+│   │   ├── CourseListScreen.tsx
+│   │   └── CourseDetailScreen.tsx
+│   ├── lessons/              # Lesson feature
+│   │   ├── components/
+│   │   ├── steps/            # Lesson step components
+│   │   └── LessonScreen.tsx
+│   └── profile/              # Profile feature
+│       └── ProfileScreen.tsx
+├── services/                 # External service integrations
+│   ├── auth.ts
+│   └── api.ts
+└── types/                    # TypeScript types
+    ├── api.ts
+    ├── navigation.ts
+    └── index.ts
 ```
 
 ---
 
-## Form State Management
+## File Naming Conventions
 
-### Form Hook Pattern
+### Component Files
+
+```
+PascalCase.tsx              # React components
+├── Button.tsx
+├── UserCard.tsx
+├── CourseDetailScreen.tsx
+└── LessonPath.tsx
+```
+
+### Hook Files
+
+```
+camelCase.ts                # Custom hooks (with use prefix)
+├── useAuth.ts
+├── useFetch.ts
+├── useCourses.ts
+└── useForm.ts
+```
+
+### Utility Files
+
+```
+camelCase.ts                # Utilities and helpers
+├── formatDate.ts
+├── validation.ts
+├── storage.ts
+└── helpers.ts
+```
+
+### Type Files
+
+```
+camelCase.ts                # Type definitions
+├── user.ts
+├── course.ts
+├── navigation.ts
+└── api.ts
+```
+
+### Constant Files
+
+```
+camelCase.ts                # Constants
+├── colors.ts
+├── spacing.ts
+├── routes.ts
+└── config.ts
+```
+
+---
+
+## Component Organization
+
+### Feature-Based Structure
+
+```
+screens/
+└── courses/
+    ├── components/           # Feature-specific components
+    │   ├── CourseCard.tsx
+    │   ├── LessonNode.tsx
+    │   ├── LessonPath.tsx
+    │   └── index.ts
+    ├── hooks/                # Feature-specific hooks
+    │   ├── useCourse.ts
+    │   ├── useLessons.ts
+    │   └── index.ts
+    ├── CourseListScreen.tsx
+    ├── CourseDetailScreen.tsx
+    └── index.ts              # Screen exports
+```
+
+### Shared vs Feature Components
 
 ```typescript
-// hooks/useForm.ts
-interface FormConfig<T> {
-  initialValues: T;
-  validationSchema?: z.ZodSchema<T>;
-  onSubmit: (values: T) => Promise<void> | void;
-}
+// SHARED: Used across multiple features
+// Location: src/components/ui/ or src/components/shared/
+// Examples: Button, Card, Text, LoadingState, EmptyState
 
-export const useForm = <T extends Record<string, unknown>>({
-  initialValues,
-  validationSchema,
-  onSubmit,
-}: FormConfig<T>) => {
-  const [values, setValues] = useState<T>(initialValues);
-  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
-  const [touched, setTouched] = useState<Partial<Record<keyof T, boolean>>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+// FEATURE: Used only within one feature
+// Location: src/screens/[feature]/components/
+// Examples: LessonNode, CourseCard, ProfileAvatar
+```
 
-  const setValue = useCallback(<K extends keyof T>(field: K, value: T[K]) => {
-    setValues((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => ({ ...prev, [field]: undefined }));
-    setSubmitError(null);
-  }, []);
+---
 
-  const setFieldTouched = useCallback((field: keyof T) => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-  }, []);
+## Import Aliases
 
-  const validate = useCallback((): boolean => {
-    if (!validationSchema) return true;
+### tsconfig.json Paths
 
-    const result = validationSchema.safeParse(values);
-
-    if (result.success) {
-      setErrors({});
-      return true;
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"],
+      "@/screens/*": ["src/screens/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/lib/*": ["src/lib/*"],
+      "@/types/*": ["src/types/*"],
+      "@/contexts/*": ["src/contexts/*"],
+      "@/config/*": ["src/config/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/services/*": ["src/services/*"],
+      "@/navigation/*": ["src/navigation/*"]
     }
-
-    const newErrors: Partial<Record<keyof T, string>> = {};
-    result.error.errors.forEach((err) => {
-      const field = err.path[0] as keyof T;
-      if (!newErrors[field]) {
-        newErrors[field] = err.message;
-      }
-    });
-    setErrors(newErrors);
-    return false;
-  }, [values, validationSchema]);
-
-  const handleSubmit = useCallback(async () => {
-    // Mark all fields as touched
-    const allTouched = Object.keys(initialValues).reduce(
-      (acc, key) => ({ ...acc, [key]: true }),
-      {} as Record<keyof T, boolean>,
-    );
-    setTouched(allTouched);
-
-    if (!validate()) return;
-
-    setIsSubmitting(true);
-    setSubmitError(null);
-
-    try {
-      await onSubmit(values);
-    } catch (error) {
-      setSubmitError(error instanceof Error ? error.message : 'Ett fel uppstod');
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [values, validate, onSubmit, initialValues]);
-
-  const reset = useCallback(() => {
-    setValues(initialValues);
-    setErrors({});
-    setTouched({});
-    setSubmitError(null);
-  }, [initialValues]);
-
-  return {
-    values,
-    errors,
-    touched,
-    isSubmitting,
-    submitError,
-    setValue,
-    setFieldTouched,
-    handleSubmit,
-    reset,
-    isValid: Object.keys(errors).length === 0,
-  };
-};
-```
-
----
-
-## Input Validation
-
-### Real-time Validation
-
-```typescript
-// Validate on blur
-const EmailInput = () => {
-  const { values, errors, touched, setValue, setFieldTouched } = useForm();
-
-  return (
-    <FormField
-      label="E-post"
-      value={values.email}
-      onChangeText={(text) => setValue('email', text)}
-      onBlur={() => setFieldTouched('email')}
-      error={touched.email ? errors.email : undefined}
-      keyboardType="email-address"
-      autoCapitalize="none"
-    />
-  );
-};
-```
-
-### Validation Rules
-
-```typescript
-// lib/validation/rules.ts
-import { z } from 'zod';
-
-export const emailRule = z.string().min(1, 'E-post krävs').email('Ogiltig e-postadress');
-
-export const passwordRule = z
-  .string()
-  .min(1, 'Lösenord krävs')
-  .min(8, 'Minst 8 tecken')
-  .regex(/[A-Z]/, 'Minst en stor bokstav')
-  .regex(/[0-9]/, 'Minst en siffra');
-
-export const requiredString = (fieldName: string) => z.string().min(1, `${fieldName} krävs`);
-
-export const optionalString = z.string().optional();
-
-// Composite schemas
-export const loginSchema = z.object({
-  email: emailRule,
-  password: z.string().min(1, 'Lösenord krävs'),
-});
-
-export const registerSchema = z
-  .object({
-    name: requiredString('Namn'),
-    email: emailRule,
-    password: passwordRule,
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Lösenorden matchar inte',
-    path: ['confirmPassword'],
-  });
-```
-
----
-
-## Form Field Component
-
-### Reusable FormField
-
-```typescript
-// components/ui/FormField.tsx
-interface FormFieldProps {
-  label: string;
-  value: string;
-  onChangeText: (text: string) => void;
-  onBlur?: () => void;
-  error?: string;
-  placeholder?: string;
-  secureTextEntry?: boolean;
-  keyboardType?: KeyboardTypeOptions;
-  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
-  multiline?: boolean;
-  numberOfLines?: number;
-  maxLength?: number;
-  disabled?: boolean;
-  rightElement?: ReactNode;
+  }
 }
-
-export const FormField: React.FC<FormFieldProps> = ({
-  label,
-  value,
-  onChangeText,
-  onBlur,
-  error,
-  placeholder,
-  secureTextEntry,
-  keyboardType,
-  autoCapitalize,
-  multiline,
-  numberOfLines,
-  maxLength,
-  disabled,
-  rightElement,
-}) => {
-  const [isFocused, setIsFocused] = useState(false);
-  const hasError = !!error;
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-
-      <View style={[
-        styles.inputContainer,
-        isFocused && styles.inputFocused,
-        hasError && styles.inputError,
-        disabled && styles.inputDisabled,
-      ]}>
-        <TextInput
-          style={[styles.input, multiline && styles.multilineInput]}
-          value={value}
-          onChangeText={onChangeText}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => {
-            setIsFocused(false);
-            onBlur?.();
-          }}
-          placeholder={placeholder}
-          placeholderTextColor="#6B7280"
-          secureTextEntry={secureTextEntry}
-          keyboardType={keyboardType}
-          autoCapitalize={autoCapitalize}
-          multiline={multiline}
-          numberOfLines={numberOfLines}
-          maxLength={maxLength}
-          editable={!disabled}
-
-          // Accessibility
-          accessible={true}
-          accessibilityLabel={label}
-          accessibilityState={{ disabled }}
-          accessibilityHint={error || placeholder}
-        />
-
-        {rightElement && (
-          <View style={styles.rightElement}>
-            {rightElement}
-          </View>
-        )}
-      </View>
-
-      {hasError && (
-        <View style={styles.errorContainer}>
-          <AlertCircle size={14} color="#EF4444" />
-          <Text style={styles.errorText}>{error}</Text>
-        </View>
-      )}
-
-      {maxLength && (
-        <Text style={styles.charCount}>
-          {value.length}/{maxLength}
-        </Text>
-      )}
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 16,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#F9FAFB',
-    marginBottom: 8,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1A1625',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#374151',
-  },
-  inputFocused: {
-    borderColor: '#8B5CF6',
-  },
-  inputError: {
-    borderColor: '#EF4444',
-  },
-  inputDisabled: {
-    opacity: 0.5,
-  },
-  input: {
-    flex: 1,
-    height: 48,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: '#F9FAFB',
-  },
-  multilineInput: {
-    height: 100,
-    paddingTop: 12,
-    textAlignVertical: 'top',
-  },
-  rightElement: {
-    paddingRight: 12,
-  },
-  errorContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 6,
-    gap: 4,
-  },
-  errorText: {
-    fontSize: 13,
-    color: '#EF4444',
-  },
-  charCount: {
-    fontSize: 12,
-    color: '#6B7280',
-    textAlign: 'right',
-    marginTop: 4,
-  },
-});
 ```
 
----
-
-## Submit Button State
-
-### Submit Button Pattern
+### Import Order
 
 ```typescript
-// Form submit button with proper states
-interface SubmitButtonProps {
-  onPress: () => void;
-  isSubmitting: boolean;
-  isDisabled: boolean;
-  label: string;
-}
+// 1. React
+import React, { useState, useEffect } from 'react';
 
-export const SubmitButton: React.FC<SubmitButtonProps> = ({
-  onPress,
-  isSubmitting,
-  isDisabled,
-  label,
-}) => (
-  <Pressable
-    onPress={onPress}
-    disabled={isSubmitting || isDisabled}
-    style={({ pressed }) => [
-      styles.button,
-      (isSubmitting || isDisabled) && styles.buttonDisabled,
-      pressed && !isSubmitting && !isDisabled && styles.buttonPressed,
-    ]}
-    accessibilityRole="button"
-    accessibilityLabel={isSubmitting ? 'Skickar...' : label}
-    accessibilityState={{ disabled: isSubmitting || isDisabled }}
-  >
-    {isSubmitting ? (
-      <ActivityIndicator color="#FFFFFF" size="small" />
-    ) : (
-      <Text style={styles.buttonText}>{label}</Text>
-    )}
-  </Pressable>
-);
+// 2. React Native
+import { View, Text, StyleSheet } from 'react-native';
+
+// 3. Third-party (alphabetical)
+import { MotiView } from 'moti';
+import * as Haptics from 'expo-haptics';
+
+// 4. Navigation
+import { useNavigation } from '@react-navigation/native';
+
+// 5. Local - Components
+import { Button, Card } from '@/components/ui';
+
+// 6. Local - Hooks
+import { useAuth, useCourse } from '@/hooks';
+
+// 7. Local - Utils
+import { formatDate } from '@/lib/utils';
+
+// 8. Local - Types
+import type { Course, User } from '@/types';
+
+// 9. Local - Constants
+import { COLORS } from '@/constants';
+
+// 10. Relative imports (same feature)
+import { LessonNode } from './components';
 ```
 
 ---
 
-## Forbidden Form Practices
+## Barrel Exports
 
-1. **NEVER** use uncontrolled inputs in React Native
-2. **NEVER** validate only on submit (use real-time + submit)
-3. **NEVER** show validation errors before user interaction
-4. **NEVER** forget keyboard avoiding behavior
-5. **NEVER** use keyboardShouldPersistTaps="never" for forms
-6. **NEVER** omit accessibility labels on form fields
-7. **NEVER** use default keyboard type for specialized inputs
-8. **NEVER** forget to handle keyboard dismiss gestures
+### Index File Pattern
+
+```typescript
+// components/ui/index.ts
+export { Button } from './Button';
+export { Text } from './Text';
+export { Card } from './Card';
+export { Input } from './Input';
+export { Badge } from './Badge';
+
+// Re-export types if needed
+export type { ButtonProps } from './Button';
+export type { TextVariant } from './Text';
+```
+
+### When to Use Barrel Exports
+
+```typescript
+// USE barrel exports for:
+// - UI components (src/components/ui/index.ts)
+// - Shared components (src/components/shared/index.ts)
+// - Hooks (src/hooks/index.ts)
+// - Feature component folders
+
+// DON'T use barrel exports for:
+// - Screens (import directly)
+// - Large utility collections (may cause bundle bloat)
+// - Circular dependency risks
+```
+
+---
+
+## Configuration Files
+
+### Environment Variables
+
+```bash
+# .env.example - Template for environment variables
+EXPO_PUBLIC_SUPABASE_URL=your_supabase_url
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+EXPO_PUBLIC_API_URL=https://api.example.com
+```
+
+### App Configuration
+
+```typescript
+// src/config/index.ts
+export const config = {
+  supabase: {
+    url: process.env.EXPO_PUBLIC_SUPABASE_URL!,
+    anonKey: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!,
+  },
+  api: {
+    baseUrl: process.env.EXPO_PUBLIC_API_URL!,
+    timeout: 10000,
+  },
+  app: {
+    name: 'AI Klubben',
+    version: '1.0.0',
+  },
+} as const;
+```
+
+---
+
+## Documentation Structure
+
+### /docs Organization
+
+```
+docs/
+├── README.md                 # Project overview
+├── architecture/
+│   ├── OVERVIEW.md           # Architecture overview
+│   └── TECH_STACK.md         # Tech stack details
+├── contributing/
+│   └── CONTRIBUTING.md       # Contribution guidelines
+└── development/
+    └── WORKFLOW.md           # Development workflow
+```
+
+---
+
+## Forbidden Structure Practices
+
+1. **NEVER** put components directly in src/ root
+2. **NEVER** mix component and utility files in same folder
+3. **NEVER** use relative imports for shared modules
+4. **NEVER** create deeply nested folder structures (max 4 levels)
+5. **NEVER** put screens outside of src/screens/
+6. **NEVER** skip barrel exports for component folders
+7. **NEVER** hardcode paths without using aliases
+8. **NEVER** put business logic in component files
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
