@@ -4,7 +4,7 @@
   "repo": "dev-blog",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/WarriorAchilles",
+  "source_url": "https://github.com/WarriorAchilles/dev-blog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T05:47:26Z"
+  "distributed_at": "2026-04-27T01:03:07Z"
 }
