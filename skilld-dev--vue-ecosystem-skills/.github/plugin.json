@@ -1,0 +1,34 @@
+{
+  "name": "skilld-dev--vue-ecosystem-skills",
+  "displayName": "vue-ecosystem-skills",
+  "description": "AI agent skills for the bleeding edge Vue ecosystem. Built from real docs, issues, and releases.",
+  "version": "1.0.0",
+  "author": "skilld-dev",
+  "homepage": "https://github.com/skilld-dev/vue-ecosystem-skills",
+  "skills": [
+    {
+      "name": "vue-i18n-skilld",
+      "description": ""
+    },
+    {
+      "name": "tanstack-ai-vue-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-router-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-test-utils-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-data-ui-skilld",
+      "description": ""
+    }
+  ]
+}
