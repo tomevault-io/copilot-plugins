@@ -1,6 +1,6 @@
 # leo-participation-translator
 
-> Tome by [Absolute-Space-GHCP](https://github.com/Absolute-Space-GHCP/leo-participation-translator) — distributed by [TomeVault](https://tomevault.io/claim/Absolute-Space-GHCP)
+> Tome by [Absolute-Space-GHCP](https://github.com/Absolute-Space-GHCP/leo-participation-translator) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [Absolute-Space-GHCP/leo-participation
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Absolute-Space-GHCP)
+From [Absolute-Space-GHCP/leo-participation-translator](https://github.com/Absolute-Space-GHCP/leo-participation-translator) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Absolute-Space-GHCP) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
