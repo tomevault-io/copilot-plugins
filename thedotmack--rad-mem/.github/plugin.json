@@ -1,0 +1,14 @@
+{
+  "name": "thedotmack--rad-mem",
+  "displayName": "rad-mem",
+  "description": "Domain-flexible temporal intelligence - apply to any document corpus",
+  "version": "1.0.0",
+  "author": "thedotmack",
+  "homepage": "https://github.com/thedotmack/rad-mem",
+  "skills": [
+    {
+      "name": "version-bump",
+      "description": ""
+    }
+  ]
+}
