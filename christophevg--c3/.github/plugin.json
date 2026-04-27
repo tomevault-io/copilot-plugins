@@ -1,0 +1,14 @@
+{
+  "name": "christophevg--c3",
+  "displayName": "c3",
+  "description": "c3",
+  "version": "1.0.0",
+  "author": "christophevg",
+  "homepage": "https://github.com/christophevg/c3",
+  "skills": [
+    {
+      "name": "vue-form-generator",
+      "description": ""
+    }
+  ]
+}
