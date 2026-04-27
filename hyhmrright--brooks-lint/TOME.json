@@ -4,7 +4,7 @@
   "repo": "brooks-lint",
   "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hyhmrright/brooks-lint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T05:37:26Z"
+  "distributed_at": "2026-04-27T04:50:24Z"
 }
