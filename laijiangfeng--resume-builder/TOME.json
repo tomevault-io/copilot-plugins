@@ -1,0 +1,44 @@
+{
+  "name": "resume-builder",
+  "owner": "LAIJiangFeng",
+  "repo": "resume-builder",
+  "description": "\u9009\u62e9\u6a21\u677f\uff0c\u7b80\u5386\u4e00\u952e\u7f16\u8f91",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LAIJiangFeng/resume-builder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T04:59:33Z"
+}
