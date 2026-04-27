@@ -1,454 +1,525 @@
-## 11-testing-rules
+## 12-error-handling-rules
 
 > - **Mode**: Always On
 
-# Testing Rules - React Native Testing
+# Error Handling Rules - React Native
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: Testing standards for React Native applications
+- **Description**: Error handling patterns for robust React Native apps
 
 ---
 
-## Testing Stack
+## Error Boundary
 
-### Required Testing Libraries
+### Global Error Boundary
 
-```json
-// package.json devDependencies
-{
-  "devDependencies": {
-    "@testing-library/react-native": "^12.x",
-    "@testing-library/jest-native": "^5.x",
-    "jest": "^29.x",
-    "jest-expo": "^50.x",
-    "@types/jest": "^29.x"
+```typescript
+// components/ErrorBoundary.tsx
+import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Text, Button } from '@/components/ui';
+
+interface Props {
+  children: ReactNode;
+  fallback?: ReactNode;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
+}
+
+interface State {
+  hasError: boolean;
+  error: Error | null;
+}
+
+export class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    // Log to error reporting service
+    console.error('ErrorBoundary caught:', error, errorInfo);
+
+    // Call optional error handler
+    this.props.onError?.(error, errorInfo);
+
+    // Report to analytics (Sentry, etc.)
+    // errorReporting.captureException(error, { extra: errorInfo });
+  }
+
+  handleRetry = () => {
+    this.setState({ hasError: false, error: null });
+  };
+
+  render() {
+    if (this.state.hasError) {
+      if (this.props.fallback) {
+        return this.props.fallback;
+      }
+
+      return (
+        <View style={styles.container}>
+          <Text variant="h2" style={styles.title}>
+            Något gick fel
+          </Text>
+          <Text variant="body" style={styles.message}>
+            Vi kunde inte ladda innehållet. Försök igen.
+          </Text>
+          <Button onPress={this.handleRetry} label="Försök igen" />
+        </View>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+    backgroundColor: '#0C0A17',
+  },
+  title: {
+    marginBottom: 12,
+    color: '#F9FAFB',
+  },
+  message: {
+    marginBottom: 24,
+    textAlign: 'center',
+    color: '#9CA3AF',
+  },
+});
+```
+
+### Using Error Boundaries
+
+```typescript
+// Wrap screens or feature sections
+const App = () => (
+  <ErrorBoundary
+    onError={(error) => {
+      // Report to monitoring service
+      reportError(error);
+    }}
+  >
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
+  </ErrorBoundary>
+);
+
+// Feature-level boundaries
+const CourseScreen = () => (
+  <ErrorBoundary fallback={<CourseErrorFallback />}>
+    <CourseContent />
+  </ErrorBoundary>
+);
+```
+
+---
+
+## Async Error Handling
+
+### API Error Handling Pattern
+
+```typescript
+// types/errors.ts
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    public statusCode: number,
+    public code?: string,
+    public details?: unknown,
+  ) {
+    super(message);
+    this.name = 'ApiError';
+  }
+
+  static fromResponse(response: Response, body: unknown): ApiError {
+    const message = (body as { message?: string })?.message || 'Unknown error';
+    const code = (body as { code?: string })?.code;
+    return new ApiError(message, response.status, code, body);
+  }
+
+  get isUnauthorized(): boolean {
+    return this.statusCode === 401;
+  }
+
+  get isNotFound(): boolean {
+    return this.statusCode === 404;
+  }
+
+  get isServerError(): boolean {
+    return this.statusCode >= 500;
+  }
+}
+
+export class NetworkError extends Error {
+  constructor(message: string = 'Network error') {
+    super(message);
+    this.name = 'NetworkError';
+  }
+}
+
+export class ValidationError extends Error {
+  constructor(
+    message: string,
+    public fields: Record<string, string[]>,
+  ) {
+    super(message);
+    this.name = 'ValidationError';
   }
 }
 ```
 
-### Jest Configuration
-
-```javascript
-// jest.config.js
-module.exports = {
-  preset: 'jest-expo',
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|moti)',
-  ],
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
-  collectCoverageFrom: [
-    'src/**/*.{ts,tsx}',
-    '!src/**/*.d.ts',
-    '!src/**/*.stories.{ts,tsx}',
-    '!src/**/index.{ts,tsx}',
-  ],
-};
-```
-
-### Jest Setup
+### API Client with Error Handling
 
 ```typescript
-// jest.setup.ts
-import '@testing-library/jest-native/extend-expect';
+// lib/api.ts
+const apiClient = async <T>(endpoint: string, options?: RequestInit): Promise<T> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
+    });
 
-// Mock react-native-reanimated
-jest.mock('react-native-reanimated', () => {
-  const Reanimated = require('react-native-reanimated/mock');
-  Reanimated.default.call = () => {};
-  return Reanimated;
-});
+    const body = await response.json().catch(() => ({}));
 
-// Mock expo-haptics
-jest.mock('expo-haptics', () => ({
-  impactAsync: jest.fn(),
-  notificationAsync: jest.fn(),
-  selectionAsync: jest.fn(),
-  ImpactFeedbackStyle: {
-    Light: 'light',
-    Medium: 'medium',
-    Heavy: 'heavy',
-  },
-  NotificationFeedbackType: {
-    Success: 'success',
-    Warning: 'warning',
-    Error: 'error',
-  },
-}));
+    if (!response.ok) {
+      throw ApiError.fromResponse(response, body);
+    }
 
-// Mock safe area context
-jest.mock('react-native-safe-area-context', () => ({
-  SafeAreaProvider: ({ children }: { children: React.ReactNode }) => children,
-  SafeAreaView: ({ children }: { children: React.ReactNode }) => children,
-  useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
-}));
+    return body as T;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
 
-// Silence console warnings in tests
-global.console = {
-  ...console,
-  warn: jest.fn(),
-  error: jest.fn(),
+    if (error instanceof TypeError && error.message.includes('Network')) {
+      throw new NetworkError('Unable to connect to server');
+    }
+
+    throw new ApiError('An unexpected error occurred', 500);
+  }
 };
 ```
 
 ---
 
-## Component Testing
+## React Query Error Handling
 
-### Test File Structure
+### Query Error Handling
 
 ```typescript
-// ComponentName.test.tsx
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react-native';
-import { ComponentName } from './ComponentName';
+// hooks/useCourse.ts
+import { useQuery } from '@tanstack/react-query';
+import { ApiError } from '@/types/errors';
 
-// Group tests with describe
-describe('ComponentName', () => {
-  // Setup before each test
-  beforeEach(() => {
-    jest.clearAllMocks();
+export const useCourse = (courseId: string) => {
+  return useQuery({
+    queryKey: ['course', courseId],
+    queryFn: () => api.getCourse(courseId),
+    retry: (failureCount, error) => {
+      // Don't retry on 404
+      if (error instanceof ApiError && error.isNotFound) {
+        return false;
+      }
+      // Retry up to 3 times for other errors
+      return failureCount < 3;
+    },
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
+};
 
-  describe('rendering', () => {
-    it('renders correctly with required props', () => {
-      render(<ComponentName title="Test" />);
-      expect(screen.getByText('Test')).toBeTruthy();
-    });
+// Usage in component
+const CourseScreen = ({ courseId }: Props) => {
+  const { data, error, isLoading, isError, refetch } = useCourse(courseId);
 
-    it('renders loading state', () => {
-      render(<ComponentName title="Test" isLoading />);
-      expect(screen.getByTestId('loading-indicator')).toBeTruthy();
-    });
-  });
+  if (isLoading) {
+    return <LoadingState />;
+  }
 
-  describe('interactions', () => {
-    it('calls onPress when pressed', () => {
-      const onPress = jest.fn();
-      render(<ComponentName title="Test" onPress={onPress} />);
+  if (isError) {
+    if (error instanceof ApiError && error.isNotFound) {
+      return <NotFoundState message="Kursen hittades inte" />;
+    }
 
-      fireEvent.press(screen.getByRole('button'));
+    return (
+      <ErrorState
+        message="Kunde inte ladda kursen"
+        onRetry={refetch}
+      />
+    );
+  }
 
-      expect(onPress).toHaveBeenCalledTimes(1);
-    });
-  });
-});
+  return <CourseContent course={data} />;
+};
 ```
 
-### Querying Elements
+### Mutation Error Handling
 
 ```typescript
-// PREFERRED: Use accessible queries
-// 1. getByRole - most accessible
-screen.getByRole('button', { name: 'Submit' });
+// hooks/useUpdateProfile.ts
+export const useUpdateProfile = () => {
+  const queryClient = useQueryClient();
 
-// 2. getByLabelText - for accessibility labels
-screen.getByLabelText('Username input');
+  return useMutation({
+    mutationFn: api.updateProfile,
+    onError: (error) => {
+      if (error instanceof ValidationError) {
+        // Handle validation errors (show in form)
+        return;
+      }
 
-// 3. getByText - for visible text
-screen.getByText('Welcome');
+      if (error instanceof ApiError && error.isUnauthorized) {
+        // Handle auth error (logout, redirect)
+        return;
+      }
 
-// 4. getByTestId - last resort
-screen.getByTestId('custom-component');
-
-// Query variants
-// get* - throws if not found
-// query* - returns null if not found
-// find* - async, waits for element
-
-// Examples
-const button = screen.getByRole('button'); // Throws if not found
-const maybeButton = screen.queryByRole('button'); // Returns null if not found
-const asyncButton = await screen.findByRole('button'); // Waits up to 1000ms
-```
-
-### Testing User Interactions
-
-```typescript
-import { fireEvent, waitFor } from '@testing-library/react-native';
-
-// Press events
-fireEvent.press(element);
-
-// Text input
-fireEvent.changeText(input, 'new value');
-
-// Scroll events
-fireEvent.scroll(scrollView, {
-  nativeEvent: {
-    contentOffset: { y: 500 },
-  },
-});
-
-// Wait for async updates
-await waitFor(() => {
-  expect(screen.getByText('Loaded')).toBeTruthy();
-});
-
-// Wait for element to disappear
-await waitFor(() => {
-  expect(screen.queryByText('Loading')).toBeNull();
-});
-```
-
----
-
-## Hook Testing
-
-### Testing Custom Hooks
-
-```typescript
-import { renderHook, act } from '@testing-library/react-native';
-import { useCounter } from './useCounter';
-
-describe('useCounter', () => {
-  it('initializes with default value', () => {
-    const { result } = renderHook(() => useCounter());
-    expect(result.current.count).toBe(0);
-  });
-
-  it('initializes with provided value', () => {
-    const { result } = renderHook(() => useCounter(10));
-    expect(result.current.count).toBe(10);
-  });
-
-  it('increments count', () => {
-    const { result } = renderHook(() => useCounter());
-
-    act(() => {
-      result.current.increment();
-    });
-
-    expect(result.current.count).toBe(1);
-  });
-
-  it('decrements count', () => {
-    const { result } = renderHook(() => useCounter(5));
-
-    act(() => {
-      result.current.decrement();
-    });
-
-    expect(result.current.count).toBe(4);
-  });
-});
-```
-
-### Testing Hooks with Context
-
-```typescript
-import { renderHook } from '@testing-library/react-native';
-import { useAuth } from './useAuth';
-import { AuthProvider } from '@/contexts/AuthContext';
-
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <AuthProvider>{children}</AuthProvider>
-);
-
-describe('useAuth', () => {
-  it('provides auth context', () => {
-    const { result } = renderHook(() => useAuth(), { wrapper });
-
-    expect(result.current.isAuthenticated).toBe(false);
-    expect(result.current.user).toBeNull();
-  });
-});
-```
-
----
-
-## Testing with Providers
-
-### Test Utilities
-
-```typescript
-// test-utils.tsx
-import React from 'react';
-import { render, RenderOptions } from '@testing-library/react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider } from '@/contexts/AuthContext';
-
-const createTestQueryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: { retry: false },
-      mutations: { retry: false },
+      // Show generic error toast
+      showToast({ type: 'error', message: 'Något gick fel' });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      showToast({ type: 'success', message: 'Profilen uppdaterad' });
     },
   });
+};
+```
 
-interface AllProvidersProps {
-  children: React.ReactNode;
+---
+
+## Form Validation Errors
+
+### Validation Error Display
+
+```typescript
+// components/FormField.tsx
+interface FormFieldProps {
+  label: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  error?: string;
+  touched?: boolean;
 }
 
-const AllProviders = ({ children }: AllProvidersProps) => {
-  const queryClient = createTestQueryClient();
+export const FormField: React.FC<FormFieldProps> = ({
+  label,
+  value,
+  onChangeText,
+  error,
+  touched,
+}) => {
+  const showError = touched && error;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </QueryClientProvider>
+    <View style={styles.container}>
+      <Text style={styles.label}>{label}</Text>
+      <TextInput
+        value={value}
+        onChangeText={onChangeText}
+        style={[
+          styles.input,
+          showError && styles.inputError,
+        ]}
+        accessibilityLabel={label}
+        accessibilityState={{ invalid: !!showError }}
+      />
+      {showError && (
+        <Text style={styles.errorText} accessibilityRole="alert">
+          {error}
+        </Text>
+      )}
+    </View>
   );
 };
-
-const customRender = (
-  ui: React.ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>
-) => render(ui, { wrapper: AllProviders, ...options });
-
-export * from '@testing-library/react-native';
-export { customRender as render };
 ```
 
----
-
-## Mocking
-
-### Mocking Modules
+### Validation Schema
 
 ```typescript
-// Mock at top of file
-jest.mock('@/services/api', () => ({
-  fetchUser: jest.fn(),
-  updateUser: jest.fn(),
-}));
+// lib/validation.ts
+import { z } from 'zod';
 
-// Import mocked module
-import { fetchUser, updateUser } from '@/services/api';
-
-// Type assertion for mocked functions
-const mockFetchUser = fetchUser as jest.MockedFunction<typeof fetchUser>;
-
-// Use in tests
-describe('UserProfile', () => {
-  beforeEach(() => {
-    mockFetchUser.mockResolvedValue({
-      id: '1',
-      name: 'Test User',
-      email: 'test@example.com',
-    });
-  });
-
-  it('displays user data', async () => {
-    render(<UserProfile userId="1" />);
-
-    await waitFor(() => {
-      expect(screen.getByText('Test User')).toBeTruthy();
-    });
-  });
-});
-```
-
-### Mocking Navigation
-
-```typescript
-const mockNavigate = jest.fn();
-const mockGoBack = jest.fn();
-
-jest.mock('@react-navigation/native', () => ({
-  ...jest.requireActual('@react-navigation/native'),
-  useNavigation: () => ({
-    navigate: mockNavigate,
-    goBack: mockGoBack,
-  }),
-  useRoute: () => ({
-    params: { userId: '123' },
-  }),
-}));
-```
-
----
-
-## Snapshot Testing
-
-### When to Use Snapshots
-
-```typescript
-// USE snapshots for:
-// - Static UI components
-// - Component variations
-// - Error states
-
-describe('Button', () => {
-  it('matches snapshot for primary variant', () => {
-    const tree = render(<Button variant="primary">Click</Button>);
-    expect(tree.toJSON()).toMatchSnapshot();
-  });
-
-  it('matches snapshot for disabled state', () => {
-    const tree = render(<Button disabled>Click</Button>);
-    expect(tree.toJSON()).toMatchSnapshot();
-  });
+export const loginSchema = z.object({
+  email: z.string().min(1, 'E-post krävs').email('Ogiltig e-postadress'),
+  password: z.string().min(1, 'Lösenord krävs').min(8, 'Lösenordet måste vara minst 8 tecken'),
 });
 
-// DON'T use snapshots for:
-// - Dynamic content
-// - Frequently changing components
-// - Large component trees
-```
+export const validateForm = <T extends z.ZodSchema>(
+  schema: T,
+  data: unknown,
+): { success: true; data: z.infer<T> } | { success: false; errors: Record<string, string> } => {
+  const result = schema.safeParse(data);
 
----
+  if (result.success) {
+    return { success: true, data: result.data };
+  }
 
-## Test Coverage Requirements
+  const errors: Record<string, string> = {};
+  result.error.errors.forEach((err) => {
+    const path = err.path.join('.');
+    errors[path] = err.message;
+  });
 
-### Minimum Coverage Thresholds
-
-```javascript
-// jest.config.js
-module.exports = {
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70,
-    },
-  },
+  return { success: false, errors };
 };
 ```
 
-### What to Test
+---
 
-```
-Priority 1 (Required):
-- Custom hooks
-- Utility functions
-- Form validation
-- Critical user flows
+## Toast/Snackbar Notifications
 
-Priority 2 (Recommended):
-- UI components with logic
-- Navigation flows
-- Error handling
+### Toast System
 
-Priority 3 (Optional):
-- Simple presentational components
-- Styling variations
+```typescript
+// contexts/ToastContext.tsx
+interface Toast {
+  id: string;
+  type: 'success' | 'error' | 'warning' | 'info';
+  message: string;
+  duration?: number;
+}
+
+interface ToastContextValue {
+  toasts: Toast[];
+  showToast: (toast: Omit<Toast, 'id'>) => void;
+  hideToast: (id: string) => void;
+}
+
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [toasts, setToasts] = useState<Toast[]>([]);
+
+  const showToast = useCallback((toast: Omit<Toast, 'id'>) => {
+    const id = Date.now().toString();
+    const duration = toast.duration ?? 3000;
+
+    setToasts(prev => [...prev, { ...toast, id }]);
+
+    if (duration > 0) {
+      setTimeout(() => {
+        hideToast(id);
+      }, duration);
+    }
+  }, []);
+
+  const hideToast = useCallback((id: string) => {
+    setToasts(prev => prev.filter(t => t.id !== id));
+  }, []);
+
+  return (
+    <ToastContext.Provider value={{ toasts, showToast, hideToast }}>
+      {children}
+      <ToastContainer toasts={toasts} onHide={hideToast} />
+    </ToastContext.Provider>
+  );
+};
 ```
 
 ---
 
-## Forbidden Testing Practices
+## Offline Error Handling
 
-1. **NEVER** test implementation details (internal state)
-2. **NEVER** use snapshot tests for dynamic content
-3. **NEVER** skip cleanup in async tests
-4. **NEVER** use test timeouts without justification
-5. **NEVER** test third-party library functionality
-6. **NEVER** write tests that depend on test order
-7. **NEVER** use real API calls in unit tests
-8. **NEVER** ignore flaky tests (fix or remove them)
+### Network State Hook
+
+```typescript
+// hooks/useNetworkState.ts
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+
+export const useNetworkState = () => {
+  const [isConnected, setIsConnected] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
+      setIsConnected(state.isConnected);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return { isConnected, isOffline: isConnected === false };
+};
+
+// Usage
+const DataScreen = () => {
+  const { isOffline } = useNetworkState();
+
+  if (isOffline) {
+    return (
+      <OfflineState
+        message="Ingen internetanslutning"
+        description="Kontrollera din anslutning och försök igen"
+      />
+    );
+  }
+
+  return <DataContent />;
+};
+```
+
+---
+
+## Error Logging
+
+### Error Reporting Setup
+
+```typescript
+// lib/errorReporting.ts
+interface ErrorReport {
+  error: Error;
+  context?: Record<string, unknown>;
+  user?: { id: string; email: string };
+}
+
+export const reportError = ({ error, context, user }: ErrorReport) => {
+  // Log to console in development
+  if (__DEV__) {
+    console.error('Error Report:', error, context);
+    return;
+  }
+
+  // Send to error reporting service (Sentry, etc.)
+  // Sentry.captureException(error, {
+  //   extra: context,
+  //   user,
+  // });
+};
+
+// Use throughout app
+try {
+  await riskyOperation();
+} catch (error) {
+  reportError({
+    error: error as Error,
+    context: { operation: 'riskyOperation', param: value },
+  });
+}
+```
+
+---
+
+## Forbidden Error Handling Practices
+
+1. **NEVER** swallow errors silently (empty catch blocks)
+2. **NEVER** show technical error messages to users
+3. **NEVER** forget to handle loading and error states
+4. **NEVER** use try/catch without proper error typing
+5. **NEVER** ignore network errors in async operations
+6. **NEVER** skip Error Boundaries for critical sections
+7. **NEVER** log sensitive data in error messages
+8. **NEVER** use generic error messages without context
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
