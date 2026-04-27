@@ -1,0 +1,51 @@
+{
+  "name": "rad-mem",
+  "owner": "thedotmack",
+  "repo": "rad-mem",
+  "description": "Domain-flexible temporal intelligence - apply to any document corpus",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "version-bump",
+      "path": ".claude/skills/version-bump",
+      "github_url": "https://github.com/thedotmack/rad-mem/tree/main/.claude/skills/version-bump",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thedotmack/rad-mem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T00:34:31Z"
+}
