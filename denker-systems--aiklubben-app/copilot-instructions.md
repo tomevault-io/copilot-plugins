@@ -1,360 +1,371 @@
-## 03-component-architecture
+## 04-styling-system
 
 > - **Mode**: Always On
 
-# Component Architecture Rules
+# Styling System Rules
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: React Native component structure and organization rules
+- **Description**: Consistent styling patterns for React Native iOS apps
 
 ---
 
-## Component File Structure
+## StyleSheet Rules
 
-### Standard Component Template
+### Always Use StyleSheet.create
 
 ```typescript
-// ComponentName.tsx
-
-import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
-// 1. React imports first
-// 2. React Native imports
-// 3. Third-party libraries
-// 4. Local imports (components, hooks, utils)
-// 5. Types/interfaces
-// 6. Constants
-
-// ============================================
-// TYPES
-// ============================================
-interface ComponentNameProps {
-  /** Required prop description */
-  requiredProp: string;
-  /** Optional prop with default */
-  optionalProp?: number;
-  /** Style override */
-  style?: ViewStyle;
-  /** Callback function */
-  onPress?: () => void;
-}
-
-// ============================================
-// CONSTANTS
-// ============================================
-const DEFAULT_VALUE = 10;
-
-// ============================================
-// COMPONENT
-// ============================================
-export const ComponentName: React.FC<ComponentNameProps> = ({
-  requiredProp,
-  optionalProp = DEFAULT_VALUE,
-  style,
-  onPress,
-}) => {
-  // 1. Hooks (in consistent order)
-  // 2. Derived state/calculations
-  // 3. Event handlers
-  // 4. Effects
-  // 5. Render helpers
-  // 6. Return JSX
-
-  return (
-    <View style={[styles.container, style]}>
-      {/* Content */}
-    </View>
-  );
-};
-
-// ============================================
-// STYLES
-// ============================================
+// CORRECT: StyleSheet.create for optimization
 const styles = StyleSheet.create({
   container: {
-    // Styles here
+    flex: 1,
+    backgroundColor: '#0C0A17',
   },
 });
-```
 
----
+// WRONG: Inline styles (creates new object every render)
+<View style={{ flex: 1, backgroundColor: '#0C0A17' }}>
 
-## Component Categories
-
-### 1. UI Components (`src/components/ui/`)
-
-Base-level, reusable UI elements:
-
-```
-ui/
-├── Button.tsx          # Primary button component
-├── Text.tsx            # Typography component
-├── Card.tsx            # Card container
-├── Input.tsx           # Form input
-├── Badge.tsx           # Badge/chip
-├── Avatar.tsx          # User avatar
-├── Icon.tsx            # Icon wrapper
-├── Skeleton.tsx        # Loading skeleton
-├── Divider.tsx         # Visual divider
-└── index.ts            # Barrel export
-```
-
-### 2. Layout Components (`src/components/layout/`)
-
-Screen structure and navigation:
-
-```
-layout/
-├── ScreenLayout.tsx    # Base screen wrapper
-├── Header.tsx          # Screen header
-├── TabBar.tsx          # Bottom navigation
-├── SafeContainer.tsx   # Safe area wrapper
-├── KeyboardAvoid.tsx   # Keyboard avoiding view
-└── index.ts
-```
-
-### 3. Feature Components (`src/screens/[feature]/components/`)
-
-Feature-specific components:
-
-```
-screens/
-├── courses/
-│   └── components/
-│       ├── LessonNode.tsx
-│       ├── LessonPath.tsx
-│       └── index.ts
-├── lessons/
-│   └── components/
-│       ├── ProgressBar.tsx
-│       └── index.ts
-```
-
-### 4. Shared Components (`src/components/shared/`)
-
-Cross-feature reusable components:
-
-```
-shared/
-├── EmptyState.tsx      # Empty state display
-├── ErrorBoundary.tsx   # Error handling
-├── LoadingState.tsx    # Loading indicator
-└── index.ts
-```
-
----
-
-## Component Props Interface Rules
-
-### Required Props Pattern
-
-```typescript
-interface ButtonProps {
-  // Required props first (no ?)
-  label: string;
-  onPress: () => void;
-
-  // Optional props after (with ?)
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
-  disabled?: boolean;
-  loading?: boolean;
-
-  // Style overrides last
-  style?: ViewStyle;
-  textStyle?: TextStyle;
-}
-```
-
-### Props with Defaults
-
-```typescript
-// Define defaults as constants
-const BUTTON_DEFAULTS = {
-  variant: 'primary' as const,
-  size: 'md' as const,
-  disabled: false,
-  loading: false,
-};
-
-// Destructure with defaults
-export const Button: React.FC<ButtonProps> = ({
-  label,
-  onPress,
-  variant = BUTTON_DEFAULTS.variant,
-  size = BUTTON_DEFAULTS.size,
-  disabled = BUTTON_DEFAULTS.disabled,
-  loading = BUTTON_DEFAULTS.loading,
-  style,
-  textStyle,
-}) => {
-  // Implementation
+// WRONG: Object literal outside StyleSheet
+const wrongStyles = {
+  container: {
+    flex: 1,
+  },
 };
 ```
 
----
-
-## Component Size Configurations
-
-### Size System Pattern
+### Style Composition
 
 ```typescript
-// Define sizes as typed constant object
-const SIZES = {
+// CORRECT: Array syntax for style composition
+<View style={[styles.base, styles.variant, customStyle]} />
+
+// CORRECT: Conditional styles
+<View style={[
+  styles.base,
+  isActive && styles.active,
+  isDisabled && styles.disabled,
+]} />
+
+// CORRECT: Dynamic styles with StyleSheet
+const getDynamicStyles = (color: string) => StyleSheet.create({
+  container: {
+    backgroundColor: color,
+  },
+}).container;
+```
+
+---
+
+## Color System
+
+### Brand Colors (Defined in theme.ts)
+
+```typescript
+export const brandColors = {
+  // Primary
+  purple: '#8B5CF6',
+  purpleDark: '#7C3AED',
+  purpleLight: '#A78BFA',
+
+  // Secondary
+  pink: '#EC4899',
+  teal: '#14B8A6',
+
+  // Status
+  success: '#10B981',
+  successDark: '#059669',
+  error: '#EF4444',
+  errorDark: '#DC2626',
+  warning: '#F59E0B',
+  info: '#3B82F6',
+} as const;
+```
+
+### UI Colors (Semantic)
+
+```typescript
+export const uiColors = {
+  // Backgrounds
+  background: {
+    primary: '#0C0A17',
+    secondary: '#1A1625',
+    tertiary: '#252136',
+    elevated: '#2D2640',
+  },
+
+  // Text
+  text: {
+    primary: '#F9FAFB',
+    secondary: '#9CA3AF',
+    tertiary: '#6B7280',
+    inverse: '#0C0A17',
+  },
+
+  // Borders
+  border: {
+    default: '#374151',
+    subtle: '#1F2937',
+    strong: '#4B5563',
+  },
+
+  // Cards
+  card: {
+    background: '#1A1625',
+    border: '#252136',
+  },
+} as const;
+```
+
+### Color Usage Rules
+
+```typescript
+// CORRECT: Use semantic color tokens
+backgroundColor: uiColors.background.primary
+
+// WRONG: Hardcoded hex values
+backgroundColor: '#0C0A17'
+
+// Exception: One-off colors in specific components are acceptable
+// but should be documented with a comment
+backgroundColor: '#8B5CF608', // 8% opacity purple for subtle bg
+```
+
+---
+
+## Typography System
+
+### Font Sizes (iOS Standard)
+
+```typescript
+export const fontSize = {
+  xs: 11, // Caption, footnote
+  sm: 13, // Secondary text
+  base: 15, // Body text (iOS default)
+  md: 17, // Body text (iOS System)
+  lg: 20, // Subheadline
+  xl: 22, // Title 3
+  '2xl': 28, // Title 2
+  '3xl': 34, // Title 1, Large Title
+  '4xl': 40, // Display
+} as const;
+```
+
+### Font Weights
+
+```typescript
+export const fontWeight = {
+  normal: '400' as const,
+  medium: '500' as const,
+  semibold: '600' as const,
+  bold: '700' as const,
+  extrabold: '800' as const,
+};
+```
+
+### Text Component Variants
+
+```typescript
+// Define text variants in Text component
+export type TextVariant =
+  | 'h1' // 34pt Bold
+  | 'h2' // 28pt Bold
+  | 'h3' // 22pt Semibold
+  | 'h4' // 20pt Semibold
+  | 'body' // 17pt Normal
+  | 'bodyBold' // 17pt Bold
+  | 'caption' // 13pt Normal
+  | 'small'; // 11pt Normal
+
+const variantStyles: Record<TextVariant, TextStyle> = {
+  h1: { fontSize: 34, fontWeight: '700', lineHeight: 41 },
+  h2: { fontSize: 28, fontWeight: '700', lineHeight: 34 },
+  h3: { fontSize: 22, fontWeight: '600', lineHeight: 28 },
+  h4: { fontSize: 20, fontWeight: '600', lineHeight: 25 },
+  body: { fontSize: 17, fontWeight: '400', lineHeight: 22 },
+  bodyBold: { fontSize: 17, fontWeight: '700', lineHeight: 22 },
+  caption: { fontSize: 13, fontWeight: '400', lineHeight: 18 },
+  small: { fontSize: 11, fontWeight: '400', lineHeight: 13 },
+};
+```
+
+---
+
+## Spacing System
+
+### Spacing Scale
+
+```typescript
+export const spacing = {
+  0: 0,
+  1: 4,
+  2: 8,
+  3: 12,
+  4: 16,
+  5: 20,
+  6: 24,
+  7: 28,
+  8: 32,
+  10: 40,
+  12: 48,
+  16: 64,
+} as const;
+```
+
+### Spacing Usage
+
+```typescript
+// CORRECT: Use spacing constants
+padding: spacing[4], // 16
+
+// WRONG: Magic numbers
+padding: 16,
+
+// Acceptable: Calculated values with comment
+padding: spacing[4] + 2, // 18 - accounts for border
+```
+
+---
+
+## Border Radius System
+
+### Border Radius Scale
+
+```typescript
+export const borderRadius = {
+  none: 0,
+  sm: 4,
+  md: 8,
+  lg: 12,
+  xl: 16,
+  '2xl': 20,
+  '3xl': 24,
+  full: 9999, // Circular
+} as const;
+```
+
+### Button/Card Radius Standards
+
+```typescript
+// Buttons
+const buttonRadius = {
+  sm: borderRadius.md, // 8
+  md: borderRadius.lg, // 12
+  lg: borderRadius.xl, // 16
+};
+
+// Cards
+const cardRadius = {
+  default: borderRadius.xl, // 16
+  large: borderRadius['2xl'], // 20
+};
+
+// Circular elements (avatars, icons)
+const circularRadius = borderRadius.full; // 9999
+```
+
+---
+
+## Shadow System
+
+### iOS Shadows
+
+```typescript
+export const shadows = {
   sm: {
-    height: 32,
-    paddingHorizontal: 12,
-    fontSize: 14,
-    iconSize: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   md: {
-    height: 44, // iOS minimum
-    paddingHorizontal: 16,
-    fontSize: 16,
-    iconSize: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 4,
   },
   lg: {
-    height: 56,
-    paddingHorizontal: 24,
-    fontSize: 18,
-    iconSize: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  xl: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 16,
   },
 } as const;
 
-type Size = keyof typeof SIZES;
-
-// Usage in component
-const Button: React.FC<{ size?: Size }> = ({ size = 'md' }) => {
-  const dimensions = SIZES[size];
-
-  return (
-    <Pressable style={{
-      height: dimensions.height,
-      paddingHorizontal: dimensions.paddingHorizontal,
-    }}>
-      <Text style={{ fontSize: dimensions.fontSize }}>
-        Label
-      </Text>
-    </Pressable>
-  );
+// Colored shadows for branded elements
+export const coloredShadows = {
+  purple: {
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  success: {
+    shadowColor: '#10B981',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 8,
+  },
 };
 ```
 
 ---
 
-## Component Export Rules
+## Opacity System
 
-### Barrel Exports (index.ts)
-
-```typescript
-// src/components/ui/index.ts
-export { Button } from './Button';
-export { Text } from './Text';
-export { Card } from './Card';
-export { Input } from './Input';
-
-// Also export types if needed externally
-export type { ButtonProps } from './Button';
-export type { TextVariant } from './Text';
-```
-
-### Named Exports Only
+### Standard Opacities
 
 ```typescript
-// CORRECT: Named export
-export const MyComponent: React.FC<Props> = () => {};
-
-// WRONG: Default export
-export default function MyComponent() {}
+export const opacity = {
+  disabled: 0.5,
+  pressed: 0.8,
+  overlay: 0.6,
+  subtle: 0.1,
+  medium: 0.3,
+} as const;
 ```
 
 ---
 
-## Component Composition Patterns
+## Animation Timing
 
-### Compound Components
+### Duration Constants
 
 ```typescript
-// Card with sub-components
-interface CardContextValue {
-  variant: 'default' | 'elevated';
-}
-
-const CardContext = React.createContext<CardContextValue | null>(null);
-
-const Card = ({ children, variant = 'default' }) => (
-  <CardContext.Provider value={{ variant }}>
-    <View style={styles.card}>
-      {children}
-    </View>
-  </CardContext.Provider>
-);
-
-Card.Header = ({ children }) => (
-  <View style={styles.header}>{children}</View>
-);
-
-Card.Body = ({ children }) => (
-  <View style={styles.body}>{children}</View>
-);
-
-Card.Footer = ({ children }) => (
-  <View style={styles.footer}>{children}</View>
-);
-
-// Usage
-<Card variant="elevated">
-  <Card.Header>Title</Card.Header>
-  <Card.Body>Content</Card.Body>
-  <Card.Footer>Actions</Card.Footer>
-</Card>
+export const duration = {
+  instant: 100,
+  fast: 150,
+  normal: 250,
+  slow: 350,
+  slower: 500,
+} as const;
 ```
 
 ---
 
-## Performance Rules
+## Forbidden Styling Practices
 
-### Memoization Rules
-
-```typescript
-// Memoize expensive components
-export const ExpensiveList = React.memo(({ items }) => {
-  // Render logic
-});
-
-// Memoize callbacks passed to children
-const ParentComponent = () => {
-  const handlePress = useCallback(() => {
-    // Handler logic
-  }, [dependencies]);
-
-  return <ChildComponent onPress={handlePress} />;
-};
-
-// Memoize expensive calculations
-const Component = ({ data }) => {
-  const processedData = useMemo(() => {
-    return expensiveCalculation(data);
-  }, [data]);
-
-  return <View>{/* Use processedData */}</View>;
-};
-```
-
----
-
-## Forbidden Component Practices
-
-1. **NEVER** use default exports for components
-2. **NEVER** define styles inline (always use StyleSheet.create)
-3. **NEVER** create components inside other components
-4. **NEVER** use anonymous functions in render for callbacks
-5. **NEVER** mutate props or state directly
-6. **NEVER** skip TypeScript types for props
-7. **NEVER** use `any` type for props
-8. **NEVER** mix business logic with presentation
+1. **NEVER** use inline style objects (always StyleSheet.create)
+2. **NEVER** hardcode color values (use color tokens)
+3. **NEVER** use magic number spacing (use spacing scale)
+4. **NEVER** mix px and pt units (React Native uses dp/pt)
+5. **NEVER** use percentage for height without explicit parent
+6. **NEVER** use negative margins for layout
+7. **NEVER** set opacity below 0.4 for interactive elements
+8. **NEVER** use shadows without elevation on Android
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
