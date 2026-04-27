@@ -1,6 +1,6 @@
-# nexrena — distributed by TomeVault
+# nexrena
 
-> Originally from [Nloperena/nexrena](https://github.com/Nloperena/nexrena). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Nloperena/nexrena](https://github.com/Nloperena/nexrena) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Nloperena/nexrena](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Nloperena)
+From [Nloperena/nexrena](https://github.com/Nloperena/nexrena) — a repo with 0+ stars on GitHub.
 
 ---
 
