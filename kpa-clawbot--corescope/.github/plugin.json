@@ -1,0 +1,9 @@
+{
+  "name": "kpa-clawbot--corescope",
+  "displayName": "CoreScope",
+  "description": "MeshCore mesh network analyzer \u2014 live packet visualization, VCR replay, channel decryption, node health, analytics",
+  "version": "1.0.0",
+  "author": "Kpa-clawbot",
+  "homepage": "https://github.com/Kpa-clawbot/CoreScope",
+  "skills": []
+}
