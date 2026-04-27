@@ -1,0 +1,9 @@
+{
+  "name": "glassbeaver--claudevs",
+  "displayName": "ClaudeVS",
+  "description": "Claude Code CLI inside Visual Studio",
+  "version": "1.0.0",
+  "author": "GlassBeaver",
+  "homepage": "https://github.com/GlassBeaver/ClaudeVS",
+  "skills": []
+}
