@@ -1,0 +1,9 @@
+{
+  "name": "ascend-ai-coding--awesome-ascend-skills",
+  "displayName": "awesome-ascend-skills",
+  "description": "A comprehensive knowledge base for Huawei Ascend NPU development, structured as distributed Agent Skills",
+  "version": "1.0.0",
+  "author": "ascend-ai-coding",
+  "homepage": "https://github.com/ascend-ai-coding/awesome-ascend-skills",
+  "skills": []
+}
