@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--mpp-proxy",
+  "displayName": "mpp-proxy",
+  "description": "mpp-proxy",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/mpp-proxy",
+  "skills": []
+}
