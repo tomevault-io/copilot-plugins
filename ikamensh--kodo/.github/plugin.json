@@ -1,0 +1,9 @@
+{
+  "name": "ikamensh--kodo",
+  "displayName": "kodo",
+  "description": "Orchestrator for AI coding (claude code, cursor, codex, gemini)",
+  "version": "1.0.0",
+  "author": "ikamensh",
+  "homepage": "https://github.com/ikamensh/kodo",
+  "skills": []
+}
