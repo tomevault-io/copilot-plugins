@@ -1,0 +1,9 @@
+{
+  "name": "cyberpapiii--chipotlai-max",
+  "displayName": "chipotlai-max",
+  "description": "The AI coding agent that runs on stolen Chipotle compute \ud83c\udf2f Fork of OpenCode with Pepper AI as default model. Community project to add providers from Home Depot, Lowes, Target, Starbucks & more.",
+  "version": "1.0.0",
+  "author": "cyberpapiii",
+  "homepage": "https://github.com/cyberpapiii/chipotlai-max",
+  "skills": []
+}
