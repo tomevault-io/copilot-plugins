@@ -1,0 +1,9 @@
+{
+  "name": "lirantal--repolyze",
+  "displayName": "repolyze",
+  "description": "Analyze a git source code repository for health signals and project vitals",
+  "version": "1.0.0",
+  "author": "lirantal",
+  "homepage": "https://github.com/lirantal/repolyze",
+  "skills": []
+}
