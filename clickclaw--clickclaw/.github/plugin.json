@@ -1,0 +1,9 @@
+{
+  "name": "clickclaw--clickclaw",
+  "displayName": "clickclaw",
+  "description": "ClickClaw \u662f\u9762\u5411\u5c0f\u767d\u7528\u6237\u7684 OpenClaw \u684c\u9762\u7ba1\u7406\u5de5\u5177\uff0c\u5185\u7f6e Node.js 22 + OpenClaw\uff0c\u96f6\u4f9d\u8d56\u5b89\u88c5\u5373\u7528\u3002",
+  "version": "1.0.0",
+  "author": "clickclaw",
+  "homepage": "https://github.com/clickclaw/clickclaw",
+  "skills": []
+}
