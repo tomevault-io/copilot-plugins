@@ -1,0 +1,9 @@
+{
+  "name": "hueyexe--opencode-ensemble",
+  "displayName": "opencode-ensemble",
+  "description": "Agent teams for OpenCode. Run multiple agents in parallel with messaging, shared tasks, and coordinated execution.",
+  "version": "1.0.0",
+  "author": "hueyexe",
+  "homepage": "https://github.com/hueyexe/opencode-ensemble",
+  "skills": []
+}
