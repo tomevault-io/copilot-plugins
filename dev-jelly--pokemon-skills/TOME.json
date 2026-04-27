@@ -1,0 +1,63 @@
+{
+  "name": "pokemon-skills",
+  "owner": "dev-jelly",
+  "repo": "pokemon-skills",
+  "description": "AI instruction skills by dev-jelly",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pokemon-green-en",
+      "path": ".claude/skills/pokemon-green-en",
+      "github_url": "https://github.com/dev-jelly/pokemon-skills/tree/main/.claude/skills/pokemon-green-en",
+      "description": ""
+    },
+    {
+      "name": "pokemon-green-ko",
+      "path": ".claude/skills/pokemon-green-ko",
+      "github_url": "https://github.com/dev-jelly/pokemon-skills/tree/main/.claude/skills/pokemon-green-ko",
+      "description": ""
+    },
+    {
+      "name": "pokemon-i18n-sync",
+      "path": "skills/pokemon-i18n-sync",
+      "github_url": "https://github.com/dev-jelly/pokemon-skills/tree/main/skills/pokemon-i18n-sync",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dev-jelly/pokemon-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T00:30:10Z"
+}
