@@ -1,0 +1,9 @@
+{
+  "name": "colus001--pls",
+  "displayName": "pls",
+  "description": "CLI tool that turns natural language into shell commands via LLM",
+  "version": "1.0.0",
+  "author": "colus001",
+  "homepage": "https://github.com/colus001/pls",
+  "skills": []
+}
