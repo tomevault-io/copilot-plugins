@@ -1,0 +1,9 @@
+{
+  "name": "clawbot7--cli-gateway",
+  "displayName": "cli-gateway",
+  "description": "Chat-channel \u2194 ACP agent gateway with scheduler",
+  "version": "1.0.0",
+  "author": "clawbot7",
+  "homepage": "https://github.com/clawbot7/cli-gateway",
+  "skills": []
+}
