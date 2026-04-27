@@ -1,0 +1,9 @@
+{
+  "name": "0xrsydn--polymarket-crypto-toolkit",
+  "displayName": "polymarket-crypto-toolkit",
+  "description": "Composable Python toolkit for algorithmic trading on Polymarket crypto prediction markets. Plugin-based strategies, indicators, backtesting, and multi-source data feeds.",
+  "version": "1.0.0",
+  "author": "0xrsydn",
+  "homepage": "https://github.com/0xrsydn/polymarket-crypto-toolkit",
+  "skills": []
+}
