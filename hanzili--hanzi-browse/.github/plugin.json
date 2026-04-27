@@ -1,0 +1,14 @@
+{
+  "name": "hanzili--hanzi-browse",
+  "displayName": "hanzi-browse",
+  "description": "let any ai agent use the local browser",
+  "version": "1.0.0",
+  "author": "hanzili",
+  "homepage": "https://github.com/hanzili/hanzi-browse",
+  "skills": [
+    {
+      "name": "hanzi-browse",
+      "description": ""
+    }
+  ]
+}
