@@ -1,0 +1,9 @@
+{
+  "name": "intelligent-control-lab--bricksim",
+  "displayName": "BrickSim",
+  "description": "A Physics-Based Simulator for Manipulating Interlocking Brick Assemblies",
+  "version": "1.0.0",
+  "author": "intelligent-control-lab",
+  "homepage": "https://github.com/intelligent-control-lab/BrickSim",
+  "skills": []
+}
