@@ -1,0 +1,9 @@
+{
+  "name": "dmop--puru",
+  "displayName": "puru",
+  "description": "A thread pool for JavaScript with Go-style concurrency primitives. Works on Node.js and Bun.",
+  "version": "1.0.0",
+  "author": "dmop",
+  "homepage": "https://github.com/dmop/puru",
+  "skills": []
+}
