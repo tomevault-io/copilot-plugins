@@ -4,7 +4,7 @@
   "repo": "rice",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RICE-Rob-Inn-Com-Ent/rice",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T08:35:49Z"
+  "distributed_at": "2026-04-27T05:29:38Z"
 }
