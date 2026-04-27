@@ -1,0 +1,9 @@
+{
+  "name": "mseptiaan--opencode-qwencode-oauth",
+  "displayName": "opencode-qwencode-oauth",
+  "description": "Qwen OAuth authentication plugin for OpenCode with multi-account rotation and API translation",
+  "version": "1.0.0",
+  "author": "mseptiaan",
+  "homepage": "https://github.com/mseptiaan/opencode-qwencode-oauth",
+  "skills": []
+}
