@@ -1,6 +1,6 @@
 # justdo
 
-> Tome by [justdoinc](https://github.com/justdoinc/justdo) — distributed by [TomeVault](https://tomevault.io/claim/justdoinc)
+> Tome by [justdoinc](https://github.com/justdoinc/justdo) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [justdoinc/justdo](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/justdoinc)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/justdoinc/justdo](https://github.com/justdoinc/justdo)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install justdoinc/justdo
 ```
-Or browse all formats at [https://tomevault.io/claim/justdoinc](https://tomevault.io/claim/justdoinc).
+Source: [github.com/justdoinc/justdo](https://github.com/justdoinc/justdo).
 
 <!-- genome:t-i-p -->
