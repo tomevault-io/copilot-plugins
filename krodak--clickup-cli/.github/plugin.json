@@ -1,0 +1,9 @@
+{
+  "name": "krodak--clickup-cli",
+  "displayName": "clickup-cli",
+  "description": "ClickUp CLI for AI agents",
+  "version": "1.0.0",
+  "author": "krodak",
+  "homepage": "https://github.com/krodak/clickup-cli",
+  "skills": []
+}
