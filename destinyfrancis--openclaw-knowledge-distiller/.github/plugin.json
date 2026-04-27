@@ -1,0 +1,9 @@
+{
+  "name": "destinyfrancis--openclaw-knowledge-distiller",
+  "displayName": "openclaw-knowledge-distiller",
+  "description": "Open CLAW Knowledge Distiller \u00b7 \u9f8d\u8766\u77e5\u8b58\u84b8\u993e\u5668 \u2014 Turn YouTube/Bilibili videos into structured knowledge articles. Local Qwen3-ASR MLX + AI summarization. MCP server for Claude Code / Open CLAW agents.",
+  "version": "1.0.0",
+  "author": "destinyfrancis",
+  "homepage": "https://github.com/destinyfrancis/openclaw-knowledge-distiller",
+  "skills": []
+}
