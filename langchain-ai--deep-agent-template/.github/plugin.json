@@ -1,0 +1,42 @@
+{
+  "name": "langchain-ai--deep-agent-template",
+  "displayName": "deep",
+  "description": "deep-agent-template",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/deep-agent-template",
+  "skills": [
+    {
+      "name": "arxiv-search",
+      "description": ""
+    },
+    {
+      "name": "blog-post",
+      "description": ""
+    },
+    {
+      "name": "query-writing",
+      "description": ""
+    },
+    {
+      "name": "schema-exploration",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "social-media",
+      "description": ""
+    },
+    {
+      "name": "web-research",
+      "description": ""
+    }
+  ]
+}
