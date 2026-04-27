@@ -1,0 +1,178 @@
+## dingtalk-skills
+
+> 本文件为 AI Agent 提供操作本仓库所需的背景信息与行为规范。
+
+# AGENTS.md
+
+本文件为 AI Agent 提供操作本仓库所需的背景信息与行为规范。
+
+---
+
+## 项目简介
+
+**dingtalk-skills** 是一个面向 AI Agent 的钉钉开放平台技能库，遵循 [anthropics/skills](https://github.com/anthropics/skills) 规范，每个技能以 `SKILL.md` 定义，可通过 `npx skills add` 安装到 Agent 项目中。
+
+---
+
+## 仓库结构
+
+```
+dingtalk-skills/
+├── AGENTS.md                          # 本文件，给 Agent 看的项目说明
+├── README.md                          # 中文文档
+├── README_EN.md                       # English documentation
+├── skills-lock.json                   # 技能依赖锁定文件（勿手动修改）
+├── tests/                             # 集成测试
+│   ├── .env                           # 测试凭证（不提交到 git）
+│   ├── conftest.py
+│   ├── dingtalk-document/
+│   ├── dingtalk-ai-table/
+│   ├── dingtalk-message/
+│   ├── dingtalk-todo/
+│   └── dingtalk-calendar/
+└── .agents/
+    └── skills/
+        ├── skill-creator/             # 技能开发工具（由 anthropics 提供）
+        ├── dingtalk-document/         # 钉钉知识库与文档技能
+        │   ├── SKILL.md
+        │   └── references/
+        │       └── api.md
+        ├── dingtalk-ai-table/         # 钉钉 AI 表格技能
+        │   ├── SKILL.md
+        │   └── references/
+        │       └── api.md
+        ├── dingtalk-message/          # 钉钉消息发送技能
+        │   ├── SKILL.md
+        │   └── references/
+        │       └── api.md
+        ├── dingtalk-todo/             # 钉钉待办管理技能
+        │   ├── SKILL.md
+        │   └── references/
+        │       └── api.md
+        ├── dingtalk-ai-web-search/    # 网页搜索与实时信息检索技能
+        │   ├── SKILL.md
+        │   └── scripts/
+        │       └── search.sh
+        ├── dingtalk-calendar/         # 钉钉日程与日历技能
+        │   ├── SKILL.md
+        │   ├── scripts/
+        │   │   └── dt_helper.sh
+        │   └── references/
+        │       └── api.md
+        └── dingtalk-skill-creator/   # 技能创建流程工具
+            └── SKILL.md
+```
+
+---
+
+## 技能目录
+
+| 技能名称 | 路径 | 状态 | 功能描述 |
+|---|---|---|---|
+| `dingtalk-document` | `.agents/skills/dingtalk-document/` | ✅ 可用 | 钉钉知识库与文档的创建、查询、目录浏览、内容读写、成员管理 |
+| `dingtalk-ai-table` | `.agents/skills/dingtalk-ai-table/` | ✅ 可用 | 钉钉 AI 表格的工作表管理、字段管理、记录增删改查 |
+| `dingtalk-message` | `.agents/skills/dingtalk-message/` | ✅ 可用 | 钉钉消息发送：Webhook 机器人、企业内部机器人单聊/群聊、工作通知 |
+| `dingtalk-todo` | `.agents/skills/dingtalk-todo/` | ✅ 可用 | 钉钉待办管理：创建、查询、更新、标记完成/撤销、删除待办任务 |
+| `dingtalk-contact` | `.agents/skills/dingtalk-contact/` | ✅ 可用 | 钉钉通讯录：按关键词搜索用户/部门、获取用户完整详情、部门树遍历、成员列表、身份转换、员工总数 |
+| `dingtalk-ai-web-search` | `.agents/skills/dingtalk-ai-web-search/` | ✅ 可用 | 网页搜索与实时信息检索：查最新资讯/实时数据/技术文档，基于小宿AI智能搜索，支持时间过滤与 JSON 输出 |
+| `dingtalk-calendar` | `.agents/skills/dingtalk-calendar/` | ✅ 可用 | 钉钉日程：主日历 CRUD、闲忙、视频会议、会议室忙闲与绑定、签到签退与链接、循环/订阅说明（见 SKILL） |
+| `dingtalk-skill-creator` | `.agents/skills/dingtalk-skill-creator/` | ✅ 可用 | 标准化创建新钉钉技能的开发流程工具 |
+| `skill-creator` | `.agents/skills/skill-creator/` | ✅ 可用 | 技能开发框架（由 anthropics/skills 提供） |
+
+---
+
+## 开发新技能的规范
+
+在本仓库中新增钉钉技能时，需遵循以下约定：
+
+### 1. 文件结构
+```
+.agents/skills/<skill-name>/
+├── SKILL.md              # 必须：技能主文件
+└── references/
+    └── api.md            # 推荐：API 参考（避免 SKILL.md 过长）
+```
+
+### 2. SKILL.md 格式
+
+```yaml
+---
+name: <技能名称，使用英文小写连字符>
+description: <触发描述，必须包含中文关键词，覆盖用户可能说的各种表达>
+---
+```
+
+- `description` 是 Agent 用来判断是否加载该技能的关键字段，**务必包含完整的场景关键词**
+- 正文使用**全中文**撰写，技术术语（HTTP 方法、JSON 字段、API 路径）保持英文
+
+### 3. 语言规范
+- 所有 `SKILL.md` 和 `references/api.md`：**全中文**（技术术语除外）
+- `README.md`：中文
+- `README_EN.md`：English
+- `AGENTS.md`（本文件）：中文
+
+### 4. API 文档规范
+- `references/api.md` 中保留完整的请求/响应 JSON 示例
+- 错误码表需包含：错误码、说明、建议处理方式
+- 所有接口须注明所需的钉钉应用权限
+
+### 5. 测试规范
+
+每个技能须包含完整的集成测试，存放在 `tests/<skill-name>/` 目录下：
+
+```
+tests/
+├── .env                    # 测试用凭证（不提交到 git）
+├── conftest.py             # 公共 fixture（token、测试资源的创建与清理）
+└── <skill-name>/
+    ├── test_<module>.py    # 按功能模块拆分测试文件
+    └── ...
+```
+
+**测试要求：**
+- 使用真实 API 调用（不 mock），验证接口实际可用
+- 每个核心操作（增/删/改/查）均须有对应测试用例
+- `conftest.py` 中的 fixture 负责创建测试资源并在测试结束后自动清理，不留脏数据
+- 新增或修改技能后，须确保 `uv run pytest tests/<skill-name>/` 全部通过再提交
+
+---
+
+## 提交规范
+
+采用约定式提交（Conventional Commits）：
+
+| 类型 | 适用场景 |
+|---|---|
+| `feat(<skill>):` | 新增技能或技能新功能 |
+| `fix(<skill>):` | 修复技能逻辑或 API 错误 |
+| `docs:` | 更新文档（README、AGENTS.md 等） |
+| `chore:` | 维护性变更（依赖更新、配置修改等） |
+| `refactor(<skill>):` | 重构技能结构，无功能变化 |
+
+示例：
+```
+feat(dingtalk-document): 新增文档内容读写支持
+fix(dingtalk-ai-table): 修正区域地址格式校验逻辑
+docs: 更新 README 添加安装说明
+```
+
+---
+
+## 注意事项
+
+- **不要**在代码或文档中硬编码 `appKey`、`appSecret`、`accessToken` 等凭证
+- `skills-lock.json` 由 `npx skills` 自动维护，**不要手动修改**
+- 新增技能后，同步更新 `README.md` 和 `README_EN.md` 的技能列表
+- PR 合并前确保 `SKILL.md` 的 `description` 已覆盖常见触发场景
+
+---
+
+## 相关链接
+
+- [钉钉开放平台文档](https://open.dingtalk.com/document/)
+- [anthropics/skills 规范](https://github.com/anthropics/skills)
+- [本仓库 GitHub](https://github.com/breath57/dingtalk-skills)
+
+---
+> Source: [breath57/dingtalk-skills](https://github.com/breath57/dingtalk-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
