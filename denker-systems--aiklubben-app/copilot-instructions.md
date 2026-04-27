@@ -1,412 +1,425 @@
-## 05-animation-rules
+## 06-navigation-rules
 
 > - **Mode**: Always On
 
-# Animation Rules - React Native & Moti
+# Navigation Rules - React Navigation for iOS
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: Animation patterns for smooth iOS performance
+- **Description**: Navigation patterns and structure for React Native iOS apps
 
 ---
 
-## Animation Library Usage
+## Navigation Structure
 
-### Primary: Moti (Reanimated 2 wrapper)
+### Navigator Hierarchy
 
 ```typescript
-import { MotiView, MotiText, MotiImage } from 'moti';
+// App.tsx - Root navigation structure
+<NavigationContainer>
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    {isAuthenticated ? (
+      <Stack.Screen name="Main" component={MainNavigator} />
+    ) : (
+      <Stack.Screen name="Auth" component={AuthNavigator} />
+    )}
+  </Stack.Navigator>
+</NavigationContainer>
+```
 
-// Basic animation
-<MotiView
-  from={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ type: 'timing', duration: 300 }}
+### Tab Navigator Setup
+
+```typescript
+// MainNavigator.tsx
+const Tab = createBottomTabNavigator();
+
+<Tab.Navigator
+  screenOptions={{
+    headerShown: false,
+    tabBarStyle: {
+      backgroundColor: '#0C0A17',
+      borderTopColor: '#1F2937',
+      height: 49 + insets.bottom, // iOS tab bar height + safe area
+      paddingBottom: insets.bottom,
+    },
+    tabBarActiveTintColor: '#8B5CF6',
+    tabBarInactiveTintColor: '#6B7280',
+  }}
 >
-  {/* Content */}
-</MotiView>
-```
-
-### Secondary: React Native Reanimated 2
-
-```typescript
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-  withTiming,
-} from 'react-native-reanimated';
-
-// For complex, gesture-driven animations
-const offset = useSharedValue(0);
-
-const animatedStyle = useAnimatedStyle(() => ({
-  transform: [{ translateX: offset.value }],
-}));
-```
-
----
-
-## Spring Configurations
-
-### Standard Spring Configs
-
-```typescript
-export const SPRING_CONFIGS = {
-  // Quick, snappy feedback
-  snappy: {
-    type: 'spring' as const,
-    damping: 18,
-    stiffness: 200,
-  },
-
-  // Smooth, natural motion
-  smooth: {
-    type: 'spring' as const,
-    damping: 20,
-    stiffness: 150,
-  },
-
-  // Bouncy, playful motion
-  bouncy: {
-    type: 'spring' as const,
-    damping: 10,
-    stiffness: 180,
-  },
-
-  // Gentle, subtle motion
-  gentle: {
-    type: 'spring' as const,
-    damping: 25,
-    stiffness: 100,
-  },
-
-  // Stiff, controlled motion
-  stiff: {
-    type: 'spring' as const,
-    damping: 30,
-    stiffness: 300,
-  },
-} as const;
-```
-
-### When to Use Each Config
-
-```typescript
-// SNAPPY: Button presses, toggles, quick feedback
-<MotiView
-  animate={{ scale: pressed ? 0.95 : 1 }}
-  transition={SPRING_CONFIGS.snappy}
-/>
-
-// SMOOTH: Page transitions, modals, sheets
-<MotiView
-  animate={{ translateY: visible ? 0 : 300 }}
-  transition={SPRING_CONFIGS.smooth}
-/>
-
-// BOUNCY: Success animations, celebrations, achievements
-<MotiView
-  animate={{ scale: [1, 1.2, 1] }}
-  transition={SPRING_CONFIGS.bouncy}
-/>
-
-// GENTLE: Background elements, subtle movements
-<MotiView
-  animate={{ opacity: visible ? 1 : 0 }}
-  transition={SPRING_CONFIGS.gentle}
-/>
-```
-
----
-
-## Timing Configurations
-
-### Standard Timing Configs
-
-```typescript
-export const TIMING_CONFIGS = {
-  fast: {
-    type: 'timing' as const,
-    duration: 150,
-  },
-  normal: {
-    type: 'timing' as const,
-    duration: 250,
-  },
-  slow: {
-    type: 'timing' as const,
-    duration: 400,
-  },
-} as const;
-```
-
----
-
-## Stagger Animations
-
-### List Item Stagger
-
-```typescript
-// Standard stagger delay
-export const STAGGER_DELAYS = {
-  fast: 30,    // Quick lists
-  normal: 50,  // Standard lists
-  slow: 80,    // Emphasized entry
-} as const;
-
-// Usage in list
-{items.map((item, index) => (
-  <MotiView
-    key={item.id}
-    from={{ opacity: 0, translateY: 20 }}
-    animate={{ opacity: 1, translateY: 0 }}
-    transition={{
-      ...SPRING_CONFIGS.smooth,
-      delay: index * STAGGER_DELAYS.normal,
+  <Tab.Screen
+    name="Home"
+    component={HomeScreen}
+    options={{
+      tabBarIcon: ({ color, size }) => (
+        <Home size={size} color={color} />
+      ),
     }}
-  >
-    <ListItem {...item} />
-  </MotiView>
-))}
+  />
+  {/* More tabs */}
+</Tab.Navigator>
 ```
 
-### Stagger with Maximum Delay
+---
+
+## Screen Types
+
+### Root Screens (Tab Bar Visible)
 
 ```typescript
-// Prevent excessive delays for long lists
-const getStaggerDelay = (index: number, maxItems: number = 10) => {
-  const effectiveIndex = Math.min(index, maxItems);
-  return effectiveIndex * STAGGER_DELAYS.normal;
+// Screens accessible from bottom tab bar
+type RootScreens = {
+  Home: undefined;
+  Courses: undefined;
+  Profile: undefined;
+  Settings: undefined;
+};
+
+// Root screens use isRoot={true} for header
+<ScreenLayout isRoot={true} title="Home">
+  <HomeContent />
+</ScreenLayout>
+```
+
+### Sub Screens (Back Button)
+
+```typescript
+// Screens navigated to FROM root screens
+type SubScreens = {
+  CourseDetail: { courseId: string };
+  Lesson: { lessonId: string; courseId: string };
+  EditProfile: undefined;
+};
+
+// Sub screens show back button
+<ScreenLayout title="Course Details">
+  <CourseDetailContent />
+</ScreenLayout>
+```
+
+---
+
+## Navigation Patterns
+
+### Type-Safe Navigation
+
+```typescript
+// types/navigation.ts
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteProp } from '@react-navigation/native';
+
+// Define all routes and their params
+export type RootStackParamList = {
+  // Auth Stack
+  Login: undefined;
+  Register: undefined;
+
+  // Main Stack
+  Main: undefined;
+
+  // Course Stack
+  Courses: undefined;
+  CourseDetail: { courseId: string };
+  Lesson: { lessonId: string; courseId: string };
+};
+
+// Navigation prop type
+export type NavigationProp<T extends keyof RootStackParamList> = NativeStackNavigationProp<
+  RootStackParamList,
+  T
+>;
+
+// Route prop type
+export type RouteProps<T extends keyof RootStackParamList> = RouteProp<RootStackParamList, T>;
+```
+
+### Using Navigation Hook
+
+```typescript
+import { useNavigation, useRoute } from '@react-navigation/native';
+import type { NavigationProp, RouteProps } from '@/types/navigation';
+
+const CourseDetailScreen = () => {
+  const navigation = useNavigation<NavigationProp<'CourseDetail'>>();
+  const route = useRoute<RouteProps<'CourseDetail'>>();
+
+  const { courseId } = route.params;
+
+  const handleLessonPress = (lessonId: string) => {
+    navigation.navigate('Lesson', { lessonId, courseId });
+  };
+
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
+  return (/* Screen content */);
 };
 ```
 
 ---
 
-## Entry Animations
+## Header Configuration
 
-### Screen Entry Animation
-
-```typescript
-// Standard screen entry
-<MotiView
-  from={{ opacity: 0, translateY: 30 }}
-  animate={{ opacity: 1, translateY: 0 }}
-  transition={{ ...SPRING_CONFIGS.smooth, delay: 100 }}
-  style={{ flex: 1 }}
->
-  <ScreenContent />
-</MotiView>
-```
-
-### Component Entry Patterns
+### Custom Header Component
 
 ```typescript
-// Fade in
-const fadeIn = {
-  from: { opacity: 0 },
-  animate: { opacity: 1 },
-};
+// components/layout/Header.tsx
+interface HeaderProps {
+  title?: string;
+  showBack?: boolean;
+  showMenu?: boolean;
+  rightElement?: React.ReactNode;
+}
 
-// Fade in up
-const fadeInUp = {
-  from: { opacity: 0, translateY: 20 },
-  animate: { opacity: 1, translateY: 0 },
-};
-
-// Scale in
-const scaleIn = {
-  from: { opacity: 0, scale: 0.8 },
-  animate: { opacity: 1, scale: 1 },
-};
-
-// Slide in from right
-const slideInRight = {
-  from: { opacity: 0, translateX: 30 },
-  animate: { opacity: 1, translateX: 0 },
-};
-```
-
----
-
-## Exit Animations
-
-### Exit Animation Pattern
-
-```typescript
-import { AnimatePresence } from 'moti';
-
-// Wrap components that need exit animations
-<AnimatePresence>
-  {visible && (
-    <MotiView
-      from={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={SPRING_CONFIGS.snappy}
-    >
-      <Content />
-    </MotiView>
-  )}
-</AnimatePresence>
-```
-
----
-
-## Loop Animations
-
-### Pulse Animation
-
-```typescript
-// Subtle pulse for attention
-<MotiView
-  from={{ scale: 1 }}
-  animate={{ scale: [1, 1.05, 1] }}
-  transition={{
-    type: 'timing',
-    duration: 2000,
-    loop: true,
-  }}
-/>
-```
-
-### Breathing Animation
-
-```typescript
-// Gentle breathing effect
-<MotiView
-  animate={{
-    opacity: [0.5, 1, 0.5],
-  }}
-  transition={{
-    type: 'timing',
-    duration: 3000,
-    loop: true,
-  }}
-/>
-```
-
----
-
-## Press Animations
-
-### Button Press Pattern
-
-```typescript
-const [isPressed, setIsPressed] = useState(false);
-
-<Pressable
-  onPressIn={() => setIsPressed(true)}
-  onPressOut={() => setIsPressed(false)}
->
-  <MotiView
-    animate={{
-      scale: isPressed ? 0.95 : 1,
-      opacity: isPressed ? 0.8 : 1,
-    }}
-    transition={SPRING_CONFIGS.snappy}
-  >
-    <ButtonContent />
-  </MotiView>
-</Pressable>
-```
-
-### 3D Button Press (Duolingo-style)
-
-```typescript
-// Depth-based press animation
-<Pressable>
-  {({ pressed }) => (
-    <View style={styles.buttonContainer}>
-      {/* Bottom layer (shadow) */}
-      <View
-        style={[
-          styles.buttonBottom,
-          {
-            transform: [{
-              translateY: pressed ? DEPTH / 2 : DEPTH
-            }],
-          },
-        ]}
-      />
-      {/* Top layer (face) */}
-      <MotiView
-        animate={{
-          translateY: pressed ? DEPTH / 2 : 0,
-        }}
-        transition={{ type: 'timing', duration: 100 }}
-        style={styles.buttonFace}
-      >
-        <ButtonContent />
-      </MotiView>
-    </View>
-  )}
-</Pressable>
-```
-
----
-
-## Performance Rules
-
-### Animation Performance Checklist
-
-1. **Use `transform` and `opacity`** - These are GPU-accelerated
-2. **Avoid animating layout properties** - width, height, padding cause layout recalc
-3. **Use `useNativeDriver: true`** when using Animated API
-4. **Limit concurrent animations** - Max 3-4 simultaneous complex animations
-5. **Use `removeClippedSubviews`** for animated lists
-
-### What NOT to Animate
-
-```typescript
-// AVOID animating these (causes layout thrashing):
-// - width/height (use scale instead)
-// - padding/margin (use translateX/Y instead)
-// - fontSize (use scale instead)
-// - borderWidth
-// - flexBasis
-
-// PREFER these (GPU accelerated):
-// - opacity
-// - transform (scale, translateX, translateY, rotate)
-```
-
----
-
-## Accessibility
-
-### Reduced Motion Support
-
-```typescript
-import { useReducedMotion } from 'moti';
-
-const MyComponent = () => {
-  const reducedMotion = useReducedMotion();
+export const Header: React.FC<HeaderProps> = ({
+  title,
+  showBack = true,
+  showMenu = false,
+  rightElement,
+}) => {
+  const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
 
   return (
-    <MotiView
-      animate={{ opacity: 1, scale: 1 }}
-      transition={reducedMotion ? { type: 'timing', duration: 0 } : SPRING_CONFIGS.smooth}
+    <View style={[styles.header, { paddingTop: insets.top }]}>
+      {/* Left: Back or placeholder */}
+      <View style={styles.headerLeft}>
+        {showBack && (
+          <Pressable
+            onPress={() => navigation.goBack()}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            style={styles.backButton}
+          >
+            <ArrowLeft size={24} color="#F9FAFB" />
+          </Pressable>
+        )}
+      </View>
+
+      {/* Center: Title */}
+      <View style={styles.headerCenter}>
+        {title && (
+          <Text style={styles.headerTitle} numberOfLines={1}>
+            {title}
+          </Text>
+        )}
+      </View>
+
+      {/* Right: Menu or custom */}
+      <View style={styles.headerRight}>
+        {showMenu && (
+          <Pressable style={styles.menuButton}>
+            <Menu size={24} color="#F9FAFB" />
+          </Pressable>
+        )}
+        {rightElement}
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingBottom: 12,
+    backgroundColor: '#0C0A17',
+  },
+  headerLeft: {
+    width: 44,
+    alignItems: 'flex-start',
+  },
+  headerCenter: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  headerRight: {
+    width: 44,
+    alignItems: 'flex-end',
+  },
+  headerTitle: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#F9FAFB',
+  },
+  backButton: {
+    width: 44,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  menuButton: {
+    width: 44,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+```
+
+---
+
+## Screen Transitions
+
+### iOS Standard Transitions
+
+```typescript
+// Stack Navigator with iOS transitions
+<Stack.Navigator
+  screenOptions={{
+    headerShown: false,
+    // iOS native transitions
+    animation: 'slide_from_right',
+    gestureEnabled: true,
+    gestureDirection: 'horizontal',
+  }}
+>
+```
+
+### Modal Presentations
+
+```typescript
+// Present screen as modal
+<Stack.Screen
+  name="Settings"
+  component={SettingsScreen}
+  options={{
+    presentation: 'modal',
+    animation: 'slide_from_bottom',
+  }}
+/>
+
+// Full-screen modal
+<Stack.Screen
+  name="Lesson"
+  component={LessonScreen}
+  options={{
+    presentation: 'fullScreenModal',
+    animation: 'fade',
+  }}
+/>
+```
+
+---
+
+## Deep Linking
+
+### Configure Deep Links
+
+```typescript
+// App.tsx
+const linking = {
+  prefixes: ['aiklubben://', 'https://aiklubben.se'],
+  config: {
+    screens: {
+      Main: {
+        screens: {
+          Home: 'home',
+          Courses: 'courses',
+        },
+      },
+      CourseDetail: 'course/:courseId',
+      Lesson: 'lesson/:lessonId',
+    },
+  },
+};
+
+<NavigationContainer linking={linking}>
+  {/* Navigators */}
+</NavigationContainer>
+```
+
+---
+
+## Navigation State Persistence
+
+### Persist Navigation State
+
+```typescript
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const PERSISTENCE_KEY = 'NAVIGATION_STATE';
+
+const App = () => {
+  const [isReady, setIsReady] = useState(false);
+  const [initialState, setInitialState] = useState();
+
+  useEffect(() => {
+    const restoreState = async () => {
+      try {
+        const savedState = await AsyncStorage.getItem(PERSISTENCE_KEY);
+        if (savedState) {
+          setInitialState(JSON.parse(savedState));
+        }
+      } finally {
+        setIsReady(true);
+      }
+    };
+
+    restoreState();
+  }, []);
+
+  if (!isReady) return <SplashScreen />;
+
+  return (
+    <NavigationContainer
+      initialState={initialState}
+      onStateChange={(state) =>
+        AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
+      }
     >
-      <Content />
-    </MotiView>
+      {/* Navigators */}
+    </NavigationContainer>
   );
 };
 ```
 
 ---
 
-## Forbidden Animation Practices
+## Navigation Guards
 
-1. **NEVER** animate layout properties (width, height, padding)
-2. **NEVER** use animation duration > 500ms for UI feedback
-3. **NEVER** use animation duration < 100ms (imperceptible)
-4. **NEVER** ignore reduced motion preferences
-5. **NEVER** run more than 4 complex animations simultaneously
-6. **NEVER** use JavaScript-driven animations for gestures
-7. **NEVER** animate without exit animations for removable content
-8. **NEVER** use linear easing for UI animations (use spring/ease)
+### Auth Guard Pattern
+
+```typescript
+// Use in navigation container
+const Navigation = () => {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {isAuthenticated ? (
+        <>
+          <Stack.Screen name="Main" component={MainNavigator} />
+          <Stack.Screen name="CourseDetail" component={CourseDetailScreen} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+        </>
+      )}
+    </Stack.Navigator>
+  );
+};
+```
+
+---
+
+## Forbidden Navigation Practices
+
+1. **NEVER** use string-based navigation without type checking
+2. **NEVER** navigate from outside React components
+3. **NEVER** deep nest navigators more than 3 levels
+4. **NEVER** use headerShown: true with custom headers
+5. **NEVER** forget to handle hardware back button on Android
+6. **NEVER** use navigation.reset() without clear UX reason
+7. **NEVER** pass complex objects as route params (use IDs)
+8. **NEVER** ignore safe areas in custom headers
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
