@@ -1,0 +1,9 @@
+{
+  "name": "emacs-os--embr-el",
+  "displayName": "embr.el",
+  "description": "Emacs is the display server. Headless Chromium is the renderer.",
+  "version": "1.0.0",
+  "author": "emacs-os",
+  "homepage": "https://github.com/emacs-os/embr.el",
+  "skills": []
+}
