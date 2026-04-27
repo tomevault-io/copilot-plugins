@@ -1,0 +1,9 @@
+{
+  "name": "fuwasegu--aegis",
+  "displayName": "aegis",
+  "description": "DAG-based Deterministic Context Compiler for AI Coding Agents",
+  "version": "1.0.0",
+  "author": "fuwasegu",
+  "homepage": "https://github.com/fuwasegu/aegis",
+  "skills": []
+}
