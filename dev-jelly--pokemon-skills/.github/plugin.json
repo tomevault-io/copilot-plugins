@@ -1,0 +1,22 @@
+{
+  "name": "dev-jelly--pokemon-skills",
+  "displayName": "pokemon-skills",
+  "description": "AI instruction skills by dev-jelly",
+  "version": "1.0.0",
+  "author": "dev-jelly",
+  "homepage": "https://github.com/dev-jelly/pokemon-skills",
+  "skills": [
+    {
+      "name": "pokemon-green-en",
+      "description": ""
+    },
+    {
+      "name": "pokemon-green-ko",
+      "description": ""
+    },
+    {
+      "name": "pokemon-i18n-sync",
+      "description": ""
+    }
+  ]
+}
