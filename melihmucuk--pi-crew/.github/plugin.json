@@ -1,0 +1,9 @@
+{
+  "name": "melihmucuk--pi-crew",
+  "displayName": "pi-crew",
+  "description": "Non-blocking subagent orchestration for pi. Spawn isolated agents that work in parallel while your session stays interactive.",
+  "version": "1.0.0",
+  "author": "melihmucuk",
+  "homepage": "https://github.com/melihmucuk/pi-crew",
+  "skills": []
+}
