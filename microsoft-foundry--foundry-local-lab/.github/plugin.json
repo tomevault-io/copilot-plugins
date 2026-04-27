@@ -1,0 +1,9 @@
+{
+  "name": "microsoft-foundry--foundry-local-lab",
+  "displayName": "Foundry-Local-Lab",
+  "description": "Microsoft Foundry Local - Workshop - Build AI apps locally with Foundry Local - RAG, agents, and multi-agent workflows in Python, JS, and C#. No cloud required.",
+  "version": "1.0.0",
+  "author": "microsoft-foundry",
+  "homepage": "https://github.com/microsoft-foundry/Foundry-Local-Lab",
+  "skills": []
+}
