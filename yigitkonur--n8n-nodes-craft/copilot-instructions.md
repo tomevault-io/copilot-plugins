@@ -1,151 +1,122 @@
-## credentials
+## documentation
 
-> n8n credential development rules - auto-applies when editing credential files
+> n8n documentation navigator - helps find the right guide
 
 
-# n8n Credential Development Rules
+# n8n Documentation Navigator
 
-## Reference Files
+## Complete Documentation Tree (31 Files)
 
-| Auth Type | File | Doc |
-|-----------|------|-----|
-| API Key | `credentials/GithubIssuesApi.credentials.ts` | `docs/08-api-key-credentials.md` |
-| OAuth2 | `credentials/GithubIssuesOAuth2Api.credentials.ts` | `docs/09-oauth2-credentials.md` |
-
----
-
-## API Key Credential Pattern
-
-```typescript
-import type { 
-  ICredentialType, 
-  INodeProperties, 
-  IAuthenticateGeneric 
-} from 'n8n-workflow';
-
-export class MyServiceApi implements ICredentialType {
-  name = 'myServiceApi';
-  displayName = 'My Service API';
-  documentationUrl = 'https://docs.myservice.com/api-keys';
-  
-  properties: INodeProperties[] = [
-    {
-      displayName: 'API Key',
-      name: 'apiKey',
-      type: 'string',
-      typeOptions: { password: true },
-      default: '',
-      required: true,
-    },
-    {
-      displayName: 'Base URL',
-      name: 'baseUrl',
-      type: 'string',
-      default: 'https://api.myservice.com',
-      description: 'Override for self-hosted instances',
-    },
-  ];
-
-  authenticate: IAuthenticateGeneric = {
-    type: 'generic',
-    properties: {
-      headers: {
-        Authorization: '=Bearer {{$credentials.apiKey}}',
-      },
-    },
-  };
-}
+```
+docs/
+├── 00-documentation-index.md          # Master index
+├── 01-project-structure-overview.md   # Repository layout
+├── 02-package-json-configuration.md   # npm setup
+├── 03-typescript-configuration.md     # TypeScript config
+├── 04-node-anatomy-and-architecture.md # Node structure
+├── 05-declarative-vs-programmatic-nodes.md # Architecture choice
+├── 06-node-properties-reference.md    # Property types
+├── 07-credentials-system-overview.md  # Auth architecture
+├── 08-api-key-credentials.md          # API key auth
+├── 09-oauth2-credentials.md           # OAuth2 auth
+├── 10-creating-your-first-node.md     # Tutorial
+├── 11-resources-and-operations.md     # Multi-resource
+├── 12-declarative-routing.md          # routing.send
+├── 13-custom-execute-methods.md       # execute()
+├── 14-list-search-methods.md          # Dynamic dropdowns
+├── 15-resource-locators.md            # Multi-mode inputs
+├── 16-pagination-handling.md          # Pagination
+├── 17-error-handling-patterns.md      # Error handling
+├── 18-helper-functions-and-utilities.md # Utilities
+├── 19-external-sdk-integration.md     # SDK patterns
+├── 20-icons-and-branding.md           # Icons
+├── 21-node-json-metadata.md           # node.json
+├── 22-development-workflow.md         # Dev workflow
+├── 23-testing-strategies.md           # Testing
+├── 24-linting-and-code-quality.md     # ESLint
+├── 25-preparing-for-publication.md    # Pre-publish
+├── 26-publishing-to-npm.md            # npm publish
+├── 27-n8n-cloud-verification.md       # Cloud verification
+├── 28-complete-code-examples.md       # Examples
+├── 29-common-patterns-and-recipes.md  # Recipes
+└── 30-troubleshooting-guide.md        # Troubleshooting
 ```
 
 ---
 
-## OAuth2 Credential Pattern
+## Quick Reference by Task
 
-```typescript
-import type { ICredentialType, INodeProperties } from 'n8n-workflow';
-
-export class MyServiceOAuth2Api implements ICredentialType {
-  name = 'myServiceOAuth2Api';
-  displayName = 'My Service OAuth2 API';
-  extends = ['oAuth2Api'];
-  documentationUrl = 'https://docs.myservice.com/oauth2';
-
-  properties: INodeProperties[] = [
-    {
-      displayName: 'Grant Type',
-      name: 'grantType',
-      type: 'hidden',
-      default: 'authorizationCode',
-    },
-    {
-      displayName: 'Authorization URL',
-      name: 'authUrl',
-      type: 'hidden',
-      default: 'https://myservice.com/oauth/authorize',
-    },
-    {
-      displayName: 'Access Token URL',
-      name: 'accessTokenUrl',
-      type: 'hidden',
-      default: 'https://myservice.com/oauth/token',
-    },
-    {
-      displayName: 'Scope',
-      name: 'scope',
-      type: 'hidden',
-      default: 'read write',
-    },
-    {
-      displayName: 'Authentication',
-      name: 'authentication',
-      type: 'hidden',
-      default: 'header',
-    },
-  ];
-}
-```
+| I want to... | Primary Doc | Also Read |
+|--------------|-------------|-----------|
+| Start a new node | `docs/10-creating-your-first-node.md` | `docs/00-documentation-index.md` |
+| Choose architecture | `docs/05-declarative-vs-programmatic-nodes.md` | `docs/04-node-anatomy-and-architecture.md` |
+| Build REST API node | `docs/12-declarative-routing.md` | `docs/06-node-properties-reference.md` |
+| Integrate an SDK | `docs/13-custom-execute-methods.md` | `docs/19-external-sdk-integration.md` |
+| Add API key auth | `docs/08-api-key-credentials.md` | `docs/07-credentials-system-overview.md` |
+| Add OAuth2 auth | `docs/09-oauth2-credentials.md` | `docs/07-credentials-system-overview.md` |
+| Organize multi-resource | `docs/11-resources-and-operations.md` | `docs/04-node-anatomy-and-architecture.md` |
+| Add dynamic dropdowns | `docs/14-list-search-methods.md` | `docs/15-resource-locators.md` |
+| Handle pagination | `docs/16-pagination-handling.md` | `docs/12-declarative-routing.md` |
+| Handle errors | `docs/17-error-handling-patterns.md` | `docs/30-troubleshooting-guide.md` |
+| Create icons | `docs/20-icons-and-branding.md` | `docs/21-node-json-metadata.md` |
+| Write tests | `docs/23-testing-strategies.md` | `docs/22-development-workflow.md` |
+| Publish to npm | `docs/25-preparing-for-publication.md` | `docs/26-publishing-to-npm.md` |
+| Submit to n8n Cloud | `docs/27-n8n-cloud-verification.md` | `docs/25-preparing-for-publication.md` |
+| Debug issues | `docs/30-troubleshooting-guide.md` | `docs/17-error-handling-patterns.md` |
 
 ---
 
-## Authentication Methods
+## Documentation by Category
 
-| Method | Property | Example |
-|--------|----------|---------|
-| Bearer Token | `headers.Authorization` | `'=Bearer {{$credentials.apiKey}}'` |
-| API Key Header | `headers.X-API-Key` | `'={{$credentials.apiKey}}'` |
-| Basic Auth | `headers.Authorization` | `'=Basic {{$credentials.username}}:{{$credentials.password}}'` |
-| Query Parameter | `qs.api_key` | `'={{$credentials.apiKey}}'` |
+### Setup & Configuration
+- `docs/01-project-structure-overview.md`
+- `docs/02-package-json-configuration.md`
+- `docs/03-typescript-configuration.md`
 
----
+### Node Architecture
+- `docs/04-node-anatomy-and-architecture.md`
+- `docs/05-declarative-vs-programmatic-nodes.md`
+- `docs/06-node-properties-reference.md`
 
-## Credential Testing
+### Authentication
+- `docs/07-credentials-system-overview.md`
+- `docs/08-api-key-credentials.md`
+- `docs/09-oauth2-credentials.md`
 
-```typescript
-export class MyServiceApi implements ICredentialType {
-  // ... properties ...
+### Building Nodes
+- `docs/10-creating-your-first-node.md`
+- `docs/11-resources-and-operations.md`
+- `docs/12-declarative-routing.md`
+- `docs/13-custom-execute-methods.md`
 
-  test: ICredentialTestRequest = {
-    request: {
-      baseURL: '={{$credentials.baseUrl}}',
-      url: '/me',
-    },
-  };
-}
-```
+### Dynamic UI
+- `docs/14-list-search-methods.md`
+- `docs/15-resource-locators.md`
 
----
+### Data Handling
+- `docs/16-pagination-handling.md`
+- `docs/17-error-handling-patterns.md`
+- `docs/18-helper-functions-and-utilities.md`
+- `docs/19-external-sdk-integration.md`
 
-## Registration
+### Branding
+- `docs/20-icons-and-branding.md`
+- `docs/21-node-json-metadata.md`
 
-```json
-{
-  "n8n": {
-    "credentials": [
-      "dist/credentials/MyServiceApi.credentials.js"
-    ]
-  }
-}
-```
+### Development
+- `docs/22-development-workflow.md`
+- `docs/23-testing-strategies.md`
+- `docs/24-linting-and-code-quality.md`
+
+### Publishing
+- `docs/25-preparing-for-publication.md`
+- `docs/26-publishing-to-npm.md`
+- `docs/27-n8n-cloud-verification.md`
+
+### Reference
+- `docs/28-complete-code-examples.md`
+- `docs/29-common-patterns-and-recipes.md`
+- `docs/30-troubleshooting-guide.md`
 
 ---
 > Source: [yigitkonur/n8n-nodes-craft](https://github.com/yigitkonur/n8n-nodes-craft) — distributed by [TomeVault](https://tomevault.io).
