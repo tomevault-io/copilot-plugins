@@ -1,0 +1,9 @@
+{
+  "name": "rubenmendoza1290--claude-token-counter",
+  "displayName": "claude-token-counter",
+  "description": "A CLI tool to visualize Claude API token usage and track monthly subscription limits.",
+  "version": "1.0.0",
+  "author": "rubenmendoza1290",
+  "homepage": "https://github.com/rubenmendoza1290/claude-token-counter",
+  "skills": []
+}
