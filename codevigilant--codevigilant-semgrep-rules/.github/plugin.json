@@ -1,0 +1,9 @@
+{
+  "name": "codevigilant--codevigilant-semgrep-rules",
+  "displayName": "codevigilant_semgrep_rules",
+  "description": "codevigilant_semgrep_rules",
+  "version": "1.0.0",
+  "author": "CodeVigilant",
+  "homepage": "https://github.com/CodeVigilant/codevigilant_semgrep_rules",
+  "skills": []
+}
