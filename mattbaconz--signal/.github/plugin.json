@@ -1,0 +1,9 @@
+{
+  "name": "mattbaconz--signal",
+  "displayName": "signal",
+  "description": "SIGNAL \u2014 Agent Skills: terse structured output (tiers, templates, checkpoints), git workflow skills (commit, push, PR, review, ckpt), Karpathy-inspired coding norms. Claude Code, Cursor, Gemini CLI, C",
+  "version": "1.0.0",
+  "author": "mattbaconz",
+  "homepage": "https://github.com/mattbaconz/signal",
+  "skills": []
+}
