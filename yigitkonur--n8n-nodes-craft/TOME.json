@@ -2,7 +2,7 @@
   "name": "n8n-nodes-craft",
   "owner": "yigitkonur",
   "repo": "n8n-nodes-craft",
-  "description": "",
+  "description": "n8n community nodes for Craft docs \u2014 blocks, tasks, collections, search",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yigitkonur/n8n-nodes-craft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:40:57Z"
+  "distributed_at": "2026-04-27T01:07:56Z"
 }
