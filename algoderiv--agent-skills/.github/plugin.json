@@ -1,0 +1,9 @@
+{
+  "name": "algoderiv--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Claude Code skills for China quant trading",
+  "version": "1.0.0",
+  "author": "algoderiv",
+  "homepage": "https://github.com/algoderiv/agent-skills",
+  "skills": []
+}
