@@ -1,0 +1,9 @@
+{
+  "name": "phase-rs--phase",
+  "displayName": "phase",
+  "description": "A Magic: The Gathering rules engine and game client \u2014 Rust + WASM + React",
+  "version": "1.0.0",
+  "author": "phase-rs",
+  "homepage": "https://github.com/phase-rs/phase",
+  "skills": []
+}
