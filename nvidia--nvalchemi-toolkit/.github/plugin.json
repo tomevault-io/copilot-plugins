@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nvalchemi-toolkit",
+  "displayName": "nvalchemi-toolkit",
+  "description": "ALCHEMI Toolkit is a developer toolkit for accelerating training and inference for AI in chemistry and material science.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/nvalchemi-toolkit",
+  "skills": []
+}
