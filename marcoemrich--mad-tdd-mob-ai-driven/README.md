@@ -1,6 +1,6 @@
-# mad-tdd-mob-ai-driven — distributed by TomeVault
+# mad-tdd-mob-ai-driven
 
-> Originally from [marcoemrich/mad-tdd-mob-ai-driven](https://github.com/marcoemrich/mad-tdd-mob-ai-driven). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [marcoemrich/mad-tdd-mob-ai-driven](https://github.com/marcoemrich/mad-tdd-mob-ai-driven) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [marcoemrich/mad-tdd-mob-ai-driven](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/marcoemrich)
+From [marcoemrich/mad-tdd-mob-ai-driven](https://github.com/marcoemrich/mad-tdd-mob-ai-driven) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install marcoemrich/mad-tdd-mob-ai-driven
 ```
-Or browse all formats at [https://tomevault.io/claim/marcoemrich](https://tomevault.io/claim/marcoemrich).
+Source: [github.com/marcoemrich/mad-tdd-mob-ai-driven](https://github.com/marcoemrich/mad-tdd-mob-ai-driven).
 
 <!-- genome:d-i-s -->
