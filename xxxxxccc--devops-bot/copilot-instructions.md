@@ -1,0 +1,69 @@
+## devops-bot
+
+> Chat-driven AI coding agent. Users communicate via IM group chat (Feishu or Slack), a two-layer AI system classifies intent and executes code changes automatically. Supports multiple AI providers (Anthropic, OpenAI, OpenAI-compatible).
+
+# DevOps Bot
+
+Chat-driven AI coding agent. Users communicate via IM group chat (Feishu or Slack), a two-layer AI system classifies intent and executes code changes automatically. Supports multiple AI providers (Anthropic, OpenAI, OpenAI-compatible).
+
+## Commands
+
+| Task | Command |
+|------|---------|
+| Dev (hot reload) | `pnpm dev` |
+| Build | `pnpm build` |
+| Start | `pnpm start` |
+| Lint + Format check | `pnpm check` |
+| Lint only | `pnpm lint` |
+| Format (write) | `pnpm format` |
+
+**Always run `pnpm check` before committing.**
+
+## Critical Conventions
+
+- **ESM + NodeNext**: All imports must use `.js` extension (e.g., `import { foo } from './bar.js'`)
+- **Node.js builtins**: Use `node:` protocol (e.g., `import { readFile } from 'node:fs/promises'`)
+- **Biome** for formatting and linting — not ESLint, not Prettier
+- **Single quotes**, no semicolons, trailing commas (enforced by Biome)
+- **pnpm** as package manager — do not use npm or yarn
+- **No new dependencies** without justification; prefer Node.js builtins
+
+## Project Context
+
+- Supports **multi-project mode** — projects added via chat (`add_project` intent), auto-cloned to `~/.devops-bot/repos/`
+- Supports **workspace mode** — register a workspace meta-repo (`add_workspace` intent) with `workspace.json` manifest; dispatcher AI sees all sub-projects and clones on demand via `targetGitUrl`
+- Falls back to **single-project mode** if `TARGET_PROJECT_PATH` is set
+- IM bot (Feishu or Slack) is the **primary user interface** — there is no web frontend
+- Two AI layers: **fast model** (dispatcher) and **powerful model** (task executor) — provider-agnostic
+- **Three-tier task execution**: `execute_task` (low risk, immediate), `propose_task` (medium risk, needs approval via Issue AI synthesis), `create_issue` (high risk, discussion only)
+- **PR Review**: AI-powered code review via `review_pr` intent, self-review after task completion (with auto-fix loop — up to 2 rounds), or polling/webhook triggers; Memory namespace isolation (`task` vs `review`) with selective cross-injection; full PR discussion context (issue comments + review summaries) injected into review and fix prompts
+- **Issue AI**: Independent AI layer that reads full issue context (body + comments) and synthesizes actionable tasks; also scans external issues with configured labels; in workspace mode, uses **two-phase cross-repo triage** (quality gate + routing to sub-projects, with sub-issue creation)
+- **GitHub App authentication** for GitHub operations (PRs, Issues, git push); PAT fallback supported
+- Skills stored at **workspace level** (`~/.devops-bot/skills/`), shared across all projects
+- Memory persists in `data/memory/` using **SQLite** (primary) + **JSONL** exports (AI browsing); features **semantic dedup** (LLM-driven ADD/UPDATE/NOOP/DELETE decision cycle), **change audit trail** (`memory_history` table), **periodic pruning** of stale memories, and **per-project custom extraction prompts** via `.devops-bot.json`
+- Configuration lives in `.env.local` (never committed)
+
+## Security Rules
+
+- **NEVER** commit `.env`, `.env.local`, API keys, or GitHub App private keys
+- Shell tool blocks dangerous commands (`rm -rf /`, `sudo`, `shutdown`, etc.)
+- Git operations must not force push or delete protected branches
+- Validate all external inputs before processing
+- All AI-generated changes stay on working branch — human reviews before merge
+- GitHub App private keys must be stored securely outside the repository
+
+## Detailed Guidelines
+
+- [Architecture & Data Flow](.agents/architecture.md) — two-layer AI, modules, platform abstraction
+- [Memory System](.agents/memory-system.md) — SQLite + JSONL storage, semantic dedup, audit history, pruning, custom extraction
+- [Code Conventions](.agents/code-conventions.md) — TypeScript patterns, Biome rules, file structure
+- GitHub App auth: `src/github/app-auth.ts`, `src/github/client.ts`
+- Multi-project: `src/project/registry.ts`, `src/project/repo-manager.ts`, `src/project/resolver.ts`
+- Workspace mode: `src/project/workspace.ts` (registry, manifest parser, context loader)
+- Issue AI & Approval: `src/approval/issue-ai.ts` (`triageIssue`, `synthesizeTaskForTarget`), `src/approval/poller.ts`, `src/approval/store.ts`
+- PR Review: `src/review/engine.ts`, `src/review/ai-client.ts`, `src/review/diff-parser.ts`, `src/review/poller.ts`
+- Auto-fix loop: `src/webhook/task-runner.ts` (`selfReviewAndFix`), `src/webhook/prompt.ts` (`buildReviewFixPrompt`), `src/sandbox/manager.ts` (`createSandboxOnBranch`)
+
+---
+> Source: [xxxxxccc/devops-bot](https://github.com/xxxxxccc/devops-bot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
