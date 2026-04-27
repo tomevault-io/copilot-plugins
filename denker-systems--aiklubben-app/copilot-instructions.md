@@ -1,525 +1,527 @@
-## 12-error-handling-rules
+## 13-forms-input-rules
 
-> - **Mode**: Always On
+> handleSubmit,
 
-# Error Handling Rules - React Native
+# Forms & Input Rules - React Native iOS
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: Error handling patterns for robust React Native apps
+- **Description**: Form handling patterns for iOS-compliant user input
 
 ---
 
-## Error Boundary
+## Input Component Standards
 
-### Global Error Boundary
+### TextInput iOS Configuration
 
 ```typescript
-// components/ErrorBoundary.tsx
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, Button } from '@/components/ui';
+// Standard TextInput with iOS optimizations
+<TextInput
+  // Required props
+  value={value}
+  onChangeText={setValue}
 
-interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
-  onError?: (error: Error, errorInfo: ErrorInfo) => void;
+  // iOS-specific props
+  clearButtonMode="while-editing"    // Show clear button
+  keyboardType="default"             // Appropriate keyboard
+  returnKeyType="done"               // Return key label
+  autoCapitalize="none"              // For email/username
+  autoCorrect={false}                // Disable for sensitive fields
+  autoComplete="email"               // iOS autofill
+  textContentType="emailAddress"     // iOS password manager
+
+  // Accessibility
+  accessible={true}
+  accessibilityLabel="Email address"
+  accessibilityHint="Enter your email"
+
+  // Styling
+  style={styles.input}
+  placeholderTextColor="#9CA3AF"
+/>
+```
+
+### Keyboard Types by Field
+
+```typescript
+const KEYBOARD_CONFIGS = {
+  email: {
+    keyboardType: 'email-address' as const,
+    autoCapitalize: 'none' as const,
+    autoComplete: 'email' as const,
+    textContentType: 'emailAddress' as const,
+  },
+  password: {
+    secureTextEntry: true,
+    autoCapitalize: 'none' as const,
+    autoComplete: 'password' as const,
+    textContentType: 'password' as const,
+  },
+  phone: {
+    keyboardType: 'phone-pad' as const,
+    autoComplete: 'tel' as const,
+    textContentType: 'telephoneNumber' as const,
+  },
+  number: {
+    keyboardType: 'numeric' as const,
+  },
+  decimal: {
+    keyboardType: 'decimal-pad' as const,
+  },
+  url: {
+    keyboardType: 'url' as const,
+    autoCapitalize: 'none' as const,
+    autoCorrect: false,
+  },
+  name: {
+    autoCapitalize: 'words' as const,
+    autoComplete: 'name' as const,
+    textContentType: 'name' as const,
+  },
+};
+```
+
+---
+
+## Keyboard Avoiding
+
+### KeyboardAvoidingView Setup
+
+```typescript
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+const FormScreen = () => {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+    >
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingBottom: insets.bottom + 20,
+        }}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <FormContent />
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
+```
+
+### Keyboard Dismiss Patterns
+
+```typescript
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+
+// Dismiss on tap outside
+const DismissKeyboardView = ({ children }: { children: ReactNode }) => (
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={{ flex: 1 }}>
+      {children}
+    </View>
+  </TouchableWithoutFeedback>
+);
+
+// Dismiss on scroll
+<ScrollView
+  keyboardDismissMode="on-drag"
+  keyboardShouldPersistTaps="handled"
+>
+```
+
+---
+
+## Form State Management
+
+### Form Hook Pattern
+
+```typescript
+// hooks/useForm.ts
+interface FormConfig<T> {
+  initialValues: T;
+  validationSchema?: z.ZodSchema<T>;
+  onSubmit: (values: T) => Promise<void> | void;
 }
 
-interface State {
-  hasError: boolean;
-  error: Error | null;
-}
+export const useForm = <T extends Record<string, unknown>>({
+  initialValues,
+  validationSchema,
+  onSubmit,
+}: FormConfig<T>) => {
+  const [values, setValues] = useState<T>(initialValues);
+  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof T, boolean>>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
+  const setValue = useCallback(<K extends keyof T>(field: K, value: T[K]) => {
+    setValues((prev) => ({ ...prev, [field]: value }));
+    setErrors((prev) => ({ ...prev, [field]: undefined }));
+    setSubmitError(null);
+  }, []);
 
-  static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
-  }
+  const setFieldTouched = useCallback((field: keyof T) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  }, []);
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Log to error reporting service
-    console.error('ErrorBoundary caught:', error, errorInfo);
+  const validate = useCallback((): boolean => {
+    if (!validationSchema) return true;
 
-    // Call optional error handler
-    this.props.onError?.(error, errorInfo);
+    const result = validationSchema.safeParse(values);
 
-    // Report to analytics (Sentry, etc.)
-    // errorReporting.captureException(error, { extra: errorInfo });
-  }
-
-  handleRetry = () => {
-    this.setState({ hasError: false, error: null });
-  };
-
-  render() {
-    if (this.state.hasError) {
-      if (this.props.fallback) {
-        return this.props.fallback;
-      }
-
-      return (
-        <View style={styles.container}>
-          <Text variant="h2" style={styles.title}>
-            Något gick fel
-          </Text>
-          <Text variant="body" style={styles.message}>
-            Vi kunde inte ladda innehållet. Försök igen.
-          </Text>
-          <Button onPress={this.handleRetry} label="Försök igen" />
-        </View>
-      );
+    if (result.success) {
+      setErrors({});
+      return true;
     }
 
-    return this.props.children;
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
-    backgroundColor: '#0C0A17',
-  },
-  title: {
-    marginBottom: 12,
-    color: '#F9FAFB',
-  },
-  message: {
-    marginBottom: 24,
-    textAlign: 'center',
-    color: '#9CA3AF',
-  },
-});
-```
-
-### Using Error Boundaries
-
-```typescript
-// Wrap screens or feature sections
-const App = () => (
-  <ErrorBoundary
-    onError={(error) => {
-      // Report to monitoring service
-      reportError(error);
-    }}
-  >
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
-  </ErrorBoundary>
-);
-
-// Feature-level boundaries
-const CourseScreen = () => (
-  <ErrorBoundary fallback={<CourseErrorFallback />}>
-    <CourseContent />
-  </ErrorBoundary>
-);
-```
-
----
-
-## Async Error Handling
-
-### API Error Handling Pattern
-
-```typescript
-// types/errors.ts
-export class ApiError extends Error {
-  constructor(
-    message: string,
-    public statusCode: number,
-    public code?: string,
-    public details?: unknown,
-  ) {
-    super(message);
-    this.name = 'ApiError';
-  }
-
-  static fromResponse(response: Response, body: unknown): ApiError {
-    const message = (body as { message?: string })?.message || 'Unknown error';
-    const code = (body as { code?: string })?.code;
-    return new ApiError(message, response.status, code, body);
-  }
-
-  get isUnauthorized(): boolean {
-    return this.statusCode === 401;
-  }
-
-  get isNotFound(): boolean {
-    return this.statusCode === 404;
-  }
-
-  get isServerError(): boolean {
-    return this.statusCode >= 500;
-  }
-}
-
-export class NetworkError extends Error {
-  constructor(message: string = 'Network error') {
-    super(message);
-    this.name = 'NetworkError';
-  }
-}
-
-export class ValidationError extends Error {
-  constructor(
-    message: string,
-    public fields: Record<string, string[]>,
-  ) {
-    super(message);
-    this.name = 'ValidationError';
-  }
-}
-```
-
-### API Client with Error Handling
-
-```typescript
-// lib/api.ts
-const apiClient = async <T>(endpoint: string, options?: RequestInit): Promise<T> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        ...options?.headers,
-      },
+    const newErrors: Partial<Record<keyof T, string>> = {};
+    result.error.errors.forEach((err) => {
+      const field = err.path[0] as keyof T;
+      if (!newErrors[field]) {
+        newErrors[field] = err.message;
+      }
     });
+    setErrors(newErrors);
+    return false;
+  }, [values, validationSchema]);
 
-    const body = await response.json().catch(() => ({}));
-
-    if (!response.ok) {
-      throw ApiError.fromResponse(response, body);
-    }
-
-    return body as T;
-  } catch (error) {
-    if (error instanceof ApiError) {
-      throw error;
-    }
-
-    if (error instanceof TypeError && error.message.includes('Network')) {
-      throw new NetworkError('Unable to connect to server');
-    }
-
-    throw new ApiError('An unexpected error occurred', 500);
-  }
-};
-```
-
----
-
-## React Query Error Handling
-
-### Query Error Handling
-
-```typescript
-// hooks/useCourse.ts
-import { useQuery } from '@tanstack/react-query';
-import { ApiError } from '@/types/errors';
-
-export const useCourse = (courseId: string) => {
-  return useQuery({
-    queryKey: ['course', courseId],
-    queryFn: () => api.getCourse(courseId),
-    retry: (failureCount, error) => {
-      // Don't retry on 404
-      if (error instanceof ApiError && error.isNotFound) {
-        return false;
-      }
-      // Retry up to 3 times for other errors
-      return failureCount < 3;
-    },
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-  });
-};
-
-// Usage in component
-const CourseScreen = ({ courseId }: Props) => {
-  const { data, error, isLoading, isError, refetch } = useCourse(courseId);
-
-  if (isLoading) {
-    return <LoadingState />;
-  }
-
-  if (isError) {
-    if (error instanceof ApiError && error.isNotFound) {
-      return <NotFoundState message="Kursen hittades inte" />;
-    }
-
-    return (
-      <ErrorState
-        message="Kunde inte ladda kursen"
-        onRetry={refetch}
-      />
+  const handleSubmit = useCallback(async () => {
+    // Mark all fields as touched
+    const allTouched = Object.keys(initialValues).reduce(
+      (acc, key) => ({ ...acc, [key]: true }),
+      {} as Record<keyof T, boolean>,
     );
-  }
+    setTouched(allTouched);
 
-  return <CourseContent course={data} />;
-};
-```
+    if (!validate()) return;
 
-### Mutation Error Handling
+    setIsSubmitting(true);
+    setSubmitError(null);
 
-```typescript
-// hooks/useUpdateProfile.ts
-export const useUpdateProfile = () => {
-  const queryClient = useQueryClient();
+    try {
+      await onSubmit(values);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Ett fel uppstod');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [values, validate, onSubmit, initialValues]);
 
-  return useMutation({
-    mutationFn: api.updateProfile,
-    onError: (error) => {
-      if (error instanceof ValidationError) {
-        // Handle validation errors (show in form)
-        return;
-      }
+  const reset = useCallback(() => {
+    setValues(initialValues);
+    setErrors({});
+    setTouched({});
+    setSubmitError(null);
+  }, [initialValues]);
 
-      if (error instanceof ApiError && error.isUnauthorized) {
-        // Handle auth error (logout, redirect)
-        return;
-      }
-
-      // Show generic error toast
-      showToast({ type: 'error', message: 'Något gick fel' });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
-      showToast({ type: 'success', message: 'Profilen uppdaterad' });
-    },
-  });
+  return {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    submitError,
+    setValue,
+    setFieldTouched,
+    handleSubmit,
+    reset,
+    isValid: Object.keys(errors).length === 0,
+  };
 };
 ```
 
 ---
 
-## Form Validation Errors
+## Input Validation
 
-### Validation Error Display
+### Real-time Validation
 
 ```typescript
-// components/FormField.tsx
+// Validate on blur
+const EmailInput = () => {
+  const { values, errors, touched, setValue, setFieldTouched } = useForm();
+
+  return (
+    <FormField
+      label="E-post"
+      value={values.email}
+      onChangeText={(text) => setValue('email', text)}
+      onBlur={() => setFieldTouched('email')}
+      error={touched.email ? errors.email : undefined}
+      keyboardType="email-address"
+      autoCapitalize="none"
+    />
+  );
+};
+```
+
+### Validation Rules
+
+```typescript
+// lib/validation/rules.ts
+import { z } from 'zod';
+
+export const emailRule = z.string().min(1, 'E-post krävs').email('Ogiltig e-postadress');
+
+export const passwordRule = z
+  .string()
+  .min(1, 'Lösenord krävs')
+  .min(8, 'Minst 8 tecken')
+  .regex(/[A-Z]/, 'Minst en stor bokstav')
+  .regex(/[0-9]/, 'Minst en siffra');
+
+export const requiredString = (fieldName: string) => z.string().min(1, `${fieldName} krävs`);
+
+export const optionalString = z.string().optional();
+
+// Composite schemas
+export const loginSchema = z.object({
+  email: emailRule,
+  password: z.string().min(1, 'Lösenord krävs'),
+});
+
+export const registerSchema = z
+  .object({
+    name: requiredString('Namn'),
+    email: emailRule,
+    password: passwordRule,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Lösenorden matchar inte',
+    path: ['confirmPassword'],
+  });
+```
+
+---
+
+## Form Field Component
+
+### Reusable FormField
+
+```typescript
+// components/ui/FormField.tsx
 interface FormFieldProps {
   label: string;
   value: string;
   onChangeText: (text: string) => void;
+  onBlur?: () => void;
   error?: string;
-  touched?: boolean;
+  placeholder?: string;
+  secureTextEntry?: boolean;
+  keyboardType?: KeyboardTypeOptions;
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  multiline?: boolean;
+  numberOfLines?: number;
+  maxLength?: number;
+  disabled?: boolean;
+  rightElement?: ReactNode;
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
   label,
   value,
   onChangeText,
+  onBlur,
   error,
-  touched,
+  placeholder,
+  secureTextEntry,
+  keyboardType,
+  autoCapitalize,
+  multiline,
+  numberOfLines,
+  maxLength,
+  disabled,
+  rightElement,
 }) => {
-  const showError = touched && error;
+  const [isFocused, setIsFocused] = useState(false);
+  const hasError = !!error;
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput
-        value={value}
-        onChangeText={onChangeText}
-        style={[
-          styles.input,
-          showError && styles.inputError,
-        ]}
-        accessibilityLabel={label}
-        accessibilityState={{ invalid: !!showError }}
-      />
-      {showError && (
-        <Text style={styles.errorText} accessibilityRole="alert">
-          {error}
+
+      <View style={[
+        styles.inputContainer,
+        isFocused && styles.inputFocused,
+        hasError && styles.inputError,
+        disabled && styles.inputDisabled,
+      ]}>
+        <TextInput
+          style={[styles.input, multiline && styles.multilineInput]}
+          value={value}
+          onChangeText={onChangeText}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            setIsFocused(false);
+            onBlur?.();
+          }}
+          placeholder={placeholder}
+          placeholderTextColor="#6B7280"
+          secureTextEntry={secureTextEntry}
+          keyboardType={keyboardType}
+          autoCapitalize={autoCapitalize}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
+          maxLength={maxLength}
+          editable={!disabled}
+
+          // Accessibility
+          accessible={true}
+          accessibilityLabel={label}
+          accessibilityState={{ disabled }}
+          accessibilityHint={error || placeholder}
+        />
+
+        {rightElement && (
+          <View style={styles.rightElement}>
+            {rightElement}
+          </View>
+        )}
+      </View>
+
+      {hasError && (
+        <View style={styles.errorContainer}>
+          <AlertCircle size={14} color="#EF4444" />
+          <Text style={styles.errorText}>{error}</Text>
+        </View>
+      )}
+
+      {maxLength && (
+        <Text style={styles.charCount}>
+          {value.length}/{maxLength}
         </Text>
       )}
     </View>
   );
 };
-```
 
-### Validation Schema
-
-```typescript
-// lib/validation.ts
-import { z } from 'zod';
-
-export const loginSchema = z.object({
-  email: z.string().min(1, 'E-post krävs').email('Ogiltig e-postadress'),
-  password: z.string().min(1, 'Lösenord krävs').min(8, 'Lösenordet måste vara minst 8 tecken'),
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#F9FAFB',
+    marginBottom: 8,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1A1625',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#374151',
+  },
+  inputFocused: {
+    borderColor: '#8B5CF6',
+  },
+  inputError: {
+    borderColor: '#EF4444',
+  },
+  inputDisabled: {
+    opacity: 0.5,
+  },
+  input: {
+    flex: 1,
+    height: 48,
+    paddingHorizontal: 16,
+    fontSize: 16,
+    color: '#F9FAFB',
+  },
+  multilineInput: {
+    height: 100,
+    paddingTop: 12,
+    textAlignVertical: 'top',
+  },
+  rightElement: {
+    paddingRight: 12,
+  },
+  errorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 6,
+    gap: 4,
+  },
+  errorText: {
+    fontSize: 13,
+    color: '#EF4444',
+  },
+  charCount: {
+    fontSize: 12,
+    color: '#6B7280',
+    textAlign: 'right',
+    marginTop: 4,
+  },
 });
-
-export const validateForm = <T extends z.ZodSchema>(
-  schema: T,
-  data: unknown,
-): { success: true; data: z.infer<T> } | { success: false; errors: Record<string, string> } => {
-  const result = schema.safeParse(data);
-
-  if (result.success) {
-    return { success: true, data: result.data };
-  }
-
-  const errors: Record<string, string> = {};
-  result.error.errors.forEach((err) => {
-    const path = err.path.join('.');
-    errors[path] = err.message;
-  });
-
-  return { success: false, errors };
-};
 ```
 
 ---
 
-## Toast/Snackbar Notifications
+## Submit Button State
 
-### Toast System
+### Submit Button Pattern
 
 ```typescript
-// contexts/ToastContext.tsx
-interface Toast {
-  id: string;
-  type: 'success' | 'error' | 'warning' | 'info';
-  message: string;
-  duration?: number;
+// Form submit button with proper states
+interface SubmitButtonProps {
+  onPress: () => void;
+  isSubmitting: boolean;
+  isDisabled: boolean;
+  label: string;
 }
 
-interface ToastContextValue {
-  toasts: Toast[];
-  showToast: (toast: Omit<Toast, 'id'>) => void;
-  hideToast: (id: string) => void;
-}
-
-export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [toasts, setToasts] = useState<Toast[]>([]);
-
-  const showToast = useCallback((toast: Omit<Toast, 'id'>) => {
-    const id = Date.now().toString();
-    const duration = toast.duration ?? 3000;
-
-    setToasts(prev => [...prev, { ...toast, id }]);
-
-    if (duration > 0) {
-      setTimeout(() => {
-        hideToast(id);
-      }, duration);
-    }
-  }, []);
-
-  const hideToast = useCallback((id: string) => {
-    setToasts(prev => prev.filter(t => t.id !== id));
-  }, []);
-
-  return (
-    <ToastContext.Provider value={{ toasts, showToast, hideToast }}>
-      {children}
-      <ToastContainer toasts={toasts} onHide={hideToast} />
-    </ToastContext.Provider>
-  );
-};
+export const SubmitButton: React.FC<SubmitButtonProps> = ({
+  onPress,
+  isSubmitting,
+  isDisabled,
+  label,
+}) => (
+  <Pressable
+    onPress={onPress}
+    disabled={isSubmitting || isDisabled}
+    style={({ pressed }) => [
+      styles.button,
+      (isSubmitting || isDisabled) && styles.buttonDisabled,
+      pressed && !isSubmitting && !isDisabled && styles.buttonPressed,
+    ]}
+    accessibilityRole="button"
+    accessibilityLabel={isSubmitting ? 'Skickar...' : label}
+    accessibilityState={{ disabled: isSubmitting || isDisabled }}
+  >
+    {isSubmitting ? (
+      <ActivityIndicator color="#FFFFFF" size="small" />
+    ) : (
+      <Text style={styles.buttonText}>{label}</Text>
+    )}
+  </Pressable>
+);
 ```
 
 ---
 
-## Offline Error Handling
+## Forbidden Form Practices
 
-### Network State Hook
-
-```typescript
-// hooks/useNetworkState.ts
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-
-export const useNetworkState = () => {
-  const [isConnected, setIsConnected] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
-      setIsConnected(state.isConnected);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  return { isConnected, isOffline: isConnected === false };
-};
-
-// Usage
-const DataScreen = () => {
-  const { isOffline } = useNetworkState();
-
-  if (isOffline) {
-    return (
-      <OfflineState
-        message="Ingen internetanslutning"
-        description="Kontrollera din anslutning och försök igen"
-      />
-    );
-  }
-
-  return <DataContent />;
-};
-```
-
----
-
-## Error Logging
-
-### Error Reporting Setup
-
-```typescript
-// lib/errorReporting.ts
-interface ErrorReport {
-  error: Error;
-  context?: Record<string, unknown>;
-  user?: { id: string; email: string };
-}
-
-export const reportError = ({ error, context, user }: ErrorReport) => {
-  // Log to console in development
-  if (__DEV__) {
-    console.error('Error Report:', error, context);
-    return;
-  }
-
-  // Send to error reporting service (Sentry, etc.)
-  // Sentry.captureException(error, {
-  //   extra: context,
-  //   user,
-  // });
-};
-
-// Use throughout app
-try {
-  await riskyOperation();
-} catch (error) {
-  reportError({
-    error: error as Error,
-    context: { operation: 'riskyOperation', param: value },
-  });
-}
-```
-
----
-
-## Forbidden Error Handling Practices
-
-1. **NEVER** swallow errors silently (empty catch blocks)
-2. **NEVER** show technical error messages to users
-3. **NEVER** forget to handle loading and error states
-4. **NEVER** use try/catch without proper error typing
-5. **NEVER** ignore network errors in async operations
-6. **NEVER** skip Error Boundaries for critical sections
-7. **NEVER** log sensitive data in error messages
-8. **NEVER** use generic error messages without context
+1. **NEVER** use uncontrolled inputs in React Native
+2. **NEVER** validate only on submit (use real-time + submit)
+3. **NEVER** show validation errors before user interaction
+4. **NEVER** forget keyboard avoiding behavior
+5. **NEVER** use keyboardShouldPersistTaps="never" for forms
+6. **NEVER** omit accessibility labels on form fields
+7. **NEVER** use default keyboard type for specialized inputs
+8. **NEVER** forget to handle keyboard dismiss gestures
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
