@@ -1,0 +1,9 @@
+{
+  "name": "f--check-ai",
+  "displayName": "check-ai",
+  "description": "Audit any repository for AI-readiness.",
+  "version": "1.0.0",
+  "author": "f",
+  "homepage": "https://github.com/f/check-ai",
+  "skills": []
+}
