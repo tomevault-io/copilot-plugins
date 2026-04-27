@@ -1,0 +1,9 @@
+{
+  "name": "bluryar--voxcpm-cpp",
+  "displayName": "VoxCPM.cpp",
+  "description": "Standalone C++ inference project for VoxCPM models built on top of ggml.",
+  "version": "1.0.0",
+  "author": "bluryar",
+  "homepage": "https://github.com/bluryar/VoxCPM.cpp",
+  "skills": []
+}
