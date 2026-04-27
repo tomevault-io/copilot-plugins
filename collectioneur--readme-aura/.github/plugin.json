@@ -1,0 +1,9 @@
+{
+  "name": "collectioneur--readme-aura",
+  "displayName": "readme-aura",
+  "description": "Render React/JSX components as animated SVGs directly inside GitHub READMEs",
+  "version": "1.0.0",
+  "author": "collectioneur",
+  "homepage": "https://github.com/collectioneur/readme-aura",
+  "skills": []
+}
