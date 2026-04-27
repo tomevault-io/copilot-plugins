@@ -1,6 +1,6 @@
 # YOLOv8tabletennis-seg
 
-> Tome by [BANGroup](https://github.com/BANGroup/YOLOv8tabletennis-seg) — distributed by [TomeVault](https://tomevault.io/claim/BANGroup)
+> Tome by [BANGroup](https://github.com/BANGroup/YOLOv8tabletennis-seg) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [BANGroup/YOLOv8tabletennis-seg](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/BANGroup#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/BANGroup/YOLOv8tabletennis-seg](https://github.com/BANGroup/YOLOv8tabletennis-seg)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/BANGroup) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-q -->
