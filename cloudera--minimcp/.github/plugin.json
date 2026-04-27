@@ -1,0 +1,9 @@
+{
+  "name": "cloudera--minimcp",
+  "displayName": "minimcp",
+  "description": "A minimal, stateless, and lightweight framework for building MCP servers.",
+  "version": "1.0.0",
+  "author": "cloudera",
+  "homepage": "https://github.com/cloudera/minimcp",
+  "skills": []
+}
