@@ -1,0 +1,44 @@
+{
+  "name": "ai-dev-kit",
+  "owner": "noah-sheldon",
+  "repo": "ai-dev-kit",
+  "description": "Production-ready AI dev workflow scaffold with 59 skills, 33 agents, hooks, and rules for Claude Code, Codex, Gemini CLI, Copilot CLI, Qwen Code, and OpenCode.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/noah-sheldon/ai-dev-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T04:58:24Z"
+}
