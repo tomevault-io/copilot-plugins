@@ -1,0 +1,34 @@
+{
+  "name": "infodungeon--keyforge",
+  "displayName": "keyforge",
+  "description": "AI instruction skills by infodungeon",
+  "version": "1.0.0",
+  "author": "infodungeon",
+  "homepage": "https://github.com/infodungeon/keyforge",
+  "skills": [
+    {
+      "name": "rust-guardian",
+      "description": ""
+    },
+    {
+      "name": "sovereign-consultant",
+      "description": ""
+    },
+    {
+      "name": "stabilization-unit",
+      "description": ""
+    },
+    {
+      "name": "type-level-architect",
+      "description": ""
+    },
+    {
+      "name": "ui-perfectionist",
+      "description": ""
+    },
+    {
+      "name": "ui-performance-guard",
+      "description": ""
+    }
+  ]
+}
