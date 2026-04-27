@@ -1,0 +1,9 @@
+{
+  "name": "heliohq--ship",
+  "displayName": "ship",
+  "description": "An agentic development harness for Claude Code, Codex & Cursor: gated pipeline from spec to green checks.",
+  "version": "1.0.0",
+  "author": "heliohq",
+  "homepage": "https://github.com/heliohq/ship",
+  "skills": []
+}
