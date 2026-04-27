@@ -1,0 +1,9 @@
+{
+  "name": "nexusgpu--gpu-go",
+  "displayName": "gpu-go",
+  "description": "gpu-go",
+  "version": "1.0.0",
+  "author": "NexusGPU",
+  "homepage": "https://github.com/NexusGPU/gpu-go",
+  "skills": []
+}
