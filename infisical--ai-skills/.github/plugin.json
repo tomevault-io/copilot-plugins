@@ -1,0 +1,9 @@
+{
+  "name": "infisical--ai-skills",
+  "displayName": "ai-skills",
+  "description": "AI skills and MCP connection for Infisical -- Stop your AI from hallucinating about Infisical secrets management.",
+  "version": "1.0.0",
+  "author": "Infisical",
+  "homepage": "https://github.com/Infisical/ai-skills",
+  "skills": []
+}
