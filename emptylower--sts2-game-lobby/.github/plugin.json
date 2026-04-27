@@ -1,0 +1,9 @@
+{
+  "name": "emptylower--sts2-game-lobby",
+  "displayName": "STS2-Game-Lobby",
+  "description": "\u300aSlay the Spire 2\u300b\u7b2c\u4e09\u65b9\u8054\u673a\u5927\u5385\u65b9\u6848 | Third-party multiplayer lobby mod for Slay the Spire 2 \u2014 client MOD + lobby service + relay fallback",
+  "version": "1.0.0",
+  "author": "emptylower",
+  "homepage": "https://github.com/emptylower/STS2-Game-Lobby",
+  "skills": []
+}
