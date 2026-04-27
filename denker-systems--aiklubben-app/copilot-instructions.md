@@ -1,371 +1,412 @@
-## 04-styling-system
+## 05-animation-rules
 
 > - **Mode**: Always On
 
-# Styling System Rules
+# Animation Rules - React Native & Moti
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: Consistent styling patterns for React Native iOS apps
+- **Description**: Animation patterns for smooth iOS performance
 
 ---
 
-## StyleSheet Rules
+## Animation Library Usage
 
-### Always Use StyleSheet.create
+### Primary: Moti (Reanimated 2 wrapper)
 
 ```typescript
-// CORRECT: StyleSheet.create for optimization
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0C0A17',
-  },
-});
+import { MotiView, MotiText, MotiImage } from 'moti';
 
-// WRONG: Inline styles (creates new object every render)
-<View style={{ flex: 1, backgroundColor: '#0C0A17' }}>
-
-// WRONG: Object literal outside StyleSheet
-const wrongStyles = {
-  container: {
-    flex: 1,
-  },
-};
+// Basic animation
+<MotiView
+  from={{ opacity: 0, scale: 0.9 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ type: 'timing', duration: 300 }}
+>
+  {/* Content */}
+</MotiView>
 ```
 
-### Style Composition
+### Secondary: React Native Reanimated 2
 
 ```typescript
-// CORRECT: Array syntax for style composition
-<View style={[styles.base, styles.variant, customStyle]} />
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
 
-// CORRECT: Conditional styles
-<View style={[
-  styles.base,
-  isActive && styles.active,
-  isDisabled && styles.disabled,
-]} />
+// For complex, gesture-driven animations
+const offset = useSharedValue(0);
 
-// CORRECT: Dynamic styles with StyleSheet
-const getDynamicStyles = (color: string) => StyleSheet.create({
-  container: {
-    backgroundColor: color,
-  },
-}).container;
+const animatedStyle = useAnimatedStyle(() => ({
+  transform: [{ translateX: offset.value }],
+}));
 ```
 
 ---
 
-## Color System
+## Spring Configurations
 
-### Brand Colors (Defined in theme.ts)
-
-```typescript
-export const brandColors = {
-  // Primary
-  purple: '#8B5CF6',
-  purpleDark: '#7C3AED',
-  purpleLight: '#A78BFA',
-
-  // Secondary
-  pink: '#EC4899',
-  teal: '#14B8A6',
-
-  // Status
-  success: '#10B981',
-  successDark: '#059669',
-  error: '#EF4444',
-  errorDark: '#DC2626',
-  warning: '#F59E0B',
-  info: '#3B82F6',
-} as const;
-```
-
-### UI Colors (Semantic)
+### Standard Spring Configs
 
 ```typescript
-export const uiColors = {
-  // Backgrounds
-  background: {
-    primary: '#0C0A17',
-    secondary: '#1A1625',
-    tertiary: '#252136',
-    elevated: '#2D2640',
+export const SPRING_CONFIGS = {
+  // Quick, snappy feedback
+  snappy: {
+    type: 'spring' as const,
+    damping: 18,
+    stiffness: 200,
   },
 
-  // Text
-  text: {
-    primary: '#F9FAFB',
-    secondary: '#9CA3AF',
-    tertiary: '#6B7280',
-    inverse: '#0C0A17',
+  // Smooth, natural motion
+  smooth: {
+    type: 'spring' as const,
+    damping: 20,
+    stiffness: 150,
   },
 
-  // Borders
-  border: {
-    default: '#374151',
-    subtle: '#1F2937',
-    strong: '#4B5563',
+  // Bouncy, playful motion
+  bouncy: {
+    type: 'spring' as const,
+    damping: 10,
+    stiffness: 180,
   },
 
-  // Cards
-  card: {
-    background: '#1A1625',
-    border: '#252136',
+  // Gentle, subtle motion
+  gentle: {
+    type: 'spring' as const,
+    damping: 25,
+    stiffness: 100,
+  },
+
+  // Stiff, controlled motion
+  stiff: {
+    type: 'spring' as const,
+    damping: 30,
+    stiffness: 300,
   },
 } as const;
 ```
 
-### Color Usage Rules
+### When to Use Each Config
 
 ```typescript
-// CORRECT: Use semantic color tokens
-backgroundColor: uiColors.background.primary
+// SNAPPY: Button presses, toggles, quick feedback
+<MotiView
+  animate={{ scale: pressed ? 0.95 : 1 }}
+  transition={SPRING_CONFIGS.snappy}
+/>
 
-// WRONG: Hardcoded hex values
-backgroundColor: '#0C0A17'
+// SMOOTH: Page transitions, modals, sheets
+<MotiView
+  animate={{ translateY: visible ? 0 : 300 }}
+  transition={SPRING_CONFIGS.smooth}
+/>
 
-// Exception: One-off colors in specific components are acceptable
-// but should be documented with a comment
-backgroundColor: '#8B5CF608', // 8% opacity purple for subtle bg
+// BOUNCY: Success animations, celebrations, achievements
+<MotiView
+  animate={{ scale: [1, 1.2, 1] }}
+  transition={SPRING_CONFIGS.bouncy}
+/>
+
+// GENTLE: Background elements, subtle movements
+<MotiView
+  animate={{ opacity: visible ? 1 : 0 }}
+  transition={SPRING_CONFIGS.gentle}
+/>
 ```
 
 ---
 
-## Typography System
+## Timing Configurations
 
-### Font Sizes (iOS Standard)
+### Standard Timing Configs
 
 ```typescript
-export const fontSize = {
-  xs: 11, // Caption, footnote
-  sm: 13, // Secondary text
-  base: 15, // Body text (iOS default)
-  md: 17, // Body text (iOS System)
-  lg: 20, // Subheadline
-  xl: 22, // Title 3
-  '2xl': 28, // Title 2
-  '3xl': 34, // Title 1, Large Title
-  '4xl': 40, // Display
+export const TIMING_CONFIGS = {
+  fast: {
+    type: 'timing' as const,
+    duration: 150,
+  },
+  normal: {
+    type: 'timing' as const,
+    duration: 250,
+  },
+  slow: {
+    type: 'timing' as const,
+    duration: 400,
+  },
 } as const;
 ```
 
-### Font Weights
+---
+
+## Stagger Animations
+
+### List Item Stagger
 
 ```typescript
-export const fontWeight = {
-  normal: '400' as const,
-  medium: '500' as const,
-  semibold: '600' as const,
-  bold: '700' as const,
-  extrabold: '800' as const,
-};
+// Standard stagger delay
+export const STAGGER_DELAYS = {
+  fast: 30,    // Quick lists
+  normal: 50,  // Standard lists
+  slow: 80,    // Emphasized entry
+} as const;
+
+// Usage in list
+{items.map((item, index) => (
+  <MotiView
+    key={item.id}
+    from={{ opacity: 0, translateY: 20 }}
+    animate={{ opacity: 1, translateY: 0 }}
+    transition={{
+      ...SPRING_CONFIGS.smooth,
+      delay: index * STAGGER_DELAYS.normal,
+    }}
+  >
+    <ListItem {...item} />
+  </MotiView>
+))}
 ```
 
-### Text Component Variants
+### Stagger with Maximum Delay
 
 ```typescript
-// Define text variants in Text component
-export type TextVariant =
-  | 'h1' // 34pt Bold
-  | 'h2' // 28pt Bold
-  | 'h3' // 22pt Semibold
-  | 'h4' // 20pt Semibold
-  | 'body' // 17pt Normal
-  | 'bodyBold' // 17pt Bold
-  | 'caption' // 13pt Normal
-  | 'small'; // 11pt Normal
-
-const variantStyles: Record<TextVariant, TextStyle> = {
-  h1: { fontSize: 34, fontWeight: '700', lineHeight: 41 },
-  h2: { fontSize: 28, fontWeight: '700', lineHeight: 34 },
-  h3: { fontSize: 22, fontWeight: '600', lineHeight: 28 },
-  h4: { fontSize: 20, fontWeight: '600', lineHeight: 25 },
-  body: { fontSize: 17, fontWeight: '400', lineHeight: 22 },
-  bodyBold: { fontSize: 17, fontWeight: '700', lineHeight: 22 },
-  caption: { fontSize: 13, fontWeight: '400', lineHeight: 18 },
-  small: { fontSize: 11, fontWeight: '400', lineHeight: 13 },
+// Prevent excessive delays for long lists
+const getStaggerDelay = (index: number, maxItems: number = 10) => {
+  const effectiveIndex = Math.min(index, maxItems);
+  return effectiveIndex * STAGGER_DELAYS.normal;
 };
 ```
 
 ---
 
-## Spacing System
+## Entry Animations
 
-### Spacing Scale
+### Screen Entry Animation
 
 ```typescript
-export const spacing = {
-  0: 0,
-  1: 4,
-  2: 8,
-  3: 12,
-  4: 16,
-  5: 20,
-  6: 24,
-  7: 28,
-  8: 32,
-  10: 40,
-  12: 48,
-  16: 64,
-} as const;
+// Standard screen entry
+<MotiView
+  from={{ opacity: 0, translateY: 30 }}
+  animate={{ opacity: 1, translateY: 0 }}
+  transition={{ ...SPRING_CONFIGS.smooth, delay: 100 }}
+  style={{ flex: 1 }}
+>
+  <ScreenContent />
+</MotiView>
 ```
 
-### Spacing Usage
+### Component Entry Patterns
 
 ```typescript
-// CORRECT: Use spacing constants
-padding: spacing[4], // 16
-
-// WRONG: Magic numbers
-padding: 16,
-
-// Acceptable: Calculated values with comment
-padding: spacing[4] + 2, // 18 - accounts for border
-```
-
----
-
-## Border Radius System
-
-### Border Radius Scale
-
-```typescript
-export const borderRadius = {
-  none: 0,
-  sm: 4,
-  md: 8,
-  lg: 12,
-  xl: 16,
-  '2xl': 20,
-  '3xl': 24,
-  full: 9999, // Circular
-} as const;
-```
-
-### Button/Card Radius Standards
-
-```typescript
-// Buttons
-const buttonRadius = {
-  sm: borderRadius.md, // 8
-  md: borderRadius.lg, // 12
-  lg: borderRadius.xl, // 16
+// Fade in
+const fadeIn = {
+  from: { opacity: 0 },
+  animate: { opacity: 1 },
 };
 
-// Cards
-const cardRadius = {
-  default: borderRadius.xl, // 16
-  large: borderRadius['2xl'], // 20
+// Fade in up
+const fadeInUp = {
+  from: { opacity: 0, translateY: 20 },
+  animate: { opacity: 1, translateY: 0 },
 };
 
-// Circular elements (avatars, icons)
-const circularRadius = borderRadius.full; // 9999
-```
+// Scale in
+const scaleIn = {
+  from: { opacity: 0, scale: 0.8 },
+  animate: { opacity: 1, scale: 1 },
+};
 
----
-
-## Shadow System
-
-### iOS Shadows
-
-```typescript
-export const shadows = {
-  sm: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  md: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  lg: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  xl: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 16,
-    elevation: 16,
-  },
-} as const;
-
-// Colored shadows for branded elements
-export const coloredShadows = {
-  purple: {
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  success: {
-    shadowColor: '#10B981',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 8,
-  },
+// Slide in from right
+const slideInRight = {
+  from: { opacity: 0, translateX: 30 },
+  animate: { opacity: 1, translateX: 0 },
 };
 ```
 
 ---
 
-## Opacity System
+## Exit Animations
 
-### Standard Opacities
+### Exit Animation Pattern
 
 ```typescript
-export const opacity = {
-  disabled: 0.5,
-  pressed: 0.8,
-  overlay: 0.6,
-  subtle: 0.1,
-  medium: 0.3,
-} as const;
+import { AnimatePresence } from 'moti';
+
+// Wrap components that need exit animations
+<AnimatePresence>
+  {visible && (
+    <MotiView
+      from={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={SPRING_CONFIGS.snappy}
+    >
+      <Content />
+    </MotiView>
+  )}
+</AnimatePresence>
 ```
 
 ---
 
-## Animation Timing
+## Loop Animations
 
-### Duration Constants
+### Pulse Animation
 
 ```typescript
-export const duration = {
-  instant: 100,
-  fast: 150,
-  normal: 250,
-  slow: 350,
-  slower: 500,
-} as const;
+// Subtle pulse for attention
+<MotiView
+  from={{ scale: 1 }}
+  animate={{ scale: [1, 1.05, 1] }}
+  transition={{
+    type: 'timing',
+    duration: 2000,
+    loop: true,
+  }}
+/>
+```
+
+### Breathing Animation
+
+```typescript
+// Gentle breathing effect
+<MotiView
+  animate={{
+    opacity: [0.5, 1, 0.5],
+  }}
+  transition={{
+    type: 'timing',
+    duration: 3000,
+    loop: true,
+  }}
+/>
 ```
 
 ---
 
-## Forbidden Styling Practices
+## Press Animations
 
-1. **NEVER** use inline style objects (always StyleSheet.create)
-2. **NEVER** hardcode color values (use color tokens)
-3. **NEVER** use magic number spacing (use spacing scale)
-4. **NEVER** mix px and pt units (React Native uses dp/pt)
-5. **NEVER** use percentage for height without explicit parent
-6. **NEVER** use negative margins for layout
-7. **NEVER** set opacity below 0.4 for interactive elements
-8. **NEVER** use shadows without elevation on Android
+### Button Press Pattern
+
+```typescript
+const [isPressed, setIsPressed] = useState(false);
+
+<Pressable
+  onPressIn={() => setIsPressed(true)}
+  onPressOut={() => setIsPressed(false)}
+>
+  <MotiView
+    animate={{
+      scale: isPressed ? 0.95 : 1,
+      opacity: isPressed ? 0.8 : 1,
+    }}
+    transition={SPRING_CONFIGS.snappy}
+  >
+    <ButtonContent />
+  </MotiView>
+</Pressable>
+```
+
+### 3D Button Press (Duolingo-style)
+
+```typescript
+// Depth-based press animation
+<Pressable>
+  {({ pressed }) => (
+    <View style={styles.buttonContainer}>
+      {/* Bottom layer (shadow) */}
+      <View
+        style={[
+          styles.buttonBottom,
+          {
+            transform: [{
+              translateY: pressed ? DEPTH / 2 : DEPTH
+            }],
+          },
+        ]}
+      />
+      {/* Top layer (face) */}
+      <MotiView
+        animate={{
+          translateY: pressed ? DEPTH / 2 : 0,
+        }}
+        transition={{ type: 'timing', duration: 100 }}
+        style={styles.buttonFace}
+      >
+        <ButtonContent />
+      </MotiView>
+    </View>
+  )}
+</Pressable>
+```
+
+---
+
+## Performance Rules
+
+### Animation Performance Checklist
+
+1. **Use `transform` and `opacity`** - These are GPU-accelerated
+2. **Avoid animating layout properties** - width, height, padding cause layout recalc
+3. **Use `useNativeDriver: true`** when using Animated API
+4. **Limit concurrent animations** - Max 3-4 simultaneous complex animations
+5. **Use `removeClippedSubviews`** for animated lists
+
+### What NOT to Animate
+
+```typescript
+// AVOID animating these (causes layout thrashing):
+// - width/height (use scale instead)
+// - padding/margin (use translateX/Y instead)
+// - fontSize (use scale instead)
+// - borderWidth
+// - flexBasis
+
+// PREFER these (GPU accelerated):
+// - opacity
+// - transform (scale, translateX, translateY, rotate)
+```
+
+---
+
+## Accessibility
+
+### Reduced Motion Support
+
+```typescript
+import { useReducedMotion } from 'moti';
+
+const MyComponent = () => {
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <MotiView
+      animate={{ opacity: 1, scale: 1 }}
+      transition={reducedMotion ? { type: 'timing', duration: 0 } : SPRING_CONFIGS.smooth}
+    >
+      <Content />
+    </MotiView>
+  );
+};
+```
+
+---
+
+## Forbidden Animation Practices
+
+1. **NEVER** animate layout properties (width, height, padding)
+2. **NEVER** use animation duration > 500ms for UI feedback
+3. **NEVER** use animation duration < 100ms (imperceptible)
+4. **NEVER** ignore reduced motion preferences
+5. **NEVER** run more than 4 complex animations simultaneously
+6. **NEVER** use JavaScript-driven animations for gestures
+7. **NEVER** animate without exit animations for removable content
+8. **NEVER** use linear easing for UI animations (use spring/ease)
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
