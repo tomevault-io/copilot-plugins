@@ -1,0 +1,9 @@
+{
+  "name": "smartcmd--claude-your-gpt",
+  "displayName": "claude-your-gpt",
+  "description": "Make GPT code like Claude.",
+  "version": "1.0.0",
+  "author": "smartcmd",
+  "homepage": "https://github.com/smartcmd/claude-your-gpt",
+  "skills": []
+}
