@@ -1,0 +1,9 @@
+{
+  "name": "bit-of-a-shambles--open-tender-watch",
+  "displayName": "open-tender-watch",
+  "description": "Rails 8 app monitoring public procurement to detect corruption risk patterns across Portuguese and EU databases.",
+  "version": "1.0.0",
+  "author": "bit-of-a-shambles",
+  "homepage": "https://github.com/bit-of-a-shambles/open-tender-watch",
+  "skills": []
+}
