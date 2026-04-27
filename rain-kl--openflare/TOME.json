@@ -1,0 +1,44 @@
+{
+  "name": "OpenFlare",
+  "owner": "Rain-kl",
+  "repo": "OpenFlare",
+  "description": "\u5206\u5e03\u5f0fCDN\u8fb9\u7f18\u8282\u70b9, \u7531\u7edf\u4e00\u7684\u63a7\u5236\u4e2d\u5fc3\u5bf9\u8282\u70b9\u8fdb\u884c\u7ba1\u63a7\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Rain-kl/OpenFlare",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-27T08:47:35Z"
+}
