@@ -1,0 +1,9 @@
+{
+  "name": "dcouple--pane",
+  "displayName": "Pane",
+  "description": "Pane is a Terminal-first AI agent manager. The same way Superhuman is an email client (not an email provider), Pane is an agent client (not an agent provider). You bring the agents. We make them fly.",
+  "version": "1.0.0",
+  "author": "dcouple",
+  "homepage": "https://github.com/dcouple/Pane",
+  "skills": []
+}
