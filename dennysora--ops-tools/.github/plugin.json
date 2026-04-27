@@ -1,0 +1,9 @@
+{
+  "name": "dennysora--ops-tools",
+  "displayName": "Ops-Tools",
+  "description": " rust devops cli terraform terragrunt ai-tools mcp-server security-scanner clean-code automation",
+  "version": "1.0.0",
+  "author": "DennySORA",
+  "homepage": "https://github.com/DennySORA/Ops-Tools",
+  "skills": []
+}
