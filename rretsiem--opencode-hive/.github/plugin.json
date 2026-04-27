@@ -1,0 +1,9 @@
+{
+  "name": "rretsiem--opencode-hive",
+  "displayName": "opencode-hive",
+  "description": "Multi-agent architecture for Opencode \u2014 cost-optimized model routing, parallel specialist execution, dev tools, and a self-maintaining project wiki",
+  "version": "1.0.0",
+  "author": "rretsiem",
+  "homepage": "https://github.com/rretsiem/opencode-hive",
+  "skills": []
+}
