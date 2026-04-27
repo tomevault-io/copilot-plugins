@@ -1,0 +1,9 @@
+{
+  "name": "yapie0--safe-openclaw",
+  "displayName": "safe-openclaw",
+  "description": "  Security-hardened openclaw with auth gateway, AES-256 encryption and session management",
+  "version": "1.0.0",
+  "author": "Yapie0",
+  "homepage": "https://github.com/Yapie0/safe-openclaw",
+  "skills": []
+}
