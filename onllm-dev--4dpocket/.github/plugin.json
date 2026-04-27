@@ -1,0 +1,9 @@
+{
+  "name": "onllm-dev--4dpocket",
+  "displayName": "4DPocket",
+  "description": "Self-hosted AI-powered personal knowledge base. Save content from 17+ platforms, auto-tag, summarize, and connect with semantic search.",
+  "version": "1.0.0",
+  "author": "onllm-dev",
+  "homepage": "https://github.com/onllm-dev/4DPocket",
+  "skills": []
+}
