@@ -1,0 +1,9 @@
+{
+  "name": "xxxxxccc--devops-bot",
+  "displayName": "devops-bot",
+  "description": "Chat-driven AI coding agent \u2014 discuss requirements in group chat, get automated code changes and pull requests",
+  "version": "1.0.0",
+  "author": "xxxxxccc",
+  "homepage": "https://github.com/xxxxxccc/devops-bot",
+  "skills": []
+}
