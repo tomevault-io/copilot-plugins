@@ -1,0 +1,9 @@
+{
+  "name": "incomestreamsurfer--paperclip-surfers",
+  "displayName": "paperclip-surfers",
+  "description": "Self-improving AI agent companies \u2014 Paperclip V2 fork with persistent memory, MCPs, skills management, and KPI tracking. Built by HarborSEO (harborseo.ai)",
+  "version": "1.0.0",
+  "author": "IncomeStreamSurfer",
+  "homepage": "https://github.com/IncomeStreamSurfer/paperclip-surfers",
+  "skills": []
+}
