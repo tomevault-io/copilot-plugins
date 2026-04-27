@@ -1,6 +1,6 @@
-# vibe-coding-research — distributed by TomeVault
+# vibe-coding-research
 
-> Originally from [kibarik/vibe-coding-research](https://github.com/kibarik/vibe-coding-research). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [kibarik/vibe-coding-research](https://github.com/kibarik/vibe-coding-research) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [kibarik/vibe-coding-research](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/kibarik#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/kibarik/vibe-coding-research](https://github.com/kibarik/vibe-coding-research)
 
 ---
 
