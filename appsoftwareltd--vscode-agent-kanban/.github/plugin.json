@@ -1,0 +1,9 @@
+{
+  "name": "appsoftwareltd--vscode-agent-kanban",
+  "displayName": "vscode-agent-kanban",
+  "description": "VS Code extension kanban board for agentic AI workflows",
+  "version": "1.0.0",
+  "author": "appsoftwareltd",
+  "homepage": "https://github.com/appsoftwareltd/vscode-agent-kanban",
+  "skills": []
+}
