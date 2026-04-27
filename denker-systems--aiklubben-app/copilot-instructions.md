@@ -1,208 +1,294 @@
-## 01-ios-ui-fundamentals
+## 02-ios-layout-system
 
 > - **Mode**: Always On
 
-# iOS UI Fundamentals - Apple Human Interface Guidelines
+# iOS Layout System - React Native Flexbox & Positioning
 
 ## Activation
 
 - **Mode**: Always On
-- **Description**: Core iOS UI rules based on Apple HIG 2025-2026
+- **Description**: Layout rules for iOS compatibility in React Native
 
 ---
 
-## Touch Targets & Interactive Elements
+## Flexbox Layout System
 
-### Minimum Touch Target Size
-
-```
-REQUIRED: All interactive elements MUST have minimum touch target of 44x44 points
-```
-
-- **Buttons**: Minimum 44x44pt, recommended 50x50pt for primary actions
-- **List items**: Minimum height 44pt
-- **Form inputs**: Minimum height 44pt
-- **Icon buttons**: Icon can be smaller, but touchable area must be 44x44pt
-- **Tab bar items**: Minimum 49pt height (iOS standard)
-
-### Touch Target Implementation in React Native
+### Core Flexbox Rules for iOS
 
 ```typescript
-// CORRECT: Explicit hitSlop for small icons
-<Pressable
-  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-  style={{ width: 24, height: 24 }}
->
-  <Icon size={24} />
-</Pressable>
+// React Native uses Flexbox with flexDirection: 'column' as DEFAULT
+// This is OPPOSITE of web CSS (row is default on web)
 
-// CORRECT: Minimum touchable area
-<Pressable style={{ minWidth: 44, minHeight: 44, padding: 10 }}>
-  <Text>Action</Text>
-</Pressable>
+// CORRECT: Explicit flex direction
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column', // Explicit is better
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
+```
 
-// WRONG: Small touch target without hitSlop
-<Pressable style={{ width: 24, height: 24 }}>
-  <Icon size={24} />
-</Pressable>
+### Flex Property Rules
+
+```typescript
+// flex: 1 means "take remaining space"
+// ALWAYS use flex: 1 on scrollable content containers
+
+// CORRECT
+<View style={{ flex: 1 }}>
+  <ScrollView style={{ flex: 1 }}>
+    {/* Content */}
+  </ScrollView>
+</View>
+
+// WRONG - ScrollView won't scroll properly
+<View>
+  <ScrollView>
+    {/* Content */}
+  </ScrollView>
+</View>
 ```
 
 ---
 
-## Spacing & Layout Rules
+## Position Absolute Rules (CRITICAL)
 
-### Standard Spacing Values (Apple HIG)
+### The Golden Rule of Position Absolute
 
-```typescript
-const SPACING = {
-  // Base unit: 8pt
-  xs: 4, // Extra small - icon padding
-  sm: 8, // Small - between related elements
-  md: 16, // Medium - section padding
-  lg: 24, // Large - between sections
-  xl: 32, // Extra large - major sections
-  xxl: 48, // Double extra large - screen margins
-} as const;
+```
+CRITICAL: Elements with position: 'absolute' do NOT contribute to parent's
+layout dimensions. Parent container MUST have explicit width/height.
 ```
 
-### Safe Areas (CRITICAL for iOS)
+### Correct Absolute Positioning
 
 ```typescript
-// ALWAYS use SafeAreaView or useSafeAreaInsets
+// CORRECT: Parent has explicit dimensions
+const styles = StyleSheet.create({
+  container: {
+    width: 100,
+    height: 100, // EXPLICIT HEIGHT
+    position: 'relative',
+  },
+  absoluteChild: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 50,
+    height: 50,
+  },
+});
+
+// WRONG: Parent has no height - children will overlap/collapse
+const wrongStyles = StyleSheet.create({
+  container: {
+    // NO HEIGHT SPECIFIED - WILL CAUSE iOS LAYOUT ISSUES
+    position: 'relative',
+  },
+  absoluteChild: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+});
+```
+
+### When to Use Absolute Positioning
+
+1. **Overlays and modals** - positioned over content
+2. **Floating action buttons** - pinned to corners
+3. **Progress indicators** - overlaid on content
+4. **Badge indicators** - positioned on icons
+5. **Background decorations** - behind main content
+
+### When NOT to Use Absolute Positioning
+
+1. **Regular layout flows** - use Flexbox instead
+2. **List items** - use FlatList with proper item heights
+3. **Stacked content** - use flexDirection: 'column'
+4. **Side-by-side content** - use flexDirection: 'row'
+
+---
+
+## Explicit Dimensions (iOS Requirement)
+
+### Always Specify Dimensions for Complex Layouts
+
+```typescript
+// CORRECT: Explicit dimensions for 3D button effect
+const BUTTON_SIZE = 72;
+const BUTTON_DEPTH = 8;
+
+<View style={{
+  width: BUTTON_SIZE,
+  height: BUTTON_SIZE + BUTTON_DEPTH, // Total height including depth
+}}>
+  {/* Button layers with absolute positioning */}
+</View>
+
+// WRONG: Relying on content to determine size
+<View>
+  {/* Absolute children - parent will have 0 height */}
+</View>
+```
+
+### Component Height Calculation
+
+```typescript
+// Always calculate total height for components with depth/shadows
+const calculateTotalHeight = (
+  baseHeight: number,
+  depth: number,
+  shadowOffset: number = 0,
+): number => {
+  return baseHeight + depth + shadowOffset;
+};
+
+// Usage
+const TOTAL_HEIGHT = calculateTotalHeight(72, 8, 4); // 84
+```
+
+---
+
+## Safe Area Implementation
+
+### SafeAreaView Usage
+
+```typescript
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+// CORRECT: Wrap entire screen
+const Screen = () => (
+  <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+    <Content />
+  </SafeAreaView>
+);
+
+// CORRECT: Use insets hook for fine control
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const MyScreen = () => {
+const Screen = () => {
   const insets = useSafeAreaInsets();
 
   return (
     <View style={{
+      flex: 1,
       paddingTop: insets.top,
       paddingBottom: insets.bottom,
-      paddingLeft: Math.max(insets.left, 16),
-      paddingRight: Math.max(insets.right, 16),
     }}>
-      {/* Content */}
+      <Content />
     </View>
   );
 };
 ```
 
-### Element Spacing Guidelines
+### Safe Area Edge Cases
 
-- **Between buttons**: Minimum 12pt, recommended 16pt
-- **Between form fields**: 16pt
-- **Section margins**: 16-24pt horizontal
-- **List item padding**: 16pt horizontal, 12pt vertical
-- **Card padding**: 16pt all sides
-- **Modal margins**: 20pt from screen edges
+```typescript
+// Modal with bottom sheet - only bottom safe area
+<SafeAreaView edges={['bottom']}>
+  <BottomSheet />
+</SafeAreaView>
+
+// Full screen content behind status bar
+<View style={{ flex: 1 }}>
+  <StatusBar translucent backgroundColor="transparent" />
+  <ImageBackground style={{ flex: 1, paddingTop: insets.top }}>
+    {/* Content */}
+  </ImageBackground>
+</View>
+```
 
 ---
 
-## Visual Feedback Requirements
+## ScrollView Layout Rules
 
-### Press States (MANDATORY)
-
-Every interactive element MUST provide visual feedback:
+### ScrollView Container Requirements
 
 ```typescript
-// CORRECT: Visual press feedback
-<Pressable
-  style={({ pressed }) => [
-    styles.button,
-    pressed && styles.buttonPressed,
-  ]}
->
-  {({ pressed }) => (
-    <Text style={[
-      styles.buttonText,
-      pressed && styles.buttonTextPressed,
-    ]}>
-      Action
-    </Text>
-  )}
-</Pressable>
+// CORRECT: ScrollView inside flex: 1 container
+<View style={{ flex: 1 }}>
+  <ScrollView
+    style={{ flex: 1 }}
+    contentContainerStyle={{
+      paddingBottom: insets.bottom + 20,
+      paddingHorizontal: 16,
+    }}
+    showsVerticalScrollIndicator={false}
+  >
+    {/* Content */}
+  </ScrollView>
+</View>
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#8B5CF6',
-    opacity: 1,
-  },
-  buttonPressed: {
-    opacity: 0.8,
-    transform: [{ scale: 0.98 }],
-  },
+// WRONG: No flex on parent
+<View>
+  <ScrollView>
+    {/* Will not scroll on iOS */}
+  </ScrollView>
+</View>
+```
+
+### FlatList Performance Rules
+
+```typescript
+// CORRECT: Optimized FlatList
+<FlatList
+  data={items}
+  renderItem={renderItem}
+  keyExtractor={(item) => item.id}
+  getItemLayout={(data, index) => ({
+    length: ITEM_HEIGHT,
+    offset: ITEM_HEIGHT * index,
+    index,
+  })}
+  removeClippedSubviews={true}
+  maxToRenderPerBatch={10}
+  windowSize={5}
+  initialNumToRender={10}
+/>
+```
+
+---
+
+## Dimension Constants
+
+### Screen Dimensions
+
+```typescript
+import { Dimensions, Platform, StatusBar } from 'react-native';
+
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+
+// iOS specific status bar height
+const STATUS_BAR_HEIGHT = Platform.select({
+  ios: 44, // Default for notched iPhones
+  android: StatusBar.currentHeight || 24,
+  default: 0,
 });
-```
 
-### Haptic Feedback Requirements
+// Tab bar height (iOS standard)
+const TAB_BAR_HEIGHT = 49;
 
-```typescript
-import * as Haptics from 'expo-haptics';
-
-// REQUIRED for all button presses
-Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-
-// REQUIRED for success actions
-Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-
-// REQUIRED for error actions
-Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-
-// REQUIRED for selection changes
-Haptics.selectionAsync();
+// Navigation bar height
+const NAV_BAR_HEIGHT = 44;
 ```
 
 ---
 
-## Color & Contrast Requirements
+## Forbidden Layout Practices
 
-### Minimum Contrast Ratios (WCAG AA)
-
-- **Body text**: 4.5:1 minimum contrast ratio
-- **Large text (18pt+)**: 3:1 minimum contrast ratio
-- **UI components**: 3:1 minimum contrast ratio
-
-### Dark Mode Support (MANDATORY)
-
-```typescript
-// ALWAYS support both light and dark modes
-const colors = {
-  light: {
-    background: '#FFFFFF',
-    text: '#000000',
-    textSecondary: '#666666',
-  },
-  dark: {
-    background: '#0C0A17',
-    text: '#F9FAFB',
-    textSecondary: '#9CA3AF',
-  },
-};
-```
-
----
-
-## Response Time Requirements
-
-### Feedback Timing (Apple HIG)
-
-- **Visual feedback**: Within 100ms of interaction
-- **Animation start**: Within 100ms
-- **Loading indicator**: Show after 300ms if operation not complete
-- **Maximum wait without feedback**: 1 second
-
----
-
-## Forbidden Practices
-
-1. **NEVER** create touch targets smaller than 44x44pt
-2. **NEVER** use color alone to convey information
-3. **NEVER** disable haptic feedback on interactive elements
-4. **NEVER** use custom fonts without fallback to system fonts
-5. **NEVER** place critical actions outside thumb reach zone
-6. **NEVER** use opacity below 0.4 for interactive elements
-7. **NEVER** use fixed pixel values without considering scale
-8. **NEVER** ignore safe areas on notched devices
+1. **NEVER** use position: absolute without explicit parent dimensions
+2. **NEVER** omit flex: 1 on ScrollView parent containers
+3. **NEVER** use percentage heights without explicit parent height
+4. **NEVER** mix fixed and flex dimensions incorrectly
+5. **NEVER** ignore safe areas on notched devices
+6. **NEVER** use negative margins for layout (use padding instead)
+7. **NEVER** rely on content size for containers with absolute children
+8. **NEVER** use aspectRatio without at least one explicit dimension
 
 ---
 > Source: [denker-systems/aiklubben-app](https://github.com/denker-systems/aiklubben-app) — distributed by [TomeVault](https://tomevault.io).
