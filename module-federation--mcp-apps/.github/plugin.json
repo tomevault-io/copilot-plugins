@@ -1,0 +1,9 @@
+{
+  "name": "module-federation--mcp-apps",
+  "displayName": "mcp-apps",
+  "description": "mcp-apps",
+  "version": "1.0.0",
+  "author": "module-federation",
+  "homepage": "https://github.com/module-federation/mcp-apps",
+  "skills": []
+}
