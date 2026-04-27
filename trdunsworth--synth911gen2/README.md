@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [trdunsworth/synth911gen2](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/trdunsworth)
+From [trdunsworth/synth911gen2](https://github.com/trdunsworth/synth911gen2) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install trdunsworth/synth911gen2
 ```
-Or browse all formats at [https://tomevault.io/claim/trdunsworth](https://tomevault.io/claim/trdunsworth).
+Source: [github.com/trdunsworth/synth911gen2](https://github.com/trdunsworth/synth911gen2).
 
 <!-- genome:a-i-s -->
