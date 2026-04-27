@@ -1,0 +1,9 @@
+{
+  "name": "wuujiawei--remora",
+  "displayName": "Remora",
+  "description": "A native macOS SSH + SFTP workspace built with SwiftUI and a custom high-performance terminal engine.",
+  "version": "1.0.0",
+  "author": "wuuJiawei",
+  "homepage": "https://github.com/wuuJiawei/Remora",
+  "skills": []
+}
