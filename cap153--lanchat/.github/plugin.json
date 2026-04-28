@@ -1,0 +1,9 @@
+{
+  "name": "cap153--lanchat",
+  "displayName": "LANChat",
+  "description": "\u4e00\u6b3e\u652f\u6301\u6587\u4ef6\u4f20\u8f93\u7684\u8de8\u5e73\u53f0\u5c40\u57df\u7f51\u804a\u5929\u8f6f\u4ef6\uff0c\u7528Rust\u7f16\u5199\u3002A cross-platform LAN chat software that supports file transfer, written in Rust.",
+  "version": "1.0.0",
+  "author": "cap153",
+  "homepage": "https://github.com/cap153/LANChat",
+  "skills": []
+}
