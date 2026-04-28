@@ -1,0 +1,9 @@
+{
+  "name": "refcell--kora",
+  "displayName": "kora",
+  "description": "All we want is revm and commonware. Leave everything else at the door.",
+  "version": "1.0.0",
+  "author": "refcell",
+  "homepage": "https://github.com/refcell/kora",
+  "skills": []
+}
