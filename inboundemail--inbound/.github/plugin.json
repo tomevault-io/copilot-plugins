@@ -1,0 +1,9 @@
+{
+  "name": "inboundemail--inbound",
+  "displayName": "inbound",
+  "description": "inbound",
+  "version": "1.0.0",
+  "author": "inboundemail",
+  "homepage": "https://github.com/inboundemail/inbound",
+  "skills": []
+}
