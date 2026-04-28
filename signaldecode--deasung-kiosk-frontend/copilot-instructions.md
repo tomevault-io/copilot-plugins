@@ -493,6 +493,5 @@ Backend는 Spring REST API를 기본으로 한다.
 - 레포는 하나지만 앱은 다르다는 점을 항상 고려할 것
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/signaldecode)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/signaldecode)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/SIGNALDECODE) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
