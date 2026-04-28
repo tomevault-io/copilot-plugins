@@ -14,6 +14,11 @@
       "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond."
     },
     {
+      "name": "affaan-m--everything-claude-code",
+      "source": "./affaan-m--everything-claude-code",
+      "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond."
+    },
+    {
       "name": "garrytan--gstack",
       "source": "./garrytan--gstack",
       "description": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA"
@@ -5057,6 +5062,11 @@
       "name": "dev-nick421--immich-swipe",
       "source": "./dev-nick421--immich-swipe",
       "description": "Swipe right to keep photos, swipe left to delete them -> just like a dating app, but for immich!"
+    },
+    {
+      "name": "jason-effi-lab--karpathy-llm-wiki-vault",
+      "source": "./jason-effi-lab--karpathy-llm-wiki-vault",
+      "description": "karpathy-llm-wiki-vault"
     },
     {
       "name": "fulcrumresearch--druids",
