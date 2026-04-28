@@ -4,7 +4,7 @@
   "repo": "peta-core",
   "description": "The Control Plane for MCP \u2014 secure vault, managed runtime, audit trail, and policy-based approvals.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dunialabs/peta-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T00:41:38Z"
+  "distributed_at": "2026-04-28T23:32:01Z"
 }
