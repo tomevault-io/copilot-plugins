@@ -1,0 +1,9 @@
+{
+  "name": "kdlbs--kandev",
+  "displayName": "kandev",
+  "description": "AI Kanban & Development Environment. Orchestrate multiple agents, review changes, open PRs. Multi-provider, self-hostable, no telemetry.",
+  "version": "1.0.0",
+  "author": "kdlbs",
+  "homepage": "https://github.com/kdlbs/kandev",
+  "skills": []
+}
