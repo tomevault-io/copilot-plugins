@@ -1,0 +1,9 @@
+{
+  "name": "ninehills--claude-agent-ui",
+  "displayName": "claude-agent-ui",
+  "description": "Claude Agent SDK UI",
+  "version": "1.0.0",
+  "author": "ninehills",
+  "homepage": "https://github.com/ninehills/claude-agent-ui",
+  "skills": []
+}
