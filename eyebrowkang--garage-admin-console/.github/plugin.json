@@ -1,0 +1,9 @@
+{
+  "name": "eyebrowkang--garage-admin-console",
+  "displayName": "garage-admin-console",
+  "description": "A modern web-based administration interface for managing Garage distributed object storage clusters.",
+  "version": "1.0.0",
+  "author": "eyebrowkang",
+  "homepage": "https://github.com/eyebrowkang/garage-admin-console",
+  "skills": []
+}
