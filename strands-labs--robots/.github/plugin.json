@@ -1,0 +1,9 @@
+{
+  "name": "strands-labs--robots",
+  "displayName": "robots",
+  "description": "Control robots and physical hardware with natural language through Strands Agents.",
+  "version": "1.0.0",
+  "author": "strands-labs",
+  "homepage": "https://github.com/strands-labs/robots",
+  "skills": []
+}
