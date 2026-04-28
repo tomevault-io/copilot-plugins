@@ -1,0 +1,9 @@
+{
+  "name": "zibellon--k8s-ansible",
+  "displayName": "k8s-ansible",
+  "description": "k8s-ansible",
+  "version": "1.0.0",
+  "author": "zibellon",
+  "homepage": "https://github.com/zibellon/k8s-ansible",
+  "skills": []
+}
