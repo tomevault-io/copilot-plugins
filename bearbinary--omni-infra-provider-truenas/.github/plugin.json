@@ -1,0 +1,9 @@
+{
+  "name": "bearbinary--omni-infra-provider-truenas",
+  "displayName": "omni-infra-provider-truenas",
+  "description": "omni-infra-provider-truenas",
+  "version": "1.0.0",
+  "author": "bearbinary",
+  "homepage": "https://github.com/bearbinary/omni-infra-provider-truenas",
+  "skills": []
+}
