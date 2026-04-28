@@ -1,0 +1,9 @@
+{
+  "name": "osmberlin--osm-traffic-sign-tool",
+  "displayName": "osm-traffic-sign-tool",
+  "description": "osm-traffic-sign-tool",
+  "version": "1.0.0",
+  "author": "osmberlin",
+  "homepage": "https://github.com/osmberlin/osm-traffic-sign-tool",
+  "skills": []
+}
