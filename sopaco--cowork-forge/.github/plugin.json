@@ -1,0 +1,9 @@
+{
+  "name": "sopaco--cowork-forge",
+  "displayName": "cowork-forge",
+  "description": "AI-powered software development system that automates the entire lifecycle from requirements analysis to code delivery through specialized agent collaboration.",
+  "version": "1.0.0",
+  "author": "sopaco",
+  "homepage": "https://github.com/sopaco/cowork-forge",
+  "skills": []
+}
