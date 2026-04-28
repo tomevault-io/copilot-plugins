@@ -1,0 +1,9 @@
+{
+  "name": "deathbyknowledge--agent-hub",
+  "displayName": "agent-hub",
+  "description": "A distributed cloud runtime for agents",
+  "version": "1.0.0",
+  "author": "deathbyknowledge",
+  "homepage": "https://github.com/deathbyknowledge/agent-hub",
+  "skills": []
+}
