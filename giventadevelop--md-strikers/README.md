@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [giventadevelop/md-strikers](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/giventadevelop)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/giventadevelop) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-p -->
