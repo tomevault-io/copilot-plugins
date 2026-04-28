@@ -1,0 +1,9 @@
+{
+  "name": "horsmann--sharepoint-to-text",
+  "displayName": "sharepoint-to-text",
+  "description": "Sharepoint to text: A python-libraries which extracts the plain text from legacy and modern office documents and PDF. An enabling library for the agentic age which is driven more by Sharepoint content",
+  "version": "1.0.0",
+  "author": "Horsmann",
+  "homepage": "https://github.com/Horsmann/sharepoint-to-text",
+  "skills": []
+}
