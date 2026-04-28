@@ -1,0 +1,9 @@
+{
+  "name": "camjac251--power-panel",
+  "displayName": "power-panel",
+  "description": "Remote server power management via Redfish/WoL",
+  "version": "1.0.0",
+  "author": "camjac251",
+  "homepage": "https://github.com/camjac251/power-panel",
+  "skills": []
+}
