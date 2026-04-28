@@ -1,0 +1,9 @@
+{
+  "name": "martian-engineering--maniple",
+  "displayName": "maniple",
+  "description": "MCP server for orchestrating Claude Code or Codex sessions via iTerm2 or tmux",
+  "version": "1.0.0",
+  "author": "Martian-Engineering",
+  "homepage": "https://github.com/Martian-Engineering/maniple",
+  "skills": []
+}
