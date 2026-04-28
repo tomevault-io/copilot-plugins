@@ -1,0 +1,51 @@
+{
+  "name": "nuxt-supabase-starter",
+  "owner": "YuDefine",
+  "repo": "nuxt-supabase-starter",
+  "description": "Nuxt + Supabase \u5feb\u901f\u958b\u767c\u7bc4\u672c\uff0c\u542b AI \u8f14\u52a9\u5de5\u4f5c\u6d41\u7a0b\uff08Claude Code\uff09\u3001TDD\u3001Spectra (OpenSpec)",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue-best-practices",
+      "path": "template/.claude/skills/vue-best-practices",
+      "github_url": "https://github.com/YuDefine/nuxt-supabase-starter/tree/main/template/.claude/skills/vue-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/YuDefine/nuxt-supabase-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T23:30:53Z"
+}
