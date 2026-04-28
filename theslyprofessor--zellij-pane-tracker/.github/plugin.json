@@ -1,0 +1,9 @@
+{
+  "name": "theslyprofessor--zellij-pane-tracker",
+  "displayName": "zellij-pane-tracker",
+  "description": "Zellij plugin that exports pane names to JSON for shell integration",
+  "version": "1.0.0",
+  "author": "theslyprofessor",
+  "homepage": "https://github.com/theslyprofessor/zellij-pane-tracker",
+  "skills": []
+}
