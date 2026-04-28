@@ -1,0 +1,9 @@
+{
+  "name": "dwsy--pi-session-manager",
+  "displayName": "pi-session-manager",
+  "description": "Pi session manager for browsing, searching, and resuming Pi AI coding sessions. Related project: https://github.com/badlogic/pi-mono",
+  "version": "1.0.0",
+  "author": "Dwsy",
+  "homepage": "https://github.com/Dwsy/pi-session-manager",
+  "skills": []
+}
