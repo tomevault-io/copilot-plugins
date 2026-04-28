@@ -1,0 +1,14 @@
+{
+  "name": "yudefine--nuxt-supabase-starter",
+  "displayName": "nuxt-supabase-starter",
+  "description": "Nuxt + Supabase \u5feb\u901f\u958b\u767c\u7bc4\u672c\uff0c\u542b AI \u8f14\u52a9\u5de5\u4f5c\u6d41\u7a0b\uff08Claude Code\uff09\u3001TDD\u3001Spectra (OpenSpec)",
+  "version": "1.0.0",
+  "author": "YuDefine",
+  "homepage": "https://github.com/YuDefine/nuxt-supabase-starter",
+  "skills": [
+    {
+      "name": "vue-best-practices",
+      "description": ""
+    }
+  ]
+}
