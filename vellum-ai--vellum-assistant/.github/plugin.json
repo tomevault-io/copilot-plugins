@@ -1,0 +1,9 @@
+{
+  "name": "vellum-ai--vellum-assistant",
+  "displayName": "vellum-assistant",
+  "description": "A personal AI assistant that evolves with you. Memory, personality, proactive reach-outs \u2014 across macOS, Telegram, and Slack.",
+  "version": "1.0.0",
+  "author": "vellum-ai",
+  "homepage": "https://github.com/vellum-ai/vellum-assistant",
+  "skills": []
+}
