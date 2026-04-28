@@ -1,0 +1,9 @@
+{
+  "name": "mxyhi--token-proxy",
+  "displayName": "token_proxy",
+  "description": "Local AI API gateway for OpenAI / Gemini / Anthropic. Runs on your machine, keeps tokens counted (SQLite), offers priority-based load balancing, optional OpenAI Chat\u2194Responses format conversion, and o",
+  "version": "1.0.0",
+  "author": "mxyhi",
+  "homepage": "https://github.com/mxyhi/token_proxy",
+  "skills": []
+}
