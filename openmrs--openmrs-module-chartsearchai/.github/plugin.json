@@ -1,0 +1,9 @@
+{
+  "name": "openmrs--openmrs-module-chartsearchai",
+  "displayName": "openmrs-module-chartsearchai",
+  "description": "openmrs-module-chartsearchai",
+  "version": "1.0.0",
+  "author": "openmrs",
+  "homepage": "https://github.com/openmrs/openmrs-module-chartsearchai",
+  "skills": []
+}
