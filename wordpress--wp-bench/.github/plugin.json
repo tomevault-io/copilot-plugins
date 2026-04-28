@@ -1,0 +1,9 @@
+{
+  "name": "wordpress--wp-bench",
+  "displayName": "wp-bench",
+  "description": "The official WordPress AI benchmark. Evaluate how well language models understand WordPress development\u2014from core APIs and coding standards to plugin architecture and security best practices.",
+  "version": "1.0.0",
+  "author": "WordPress",
+  "homepage": "https://github.com/WordPress/wp-bench",
+  "skills": []
+}
