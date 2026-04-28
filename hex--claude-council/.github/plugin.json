@@ -1,0 +1,9 @@
+{
+  "name": "hex--claude-council",
+  "displayName": "claude-council",
+  "description": "Claude Code plugin to consult multiple AI coding agents (Gemini, OpenAI, Grok) for diverse perspectives",
+  "version": "1.0.0",
+  "author": "hex",
+  "homepage": "https://github.com/hex/claude-council",
+  "skills": []
+}
