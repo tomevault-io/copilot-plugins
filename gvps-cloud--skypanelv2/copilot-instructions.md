@@ -1,491 +1,436 @@
 ## skypanelv2
 
-> This file documents the current state of the `skypanelv2` repository so coding agents can work against the app as it exists today rather than older assumptions.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file documents the current state of the `skypanelv2` repository so coding agents can work against the app as it exists today rather than older assumptions.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## What This Application Is
-
-SkyPanelV2 is a full-stack VPS hosting and billing panel with:
-
-- Public marketing, pricing, status, FAQ, contact, legal, and API docs pages
-- User authentication and account management
-- VPS management, detail screens, and SSH console access
-- Billing, invoices, transactions, and PayPal payment flows
-- Support, notifications, and activity history
-- Organizations, invitations, and membership workflows
-- Egress (network transfer) billing with prepaid credit packs and hourly enforcement
-- Admin tools for users, billing, platform settings, FAQ/contact content, email templates, GitHub/update integrations, and impersonation
-
-## Current Stack
-
-### Frontend
-
-- React 18
-- TypeScript
-- Vite
-- React Router DOM 7
-- TanStack Query
-- Tailwind CSS
-- shadcn/ui and Radix UI primitives
-- React Hook Form + Zod
-- Framer Motion
-- Xterm.js for SSH console UI
-
-### Backend
-
-- Express 4
-- TypeScript with ESM modules
-- PostgreSQL via `pg`
-- JWT authentication
-- Helmet, CORS, express-validator, and custom rate limiting middleware
-
-### Integrations
-
-- Linode API
-- PayPal server/client SDKs
-- Resend and SMTP email delivery
-- Optional GitHub token support
-- PM2-based production process management
-- Caddy deployment helpers
+> **Important**: Always read `[AGENTS.md](./AGENTS.md)` alongside this file. AGENTS.md documents the current state of the repository and provides practical guidance for coding agents. This file (CLAUDE.md) provides Claude Code-specific development instructions and deeper architectural context.
 
 ## Development Commands
 
-### Core App
+### Core Development
 
-- `npm run dev` - Start frontend and backend development servers concurrently
-- `npm run dev-up` - Kill ports `3001`, `5173`, and `8000`, then start dev
-- `npm run client:dev` - Start Vite dev server
-- `npm run server:dev` - Start backend dev server with `nodemon`
-- `npm run build` - Run TypeScript build and Vite production build
-- `npm run check` - Type-check without emitting
-- `npm run lint` - Run ESLint
-- `npm run preview` - Preview the built frontend
-- `npm run start` - Run the production API server and Vite preview together
+- `npm run dev` - Start concurrent frontend (Vite) and backend (nodemon) development servers
+- `npm run dev-up` - Kill ports 3001/5173/8000 and start development servers (preferred for clean startup)
+- `npm run client:dev` - Frontend only (Vite dev server on port 5173)
+- `npm run server:dev` - Backend only (Express API on port 3001)
+- `npm run build` - TypeScript check + Vite build for production
+- `npm run lint` - ESLint validation
+- `npm run check` - TypeScript type checking without emitting files
+- `npm run preview` - Preview production build locally
 
-### API Docs / Metadata
+### API Documentation
 
-- `npm run docs:api:sync` - Refresh API docs manifest data
-- `npm run docs:api:audit` - Audit API docs coverage
+- `npm run docs:api:sync` - Sync API documentation (auto-runs via pre* hooks on `dev`, `client:dev`, and `build`)
+- `npm run docs:api:audit` - Audit and validate API documentation coverage
 
-These sync automatically before `dev`, `client:dev`, and `build`.
+### Security
 
-### Database / Reset
+- `npm run audit:security` - Run npm audit with high severity filter
+- `npm run scan:code` - Run semgrep static analysis
+- `npm run test:security` - Run security tests with Vitest
+- `npm run verify:security` - Run all security checks (audit + scan + test)
 
-- `npm run db:reset` - Interactive database reset
+### Testing
+
+> **Note**: There is no `npm test` script. Run `npx vitest run tests/security/` for the security test suite, or `npx vitest run` for all tests. The repo includes Vitest, React Testing Library, Supertest, and Playwright.
+
+### Database Management
+
+- `npm run db:fresh` - Reset database and run all migrations (WARNING: destroys all data - use only in development)
+- `npm run db:reset` - Interactive database reset with confirmation
 - `npm run db:reset:confirm` - Reset database without prompt
-- `npm run db:fresh` - Reset database and apply migrations
-- `npm run seed:admin` - Seed the default admin user
+- `npm run seed:admin` - Create default admin user
 - `node scripts/seed-branding.js` - Update database branding (docs, FAQ, contact, rDNS) to match .env
 
-### Runtime / Deployment Helpers
+### Production Deployment
 
-- `npm run kill-ports` - Kill ports `3001`, `5173`, and `8000`
-- `npm run pm2:start` - Build and launch PM2 processes
-- `npm run pm2:reload` - Reload PM2 processes
-- `npm run pm2:stop` - Stop and delete PM2 processes
+- `npm run start` - Launch production Express server + Vite preview
+- `npm run pm2:start` - Build and start with PM2 process manager
+- `npm run pm2:reload` - Reload PM2 processes gracefully
+- `npm run pm2:stop` - Stop PM2 processes
 - `npm run pm2:list` - List PM2 processes
+
+### Utilities
+
+- `npm run kill-ports` - Kill processes on ports 3001, 5173, and 8000
 - `npm run pwa:icons` - Generate PWA icons
+
+## Architecture Overview
+
+SkyPanelV2 is a full-stack cloud service reseller billing panel with multi-tenant organization support. It provides three distinct product surfaces:
+
+1. **Public marketing pages** — Home, pricing, FAQ, about, contact, status, legal, docs, regions
+2. **Authenticated customer portal** — Dashboard, VPS management, billing, support, SSH console, organizations, egress credits, API docs
+3. **Admin dashboard** — User management, billing ops, platform settings, provider config, impersonation, documentation, announcements, networking
+
+### Frontend (`src/`)
+
+- **React 18** SPA with TypeScript and Vite
+- **shadcn/ui** component library with Tailwind CSS (Radix UI primitives), configured via `components.json`
+- **TanStack Query** for server state management with optimistic updates (30s staleTime, 1 retry, refetchOnWindowFocus)
+- **Zustand** for client state management (selected stores for UI state)
+- **React Router v7** for routing with protected route guards:
+  - `ProtectedRoute`: Auth required → AppLayout with sidebar
+  - `StandaloneProtectedRoute`: Auth required → AppLayout without sidebar (SSH console)
+  - `AdminRoute`: Auth + `user.role === 'admin'` + not impersonating → AppLayout (admin dashboard)
+  - `PublicRoute`: Redirects to `/dashboard` if already logged in
+- **React Hook Form + Zod** for form validation with schema-based validation
+- **Framer Motion** for animations with accessibility considerations
+- **Recharts** for data visualization with responsive containers
+- **xterm.js** for browser-based SSH terminal emulation with fit/addon packages
+- **cmdk** for command palette (Ctrl/Cmd + K) with persistent state
+- **TipTap** for rich text editing with code highlighting (lowlight)
+- **qrcode** for 2FA QR code generation using otplib
+
+### Backend (`api/`)
+
+- **Express 4** REST API with TypeScript ESM modules
+- **PostgreSQL** database with UUID primary keys, JSONB columns, triggers, and `LISTEN/NOTIFY`
+- **JWT authentication** with role-based access (admin/user) and HttpOnly cookie storage
+- **Rate limiting** with tiered configuration (anonymous/authenticated/admin) and per-user overrides stored in database
+- **CSRF protection** on `/api` routes
+- **Comprehensive middleware** stack:
+  - `security.ts`: Helmet, CSP with nonce, CORS, referrer policy, XSS protection
+  - `auth.ts`: JWT verification, token blacklist, organization validation, impersonation context
+  - `permissions.ts`: Role-based and organization membership checking (single/any/all permission variants)
+  - `rateLimiting.ts`: Tiered limits with X-RateLimit headers, metrics, Redis support
+- **WebSocket server** for SSH bridge (ws + ssh2) providing browser-based terminal access
+- **Background schedulers** running on 60-minute intervals from `server.ts`
+- **Notification service** using PostgreSQL `LISTEN/NOTIFY` → EventEmitter → SSE for real-time updates
+- **Provider abstraction layer** (`IProviderService`) enabling multiple cloud providers
+- **Row-level security** on `user_api_keys` table for API key protection
+- **API key authentication** middleware that sets `req.user` when API key is provided
+
+### Key Features
+
+- **Multi-tenant organizations** with role-based access control and custom roles stored in JSONB permissions
+- **Linode VPS provisioning** via `IProviderService` abstraction layer with region filtering
+- **Automated hourly billing** with wallet-based prepaid system and insufficient balance handling
+- **Egress (network transfer) billing** with prepaid credit packs, hourly enforcement, and auto-suspend when credits reach zero
+- **Email service** with provider priority/fallback (Resend → SMTP) and template management
+- **Activity logging and feed** system for audit trails with real-time notifications via PostgreSQL LISTEN/NOTIFY
+- **2FA (Two-Factor Authentication)** support via TOTP with QR code generation
+- **Admin impersonation** for customer support with visual banner and audit logging
+- **Command palette** navigation with persistent state and frequent updates
+- **API documentation auto-sync** on build with validation
+- **Rich text documentation** system with categories and articles
+- **Platform announcements** with public banner display
+
+## TypeScript Configuration
+
+- **Path alias**: `@/*` → `./src/*` (configured in both `tsconfig.json` and `vite.config.ts`)
+- **Strict mode**: Disabled (`"strict": false`)
+- **Module system**: ESNext with ESM (backend requires `.js` extensions on local imports)
+- **Includes**: Both `src/` and `api/` directories
+- **No unused vars as error**: `noUnusedLocals` and `noUnusedParameters` are `false`
+- **Lint exceptions**: `@typescript-eslint/no-explicit-any` is off; unused vars emit warnings (not errors)
+
+## Build Pipeline (Vite)
+
+The Vite config (`vite.config.ts`) includes several important features:
+
+- **`removeMockData()` plugin**: Automatically strips mock emails, passwords, and API tokens from production builds
+- **PWA support**: `vite-plugin-pwa` with Workbox auto-update, 10MB file size limit, API caching (NetworkFirst, 5min)
+- **Dev proxy**: `/api/` proxies to `http://localhost:3001` with WebSocket and SSE support
+- **Environment prefix**: Only `VITE_` prefixed variables are exposed to the client bundle
+- **Host**: `0.0.0.0` for network access during development
 
 ## Environment Configuration
 
-Copy `.env.example` to `.env`.
+Copy `.env.example` to `.env` and configure. See AGENTS.md for the complete list of available variables.
 
-### Core Required Values
+### Required for Development
 
 ```bash
-NODE_ENV=development
-PORT=3001
-CLIENT_URL=http://localhost:5173
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/skypanelv2
 JWT_SECRET=your-super-secret-jwt-key-here
 SSH_CRED_SECRET=your-32-character-encryption-key
 ENCRYPTION_KEY=your-32-character-encryption-key
 ```
 
-### Branding
+### Additional Notable Variables
 
-> **Note:** These are example values. Set these to match your deployment brand.
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `NODE_ENV` | `development` | Runtime environment |
+| `PORT` | `3001` | API server port |
+| `CLIENT_URL` | `http://localhost:5173` | Frontend URL (CORS) |
+| `JWT_EXPIRES_IN` | `7d` | Token expiration |
+| `VPS_TAG` | `skypanelv2` | Tag applied to provisioned VPS instances |
+| `RDNS_BASE_DOMAIN` | — | Reverse DNS base domain |
+| `DEFAULT_ADMIN_EMAIL` | `admin@example.com` | Admin seed email override |
+| `DEFAULT_ADMIN_PASSWORD` | `Admin123#` | Admin seed password override |
+| `COMPANY_NAME` / `VITE_COMPANY_NAME` | `SkyPanelV2` | Brand name (server + client) |
+| `TRUST_PROXY` | `true` | Trust X-Forwarded-* headers |
 
-```bash
-COMPANY_NAME=SkyPanelV2
-VITE_COMPANY_NAME=SkyPanelV2
-COMPANY_BRAND_NAME=SkyPanelV2
+### Rate Limiting Configuration
+
+Rate limits are configurable via `RATE_LIMIT_*` environment variables with tiered defaults for anonymous (1000/15min), authenticated (5000/15min), and admin (10000/15min) users. Per-user overrides are stored in `user_rate_limit_overrides`. Development mode applies a 100x multiplier.
+
+Specialized limiters: `loginRateLimiter` (5/15min), `passwordResetRateLimiter` (configurable, 100x in dev), `apiKeyMutationRateLimiter`, `billingMutationRateLimiter`, `adminMutationRateLimiter`.
+
+## Database Schema
+
+### Core Tables
+
+- `users` - User accounts with authentication, 2FA, preferences, active_organization_id
+- `organizations` - Multi-tenant organization management (with show_on_homepage flag)
+- `organization_members` - Organization membership with role_id FK
+- `organization_roles` - Custom roles with granular JSONB permissions
+- `organization_invitations` - Email-based organization invitations with token
+- `wallets` - Organization wallet balances (one per org)
+- `payment_transactions` - PayPal billing integration (wallet debits and credits)
+- `invoices` - Billing invoices
+- `vps_instances` - VPS hosting instances (org-scoped)
+- `vps_plans` - VPS plans with base_price, markup_price, backup pricing
+- `vps_billing_cycles` - Hourly billing tracking with metadata
+- `service_providers` - Cloud provider configuration (type constrained to 'linode')
+- `user_ssh_keys` - SSH keys (organization-scoped)
+- `user_api_keys` - API key management with row-level security (RLS enabled)
+- `support_tickets` - Customer support tickets with has_staff_reply flag
+- `support_ticket_replies` - Support ticket conversation threads with PG notify triggers
+- `activity_logs` - Detailed system activity logging with is_read/read_at
+- `activity_feed` - User notification feed
+- `platform_settings` - Global platform configuration (key-value JSONB)
+- `email_templates` - Email template management
+- `organization_egress_credits` - Egress credit balances per organization
+- `egress_credit_packs` - Available credit packs with pricing
+- `vps_egress_hourly_readings` - Hourly transfer usage readings
+
+### Database Migrations
+
+SQL migrations are in the `migrations/` directory (52 total: 001–052, sequential). Apply pending migrations with `node scripts/run-migration.js`. Each migration runs in a transaction with SHA256 checksum validation. **Never modify an existing migration** — add a new sequential file instead.
+
+## API Routes
+
+### Core Routes (`/api/`)
+
+- `/api/auth` - Authentication (login, register, 2FA, password reset)
+- `/api/vps` - VPS instance management, providers, plans, images, actions
+- `/api/organizations` - Organization CRUD, members, invitations, roles
+- `/api/payments` - PayPal order creation, capture, wallet operations
+- `/api/support` - Support ticket management and replies
+- `/api/ssh-keys` - SSH key CRUD with Linode sync
+- `/api/invoices` - Invoice listing and detail
+- `/api/egress` - Egress credit management, purchase flow, usage readings
+- `/api/api-keys` - User API key management (with row-level security)
+- `/api/documentation` - Public documentation articles
+- `/api/announcements` - Public announcements
+
+### Admin Routes (`/api/admin/`)
+
+- `/api/admin` - User management, stats, impersonation
+- `/api/admin/platform` - Platform settings CRUD
+- `/api/admin/billing` - Billing management and oversight
+- `/api/admin/email-templates` - Email template CRUD
+- `/api/admin/contact` - Contact form message management
+- `/api/admin/faq` - FAQ category/item/update management
+- `/api/admin/github` - GitHub integration and update checking
+- `/api/admin/category-mappings` - VPS category white-labeling
+- `/api/admin/ssh-keys` - Admin SSH key management
+- `/api/admin/activity` - Admin activity log
+- `/api/admin/documentation` - Admin documentation CRUD
+- `/api/admin/networking` - Admin networking config (rDNS, IPv6)
+- `/api/admin/announcements` - Platform announcements management
+
+### Content & Feed Routes
+
+- `/api/activity` - User activity feed (SSE endpoint for real-time)
+- `/api/activities` - Activity logging
+- `/api/notifications` - Notification management (SSE stream, mark read)
+- `/api/faq` - Public FAQ content
+- `/api/contact` - Contact form submission
+- `/api/theme` - Theme preset management
+- `/api/pricing` - Public pricing data
+- `/api/health` - Health check endpoint
+
+## Services
+
+### Core Services (`api/services/`)
+
+- `authService` - JWT token management and authentication logic
+- `linodeService` - Linode/Akamai REST API wrapper with caching
+- `billingService` - Hourly VPS billing engine (wallet deductions)
+- `egressCreditService` - Pre-paid egress credit management (balance tracking)
+- `egressHourlyBillingService` - Hourly transfer usage polling and credit deduction
+- `egressBillingService` - Transfer pool tracking and overage projection (monthly billing)
+- `paypalService` - PayPal order creation, capture, wallet deduction
+- `emailService` - Email sending with provider fallback (Resend → SMTP)
+- `emailTemplateService` - Handlebars-based email template rendering
+- `invoiceService` - Invoice generation and management
+- `notificationService` - PostgreSQL LISTEN/NOTIFY → EventEmitter singleton for real-time push
+- `activityLogger` - Activity logging with real-time PostgreSQL notification triggers
+
+### Provider Services (`api/services/providers/`)
+
+- `IProviderService` - Interface contract for all provider implementations
+- `BaseProviderService` - Shared provider logic and caching
+- `LinodeProviderService` - Linode-specific implementation
+- `ProviderFactory` - Provider instantiation from type + token
+
+## Key Service Patterns
+
+### Database Operations
+
+Use `api/lib/database.ts` helpers:
+
+```typescript
+import { query, transaction } from '../lib/database.js';
+
+const result = await query('SELECT * FROM users WHERE id = $1', [userId]);
+
+const result = await transaction(async (client) => {
+  await client.query('UPDATE wallets SET balance = balance - $1 WHERE organization_id = $2', [amount, orgId]);
+  await client.query('INSERT INTO payment_transactions (...) VALUES (...)', [...]);
+  return { success: true };
+});
 ```
 
-### Networking
+### Frontend API Calls
 
-```bash
-RDNS_BASE_DOMAIN=ip.rev.example.com
+Use the `ApiClient` class from `src/lib/api.ts` (not raw `fetch()`). It handles CSRF token extraction, organization ID header injection, and auto-logout on 401:
+
+```typescript
+import { ApiClient } from '@/lib/api';
+const client = new ApiClient();
+const data = await client.get('/vps');
 ```
 
-### Admin Seed Defaults (optional)
+For quick one-off calls, use the `API_BASE_URL` constant:
 
-```bash
-DEFAULT_ADMIN_EMAIL=admin@example.com
-DEFAULT_ADMIN_PASSWORD=Admin123#
+```typescript
+import { API_BASE_URL } from '@/lib/api';
+const response = await fetch(`${API_BASE_URL}/endpoint`, {
+  credentials: 'include',
+  headers: { 'Authorization': `Bearer ${token}` },
+});
 ```
 
-### External Services
+Get the JWT token from the `useAuth()` context hook (`src/contexts/AuthContext.tsx`).
 
-```bash
-LINODE_API_TOKEN=your-linode-api-token
-LINODE_API_URL=https://api.linode.com/v4
-PAYPAL_CLIENT_ID=your-paypal-client-id
-PAYPAL_CLIENT_SECRET=your-paypal-client-secret
-PAYPAL_MODE=sandbox
-EMAIL_PROVIDER_PRIORITY=resend,smtp
-RESEND_API_KEY=
-SMTP_HOST=mail.example.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_REQUIRE_TLS=true
-SMTP_USERNAME=smtp-user@example.com
-SMTP_PASSWORD=super-secure-password
-FROM_EMAIL=noreply@example.com
-FROM_NAME=SkyPANELv2
-CONTACT_FORM_RECIPIENT=support@example.com
+### TanStack Query Pattern
+
+Export a **query key factory** object from every hook file, then use it in `useQuery`, `useMutation`, and `invalidateQueries`:
+
+```typescript
+export const myResourceKeys = {
+  all: ['my-resource'] as const,
+  detail: (id: string) => ['my-resource', id] as const,
+};
 ```
 
-### Operational Settings
+### Authentication Middleware
 
-```bash
-TRUST_PROXY=true
-MAX_FILE_SIZE=10485760
-UPLOAD_PATH=./uploads
-BACKUP_STORAGE_PROVIDER=local
-BACKUP_RETENTION_DAYS=30
+Protected routes use JWT authentication middleware that sets `req.user` with `{ userId, role, email }`.
+
+### Provider Token Resolution
+
+```typescript
+import { normalizeProviderToken } from '../lib/providerTokens.js';
+const token = await normalizeProviderToken(providerId);
+const provider = ProviderFactory.create('linode', token);
 ```
 
-### Rate Limiting
-
-The current environment file exposes configurable role-based limits:
-
-- `RATE_LIMIT_ANONYMOUS_WINDOW_MS`
-- `RATE_LIMIT_ANONYMOUS_MAX`
-- `RATE_LIMIT_AUTHENTICATED_WINDOW_MS`
-- `RATE_LIMIT_AUTHENTICATED_MAX`
-- `RATE_LIMIT_ADMIN_WINDOW_MS`
-- `RATE_LIMIT_ADMIN_MAX`
-
-The current defaults in `.env.example` are much higher than the older values previously documented.
-
-## Current Application Structure
-
-```text
-api/
-  app.ts                Express app wiring and route registration
-  server.ts             API server bootstrap
-  config/               Environment and runtime config
-  lib/                  Shared backend helpers
-  middleware/           Auth, permissions, rate limiting, validation
-  routes/               Public, authenticated, and admin API routes
-  services/             Business logic and background/process services
-
-src/
-  App.tsx               Main router and route guards
-  components/           Reusable UI and feature-specific components
-  contexts/             Auth, theme, breadcrumb, and impersonation state
-  hooks/                Reusable frontend hooks
-  lib/                  API client and utilities
-  pages/                Public, user, and admin route pages
-  services/             Frontend service wrappers
-  styles/               Page-specific styles
-  theme/                Theme preset/token definitions
-  types/                Shared frontend types
-
-migrations/             SQL migrations
-scripts/                Database, migration, admin, diagnostics, and maintenance scripts
-public/                 Static assets, icons, and favicon.svg (single source of truth for site logo)
-repo-docs/              Internal docs and audit artifacts
-deploy/                 Deployment-related templates
-```
-
-## Frontend Routing Overview
-
-### Public Pages
-
-- `/` via `HomeRedesign`
-- `/pricing`
-- `/faq`
-- `/about`
-- `/contact`
-- `/status`
-- `/terms`
-- `/privacy`
-- `/login`
-- `/register`
-- `/forgot-password`
-- `/reset-password`
-- Organization invitation acceptance routes
-
-### Authenticated User Pages
-
-- `/dashboard`
-- `/vps`
-- `/vps/:id`
-- `/vps/:id/ssh`
-- `/ssh-keys`
-- `/organizations`
-- `/organizations/:id`
-- `/billing`
-- `/billing/invoice/:id`
-- `/billing/transaction/:id`
-- `/billing/payment/success`
-- `/billing/payment/cancel`
-- `/support`
-- `/settings`
-- `/activity`
-- `/api-docs`
-- `/egress-credits`
-
-### Admin Pages
-
-- `/admin`
-- `/admin/user/:id`
-
-The app shell currently relies on:
-
-- `AuthProvider`
-- `ThemeProvider`
-- `ImpersonationProvider`
-- public/authenticated/admin route guards in `src/App.tsx`
-
-## Backend API Overview
-
-The Express app currently registers these route groups:
-
-- `/api/auth`
-- `/api/payments`
-- `/api/admin`
-- `/api/admin/platform`
-- `/api/admin/email-templates`
-- `/api/admin/contact`
-- `/api/admin/billing`
-- `/api/vps`
-- `/api/support`
-- `/api/activity`
-- `/api/activities`
-- `/api/invoices`
-- `/api/notifications`
-- `/api/theme`
-- `/api/health`
-- `/api/contact`
-- `/api/faq`
-- `/api/admin/faq`
-- `/api/admin/github`
-- `/api/ssh-keys`
-- `/api/organizations`
-- `/api/pricing`
-- `/api/egress`
-- `/api/api-keys` - User API key management with row-level security
-
-Cross-cutting backend behavior includes:
-
-- Config validation at startup
-- Helmet and CORS middleware
-- JSON and URL-encoded body parsing
-- API-only smart rate limiting and response headers
-- Metrics collection and persistence startup
-- Billing cron startup
-- Production serving of the built frontend from `dist`
-
-## Key Architectural Patterns
-
-### Database Access
-
-Use shared database helpers from `api/lib/` rather than creating ad hoc connections inside route handlers.
-
-### Route / Service Split
-
-Keep HTTP request/response handling in route files and business logic in `api/services/` whenever possible.
-
-### Auth and Permissions
-
-- JWT auth is applied through backend middleware
-- Frontend route guards are convenience layers, not the source of truth
-- Admin impersonation is a core feature and affects access-sensitive work
-
-### Theming
-
-Theme behavior spans frontend context/state and backend theme APIs. Review `src/contexts/ThemeContext.tsx`, `src/theme/`, and `api/routes/theme.ts` before changing theme behavior.
-
-### Organizations and Billing Scope
-
-Organizations, invitations, and billing visibility are tightly related areas. Be careful when modifying resource queries, access control, or dashboard summaries so data does not leak across users or orgs.
-
-### Egress Billing System
-
-SkyPanelV2 implements a **prepaid egress credit model with hourly enforcement** to prevent network transfer abuse:
-
-- **Credit packs** (100GB, 1TB, 5TB, 10TB) are purchased via PayPal and stored per-organization
-- **Hourly billing** polls Linode transfer API every 60 minutes, calculating delta from the last reading
-- **Auto-shutoff** suspends VPS instances when an organization's credit balance hits zero
-- **Organization-scoped**: all members share the same credit pool; permissions control who can view vs. purchase
-
-Key services:
-
-- `api/services/egressCreditService.ts` — credit balance, purchase, deduction, manual add
-- `api/services/egressHourlyBillingService.ts` — hourly billing orchestrator
-- `api/services/egressBillingService.ts` — transfer pool tracking and overage projection
-- `api/services/egress/egressUtils.ts` — Linode transfer API helpers
-
-Key routes:
-
-- `GET /api/egress/credits` — org credit balance
-- `GET /api/egress/credits/history` — purchase history
-- `GET /api/egress/credits/packs` — available packs
-- `POST /api/egress/credits/purchase` — initiate PayPal purchase
-- `POST /api/egress/credits/purchase/complete` — complete purchase
-- `GET /api/egress/usage/:vpsId` — per-VPS hourly readings
-- Admin routes under `/api/egress/admin/*` for manual credit management and billing triggers
-
-Key frontend files:
-
-- `src/pages/EgressCredits.tsx` — dedicated egress credits page
-- `src/pages/Organizations.tsx` — org Egress tab with credit management
-- `src/pages/VPSDetail.tsx` — egress usage section in Networking tab
-- `src/components/admin/EgressCreditManager.tsx` — admin credit management UI
-- `src/components/admin/EgressPackSettings.tsx` — admin pack pricing config
-- `src/services/egressService.ts` — frontend API client
-
-Database migrations 025–032 implement the egress system (tables: `organization_egress_credits`, `egress_credit_packs`, `vps_egress_hourly_readings`, etc.). Note: 47 migrations total (001–047, sequential).
-
-## Testing Notes
-
-The repo includes:
-
-- Vitest
-- React Testing Library
-- Supertest
-- Playwright
-
-There is currently no `npm run test` or `npm run test:watch` script in `package.json`, so do not assume those commands exist.
-
-## Useful Scripts
-
-Notable scripts currently present in `scripts/` include:
-
-- `run-migration.js`
-- `reset-database.js`
-- `create-test-admin.js`
-- `ensure-admin-user.js`
-- `promote-to-admin.js`
-- `update-admin-password.js`
-- `audit-api-docs.mjs`
-- `generate-ssh-secret.js`
-- `generate-pwa-icons.js`
-- `update-theme-to-mono.js`
-- provider/data migration helpers
-- verification/debug helpers for admins, settings, plans, migrations, and schema state
-
-## Practical Guidance for Agents
-
-- Check `package.json` before referencing scripts
-- Check `src/App.tsx` before documenting or changing routes
-- Check `api/app.ts` before documenting or changing API surface area
-- Prefer existing helpers/services instead of duplicating logic
-- Be careful with org-aware data access, billing visibility, and impersonation
-- Treat public marketing pages and authenticated panel flows as separate product surfaces when making changes
-- The site logo/favicon is a single source of truth: `public/favicon.svg` — the `Logo` component (`src/components/Logo.tsx`) renders it as an `<img>` tag, and `index.html` links it as the browser favicon. To update icons, replace `favicon.svg` and regenerate raster variants via [realfavicongenerator.net](https://realfavicongenerator.net/)
-
-## Cursor Cloud specific instructions
-
-### Environment
-
-- **Node.js 22.22.0** is required (matches `.nvmrc`). Use `nvm use` to activate.
-- **npm** is the package manager (lockfile: `package-lock.json`).
-- All secrets (`DATABASE_URL`, `JWT_SECRET`, `ENCRYPTION_KEY`, `SSH_CRED_SECRET`, etc.) are injected as environment variables via Cursor Secrets. The `.env` file must be generated from `.env.example` by mapping these injected env vars at setup time — it is **not** committed to the repo.
-- The `DATABASE_URL` points to an **external PostgreSQL instance** (not localhost). All migrations and seed data are already applied. Do **not** run `db:fresh`, `db:reset`, or destructive migration commands.
-- Redis is available via the injected `REDIS_URL` and is used for token blacklist and brute-force protection.
-
-### Running the app
-
-- `npm run dev` starts both Vite (port 5173) and Express API (port 3001) concurrently.
-- `npm run dev-up` is the preferred clean-start command — it kills ports 3001/5173/8000 first.
-- The Vite dev server proxies `/api/` requests to the Express backend automatically.
-- Access the app at `http://localhost:5173`.
-
-### Lint / Type check / Tests
-
-- `npm run lint` — ESLint (expect warnings, 0 errors).
-- `npm run check` — TypeScript type check (`tsc --noEmit`).
-- `npx vitest run tests/security/` — runs security tests (the only test suite with a defined path). There is no `npm test` script.
-- API docs sync (`npm run docs:api:sync`) runs automatically via pre-hooks before `dev`, `client:dev`, and `build`.
-
-### Gotchas
-
-- The `predev` and `preclient:dev` hooks run `docs:api:sync` automatically — this is normal and takes a few seconds before the dev server starts.
-- The backend starts an hourly billing scheduler and egress billing on boot — log output about "0 instances billed" is expected with an empty VPS fleet.
-- `@prisma/client` and `prisma` are listed as dependencies but the app uses raw `pg` queries with SQL migrations — there is no `prisma/schema.prisma` file.
-- The admin user `admin@skypanelv2.com` / `admin123` is seeded in the external database and can be used for development.
-
-## Installing Skills
-
-When creating or installing a new skill, always place it in:
-
-`C:\Users\moran\.openclaw-autoclaw\skills/<skill-name>/SKILL.md`
-
-This is the managed skills directory. The agent will automatically discover
-any skill placed here — no extra configuration needed. Do NOT install skills
-into `~/.agents/skills/` (that directory is shared with other tools).
-
-## Browser Automation
-
-For any task that requires a browser, **prefer `autoglm-browser-agent`**. Use it as the first choice.
-
-- ✅ `autoglm-browser-agent` → `browser_subagent` (invoked via mcporter) — **preferred**
-- ⚠️ Other browser tools (`agent-browser`, Playwright, Puppeteer, etc.) — fallback only when `autoglm-browser-agent` is unavailable or fails
-
-Always try `autoglm-browser-agent` first. Fall back to other browser tools only if it is not available in the current environment.
-
-## Image Recognition
-
-For any image recognition task, **prefer `autoglm-image-recognition`**. Use it as the first choice.
-
-- ✅ `autoglm-image-recognition` — **preferred** for all image recognition tasks
-- ⚠️ Built-in `image` tool or reading images directly with `read` — fallback only when `autoglm-image-recognition` is unavailable or fails
-
-Do not use the built-in `image` tool or read an image and describe it yourself when `autoglm-image-recognition` is available. Always try `autoglm-image-recognition` first.
-
-## Learned User Preferences
-
-- When the user says "make a plan", "create a plan", or "I need a plan for X" — immediately use the `CreatePlan` tool. Do not write plans to files manually, do not describe plans in text, do not ask questions. The `CreatePlan` tool is the ONLY acceptable way to create a plan.
-
-## Learned Workspace Facts
-
-### Marketing Pages Design System
-
-Public marketing pages (HomeRedesign, AboutUs, Contact, FAQ, Pricing, Status, ApiDocs, Documentation) share a consistent modern design system:
-
-- **Hero section**: floating gradient orbs (`.home-orb--1/2/3`), grid pattern mask (`.home-grid-mask`), shimmer badge (`.home-shimmer-badge`), gradient text headings, CTA buttons with `.home-btn-glow`
-- **Trust marquee**: animated horizontal strip using `.home-marquee` / `.home-marquee__track`
-- **Cards**: `.home-feature-card` with hover lift, `.home-glass-panel` with backdrop blur, `.home-gradient-border-top` for top accent line, `.home-animated-border` for animated border
-- **Animation**: Framer Motion `revealContainer`/`revealItem` stagger variants, `whileInView` fade-in
-- **Layout**: `MarketingNavbar` + main + `MarketingFooter`
-- **CSS**: `@/styles/home.css`
-- **Navbar**: `MarketingNavbar` component at `@/components/MarketingNavbar.tsx` renders as `fixed top-0 z-40` with height ~72px; content areas need `pt-[72px]` top padding to avoid navbar overlap
-
-### Documentation Page Layout
-
-`Documentation.tsx` uses a sidebar + content area with `showHero` to conditionally render the index hero. Article detail pages (renderArticle, renderPlansRegionsArticle, renderCreatingVpsArticle) did NOT have the hero — the fix was to add a compact article hero section that shows when `categorySlug` is set, rendered before the sidebar layout div so it spans full viewport width.
-
-### Key CSS Classes (`@/styles/home.css`)
-
-- `.home-orb--1`, `.home-orb--2`, `.home-orb--3` — floating gradient orbs
-- `.home-grid-mask` — grid pattern with mask
-- `.home-shimmer-badge` — shimmer effect on badges
-- `.home-btn-glow` — glow effect on CTA buttons
-- `.home-marquee`, `.home-marquee__track` — trust marquee
-- `.home-feature-card` — hover lift card
-- `.home-glass-panel` — backdrop blur panel
-- `.home-gradient-border-top` — top accent line
-- `.home-animated-border` — animated border
-- `.home-cta-shell` — CTA section shell with orbs
+### Multi-Tenant Data Isolation
+
+**Critical**: All resource queries MUST be scoped to `organization_id` to prevent cross-organization data leakage. This includes:
+
+- Direct queries in services
+- Query builder usage
+- Raw SQL queries (avoid when possible)
+- Aggregation queries
+- Join operations
+
+### Real-Time Architecture
+
+PostgreSQL `LISTEN/NOTIFY` → `notificationService` EventEmitter → SSE endpoint (`/api/notifications`) for real-time updates including:
+
+- Activity feed notifications
+- Billing alerts
+- System announcements
+
+### Background Services
+
+Server startup (`api/server.ts`) initializes these recurring services:
+
+1. **Hourly VPS Billing**: `BillingService.runHourlyBilling()` — runs every 60 minutes
+2. **Hourly Egress Billing**: `EgressHourlyBillingService.runHourlyBilling()` — runs every 60 minutes
+3. **Monthly Egress Billing**: `EgressBillingService.executeLiveBilling()` — runs on the 1st of each month
+4. **24h Billing Reminders**: `BillingCronService` — runs every 24 hours for low-balance notifications
+5. **Notification Service**: PostgreSQL LISTEN/NOTIFY listener for real-time push
+6. **Ticket Notification Service**: Support ticket notification listener
+7. **SSH Bridge**: WebSocket server for browser-based terminal access
+8. **Metrics Collection**: Request metrics with periodic persistence
+
+## Security Architecture
+
+### Data Protection
+
+- **Passwords**: bcrypt hashing with salt
+- **SSH credentials**: AES-256-GCM encryption via `SSH_CRED_SECRET`
+- **Provider API tokens**: AES-256-GCM encryption via `ENCRYPTION_KEY` with key versioning support
+- **JWT tokens**: HMAC-SHA256 signed with configurable expiration (default: 7 days)
+- **Row-level security**: PostgreSQL RLS on `user_api_keys` table preventing unauthorized API key access
+- **Secrets Management**: Separate encryption keys for different data types (credentials vs tokens)
+
+### Access Control
+
+- **Role-based access control**: Admin vs user roles with organization-scoped data access
+- **Organization-based data isolation**: All resource queries scoped to `organization_id` (enforced via middleware and service layer)
+- **Custom organization roles**: Granular JSONB permissions stored in `organization_roles` table; use `RoleService.checkPermission()` for validation
+- **Admin impersonation**: `X-Impersonating` header swaps request context with visual banner and audit logging
+- **2FA Support**: TOTP-based two-factor authentication with QR code generation
+- **API Keys**: Row-level security on `user_api_keys` table with encryption and usage tracking
+
+## Theme System
+
+Theme behavior spans frontend context/state and backend APIs — review both before changes.
+
+- **ThemeContext** (`src/contexts/ThemeContext.tsx`): 15 built-in presets (teal, mono, red, violet, emerald, amber, rose, blue, slate, orange, zinc, stone, aurora, midnight, sage) with dynamic loading from `/api/theme`
+- **Light/Dark mode**: Managed separately by `useTheme` hook (`src/hooks/useTheme.ts`) using `user-theme-preference` localStorage key; defaults to dark
+- **CSS Variables**: Each preset defines HSL tokens for both light and dark modes
+- **Persistence**: `skypanelv2:theme` localStorage key for preset selection
+- **Backend**: `/api/theme` endpoint returns theme configuration
+
+## Important Notes for Agents
+
+- **Always check `package.json`** before referencing npm scripts
+- **Always check `src/App.tsx`** before documenting or changing frontend routes
+- **Always check `api/app.ts`** before documenting or changing API surface area
+- **Always check `api/lib/database.ts`** before writing database queries (use helpers)
+- **Email providers** are Resend and generic SMTP — see `api/config/index.ts`
+- **Billing runs hourly** from `server.ts`, not from `billingCronService` (which handles 24h reminder checks)
+- **Organization isolation** is critical — be careful with queries that could leak data across orgs (always verify `organization_id` scoping)
+- **Default admin credentials**: Generated via `scripts/seed-admin.js` (not hardcoded); configurable via `DEFAULT_ADMIN_EMAIL`/`DEFAULT_ADMIN_PASSWORD` env vars
+- **Pre-commit hooks**: NEVER skip or disable — they protect against bad commits
+- **Database reset commands**: NEVER run — they destroy production data (`db:fresh`, `db:reset`, `db:reset:confirm`)
+- **Migration scripts**: Apply with `node scripts/run-migration.js` — never run destructive migrations manually
+- **TypeScript pathing**: Uses `vite-tsconfig-paths` plugin — check `tsconfig.json` for path mappings
+- **Environment validation**: Critical secrets validated at startup in `config/index.ts` — import `config` object, never access `process.env` directly in route/service files
+- **Provider token normalization**: Always use `normalizeProviderToken()` before creating providers
+- **Organization role checking**: Use `RoleService` for granular permission validation
+- **Admin impersonation audit**: All impersonation actions are logged for compliance
+- **Egress credit zero handling**: Automatic VPS suspension when credits reach zero (handled in egress services)
+- **Wallet-based billing**: Prepaid system requires sufficient balance before billing cycle processing
+- **Site logo/favicon**: Single source of truth is `public/favicon.svg` — the `Logo` component (`src/components/Logo.tsx`) renders it as an `<img>` tag used by navbar, sidebar, and footer. `index.html` links it as the browser favicon. To update icons, replace `favicon.svg` and regenerate raster variants via [realfavicongenerator.net](https://realfavicongenerator.net/)
+- **Error handling**: Use `handleProviderError()` from `api/lib/errorHandling.ts` in VPS routes rather than raw `catch` blocks
+- **Activity logging**: Use `logActivity()` from `api/services/activityLogger.ts` for significant user-facing actions
+- **Tailwind classes**: Use `cn()` from `@/lib/utils` for conditional/composed class names
+
+## Development Gotchas
+
+- **`predev` / `preclient:dev` hooks** run `docs:api:sync` automatically — this is normal and takes a few seconds before the dev server starts
+- **Backend billing scheduler** starts on boot — log output about "0 instances billed" is expected with an empty VPS fleet
+- **No `npm test` script** — use `npx vitest run tests/security/` or `npx vitest run` directly
+- **Not Prisma**: The app uses raw `pg` queries with SQL migrations despite `@prisma/client` being in dependencies
+- **ESM imports**: All local backend imports require `.js` extensions — `import { query } from '../lib/database.js'` (not `../lib/database`)
+- **Route-level auth**: Apply `authenticateToken` at the router level, not per-handler: `router.use(authenticateToken, requireOrganization)`
+- **CSRF on API routes**: CSRF protection is applied to `/api` routes; include CSRF token from cookies in mutating requests
+- **Dark mode anti-flash**: `index.html` contains a script that applies `.dark` class before React loads to prevent flash of wrong theme
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/gvps-cloud)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/gvps-cloud)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/gvps-cloud) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
