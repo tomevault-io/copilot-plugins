@@ -1,11 +1,11 @@
 # deasung-kiosk-frontend
 
-> Config by [signaldecode](https://github.com/signaldecode/deasung-kiosk-frontend) — distributed by [TomeVault](https://tomevault.io/claim/signaldecode)
+> Source: [SIGNALDECODE/deasung-kiosk-frontend](https://github.com/SIGNALDECODE/deasung-kiosk-frontend) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [signaldecode/deasung-kiosk-frontend](https://github.com/signaldecode/deasung-kiosk-frontend).
+Original source: `CLAUDE.md` in [SIGNALDECODE/deasung-kiosk-frontend](https://github.com/SIGNALDECODE/deasung-kiosk-frontend).
 
 ## Also available for
 
@@ -15,9 +15,10 @@ Original source: `CLAUDE.md` in [signaldecode/deasung-kiosk-frontend](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/signaldecode](https://tomevault.io/claim/signaldecode)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/SIGNALDECODE/deasung-kiosk-frontend](https://github.com/SIGNALDECODE/deasung-kiosk-frontend)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/signaldecode) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-q -->
