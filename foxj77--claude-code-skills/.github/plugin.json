@@ -1,0 +1,50 @@
+{
+  "name": "foxj77--claude-code-skills",
+  "displayName": "claude",
+  "description": "Claude Code skills for Kubernetes platform engineering, GitOps, and Helm chart management",
+  "version": "1.0.0",
+  "author": "foxj77",
+  "homepage": "https://github.com/foxj77/claude-code-skills",
+  "skills": [
+    {
+      "name": "flux-gitops-patterns",
+      "description": ""
+    },
+    {
+      "name": "flux-operations",
+      "description": ""
+    },
+    {
+      "name": "flux-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-development",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-maintenance",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-review",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-testing",
+      "description": ""
+    },
+    {
+      "name": "k8s-namespace-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "k8s-platform-tenancy",
+      "description": ""
+    },
+    {
+      "name": "kyverno-troubleshooting",
+      "description": ""
+    }
+  ]
+}
