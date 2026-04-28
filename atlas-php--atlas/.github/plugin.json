@@ -1,0 +1,9 @@
+{
+  "name": "atlas-php--atlas",
+  "displayName": "atlas",
+  "description": "A Laravel package for orchestrating AI-driven features using agents, tools, and execution pipelines.",
+  "version": "1.0.0",
+  "author": "atlas-php",
+  "homepage": "https://github.com/atlas-php/atlas",
+  "skills": []
+}
