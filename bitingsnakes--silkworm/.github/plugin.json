@@ -1,0 +1,9 @@
+{
+  "name": "bitingsnakes--silkworm",
+  "displayName": "silkworm",
+  "description": "Async web scraping framework on top of Rust. Works with Free-threaded Python (`PYTHON_GIL=0`).",
+  "version": "1.0.0",
+  "author": "BitingSnakes",
+  "homepage": "https://github.com/BitingSnakes/silkworm",
+  "skills": []
+}
