@@ -1,0 +1,9 @@
+{
+  "name": "juanra--audiobook-forge",
+  "displayName": "audiobook-forge",
+  "description": "A blazing-fast CLI tool for converting audiobook directories to M4B format with chapters and metadata. Written in Rust for maximum performance and reliability.",
+  "version": "1.0.0",
+  "author": "juanra",
+  "homepage": "https://github.com/juanra/audiobook-forge",
+  "skills": []
+}
