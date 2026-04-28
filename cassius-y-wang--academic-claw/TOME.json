@@ -1,0 +1,44 @@
+{
+  "name": "academic_claw",
+  "owner": "Cassius-Y-Wang",
+  "repo": "academic_claw",
+  "description": "An OpenClaw-based AI agent system that automates the full academic research pipeline (survey \u2192 baseline \u2192 innovation \u2192 experiment \u2192 paper) with human-in-the-loop phase gates and built-in fact-checking.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cassius-Y-Wang/academic_claw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T11:44:44Z"
+}
