@@ -1,0 +1,9 @@
+{
+  "name": "yannvanhalewyn--jujutsu-nvim",
+  "displayName": "jujutsu.nvim",
+  "description": "A Neovim frontend for Jujutsu with blazing fast UX",
+  "version": "1.0.0",
+  "author": "yannvanhalewyn",
+  "homepage": "https://github.com/yannvanhalewyn/jujutsu.nvim",
+  "skills": []
+}
