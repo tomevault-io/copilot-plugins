@@ -1,0 +1,9 @@
+{
+  "name": "amtiyo--agents",
+  "displayName": "agents",
+  "description": "One .agents source of truth to sync MCP servers, skills, and instructions across Codex, Claude Code, Gemini CLI, Cursor, Copilot, and Antigravity.",
+  "version": "1.0.0",
+  "author": "amtiYo",
+  "homepage": "https://github.com/amtiYo/agents",
+  "skills": []
+}
