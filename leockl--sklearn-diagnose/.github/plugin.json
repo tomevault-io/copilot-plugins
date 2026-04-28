@@ -1,0 +1,9 @@
+{
+  "name": "leockl--sklearn-diagnose",
+  "displayName": "sklearn-diagnose",
+  "description": "\ud83d\udd0d AI-powered diagnosis for Scikit-learn models: Detect overfitting, data leakage, class imbalance & more with LLM-generated insights",
+  "version": "1.0.0",
+  "author": "leockl",
+  "homepage": "https://github.com/leockl/sklearn-diagnose",
+  "skills": []
+}
