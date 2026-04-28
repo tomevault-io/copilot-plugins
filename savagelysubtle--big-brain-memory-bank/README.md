@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [savagelysubtle/BIG-BRAIN-Memory-Bank]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/savagelysubtle#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/savagelysubtle/BIG-BRAIN-Memory-Bank](https://github.com/savagelysubtle/BIG-BRAIN-Memory-Bank)
 
 ---
 
