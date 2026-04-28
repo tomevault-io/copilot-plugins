@@ -1,0 +1,9 @@
+{
+  "name": "yi-john-huang--openclaw-secure-stack",
+  "displayName": "openclaw-secure-stack",
+  "description": "\ud83d\udd12 One-command secure OpenClaw deployment with built-in skills scanner and prompt injection protection",
+  "version": "1.0.0",
+  "author": "yi-john-huang",
+  "homepage": "https://github.com/yi-john-huang/openclaw-secure-stack",
+  "skills": []
+}
