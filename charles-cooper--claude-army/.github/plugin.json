@@ -1,0 +1,9 @@
+{
+  "name": "charles-cooper--claude-army",
+  "displayName": "claude-army",
+  "description": "Manage Claude instances from telegram",
+  "version": "1.0.0",
+  "author": "charles-cooper",
+  "homepage": "https://github.com/charles-cooper/claude-army",
+  "skills": []
+}
