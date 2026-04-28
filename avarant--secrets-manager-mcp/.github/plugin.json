@@ -1,0 +1,9 @@
+{
+  "name": "avarant--secrets-manager-mcp",
+  "displayName": "secrets-manager-mcp",
+  "description": "secrets-manager-mcp",
+  "version": "1.0.0",
+  "author": "avarant",
+  "homepage": "https://github.com/avarant/secrets-manager-mcp",
+  "skills": []
+}
