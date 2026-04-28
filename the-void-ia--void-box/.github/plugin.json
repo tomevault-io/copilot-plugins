@@ -1,0 +1,9 @@
+{
+  "name": "the-void-ia--void-box",
+  "displayName": "void-box",
+  "description": "Composable agent runtime with enforced isolation boundaries",
+  "version": "1.0.0",
+  "author": "the-void-ia",
+  "homepage": "https://github.com/the-void-ia/void-box",
+  "skills": []
+}
