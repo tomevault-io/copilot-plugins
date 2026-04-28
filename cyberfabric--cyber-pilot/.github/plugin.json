@@ -1,9 +1,9 @@
 {
   "name": "cyberfabric--cyber-pilot",
   "displayName": "cyber-pilot",
-  "description": "cyber-pilot",
+  "description": "Cyber Pilot is a traceable delivery system for requirements, design, plans, and code.",
   "version": "1.0.0",
   "author": "cyberfabric",
-  "homepage": "https://tomevault.io/claim/cyberfabric",
+  "homepage": "https://github.com/cyberfabric/cyber-pilot",
   "skills": []
 }
