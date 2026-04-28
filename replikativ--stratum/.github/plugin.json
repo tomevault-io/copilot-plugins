@@ -1,0 +1,9 @@
+{
+  "name": "replikativ--stratum",
+  "displayName": "stratum",
+  "description": "Versioned, fast and scalable columnar database. ",
+  "version": "1.0.0",
+  "author": "replikativ",
+  "homepage": "https://github.com/replikativ/stratum",
+  "skills": []
+}
