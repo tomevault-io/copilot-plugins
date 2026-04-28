@@ -4,7 +4,7 @@
   "repo": "skypanelv2",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/gvps-cloud",
+  "source_url": "https://github.com/gvps-cloud/skypanelv2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T06:50:43Z"
+  "distributed_at": "2026-04-28T06:25:50Z"
 }
