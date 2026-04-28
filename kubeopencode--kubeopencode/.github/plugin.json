@@ -1,0 +1,9 @@
+{
+  "name": "kubeopencode--kubeopencode",
+  "displayName": "kubeopencode",
+  "description": "Run OpenCode Agent on Kubernetes",
+  "version": "1.0.0",
+  "author": "kubeopencode",
+  "homepage": "https://github.com/kubeopencode/kubeopencode",
+  "skills": []
+}
