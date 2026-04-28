@@ -1,0 +1,9 @@
+{
+  "name": "yellowcooln--meshcore-mqtt-live-map",
+  "displayName": "meshcore-mqtt-live-map",
+  "description": "Live Map of Meshcore MQTT feed",
+  "version": "1.0.0",
+  "author": "yellowcooln",
+  "homepage": "https://github.com/yellowcooln/meshcore-mqtt-live-map",
+  "skills": []
+}
