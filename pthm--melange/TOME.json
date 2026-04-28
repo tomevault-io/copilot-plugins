@@ -1,0 +1,44 @@
+{
+  "name": "melange",
+  "owner": "pthm",
+  "repo": "melange",
+  "description": "OpenFGA-to-PostgreSQL authorization compiler. Generates specialized SQL functions from .fga schemas that query your existing tables. Zero sync, always consistent.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pthm/melange",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T12:49:09Z"
+}
