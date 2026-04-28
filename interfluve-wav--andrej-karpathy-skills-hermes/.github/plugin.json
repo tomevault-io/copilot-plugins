@@ -1,0 +1,9 @@
+{
+  "name": "interfluve-wav--andrej-karpathy-skills-hermes",
+  "displayName": "andrej-karpathy-skills-hermes",
+  "description": "Hermes port of Karpathy-inspired LLM coding guidelines \u2014 SKILL.md + examples.",
+  "version": "1.0.0",
+  "author": "interfluve-wav",
+  "homepage": "https://github.com/interfluve-wav/andrej-karpathy-skills-hermes",
+  "skills": []
+}
