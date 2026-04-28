@@ -1,0 +1,9 @@
+{
+  "name": "ilang-ai--mem-forever",
+  "displayName": "Mem-Forever",
+  "description": "Every AI tool forgets you after every session. This repo doesn't. Ever. Zero install, zero config. Just fork and your AI remembers everything, everywhere, forever.",
+  "version": "1.0.0",
+  "author": "ilang-ai",
+  "homepage": "https://github.com/ilang-ai/Mem-Forever",
+  "skills": []
+}
