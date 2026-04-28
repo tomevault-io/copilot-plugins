@@ -1,0 +1,9 @@
+{
+  "name": "nucleus-os--nucleus",
+  "displayName": "nucleus",
+  "description": "Next generation React Native based Wayland compositor and desktop/embedded application platform",
+  "version": "1.0.0",
+  "author": "nucleus-os",
+  "homepage": "https://github.com/nucleus-os/nucleus",
+  "skills": []
+}
