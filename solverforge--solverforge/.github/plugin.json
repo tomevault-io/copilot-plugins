@@ -1,0 +1,9 @@
+{
+  "name": "solverforge--solverforge",
+  "displayName": "solverforge",
+  "description": "SolverForge is a constraint programming framework and solver written in Rust. It allows you to solve any planning problem, blazing fast!",
+  "version": "1.0.0",
+  "author": "SolverForge",
+  "homepage": "https://github.com/SolverForge/solverforge",
+  "skills": []
+}
