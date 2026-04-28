@@ -1,0 +1,9 @@
+{
+  "name": "philipppolterauer--opencode-quotas",
+  "displayName": "opencode-quotas",
+  "description": " an OpenCode.ai plugin that aggregates usage data from Antigravity, Codex",
+  "version": "1.0.0",
+  "author": "PhilippPolterauer",
+  "homepage": "https://github.com/PhilippPolterauer/opencode-quotas",
+  "skills": []
+}
