@@ -1,0 +1,9 @@
+{
+  "name": "ariklapid--pyslang-mcp",
+  "displayName": "pyslang-mcp",
+  "description": "pyslang-mcp is a read-only Model Context Protocol server for compiler-backed Verilog and SystemVerilog analysis. It uses pyslang to parse HDL projects, report diagnostics, inspect design units and hie",
+  "version": "1.0.0",
+  "author": "ariklapid",
+  "homepage": "https://github.com/ariklapid/pyslang-mcp",
+  "skills": []
+}
