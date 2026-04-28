@@ -1,0 +1,9 @@
+{
+  "name": "pbanddev--comfyui-node-organizer",
+  "displayName": "comfyui-node-organizer",
+  "description": "Automatically align and organize nodes in your workflow",
+  "version": "1.0.0",
+  "author": "PBandDev",
+  "homepage": "https://github.com/PBandDev/comfyui-node-organizer",
+  "skills": []
+}
