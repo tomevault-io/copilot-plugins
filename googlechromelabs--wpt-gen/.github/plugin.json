@@ -1,0 +1,9 @@
+{
+  "name": "googlechromelabs--wpt-gen",
+  "displayName": "wpt-gen",
+  "description": "A CLI tool to analyze feature specs and generate the required web platform tests",
+  "version": "1.0.0",
+  "author": "GoogleChromeLabs",
+  "homepage": "https://github.com/GoogleChromeLabs/wpt-gen",
+  "skills": []
+}
