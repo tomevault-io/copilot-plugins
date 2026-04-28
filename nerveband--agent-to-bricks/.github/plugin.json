@@ -1,0 +1,9 @@
+{
+  "name": "nerveband--agent-to-bricks",
+  "displayName": "agent-to-bricks",
+  "description": "AI-powered element generation for Bricks Builder (WordPress)",
+  "version": "1.0.0",
+  "author": "nerveband",
+  "homepage": "https://github.com/nerveband/agent-to-bricks",
+  "skills": []
+}
