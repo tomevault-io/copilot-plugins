@@ -1,0 +1,9 @@
+{
+  "name": "jmandel--health-skillz",
+  "displayName": "health-skillz",
+  "description": "A Claude Skill for connecting to and analyzing personal health records via SMART on FHIR",
+  "version": "1.0.0",
+  "author": "jmandel",
+  "homepage": "https://github.com/jmandel/health-skillz",
+  "skills": []
+}
