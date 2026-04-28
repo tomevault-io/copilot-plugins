@@ -1,0 +1,9 @@
+{
+  "name": "salacoste--antigravity-bmad-config",
+  "displayName": "antigravity-bmad-config",
+  "description": "Antigravity config template: BMad Method (BMAD-METHOD) AI agents via slash commands for PRD\u2192Architecture\u2192Stories\u2192Dev\u2192QA gate.",
+  "version": "1.0.0",
+  "author": "salacoste",
+  "homepage": "https://github.com/salacoste/antigravity-bmad-config",
+  "skills": []
+}
