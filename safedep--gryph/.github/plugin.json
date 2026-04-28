@@ -1,0 +1,9 @@
+{
+  "name": "safedep--gryph",
+  "displayName": "gryph",
+  "description": "Security layer for AI coding agents. Works with Claude Code, Cursor, Windsurf, Gemini CLI, OpenCode, Pi Agent and more.",
+  "version": "1.0.0",
+  "author": "safedep",
+  "homepage": "https://github.com/safedep/gryph",
+  "skills": []
+}
