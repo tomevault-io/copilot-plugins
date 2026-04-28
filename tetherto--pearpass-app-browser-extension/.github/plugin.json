@@ -1,0 +1,9 @@
+{
+  "name": "tetherto--pearpass-app-browser-extension",
+  "displayName": "pearpass-app-browser-extension",
+  "description": "PearPass is an open-source, privacy-first password manager with peer-to-peer syncing and end-to-end encryption.",
+  "version": "1.0.0",
+  "author": "tetherto",
+  "homepage": "https://github.com/tetherto/pearpass-app-browser-extension",
+  "skills": []
+}
