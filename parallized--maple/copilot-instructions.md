@@ -1,0 +1,30 @@
+## maple
+
+> 本仓库内的 AI 代理（如 Claude、Codex）在实现需求时必须遵守：
+
+# Maple Agent Engineering Rules
+
+本仓库内的 AI 代理（如 Claude、Codex）在实现需求时必须遵守：
+
+1. 架构优先：按职责拆分模块与组件，禁止把大量业务逻辑堆在单一文件中形成“意大利面条代码”。
+2. 直接实现：用户明确提出的要求必须直接落地，禁止以提示、手动输入、模拟流程等方式做兜底替代。
+3. 图标规范：前端图标统一使用 Iconify 的 `mingcute` 图标集。
+4. 文案规范：面向用户的界面文案必须产品化、克制、可发布，禁止输出研发口吻或“莫名其妙”的占位文本。
+5. 样式规范：默认采用 Notion 风格的视觉语言（留白、弱分隔、低噪声配色）。排版上，UI 控件与界面框架使用无衬线体（Sans-serif）以保证清晰度，正文阅读区、文档内容与大标题使用简洁的衬线体（Serif），避免花哨效果。
+6. 可维护性：任何新增功能必须同时考虑类型安全、可读性、可测试性与后续扩展。
+7. 变更验证：提交前至少完成对应子项目的类型检查与构建校验。
+
+## 产品定义
+
+这是一个产品，必须保证打包出来的 .msi 用户可以得到同样的使用体验
+也就是说，除非点名了是 dev 功能，否则严禁 dev-only，必须保证用户端可以走通这个流程
+
+## NPT 与 Maple 关系声明
+
+1. `npt` 是 Maple 的外部辅助工具，仅用于项目任务流转与自动化执行，不是 Maple App 的功能依赖。
+2. Maple App 必须保持为脱离 Notion 的独立产品形态；App 内功能不得强耦合 Notion。
+3. Maple 侧能力应优先使用独立的 `maple mcp` 与 `maple skills`；Notion 相关连接仅允许存在于 NPT 辅助链路。
+
+---
+> Source: [parallized/maple](https://github.com/parallized/maple) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
