@@ -1,0 +1,9 @@
+{
+  "name": "lydakis--mcpx",
+  "displayName": "mcpx",
+  "description": "Turn MCP servers into composable CLIs.",
+  "version": "1.0.0",
+  "author": "lydakis",
+  "homepage": "https://github.com/lydakis/mcpx",
+  "skills": []
+}
