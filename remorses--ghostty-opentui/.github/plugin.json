@@ -1,0 +1,9 @@
+{
+  "name": "remorses--ghostty-opentui",
+  "displayName": "ghostty-opentui",
+  "description": "Render ANSI and terminal otuput directly in opentui",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/ghostty-opentui",
+  "skills": []
+}
