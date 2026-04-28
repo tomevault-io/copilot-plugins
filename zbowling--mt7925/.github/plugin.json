@@ -1,0 +1,9 @@
+{
+  "name": "zbowling--mt7925",
+  "displayName": "mt7925",
+  "description": "Fixes for crashes in MediaTek mt7925 ",
+  "version": "1.0.0",
+  "author": "zbowling",
+  "homepage": "https://github.com/zbowling/mt7925",
+  "skills": []
+}
