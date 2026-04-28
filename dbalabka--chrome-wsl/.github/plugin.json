@@ -1,0 +1,9 @@
+{
+  "name": "dbalabka--chrome-wsl",
+  "displayName": "chrome-wsl",
+  "description": "Simplifies Chrome DevTools MCP setup for WSL and Docker by automating Chrome remote debugging and network proxy bridging.",
+  "version": "1.0.0",
+  "author": "dbalabka",
+  "homepage": "https://github.com/dbalabka/chrome-wsl",
+  "skills": []
+}
