@@ -1,0 +1,9 @@
+{
+  "name": "helweg--opencode-codebase-index",
+  "displayName": "opencode-codebase-index",
+  "description": "Semantic codebase search for OpenCode - find code by meaning, not keywords. Powered by Rust + tree-sitter.",
+  "version": "1.0.0",
+  "author": "Helweg",
+  "homepage": "https://github.com/Helweg/opencode-codebase-index",
+  "skills": []
+}
