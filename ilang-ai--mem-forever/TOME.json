@@ -4,7 +4,7 @@
   "repo": "Mem-Forever",
   "description": "Every AI tool forgets you after every session. This repo doesn't. Ever. Zero install, zero config. Just fork and your AI remembers everything, everywhere, forever.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ilang-ai/Mem-Forever",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T15:31:44Z"
+  "distributed_at": "2026-04-28T15:37:20Z"
 }
