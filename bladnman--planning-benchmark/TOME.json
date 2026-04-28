@@ -4,7 +4,7 @@
   "repo": "planning_benchmark",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bladnman/planning_benchmark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T16:48:40Z"
+  "distributed_at": "2026-04-28T06:13:50Z"
 }
