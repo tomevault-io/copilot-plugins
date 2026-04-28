@@ -4,7 +4,7 @@
   "repo": "shopping-miniapp",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Mrjing",
+  "source_url": "https://github.com/Mrjing/shopping-miniapp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T11:02:39Z"
+  "distributed_at": "2026-04-28T12:10:47Z"
 }
