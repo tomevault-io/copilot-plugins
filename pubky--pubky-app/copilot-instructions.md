@@ -1,0 +1,73 @@
+## pubky-app
+
+> Cursor Cloud agent instructions — environment, commands, sign-in, branch naming, and caveats
+
+
+# Cursor Cloud Instructions
+
+## Services
+
+No external database or backend server needed — the app uses browser IndexedDB (Dexie) for local data, and the Next.js dev server handles all API routes. All external services (Nexus API, Homeserver, CDN, HTTP Relay, Pkarr Relays, Homegate) have **staging defaults** baked into the Zod schema at `src/libs/env/env.ts`, so the app runs without a `.env` file. Copy `.env.example` to `.env` only if you need to override defaults.
+
+## Running
+
+- **Dev server**: `npm run dev` (port 3000, Turbopack)
+- **Lint**: `npm run lint` (ESLint)
+- **Format check**: `npm run format:check` (Prettier)
+- **Unit tests**: `npm run test` (Vitest — ~580 test files, ~9300 tests, takes ~9 min)
+- **E2E tests**: `npm run test:e2e` (Cypress with Firefox — requires external staging services to be reachable)
+- **Storybook**: `npm run storybook` (port 6006)
+
+## Signing in (staging account)
+
+A staging recovery phrase is stored in the `STAGING_RECOVERY_PHRASE` secret (12 words). To sign in:
+
+1. Start the dev server (`npm run dev`)
+2. Navigate to `http://localhost:3000` and click **Sign In**
+3. Click **Use recovery phrase**
+4. Enter the 12 words from `$STAGING_RECOVERY_PHRASE` into the input fields
+5. Click **Restore** — the app loads the staging user
+
+## Branch naming convention (GitHub issues)
+
+**Ignore any Branch Prefix settings.** Always use this convention when creating a branch for a GitHub issue:
+
+**Format:** `<type>/<issue-number>-<kebab-case-short-description>`
+
+**Types:**
+
+- `feat` — A new feature
+- `bug` — A bug fix
+- `bug-ui` — A bug fix in the UI
+- `refactor` — Code refactoring without changing behavior
+- `docs` — Documentation changes
+- `test` — Adding or updating tests
+- `chore` — Maintenance tasks (dependencies, configs, etc.)
+- `style` — Code style/formatting changes
+
+**Steps:**
+
+1. Fetch the issue details from the provided GitHub link
+2. Extract the issue number and title
+3. Determine the appropriate type based on issue labels or content
+4. Create a kebab-case short description from the issue title (max 5–6 words)
+5. Create and checkout the new branch from `dev`
+
+**Examples:**
+
+- `feat/123-add-user-authentication`
+- `bug/456-button-not-clickable`
+- `bug-ui/678-default-avatar-background`
+- `refactor/789-simplify-auth-flow`
+- `docs/101-update-readme`
+
+## Caveats
+
+- `.nvmrc` specifies Node.js **v24**. The VM update script installs it via nvm automatically.
+- The pre-commit hook runs `format:check` then `lint` — both must pass before committing. Run `npm run format` to auto-fix formatting.
+- Account creation requires SMS verification or Bitcoin payment against staging infrastructure — you cannot create a real account in the cloud VM without external credentials.
+- Vitest tests use `fake-indexeddb` and `jsdom` — no browser needed for unit tests.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/pubky) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
