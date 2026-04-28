@@ -1,0 +1,9 @@
+{
+  "name": "superdoc-dev--docx-corpus",
+  "displayName": "docx-corpus",
+  "description": "The largest open corpus of classified docx documents",
+  "version": "1.0.0",
+  "author": "superdoc-dev",
+  "homepage": "https://github.com/superdoc-dev/docx-corpus",
+  "skills": []
+}
