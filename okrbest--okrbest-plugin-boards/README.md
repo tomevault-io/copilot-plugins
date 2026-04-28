@@ -1,6 +1,6 @@
 # okrbest-plugin-boards
 
-> Config by [okrbest](https://github.com/okrbest/okrbest-plugin-boards) — distributed by [TomeVault](https://tomevault.io/claim/okrbest)
+> Source: [okrbest/okrbest-plugin-boards](https://github.com/okrbest/okrbest-plugin-boards) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [okrbest/okrbest-plugin-boards](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/okrbest](https://tomevault.io/claim/okrbest)
+From [okrbest/okrbest-plugin-boards](https://github.com/okrbest/okrbest-plugin-boards) — a repo with 0+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/okrbest) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install okrbest/okrbest-plugin-boards
+```
+Source: [github.com/okrbest/okrbest-plugin-boards](https://github.com/okrbest/okrbest-plugin-boards).
+
+<!-- genome:d-i-s -->
