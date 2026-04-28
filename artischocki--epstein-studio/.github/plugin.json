@@ -1,0 +1,9 @@
+{
+  "name": "artischocki--epstein-studio",
+  "displayName": "epstein-studio",
+  "description": "Annotate and guess redacted entities in the Epstein files.",
+  "version": "1.0.0",
+  "author": "artischocki",
+  "homepage": "https://github.com/artischocki/epstein-studio",
+  "skills": []
+}
