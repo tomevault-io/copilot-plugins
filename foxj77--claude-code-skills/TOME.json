@@ -1,0 +1,105 @@
+{
+  "name": "claude",
+  "owner": "foxj77",
+  "repo": "claude-code-skills",
+  "description": "Claude Code skills for Kubernetes platform engineering, GitOps, and Helm chart management",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flux-gitops-patterns",
+      "path": "flux-gitops-patterns",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/flux-gitops-patterns",
+      "description": ""
+    },
+    {
+      "name": "flux-operations",
+      "path": "flux-operations",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/flux-operations",
+      "description": ""
+    },
+    {
+      "name": "flux-troubleshooting",
+      "path": "flux-troubleshooting",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/flux-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-development",
+      "path": "helm-chart-development",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/helm-chart-development",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-maintenance",
+      "path": "helm-chart-maintenance",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/helm-chart-maintenance",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-review",
+      "path": "helm-chart-review",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/helm-chart-review",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-testing",
+      "path": "helm-chart-testing",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/helm-chart-testing",
+      "description": ""
+    },
+    {
+      "name": "k8s-namespace-troubleshooting",
+      "path": "k8s-namespace-troubleshooting",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/k8s-namespace-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "k8s-platform-tenancy",
+      "path": "k8s-platform-tenancy",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/k8s-platform-tenancy",
+      "description": ""
+    },
+    {
+      "name": "kyverno-troubleshooting",
+      "path": "kyverno-troubleshooting",
+      "github_url": "https://github.com/foxj77/claude-code-skills/tree/main/kyverno-troubleshooting",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/foxj77/claude-code-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T23:30:08Z"
+}
