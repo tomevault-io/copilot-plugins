@@ -1,0 +1,44 @@
+{
+  "name": "maple",
+  "owner": "parallized",
+  "repo": "maple",
+  "description": "\ud83d\udcad \u89e3\u653e\u5927\u8111\uff01\u4e3a AI \u7f16\u7801\u72ec\u7279\u8bbe\u8ba1\u7684 SDD \u770b\u677f\u5de5\u4f5c\u53f0\uff0c\u66f4\u597d\u7684\u89c6\u89c9\u6784\u601d\u4f53\u9a8c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/parallized/maple",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T05:38:14Z"
+}
