@@ -1,0 +1,9 @@
+{
+  "name": "accessd--tmux-agent-indicator",
+  "displayName": "tmux-agent-indicator",
+  "description": "Tmux plugin that gives visual feedback for AI agent states (running/needs-input/done). Supports   Claude Code, Codex, and custom agents. Pane borders, window title colors, status bar icons.",
+  "version": "1.0.0",
+  "author": "accessd",
+  "homepage": "https://github.com/accessd/tmux-agent-indicator",
+  "skills": []
+}
