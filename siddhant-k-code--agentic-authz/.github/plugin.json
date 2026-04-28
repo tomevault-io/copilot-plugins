@@ -1,0 +1,9 @@
+{
+  "name": "siddhant-k-code--agentic-authz",
+  "displayName": "agentic-authz",
+  "description": "Fine-grained authorization for AI agents using OpenFGA.",
+  "version": "1.0.0",
+  "author": "Siddhant-K-code",
+  "homepage": "https://github.com/Siddhant-K-code/agentic-authz",
+  "skills": []
+}
