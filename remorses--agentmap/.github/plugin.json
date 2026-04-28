@@ -1,0 +1,9 @@
+{
+  "name": "remorses--agentmap",
+  "displayName": "agentmap",
+  "description": "A tree of your codebase at the start of every agent session. Like SKILL spec but for source code files. A frontmatter for source code file",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/agentmap",
+  "skills": []
+}
