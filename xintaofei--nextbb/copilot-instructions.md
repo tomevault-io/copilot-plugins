@@ -149,6 +149,5 @@ src/
 - 使用 `lucide-react` 作为图标库
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/xintaofei)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/xintaofei)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [xintaofei/nextbb](https://github.com/xintaofei/nextbb) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
