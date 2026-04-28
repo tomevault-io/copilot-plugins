@@ -1,0 +1,9 @@
+{
+  "name": "rezaulhreza--jarvis",
+  "displayName": "jarvis",
+  "description": "Local-first personal AI assistant powered by Ollama",
+  "version": "1.0.0",
+  "author": "rezaulhreza",
+  "homepage": "https://github.com/rezaulhreza/jarvis",
+  "skills": []
+}
