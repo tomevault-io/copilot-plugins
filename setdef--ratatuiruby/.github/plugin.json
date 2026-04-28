@@ -1,0 +1,9 @@
+{
+  "name": "setdef--ratatuiruby",
+  "displayName": "RatatuiRuby",
+  "description": "\ud83d\udc8e Unofficial Ruby wrapper for Ratatui \ud83d\udc68\u200d\ud83c\udf73\ud83d\udc00.",
+  "version": "1.0.0",
+  "author": "setdef",
+  "homepage": "https://github.com/setdef/RatatuiRuby",
+  "skills": []
+}
