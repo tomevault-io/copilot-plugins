@@ -1,0 +1,9 @@
+{
+  "name": "dangehub--obsidian-translay-translator",
+  "displayName": "obsidian-translay-translator",
+  "description": "\u8c03\u7528\u4f60\u559c\u6b22\u7684AI\uff08LLM\uff09\u7ffb\u8bd1Obsidian\u4e2d\u7684\u4efb\u4f55\u6587\u672c\uff0c\u652f\u6301\u8bcd\u5178\u5bfc\u5165\u5bfc\u51fa",
+  "version": "1.0.0",
+  "author": "dangehub",
+  "homepage": "https://github.com/dangehub/obsidian-translay-translator",
+  "skills": []
+}
