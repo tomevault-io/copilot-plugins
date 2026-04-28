@@ -1,0 +1,44 @@
+{
+  "name": "kimi-cli-for-xbow",
+  "owner": "m-sec-org",
+  "repo": "kimi-cli-for-xbow",
+  "description": "\u57fa\u4e8ekimi-cli\u4e8c\u6b21\u5f00\u53d1\u7684\u9488\u5bf9CTF\u7ade\u8d5b\u7684\u4e13\u7528Agent",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/m-sec-org/kimi-cli-for-xbow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T23:59:29Z"
+}
