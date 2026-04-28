@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankensearch",
+  "displayName": "frankensearch",
+  "description": "Two-tier hybrid search for Rust: sub-millisecond initial results via potion-128M, quality-refined rankings in 150ms via MiniLM-L6-v2. Combines lexical (Tantivy BM25) and semantic (vector cosine) searc",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankensearch",
+  "skills": []
+}
