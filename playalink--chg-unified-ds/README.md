@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [PlayaLink/chg-unified-ds](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/PlayaLink)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/PlayaLink/chg-unified-ds](https://github.com/PlayaLink/chg-unified-ds)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install PlayaLink/chg-unified-ds
 ```
-Or browse all formats at [https://tomevault.io/claim/PlayaLink](https://tomevault.io/claim/PlayaLink).
+Source: [github.com/PlayaLink/chg-unified-ds](https://github.com/PlayaLink/chg-unified-ds).
 
 <!-- genome:a-i-p -->
