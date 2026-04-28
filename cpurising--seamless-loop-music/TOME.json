@@ -1,0 +1,44 @@
+{
+  "name": "seamless-loop-music",
+  "owner": "CPUrising",
+  "repo": "seamless-loop-music",
+  "description": "A seamless loop music player for game BGM. \u4e13\u4e3a\u6e38\u620f\u97f3\u4e50\u8bbe\u8ba1\u7684\u65e0\u7f1d\u5faa\u73af\u64ad\u653e\u5668\u3002",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CPUrising/seamless-loop-music",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T23:33:46Z"
+}
