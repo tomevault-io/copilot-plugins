@@ -1,0 +1,18 @@
+## claudephpsetup
+
+> Documentation and release notes rules
+
+
+Prefer:
+- documentation updates aligned with real code changes and current compatibility ranges
+- concise, actionable release notes
+- updating CHANGELOG and UPGRADING together for notable user-facing changes
+- preserving existing document structure and tone
+- keeping examples consistent with actual defaults and commands in this package
+
+Do not invent features, versions, or commands that are not present in the repository.
+Do not remove past release history unless explicitly requested.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/nowo-tech) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
