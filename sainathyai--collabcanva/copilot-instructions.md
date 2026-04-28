@@ -1,71 +1,122 @@
 ## collabcanva
 
-> Guide for creating detailed task lists from Product Requirements Documents (PRDs)
+> This tool performs debugging steps for applications
 
 
-# Rule: Generating a Task List from a PRD
+# Debug Commands
 
-// Description: Guide for creating detailed task lists from Product Requirements Documents (PRDs)
-// Recommended Globs: **/tasks/**/*.md, **/tasks-*.md
+// Description: This tool performs debugging steps for applications
+// Recommended Globs: **/*.{js,ts,jsx,tsx,py,html,css,json}
 
-## Goal
+## Overview
+Debug commands provide a streamlined approach to troubleshooting applications by gathering console logs, network errors, and taking screenshots to help identify and fix issues.
 
-To guide an AI assistant in creating a detailed, step-by-step task list in Markdown format based on an existing Product Requirements Document (PRD). The task list should guide a developer through implementation.
+## Core Commands
 
-## Output
+### `/debug` Command
+When you type `/debug` in the chat, the AI will automatically:
+1. Gather all console logs from the browser
+2. Collect any console errors
+3. Take a screenshot of the current application state
 
-- **Format:** Markdown (`.md`)
-- **Location:** `/tasks/`
-- **Filename:** `tasks-[prd-file-name].md` (e.g., `tasks-prd-user-profile-editing.md`)
+## Implementation
 
-## Process
-
-1.  **Receive PRD Reference:** The user points the AI to a specific PRD file
-2.  **Analyze PRD:** The AI reads and analyzes the functional requirements, user stories, and other sections of the specified PRD.
-3.  **Phase 1: Generate Parent Tasks:** Based on the PRD analysis, create the file and generate the main, high-level tasks required to implement the feature. Use your judgement on how many high-level tasks to use. It's likely to be about 5. Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level tasks based on the PRD. Ready to generate the sub-tasks? Respond with 'Go' to proceed."
-4.  **Wait for Confirmation:** Pause and wait for the user to respond with "Go".
-5.  **Phase 2: Generate Sub-Tasks:** Once the user confirms, break down each parent task into smaller, actionable sub-tasks necessary to complete the parent task. Ensure sub-tasks logically follow from the parent task and cover the implementation details implied by the PRD.
-6.  **Identify Relevant Files:** Based on the tasks and PRD, identify potential files that will need to be created or modified. List these under the `Relevant Files` section, including corresponding test files if applicable.
-7.  **Generate Final Output:** Combine the parent tasks, sub-tasks, relevant files, and notes into the final Markdown structure.
-8.  **Save Task List:** Save the generated document in the `/tasks/` directory with the filename `tasks-[prd-file-name].md`, where `[prd-file-name]` matches the base name of the input PRD file (e.g., if the input was `prd-user-profile-editing.md`, the output is `tasks-prd-user-profile-editing.md`).
-
-## Output Format
-
-The generated task list _must_ follow this structure:
-
-```markdown
-## Relevant Files
-
-- `path/to/potential/file1.ts` - Brief description of why this file is relevant (e.g., Contains the main component for this feature).
-- `path/to/file1.test.ts` - Unit tests for `file1.ts`.
-- `path/to/another/file.tsx` - Brief description (e.g., API route handler for data submission).
-- `path/to/another/file.test.tsx` - Unit tests for `another/file.tsx`.
-- `lib/utils/helpers.ts` - Brief description (e.g., Utility functions needed for calculations).
-- `lib/utils/helpers.test.ts` - Unit tests for `helpers.ts`.
-
-### Notes
-
-- Unit tests should typically be placed alongside the code files they are testing (e.g., `MyComponent.tsx` and `MyComponent.test.tsx` in the same directory).
-- Use `npx jest [optional/path/to/test/file]` to run tests. Running without a path executes all tests found by the Jest configuration.
-
-## Tasks
-
-- [ ] 1.0 Parent Task Title
-  - [ ] 1.1 [Sub-task description 1.1]
-  - [ ] 1.2 [Sub-task description 1.2]
-- [ ] 2.0 Parent Task Title
-  - [ ] 2.1 [Sub-task description 2.1]
-- [ ] 3.0 Parent Task Title (may not require sub-tasks if purely structural or configuration)
+```javascript
+// Example implementation of debug command handler
+async function handleDebugCommand() {
+  // Gather console logs
+  const consoleLogs = await mcp__getConsoleLogs();
+  
+  // Collect console errors
+  const consoleErrors = await mcp__getConsoleErrors();
+  
+  // Take screenshot
+  const screenshot = await mcp__takeScreenshot();
+  
+  // Analyze and present results
+  return {
+    consoleLogs,
+    consoleErrors,
+    screenshot
+  };
+}
 ```
 
-## Interaction Model
+## Usage Examples
 
-The process explicitly requires a pause after generating parent tasks to get user confirmation ("Go") before proceeding to generate the detailed sub-tasks. This ensures the high-level plan aligns with user expectations before diving into details.
+### Example 1: Debugging a React Application
+```
+User: My React app is showing a blank screen
+AI: Let me help you debug this issue. Type /debug to gather diagnostic information.
+User: /debug
+AI: [Executes debug command and analyzes results]
+    I've found the following issues:
+    1. Console error: "TypeError: Cannot read property 'map' of undefined"
+    The screenshot shows a blank page with React's error boundary not properly configured.
+```
 
-## Target Audience
+### Example 2: Troubleshooting API Integration
+```
+User: My API calls are failing and I'm not sure why
+AI: Let's investigate. Type /debug while the application is making the API call.
+User: /debug
+AI: [Executes debug command and analyzes results]
+    I've found the following issues:
+    1. Console log shows the authorization header is missing
+    Based on the screenshot, you need to add proper authentication to your API calls.
+```
 
-Assume the primary reader of the task list is a **junior developer** who will implement the feature.
+## Best Practices
+
+### When to Use Debug Commands
+- When an application shows unexpected behavior
+- When there are no visible error messages
+- When troubleshooting network or API issues
+- When investigating performance problems
+- When helping users who can't easily access developer tools
+
+### Interpreting Debug Results
+- Look for patterns in console errors
+- Check for failed network requests
+- Examine the visual state in screenshots
+- Correlate timestamps between different logs
+- Identify missing resources or dependencies
+
+### Security Considerations
+- Ensure sensitive information is not captured in logs or screenshots
+- Be cautious with debugging production environments
+- Consider implementing log sanitization for sensitive data
+- Use secure channels when sharing debug information
+
+## Supported Environments
+- Web browsers (Chrome, Firefox, Safari, Edge)
+- React, Angular, Vue applications
+- Node.js backend services
+- Python applications with proper logging
+- Mobile web applications
+
+## Additional Commands
+
+### `/debug:console`
+Focus specifically on console output:
+```
+User: /debug:console
+AI: [Gathers console logs and errors]
+```
+
+### `/debug:visual`
+Focus specifically on visual issues:
+```
+User: /debug:visual
+AI: [Takes screenshot and analyzes visual elements]
+```
+
+## Resources
+- [Browser DevTools Documentation](https://developer.chrome.com/docs/devtools/)
+- [React Error Boundaries](https://reactjs.org/docs/error-boundaries.html)
+- [JavaScript Debugging Techniques](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Debugging)
+- [Python Debugging Tools](https://docs.python.org/3/library/debug.html)
 
 ---
 > Converted and distributed by [TomeVault](https://tomevault.io/claim/sainathyai) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
