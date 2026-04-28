@@ -1,0 +1,100 @@
+## ash
+
+> Personal assistant agent with sandboxed tool execution.
+
+# Ash
+
+Personal assistant agent with sandboxed tool execution.
+
+## Package Manager
+
+Use **uv**: `uv sync --all-groups`
+
+## After Changes
+
+```bash
+uv run ruff check --fix .  # Lint
+uv run ruff format .       # Format
+uv run ty check            # Type check
+uv run pytest tests/       # Tests (unit only — never run evals here)
+```
+
+## Commit Attribution
+
+AI commits MUST include:
+```
+Co-Authored-By: (the agent model's name and attribution byline)
+```
+
+## Task Management
+
+Use `/dex` to track tasks across sessions.
+Use `/dex-plan` to create tasks from planning docs (specs, roadmaps).
+
+## Conventions
+
+- Async everywhere
+- Type hints required
+- Pydantic at boundaries
+- Tests in `tests/`
+
+## Architecture Contract
+
+- Follow `specs/subsystems.md` integration-hooks rules for harness composition.
+- Do not add direct feature wiring branches in runtime entrypoints when an integration hook exists.
+- Keep prompt augmentation structured; prompt text rendering must stay centralized.
+- Add/update architecture guard tests when touching harness boundaries.
+- Subsystem behavior must be integration-owned: tool registration, prompt/context additions, sandbox env wiring, startup/shutdown lifecycle, and RPC exposure belong in integration hooks (not core agent wiring). See `specs/subsystems.md` (Integration Hooks), `specs/integrations.md`, and subsystem specs (e.g., `specs/browser.md`).
+- When adding/changing subsystem behavior, update the relevant spec first (or in the same change) and leave a spec-reference comment in boundary files.
+
+## Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `/write-spec` | New feature specs |
+| `/verify-spec` | Check implementation against spec |
+| `/create-migration` | Database schema changes |
+| `/write-docs` | Documentation pages |
+| `/create-skill` | Create Ash skills in workspace |
+| `/eval` | Run or write behavior evals |
+
+## Specs
+
+| Spec | When to read |
+|------|--------------|
+| `specs/logging.md` | Adding/modifying logging |
+| `specs/sessions.md` | Session handling changes |
+| `specs/memory/index.md` | Memory system changes |
+| `specs/people.md` | People/identity system changes |
+| `specs/skills.md` | Creating or modifying skills |
+| `specs/interactive-agents.md` | Agent/subagent stack communication |
+| `specs/subsystems.md` | Public API patterns |
+| `specs/images.md` | Inbound image understanding integration |
+
+## Terminology
+
+| Term | Location |
+|------|----------|
+| **Ash session** | `~/.ash/sessions/<provider>_<id>/` |
+| **Claude Code chat log** | `~/.claude/projects/<path>/<uuid>.jsonl` |
+
+**Ash session files:** `state.json`, `context.jsonl`, `history.jsonl`
+
+## Evals
+
+Evals are **end-to-end behavioral tests** using real LLM calls — they're slow and expensive. **Do not run evals unless explicitly asked.** They are never part of the normal "after changes" workflow. Use `/eval` to run or write them.
+
+- Cases: `evals/cases/*.yaml` — Tests: `evals/test_*.py` (`@pytest.mark.eval`)
+- Run all evals: `uv run evals run` (requires `ANTHROPIC_API_KEY` + `OPENAI_API_KEY`)
+- Run a single case: `uv run evals run <suite>::<case>`
+- Run negative-tag evals only: `uv run evals run --tag negative`
+
+## Plan Mode
+
+- Call ExitPlanMode exactly once per planning cycle
+- Wait for user response before taking further action
+- If plan is rejected, understand feedback before re-planning
+
+---
+> Source: [dcramer/ash](https://github.com/dcramer/ash) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
