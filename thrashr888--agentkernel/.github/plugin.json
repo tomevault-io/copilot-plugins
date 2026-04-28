@@ -1,0 +1,14 @@
+{
+  "name": "thrashr888--agentkernel",
+  "displayName": "agentkernel",
+  "description": "Run AI coding agents in secure, isolated microVMs. Sub-125ms boot times, real hardware isolation.",
+  "version": "1.0.0",
+  "author": "thrashr888",
+  "homepage": "https://github.com/thrashr888/agentkernel",
+  "skills": [
+    {
+      "name": "agentkernel",
+      "description": ""
+    }
+  ]
+}
