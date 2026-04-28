@@ -4,7 +4,7 @@
   "repo": "Shipwright",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/cesarfrancots",
+  "source_url": "https://github.com/cesarfrancots/Shipwright",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T17:30:54Z"
+  "distributed_at": "2026-04-28T20:10:03Z"
 }
