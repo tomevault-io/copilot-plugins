@@ -1,0 +1,77 @@
+## agentmap
+
+> This is a bun workspace monorepo containing two packages:
+
+# Agent Instructions
+
+This is a bun workspace monorepo containing two packages:
+
+- `cli/` - The main `agentmap` CLI and library (published as `agentmap` on npm)
+- `opencode/` - OpenCode plugin (published as `@agentmap/opencode` on npm)
+
+## Setup
+
+This repo uses **bun** for package management and workspaces. Always use bun commands:
+
+```bash
+bun install        # Install dependencies
+bun run build      # Build all packages
+bun --filter cli build   # Build specific package
+```
+
+## Publishing
+
+**Important**: Use `bun publish` instead of `npm publish`.
+
+Bun automatically replaces `workspace:^` protocol with the actual version number when publishing. npm does not support this and will fail.
+
+```bash
+cd cli && bun publish      # Publish agentmap
+cd opencode && bun publish # Publish @agentmap/opencode
+```
+
+## Workspace Structure
+
+```
+.
+├── package.json       # Root workspace config (workspaces: ["./*"])
+├── README             # Main documentation
+├── AGENTS.md          # This file
+├── cli/               # agentmap CLI package
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── src/
+└── opencode/          # @agentmap/opencode plugin
+    ├── package.json
+    ├── tsconfig.json
+    └── src/
+```
+
+## Dependencies
+
+The `@agentmap/opencode` package depends on `agentmap` using the workspace protocol:
+
+```json
+{
+  "dependencies": {
+    "agentmap": "workspace:^"
+  }
+}
+```
+
+This gets replaced with the actual version (e.g., `^0.2.0`) when publishing with bun.
+
+## Logging
+
+Never use `console.log`, `console.error`, `console.warn`, `console.info`, or `console.debug` in runtime code.
+
+Use the shared logger abstraction and pass it with dependency injection instead. This prevents console output from breaking the OpenCode terminal UI.
+
+In the OpenCode plugin, override the logger behavior to:
+
+- show OpenCode toast notifications only for `error`
+- suppress normal logs/info output in the TUI
+
+---
+> Source: [remorses/agentmap](https://github.com/remorses/agentmap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
