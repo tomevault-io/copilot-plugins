@@ -2,9 +2,9 @@
   "name": "cyber-pilot",
   "owner": "cyberfabric",
   "repo": "cyber-pilot",
-  "description": "",
+  "description": "Cyber Pilot is a traceable delivery system for requirements, design, plans, and code.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/cyberfabric",
+  "source_url": "https://github.com/cyberfabric/cyber-pilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T11:45:41Z"
+  "distributed_at": "2026-04-28T11:59:27Z"
 }
