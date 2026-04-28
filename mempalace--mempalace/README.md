@@ -7,11 +7,11 @@ The best-benchmarked open-source AI memory system. And it's free.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MemPalace/mempalace](https://github.com/MemPalace/mempalace).
+Original source: `CLAUDE.md` in [MemPalace/mempalace](https://github.com/MemPalace/mempalace).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
