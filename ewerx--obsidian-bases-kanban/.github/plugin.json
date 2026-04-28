@@ -1,0 +1,9 @@
+{
+  "name": "ewerx--obsidian-bases-kanban",
+  "displayName": "obsidian-bases-kanban",
+  "description": "Kanban view for Obsidian Bases. Display notes as draggable cards organized in columns by any property.",
+  "version": "1.0.0",
+  "author": "ewerx",
+  "homepage": "https://github.com/ewerx/obsidian-bases-kanban",
+  "skills": []
+}
