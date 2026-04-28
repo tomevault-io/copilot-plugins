@@ -1,0 +1,9 @@
+{
+  "name": "swiftedmind--monocle",
+  "displayName": "monocle",
+  "description": "Swift symbol lookup CLI powered by SourceKit-LSP, tuned for coding agents",
+  "version": "1.0.0",
+  "author": "SwiftedMind",
+  "homepage": "https://github.com/SwiftedMind/monocle",
+  "skills": []
+}
