@@ -1,0 +1,9 @@
+{
+  "name": "justinwojo--swift-dotnet-bindings",
+  "displayName": "swift-dotnet-bindings",
+  "description": "A project for creating direct Swift bindings to .Net C#, as well as Objective-C bindings.",
+  "version": "1.0.0",
+  "author": "justinwojo",
+  "homepage": "https://github.com/justinwojo/swift-dotnet-bindings",
+  "skills": []
+}
