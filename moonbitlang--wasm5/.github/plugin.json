@@ -1,0 +1,9 @@
+{
+  "name": "moonbitlang--wasm5",
+  "displayName": "wasm5",
+  "description": "A Wasm VM written in MoonBit",
+  "version": "1.0.0",
+  "author": "moonbitlang",
+  "homepage": "https://github.com/moonbitlang/wasm5",
+  "skills": []
+}
