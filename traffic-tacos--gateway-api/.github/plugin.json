@@ -1,0 +1,9 @@
+{
+  "name": "traffic-tacos--gateway-api",
+  "displayName": "gateway-api",
+  "description": "gateway-api",
+  "version": "1.0.0",
+  "author": "traffic-tacos",
+  "homepage": "https://github.com/traffic-tacos/gateway-api",
+  "skills": []
+}
