@@ -1,0 +1,9 @@
+{
+  "name": "eryx-org--eryx",
+  "displayName": "eryx",
+  "description": "A Python sandbox using Wasmtime",
+  "version": "1.0.0",
+  "author": "eryx-org",
+  "homepage": "https://github.com/eryx-org/eryx",
+  "skills": []
+}
