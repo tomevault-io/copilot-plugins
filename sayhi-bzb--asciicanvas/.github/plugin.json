@@ -1,0 +1,9 @@
+{
+  "name": "sayhi-bzb--asciicanvas",
+  "displayName": "AsciiCanvas",
+  "description": "The native visual interface for LLMs. Infinite canvas, multi-byte support, copy-pasteable architecture. Build diagrams AI can actually read.",
+  "version": "1.0.0",
+  "author": "Sayhi-bzb",
+  "homepage": "https://github.com/Sayhi-bzb/AsciiCanvas",
+  "skills": []
+}
