@@ -1,0 +1,9 @@
+{
+  "name": "paradedb--django-paradedb",
+  "displayName": "django-paradedb",
+  "description": "Official extension to Django for use with ParadeDB",
+  "version": "1.0.0",
+  "author": "paradedb",
+  "homepage": "https://github.com/paradedb/django-paradedb",
+  "skills": []
+}
