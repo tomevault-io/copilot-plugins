@@ -1,0 +1,9 @@
+{
+  "name": "metafab--otel-gui",
+  "displayName": "otel-gui",
+  "description": "A lightweight, local OpenTelemetry trace viewer",
+  "version": "1.0.0",
+  "author": "metafab",
+  "homepage": "https://github.com/metafab/otel-gui",
+  "skills": []
+}
