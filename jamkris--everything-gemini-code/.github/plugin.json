@@ -1,0 +1,14 @@
+{
+  "name": "jamkris--everything-gemini-code",
+  "displayName": "everything-gemini-code",
+  "description": "Battle-tested agents, skills, and hooks for Gemini CLI and Antigravity",
+  "version": "1.0.0",
+  "author": "Jamkris",
+  "homepage": "https://github.com/Jamkris/everything-gemini-code",
+  "skills": [
+    {
+      "name": "django-security",
+      "description": ""
+    }
+  ]
+}
