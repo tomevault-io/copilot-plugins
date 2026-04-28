@@ -7,15 +7,15 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman).
+Original source: `CLAUDE.md` in [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) — a repo with 38711+ stars on GitHub.
 
