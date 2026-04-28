@@ -4,7 +4,7 @@
   "repo": "template",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/inixiative",
+  "source_url": "https://github.com/inixiative/template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T00:40:03Z"
+  "distributed_at": "2026-04-28T19:51:54Z"
 }
