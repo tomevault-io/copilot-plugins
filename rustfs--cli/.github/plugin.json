@@ -1,0 +1,9 @@
+{
+  "name": "rustfs--cli",
+  "displayName": "cli",
+  "description": "A S3-compatible command-line client written in Rust.",
+  "version": "1.0.0",
+  "author": "rustfs",
+  "homepage": "https://github.com/rustfs/cli",
+  "skills": []
+}
