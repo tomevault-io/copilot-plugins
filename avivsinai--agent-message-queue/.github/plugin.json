@@ -1,0 +1,9 @@
+{
+  "name": "avivsinai--agent-message-queue",
+  "displayName": "agent-message-queue",
+  "description": "File-based message queue for local agent-to-agent communication (Maildir-style)",
+  "version": "1.0.0",
+  "author": "avivsinai",
+  "homepage": "https://github.com/avivsinai/agent-message-queue",
+  "skills": []
+}
