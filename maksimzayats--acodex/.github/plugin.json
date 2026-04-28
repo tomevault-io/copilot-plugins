@@ -1,0 +1,9 @@
+{
+  "name": "maksimzayats--acodex",
+  "displayName": "acodex",
+  "description": "Typed Python SDK for the Codex CLI (sync/async, streaming JSONL events, structured items)",
+  "version": "1.0.0",
+  "author": "maksimzayats",
+  "homepage": "https://github.com/maksimzayats/acodex",
+  "skills": []
+}
