@@ -1,0 +1,9 @@
+{
+  "name": "24601--opencode-zellij-namer",
+  "displayName": "opencode-zellij-namer",
+  "description": "AI-powered dynamic Zellij session naming plugin for OpenCode",
+  "version": "1.0.0",
+  "author": "24601",
+  "homepage": "https://github.com/24601/opencode-zellij-namer",
+  "skills": []
+}
