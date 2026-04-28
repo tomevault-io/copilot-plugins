@@ -1,6 +1,6 @@
-# CollabCanva — distributed by TomeVault
+# CollabCanva
 
-> Originally from [sainathyai/CollabCanva](https://github.com/sainathyai/CollabCanva). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [sainathyai/CollabCanva](https://github.com/sainathyai/CollabCanva) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [sainathyai/CollabCanva](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/sainathyai)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/sainathyai/CollabCanva](https://github.com/sainathyai/CollabCanva)
 
 ---
 
