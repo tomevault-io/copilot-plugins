@@ -1,0 +1,9 @@
+{
+  "name": "zendevve--ccvg",
+  "displayName": "CCVG",
+  "description": "Take control of your CapCut installation. Lock your preferred version and block unwanted auto-updates. Built with Rust.",
+  "version": "1.0.0",
+  "author": "Zendevve",
+  "homepage": "https://github.com/Zendevve/CCVG",
+  "skills": []
+}
