@@ -1,0 +1,9 @@
+{
+  "name": "abundant-ai--swe-gen",
+  "displayName": "SWE-gen",
+  "description": "Convert GitHub PRs into Harbor tasks",
+  "version": "1.0.0",
+  "author": "abundant-ai",
+  "homepage": "https://github.com/abundant-ai/SWE-gen",
+  "skills": []
+}
