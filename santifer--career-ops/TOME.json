@@ -4,7 +4,7 @@
   "repo": "career-ops",
   "description": "AI-powered job search system built on Claude Code. 14 skill modes, Go dashboard, PDF generation, batch processing.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/santifer/career-ops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T20:35:58Z"
+  "distributed_at": "2026-04-28T23:59:52Z"
 }
