@@ -1,0 +1,9 @@
+{
+  "name": "melihmucuk--leash",
+  "displayName": "leash",
+  "description": "Security guardrails for AI coding agents. Prevents accidental file operations outside working directory.",
+  "version": "1.0.0",
+  "author": "melihmucuk",
+  "homepage": "https://github.com/melihmucuk/leash",
+  "skills": []
+}
