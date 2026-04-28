@@ -1,6 +1,6 @@
 # untitled-ui-starter-kit
 
-> Tome by [PlayaLink](https://github.com/PlayaLink/untitled-ui-starter-kit) — distributed by [TomeVault](https://tomevault.io/claim/PlayaLink)
+> Tome by [PlayaLink](https://github.com/PlayaLink/untitled-ui-starter-kit) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [PlayaLink/untitled-ui-starter-kit](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/PlayaLink)
+From [PlayaLink/untitled-ui-starter-kit](https://github.com/PlayaLink/untitled-ui-starter-kit) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install PlayaLink/untitled-ui-starter-kit
 ```
-Or browse all formats at [https://tomevault.io/claim/PlayaLink](https://tomevault.io/claim/PlayaLink).
+Source: [github.com/PlayaLink/untitled-ui-starter-kit](https://github.com/PlayaLink/untitled-ui-starter-kit).
 
 <!-- genome:t-i-s -->
