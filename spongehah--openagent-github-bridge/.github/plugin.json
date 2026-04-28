@@ -1,0 +1,9 @@
+{
+  "name": "spongehah--openagent-github-bridge",
+  "displayName": "Openagent-Github-Bridge",
+  "description": "Self-hosted GitHub-to-OpenCode bridge for AI issue fixing, planning, slash-command coding, and PR review with full workspace control.",
+  "version": "1.0.0",
+  "author": "spongehah",
+  "homepage": "https://github.com/spongehah/Openagent-Github-Bridge",
+  "skills": []
+}
