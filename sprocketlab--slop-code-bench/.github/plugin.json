@@ -1,0 +1,9 @@
+{
+  "name": "sprocketlab--slop-code-bench",
+  "displayName": "slop-code-bench",
+  "description": "SlopCodeBench: Measuring Code Erosion Under Iterative Specification Refinement",
+  "version": "1.0.0",
+  "author": "SprocketLab",
+  "homepage": "https://github.com/SprocketLab/slop-code-bench",
+  "skills": []
+}
