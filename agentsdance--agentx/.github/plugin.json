@@ -1,0 +1,9 @@
+{
+  "name": "agentsdance--agentx",
+  "displayName": "agentx",
+  "description": "AgentX - Agent Extension: MCP Servers, Agent Skills and Plugins Manager",
+  "version": "1.0.0",
+  "author": "agentsdance",
+  "homepage": "https://github.com/agentsdance/agentx",
+  "skills": []
+}
