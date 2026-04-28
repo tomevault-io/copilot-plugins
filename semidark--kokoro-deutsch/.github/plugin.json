@@ -1,0 +1,9 @@
+{
+  "name": "semidark--kokoro-deutsch",
+  "displayName": "kokoro-deutsch",
+  "description": "This project provides a complete, documented training recipe for fine-tuning Kokoro-82M on a new language. In this case German",
+  "version": "1.0.0",
+  "author": "semidark",
+  "homepage": "https://github.com/semidark/kokoro-deutsch",
+  "skills": []
+}
