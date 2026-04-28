@@ -1,6 +1,6 @@
-# event-site-front-end-template — distributed by TomeVault
+# event-site-front-end-template
 
-> Originally from [giventadevelop/event-site-front-end-template](https://github.com/giventadevelop/event-site-front-end-template). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [giventadevelop/event-site-front-end-template](https://github.com/giventadevelop/event-site-front-end-template) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [giventadevelop/event-site-front-end-t
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/giventadevelop#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/giventadevelop/event-site-front-end-template](https://github.com/giventadevelop/event-site-front-end-template)
 
 ---
 
