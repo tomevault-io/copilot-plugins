@@ -1,0 +1,9 @@
+{
+  "name": "operationalfallacy--biome-effect-linting-rules",
+  "displayName": "biome-effect-linting-rules",
+  "description": "This is a collection of linting rules for Effect project",
+  "version": "1.0.0",
+  "author": "OperationalFallacy",
+  "homepage": "https://github.com/OperationalFallacy/biome-effect-linting-rules",
+  "skills": []
+}
