@@ -1,216 +1,182 @@
 ## okrbest-plugin-boards
 
-> Go 서버 코드 규칙
+> 트러블슈팅/문제 해결 모음
 
 
-# Go 서버 코드 규칙
+# 트러블슈팅 (Troubleshooting)
 
-## 아키텍처 레이어
+## 개요
 
-```
-Plugin (plugin.go) 
-    → BoardsApp (boards/boardsapp.go)
-        → Server (server/server.go)
-            → API (api/api.go)
-                → App (app/app.go)
-                    → Store (services/store/)
-```
+개발 중 발생하는 문제와 해결 방법을 기록합니다.
 
-### 각 레이어 역할
+## 빌드 관련
 
-| 레이어 | 위치 | 역할 |
-|--------|------|------|
-| Plugin | `server/plugin.go` | Mattermost 플러그인 인터페이스, 라이프사이클 관리 |
-| BoardsApp | `server/boards/boardsapp.go` | 애플리케이션 초기화, 서비스 구성 |
-| Server | `server/server/server.go` | HTTP 서버, 라우터 설정 |
-| API | `server/api/` | HTTP 요청/응답, 인증, 라우팅 |
-| App | `server/app/` | 비즈니스 로직, 권한 검증, 알림 |
-| Store | `server/services/store/` | 데이터베이스 CRUD |
-| Model | `server/model/` | 도메인 모델 정의 |
+### 웹앱 빌드 실패
 
-### 서비스 구조
+| 문제 | 원인 | 해결 |
+|------|------|------|
+| `Module not found` | node_modules 오염 | `cd webapp && rm -rf node_modules && npm install` |
+| TypeScript 에러 | 타입 불일치 | `npm run check-types`로 확인 |
+| 메모리 부족 | 대용량 빌드 | `NODE_OPTIONS=--max-old-space-size=4096` 설정 |
 
-| 서비스 | 위치 | 역할 |
-|--------|------|------|
-| Store | `services/store/` | 데이터 접근 계층 |
-| Permissions | `services/permissions/` | 권한 검증 (Mattermost 통합) |
-| Notify | `services/notify/` | 알림 서비스 (@멘션, 구독) |
-| Metrics | `services/metrics/` | Prometheus 메트릭 |
-| Audit | `services/audit/` | 감사 로그 |
+### 서버 빌드 실패
 
-## HTTP 요청 처리 흐름
+| 문제 | 원인 | 해결 |
+|------|------|------|
+| Go 버전 오류 | 잘못된 Go 버전 | Go 1.24+ 설치 확인 |
+| 의존성 오류 | go.sum 불일치 | `go mod tidy` 실행 |
+| CGO 오류 | C 컴파일러 필요 | `CGO_ENABLED=0` 설정 또는 컴파일러 설치 |
 
-```
-1. Client → Plugin.ServeHTTP
-2. Plugin → Gorilla Mux Router
-3. Router → API Handler
-4. API Handler:
-   - 인증/권한 검증
-   - 요청 파싱
-5. API → App (비즈니스 로직)
-6. App → Store (데이터 접근)
-7. Store → Database
-8. 결과 반환 → JSON Response
-```
+### 플러그인 로드 실패
 
-## 코딩 패턴
+| 문제 | 원인 | 해결 |
+|------|------|------|
+| 버전 불일치 | MM 버전 낮음 | Mattermost 10.7.0+ 확인 |
+| 서명 오류 | 잘못된 빌드 | `make clean && make dist` |
+| 권한 오류 | 파일 권한 | `chmod 644 dist/*.tar.gz` |
 
-### 새 API 엔드포인트 추가
+## 런타임 관련
 
-1. `server/api/{feature}.go` - 핸들러 작성
-2. `server/api/api.go` - 라우트 등록
-3. `server/app/{feature}.go` - 비즈니스 로직
-4. 필요시 `server/model/` - 모델 추가
+### API 에러
 
-```go
-// 핸들러 예시 (server/api/{feature}.go)
-func (a *API) handleMyFeature(w http.ResponseWriter, r *http.Request) {
-    session := a.getSession(r)
-    // 권한 검증, 비즈니스 로직 호출
-    result, err := a.app.DoMyFeature(session.UserID, params)
-    if err != nil {
-        a.errorResponse(w, r, err)
-        return
-    }
-    a.jsonResponse(w, r, result)
-}
+| 문제 | 원인 | 해결 |
+|------|------|------|
+| 401 Unauthorized | 세션 만료/미인증 | 로그인 확인, 쿠키 확인 |
+| 403 Forbidden | 권한 없음 | 보드 멤버 역할 확인 |
+| 404 Not Found | 리소스 없음 | ID 확인, 삭제 여부 확인 |
+| 500 Server Error | 서버 에러 | 서버 로그 확인 |
 
-// 라우트 등록 (server/api/api.go)
-func (a *API) registerMyFeatureRoutes(r *mux.Router) {
-    r.HandleFunc("/myfeature", a.handleMyFeature).Methods("GET")
-}
-```
+### WebSocket 연결
 
-### 에러 처리
+| 문제 | 원인 | 해결 |
+|------|------|------|
+| 연결 안됨 | WS URL 오류 | 서버 WS 설정 확인 |
+| 자주 끊김 | 네트워크 불안정 | 재연결 로직 확인 |
+| 이벤트 미수신 | 구독 안됨 | `subscribeToTeam` 호출 확인 |
 
-```go
-// 표준 에러 타입 사용 (server/model/errorResponse.go)
-model.NewErrBadRequest("잘못된 요청")
-model.NewErrUnauthorized("인증 필요")
-model.NewErrForbidden("권한 없음")
-model.NewErrNotFound("리소스 없음")
-```
+### 데이터 동기화
 
-### 로깅
+| 문제 | 원인 | 해결 |
+|------|------|------|
+| 변경 미반영 | WS 이벤트 누락 | 새로고침, WS 연결 확인 |
+| 충돌 데이터 | 동시 편집 | 마지막 수정 기준 병합 |
+| 캐시 문제 | 오래된 캐시 | 하드 새로고침 (Ctrl+Shift+R) |
 
-```go
-a.logger.Debug("디버그 메시지", mlog.String("key", "value"))
-a.logger.Info("정보 메시지")
-a.logger.Warn("경고 메시지")
-a.logger.Error("에러 발생", mlog.Err(err))
-```
+## 디버깅 팁
 
-## 데이터베이스
-
-### Store 인터페이스 (`server/services/store/store.go`)
-
-- 모든 DB 작업은 Store 인터페이스를 통해
-- `@withTransaction` 주석으로 트랜잭션 자동 래핑
-
-### SQLStore 구현 (`server/services/store/sqlstore/`)
-
-| 파일 | 역할 |
-|------|------|
-| `sqlstore.go` | Store 인터페이스 구현, DB 연결 관리 |
-| `board.go` | Board 관련 쿼리 |
-| `blocks.go` | Block 관련 쿼리 |
-| `migrate.go` | DB 마이그레이션 |
-
-### 마이그레이션
-
-- 위치: `server/services/store/sqlstore/migrations/`
-- 파일명: `000XXX_description.up.sql`, `000XXX_description.down.sql`
-- PostgreSQL, MySQL, SQLite 모두 지원
-
-## WebSocket 실시간 동기화
-
-### Plugin Adapter (`server/ws/plugin_adapter.go`)
-
-```go
-type PluginAdapterInterface interface {
-    OnWebSocketConnect(webConnID, userID string)
-    OnWebSocketDisconnect(webConnID, userID string)
-    WebSocketMessageHasBeenPosted(webConnID, userID string, req *mm_model.WebSocketRequest)
-    BroadcastBlockChange(teamID string, block *model.Block)
-    BroadcastBoardChange(teamID string, board *model.Board)
-}
-```
-
-### 변경 브로드캐스트
-
-```go
-// App에서 변경 발생 시
-a.wsAdapter.BroadcastBlockChange(teamID, block)
-a.wsAdapter.BroadcastBoardChange(teamID, board)
-```
-
-## 알림 시스템 (`server/services/notify/`)
-
-| 백엔드 | 위치 | 역할 |
-|--------|------|------|
-| Mentions | `notifymentions/` | @멘션 알림 (DM 발송) |
-| Subscriptions | `notifysubscriptions/` | 구독 알림 (카드/보드 변경) |
-
-## 메트릭스 (`server/services/metrics/`)
-
-| 메트릭 | 설명 |
-|--------|------|
-| `focalboard_blocks_total` | 총 블록 수 |
-| `focalboard_boards_total` | 총 보드 수 |
-| `focalboard_api_requests_total` | API 요청 수 |
-| `focalboard_api_request_duration` | API 응답 시간 |
-
-## 테스트
+### 서버 디버깅
 
 ```bash
-# 서버 테스트
-make server-test
+# 서버 로그 확인
+make logs
 
-# 특정 패키지 테스트
-go test ./server/app/...
+# 개발 모드로 빌드 (디버그 심볼 포함)
+MM_DEBUG=true make dist
 
-# 커버리지
-make coverage
+# 특정 테스트만 실행
+go test -v ./server/app/... -run TestName
+
+# 레이스 컨디션 검사
+go test -race ./server/...
 ```
 
-## 주요 모델
+### 웹앱 디버깅
 
-### Board (`server/model/board.go`)
+```bash
+# 개발 모드 빌드 (소스맵 포함)
+cd webapp && npm run build:dev
+
+# 타입 에러 확인
+npm run check-types
+
+# 린트 실행
+npm run check
+```
+
+### 브라우저 디버깅
+
+1. **Redux DevTools**: 상태 변경 추적
+2. **Network 탭**: API 요청/응답 확인
+3. **WebSocket 탭**: WS 메시지 확인
+4. **Console**: 에러 로그 확인
+
+### 데이터베이스 디버깅
+
+```sql
+-- 블록 조회
+SELECT * FROM focalboard_blocks WHERE board_id = 'xxx' LIMIT 10;
+
+-- 블록 이력 조회
+SELECT * FROM focalboard_blocks_history WHERE id = 'xxx' ORDER BY insert_at DESC;
+
+-- 멤버 조회
+SELECT * FROM focalboard_board_members WHERE board_id = 'xxx';
+```
+
+## 일반적인 해결 패턴
+
+### 1. 클린 빌드
+
+```bash
+make clean
+cd webapp && rm -rf node_modules dist
+npm install
+make dist
+```
+
+### 2. 캐시 초기화
+
+```bash
+# Go 캐시
+go clean -cache
+
+# npm 캐시
+npm cache clean --force
+```
+
+### 3. 재배포
+
+```bash
+make deploy
+# 또는
+make watch-plugin
+```
+
+## 로그 레벨 설정
+
 ```go
-type Board struct {
-    ID             string                   `json:"id"`
-    TeamID         string                   `json:"teamId"`
-    ChannelID      string                   `json:"channelId"`
-    Type           BoardType                `json:"type"`  // "O" (Open) | "P" (Private)
-    Title          string                   `json:"title"`
-    CardProperties []map[string]interface{} `json:"cardProperties"`
-}
+// 상세 로그 활성화
+logger.SetLevel(mlog.LevelDebug)
 ```
 
-### Block (`server/model/block.go`)
-```go
-type Block struct {
-    ID       string                 `json:"id"`
-    ParentID string                 `json:"parentId"`
-    BoardID  string                 `json:"boardId"`
-    Type     BlockType              `json:"type"`  // card, view, text, image 등
-    Title    string                 `json:"title"`
-    Fields   map[string]interface{} `json:"fields"`
-}
+## 메트릭스 확인
+
+```bash
+# Prometheus 메트릭스 (활성화된 경우)
+curl http://localhost:8067/plugins/boards/api/v2/metrics
 ```
 
-## 주요 API 엔드포인트
+## 지원 요청 시 정보
 
-| 엔드포인트 | 메서드 | 설명 |
-|-----------|--------|------|
-| `/api/v2/boards` | GET, POST | 보드 목록/생성 |
-| `/api/v2/boards/{boardId}` | GET, PATCH, DELETE | 보드 CRUD |
-| `/api/v2/boards/{boardId}/blocks` | GET, POST | 블록 조회/생성 |
-| `/api/v2/cards` | POST | 카드 생성 |
-| `/api/v2/teams/{teamId}/categories` | GET, POST | 카테고리 관리 |
-| `/api/v2/users/me` | GET | 현재 사용자 |
+문제 보고 시 포함할 정보:
+1. Mattermost 버전
+2. Boards 플러그인 버전
+3. 에러 메시지 전문
+4. 서버 로그 관련 부분
+5. 브라우저 콘솔 에러
+6. 재현 단계
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/okrbest)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/okrbest)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+
+## Q&A 목록
+
+> 개발 중 생긴 문제 해결 사례가 `q-{주제}.mdc` 파일로 이 폴더에 추가됩니다.
+
+| 문제 | 파일 |
+|------|------|
+| 카드 정렬 시 localeCompare 에러 및 무한 리다이렉션 | `q-sort-localecompare-error.mdc` |
+| 카드 아이콘 삭제 후 제목/프로퍼티에서 Backspace/Delete 키가 작동하지 않는 버그 | `q-icon-delete-backspace-bug.mdc` |
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/okrbest) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
