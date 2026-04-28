@@ -1,0 +1,9 @@
+{
+  "name": "skyline69--spotix",
+  "displayName": "spotix",
+  "description": "A fast, native Spotify client written in Rust - a fork of psst focused on a lightweight,   Electron\u2011free desktop experience.",
+  "version": "1.0.0",
+  "author": "skyline69",
+  "homepage": "https://github.com/skyline69/spotix",
+  "skills": []
+}
