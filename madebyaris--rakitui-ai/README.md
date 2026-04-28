@@ -1,6 +1,6 @@
 # rakitui-ai
 
-> Tome by [madebyaris](https://github.com/madebyaris/rakitui-ai) — distributed by [TomeVault](https://tomevault.io/claim/madebyaris)
+> Tome by [madebyaris](https://github.com/madebyaris/rakitui-ai) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [madebyaris/rakitui-ai](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/madebyaris#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/madebyaris/rakitui-ai](https://github.com/madebyaris/rakitui-ai)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/madebyaris) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-q -->
