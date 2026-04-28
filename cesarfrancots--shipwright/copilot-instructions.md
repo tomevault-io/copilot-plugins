@@ -79,5 +79,5 @@ Each skill must ship with at least:
 Tests should describe the input and expected behavior, not a brittle exact string match.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/cesarfrancots) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [cesarfrancots/Shipwright](https://github.com/cesarfrancots/Shipwright) — distributed by [TomeVault](https://tomevault.io/claim/cesarfrancots).
+<!-- tomevault:4.0:copilot_instructions:2026-04-17 -->
