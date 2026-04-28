@@ -4,7 +4,7 @@
   "repo": "crowbar-mobile",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aguileraz/crowbar-mobile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T17:58:53Z"
+  "distributed_at": "2026-04-28T11:41:49Z"
 }
