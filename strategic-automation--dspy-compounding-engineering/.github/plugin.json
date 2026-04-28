@@ -1,0 +1,9 @@
+{
+  "name": "strategic-automation--dspy-compounding-engineering",
+  "displayName": "dspy-compounding-engineering",
+  "description": "A local-first AI engineering agent that learns from your codebase using DSPy.",
+  "version": "1.0.0",
+  "author": "Strategic-Automation",
+  "homepage": "https://github.com/Strategic-Automation/dspy-compounding-engineering",
+  "skills": []
+}
