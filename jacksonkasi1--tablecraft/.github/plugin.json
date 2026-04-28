@@ -1,0 +1,9 @@
+{
+  "name": "jacksonkasi1--tablecraft",
+  "displayName": "TableCraft",
+  "description": "Complex data tables in 5 minutes. Drizzle ORM + TanStack Table + auto-generated APIs with filtering, sorting, pagination, and type safety.",
+  "version": "1.0.0",
+  "author": "jacksonkasi1",
+  "homepage": "https://github.com/jacksonkasi1/TableCraft",
+  "skills": []
+}
