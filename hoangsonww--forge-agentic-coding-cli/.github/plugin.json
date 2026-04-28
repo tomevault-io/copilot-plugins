@@ -1,0 +1,9 @@
+{
+  "name": "hoangsonww--forge-agentic-coding-cli",
+  "displayName": "Forge-Agentic-Coding-CLI",
+  "description": "\ud83e\udd84 Forge - a local-first, multi-agent software-engineering runtime that runs Claude Code / Codex-style agentic workflows entirely on your own machine via Ollama, llama.cpp, vLLM, and LM Studio (cloud m",
+  "version": "1.0.0",
+  "author": "hoangsonww",
+  "homepage": "https://github.com/hoangsonww/Forge-Agentic-Coding-CLI",
+  "skills": []
+}
