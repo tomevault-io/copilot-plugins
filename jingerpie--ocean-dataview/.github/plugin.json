@@ -1,0 +1,9 @@
+{
+  "name": "jingerpie--ocean-dataview",
+  "displayName": "ocean-dataview",
+  "description": "Notion-inspired Shadcn Dataview: table, list, gallery, board, and charts with server-side sort/filter/pagination",
+  "version": "1.0.0",
+  "author": "jingerpie",
+  "homepage": "https://github.com/jingerpie/ocean-dataview",
+  "skills": []
+}
