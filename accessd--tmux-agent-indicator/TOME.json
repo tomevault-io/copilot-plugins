@@ -1,0 +1,44 @@
+{
+  "name": "tmux-agent-indicator",
+  "owner": "accessd",
+  "repo": "tmux-agent-indicator",
+  "description": "Tmux plugin that gives visual feedback for AI agent states (running/needs-input/done). Supports   Claude Code, Codex, and custom agents. Pane borders, window title colors, status bar icons.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/accessd/tmux-agent-indicator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T05:54:48Z"
+}
