@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Feyded/my-react-vite-app](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Feyded)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Feyded/my-react-vite-app](https://github.com/Feyded/my-react-vite-app)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Feyded/my-react-vite-app
 ```
-Or browse all formats at [https://tomevault.io/claim/Feyded](https://tomevault.io/claim/Feyded).
+Source: [github.com/Feyded/my-react-vite-app](https://github.com/Feyded/my-react-vite-app).
 
 <!-- genome:a-i-p -->
