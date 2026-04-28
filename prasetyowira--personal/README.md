@@ -1,6 +1,6 @@
-# personal
+# AI instruction files for personal
 
-> Config by [prasetyowira](https://github.com/prasetyowira/personal) — distributed by [TomeVault](https://tomevault.io/claim/prasetyowira)
+> Sourced from [prasetyowira/personal](https://github.com/prasetyowira/personal) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [prasetyowira/personal](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/prasetyowira](https://tomevault.io/claim/prasetyowira)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/prasetyowira/personal](https://github.com/prasetyowira/personal)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/prasetyowira) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-p -->
