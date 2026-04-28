@@ -1,0 +1,9 @@
+{
+  "name": "clioai--kw-sdk",
+  "displayName": "kw-sdk",
+  "description": "Knowledge work sdk",
+  "version": "1.0.0",
+  "author": "ClioAI",
+  "homepage": "https://github.com/ClioAI/kw-sdk",
+  "skills": []
+}
