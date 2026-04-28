@@ -1,0 +1,9 @@
+{
+  "name": "leviyuan--claude-feishu-channel",
+  "displayName": "claude-feishu-channel",
+  "description": "\u4e00\u4eba\u516c\u53f8\u6700\u4f73\u5b9e\u8df5\uff0c\u4e0d\u6b62\u662fclaude\u7684\u98de\u4e66channel\uff0c\u66f4\u662f\u4f60\u7684\u5e26\u9886\u6570\u5b57\u5458\u5de5\u7684\u7ba1\u7406\u5de5\u5177",
+  "version": "1.0.0",
+  "author": "leviyuan",
+  "homepage": "https://github.com/leviyuan/claude-feishu-channel",
+  "skills": []
+}
