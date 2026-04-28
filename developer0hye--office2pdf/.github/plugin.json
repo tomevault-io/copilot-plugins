@@ -1,0 +1,9 @@
+{
+  "name": "developer0hye--office2pdf",
+  "displayName": "office2pdf",
+  "description": "Pure-Rust library and CLI for converting DOCX, XLSX, and PPTX files to PDF.  No LibreOffice, no Chromium, no Docker \u2014 just a single binary powered by Typst.",
+  "version": "1.0.0",
+  "author": "developer0hye",
+  "homepage": "https://github.com/developer0hye/office2pdf",
+  "skills": []
+}
