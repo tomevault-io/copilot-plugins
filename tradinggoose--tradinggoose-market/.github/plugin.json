@@ -1,0 +1,9 @@
+{
+  "name": "tradinggoose--tradinggoose-market",
+  "displayName": "TradingGoose-Market",
+  "description": "Manage and provide canonical market data like ticker info and market hours for TradingGoose-Studio",
+  "version": "1.0.0",
+  "author": "TradingGoose",
+  "homepage": "https://github.com/TradingGoose/TradingGoose-Market",
+  "skills": []
+}
