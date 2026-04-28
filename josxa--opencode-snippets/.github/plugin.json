@@ -1,0 +1,9 @@
+{
+  "name": "josxa--opencode-snippets",
+  "displayName": "opencode-snippets",
+  "description": "Hashtag-based snippet expansion plugin for OpenCode - instant inline text shortcuts",
+  "version": "1.0.0",
+  "author": "JosXa",
+  "homepage": "https://github.com/JosXa/opencode-snippets",
+  "skills": []
+}
