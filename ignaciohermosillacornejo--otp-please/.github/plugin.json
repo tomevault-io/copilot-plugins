@@ -1,0 +1,9 @@
+{
+  "name": "ignaciohermosillacornejo--otp-please",
+  "displayName": "otp-please",
+  "description": "Stop the OTP code begging. Cloudflare Worker + dashboard for relaying streaming-service OTPs to family members",
+  "version": "1.0.0",
+  "author": "ignaciohermosillacornejo",
+  "homepage": "https://github.com/ignaciohermosillacornejo/otp-please",
+  "skills": []
+}
