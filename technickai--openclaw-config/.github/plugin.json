@@ -1,0 +1,9 @@
+{
+  "name": "technickai--openclaw-config",
+  "displayName": "openclaw-config",
+  "description": "Give your AI assistant memory, skills, and autonomy. Persistent memory, 11 integration skills, and 4 autonomous workflows \u2014 all in markdown and Python scripts. Built for Claude Code.",
+  "version": "1.0.0",
+  "author": "TechNickAI",
+  "homepage": "https://github.com/TechNickAI/openclaw-config",
+  "skills": []
+}
