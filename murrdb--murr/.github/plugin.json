@@ -1,0 +1,9 @@
+{
+  "name": "murrdb--murr",
+  "displayName": "murr",
+  "description": "Sub-millisecond cache for ML/AI workloads. Parquets in, Arrow-Flight out.",
+  "version": "1.0.0",
+  "author": "murrdb",
+  "homepage": "https://github.com/murrdb/murr",
+  "skills": []
+}
