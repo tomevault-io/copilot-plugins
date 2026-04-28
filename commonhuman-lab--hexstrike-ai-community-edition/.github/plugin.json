@@ -1,0 +1,9 @@
+{
+  "name": "commonhuman-lab--hexstrike-ai-community-edition",
+  "displayName": "hexstrike-ai-community-edition",
+  "description": "AI Powered penetration testing Platform for offensive security research",
+  "version": "1.0.0",
+  "author": "CommonHuman-Lab",
+  "homepage": "https://github.com/CommonHuman-Lab/hexstrike-ai-community-edition",
+  "skills": []
+}
