@@ -1,0 +1,9 @@
+{
+  "name": "aliou--pi-guardrails",
+  "displayName": "pi-guardrails",
+  "description": "Security hooks for Pi. Prevents dangerous operations, protects env files, gates destructive commands.",
+  "version": "1.0.0",
+  "author": "aliou",
+  "homepage": "https://github.com/aliou/pi-guardrails",
+  "skills": []
+}
