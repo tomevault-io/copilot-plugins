@@ -1,0 +1,9 @@
+{
+  "name": "jamwt--convex-fs",
+  "displayName": "convex-fs",
+  "description": "High-performance, durable file management component for Convex apps built on Bunny.net",
+  "version": "1.0.0",
+  "author": "jamwt",
+  "homepage": "https://github.com/jamwt/convex-fs",
+  "skills": []
+}
