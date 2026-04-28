@@ -1,6 +1,6 @@
 # form-management
 
-> Tome by [wakuwakusystemsharing](https://github.com/wakuwakusystemsharing/form-management) — distributed by [TomeVault](https://tomevault.io/claim/wakuwakusystemsharing)
+> Tome by [wakuwakusystemsharing](https://github.com/wakuwakusystemsharing/form-management) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [wakuwakusystemsharing/form-management
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/wakuwakusystemsharing)
+From [wakuwakusystemsharing/form-management](https://github.com/wakuwakusystemsharing/form-management) — a repo with 0+ stars on GitHub.
 
 ---
 
