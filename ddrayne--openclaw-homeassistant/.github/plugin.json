@@ -1,0 +1,9 @@
+{
+  "name": "ddrayne--openclaw-homeassistant",
+  "displayName": "openclaw-homeassistant",
+  "description": "OpenClaw as Home assistant voice provider",
+  "version": "1.0.0",
+  "author": "ddrayne",
+  "homepage": "https://github.com/ddrayne/openclaw-homeassistant",
+  "skills": []
+}
