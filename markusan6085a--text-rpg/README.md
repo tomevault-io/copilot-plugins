@@ -1,6 +1,6 @@
-# text-rpg — distributed by TomeVault
+# text-rpg
 
-> Originally from [markusan6085A/text-rpg](https://github.com/markusan6085A/text-rpg). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [markusan6085A/text-rpg](https://github.com/markusan6085A/text-rpg) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [markusan6085A/text-rpg](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/markusan6085A)
+From [markusan6085A/text-rpg](https://github.com/markusan6085A/text-rpg) — a repo with 0+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/markusan6085A) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
