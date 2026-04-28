@@ -1,0 +1,9 @@
+{
+  "name": "yoloshii--privacy-first-network",
+  "displayName": "privacy-first-network",
+  "description": "Whole-home VPN router with kill switch. OpenWrt + WireGuard + AmneziaWG. Protects every device, no VPN apps needed.",
+  "version": "1.0.0",
+  "author": "yoloshii",
+  "homepage": "https://github.com/yoloshii/privacy-first-network",
+  "skills": []
+}
