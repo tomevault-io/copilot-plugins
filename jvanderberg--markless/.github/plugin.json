@@ -1,0 +1,9 @@
+{
+  "name": "jvanderberg--markless",
+  "displayName": "markless",
+  "description": "A terminal markdown viewer with image support",
+  "version": "1.0.0",
+  "author": "jvanderberg",
+  "homepage": "https://github.com/jvanderberg/markless",
+  "skills": []
+}
