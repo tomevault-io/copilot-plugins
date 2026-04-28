@@ -1,0 +1,9 @@
+{
+  "name": "alchemy-run--distilled-cloudflare",
+  "displayName": "distilled-cloudflare",
+  "description": "Effect-native Cloudflare SDK",
+  "version": "1.0.0",
+  "author": "alchemy-run",
+  "homepage": "https://github.com/alchemy-run/distilled-cloudflare",
+  "skills": []
+}
