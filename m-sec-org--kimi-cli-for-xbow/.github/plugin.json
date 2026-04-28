@@ -1,0 +1,9 @@
+{
+  "name": "m-sec-org--kimi-cli-for-xbow",
+  "displayName": "kimi-cli-for-xbow",
+  "description": "\u57fa\u4e8ekimi-cli\u4e8c\u6b21\u5f00\u53d1\u7684\u9488\u5bf9CTF\u7ade\u8d5b\u7684\u4e13\u7528Agent",
+  "version": "1.0.0",
+  "author": "m-sec-org",
+  "homepage": "https://github.com/m-sec-org/kimi-cli-for-xbow",
+  "skills": []
+}
