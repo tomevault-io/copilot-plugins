@@ -1,0 +1,9 @@
+{
+  "name": "bbrowning--paude",
+  "displayName": "paude",
+  "description": "Run AI coding agents in OpenShift or Podman",
+  "version": "1.0.0",
+  "author": "bbrowning",
+  "homepage": "https://github.com/bbrowning/paude",
+  "skills": []
+}
