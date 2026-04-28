@@ -1,6 +1,6 @@
 # roland
 
-> Config by [AdamMcIntosh](https://github.com/AdamMcIntosh/roland) — distributed by [TomeVault](https://tomevault.io/claim/AdamMcIntosh)
+> Tome by [AdamMcIntosh](https://github.com/AdamMcIntosh/roland) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [AdamMcIntosh/roland](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/AdamMcIntosh](https://tomevault.io/claim/AdamMcIntosh)
+From [AdamMcIntosh/roland](https://github.com/AdamMcIntosh/roland) — a repo with 0+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AdamMcIntosh) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
