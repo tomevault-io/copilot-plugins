@@ -1,0 +1,216 @@
+## plugsuits
+
+> **Updated:** 2026-03-09 KST
+
+# PROJECT KNOWLEDGE BASE
+
+**Updated:** 2026-03-09 KST
+**Branch:** harness-decoupling
+
+## OVERVIEW
+
+`plugsuits` is a pnpm + Turborepo + TypeScript monorepo with four packages. The core agent harness (`@ai-sdk-tool/harness`) is model-agnostic and reusable. Terminal UI rendering lives in `@ai-sdk-tool/tui`, JSONL event streaming in `@ai-sdk-tool/headless`, and the full code-editing agent implementation in `@ai-sdk-tool/cea`.
+
+## STRUCTURE
+
+```text
+plugsuits/
+|- packages/
+|  |- harness/          @ai-sdk-tool/harness — core loop, session, skills, TODO, commands
+|  |  `- src/           Agent, CheckpointHistory, SessionManager, SkillsEngine, TodoContinuation
+|  |- tui/              @ai-sdk-tool/tui — terminal UI components
+|  |  |- src/           createAgentTUI, AssistantStreamView, BaseToolCallView, Spinner, colors
+|  |  `- AGENTS.md      TUI package conventions
+|  |- headless/         @ai-sdk-tool/headless — JSONL event streaming
+|  |  |- src/           runHeadless, emitEvent, registerSignalHandlers, event types
+|  |  `- AGENTS.md      Headless package conventions
+|  `- cea/              @ai-sdk-tool/cea — code editing agent (uses all 3 packages)
+|     |- src/
+|     |  |- entrypoints/ CLI (interactive) + headless (JSONL) runtimes
+|     |  |- tools/       edit_file, write_file, read_file, grep, glob, shell_execute
+|     |  `- interaction/ stream rendering, spinner
+|     `- benchmark/      Harbor terminal-bench adapter
+|- scripts/             Benchmark and test automation
+`- package.json         Workspace root — canonical scripts
+```
+
+## WHERE TO LOOK
+
+| Task | Location | Notes |
+|------|----------|-------|
+| Interactive TUI entrypoint | `packages/tui/src/agent-tui.ts` | `createAgentTUI` — full terminal session loop |
+| Headless JSONL runner | `packages/headless/src/runner.ts` | `runHeadless` — event-streaming loop |
+| Core agent loop | `packages/harness/src/loop.ts` | `runAgentLoop` — model-agnostic iteration |
+| Agent factory | `packages/harness/src/agent.ts` | `createAgent` — wraps Vercel AI SDK `streamText` |
+| Message history | `packages/harness/src/checkpoint-history.ts` | `CheckpointHistory` — compaction + checkpointing |
+| **Snapshot persistence** | `packages/harness/src/snapshot-store.ts` | `SnapshotStore` interface, `InMemorySnapshotStore` |
+| **File-backed persistence** | `packages/harness/src/file-snapshot-store.ts` | `FileSnapshotStore` — wraps SessionStore, JSONL format |
+| **Snapshot types** | `packages/harness/src/history-snapshot.ts` | `HistorySnapshot`, `SerializedMessage`, converters |
+| Session management | `packages/harness/src/session.ts` | `SessionManager` — UUID-based session IDs |
+| Skills loading | `packages/harness/src/skills.ts` | `SkillsEngine` — bundled/global/project skill discovery |
+| TODO continuation | `packages/harness/src/todo-continuation.ts` | `TodoContinuation` — incomplete-task reminder loop |
+| Command registry | `packages/harness/src/commands.ts` | `registerCommand`, `executeCommand`, `configureCommandRegistry` |
+| Middleware chain | `packages/harness/src/middleware.ts` | `buildMiddlewareChain`, `MiddlewareConfig` |
+| Stream rendering | `packages/tui/src/stream-handlers.ts` | `STREAM_HANDLERS` — per-part-type render dispatch |
+| Tool call view | `packages/tui/src/tool-call-view.ts` | `BaseToolCallView`, `ToolRendererMap` |
+| JSONL event types | `packages/headless/src/types.ts` | `TrajectoryEvent` union type |
+| Signal handlers | `packages/headless/src/signals.ts` | `registerSignalHandlers` — SIGINT/SIGTERM/etc. |
+| CEA tools | `packages/cea/src/tools/` | File edit, explore, shell execution tools |
+| Benchmark adapter | `packages/cea/benchmark/AGENTS.md` | Trajectory conversion and validation constraints |
+| **Runtime layer** | `packages/harness/src/runtime/` | `defineAgent`, `createAgentRuntime`, `AgentSession` — high-level DX layer |
+| TUI session adapter | `packages/tui/src/session-tui.ts` | `runAgentSessionTUI` — connect AgentSession to TUI |
+| Headless session adapter | `packages/headless/src/session-headless.ts` | `runAgentSessionHeadless` — connect AgentSession to headless |
+
+## CODE MAP
+
+| Symbol | Type | Location | Role |
+|--------|------|----------|------|
+| `createAgentTUI` | function | `packages/tui/src/agent-tui.ts` | Full interactive TUI session — input loop, stream rendering, command dispatch |
+| `runHeadless` | function | `packages/headless/src/runner.ts` | JSONL event-streaming loop with optional TODO continuation |
+| `runAgentLoop` | function | `packages/harness/src/loop.ts` | Model-agnostic agent iteration loop |
+| `createAgent` | function | `packages/harness/src/agent.ts` | Wraps Vercel AI SDK `streamText` into an `Agent` |
+| `CheckpointHistory` | class | `packages/harness/src/checkpoint-history.ts` | Conversation history with compaction and checkpointing |
+| `SessionManager` | class | `packages/harness/src/session.ts` | UUID-based session ID lifecycle |
+| `SkillsEngine` | class | `packages/harness/src/skills.ts` | Discovers and loads skills from bundled/global/project dirs |
+| `TodoContinuation` | class | `packages/harness/src/todo-continuation.ts` | Reads todo files and generates reminder messages |
+| `shouldContinueManualToolLoop` | fn | `packages/harness/src/tool-loop-control.ts` | Shared continuation gate — returns `true` for `"tool-calls"` finish reason |
+| `emitEvent` | function | `packages/headless/src/emit.ts` | Writes a `TrajectoryEvent` as a JSONL line to stdout |
+| `registerSignalHandlers` | function | `packages/headless/src/signals.ts` | Registers SIGINT/SIGTERM/SIGHUP/SIGQUIT/uncaughtException handlers |
+| `AssistantStreamView` | class | `packages/tui/src/stream-views.ts` | Renders streaming assistant text and reasoning in the TUI |
+| `BaseToolCallView` | class | `packages/tui/src/tool-call-view.ts` | Renders tool call input/output in the TUI |
+| `defineAgent` | function | `packages/harness/src/runtime/define-agent.ts` | Declares an agent definition — pure factory, no side effects |
+| `createAgentRuntime` | async function | `packages/harness/src/runtime/create-runtime.ts` | Creates runtime container: bootstraps agent, session manager, persistence |
+| `AgentSession` | interface | `packages/harness/src/runtime/types.ts` | Runtime session unit — owns history, agent, commands, skills, lifecycle |
+| `runAgentSessionTUI` | function | `packages/tui/src/session-tui.ts` | Adapter: connects AgentSession to createAgentTUI |
+| `runAgentSessionHeadless` | function | `packages/headless/src/session-headless.ts` | Adapter: connects AgentSession to runHeadless |
+
+## CONVENTIONS
+
+- Runtime and scripts are pnpm + Node-first (`packageManager: pnpm@10.x`); prefer `pnpm run <script>` and `node --import tsx` for TypeScript entrypoints.
+- Canonical quality flow is `check` (non-mutating) and `lint` (mutating via `ultracite fix`).
+- Tests are colocated in package `src/**` trees as `*.test.ts` and executed with `vitest` via package scripts.
+- `tsconfig.json` enforces `strict` in each package; do not treat `dist/` as source-of-truth.
+- Legacy code should always be fully deprecated; aggressive updates without backward-compatibility guarantees are acceptable.
+- Package build order: `harness` then `tui` and `headless` (both depend on harness), then `cea` (depends on all three).
+- **Environment variables MUST use `@t3-oss/env-core`** (`createEnv`) — never read `process.env` directly. Each package defines its own `env.ts` (see `packages/harness/src/env.ts`, `packages/cea/src/env.ts`). Add new env vars to the appropriate `createEnv({ server: { ... } })` schema with Zod validation. Raw `process.env.X` access is an anti-pattern.
+
+## CHANGESET VERSIONING RULES
+
+When creating changeset files (`.changeset/*.md`), follow these version bump rules strictly:
+
+| Bump type | When to use |
+|-----------|-------------|
+| `patch`   | **Default.** Always use patch unless explicitly told otherwise. Bug fixes, refactors, internal changes, dependency updates, naming changes — all patch. |
+| `minor`   | **Only** when the user explicitly says "minor". New features, new exports, new CLI flags — still patch unless the user says otherwise. |
+| `major`   | **NEVER do this autonomously.** Must receive explicit user confirmation **at least twice** before writing a major bump. Ask once, get confirmation, ask again to double-check. |
+
+**Examples of patch (not minor):**
+- Renaming internal fields (`promptTokens` → `inputTokens`)
+- Fixing bugs (compaction, token counting, etc.)
+- Removing deprecated code paths
+- Adding internal utilities not exposed in public API
+
+**If unsure, it's patch.**
+
+## HARNESS v2 — PERSISTENCE PATTERNS
+
+`CheckpointHistory` is the single source of truth for conversation state. `SnapshotStore` is the only persistence abstraction.
+
+### Persistence by use case
+
+```typescript
+// 1. Ephemeral (no persistence)
+const history = new CheckpointHistory({ compaction: {...} });
+
+// 2. File-persisted (recommended for most consumers)
+import { FileSnapshotStore } from "@ai-sdk-tool/harness/sessions";
+const store = new FileSnapshotStore(".plugsuits/sessions");
+const history = await CheckpointHistory.fromSnapshot(store, sessionId, { compaction });
+// After each turn — caller decides when:
+await store.save(sessionId, history.snapshot());
+
+// 3. Custom backend (e.g., Postgres)
+const history = new CheckpointHistory({ compaction: {...} });
+const snap = await postgresStore.load(conversationId);
+if (snap) history.restoreFromSnapshot(snap);
+// After each turn:
+await postgresStore.save(conversationId, history.snapshot());
+```
+
+**Key principle**: `fromSnapshot()` is pure load+restore — no auto-persist. Saving is always explicit by the caller.
+
+### Subpath imports (harness v2)
+
+```typescript
+// Runtime layer (recommended starting point for new consumers)
+import { defineAgent, createAgentRuntime, type AgentSession } from "@ai-sdk-tool/harness/runtime";
+
+// Core (always from root)
+import { createAgent, runAgentLoop, CheckpointHistory, AgentError, isAgentError } from "@ai-sdk-tool/harness";
+
+// Persistence
+import { FileSnapshotStore, InMemorySnapshotStore, type SnapshotStore, type HistorySnapshot } from "@ai-sdk-tool/harness/sessions";
+
+// Compaction
+import { CompactionCircuitBreaker, createModelSummarizer, createDefaultPruningConfig } from "@ai-sdk-tool/harness/compaction";
+
+// Memory
+import { SessionMemoryTracker, BackgroundMemoryExtractor } from "@ai-sdk-tool/harness/memory";
+```
+- `createSessionAgent`, `createMemoryAgent`, `createPlatformAgent` → deleted; use `fromSnapshot()` directly
+
+### Error handling
+
+```typescript
+import { isAgentError, AgentError, AgentErrorCode } from "@ai-sdk-tool/harness";
+try {
+  await runAgentLoop({ ... });
+} catch (error) {
+  if (isAgentError(error) && error.code === AgentErrorCode.MAX_ITERATIONS) {
+    // hit iteration limit
+  }
+}
+```
+
+## ANTI-PATTERNS (THIS PROJECT)
+
+- Editing generated outputs (`dist/`, `packages/*/dist/`) as if they were source code.
+- Using shell commands (`cat`, `sed`, `rm`, `find`, `grep`) for file operations that dedicated tools already cover.
+- Stopping at planning/todo updates without executing the concrete actions.
+- For benchmark work: changing ATIF event shapes or lifecycle annotations without updating the benchmark contract docs and consumers in `packages/cea/benchmark/`.
+- Importing from `@ai-sdk-tool/cea` inside `harness`, `tui`, or `headless` — dependency direction is one-way.
+- Reading `process.env.X` directly instead of using `@t3-oss/env-core` `createEnv` — all env vars must be validated via Zod schema in the package's `env.ts`.
+- Adding `.js` extensions to relative imports in source files (e.g., `from "./foo.js"` instead of `from "./foo"`). The base `tsconfig.json` uses `moduleResolution: "bundler"` which resolves extensionless imports. The post-build script `scripts/fix-esm-imports.mjs` automatically adds `.js` to compiled output in `dist/`. Source files must use extensionless imports only.
+
+## UNIQUE STYLES
+
+- File edits in CEA favor hashline-aware operations (`LINE#HASH` + `expected_file_hash`) for stale-safe modifications.
+- Manual tool-loop continuation is intentionally constrained to normalized `tool-calls` finish reasons.
+- Headless mode emits a JSONL event stream with lifecycle types `metadata`, `step`, `approval`, `compaction`, `error`, `interrupt`, and `turn-start`. The persisted `trajectory.json` produced by `TrajectoryCollector` follows Harbor's ATIF-v1.4 schema (<https://www.harborframework.com/docs/agents/trajectory-format>): `approval`, `compaction`, and `interrupt` are bundled into `extra.*` buckets; `turn-start` and `error` are JSONL-only.
+- `SkillsEngine` discovers skills from up to five directories: bundled, global skills, global commands, project skills, project commands.
+
+## COMMANDS
+
+```bash
+# From workspace root
+pnpm install
+pnpm run build          # Build all packages in dependency order
+pnpm run typecheck      # Type-check all packages
+pnpm run check          # Lint — non-mutating
+pnpm run lint           # Lint — auto-fix
+pnpm run test           # Run all tests
+
+# CEA-specific (from packages/cea or via workspace scripts)
+pnpm run dev           # Interactive TUI
+pnpm run headless -- "<task>"   # Headless JSONL mode
+```
+
+## NOTES
+
+- Root rules are global. See `packages/tui/AGENTS.md` and `packages/headless/AGENTS.md` for package-local guidance.
+- `packages/cea/benchmark/AGENTS.md` is intentionally specialized and should remain benchmark-focused.
+- The `harness` package has no AGENTS.md of its own — its conventions are captured here and in the README.
+
+---
+> Source: [minpeter/plugsuits](https://github.com/minpeter/plugsuits) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
