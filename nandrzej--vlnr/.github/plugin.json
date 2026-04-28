@@ -1,0 +1,9 @@
+{
+  "name": "nandrzej--vlnr",
+  "displayName": "vlnr",
+  "description": "AI security agent for the Python supply chain: scans packages, generates exploits, and validates them in Docker, autonomously.",
+  "version": "1.0.0",
+  "author": "nandrzej",
+  "homepage": "https://github.com/nandrzej/vlnr",
+  "skills": []
+}
