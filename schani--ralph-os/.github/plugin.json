@@ -1,0 +1,9 @@
+{
+  "name": "schani--ralph-os",
+  "displayName": "ralph-os",
+  "description": "A vibe-coded toy operating system - x86-64, co-op multitasking, no memory protection, written in Rust",
+  "version": "1.0.0",
+  "author": "schani",
+  "homepage": "https://github.com/schani/ralph-os",
+  "skills": []
+}
