@@ -1,0 +1,9 @@
+{
+  "name": "elastic--example-mcp-dashbuilder",
+  "displayName": "example-mcp-dashbuilder",
+  "description": "MCP app to build dashboards via cursor",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/example-mcp-dashbuilder",
+  "skills": []
+}
