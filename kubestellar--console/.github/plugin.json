@@ -1,0 +1,9 @@
+{
+  "name": "kubestellar--console",
+  "displayName": "console",
+  "description": "World's first fully integrated and fully Automated Kubernetes management and orchestration solution",
+  "version": "1.0.0",
+  "author": "kubestellar",
+  "homepage": "https://github.com/kubestellar/console",
+  "skills": []
+}
