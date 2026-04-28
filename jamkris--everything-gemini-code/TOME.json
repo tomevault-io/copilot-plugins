@@ -1,0 +1,51 @@
+{
+  "name": "everything-gemini-code",
+  "owner": "Jamkris",
+  "repo": "everything-gemini-code",
+  "description": "Battle-tested agents, skills, and hooks for Gemini CLI and Antigravity",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "django-security",
+      "path": "skills/django-security",
+      "github_url": "https://github.com/Jamkris/everything-gemini-code/tree/main/skills/django-security",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Jamkris/everything-gemini-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T19:31:36Z"
+}
