@@ -1,0 +1,9 @@
+{
+  "name": "osanoai--multicli",
+  "displayName": "multicli",
+  "description": "Gemini, Codex, Claude, and OpenCode all in a single MCP tool for use by any coding agent.",
+  "version": "1.0.0",
+  "author": "osanoai",
+  "homepage": "https://github.com/osanoai/multicli",
+  "skills": []
+}
