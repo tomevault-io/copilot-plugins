@@ -1,0 +1,9 @@
+{
+  "name": "luciuschen--clutch",
+  "displayName": "clutch",
+  "description": "Interactive database client for Emacs \u2014 MySQL, PostgreSQL, SQLite (pure Elisp) plus Oracle, SQL Server, DB2, Snowflake & Redshift via JDBC; paginated result browser, inline editing, schema browser, an",
+  "version": "1.0.0",
+  "author": "LuciusChen",
+  "homepage": "https://github.com/LuciusChen/clutch",
+  "skills": []
+}
