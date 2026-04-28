@@ -1,0 +1,9 @@
+{
+  "name": "rsvedant--opencode-windsurf-auth",
+  "displayName": "opencode-windsurf-auth",
+  "description": "Enable Opencode to authenticate via Windsurf's CSRF token, so you can access models like gemini-3-pro and claude-opus-4-5-thinking with your Windsurf subscription.",
+  "version": "1.0.0",
+  "author": "rsvedant",
+  "homepage": "https://github.com/rsvedant/opencode-windsurf-auth",
+  "skills": []
+}
