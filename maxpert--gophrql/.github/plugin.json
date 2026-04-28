@@ -1,0 +1,9 @@
+{
+  "name": "maxpert--gophrql",
+  "displayName": "gophrql",
+  "description": "PRQL implementation in pure Go",
+  "version": "1.0.0",
+  "author": "maxpert",
+  "homepage": "https://github.com/maxpert/gophrql",
+  "skills": []
+}
