@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--automated-plan-reviser-pro",
+  "displayName": "automated_plan_reviser_pro",
+  "description": "Iterative specification refinement tool: feeds your docs through GPT Pro Extended Reasoning via Oracle for multiple revision rounds until production-ready",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/automated_plan_reviser_pro",
+  "skills": []
+}
