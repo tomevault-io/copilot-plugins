@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--conductor",
+  "displayName": "conductor",
+  "description": "A CLI tool for defining and running multi-agent workflows with the GitHub Copilot SDK and Anthropic Agents SDK.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/conductor",
+  "skills": []
+}
