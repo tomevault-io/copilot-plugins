@@ -1,0 +1,9 @@
+{
+  "name": "gindachen--nsys-ai",
+  "displayName": "nsys-ai",
+  "description": "Terminal UI for NVIDIA Nsight Systems profiles \u2014 timeline viewer, kernel navigator, NVTX hierarchy",
+  "version": "1.0.0",
+  "author": "GindaChen",
+  "homepage": "https://github.com/GindaChen/nsys-ai",
+  "skills": []
+}
