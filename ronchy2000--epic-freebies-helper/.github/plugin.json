@@ -1,0 +1,9 @@
+{
+  "name": "ronchy2000--epic-freebies-helper",
+  "displayName": "epic-freebies-helper",
+  "description": "Automatically claim Epic Games weekly free titles with GitHub Actions and GLM-powered captcha solving.",
+  "version": "1.0.0",
+  "author": "Ronchy2000",
+  "homepage": "https://github.com/Ronchy2000/epic-freebies-helper",
+  "skills": []
+}
