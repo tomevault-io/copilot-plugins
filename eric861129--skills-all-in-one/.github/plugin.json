@@ -1,0 +1,9 @@
+{
+  "name": "eric861129--skills-all-in-one",
+  "displayName": "SKILLS_All-in-one",
+  "description": "Open-source AI agent skills library with downloadable skills for Claude Code, ChatGPT, and MCP workflows.",
+  "version": "1.0.0",
+  "author": "eric861129",
+  "homepage": "https://github.com/eric861129/SKILLS_All-in-one",
+  "skills": []
+}
