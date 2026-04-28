@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [freebeiro/project-x](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/freebeiro#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/freebeiro/project-x](https://github.com/freebeiro/project-x)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install freebeiro/project-x
 ```
-Or browse all formats at [https://tomevault.io/claim/freebeiro](https://tomevault.io/claim/freebeiro).
+Source: [github.com/freebeiro/project-x](https://github.com/freebeiro/project-x).
 
 <!-- genome:a-i-q -->
