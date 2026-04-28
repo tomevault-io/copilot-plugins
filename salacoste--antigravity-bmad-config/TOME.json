@@ -1,0 +1,44 @@
+{
+  "name": "antigravity-bmad-config",
+  "owner": "salacoste",
+  "repo": "antigravity-bmad-config",
+  "description": "Antigravity config template: BMad Method (BMAD-METHOD) AI agents via slash commands for PRD\u2192Architecture\u2192Stories\u2192Dev\u2192QA gate.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/salacoste/antigravity-bmad-config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-28T12:43:41Z"
+}
