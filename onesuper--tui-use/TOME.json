@@ -4,7 +4,7 @@
   "repo": "tui-use",
   "description": "tui-use lets agents interact with programs that expect a human at the keyboard \u2014 REPLs, debuggers, TUI apps, and anything else bash can't reach.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/onesuper/tui-use",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:13:27Z"
+  "distributed_at": "2026-04-29T03:57:33Z"
 }
