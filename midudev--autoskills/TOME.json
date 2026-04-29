@@ -4,7 +4,7 @@
   "repo": "autoskills",
   "description": "One command. Your entire AI skill stack. Installed.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/midudev/autoskills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T21:07:40Z"
+  "distributed_at": "2026-04-29T00:21:22Z"
 }
