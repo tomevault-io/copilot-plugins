@@ -1,0 +1,9 @@
+{
+  "name": "timeverse--my-tw-coverage",
+  "displayName": "My-TW-Coverage",
+  "description": "Equity research coverage of 1,735 Taiwan-listed companies (TWSE + OTC). Business overviews, supply chain mapping, and financial data with wikilink cross-referencing.",
+  "version": "1.0.0",
+  "author": "Timeverse",
+  "homepage": "https://github.com/Timeverse/My-TW-Coverage",
+  "skills": []
+}
