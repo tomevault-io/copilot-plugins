@@ -1,0 +1,9 @@
+{
+  "name": "kipppunkt--agent",
+  "displayName": "agent",
+  "description": "AI coding agent orchestration. Ideas in. PRs out. Ship from anywhere. \ud83c\udfdd\ufe0f",
+  "version": "1.0.0",
+  "author": "kipppunkt",
+  "homepage": "https://github.com/kipppunkt/agent",
+  "skills": []
+}
