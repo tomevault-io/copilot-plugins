@@ -1,0 +1,9 @@
+{
+  "name": "poorgramer-zack--copilot-mcp-tool",
+  "displayName": "copilot-mcp-tool",
+  "description": "MCP server that enables AI assistants to interact with Github Copilot cli, leveraging copilot massive token window for large file analysis and codebase understanding",
+  "version": "1.0.0",
+  "author": "Poorgramer-Zack",
+  "homepage": "https://github.com/Poorgramer-Zack/copilot-mcp-tool",
+  "skills": []
+}
