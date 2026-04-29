@@ -4,7 +4,7 @@
   "repo": "token",
   "description": "\ud83c\udf08 Neovim colorscheme with terminal-wide contrib themes",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ThorstenRhau/token",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:17:31Z"
+  "distributed_at": "2026-04-29T23:40:09Z"
 }
