@@ -1,0 +1,9 @@
+{
+  "name": "growthub-ai--growthub-local",
+  "displayName": "growthub-local",
+  "description": "Turn a repo, skill, or starter into a governed agent environment you can customize, keep current, and run through a CLI that works for both humans and agents.",
+  "version": "1.0.0",
+  "author": "Growthub-ai",
+  "homepage": "https://github.com/Growthub-ai/growthub-local",
+  "skills": []
+}
