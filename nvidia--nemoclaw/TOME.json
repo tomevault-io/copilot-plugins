@@ -4,7 +4,7 @@
   "repo": "NemoClaw",
   "description": "Run OpenClaw more securely inside NVIDIA OpenShell with managed inference",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA/NemoClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T20:40:26Z"
+  "distributed_at": "2026-04-29T00:01:05Z"
 }
