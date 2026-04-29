@@ -1,0 +1,9 @@
+{
+  "name": "hiroppy--tmux-agent-sidebar",
+  "displayName": "tmux-agent-sidebar",
+  "description": "A tmux sidebar that monitors AI coding agents across all windows and sessions in real-time",
+  "version": "1.0.0",
+  "author": "hiroppy",
+  "homepage": "https://github.com/hiroppy/tmux-agent-sidebar",
+  "skills": []
+}
