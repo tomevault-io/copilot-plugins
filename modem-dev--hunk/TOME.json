@@ -4,7 +4,7 @@
   "repo": "hunk",
   "description": "Review-first terminal diff viewer for agentic coders",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/modem-dev/hunk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:56:38Z"
+  "distributed_at": "2026-04-29T16:15:17Z"
 }
