@@ -1,0 +1,9 @@
+{
+  "name": "lcharvol--macsift",
+  "displayName": "MacSift",
+  "description": "Transparent macOS disk cleaner \u2014 groups files by app, moves to Trash (never permanent). SwiftUI + Liquid Glass, built for macOS Tahoe.",
+  "version": "1.0.0",
+  "author": "Lcharvol",
+  "homepage": "https://github.com/Lcharvol/MacSift",
+  "skills": []
+}
