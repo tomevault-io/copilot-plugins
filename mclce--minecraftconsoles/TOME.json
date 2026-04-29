@@ -4,7 +4,7 @@
   "repo": "MinecraftConsoles",
   "description": "Vanilla LCE intended as an upstream base for other projects. Originally based on a WIP version of TU19.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MCLCE/MinecraftConsoles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T06:16:44Z"
+  "distributed_at": "2026-04-29T11:59:12Z"
 }
