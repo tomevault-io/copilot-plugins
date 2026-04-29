@@ -1,0 +1,97 @@
+## fallow
+
+> Fallow finds unused files, exports, dependencies, types, enum members, class members, unresolved imports, unlisted deps, duplicate exports, circular dependencies, boundary violations, code duplication, and complexity hotspots in TypeScript/JavaScript projects. Rust alternative to [knip](https://github.com/webpro-nl/knip) built on the Oxc parser ecosystem.
+
+# Fallow - Rust-native codebase analyzer for TypeScript/JavaScript
+
+Fallow finds unused files, exports, dependencies, types, enum members, class members, unresolved imports, unlisted deps, duplicate exports, circular dependencies, boundary violations, code duplication, and complexity hotspots in TypeScript/JavaScript projects. Rust alternative to [knip](https://github.com/webpro-nl/knip) built on the Oxc parser ecosystem.
+
+## Project structure
+
+```
+crates/
+  config/   — Configuration types, custom framework presets, package.json parsing, workspace discovery
+  types/    — Shared type definitions (discover, extract, results, suppress, serde_path)
+  extract/  — AST extraction engine (visitor.rs, complexity.rs, sfc.rs, astro.rs, mdx.rs, css.rs, parse.rs, cache.rs, suppress.rs, tests/)
+  graph/    — Module graph construction (graph/), import resolution (resolve.rs), project state (project.rs)
+  license/  — Offline Ed25519 JWT verification for paid features (alg pinned, file+env load precedence, 7/30/hard-fail grace ladder)
+  v8-coverage/ — V8 ScriptCoverage parser + byte-offset-to-line/col mapper + Istanbul normalizer (open-source layer of Phase-2 production coverage)
+  core/     — Analysis orchestration: discovery, plugins, scripts, duplicates, cross-reference, caching, progress
+    analyze/    — Dead code detection (mod.rs orchestration, predicates.rs, unused_files/exports/deps/members.rs)
+    plugins/    — Plugin system + tooling.rs (general tooling dependency detection)
+    duplicates/ — Clone detection (families, normalize, tokenize)
+  cli/      — CLI binary, split into per-command modules
+    audit.rs, check.rs, dupes.rs, health/, watch.rs, fix/, init.rs, list.rs, schema.rs, validate.rs, regression/
+    license/    — `fallow license {activate, status, refresh, deactivate}` with offline JWT verify plus live trial / refresh flows
+    coverage/   — `fallow coverage setup` resumable first-run state machine for production coverage
+    report/     — Output formatting (mod.rs dispatch, human/, json.rs, sarif.rs, compact.rs, markdown.rs)
+    migrate/    — Config migration (mod.rs, knip.rs, jscpd.rs)
+  lsp/      — LSP server, split into modules
+    main.rs, diagnostics/, code_actions/, code_lens.rs, hover.rs
+  mcp/      — MCP server for AI agent integration (stdio transport, wraps CLI)
+editors/
+  vscode/   — VS Code extension (LSP client, tree views, status bar, auto-download)
+npm/
+  fallow/   — npm wrapper package with optionalDependencies pattern
+action/       — GitHub Action (composite)
+  jq/         — jq scripts for summaries, annotations, review comments, merging
+  scripts/    — Bash scripts (install, analyze, annotate, comment, review, summary)
+  tests/      — Unit tests for jq scripts (run: bash action/tests/run.sh)
+ci/           — GitLab CI template and supporting scripts
+  jq/         — jq scripts for GitLab MR formatting (comments, reviews, summaries, merging)
+  scripts/    — Bash scripts (comment.sh, review.sh)
+  tests/      — Unit tests for jq scripts (92 tests, run: bash ci/tests/run.sh)
+tests/
+  fixtures/ — Integration test fixtures
+decisions/ — Architecture Decision Records (ADRs)
+```
+
+## Architecture
+
+Pipeline: Config → File Discovery → Incremental Parallel Parsing (rayon + oxc_parser + oxc_semantic, cache-aware) → Script Analysis → Module Resolution (oxc_resolver) → Graph Construction → Re-export Chain Resolution → Dead Code Detection → Reporting
+
+## Building & Testing
+
+```bash
+git config core.hooksPath .githooks  # Enable pre-commit hooks (fmt + clippy)
+cargo build --workspace
+cargo test --workspace --all-targets
+cargo clippy --workspace --all-targets -- -D warnings
+cargo fmt --all -- --check
+cargo run --bin fallow                       # Run all analyses (dead-code + dupes + health)
+cargo run --bin fallow -- watch              # Watch mode
+cargo run --bin fallow -- fix --dry-run      # Auto-fix preview
+```
+
+## Code conventions
+
+- Config files: `.fallowrc.json` > `fallow.toml` > `.fallow.toml`
+- No `detect` section in config — use `rules` with `"off"` severity
+- No `output` in config — output format is CLI-only via `--format`
+- Rules severity: `error` (fail CI, default) | `warn` (exit 0) | `off` (skip)
+- Inline suppression: `// fallow-ignore-next-line [issue-type]` and `// fallow-ignore-file [issue-type]`
+- Environment variables: `FALLOW_FORMAT`, `FALLOW_QUIET`, `FALLOW_BIN` (binary path for MCP)
+- See `.claude/rules/code-quality.md` for clippy, size assertions, and CI hardening details
+
+## Key design decisions
+
+Documented as Architecture Decision Records in [`decisions/`](decisions/). Key decisions:
+
+- **No TypeScript compiler** ([ADR-001](decisions/001-no-typescript-compiler.md)): Syntactic analysis via Oxc parser + `oxc_semantic`. No type resolution, no tsc.
+- **Flat edge storage** ([ADR-002](decisions/002-flat-edge-storage.md)): Contiguous `Vec<Edge>` with range indices for cache-friendly traversal.
+- **FxHashMap/FxHashSet required** ([ADR-003](decisions/003-fxhashmap-over-std.md)): Standard `HashMap`/`HashSet` disallowed (enforced via `.clippy.toml`).
+- **Path-sorted FileIds** ([ADR-004](decisions/004-path-sorted-file-ids.md)): Stable cross-run identity, not insertion order.
+- **Re-export chain resolution** ([ADR-005](decisions/005-re-export-chain-resolution.md)): Iterative propagation through barrel files with cycle detection.
+- **Hidden directory allowlist** ([ADR-006](decisions/006-hidden-directory-allowlist.md)): `.storybook`, `.vitepress`, `.well-known`, `.changeset`, `.github` traversed; other dotdirs skipped.
+
+## Git conventions
+
+- Conventional commits: `feat:`, `fix:`, `chore:`, `refactor:`, `test:`
+- Signed commits (`git commit -S`)
+- No AI attribution in commits
+
+See `AGENTS.md` for AI agent integration guide.
+
+---
+> Source: [fallow-rs/fallow](https://github.com/fallow-rs/fallow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
