@@ -1,6 +1,6 @@
-# Finance-Report-Whatsapp — distributed by TomeVault
+# Finance-Report-Whatsapp
 
-> Originally from [angga13142/Finance-Report-Whatsapp](https://github.com/angga13142/Finance-Report-Whatsapp). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [angga13142/Finance-Report-Whatsapp](https://github.com/angga13142/Finance-Report-Whatsapp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [angga13142/Finance-Report-Whatsapp](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/angga13142)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/angga13142/Finance-Report-Whatsapp](https://github.com/angga13142/Finance-Report-Whatsapp)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install angga13142/Finance-Report-Whatsapp
 ```
-Or browse all formats at [https://tomevault.io/claim/angga13142](https://tomevault.io/claim/angga13142).
+Source: [github.com/angga13142/Finance-Report-Whatsapp](https://github.com/angga13142/Finance-Report-Whatsapp).
 
 <!-- genome:d-i-p -->
