@@ -1,0 +1,9 @@
+{
+  "name": "tobihagemann--turbo",
+  "displayName": "turbo",
+  "description": "A composable dev process for Claude Code, packaged as modular skills.",
+  "version": "1.0.0",
+  "author": "tobihagemann",
+  "homepage": "https://github.com/tobihagemann/turbo",
+  "skills": []
+}
