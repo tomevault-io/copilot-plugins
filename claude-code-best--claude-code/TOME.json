@@ -1,0 +1,44 @@
+{
+  "name": "claude-code",
+  "owner": "claude-code-best",
+  "repo": "claude-code",
+  "description": "\u539f\u6c41\u539f\u6627 Claude Code \u53ef\u8fd0\u884c,\u53ef\u6784\u5efa, \u53ef\u8c03\u8bd5\u7248; Typescript \u7c7b\u578b\u5168\u4fee\u590d; \u4f01\u4e1a\u7ea7\u53ef\u9760\u6027; \u5b89\u5168\u65e0\u6bd2, lock \u6587\u4ef6\u4fdd\u771f, \u53ef\u76f4\u63a5 bun i; bun run dev \u542f\u52a8",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/claude-code-best/claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T20:00:01Z"
+}
