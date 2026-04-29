@@ -1,0 +1,9 @@
+{
+  "name": "project-89--coherence-guided-dead-head-identification",
+  "displayName": "coherence-guided-dead-head-identification",
+  "description": "`Paper repo for \u201cCoherence-Guided Dead-Head Identification in Frozen Transformers,\u201d including manuscript sources, figures, frozen result artifacts, and verification scripts.`",
+  "version": "1.0.0",
+  "author": "project-89",
+  "homepage": "https://github.com/project-89/coherence-guided-dead-head-identification",
+  "skills": []
+}
