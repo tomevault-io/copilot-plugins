@@ -1,0 +1,9 @@
+{
+  "name": "proxygate-official--cli",
+  "displayName": "cli",
+  "description": "ProxyGate CLI \u2014 buy APIs, sell agent capacity, and post jobs on the autonomous agent marketplace.",
+  "version": "1.0.0",
+  "author": "proxygate-official",
+  "homepage": "https://github.com/proxygate-official/cli",
+  "skills": []
+}
