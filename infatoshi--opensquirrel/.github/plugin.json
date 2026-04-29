@@ -1,0 +1,9 @@
+{
+  "name": "infatoshi--opensquirrel",
+  "displayName": "OpenSquirrel",
+  "description": "For people who get distracted by agents. A native Rust/GPUI control plane for running Claude Code, Codex, Cursor, and OpenCode side by side \u2014 because if you're going to be squirrely, you might as well",
+  "version": "1.0.0",
+  "author": "Infatoshi",
+  "homepage": "https://github.com/Infatoshi/OpenSquirrel",
+  "skills": []
+}
