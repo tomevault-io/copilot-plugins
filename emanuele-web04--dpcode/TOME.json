@@ -4,7 +4,7 @@
   "repo": "dpcode",
   "description": "The best place to build with your AI sub",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Emanuele-web04/dpcode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T19:53:16Z"
+  "distributed_at": "2026-04-29T20:11:41Z"
 }
