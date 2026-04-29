@@ -1,0 +1,44 @@
+{
+  "name": "nous",
+  "owner": "qiuxinyuan321",
+  "repo": "nous",
+  "description": "\u8ba9\u60f3\u6cd5\uff0c\u843d\u5730 \u2014 \u7ed9\u60f3\u5f97\u591a\u3001\u505a\u5f97\u5c11\u7684\u4eba\u3002Socratic AI \u00b7 Ink design \u00b7 BYOK \u00b7 self-hosted.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qiuxinyuan321/nous",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T04:32:16Z"
+}
