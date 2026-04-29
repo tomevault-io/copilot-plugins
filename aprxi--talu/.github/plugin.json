@@ -1,0 +1,9 @@
+{
+  "name": "aprxi--talu",
+  "displayName": "talu",
+  "description": "Talu is a single-binary, local-first LLM runtime with a Zig core and multi-language bindings \u2014 CLI, Python API, HTTP server, plugin-extensible Web UI, structured output, quantization, embeddings, and ",
+  "version": "1.0.0",
+  "author": "aprxi",
+  "homepage": "https://github.com/aprxi/talu",
+  "skills": []
+}
