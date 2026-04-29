@@ -1,0 +1,9 @@
+{
+  "name": "foxted--rsc-boundary",
+  "displayName": "rsc-boundary",
+  "description": "Tooling to visualize React Server Components vs Client Components boundaries in Next.js App Router",
+  "version": "1.0.0",
+  "author": "foxted",
+  "homepage": "https://github.com/foxted/rsc-boundary",
+  "skills": []
+}
