@@ -4,7 +4,7 @@
   "repo": "InnoClaw",
   "description": "An AI research Agent for scientific innovation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SpectrAI-Initiative/InnoClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T13:10:18Z"
+  "distributed_at": "2026-04-29T16:29:14Z"
 }
