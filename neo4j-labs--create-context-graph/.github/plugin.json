@@ -1,0 +1,9 @@
+{
+  "name": "neo4j-labs--create-context-graph",
+  "displayName": "create-context-graph",
+  "description": "AI agents with graph based reasoning memory, scaffolded in seconds",
+  "version": "1.0.0",
+  "author": "neo4j-labs",
+  "homepage": "https://github.com/neo4j-labs/create-context-graph",
+  "skills": []
+}
