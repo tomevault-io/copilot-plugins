@@ -4,7 +4,7 @@
   "repo": "lat.md",
   "description": "Agent Lattice: a knowledge graph for your codebase, written in markdown.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/1st1/lat.md",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T09:07:40Z"
+  "distributed_at": "2026-04-29T12:23:48Z"
 }
