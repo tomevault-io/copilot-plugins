@@ -4,7 +4,7 @@
   "repo": "magidesk-v1",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zedfauji/magidesk-v1",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T00:05:17Z"
+  "distributed_at": "2026-04-29T04:00:20Z"
 }
