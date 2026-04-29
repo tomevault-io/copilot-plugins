@@ -1,6 +1,6 @@
-# fuel-tracker — distributed by TomeVault
+# fuel-tracker
 
-> Originally from [ngeshlew/fuel-tracker](https://github.com/ngeshlew/fuel-tracker). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [ngeshlew/fuel-tracker](https://github.com/ngeshlew/fuel-tracker) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [ngeshlew/fuel-tracker](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ngeshlew)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ngeshlew/fuel-tracker](https://github.com/ngeshlew/fuel-tracker)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/ngeshlew) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
