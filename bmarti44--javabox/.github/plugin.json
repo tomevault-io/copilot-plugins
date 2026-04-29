@@ -1,0 +1,9 @@
+{
+  "name": "bmarti44--javabox",
+  "displayName": "javabox",
+  "description": "Container that runs in the browser that allows you to run Java and view the output",
+  "version": "1.0.0",
+  "author": "bmarti44",
+  "homepage": "https://github.com/bmarti44/javabox",
+  "skills": []
+}
