@@ -1,0 +1,9 @@
+{
+  "name": "rohirik--claude-code-config",
+  "displayName": "claude-code-config",
+  "description": "Personal Claude Code global config \u2014 hooks, agents, skills, commands",
+  "version": "1.0.0",
+  "author": "RohiRIK",
+  "homepage": "https://github.com/RohiRIK/claude-code-config",
+  "skills": []
+}
