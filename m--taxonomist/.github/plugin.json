@@ -1,0 +1,9 @@
+{
+  "name": "m--taxonomist",
+  "displayName": "taxonomist",
+  "description": "AI-powered WordPress category taxonomy optimizer, built for Claude Code",
+  "version": "1.0.0",
+  "author": "m",
+  "homepage": "https://github.com/m/taxonomist",
+  "skills": []
+}
