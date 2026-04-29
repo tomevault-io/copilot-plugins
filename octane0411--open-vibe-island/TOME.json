@@ -4,7 +4,7 @@
   "repo": "open-vibe-island",
   "description": "The open-source alternative to vibe-island, designed for heavy code agent users, supporting cc/codex/opencode, terminal/ghostty/cmux/kaku/iterm. \u5f00\u6e90\u7684vibe-island\u66ff\u4ee3\u54c1\uff0c\u4e3a\u91cd\u5ea6code agent\u7528\u6237\u8bbe\u8ba1\uff0c\u652f\u6301cc/codex/opencode, terminal/ghostty/cmux/kaku/iterm",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Octane0411/open-vibe-island",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T05:31:35Z"
+  "distributed_at": "2026-04-29T08:16:56Z"
 }
