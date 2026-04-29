@@ -1,0 +1,9 @@
+{
+  "name": "legendaryspy--glimpse",
+  "displayName": "Glimpse",
+  "description": "Voice dictation that stays on your device. Free, open-source, and built for people who actually care about privacy.",
+  "version": "1.0.0",
+  "author": "LegendarySpy",
+  "homepage": "https://github.com/LegendarySpy/Glimpse",
+  "skills": []
+}
