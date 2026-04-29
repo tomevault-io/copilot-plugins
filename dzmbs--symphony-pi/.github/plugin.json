@@ -1,0 +1,9 @@
+{
+  "name": "dzmbs--symphony-pi",
+  "displayName": "symphony-pi",
+  "description": "Symphony orchestration with pi-coding-agent as the runtime",
+  "version": "1.0.0",
+  "author": "dzmbs",
+  "homepage": "https://github.com/dzmbs/symphony-pi",
+  "skills": []
+}
