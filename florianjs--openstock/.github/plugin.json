@@ -1,0 +1,9 @@
+{
+  "name": "florianjs--openstock",
+  "displayName": "openstock",
+  "description": "Modern inventory management system built with Nuxt 4, NuxtHub, and Drizzle ORM ",
+  "version": "1.0.0",
+  "author": "florianjs",
+  "homepage": "https://github.com/florianjs/openstock",
+  "skills": []
+}
