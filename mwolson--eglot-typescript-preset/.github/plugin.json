@@ -1,0 +1,9 @@
+{
+  "name": "mwolson--eglot-typescript-preset",
+  "displayName": "eglot-typescript-preset",
+  "description": "Configure TypeScript LSP support for Emacs using Eglot",
+  "version": "1.0.0",
+  "author": "mwolson",
+  "homepage": "https://github.com/mwolson/eglot-typescript-preset",
+  "skills": []
+}
