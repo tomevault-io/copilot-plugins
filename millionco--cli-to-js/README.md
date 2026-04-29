@@ -7,11 +7,11 @@ Turn any CLI into a JavaScript API
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [millionco/cli-to-js](https://github.com/millionco/cli-to-js).
+Original source: `CLAUDE.md` in [millionco/cli-to-js](https://github.com/millionco/cli-to-js).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
