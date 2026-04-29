@@ -1,0 +1,9 @@
+{
+  "name": "ssp-data--neomd",
+  "displayName": "neomd",
+  "description": "A minimal email TUI where you read with Markdown and write in Neovim.",
+  "version": "1.0.0",
+  "author": "ssp-data",
+  "homepage": "https://github.com/ssp-data/neomd",
+  "skills": []
+}
