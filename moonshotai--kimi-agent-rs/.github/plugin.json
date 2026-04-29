@@ -1,0 +1,9 @@
+{
+  "name": "moonshotai--kimi-agent-rs",
+  "displayName": "kimi-agent-rs",
+  "description": "Kimi Agent (Rust), the Kimi Code CLI Wire mode-compatible agent server.",
+  "version": "1.0.0",
+  "author": "MoonshotAI",
+  "homepage": "https://github.com/MoonshotAI/kimi-agent-rs",
+  "skills": []
+}
