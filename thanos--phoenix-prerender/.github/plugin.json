@@ -1,0 +1,9 @@
+{
+  "name": "thanos--phoenix-prerender",
+  "displayName": "phoenix_prerender",
+  "description": "This library provides build-time prerendering of Phoenix routes and optional runtime ISR-style incremental regeneration.",
+  "version": "1.0.0",
+  "author": "thanos",
+  "homepage": "https://github.com/thanos/phoenix_prerender",
+  "skills": []
+}
