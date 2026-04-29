@@ -4,7 +4,7 @@
   "repo": "cc-telegram-bridge",
   "description": "Real Claude Code & Codex CLI on Telegram \u2014 runs their native harness directly, no reimplemented API wrappers. Sessions, memory, tools, all built-in. Multi-bot Agent Bus, resume local sessions on your phone, voice input, file delivery, streaming, per-bot personality & budget. The most powerful way to run AI agents from anywhere.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cloveric/cc-telegram-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T02:43:13Z"
+  "distributed_at": "2026-04-29T04:20:58Z"
 }
