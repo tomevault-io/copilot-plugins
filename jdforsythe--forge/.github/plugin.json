@@ -1,0 +1,9 @@
+{
+  "name": "jdforsythe--forge",
+  "displayName": "forge",
+  "description": "Skills for creating high quality skills and agents",
+  "version": "1.0.0",
+  "author": "jdforsythe",
+  "homepage": "https://github.com/jdforsythe/forge",
+  "skills": []
+}
