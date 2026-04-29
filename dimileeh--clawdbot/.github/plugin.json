@@ -1,0 +1,9 @@
+{
+  "name": "dimileeh--clawdbot",
+  "displayName": "clawdbot",
+  "description": "AI agent swarm orchestration toolkit \u2014 spawn, monitor, and manage coding agents (Codex, Claude Code, Gemini) with automated PR review and CI fix handling",
+  "version": "1.0.0",
+  "author": "dimileeh",
+  "homepage": "https://github.com/dimileeh/clawdbot",
+  "skills": []
+}
