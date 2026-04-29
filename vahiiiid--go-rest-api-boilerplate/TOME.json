@@ -4,7 +4,7 @@
   "repo": "go-rest-api-boilerplate",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/vahiiiid",
+  "source_url": "https://github.com/vahiiiid/go-rest-api-boilerplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T10:49:00Z"
+  "distributed_at": "2026-04-29T08:05:53Z"
 }
