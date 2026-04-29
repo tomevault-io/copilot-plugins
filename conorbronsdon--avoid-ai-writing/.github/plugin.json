@@ -1,0 +1,9 @@
+{
+  "name": "conorbronsdon--avoid-ai-writing",
+  "displayName": "avoid-ai-writing",
+  "description": "Skill that audits and rewrites content to remove AI writing patterns. Use it with your favorite agents including Claude Code, OpenClaw, and Hermes.",
+  "version": "1.0.0",
+  "author": "conorbronsdon",
+  "homepage": "https://github.com/conorbronsdon/avoid-ai-writing",
+  "skills": []
+}
