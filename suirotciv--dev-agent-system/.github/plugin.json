@@ -1,0 +1,9 @@
+{
+  "name": "suirotciv--dev-agent-system",
+  "displayName": "Dev-Agent-System",
+  "description": "This repository provides a lightweight coordination layer for AI coding agents. It is meant to be copied into a real application repo, then used to coordinate orchestrator, feature, verifier, infra, a",
+  "version": "1.0.0",
+  "author": "Suirotciv",
+  "homepage": "https://github.com/Suirotciv/Dev-Agent-System",
+  "skills": []
+}
