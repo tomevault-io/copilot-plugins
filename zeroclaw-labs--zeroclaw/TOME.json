@@ -4,7 +4,7 @@
   "repo": "zeroclaw",
   "description": "Fast, small, and fully autonomous AI personal assistant infrastructure, ANY OS, ANY PLATFORM \u2014 deploy anywhere, swap anything \ud83e\udd80",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zeroclaw-labs/zeroclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T02:47:10Z"
+  "distributed_at": "2026-04-29T04:25:42Z"
 }
