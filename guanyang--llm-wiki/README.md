@@ -7,14 +7,14 @@ A personal knowledge base continuously maintained by Obsidian + LLM. Inspired by
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [guanyang/llm-wiki](https://github.com/guanyang/llm-wiki).
+Original source: `AGENTS.md` in [guanyang/llm-wiki](https://github.com/guanyang/llm-wiki).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/guanyang/llm-wiki](https://github.com/guanyang/llm-wiki)
