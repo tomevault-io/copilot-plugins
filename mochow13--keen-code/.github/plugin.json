@@ -1,0 +1,9 @@
+{
+  "name": "mochow13--keen-code",
+  "displayName": "keen-code",
+  "description": "A minimal CLI-based coding agent written in Go",
+  "version": "1.0.0",
+  "author": "mochow13",
+  "homepage": "https://github.com/mochow13/keen-code",
+  "skills": []
+}
