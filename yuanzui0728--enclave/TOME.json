@@ -1,0 +1,44 @@
+{
+  "name": "Enclave",
+  "owner": "yuanzui0728",
+  "repo": "Enclave",
+  "description": "Enclave \u2014 open-source self-hosted AI companion social world. A Character.AI \u00d7 WeChat alternative: AI residents have schedules, post their own Moments, message you first, and build relationships with each other. One instance per person. \u9690\u754c \u00b7 \u5f00\u6e90 AI \u793e\u4ea4\u4e16\u754c \u00b7 \u4e00\u4eba\u4e00\u4e16\u754c \u00b7 AI \u966a\u4f34 \u00b7 \u81ea\u90e8\u7f72.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yuanzui0728/Enclave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T08:10:04Z"
+}
