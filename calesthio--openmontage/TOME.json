@@ -4,7 +4,7 @@
   "repo": "OpenMontage",
   "description": "World's first open-source, agentic video production system. 12 pipelines, 52 tools, 500+ agent skills. Turn your AI coding assistant into a full video production studio.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/calesthio/OpenMontage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T21:34:01Z"
+  "distributed_at": "2026-04-29T00:22:33Z"
 }
