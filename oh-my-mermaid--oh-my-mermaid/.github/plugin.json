@@ -1,0 +1,9 @@
+{
+  "name": "oh-my-mermaid--oh-my-mermaid",
+  "displayName": "oh-my-mermaid",
+  "description": "Turn complex codebases into clear, navigable architecture diagrams with Claude Code.",
+  "version": "1.0.0",
+  "author": "oh-my-mermaid",
+  "homepage": "https://github.com/oh-my-mermaid/oh-my-mermaid",
+  "skills": []
+}
