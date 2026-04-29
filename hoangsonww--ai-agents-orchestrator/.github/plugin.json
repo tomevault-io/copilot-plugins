@@ -1,0 +1,9 @@
+{
+  "name": "hoangsonww--ai-agents-orchestrator",
+  "displayName": "AI-Agents-Orchestrator",
+  "description": "\ud83e\ude88 Intelligent orchestration system that coordinates multiple AI coding assistants (Claude, Codex, Gemini CLI, Copilot CLI) to collaborate on complex software development tasks via REPL or a Vue/Nuxt U",
+  "version": "1.0.0",
+  "author": "hoangsonww",
+  "homepage": "https://github.com/hoangsonww/AI-Agents-Orchestrator",
+  "skills": []
+}
