@@ -4,7 +4,7 @@
   "repo": "wx-cli",
   "description": "WeChat local data CLI with daemon architecture",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jackwener/wx-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T23:53:53Z"
+  "distributed_at": "2026-04-29T03:44:15Z"
 }
