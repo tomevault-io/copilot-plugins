@@ -1,0 +1,9 @@
+{
+  "name": "hellock--agent-harness-eval",
+  "displayName": "agent-harness-eval",
+  "description": "agent-harness-eval",
+  "version": "1.0.0",
+  "author": "hellock",
+  "homepage": "https://github.com/hellock/agent-harness-eval",
+  "skills": []
+}
