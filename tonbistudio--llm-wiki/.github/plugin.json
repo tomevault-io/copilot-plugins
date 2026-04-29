@@ -1,0 +1,9 @@
+{
+  "name": "tonbistudio--llm-wiki",
+  "displayName": "llm-wiki",
+  "description": "Open-source template for building LLM-powered knowledge bases following Karpathy's LLM Wiki pattern",
+  "version": "1.0.0",
+  "author": "tonbistudio",
+  "homepage": "https://github.com/tonbistudio/llm-wiki",
+  "skills": []
+}
