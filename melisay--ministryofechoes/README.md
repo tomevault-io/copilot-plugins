@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [melisay/ministryofechoes](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/melisay)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/melisay/ministryofechoes](https://github.com/melisay/ministryofechoes)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/melisay) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-p -->
