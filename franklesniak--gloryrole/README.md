@@ -7,14 +7,14 @@ An unsupervised role mining engine written in PowerShell. Feed it cloud activity
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [franklesniak/GloryRole](https://github.com/franklesniak/GloryRole).
+Original source: `AGENTS.md` in [franklesniak/GloryRole](https://github.com/franklesniak/GloryRole).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [franklesniak/GloryRole](https://github.com/franklesniak/GloryRole) — a repo with 8+ stars on GitHub.
