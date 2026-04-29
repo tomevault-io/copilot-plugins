@@ -7,11 +7,11 @@ Review-first terminal diff viewer for agentic coders
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [modem-dev/hunk](https://github.com/modem-dev/hunk).
+Original source: `CLAUDE.md` in [modem-dev/hunk](https://github.com/modem-dev/hunk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
