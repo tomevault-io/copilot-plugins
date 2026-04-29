@@ -1,0 +1,9 @@
+{
+  "name": "webpro--skills",
+  "displayName": "skills",
+  "description": "Everything is skill issues",
+  "version": "1.0.0",
+  "author": "webpro",
+  "homepage": "https://github.com/webpro/skills",
+  "skills": []
+}
