@@ -1,0 +1,44 @@
+{
+  "name": "cli-agent-lint",
+  "owner": "Camil-H",
+  "repo": "cli-agent-lint",
+  "description": "Is your CLI ready for AI agents? Automated checks to ensure optimum agentic CLI use: don't block agents, don't waste tokens, ensure safe use.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Camil-H/cli-agent-lint",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T00:32:49Z"
+}
