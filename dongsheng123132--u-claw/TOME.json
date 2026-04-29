@@ -1,0 +1,44 @@
+{
+  "name": "u-claw",
+  "owner": "dongsheng123132",
+  "repo": "u-claw",
+  "description": "\ud83e\udd9e U-Claw \u867e\u76d8 - OpenClaw AI \u52a9\u624b\u79bb\u7ebf\u5b89\u88c5 U \u76d8 | \u63d0\u4f9b\u8fdc\u7a0b\u7ef4\u62a4\u00b7\u5b9a\u5236\u5f00\u53d1\u00b7\u4f01\u4e1a\u79c1\u6709\u5316\u90e8\u7f72\u670d\u52a1 | Remote support & custom AI development",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dongsheng123132/u-claw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T07:45:02Z"
+}
