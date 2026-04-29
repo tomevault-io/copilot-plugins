@@ -1,0 +1,9 @@
+{
+  "name": "uespi-setups--typescript",
+  "displayName": "typescript",
+  "description": "Base setup for TypeScript projects with Node.js, ESLint, Prettier, Vitest, Husky, CI, and VS Code integration.",
+  "version": "1.0.0",
+  "author": "uespi-setups",
+  "homepage": "https://github.com/uespi-setups/typescript",
+  "skills": []
+}
