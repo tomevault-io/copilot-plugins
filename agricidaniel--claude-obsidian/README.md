@@ -7,11 +7,11 @@ Claude + Obsidian knowledge companion. Persistent, compounding wiki vault based 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AgriciDaniel/claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian).
+Original source: `CLAUDE.md` in [AgriciDaniel/claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
