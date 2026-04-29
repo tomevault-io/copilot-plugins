@@ -1,0 +1,9 @@
+{
+  "name": "ekkolearnai--hermes-web-ui",
+  "displayName": "hermes-web-ui",
+  "description": "Web dashboard for Hermes Agent \u2014 multi-platform AI chat, session management, scheduled jobs, usage analytics & channel configuration (Telegram, Discord, Slack, WhatsApp)",
+  "version": "1.0.0",
+  "author": "EKKOLearnAI",
+  "homepage": "https://github.com/EKKOLearnAI/hermes-web-ui",
+  "skills": []
+}
