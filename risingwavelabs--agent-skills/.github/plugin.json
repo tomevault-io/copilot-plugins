@@ -1,0 +1,9 @@
+{
+  "name": "risingwavelabs--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agent Skills for RisingWave.",
+  "version": "1.0.0",
+  "author": "risingwavelabs",
+  "homepage": "https://github.com/risingwavelabs/agent-skills",
+  "skills": []
+}
