@@ -1,0 +1,9 @@
+{
+  "name": "sh-cho--idt",
+  "displayName": "idt",
+  "description": "idt(id tool) - A fast, ergonomic CLI tool for working with various ID formats",
+  "version": "1.0.0",
+  "author": "sh-cho",
+  "homepage": "https://github.com/sh-cho/idt",
+  "skills": []
+}
