@@ -4,7 +4,7 @@
   "repo": "jiang-clips",
   "description": "Automated pipeline that converts long-form YouTube videos into viral-ready vertical clips",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ayush-that/jiang-clips",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:42:36Z"
+  "distributed_at": "2026-04-29T19:44:51Z"
 }
