@@ -1,0 +1,9 @@
+{
+  "name": "second-state--kitten-tts-rs",
+  "displayName": "kitten_tts_rs",
+  "description": "Rust implementation of KittenTTS. CLI and API server.",
+  "version": "1.0.0",
+  "author": "second-state",
+  "homepage": "https://github.com/second-state/kitten_tts_rs",
+  "skills": []
+}
