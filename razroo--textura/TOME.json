@@ -4,7 +4,7 @@
   "repo": "textura",
   "description": "Pretext x Yoga = Textura. DOM-free layout engine for the web",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/razroo/textura",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:14:31Z"
+  "distributed_at": "2026-04-29T23:37:46Z"
 }
