@@ -1,0 +1,9 @@
+{
+  "name": "neozhu--botchat",
+  "displayName": "botchat",
+  "description": "A clean, fast chat dashboard with expert personas, streaming replies, attachments, and readable code blocks.",
+  "version": "1.0.0",
+  "author": "neozhu",
+  "homepage": "https://github.com/neozhu/botchat",
+  "skills": []
+}
