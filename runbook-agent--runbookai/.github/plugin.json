@@ -1,0 +1,9 @@
+{
+  "name": "runbook-agent--runbookai",
+  "displayName": "RunbookAI",
+  "description": "Hypothesis-driven AI agent for incident investigation. AWS, K8s, PagerDuty.",
+  "version": "1.0.0",
+  "author": "Runbook-Agent",
+  "homepage": "https://github.com/Runbook-Agent/RunbookAI",
+  "skills": []
+}
