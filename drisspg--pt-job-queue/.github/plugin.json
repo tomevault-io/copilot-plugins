@@ -1,0 +1,9 @@
+{
+  "name": "drisspg--pt-job-queue",
+  "displayName": "pt_job_queue",
+  "description": "PyTorch Job Queue \u2014 dispatch agents to fix PyTorch issues",
+  "version": "1.0.0",
+  "author": "drisspg",
+  "homepage": "https://github.com/drisspg/pt_job_queue",
+  "skills": []
+}
