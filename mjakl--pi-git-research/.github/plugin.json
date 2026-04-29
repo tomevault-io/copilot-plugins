@@ -1,0 +1,9 @@
+{
+  "name": "mjakl--pi-git-research",
+  "displayName": "pi-git-research",
+  "description": "Pi extension to explore git repos locally using shallow clones",
+  "version": "1.0.0",
+  "author": "mjakl",
+  "homepage": "https://github.com/mjakl/pi-git-research",
+  "skills": []
+}
