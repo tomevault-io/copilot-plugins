@@ -7,11 +7,11 @@ Web UI consciousness monitor for Hermes — the AI agent with persistent memory
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [joeynyc/hermes-hudui](https://github.com/joeynyc/hermes-hudui).
+Original source: `CLAUDE.md` in [joeynyc/hermes-hudui](https://github.com/joeynyc/hermes-hudui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
