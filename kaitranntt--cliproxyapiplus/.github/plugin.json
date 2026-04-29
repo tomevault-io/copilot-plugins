@@ -1,0 +1,9 @@
+{
+  "name": "kaitranntt--cliproxyapiplus",
+  "displayName": "CLIProxyAPIPlus",
+  "description": "CCS-maintained fork of CLIProxyAPIPlus (MIT snapshot, Apr 2026) with daily auto-sync from router-for-me/CLIProxyAPI. See plans for context.",
+  "version": "1.0.0",
+  "author": "kaitranntt",
+  "homepage": "https://github.com/kaitranntt/CLIProxyAPIPlus",
+  "skills": []
+}
