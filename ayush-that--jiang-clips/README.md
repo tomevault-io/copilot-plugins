@@ -7,11 +7,11 @@ Automated pipeline that converts long-form YouTube videos into viral-ready verti
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ayush-that/jiang-clips](https://github.com/ayush-that/jiang-clips).
+Original source: `CLAUDE.md` in [ayush-that/jiang-clips](https://github.com/ayush-that/jiang-clips).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
