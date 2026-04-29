@@ -4,7 +4,7 @@
   "repo": "awesome-harness-engineering",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai-boost/awesome-harness-engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T05:56:30Z"
+  "distributed_at": "2026-04-29T11:42:00Z"
 }
