@@ -4,7 +4,7 @@
   "repo": "nexus4cc",
   "description": "Your Claude Code, Everywhere.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/librae8226/nexus4cc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T03:02:50Z"
+  "distributed_at": "2026-04-29T07:56:14Z"
 }
