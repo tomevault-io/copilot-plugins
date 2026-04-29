@@ -1,0 +1,9 @@
+{
+  "name": "bahdotsh--mdterm",
+  "displayName": "mdterm",
+  "description": "A terminal-based Markdown browser.",
+  "version": "1.0.0",
+  "author": "bahdotsh",
+  "homepage": "https://github.com/bahdotsh/mdterm",
+  "skills": []
+}
