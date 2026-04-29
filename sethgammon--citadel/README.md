@@ -7,11 +7,11 @@ Agent orchestration harness for Claude Code. Four-tier routing (/do), campaign p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SethGammon/Citadel](https://github.com/SethGammon/Citadel).
+Original source: `CLAUDE.md` in [SethGammon/Citadel](https://github.com/SethGammon/Citadel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
