@@ -1,0 +1,9 @@
+{
+  "name": "ethanplusai--jarvis",
+  "displayName": "jarvis",
+  "description": "JARVIS \u2014 A voice-first AI assistant for macOS, inspired by the MCU. Talk to your computer, it talks back and gets things done.",
+  "version": "1.0.0",
+  "author": "ethanplusai",
+  "homepage": "https://github.com/ethanplusai/jarvis",
+  "skills": []
+}
