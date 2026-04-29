@@ -1,0 +1,9 @@
+{
+  "name": "onestepat4time--aegis",
+  "displayName": "aegis",
+  "description": "\ud83d\udee1\ufe0f Orchestrate Claude Code sessions via API. Create, brief, monitor, refine, ship. The bridge between your orchestrator and your coding agent.",
+  "version": "1.0.0",
+  "author": "OneStepAt4time",
+  "homepage": "https://github.com/OneStepAt4time/aegis",
+  "skills": []
+}
