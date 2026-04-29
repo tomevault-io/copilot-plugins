@@ -7,11 +7,11 @@ Track Claude Code, Codex, Cursor, Gemini, Kiro, OpenCode, OpenClaw & Every Code 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mm7894215/TokenTracker](https://github.com/mm7894215/TokenTracker).
+Original source: `CLAUDE.md` in [mm7894215/TokenTracker](https://github.com/mm7894215/TokenTracker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
