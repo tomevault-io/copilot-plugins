@@ -1,0 +1,21 @@
+## growthub-local
+
+> This repository's agent-contract single source of truth is **AGENTS.md**.
+
+# .cursorrules — pointer to AGENTS.md
+
+This repository's agent-contract single source of truth is **AGENTS.md**.
+
+Cursor, Claude Code, Codex, Hermes, and every other agent harness read the same contract from that one file. `.cursorrules` and `CLAUDE.md` exist as plain-text pointers (not symlinks) so cross-OS clones stay deterministic.
+
+Do not add Cursor rules here. Edit `AGENTS.md` instead.
+
+See also:
+- `AGENTS.md` — authoritative agent contract
+- `CLAUDE.md` — Claude pointer (same target)
+- `.claude/skills/README.md` — Claude Code skill catalog authoring rules
+- `docs/SKILLS_MCP_DISCOVERY.md` — skills + MCP primitive reference
+
+---
+> Source: [Growthub-ai/growthub-local](https://github.com/Growthub-ai/growthub-local) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
