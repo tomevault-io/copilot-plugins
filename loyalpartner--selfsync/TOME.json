@@ -1,0 +1,44 @@
+{
+  "name": "selfsync",
+  "owner": "loyalpartner",
+  "repo": "selfsync",
+  "description": "Self-hosted Chrome Sync server. \u81ea\u6258\u7ba1 Chrome \u540c\u6b65\u670d\u52a1\u5668 \u2014 \u4e66\u7b7e\u3001\u5bc6\u7801\u3001\u504f\u597d\u7b49\u6d4f\u89c8\u5668\u6570\u636e\u7559\u5728\u672c\u5730\uff0c\u4e0d\u7ecf\u8fc7 Google",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/loyalpartner/selfsync",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T04:12:43Z"
+}
