@@ -1,0 +1,9 @@
+{
+  "name": "nikolays--pgque",
+  "displayName": "pgque",
+  "description": "PgQue \u2013 Zero-bloat Postgres queue. One SQL file to install, pg_cron to tick.",
+  "version": "1.0.0",
+  "author": "NikolayS",
+  "homepage": "https://github.com/NikolayS/pgque",
+  "skills": []
+}
