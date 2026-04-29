@@ -4,7 +4,7 @@
   "repo": "Relax",
   "description": "An Asynchronous Reinforcement Learning Engine for Omni-Modal Post-Training at Scale",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/redai-infra/Relax",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:05:04Z"
+  "distributed_at": "2026-04-29T03:51:42Z"
 }
