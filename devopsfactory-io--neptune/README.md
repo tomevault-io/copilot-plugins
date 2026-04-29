@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [devopsfactory-io/neptune](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/devopsfactory-io)
+From [devopsfactory-io/neptune](https://github.com/devopsfactory-io/neptune) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install devopsfactory-io/neptune
 ```
-Or browse all formats at [https://tomevault.io/claim/devopsfactory-io](https://tomevault.io/claim/devopsfactory-io).
+Source: [github.com/devopsfactory-io/neptune](https://github.com/devopsfactory-io/neptune).
 
 <!-- genome:a-i-s -->
