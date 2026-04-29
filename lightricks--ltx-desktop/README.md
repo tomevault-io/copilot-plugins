@@ -7,11 +7,11 @@ An open-source desktop app for generating videos with LTX models
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Lightricks/LTX-Desktop](https://github.com/Lightricks/LTX-Desktop).
+Original source: `CLAUDE.md` in [Lightricks/LTX-Desktop](https://github.com/Lightricks/LTX-Desktop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
