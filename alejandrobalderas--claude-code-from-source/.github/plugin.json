@@ -1,0 +1,9 @@
+{
+  "name": "alejandrobalderas--claude-code-from-source",
+  "displayName": "claude-code-from-source",
+  "description": "Architecture, patterns & internals of Anthropic's AI coding agent \u2014 reverse-engineered from source maps",
+  "version": "1.0.0",
+  "author": "alejandrobalderas",
+  "homepage": "https://github.com/alejandrobalderas/claude-code-from-source",
+  "skills": []
+}
