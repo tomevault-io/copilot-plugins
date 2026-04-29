@@ -4,7 +4,7 @@
   "repo": "llm-wiki",
   "description": "H\u1ec7 th\u1ed1ng knowledge base c\u00e1 nh\u00e2n ho\u00e0n to\u00e0n t\u1ef1 \u0111\u1ed9ng, v\u1eadn h\u00e0nh b\u1edfi LLM. D\u1ef1a tr\u00ean pattern LLM Wiki c\u1ee7a Andrej Karpathy.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mduongvandinh/llm-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:12:11Z"
+  "distributed_at": "2026-04-29T03:56:23Z"
 }
