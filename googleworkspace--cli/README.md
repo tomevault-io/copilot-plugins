@@ -7,11 +7,11 @@ Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheet
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [googleworkspace/cli](https://github.com/googleworkspace/cli).
+Original source: `CLAUDE.md` in [googleworkspace/cli](https://github.com/googleworkspace/cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
