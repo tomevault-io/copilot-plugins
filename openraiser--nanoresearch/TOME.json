@@ -4,7 +4,7 @@
   "repo": "NanoResearch",
   "description": "\ud83e\udd9e+\ud83d\udd2c: NanoResearch: The Autonomous AI Research Assistant",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenRaiser/NanoResearch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T09:45:09Z"
+  "distributed_at": "2026-04-29T15:43:06Z"
 }
