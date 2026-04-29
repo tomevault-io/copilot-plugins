@@ -1,0 +1,9 @@
+{
+  "name": "opendatalab--mineru-document-explorer",
+  "displayName": "MinerU-Document-Explorer",
+  "description": "Agent-native knowledge engine with MCP tools for document indexing, wiki organization, fast retrieval and deep reading across PDF/DOCX/PPTX/Markdown",
+  "version": "1.0.0",
+  "author": "opendatalab",
+  "homepage": "https://github.com/opendatalab/MinerU-Document-Explorer",
+  "skills": []
+}
