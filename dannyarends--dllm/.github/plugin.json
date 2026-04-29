@@ -1,0 +1,9 @@
+{
+  "name": "dannyarends--dllm",
+  "displayName": "DLLM",
+  "description": "A minimal, clean D language interface for running LLM inference using importC around llama.cpp.",
+  "version": "1.0.0",
+  "author": "DannyArends",
+  "homepage": "https://github.com/DannyArends/DLLM",
+  "skills": []
+}
