@@ -1,0 +1,44 @@
+{
+  "name": "AI-Agents-Orchestrator",
+  "owner": "hoangsonww",
+  "repo": "AI-Agents-Orchestrator",
+  "description": "\ud83e\ude88 Intelligent orchestration system that coordinates multiple AI coding assistants (Claude, Codex, Gemini CLI, Copilot CLI) to collaborate on complex software development tasks via REPL or a Vue/Nuxt UI dashboard. Also includes an Agentic Team runtime with role-based multi-agent open communication & lead-gated final responses.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hoangsonww/AI-Agents-Orchestrator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T00:15:00Z"
+}
