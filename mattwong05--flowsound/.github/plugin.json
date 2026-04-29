@@ -1,0 +1,9 @@
+{
+  "name": "mattwong05--flowsound",
+  "displayName": "FlowSound",
+  "description": "A tiny macOS menu bar app that auto-fades Apple Music or Spotify when other apps play audio.",
+  "version": "1.0.0",
+  "author": "mattwong05",
+  "homepage": "https://github.com/mattwong05/FlowSound",
+  "skills": []
+}
