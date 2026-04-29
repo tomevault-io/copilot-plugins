@@ -1,0 +1,9 @@
+{
+  "name": "dedene--zentty",
+  "displayName": "zentty",
+  "description": "A native macOS terminal for agent-driven development, built on Ghostty.",
+  "version": "1.0.0",
+  "author": "dedene",
+  "homepage": "https://github.com/dedene/zentty",
+  "skills": []
+}
