@@ -1,0 +1,9 @@
+{
+  "name": "littleor--openreview-monitor",
+  "displayName": "openreview-monitor",
+  "description": "Self-hostable OpenReview paper monitor: email alerts for new reviews, reviewer score changes, and decisions.",
+  "version": "1.0.0",
+  "author": "Littleor",
+  "homepage": "https://github.com/Littleor/openreview-monitor",
+  "skills": []
+}
