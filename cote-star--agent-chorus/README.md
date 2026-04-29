@@ -7,14 +7,14 @@ Local-first CLI to read, compare, and hand off sessions across Claude Code, Code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [cote-star/agent-chorus](https://github.com/cote-star/agent-chorus).
+Original source: `AGENTS.md` in [cote-star/agent-chorus](https://github.com/cote-star/agent-chorus).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [cote-star/agent-chorus](https://github.com/cote-star/agent-chorus) — a repo with 9+ stars on GitHub.
