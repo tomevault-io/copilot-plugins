@@ -1,0 +1,9 @@
+{
+  "name": "alturkestani--nabq",
+  "displayName": "nabq",
+  "description": "AI-powered multilingual meditation platform. Personalized sessions in Arabic dialects, English, Turkish, and French. Next.js 15 + Supabase + OpenRouter + Azure/ElevenLabs TTS. MIT licensed.",
+  "version": "1.0.0",
+  "author": "alturkestani",
+  "homepage": "https://github.com/alturkestani/nabq",
+  "skills": []
+}
