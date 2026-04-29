@@ -1,0 +1,9 @@
+{
+  "name": "comma-compliance--arc-relay",
+  "displayName": "arc-relay",
+  "description": "MCP control plane that's easy to use",
+  "version": "1.0.0",
+  "author": "comma-compliance",
+  "homepage": "https://github.com/comma-compliance/arc-relay",
+  "skills": []
+}
