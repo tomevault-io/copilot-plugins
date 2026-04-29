@@ -4,7 +4,7 @@
   "repo": "mex",
   "description": "Persistent project memory for AI coding agents. Structured scaffold + drift detection CLI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theDakshJaitly/mex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:22:15Z"
+  "distributed_at": "2026-04-29T15:48:28Z"
 }
