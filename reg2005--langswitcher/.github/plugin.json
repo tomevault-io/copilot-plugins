@@ -1,0 +1,9 @@
+{
+  "name": "reg2005--langswitcher",
+  "displayName": "langSwitcher",
+  "description": "\u2328\ufe0f Open-source keyboard layout text converter for macOS \u2014 fix text typed in wrong layout. Double-Shift hotkey, 5 layouts, greedy line detection, menu bar app.",
+  "version": "1.0.0",
+  "author": "reg2005",
+  "homepage": "https://github.com/reg2005/langSwitcher",
+  "skills": []
+}
