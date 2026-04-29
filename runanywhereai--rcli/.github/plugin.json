@@ -1,0 +1,9 @@
+{
+  "name": "runanywhereai--rcli",
+  "displayName": "RCLI",
+  "description": "Talk to your Mac, query your docs, no cloud required. On-device voice AI + RAG",
+  "version": "1.0.0",
+  "author": "RunanywhereAI",
+  "homepage": "https://github.com/RunanywhereAI/RCLI",
+  "skills": []
+}
