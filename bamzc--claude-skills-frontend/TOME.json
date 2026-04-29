@@ -1,0 +1,75 @@
+{
+  "name": "claude-skills-frontend",
+  "owner": "bamzc",
+  "repo": "claude-skills-frontend",
+  "description": "\u524d\u7aef\u5f00\u53d1\u901a\u7528 Claude Skills \u96c6\u5408",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentation",
+      "path": "skills/agentation",
+      "github_url": "https://github.com/bamzc/claude-skills-frontend/tree/main/skills/agentation",
+      "description": ""
+    },
+    {
+      "name": "amis-builder",
+      "path": "skills/amis-builder",
+      "github_url": "https://github.com/bamzc/claude-skills-frontend/tree/main/skills/amis-builder",
+      "description": ""
+    },
+    {
+      "name": "frontend-code-review",
+      "path": "skills/frontend-code-review",
+      "github_url": "https://github.com/bamzc/claude-skills-frontend/tree/main/skills/frontend-code-review",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/bamzc/claude-skills-frontend/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": "skills/ui-ux-pro-max",
+      "github_url": "https://github.com/bamzc/claude-skills-frontend/tree/main/skills/ui-ux-pro-max",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bamzc/claude-skills-frontend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T19:30:08Z"
+}
