@@ -1,0 +1,26 @@
+{
+  "name": "comalice--statechartx",
+  "displayName": "statechartx",
+  "description": "Golang implementation of statecharts.",
+  "version": "1.0.0",
+  "author": "comalice",
+  "homepage": "https://github.com/comalice/statechartx",
+  "skills": [
+    {
+      "name": "context-gathering",
+      "description": ""
+    },
+    {
+      "name": "golang-development",
+      "description": ""
+    },
+    {
+      "name": "scxml-translator",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "description": ""
+    }
+  ]
+}
