@@ -1,0 +1,9 @@
+{
+  "name": "martinambrus--claude-timings-wrapper",
+  "displayName": "claude_timings_wrapper",
+  "description": "Tracks idle, typing, and agent work time across Claude Code sessions using PTY wrapping and native hooks. Provides per-session and   aggregate stats with project-level breakdowns.",
+  "version": "1.0.0",
+  "author": "martinambrus",
+  "homepage": "https://github.com/martinambrus/claude_timings_wrapper",
+  "skills": []
+}
