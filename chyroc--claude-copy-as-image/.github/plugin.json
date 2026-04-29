@@ -1,0 +1,9 @@
+{
+  "name": "chyroc--claude-copy-as-image",
+  "displayName": "claude-copy-as-image",
+  "description": "Copy Claude's terminal output as a beautiful styled image to clipboard.",
+  "version": "1.0.0",
+  "author": "chyroc",
+  "homepage": "https://github.com/chyroc/claude-copy-as-image",
+  "skills": []
+}
