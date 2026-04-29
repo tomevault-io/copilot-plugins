@@ -1,0 +1,9 @@
+{
+  "name": "agents-io--pokeclaw",
+  "displayName": "PokeClaw",
+  "description": "PokeClaw (PocketClaw) \u2014 first on-device AI that controls your Android phone. Gemma 4, no cloud, no API key. Poke is short for Pocket.",
+  "version": "1.0.0",
+  "author": "agents-io",
+  "homepage": "https://github.com/agents-io/PokeClaw",
+  "skills": []
+}
