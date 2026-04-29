@@ -1,0 +1,9 @@
+{
+  "name": "zowe--zowe-mcp",
+  "displayName": "zowe-mcp",
+  "description": "Zowe MCP Server",
+  "version": "1.0.0",
+  "author": "zowe",
+  "homepage": "https://github.com/zowe/zowe-mcp",
+  "skills": []
+}
