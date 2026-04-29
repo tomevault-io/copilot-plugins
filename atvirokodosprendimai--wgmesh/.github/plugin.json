@@ -1,0 +1,9 @@
+{
+  "name": "atvirokodosprendimai--wgmesh",
+  "displayName": "wgmesh",
+  "description": "WireGuard mesh builder - static and distributed via DHT discovery",
+  "version": "1.0.0",
+  "author": "atvirokodosprendimai",
+  "homepage": "https://github.com/atvirokodosprendimai/wgmesh",
+  "skills": []
+}
