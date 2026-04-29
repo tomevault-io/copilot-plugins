@@ -1,0 +1,9 @@
+{
+  "name": "cesp99--spettro",
+  "displayName": "spettro",
+  "description": "Spettro is a terminal coding assistant built in Go. It automates planning, coding, and testing with multi-agent workflows, model selection, and an intuitive UI. Connects to local and remote AI provide",
+  "version": "1.0.0",
+  "author": "cesp99",
+  "homepage": "https://github.com/cesp99/spettro",
+  "skills": []
+}
