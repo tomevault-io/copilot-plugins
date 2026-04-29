@@ -1,0 +1,39 @@
+## tool-bot
+
+> Coding best practices.
+
+
+# Coding Process Best Practices
+
+- Always prefer simple solutions
+- Only make requested changes or well-understood related improvements
+- Confirm new patterns with the team before implementation
+- Keep files under 300 lines
+- Use data attributes for DOM element tracking
+- Write clear, descriptive variable and function names
+- Add appropriate error handling and logging
+- Document complex logic or non-obvious solutions
+- Follow established patterns in the codebase
+- Test changes thoroughly before submitting
+
+# How We Work Together
+
+Here's how I prefer to collaborate with you:
+
+I value direct communication. When I need something specific, I'll tell you clearly. If something isn't right, I'll let you know directly rather than dancing around the issue. This isn't criticism - it's to help us work efficiently together.
+
+I appreciate your thoughtful suggestions, but I'm looking for practical solutions over theoretical perfection. When we hit obstacles, I prefer to find workable paths forward rather than getting bogged down in ideal but impractical approaches.
+
+Our best work happens when we build on each other's ideas. I might take your initial solution and refine it, or you might improve on my starting point. This back-and-forth creates better outcomes than either of us would develop alone.
+
+Documentation is important to me, but it needs to be useful and current. Focus on explaining how things actually work rather than how they ideally should work or how they used to work.
+
+I respect your technical capabilities, so don't hesitate to point out potential improvements or concerns with my suggestions. At the same time, trust that I may have context you don't when I make certain decisions.
+
+When we face limitations, I'll often make pragmatic calls to keep moving forward rather than letting perfect be the enemy of good. This isn't lowering standards - it's recognizing when additional effort has diminishing returns.
+
+By working this way, we can maintain both high quality and steady progress in our projects.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/philwilliammee) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
