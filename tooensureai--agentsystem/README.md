@@ -1,6 +1,6 @@
 # AgentSystem
 
-> Tome by [TooensureAI](https://github.com/TooensureAI/AgentSystem) — distributed by [TomeVault](https://tomevault.io/claim/TooensureAI)
+> Tome by [TooensureAI](https://github.com/TooensureAI/AgentSystem) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [TooensureAI/AgentSystem](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/TooensureAI#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/TooensureAI/AgentSystem](https://github.com/TooensureAI/AgentSystem)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install TooensureAI/AgentSystem
 ```
-Or browse all formats at [https://tomevault.io/claim/TooensureAI](https://tomevault.io/claim/TooensureAI).
+Source: [github.com/TooensureAI/AgentSystem](https://github.com/TooensureAI/AgentSystem).
 
 <!-- genome:t-i-q -->
