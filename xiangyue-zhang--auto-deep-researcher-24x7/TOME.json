@@ -4,7 +4,7 @@
   "repo": "auto-deep-researcher-24x7",
   "description": "\ud83d\udd25 An autonomous AI agent that runs your deep learning experiments 24/7 while you sleep. Zero-cost monitoring, Leader-Worker architecture, constant-size memory.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Xiangyue-Zhang/auto-deep-researcher-24x7",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T23:45:47Z"
+  "distributed_at": "2026-04-29T03:40:46Z"
 }
