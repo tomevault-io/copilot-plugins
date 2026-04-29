@@ -1,0 +1,44 @@
+{
+  "name": "handless",
+  "owner": "ElwinLiu",
+  "repo": "handless",
+  "description": "MacOS desktop speech-to-text. Private, offline, open-source. Choose your own STT (Speech to Text) providers, and LLM providers that polish your mumbles. Bind any prompt templates with any shorcuts",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ElwinLiu/handless",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T08:11:22Z"
+}
