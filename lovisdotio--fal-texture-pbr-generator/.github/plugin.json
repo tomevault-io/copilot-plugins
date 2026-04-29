@@ -1,0 +1,9 @@
+{
+  "name": "lovisdotio--fal-texture-pbr-generator",
+  "displayName": "fal-texture-pbr-generator",
+  "description": "AI PBR texture generator \u2014 generate BaseColor, Normal, Roughness, Metallic & Height maps from text or image. 3D preview, Substance Designer export. Powered by fal.ai PATINA.",
+  "version": "1.0.0",
+  "author": "lovisdotio",
+  "homepage": "https://github.com/lovisdotio/fal-texture-pbr-generator",
+  "skills": []
+}
