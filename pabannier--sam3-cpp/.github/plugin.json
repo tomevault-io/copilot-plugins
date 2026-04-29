@@ -1,0 +1,9 @@
+{
+  "name": "pabannier--sam3-cpp",
+  "displayName": "sam3.cpp",
+  "description": "Fast state-of-the-art image and video segmentation in portable C/C++",
+  "version": "1.0.0",
+  "author": "PABannier",
+  "homepage": "https://github.com/PABannier/sam3.cpp",
+  "skills": []
+}
