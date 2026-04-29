@@ -1,0 +1,9 @@
+{
+  "name": "includewudi--opencode-tmuxweb",
+  "displayName": "opencode-tmuxweb",
+  "description": "TmuxWeb \u2014 Web-based tmux client for desktop & mobile, with voice input, AI assistance, and OpenCode integration",
+  "version": "1.0.0",
+  "author": "includewudi",
+  "homepage": "https://github.com/includewudi/opencode-tmuxweb",
+  "skills": []
+}
