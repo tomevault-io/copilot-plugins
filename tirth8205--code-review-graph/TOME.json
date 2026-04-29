@@ -4,7 +4,7 @@
   "repo": "code-review-graph",
   "description": "Local knowledge graph for Claude Code. Builds a persistent map of your codebase so Claude reads only what matters \u2014 6.8\u00d7 fewer tokens on reviews and up to 49\u00d7 on daily coding tasks.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tirth8205/code-review-graph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T20:53:36Z"
+  "distributed_at": "2026-04-29T00:10:39Z"
 }
