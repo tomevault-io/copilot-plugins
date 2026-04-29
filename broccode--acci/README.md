@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Broccode/acci](https://github.com/Bro
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Broccode)
+From [Broccode/acci](https://github.com/Broccode/acci) — a repo with 0+ stars on GitHub.
 
 ---
 
