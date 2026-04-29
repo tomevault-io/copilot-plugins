@@ -7,11 +7,11 @@ Drive the full lifecycle of AI-assisted development — from idea to shipped cod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [compozy/compozy](https://github.com/compozy/compozy).
+Original source: `CLAUDE.md` in [compozy/compozy](https://github.com/compozy/compozy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
