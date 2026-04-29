@@ -4,7 +4,7 @@
   "repo": "agent-clip",
   "description": "AI Agent as a Pinix Clip \u2014 agentic loop with memory, tools, and vision",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/epiral/agent-clip",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T13:05:46Z"
+  "distributed_at": "2026-04-29T16:23:52Z"
 }
