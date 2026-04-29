@@ -4,7 +4,7 @@
   "repo": "opencow",
   "description": "One task, one agent, delivered. The open-source platform for task-driven autonomous AI agents.OpenCow assigns an autonomous AI agent to every task \u2014 features, campaigns,  reports, audits \u2014 and delivers them in parallel. Full context. Full control. Every department. \ud83d\udc04",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenCowAI/opencow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T13:11:49Z"
+  "distributed_at": "2026-04-29T16:30:34Z"
 }
