@@ -1,0 +1,30 @@
+{
+  "name": "minami110--claude-godot-tools",
+  "displayName": "claude-godot-tools",
+  "description": "claude-godot-tools",
+  "version": "1.0.0",
+  "author": "minami110",
+  "homepage": "https://github.com/minami110/claude-godot-tools",
+  "skills": [
+    {
+      "name": "gdscript-file-manager",
+      "description": ""
+    },
+    {
+      "name": "gdscript-format",
+      "description": ""
+    },
+    {
+      "name": "gdunit4-test-runner",
+      "description": ""
+    },
+    {
+      "name": "gdunit4-test-writer",
+      "description": ""
+    },
+    {
+      "name": "godot-doc-search",
+      "description": ""
+    }
+  ]
+}
