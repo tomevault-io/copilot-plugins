@@ -1,0 +1,9 @@
+{
+  "name": "rivet-dev--antiox",
+  "displayName": "antiox",
+  "description": "Rust- and Tokio-like async primitives for TypeScript.",
+  "version": "1.0.0",
+  "author": "rivet-dev",
+  "homepage": "https://github.com/rivet-dev/antiox",
+  "skills": []
+}
