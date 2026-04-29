@@ -1,0 +1,9 @@
+{
+  "name": "crestapps--crestapps-agentskills",
+  "displayName": "CrestApps.AgentSkills",
+  "description": "Shared AI agent skills and MCP tooling for .NET applications and Orchard Core based projects. The repository contains three projects that solve distinct problems:",
+  "version": "1.0.0",
+  "author": "CrestApps",
+  "homepage": "https://github.com/CrestApps/CrestApps.AgentSkills",
+  "skills": []
+}
