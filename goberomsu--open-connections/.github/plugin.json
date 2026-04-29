@@ -1,0 +1,9 @@
+{
+  "name": "goberomsu--open-connections",
+  "displayName": "open-connections",
+  "description": "Obsidian plugin that surfaces semantically related notes using local AI embeddings. Privacy-first, offline-capable, 7 embedding providers.",
+  "version": "1.0.0",
+  "author": "GoBeromsu",
+  "homepage": "https://github.com/GoBeromsu/open-connections",
+  "skills": []
+}
