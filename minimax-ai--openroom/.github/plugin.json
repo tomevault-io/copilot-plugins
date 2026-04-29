@@ -1,0 +1,9 @@
+{
+  "name": "minimax-ai--openroom",
+  "displayName": "OpenRoom",
+  "description": "A browser-based desktop where AI Agent operates every app through natural language.",
+  "version": "1.0.0",
+  "author": "MiniMax-AI",
+  "homepage": "https://github.com/MiniMax-AI/OpenRoom",
+  "skills": []
+}
