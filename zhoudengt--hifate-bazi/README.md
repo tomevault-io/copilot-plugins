@@ -1,6 +1,6 @@
 # HiFate-bazi
 
-> Tome by [zhoudengt](https://github.com/zhoudengt/HiFate-bazi) — distributed by [TomeVault](https://tomevault.io/claim/zhoudengt)
+> Tome by [zhoudengt](https://github.com/zhoudengt/HiFate-bazi) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [zhoudengt/HiFate-bazi](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/zhoudengt)
+From [zhoudengt/HiFate-bazi](https://github.com/zhoudengt/HiFate-bazi) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install zhoudengt/HiFate-bazi
 ```
-Or browse all formats at [https://tomevault.io/claim/zhoudengt](https://tomevault.io/claim/zhoudengt).
+Source: [github.com/zhoudengt/HiFate-bazi](https://github.com/zhoudengt/HiFate-bazi).
 
 <!-- genome:t-i-s -->
