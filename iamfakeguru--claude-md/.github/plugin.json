@@ -1,0 +1,9 @@
+{
+  "name": "iamfakeguru--claude-md",
+  "displayName": "claude-md",
+  "description": "Production-grade agent directives for Claude Code",
+  "version": "1.0.0",
+  "author": "iamfakeguru",
+  "homepage": "https://github.com/iamfakeguru/claude-md",
+  "skills": []
+}
