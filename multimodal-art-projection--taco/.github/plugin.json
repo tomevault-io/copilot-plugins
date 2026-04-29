@@ -1,0 +1,9 @@
+{
+  "name": "multimodal-art-projection--taco",
+  "displayName": "TACO",
+  "description": "This is the repo for the paper A Self-Evolving Framework for Efficient Terminal Agents via Observational Context Compression",
+  "version": "1.0.0",
+  "author": "multimodal-art-projection",
+  "homepage": "https://github.com/multimodal-art-projection/TACO",
+  "skills": []
+}
