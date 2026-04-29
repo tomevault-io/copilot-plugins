@@ -1,0 +1,9 @@
+{
+  "name": "zerodeploy-dev--zeroback",
+  "displayName": "zeroback",
+  "description": "An open-source Convex-style backend you deploy to your own Cloudflare account. Real-time queries, mutations, type-safe codegen \u2014 all running on Cloudflare Workers, Durable Objects, and SQLite.",
+  "version": "1.0.0",
+  "author": "zerodeploy-dev",
+  "homepage": "https://github.com/zerodeploy-dev/zeroback",
+  "skills": []
+}
