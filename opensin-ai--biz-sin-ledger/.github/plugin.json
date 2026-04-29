@@ -1,0 +1,9 @@
+{
+  "name": "opensin-ai--biz-sin-ledger",
+  "displayName": "Biz-SIN-Ledger",
+  "description": "Live autonomous logbook and activity showcase of the OpenSIN 24/7 A2A Agent Fleet.",
+  "version": "1.0.0",
+  "author": "OpenSIN-AI",
+  "homepage": "https://github.com/OpenSIN-AI/Biz-SIN-Ledger",
+  "skills": []
+}
