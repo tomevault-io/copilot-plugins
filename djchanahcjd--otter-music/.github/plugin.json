@@ -1,0 +1,9 @@
+{
+  "name": "djchanahcjd--otter-music",
+  "displayName": "otter-music",
+  "description": "\u57fa\u4e8e React + Capacitor \u7684\u514d\u8d39\u97f3\u4e50App\uff0c\u652f\u6301\u591a\u6e90\u805a\u5408\u641c\u7d22\u3001\u7f51\u6613\u4e91\u6b4c\u5355\u63a5\u5165\u3001\u667a\u80fd\u81ea\u52a8\u6362\u6e90\u4e0e\u672c\u5730\u4e0b\u8f7d\u7ba1\u7406\u3002\u57fa\u4e8e GD Studio's Online Music Platform API\u3002",
+  "version": "1.0.0",
+  "author": "DJChanahCJD",
+  "homepage": "https://github.com/DJChanahCJD/otter-music",
+  "skills": []
+}
