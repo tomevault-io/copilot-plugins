@@ -1,0 +1,9 @@
+{
+  "name": "veath--codexfast",
+  "displayName": "codexfast",
+  "description": "codexfast: enable Fast mode, /fast, Speed menu, and Plugins in OpenAI Codex.app for custom API users on macOS",
+  "version": "1.0.0",
+  "author": "Veath",
+  "homepage": "https://github.com/Veath/codexfast",
+  "skills": []
+}
