@@ -4,7 +4,7 @@
   "repo": "horizon",
   "description": "GPU-accelerated terminal board that puts all your sessions on an infinite canvas",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peters/horizon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:43:54Z"
+  "distributed_at": "2026-04-29T16:00:00Z"
 }
