@@ -1,0 +1,9 @@
+{
+  "name": "kpavlov--javable",
+  "displayName": "javable",
+  "description": "Kotlin-Java interoperability wrapper generators",
+  "version": "1.0.0",
+  "author": "kpavlov",
+  "homepage": "https://github.com/kpavlov/javable",
+  "skills": []
+}
