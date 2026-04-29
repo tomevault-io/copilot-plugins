@@ -1,0 +1,75 @@
+{
+  "name": "claude-godot-tools",
+  "owner": "minami110",
+  "repo": "claude-godot-tools",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gdscript-file-manager",
+      "path": "gdscript-toolkit/skills/gdscript-file-manager",
+      "github_url": "https://github.com/minami110/claude-godot-tools/tree/main/gdscript-toolkit/skills/gdscript-file-manager",
+      "description": ""
+    },
+    {
+      "name": "gdscript-format",
+      "path": "gdscript-toolkit/skills/gdscript-format",
+      "github_url": "https://github.com/minami110/claude-godot-tools/tree/main/gdscript-toolkit/skills/gdscript-format",
+      "description": ""
+    },
+    {
+      "name": "gdunit4-test-runner",
+      "path": "gdunit4-toolkit/skills/gdunit4-test-runner",
+      "github_url": "https://github.com/minami110/claude-godot-tools/tree/main/gdunit4-toolkit/skills/gdunit4-test-runner",
+      "description": ""
+    },
+    {
+      "name": "gdunit4-test-writer",
+      "path": "gdunit4-toolkit/skills/gdunit4-test-writer",
+      "github_url": "https://github.com/minami110/claude-godot-tools/tree/main/gdunit4-toolkit/skills/gdunit4-test-writer",
+      "description": ""
+    },
+    {
+      "name": "godot-doc-search",
+      "path": "gdscript-toolkit/skills/godot-doc-search",
+      "github_url": "https://github.com/minami110/claude-godot-tools/tree/main/gdscript-toolkit/skills/godot-doc-search",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/minami110/claude-godot-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T23:30:47Z"
+}
