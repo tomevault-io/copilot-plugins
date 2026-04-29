@@ -1,0 +1,9 @@
+{
+  "name": "graykode--abtop",
+  "displayName": "abtop",
+  "description": "Like htop, but for AI coding agents. Monitor Claude    Code & Codex CLI sessions, tokens, context window,    rate limits, and ports in real-time.",
+  "version": "1.0.0",
+  "author": "graykode",
+  "homepage": "https://github.com/graykode/abtop",
+  "skills": []
+}
