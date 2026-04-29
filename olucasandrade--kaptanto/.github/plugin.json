@@ -1,0 +1,9 @@
+{
+  "name": "olucasandrade--kaptanto",
+  "displayName": "kaptanto",
+  "description": "kaptanto captures every insert, update, and delete from Postgres and MongoDB the moment it happens \u2014 and delivers it via stdout, SSE, or gRPC. One static binary. Self-contained. Deploys anywhere.",
+  "version": "1.0.0",
+  "author": "olucasandrade",
+  "homepage": "https://github.com/olucasandrade/kaptanto",
+  "skills": []
+}
