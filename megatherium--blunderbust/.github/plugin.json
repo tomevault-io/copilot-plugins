@@ -1,0 +1,9 @@
+{
+  "name": "megatherium--blunderbust",
+  "displayName": "blunderbust",
+  "description": "A beads aware agent launcher",
+  "version": "1.0.0",
+  "author": "Megatherium",
+  "homepage": "https://github.com/Megatherium/blunderbust",
+  "skills": []
+}
