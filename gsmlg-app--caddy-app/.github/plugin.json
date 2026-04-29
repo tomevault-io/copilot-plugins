@@ -1,0 +1,9 @@
+{
+  "name": "gsmlg-app--caddy-app",
+  "displayName": "caddy-app",
+  "description": "run caddy in a flutter app for development",
+  "version": "1.0.0",
+  "author": "gsmlg-app",
+  "homepage": "https://github.com/gsmlg-app/caddy-app",
+  "skills": []
+}
