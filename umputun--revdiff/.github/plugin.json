@@ -1,0 +1,9 @@
+{
+  "name": "umputun--revdiff",
+  "displayName": "revdiff",
+  "description": "TUI for reviewing diffs, files, and documents with inline annotations",
+  "version": "1.0.0",
+  "author": "umputun",
+  "homepage": "https://github.com/umputun/revdiff",
+  "skills": []
+}
