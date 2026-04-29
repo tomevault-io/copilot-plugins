@@ -1,0 +1,9 @@
+{
+  "name": "mksglu--context-mode",
+  "displayName": "context-mode",
+  "description": "Context window optimization for AI coding agents. Sandboxes tool output, 98% reduction. 12 platforms",
+  "version": "1.0.0",
+  "author": "mksglu",
+  "homepage": "https://github.com/mksglu/context-mode",
+  "skills": []
+}
