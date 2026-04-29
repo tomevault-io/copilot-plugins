@@ -1,0 +1,9 @@
+{
+  "name": "elwinliu--handless",
+  "displayName": "handless",
+  "description": "MacOS desktop speech-to-text. Private, offline, open-source. Choose your own STT (Speech to Text) providers, and LLM providers that polish your mumbles. Bind any prompt templates with any shorcuts",
+  "version": "1.0.0",
+  "author": "ElwinLiu",
+  "homepage": "https://github.com/ElwinLiu/handless",
+  "skills": []
+}
