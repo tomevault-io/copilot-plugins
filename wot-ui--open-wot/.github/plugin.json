@@ -1,0 +1,9 @@
+{
+  "name": "wot-ui--open-wot",
+  "displayName": "open-wot",
+  "description": "Wot UI \u7684 AI \u80fd\u529b\u5de5\u5177\u96c6\uff1aSkills\u3001MCP \u534f\u8bae\u4e0e CLI \u5de5\u5177\u7b49",
+  "version": "1.0.0",
+  "author": "wot-ui",
+  "homepage": "https://github.com/wot-ui/open-wot",
+  "skills": []
+}
