@@ -1,0 +1,14 @@
+{
+  "name": "marcusschiesser--edge-pi",
+  "displayName": "edge-pi",
+  "description": "A lightweight, Vercel AI SDK based coding agent library.",
+  "version": "1.0.0",
+  "author": "marcusschiesser",
+  "homepage": "https://github.com/marcusschiesser/edge-pi",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
