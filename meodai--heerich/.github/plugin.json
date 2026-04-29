@@ -1,0 +1,9 @@
+{
+  "name": "meodai--heerich",
+  "displayName": "heerich",
+  "description": "Tiny engine for 3D voxel scenes rendered to SVG \u2014 boolean ops, oblique/perspective cameras, zero dependencies. Inspired by the geometric cardboard sculptures of Erwin Heerich.",
+  "version": "1.0.0",
+  "author": "meodai",
+  "homepage": "https://github.com/meodai/heerich",
+  "skills": []
+}
