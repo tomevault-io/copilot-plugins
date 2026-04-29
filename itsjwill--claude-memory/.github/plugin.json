@@ -1,0 +1,14 @@
+{
+  "name": "itsjwill--claude-memory",
+  "displayName": "claude-memory",
+  "description": "Persistent memory for Claude Code. Auto-capture decisions, learnings, client info. Cloud backup to Supabase. Never lose context again. Free alternative to Mem.ai, Rewind AI, Personal AI.",
+  "version": "1.0.0",
+  "author": "itsjwill",
+  "homepage": "https://github.com/itsjwill/claude-memory",
+  "skills": [
+    {
+      "name": "capture",
+      "description": ""
+    }
+  ]
+}
