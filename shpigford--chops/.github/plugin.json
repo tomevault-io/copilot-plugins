@@ -1,0 +1,9 @@
+{
+  "name": "shpigford--chops",
+  "displayName": "chops",
+  "description": "Your AI agent skills, finally organized. A macOS app to browse, edit, and manage skills across Claude Code, Cursor, Codex, Windsurf, and Amp.",
+  "version": "1.0.0",
+  "author": "Shpigford",
+  "homepage": "https://github.com/Shpigford/chops",
+  "skills": []
+}
