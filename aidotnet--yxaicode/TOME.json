@@ -1,0 +1,44 @@
+{
+  "name": "yxaicode",
+  "owner": "AIDotNet",
+  "repo": "yxaicode",
+  "description": "\u610f\u5fc3 Code - \u65e0\u95e8\u69db\u7684 Claude Code \u53ef\u89c6\u5316\u8f7b\u91cf\u5de5\u5177",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AIDotNet/yxaicode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T19:41:28Z"
+}
