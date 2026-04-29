@@ -1,0 +1,9 @@
+{
+  "name": "vieval-dev--vieval",
+  "displayName": "vieval",
+  "description": "\ud83e\uddea\ud83d\udca5 Evaluation framework based on Vitest, the testing framework you familiar with, for agents, models, and more.",
+  "version": "1.0.0",
+  "author": "vieval-dev",
+  "homepage": "https://github.com/vieval-dev/vieval",
+  "skills": []
+}
