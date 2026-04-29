@@ -1,0 +1,9 @@
+{
+  "name": "masup9--a11y-specialist-skills",
+  "displayName": "a11y-specialist-skills",
+  "description": "Accessibility specialist skills plugin for Claude Code.",
+  "version": "1.0.0",
+  "author": "masuP9",
+  "homepage": "https://github.com/masuP9/a11y-specialist-skills",
+  "skills": []
+}
