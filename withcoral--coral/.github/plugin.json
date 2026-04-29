@@ -1,0 +1,9 @@
+{
+  "name": "withcoral--coral",
+  "displayName": "coral",
+  "description": "One SQL interface over APIs, files, and live sources \u2014 built for agents.",
+  "version": "1.0.0",
+  "author": "withcoral",
+  "homepage": "https://github.com/withcoral/coral",
+  "skills": []
+}
