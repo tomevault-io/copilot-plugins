@@ -4,7 +4,7 @@
   "repo": "Citadel",
   "description": "Agent orchestration harness for Claude Code. Four-tier routing (/do), campaign persistence across sessions, parallel agents in isolated worktrees, discovery relay between waves, lifecycle hooks, circuit breaker, and 6 production-quality skills. From solo developer to institutional scale.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SethGammon/Citadel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:51:09Z"
+  "distributed_at": "2026-04-29T16:04:05Z"
 }
