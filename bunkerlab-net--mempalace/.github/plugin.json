@@ -1,0 +1,9 @@
+{
+  "name": "bunkerlab-net--mempalace",
+  "displayName": "mempalace",
+  "description": "A Rust reimplementation of MemPalace/mempalace",
+  "version": "1.0.0",
+  "author": "bunkerlab-net",
+  "homepage": "https://github.com/bunkerlab-net/mempalace",
+  "skills": []
+}
