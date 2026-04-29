@@ -1,0 +1,9 @@
+{
+  "name": "drivelineresearch--autoresearch-claude-code",
+  "displayName": "autoresearch-claude-code",
+  "description": "Autonomous experiment loop skill for Claude Code \u2014 port of pi-autoresearch",
+  "version": "1.0.0",
+  "author": "drivelineresearch",
+  "homepage": "https://github.com/drivelineresearch/autoresearch-claude-code",
+  "skills": []
+}
