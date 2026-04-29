@@ -1,0 +1,9 @@
+{
+  "name": "brucehsu--codelegate",
+  "displayName": "codelegate",
+  "description": "Monorepo for Codelegate, the multi-platform, multi-paradigm coding agent manager",
+  "version": "1.0.0",
+  "author": "brucehsu",
+  "homepage": "https://github.com/brucehsu/codelegate",
+  "skills": []
+}
