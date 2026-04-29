@@ -1,0 +1,9 @@
+{
+  "name": "pipecat-ai--gb-benchmarks",
+  "displayName": "gb-benchmarks",
+  "description": "Multi-agent benchmarks",
+  "version": "1.0.0",
+  "author": "pipecat-ai",
+  "homepage": "https://github.com/pipecat-ai/gb-benchmarks",
+  "skills": []
+}
