@@ -1,0 +1,9 @@
+{
+  "name": "jquast--telix",
+  "displayName": "Telix",
+  "description": "A Modern telnet client especially designed for BBSs and MUDs.",
+  "version": "1.0.0",
+  "author": "jquast",
+  "homepage": "https://github.com/jquast/Telix",
+  "skills": []
+}
