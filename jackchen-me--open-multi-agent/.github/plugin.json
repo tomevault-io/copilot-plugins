@@ -1,0 +1,9 @@
+{
+  "name": "jackchen-me--open-multi-agent",
+  "displayName": "open-multi-agent",
+  "description": "TypeScript multi-agent orchestration engine \u2014 one runTeam() call from goal to result. Multi-model teams, auto task decomposition, parallel execution. 3 runtime dependencies.",
+  "version": "1.0.0",
+  "author": "JackChen-me",
+  "homepage": "https://github.com/JackChen-me/open-multi-agent",
+  "skills": []
+}
