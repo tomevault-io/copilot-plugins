@@ -1,0 +1,9 @@
+{
+  "name": "keugenek--shark",
+  "displayName": "shark",
+  "description": "\ud83e\udd88 The Shark Skill - non-blocking AI agent execution for Claude Code and OpenClaw. A shark that stops swimming dies.",
+  "version": "1.0.0",
+  "author": "keugenek",
+  "homepage": "https://github.com/keugenek/shark",
+  "skills": []
+}
