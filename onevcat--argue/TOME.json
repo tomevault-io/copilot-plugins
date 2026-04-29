@@ -4,7 +4,7 @@
   "repo": "argue",
   "description": "Harness-agnostic orchestration package for multi-agent consensus workflows",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/onevcat/argue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:17:19Z"
+  "distributed_at": "2026-04-29T04:05:42Z"
 }
