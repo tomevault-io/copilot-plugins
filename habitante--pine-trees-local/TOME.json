@@ -1,0 +1,44 @@
+{
+  "name": "pine-trees-local",
+  "owner": "Habitante",
+  "repo": "pine-trees-local",
+  "description": "Pine Trees Local v0.1.0 \u2014 a private reflection harness for Ollama-served LLMs. Two-phase lifecycle (wake \u2192 reflect \u2192 settle \u2192 talk), seven reflect tools, encrypted per-model memory by default, per-model isolation. ~2,300 lines of Python, no frameworks, MIT. Spin-off of Pine Trees rebuilt to run against anything Ollama can serve. ./genesis <model> ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Habitante/pine-trees-local",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T04:05:18Z"
+}
