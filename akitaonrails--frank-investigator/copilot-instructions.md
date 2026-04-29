@@ -1,0 +1,153 @@
+## frank-investigator
+
+> Frank Investigator is a Rails 8.1 fact-checking pipeline that assesses claims extracted from news articles. It uses SQLite3, Solid Queue, Solid Cable, Solid Cache, Propshaft, and Turbo Streams for live updates.
+
+# Frank Investigator — Development Guide
+
+## Project Overview
+
+Frank Investigator is a Rails 8.1 fact-checking pipeline that assesses claims extracted from news articles. It uses SQLite3, Solid Queue, Solid Cable, Solid Cache, Propshaft, and Turbo Streams for live updates.
+
+## Core Principle: Truth Over Consensus
+
+**A fact does not become false because a million sources repeat a falsehood, and a falsehood does not become true because it is popular.**
+
+This is the foundational design constraint of the entire system. Every scoring, weighting, and aggregation decision must respect it:
+
+1. **Authority trumps volume.** A single primary source (government data, court records, scientific papers, official corrections) always outweighs any number of secondary sources (news articles, blogs, social media) that contradict it. The `SECONDARY_WEIGHT_CAP` ensures that sheer volume of non-primary evidence can never dominate.
+
+2. **Primary source veto.** If a primary-tier source disputes a claim and no primary source supports it, the verdict cannot be `:supported` — it is forced to `:mixed` and confidence is capped. Two opposing primary sources also force `:mixed`.
+
+3. **LLM votes are weighted by confidence, not counted by heads.** A single model with high confidence outweighs two models with low confidence. We never use simple majority voting.
+
+4. **Independence matters more than quantity.** Ten articles from the same wire service count as one editorial voice. The `IndependenceAnalyzer` clusters sources by editorial origin and the independence score reflects unique editorial groups, not article count.
+
+5. **Verdicts are living, not permanent.** Assessments go stale and get reassessed when new evidence appears. The `VerdictSnapshot` audit trail tracks every change with the evidence state at that point, so we never lose history.
+
+6. **Smear/viral campaign defense.** When 3+ secondary sources support a claim but zero primary sources exist, the system flags this as "unsubstantiated viral" and caps confidence at 0.45. Volume of gossip without original evidence (no confession, no court verdict, no official record) must never produce a high-confidence `:supported` verdict.
+
+7. **Evaluative thesis claims are not factual verdicts by default.** Broad value judgments about a person's performance ("X was a good minister", "Y was a terrible leader") are opinion/framing unless the article decomposes them into measurable subclaims. The system should assess the underlying fiscal, legal, statistical, or documented performance claims, not ratify the headline's value judgment.
+
+8. **Circular citation detection.** Articles that only cite each other (A→B, B→A) or cite sources with no substantive content are flagged as thin citation chains. The `CircularCitationDetector` walks `ArticleLink` relationships to identify echo chambers where outlets reference each other but none have original evidence. Citation depth score penalizes these patterns.
+
+9. **Citation grounding required.** An article is only "grounded" if it links to substantive external sources outside the evidence set. Articles with no outbound citations or that only cite other articles in the same evidence set are treated as ungrounded, reducing the overall citation depth score.
+
+10. **Headline-body divergence penalty.** Articles whose headlines make definitive claims ("accused of", "caught", "confirmed") while their body text hedges ("allegedly", "no police report filed", "sources say", "could not be verified") have their authority score discounted. A baiting article is unreliable evidence regardless of the outlet's general reputation.
+
+11. **Headline citation amplification detection.** When Article B quotes Article A's sensational headline but not its qualifying body content, this is flagged as "headline amplification". This is a key mechanism in smear campaigns: one outlet writes a baiting headline, others cite it as established fact. The `HeadlineCitationDetector` catches this pattern and penalizes the evidence set's citation depth score.
+
+12. **Rhetorical fallacy detection.** After claims are assessed, the `RhetoricalFallacyAnalyzer` examines the article's written structure against its own factual claims. It detects 16 fallacy types including classical fallacies and six patterns derived from Schopenhauer's 38 Stratagems ("The Art of Being Right", 1831): equivocation (#2), twisted conclusion (#9), false admission (#11), paradox framing (#13), odious categorization (#32), and faulty proof exploitation (#37). Of Schopenhauer's 38, 19 are covered by this system (6 as dedicated types, 13 via other analyzers like headline bait, source misrepresentation, and emotional manipulation); the remaining 19 are debate-specific tactics that don't reliably apply to written news analysis.
+
+13. **Contextual gap detection.** An article can be factually correct in every individual claim and still be manipulative through omission. The `ContextualGapAnalyzer` identifies what the article chooses not to say: scope mismatches (citing foreign studies for local conclusions), missing counter-evidence, theoretical-vs-practical gaps, distributional blindness, historical amnesia, reversal framing (presenting partial rollbacks as new benefits), benefit pass-through gaps (assuming policy benefits reach consumers without evidence), and selective attribution (crediting actors for outcomes they didn't cause). It then searches the web for evidence addressing each gap. An article with all claims "supported" but major contextual gaps cannot receive a "strong" quality rating.
+
+14. **Completeness over accuracy.** Factual accuracy alone does not make an article trustworthy. An article that assembles true facts into a misleading narrative by omitting critical context is the most dangerous kind of misinformation because it passes every individual fact-check. The contextual completeness score penalizes this pattern.
+
+15. **Conservative degradation when semantic analysis is unavailable.** If LLM-backed extraction or contradiction analysis is unavailable, the heuristic fallback must become more conservative, not more confident. In degraded mode, evaluative claims should stay `not_checkable` or `needs_more_evidence`, and opinion/blog amplification must not be able to manufacture a `:supported` verdict by repetition alone.
+
+16. **Vector retrieval is retrieval, not truth.** Embeddings may widen the search for related investigations, but they must never bypass hard subject and topic guardrails. The final relatedness decision stays deterministic and conservative.
+
+When in doubt, prefer `needs_more_evidence` over a weakly supported verdict. Conservative assessment protects users better than false confidence.
+
+## Running the App
+
+```bash
+bin/setup          # Install deps, create DB, run migrations
+bin/dev            # Start Rails + Solid Queue via Procfile.dev
+```
+
+## Testing
+
+```bash
+bundle exec rails test                    # Full suite
+bundle exec rails test test/path_test.rb  # Single file
+```
+
+All tests must pass before committing. Current count: 678+.
+
+### LLM stubbing in tests
+
+Tests use WebMock (`test/support/llm_stubs.rb`) to stub OpenRouter API calls. This makes the suite run in ~1.5s instead of ~9 minutes. The stubs return schema-aware responses based on the request's schema name.
+
+**When adding or modifying stubs:**
+
+- Every stubbed response MUST resemble a real LLM response. Before writing a stub, make at least one live call to see the actual response shape, field names, and realistic values. Do not invent response structures — base them on observed LLM output.
+- The stub must return data that exercises the code path being tested. A stub that returns empty arrays for everything does not validate that the code correctly parses and uses the LLM result.
+- Tests that verify heuristic fallback paths (when the LLM is unavailable) should disable the configured LLM provider key in a `without_llm` block, not by making the stub return errors. In the default test setup that still means clearing `ENV["OPENROUTER_API_KEY"]`.
+- `Fetchers::WebSearcher` Chromium calls are also stubbed to avoid browser launches. The stub lives in `LlmStubs.stub_web_searcher!`.
+- To run tests against real LLM endpoints (integration verification), set the provider and matching key explicitly, for example: `FRANK_INVESTIGATOR_LLM_PROVIDER=openai OPENAI_API_KEY=sk-proj-... bundle exec rails test`
+
+## Key Architecture Decisions
+
+- **No JavaScript frameworks.** UI is server-rendered with Turbo Streams. No React, no Vue, no Stimulus controllers beyond what Rails provides.
+- **Tailwind CSS v4.** Propshaft pipeline with `tailwindcss-rails`. Custom theme in `app/assets/tailwind/application.css` with warm cream/brown palette. Utility-first classes in templates, minimal custom CSS for popovers and timeline.
+- **SQLite in production.** WAL mode, tuned pragmas. No Postgres dependency.
+- **LLM provider is configurable.** The app routes chat analysis through `RubyLLM` using `FRANK_INVESTIGATOR_LLM_PROVIDER` and `FRANK_INVESTIGATOR_LLM_MODELS`. Production currently uses direct OpenAI for chat and embeddings because the OpenRouter account path was degraded.
+- **Heuristic fallback must be safe.** The app continues operating when LLM-backed steps fail, but heuristic-only output must remain conservative. Do not let degraded semantic analysis silently inflate verdict confidence.
+- **Background jobs via Solid Queue.** Production runs Solid Queue in a dedicated Kamal `worker` role via `bin/jobs start`; the web role does not embed Solid Queue inside Puma. Fetch-heavy jobs use a dedicated low-concurrency `fetch` queue to keep Chromium failures from wedging the rest of the pipeline. Recurring jobs remain defined in `config/recurring.yml`.
+- **Recurring jobs must stay wired to a live worker queue.** The production worker pool must subscribe to both `default` and `solid_queue_recurring`; otherwise recovery and cleanup jobs can silently accumulate even while the worker process itself looks healthy.
+- **Vector search is local to SQLite.** Related-investigation retrieval uses a vendored `sqlite-vec` extension compiled into this app's image. Do not depend on server-global extensions or another app's container. Existing completed investigations must be backfilled after deploy with `bin/rails 'frank:index_embeddings[250]'` until the backlog is cleared.
+- **Embeddings provider is configurable.** Default wiring uses OpenRouter for embeddings, but production can switch to direct OpenAI embeddings with `FRANK_INVESTIGATOR_EMBEDDING_PROVIDER=openai` and `OPENAI_API_KEY` if OpenRouter is degraded.
+
+## Link Extraction and Noise Filtering
+
+`MainContentExtractor#extract_links` only extracts links from content-bearing elements (`<p>`, `<h2>`, `<h3>`, `<li>`) that contain at least 40 characters of non-link prose text. This filters out navigation chrome, subscription CTAs, topic tags, and other non-editorial links that many news sites wrap in `<p>` tags inside the article container.
+
+The `UrlClassifier` rejects known non-article hosts (app stores, login subdomains, paywall subdomains, social media, e-commerce, etc.) to prevent noise in the evidence graph.
+
+**When modifying link extraction or URL filtering:**
+
+- Test changes against multiple outlets. Brazilian news sites (Folha, G1, UOL, Estadão) have very different HTML structures from international outlets (NBER, Reuters, NYT). A filter that cleans up one site's navigation chrome may accidentally remove real editorial citations from another.
+- Run `bundle exec rails test` — the test suite includes extraction tests with realistic HTML from multiple outlet styles. Existing tests use inline citation links embedded in sentences (e.g., `<p>See the full breakdown in the <a href="...">Budget document</a> published last week.</p>`), not bare `<p><a>link</a></p>` blocks, because the extractor requires surrounding prose to distinguish editorial links from navigation.
+- When adding a new noise pattern to `UrlClassifier` or `MainContentExtractor`, verify it doesn't match legitimate citation patterns. For example, `/login\./` catches `login.folha.com.br` but would also catch a hypothetical `login.gov` (which is a real US government site). Prefer specific patterns over broad ones.
+- If a new outlet produces noisy links, first check whether the noise comes from the HTML structure (fix in `MainContentExtractor` selectors or `BLOCKED_SELECTORS`) or from the URLs themselves (fix in `UrlClassifier`). Prefer structural fixes over URL pattern matching.
+- Paywalled and subscriber-heavy outlets frequently leak account chrome into the extracted body. Prefer stripping portal UI fragments before claim extraction rather than teaching the claim layer to cope with polluted text later.
+
+## Operational Tasks
+
+The repo includes safe maintenance rake tasks for post-deploy repair work:
+
+```bash
+bin/rails 'frank:reanalyze[SLUG]'   # Reset analysis-stage steps and re-run from headline analysis
+bin/rails 'frank:refresh[SLUG]'     # Rebuild one investigation from stored snapshots and current heuristics
+bin/rails 'frank:crossref[SLUG]'    # Recompute related-investigation context for one report
+bin/rails 'frank:index_embeddings[250]'  # Backfill vector embeddings for completed investigations
+bin/rails frank:crossref_all        # Recompute event context for all completed investigations
+```
+
+`frank:reanalyze` only resets analysis-stage steps (`analyze_headline` onward). It does not re-fetch the article or rebuild the entire investigation from scratch. Use it when analyzer logic changed and the root fetch/claim extraction data are still valid.
+`frank:refresh` is the safe repair path when parser cleanup, source-role classification, or claim extraction logic changed. It replays stored snapshots through app services, refreshes source metadata, rebuilds claims, and reruns the downstream pipeline without direct database surgery.
+`frank:index_embeddings` is required after the first vector-search deploy, after changing embedding model/dimensions, or any time you need to backfill older completed investigations into the vector index.
+
+## Code Conventions
+
+- Services live in `app/services/` organized by domain (`analyzers/`, `fetchers/`, `llm/`, `parsing/`, `articles/`).
+- Services use `.call` class method pattern delegating to `#call` instance method.
+- Models use Rails enums with string backing and prefix option.
+- Tests use Minitest, not RSpec. No mocking of database — integration tests hit real SQLite.
+
+## Documentation
+
+When adding or changing analysis sections, scores, pipeline steps, or report layout:
+
+1. Update `README.md` with the new feature in the feature list.
+2. Update `app/views/pages/methodology.html.erb` and the corresponding i18n keys in both `en.yml` and `pt-BR.yml` under `pages.methodology.*` — this is the user-facing "How to read a report" page.
+3. Update `CLAUDE.md` if the change affects development workflow, core principles, or architecture.
+
+The methodology page must always reflect the current report structure so readers can understand what each section and score means.
+
+When report data changes (new columns on Investigation, new analyzer results), also update the `investigation_json` method in `InvestigationsController` to include the new data in the JSON API response.
+
+## i18n
+
+All user-presentable text must use `t()` lookups — never hardcode strings in views, controllers, or helpers. Locale files live in `config/locales/` (`en.yml`, `pt-BR.yml`). When adding or changing any user-facing text:
+
+1. Add the key to `config/locales/en.yml` under the appropriate namespace.
+2. Add the corresponding pt-BR translation to `config/locales/pt-BR.yml` with proper Portuguese accents (á, ã, ç, é, ê, í, ó, õ, ú).
+3. Use `t(".key")` shorthand in views (Rails resolves via template path) and `t("full.key.path")` in controllers/helpers.
+4. Dates and times must use `l()` with format keys, never `strftime` with hardcoded format strings.
+
+Locale is set via `FRANK_INVESTIGATOR_LOCALE` env var (defaults to `en`). Available: `en`, `pt-BR`.
+
+---
+> Source: [akitaonrails/frank_investigator](https://github.com/akitaonrails/frank_investigator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
