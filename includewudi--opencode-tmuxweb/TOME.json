@@ -1,0 +1,44 @@
+{
+  "name": "opencode-tmuxweb",
+  "owner": "includewudi",
+  "repo": "opencode-tmuxweb",
+  "description": "TmuxWeb \u2014 Web-based tmux client for desktop & mobile, with voice input, AI assistance, and OpenCode integration",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/includewudi/opencode-tmuxweb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T12:19:28Z"
+}
