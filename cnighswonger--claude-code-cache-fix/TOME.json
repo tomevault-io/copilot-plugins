@@ -4,7 +4,7 @@
   "repo": "claude-code-cache-fix",
   "description": "Fixes prompt cache regression in Claude Code that causes up to 20x cost increase on resumed sessions",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cnighswonger/claude-code-cache-fix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:35:29Z"
+  "distributed_at": "2026-04-29T04:09:13Z"
 }
