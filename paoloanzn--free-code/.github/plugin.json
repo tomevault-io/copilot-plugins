@@ -1,0 +1,9 @@
+{
+  "name": "paoloanzn--free-code",
+  "displayName": "free-code",
+  "description": "[NOTE] Parent repo is migrating ownership, until the operation is done this repo is blocked. The free build of Claude Code. All telemetry removed, security-prompt guardrails stripped, all experimental",
+  "version": "1.0.0",
+  "author": "paoloanzn",
+  "homepage": "https://github.com/paoloanzn/free-code",
+  "skills": []
+}
