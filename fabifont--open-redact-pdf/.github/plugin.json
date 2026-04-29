@@ -1,0 +1,9 @@
+{
+  "name": "fabifont--open-redact-pdf",
+  "displayName": "open-redact-pdf",
+  "description": "Browser-first PDF redaction engine built in Rust + WebAssembly",
+  "version": "1.0.0",
+  "author": "fabifont",
+  "homepage": "https://github.com/fabifont/open-redact-pdf",
+  "skills": []
+}
