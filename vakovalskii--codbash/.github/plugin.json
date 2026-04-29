@@ -1,0 +1,9 @@
+{
+  "name": "vakovalskii--codbash",
+  "displayName": "codbash",
+  "description": "Termius-style browser dashboard for Claude Code & Codex sessions. View, search, resume, tag, and manage all your AI coding sessions.",
+  "version": "1.0.0",
+  "author": "vakovalskii",
+  "homepage": "https://github.com/vakovalskii/codbash",
+  "skills": []
+}
