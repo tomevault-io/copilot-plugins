@@ -1,0 +1,9 @@
+{
+  "name": "ssrajadh--sentrysearch",
+  "displayName": "sentrysearch",
+  "description": "Semantic search over videos using Gemini Embedding 2 or Qwen3-VL.",
+  "version": "1.0.0",
+  "author": "ssrajadh",
+  "homepage": "https://github.com/ssrajadh/sentrysearch",
+  "skills": []
+}
