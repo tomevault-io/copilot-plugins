@@ -1,0 +1,9 @@
+{
+  "name": "leemysw--agent-kit",
+  "displayName": "agent-kit",
+  "description": "Agent Kit is a comprehensive AI agent development framework that integrates Claude Agent SDK, providing a complete solution from frontend to backend. This project aims to help developers quickly build",
+  "version": "1.0.0",
+  "author": "leemysw",
+  "homepage": "https://github.com/leemysw/agent-kit",
+  "skills": []
+}
