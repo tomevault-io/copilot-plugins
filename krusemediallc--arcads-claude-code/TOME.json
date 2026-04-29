@@ -4,7 +4,7 @@
   "repo": "arcads-claude-code",
   "description": "Arcads external API: agent skills, prompting library, and Cursor/Claude workspace",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/krusemediallc/arcads-claude-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:41:37Z"
+  "distributed_at": "2026-04-29T23:56:41Z"
 }
