@@ -1,0 +1,9 @@
+{
+  "name": "civilian7--sql-tutorial",
+  "displayName": "sql-tutorial",
+  "description": "SQL tutorial with realistic e-commerce database \u2014 30 tables, 690K rows, 21 lessons, 270 exercises. SQLite/MySQL/PostgreSQL. Bilingual (ko/en).",
+  "version": "1.0.0",
+  "author": "civilian7",
+  "homepage": "https://github.com/civilian7/sql-tutorial",
+  "skills": []
+}
