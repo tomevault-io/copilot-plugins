@@ -1,0 +1,9 @@
+{
+  "name": "manojbajaj95--authsome",
+  "displayName": "authsome",
+  "description": "Local auth cli for AI agents. Log in once via Oauth2/API Key. Every agent stays authenticated \u2014 headless, no SaaS, credentials never leave your machine. ",
+  "version": "1.0.0",
+  "author": "manojbajaj95",
+  "homepage": "https://github.com/manojbajaj95/authsome",
+  "skills": []
+}
