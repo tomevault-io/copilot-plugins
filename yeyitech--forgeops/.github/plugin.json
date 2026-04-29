@@ -1,0 +1,9 @@
+{
+  "name": "yeyitech--forgeops",
+  "displayName": "forgeops",
+  "description": "Runtime-agnostic AI R&D control plane for observable, recoverable, and governable delivery.",
+  "version": "1.0.0",
+  "author": "yeyitech",
+  "homepage": "https://github.com/yeyitech/forgeops",
+  "skills": []
+}
