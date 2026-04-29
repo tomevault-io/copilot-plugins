@@ -1,0 +1,9 @@
+{
+  "name": "kessler--gemma-gem",
+  "displayName": "gemma-gem",
+  "description": "Gemma Gem runs Google's Gemma 4 model entirely on-device via WebGPU \u2014 no API keys, no cloud, no data leaving your machine.",
+  "version": "1.0.0",
+  "author": "kessler",
+  "homepage": "https://github.com/kessler/gemma-gem",
+  "skills": []
+}
