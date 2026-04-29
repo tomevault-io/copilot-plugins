@@ -4,7 +4,7 @@
   "repo": "RoboClaw",
   "description": "RoboClaw is an Embodied AI Assistant.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MINT-SJTU/RoboClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:14:06Z"
+  "distributed_at": "2026-04-29T16:33:09Z"
 }
