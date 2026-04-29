@@ -7,15 +7,15 @@ Design guardrails, not templates. A library of UI design direction files that gi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [Heiberg-Industries/designbrief](https://github.com/Heiberg-Industries/designbrief).
+Original source: `AGENTS.md` in [Heiberg-Industries/designbrief](https://github.com/Heiberg-Industries/designbrief).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [Heiberg-Industries/designbrief](https://github.com/Heiberg-Industries/designbrief) — a repo with 10+ stars on GitHub.
 
