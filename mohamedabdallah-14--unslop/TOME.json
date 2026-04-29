@@ -4,7 +4,7 @@
   "repo": "unslop",
   "description": "Make AI output sound human. Strips AI-isms (sycophancy, stock vocab, hedging stacks, em-dash pileups), preserves code/URLs/headings. Plugin for Claude Code, Cursor, Windsurf, Codex, Cline, Copilot, Gemini.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MohamedAbdallah-14/unslop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T07:32:17Z"
+  "distributed_at": "2026-04-29T07:32:42Z"
 }
