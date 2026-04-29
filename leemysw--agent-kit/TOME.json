@@ -1,0 +1,44 @@
+{
+  "name": "agent-kit",
+  "owner": "leemysw",
+  "repo": "agent-kit",
+  "description": "Agent Kit is a comprehensive AI agent development framework that integrates Claude Agent SDK, providing a complete solution from frontend to backend. This project aims to help developers quickly build, deploy, and scale production-grade AI Agent applications.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/leemysw/agent-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T00:03:12Z"
+}
