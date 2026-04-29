@@ -1,0 +1,9 @@
+{
+  "name": "yeliu84--pi-model-router",
+  "displayName": "pi-model-router",
+  "description": "Extension for the pi coding agent that intelligently routes each turn to the right LLM tier (high/medium/low) based on task intent, session budget, context size, and custom rules.",
+  "version": "1.0.0",
+  "author": "yeliu84",
+  "homepage": "https://github.com/yeliu84/pi-model-router",
+  "skills": []
+}
