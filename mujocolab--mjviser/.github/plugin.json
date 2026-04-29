@@ -1,0 +1,9 @@
+{
+  "name": "mujocolab--mjviser",
+  "displayName": "mjviser",
+  "description": "Web-based MuJoCo viewer powered by Viser",
+  "version": "1.0.0",
+  "author": "mujocolab",
+  "homepage": "https://github.com/mujocolab/mjviser",
+  "skills": []
+}
