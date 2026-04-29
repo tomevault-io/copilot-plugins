@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--houseofagents",
+  "displayName": "houseofagents",
+  "description": "houseofagents",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/houseofagents",
+  "skills": []
+}
