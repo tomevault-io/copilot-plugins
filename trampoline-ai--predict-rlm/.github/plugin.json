@@ -1,0 +1,9 @@
+{
+  "name": "trampoline-ai--predict-rlm",
+  "displayName": "predict-rlm",
+  "description": "Production focused Self-harnessed LM runtime (RLM) that allows the LM to call its sub-lm with DSPy signatures. Define your inputs, outputs, and tools \u2014 the model handles its own control flow. Get full",
+  "version": "1.0.0",
+  "author": "Trampoline-AI",
+  "homepage": "https://github.com/Trampoline-AI/predict-rlm",
+  "skills": []
+}
