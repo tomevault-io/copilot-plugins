@@ -4,7 +4,7 @@
   "repo": "tmux-ide",
   "description": "Turn any project into a tmux-powered terminal IDE with a simple ide.yml",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wavyrai/tmux-ide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:21:22Z"
+  "distributed_at": "2026-04-29T16:38:21Z"
 }
