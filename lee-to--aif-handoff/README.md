@@ -7,11 +7,11 @@ Autonomous Kanban board where AI agents plan, implement, and review your tasks �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lee-to/aif-handoff](https://github.com/lee-to/aif-handoff).
+Original source: `CLAUDE.md` in [lee-to/aif-handoff](https://github.com/lee-to/aif-handoff).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
