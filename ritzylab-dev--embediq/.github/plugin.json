@@ -1,0 +1,9 @@
+{
+  "name": "ritzylab-dev--embediq",
+  "displayName": "embediq",
+  "description": "The application framework above the RTOS. Apache 2.0. RTOS-agnostic. Host simulation first-class.",
+  "version": "1.0.0",
+  "author": "ritzylab-dev",
+  "homepage": "https://github.com/ritzylab-dev/embediq",
+  "skills": []
+}
