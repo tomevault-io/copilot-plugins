@@ -1,0 +1,9 @@
+{
+  "name": "everettjf--reporead",
+  "displayName": "RepoRead",
+  "description": "A lightweight desktop app to browse GitHub repositories without cloning. Features syntax highlighting, file tree navigation, trending repos, favorites, and AI-powered code interpretation. Built with T",
+  "version": "1.0.0",
+  "author": "everettjf",
+  "homepage": "https://github.com/everettjf/RepoRead",
+  "skills": []
+}
