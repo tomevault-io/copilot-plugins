@@ -1,0 +1,9 @@
+{
+  "name": "swapperfinance--swapper-toolkit",
+  "displayName": "swapper-toolkit",
+  "description": "DeFi toolkit for AI agents and coding assistants \u2014 deposit funds, execute trades, and manage crypto wallets. Works with Claude Code, Cursor,   Windsurf, OpenClaw, CrewAI, AutoGPT, and other AI agent f",
+  "version": "1.0.0",
+  "author": "swapperfinance",
+  "homepage": "https://github.com/swapperfinance/swapper-toolkit",
+  "skills": []
+}
