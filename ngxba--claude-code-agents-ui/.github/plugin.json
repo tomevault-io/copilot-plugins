@@ -1,0 +1,9 @@
+{
+  "name": "ngxba--claude-code-agents-ui",
+  "displayName": "claude-code-agents-ui",
+  "description": "An intuitive interface to create, orchestrate, and monitor Claude-based code agents for automated development workflows.",
+  "version": "1.0.0",
+  "author": "Ngxba",
+  "homepage": "https://github.com/Ngxba/claude-code-agents-ui",
+  "skills": []
+}
