@@ -4,7 +4,7 @@
   "repo": "obsidian-wiki",
   "description": "Framework for AI agents to build and maintain an Obsidian wiki using Karpathy's LLM Wiki pattern",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ar9av/obsidian-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T13:01:19Z"
+  "distributed_at": "2026-04-29T03:43:04Z"
 }
