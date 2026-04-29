@@ -1,0 +1,9 @@
+{
+  "name": "amadad--mirofish-cli",
+  "displayName": "mirofish-cli",
+  "description": "Multi-agent AI prediction engine - digital sandbox for scenario simulation (fork of 666ghj/MiroFish)",
+  "version": "1.0.0",
+  "author": "amadad",
+  "homepage": "https://github.com/amadad/mirofish-cli",
+  "skills": []
+}
