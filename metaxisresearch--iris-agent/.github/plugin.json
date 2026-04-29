@@ -1,0 +1,9 @@
+{
+  "name": "metaxisresearch--iris-agent",
+  "displayName": "iris-agent",
+  "description": "The first agent that grows alongside you while utilizing BIP-360 P2MR testnet implementation for research and doing transactions",
+  "version": "1.0.0",
+  "author": "MetaxisResearch",
+  "homepage": "https://github.com/MetaxisResearch/iris-agent",
+  "skills": []
+}
