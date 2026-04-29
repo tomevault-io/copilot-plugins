@@ -1,0 +1,9 @@
+{
+  "name": "fallow-rs--fallow",
+  "displayName": "fallow",
+  "description": "The codebase analyzer for TypeScript and JavaScript. Finds unused code, circular dependencies, code duplication, complexity hotspots, and architecture boundary violations. Rust-native, sub-second, 90 ",
+  "version": "1.0.0",
+  "author": "fallow-rs",
+  "homepage": "https://github.com/fallow-rs/fallow",
+  "skills": []
+}
