@@ -1,0 +1,93 @@
+{
+  "name": "x07",
+  "owner": "x07lang",
+  "repo": "x07-registry-web",
+  "description": "X07 package registry website",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "x07-agent-playbook",
+      "path": "skills/pack/.agent/skills/x07-agent-playbook",
+      "github_url": "https://github.com/x07lang/x07-registry-web/tree/main/skills/pack/.agent/skills/x07-agent-playbook",
+      "description": ""
+    },
+    {
+      "name": "x07-build-run",
+      "path": "labs/skills/pack/.codex/skills/x07-build-run",
+      "github_url": "https://github.com/x07lang/x07-registry-web/tree/main/labs/skills/pack/.codex/skills/x07-build-run",
+      "description": ""
+    },
+    {
+      "name": "x07-bundle",
+      "path": "skills/pack/.agent/skills/x07-bundle",
+      "github_url": "https://github.com/x07lang/x07-registry-web/tree/main/skills/pack/.agent/skills/x07-bundle",
+      "description": ""
+    },
+    {
+      "name": "x07-language-guide",
+      "path": "skills/pack/.agent/skills/x07-language-guide",
+      "github_url": "https://github.com/x07lang/x07-registry-web/tree/main/skills/pack/.agent/skills/x07-language-guide",
+      "description": ""
+    },
+    {
+      "name": "x07-lint-repair",
+      "path": "skills/pack/.agent/skills/x07-lint-repair",
+      "github_url": "https://github.com/x07lang/x07-registry-web/tree/main/skills/pack/.agent/skills/x07-lint-repair",
+      "description": ""
+    },
+    {
+      "name": "x07-os-run",
+      "path": "skills/pack/.agent/skills/x07-os-run",
+      "github_url": "https://github.com/x07lang/x07-registry-web/tree/main/skills/pack/.agent/skills/x07-os-run",
+      "description": ""
+    },
+    {
+      "name": "x07-package",
+      "path": "skills/pack/.agent/skills/x07-package",
+      "github_url": "https://github.com/x07lang/x07-registry-web/tree/main/skills/pack/.agent/skills/x07-package",
+      "description": ""
+    },
+    {
+      "name": "x07-test",
+      "path": "skills/pack/.agent/skills/x07-test",
+      "github_url": "https://github.com/x07lang/x07-registry-web/tree/main/skills/pack/.agent/skills/x07-test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/x07lang/x07-registry-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T19:30:54Z"
+}
