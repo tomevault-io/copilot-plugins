@@ -1,0 +1,9 @@
+{
+  "name": "fazxes--claude-code",
+  "displayName": "Claude-code",
+  "description": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster through natural language commands. Rebuilt from leaked source.",
+  "version": "1.0.0",
+  "author": "fazxes",
+  "homepage": "https://github.com/fazxes/Claude-code",
+  "skills": []
+}
