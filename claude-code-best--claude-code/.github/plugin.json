@@ -1,0 +1,9 @@
+{
+  "name": "claude-code-best--claude-code",
+  "displayName": "claude-code",
+  "description": "\u539f\u6c41\u539f\u6627 Claude Code \u53ef\u8fd0\u884c,\u53ef\u6784\u5efa, \u53ef\u8c03\u8bd5\u7248; Typescript \u7c7b\u578b\u5168\u4fee\u590d; \u4f01\u4e1a\u7ea7\u53ef\u9760\u6027; \u5b89\u5168\u65e0\u6bd2, lock \u6587\u4ef6\u4fdd\u771f, \u53ef\u76f4\u63a5 bun i; bun run dev \u542f\u52a8",
+  "version": "1.0.0",
+  "author": "claude-code-best",
+  "homepage": "https://github.com/claude-code-best/claude-code",
+  "skills": []
+}
