@@ -1,0 +1,9 @@
+{
+  "name": "crabtalk--crabtalk",
+  "displayName": "crabtalk",
+  "description": "Agents daemon that hides nothing",
+  "version": "1.0.0",
+  "author": "crabtalk",
+  "homepage": "https://github.com/crabtalk/crabtalk",
+  "skills": []
+}
