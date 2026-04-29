@@ -1,0 +1,9 @@
+{
+  "name": "infatoshi--kernelbench-hard",
+  "displayName": "KernelBench-Hard",
+  "description": "Surgical GPU kernel benchmark: 7 hard problems, frontier coding agents, roofline-graded against hardware peak.",
+  "version": "1.0.0",
+  "author": "Infatoshi",
+  "homepage": "https://github.com/Infatoshi/KernelBench-Hard",
+  "skills": []
+}
