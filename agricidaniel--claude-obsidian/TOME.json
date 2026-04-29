@@ -4,7 +4,7 @@
   "repo": "claude-obsidian",
   "description": "Claude + Obsidian knowledge companion. Persistent, compounding wiki vault based on Karpathy's LLM Wiki pattern. /wiki /save /autoresearch",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgriciDaniel/claude-obsidian",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T20:47:03Z"
+  "distributed_at": "2026-04-29T00:05:58Z"
 }
