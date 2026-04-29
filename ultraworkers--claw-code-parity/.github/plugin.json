@@ -1,0 +1,9 @@
+{
+  "name": "ultraworkers--claw-code-parity",
+  "displayName": "claw-code-parity",
+  "description": "Join Discord: https://discord.gg/5TUQKqFWd /  claw-code Rust port parity work - it is temporary work while claw-code repo is doing migration",
+  "version": "1.0.0",
+  "author": "ultraworkers",
+  "homepage": "https://github.com/ultraworkers/claw-code-parity",
+  "skills": []
+}
