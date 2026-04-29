@@ -1,0 +1,9 @@
+{
+  "name": "mohamedabdallah-14--unslop",
+  "displayName": "unslop",
+  "description": "Make AI output sound human. Strips AI-isms (sycophancy, stock vocab, hedging stacks, em-dash pileups), preserves code/URLs/headings. Plugin for Claude Code, Cursor, Windsurf, Codex, Cline, Copilot, Ge",
+  "version": "1.0.0",
+  "author": "MohamedAbdallah-14",
+  "homepage": "https://github.com/MohamedAbdallah-14/unslop",
+  "skills": []
+}
