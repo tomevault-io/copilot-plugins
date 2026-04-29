@@ -1,0 +1,44 @@
+{
+  "name": "Andclaw",
+  "owner": "andforce",
+  "repo": "Andclaw",
+  "description": "\u65e0\u9700ROOT\uff0c\u65e0\u9700\u8fde\u7535\u8111\uff0c\u50cfOpenclaw\u63a7\u5236\u7535\u8111\u4e00\u6837\uff0c\u8ba9Andclaw\u63a7\u5236\u4f60\u7684\u5b89\u5353\u624b\u673a",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/andforce/Andclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T16:25:13Z"
+}
