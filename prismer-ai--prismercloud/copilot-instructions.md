@@ -1,0 +1,146 @@
+## prismercloud
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What This Is
+
+PrismerCloud is a multi-language SDK monorepo for the [Prismer Cloud](https://prismer.cloud) API platform. It provides Context (web content), Parse (PDF/OCR), IM (agent messaging), and Evolution (cross-agent learning) APIs with real-time WebSocket/SSE support. All SDK code lives under `sdk/`.
+
+## Critical: SDK Source of Truth
+
+**`sdk/` 目录是从 `/Users/prismer/workspace/prismer-cloud-next/sdk/` 同步过来的，不是本地开发的。**
+
+任何对 SDK 的修改都必须：
+1. 先在闭源仓库 `prismer-cloud-next/sdk/` 中修改
+2. 然后通过 `sdk/build/sync.sh` 同步到本仓库
+3. 在本仓库执行 release
+
+**绝对不要直接修改 `PrismerCloud/sdk/` 下的文件** — 下次 sync 会覆盖。
+
+**分工：** 闭源仓库跑编译/打包/测试（到 pack 为止），开源仓库执行 release。两边 `sdk/build/` 脚本完全一致。
+
+## Build & Release Pipeline
+
+```bash
+# 脚本统一在 sdk/build/ 下
+sdk/build/sync.sh                          # 闭源 → 开源同步
+sdk/build/test.sh --scope aip              # 测试 AIP
+sdk/build/test.sh --scope prismer-cloud    # 测试 Cloud
+sdk/build/verify.sh --scope all            # 版本一致性 + 编译验证
+sdk/build/pack.sh --scope all --clean      # 打包产物
+sdk/build/version.sh --scope aip 1.7.4     # AIP 版本 bump
+sdk/build/version.sh --scope prismer-cloud 1.7.4  # Cloud 版本 bump
+sdk/build/release.sh --scope aip           # 发布 AIP（先发）
+sdk/build/release.sh --scope prismer-cloud # 发布 Cloud（后发）
+```
+
+完整文档见 `sdk/build/WORKFLOW.md`。
+
+## Build Commands
+
+### Build All
+```bash
+cd sdk && chmod +x scripts/build-all.sh && ./scripts/build-all.sh
+```
+
+### Individual SDKs
+
+| SDK | Install deps | Build | Test |
+|-----|-------------|-------|------|
+| TypeScript | `cd sdk/typescript && npm install` | `npm run build` (tsup) | `npm test` (vitest) |
+| Python | `cd sdk/python && pip install -e '.[dev]'` | `python -m build` | `pytest` |
+| Go | `cd sdk/golang` | `go build ./...` | `go test ./...` |
+| Rust | `cd sdk/rust` | `cargo build` | `cargo test` |
+| MCP Server | `cd sdk/mcp && npm install` | `npm run build` (tsup) | N/A |
+| OpenCode Plugin | `cd sdk/opencode-plugin && npm install` | `npm run build` (tsup) | N/A |
+| Claude Code Plugin | N/A | No build step | N/A |
+| OpenClaw Channel | N/A | No build step | N/A |
+
+### Run a single test
+```bash
+# TypeScript — single test file
+cd sdk/typescript && npx vitest run tests/webhook.test.ts
+
+# Python — single test
+cd sdk/python && pytest tests/test_webhook.py -v
+
+# Go — single test function
+cd sdk/golang && go test -run TestVerifySignature -v
+
+# Rust — single test
+cd sdk/rust && cargo test test_verify_signature
+```
+
+### Lint
+```bash
+cd sdk/typescript && npm run lint          # eslint
+cd sdk/python && ruff check . && mypy .    # ruff + mypy (strict mode, target py3.8)
+cd sdk/rust && cargo clippy
+```
+
+### Integration tests (against production)
+```bash
+# Requires PRISMER_API_KEY_TEST env var
+PRISMER_API_KEY_TEST="sk-prismer-..." build/test.sh
+
+# Against test environment
+PRISMER_API_KEY_TEST="sk-prismer-..." PRISMER_BASE_URL_TEST="https://cloud.prismer.dev" build/test.sh
+```
+
+## Architecture
+
+### SDK structure — all four SDKs mirror the same module layout:
+
+```
+PrismerClient (main entry)
+├── context     — load/search/save web content (HQCC compressed)
+├── parse       — PDF/image → markdown (sync fast + async hires modes)
+├── im          — IM sub-client
+│   ├── account/direct/groups/conversations/contacts/credits
+│   └── evolution — gene CRUD, analyze, record, sync
+├── realtime    — WebSocket + SSE clients for live message delivery
+├── offline     — queue mutations when offline, replay on reconnect
+├── encryption  — E2E encryption (ECDH key exchange)
+├── webhook     — HMAC-SHA256 signature verification
+├── evolution-cache    — local gene cache with Thompson Sampling selection (<1ms)
+├── evolution-runtime  — high-level API composing cache + signal enrichment + outbox
+└── signal-rules       — pattern matching to extract signal tags from errors
+```
+
+### EvolutionRuntime — the key cross-cutting pattern
+
+The most important abstraction across all SDKs. It composes three layers:
+1. **EvolutionCache** — local Thompson Sampling gene selection (sub-millisecond, no network)
+2. **Signal enrichment** — extracts signal tags from error strings to match genes
+3. **Async outbox** — fire-and-forget outcome recording
+
+Two-method API: `suggest(error) → strategy` and `learned(error, outcome, summary)`.
+
+### Plugin architecture
+
+Three coding-agent plugins share the same evolution loop pattern:
+- **Claude Code Plugin** (`sdk/claude-code-plugin/`) — hooks (PreToolUse/PostToolUse) + MCP server (.mcp.json) + skills. No build step; files are used directly by Claude Code's plugin system.
+- **OpenCode Plugin** (`sdk/opencode-plugin/`) — TypeScript entry points compiled with tsup. Uses `tool.execute.before`/`tool.execute.after` hooks.
+- **OpenClaw Channel** (`sdk/openclaw-channel/`) — TypeScript source distributed as-is (OpenClaw compiles it). Registered via `openclaw.plugin.json`.
+
+## Key Conventions
+
+- All SDKs authenticate with API keys prefixed `sk-prismer-`. Base URL: `https://prismer.cloud`.
+- TypeScript SDK exports CJS + ESM + DTS. The `webhook` module has a separate export path (`@prismer/sdk/webhook`).
+- Python targets `>=3.8` with `httpx` (async HTTP) + `pydantic` (models) + `websockets` (realtime).
+- Go module path: `github.com/Prismer-AI/Prismer/sdk/golang` (uses cobra CLI + nhooyr websocket).
+- Rust crate: `prismer-sdk` (async with reqwest + tokio).
+- MCP Server uses `@modelcontextprotocol/sdk` and exposes 23 tools (context, parse, IM, evolution, memory, tasks).
+- Version is `1.7.4` across all packages — keep them in sync when bumping.
+
+## API Surface
+
+85+ endpoints across 15 groups. The `sdk/Skill.md` file contains the complete CLI reference with all commands and flags — use it as the authoritative API reference.
+
+---
+> Source: [Prismer-AI/PrismerCloud](https://github.com/Prismer-AI/PrismerCloud) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
