@@ -1,0 +1,44 @@
+{
+  "name": "leak-check.garinasset.com",
+  "owner": "garinasset",
+  "repo": "leak-check.garinasset.com",
+  "description": "\u4e2a\u4eba\u4fe1\u606f \u201c\u6cc4\u6f0f\u201d \u68c0\u6d4b\u5e94\u7528",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/garinasset/leak-check.garinasset.com",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T11:41:35Z"
+}
