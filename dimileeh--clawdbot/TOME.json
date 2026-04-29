@@ -1,0 +1,44 @@
+{
+  "name": "clawdbot",
+  "owner": "dimileeh",
+  "repo": "clawdbot",
+  "description": "AI agent swarm orchestration toolkit \u2014 spawn, monitor, and manage coding agents (Codex, Claude Code, Gemini) with automated PR review and CI fix handling",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dimileeh/clawdbot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T08:02:24Z"
+}
