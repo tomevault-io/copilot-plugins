@@ -1,0 +1,9 @@
+{
+  "name": "donchitos--claude-code-game-studios",
+  "displayName": "Claude-Code-Game-Studios",
+  "description": "Turn Claude Code into a full game dev studio \u2014 49 AI agents, 72 workflow skills, and a complete coordination system mirroring real studio hierarchy.",
+  "version": "1.0.0",
+  "author": "Donchitos",
+  "homepage": "https://github.com/Donchitos/Claude-Code-Game-Studios",
+  "skills": []
+}
