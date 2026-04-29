@@ -1,0 +1,9 @@
+{
+  "name": "ekaya-inc--dataclaw",
+  "displayName": "dataclaw",
+  "description": "Give OpenClaw controlled access to a database",
+  "version": "1.0.0",
+  "author": "ekaya-inc",
+  "homepage": "https://github.com/ekaya-inc/dataclaw",
+  "skills": []
+}
