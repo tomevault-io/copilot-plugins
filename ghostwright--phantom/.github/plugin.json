@@ -1,0 +1,9 @@
+{
+  "name": "ghostwright--phantom",
+  "displayName": "phantom",
+  "description": "An AI co-worker with its own computer. Self-evolving, persistent memory, MCP server, secure credential collection, email identity. Built on the Claude Agent SDK.",
+  "version": "1.0.0",
+  "author": "ghostwright",
+  "homepage": "https://github.com/ghostwright/phantom",
+  "skills": []
+}
