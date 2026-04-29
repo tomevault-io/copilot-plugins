@@ -1,0 +1,9 @@
+{
+  "name": "taito-project--taito",
+  "displayName": "taito",
+  "description": "taito is a package manager for local AI SKILL/AGENT bundles",
+  "version": "1.0.0",
+  "author": "taito-project",
+  "homepage": "https://github.com/taito-project/taito",
+  "skills": []
+}
