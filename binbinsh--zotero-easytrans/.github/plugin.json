@@ -1,0 +1,9 @@
+{
+  "name": "binbinsh--zotero-easytrans",
+  "displayName": "zotero-easytrans",
+  "description": "An offline translation plugin for Zotero 8 using the TranslateGemma 4B on-device translation model",
+  "version": "1.0.0",
+  "author": "binbinsh",
+  "homepage": "https://github.com/binbinsh/zotero-easytrans",
+  "skills": []
+}
