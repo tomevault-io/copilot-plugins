@@ -1,0 +1,9 @@
+{
+  "name": "tenureai--phd-zero",
+  "displayName": "PhD-Zero",
+  "description": "Autoresearch with PhD-level workflows and modular agent skills. Built for the autonomous AI Scientist.",
+  "version": "1.0.0",
+  "author": "TenureAI",
+  "homepage": "https://github.com/TenureAI/PhD-Zero",
+  "skills": []
+}
