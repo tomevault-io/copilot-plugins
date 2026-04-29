@@ -1,0 +1,9 @@
+{
+  "name": "trailofbits--trailmark",
+  "displayName": "trailmark",
+  "description": "Build and query a graph database representation of source code",
+  "version": "1.0.0",
+  "author": "trailofbits",
+  "homepage": "https://github.com/trailofbits/trailmark",
+  "skills": []
+}
