@@ -1,0 +1,21 @@
+## dinobase
+
+> Whenever you add, remove, or rename an environment variable in a service, update the relevant example file:
+
+# Dinobase Development Guidelines
+
+## Environment Variables
+
+Whenever you add, remove, or rename an environment variable in a service, update the relevant example file:
+- API (`ee/cloud/api/`): update `ee/cloud/api/.env.example`
+- Web frontend (`ee/cloud/web/`): update `ee/cloud/web/.env.local.example`
+
+## Documentation
+
+Whenever you add or change a user-facing feature, update the relevant page(s) under `ee/website/src/content/docs/`. If no existing page covers the feature, create one in the appropriate subdirectory (guides/, reference/, sources/, integrations/).
+
+Whenever you create a new docs page, also add it to the sidebar in `ee/website/astro.config.mjs` under the appropriate label group.
+
+---
+> Source: [DinobaseHQ/dinobase](https://github.com/DinobaseHQ/dinobase) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
