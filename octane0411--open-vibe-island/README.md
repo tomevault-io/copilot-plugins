@@ -7,11 +7,11 @@ The open-source alternative to vibe-island, designed for heavy code agent users,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Octane0411/open-vibe-island](https://github.com/Octane0411/open-vibe-island).
+Original source: `CLAUDE.md` in [Octane0411/open-vibe-island](https://github.com/Octane0411/open-vibe-island).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
