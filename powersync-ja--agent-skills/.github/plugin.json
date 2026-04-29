@@ -1,0 +1,9 @@
+{
+  "name": "powersync-ja--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Official agent skills for PowerSync",
+  "version": "1.0.0",
+  "author": "powersync-ja",
+  "homepage": "https://github.com/powersync-ja/agent-skills",
+  "skills": []
+}
