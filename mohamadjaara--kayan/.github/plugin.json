@@ -1,0 +1,9 @@
+{
+  "name": "mohamadjaara--kayan",
+  "displayName": "Kayan",
+  "description": "Kotlin Multiplatform Gradle plugin for generating typed BuildConfig-style objects from layered JSON configs.",
+  "version": "1.0.0",
+  "author": "MohamadJaara",
+  "homepage": "https://github.com/MohamadJaara/Kayan",
+  "skills": []
+}
