@@ -4,7 +4,7 @@
   "repo": "muxy",
   "description": "Lightweight and Memory efficient terminal for Mac built with SwiftUI and libghostty",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/muxy-app/muxy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:57:41Z"
+  "distributed_at": "2026-04-29T20:02:37Z"
 }
