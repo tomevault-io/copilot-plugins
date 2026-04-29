@@ -1,0 +1,9 @@
+{
+  "name": "sangoi-exe--stable-diffusion-webui-codex",
+  "displayName": "stable-diffusion-webui-codex",
+  "description": "Stable Diffusion, SDXL, Flux, Chroma, Flux2, Z-Image, Wan, LTX, Stable-Diffusion-Webui, A1111, Forge WebUI, SwarmUI, ComfyUI, txt2img, img2img, txt2vid, img2vid, vid2vid, Inpaint, Fooocus Inpaint, Bru",
+  "version": "1.0.0",
+  "author": "sangoi-exe",
+  "homepage": "https://github.com/sangoi-exe/stable-diffusion-webui-codex",
+  "skills": []
+}
