@@ -1,0 +1,9 @@
+{
+  "name": "ashlrai--phantom-secrets",
+  "displayName": "phantom-secrets",
+  "description": "Stop AI coding agents from leaking your API keys. Local proxy + MCP that swaps real secrets for phm_ tokens \u2014 works with Claude Code, Cursor, Windsurf, and Codex.",
+  "version": "1.0.0",
+  "author": "ashlrai",
+  "homepage": "https://github.com/ashlrai/phantom-secrets",
+  "skills": []
+}
