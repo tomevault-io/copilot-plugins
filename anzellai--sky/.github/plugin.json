@@ -1,0 +1,9 @@
+{
+  "name": "anzellai--sky",
+  "displayName": "sky",
+  "description": "Sky \u2014 an Elm-inspired language that compiles to Go. Hindley-Milner types, server-driven UI (Sky.Live), single binary output.",
+  "version": "1.0.0",
+  "author": "anzellai",
+  "homepage": "https://github.com/anzellai/sky",
+  "skills": []
+}
