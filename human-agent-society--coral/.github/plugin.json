@@ -1,0 +1,9 @@
+{
+  "name": "human-agent-society--coral",
+  "displayName": "CORAL",
+  "description": "CORAL is a robust, lightweight infrastructure for multi-agent autonomous self-evolution, built for autoresearch.",
+  "version": "1.0.0",
+  "author": "Human-Agent-Society",
+  "homepage": "https://github.com/Human-Agent-Society/CORAL",
+  "skills": []
+}
