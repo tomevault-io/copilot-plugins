@@ -1,0 +1,9 @@
+{
+  "name": "walkthru-earth--geocoding-playground",
+  "displayName": "geocoding-playground",
+  "description": "Browser-based geocoder powered by DuckDB-WASM and Overture Maps, 469M+ addresses, zero backend",
+  "version": "1.0.0",
+  "author": "walkthru-earth",
+  "homepage": "https://github.com/walkthru-earth/geocoding-playground",
+  "skills": []
+}
