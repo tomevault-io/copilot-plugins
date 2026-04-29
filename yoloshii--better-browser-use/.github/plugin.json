@@ -1,0 +1,9 @@
+{
+  "name": "yoloshii--better-browser-use",
+  "displayName": "better-browser-use",
+  "description": "A hybrid SOTA browser use skill with tiered stealth escalation and turnstyle captcha trigger-avoidance. Includes early WebMCP functionality.",
+  "version": "1.0.0",
+  "author": "yoloshii",
+  "homepage": "https://github.com/yoloshii/better-browser-use",
+  "skills": []
+}
