@@ -4,7 +4,7 @@
   "repo": "CBTrade",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/wrm3",
+  "source_url": "https://github.com/wrm3/CBTrade",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T01:50:28Z"
+  "distributed_at": "2026-04-29T07:40:34Z"
 }
