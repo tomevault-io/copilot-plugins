@@ -1,0 +1,9 @@
+{
+  "name": "savethepolarbears--jules-mcp-server",
+  "displayName": "jules-mcp-server",
+  "description": "Production-ready Model Context Protocol (MCP) server for Google Jules API. Enables autonomous coding tasks and scheduling from AI assistants. Independent open-source project, not affiliated with Googl",
+  "version": "1.0.0",
+  "author": "savethepolarbears",
+  "homepage": "https://github.com/savethepolarbears/jules-mcp-server",
+  "skills": []
+}
