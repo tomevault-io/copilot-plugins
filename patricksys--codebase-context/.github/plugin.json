@@ -1,0 +1,9 @@
+{
+  "name": "patricksys--codebase-context",
+  "displayName": "codebase-context",
+  "description": "Generate a map of your codebaseto help AI Agents understand your architecture, coding conventions and patterns. Discoverable with Semantic Search",
+  "version": "1.0.0",
+  "author": "PatrickSys",
+  "homepage": "https://github.com/PatrickSys/codebase-context",
+  "skills": []
+}
