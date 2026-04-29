@@ -1,0 +1,9 @@
+{
+  "name": "schalkneethling--masonry-gridlanes-wc",
+  "displayName": "masonry-gridlanes-wc",
+  "description": "Light-DOM custom element for CSS Grid Lanes masonry with a JS fallback; Pretext helpers are exported separately for headless text metrics.",
+  "version": "1.0.0",
+  "author": "schalkneethling",
+  "homepage": "https://github.com/schalkneethling/masonry-gridlanes-wc",
+  "skills": []
+}
