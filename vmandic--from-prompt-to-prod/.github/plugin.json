@@ -1,0 +1,9 @@
+{
+  "name": "vmandic--from-prompt-to-prod",
+  "displayName": "from-prompt-to-prod",
+  "description": "Presentation on my LLM and Cursor learnings and ideas over the past 3 years.",
+  "version": "1.0.0",
+  "author": "vmandic",
+  "homepage": "https://github.com/vmandic/from-prompt-to-prod",
+  "skills": []
+}
