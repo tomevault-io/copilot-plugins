@@ -1,6 +1,6 @@
 # valu
 
-> Tome by [sanif](https://github.com/sanif/valu) — distributed by [TomeVault](https://tomevault.io/claim/sanif)
+> Tome by [sanif](https://github.com/sanif/valu) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [sanif/valu](https://github.com/sanif/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/sanif)
+From [sanif/valu](https://github.com/sanif/valu) — a repo with 0+ stars on GitHub.
 
 ---
 
