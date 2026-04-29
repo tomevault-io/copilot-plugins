@@ -4,7 +4,7 @@
   "repo": "ClawWork",
   "description": "Client for OpenClaw \u2014 Connect ClawWork to your own OpenClaw and unlock 10x multi-session productivity.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clawwork-ai/ClawWork",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:54:48Z"
+  "distributed_at": "2026-04-29T16:13:54Z"
 }
