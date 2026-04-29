@@ -1,0 +1,9 @@
+{
+  "name": "tracerqi--openperfetto",
+  "displayName": "openperfetto",
+  "description": "Perfetto + AI Agent sidebar - Implementing Trace Automated Analysis",
+  "version": "1.0.0",
+  "author": "TracerQi",
+  "homepage": "https://github.com/TracerQi/openperfetto",
+  "skills": []
+}
