@@ -1,0 +1,9 @@
+{
+  "name": "lemos999--research-orchestrator",
+  "displayName": "Research-Orchestrator",
+  "description": "File based LLM orchestration for reliable, evidence backed research and coding workflows.",
+  "version": "1.0.0",
+  "author": "lemos999",
+  "homepage": "https://github.com/lemos999/Research-Orchestrator",
+  "skills": []
+}
