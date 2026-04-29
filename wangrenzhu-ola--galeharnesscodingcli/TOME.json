@@ -1,0 +1,44 @@
+{
+  "name": "GaleHarnessCodingCLI",
+  "owner": "wangrenzhu-ola",
+  "repo": "GaleHarnessCodingCLI",
+  "description": "\u6bcf\u4e00\u6b21\u5de5\u7a0b\u5b9e\u8df5\u90fd\u5e94\u8be5\u8ba9\u540e\u7eed\u5de5\u4f5c\u53d8\u5f97\u66f4\u7b80\u5355\uff0c\u800c\u4e0d\u662f\u66f4\u590d\u6742\u3002  \u4f20\u7edf\u5f00\u53d1\u7d2f\u79ef\u6280\u672f\u503a\u52a1\uff0c\u6bcf\u4e2a\u529f\u80fd\u589e\u52a0\u590d\u6742\u5ea6\u3002HarnessCLI \u53cd\u8f6c\u8fd9\u4e00\u6a21\u5f0f\uff1a  80% \u7cbe\u529b\u6295\u5165\u89c4\u5212\u4e0e\u5ba1\u67e5 20% \u7cbe\u529b\u6295\u5165\u6267\u884c \u901a\u8fc7\u77e5\u8bc6\u6c89\u6dc0\u5b9e\u73b0\u590d\u5229\u6548\u5e94",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wangrenzhu-ola/GaleHarnessCodingCLI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T16:37:55Z"
+}
