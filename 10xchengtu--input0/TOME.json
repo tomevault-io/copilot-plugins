@@ -4,7 +4,7 @@
   "repo": "input0",
   "description": "Input0 \u2014 A macOS voice input tool: hold a hotkey to record, release to transcribe locally via STT, refine with LLM, and auto-paste into the active text field.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/10xChengTu/input0",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:34:15Z"
+  "distributed_at": "2026-04-29T04:08:02Z"
 }
