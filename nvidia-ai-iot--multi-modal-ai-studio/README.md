@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [NVIDIA-AI-IOT/multi_modal_ai_studio](
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/NVIDIA-AI-IOT)
+From [NVIDIA-AI-IOT/multi_modal_ai_studio](https://github.com/NVIDIA-AI-IOT/multi_modal_ai_studio) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install NVIDIA-AI-IOT/multi_modal_ai_studio
 ```
-Or browse all formats at [https://tomevault.io/claim/NVIDIA-AI-IOT](https://tomevault.io/claim/NVIDIA-AI-IOT).
+Source: [github.com/NVIDIA-AI-IOT/multi_modal_ai_studio](https://github.com/NVIDIA-AI-IOT/multi_modal_ai_studio).
 
 <!-- genome:a-i-s -->
