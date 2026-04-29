@@ -1,0 +1,9 @@
+{
+  "name": "juspay--skills",
+  "displayName": "skills",
+  "description": "Various useful skills for development",
+  "version": "1.0.0",
+  "author": "juspay",
+  "homepage": "https://github.com/juspay/skills",
+  "skills": []
+}
