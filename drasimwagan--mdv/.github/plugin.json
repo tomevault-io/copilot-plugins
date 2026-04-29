@@ -1,0 +1,9 @@
+{
+  "name": "drasimwagan--mdv",
+  "displayName": "mdv",
+  "description": "MDV \u2014 a Markdown superset for documents, dashboards, and slides with embedded data and visualizations. HTML + PDF export, live preview, VS Code extension.",
+  "version": "1.0.0",
+  "author": "drasimwagan",
+  "homepage": "https://github.com/drasimwagan/mdv",
+  "skills": []
+}
