@@ -1,0 +1,9 @@
+{
+  "name": "trieuconcrete--laravel-docker-base",
+  "displayName": "laravel-docker-base",
+  "description": "laravel-docker-base",
+  "version": "1.0.0",
+  "author": "trieuconcrete",
+  "homepage": "https://github.com/trieuconcrete/laravel-docker-base",
+  "skills": []
+}
