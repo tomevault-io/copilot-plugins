@@ -1,0 +1,9 @@
+{
+  "name": "outscal--openjobs",
+  "displayName": "OpenJobs",
+  "description": "Harvest growth/tech jobs from 2,000+ gaming/tech companies via public ATS APIs into CSV. Fork of santifer/career-ops with Outscal harvester layer.",
+  "version": "1.0.0",
+  "author": "outscal",
+  "homepage": "https://github.com/outscal/OpenJobs",
+  "skills": []
+}
