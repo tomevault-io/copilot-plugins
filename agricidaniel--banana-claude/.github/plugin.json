@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--banana-claude",
+  "displayName": "banana-claude",
+  "description": "AI image generation skill for Claude Code -- Creative Director powered by Gemini",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/banana-claude",
+  "skills": []
+}
