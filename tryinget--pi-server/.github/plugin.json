@@ -1,0 +1,9 @@
+{
+  "name": "tryinget--pi-server",
+  "displayName": "pi-server",
+  "description": "Session multiplexer for pi-coding-agent \u2014 WebSocket + stdio, the protocol IS the architecture",
+  "version": "1.0.0",
+  "author": "tryingET",
+  "homepage": "https://github.com/tryingET/pi-server",
+  "skills": []
+}
