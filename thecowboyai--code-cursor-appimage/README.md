@@ -1,6 +1,6 @@
 # code-cursor-appimage
 
-> Tome by [TheCowboyAI](https://github.com/TheCowboyAI/code-cursor-appimage) — distributed by [TomeVault](https://tomevault.io/claim/TheCowboyAI)
+> Tome by [TheCowboyAI](https://github.com/TheCowboyAI/code-cursor-appimage) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [TheCowboyAI/code-cursor-appimage](htt
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/TheCowboyAI)
+From [TheCowboyAI/code-cursor-appimage](https://github.com/TheCowboyAI/code-cursor-appimage) — a repo with 0+ stars on GitHub.
 
 ---
 
