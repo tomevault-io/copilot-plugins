@@ -1,0 +1,9 @@
+{
+  "name": "preloop--preloop",
+  "displayName": "preloop",
+  "description": "Preloop is the Governance Layer for AI agents: MCP firewall, model gateway, human approvals, cost tracking, event-driven flows",
+  "version": "1.0.0",
+  "author": "preloop",
+  "homepage": "https://github.com/preloop/preloop",
+  "skills": []
+}
