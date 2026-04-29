@@ -1,0 +1,9 @@
+{
+  "name": "quantumaikr--quant-cpp",
+  "displayName": "quant.cpp",
+  "description": "LLM inference with 7x longer context. Pure C, zero dependencies. Lossless KV cache compression + single-header library.",
+  "version": "1.0.0",
+  "author": "quantumaikr",
+  "homepage": "https://github.com/quantumaikr/quant.cpp",
+  "skills": []
+}
