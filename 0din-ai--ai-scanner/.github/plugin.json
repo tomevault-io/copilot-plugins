@@ -1,0 +1,9 @@
+{
+  "name": "0din-ai--ai-scanner",
+  "displayName": "ai-scanner",
+  "description": "AI model safety scanner built on NVIDIA garak",
+  "version": "1.0.0",
+  "author": "0din-ai",
+  "homepage": "https://github.com/0din-ai/ai-scanner",
+  "skills": []
+}
