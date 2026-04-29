@@ -1,0 +1,44 @@
+{
+  "name": "CrestApps.AgentSkills",
+  "owner": "CrestApps",
+  "repo": "CrestApps.AgentSkills",
+  "description": "Shared AI agent skills and MCP tooling for .NET applications and Orchard Core based projects. The repository contains three projects that solve distinct problems:",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CrestApps/CrestApps.AgentSkills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T19:58:21Z"
+}
