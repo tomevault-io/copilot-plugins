@@ -1,0 +1,9 @@
+{
+  "name": "honeymux--honeymux",
+  "displayName": "honeymux",
+  "description": "A new UX layer for the terminal, built on tmux",
+  "version": "1.0.0",
+  "author": "honeymux",
+  "homepage": "https://github.com/honeymux/honeymux",
+  "skills": []
+}
