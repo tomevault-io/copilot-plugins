@@ -4,7 +4,7 @@
   "repo": "stitchflow",
   "description": "StitchFlow turns prompts into UI directions, Tailwind-friendly HTML, and screenshots across Codex, Claude Code, OpenClaw, GitHub Copilot, and Gemini CLI.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yshishenya/stitchflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T08:36:36Z"
+  "distributed_at": "2026-04-29T08:33:09Z"
 }
