@@ -1,0 +1,9 @@
+{
+  "name": "0xmassi--webclaw",
+  "displayName": "webclaw",
+  "description": "Fast, local-first web content extraction for LLMs. Scrape, crawl, extract structured data \u2014 all from Rust. CLI, REST API, and MCP server.",
+  "version": "1.0.0",
+  "author": "0xMassi",
+  "homepage": "https://github.com/0xMassi/webclaw",
+  "skills": []
+}
