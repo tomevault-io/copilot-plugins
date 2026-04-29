@@ -1,0 +1,9 @@
+{
+  "name": "eikarna--hermes-rs",
+  "displayName": "hermes-rs",
+  "description": "A high-performance Rust implementation of the Hermes-Agent orchestration loop for LLM-driven tool execution.",
+  "version": "1.0.0",
+  "author": "eikarna",
+  "homepage": "https://github.com/eikarna/hermes-rs",
+  "skills": []
+}
