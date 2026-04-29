@@ -1,0 +1,9 @@
+{
+  "name": "sw33tlie--macshot",
+  "displayName": "macshot",
+  "description": "Feature-packed native macOS screenshot & recording tool: annotate, auto-redact PII, record GIFs, OCR + translate, scroll capture, beautify, and more. No Electron, no subscription.",
+  "version": "1.0.0",
+  "author": "sw33tLie",
+  "homepage": "https://github.com/sw33tLie/macshot",
+  "skills": []
+}
