@@ -1,0 +1,9 @@
+{
+  "name": "ddtcorex--govard",
+  "displayName": "govard",
+  "description": "Go-based local development orchestrator for Magento, Laravel, Symfony, Next.js, WordPress, and more. Docker stacks, SSL, Xdebug, and a desktop dashboard.",
+  "version": "1.0.0",
+  "author": "ddtcorex",
+  "homepage": "https://github.com/ddtcorex/govard",
+  "skills": []
+}
