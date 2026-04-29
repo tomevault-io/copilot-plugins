@@ -1,0 +1,9 @@
+{
+  "name": "illegalstudio--elephc",
+  "displayName": "elephc",
+  "description": "A PHP-to-native compiler. Takes a subset of PHP and compiles it directly to native assembly, producing standalone binaries for the currently supported targets: macOS ARM64, Linux ARM64, and Linux x86_",
+  "version": "1.0.0",
+  "author": "illegalstudio",
+  "homepage": "https://github.com/illegalstudio/elephc",
+  "skills": []
+}
