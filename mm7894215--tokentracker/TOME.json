@@ -4,7 +4,7 @@
   "repo": "TokenTracker",
   "description": "Track Claude Code, Codex, Cursor, Gemini, Kiro, OpenCode, OpenClaw & Every Code token usage. Local-first, zero-config, with a beautiful dashboard, native macOS menu bar app, and 4 desktop widgets.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mm7894215/TokenTracker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:01:27Z"
+  "distributed_at": "2026-04-29T20:20:43Z"
 }
