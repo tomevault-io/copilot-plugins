@@ -1,0 +1,9 @@
+{
+  "name": "secbear--skelegent",
+  "displayName": "skelegent",
+  "description": "Bones for your agents \u2014 composable async agentic AI framework for Rust",
+  "version": "1.0.0",
+  "author": "secbear",
+  "homepage": "https://github.com/secbear/skelegent",
+  "skills": []
+}
