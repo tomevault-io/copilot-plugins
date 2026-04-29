@@ -1,0 +1,44 @@
+{
+  "name": "jules-mcp-server",
+  "owner": "savethepolarbears",
+  "repo": "jules-mcp-server",
+  "description": "Production-ready Model Context Protocol (MCP) server for Google Jules API. Enables autonomous coding tasks and scheduling from AI assistants. Independent open-source project, not affiliated with Google.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/savethepolarbears/jules-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T23:41:23Z"
+}
