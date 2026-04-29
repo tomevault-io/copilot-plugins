@@ -1,6 +1,6 @@
 # boris
 
-> Tome by [dergigi](https://github.com/dergigi/boris) — distributed by [TomeVault](https://tomevault.io/claim/dergigi)
+> Tome by [dergigi](https://github.com/dergigi/boris) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [dergigi/boris](https://github.com/der
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/dergigi)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/dergigi/boris](https://github.com/dergigi/boris)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install dergigi/boris
 ```
-Or browse all formats at [https://tomevault.io/claim/dergigi](https://tomevault.io/claim/dergigi).
+Source: [github.com/dergigi/boris](https://github.com/dergigi/boris).
 
 <!-- genome:t-i-p -->
