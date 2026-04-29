@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [xiaolongwu0713/startup-hub](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/xiaolongwu0713#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/xiaolongwu0713/startup-hub](https://github.com/xiaolongwu0713/startup-hub)
 
 ---
 
