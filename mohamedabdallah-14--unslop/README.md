@@ -7,7 +7,7 @@ Make AI output sound human. Strips AI-isms (sycophancy, stock vocab, hedging sta
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [MohamedAbdallah-14/unslop](https://github.com/MohamedAbdallah-14/unslop).
+Original source: `.windsurf/rules/*.md` in [MohamedAbdallah-14/unslop](https://github.com/MohamedAbdallah-14/unslop).
 
 ## Also available for
 
@@ -15,7 +15,7 @@ Original source: `GEMINI.md` in [MohamedAbdallah-14/unslop](https://github.com/M
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 From [MohamedAbdallah-14/unslop](https://github.com/MohamedAbdallah-14/unslop) — a repo with 7+ stars on GitHub.
 
