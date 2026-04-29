@@ -1,0 +1,9 @@
+{
+  "name": "meodai--skill-color-expert",
+  "displayName": "skill.color-expert",
+  "description": "Agent skill for color science expertise. Many references covering color spaces, accessibility (APCA, WCAG), palette   generation, pigment mixing, and historical color theory. Works with Claude Code, C",
+  "version": "1.0.0",
+  "author": "meodai",
+  "homepage": "https://github.com/meodai/skill.color-expert",
+  "skills": []
+}
