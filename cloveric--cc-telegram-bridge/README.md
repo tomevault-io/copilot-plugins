@@ -7,11 +7,11 @@ Real Claude Code & Codex CLI on Telegram — runs their native harness directly,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cloveric/cc-telegram-bridge](https://github.com/cloveric/cc-telegram-bridge).
+Original source: `CLAUDE.md` in [cloveric/cc-telegram-bridge](https://github.com/cloveric/cc-telegram-bridge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
