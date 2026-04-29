@@ -1,0 +1,9 @@
+{
+  "name": "jonwiggins--optio",
+  "displayName": "optio",
+  "description": "Workflow orchestration for AI coding agents, from task to merged PR.",
+  "version": "1.0.0",
+  "author": "jonwiggins",
+  "homepage": "https://github.com/jonwiggins/optio",
+  "skills": []
+}
