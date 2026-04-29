@@ -1,0 +1,9 @@
+{
+  "name": "laravel--maestro",
+  "displayName": "maestro",
+  "description": "Laravel Starter Kit Orchestrator",
+  "version": "1.0.0",
+  "author": "laravel",
+  "homepage": "https://github.com/laravel/maestro",
+  "skills": []
+}
