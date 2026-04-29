@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--remote-compilation-helper",
+  "displayName": "remote_compilation_helper",
+  "description": "Intercepts cargo/gcc builds from AI coding agents via hooks and transparently routes them to remote worker machines, returning artifacts as if compiled locally",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/remote_compilation_helper",
+  "skills": []
+}
