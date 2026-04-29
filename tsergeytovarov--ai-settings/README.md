@@ -7,14 +7,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [tsergeytovarov/ai-settings](https://github.com/tsergeytovarov/ai-settings).
+Original source: `AGENTS.md` in [tsergeytovarov/ai-settings](https://github.com/tsergeytovarov/ai-settings).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [tsergeytovarov/ai-settings](https://github.com/tsergeytovarov/ai-settings) — a repo with 7+ stars on GitHub.
