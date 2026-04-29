@@ -1,0 +1,14 @@
+{
+  "name": "gotempsh--temps",
+  "displayName": "temps",
+  "description": "Self host your own Vercel",
+  "version": "1.0.0",
+  "author": "gotempsh",
+  "homepage": "https://github.com/gotempsh/temps",
+  "skills": [
+    {
+      "name": "add-error-tracking",
+      "description": ""
+    }
+  ]
+}
