@@ -1,0 +1,9 @@
+{
+  "name": "hugosohm--riptune",
+  "displayName": "riptune",
+  "description": "\u26a1 Fast, native Desktop app to analyze and download music. Powered by Essentia & yt-dlp",
+  "version": "1.0.0",
+  "author": "HugoSohm",
+  "homepage": "https://github.com/HugoSohm/riptune",
+  "skills": []
+}
