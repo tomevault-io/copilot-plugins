@@ -4,7 +4,7 @@
   "repo": "linkit",
   "description": "A local-first bookmark manager with a TUI-style interface.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ian0x-S2/linkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T16:42:36Z"
+  "distributed_at": "2026-04-29T23:39:46Z"
 }
