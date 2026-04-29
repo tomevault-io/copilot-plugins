@@ -1,0 +1,9 @@
+{
+  "name": "planetf1--otelite",
+  "displayName": "otelite",
+  "description": "Lightweight OpenTelemetry receiver and local dashboard for LLM development \u2014 single binary, zero dependencies",
+  "version": "1.0.0",
+  "author": "planetf1",
+  "homepage": "https://github.com/planetf1/otelite",
+  "skills": []
+}
