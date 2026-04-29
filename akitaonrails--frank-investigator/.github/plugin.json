@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--frank-investigator",
+  "displayName": "frank_investigator",
+  "description": "An attempt at a news audit system to analyze biased or even fake journalism",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/frank_investigator",
+  "skills": []
+}
