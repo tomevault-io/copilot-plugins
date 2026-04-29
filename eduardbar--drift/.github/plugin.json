@@ -1,0 +1,9 @@
+{
+  "name": "eduardbar--drift",
+  "displayName": "drift",
+  "description": "Static architecture trust audit for TypeScript/JavaScript repos. Detect structural drift, gate risky PRs, and ship AI-assisted code with confidence.",
+  "version": "1.0.0",
+  "author": "eduardbar",
+  "homepage": "https://github.com/eduardbar/drift",
+  "skills": []
+}
