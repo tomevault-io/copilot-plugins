@@ -1,0 +1,44 @@
+{
+  "name": "article-tools",
+  "owner": "eternityspring",
+  "repo": "article-tools",
+  "description": "\u4e00\u5957\u5c01\u9762\u5236\u4f5c\u548cx\u3001\u5fae\u4fe1\u516c\u4f17\u53f7\u6392\u7248\u5de5\u5177",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eternityspring/article-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T04:18:38Z"
+}
