@@ -1,0 +1,9 @@
+{
+  "name": "mattpocock--sandcastle",
+  "displayName": "sandcastle",
+  "description": "Orchestrate sandboxed coding agents in TypeScript with sandcastle.run()",
+  "version": "1.0.0",
+  "author": "mattpocock",
+  "homepage": "https://github.com/mattpocock/sandcastle",
+  "skills": []
+}
