@@ -1,6 +1,6 @@
 # template-nextjs-1
 
-> Config by [mattjefferson](https://github.com/mattjefferson/template-nextjs-1) — distributed by [TomeVault](https://tomevault.io/claim/mattjefferson)
+> Source: [mattjefferson/template-nextjs-1](https://github.com/mattjefferson/template-nextjs-1) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [mattjefferson/template-nextjs-1](http
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/mattjefferson](https://tomevault.io/claim/mattjefferson)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mattjefferson/template-nextjs-1](https://github.com/mattjefferson/template-nextjs-1)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mattjefferson) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-p -->
