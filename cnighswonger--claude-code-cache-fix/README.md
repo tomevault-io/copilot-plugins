@@ -7,11 +7,11 @@ Fixes prompt cache regression in Claude Code that causes up to 20x cost increase
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cnighswonger/claude-code-cache-fix](https://github.com/cnighswonger/claude-code-cache-fix).
+Original source: `CLAUDE.md` in [cnighswonger/claude-code-cache-fix](https://github.com/cnighswonger/claude-code-cache-fix).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
