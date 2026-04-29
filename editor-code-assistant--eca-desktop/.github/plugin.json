@@ -1,0 +1,9 @@
+{
+  "name": "editor-code-assistant--eca-desktop",
+  "displayName": "eca-desktop",
+  "description": "ECA Desktop - Use ECA from any machine",
+  "version": "1.0.0",
+  "author": "editor-code-assistant",
+  "homepage": "https://github.com/editor-code-assistant/eca-desktop",
+  "skills": []
+}
