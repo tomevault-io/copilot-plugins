@@ -1,0 +1,9 @@
+{
+  "name": "deusyu--translate-book",
+  "displayName": "translate-book",
+  "description": "Claude Code skill that translates entire books (PDF/DOCX/EPUB) into any language using parallel subagents",
+  "version": "1.0.0",
+  "author": "deusyu",
+  "homepage": "https://github.com/deusyu/translate-book",
+  "skills": []
+}
