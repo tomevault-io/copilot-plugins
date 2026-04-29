@@ -4,7 +4,7 @@
   "repo": "llm-wiki-skill",
   "description": "\u57fa\u4e8e Karpathy llm-wiki \u65b9\u6cd5\u8bba\u7684\u4e2a\u4eba\u77e5\u8bc6\u5e93\u6784\u5efa Skill\uff0c\u652f\u6301\u591a\u5e73\u53f0\uff01",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sdyckjq-lab/llm-wiki-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T03:06:39Z"
+  "distributed_at": "2026-04-29T08:04:05Z"
 }
