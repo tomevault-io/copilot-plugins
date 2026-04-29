@@ -1,0 +1,9 @@
+{
+  "name": "ha0xin--chatgpt-multimodal-exporter",
+  "displayName": "chatgpt-multimodal-exporter",
+  "description": "Export conversations and multimodal resources from ChatGPT",
+  "version": "1.0.0",
+  "author": "ha0xin",
+  "homepage": "https://github.com/ha0xin/chatgpt-multimodal-exporter",
+  "skills": []
+}
