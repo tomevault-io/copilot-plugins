@@ -1,0 +1,9 @@
+{
+  "name": "wlfghdr--agentic-kb",
+  "displayName": "agentic-kb",
+  "description": "AI-native, layered knowledge operations. A specification, reference skills, and a portable agent for any AI harness and any agentic IDE.",
+  "version": "1.0.0",
+  "author": "wlfghdr",
+  "homepage": "https://github.com/wlfghdr/agentic-kb",
+  "skills": []
+}
