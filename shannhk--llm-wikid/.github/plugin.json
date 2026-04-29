@@ -1,0 +1,9 @@
+{
+  "name": "shannhk--llm-wikid",
+  "displayName": "llm-wikid",
+  "description": "Karpathy-style LLM knowledge base for Obsidian. Clone, run Claude Code, start building your second brain.",
+  "version": "1.0.0",
+  "author": "shannhk",
+  "homepage": "https://github.com/shannhk/llm-wikid",
+  "skills": []
+}
