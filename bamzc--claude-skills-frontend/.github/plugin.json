@@ -1,0 +1,30 @@
+{
+  "name": "bamzc--claude-skills-frontend",
+  "displayName": "claude-skills-frontend",
+  "description": "\u524d\u7aef\u5f00\u53d1\u901a\u7528 Claude Skills \u96c6\u5408",
+  "version": "1.0.0",
+  "author": "bamzc",
+  "homepage": "https://github.com/bamzc/claude-skills-frontend",
+  "skills": [
+    {
+      "name": "agentation",
+      "description": ""
+    },
+    {
+      "name": "amis-builder",
+      "description": ""
+    },
+    {
+      "name": "frontend-code-review",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    }
+  ]
+}
