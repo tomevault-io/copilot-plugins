@@ -1,0 +1,9 @@
+{
+  "name": "axolotl-ai-cloud--arc",
+  "displayName": "arc",
+  "description": "ARC Relay \u2014 WebSocket relay server for agent remote control by Axolotl AI",
+  "version": "1.0.0",
+  "author": "axolotl-ai-cloud",
+  "homepage": "https://github.com/axolotl-ai-cloud/arc",
+  "skills": []
+}
