@@ -1,0 +1,9 @@
+{
+  "name": "terraform-industry--electrolyzer-test-rig",
+  "displayName": "electrolyzer_test_rig",
+  "description": "electrolyzer_test_rig",
+  "version": "1.0.0",
+  "author": "terraform-industry",
+  "homepage": "https://github.com/terraform-industry/electrolyzer_test_rig",
+  "skills": []
+}
