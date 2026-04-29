@@ -1,0 +1,9 @@
+{
+  "name": "nesdesignco--vibeconsole",
+  "displayName": "vibeconsole",
+  "description": "Terminal IDE for AI coding workflows. Multi-terminal, git integration, plugin system, context preservation.",
+  "version": "1.0.0",
+  "author": "nesdesignco",
+  "homepage": "https://github.com/nesdesignco/vibeconsole",
+  "skills": []
+}
