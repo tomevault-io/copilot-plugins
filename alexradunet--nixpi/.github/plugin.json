@@ -1,0 +1,9 @@
+{
+  "name": "alexradunet--nixpi",
+  "displayName": "NixPI",
+  "description": "Personal User-Centric Immutable OS Based on NixOS and Pi.Dev AI Agent, where the agent is a first class citizen of the OS, and also dictates the UX experience",
+  "version": "1.0.0",
+  "author": "alexradunet",
+  "homepage": "https://github.com/alexradunet/NixPI",
+  "skills": []
+}
