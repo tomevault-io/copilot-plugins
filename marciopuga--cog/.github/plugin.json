@@ -1,0 +1,9 @@
+{
+  "name": "marciopuga--cog",
+  "displayName": "cog",
+  "description": "Cognitive architecture for Claude Code \u2014 persistent memory, self-reflection, and foresight",
+  "version": "1.0.0",
+  "author": "marciopuga",
+  "homepage": "https://github.com/marciopuga/cog",
+  "skills": []
+}
