@@ -4,7 +4,7 @@
   "repo": "scholaraio",
   "description": "Scholar All-In-One: A research infrastructure for AI agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZimoLiao/scholaraio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:19:08Z"
+  "distributed_at": "2026-04-29T16:35:45Z"
 }
