@@ -1,0 +1,9 @@
+{
+  "name": "uburuntu--meridian",
+  "displayName": "meridian",
+  "description": "One command deploys a censorship-resistant VLESS+Reality proxy server. Perfectly configured out-of-the-box. Relay nodes supported.",
+  "version": "1.0.0",
+  "author": "uburuntu",
+  "homepage": "https://github.com/uburuntu/meridian",
+  "skills": []
+}
