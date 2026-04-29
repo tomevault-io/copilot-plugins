@@ -7,11 +7,11 @@ Continuously sync your AI setups with one command. Codebase tailor suited agent 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [caliber-ai-org/ai-setup](https://github.com/caliber-ai-org/ai-setup).
+Original source: `CLAUDE.md` in [caliber-ai-org/ai-setup](https://github.com/caliber-ai-org/ai-setup).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
