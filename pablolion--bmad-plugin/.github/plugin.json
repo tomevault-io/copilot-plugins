@@ -1,0 +1,9 @@
+{
+  "name": "pablolion--bmad-plugin",
+  "displayName": "bmad-plugin",
+  "description": "Claude Code plugin for BMAD Method \u2014 agile AI-driven development with specialized agents and 30+ skills",
+  "version": "1.0.0",
+  "author": "PabloLION",
+  "homepage": "https://github.com/PabloLION/bmad-plugin",
+  "skills": []
+}
