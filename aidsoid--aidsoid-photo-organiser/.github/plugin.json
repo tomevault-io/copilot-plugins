@@ -1,0 +1,9 @@
+{
+  "name": "aidsoid--aidsoid-photo-organiser",
+  "displayName": "aidsoid_photo_organiser",
+  "description": "A tool to organise photos and videos by date while preserving metadata.",
+  "version": "1.0.0",
+  "author": "aidsoid",
+  "homepage": "https://github.com/aidsoid/aidsoid_photo_organiser",
+  "skills": []
+}
