@@ -4,7 +4,7 @@
   "repo": "Kinkoclaw",
   "description": "KinkoClaw",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HaoCheng0126/Kinkoclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T19:55:24Z"
+  "distributed_at": "2026-04-29T20:16:53Z"
 }
