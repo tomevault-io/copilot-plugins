@@ -7,11 +7,11 @@ Mobile Client for OpenClaw, Hermes, and More
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [p697/clawket](https://github.com/p697/clawket).
+Original source: `CLAUDE.md` in [p697/clawket](https://github.com/p697/clawket).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
