@@ -7,11 +7,11 @@ Get the source file location of any DOM element. Works with React, Vue, Svelte, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aidenybai/element-source](https://github.com/aidenybai/element-source).
+Original source: `CLAUDE.md` in [aidenybai/element-source](https://github.com/aidenybai/element-source).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
