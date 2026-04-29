@@ -4,7 +4,7 @@
   "repo": "agents-observe",
   "description": "Real-time observability of claude code sessions & multi-agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/simple10/agents-observe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T05:50:16Z"
+  "distributed_at": "2026-04-29T08:25:51Z"
 }
