@@ -1,0 +1,9 @@
+{
+  "name": "getagentseal--codeburn",
+  "displayName": "codeburn",
+  "description": "See where your AI coding tokens go. Interactive TUI dashboard for Claude Code, Codex, and Cursor cost observability.",
+  "version": "1.0.0",
+  "author": "getagentseal",
+  "homepage": "https://github.com/getagentseal/codeburn",
+  "skills": []
+}
