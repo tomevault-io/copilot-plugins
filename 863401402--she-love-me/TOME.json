@@ -4,7 +4,7 @@
   "repo": "she-love-me",
   "description": "\u5979\u4e0d\u4e00\u6837   \u604b\u60c5\u5206\u6790\u5ba4 \u2014 \u5fae\u4fe1\u804a\u5929\u8bb0\u5f55\u604b\u7231\u5206\u6790 Agent Skill  \uff08\u66fe\u7528\u540d\uff1a\u5979\u7231\u6211\u5417\uff1f\uff09",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/863401402/she-love-me",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:03:29Z"
+  "distributed_at": "2026-04-29T03:50:22Z"
 }
