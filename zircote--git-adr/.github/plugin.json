@@ -1,0 +1,14 @@
+{
+  "name": "zircote--git-adr",
+  "displayName": "git-adr",
+  "description": "\ud83c\udfdb\ufe0f Architecture Decision Records in git notes - no files, no merge conflicts, linked to commits. AI-powered drafting, wiki sync, 6 templates.",
+  "version": "1.0.0",
+  "author": "zircote",
+  "homepage": "https://github.com/zircote/git-adr",
+  "skills": [
+    {
+      "name": "git-adr",
+      "description": ""
+    }
+  ]
+}
