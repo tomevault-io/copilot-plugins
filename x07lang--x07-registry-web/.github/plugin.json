@@ -1,0 +1,42 @@
+{
+  "name": "x07lang--x07-registry-web",
+  "displayName": "x07",
+  "description": "X07 package registry website",
+  "version": "1.0.0",
+  "author": "x07lang",
+  "homepage": "https://github.com/x07lang/x07-registry-web",
+  "skills": [
+    {
+      "name": "x07-agent-playbook",
+      "description": ""
+    },
+    {
+      "name": "x07-build-run",
+      "description": ""
+    },
+    {
+      "name": "x07-bundle",
+      "description": ""
+    },
+    {
+      "name": "x07-language-guide",
+      "description": ""
+    },
+    {
+      "name": "x07-lint-repair",
+      "description": ""
+    },
+    {
+      "name": "x07-os-run",
+      "description": ""
+    },
+    {
+      "name": "x07-package",
+      "description": ""
+    },
+    {
+      "name": "x07-test",
+      "description": ""
+    }
+  ]
+}
