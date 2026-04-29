@@ -4,7 +4,7 @@
   "repo": "cli-to-js",
   "description": "Turn any CLI into a JavaScript API",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/millionco/cli-to-js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T23:55:28Z"
+  "distributed_at": "2026-04-29T03:45:27Z"
 }
