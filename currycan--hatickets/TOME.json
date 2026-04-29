@@ -4,7 +4,7 @@
   "repo": "HaTickets",
   "description": "\u5927\u9ea6\u7f51\u62a2\u7968\u81ea\u52a8\u5316 \u2014 Mobile(U2) / Desktop(Tauri+Rust) \u65b9\u6848",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/currycan/HaTickets",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:40:15Z"
+  "distributed_at": "2026-04-29T23:54:22Z"
 }
