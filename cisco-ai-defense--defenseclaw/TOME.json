@@ -4,7 +4,7 @@
   "repo": "defenseclaw",
   "description": "Security Governance for Agentic AI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cisco-ai-defense/defenseclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T05:48:38Z"
+  "distributed_at": "2026-04-29T08:24:34Z"
 }
