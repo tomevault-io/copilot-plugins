@@ -1,0 +1,9 @@
+{
+  "name": "rcortx--kiwiq",
+  "displayName": "kiwiq",
+  "description": "Production-grade multi-agent orchestration platform - JSON-defined agents, multi-tier memory, and built-in observability. Battle-tested on 200+ enterprise AI agents. Now fully open-sourced (prod at ht",
+  "version": "1.0.0",
+  "author": "rcortx",
+  "homepage": "https://github.com/rcortx/kiwiq",
+  "skills": []
+}
