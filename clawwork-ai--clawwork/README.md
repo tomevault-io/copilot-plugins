@@ -7,11 +7,11 @@ Client for OpenClaw — Connect ClawWork to your own OpenClaw and unlock 10x mul
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [clawwork-ai/ClawWork](https://github.com/clawwork-ai/ClawWork).
+Original source: `CLAUDE.md` in [clawwork-ai/ClawWork](https://github.com/clawwork-ai/ClawWork).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
