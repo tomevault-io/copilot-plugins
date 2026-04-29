@@ -1,0 +1,9 @@
+{
+  "name": "ryanstephen--lil-agents",
+  "displayName": "lil-agents",
+  "description": "tiny AI companions that live on your macOS dock",
+  "version": "1.0.0",
+  "author": "ryanstephen",
+  "homepage": "https://github.com/ryanstephen/lil-agents",
+  "skills": []
+}
