@@ -4,7 +4,7 @@
   "repo": "UZI-Skill",
   "description": "\u51b0\u51b7\u7684\u94b1\u5c31\u8fd9\u6837\u6d41\u8fdb\u6211\u6e29\u6696\u7684\u53e3\u888b-\u6e38\u8d44\uff08UZI\uff09Skills \u2014 51\u4f4d\u6295\u8d44\u5927\u4f6c\u5e2e\u4f60\u770b\u76d8 \u00b7 22\u7ef4\u6570\u636e \u00d7 180\u6761\u91cf\u5316\u89c4\u5219 \u00d7 17\u79cd\u673a\u6784\u5206\u6790\u65b9\u6cd5 \u00b7 A\u80a1/\u6e2f\u80a1/\u7f8e\u80a1 ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wbh604/UZI-Skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T23:43:34Z"
+  "distributed_at": "2026-04-29T03:36:54Z"
 }
