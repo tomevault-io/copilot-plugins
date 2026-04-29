@@ -1,0 +1,9 @@
+{
+  "name": "liyown--marknative",
+  "displayName": "marknative",
+  "description": "A Markdown rendering engine that generates paginated PNG and SVG output \u2014 no browser, no Chromium, no DOM.",
+  "version": "1.0.0",
+  "author": "liyown",
+  "homepage": "https://github.com/liyown/marknative",
+  "skills": []
+}
