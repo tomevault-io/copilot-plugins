@@ -7,11 +7,11 @@ One task, one agent, delivered. The open-source platform for task-driven autonom
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [OpenCowAI/opencow](https://github.com/OpenCowAI/opencow).
+Original source: `CLAUDE.md` in [OpenCowAI/opencow](https://github.com/OpenCowAI/opencow).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
