@@ -1,0 +1,9 @@
+{
+  "name": "kausality-io--kausality",
+  "displayName": "kausality",
+  "description": "Causal traceability for Kubernetes resource mutations",
+  "version": "1.0.0",
+  "author": "kausality-io",
+  "homepage": "https://github.com/kausality-io/kausality",
+  "skills": []
+}
