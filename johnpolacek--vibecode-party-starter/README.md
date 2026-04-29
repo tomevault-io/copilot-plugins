@@ -1,6 +1,6 @@
-# vibecode.party.starter — distributed by TomeVault
+# vibecode.party.starter
 
-> Originally from [johnpolacek/vibecode.party.starter](https://github.com/johnpolacek/vibecode.party.starter). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [johnpolacek/vibecode.party.starter](https://github.com/johnpolacek/vibecode.party.starter) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [johnpolacek/vibecode.party.starter](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/johnpolacek#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/johnpolacek/vibecode.party.starter](https://github.com/johnpolacek/vibecode.party.starter)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install johnpolacek/vibecode.party.starter
 ```
-Or browse all formats at [https://tomevault.io/claim/johnpolacek](https://tomevault.io/claim/johnpolacek).
+Source: [github.com/johnpolacek/vibecode.party.starter](https://github.com/johnpolacek/vibecode.party.starter).
 
 <!-- genome:d-i-q -->
