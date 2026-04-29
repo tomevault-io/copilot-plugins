@@ -1,0 +1,9 @@
+{
+  "name": "barmplus--locklens",
+  "displayName": "locklens",
+  "description": "Audit npm, Yarn, and pnpm lockFiles as both an MCP server and a CLI tool.",
+  "version": "1.0.0",
+  "author": "BARMPlus",
+  "homepage": "https://github.com/BARMPlus/locklens",
+  "skills": []
+}
