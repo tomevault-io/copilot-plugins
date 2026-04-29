@@ -1,0 +1,9 @@
+{
+  "name": "xorespesp--claude-code",
+  "displayName": "claude-code",
+  "description": "Complete TypeScript source code of the Claude Code CLI, reconstructed from source maps and runnable locally.",
+  "version": "1.0.0",
+  "author": "xorespesp",
+  "homepage": "https://github.com/xorespesp/claude-code",
+  "skills": []
+}
