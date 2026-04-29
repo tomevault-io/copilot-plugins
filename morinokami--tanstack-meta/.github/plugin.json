@@ -1,0 +1,9 @@
+{
+  "name": "morinokami--tanstack-meta",
+  "displayName": "tanstack-meta",
+  "description": "A small library that helps you manage document heads type-safely in TanStack Router/Start",
+  "version": "1.0.0",
+  "author": "morinokami",
+  "homepage": "https://github.com/morinokami/tanstack-meta",
+  "skills": []
+}
