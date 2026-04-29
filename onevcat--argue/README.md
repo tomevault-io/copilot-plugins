@@ -7,11 +7,11 @@ Harness-agnostic orchestration package for multi-agent consensus workflows
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [onevcat/argue](https://github.com/onevcat/argue).
+Original source: `CLAUDE.md` in [onevcat/argue](https://github.com/onevcat/argue).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
