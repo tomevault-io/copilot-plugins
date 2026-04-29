@@ -7,11 +7,11 @@ World's first open-source, agentic video production system. 12 pipelines, 52 too
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [calesthio/OpenMontage](https://github.com/calesthio/OpenMontage).
+Original source: `CLAUDE.md` in [calesthio/OpenMontage](https://github.com/calesthio/OpenMontage).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
