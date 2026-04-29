@@ -1,0 +1,9 @@
+{
+  "name": "michaelliv--flaregun",
+  "displayName": "flaregun",
+  "description": "\ud83d\udd25 Rotating proxy network on Cloudflare Workers. Deploy, rotate, fire.",
+  "version": "1.0.0",
+  "author": "Michaelliv",
+  "homepage": "https://github.com/Michaelliv/flaregun",
+  "skills": []
+}
