@@ -1,0 +1,9 @@
+{
+  "name": "lichuang--ironcode",
+  "displayName": "ironcode",
+  "description": "AI CLI Coding Agent build with Rust.",
+  "version": "1.0.0",
+  "author": "lichuang",
+  "homepage": "https://github.com/lichuang/ironcode",
+  "skills": []
+}
