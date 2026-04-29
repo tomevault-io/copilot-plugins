@@ -1,0 +1,9 @@
+{
+  "name": "raucvr--group-goki",
+  "displayName": "Group-Goki",
+  "description": "Quant trading agent: Get minute-level, MBB-grade investment insights powered by SEC and 10-K filings.",
+  "version": "1.0.0",
+  "author": "raucvr",
+  "homepage": "https://github.com/raucvr/Group-Goki",
+  "skills": []
+}
