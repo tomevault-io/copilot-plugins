@@ -1,0 +1,9 @@
+{
+  "name": "databrickslabs--ontobricks",
+  "displayName": "ontobricks",
+  "description": "OntoBricks is a web application that transforms Databricks tables into a materialized knowledge graph. It lets you design ontologies (OWL), map them to Unity Catalog tables via R2RML, materialize trip",
+  "version": "1.0.0",
+  "author": "databrickslabs",
+  "homepage": "https://github.com/databrickslabs/ontobricks",
+  "skills": []
+}
