@@ -1,0 +1,18 @@
+{
+  "name": "alexjx--skills",
+  "displayName": "skills",
+  "description": "AI instruction skills by alexjx",
+  "version": "1.0.0",
+  "author": "alexjx",
+  "homepage": "https://github.com/alexjx/skills",
+  "skills": [
+    {
+      "name": "agent-creator",
+      "description": ""
+    },
+    {
+      "name": "crawl4ai",
+      "description": ""
+    }
+  ]
+}
