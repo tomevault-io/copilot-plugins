@@ -1,0 +1,44 @@
+{
+  "name": "bizos-company-os",
+  "owner": "ungden",
+  "repo": "bizos-company-os",
+  "description": "BIZOS \u2014 Business Operating System: 19 screens (Dashboard, Org chart, KPI Tree, Operations, Compensation, Finance, OKR, Forecast, Reports, Alerts, Approvals, Audit, Recruiting, Knowledge) built with Next.js 16 + Supabase. Demo mode works without any config.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ungden/bizos-company-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-29T08:07:30Z"
+}
