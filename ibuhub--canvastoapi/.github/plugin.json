@@ -1,0 +1,9 @@
+{
+  "name": "ibuhub--canvastoapi",
+  "displayName": "CanvasToAPI",
+  "description": "A wrapper that exposes Gemini Canvas as OpenAI, Gemini, and Anthropic compatible APIs.\uff08\u4e00\u4e2a\u5c06 Gemini Canvas \u5c01\u88c5\u4e3a\u517c\u5bb9 OpenAI / Gemini / Anthropic \u98ce\u683c API \u7684\u5de5\u5177\uff09",
+  "version": "1.0.0",
+  "author": "iBUHub",
+  "homepage": "https://github.com/iBUHub/CanvasToAPI",
+  "skills": []
+}
