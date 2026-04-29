@@ -1,0 +1,9 @@
+{
+  "name": "schell--wgsl-rs",
+  "displayName": "wgsl-rs",
+  "description": "WGSL embedded in Rust",
+  "version": "1.0.0",
+  "author": "schell",
+  "homepage": "https://github.com/schell/wgsl-rs",
+  "skills": []
+}
