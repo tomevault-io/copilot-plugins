@@ -4,7 +4,7 @@
   "repo": "druids",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fulcrumresearch/druids",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T23:33:54Z"
+  "distributed_at": "2026-04-30T03:52:58Z"
 }
