@@ -1,0 +1,9 @@
+{
+  "name": "polyarch--loom",
+  "displayName": "loom",
+  "description": "Compiler for Fabric",
+  "version": "1.0.0",
+  "author": "PolyArch",
+  "homepage": "https://github.com/PolyArch/loom",
+  "skills": []
+}
