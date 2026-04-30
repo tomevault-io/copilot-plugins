@@ -1,0 +1,9 @@
+{
+  "name": "tradinggoose--tradinggoose-studio",
+  "displayName": "TradingGoose-Studio",
+  "description": "Technical analysis + AI agents trading workflows from live market data to automated decisions",
+  "version": "1.0.0",
+  "author": "TradingGoose",
+  "homepage": "https://github.com/TradingGoose/TradingGoose-Studio",
+  "skills": []
+}
