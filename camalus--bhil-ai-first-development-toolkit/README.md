@@ -7,11 +7,11 @@ A production-grade methodology repository for building AI-native applications us
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [camalus/BHIL-AI-First-Development-Toolkit](https://github.com/camalus/BHIL-AI-First-Development-Toolkit).
+Original source: `CLAUDE.md` in [camalus/BHIL-AI-First-Development-Toolkit](https://github.com/camalus/BHIL-AI-First-Development-Toolkit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
