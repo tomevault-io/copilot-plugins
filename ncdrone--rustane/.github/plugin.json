@@ -1,0 +1,9 @@
+{
+  "name": "ncdrone--rustane",
+  "displayName": "rustane",
+  "description": "Rust-native hybrid training & inference engine for Apple Neural Engine + Metal GPU",
+  "version": "1.0.0",
+  "author": "ncdrone",
+  "homepage": "https://github.com/ncdrone/rustane",
+  "skills": []
+}
