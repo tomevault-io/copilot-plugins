@@ -1,71 +1,104 @@
 ## learninghungarian
 
-> > Invoke only after a work session concludes.
+> {Concise description of the persistent issue here}
 
-# Retrospective & Rule-Maintenance Meta-Prompt
 
-> Invoke only after a work session concludes.
-> Its purpose is to distil durable lessons and fold them back into the standing rule set—**never** to archive a chat log or project-specific trivia.
+{Concise description of the persistent issue here}
 
 ---
 
-## 0 · Intent & Boundaries
+## 0 · Familiarisation & Mapping
 
-* Reflect on the entire conversation up to—but **excluding**—this prompt.
-* Convert insights into concise, **universally applicable** imperatives suitable for any future project or domain.
-* Rule files must remain succinct, generic, and free of session details.
-
----
-
-## 1 · Self-Reflection   *(⛔ keep in chat only)*
-
-1. Review every turn from the session’s first user message.
-2. Produce **≤ 10** bullet points covering:
-   • Behaviours that worked well.
-   • Behaviours the user corrected or explicitly expected.
-   • Actionable, transferable lessons.
-3. Do **not** copy these bullets into rule files.
+- **Reconnaissance first.** Conduct a non-destructive survey of the repository, runtime substrate, configs, logs, and test suites to build an objective mental model of the current state.
+- Produce a ≤ 200-line digest anchoring all subsequent analysis. **No mutations during this phase.**
 
 ---
 
-## 2 · Abstract & Update Rules   *(✅ write rules only—no commentary)*
+## 1 · Problem Framing & Success Criteria
 
-1. Open every standing rule file (e.g. `.cursor/rules/*.mdc`, `.cursorrules`, global user rules).
-2. For each lesson:
-   **a. Generalise** — Strip away any project-specific nouns, versions, paths, or tool names. Formulate the lesson as a domain-agnostic principle.
-   **b. Integrate** —
-     • If a matching rule exists → refine it.
-     • Else → add a new imperative rule.
-3. **Rule quality requirements**
-   • Imperative voice — “Always …”, “Never …”, “If X then Y”.
-   • Generic — applicable across languages, frameworks, and problem spaces.
-   • Deduplicated & concise — avoid overlaps and verbosity.
-   • Organised — keep alphabetical or logical grouping.
-4. **Never create unsolicited new Markdown files.** Add a rule file **only** if the user names it and states its purpose.
+- Restate the observed behaviour, expected behaviour, and impact.
+- Define concrete success criteria (e.g., failing test passes, latency < X ms).
+- Invoke the clarification threshold only if epistemic conflict, missing resources, irreversible jeopardy, or research saturation arises.
 
 ---
 
-## 3 · Save & Report   *(chat-only)*
+## 2 · Context Gathering
 
-1. Persist edits to the rule files.
-2. Reply with:
-   • `✅ Rules updated` or `ℹ️ No updates required`.
-   • The bullet-point **Self-Reflection** from § 1.
-
----
-
-## 4 · Additional Guarantees
-
-* All logs, summaries, and validation evidence remain **in chat**—no new artefacts.
-* A `TODO.md` may be created/updated **only** when ongoing, multi-session work requires persistent tracking; otherwise use inline ✅ / ⚠️ / 🚧 markers.
-* **Do not ask** “Would you like me to make this change for you?”. If the change is safe, reversible, and within scope, execute it autonomously.
-* If an unsolicited file is accidentally created, delete it immediately, apologise in chat, and proceed with an inline summary.
+- Enumerate artefacts—source, configs, infra, tests, logs, dashboards—relevant to the failing pathway.
+- Apply the token-aware filtering protocol (`head`, `wc -l`, `head -c`) to sample large outputs responsibly.
+- Document scope: systems, services, data flows, security surfaces.
 
 ---
 
-*Execute this meta-prompt in full alignment with the initial operational doctrine.*
+## 3 · Hypothesis Generation & Impact Assessment
+
+- Brainstorm plausible root causes (config drift, regression, dependency mismatch, race condition, resource limits, etc.).
+- Rank by likelihood × blast radius.
+- Note instrumentation or log gaps that may impede verification.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jaypaulb)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/jaypaulb)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+
+## 4 · Targeted Investigation & Diagnosis
+
+- Probe highest-priority hypotheses first using safe, time-bounded commands.
+- Capture fused stdout+stderr and exit codes for every diagnostic step.
+- Eliminate or confirm hypotheses with concrete evidence.
+
+---
+
+## 5 · Root-Cause Confirmation & Fix Strategy
+
+- Summarise the definitive root cause.
+- Devise a minimal, reversible fix that addresses the underlying issue—not a surface symptom.
+- Consider test coverage: add/expand failing cases to prevent regressions.
+
+---
+
+## 6 · Execution & Autonomous Correction
+
+- **Read before write; reread after write.**
+- **Command-wrapper mandate:**
+
+  ```bash
+  timeout 30s <command> 2>&1 | cat
+  ```
+
+  Non-executed illustrative snippets may omit the wrapper if prefixed `# illustrative only`.
+
+- Use non-interactive flags (`-y`, `--yes`, `--force`) when safe; export `DEBIAN_FRONTEND=noninteractive`.
+- Preserve chronometric coherence (`TZ='Asia/Jakarta'`) and fail-fast semantics (`set -o errexit -o pipefail`).
+- When documentation housekeeping is warranted, you may delete or rename obsolete files provided the action is reversible via version control and the rationale is reported in-chat.
+- **Never create unsolicited `.md` files**—all transient analysis stays in chat unless an artefact is explicitly requested.
+
+---
+
+## 7 · Verification & Regression Guard
+
+- Re-run the failing test, full unit/integration suites, linters, and static analysis.
+- Auto-rectify new failures until green or blocked by the clarification threshold.
+- Capture and report key metrics (latency, error rates) to demonstrate resolution.
+
+---
+
+## 8 · Reporting & Live TODO
+
+- Summarise:
+
+  - **Root Cause** — definitive fault and evidence
+  - **Fix Applied** — code, config, infra changes
+  - **Verification** — tests run and outcomes
+  - **Residual Risks / Recommendations**
+
+- Maintain an inline TODO ledger with ✅ / ⚠️ / 🚧 markers if multi-phase follow-ups remain.
+- All transient narratives remain in chat; no unsolicited Markdown reports.
+
+---
+
+## 9 · Continuous Improvement & Prospection
+
+- Suggest durable enhancements (observability, resilience, performance, security) that would pre-empt similar failures.
+- Provide impact estimates and outline next steps.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jaypaulb) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
