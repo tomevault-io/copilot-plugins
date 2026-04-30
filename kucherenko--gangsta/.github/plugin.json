@@ -1,0 +1,9 @@
+{
+  "name": "kucherenko--gangsta",
+  "displayName": "gangsta",
+  "description": "AI agentic skills framework for spec-driven development, built on the organizational model of mafia.",
+  "version": "1.0.0",
+  "author": "kucherenko",
+  "homepage": "https://github.com/kucherenko/gangsta",
+  "skills": []
+}
