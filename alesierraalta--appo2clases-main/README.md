@@ -1,6 +1,6 @@
 # AppO2Clases-main
 
-> Tome by [alesierraalta](https://github.com/alesierraalta/AppO2Clases-main) — distributed by [TomeVault](https://tomevault.io/claim/alesierraalta)
+> Tome by [alesierraalta](https://github.com/alesierraalta/AppO2Clases-main) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [alesierraalta/AppO2Clases-main](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/alesierraalta)
+From [alesierraalta/AppO2Clases-main](https://github.com/alesierraalta/AppO2Clases-main) — a repo with 0+ stars on GitHub.
 
 ---
 
