@@ -1,0 +1,9 @@
+{
+  "name": "im-hashim--automotive-claude-code-agents",
+  "displayName": "automotive-claude-code-agents",
+  "description": "Automotive software engineering is one of the most complex and regulated domains in the world. Engineers juggle **ISO 26262 functional safety**, **AUTOSAR architectures**, **MISRA compliance**, **cybe",
+  "version": "1.0.0",
+  "author": "im-hashim",
+  "homepage": "https://github.com/im-hashim/automotive-claude-code-agents",
+  "skills": []
+}
