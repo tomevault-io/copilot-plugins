@@ -1,0 +1,9 @@
+{
+  "name": "nikolays--pg-ash",
+  "displayName": "pg_ash",
+  "description": "Active Session History for PostgreSQL \u2014 wait event sampling with zero bloat (pg_cron + PGQ-style partition rotation)",
+  "version": "1.0.0",
+  "author": "NikolayS",
+  "homepage": "https://github.com/NikolayS/pg_ash",
+  "skills": []
+}
