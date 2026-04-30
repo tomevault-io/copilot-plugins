@@ -1,0 +1,9 @@
+{
+  "name": "imbuxiangnan-cyber--copilot-api-plus",
+  "displayName": "copilot-api-plus",
+  "description": "Turn GitHub Copilot into OpenAI/Anthropic API compatible server. ",
+  "version": "1.0.0",
+  "author": "imbuxiangnan-cyber",
+  "homepage": "https://github.com/imbuxiangnan-cyber/copilot-api-plus",
+  "skills": []
+}
