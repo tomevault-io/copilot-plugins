@@ -1,0 +1,9 @@
+{
+  "name": "phonowell--invoke-opencode-acp",
+  "displayName": "invoke-opencode-acp",
+  "description": "Claude Code CLI skill that delegates complex tasks to an OpenCode subagent via ACP protocol, saving 50-90% tokens.",
+  "version": "1.0.0",
+  "author": "phonowell",
+  "homepage": "https://github.com/phonowell/invoke-opencode-acp",
+  "skills": []
+}
