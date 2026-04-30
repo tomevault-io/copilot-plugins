@@ -1,6 +1,6 @@
-# securecat — distributed by TomeVault
+# securecat
 
-> Originally from [daviddatuX25/securecat](https://github.com/daviddatuX25/securecat). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [daviddatuX25/securecat](https://github.com/daviddatuX25/securecat) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [daviddatuX25/securecat](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/daviddatuX25)
+From [daviddatuX25/securecat](https://github.com/daviddatuX25/securecat) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install daviddatuX25/securecat
 ```
-Or browse all formats at [https://tomevault.io/claim/daviddatuX25](https://tomevault.io/claim/daviddatuX25).
+Source: [github.com/daviddatuX25/securecat](https://github.com/daviddatuX25/securecat).
 
 <!-- genome:d-i-s -->
