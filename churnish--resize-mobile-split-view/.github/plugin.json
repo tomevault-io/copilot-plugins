@@ -1,0 +1,9 @@
+{
+  "name": "churnish--resize-mobile-split-view",
+  "displayName": "resize-mobile-split-view",
+  "description": "Obsidian plugin that allows to drag the divider lines to resize tab groups on mobile.",
+  "version": "1.0.0",
+  "author": "churnish",
+  "homepage": "https://github.com/churnish/resize-mobile-split-view",
+  "skills": []
+}
