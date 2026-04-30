@@ -1,0 +1,9 @@
+{
+  "name": "builderz-labs--mission-control",
+  "displayName": "mission-control",
+  "description": "Self-hosted AI agent orchestration platform: dispatch tasks, run multi-agent workflows, monitor spend, and govern operations from one mission control dashboard.",
+  "version": "1.0.0",
+  "author": "builderz-labs",
+  "homepage": "https://github.com/builderz-labs/mission-control",
+  "skills": []
+}
