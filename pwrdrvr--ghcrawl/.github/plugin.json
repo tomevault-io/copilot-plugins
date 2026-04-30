@@ -1,0 +1,9 @@
+{
+  "name": "pwrdrvr--ghcrawl",
+  "displayName": "ghcrawl",
+  "description": "Terminal UI and local CLI for crawling GitHub issues and pull requests, generating embeddings, and clustering related work.",
+  "version": "1.0.0",
+  "author": "pwrdrvr",
+  "homepage": "https://github.com/pwrdrvr/ghcrawl",
+  "skills": []
+}
