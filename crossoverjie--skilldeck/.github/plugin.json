@@ -1,0 +1,9 @@
+{
+  "name": "crossoverjie--skilldeck",
+  "displayName": "SkillDeck",
+  "description": "Native macOS SwiftUI app for managing multiple AI code agent skills",
+  "version": "1.0.0",
+  "author": "crossoverJie",
+  "homepage": "https://github.com/crossoverJie/SkillDeck",
+  "skills": []
+}
