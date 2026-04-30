@@ -1,7 +1,7 @@
 {
   "name": "ferrants--bearclaw",
   "displayName": "bearclaw",
-  "description": "bearclaw",
+  "description": "BearClaw - AI agent framework with defense-in-depth security, multi-agent orchestration, and provider abstraction.",
   "version": "1.0.0",
   "author": "ferrants",
   "homepage": "https://github.com/ferrants/bearclaw",
