@@ -4,7 +4,7 @@
   "repo": "ClawBio",
   "description": "\ud83e\udd96 ClawBio \u2014 The first bioinformatics-native AI agent skill library. Local-first. Reproducible. Built on OpenClaw.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ClawBio/ClawBio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T04:42:24Z"
+  "distributed_at": "2026-04-30T08:21:57Z"
 }
