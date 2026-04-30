@@ -1,0 +1,9 @@
+{
+  "name": "gaurav-gosain--golars",
+  "displayName": "golars",
+  "description": "Pure-Go DataFrames modeled on polars, built on Apache Arrow. No cgo.",
+  "version": "1.0.0",
+  "author": "Gaurav-Gosain",
+  "homepage": "https://github.com/Gaurav-Gosain/golars",
+  "skills": []
+}
