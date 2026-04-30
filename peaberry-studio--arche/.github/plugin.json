@@ -1,0 +1,9 @@
+{
+  "name": "peaberry-studio--arche",
+  "displayName": "arche",
+  "description": "Arche is an AI agent platform that lets teams deploy specialized assistants \u2014 for support, copywriting, SEO, marketing, and more \u2014 each with access to a shared knowledge base and its own isolated work",
+  "version": "1.0.0",
+  "author": "peaberry-studio",
+  "homepage": "https://github.com/peaberry-studio/arche",
+  "skills": []
+}
