@@ -4,7 +4,7 @@
   "repo": "leaf-ai",
   "description": "Free, private & secure local AI in your browser!",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dkyazzentwatwa/leaf-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T18:44:02Z"
+  "distributed_at": "2026-04-30T00:06:57Z"
 }
