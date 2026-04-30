@@ -4,7 +4,7 @@
   "repo": "nullclaw",
   "description": "Fastest, smallest, and fully autonomous AI assistant infrastructure written in Zig",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nullclaw/nullclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T08:07:37Z"
+  "distributed_at": "2026-04-30T15:45:37Z"
 }
