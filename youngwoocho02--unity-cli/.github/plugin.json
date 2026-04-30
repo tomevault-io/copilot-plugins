@@ -1,0 +1,9 @@
+{
+  "name": "youngwoocho02--unity-cli",
+  "displayName": "unity-cli",
+  "description": "Control Unity Editor from the command line. No MCP, no Python, no dependencies \u2014 just a single binary.",
+  "version": "1.0.0",
+  "author": "youngwoocho02",
+  "homepage": "https://github.com/youngwoocho02/unity-cli",
+  "skills": []
+}
