@@ -1,0 +1,9 @@
+{
+  "name": "johannesjo--parallel-code",
+  "displayName": "parallel-code",
+  "description": "Run Claude Code, Codex, and Gemini side by side \u2014 each in      its own git worktree",
+  "version": "1.0.0",
+  "author": "johannesjo",
+  "homepage": "https://github.com/johannesjo/parallel-code",
+  "skills": []
+}
