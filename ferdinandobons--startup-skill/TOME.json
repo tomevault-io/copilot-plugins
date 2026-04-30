@@ -4,7 +4,7 @@
   "repo": "startup-skill",
   "description": "AI agent skills for startup validation, competitive intelligence, and planning",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ferdinandobons/startup-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T07:43:15Z"
+  "distributed_at": "2026-04-30T12:15:47Z"
 }
