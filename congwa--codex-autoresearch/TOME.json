@@ -1,0 +1,44 @@
+{
+  "name": "codex-autoresearch",
+  "owner": "congwa",
+  "repo": "codex-autoresearch",
+  "description": "codex \u6c38\u52a8\u673a\uff0c\u907f\u514dcodex\u6267\u884c\u4e00\u4e2a\u957f\u4efb\u52a1\u603b\u662f\u81ea\u52a8\u505c\u6b62\u7684\u95ee\u9898",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/congwa/codex-autoresearch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T00:04:57Z"
+}
