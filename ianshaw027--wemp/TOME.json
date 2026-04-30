@@ -1,0 +1,44 @@
+{
+  "name": "wemp",
+  "owner": "IanShaw027",
+  "repo": "wemp",
+  "description": "\u5fae\u4fe1\u516c\u4f17\u53f7 AI \u52a9\u624b\u63d2\u4ef6 - \u652f\u6301\u5ba2\u670d\u6d88\u606f\u3001\u53ccAgent\u6a21\u5f0f\u3001\u56fe\u7247\u6536\u53d1 | WeChat Official Account AI chatbot plugin for OpenClaw",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/IanShaw027/wemp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T19:32:50Z"
+}
