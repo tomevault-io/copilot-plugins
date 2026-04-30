@@ -1,0 +1,9 @@
+{
+  "name": "hacker-valley-media--interceptor",
+  "displayName": "Interceptor",
+  "description": "Agent-driven Chrome extension for full browser control via CLI",
+  "version": "1.0.0",
+  "author": "Hacker-Valley-Media",
+  "homepage": "https://github.com/Hacker-Valley-Media/Interceptor",
+  "skills": []
+}
