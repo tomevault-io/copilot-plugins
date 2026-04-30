@@ -1,0 +1,9 @@
+{
+  "name": "second-state--fintool",
+  "displayName": "fintool",
+  "description": "A suite of Rust CLI tools for agentic trading and market intelligence. Each exchange has its own dedicated binary \u2014 hyperliquid, binance, coinbase, okx, polymarket \u2014 plus a shared fintool for exchange",
+  "version": "1.0.0",
+  "author": "second-state",
+  "homepage": "https://github.com/second-state/fintool",
+  "skills": []
+}
