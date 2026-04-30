@@ -1,0 +1,9 @@
+{
+  "name": "traderalice--openalice",
+  "displayName": "OpenAlice",
+  "description": "File-driven AI trading agent engine for crypto and securities markets",
+  "version": "1.0.0",
+  "author": "TraderAlice",
+  "homepage": "https://github.com/TraderAlice/OpenAlice",
+  "skills": []
+}
