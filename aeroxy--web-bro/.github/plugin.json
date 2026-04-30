@@ -1,0 +1,9 @@
+{
+  "name": "aeroxy--web-bro",
+  "displayName": "web-bro",
+  "description": "Browser-only workspace agent built with transformers.js.",
+  "version": "1.0.0",
+  "author": "aeroxy",
+  "homepage": "https://github.com/aeroxy/web-bro",
+  "skills": []
+}
