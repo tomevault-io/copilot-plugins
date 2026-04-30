@@ -1,0 +1,12 @@
+## chatlab
+
+> - 文档：开始开发前，请先查看 `./.docs/README.md`，并阅读与当前需求相关的文档
+
+- 文档：开始开发前，请先查看 `./.docs/README.md`，并阅读与当前需求相关的文档
+- 目标：用最小改动快速交付正确、可维护、可回归的业务结果
+- 边界：只解决当前需求，不做与需求无关的重构和“顺手优化”
+- 每次完成任务后，对产生修改的文件进行类型检查、lint检查和format格式化，指定修改的文件路径去执行，确保代码质量
+
+---
+> Source: [ChatLab/ChatLab](https://github.com/ChatLab/ChatLab) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
