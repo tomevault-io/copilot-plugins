@@ -1,0 +1,44 @@
+{
+  "name": "crypto-trading-bot",
+  "owner": "Oakshen",
+  "repo": "crypto-trading-bot",
+  "description": "\u57fa\u4e8e Go \u7684\u52a0\u5bc6\u8d27\u5e01\u91cf\u5316\u4ea4\u6613 Agent(\u6a21\u4eff nof1 \u7b56\u7565\uff0c\u504f\u957f\u671f\u4ea4\u6613)\uff5cGo-based cryptocurrency quantitative trading agent (imitating the nof1 strategy, leaning towards long-term trading)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Oakshen/crypto-trading-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T04:16:31Z"
+}
