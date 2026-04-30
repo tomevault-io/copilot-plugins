@@ -1,0 +1,9 @@
+{
+  "name": "lukerenton--explore-claude-code",
+  "displayName": "explore-claude-code",
+  "description": "Learn Claude Code by exploring it as it was designed - interactive IDE-style docs for commands, MCP, skills, CLAUDE.md and more.",
+  "version": "1.0.0",
+  "author": "LukeRenton",
+  "homepage": "https://github.com/LukeRenton/explore-claude-code",
+  "skills": []
+}
