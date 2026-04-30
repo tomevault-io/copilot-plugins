@@ -1,0 +1,9 @@
+{
+  "name": "fccview--degoog",
+  "displayName": "degoog",
+  "description": "Search engine aggregator with a comprehensive plugin/extension system",
+  "version": "1.0.0",
+  "author": "fccview",
+  "homepage": "https://github.com/fccview/degoog",
+  "skills": []
+}
