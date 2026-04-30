@@ -4,7 +4,7 @@
   "repo": "eye-declare",
   "description": "A declarative inline TUI rendering library for Rust, built on Ratatui",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atuinsh/eye-declare",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T22:51:26Z"
+  "distributed_at": "2026-04-30T00:13:16Z"
 }
