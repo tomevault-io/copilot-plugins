@@ -1,6 +1,6 @@
 # agentopia
 
-> Tome by [maverick-software](https://github.com/maverick-software/agentopia) — distributed by [TomeVault](https://tomevault.io/claim/maverick-software)
+> Tome by [maverick-software](https://github.com/maverick-software/agentopia) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [maverick-software/agentopia](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/maverick-software)
+From [maverick-software/agentopia](https://github.com/maverick-software/agentopia) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install maverick-software/agentopia
 ```
-Or browse all formats at [https://tomevault.io/claim/maverick-software](https://tomevault.io/claim/maverick-software).
+Source: [github.com/maverick-software/agentopia](https://github.com/maverick-software/agentopia).
 
 <!-- genome:t-i-s -->
