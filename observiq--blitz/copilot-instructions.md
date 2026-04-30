@@ -1,0 +1,22 @@
+## blitz
+
+> - When creating struct tags in go, prefer to use camel case.  Do not use snake case.
+
+- When creating struct tags in go, prefer to use camel case.  Do not use snake case.
+- Prefer using `any` instead of `interface{}`
+
+- Always follow the Uber Go Style Guide: https://raw.githubusercontent.com/uber-go/guide/refs/heads/master/style.md
+
+## Testing Requirements
+- Tests must be updated whenever function signatures change
+- All tests must pass after any code changes
+
+## Code Quality
+- All code must pass linting checks
+- No unused imports or variables
+- Comments should only be used when code is not obvious. Avoid comments that simply restate what the code does (e.g., "Use no-op logger for tests" or "close channel")
+- Use standard library functions instead of reimplementing them (e.g., use `strings.Contains` instead of custom substring search functions)
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/observIQ) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
