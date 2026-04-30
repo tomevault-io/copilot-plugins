@@ -1,0 +1,14 @@
+{
+  "name": "acostanzo--quickstop",
+  "displayName": "quickstop",
+  "description": "A Claude Code plugin marketplace",
+  "version": "1.0.0",
+  "author": "acostanzo",
+  "homepage": "https://github.com/acostanzo/quickstop",
+  "skills": [
+    {
+      "name": "claudit",
+      "description": ""
+    }
+  ]
+}
