@@ -7,11 +7,11 @@ Accessibility review agents for Claude Code, GitHub Copilot, and Claude Desktop.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Community-Access/accessibility-agents](https://github.com/Community-Access/accessibility-agents).
+Original source: `CLAUDE.md` in [Community-Access/accessibility-agents](https://github.com/Community-Access/accessibility-agents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
