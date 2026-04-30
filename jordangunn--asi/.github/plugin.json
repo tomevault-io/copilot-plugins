@@ -1,0 +1,9 @@
+{
+  "name": "jordangunn--asi",
+  "displayName": "asi",
+  "description": "Agent Skills Interface (ASI): a normative specification and manifesto for governing agent behavior, skill invocation, and tool usage.",
+  "version": "1.0.0",
+  "author": "JordanGunn",
+  "homepage": "https://github.com/JordanGunn/asi",
+  "skills": []
+}
