@@ -1,0 +1,9 @@
+{
+  "name": "s-macke--opcodeoracle",
+  "displayName": "OpcodeOracle",
+  "description": "AI-assisted MOS 6502 disassembler for Commodore 64 binaries.",
+  "version": "1.0.0",
+  "author": "s-macke",
+  "homepage": "https://github.com/s-macke/OpcodeOracle",
+  "skills": []
+}
