@@ -1,0 +1,9 @@
+{
+  "name": "thedeathdragon--livetranslate",
+  "displayName": "LiveTranslate",
+  "description": "Real-time audio translation, captures system audio + mic, runs ASR (Whisper/SenseVoice),   translates via LLM API with streaming display. Perfect for VTubers, livestreamers, and watching foreign conte",
+  "version": "1.0.0",
+  "author": "TheDeathDragon",
+  "homepage": "https://github.com/TheDeathDragon/LiveTranslate",
+  "skills": []
+}
