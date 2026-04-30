@@ -1,0 +1,44 @@
+{
+  "name": "auto-coding-agent-demo",
+  "owner": "SamuelQZQ",
+  "repo": "auto-coding-agent-demo",
+  "description": "\u4e00\u4e2a\u957f\u8fbe 10 \u5c0f\u65f6\u7684 AI \u5168\u81ea\u52a8\u7f16\u7a0b\u5b9e\u9a8c",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SamuelQZQ/auto-coding-agent-demo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T16:11:16Z"
+}
