@@ -1,0 +1,9 @@
+{
+  "name": "antigluten--amgi",
+  "displayName": "amgi",
+  "description": "An open-source, offline-first Anki-compatible iOS flashcard client with sync server support, powered by the official Anki Rust backend via C FFI.",
+  "version": "1.0.0",
+  "author": "antigluten",
+  "homepage": "https://github.com/antigluten/amgi",
+  "skills": []
+}
