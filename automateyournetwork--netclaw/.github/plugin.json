@@ -1,0 +1,9 @@
+{
+  "name": "automateyournetwork--netclaw",
+  "displayName": "netclaw",
+  "description": "An AI agent that claws through your network",
+  "version": "1.0.0",
+  "author": "automateyournetwork",
+  "homepage": "https://github.com/automateyournetwork/netclaw",
+  "skills": []
+}
