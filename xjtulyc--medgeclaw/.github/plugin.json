@@ -1,0 +1,9 @@
+{
+  "name": "xjtulyc--medgeclaw",
+  "displayName": "MedgeClaw",
+  "description": "Open-source AI research assistant for biomedicine \u2014 chat to run RNA-seq, drug discovery, clinical analysis, and more. Built on Claude Code with 140 K-Dense scientific skills, real-time dashboard, and ",
+  "version": "1.0.0",
+  "author": "xjtulyc",
+  "homepage": "https://github.com/xjtulyc/MedgeClaw",
+  "skills": []
+}
