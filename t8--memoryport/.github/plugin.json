@@ -1,0 +1,9 @@
+{
+  "name": "t8--memoryport",
+  "displayName": "memoryport",
+  "description": "Local-first permanent, persistent memory for all agents and humans",
+  "version": "1.0.0",
+  "author": "t8",
+  "homepage": "https://github.com/t8/memoryport",
+  "skills": []
+}
