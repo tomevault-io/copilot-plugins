@@ -1,0 +1,9 @@
+{
+  "name": "zhuyansen--agent-skills-hub",
+  "displayName": "agent-skills-hub",
+  "description": "Discover and compare open-source Agent Skills, tools & MCP servers \u2014 with quality scoring, trending analysis, and automated GitHub sync",
+  "version": "1.0.0",
+  "author": "zhuyansen",
+  "homepage": "https://github.com/zhuyansen/agent-skills-hub",
+  "skills": []
+}
