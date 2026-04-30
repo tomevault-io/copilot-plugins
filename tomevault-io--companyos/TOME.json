@@ -1,0 +1,123 @@
+{
+  "name": "companyos",
+  "owner": "tomevault-io",
+  "repo": "companyos",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adversarial-test",
+      "path": "skills/adversarial-test.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/adversarial-test.md",
+      "description": ""
+    },
+    {
+      "name": "changelog",
+      "path": "skills/changelog.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/changelog.md",
+      "description": ""
+    },
+    {
+      "name": "decision-memo",
+      "path": "skills/decision-memo.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/decision-memo.md",
+      "description": ""
+    },
+    {
+      "name": "diagnose-before-acting",
+      "path": "skills/diagnose-before-acting.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/diagnose-before-acting.md",
+      "description": ""
+    },
+    {
+      "name": "first-time-action-gate",
+      "path": "skills/first-time-action-gate.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/first-time-action-gate.md",
+      "description": ""
+    },
+    {
+      "name": "hard-evidence-under-pushback",
+      "path": "skills/hard-evidence-under-pushback.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/hard-evidence-under-pushback.md",
+      "description": ""
+    },
+    {
+      "name": "incident-recovery",
+      "path": "skills/incident-recovery.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/incident-recovery.md",
+      "description": ""
+    },
+    {
+      "name": "memory-write",
+      "path": "skills/memory-write.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/memory-write.md",
+      "description": ""
+    },
+    {
+      "name": "multi-target-publish",
+      "path": "skills/multi-target-publish.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/multi-target-publish.md",
+      "description": ""
+    },
+    {
+      "name": "pre-ship-adversary",
+      "path": "skills/pre-ship-adversary.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/pre-ship-adversary.md",
+      "description": ""
+    },
+    {
+      "name": "session-debrief",
+      "path": "skills/session-debrief.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/session-debrief.md",
+      "description": ""
+    },
+    {
+      "name": "strategic-realignment",
+      "path": "skills/strategic-realignment.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/strategic-realignment.md",
+      "description": ""
+    },
+    {
+      "name": "vocabulary-check",
+      "path": "skills/vocabulary-check.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/vocabulary-check.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tomevault-io/companyos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T15:30:10Z"
+}
