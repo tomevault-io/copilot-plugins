@@ -1,0 +1,44 @@
+{
+  "name": "mini-term",
+  "owner": "dreamlonglll",
+  "repo": "mini-term",
+  "description": "\u4e00\u4e2aai \u7ec8\u7aef\u7ba1\u7406\u5de5\u5177\uff0c\u652f\u6301\u591a\u9879\u76ee\u3001\u591a\u7ec8\u7aef\u5e03\u5c40\u7ba1\u7406",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dreamlonglll/mini-term",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T00:21:34Z"
+}
