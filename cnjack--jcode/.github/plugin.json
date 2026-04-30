@@ -1,0 +1,9 @@
+{
+  "name": "cnjack--jcode",
+  "displayName": "jcode",
+  "description": "An AI coding agent that works where your code lives, including remote servers over SSH.",
+  "version": "1.0.0",
+  "author": "cnjack",
+  "homepage": "https://github.com/cnjack/jcode",
+  "skills": []
+}
