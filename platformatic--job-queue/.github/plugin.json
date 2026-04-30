@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--job-queue",
+  "displayName": "job-queue",
+  "description": "job-queue",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/job-queue",
+  "skills": []
+}
