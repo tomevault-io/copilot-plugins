@@ -1,0 +1,9 @@
+{
+  "name": "hccake--skill-deck",
+  "displayName": "skill-deck",
+  "description": "A native desktop GUI for managing open agent skills",
+  "version": "1.0.0",
+  "author": "Hccake",
+  "homepage": "https://github.com/Hccake/skill-deck",
+  "skills": []
+}
