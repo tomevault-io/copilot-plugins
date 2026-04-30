@@ -7,14 +7,14 @@ Kanvana, a local offline personal kanban with swim lanes, relations, sub-tasks, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [mdiener21/kanvana](https://github.com/mdiener21/kanvana).
+Original source: `AGENTS.md` in [mdiener21/kanvana](https://github.com/mdiener21/kanvana).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mdiener21/kanvana](https://github.com/mdiener21/kanvana)
