@@ -1,0 +1,9 @@
+{
+  "name": "fakechris--obsidian-vault-pipeline",
+  "displayName": "obsidian_vault_pipeline",
+  "description": "A automatic pipeline that processing obsidian vault by llm from pinbord, obsidian Clipper etc.",
+  "version": "1.0.0",
+  "author": "fakechris",
+  "homepage": "https://github.com/fakechris/obsidian_vault_pipeline",
+  "skills": []
+}
