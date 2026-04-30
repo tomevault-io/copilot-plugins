@@ -1,0 +1,9 @@
+{
+  "name": "jdcodes1--claude-sh",
+  "displayName": "claude-sh",
+  "description": "Claude Code rewritten as a bash script. ~1500 lines, zero npm packages. Just curl + jq.",
+  "version": "1.0.0",
+  "author": "jdcodes1",
+  "homepage": "https://github.com/jdcodes1/claude-sh",
+  "skills": []
+}
