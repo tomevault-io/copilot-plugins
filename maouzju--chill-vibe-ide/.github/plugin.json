@@ -1,0 +1,9 @@
+{
+  "name": "maouzju--chill-vibe-ide",
+  "displayName": "chill-vibe-IDE",
+  "description": "Lightweight local AI IDE for running multiple Codex and Claude workspaces side-by-side.",
+  "version": "1.0.0",
+  "author": "maouzju",
+  "homepage": "https://github.com/maouzju/chill-vibe-IDE",
+  "skills": []
+}
