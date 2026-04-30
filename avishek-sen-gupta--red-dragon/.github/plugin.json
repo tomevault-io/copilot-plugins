@@ -1,0 +1,9 @@
+{
+  "name": "avishek-sen-gupta--red-dragon",
+  "displayName": "red-dragon",
+  "description": "Multi-language code execution through a simple IR and deterministic VM with LLM repair / patching",
+  "version": "1.0.0",
+  "author": "avishek-sen-gupta",
+  "homepage": "https://github.com/avishek-sen-gupta/red-dragon",
+  "skills": []
+}
