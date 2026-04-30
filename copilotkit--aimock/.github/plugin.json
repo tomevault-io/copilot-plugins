@@ -1,0 +1,9 @@
+{
+  "name": "copilotkit--aimock",
+  "displayName": "aimock",
+  "description": "Mock everything your AI app talks to \u2014 LLM APIs, MCP, A2A, AG-UI, vector DBs, search. One package, one port, zero dependencies.",
+  "version": "1.0.0",
+  "author": "CopilotKit",
+  "homepage": "https://github.com/CopilotKit/aimock",
+  "skills": []
+}
