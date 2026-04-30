@@ -1,0 +1,9 @@
+{
+  "name": "alxlion--voxtral-live-translation",
+  "displayName": "voxtral-live-translation",
+  "description": "Experimentation with Voxtral-Mini-4B-Realtime-2602 and DeepL API for live translation",
+  "version": "1.0.0",
+  "author": "alxlion",
+  "homepage": "https://github.com/alxlion/voxtral-live-translation",
+  "skills": []
+}
