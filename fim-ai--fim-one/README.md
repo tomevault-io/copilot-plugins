@@ -1,23 +1,26 @@
 # fim-one
 
-> Config by [fim-ai](https://github.com/fim-ai/fim-one) — distributed by [TomeVault](https://tomevault.io/claim/fim-ai)
+> Source: [fim-ai/fim-one](https://github.com/fim-ai/fim-one) — distributed by [TomeVault](https://tomevault.io)
+
+LLM-powered Agent Runtime with Dynamic DAG Planning & Concurrent Execution
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [fim-ai/fim-one](https://github.com/fim-ai/fim-one).
+Original source: `CLAUDE.md` in [fim-ai/fim-one](https://github.com/fim-ai/fim-one).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/fim-ai](https://tomevault.io/claim/fim-ai)
+From [fim-ai/fim-one](https://github.com/fim-ai/fim-one) — a repo with 527+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/fim-ai) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-s -->
