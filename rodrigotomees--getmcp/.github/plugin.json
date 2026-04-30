@@ -1,0 +1,9 @@
+{
+  "name": "rodrigotomees--getmcp",
+  "displayName": "getmcp",
+  "description": "One command. Every AI app. Install and configure MCP servers across 19 applications - from Claude Desktop to VS Code to Cursor. 3k+ servers ready, with automatic config generation for JSON, JSONC, YAM",
+  "version": "1.0.0",
+  "author": "RodrigoTomeES",
+  "homepage": "https://github.com/RodrigoTomeES/getmcp",
+  "skills": []
+}
