@@ -4,7 +4,7 @@
   "repo": "mori",
   "description": "A native macOS workspace terminal organized around Projects and Worktrees, powered by tmux and libghostty",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vaayne/mori",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T23:10:32Z"
+  "distributed_at": "2026-04-30T03:45:51Z"
 }
