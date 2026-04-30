@@ -4,7 +4,7 @@
   "repo": "Superpicky",
   "description": "Superpicky.app",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/superpickyapp/Superpicky",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T02:31:38Z"
+  "distributed_at": "2026-04-30T07:43:04Z"
 }
