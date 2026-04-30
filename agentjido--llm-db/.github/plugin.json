@@ -1,0 +1,14 @@
+{
+  "name": "agentjido--llm-db",
+  "displayName": "llm_db",
+  "description": "LLM Model Database defining Provider & Model capabilities, costs and limits",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/llm_db",
+  "skills": [
+    {
+      "name": "pr-review",
+      "description": ""
+    }
+  ]
+}
