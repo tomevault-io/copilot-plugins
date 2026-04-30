@@ -1,0 +1,9 @@
+{
+  "name": "ronasit--open-webui-mcp-server",
+  "displayName": "open-webui-mcp-server",
+  "description": "Simple MCP server to access your knowledge in Open WebUI",
+  "version": "1.0.0",
+  "author": "RonasIT",
+  "homepage": "https://github.com/RonasIT/open-webui-mcp-server",
+  "skills": []
+}
