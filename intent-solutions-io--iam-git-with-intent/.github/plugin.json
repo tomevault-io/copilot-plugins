@@ -1,0 +1,9 @@
+{
+  "name": "intent-solutions-io--iam-git-with-intent",
+  "displayName": "iam-git-with-intent",
+  "description": "AI-powered git workflow automation. Smart commit messages, changelogs, PR descriptions, and release notes using LLM analysis of diffs.",
+  "version": "1.0.0",
+  "author": "intent-solutions-io",
+  "homepage": "https://github.com/intent-solutions-io/iam-git-with-intent",
+  "skills": []
+}
