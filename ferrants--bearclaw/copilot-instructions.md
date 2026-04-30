@@ -10,5 +10,5 @@ NOTE: Keep WebSocket protocol types in sync between:
 - packages/bearclaw-tui/src/ws-protocol.ts
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ferrants) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [ferrants/bearclaw](https://github.com/ferrants/bearclaw) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
