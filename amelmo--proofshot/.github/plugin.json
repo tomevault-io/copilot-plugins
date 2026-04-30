@@ -1,0 +1,9 @@
+{
+  "name": "amelmo--proofshot",
+  "displayName": "proofshot",
+  "description": "Give AI coding agents eyes. Records browser sessions, captures screenshots, collects errors, and bundles proof artifacts \u2014 so humans can verify what the agent built.",
+  "version": "1.0.0",
+  "author": "AmElmo",
+  "homepage": "https://github.com/AmElmo/proofshot",
+  "skills": []
+}
