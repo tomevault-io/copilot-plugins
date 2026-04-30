@@ -1,0 +1,9 @@
+{
+  "name": "pyk--cargo-txt",
+  "displayName": "cargo-txt",
+  "description": "cargo doc for coding agents and llms",
+  "version": "1.0.0",
+  "author": "pyk",
+  "homepage": "https://github.com/pyk/cargo-txt",
+  "skills": []
+}
