@@ -1,0 +1,9 @@
+{
+  "name": "proxysoul--soulforge",
+  "displayName": "soulforge",
+  "description": "Graph-powered code intelligence, multi-agent coding with codebase-aware AI. No more grep & pray",
+  "version": "1.0.0",
+  "author": "proxysoul",
+  "homepage": "https://github.com/proxysoul/soulforge",
+  "skills": []
+}
