@@ -1,0 +1,44 @@
+{
+  "name": "MoePeek",
+  "owner": "cosZone",
+  "repo": "MoePeek",
+  "description": "A lightweight macOS selection translator built with pure Swift 6, featuring on-device Apple Translate for privacy, only 5MB install size and stable ~50MB memory usage. \u4e00\u6b3e\u8f7b\u91cf\u7ea7 macOS \u5212\u8bcd\u7ffb\u8bd1\u5de5\u5177\uff0c\u7eaf Swift 6 \u5f00\u53d1\uff0c\u8bbe\u5907\u7aef Apple \u7ffb\u8bd1\u4fdd\u62a4\u9690\u79c1\uff0c\u5b89\u88c5\u4f53\u79ef\u4ec5 5MB\uff0c\u540e\u53f0\u8fd0\u884c\u5185\u5b58\u7a33\u5b9a\u7ea6 50MB",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cosZone/MoePeek",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T16:28:34Z"
+}
