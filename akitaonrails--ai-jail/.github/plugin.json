@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--ai-jail",
+  "displayName": "ai-jail",
+  "description": "Multi-OS sandbox to run AI agents with better constraints (it is not 100% secure, but enough)",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/ai-jail",
+  "skills": []
+}
