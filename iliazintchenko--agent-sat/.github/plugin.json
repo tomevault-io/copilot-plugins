@@ -1,0 +1,9 @@
+{
+  "name": "iliazintchenko--agent-sat",
+  "displayName": "agent-sat",
+  "description": "Agent learns to become the worlds top expert on SAT",
+  "version": "1.0.0",
+  "author": "iliazintchenko",
+  "homepage": "https://github.com/iliazintchenko/agent-sat",
+  "skills": []
+}
