@@ -1,0 +1,9 @@
+{
+  "name": "rderaison--bromure",
+  "displayName": "bromure",
+  "description": "Secure, ephemeral browsing in a disposable VM (macOS only)",
+  "version": "1.0.0",
+  "author": "rderaison",
+  "homepage": "https://github.com/rderaison/bromure",
+  "skills": []
+}
