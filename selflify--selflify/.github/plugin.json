@@ -1,0 +1,9 @@
+{
+  "name": "selflify--selflify",
+  "displayName": "Selflify",
+  "description": "Free and open source self-hosted preview deploy control for static SPAs.",
+  "version": "1.0.0",
+  "author": "Selflify",
+  "homepage": "https://github.com/Selflify/Selflify",
+  "skills": []
+}
