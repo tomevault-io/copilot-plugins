@@ -1,0 +1,9 @@
+{
+  "name": "shiguredo--raden",
+  "displayName": "raden",
+  "description": "Cranelift JIT-powered 2D vector graphics library in Rust",
+  "version": "1.0.0",
+  "author": "shiguredo",
+  "homepage": "https://github.com/shiguredo/raden",
+  "skills": []
+}
