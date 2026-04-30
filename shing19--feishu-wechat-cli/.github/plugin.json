@@ -1,0 +1,9 @@
+{
+  "name": "shing19--feishu-wechat-cli",
+  "displayName": "feishu-wechat-cli",
+  "description": "Publish Feishu docs to WeChat Official Account drafts from the command line",
+  "version": "1.0.0",
+  "author": "shing19",
+  "homepage": "https://github.com/shing19/feishu-wechat-cli",
+  "skills": []
+}
