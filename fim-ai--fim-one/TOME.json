@@ -2,9 +2,9 @@
   "name": "fim-one",
   "owner": "fim-ai",
   "repo": "fim-one",
-  "description": "",
+  "description": "LLM-powered Agent Runtime with Dynamic DAG Planning & Concurrent Execution",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/fim-ai",
+  "source_url": "https://github.com/fim-ai/fim-one",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T01:39:26Z"
+  "distributed_at": "2026-04-30T19:35:47Z"
 }
