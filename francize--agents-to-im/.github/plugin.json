@@ -1,0 +1,9 @@
+{
+  "name": "francize--agents-to-im",
+  "displayName": "agents-to-im",
+  "description": "Feishu/Lark group for Claude Code and Codex sessions, vibe coding anytime, anywhere",
+  "version": "1.0.0",
+  "author": "francize",
+  "homepage": "https://github.com/francize/agents-to-im",
+  "skills": []
+}
