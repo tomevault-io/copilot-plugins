@@ -1,0 +1,44 @@
+{
+  "name": "skill-hub",
+  "owner": "Lincode-hormony",
+  "repo": "skill-hub",
+  "description": "\u4e00\u4e2a \u672c\u5730\u8fd0\u884c\u7684Web \u754c\u9762\u7684 Skills \u7ba1\u7406\u5de5\u5177\uff0c\u5e2e\u4f60\uff1a  \ud83d\udce6 \u4ece GitHub \u4e00\u952e\u5b89\u88c5 AI Skills\uff08\u5982 PDF \u5904\u7406\u3001Excel \u64cd\u4f5c\u3001\u4ee3\u7801\u5206\u6790\u7b49\uff09 \ud83d\udd17 \u7edf\u4e00\u7ba1\u7406\uff1a\u5b89\u88c5\u4e00\u6b21\uff0c\u591a\u4e2a\u9879\u76ee\u3001\u591a\u4e2a AI \u5de5\u5177\u540c\u65f6\u4f7f\u7528 \ud83c\udfaf \u53ef\u89c6\u5316\u914d\u7f6e\uff1a\u52fe\u9009\u5373\u7528\uff0c\u81ea\u52a8\u751f\u6210\u914d\u7f6e\u6587\u4ef6 \u652f\u6301\u7684 AI \u7f16\u7a0b\u5de5\u5177\uff1a  Claude Code - \u81ea\u52a8\u8bc6\u522b .claude/skills/ \u76ee\u5f55 Cursor - \u81ea\u52a8\u8bfb\u53d6 AGENTS.md \u914d\u7f6e Trae - \u81ea\u52a8\u8bfb\u53d6 AGENTS.md \u914d\u7f6e",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lincode-hormony/skill-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T00:18:46Z"
+}
