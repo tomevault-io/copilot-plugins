@@ -1,0 +1,9 @@
+{
+  "name": "nyosegawa--openclaw-defender",
+  "displayName": "openclaw-defender",
+  "description": "3-layer prompt injection defence for chat bots",
+  "version": "1.0.0",
+  "author": "nyosegawa",
+  "homepage": "https://github.com/nyosegawa/openclaw-defender",
+  "skills": []
+}
