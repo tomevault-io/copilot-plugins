@@ -1,0 +1,9 @@
+{
+  "name": "wwwzhouhui--seedance2-0",
+  "displayName": "seedance2.0",
+  "description": "\u57fa\u4e8e\u5373\u68a6 Seedance 2.0 \u6a21\u578b\u7684 AI \u89c6\u9891\u751f\u6210 Web \u5e94\u7528\u3002\u652f\u6301\u591a\u56fe\u53c2\u8003\u3001\u53cc\u6a21\u578b\u9009\u62e9\u30016\u79cd\u753b\u9762\u6bd4\u4f8b\u30014-15\u79d2\u65f6\u957f\uff0cReact + Express \u524d\u540e\u7aef\u67b6\u6784\uff0c\u652f\u6301 Docker \u4e00\u952e\u90e8\u7f72\u3002",
+  "version": "1.0.0",
+  "author": "wwwzhouhui",
+  "homepage": "https://github.com/wwwzhouhui/seedance2.0",
+  "skills": []
+}
