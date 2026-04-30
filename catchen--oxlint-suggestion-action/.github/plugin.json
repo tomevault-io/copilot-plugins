@@ -1,0 +1,9 @@
+{
+  "name": "catchen--oxlint-suggestion-action",
+  "displayName": "oxlint-suggestion-action",
+  "description": "This GitHub Action runs Oxlint and provides inline feedback to the changes in a Pull Request.",
+  "version": "1.0.0",
+  "author": "CatChen",
+  "homepage": "https://github.com/CatChen/oxlint-suggestion-action",
+  "skills": []
+}
