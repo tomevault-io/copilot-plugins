@@ -1,6 +1,6 @@
-# mini-sns-app — distributed by TomeVault
+# mini-sns-app
 
-> Originally from [RyotaKawagishi/mini-sns-app](https://github.com/RyotaKawagishi/mini-sns-app). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [RyotaKawagishi/mini-sns-app](https://github.com/RyotaKawagishi/mini-sns-app) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [RyotaKawagishi/mini-sns-app](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/RyotaKawagishi)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/RyotaKawagishi/mini-sns-app](https://github.com/RyotaKawagishi/mini-sns-app)
 
 ---
 
