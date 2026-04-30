@@ -1,0 +1,9 @@
+{
+  "name": "inavflights--inav-configurator",
+  "displayName": "inav-configurator",
+  "description": "inav-configurator",
+  "version": "1.0.0",
+  "author": "INAVFlights",
+  "homepage": "https://github.com/INAVFlights/inav-configurator",
+  "skills": []
+}
