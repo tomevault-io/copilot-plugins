@@ -1,0 +1,9 @@
+{
+  "name": "lqs--retrotick",
+  "displayName": "retrotick",
+  "description": "\ud83d\udcbe Run .exe in browser \u2014 x86/ARM emulator with reimplemented Win32/WinCE/Win16/DOS APIs in pure TypeScript",
+  "version": "1.0.0",
+  "author": "lqs",
+  "homepage": "https://github.com/lqs/retrotick",
+  "skills": []
+}
