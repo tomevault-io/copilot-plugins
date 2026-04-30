@@ -1,0 +1,63 @@
+{
+  "name": "tobari",
+  "owner": "goccy",
+  "repo": "tobari",
+  "description": "Tobari is a scoped coverage measurement tool for Go",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tobari-coverage-improver",
+      "path": "skills/tobari-coverage-improver",
+      "github_url": "https://github.com/goccy/tobari/tree/main/skills/tobari-coverage-improver",
+      "description": ""
+    },
+    {
+      "name": "tobari-duplicated-tests-remover",
+      "path": "skills/tobari-duplicated-tests-remover",
+      "github_url": "https://github.com/goccy/tobari/tree/main/skills/tobari-duplicated-tests-remover",
+      "description": ""
+    },
+    {
+      "name": "tobari-installer",
+      "path": "skills/tobari-installer",
+      "github_url": "https://github.com/goccy/tobari/tree/main/skills/tobari-installer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/goccy/tobari",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T23:30:09Z"
+}
