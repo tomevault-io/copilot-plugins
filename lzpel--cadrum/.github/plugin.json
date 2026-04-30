@@ -1,0 +1,9 @@
+{
+  "name": "lzpel--cadrum",
+  "displayName": "cadrum",
+  "description": "Rust CAD library powered by statically linked, headless OpenCASCADE (OCCT 8.0.0-rc5).",
+  "version": "1.0.0",
+  "author": "lzpel",
+  "homepage": "https://github.com/lzpel/cadrum",
+  "skills": []
+}
