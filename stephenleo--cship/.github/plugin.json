@@ -1,0 +1,9 @@
+{
+  "name": "stephenleo--cship",
+  "displayName": "cship",
+  "description": "\u26a1Beautiful, Blazing-fast, Customizable status line for Claude Code. Now with full Starship pass through!",
+  "version": "1.0.0",
+  "author": "stephenleo",
+  "homepage": "https://github.com/stephenleo/cship",
+  "skills": []
+}
