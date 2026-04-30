@@ -1,0 +1,9 @@
+{
+  "name": "hilyfux--knowledge-graph",
+  "displayName": "knowledge-graph",
+  "description": "Stop AI Coding from forgetting.  A knowledge graph\u2013driven memory layer for LLMs (ChatGPT, Claude, Codex, DeepSeek, Gemini), enabling persistent long-term memory beyond context window limits.  Build sm",
+  "version": "1.0.0",
+  "author": "hilyfux",
+  "homepage": "https://github.com/hilyfux/knowledge-graph",
+  "skills": []
+}
