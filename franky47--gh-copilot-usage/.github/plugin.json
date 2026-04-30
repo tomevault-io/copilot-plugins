@@ -1,0 +1,9 @@
+{
+  "name": "franky47--gh-copilot-usage",
+  "displayName": "gh-copilot-usage",
+  "description": "Display your usage of GitHub Copilot premium requests for this month.",
+  "version": "1.0.0",
+  "author": "franky47",
+  "homepage": "https://github.com/franky47/gh-copilot-usage",
+  "skills": []
+}
