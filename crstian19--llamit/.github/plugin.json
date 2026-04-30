@@ -1,0 +1,9 @@
+{
+  "name": "crstian19--llamit",
+  "displayName": "llamit",
+  "description": "A VS Code extension to generate semantic commit messages using your local Ollama LLM instance.",
+  "version": "1.0.0",
+  "author": "crstian19",
+  "homepage": "https://github.com/crstian19/llamit",
+  "skills": []
+}
