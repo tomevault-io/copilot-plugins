@@ -1,0 +1,9 @@
+{
+  "name": "cwinvestments--memstack",
+  "displayName": "memstack",
+  "description": "Structured skill framework for Claude Code \u2014 112 skills, auto-trigger commands, session memory, and project handoffs via markdown-based skills",
+  "version": "1.0.0",
+  "author": "cwinvestments",
+  "homepage": "https://github.com/cwinvestments/memstack",
+  "skills": []
+}
