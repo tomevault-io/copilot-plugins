@@ -1,0 +1,9 @@
+{
+  "name": "mfaux--ralphai",
+  "displayName": "ralphai",
+  "description": "Autonomous task runner for AI coding agents. Fresh context every turn.",
+  "version": "1.0.0",
+  "author": "mfaux",
+  "homepage": "https://github.com/mfaux/ralphai",
+  "skills": []
+}
