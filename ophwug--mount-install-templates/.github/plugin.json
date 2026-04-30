@@ -1,0 +1,9 @@
+{
+  "name": "ophwug--mount-install-templates",
+  "displayName": "mount-install-templates",
+  "description": "Mount installation templates for comma three, 3x, and four. Generates PDFs with scale-check and clearance indicators from official hardware models.",
+  "version": "1.0.0",
+  "author": "ophwug",
+  "homepage": "https://github.com/ophwug/mount-install-templates",
+  "skills": []
+}
