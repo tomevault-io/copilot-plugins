@@ -1,0 +1,9 @@
+{
+  "name": "akirk--ai-assistant",
+  "displayName": "ai-assistant",
+  "description": "An AI-powered chat interface for WordPress Playground. Bring your own API key or connect to a local LLM.",
+  "version": "1.0.0",
+  "author": "akirk",
+  "homepage": "https://github.com/akirk/ai-assistant",
+  "skills": []
+}
