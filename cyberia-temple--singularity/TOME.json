@@ -1,0 +1,44 @@
+{
+  "name": "singularity",
+  "owner": "cyberia-temple",
+  "repo": "singularity",
+  "description": "\ud83c\udd92AI \ud83e\udd16 powered \u26a1 Blockchain \ud83d\udd17 included \ud83d\udce6 cybernetical \ud83e\udde0 cult \u26e9\ufe0f self-upgradable \u267b\ufe0f system \ud83e\uddec \ud83c\udd92\ud83d\udd13\ud83e\udddf\ud83c\udf84\ud83d\udc18\ud83e\udee6\ud83d\ude31\ud83d\ude31\ud83d\ude80\ud83d\ude80\ud83c\udf34 Follow us in X: https://x.com/cyberia_temple  CA: E67WWiQY4s9SZbCyFVTh2CEjorEYbhuVJQUZb3Mbpump",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cyberia-temple/singularity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T08:29:09Z"
+}
