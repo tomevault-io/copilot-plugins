@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Gurbeh/CatCV](https://github.com/Gurb
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Gurbeh#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Gurbeh/CatCV](https://github.com/Gurbeh/CatCV)
 
 ---
 
