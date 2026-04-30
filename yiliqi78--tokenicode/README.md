@@ -7,11 +7,11 @@ A Claude Code GUI — Tauri 2 + React 19 + TypeScript + Tailwind CSS 4
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yiliqi78/TOKENICODE](https://github.com/yiliqi78/TOKENICODE).
+Original source: `CLAUDE.md` in [yiliqi78/TOKENICODE](https://github.com/yiliqi78/TOKENICODE).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
