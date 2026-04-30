@@ -1,0 +1,9 @@
+{
+  "name": "allenai--vla-evaluation-harness",
+  "displayName": "vla-evaluation-harness",
+  "description": "One framework to evaluate any VLA model on any robot simulation benchmark.",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/vla-evaluation-harness",
+  "skills": []
+}
