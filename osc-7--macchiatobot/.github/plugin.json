@@ -1,0 +1,9 @@
+{
+  "name": "osc-7--macchiatobot",
+  "displayName": "macchiatoBot",
+  "description": "An LLM Agent with OS kernel-like structure, aiming to provide concurrent scheduling and a foundation for multi-agent extensions.",
+  "version": "1.0.0",
+  "author": "Osc-7",
+  "homepage": "https://github.com/Osc-7/macchiatoBot",
+  "skills": []
+}
