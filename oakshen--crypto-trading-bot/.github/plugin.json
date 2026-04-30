@@ -1,0 +1,9 @@
+{
+  "name": "oakshen--crypto-trading-bot",
+  "displayName": "crypto-trading-bot",
+  "description": "\u57fa\u4e8e Go \u7684\u52a0\u5bc6\u8d27\u5e01\u91cf\u5316\u4ea4\u6613 Agent(\u6a21\u4eff nof1 \u7b56\u7565\uff0c\u504f\u957f\u671f\u4ea4\u6613)\uff5cGo-based cryptocurrency quantitative trading agent (imitating the nof1 strategy, leaning towards long-term trading)",
+  "version": "1.0.0",
+  "author": "Oakshen",
+  "homepage": "https://github.com/Oakshen/crypto-trading-bot",
+  "skills": []
+}
