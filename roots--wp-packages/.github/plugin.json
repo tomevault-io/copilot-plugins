@@ -1,0 +1,9 @@
+{
+  "name": "roots--wp-packages",
+  "displayName": "wp-packages",
+  "description": "Manage your WordPress plugins and themes with Composer",
+  "version": "1.0.0",
+  "author": "roots",
+  "homepage": "https://github.com/roots/wp-packages",
+  "skills": []
+}
