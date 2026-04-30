@@ -4,7 +4,7 @@
   "repo": "openpencil",
   "description": "The world's first open-source AI-native vector design tool and the first to feature concurrent Agent Teams. Design-as-Code. Turn prompts into UI directly on the live canvas. A modern alternative to Pencil.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZSeven-W/openpencil",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T08:17:54Z"
+  "distributed_at": "2026-04-30T15:59:01Z"
 }
