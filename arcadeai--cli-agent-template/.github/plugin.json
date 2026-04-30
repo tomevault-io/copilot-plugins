@@ -1,9 +1,0 @@
-{
-  "name": "arcadeai--cli-agent-template",
-  "displayName": "cli-agent-template",
-  "description": "cli-agent-template",
-  "version": "1.0.0",
-  "author": "ArcadeAI",
-  "homepage": "https://github.com/ArcadeAI/cli-agent-template",
-  "skills": []
-}
