@@ -1,0 +1,44 @@
+{
+  "name": "Index.skill",
+  "owner": "KaihuaTang",
+  "repo": "Index.skill",
+  "description": "\u57fa\u4e8eClaude\u4e0eObsidian/WebUI\u7684\u4e2a\u4eba\u77e5\u8bc6\u7ba1\u7406\u3001\u66f4\u65b0\u3001\u4ea4\u4e92\u7cfb\u7edf\u201c\u8335\u8482\u514b\u4e1d.skill\u201d\uff08LLM Wiki\uff09\u3002\u540c\u6d4e\u5927\u5b66\u5de5\u7a0b\u667a\u80fd\u7814\u7a76\u9662\u51fa\u54c1~",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KaihuaTang/Index.skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T00:19:10Z"
+}
