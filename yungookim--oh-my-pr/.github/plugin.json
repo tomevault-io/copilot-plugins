@@ -1,0 +1,9 @@
+{
+  "name": "yungookim--oh-my-pr",
+  "displayName": "oh-my-pr",
+  "description": "Autonomous GitHub PR babysitter \u2014 watches your repos, triages review feedback, and dispatches AI agents to fix code.",
+  "version": "1.0.0",
+  "author": "yungookim",
+  "homepage": "https://github.com/yungookim/oh-my-pr",
+  "skills": []
+}
