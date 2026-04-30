@@ -1,0 +1,9 @@
+{
+  "name": "raulvidis--openclaw-multi-agent-kit",
+  "displayName": "openclaw-multi-agent-kit",
+  "description": "Production-tested templates for deploying multi-agent AI teams on OpenClaw with Telegram supergroup integration. 10 agent personalities, shared context workflows, bot-to-bot communication, and step-by",
+  "version": "1.0.0",
+  "author": "raulvidis",
+  "homepage": "https://github.com/raulvidis/openclaw-multi-agent-kit",
+  "skills": []
+}
