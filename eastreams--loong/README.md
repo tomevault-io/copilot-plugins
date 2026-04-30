@@ -7,11 +7,11 @@ Lightweight, clear, and fully extensible AI agent infrastructure — learn easil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [eastreams/loong](https://github.com/eastreams/loong).
+Original source: `CLAUDE.md` in [eastreams/loong](https://github.com/eastreams/loong).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
