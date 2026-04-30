@@ -1,0 +1,9 @@
+{
+  "name": "jmilinovich--goal-md",
+  "displayName": "goal-md",
+  "description": "A goal-specification file for autonomous coding agents. Generalizes Karpathy's autoresearch to domains with constructed metrics.",
+  "version": "1.0.0",
+  "author": "jmilinovich",
+  "homepage": "https://github.com/jmilinovich/goal-md",
+  "skills": []
+}
