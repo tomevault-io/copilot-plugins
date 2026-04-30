@@ -1,0 +1,9 @@
+{
+  "name": "swarmclawai--swarmclaw",
+  "displayName": "swarmclaw",
+  "description": "Self-hosted multi-agent AI runtime with MCP server support. Build, orchestrate, and run autonomous agents with memory, skills, schedules, and 23+ LLM providers (Claude, GPT, Gemini, OpenRouter, Ollama",
+  "version": "1.0.0",
+  "author": "swarmclawai",
+  "homepage": "https://github.com/swarmclawai/swarmclaw",
+  "skills": []
+}
