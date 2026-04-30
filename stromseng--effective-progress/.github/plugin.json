@@ -1,0 +1,9 @@
+{
+  "name": "stromseng--effective-progress",
+  "displayName": "effective-progress",
+  "description": "An Effect-native CLI progressbar",
+  "version": "1.0.0",
+  "author": "stromseng",
+  "homepage": "https://github.com/stromseng/effective-progress",
+  "skills": []
+}
