@@ -1,0 +1,9 @@
+{
+  "name": "devwhodevs--engraph",
+  "displayName": "engraph",
+  "description": "Local knowledge graph for AI agents. Hybrid search + MCP server for Obsidian vaults.",
+  "version": "1.0.0",
+  "author": "devwhodevs",
+  "homepage": "https://github.com/devwhodevs/engraph",
+  "skills": []
+}
