@@ -1,0 +1,9 @@
+{
+  "name": "opsiclear--gsply",
+  "displayName": "gsply",
+  "description": "Very fast python loader for gaussian splatting ply files.",
+  "version": "1.0.0",
+  "author": "OpsiClear",
+  "homepage": "https://github.com/OpsiClear/gsply",
+  "skills": []
+}
