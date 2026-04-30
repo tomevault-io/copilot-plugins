@@ -7,11 +7,11 @@ Manage projects visually with humans and AI agents using Obsidian Canvas.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [XMihura/Kanvas](https://github.com/XMihura/Kanvas).
+Original source: `CLAUDE.md` in [XMihura/Kanvas](https://github.com/XMihura/Kanvas).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
