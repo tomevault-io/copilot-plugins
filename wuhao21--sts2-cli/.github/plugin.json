@@ -1,0 +1,9 @@
+{
+  "name": "wuhao21--sts2-cli",
+  "displayName": "sts2-cli",
+  "description": "Headless Slay the Spire 2 CLI \u2014 play the full game from a terminal.",
+  "version": "1.0.0",
+  "author": "wuhao21",
+  "homepage": "https://github.com/wuhao21/sts2-cli",
+  "skills": []
+}
