@@ -1,0 +1,44 @@
+{
+  "name": "inksight",
+  "owner": "datascale-ai",
+  "repo": "inksight",
+  "description": "\u4e00\u6b3e LLM \u9a71\u52a8\u7684\u667a\u80fd\u7535\u5b50\u58a8\u6c34\u5c4f\u684c\u9762\u4f34\u4fa3\uff0c\u4e3a\u4f60\u9012\u9001\u6709\u6e29\u5ea6\u7684\"\u6162\u4fe1\u606f\"\u2014\u2014\u7eb8\u58a8\u4e4b\u95f4\uff0c\u7686\u662f\u667a\u6167\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/datascale-ai/inksight",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T11:47:17Z"
+}
