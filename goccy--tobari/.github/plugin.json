@@ -1,0 +1,22 @@
+{
+  "name": "goccy--tobari",
+  "displayName": "tobari",
+  "description": "Tobari is a scoped coverage measurement tool for Go",
+  "version": "1.0.0",
+  "author": "goccy",
+  "homepage": "https://github.com/goccy/tobari",
+  "skills": [
+    {
+      "name": "tobari-coverage-improver",
+      "description": ""
+    },
+    {
+      "name": "tobari-duplicated-tests-remover",
+      "description": ""
+    },
+    {
+      "name": "tobari-installer",
+      "description": ""
+    }
+  ]
+}
