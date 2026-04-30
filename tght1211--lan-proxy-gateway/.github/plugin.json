@@ -1,0 +1,9 @@
+{
+  "name": "tght1211--lan-proxy-gateway",
+  "displayName": "lan-proxy-gateway",
+  "description": "\u628a\u4f60\u7684\u7535\u8111\u53d8\u6210\u5168\u5c4b\u79d1\u5b66\u4e0a\u7f51\u7f51\u5173\uff0cSwitch / PS5 / Apple TV / \u667a\u80fd\u7535\u89c6\u6539\u4e2a\u7f51\u5173\u5c31\u80fd\u7528\u3002\u652f\u6301 macOS / Linux / Windows",
+  "version": "1.0.0",
+  "author": "Tght1211",
+  "homepage": "https://github.com/Tght1211/lan-proxy-gateway",
+  "skills": []
+}
