@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Radical-Horizons/DialogueGenerator](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Radical-Horizons)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Radical-Horizons/DialogueGenerator](https://github.com/Radical-Horizons/DialogueGenerator)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Radical-Horizons/DialogueGenerator
 ```
-Or browse all formats at [https://tomevault.io/claim/Radical-Horizons](https://tomevault.io/claim/Radical-Horizons).
+Source: [github.com/Radical-Horizons/DialogueGenerator](https://github.com/Radical-Horizons/DialogueGenerator).
 
 <!-- genome:a-i-p -->
