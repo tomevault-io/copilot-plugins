@@ -1,0 +1,9 @@
+{
+  "name": "dsbaars--bunker46",
+  "displayName": "bunker46",
+  "description": "A modern, secure NIP-46 Nsec Bunker management tool built with TypeScript.",
+  "version": "1.0.0",
+  "author": "dsbaars",
+  "homepage": "https://github.com/dsbaars/bunker46",
+  "skills": []
+}
