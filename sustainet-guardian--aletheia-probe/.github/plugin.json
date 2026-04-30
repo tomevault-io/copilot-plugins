@@ -1,0 +1,9 @@
+{
+  "name": "sustainet-guardian--aletheia-probe",
+  "displayName": "aletheia-probe",
+  "description": "Tool for automatically detecting predatory journals and conferences using multiple authoritative data sources",
+  "version": "1.0.0",
+  "author": "sustainet-guardian",
+  "homepage": "https://github.com/sustainet-guardian/aletheia-probe",
+  "skills": []
+}
