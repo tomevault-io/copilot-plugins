@@ -4,7 +4,7 @@
   "repo": "LobsterAI",
   "description": "Your 24/7 all-scenario AI agent that gets work done for you.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/netease-youdao/LobsterAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T08:10:34Z"
+  "distributed_at": "2026-04-30T15:49:40Z"
 }
