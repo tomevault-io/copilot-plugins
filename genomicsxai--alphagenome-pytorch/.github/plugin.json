@@ -1,0 +1,9 @@
+{
+  "name": "genomicsxai--alphagenome-pytorch",
+  "displayName": "alphagenome-pytorch",
+  "description": "AlphaGenome PyTorch port",
+  "version": "1.0.0",
+  "author": "genomicsxai",
+  "homepage": "https://github.com/genomicsxai/alphagenome-pytorch",
+  "skills": []
+}
