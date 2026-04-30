@@ -1,0 +1,9 @@
+{
+  "name": "avant-iconic--talox",
+  "displayName": "Talox",
+  "description": "Stateful browser runtime for AI agents built on Playwright, with stealth interaction, structured page state, resilient automation, and debug observability.",
+  "version": "1.0.0",
+  "author": "AVANT-ICONIC",
+  "homepage": "https://github.com/AVANT-ICONIC/Talox",
+  "skills": []
+}
