@@ -1,0 +1,9 @@
+{
+  "name": "jun-murakami--zerolimit",
+  "displayName": "ZeroLimit",
+  "description": "A professional zero-latency broadcast-oriented limiter plugin. for VST/AU/AAX",
+  "version": "1.0.0",
+  "author": "Jun-Murakami",
+  "homepage": "https://github.com/Jun-Murakami/ZeroLimit",
+  "skills": []
+}
