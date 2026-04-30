@@ -1,0 +1,9 @@
+{
+  "name": "samibs--skillfoundry",
+  "displayName": "skillfoundry",
+  "description": "AI engineering framework with quality gates, persistent memory, and multi-platform support. Works inside Claude Code, Cursor, Copilot, Codex, and Gemini.",
+  "version": "1.0.0",
+  "author": "samibs",
+  "homepage": "https://github.com/samibs/skillfoundry",
+  "skills": []
+}
