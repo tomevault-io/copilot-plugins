@@ -1,0 +1,44 @@
+{
+  "name": "MedgeClaw",
+  "owner": "xjtulyc",
+  "repo": "MedgeClaw",
+  "description": "Open-source AI research assistant for biomedicine \u2014 chat to run RNA-seq, drug discovery, clinical analysis, and more. Built on Claude Code with 140 K-Dense scientific skills, real-time dashboard, and RStudio/JupyterLab integration. | \u5f00\u6e90\u751f\u7269\u533b\u5b66 AI \u7814\u7a76\u52a9\u624b\uff0c\u5bf9\u8bdd\u5373\u53ef\u9a71\u52a8\u8f6c\u5f55\u7ec4\u3001\u836f\u7269\u53d1\u73b0\u3001\u4e34\u5e8a\u5206\u6790\u7b49\u5de5\u4f5c\u6d41\uff0c\u96c6\u6210 140 \u4e2a\u79d1\u5b66\u6280\u80fd\u4e0e\u5b9e\u65f6\u7814\u7a76\u770b\u677f\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xjtulyc/MedgeClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T08:16:45Z"
+}
