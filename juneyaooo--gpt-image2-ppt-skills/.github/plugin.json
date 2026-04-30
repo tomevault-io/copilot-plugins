@@ -1,0 +1,9 @@
+{
+  "name": "juneyaooo--gpt-image2-ppt-skills",
+  "displayName": "gpt-image2-ppt-skills",
+  "description": "Clone any .pptx into your own deck \u2014 OpenAI gpt-image-2 mimics the layout, you supply the content. 10 bundled styles. | \u628a\u4efb\u4f55 .pptx \u6a21\u677f\"\u6284\"\u6210\u4f60\u7684 PPT\uff1agpt-image-2 \u4eff\u7248\u5f0f\u3001\u4f60\u6362\u5185\u5bb9\uff0c\u53e6\u542b 10 \u5957\u7cbe\u9009\u98ce\u683c\u3002Claude Code / OpenClaw s",
+  "version": "1.0.0",
+  "author": "JuneYaooo",
+  "homepage": "https://github.com/JuneYaooo/gpt-image2-ppt-skills",
+  "skills": []
+}
