@@ -1,0 +1,9 @@
+{
+  "name": "mgaitan--telegram-acp-bot",
+  "displayName": "telegram-acp-bot",
+  "description": "A Telegram bot that implements Agent Client Protocol to interact with AI agents",
+  "version": "1.0.0",
+  "author": "mgaitan",
+  "homepage": "https://github.com/mgaitan/telegram-acp-bot",
+  "skills": []
+}
