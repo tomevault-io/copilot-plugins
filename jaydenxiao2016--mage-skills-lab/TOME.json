@@ -1,0 +1,44 @@
+{
+  "name": "mage-skills-lab",
+  "owner": "jaydenxiao2016",
+  "repo": "mage-skills-lab",
+  "description": "A collection of technical skills, learning notes and practical code snippets from Mage (\u7801\u6b4c) \u2014\u2014 \u7801\u6b4c\u7684\u6280\u672f\u6280\u80fd\u5408\u96c6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jaydenxiao2016/mage-skills-lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T08:12:22Z"
+}
