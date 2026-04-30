@@ -1,0 +1,44 @@
+{
+  "name": "oh-my-kimichan",
+  "owner": "dmae97",
+  "repo": "oh-my-kimichan",
+  "description": "Kimi Code CLI\uc6a9 multi-agent orchestration harness. Kimi K2.6 \uc704\uc5d0 \uc62c\ub77c\uac00\ub294 \ud558\ub124\uc2a4 + \ud300 \ub7f0\ud0c0\uc784 + \uc2a4\ud0ac/\ud6c5/\uc6cc\ud06c\ud50c\ub85c \ubc30\ud3ec\ud310",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dmae97/oh-my-kimichan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T19:34:59Z"
+}
