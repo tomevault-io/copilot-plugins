@@ -7,11 +7,11 @@ Practical AI collaboration playbook for research, writing, reading, and coding: 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cnfjlhj/ai-collab-playbook](https://github.com/cnfjlhj/ai-collab-playbook).
+Original source: `CLAUDE.md` in [cnfjlhj/ai-collab-playbook](https://github.com/cnfjlhj/ai-collab-playbook).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
