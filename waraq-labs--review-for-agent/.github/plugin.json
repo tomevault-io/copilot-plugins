@@ -1,0 +1,9 @@
+{
+  "name": "waraq-labs--review-for-agent",
+  "displayName": "review-for-agent",
+  "description": "A local code review tool for giving structured, line-level feedback to AI coding agents \u2014 without opening a PR.",
+  "version": "1.0.0",
+  "author": "Waraq-Labs",
+  "homepage": "https://github.com/Waraq-Labs/review-for-agent",
+  "skills": []
+}
