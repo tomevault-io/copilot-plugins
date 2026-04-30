@@ -1,0 +1,9 @@
+{
+  "name": "monemone-org--chromesidebar",
+  "displayName": "ChromeSideBar",
+  "description": "ChromeSideBar displays pinned sites, bookmarks and active tabs in a side panel, similar to the Arc browser's sidebar experience.",
+  "version": "1.0.0",
+  "author": "monemone-org",
+  "homepage": "https://github.com/monemone-org/ChromeSideBar",
+  "skills": []
+}
