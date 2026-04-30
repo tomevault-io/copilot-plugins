@@ -4,7 +4,7 @@
   "repo": "BHIL-AI-First-Development-Toolkit",
   "description": "A production-grade methodology repository for building AI-native applications using iterative sprints, where AI coding agents are primary implementors and humans are architects, reviewers, and decision-makers.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/camalus/BHIL-AI-First-Development-Toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:44:28Z"
+  "distributed_at": "2026-04-30T00:00:13Z"
 }
