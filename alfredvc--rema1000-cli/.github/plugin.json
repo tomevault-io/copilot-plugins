@@ -1,0 +1,9 @@
+{
+  "name": "alfredvc--rema1000-cli",
+  "displayName": "rema1000-cli",
+  "description": "CLI for the REMA 1000 API. Designed for AI agent consumption. Single Rust binary with JSON output, field filtering, and automatic token refresh.",
+  "version": "1.0.0",
+  "author": "Alfredvc",
+  "homepage": "https://github.com/Alfredvc/rema1000-cli",
+  "skills": []
+}
