@@ -1,0 +1,9 @@
+{
+  "name": "causalinferencelab--causal-studio",
+  "displayName": "causal-studio",
+  "description": "A studio for learning causal inference through Jupyter notebooks and videos.",
+  "version": "1.0.0",
+  "author": "CausalInferenceLab",
+  "homepage": "https://github.com/CausalInferenceLab/causal-studio",
+  "skills": []
+}
