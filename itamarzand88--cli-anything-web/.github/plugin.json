@@ -1,0 +1,9 @@
+{
+  "name": "itamarzand88--cli-anything-web",
+  "displayName": "CLI-Anything-WEB",
+  "description": "Claude Code plugin that generates production-grade Python CLIs for any web app. 17 CLIs and counting.",
+  "version": "1.0.0",
+  "author": "ItamarZand88",
+  "homepage": "https://github.com/ItamarZand88/CLI-Anything-WEB",
+  "skills": []
+}
