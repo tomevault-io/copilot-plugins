@@ -7,11 +7,11 @@ Enterprise-grade (40m+ lines) codebase intelligence in a zero-setup, private and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [giancarloerra/SocratiCode](https://github.com/giancarloerra/SocratiCode).
+Original source: `CLAUDE.md` in [giancarloerra/SocratiCode](https://github.com/giancarloerra/SocratiCode).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
