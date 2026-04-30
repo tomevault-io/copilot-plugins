@@ -1,0 +1,9 @@
+{
+  "name": "tomohiro-owada--affine-cli",
+  "displayName": "affine-cli",
+  "description": "CLI for AFFiNE - manage workspaces, documents, databases, tables, tags, and more from your terminal",
+  "version": "1.0.0",
+  "author": "tomohiro-owada",
+  "homepage": "https://github.com/tomohiro-owada/affine-cli",
+  "skills": []
+}
