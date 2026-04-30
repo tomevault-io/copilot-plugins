@@ -1,6 +1,6 @@
 # xsoulspace.github.io
 
-> Tome by [xsoulspace](https://github.com/xsoulspace/xsoulspace.github.io) — distributed by [TomeVault](https://tomevault.io/claim/xsoulspace)
+> Tome by [xsoulspace](https://github.com/xsoulspace/xsoulspace.github.io) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [xsoulspace/xsoulspace.github.io](http
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/xsoulspace)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/xsoulspace/xsoulspace.github.io](https://github.com/xsoulspace/xsoulspace.github.io)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install xsoulspace/xsoulspace.github.io
 ```
-Or browse all formats at [https://tomevault.io/claim/xsoulspace](https://tomevault.io/claim/xsoulspace).
+Source: [github.com/xsoulspace/xsoulspace.github.io](https://github.com/xsoulspace/xsoulspace.github.io).
 
 <!-- genome:t-i-p -->
