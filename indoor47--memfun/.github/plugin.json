@@ -1,0 +1,38 @@
+{
+  "name": "indoor47--memfun",
+  "displayName": "memfun",
+  "description": "Autonomous coding agent with infinite memory (RLM) and scalable multi-agent orchestration",
+  "version": "1.0.0",
+  "author": "indoor47",
+  "homepage": "https://github.com/indoor47/memfun",
+  "skills": [
+    {
+      "name": "analyze-code",
+      "description": ""
+    },
+    {
+      "name": "ask",
+      "description": ""
+    },
+    {
+      "name": "fix-bugs",
+      "description": ""
+    },
+    {
+      "name": "generate-tests",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "description": ""
+    },
+    {
+      "name": "review-code",
+      "description": ""
+    },
+    {
+      "name": "security-audit",
+      "description": ""
+    }
+  ]
+}
