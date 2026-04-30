@@ -1,0 +1,9 @@
+{
+  "name": "guhcostan--b3analysis",
+  "displayName": "b3analysis",
+  "description": "Agente de an\u00e1lise de a\u00e7\u00f5es brasileiras (B3) com Claude Code \u2014 sem API keys",
+  "version": "1.0.0",
+  "author": "guhcostan",
+  "homepage": "https://github.com/guhcostan/b3analysis",
+  "skills": []
+}
