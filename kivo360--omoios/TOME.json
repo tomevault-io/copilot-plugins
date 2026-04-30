@@ -4,7 +4,7 @@
   "repo": "OmoiOS",
   "description": "Spec-driven multi-agent orchestration \u2014 autonomous development workforce powered by Claude & OpenHands",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kivo360/OmoiOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T00:40:11Z"
+  "distributed_at": "2026-04-30T04:18:53Z"
 }
