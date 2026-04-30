@@ -1,0 +1,9 @@
+{
+  "name": "soulduse--ai-token-monitor",
+  "displayName": "ai-token-monitor",
+  "description": "macOS menu bar app for tracking Claude Code token usage and costs",
+  "version": "1.0.0",
+  "author": "soulduse",
+  "homepage": "https://github.com/soulduse/ai-token-monitor",
+  "skills": []
+}
