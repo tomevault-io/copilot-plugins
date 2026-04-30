@@ -1,0 +1,9 @@
+{
+  "name": "emanuele-em--cove",
+  "displayName": "cove",
+  "description": "An extensible, multi-database GUI client for macOS \u2014 add any database by implementing a single Swift protocol. Built for contributors.",
+  "version": "1.0.0",
+  "author": "emanuele-em",
+  "homepage": "https://github.com/emanuele-em/cove",
+  "skills": []
+}
