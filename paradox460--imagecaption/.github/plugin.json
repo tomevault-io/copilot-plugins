@@ -1,0 +1,9 @@
+{
+  "name": "paradox460--imagecaption",
+  "displayName": "imagecaption",
+  "description": "A quick and dirty LLM powered image describing tool",
+  "version": "1.0.0",
+  "author": "paradox460",
+  "homepage": "https://github.com/paradox460/imagecaption",
+  "skills": []
+}
