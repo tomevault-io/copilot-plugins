@@ -1,0 +1,9 @@
+{
+  "name": "samchon--ttsc",
+  "displayName": "ttsc",
+  "description": "A `typescript-go` toolchain for compiler-powered transforms and type-safe execution.",
+  "version": "1.0.0",
+  "author": "samchon",
+  "homepage": "https://github.com/samchon/ttsc",
+  "skills": []
+}
