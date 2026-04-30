@@ -1,0 +1,9 @@
+{
+  "name": "oriashkenazi--ai-pyrevit-developer-template",
+  "displayName": "ai-pyrevit-developer-template",
+  "description": "AI-first pyRevit extension template with CodexWorkspace plan-to-tasks workflow and a ready-to-load .extension bundle.",
+  "version": "1.0.0",
+  "author": "OriAshkenazi",
+  "homepage": "https://github.com/OriAshkenazi/ai-pyrevit-developer-template",
+  "skills": []
+}
