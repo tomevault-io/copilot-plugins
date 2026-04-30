@@ -1,0 +1,9 @@
+{
+  "name": "kylinfish--tw-house-ops",
+  "displayName": "tw-house-ops",
+  "description": "AI-powered house hunting pipeline for Taiwan, built on Claude Code. Inspired by @santifer/career-ops \u2014 same ops-style approach, applied to \u53f0\u7063\u79df\u5c4b & \u8cfc\u5c4b.",
+  "version": "1.0.0",
+  "author": "kylinfish",
+  "homepage": "https://github.com/kylinfish/tw-house-ops",
+  "skills": []
+}
