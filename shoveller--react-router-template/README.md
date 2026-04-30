@@ -1,6 +1,6 @@
 # react-router-template
 
-> Tome by [shoveller](https://github.com/shoveller/react-router-template) — distributed by [TomeVault](https://tomevault.io/claim/shoveller)
+> Tome by [shoveller](https://github.com/shoveller/react-router-template) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [shoveller/react-router-template](http
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/shoveller)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/shoveller/react-router-template](https://github.com/shoveller/react-router-template)
 
 ---
 
