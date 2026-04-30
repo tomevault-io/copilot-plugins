@@ -1,0 +1,9 @@
+{
+  "name": "agus-works--agus-maps-flutter",
+  "displayName": "agus-maps-flutter",
+  "description": "Offline-first Flutter map widget powered by CoMaps/Organic Maps. Native C++ rendering via FFI with GPU texture sharing\u2014no PlatformView overhead. Supports Android, iOS, macOS, Windows & Linux.",
+  "version": "1.0.0",
+  "author": "agus-works",
+  "homepage": "https://github.com/agus-works/agus-maps-flutter",
+  "skills": []
+}
