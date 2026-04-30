@@ -7,13 +7,13 @@ AI coding safety CLI for vibe coding workflows. Checkpoints, undo, anchors, MCP,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [yesonsys03-web/VibeLign](https://github.com/yesonsys03-web/VibeLign).
+Original source: `AGENTS.md` in [yesonsys03-web/VibeLign](https://github.com/yesonsys03-web/VibeLign).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
