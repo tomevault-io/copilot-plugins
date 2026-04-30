@@ -1,0 +1,44 @@
+{
+  "name": "lan-proxy-gateway",
+  "owner": "Tght1211",
+  "repo": "lan-proxy-gateway",
+  "description": "\u628a\u4f60\u7684\u7535\u8111\u53d8\u6210\u5168\u5c4b\u79d1\u5b66\u4e0a\u7f51\u7f51\u5173\uff0cSwitch / PS5 / Apple TV / \u667a\u80fd\u7535\u89c6\u6539\u4e2a\u7f51\u5173\u5c31\u80fd\u7528\u3002\u652f\u6301 macOS / Linux / Windows",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Tght1211/lan-proxy-gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T19:54:36Z"
+}
