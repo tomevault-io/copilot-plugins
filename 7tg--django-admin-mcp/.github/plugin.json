@@ -1,0 +1,9 @@
+{
+  "name": "7tg--django-admin-mcp",
+  "displayName": "django-admin-mcp",
+  "description": "Expose Django admin models to MCP (Model Context Protocol) clients. Add a mixin to your ModelAdmin classes and let AI assistants like Claude perform CRUD operations, execute admin actions, and explore",
+  "version": "1.0.0",
+  "author": "7tg",
+  "homepage": "https://github.com/7tg/django-admin-mcp",
+  "skills": []
+}
