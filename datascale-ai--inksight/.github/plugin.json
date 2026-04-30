@@ -1,0 +1,9 @@
+{
+  "name": "datascale-ai--inksight",
+  "displayName": "inksight",
+  "description": "\u4e00\u6b3e LLM \u9a71\u52a8\u7684\u667a\u80fd\u7535\u5b50\u58a8\u6c34\u5c4f\u684c\u9762\u4f34\u4fa3\uff0c\u4e3a\u4f60\u9012\u9001\u6709\u6e29\u5ea6\u7684\"\u6162\u4fe1\u606f\"\u2014\u2014\u7eb8\u58a8\u4e4b\u95f4\uff0c\u7686\u662f\u667a\u6167\u3002",
+  "version": "1.0.0",
+  "author": "datascale-ai",
+  "homepage": "https://github.com/datascale-ai/inksight",
+  "skills": []
+}
