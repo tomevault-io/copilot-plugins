@@ -1,0 +1,9 @@
+{
+  "name": "jsight--ha-pecron",
+  "displayName": "ha-pecron",
+  "description": "Home Assistant integration for Pecron portable power stations",
+  "version": "1.0.0",
+  "author": "jsight",
+  "homepage": "https://github.com/jsight/ha-pecron",
+  "skills": []
+}
