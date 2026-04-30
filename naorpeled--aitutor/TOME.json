@@ -4,7 +4,7 @@
   "repo": "aitutor",
   "description": "vimtutor like guide for AI ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/naorpeled/aitutor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T07:58:52Z"
+  "distributed_at": "2026-04-30T15:31:35Z"
 }
