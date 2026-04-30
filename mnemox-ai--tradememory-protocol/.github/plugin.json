@@ -1,0 +1,9 @@
+{
+  "name": "mnemox-ai--tradememory-protocol",
+  "displayName": "tradememory-protocol",
+  "description": "Decision audit trail + persistent memory for AI trading agents. Outcome-weighted recall, SHA-256 tamper detection, 17 MCP tools.",
+  "version": "1.0.0",
+  "author": "mnemox-ai",
+  "homepage": "https://github.com/mnemox-ai/tradememory-protocol",
+  "skills": []
+}
