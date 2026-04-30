@@ -7,11 +7,11 @@ You're the CTO, agents are your team. They handle tasks on their own, message ea
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [777genius/claude_agent_teams_ui](https://github.com/777genius/claude_agent_teams_ui).
+Original source: `CLAUDE.md` in [777genius/claude_agent_teams_ui](https://github.com/777genius/claude_agent_teams_ui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
