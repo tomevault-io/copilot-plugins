@@ -1,0 +1,9 @@
+{
+  "name": "hermes-hq--hermes-ide",
+  "displayName": "hermes-ide",
+  "description": "AI-native terminal emulator & IDE. Built with Tauri, React, and Rust.",
+  "version": "1.0.0",
+  "author": "hermes-hq",
+  "homepage": "https://github.com/hermes-hq/hermes-ide",
+  "skills": []
+}
