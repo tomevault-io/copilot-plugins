@@ -1,0 +1,9 @@
+{
+  "name": "desplega-ai--agent-fs",
+  "displayName": "agent-fs",
+  "description": "A persistent, searchable filesystem for AI agents.",
+  "version": "1.0.0",
+  "author": "desplega-ai",
+  "homepage": "https://github.com/desplega-ai/agent-fs",
+  "skills": []
+}
