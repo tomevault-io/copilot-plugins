@@ -1,0 +1,9 @@
+{
+  "name": "xaskasdf--ntransformer",
+  "displayName": "ntransformer",
+  "description": "High-efficiency LLM inference engine in C++/CUDA. Run Llama 70B on RTX 3090.",
+  "version": "1.0.0",
+  "author": "xaskasdf",
+  "homepage": "https://github.com/xaskasdf/ntransformer",
+  "skills": []
+}
