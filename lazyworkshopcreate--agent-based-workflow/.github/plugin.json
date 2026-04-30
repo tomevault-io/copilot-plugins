@@ -1,0 +1,9 @@
+{
+  "name": "lazyworkshopcreate--agent-based-workflow",
+  "displayName": "agent-based-workflow",
+  "description": "A ready-to-use repository template for **agent-driven software development** using GitHub Copilot (and Claude Code). ",
+  "version": "1.0.0",
+  "author": "LazyWorkshopCreate",
+  "homepage": "https://github.com/LazyWorkshopCreate/agent-based-workflow",
+  "skills": []
+}
