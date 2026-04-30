@@ -1,0 +1,9 @@
+{
+  "name": "joshuadavidthomas--pi-opensync-plugin",
+  "displayName": "pi-opensync-plugin",
+  "description": "A pi extension that syncs sessions to OpenSync dashboards.",
+  "version": "1.0.0",
+  "author": "joshuadavidthomas",
+  "homepage": "https://github.com/joshuadavidthomas/pi-opensync-plugin",
+  "skills": []
+}
