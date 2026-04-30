@@ -1,0 +1,886 @@
+## blockcell
+
+> > BlockCell → BlueClaw: 自进化 AI 多智能体框架
+
+# CLAUDE.md
+
+> BlockCell → BlueClaw: 自进化 AI 多智能体框架
+
+## 快速导航
+
+- [项目概述](#项目概述) - 核心概念与架构
+- [快速开始](#快速开始) - 安装、配置、运行
+- [开发规范](#开发规范) - 工作流、代码风格、最佳实践
+- [常用命令](#常用命令) - 开发、运行、发布命令
+- [WebUI 开发](#webui-开发) - 前端技术栈与开发指南
+- [调试技巧](#调试技巧) - 日志级别、调试命令
+- [Crate 详解](#crate-详解) - 各模块详细说明
+
+---
+
+## 项目概述
+
+BlockCell 是一个用 Rust 构建的自进化 AI 多智能体框架。它不只是聊天机器人，而是能真正执行任务的 AI 智能体：
+读写文件、控制浏览器、分析数据、发送消息，甚至自我进化修复 bug。
+
+### 核心概念
+
+| 概念 | 说明 |
+| ------ | ------ |
+| **Agent** | 智能体运行时，负责接收消息、调用 LLM、执行工具、管理状态 |
+| **Tool** | 原子能力单元，如 `read_file`、`web_fetch`、`send_message` |
+| **Skill** | 组合多个工具的技能，支持 Markdown 定义 + Rhai/Python 脚本 |
+| **Channel** | 外部消息渠道适配器，如 Telegram、Slack、Discord |
+| **Provider** | LLM 提供商客户端，支持 OpenAI、DeepSeek、Anthropic 等 |
+| **Intent** | 用户意图分类，用于路由到不同的工具集和 Agent |
+| **MCP** | Model Context Protocol，用于扩展工具能力 |
+
+## 项目结构
+
+```text
+blockcell/
+├── bin/blockcell/          # CLI 入口和命令定义
+├── crates/
+│   ├── core/               # 核心类型、消息、能力定义
+│   ├── agent/              # Agent 运行时、任务管理、事件编排
+│   ├── tools/              # 50+ 内置工具实现
+│   ├── skills/             # 技能引擎、版本管理、自我进化
+│   ├── scheduler/          # Cron 任务、心跳、后台作业
+│   ├── channels/           # 多渠道适配 (Telegram/Slack/Discord/飞书等)
+│   ├── providers/          # LLM 提供商客户端
+│   ├── storage/            # SQLite 存储 (会话/记忆/审计)
+│   └── updater/            # 自动更新机制
+├── webui/                  # Web 前端 (React + TypeScript + Vite)
+│   ├── src/
+│   │   ├── components/     # React 组件
+│   │   │   └── chat/       # 聊天相关组件 (消息列表、输入框、命令选择器)
+│   │   ├── lib/            # 工具函数、i18n、API 客户端
+│   │   ├── App.tsx         # 主应用组件
+│   │   └── main.tsx        # 入口文件
+│   ├── dist/               # 构建产物 (嵌入到 binary)
+│   └── package.json
+├── skills/                 # 用户技能目录
+└── docs/                   # 文档
+```
+
+## 快速开始
+
+### 安装
+
+```bash
+# 方式一: 安装脚本 (推荐)
+curl -fsSL https://raw.githubusercontent.com/blockcell-labs/blockcell/main/install.sh | sh
+
+# 方式二: 从源码构建
+cargo build -p blockcell --release
+```
+
+### 配置
+
+```bash
+blockcell setup  # 首次设置，创建 ~/.blockcell/config.json5
+```
+
+最小配置示例 (`~/.blockcell/config.json5`):
+
+```json
+{
+  "providers": {
+    "deepseek": {
+      "apiKey": "YOUR_API_KEY",
+      "apiBase": "https://api.deepseek.com"
+    }
+  },
+  "agents": {
+    "defaults": { "model": "deepseek-chat" }
+  }
+}
+```
+
+### 环境变量
+
+BlockCell 支持通过环境变量覆盖配置：
+
+| 变量 | 说明 | 默认值 |
+| ---- | ---- | ------ |
+| `BLOCKCELL_CONFIG_PATH` | 自定义配置文件路径 | `~/.blockcell/config.json5` |
+| `BLOCKCELL_API_TOKEN` | Gateway API 认证令牌 | (可选，用于 WebUI 认证) |
+| `BLOCKCELL_HUB_URL` | 技能中心 URL | `https://hub.blockcell.dev` |
+| `BLOCKCELL_HUB_API_KEY` | 技能中心 API 密钥 | (可选) |
+| `RUST_LOG` | 日志级别 (tracing) | `info` |
+| `EDITOR` / `VISUAL` | 配置编辑器 | 系统默认 |
+
+Gateway 模式额外支持 `.env` 文件 (`~/.blockcell/.env`)：
+
+```bash
+# Gateway .env 示例
+BLOCKCELL_API_TOKEN=your_secure_token_here
+RUST_LOG=debug,blockcell_agent=trace
+```
+
+### 运行
+
+```bash
+blockcell status   # 检查状态
+blockcell agent    # 交互模式
+blockcell gateway  # 守护进程 + WebUI
+```
+
+### 部署
+
+#### Docker 部署
+
+项目使用多阶段构建优化镜像大小：
+
+```bash
+# 构建镜像
+docker build -t blockcell:latest .
+
+# 运行容器
+docker run -d \
+  --name blockcell \
+  -p 3000:3000 \
+  -v ~/.blockcell:/home/blockcell/.blockcell \
+  blockcell:latest gateway
+
+# 使用环境变量
+docker run -d \
+  -e BLOCKCELL_API_TOKEN=your_token \
+  -e RUST_LOG=debug \
+  -p 3000:3000 \
+  blockcell:latest gateway
+```
+
+#### Docker Compose
+
+```yaml
+version: '3.8'
+services:
+  blockcell:
+    image: blockcell:latest
+    command: gateway
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/home/blockcell/.blockcell
+    environment:
+      - RUST_LOG=info
+      - BLOCKCELL_API_TOKEN=${API_TOKEN}
+    restart: unless-stopped
+```
+
+#### 系统服务 (systemd)
+
+```bash
+# 创建服务文件
+sudo tee /etc/systemd/system/blockcell.service <<EOF
+[Unit]
+Description=BlockCell Gateway Service
+After=network.target
+
+[Service]
+Type=simple
+User=blockcell
+ExecStart=/usr/local/bin/blockcell gateway
+Restart=on-failure
+Environment=RUST_LOG=info
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# 启用并启动
+sudo systemctl enable blockcell
+sudo systemctl start blockcell
+```
+
+## 主要用例
+
+BlockCell 支持多种 AI 智能体应用场景：
+
+| 用例 | 说明 | 示例 |
+| ---- | ---- | ---- |
+| **个人 AI 助手** | 通过 Telegram/Slack/Discord 进行智能对话 | 查询天气、翻译文档、代码问答 |
+| **数据处理** | 文件分析、图表生成、数据转换 | 解析 Excel、生成图表、格式转换 |
+| **自动化任务** | Cron 定时执行、后台作业 | 定时备份、数据同步、状态监控 |
+| **多 Agent 协作** | Intent 路由分发到不同 Agent | 客服机器人、任务分发、专业分工 |
+| **浏览器控制** | Web 自动化、数据抓取 | 表单填写、页面监控、数据采集 |
+| **技能进化** | 自我学习、版本管理、热更新 | Bug 修复、功能迭代、知识积累 |
+
+## 架构说明
+
+### 核心流程
+
+```text
+用户消息 → Channel Adapter → Agent Core → LLM Provider
+                ↓                              ↓
+            Task Manager ← Tool Execution ← Response
+                ↓
+            Storage (SQLite)
+```
+
+### 关键组件
+
+| Crate       | 职责                                           |
+| ----------- | ---------------------------------------------- |
+| `core`      | Message, Capability, SystemEvent 等核心类型    |
+| `agent`     | Agent 运行时、Intent 解析、任务调度            |
+| `tools`     | 文件/浏览器/邮件/金融等 50+ 工具               |
+| `skills`    | Rhai 脚本引擎、热更新、版本控制                |
+| `scheduler` | Cron 作业、心跳检测、后台任务                  |
+| `channels`  | Telegram/Slack/Discord/飞书/钉钉等适配器       |
+| `providers` | OpenAI/DeepSeek/Anthropic 等 LLM 客户端        |
+| `storage`   | SQLite 持久化 (会话、记忆、审计日志)           |
+
+---
+
+<!-- currentDate: 2026/04/13 -->
+
+## Intent 分类器详解
+
+BlockCell 使用意图分类器来智能选择工具集，根据用户消息内容自动判断需要加载哪些工具。
+
+### Intent 分类流程
+
+```text
+用户消息 → IntentClassifier.classify() → IntentCategory[]
+         → IntentToolResolver.resolve_tool_names() → 工具列表
+```
+
+### Intent 配置
+
+在 `config.json5` 中配置意图路由：
+
+```json
+{
+  "intentRouter": {
+    "enabled": true,           // 是否启用意图分类（默认 true）
+    "loadAllTools": false,     // 当 enabled=false 时，是否全量加载
+    "defaultProfile": "default",
+    "profiles": {
+      "default": {
+        "coreTools": ["read_file", "write_file"],
+        "intentTools": {
+          "Chat": { "inheritBase": false, "tools": [] },
+          "FileOps": ["edit_file", "exec"],
+          "WebSearch": ["web_search", "web_fetch"]
+        },
+        "denyTools": ["delete_file"]
+      }
+    }
+  }
+}
+```
+
+### loadAllTools 配置项 (v0.1.5+)
+
+当 `enabled=false` 时，可选择工具加载策略：
+
+| enabled | loadAllTools | 行为 |
+| ------- | ------------ | ---- |
+| true | * | 意图分类 + 按意图加载工具（默认） |
+| false | false | 不分类 + 走 Unknown profile |
+| false | true | 不分类 + 全量加载所有工具 |
+
+**使用场景**:
+
+- `loadAllTools=true`: 让 LLM 自己选择工具，适合支持 Prompt Caching 的场景
+- `loadAllTools=false`: 由 Unknown profile 配置决定工具，适合精细化控制
+
+### Intent 分类类别
+
+| 类别 | 触发关键词 | 典型工具 |
+| ---- | ---------- | -------- |
+| Chat | 闲聊、问候 | 无（纯对话） |
+| FileOps | 文件、代码、编辑 | read_file, write_file, exec |
+| WebSearch | 搜索、查询、网页 | web_search, web_fetch |
+| Finance | 股票、行情、告警 | alert_rule |
+| DataAnalysis | 数据、图表、分析 | data_process |
+| Communication | 邮件、消息、通知 | email, message |
+| Organization | 日程、任务、记忆 | cron, memory_* |
+
+### deny_tools 安全过滤
+
+无论使用哪种模式，`deny_tools` 配置都会生效，确保危险工具被过滤：
+
+```json
+{
+  "profiles": {
+    "default": {
+      "denyTools": ["exec", "delete_file", "shell"]
+    }
+  }
+}
+```
+
+## 常用命令
+
+```bash
+# 开发
+cargo build                    # 构建所有 crates
+cargo build -p blockcell       # 仅构建 CLI
+cargo test                     # 运行测试
+cargo check                    # 快速检查 (零警告)
+cargo clippy -- -D warnings    # Lint 检查
+
+# 运行
+cargo run -p blockcell -- agent      # 交互模式
+cargo run -p blockcell -- gateway    # 守护进程
+
+# 发布
+cargo build -p blockcell --release   # 优化构建
+```
+
+## 开发规范
+
+### 工作流编排
+
+1. **Plan Mode Default**: 非平凡任务 (3+ 步骤或架构决策) 先进入计划模式
+2. **Subagent Strategy**: 大量使用 subagent 保持主 context 清洁
+3. **Verification Before Done**: 完成任务前必须验证 (运行测试、检查日志)
+4. **Autonomous Bug Fixing**: 遇到 bug 直接修复，无需用户介入
+
+### 核心原则
+
+- **Simplicity First**: 每次修改尽可能简单
+- **No Laziness**: 找到根本原因，不写临时修复
+- **Minimal Impact**: 只触碰必要的代码
+- **Layered Architecture**: UI → State → Business → Services 分层
+- **Zero Warnings**: 保持 `cargo check` 无警告
+- **Visual Consistency**: 使用主题系统统一 UI 组件
+- **User Experience**: 复杂 UI 默认折叠显示
+
+### 代码风格
+
+```rust
+// 错误处理: 使用 thiserror 定义具体错误
+#[derive(Debug, thiserror::Error)]
+pub enum MyError {
+    #[error("Configuration missing: {0}")]
+    ConfigMissing(String),
+}
+
+// 异步: 使用 tokio, 避免阻塞
+async fn process(&self) -> Result<(), MyError> { ... }
+
+// 日志: 使用 tracing
+tracing::info!(user_id = %id, "Processing request");
+```
+
+### 斜杠命令开发
+
+斜杠命令位于 `bin/blockcell/src/commands/slash_commands/`，用于统一处理 CLI、Gateway、WebSocket、Channel 的命令。
+
+#### 命令处理器规范
+
+1. **输出格式**: 所有命令响应必须使用 **Markdown 格式**
+   - 使用 `CommandResponse::markdown(content)` 而非 `CommandResponse::text(content)`
+   - 原因：WebUI 使用 `MarkdownContent` 组件渲染，纯文本 `\n` 不会换行
+
+2. **Markdown 格式要求**:
+
+   ```rust
+   // ✅ 正确：使用 Markdown 列表语法
+   content.push_str("- item 1\n");
+   content.push_str("- item 2\n");
+   content.push_str("**Bold** for emphasis\n");
+
+   // ❌ 错误：纯文本换行在 WebUI 不生效
+   content.push_str("  item 1\n");
+   content.push_str("  item 2\n");
+   ```
+
+3. **WebSocket 发送**:
+
+   ```rust
+   // 必须包含 is_markdown 字段
+   let event = serde_json::json!({
+       "type": "message_done",
+       "chat_id": chat_id,
+       "content": response.content,
+       "is_markdown": response.is_markdown,
+       "task_id": "",
+   });
+   ```
+
+#### 文件结构
+
+```text
+slash_commands/
+├── mod.rs          # SlashCommand trait 定义
+├── context.rs      # CommandContext, CommandResult, CommandResponse
+├── registry.rs     # 全局 SLASH_COMMAND_HANDLER
+└── handlers/       # 各命令实现
+    ├── help.rs     # /help - 显示命令列表
+    ├── skills.rs   # /skills - 技能状态
+    ├── tools.rs    # /tools - 工具列表
+    ├── tasks.rs    # /tasks - 后台任务
+    ├── learn.rs    # /learn - 学习新技能 (ForwardToRuntime)
+    ├── clear.rs    # /clear - 清除会话
+    ├── quit.rs     # /quit, /exit - 退出 (ExitRequested)
+    └── skill_mgmt.rs  # /clear-skills, /forget-skill
+```
+
+#### 特殊返回类型
+
+| 类型 | 用途 | 示例命令 |
+| ---- | ---- | -------- |
+| `Handled(CommandResponse)` | 正常响应 | /help, /skills, /tools |
+| `ForwardToRuntime` | 需 LLM 处理 | /learn |
+| `ExitRequested` | 请求退出 | /quit, /exit |
+| `PermissionDenied` | 权限不足 | 渠道限制命令 |
+| `NotACommand` | 非命令输入 | 普通消息 |
+
+## 测试要求
+
+```bash
+# 运行所有测试
+cargo test
+
+# 运行特定 crate 测试
+cargo test -p blockcell-agent
+
+# 运行特定测试
+cargo test test_intent_mcp_validation
+```
+
+## WebUI 开发
+
+### 前端技术栈
+
+| 类别 | 技术 |
+| ---- | ---- |
+| 框架 | React 18 + TypeScript |
+| 构建 | Vite |
+| 样式 | Tailwind CSS |
+| 组件 | shadcn/ui |
+| 状态 | React Hooks |
+
+### 前端命令
+
+```bash
+cd webui
+
+# 安装依赖
+npm install
+
+# 开发模式
+npm run dev
+
+# 构建
+npm run build
+
+# 类型检查
+npm run type-check
+```
+
+### 前后端交互
+
+- Gateway 模式下，WebUI 静态文件嵌入到 binary 中
+- 通过 WebSocket `/ws` 端点进行实时通信
+- API 端点: `/api/*`
+
+## 技术栈详情
+
+### 后端 (Rust)
+
+| 类别     | 技术                                              |
+| -------- | ------------------------------------------------- |
+| 运行时   | Tokio (async), Rhai (scripting)                   |
+| HTTP     | Axum, Tower                                       |
+| 数据库   | SQLite (rusqlite)                                 |
+| 序列化   | serde, serde_json, json5                          |
+| LLM      | OpenAI-compatible API                             |
+| 通讯     | WebSocket, Telegram Bot API, Slack Socket Mode    |
+| 加密     | ed25519-dalek, sha2                               |
+
+### 前端 (WebUI)
+
+| 类别     | 技术                                              |
+| -------- | ------------------------------------------------- |
+| 框架     | React 18, TypeScript                              |
+| 构建     | Vite                                              |
+| 样式     | Tailwind CSS                                      |
+| 组件库   | shadcn/ui                                         |
+| 国际化   | 自定义 i18n                                       |
+
+## 相关文档
+
+- [Quick Start](QUICKSTART.md) - 单智能体最佳实践
+- [Multi-Agent](QUICKSTART.multi-agent.md) - 多智能体路由
+- [README](README.md) - 完整项目介绍
+- [Docs](docs/) - 详细文档
+
+## 关键文件
+
+| 文件                              | 用途                   |
+| --------------------------------- | ---------------------- |
+| `bin/blockcell/src/commands/`     | CLI 命令实现           |
+| `crates/agent/src/lib.rs`         | Agent 核心逻辑         |
+| `crates/tools/src/`               | 工具实现               |
+| `crates/skills/src/engine.rs`     | 技能引擎               |
+| `webui/src/components/chat/`      | 聊天 UI 组件           |
+| `webui/src/App.tsx`               | WebUI 主组件           |
+| `~/.blockcell/config.json5`       | 用户配置               |
+
+---
+
+## 分支与 PR 规范
+
+### 分支命名
+
+| 前缀 | 用途 | 示例 |
+| ---- | ---- | ---- |
+| `feature/` | 新功能 | `feature/feat_support_qq_channel` |
+| `fix/` | Bug 修复 | `fix/telegram_rate_limit` |
+| `refactor/` | 代码重构 | `refactor/agent_runtime` |
+| `docs/` | 文档更新 | `docs/api_reference` |
+| `chore/` | 杂项维护 | `chore/update_dependencies` |
+
+### PR 流程
+
+1. **代码质量检查**
+
+   ```bash
+   cargo fmt --check           # 格式检查
+   cargo clippy -- -D warnings # Lint 检查，必须零警告
+   cargo test                  # 所有测试通过
+   ```
+
+2. **提交规范**
+   - 使用中文提交信息
+   - 格式: `类型: 描述` (如 `feat: 添加 QQ 频道支持`)
+   - 类型: `feat`/`fix`/`refactor`/`docs`/`chore`
+
+3. **PR 描述模板**
+   - 描述改动内容
+   - 关联相关 Issue
+   - 列出测试步骤
+
+---
+
+## 常见陷阱与最佳实践
+
+### ❌ 常见错误
+
+| 场景 | 错误做法 | 正确做法 |
+| ---- | -------- | -------- |
+| 异步调用 | 在 async 中使用阻塞调用 | 使用 `tokio::spawn` 或 `tokio::task::spawn_blocking` |
+| LLM 调用 | 循环中频繁调用 | 批量处理，减少调用次数 |
+| 错误处理 | 用 `unwrap()` 或 `expect()` | 使用 `?` 和 `Result` 传播错误 |
+| 日志记录 | 用 `println!` | 使用 `tracing::info!`/`debug!` |
+| 配置读取 | 硬编码路径 | 使用 `Config::load()` 和配置文件 |
+| 内存管理 | 大量 clone | 使用 `Arc` 共享所有权 |
+
+### ✅ 最佳实践
+
+1. **工具开发**
+   - 新工具必须实现 `Tool` trait
+   - 在 `registry_builder.rs` 中注册
+   - 添加对应的单元测试
+
+2. **Channel 开发**
+   - 实现 `ChannelManager` trait
+   - 使用 feature flag 控制编译 (`#[cfg(feature = "xxx")]`)
+   - 在 `Cargo.toml` 添加 feature 依赖
+
+3. **错误处理**
+
+   ```rust
+   #[derive(Debug, thiserror::Error)]
+   pub enum MyError {
+       #[error("IO error: {0}")]
+       Io(#[from] std::io::Error),
+       #[error("Config missing: {0}")]
+       ConfigMissing(String),
+   }
+   ```
+
+4. **日志规范**
+
+   ```rust
+   // 结构化日志
+   tracing::info!(
+       channel = %channel_name,
+       user_id = %user.id,
+       "Processing message"
+   );
+
+   // 错误日志
+   tracing::error!(error = %e, "Failed to process");
+   ```
+
+---
+
+## 开发工作流
+
+### 功能开发流程
+
+```text
+1. 创建功能分支
+   git checkout -b feature/feat_xxx
+
+2. 编写代码 + 测试
+   cargo check && cargo test
+
+3. 提交代码
+   git commit -m "feat: 描述"
+
+4. 推送并创建 PR
+   git push -u origin feature/feat_xxx
+   gh pr create
+
+5. 代码审查通过后合并
+```
+
+### Bug 修复流程
+
+```text
+1. 创建修复分支
+   git checkout -b fix/bug_xxx
+
+2. 编写测试复现 Bug
+   cargo test test_bug_xxx
+
+3. 修复代码
+   cargo check && cargo test
+
+4. 提交并创建 PR
+   git commit -m "fix: 修复 xxx 问题"
+```
+
+### 发布流程
+
+```text
+1. 更新版本号 (Cargo.toml)
+2. 更新 CHANGELOG
+3. 运行完整测试
+   cargo test --all-features
+4. 构建 Release
+   cargo build -p blockcell --release
+5. 创建 Git Tag
+   git tag v0.x.x && git push --tags
+6. GitHub Actions 自动发布
+```
+
+---
+
+## 安全指南
+
+### API 密钥管理
+
+- ✅ 使用 `~/.blockcell/config.json5` 存储密钥
+- ✅ 使用环境变量覆盖敏感配置
+- ❌ 不要在代码中硬编码密钥
+- ❌ 不要将密钥提交到 Git
+
+### 数据安全
+
+| 数据类型 | 处理方式 |
+| -------- | -------- |
+| 用户消息 | SQLite 本地存储，不外传 |
+| API 密钥 | 配置文件加密存储 |
+| 会话日志 | 本地存储，可配置保留策略 |
+| 敏感信息 | 通过 `.gitignore` 排除 |
+
+### 权限控制
+
+```json
+// config.json5 中配置工具权限
+{
+  "agents": {
+    "defaults": {
+      "allowedTools": ["read_file", "web_fetch"],
+      "deniedTools": ["exec", "delete_file"]
+    }
+  }
+}
+```
+
+### 安全审计
+
+```bash
+# 检查依赖安全漏洞
+cargo audit
+
+# 检查代码安全问题
+cargo clippy -- -W clippy::security
+```
+
+---
+
+## MCP 集成
+
+### MCP 服务器配置
+
+在 `~/.blockcell/config.json5` 中配置 MCP 服务器：
+
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "mcp-server-filesystem",
+      "args": ["/path/to/allowed/dir"]
+    },
+    "postgres": {
+      "command": "mcp-server-postgres",
+      "args": ["postgres://localhost/mydb"]
+    }
+  }
+}
+```
+
+### MCP 工具使用
+
+MCP 工具会自动注册到 Agent 工具列表中：
+
+```text
+Agent 启动 → 加载 MCP 配置 → 连接 MCP 服务器 → 注册工具
+```
+
+### 开发自定义 MCP 服务器
+
+1. 参考 [MCP 协议规范](https://modelcontextprotocol.io/)
+2. 实现工具定义和处理逻辑
+3. 在配置中添加服务器
+
+---
+
+## 故障排查
+
+### 常见问题
+
+| 问题 | 可能原因 | 解决方案 |
+| ---- | -------- | -------- |
+| 编译失败 | 依赖缺失 | `cargo build` 检查具体错误 |
+| 运行时崩溃 | 配置错误 | 检查 `~/.blockcell/config.json5` |
+| LLM 调用失败 | API 密钥无效 | 检查密钥和网络连接 |
+| WebUI 无法访问 | 端口占用 | 检查 3000 端口是否被占用 |
+| Channel 断连 | 网络问题 | 检查网络连接和代理设置 |
+
+### 日志调试
+
+```bash
+# 启用详细日志
+RUST_LOG=debug,blockcell_agent=trace cargo run -p blockcell -- gateway
+
+# 只看特定模块
+RUST_LOG=blockcell_channels::telegram=trace cargo run -p blockcell -- gateway
+
+# 输出到文件
+RUST_LOG=debug cargo run -p blockcell -- gateway 2>&1 | tee debug.log
+```
+
+### 性能问题
+
+```bash
+# 检查内存使用
+cargo run -p blockcell -- gateway &
+
+# 使用 flamegraph 分析
+cargo flamegraph --root -p blockcell -- gateway
+```
+
+---
+
+## 不要做的事
+
+- ❌ **不要** 在 main 分支直接提交代码
+- ❌ **不要** 跳过 `cargo clippy` 检查
+- ❌ **不要** 在 PR 中混入无关改动
+- ❌ **不要** 使用 `unwrap()` 处理可能失败的操作
+- ❌ **不要** 硬编码 API 密钥或敏感信息
+- ❌ **不要** 在 async 函数中执行长时间阻塞操作
+- ❌ **不要** 忽略 `cargo check` 的警告
+
+---
+
+## 调试技巧
+
+### 日志级别
+
+```bash
+# 设置日志级别
+RUST_LOG=debug cargo run -p blockcell -- agent
+RUST_LOG=blockcell_agent=trace cargo run -p blockcell -- gateway
+```
+
+### 常用调试命令
+
+```bash
+# 检查编译错误
+cargo check --message-format=short
+
+# 查看依赖树
+cargo tree -p blockcell-channels
+
+# 运行单个测试并显示输出
+cargo test test_name -- --nocapture
+
+# 检查特定 feature
+cargo check -p blockcell-channels --features telegram
+```
+
+### 配置文件位置
+
+| 文件 | 路径 |
+| ---- | ---- |
+| 主配置 | `~/.blockcell/config.json5` |
+| 工作目录 | `~/.blockcell/workspace/` |
+| 数据库 | `~/.blockcell/blockcell.db` |
+| 日志 | `~/.blockcell/logs/` |
+
+---
+
+## Crate 详解
+
+### `crates/core`
+
+核心类型定义，无外部依赖。
+
+- `Message` - 消息类型
+- `Capability` - 能力定义
+- `SystemEvent` - 系统事件
+- `Config` - 配置结构
+
+### `crates/agent`
+
+Agent 运行时核心。
+
+- `runtime.rs` - Agent 主循环
+- `task_manager.rs` - 任务调度
+- `intent.rs` - 意图分类
+- `bus.rs` - 消息总线
+
+### `crates/tools`
+
+50+ 内置工具，按功能分类：
+
+- 文件操作: `file_ops`, `fs`
+- 网络: `web`, `http_request`
+- 通讯: `message`, `email`
+- 数据: `data_process`, `chart_generate`
+- 系统: `exec`, `system_info`
+
+### `crates/channels`
+
+消息渠道适配器，每个渠道一个 feature：
+
+```toml
+[features]
+telegram = ["teloxide"]
+discord = ["serenity"]
+slack = ["slack-morphism"]
+```
+
+### `crates/skills`
+
+技能引擎和自我进化：
+
+- `engine.rs` - Rhai 脚本引擎
+- `evolution.rs` - 自我进化逻辑
+- `version.rs` - 版本管理
+
+---
+> Source: [blockcell-labs/blockcell](https://github.com/blockcell-labs/blockcell) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
