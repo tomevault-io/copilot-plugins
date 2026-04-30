@@ -1,0 +1,9 @@
+{
+  "name": "yantrikos--yantrikclaw",
+  "displayName": "yantrikclaw",
+  "description": "Personal AI assistant with cognitive memory, tier-aware tools, and 20+ messaging channels",
+  "version": "1.0.0",
+  "author": "yantrikos",
+  "homepage": "https://github.com/yantrikos/yantrikclaw",
+  "skills": []
+}
