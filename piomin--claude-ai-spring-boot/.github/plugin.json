@@ -1,0 +1,9 @@
+{
+  "name": "piomin--claude-ai-spring-boot",
+  "displayName": "claude-ai-spring-boot",
+  "description": "Claude Code template for Spring Boot and other staff (included in the tags)",
+  "version": "1.0.0",
+  "author": "piomin",
+  "homepage": "https://github.com/piomin/claude-ai-spring-boot",
+  "skills": []
+}
