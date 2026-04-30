@@ -1,0 +1,9 @@
+{
+  "name": "agno-agi--pal",
+  "displayName": "pal",
+  "description": "Pal is a Personal Agent that Learns how you work by building a compounding knowledge base.",
+  "version": "1.0.0",
+  "author": "agno-agi",
+  "homepage": "https://github.com/agno-agi/pal",
+  "skills": []
+}
