@@ -4,7 +4,7 @@
   "repo": "darwinia",
   "description": "The Self-Evolving Agent Ecosystem \u2014 Trading agents that evolve through Darwinian selection and adversarial self-play",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0xSanei/darwinia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T22:58:33Z"
+  "distributed_at": "2026-04-30T00:27:33Z"
 }
