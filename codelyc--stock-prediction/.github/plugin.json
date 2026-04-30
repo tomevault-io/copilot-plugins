@@ -1,0 +1,9 @@
+{
+  "name": "codelyc--stock-prediction",
+  "displayName": "stock-prediction",
+  "description": "A PyTorch-based stock price prediction project covering the full workflow from data collection, preprocessing, model training, to inference. ",
+  "version": "1.0.0",
+  "author": "codelyc",
+  "homepage": "https://github.com/codelyc/stock-prediction",
+  "skills": []
+}
