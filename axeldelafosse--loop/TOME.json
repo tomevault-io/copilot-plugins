@@ -4,7 +4,7 @@
   "repo": "loop",
   "description": "Dead-simple Bun CLI that runs Codex and Claude Code in a loop.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/axeldelafosse/loop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T14:28:40Z"
+  "distributed_at": "2026-04-30T23:36:16Z"
 }
