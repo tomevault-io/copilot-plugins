@@ -1,43 +1,60 @@
 ## catcv
 
-> Title: Next.js Fullstack Best Practices (Index)
+> Title: AI (Vercel AI SDK + OpenAI)
 
 
-Title: Next.js Fullstack Best Practices (Index)
+Title: AI (Vercel AI SDK + OpenAI)
 
-- [Foundations](./00-foundations.mdc) — style, edits, types, validation, security.
-- [Next.js App Conventions](./01-nextjs.mdc) — routing, RSC, server actions, PDFs, AI.
-- [Database: Supabase + Drizzle](./02-db-supabase-drizzle.mdc) — RLS, migrations, queries.
-- [Auth: Supabase](./03-auth.mdc) — sessions, guards, policies, tokens.
-- [UI: Tailwind + shadcn/ui + Magic UI](./04-ui.mdc) — forms, a11y, state.
-- [AI: Vercel AI SDK + OpenAI](./05-ai.mdc) — models, schemas, streaming, limits.
-- [Testing & Quality](./06-testing-quality.mdc) — lint, unit, e2e, types.
-- [Performance & Security](./07-performance-security.mdc) — cache, bundles, headers, RLS.
-- [Workflows & Commands](./08-workflows-commands.mdc) — shell, env, scripts, CI.
-- [Git & Pull Requests](./09-git-prs.mdc) — commits, diffs, reviews, templates.
+- **Models**: Default `gpt-5-mini`. Upgrade via flag or explicit request to `gpt-5`.
+- **Env**: `AI_MODEL` and `AI_MODEL_PRO`. No hardcoded model strings.
+- **Schema-bound**: Use `generateObject` with `zod` for structured outputs.
+- **Prompt hygiene**: Sanitize user text. Scope instructions. Avoid leaking system prompts.
+- **Rate limit**: Per-user + per-IP. Backoff + friendly errors.
+- **Streaming**: Use `streamText` for cover letters. Flush early tokens.
+- **Version prompts**: Keep templates in `lib/ai/*`; version changes.
 
-Title: Governance
+Model Select
 
-- [Governance](./governance.mdc) — rule change approvals.
+```ts
+const model = pro ? process.env.AI_MODEL_PRO : process.env.AI_MODEL
+```
 
-Title: Next.js Fullstack Best Practices (Index)
+Structured Output
 
-- [Foundations](./00-foundations.mdc) — style, edits, types, validation, security.
-- [Next.js App Conventions](./01-nextjs.mdc) — routing, RSC, server actions, PDFs, AI.
-- [Database: Supabase + Drizzle](./02-db-supabase-drizzle.mdc) — RLS, migrations, queries.
-- [Auth: Supabase](./03-auth.mdc) — sessions, guards, policies, tokens.
-- [UI: Tailwind + shadcn/ui + Magic UI](./04-ui.mdc) — forms, a11y, state.
-- [AI: Vercel AI SDK + OpenAI](./05-ai.mdc) — models, schemas, streaming, limits.
-- [Testing & Quality](./06-testing-quality.mdc) — lint, unit, e2e, types.
-- [Performance & Security](./07-performance-security.mdc) — cache, bundles, headers, RLS.
-- [Workflows & Commands](./08-workflows-commands.mdc) — shell, env, scripts, CI.
-- [Git & Pull Requests](./09-git-prs.mdc) — commits, diffs, reviews, templates.
+```ts
+const result = await generateObject({
+  model,
+  schema: ResumeSchema,
+  prompt: safePrompt,
+})
+```
 
-Title: Governance
+Title: AI (Vercel AI SDK + OpenAI)
 
-- [Governance](./governance.mdc) — rule change approvals.
+- **Models**: Default `gpt-5-mini`. Upgrade via flag or explicit request to `gpt-5`.
+- **Env**: `AI_MODEL` and `AI_MODEL_PRO`. No hardcoded model strings.
+- **Schema-bound**: Use `generateObject` with `zod` for structured outputs.
+- **Prompt hygiene**: Sanitize user text. Scope instructions. Avoid leaking system prompts.
+- **Rate limit**: Per-user + per-IP. Backoff + friendly errors.
+- **Streaming**: Use `streamText` for cover letters. Flush early tokens.
+- **Version prompts**: Keep templates in `lib/ai/*`; version changes.
+
+Model Select
+
+```ts
+const model = pro ? process.env.AI_MODEL_PRO : process.env.AI_MODEL
+```
+
+Structured Output
+
+```ts
+const result = await generateObject({
+  model,
+  schema: ResumeSchema,
+  prompt: safePrompt,
+})
+```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Gurbeh)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Gurbeh)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Gurbeh) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
