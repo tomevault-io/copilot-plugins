@@ -1,0 +1,81 @@
+{
+  "name": "claude",
+  "owner": "tradermonty",
+  "repo": "claude-market-agents",
+  "description": "AI instruction skills by tradermonty",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ftd-detector",
+      "path": "skills/ftd-detector",
+      "github_url": "https://github.com/tradermonty/claude-market-agents/tree/main/skills/ftd-detector",
+      "description": ""
+    },
+    {
+      "name": "market-breadth-analyzer",
+      "path": "skills/market-breadth-analyzer",
+      "github_url": "https://github.com/tradermonty/claude-market-agents/tree/main/skills/market-breadth-analyzer",
+      "description": ""
+    },
+    {
+      "name": "uptrend-analyzer",
+      "path": "skills/uptrend-analyzer",
+      "github_url": "https://github.com/tradermonty/claude-market-agents/tree/main/skills/uptrend-analyzer",
+      "description": ""
+    },
+    {
+      "name": "breadth-chart-analyst",
+      "path": ".claude/skills/breadth-chart-analyst",
+      "github_url": "https://github.com/tradermonty/claude-market-agents/tree/main/.claude/skills/breadth-chart-analyst",
+      "description": ""
+    },
+    {
+      "name": "economic-calendar-fetcher",
+      "path": ".claude/skills/economic-calendar-fetcher",
+      "github_url": "https://github.com/tradermonty/claude-market-agents/tree/main/.claude/skills/economic-calendar-fetcher",
+      "description": ""
+    },
+    {
+      "name": "market-news-analyst",
+      "path": ".claude/skills/market-news-analyst",
+      "github_url": "https://github.com/tradermonty/claude-market-agents/tree/main/.claude/skills/market-news-analyst",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tradermonty/claude-market-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T19:31:25Z"
+}
