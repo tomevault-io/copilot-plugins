@@ -1,0 +1,9 @@
+{
+  "name": "bassimeledath--dispatch",
+  "displayName": "dispatch",
+  "description": "A Claude Code skill that 10x's your effective context window by dispatching tasks to background AI workers.",
+  "version": "1.0.0",
+  "author": "bassimeledath",
+  "homepage": "https://github.com/bassimeledath/dispatch",
+  "skills": []
+}
