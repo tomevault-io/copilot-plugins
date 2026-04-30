@@ -1,0 +1,9 @@
+{
+  "name": "runesleo--claude-code-workflow",
+  "displayName": "claude-code-workflow",
+  "description": "Battle-tested Claude Code workflow template \u2014 memory management, context engineering, and task routing from 3 months of daily usage",
+  "version": "1.0.0",
+  "author": "runesleo",
+  "homepage": "https://github.com/runesleo/claude-code-workflow",
+  "skills": []
+}
