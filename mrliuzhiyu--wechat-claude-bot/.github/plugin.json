@@ -1,0 +1,9 @@
+{
+  "name": "mrliuzhiyu--wechat-claude-bot",
+  "displayName": "Wechat-Claude-bot",
+  "description": "\u901a\u8fc7\u5fae\u4fe1\u8fdc\u7a0b\u64cd\u63a7 Claude Code CLI\uff0c\u5728\u624b\u673a\u4e0a\u5199\u4ee3\u7801\u3001\u6267\u884c\u547d\u4ee4\u3001\u7ba1\u7406\u9879\u76ee | Control Claude Code from WeChat",
+  "version": "1.0.0",
+  "author": "mrliuzhiyu",
+  "homepage": "https://github.com/mrliuzhiyu/Wechat-Claude-bot",
+  "skills": []
+}
