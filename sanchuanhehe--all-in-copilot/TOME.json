@@ -1,0 +1,44 @@
+{
+  "name": "all-in-copilot",
+  "owner": "sanchuanhehe",
+  "repo": "all-in-copilot",
+  "description": "\ud83e\udd16 VS Code Copilot Extension SDK | \ud83d\ude80 \u5feb\u901f\u6784\u5efa\u81ea\u5b9a\u4e49 VS Code AI \u52a9\u624b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sanchuanhehe/all-in-copilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T23:33:05Z"
+}
