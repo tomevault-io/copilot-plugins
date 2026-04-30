@@ -1,0 +1,9 @@
+{
+  "name": "yeje-cpu--web-learning-github",
+  "displayName": "web-learning-github",
+  "description": "A skill that turns github codebase into a beautiful, interactive HTML for non-technical vibe coders. Quickly got to know the UI/UX journey in codebase. \u9762\u5411\u548c\u975e\u4e13\u4e1a/\u5c11\u8bfb\u4ee3\u7801\u7684\u670b\u53cb\uff1a\u628a GitHub \u4e0a\u7684\u4ed3\u5e93\u8bf4\u660e\u53d8\u6210\u5355\u6587\u4ef6 HTML\uff0c\u7528\u53ef\u6eda\u52a8\u7684\u8def\u5f84",
+  "version": "1.0.0",
+  "author": "YeJe-cpu",
+  "homepage": "https://github.com/YeJe-cpu/web-learning-github",
+  "skills": []
+}
