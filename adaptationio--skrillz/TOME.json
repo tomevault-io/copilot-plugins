@@ -1,0 +1,807 @@
+{
+  "name": "Skrillz",
+  "owner": "adaptationio",
+  "repo": "Skrillz",
+  "description": "AI instruction skills by adaptationio",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "finnhub-api",
+      "path": ".claude/skills/finnhub-api",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/finnhub-api",
+      "description": ""
+    },
+    {
+      "name": "auto-updater",
+      "path": ".claude/skills/auto-updater",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/auto-updater",
+      "description": ""
+    },
+    {
+      "name": "fmp-api",
+      "path": ".claude/skills/fmp-api",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/fmp-api",
+      "description": ""
+    },
+    {
+      "name": "stagehand-automation",
+      "path": ".claude/skills/stagehand-automation",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/stagehand-automation",
+      "description": ""
+    },
+    {
+      "name": "alphavantage-api",
+      "path": ".claude/skills/alphavantage-api",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/alphavantage-api",
+      "description": ""
+    },
+    {
+      "name": "gemini-3-multimodal",
+      "path": ".claude/skills/gemini-3-multimodal",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/gemini-3-multimodal",
+      "description": ""
+    },
+    {
+      "name": "xai-auth",
+      "path": ".claude/skills/xai-auth",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/xai-auth",
+      "description": ""
+    },
+    {
+      "name": "xai-financial-integration",
+      "path": ".claude/skills/xai-financial-integration",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/xai-financial-integration",
+      "description": ""
+    },
+    {
+      "name": "cdk8s-apps",
+      "path": ".claude/skills/cdk8s-apps",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/cdk8s-apps",
+      "description": ""
+    },
+    {
+      "name": "ac-qa-reviewer",
+      "path": ".claude/skills/ac-qa-reviewer",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ac-qa-reviewer",
+      "description": ""
+    },
+    {
+      "name": "ac-code-validator",
+      "path": ".claude/skills/ac-code-validator",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ac-code-validator",
+      "description": ""
+    },
+    {
+      "name": "ac-commit-manager",
+      "path": ".claude/skills/ac-commit-manager",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ac-commit-manager",
+      "description": ""
+    },
+    {
+      "name": "ac-criteria-validator",
+      "path": ".claude/skills/ac-criteria-validator",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ac-criteria-validator",
+      "description": ""
+    },
+    {
+      "name": "ac-parallel-coordinator",
+      "path": ".claude/skills/ac-parallel-coordinator",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ac-parallel-coordinator",
+      "description": ""
+    },
+    {
+      "name": "ac-spec-generator",
+      "path": ".claude/skills/ac-spec-generator",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ac-spec-generator",
+      "description": ""
+    },
+    {
+      "name": "ac-tdd-runner",
+      "path": ".claude/skills/ac-tdd-runner",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ac-tdd-runner",
+      "description": ""
+    },
+    {
+      "name": "ac-workspace-manager",
+      "path": ".claude/skills/ac-workspace-manager",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ac-workspace-manager",
+      "description": ""
+    },
+    {
+      "name": "accessibility-testing",
+      "path": ".claude/skills/accessibility-testing",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/accessibility-testing",
+      "description": ""
+    },
+    {
+      "name": "analysis",
+      "path": ".claude/skills/analysis",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/analysis",
+      "description": ""
+    },
+    {
+      "name": "anthropic-docs-updater",
+      "path": ".claude/skills/anthropic-docs-updater",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/anthropic-docs-updater",
+      "description": ""
+    },
+    {
+      "name": "anthropic-expert",
+      "path": ".claude/skills/anthropic-expert",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/anthropic-expert",
+      "description": ""
+    },
+    {
+      "name": "api-client-skill",
+      "path": ".claude/skills/skill-builder-generic/examples/api-client-skill",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/skill-builder-generic/examples/api-client-skill",
+      "description": ""
+    },
+    {
+      "name": "auto-claude-cli",
+      "path": ".claude/skills/auto-claude-cli",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/auto-claude-cli",
+      "description": ""
+    },
+    {
+      "name": "auto-claude-setup",
+      "path": ".claude/skills/auto-claude-setup",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/auto-claude-setup",
+      "description": ""
+    },
+    {
+      "name": "auto-claude-updater",
+      "path": ".claude/skills/auto-claude-updater",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/auto-claude-updater",
+      "description": ""
+    },
+    {
+      "name": "autonomous-cost-optimizer",
+      "path": ".claude/skills/autonomous-cost-optimizer",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/autonomous-cost-optimizer",
+      "description": ""
+    },
+    {
+      "name": "autonomous-loop",
+      "path": ".claude/skills/autonomous-loop",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/autonomous-loop",
+      "description": ""
+    },
+    {
+      "name": "autonomous-opus-loop",
+      "path": ".claude/skills/autonomous-opus-loop",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/autonomous-opus-loop",
+      "description": ""
+    },
+    {
+      "name": "best-practices-learner",
+      "path": ".claude/skills/best-practices-learner",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/best-practices-learner",
+      "description": ""
+    },
+    {
+      "name": "botanical-design",
+      "path": "skill-builder-package/examples/botanical-design",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/skill-builder-package/examples/botanical-design",
+      "description": ""
+    },
+    {
+      "name": "boto3-ecs",
+      "path": ".claude/skills/boto3-ecs",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/boto3-ecs",
+      "description": ""
+    },
+    {
+      "name": "boto3-eks",
+      "path": ".claude/skills/boto3-eks",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/boto3-eks",
+      "description": ""
+    },
+    {
+      "name": "browser-e2e-tester",
+      "path": ".claude/skills/browser-e2e-tester",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/browser-e2e-tester",
+      "description": ""
+    },
+    {
+      "name": "claude-code-telemetry-enable",
+      "path": ".claude/skills/claude-code-telemetry-enable",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/claude-code-telemetry-enable",
+      "description": ""
+    },
+    {
+      "name": "claude-computer-use-advanced",
+      "path": ".claude/skills/claude-computer-use-advanced",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/claude-computer-use-advanced",
+      "description": ""
+    },
+    {
+      "name": "claude-context-management",
+      "path": ".claude/skills/claude-context-management",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/claude-context-management",
+      "description": ""
+    },
+    {
+      "name": "claude-cost-optimization",
+      "path": ".claude/skills/claude-cost-optimization",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/claude-cost-optimization",
+      "description": ""
+    },
+    {
+      "name": "claude-opus-4-5-guide",
+      "path": ".claude/skills/claude-opus-4-5-guide",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/claude-opus-4-5-guide",
+      "description": ""
+    },
+    {
+      "name": "code-server-remote-ide-wsl2",
+      "path": ".claude/skills/code-server-remote-ide-wsl2",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/code-server-remote-ide-wsl2",
+      "description": ""
+    },
+    {
+      "name": "codex-cli",
+      "path": ".claude/skills/codex-cli",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/codex-cli",
+      "description": ""
+    },
+    {
+      "name": "coding-agent",
+      "path": ".claude/skills/coding-agent",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/coding-agent",
+      "description": ""
+    },
+    {
+      "name": "component-testing",
+      "path": ".claude/skills/component-testing",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/component-testing",
+      "description": ""
+    },
+    {
+      "name": "context-compactor",
+      "path": ".claude/skills/context-compactor",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/context-compactor",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "path": ".claude/skills/context-engineering",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/context-engineering",
+      "description": ""
+    },
+    {
+      "name": "context-state-tracker",
+      "path": ".claude/skills/context-state-tracker",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/context-state-tracker",
+      "description": ""
+    },
+    {
+      "name": "deployment-guide",
+      "path": "skill-builder-package/examples/deployment-guide",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/skill-builder-package/examples/deployment-guide",
+      "description": ""
+    },
+    {
+      "name": "development-workflow",
+      "path": ".claude/skills/development-workflow",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/development-workflow",
+      "description": ""
+    },
+    {
+      "name": "ecs-deployment",
+      "path": ".claude/skills/ecs-deployment",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ecs-deployment",
+      "description": ""
+    },
+    {
+      "name": "ecs-fargate",
+      "path": ".claude/skills/ecs-fargate",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/ecs-fargate",
+      "description": ""
+    },
+    {
+      "name": "eks-irsa",
+      "path": ".claude/skills/eks-irsa",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/eks-irsa",
+      "description": ""
+    },
+    {
+      "name": "eks-security",
+      "path": ".claude/skills/eks-security",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/eks-security",
+      "description": ""
+    },
+    {
+      "name": "eks-troubleshooting",
+      "path": ".claude/skills/eks-troubleshooting",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/eks-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "evolution-reporter",
+      "path": ".claude/skills/evolution-reporter",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/evolution-reporter",
+      "description": ""
+    },
+    {
+      "name": "feedback-analyzer",
+      "path": ".claude/skills/feedback-analyzer",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/feedback-analyzer",
+      "description": ""
+    },
+    {
+      "name": "gemini-3-advanced",
+      "path": ".claude/skills/gemini-3-advanced",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/gemini-3-advanced",
+      "description": ""
+    },
+    {
+      "name": "gemini-3-pro-api",
+      "path": ".claude/skills/gemini-3-pro-api",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/gemini-3-pro-api",
+      "description": ""
+    },
+    {
+      "name": "handoff-coordinator",
+      "path": ".claude/skills/handoff-coordinator",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/handoff-coordinator",
+      "description": ""
+    },
+    {
+      "name": "improvement-workflow",
+      "path": ".claude/skills/improvement-workflow",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/improvement-workflow",
+      "description": ""
+    },
+    {
+      "name": "initializer-agent",
+      "path": ".claude/skills/initializer-agent",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/initializer-agent",
+      "description": ""
+    },
+    {
+      "name": "karpenter-autoscaling",
+      "path": ".claude/skills/karpenter-autoscaling",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/karpenter-autoscaling",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-python",
+      "path": ".claude/skills/kubernetes-python",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/kubernetes-python",
+      "description": ""
+    },
+    {
+      "name": "medirecords-integration",
+      "path": "skill-builder-package/examples/medirecords-integration",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/skill-builder-package/examples/medirecords-integration",
+      "description": ""
+    },
+    {
+      "name": "mobile-emulation",
+      "path": ".claude/skills/mobile-emulation",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/mobile-emulation",
+      "description": ""
+    },
+    {
+      "name": "modal-patterns",
+      "path": "skill-builder-package/examples/modal-patterns",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/skill-builder-package/examples/modal-patterns",
+      "description": ""
+    },
+    {
+      "name": "momentum-keeper",
+      "path": ".claude/skills/momentum-keeper",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/momentum-keeper",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-code-review",
+      "path": ".claude/skills/multi-ai-code-review",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/multi-ai-code-review",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-debugging",
+      "path": ".claude/skills/multi-ai-debugging",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/multi-ai-debugging",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-implementation",
+      "path": ".claude/skills/multi-ai-implementation",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/multi-ai-implementation",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-planning",
+      "path": ".claude/skills/multi-ai-planning",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/multi-ai-planning",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-research",
+      "path": ".claude/skills/multi-ai-research",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/multi-ai-research",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-skill-builder",
+      "path": ".claude/skills/multi-ai-skill-builder",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/multi-ai-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-testing",
+      "path": ".claude/skills/multi-ai-testing",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/multi-ai-testing",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-verification",
+      "path": ".claude/skills/multi-ai-verification",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/multi-ai-verification",
+      "description": ""
+    },
+    {
+      "name": "observability-analyzer",
+      "path": ".claude/skills/observability-analyzer",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/observability-analyzer",
+      "description": ""
+    },
+    {
+      "name": "observability-dashboard-creator",
+      "path": ".claude/skills/observability-dashboard-creator",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/observability-dashboard-creator",
+      "description": ""
+    },
+    {
+      "name": "observability-pattern-detector",
+      "path": ".claude/skills/observability-pattern-detector",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/observability-pattern-detector",
+      "description": ""
+    },
+    {
+      "name": "observability-railway-deploy",
+      "path": ".claude/skills/observability-railway-deploy",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/observability-railway-deploy",
+      "description": ""
+    },
+    {
+      "name": "observability-stack-setup",
+      "path": ".claude/skills/observability-stack-setup",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/observability-stack-setup",
+      "description": ""
+    },
+    {
+      "name": "parallel-agent-spawner",
+      "path": ".claude/skills/parallel-agent-spawner",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/parallel-agent-spawner",
+      "description": ""
+    },
+    {
+      "name": "pdf-merger-skill",
+      "path": ".claude/skills/skill-builder-generic/examples/pdf-merger-skill",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/skill-builder-generic/examples/pdf-merger-skill",
+      "description": ""
+    },
+    {
+      "name": "performance-testing",
+      "path": ".claude/skills/performance-testing",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/performance-testing",
+      "description": ""
+    },
+    {
+      "name": "planning-architect",
+      "path": ".claude/skills/planning-architect",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/planning-architect",
+      "description": ""
+    },
+    {
+      "name": "planning-workflow",
+      "path": ".claude/skills/planning-workflow",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/planning-workflow",
+      "description": ""
+    },
+    {
+      "name": "playwright-testing",
+      "path": ".claude/skills/playwright-testing",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/playwright-testing",
+      "description": ""
+    },
+    {
+      "name": "plugin-builder",
+      "path": ".claude/skills/plugin-builder",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/plugin-builder",
+      "description": ""
+    },
+    {
+      "name": "process-optimizer",
+      "path": ".claude/skills/process-optimizer",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/process-optimizer",
+      "description": ""
+    },
+    {
+      "name": "project-skill-builder",
+      "path": ".claude/skills/project-skill-builder",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/project-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "prompt-builder",
+      "path": ".claude/skills/prompt-builder",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/prompt-builder",
+      "description": ""
+    },
+    {
+      "name": "railway-api",
+      "path": ".claude/skills/railway-api",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/railway-api",
+      "description": ""
+    },
+    {
+      "name": "railway-auth",
+      "path": ".claude/skills/railway-auth",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/railway-auth",
+      "description": ""
+    },
+    {
+      "name": "railway-deployment",
+      "path": ".claude/skills/railway-deployment",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/railway-deployment",
+      "description": ""
+    },
+    {
+      "name": "railway-observability",
+      "path": ".claude/skills/railway-observability",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/railway-observability",
+      "description": ""
+    },
+    {
+      "name": "railway-troubleshooting",
+      "path": ".claude/skills/railway-troubleshooting",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/railway-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "research-workflow",
+      "path": ".claude/skills/research-workflow",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/research-workflow",
+      "description": ""
+    },
+    {
+      "name": "review-multi",
+      "path": ".claude/skills/review-multi",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/review-multi",
+      "description": ""
+    },
+    {
+      "name": "review-workflow",
+      "path": ".claude/skills/review-workflow",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/review-workflow",
+      "description": ""
+    },
+    {
+      "name": "skill-builder-generic",
+      "path": ".claude/skills/skill-builder-generic",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/skill-builder-generic",
+      "description": ""
+    },
+    {
+      "name": "skill-builder-generic",
+      "path": "skill-builder-package/skill-builders/skill-builder-generic",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/skill-builder-package/skill-builders/skill-builder-generic",
+      "description": ""
+    },
+    {
+      "name": "skill-builder-medical",
+      "path": "skill-builder-package/skill-builders/skill-builder-medical",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/skill-builder-package/skill-builders/skill-builder-medical",
+      "description": ""
+    },
+    {
+      "name": "skill-evolution-tracker",
+      "path": ".claude/skills/skill-evolution-tracker",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/skill-evolution-tracker",
+      "description": ""
+    },
+    {
+      "name": "skill-researcher",
+      "path": ".claude/skills/skill-researcher",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/skill-researcher",
+      "description": ""
+    },
+    {
+      "name": "skill-reviewer",
+      "path": ".claude/skills/skill-reviewer",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/skill-reviewer",
+      "description": ""
+    },
+    {
+      "name": "skill-tester",
+      "path": ".claude/skills/skill-tester",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/skill-tester",
+      "description": ""
+    },
+    {
+      "name": "skill-updater",
+      "path": ".claude/skills/skill-updater",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/skill-updater",
+      "description": ""
+    },
+    {
+      "name": "skill-validator",
+      "path": ".claude/skills/skill-validator",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/skill-validator",
+      "description": ""
+    },
+    {
+      "name": "supabase-api",
+      "path": ".claude/skills/supabase-api",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/supabase-api",
+      "description": ""
+    },
+    {
+      "name": "supabase-cli",
+      "path": ".claude/skills/supabase-cli",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/supabase-cli",
+      "description": ""
+    },
+    {
+      "name": "supabase-functions",
+      "path": ".claude/skills/supabase-functions",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/supabase-functions",
+      "description": ""
+    },
+    {
+      "name": "supabase-troubleshooting",
+      "path": ".claude/skills/supabase-troubleshooting",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/supabase-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "system-reviewer",
+      "path": ".claude/skills/system-reviewer",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/system-reviewer",
+      "description": ""
+    },
+    {
+      "name": "task-development",
+      "path": ".claude/skills/task-development",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/task-development",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "path": ".claude/skills/tdd-workflow",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "terra-auth",
+      "path": ".claude/skills/terra-auth",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/terra-auth",
+      "description": ""
+    },
+    {
+      "name": "terra-connections",
+      "path": ".claude/skills/terra-connections",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/terra-connections",
+      "description": ""
+    },
+    {
+      "name": "terra-data",
+      "path": ".claude/skills/terra-data",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/terra-data",
+      "description": ""
+    },
+    {
+      "name": "terraform-aws",
+      "path": ".claude/skills/terraform-aws",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/terraform-aws",
+      "description": ""
+    },
+    {
+      "name": "terraform-ecs",
+      "path": ".claude/skills/terraform-ecs",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/terraform-ecs",
+      "description": ""
+    },
+    {
+      "name": "terraform-eks",
+      "path": ".claude/skills/terraform-eks",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/terraform-eks",
+      "description": ""
+    },
+    {
+      "name": "test-observability",
+      "path": ".claude/skills/test-observability",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/test-observability",
+      "description": ""
+    },
+    {
+      "name": "testing-validator",
+      "path": ".claude/skills/testing-validator",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/testing-validator",
+      "description": ""
+    },
+    {
+      "name": "testing-workflow",
+      "path": ".claude/skills/testing-workflow",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/testing-workflow",
+      "description": ""
+    },
+    {
+      "name": "todo-management",
+      "path": ".claude/skills/todo-management",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/todo-management",
+      "description": ""
+    },
+    {
+      "name": "tri-ai-collaboration",
+      "path": ".claude/skills/tri-ai-collaboration",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/tri-ai-collaboration",
+      "description": ""
+    },
+    {
+      "name": "twelvedata-api",
+      "path": ".claude/skills/twelvedata-api",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/twelvedata-api",
+      "description": ""
+    },
+    {
+      "name": "visual-testing",
+      "path": ".claude/skills/visual-testing",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/visual-testing",
+      "description": ""
+    },
+    {
+      "name": "wearables-setup",
+      "path": "skill-builder-package/examples/wearables-setup",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/skill-builder-package/examples/wearables-setup",
+      "description": ""
+    },
+    {
+      "name": "workflow-skill-creator",
+      "path": ".claude/skills/workflow-skill-creator",
+      "github_url": "https://github.com/adaptationio/Skrillz/tree/main/.claude/skills/workflow-skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adaptationio/Skrillz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T23:31:20Z"
+}
