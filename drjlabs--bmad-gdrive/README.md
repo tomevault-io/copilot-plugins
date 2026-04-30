@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [DrJLabs/bmad-gdrive](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/DrJLabs)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/DrJLabs/bmad-gdrive](https://github.com/DrJLabs/bmad-gdrive)
 
 ---
 
