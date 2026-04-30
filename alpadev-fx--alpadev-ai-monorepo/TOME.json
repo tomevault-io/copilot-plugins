@@ -2,9 +2,9 @@
   "name": "alpadev_ai_monorepo",
   "owner": "alpadev-fx",
   "repo": "alpadev_ai_monorepo",
-  "description": "AI instruction files for alpadev_ai_monorepo by alpadev-fx",
+  "description": "AI instruction skills by alpadev-fx",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -45,7 +45,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/alpadev-fx",
+  "source_url": "https://github.com/alpadev-fx/alpadev_ai_monorepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T16:30:32Z"
+  "distributed_at": "2026-04-30T19:30:09Z"
 }
