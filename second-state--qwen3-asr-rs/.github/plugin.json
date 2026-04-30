@@ -1,0 +1,9 @@
+{
+  "name": "second-state--qwen3-asr-rs",
+  "displayName": "qwen3_asr_rs",
+  "description": "Rust implementation of Qwen3-ASR automatic speech recognition",
+  "version": "1.0.0",
+  "author": "second-state",
+  "homepage": "https://github.com/second-state/qwen3_asr_rs",
+  "skills": []
+}
