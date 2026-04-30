@@ -4,7 +4,7 @@
   "repo": "claude-seo",
   "description": "Universal SEO skill for Claude Code. 19 sub-skills, 12 subagents, 3 extensions (DataForSEO, Firecrawl, Banana). Technical SEO, E-E-A-T, schema, GEO/AEO, backlinks, local SEO, maps intelligence, Google APIs, and PDF/Excel reporting.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgriciDaniel/claude-seo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T14:47:24Z"
+  "distributed_at": "2026-04-30T23:57:10Z"
 }
