@@ -4,7 +4,7 @@
   "repo": "slio-git",
   "description": "A fast, native Git GUI inspired by Intellij Idea and Meld. Built with Rust + Iced.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sk-wang/slio-git",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T22:49:49Z"
+  "distributed_at": "2026-04-30T00:10:53Z"
 }
