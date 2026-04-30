@@ -7,14 +7,14 @@ MCP server that gives AI agents full access to WordPress through PHP execution a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [use-novamira/novamira](https://github.com/use-novamira/novamira).
+Original source: `CLAUDE.md` in [use-novamira/novamira](https://github.com/use-novamira/novamira).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [use-novamira/novamira](https://github.com/use-novamira/novamira) — a repo with 232+ stars on GitHub.
