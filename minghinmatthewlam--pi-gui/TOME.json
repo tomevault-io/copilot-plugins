@@ -4,7 +4,7 @@
   "repo": "pi-gui",
   "description": "Electron GUI app for the pi coding agent runtime",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/minghinmatthewlam/pi-gui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T01:56:04Z"
+  "distributed_at": "2026-04-30T04:28:52Z"
 }
