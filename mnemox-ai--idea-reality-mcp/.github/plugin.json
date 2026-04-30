@@ -1,0 +1,9 @@
+{
+  "name": "mnemox-ai--idea-reality-mcp",
+  "displayName": "idea-reality-mcp",
+  "description": "Pre-build reality check for AI coding agents. Scans GitHub, HN, npm, PyPI, Product Hunt. MCP server. 290+ stars.",
+  "version": "1.0.0",
+  "author": "mnemox-ai",
+  "homepage": "https://github.com/mnemox-ai/idea-reality-mcp",
+  "skills": []
+}
