@@ -4,7 +4,7 @@
   "repo": "feedgrab",
   "description": "Universal content grabber \u2014 fetch, normalize, and digest content from 7+ platforms (WeChat, XHS, X/Twitter, YouTube, Bilibili, Telegram, RSS)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iBigQiang/feedgrab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T05:11:43Z"
+  "distributed_at": "2026-04-30T11:57:25Z"
 }
