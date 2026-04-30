@@ -1,0 +1,9 @@
+{
+  "name": "renjfk--opencode-voice",
+  "displayName": "opencode-voice",
+  "description": "Speech-to-text and text-to-speech plugin for OpenCode",
+  "version": "1.0.0",
+  "author": "renjfk",
+  "homepage": "https://github.com/renjfk/opencode-voice",
+  "skills": []
+}
