@@ -4,7 +4,7 @@
   "repo": "claude-code-trace",
   "description": "Real-time Claude Code session log viewer and monitor. Tail, search, and visualize JSONL session files with a native desktop GUI, a web and a tui. Built with Tauri 2, React, and TypeScript.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/delexw/claude-code-trace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T23:07:50Z"
+  "distributed_at": "2026-04-30T03:44:41Z"
 }
