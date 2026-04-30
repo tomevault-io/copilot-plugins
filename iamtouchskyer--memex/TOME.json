@@ -4,7 +4,7 @@
   "repo": "memex",
   "description": "Zettelkasten-based persistent memory for AI coding agents. Works with Claude Code, Cursor, VS Code Copilot, Codex, Windsurf & any MCP client. No vector DB \u2014 just markdown + git sync.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iamtouchskyer/memex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T23:42:02Z"
+  "distributed_at": "2026-04-30T04:10:54Z"
 }
