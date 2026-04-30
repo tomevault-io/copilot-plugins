@@ -1,0 +1,9 @@
+{
+  "name": "geekjourneyx--jina-cli",
+  "displayName": "jina-cli",
+  "description": "A lightweight CLI tool wrapping Jina AI Reader API for AI Agents. Fetch and parse any URL into LLM-friendly   formats (Markdown/Text/HTML). Perfect for reading X(Twitter), blogs, and news sites.",
+  "version": "1.0.0",
+  "author": "geekjourneyx",
+  "homepage": "https://github.com/geekjourneyx/jina-cli",
+  "skills": []
+}
