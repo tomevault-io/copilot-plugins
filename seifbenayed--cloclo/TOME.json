@@ -4,7 +4,7 @@
   "repo": "cloclo",
   "description": "Open-source Claude Code SDK \u2014 single-file CLIs in Node.js, Python, Go, Rust that use directly. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SeifBenayed/cloclo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T02:36:31Z"
+  "distributed_at": "2026-04-30T08:04:54Z"
 }
