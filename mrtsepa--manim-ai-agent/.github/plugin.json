@@ -1,0 +1,9 @@
+{
+  "name": "mrtsepa--manim-ai-agent",
+  "displayName": "manim-ai-agent",
+  "description": "Self-improving harness for AI video agents \u2014 autonomously create, render, review, and iterate on 3Blue1Brown-style math animations",
+  "version": "1.0.0",
+  "author": "MrTsepa",
+  "homepage": "https://github.com/MrTsepa/manim-ai-agent",
+  "skills": []
+}
