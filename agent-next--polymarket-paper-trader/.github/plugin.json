@@ -1,0 +1,9 @@
+{
+  "name": "agent-next--polymarket-paper-trader",
+  "displayName": "polymarket-paper-trader",
+  "description": "Paper trading simulator for Polymarket \u2014 built for AI agents. MCP server, live order books, strategy backtesting. Install: npx clawhub install polymarket-paper-trader",
+  "version": "1.0.0",
+  "author": "agent-next",
+  "homepage": "https://github.com/agent-next/polymarket-paper-trader",
+  "skills": []
+}
