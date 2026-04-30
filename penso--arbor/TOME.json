@@ -4,7 +4,7 @@
   "repo": "arbor",
   "description": "Run agentic coding workflows in a fully native desktop app for Git worktrees, terminals, and diffs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/penso/arbor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T04:45:04Z"
+  "distributed_at": "2026-04-30T08:23:13Z"
 }
