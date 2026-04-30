@@ -7,11 +7,11 @@ Universal content grabber — fetch, normalize, and digest content from 7+ platf
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [iBigQiang/feedgrab](https://github.com/iBigQiang/feedgrab).
+Original source: `CLAUDE.md` in [iBigQiang/feedgrab](https://github.com/iBigQiang/feedgrab).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
