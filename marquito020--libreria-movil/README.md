@@ -1,6 +1,6 @@
-# Libreria-Movil — distributed by TomeVault
+# Libreria-Movil
 
-> Originally from [marquito020/Libreria-Movil](https://github.com/marquito020/Libreria-Movil). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [marquito020/Libreria-Movil](https://github.com/marquito020/Libreria-Movil) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [marquito020/Libreria-Movil](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/marquito020)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/marquito020/Libreria-Movil](https://github.com/marquito020/Libreria-Movil)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install marquito020/Libreria-Movil
 ```
-Or browse all formats at [https://tomevault.io/claim/marquito020](https://tomevault.io/claim/marquito020).
+Source: [github.com/marquito020/Libreria-Movil](https://github.com/marquito020/Libreria-Movil).
 
 <!-- genome:d-i-p -->
