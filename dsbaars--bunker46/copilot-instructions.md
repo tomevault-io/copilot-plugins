@@ -1,0 +1,19 @@
+## bunker46
+
+> - **CORS:** Do not use `*` for CORS when the API uses credentials. Keep `CORS_ORIGINS` to explicit origins (e.g. frontend origin only). Document in README or env example if adding new origins.
+
+# Bunker46 – Cursor rules
+
+## Security
+
+- **CORS:** Do not use `*` for CORS when the API uses credentials. Keep `CORS_ORIGINS` to explicit origins (e.g. frontend origin only). Document in README or env example if adding new origins.
+- **CSRF:** For critical state-changing actions, consider SameSite cookie attributes and/or CSRF tokens if expanding beyond the current same-origin + strict CORS setup.
+- **Auth:** JWT secret must come from validated env only (no fallback in production code). New auth-related endpoints should have rate limiting.
+- **Access control:** Routes that take a resource ID (e.g. `:id`, `:keyId`) must resolve the resource and verify ownership (e.g. `userId` or role) before returning or modifying.
+- **User-controlled URLs:** Any server-side fetch or WebSocket to user-provided URLs must validate scheme and host (allowlist or blocklist of private IPs).
+- **Input validation:** Use shared Zod schemas or class-validator DTOs for request bodies; avoid `body: any` for user input.
+- **Tokens:** Prefer Authorization header over query parameters for bearer tokens.
+
+---
+> Source: [dsbaars/bunker46](https://github.com/dsbaars/bunker46) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-30 -->
