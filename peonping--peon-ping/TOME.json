@@ -4,7 +4,7 @@
   "repo": "peon-ping",
   "description": "Warcraft III Peon voice notifications (+ more!) for Claude Code, Codex, IDEs, and any AI agent. Stop babysitting your terminal. Employ a Peon today.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PeonPing/peon-ping",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:34:09Z"
+  "distributed_at": "2026-04-30T23:58:20Z"
 }
