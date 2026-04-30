@@ -1,0 +1,9 @@
+{
+  "name": "batear-io--batear",
+  "displayName": "batear",
+  "description": "\u25cf batear \u2014 Ultra-low-cost, off-grid acoustic drone detector. Edge computing. Protect your airspace with a microphone.",
+  "version": "1.0.0",
+  "author": "batear-io",
+  "homepage": "https://github.com/batear-io/batear",
+  "skills": []
+}
