@@ -4,7 +4,7 @@
   "repo": "CoreExtendedNFC",
   "description": "Swift Package porting libnfc protocol-layer logic to iOS via CoreNFC",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lakr233/CoreExtendedNFC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T07:50:42Z"
+  "distributed_at": "2026-04-30T12:17:05Z"
 }
