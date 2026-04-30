@@ -1,0 +1,9 @@
+{
+  "name": "magiccube--agentara",
+  "displayName": "agentara",
+  "description": "Your 24/7 personal assistant powered by Claude Code and OpenAI Codex. Multi-channel messaging, long-term memory, skills, task scheduling, session management, and more \u2014 all running locally.",
+  "version": "1.0.0",
+  "author": "MagicCube",
+  "homepage": "https://github.com/MagicCube/agentara",
+  "skills": []
+}
