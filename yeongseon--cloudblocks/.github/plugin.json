@@ -1,0 +1,9 @@
+{
+  "name": "yeongseon--cloudblocks",
+  "displayName": "cloudblocks",
+  "description": "Visual cloud learning tool for beginners \u2014 learn cloud architecture patterns with guided templates and export Terraform starter code",
+  "version": "1.0.0",
+  "author": "yeongseon",
+  "homepage": "https://github.com/yeongseon/cloudblocks",
+  "skills": []
+}
