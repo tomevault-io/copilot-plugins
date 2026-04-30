@@ -1,0 +1,9 @@
+{
+  "name": "philipppolterauer--opencode-todo-reminder",
+  "displayName": "opencode-todo-reminder",
+  "description": "OpenCode plugin that automatically reminds the AI to continue working on incomplete todos",
+  "version": "1.0.0",
+  "author": "PhilippPolterauer",
+  "homepage": "https://github.com/PhilippPolterauer/opencode-todo-reminder",
+  "skills": []
+}
