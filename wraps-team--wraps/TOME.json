@@ -1,0 +1,57 @@
+{
+  "name": "wraps",
+  "owner": "wraps-team",
+  "repo": "wraps",
+  "description": "AWS Email, SMS, & CDN, simple.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "wraps-quickstart",
+      "path": "skills/wraps-quickstart",
+      "github_url": "https://github.com/wraps-team/wraps/tree/main/skills/wraps-quickstart",
+      "description": ""
+    },
+    {
+      "name": "wraps-workflows",
+      "path": "skills/wraps-workflows",
+      "github_url": "https://github.com/wraps-team/wraps/tree/main/skills/wraps-workflows",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wraps-team/wraps",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T23:32:30Z"
+}
