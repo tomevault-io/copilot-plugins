@@ -1,0 +1,9 @@
+{
+  "name": "jkeskikangas--skills",
+  "displayName": "skills",
+  "description": "Portable, rubric\u2011graded authoring + review workflows for AI agent skills",
+  "version": "1.0.0",
+  "author": "jkeskikangas",
+  "homepage": "https://github.com/jkeskikangas/skills",
+  "skills": []
+}
