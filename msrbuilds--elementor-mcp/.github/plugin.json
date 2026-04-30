@@ -1,0 +1,9 @@
+{
+  "name": "msrbuilds--elementor-mcp",
+  "displayName": "elementor-mcp",
+  "description": "WordPress plugin that turns Elementor into an MCP server \u2014 97 AI-ready tools for building, editing, and managing page designs programmatically.",
+  "version": "1.0.0",
+  "author": "msrbuilds",
+  "homepage": "https://github.com/msrbuilds/elementor-mcp",
+  "skills": []
+}
