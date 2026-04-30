@@ -7,11 +7,11 @@ Deterministic orchestrator for 18 CLI AI coding agents. Git worktree isolation, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chernistry/bernstein](https://github.com/chernistry/bernstein).
+Original source: `CLAUDE.md` in [chernistry/bernstein](https://github.com/chernistry/bernstein).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
