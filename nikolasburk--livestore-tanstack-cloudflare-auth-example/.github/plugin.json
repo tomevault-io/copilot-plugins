@@ -1,0 +1,9 @@
+{
+  "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
+  "displayName": "livestore-tanstack-cloudflare-auth-example",
+  "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore.",
+  "version": "1.0.0",
+  "author": "nikolasburk",
+  "homepage": "https://github.com/nikolasburk/livestore-tanstack-cloudflare-auth-example",
+  "skills": []
+}
