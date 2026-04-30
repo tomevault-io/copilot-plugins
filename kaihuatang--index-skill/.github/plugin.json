@@ -1,0 +1,9 @@
+{
+  "name": "kaihuatang--index-skill",
+  "displayName": "Index.skill",
+  "description": "\u57fa\u4e8eClaude\u4e0eObsidian/WebUI\u7684\u4e2a\u4eba\u77e5\u8bc6\u7ba1\u7406\u3001\u66f4\u65b0\u3001\u4ea4\u4e92\u7cfb\u7edf\u201c\u8335\u8482\u514b\u4e1d.skill\u201d\uff08LLM Wiki\uff09\u3002\u540c\u6d4e\u5927\u5b66\u5de5\u7a0b\u667a\u80fd\u7814\u7a76\u9662\u51fa\u54c1~",
+  "version": "1.0.0",
+  "author": "KaihuaTang",
+  "homepage": "https://github.com/KaihuaTang/Index.skill",
+  "skills": []
+}
