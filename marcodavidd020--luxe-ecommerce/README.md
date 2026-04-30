@@ -1,6 +1,6 @@
 # LUXE-Ecommerce
 
-> Tome by [marcodavidd020](https://github.com/marcodavidd020/LUXE-Ecommerce) — distributed by [TomeVault](https://tomevault.io/claim/marcodavidd020)
+> Tome by [marcodavidd020](https://github.com/marcodavidd020/LUXE-Ecommerce) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [marcodavidd020/LUXE-Ecommerce](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/marcodavidd020)
+From [marcodavidd020/LUXE-Ecommerce](https://github.com/marcodavidd020/LUXE-Ecommerce) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install marcodavidd020/LUXE-Ecommerce
 ```
-Or browse all formats at [https://tomevault.io/claim/marcodavidd020](https://tomevault.io/claim/marcodavidd020).
+Source: [github.com/marcodavidd020/LUXE-Ecommerce](https://github.com/marcodavidd020/LUXE-Ecommerce).
 
 <!-- genome:t-i-s -->
