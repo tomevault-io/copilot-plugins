@@ -1,0 +1,9 @@
+{
+  "name": "danielmiessler--ladder",
+  "displayName": "Ladder",
+  "description": "A system for autonomous creation and optimization.",
+  "version": "1.0.0",
+  "author": "danielmiessler",
+  "homepage": "https://github.com/danielmiessler/Ladder",
+  "skills": []
+}
