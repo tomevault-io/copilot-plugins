@@ -1,0 +1,9 @@
+{
+  "name": "jimsynz--erl-dist-mcp",
+  "displayName": "erl_dist_mcp",
+  "description": "An MCP server which connects to Erlang/BEAM nodes via distribution",
+  "version": "1.0.0",
+  "author": "jimsynz",
+  "homepage": "https://github.com/jimsynz/erl_dist_mcp",
+  "skills": []
+}
