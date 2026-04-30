@@ -7,11 +7,11 @@ Universal SEO skill for Claude Code. 19 sub-skills, 12 subagents, 3 extensions (
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo).
+Original source: `CLAUDE.md` in [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
