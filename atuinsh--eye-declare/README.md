@@ -7,11 +7,11 @@ A declarative inline TUI rendering library for Rust, built on Ratatui
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [atuinsh/eye-declare](https://github.com/atuinsh/eye-declare).
+Original source: `CLAUDE.md` in [atuinsh/eye-declare](https://github.com/atuinsh/eye-declare).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
