@@ -1,0 +1,9 @@
+{
+  "name": "verseles--flyclone",
+  "displayName": "flyclone",
+  "description": "PHP wrapper for rclone. Supports Local disk, Dropbox, FTP, SFTP, Google Drive, MEGA, S3 (any compatible) and others. Progress support.",
+  "version": "1.0.0",
+  "author": "verseles",
+  "homepage": "https://github.com/verseles/flyclone",
+  "skills": []
+}
