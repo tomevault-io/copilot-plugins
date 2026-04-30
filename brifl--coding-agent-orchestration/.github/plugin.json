@@ -1,0 +1,9 @@
+{
+  "name": "brifl--coding-agent-orchestration",
+  "displayName": "coding-agent-orchestration",
+  "description": "Unifying prompt, context, skill, and process management for Claude, Gemini, and Codex.",
+  "version": "1.0.0",
+  "author": "brifl",
+  "homepage": "https://github.com/brifl/coding-agent-orchestration",
+  "skills": []
+}
