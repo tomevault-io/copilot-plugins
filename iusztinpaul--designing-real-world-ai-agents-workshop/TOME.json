@@ -4,7 +4,7 @@
   "repo": "designing-real-world-ai-agents-workshop",
   "description": "Hands-on workshop: Build a multi-agent AI system from scratch \u2014 Deep Research Agent + Writing Workflow served as MCP servers. Includes code, slides, and video (coming soon)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iusztinpaul/designing-real-world-ai-agents-workshop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T22:48:09Z"
+  "distributed_at": "2026-04-30T00:08:31Z"
 }
