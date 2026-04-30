@@ -1,0 +1,9 @@
+{
+  "name": "glommer--codemogger",
+  "displayName": "codemogger",
+  "description": "Codemogger is a code indexing library and MCP server for AI coding agents",
+  "version": "1.0.0",
+  "author": "glommer",
+  "homepage": "https://github.com/glommer/codemogger",
+  "skills": []
+}
