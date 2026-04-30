@@ -1,0 +1,44 @@
+{
+  "name": "web-learning-github",
+  "owner": "YeJe-cpu",
+  "repo": "web-learning-github",
+  "description": "A skill that turns github codebase into a beautiful, interactive HTML for non-technical vibe coders. Quickly got to know the UI/UX journey in codebase. \u9762\u5411\u548c\u975e\u4e13\u4e1a/\u5c11\u8bfb\u4ee3\u7801\u7684\u670b\u53cb\uff1a\u628a GitHub \u4e0a\u7684\u4ed3\u5e93\u8bf4\u660e\u53d8\u6210\u5355\u6587\u4ef6 HTML\uff0c\u7528\u53ef\u6eda\u52a8\u7684\u8def\u5f84\u770b\u6e05\u300c\u7528\u6237\u600e\u4e48\u64cd\u4f5c\u3001\u80cc\u540e\u5728\u5e72\u4ec0\u4e48\u300d\u3002\u652f\u6301 Cursor / Claude Code / Windsurf / OpenClaw\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YeJe-cpu/web-learning-github",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T07:40:33Z"
+}
