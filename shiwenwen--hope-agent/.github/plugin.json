@@ -1,0 +1,9 @@
+{
+  "name": "shiwenwen--hope-agent",
+  "displayName": "hope-agent",
+  "description": "\u4f1a\u8bb0\u5fc6\u3001\u80fd\u6210\u957f\u7684\u968f\u8eab AI \u52a9\u624b \u00b7 \u684c\u9762 / \u4e91\u7aef / IM \u968f\u53eb\u968f\u5230\uff0c\u624b\u673a\u8fdc\u7a0b\u4e5f\u80fd\u8fde | Personal AI that remembers and grows \u2014 lives on desktop, self-hosted server and every IM, reachable anywhere",
+  "version": "1.0.0",
+  "author": "shiwenwen",
+  "homepage": "https://github.com/shiwenwen/hope-agent",
+  "skills": []
+}
