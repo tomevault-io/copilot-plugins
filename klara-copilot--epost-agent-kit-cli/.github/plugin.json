@@ -1,0 +1,9 @@
+{
+  "name": "klara-copilot--epost-agent-kit-cli",
+  "displayName": "epost-agent-kit-cli",
+  "description": "CLI Tool manage ePost Agent Kit",
+  "version": "1.0.0",
+  "author": "Klara-copilot",
+  "homepage": "https://github.com/Klara-copilot/epost-agent-kit-cli",
+  "skills": []
+}
