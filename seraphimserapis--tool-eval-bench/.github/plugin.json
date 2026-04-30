@@ -1,0 +1,9 @@
+{
+  "name": "seraphimserapis--tool-eval-bench",
+  "displayName": "tool-eval-bench",
+  "description": "Tool-calling quality benchmark for LLM serving stacks. 65+ deterministic scenarios testing multi-turn orchestration, safety boundaries, and structured output. Supports vLLM, LiteLLM, and llama.cpp.",
+  "version": "1.0.0",
+  "author": "SeraphimSerapis",
+  "homepage": "https://github.com/SeraphimSerapis/tool-eval-bench",
+  "skills": []
+}
