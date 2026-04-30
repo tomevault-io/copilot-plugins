@@ -7,11 +7,11 @@ Open-source Claude Code SDK — single-file CLIs in Node.js, Python, Go, Rust th
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SeifBenayed/cloclo](https://github.com/SeifBenayed/cloclo).
+Original source: `CLAUDE.md` in [SeifBenayed/cloclo](https://github.com/SeifBenayed/cloclo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
