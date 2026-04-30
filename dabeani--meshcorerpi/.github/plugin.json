@@ -1,0 +1,9 @@
+{
+  "name": "dabeani--meshcorerpi",
+  "displayName": "MeshCoreRPI",
+  "description": "Port of the original Firmware to run native on the Raspberry Pi.",
+  "version": "1.0.0",
+  "author": "dabeani",
+  "homepage": "https://github.com/dabeani/MeshCoreRPI",
+  "skills": []
+}
