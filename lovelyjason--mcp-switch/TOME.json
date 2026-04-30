@@ -1,0 +1,44 @@
+{
+  "name": "mcp-switch",
+  "owner": "lovelyJason",
+  "repo": "mcp-switch",
+  "description": "\u4e00\u4e2a\u96c6cursor\uff0cwindsurf, claude code,  codex, gemini,  antigravity\u7b49\u7f16\u8f91\u5668\uff0c\u4e00\u952e\u914d\u7f6emcp\u529f\u80fd\uff0c\u76ee\u6807\u662f\u628a\u6240\u6709AI\u7f16\u8f91\u5668\u7684\u529f\u80fd\u90fd\u96c6\u6210\u5230GUI\u5f53\u4e2d\u7ba1\u7406",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lovelyJason/mcp-switch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T03:53:47Z"
+}
