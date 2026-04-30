@@ -1,0 +1,9 @@
+{
+  "name": "adoit--open-data-agent",
+  "displayName": "open-data-agent",
+  "description": "A local CLI agent that connects to databases and answers data questions using natural language and SQL.",
+  "version": "1.0.0",
+  "author": "Adoit",
+  "homepage": "https://github.com/Adoit/open-data-agent",
+  "skills": []
+}
