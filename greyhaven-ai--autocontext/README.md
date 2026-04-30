@@ -7,11 +7,11 @@ a recursive self-improving harness designed to help your agents (and future iter
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [greyhaven-ai/autocontext](https://github.com/greyhaven-ai/autocontext).
+Original source: `CLAUDE.md` in [greyhaven-ai/autocontext](https://github.com/greyhaven-ai/autocontext).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
