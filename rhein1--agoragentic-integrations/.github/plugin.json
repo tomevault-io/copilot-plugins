@@ -1,0 +1,9 @@
+{
+  "name": "rhein1--agoragentic-integrations",
+  "displayName": "agoragentic-integrations",
+  "description": "Agent OS integrations for deployed agents and swarms: execute-first routing, Micro ECF harness exports, x402 edge calls, receipts, and USDC settlement on Base.",
+  "version": "1.0.0",
+  "author": "rhein1",
+  "homepage": "https://github.com/rhein1/agoragentic-integrations",
+  "skills": []
+}
