@@ -1,0 +1,9 @@
+{
+  "name": "river-du--pecktex",
+  "displayName": "PeckTeX",
+  "description": "PeckTeX: A lightweight Python-based Image-to-LaTeX desktop tool. It leverages Vision Language Models to extract math formulas and handwritten notes.",
+  "version": "1.0.0",
+  "author": "River-Du",
+  "homepage": "https://github.com/River-Du/PeckTeX",
+  "skills": []
+}
