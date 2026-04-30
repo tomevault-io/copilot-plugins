@@ -1,0 +1,9 @@
+{
+  "name": "leeroybrun--happy-stacks",
+  "displayName": "happy-stacks",
+  "description": "Run and manage the full Happy stack (server, daemon, UI) locally and expose them easily and securely over Tailscale for mobile access",
+  "version": "1.0.0",
+  "author": "leeroybrun",
+  "homepage": "https://github.com/leeroybrun/happy-stacks",
+  "skills": []
+}
