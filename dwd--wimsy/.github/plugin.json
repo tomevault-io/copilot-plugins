@@ -1,0 +1,9 @@
+{
+  "name": "dwd--wimsy",
+  "displayName": "Wimsy",
+  "description": "An XMPP client, apparently",
+  "version": "1.0.0",
+  "author": "dwd",
+  "homepage": "https://github.com/dwd/Wimsy",
+  "skills": []
+}
