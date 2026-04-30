@@ -4,7 +4,7 @@
   "repo": "memorix",
   "description": "Open-source cross-agent memory layer for coding agents via MCP. Compatible with Cursor, Claude Code, Codex, Windsurf, Gemini CLI, GitHub Copilot, Kiro, OpenCode, Antigravity, and Trae.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AVIDS2/memorix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T08:41:54Z"
+  "distributed_at": "2026-04-30T19:59:34Z"
 }
