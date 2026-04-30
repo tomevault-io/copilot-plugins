@@ -7,11 +7,11 @@ autonomous open source ai lab
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [burtenshaw/multiautoresearch](https://github.com/burtenshaw/multiautoresearch).
+Original source: `CLAUDE.md` in [burtenshaw/multiautoresearch](https://github.com/burtenshaw/multiautoresearch).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
