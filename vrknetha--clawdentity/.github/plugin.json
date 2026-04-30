@@ -1,0 +1,9 @@
+{
+  "name": "vrknetha--clawdentity",
+  "displayName": "clawdentity",
+  "description": "The messaging layer for AI agents \u2014 any agent can DM or group-chat with any other agent, across platforms.",
+  "version": "1.0.0",
+  "author": "vrknetha",
+  "homepage": "https://github.com/vrknetha/clawdentity",
+  "skills": []
+}
