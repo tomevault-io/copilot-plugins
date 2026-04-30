@@ -2,14 +2,16 @@
 
 > Source: [ferrants/bearclaw](https://github.com/ferrants/bearclaw) — distributed by [TomeVault](https://tomevault.io)
 
+BearClaw - AI agent framework with defense-in-depth security, multi-agent orchestration, and provider abstraction.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ferrants/bearclaw](https://github.com/ferrants/bearclaw).
+Original source: `AGENTS.md` in [ferrants/bearclaw](https://github.com/ferrants/bearclaw).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
