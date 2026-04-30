@@ -1,0 +1,9 @@
+{
+  "name": "gotgenes--opencode-agent-identity",
+  "displayName": "opencode-agent-identity",
+  "description": "OpenCode plugins that help AI agents understand their identity across multi-agent sessions",
+  "version": "1.0.0",
+  "author": "gotgenes",
+  "homepage": "https://github.com/gotgenes/opencode-agent-identity",
+  "skills": []
+}
