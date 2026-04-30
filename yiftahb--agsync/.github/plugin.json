@@ -1,0 +1,9 @@
+{
+  "name": "yiftahb--agsync",
+  "displayName": "agsync",
+  "description": "Agsync is a repo-native control plane for managing skills, MCP servers, secrets, and agent configs across AI clients like Claude Code and Cursor.",
+  "version": "1.0.0",
+  "author": "yiftahb",
+  "homepage": "https://github.com/yiftahb/agsync",
+  "skills": []
+}
