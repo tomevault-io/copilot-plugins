@@ -7,11 +7,11 @@ from vibe coding to agentic engineering - practice makes codex perfect
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [shanraisshan/codex-cli-best-practice](https://github.com/shanraisshan/codex-cli-best-practice).
+Original source: `CLAUDE.md` in [shanraisshan/codex-cli-best-practice](https://github.com/shanraisshan/codex-cli-best-practice).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
