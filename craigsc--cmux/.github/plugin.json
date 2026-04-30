@@ -1,0 +1,9 @@
+{
+  "name": "craigsc--cmux",
+  "displayName": "cmux",
+  "description": "cmux: tmux for Claude Code",
+  "version": "1.0.0",
+  "author": "craigsc",
+  "homepage": "https://github.com/craigsc/cmux",
+  "skills": []
+}
