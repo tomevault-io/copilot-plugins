@@ -4,7 +4,7 @@
   "repo": "GitNexus",
   "description": "GitNexus: The Zero-Server Code Intelligence Engine -       GitNexus is a client-side knowledge graph creator that runs entirely in your browser. Drop in a GitHub repo or ZIP file, and get an interactive knowledge graph wit a built in Graph RAG Agent. Perfect for code exploration",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Bd-Mutant7/GitNexus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:33:49Z"
+  "distributed_at": "2026-04-30T12:29:54Z"
 }
