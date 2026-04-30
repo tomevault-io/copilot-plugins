@@ -1,0 +1,9 @@
+{
+  "name": "knyazev741--telegram-multi-thread-router",
+  "displayName": "telegram-multi-thread-router",
+  "description": "Run multiple Claude Code sessions through Telegram forum topics. Each topic = isolated Claude agent.",
+  "version": "1.0.0",
+  "author": "knyazev741",
+  "homepage": "https://github.com/knyazev741/telegram-multi-thread-router",
+  "skills": []
+}
