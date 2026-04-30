@@ -4,7 +4,7 @@
   "repo": "CodePilot",
   "description": "A multi-model AI agent desktop client \u2014 connect any AI provider, extend with MCP & skills, control from your phone. Built with Electron + Next.js.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/op7418/CodePilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T14:45:50Z"
+  "distributed_at": "2026-04-30T23:56:00Z"
 }
