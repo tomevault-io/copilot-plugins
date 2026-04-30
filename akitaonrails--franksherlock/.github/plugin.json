@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--franksherlock",
+  "displayName": "FrankSherlock",
+  "description": "Intelligent File Searcher that can search for descriptions in media files like photos, for example \"receipt from market of $42.00\" using AI based classification",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/FrankSherlock",
+  "skills": []
+}
