@@ -1,0 +1,9 @@
+{
+  "name": "meisnerdan--mission-control",
+  "displayName": "mission-control",
+  "description": "Open-source task management for the agentic era. The command center for solo entrepreneurs who delegate work to AI agents.",
+  "version": "1.0.0",
+  "author": "MeisnerDan",
+  "homepage": "https://github.com/MeisnerDan/mission-control",
+  "skills": []
+}
