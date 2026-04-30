@@ -1,0 +1,9 @@
+{
+  "name": "wentbackward--nv-monitor",
+  "displayName": "nv-monitor",
+  "description": "Lightweight nVidia telemetry and terminal system monitor - built for any architecture - Jetson, GB10, GB200, H100",
+  "version": "1.0.0",
+  "author": "wentbackward",
+  "homepage": "https://github.com/wentbackward/nv-monitor",
+  "skills": []
+}
