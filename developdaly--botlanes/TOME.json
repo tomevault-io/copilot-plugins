@@ -4,7 +4,7 @@
   "repo": "botlanes",
   "description": "Drag a card into a column, an agent runs.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/developdaly/botlanes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T04:31:36Z"
+  "distributed_at": "2026-04-30T08:26:38Z"
 }
