@@ -1,0 +1,9 @@
+{
+  "name": "zypp-io--zypp-cursor-rules",
+  "displayName": "zypp-cursor-rules",
+  "description": "zypp-cursor-rules",
+  "version": "1.0.0",
+  "author": "zypp-io",
+  "homepage": "https://github.com/zypp-io/zypp-cursor-rules",
+  "skills": []
+}
