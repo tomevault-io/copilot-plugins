@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [rvalen1123/msc-woundcare-portal](http
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rvalen1123)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rvalen1123/msc-woundcare-portal](https://github.com/rvalen1123/msc-woundcare-portal)
 
 ---
 
