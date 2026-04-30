@@ -1,6 +1,6 @@
 # learninghungarian
 
-> Tome by [jaypaulb](https://github.com/jaypaulb/learninghungarian) — distributed by [TomeVault](https://tomevault.io/claim/jaypaulb)
+> Tome by [jaypaulb](https://github.com/jaypaulb/learninghungarian) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [jaypaulb/learninghungarian](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/jaypaulb#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jaypaulb/learninghungarian](https://github.com/jaypaulb/learninghungarian)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/jaypaulb) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-q -->
