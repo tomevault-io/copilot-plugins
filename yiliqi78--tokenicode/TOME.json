@@ -4,7 +4,7 @@
   "repo": "TOKENICODE",
   "description": "A Claude Code GUI \u2014 Tauri 2 + React 19 + TypeScript + Tailwind CSS 4",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yiliqi78/TOKENICODE",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T14:22:48Z"
+  "distributed_at": "2026-04-30T23:33:29Z"
 }
