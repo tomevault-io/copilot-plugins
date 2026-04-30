@@ -7,11 +7,11 @@ Put the world's smartest AI agents & plugins in your pocket
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xiaotonng/pikiclaw](https://github.com/xiaotonng/pikiclaw).
+Original source: `CLAUDE.md` in [xiaotonng/pikiclaw](https://github.com/xiaotonng/pikiclaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
