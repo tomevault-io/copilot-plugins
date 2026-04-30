@@ -1,0 +1,9 @@
+{
+  "name": "paberr--ownscribe",
+  "displayName": "ownscribe",
+  "description": "Local-first meeting transcription and summarization CLI",
+  "version": "1.0.0",
+  "author": "paberr",
+  "homepage": "https://github.com/paberr/ownscribe",
+  "skills": []
+}
