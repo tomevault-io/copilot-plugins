@@ -1,0 +1,9 @@
+{
+  "name": "pandanocturne--obsidian-advanced-search-ui",
+  "displayName": "obsidian-advanced-search-ui",
+  "description": "A simple Graphical Interface (UI) helper for Obsidian's native search",
+  "version": "1.0.0",
+  "author": "PandaNocturne",
+  "homepage": "https://github.com/PandaNocturne/obsidian-advanced-search-ui",
+  "skills": []
+}
