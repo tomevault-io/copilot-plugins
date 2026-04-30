@@ -1,0 +1,9 @@
+{
+  "name": "erikhellman--cli-for-android",
+  "displayName": "cli-for-android",
+  "description": "A unified CLI for everything related to Android Development",
+  "version": "1.0.0",
+  "author": "ErikHellman",
+  "homepage": "https://github.com/ErikHellman/cli-for-android",
+  "skills": []
+}
