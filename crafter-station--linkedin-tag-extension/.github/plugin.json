@@ -1,0 +1,9 @@
+{
+  "name": "crafter-station--linkedin-tag-extension",
+  "displayName": "linkedin-tag-extension",
+  "description": "Chrome Extension for quickly tagging multiple LinkedIn users in posts",
+  "version": "1.0.0",
+  "author": "crafter-station",
+  "homepage": "https://github.com/crafter-station/linkedin-tag-extension",
+  "skills": []
+}
