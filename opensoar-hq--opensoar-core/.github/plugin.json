@@ -1,0 +1,9 @@
+{
+  "name": "opensoar-hq--opensoar-core",
+  "displayName": "opensoar-core",
+  "description": "Open-source SOAR platform \u2014 Python-native playbooks, real-time alert ingestion, AI-ready architecture",
+  "version": "1.0.0",
+  "author": "opensoar-hq",
+  "homepage": "https://github.com/opensoar-hq/opensoar-core",
+  "skills": []
+}
