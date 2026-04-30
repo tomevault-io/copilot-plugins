@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-watch",
+  "displayName": "capacitor-watch",
+  "description": "Capacitor plugin for Apple Watch communication with bidirectional messaging support",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-watch",
+  "skills": []
+}
