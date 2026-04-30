@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--bio-inspired-nanochat",
+  "displayName": "bio_inspired_nanochat",
+  "description": "A version of Karpathy's Nanochat that attempts to capture more biologically inspired structure.",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/bio_inspired_nanochat",
+  "skills": []
+}
