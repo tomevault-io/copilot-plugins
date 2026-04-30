@@ -1,6 +1,6 @@
 # pdf-tools
 
-> Tome by [MrHuangJser](https://github.com/MrHuangJser/pdf-tools) — distributed by [TomeVault](https://tomevault.io/claim/MrHuangJser)
+> Tome by [MrHuangJser](https://github.com/MrHuangJser/pdf-tools) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [MrHuangJser/pdf-tools](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/MrHuangJser)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/MrHuangJser/pdf-tools](https://github.com/MrHuangJser/pdf-tools)
 
 ---
 
