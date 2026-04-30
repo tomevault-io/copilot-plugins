@@ -1,0 +1,9 @@
+{
+  "name": "consensys--linea-attestation-registry",
+  "displayName": "linea-attestation-registry",
+  "description": "linea-attestation-registry",
+  "version": "1.0.0",
+  "author": "Consensys",
+  "homepage": "https://github.com/Consensys/linea-attestation-registry",
+  "skills": []
+}
