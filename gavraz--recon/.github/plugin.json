@@ -1,0 +1,9 @@
+{
+  "name": "gavraz--recon",
+  "displayName": "recon",
+  "description": "tmux-native dashboard for managing Claude Code agents",
+  "version": "1.0.0",
+  "author": "gavraz",
+  "homepage": "https://github.com/gavraz/recon",
+  "skills": []
+}
