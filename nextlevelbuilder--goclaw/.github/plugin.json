@@ -1,0 +1,9 @@
+{
+  "name": "nextlevelbuilder--goclaw",
+  "displayName": "goclaw",
+  "description": "GoClaw - GoClaw is OpenClaw rebuilt in Go \u2014 with multi-tenant isolation, 5-layer security, and native concurrency. Deploy AI agent teams at scale without compromising on safety.",
+  "version": "1.0.0",
+  "author": "nextlevelbuilder",
+  "homepage": "https://github.com/nextlevelbuilder/goclaw",
+  "skills": []
+}
