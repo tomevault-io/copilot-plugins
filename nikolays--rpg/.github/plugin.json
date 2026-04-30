@@ -1,0 +1,9 @@
+{
+  "name": "nikolays--rpg",
+  "displayName": "rpg",
+  "description": "rpg \u2014 modern Postgres terminal written in Rust. psql-compatible, with built-in DBA diagnostics and AI assistant",
+  "version": "1.0.0",
+  "author": "NikolayS",
+  "homepage": "https://github.com/NikolayS/rpg",
+  "skills": []
+}
