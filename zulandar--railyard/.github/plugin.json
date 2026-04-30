@@ -1,0 +1,9 @@
+{
+  "name": "zulandar--railyard",
+  "displayName": "railyard",
+  "description": "Railyard is a multi-agent orchestration system for AI-driven software development, coordinating planning, execution, and verification across isolated git tracks.",
+  "version": "1.0.0",
+  "author": "zulandar",
+  "homepage": "https://github.com/zulandar/railyard",
+  "skills": []
+}
