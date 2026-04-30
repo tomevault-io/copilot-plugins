@@ -4,7 +4,7 @@
   "repo": "dotLLM",
   "description": "LLM inference engine written in .NET",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kkokosa/dotLLM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T05:39:34Z"
+  "distributed_at": "2026-04-30T11:54:55Z"
 }
