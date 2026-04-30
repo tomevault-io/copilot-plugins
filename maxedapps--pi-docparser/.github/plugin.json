@@ -1,0 +1,9 @@
+{
+  "name": "maxedapps--pi-docparser",
+  "displayName": "pi-docparser",
+  "description": "PI document parser extension based on LiteParse",
+  "version": "1.0.0",
+  "author": "maxedapps",
+  "homepage": "https://github.com/maxedapps/pi-docparser",
+  "skills": []
+}
