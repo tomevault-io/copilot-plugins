@@ -7,11 +7,11 @@ AI agent runtime powered by Shannon — Mac file ops, shell, GUI automation — 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Kocoro-lab/ShanClaw](https://github.com/Kocoro-lab/ShanClaw).
+Original source: `CLAUDE.md` in [Kocoro-lab/ShanClaw](https://github.com/Kocoro-lab/ShanClaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
