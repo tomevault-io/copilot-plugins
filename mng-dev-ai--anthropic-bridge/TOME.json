@@ -1,0 +1,44 @@
+{
+  "name": "anthropic-bridge",
+  "owner": "Mng-dev-ai",
+  "repo": "anthropic-bridge",
+  "description": "Proxy server that translates Anthropic Messages API requests to OpenRouter, enabling use of Gemini, OpenAI, Grok, DeepSeek, and other LLMs through an Anthropic-compatible interface.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mng-dev-ai/anthropic-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T03:57:20Z"
+}
