@@ -1,0 +1,9 @@
+{
+  "name": "ant-design--ant-design-cli",
+  "displayName": "ant-design-cli",
+  "description": "  Ant Design on your command line. Query component knowledge, analyze project usage, and guide migrations \u2014 fully offline.",
+  "version": "1.0.0",
+  "author": "ant-design",
+  "homepage": "https://github.com/ant-design/ant-design-cli",
+  "skills": []
+}
