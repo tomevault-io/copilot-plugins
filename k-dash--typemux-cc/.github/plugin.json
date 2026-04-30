@@ -1,0 +1,9 @@
+{
+  "name": "k-dash--typemux-cc",
+  "displayName": "typemux-cc",
+  "description": "Claude Code plugin: Python type-checker LSP multiplexer. Auto-detects .venv and routes to pyright/ty/pyrefly\u2014no Claude Code restart.",
+  "version": "1.0.0",
+  "author": "K-dash",
+  "homepage": "https://github.com/K-dash/typemux-cc",
+  "skills": []
+}
