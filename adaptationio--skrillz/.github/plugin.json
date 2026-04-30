@@ -1,0 +1,518 @@
+{
+  "name": "adaptationio--skrillz",
+  "displayName": "Skrillz",
+  "description": "AI instruction skills by adaptationio",
+  "version": "1.0.0",
+  "author": "adaptationio",
+  "homepage": "https://github.com/adaptationio/Skrillz",
+  "skills": [
+    {
+      "name": "finnhub-api",
+      "description": ""
+    },
+    {
+      "name": "auto-updater",
+      "description": ""
+    },
+    {
+      "name": "fmp-api",
+      "description": ""
+    },
+    {
+      "name": "stagehand-automation",
+      "description": ""
+    },
+    {
+      "name": "alphavantage-api",
+      "description": ""
+    },
+    {
+      "name": "gemini-3-multimodal",
+      "description": ""
+    },
+    {
+      "name": "xai-auth",
+      "description": ""
+    },
+    {
+      "name": "xai-financial-integration",
+      "description": ""
+    },
+    {
+      "name": "cdk8s-apps",
+      "description": ""
+    },
+    {
+      "name": "ac-qa-reviewer",
+      "description": ""
+    },
+    {
+      "name": "ac-code-validator",
+      "description": ""
+    },
+    {
+      "name": "ac-commit-manager",
+      "description": ""
+    },
+    {
+      "name": "ac-criteria-validator",
+      "description": ""
+    },
+    {
+      "name": "ac-parallel-coordinator",
+      "description": ""
+    },
+    {
+      "name": "ac-spec-generator",
+      "description": ""
+    },
+    {
+      "name": "ac-tdd-runner",
+      "description": ""
+    },
+    {
+      "name": "ac-workspace-manager",
+      "description": ""
+    },
+    {
+      "name": "accessibility-testing",
+      "description": ""
+    },
+    {
+      "name": "analysis",
+      "description": ""
+    },
+    {
+      "name": "anthropic-docs-updater",
+      "description": ""
+    },
+    {
+      "name": "anthropic-expert",
+      "description": ""
+    },
+    {
+      "name": "api-client-skill",
+      "description": ""
+    },
+    {
+      "name": "auto-claude-cli",
+      "description": ""
+    },
+    {
+      "name": "auto-claude-setup",
+      "description": ""
+    },
+    {
+      "name": "auto-claude-updater",
+      "description": ""
+    },
+    {
+      "name": "autonomous-cost-optimizer",
+      "description": ""
+    },
+    {
+      "name": "autonomous-loop",
+      "description": ""
+    },
+    {
+      "name": "autonomous-opus-loop",
+      "description": ""
+    },
+    {
+      "name": "best-practices-learner",
+      "description": ""
+    },
+    {
+      "name": "botanical-design",
+      "description": ""
+    },
+    {
+      "name": "boto3-ecs",
+      "description": ""
+    },
+    {
+      "name": "boto3-eks",
+      "description": ""
+    },
+    {
+      "name": "browser-e2e-tester",
+      "description": ""
+    },
+    {
+      "name": "claude-code-telemetry-enable",
+      "description": ""
+    },
+    {
+      "name": "claude-computer-use-advanced",
+      "description": ""
+    },
+    {
+      "name": "claude-context-management",
+      "description": ""
+    },
+    {
+      "name": "claude-cost-optimization",
+      "description": ""
+    },
+    {
+      "name": "claude-opus-4-5-guide",
+      "description": ""
+    },
+    {
+      "name": "code-server-remote-ide-wsl2",
+      "description": ""
+    },
+    {
+      "name": "codex-cli",
+      "description": ""
+    },
+    {
+      "name": "coding-agent",
+      "description": ""
+    },
+    {
+      "name": "component-testing",
+      "description": ""
+    },
+    {
+      "name": "context-compactor",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "description": ""
+    },
+    {
+      "name": "context-state-tracker",
+      "description": ""
+    },
+    {
+      "name": "deployment-guide",
+      "description": ""
+    },
+    {
+      "name": "development-workflow",
+      "description": ""
+    },
+    {
+      "name": "ecs-deployment",
+      "description": ""
+    },
+    {
+      "name": "ecs-fargate",
+      "description": ""
+    },
+    {
+      "name": "eks-irsa",
+      "description": ""
+    },
+    {
+      "name": "eks-security",
+      "description": ""
+    },
+    {
+      "name": "eks-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "evolution-reporter",
+      "description": ""
+    },
+    {
+      "name": "feedback-analyzer",
+      "description": ""
+    },
+    {
+      "name": "gemini-3-advanced",
+      "description": ""
+    },
+    {
+      "name": "gemini-3-pro-api",
+      "description": ""
+    },
+    {
+      "name": "handoff-coordinator",
+      "description": ""
+    },
+    {
+      "name": "improvement-workflow",
+      "description": ""
+    },
+    {
+      "name": "initializer-agent",
+      "description": ""
+    },
+    {
+      "name": "karpenter-autoscaling",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-python",
+      "description": ""
+    },
+    {
+      "name": "medirecords-integration",
+      "description": ""
+    },
+    {
+      "name": "mobile-emulation",
+      "description": ""
+    },
+    {
+      "name": "modal-patterns",
+      "description": ""
+    },
+    {
+      "name": "momentum-keeper",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-code-review",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-debugging",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-implementation",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-planning",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-research",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-testing",
+      "description": ""
+    },
+    {
+      "name": "multi-ai-verification",
+      "description": ""
+    },
+    {
+      "name": "observability-analyzer",
+      "description": ""
+    },
+    {
+      "name": "observability-dashboard-creator",
+      "description": ""
+    },
+    {
+      "name": "observability-pattern-detector",
+      "description": ""
+    },
+    {
+      "name": "observability-railway-deploy",
+      "description": ""
+    },
+    {
+      "name": "observability-stack-setup",
+      "description": ""
+    },
+    {
+      "name": "parallel-agent-spawner",
+      "description": ""
+    },
+    {
+      "name": "pdf-merger-skill",
+      "description": ""
+    },
+    {
+      "name": "performance-testing",
+      "description": ""
+    },
+    {
+      "name": "planning-architect",
+      "description": ""
+    },
+    {
+      "name": "planning-workflow",
+      "description": ""
+    },
+    {
+      "name": "playwright-testing",
+      "description": ""
+    },
+    {
+      "name": "plugin-builder",
+      "description": ""
+    },
+    {
+      "name": "process-optimizer",
+      "description": ""
+    },
+    {
+      "name": "project-skill-builder",
+      "description": ""
+    },
+    {
+      "name": "prompt-builder",
+      "description": ""
+    },
+    {
+      "name": "railway-api",
+      "description": ""
+    },
+    {
+      "name": "railway-auth",
+      "description": ""
+    },
+    {
+      "name": "railway-deployment",
+      "description": ""
+    },
+    {
+      "name": "railway-observability",
+      "description": ""
+    },
+    {
+      "name": "railway-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "research-workflow",
+      "description": ""
+    },
+    {
+      "name": "review-multi",
+      "description": ""
+    },
+    {
+      "name": "review-workflow",
+      "description": ""
+    },
+    {
+      "name": "skill-builder-generic",
+      "description": ""
+    },
+    {
+      "name": "skill-builder-generic",
+      "description": ""
+    },
+    {
+      "name": "skill-builder-medical",
+      "description": ""
+    },
+    {
+      "name": "skill-evolution-tracker",
+      "description": ""
+    },
+    {
+      "name": "skill-researcher",
+      "description": ""
+    },
+    {
+      "name": "skill-reviewer",
+      "description": ""
+    },
+    {
+      "name": "skill-tester",
+      "description": ""
+    },
+    {
+      "name": "skill-updater",
+      "description": ""
+    },
+    {
+      "name": "skill-validator",
+      "description": ""
+    },
+    {
+      "name": "supabase-api",
+      "description": ""
+    },
+    {
+      "name": "supabase-cli",
+      "description": ""
+    },
+    {
+      "name": "supabase-functions",
+      "description": ""
+    },
+    {
+      "name": "supabase-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "system-reviewer",
+      "description": ""
+    },
+    {
+      "name": "task-development",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "terra-auth",
+      "description": ""
+    },
+    {
+      "name": "terra-connections",
+      "description": ""
+    },
+    {
+      "name": "terra-data",
+      "description": ""
+    },
+    {
+      "name": "terraform-aws",
+      "description": ""
+    },
+    {
+      "name": "terraform-ecs",
+      "description": ""
+    },
+    {
+      "name": "terraform-eks",
+      "description": ""
+    },
+    {
+      "name": "test-observability",
+      "description": ""
+    },
+    {
+      "name": "testing-validator",
+      "description": ""
+    },
+    {
+      "name": "testing-workflow",
+      "description": ""
+    },
+    {
+      "name": "todo-management",
+      "description": ""
+    },
+    {
+      "name": "tri-ai-collaboration",
+      "description": ""
+    },
+    {
+      "name": "twelvedata-api",
+      "description": ""
+    },
+    {
+      "name": "visual-testing",
+      "description": ""
+    },
+    {
+      "name": "wearables-setup",
+      "description": ""
+    },
+    {
+      "name": "workflow-skill-creator",
+      "description": ""
+    }
+  ]
+}
