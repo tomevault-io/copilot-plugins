@@ -1,0 +1,9 @@
+{
+  "name": "674019130--yaak-plugin-sse-parser",
+  "displayName": "yaak-plugin-SSE-parser",
+  "description": "A Yaak plugin that parses Server-Sent Events (SSE) streaming responses from LLM APIs into readable text, with metadata extraction and custom rule support.",
+  "version": "1.0.0",
+  "author": "674019130",
+  "homepage": "https://github.com/674019130/yaak-plugin-SSE-parser",
+  "skills": []
+}
