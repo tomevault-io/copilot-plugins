@@ -1,0 +1,9 @@
+{
+  "name": "rwc9u--emacs-libgterm",
+  "displayName": "emacs-libgterm",
+  "description": "Terminal emulator for Emacs using libghostty-vt (Ghostty's terminal engine)",
+  "version": "1.0.0",
+  "author": "rwc9u",
+  "homepage": "https://github.com/rwc9u/emacs-libgterm",
+  "skills": []
+}
