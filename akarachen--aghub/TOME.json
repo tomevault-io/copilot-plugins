@@ -4,7 +4,7 @@
   "repo": "aghub",
   "description": "One hub for every AI coding agent. Unified configuration management for 22+ assistants.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AkaraChen/aghub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T23:40:42Z"
+  "distributed_at": "2026-04-30T04:04:54Z"
 }
