@@ -4,7 +4,7 @@
   "repo": "agent-kanban",
   "description": "An agent-first task board, Mission control for your AI workforce.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saltbo/agent-kanban",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T23:35:15Z"
+  "distributed_at": "2026-04-30T03:57:45Z"
 }
