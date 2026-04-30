@@ -1,0 +1,9 @@
+{
+  "name": "coszone--moepeek",
+  "displayName": "MoePeek",
+  "description": "A lightweight macOS selection translator built with pure Swift 6, featuring on-device Apple Translate for privacy, only 5MB install size and stable ~50MB memory usage. \u4e00\u6b3e\u8f7b\u91cf\u7ea7 macOS \u5212\u8bcd\u7ffb\u8bd1\u5de5\u5177\uff0c\u7eaf Swift 6 \u5f00\u53d1\uff0c",
+  "version": "1.0.0",
+  "author": "cosZone",
+  "homepage": "https://github.com/cosZone/MoePeek",
+  "skills": []
+}
