@@ -1,0 +1,9 @@
+{
+  "name": "streamui--hyperstar",
+  "displayName": "hyperstar",
+  "description": "Server-driven UI for real-time web apps. No client code, no state sync, just TypeScript & JSX on the server, and every client sees the same thing",
+  "version": "1.0.0",
+  "author": "StreamUI",
+  "homepage": "https://github.com/StreamUI/hyperstar",
+  "skills": []
+}
