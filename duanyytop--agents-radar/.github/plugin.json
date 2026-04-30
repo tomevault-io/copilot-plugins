@@ -1,0 +1,9 @@
+{
+  "name": "duanyytop--agents-radar",
+  "displayName": "agents-radar",
+  "description": "Daily AI ecosystem digest from 10 sources (GitHub, ArXiv, HN, HuggingFace, Product Hunt, Dev.to, Lobste.rs). Bilingual ZH/EN reports via GitHub Actions.",
+  "version": "1.0.0",
+  "author": "duanyytop",
+  "homepage": "https://github.com/duanyytop/agents-radar",
+  "skills": []
+}
