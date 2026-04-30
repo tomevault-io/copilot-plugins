@@ -1,6 +1,6 @@
 # cursor-kit
 
-> Tome by [BhumitThakkar](https://github.com/BhumitThakkar/cursor-kit) — distributed by [TomeVault](https://tomevault.io/claim/BhumitThakkar)
+> Tome by [BhumitThakkar](https://github.com/BhumitThakkar/cursor-kit) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [BhumitThakkar/cursor-kit](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/BhumitThakkar)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/BhumitThakkar/cursor-kit](https://github.com/BhumitThakkar/cursor-kit)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install BhumitThakkar/cursor-kit
 ```
-Or browse all formats at [https://tomevault.io/claim/BhumitThakkar](https://tomevault.io/claim/BhumitThakkar).
+Source: [github.com/BhumitThakkar/cursor-kit](https://github.com/BhumitThakkar/cursor-kit).
 
 <!-- genome:t-i-p -->
