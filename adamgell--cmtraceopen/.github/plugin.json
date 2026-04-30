@@ -1,0 +1,9 @@
+{
+  "name": "adamgell--cmtraceopen",
+  "displayName": "cmtraceopen",
+  "description": "An open-source log viewer inspired by Microsoft's CMTrace.exe.",
+  "version": "1.0.0",
+  "author": "adamgell",
+  "homepage": "https://github.com/adamgell/cmtraceopen",
+  "skills": []
+}
