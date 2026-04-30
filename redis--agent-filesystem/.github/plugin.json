@@ -1,0 +1,9 @@
+{
+  "name": "redis--agent-filesystem",
+  "displayName": "agent-filesystem",
+  "description": "agent-filesystem",
+  "version": "1.0.0",
+  "author": "redis",
+  "homepage": "https://github.com/redis/agent-filesystem",
+  "skills": []
+}
