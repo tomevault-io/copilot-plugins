@@ -1,0 +1,44 @@
+{
+  "name": "Wechat-Claude-bot",
+  "owner": "mrliuzhiyu",
+  "repo": "Wechat-Claude-bot",
+  "description": "\u901a\u8fc7\u5fae\u4fe1\u8fdc\u7a0b\u64cd\u63a7 Claude Code CLI\uff0c\u5728\u624b\u673a\u4e0a\u5199\u4ee3\u7801\u3001\u6267\u884c\u547d\u4ee4\u3001\u7ba1\u7406\u9879\u76ee | Control Claude Code from WeChat",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mrliuzhiyu/Wechat-Claude-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T00:20:22Z"
+}
