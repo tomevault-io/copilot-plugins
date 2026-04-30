@@ -1,0 +1,9 @@
+{
+  "name": "pederhp--skillsdotnet",
+  "displayName": "skillsdotnet",
+  "description": "C# implementation of agent skills (agentskills.io) with MCP integration and convenience.",
+  "version": "1.0.0",
+  "author": "PederHP",
+  "homepage": "https://github.com/PederHP/skillsdotnet",
+  "skills": []
+}
