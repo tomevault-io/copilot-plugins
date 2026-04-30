@@ -4,7 +4,7 @@
   "repo": "autocontext",
   "description": "a recursive self-improving harness designed to help your agents (and future iterations of those agents) succeed on any task",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/greyhaven-ai/autocontext",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T10:49:33Z"
+  "distributed_at": "2026-04-30T16:15:16Z"
 }
