@@ -1,0 +1,9 @@
+{
+  "name": "brettmeyerowitz--homeassistant-homgar",
+  "displayName": "homeassistant-homgar",
+  "description": "Home Assistant custom integration for RainPoint and HomGar irrigation devices.",
+  "version": "1.0.0",
+  "author": "brettmeyerowitz",
+  "homepage": "https://github.com/brettmeyerowitz/homeassistant-homgar",
+  "skills": []
+}
