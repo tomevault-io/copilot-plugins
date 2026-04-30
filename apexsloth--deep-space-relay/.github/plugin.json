@@ -1,0 +1,9 @@
+{
+  "name": "apexsloth--deep-space-relay",
+  "displayName": "deep-space-relay",
+  "description": "Chat with our astronauts while they are in deep space.  Message your OpenCode agents directly via Telegram. Each project can have its own chat, and every session has a dedicated thread for real-time i",
+  "version": "1.0.0",
+  "author": "apexsloth",
+  "homepage": "https://github.com/apexsloth/deep-space-relay",
+  "skills": []
+}
