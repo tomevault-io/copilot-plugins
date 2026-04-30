@@ -1,0 +1,9 @@
+{
+  "name": "re-cinq--assembly-line",
+  "displayName": "assembly-line",
+  "description": "Runs agents in a chain, triggered by Git branches",
+  "version": "1.0.0",
+  "author": "re-cinq",
+  "homepage": "https://github.com/re-cinq/assembly-line",
+  "skills": []
+}
