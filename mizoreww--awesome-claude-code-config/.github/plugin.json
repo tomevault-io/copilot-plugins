@@ -1,0 +1,9 @@
+{
+  "name": "mizoreww--awesome-claude-code-config",
+  "displayName": "awesome-claude-code-config",
+  "description": "Production-ready Claude Code configuration with self-improvement loop, multi-language rules, MCP integrations, and custom skills",
+  "version": "1.0.0",
+  "author": "Mizoreww",
+  "homepage": "https://github.com/Mizoreww/awesome-claude-code-config",
+  "skills": []
+}
