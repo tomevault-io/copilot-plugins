@@ -1,0 +1,9 @@
+{
+  "name": "thegreencedar--codex-autoresearch",
+  "displayName": "codex-autoresearch",
+  "description": "A codex plugin for running optimization loops inside a codebase. It is useful when you have a measurable target and many possible changes to try: test runtime, build speed, bundle size, model loss, Li",
+  "version": "1.0.0",
+  "author": "TheGreenCedar",
+  "homepage": "https://github.com/TheGreenCedar/codex-autoresearch",
+  "skills": []
+}
