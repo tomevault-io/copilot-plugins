@@ -1,0 +1,9 @@
+{
+  "name": "maksutovic--joycraft",
+  "displayName": "joycraft",
+  "description": "CLI + Claude Code plugin that scaffolds and upgrades AI development harnesses \u2014 from vibe coding to autonomous spec-driven development",
+  "version": "1.0.0",
+  "author": "maksutovic",
+  "homepage": "https://github.com/maksutovic/joycraft",
+  "skills": []
+}
