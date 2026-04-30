@@ -1,0 +1,9 @@
+{
+  "name": "davidhariri--life-system",
+  "displayName": "life-system",
+  "description": "A plain-text life operating system powered by Claude Code. Inspired by Carmack's .plan files and Franklin's systematic self-improvement.",
+  "version": "1.0.0",
+  "author": "davidhariri",
+  "homepage": "https://github.com/davidhariri/life-system",
+  "skills": []
+}
