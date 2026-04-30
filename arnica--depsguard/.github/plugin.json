@@ -1,0 +1,9 @@
+{
+  "name": "arnica--depsguard",
+  "displayName": "depsguard",
+  "description": "Harden your package manager configs against supply chain attacks.",
+  "version": "1.0.0",
+  "author": "arnica",
+  "homepage": "https://github.com/arnica/depsguard",
+  "skills": []
+}
