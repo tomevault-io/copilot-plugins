@@ -1,0 +1,9 @@
+{
+  "name": "walf443--nginx-lint",
+  "displayName": "nginx-lint",
+  "description": "A linter for nginx configuration files with WASM plugin support",
+  "version": "1.0.0",
+  "author": "walf443",
+  "homepage": "https://github.com/walf443/nginx-lint",
+  "skills": []
+}
