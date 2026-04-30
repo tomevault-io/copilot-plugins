@@ -1,0 +1,9 @@
+{
+  "name": "herdux--herdux-cli",
+  "displayName": "herdux-cli",
+  "description": "We build developer-first infrastructure tools designed for clarity, safety and speed.",
+  "version": "1.0.0",
+  "author": "herdux",
+  "homepage": "https://github.com/herdux/herdux-cli",
+  "skills": []
+}
