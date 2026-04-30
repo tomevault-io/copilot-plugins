@@ -7,11 +7,11 @@ Learn AI fundamentals, tips, tricks and workflows from In the Weeds articles, wi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [in-the-weeds-hannah-stulberg/substack-articles](https://github.com/in-the-weeds-hannah-stulberg/substack-articles).
+Original source: `CLAUDE.md` in [in-the-weeds-hannah-stulberg/substack-articles](https://github.com/in-the-weeds-hannah-stulberg/substack-articles).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
