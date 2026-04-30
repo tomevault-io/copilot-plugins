@@ -1,0 +1,9 @@
+{
+  "name": "jacobinwwey--noteconnection",
+  "displayName": "NoteConnection",
+  "description": "Unlock the Structure of Your Knowledge.A system to visualize knowledge points as a Directed Acyclic Graph (DAG) by analyzing markdown notes.",
+  "version": "1.0.0",
+  "author": "Jacobinwwey",
+  "homepage": "https://github.com/Jacobinwwey/NoteConnection",
+  "skills": []
+}
