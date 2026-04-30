@@ -1,0 +1,9 @@
+{
+  "name": "lis186--ccxray",
+  "displayName": "ccxray",
+  "description": "X-ray vision for AI agent sessions \u2014 a transparent HTTP proxy and dashboard for Claude Code",
+  "version": "1.0.0",
+  "author": "lis186",
+  "homepage": "https://github.com/lis186/ccxray",
+  "skills": []
+}
