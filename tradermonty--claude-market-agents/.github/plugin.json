@@ -1,0 +1,34 @@
+{
+  "name": "tradermonty--claude-market-agents",
+  "displayName": "claude",
+  "description": "AI instruction skills by tradermonty",
+  "version": "1.0.0",
+  "author": "tradermonty",
+  "homepage": "https://github.com/tradermonty/claude-market-agents",
+  "skills": [
+    {
+      "name": "ftd-detector",
+      "description": ""
+    },
+    {
+      "name": "market-breadth-analyzer",
+      "description": ""
+    },
+    {
+      "name": "uptrend-analyzer",
+      "description": ""
+    },
+    {
+      "name": "breadth-chart-analyst",
+      "description": ""
+    },
+    {
+      "name": "economic-calendar-fetcher",
+      "description": ""
+    },
+    {
+      "name": "market-news-analyst",
+      "description": ""
+    }
+  ]
+}
