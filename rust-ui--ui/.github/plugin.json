@@ -1,0 +1,9 @@
+{
+  "name": "rust-ui--ui",
+  "displayName": "ui",
+  "description": "A Shadcn-inspired component registry for Rust \u2014 build cross-platform apps for Web, Desktop, iOS and Android.",
+  "version": "1.0.0",
+  "author": "rust-ui",
+  "homepage": "https://github.com/rust-ui/ui",
+  "skills": []
+}
