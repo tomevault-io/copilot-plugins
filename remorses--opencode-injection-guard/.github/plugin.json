@@ -1,0 +1,9 @@
+{
+  "name": "remorses--opencode-injection-guard",
+  "displayName": "opencode-injection-guard",
+  "description": "Prompt injection detection plugin for OpenCode. Works with any LLM provider. Scans tool call outputs with a judge model before they reach the agent. Alternative to OpenAI Guardrails.",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/opencode-injection-guard",
+  "skills": []
+}
