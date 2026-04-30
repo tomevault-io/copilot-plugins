@@ -1,0 +1,9 @@
+{
+  "name": "autohandai--autohand-acp",
+  "displayName": "autohand-acp",
+  "description": "Use Autohand code cli from any ACP client such as Zed Editor",
+  "version": "1.0.0",
+  "author": "autohandai",
+  "homepage": "https://github.com/autohandai/autohand-acp",
+  "skills": []
+}
