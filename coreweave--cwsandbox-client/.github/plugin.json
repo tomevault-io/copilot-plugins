@@ -1,0 +1,9 @@
+{
+  "name": "coreweave--cwsandbox-client",
+  "displayName": "cwsandbox-client",
+  "description": "cwsandbox-client",
+  "version": "1.0.0",
+  "author": "coreweave",
+  "homepage": "https://github.com/coreweave/cwsandbox-client",
+  "skills": []
+}
