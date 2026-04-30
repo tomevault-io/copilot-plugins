@@ -1,0 +1,9 @@
+{
+  "name": "cloudchef--atlasclaw-providers",
+  "displayName": "atlasclaw-providers",
+  "description": "atlasclaw-providers are the integration with enterprise systems through skills and webhook.",
+  "version": "1.0.0",
+  "author": "CloudChef",
+  "homepage": "https://github.com/CloudChef/atlasclaw-providers",
+  "skills": []
+}
