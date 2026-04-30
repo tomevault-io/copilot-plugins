@@ -4,7 +4,7 @@
   "repo": "python-sdk",
   "description": "Python client SDK for connecting agents to any ADP-compliant server",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agenticdataprotocol/python-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T10:38:20Z"
+  "distributed_at": "2026-04-30T19:41:00Z"
 }
