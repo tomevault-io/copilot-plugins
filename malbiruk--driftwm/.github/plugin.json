@@ -1,0 +1,9 @@
+{
+  "name": "malbiruk--driftwm",
+  "displayName": "driftwm",
+  "description": "A trackpad-first infinite canvas Wayland compositor.",
+  "version": "1.0.0",
+  "author": "malbiruk",
+  "homepage": "https://github.com/malbiruk/driftwm",
+  "skills": []
+}
