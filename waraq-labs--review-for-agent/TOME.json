@@ -1,0 +1,44 @@
+{
+  "name": "review-for-agent",
+  "owner": "Waraq-Labs",
+  "repo": "review-for-agent",
+  "description": "A local code review tool for giving structured, line-level feedback to AI coding agents \u2014 without opening a PR.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Waraq-Labs/review-for-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-04-30T20:12:05Z"
+}
