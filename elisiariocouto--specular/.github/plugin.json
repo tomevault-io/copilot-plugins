@@ -1,0 +1,9 @@
+{
+  "name": "elisiariocouto--specular",
+  "displayName": "specular",
+  "description": "\ud83e\ude9e Specular is an open-source Terraform provider network mirror. This might evolve into a generic proxy mirror for other packages/artifacts.",
+  "version": "1.0.0",
+  "author": "elisiariocouto",
+  "homepage": "https://github.com/elisiariocouto/specular",
+  "skills": []
+}
