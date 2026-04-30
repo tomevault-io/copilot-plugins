@@ -1,0 +1,9 @@
+{
+  "name": "qufei1993--cc-weixin",
+  "displayName": "cc-weixin",
+  "description": "Connect WeChat to Claude Code   via official iLink Bot API. Send    and receive text, images,   voice, and files between WeChat   and your AI coding session.",
+  "version": "1.0.0",
+  "author": "qufei1993",
+  "homepage": "https://github.com/qufei1993/cc-weixin",
+  "skills": []
+}
