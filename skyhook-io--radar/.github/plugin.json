@@ -1,0 +1,9 @@
+{
+  "name": "skyhook-io--radar",
+  "displayName": "radar",
+  "description": "Modern Kubernetes visibility. Topology, event timeline, and service traffic \u2014 plus resource browsing and Helm management.",
+  "version": "1.0.0",
+  "author": "skyhook-io",
+  "homepage": "https://github.com/skyhook-io/radar",
+  "skills": []
+}
