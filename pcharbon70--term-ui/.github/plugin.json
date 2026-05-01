@@ -1,0 +1,9 @@
+{
+  "name": "pcharbon70--term-ui",
+  "displayName": "term_ui",
+  "description": "A framework for writing terminal user interfaces in Elixir",
+  "version": "1.0.0",
+  "author": "pcharbon70",
+  "homepage": "https://github.com/pcharbon70/term_ui",
+  "skills": []
+}
