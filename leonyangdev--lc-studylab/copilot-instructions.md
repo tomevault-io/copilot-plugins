@@ -1,62 +1,15 @@
-## 2-project-structure-description
+## 3-development
 
-> pyproject.toml / requirements.txt
+> - 遵循敏捷开发原则，将任务拆分为子任务，小步快跑式的迭代
 
 
-```
-lc-studylab/
-  backend/  # 后端项目
-    pyproject.toml / requirements.txt
+# 开发规范
 
-    config/
-      settings.py              # 模型、向量库、数据路径等统一配置
-      logging.py
+## 开发原则
 
-    core/
-      models.py                # openai:gpt-4o, gpt-5 等模型封装
-      prompts.py               # 系统提示词、模板
-      tools/
-        web_search.py          # 网络搜索工具（如 tavily）
-        filesystem.py          # 读写本地知识库的工具
-        rag_tools.py           # retriever 封装成 tool
-        task_tools.py          # 创建学习任务、记录进度之类
-      guardrails/
-        content_filters.py     # 简单 guardrails，实现输入/输出校验
-        schemas.py             # Pydantic / JSON schema 用于结构化输出
-
-    rag/
-      loaders.py               # 各种文档加载
-      index_builder.py         # text split + embedding + vector store
-      retriever.py             # retriever 构造
-      agent.py                 # RAG Agent (LangChain create_agent + retriever tool)
-      graph.py                 # Agentic RAG 的 LangGraph 图 (可选)
-
-    agents/
-      base_agent.py            # 通用 create_agent 封装，带 streaming + guardrails
-      study_planner_agent.py   # 学习计划/任务规划 Agent
-      coding_helper_agent.py   # 简单代码助手 Agent（练工具调用）
-
-    workflows/  (LangGraph)
-      study_flow_graph.py      # 「从问题 → 找资料 → 生成学习计划 → 生成练习题」的图
-      eval_quiz_graph.py       # 「答题 → 评分 → 反馈」图（可选）
-
-    deep_research/
-      deep_agent.py            # DeepAgents create_deep_agent，深度研究模式
-      middleware.py            # subagents / filesystem / 人类在环 中间件配置
-
-    api/
-      http_server.py           # FastAPI / Flask 暴露 HTTP 接口
-      routers/
-        chat.py                # /chat -> 统一入口，内部路由到不同 Agent / Graph / DeepAgent
-        rag.py                 # /rag-index, /rag-query
-        deep_research.py       # /deep-research
-
-    scripts/
-      build_index.py           # 初次构建向量索引
-      demo_cli.py              # CLI 入口，方便你本地调试
-
-  frontend/ # 前端项目
-```
+- 遵循敏捷开发原则，将任务拆分为子任务，小步快跑式的迭代
+- 每开发一个阶段的需求，需要提前制定 Plan，然后根据 Plan 开发
+- 开发过程 Plan 文档，总结文档，readme 文档都放在对于后端或者前端目录的 docs/stage_{stageStep} 下
 
 ---
 > Source: [leonyangdev/lc-studylab](https://github.com/leonyangdev/lc-studylab) — distributed by [TomeVault](https://tomevault.io).
