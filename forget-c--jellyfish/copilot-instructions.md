@@ -1,33 +1,42 @@
-## jellyfish-code-and-api
+## jellyfish-definition-of-done
 
-> Jellyfish 代码与接口协作规则
+> Jellyfish 标准完成状态（DoD）规则
 
 
-# Jellyfish Code And API Rules
+# Jellyfish Definition Of Done
 
-## 代码规范
+以下场景在默认情况下，满足全部条件才算“完成”：
 
-- API 变更后必须运行：`pnpm run openapi:update`。
-- 前端调用后端接口时，统一使用 OpenAPI generated client，不新增手写 service 封装。
-- 当前端样式重复度大于 1 次时，优先抽离为可复用组件或公共样式结构。
-- 函数、类等代码块必须添加注释：
-  - 至少包含功能介绍（说明“做什么”与“为什么存在”）。
-  - 复杂函数需补充参数说明、返回值说明（如适用）与关键内部逻辑注释。
-  - 注释必须与代码实现保持同步，避免过时、误导或空泛描述。
-- 后端严格区分层职责：
-  - `api` 层负责收参、鉴权、响应组织。
-  - `service` 层负责业务逻辑、状态流转、数据编排。
-- 生成能力相关的通用契约（输入/输出 DTO、供应商配置等）统一放在 `app/core/contracts`：
-  - `tasks` 仅保留任务封装、分派与执行编排，不定义跨层 DTO。
-  - `integrations` 仅依赖 `contracts`，不依赖 `tasks` 类型模块。
+1. 代码实现完成：
+   - 功能代码已落地
+   - 无明显遗留占位实现
+   - 无无效兼容代码残留
+   - 新增或改动的函数、类等代码块已补充必要注释，并与实现一致
 
-## 变更同步要求
+2. 接口/类型完成：
+   - 若后端 API 有变化，已运行 `pnpm run openapi:update`
+   - 前端 generated types 已同步
+   - 前端调用已切到 OpenAPI generated client
 
-- 修改 API、类型、状态模型后，优先同步：
-  - 后端实现
-  - OpenAPI
-  - 前端 generated types
-  - 对应开发文档
+3. 文档完成：
+   - 若影响当前系统行为，已更新 `architecture`
+   - 若影响后续执行计划，已更新 `plans`
+   - 若为发布说明，按需更新 `blog`
+
+4. 页面职责完成：
+   - 分镜编辑页继续保持“准备”定位
+   - 分镜工作室继续保持“生成”定位
+   - 未引入新的职责混淆
+
+5. 验证完成：
+   - 前端改动后，至少通过 `pnpm exec tsc --noEmit`
+   - 后端改动后，至少通过相关测试或最低限度的语法/导入校验
+   - Python 相关改动后，需运行 `pylint` 完成静态校验
+
+6. 结果汇报完成：
+   - 明确说明改了什么
+   - 明确说明验证结果
+   - 若有未完成项或后续建议，需单独说明
 
 ---
 > Source: [Forget-C/Jellyfish](https://github.com/Forget-C/Jellyfish) — distributed by [TomeVault](https://tomevault.io).
