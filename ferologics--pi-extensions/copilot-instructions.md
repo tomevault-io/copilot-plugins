@@ -1,0 +1,78 @@
+## pi-extensions
+
+> Custom pi-coding-agent extensions.
+
+# AGENTS.md - AI Assistant Context
+
+Custom pi-coding-agent extensions.
+
+## Development
+
+```bash
+just              # List all commands
+just compile      # Type-check with tsc
+just fmt          # Format with Biome + dprint
+just lint         # Lint with Biome
+just check        # Format + lint + compile + tests (full check)
+
+just setup-hooks  # Install pre-commit hook
+just remove-hooks # Remove pre-commit hook
+```
+
+Pre-commit hook runs `just check` before each commit.
+
+## Structure
+
+Each extension is a folder with an `index.ts` entry point plus optional docs/release files:
+
+```
+extension-name/
+├── index.ts                         # Main extension code
+├── README.md                        # Usage docs
+├── package.json                     # Standalone package manifest (optional)
+├── TODO.md                          # Extension backlog (optional)
+├── VISION.md                        # Extension direction (optional)
+└── .github/workflows/npm-publish.yml # Standalone publish workflow (optional)
+```
+
+Current extensions:
+
+- `deep-review`
+- `pi-ghostty-hunk`
+- `pi-ghostty-lazygit`
+- `pi-notify`
+- `pi-system-theme`
+- `plan-mode`
+- `pi-verbosity-control`
+
+## Type Checking
+
+Extensions import from pi's packages. The `tsconfig.json` maps these:
+
+- `@mariozechner/pi-coding-agent` - Extension API
+- `@mariozechner/pi-agent-core` - Message types
+- `@mariozechner/pi-ai` - Content types
+- `@mariozechner/pi-tui` - TUI utilities
+- `@sinclair/typebox` - Schema types
+
+## Style
+
+- Biome handles formatting and linting
+- Spaces for indentation (4-space)
+- 120 char line width
+
+## Backlog conventions
+
+- Extension-specific backlog lives next to each extension:
+  - `deep-review/TODO.md`
+  - `pi-ghostty-hunk/TODO.md`
+  - `pi-system-theme/TODO.md`
+  - `plan-mode/TODO.md`
+  - `pi-verbosity-control/TODO.md`
+- `extensions/TODO.md` is an index/shared file, not a place for one extension's full backlog.
+- Package-level integration backlog belongs in repo-root `../TODO.md`.
+- When developing in upstream `~/dev/pi-extensions`, keep the same TODO files aligned there.
+
+---
+> Source: [ferologics/pi-extensions](https://github.com/ferologics/pi-extensions) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
