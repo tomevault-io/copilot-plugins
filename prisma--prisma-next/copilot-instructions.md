@@ -1,50 +1,38 @@
-## no-target-branches
+## no-tautological-tests
 
-> Never branch on target - use adapters instead
+> Avoid tautological tests that only restate fixture input
 
 
-# No Target-Specific Branches
+# Avoid Tautological Tests
 
-**CRITICAL**: Never branch on `target` in core code. Target-specific logic belongs in adapters and target packages.
+Tests must verify behavior, not mirror object shape passed by the test itself.
 
-**❌ WRONG: Branch on target in core packages**
+## Rule
 
-```typescript
-function canonicalizeColumnType(scalar: string, target: string): string {
-  if (target === 'postgres') {
-    const scalarMap: Record<string, string> = {
-      int4: 'pg/int4@1',
-      text: 'pg/text@1',
-    };
-    return scalarMap[scalar] ?? scalar;
-  }
-  return scalar;
-}
-```
+- Prefer assertions that validate transformation, branching, integration behavior, error handling, or side effects.
+- Do not add tests that only confirm an object still contains fields copied directly from the test input.
+- If coverage pressure encourages low-value assertions, tune coverage configuration instead of adding meaningless tests.
 
-**✅ CORRECT: Put target-specific logic behind an adapter interface**
+## Examples
+
+**❌ Avoid**
 
 ```typescript
-interface Adapter {
-  canonicalizeType(scalar: string): string;
-}
-
-class PostgresAdapter implements Adapter {
-  canonicalizeType(scalar: string): string {
-    const scalarMap: Record<string, string> = {
-      int4: 'pg/int4@1',
-      text: 'pg/text@1',
-    };
-    return scalarMap[scalar] ?? scalar;
-  }
-}
+const value = makeThing({ a: 1, b: 2 });
+expect(value).toMatchObject({ a: 1, b: 2 });
 ```
 
-## Why this matters
+When `makeThing()` only stores the same input fields, this adds little signal and mostly tests fixture setup.
 
-- Keeps the core target-agnostic (“thin core, fat targets”)
-- Avoids hard-to-extend `if/else` and `switch` ladders as targets grow
-- Improves testability by mocking the adapter interface instead of branching on target
+**✅ Prefer**
+
+```typescript
+const value = makeThing({ precision: 12 });
+expect(value.normalize()).toBe('numeric(12)');
+expect(() => makeThing({ precision: -1 })).toThrow();
+```
+
+These assertions validate behavior and error paths that can actually regress.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
