@@ -4,7 +4,7 @@
   "repo": "SongGen-Mac",
   "description": "A specialized fork of SongGeneration Studio, engineered to run on Macs with any M series Apple Silicon chips. ",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Rdx-ai-art/SongGen-Mac",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:36:44Z"
+  "distributed_at": "2026-05-01T00:02:43Z"
 }
