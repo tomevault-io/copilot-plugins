@@ -1,31 +1,77 @@
-## typescript-patterns
+## use-ast-factories
 
-> TypeScript and architecture patterns for this codebase
+> Use factory functions for creating AST nodes instead of manual object creation
 
 
-# TypeScript and Architecture Patterns
+# Use Factory Functions for AST Nodes
 
-This rulecard is intentionally short. For deeper examples, see `docs/reference/typescript-patterns.md`.
+**CRITICAL**: When creating AST nodes in tests, use factory functions instead of manual object creation.
 
-## Focused rulecards
+## The Problem
 
-- `.cursor/rules/generic-parameters.mdc` — Generic parameter defaults
-- `.cursor/rules/interface-factory-pattern.mdc` — Interface-based design + factory functions
-- `.cursor/rules/type-predicates.mdc` — Replace blind casts with type predicates
-- `.cursor/rules/test-mocking-patterns.mdc` — Type assertions and mocking patterns in tests
+Manual AST node creation:
+- Duplicates AST structure definitions
+- Is error-prone (easy to miss required fields or use wrong values)
+- Makes refactoring harder (changes to AST structure require updates in many places)
+- Doesn't benefit from factory function validation
 
-## Quick reminders
+## The Solution
 
-- **No blind casts in production**: `as unknown as X` is forbidden outside tests. Prefer type predicates or fix the type surface.
-- **Export interfaces; construct via factories**: keep classes as private implementation details.
-- **No generic defaults unless meaningful**: defaults are semantics, not “flexibility”.
-- **Test-only escapes**: `@ts-expect-error` and double casts are acceptable only in test files, with a short explanation.
+**❌ WRONG: Manual AST node creation**
 
-## Related rules
+```typescript
+const colRef: ColumnRef = { kind: 'col', table: 'user', column: 'id' };
+const paramRef: ParamRef = { kind: 'param', index: 1, name: 'userId' };
+const literalExpr: LiteralExpr = { kind: 'literal', value: 'test' };
+```
 
-- `.cursor/rules/no-inline-imports.mdc`
-- `.cursor/rules/object-hasown.mdc`
-- `.cursor/rules/prefer-assertions-over-defensive-checks.mdc`
+**✅ CORRECT: Use factory functions**
+
+```typescript
+import { createColumnRef, createParamRef, createLiteralExpr } from '@prisma-next/sql-relational-core/ast';
+
+const colRef: ColumnRef = createColumnRef('user', 'id');
+const paramRef: ParamRef = createParamRef(1, 'userId');
+const literalExpr: LiteralExpr = createLiteralExpr('test');
+```
+
+## Available Factory Functions
+
+From `@prisma-next/sql-relational-core/ast`:
+- `createColumnRef(table, column)` - Creates a `ColumnRef`
+- `createParamRef(index, name?)` - Creates a `ParamRef`
+- `createLiteralExpr(value)` - Creates a `LiteralExpr`
+- `createTableRef(name)` - Creates a `TableRef`
+- `createBinaryExpr(op, left, right)` - Creates a `BinaryExpr` (from `ast/predicate`)
+
+## When to Use Factory Functions
+
+Use factory functions when:
+- ✅ Creating `ColumnRef`, `ParamRef`, `LiteralExpr`, `TableRef` in tests
+- ✅ Creating `BinaryExpr` in tests
+- ✅ Any AST node that has a factory function available
+
+**Exception**: `OperationExpr` objects are complex and don't have a factory function (the `createOperationExpr` function just returns the operation as-is). Manual creation is acceptable for `OperationExpr` in tests.
+
+## Benefits
+
+- **Consistency**: All AST nodes created the same way
+- **Type safety**: Factory functions ensure correct structure
+- **Maintainability**: Changes to AST structure only need updates in factory functions
+- **Less duplication**: No need to repeat AST structure in tests
+- **Validation**: Factory functions can validate inputs
+
+## Examples from Codebase
+
+**Good patterns:**
+- Using `createColumnRef('user', 'id')` instead of `{ kind: 'col', table: 'user', column: 'id' }`
+- Using `createParamRef(1, 'userId')` instead of `{ kind: 'param', index: 1, name: 'userId' }`
+- Using `createLiteralExpr('test')` instead of `{ kind: 'literal', value: 'test' }`
+
+**Bad patterns (to avoid):**
+- Manual object creation for AST nodes that have factory functions
+- Duplicating AST structure definitions in tests
+- Creating AST nodes with incomplete or incorrect structure
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
