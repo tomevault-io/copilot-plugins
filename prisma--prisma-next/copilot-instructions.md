@@ -1,70 +1,28 @@
-## prefer-to-throw
+## query-patterns
 
-> Use expect().toThrow() instead of manual try/catch blocks in tests
+> Standard patterns for working with Prisma Next queries
 
 
-# Prefer `toThrow` Over Manual try/catch
+# Query Patterns
 
-Use `expect(() => ...).toThrow(...)` to assert errors instead of manual try/catch blocks.
+This rulecard is intentionally short. For full examples, see `docs/reference/query-patterns.md`.
 
-## Don't
+## Keep query entrypoints small and explicit
 
-```typescript
-// ❌ Manual try/catch — verbose, easy to forget the "did it throw?" check
-let caughtError: unknown;
-try {
-  doSomething();
-} catch (error) {
-  caughtError = error;
-}
-expect(caughtError).toBeInstanceOf(MyError);
-expect(caughtError).toMatchObject({
-  code: 'SOME_CODE',
-  message: 'something went wrong',
-});
-```
+- Prefer a small `db.ts` that wires one `postgres(...)` call and keep query modules consuming `db` directly.
+- Keep complex examples and walkthroughs in docs.
 
-```typescript
-// ❌ Calling the function twice — once with toThrow, once with try/catch
-expect(() => doSomething()).toThrow(MyError);
+## Prefer `tables` + `table.columns.*`
 
-let caughtError: unknown;
-try {
-  doSomething();
-} catch (error) {
-  caughtError = error;
-}
-expect((caughtError as MyError).code).toBe('SOME_CODE');
-```
+- Access columns via `db.schema.tables.user.columns.email` (avoids conflicts with table properties).
+- If a file uses `tables` frequently, extract locals:
+  - `const user = db.schema.tables.user`
+  - `const cols = user.columns`
 
-## Do
+## Related rules
 
-```typescript
-// ✅ Single toThrow with expect.objectContaining for structured errors
-expect(() => doSomething()).toThrow(
-  expect.objectContaining({
-    code: 'SOME_CODE',
-    message: 'something went wrong',
-    details: expect.objectContaining({ table: 'user' }),
-  }),
-);
-```
-
-```typescript
-// ✅ Simple class check when you only need to verify the error type
-expect(() => doSomething()).toThrow(MyError);
-```
-
-```typescript
-// ✅ Message substring match
-expect(() => doSomething()).toThrow('something went wrong');
-```
-
-## Why
-
-- **Single invocation**: the function under test runs exactly once.
-- **Fail-safe**: if the function does not throw, vitest fails the test automatically. Manual try/catch silently passes when the throw is missing unless you add extra `expect.assertions(n)` bookkeeping.
-- **Less noise**: no `let caughtError`, no `as MyError` cast, no separate `toBeInstanceOf` check.
+- `.cursor/rules/sql-types-imports.mdc`
+- `.cursor/rules/validate-contract-usage.mdc`
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
