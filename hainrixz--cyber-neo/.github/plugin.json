@@ -1,0 +1,9 @@
+{
+  "name": "hainrixz--cyber-neo",
+  "displayName": "cyber-neo",
+  "description": "Open-source cybersecurity analysis agent for Claude Code. Scans projects for vulnerabilities across all OWASP 2025 Top 10 and CWE Top 25 categories. 11 security domains, 60+ secret patterns, parallel ",
+  "version": "1.0.0",
+  "author": "Hainrixz",
+  "homepage": "https://github.com/Hainrixz/cyber-neo",
+  "skills": []
+}
