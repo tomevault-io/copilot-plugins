@@ -1,0 +1,9 @@
+{
+  "name": "guiyumin--vget",
+  "displayName": "vget",
+  "description": "Versatile downloader for audio, video, podcasts, PDFs and more. Available as CLI and Docker | \u591a\u529f\u80fd\u4e0b\u8f7d\u5de5\u5177\uff0c\u652f\u6301\u97f3\u89c6\u9891\u3001\u64ad\u5ba2\u3001PDF\u7b49\uff0c\u63d0\u4f9b CLI \u548c Docker \u4e24\u79cd\u65b9\u5f0f",
+  "version": "1.0.0",
+  "author": "guiyumin",
+  "homepage": "https://github.com/guiyumin/vget",
+  "skills": []
+}
