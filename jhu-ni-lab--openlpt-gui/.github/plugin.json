@@ -1,0 +1,9 @@
+{
+  "name": "jhu-ni-lab--openlpt-gui",
+  "displayName": "OpenLPT_GUI",
+  "description": "OpenLPT: An open-source Lagrangian Particle Tracking (LPT) GUI for 3D fluid flow visualization and experimental data analysis.",
+  "version": "1.0.0",
+  "author": "JHU-NI-LAB",
+  "homepage": "https://github.com/JHU-NI-LAB/OpenLPT_GUI",
+  "skills": []
+}
