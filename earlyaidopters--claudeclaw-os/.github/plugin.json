@@ -1,0 +1,9 @@
+{
+  "name": "earlyaidopters--claudeclaw-os",
+  "displayName": "claudeclaw-os",
+  "description": "Your Claude Code CLI, delivered to your phone via Telegram.",
+  "version": "1.0.0",
+  "author": "earlyaidopters",
+  "homepage": "https://github.com/earlyaidopters/claudeclaw-os",
+  "skills": []
+}
