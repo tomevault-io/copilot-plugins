@@ -1,0 +1,9 @@
+{
+  "name": "dotneet--agent-session-view",
+  "displayName": "agent-session-view",
+  "description": "A coding agent session viewer for browsing, viewing, and exporting conversation history from Claude Code and Codex CLI. Available as both a web interface and a terminal UI.",
+  "version": "1.0.0",
+  "author": "dotneet",
+  "homepage": "https://github.com/dotneet/agent-session-view",
+  "skills": []
+}
