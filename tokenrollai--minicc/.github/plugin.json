@@ -1,0 +1,9 @@
+{
+  "name": "tokenrollai--minicc",
+  "displayName": "minicc",
+  "description": "mini claude code impl for learning agent",
+  "version": "1.0.0",
+  "author": "TokenRollAI",
+  "homepage": "https://github.com/TokenRollAI/minicc",
+  "skills": []
+}
