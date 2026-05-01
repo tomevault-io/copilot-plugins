@@ -1,0 +1,44 @@
+{
+  "name": "iFlow-Settings-Editor-GUI",
+  "owner": "yuentao",
+  "repo": "iFlow-Settings-Editor-GUI",
+  "description": "\u4e00\u4e2a\u7528\u4e8e\u7f16\u8f91 iFlow CLI \u914d\u7f6e\u6587\u4ef6\u7684\u684c\u9762\u5e94\u7528\u7a0b\u5e8f\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yuentao/iFlow-Settings-Editor-GUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T06:19:17Z"
+}
