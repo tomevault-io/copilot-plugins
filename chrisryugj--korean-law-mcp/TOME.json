@@ -1,0 +1,44 @@
+{
+  "name": "korean-law-mcp",
+  "owner": "chrisryugj",
+  "repo": "korean-law-mcp",
+  "description": "\uad6d\uac00\ubc95\ub839\uc815\ubcf4MCP | \ubc95\uc81c\ucc98 41\uac1c API \u2192 16\uac1c MCP \ub3c4\uad6c. \ubc95\ub839\u00b7\ud310\ub840\u00b7\uc870\ub840\u00b7\uc870\uc57d\uc744 AI\ub85c \uac80\uc0c9\u00b7\uc870\ud68c\u00b7\ubd84\uc11d + LLM \ud658\uac01 \ubc29\uc9c0 \uc778\uc6a9 \uac80\uc99d | 41 Korean legal APIs \u2192 16 MCP tools with AI citation hallucination guard",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chrisryugj/korean-law-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T10:15:20Z"
+}
