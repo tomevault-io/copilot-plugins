@@ -4,7 +4,7 @@
   "repo": "winshot",
   "description": "WinShot - A Windows screenshot tool with annotation, crop, and export features built with Wails (Go + React/TypeScript)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrgoonie/winshot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T23:42:33Z"
+  "distributed_at": "2026-05-01T14:20:05Z"
 }
