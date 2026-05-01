@@ -1,0 +1,9 @@
+{
+  "name": "ovlabs--audienceresearchskills",
+  "displayName": "audienceresearchskills",
+  "description": "Skills that give AI agents instant access to real human perspectives. Predict behaviour, validate ideas, shape messaging, and more - built on what people actually think.",
+  "version": "1.0.0",
+  "author": "ovlabs",
+  "homepage": "https://github.com/ovlabs/audienceresearchskills",
+  "skills": []
+}
