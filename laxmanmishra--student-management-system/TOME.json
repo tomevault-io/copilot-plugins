@@ -4,7 +4,7 @@
   "repo": "student-management-system",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/laxmanmishra/student-management-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T05:34:36Z"
+  "distributed_at": "2026-05-01T19:47:38Z"
 }
