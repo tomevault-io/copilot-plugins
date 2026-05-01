@@ -1,89 +1,76 @@
-## project-structure
+## retrieval-system
 
-> ThreatRAG 是一个威胁情报分析系统，结合了 RAG（检索增强生成）、知识图谱和混合检索技术。
+> 检索系统架构和混合检索逻辑
 
-# ThreatRAG 项目结构指南
+# 检索系统架构指南
 
-## 项目概述
-ThreatRAG 是一个威胁情报分析系统，结合了 RAG（检索增强生成）、知识图谱和混合检索技术。
+## 检索方式对比
 
-## 核心目录结构
+### 传统检索（已弃用）
+- 直接从用户问题提取实体
+- 独立执行向量检索和图检索
+- 效果较差，图查询经常失败
 
-### 主入口
-- [main.py](mdc:main.py) - 应用程序主入口，负责启动 Milvus、Neo4j 和 FastAPI 服务器
+### 四阶段混合检索（推荐使用）
+必须在 `meta` 中设置 `"use_hybrid_retrieval": true` 来启用
 
-### 核心模块 (`packages/core/`)
-- [knowledgebase.py](mdc:packages/core/knowledgebase.py) - Milvus 向量数据库管理，文档嵌入和检索
-- [graphbase.py](mdc:packages/core/graphbase.py) - Neo4j 图数据库管理，实体关系存储和 Cypher 查询生成
-- [retriever.py](mdc:packages/core/retriever.py) - 核心检索逻辑，实现四阶段混合检索（向量→实体提取→图查询→上下文融合）
-- [bm25_retriever.py](mdc:packages/core/bm25_retriever.py) - BM25 混合检索器，结合向量检索和 BM25 算法
-- [indexing.py](mdc:packages/core/indexing.py) - 文档分块和文本提取
-- [graph_indexer.py](mdc:packages/core/graph_indexer.py) - 图数据库索引器，为实体创建嵌入向量
+#### 工作原理
+1. **粗召回（向量检索）**
+   - 使用语义相似度从 Milvus 召回 top-k 文档
+   - 支持元数据过滤（日期、文件类型等）
 
-### 工具模块 (`packages/utils/`)
-- [bm25.py](mdc:packages/utils/bm25.py) - 高级 BM25 实现，支持中文（jieba）和英文（PyStemmer）分词
-- [query_preprocessor.py](mdc:packages/utils/query_preprocessor.py) - 查询预处理，提取日期等元数据过滤条件（支持多日期 OR 逻辑）
-- [prompts.py](mdc:packages/utils/prompts.py) - 所有 LLM 提示词模板，包括 Cypher 生成模板
-- [stopwords.py](mdc:packages/utils/stopwords.py) - 中英文停用词列表
+2. **实体链接**
+   - 从召回的文档中提取实体（STIX 格式 + 关键词）
+   - 这些实体有上下文支持，比从原始问题提取更准确
 
-### API 服务 (`rag/`)
-- **API 路由** (`rag/api/routers/`)
-  - [chat_api.py](mdc:rag/api/routers/chat_api.py) - 聊天接口
-    - `/chat/stream` - 流式聊天接口
-    - `/chat/hybrid-retrieval` - 四阶段混合检索接口
-    - `/chat/sessions/{thread_id}` - 会话管理
-  - [data_api.py](mdc:rag/api/routers/data_api.py) - 数据管理接口
-  - [graph_api.py](mdc:rag/api/routers/graph_api.py) - 知识图谱接口
-  - [token_api.py](mdc:rag/api/routers/token_api.py) - 认证接口
+3. **精查询（图检索）**
+   - LLM 根据问题、提取的实体和图 Schema 生成 Cypher 查询
+   - 支持多跳关系查询（如 `[*..3]`）
+   - 示例见 [cypher_generation_template](mdc:packages/utils/prompts.py)
 
-- **缓存与会话** (`rag/cache/`)
-  - Redis 会话管理 - 存储对话历史，支持会话持久化和过期控制
-  - 使用 `RedisSessionManager` 管理用户会话和对话历史
+4. **上下文融合**
+   - 将向量和图结果格式化为统一上下文
+   - 交给 LLM 生成最终答案
 
-### 数据库管理 (`packages/manager/`)
-- **MySQL** - 知识库元数据管理
-  - `kb_db_manager.py` - 知识库、文件和用户数据的持久化存储
-  - 使用 SQLAlchemy ORM 管理数据库操作
-  
-- **Redis** - 会话缓存
-  - 存储用户对话历史（thread_id 为键）
-  - 支持自动过期（默认 3600 秒）
-  - 用于多轮对话的上下文保持
+## BM25 混合检索
 
-## 关键数据流
+### 工作流程
+1. 向量检索获得初始结果
+2. 用这些文档训练 BM25 模型
+3. 对查询进行 BM25 评分
+4. 融合向量分数和 BM25 分数（可配置权重）
 
-### 四阶段混合检索流程
-1. **阶段1：向量检索** (`_vector_retrieval_stage`) - 从 Milvus 广泛召回相关文档
-2. **阶段2：实体链接** (`_entity_linking_stage`) - 从文档中提取实体
-3. **阶段3：图检索** (`_graph_retrieval_stage`) - LLM 生成 Cypher 查询，在 Neo4j 中精确查找
-4. **阶段4：上下文融合** (`_context_fusion_stage`) - 整合向量和图检索结果
+### 语言支持
+- **中文**: 使用 `jieba` 分词 + 停用词过滤
+- **英文**: 使用 `PyStemmer` 词干提取 + 停用词过滤
 
-### 数据库架构
-- **Milvus** - 向量数据库
-  - 存储文档嵌入向量
-  - 支持静态字段过滤（source_filename, date_key, file_type, file_created_at）
-  - 使用 COSINE 相似度进行向量检索
+## 元数据过滤
 
-- **Neo4j** - 知识图谱数据库
-  - 存储实体（Entity）和关系（RELATION）
-  - 支持向量索引（entityEmbeddings）进行实体相似度搜索
-  - 执行 LLM 生成的 Cypher 查询
+### 日期过滤
+[query_preprocessor.py](mdc:packages/utils/query_preprocessor.py) 支持：
+- 多日期提取（`1月18日和1月26日` → `['20250118', '20250126']`）
+- OR 逻辑过滤（`date_key == '20250118' or date_key == '20250126'`）
+- 支持格式：
+  - 中文：`YYYY年M月D日`, `M月D日`
+  - 英文：`Month Day, Year`
+  - 国际：`YYYY-MM-DD`
 
-- **MySQL** - 元数据数据库
-  - 存储知识库配置（名称、描述、embedding 模型）
-  - 管理文件上传记录和处理状态
-  - 用户数据和权限管理
+### 静态字段
+Milvus 集合包含以下静态字段用于过滤：
+- `source_filename` (VARCHAR 1024)
+- `date_key` (VARCHAR 8) - YYYYMMDD 格式
+- `file_type` (VARCHAR 16)
+- `file_created_at` (INT64)
 
-- **Redis** - 缓存数据库
-  - 会话管理（thread_id → 对话历史）
-  - 支持 TTL 过期机制
-  - 提供快速的会话数据访问
+## API 响应模式
 
-## 重要约定
-- 所有响应使用中文
-- 日志使用 `logger` 从 `packages.utils.logging_config` 导入
-- 配置从 `packages.config` 导入
-- 嵌入模型通过 `packages.models.embedding.get_embedding_model` 获取
+### `/chat/hybrid-retrieval` 端点
+- `response_mode: "simple"` (默认) - 只返回答案和摘要，日志简洁
+- `response_mode: "full"` - 返回完整检索细节，用于调试
+
+### `/chat/stream` 端点
+- 流式返回，最后消息包含 `refs_summary`
+- 支持 Redis 会话管理
 
 ---
 > Source: [Ais1on/CTI-RAG](https://github.com/Ais1on/CTI-RAG) — distributed by [TomeVault](https://tomevault.io).
