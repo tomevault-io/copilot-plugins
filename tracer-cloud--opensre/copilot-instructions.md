@@ -1,46 +1,39 @@
-## quality
+## testing
 
-> Pre-commit quality checklist and PR standards
+> Testing conventions and patterns
 
 
-# Quality Standards
+# Testing Conventions
 
-## Before Every PR
+## Running Tests
 
-All three must pass — CI blocks merging if any fail:
+- `make test-cov` — standard test suite with coverage (excludes synthetic + k8s simulation)
+- `make test-rca` — real alert end-to-end tests
+- `make test-full` — full pytest run
+- `make test-synthetic` — synthetic LLM-based RCA tests (separate CI workflow)
 
-```bash
-make lint        # ruff: style and import checking
-make typecheck   # mypy: type annotation checking
-make test-cov    # pytest: tests with coverage report
-```
+## File Placement
 
-## PR Checklist
+Both patterns are valid and auto-discovered by pytest:
+- `app/tools/registry_test.py` — co-located next to source
+- `tests/app/tools/test_registry.py` — under `tests/` directory
 
-- Link to the relevant GitHub issue (`Fixes #123`)
-- All local checks pass
-- Tests added for bug fixes and new features
-- Documentation updated if behavior changed
-- Self-reviewed your own code
-- Edge cases considered
-- Breaking changes called out explicitly
+## Markers
 
-## AI-Assisted Code
+Apply markers to categorize tests:
+- `@pytest.mark.integration` — requires external services
+- `@pytest.mark.synthetic` — LLM-based RCA tests (excluded from `make test-cov`)
+- `@pytest.mark.e2e` — end-to-end scenarios
+- `@pytest.mark.axis2` — axis2 tests
 
-If AI tools were used to generate code:
-- Review every line (not just skim)
-- Understand the logic and can explain it
-- Test edge cases
-- Match project conventions
-- Verify tests pass
+## Conventions
 
-## Code Quality Principles
-
-- Clarity over cleverness
-- DRY: extract common patterns
-- Strong typing on all function signatures
-- One responsibility per function/class
-- Comments explain "why", not "what"
+- Bug fixes must include a test that would have caught the bug
+- New features must have corresponding tests
+- Aim for >80% code coverage
+- Root `conftest.py` loads `.env` and disables keyring for isolation
+- `tests/e2e/` contains scenario-specific folders (Prefect, Lambda, Kubernetes, etc.)
+- Tests calling `get_registered_tools()` should call `clear_tool_registry_cache()` in fixtures
 
 ---
 > Source: [Tracer-Cloud/opensre](https://github.com/Tracer-Cloud/opensre) — distributed by [TomeVault](https://tomevault.io).
