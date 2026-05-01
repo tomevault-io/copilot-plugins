@@ -1,0 +1,9 @@
+{
+  "name": "kevindoremy--searchdeadcode",
+  "displayName": "SearchDeadCode",
+  "description": "A fast CLI tool to detect and remove dead/unused code in Android projects (Kotlin & Java)",
+  "version": "1.0.0",
+  "author": "KevinDoremy",
+  "homepage": "https://github.com/KevinDoremy/SearchDeadCode",
+  "skills": []
+}
