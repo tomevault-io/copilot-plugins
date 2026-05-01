@@ -1,0 +1,81 @@
+## instinct-rl-overview
+
+> Overview of Instinct-RL design principles, usage, and expansion guide.
+
+# Instinct-RL Overview
+
+## Design Principle
+Instinct-RL is a modular reinforcement learning library based on **Rsl-RL**, designed for:
+- **Flexibility**: Swappable algorithms and network modules.
+- **Modularity**: Clear separation between algorithms, storage, and network architectures.
+- **Advanced Features**: Supports state estimation, motion priors (AMP/WASABI), distillation (DAgger/TPPO), and VAE-based approaches.
+
+## Critical Components
+
+### 1. Observation Format (`obs_format`)
+- **Structure**: An `OrderedDict` defining the input observations.
+- **Hierarchy**:
+  - `obs_format`: Top-level dict (e.g., `{'policy': ..., 'critic': ...}`).
+  - `obs_segment`: Defines the shape of observation terms.
+  - `obs_pack`: The actual dictionary of observation tensors.
+
+### 2. Algorithms (`instinct_rl.algorithms`)
+- **PPO**: Standard Proximal Policy Optimization.
+- **State Estimator**: For learning latent state representations.
+- **AMP (WASABI)**: Adversarial Motion Priors for imitation learning.
+- **TPPO**: Teacher-student distillation (DAgger).
+- **VAE Distillation**: Distillation using a Variational Autoencoder student.
+
+### 3. Modules (`instinct_rl.modules`)
+- **ActorCritic**: Base class for policy and value networks.
+- **MoE Actor Critic**: Mixture of Experts architecture.
+- **VAE Actor Critic**: VAE-based policy architecture.
+- **Encoder Modules**: Architectures for processing high-dimensional inputs (images, etc.).
+
+### 4. Factory Pattern
+- **Usage**: `modules.build_actor_critic` is used to instantiate networks based on configuration.
+- **Dynamic Loading**: Allows specifying class names (including full paths) in the config to load custom architectures.
+
+## How to Use
+1.  **Installation**: Install via pip: `pip install -e instinct_rl`.
+2.  **Integration**: Used primarily by `instinctlab` training scripts.
+3.  **Configuration**: Algorithms and policies are configured via dictionaries passed to the runner.
+
+## How to Expand
+
+### Adding a New Algorithm
+1.  **Location**: Create a new file in `instinct_rl/algorithms/`.
+2.  **Interface**: The algorithm must be compatible with `instinct_rl.runners.on_policy_runner.OnPolicyRunner`. Implement a class with the following methods:
+    - `__init__(self, actor_critic, ...)`: Initialize components. The first argument is typically the network module.
+    - `act(self, obs, critic_obs)`: Compute actions given observations.
+    - `process_env_step(self, rewards, dones, infos, ...)`: Handle environment transitions and storage.
+    - `update(self, current_learning_iteration)`: Perform training update and return statistics.
+    - `init_storage(self, num_envs, num_transitions_per_env, obs_format, num_actions, num_rewards)`: Initialize rollout storage.
+    - `test_mode(self)` / `train_mode(self)`: Switch network modes.
+    - `save(self, path)` / `load(self, path)`: Save/load algorithm state.
+3.  **Network Compatibility**:
+    - The algorithm's network module (passed as `actor_critic` in `__init__`) does **NOT** necessarily need to inherit from `ActorCritic`.
+    - However, if the algorithm uses **PPO** as a sub-component (e.g., as a base for a more complex algorithm), the network **MUST** inherit from `ActorCritic` to satisfy PPO's interface requirements.
+4.  **Registration**: Import it in `instinct_rl/algorithms/__init__.py` (optional, but good practice).
+
+### Adding a New Network Module
+1.  **Location**: Create a new file in `instinct_rl/modules/`.
+2.  **Inheritance**:
+    - Inherit from `nn.Module` for general custom networks.
+    - Inherit from `ActorCritic` **ONLY IF** the network is intended to be used with standard PPO or algorithms that specifically require the `ActorCritic` interface.
+3.  **Observation Handling**: Ensure the module respects `obs_format` to correctly slice and process inputs.
+    ```python
+    class MyNetwork(nn.Module): # Or ActorCritic if using PPO
+        def __init__(self, obs_format, num_actions, ...):
+            super().__init__()
+            # Build custom layers
+    ```
+4.  **Usage**: Reference the class name in your policy configuration (e.g., `class_name: MyNetwork` or `module.path:MyNetwork`).
+
+### Customizing PPO
+- **Subclassing**: You can subclass `PPO` to override `compute_losses` or `compute_auxiliary_reward`.
+- **Auxiliary Rewards**: Implement `compute_auxiliary_reward` to add custom reward terms based on observations or internal state.
+
+---
+> Source: [project-instinct/instinct_rl](https://github.com/project-instinct/instinct_rl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
