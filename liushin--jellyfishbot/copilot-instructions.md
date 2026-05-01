@@ -1,0 +1,1904 @@
+## jellyfishbot
+
+> This is a FastAPI + DeepAgents project (renamed to JellyfishBot) with the following structure after refactoring:
+
+# JellyfishBot Project Rules
+
+## Architecture
+This is a FastAPI + DeepAgents project (renamed to JellyfishBot) with the following structure after refactoring:
+Two-tier system: Admin Management + Consumer Consumption.
+
+```
+app/
+  core/           - settings.py, security.py (auth), observability.py (langfuse)
+                  - path_security.py (ensure_within / safe_join — unified path traversal prevention)
+  storage/        - 可选 S3 文件存储后端 (STORAGE_BACKEND=local|s3 环境变量切换)
+                  - config.py (S3Config, is_s3_mode)
+                  - base.py (StorageService ABC)
+                  - local.py (LocalStorageService — 封装 os.* 本地磁盘操作)
+                  - s3.py (S3StorageService — boto3 S3 API)
+                  - s3_backend.py (S3Backend — deepagents BackendProtocol for S3)
+                  - __init__.py (工厂: get_storage_service, create_agent_backend, create_consumer_backend)
+  schemas/        - requests.py (admin models), service.py (service/consumer models)
+  routes/         - auth.py, conversations.py, chat.py, files.py, scripts.py,
+                    models.py, settings_routes.py, batch.py
+                  - services.py (admin service CRUD + key mgmt)
+                  - consumer.py (consumer chat APIs: OpenAI compat + custom SSE)
+                  - consumer_ui.py (standalone chat page at /s/{service_id})
+  services/       - agent.py, tools.py, conversations.py, prompt.py,
+                    subagents.py, ai_tools.py, script_runner.py
+                  - _sandbox_wrapper.py (runtime file I/O sandbox for script execution)
+                  - published.py (service CRUD, API key mgmt, consumer conversations)
+                  - consumer_agent.py (consumer agent factory, with memory subagent)
+                  - memory_tools.py (Memory subagent tools + soul config + short-term memory injection)
+  voice/          - router.py (WebSocket S2S proxy)
+  deps.py         - get_current_user (admin), get_service_context (consumer via sk-svc-)
+  main.py         - FastAPI app assembly (64 routes) + startup/shutdown
+frontend/                — Vite + React 18 + TypeScript + Ant Design 5
+  index.html              — Vite entry point
+  vite.config.ts          — dev server (port 3000), proxy /api → FastAPI :8000
+  tsconfig.json           — strict TS, path alias @/* → src/*
+  src/
+    main.tsx              — React root mount
+    App.tsx               — ConfigProvider (antd dark theme) + AuthProvider + Router
+    router/index.tsx      — BrowserRouter: /login, /, /services, /scheduler, /wechat
+    layouts/AppLayout.tsx — Sider (nav menu) + Content <Outlet/>
+    pages/
+      Login.tsx           — 品牌分栏登录/注册：左 40% 渐变品牌区（`/media_resources/jellyfishlogo.png` + 呼吸动画 + 像素点底纹），右 60% 表单区 `#1c1c27`；主色 Primary `#E89FD9`、Secondary `#8B7FD9`、Accent `#5FC9E6`；表单项聚焦描边与渐变按钮；样式以 inline + 组件内 `<style>`（keyframes）为主，窄屏约 900px 以下改为上下堆叠
+      Chat/index.tsx      — conversation list + message area + SSE streaming
+      AdminServices/index.tsx — Service 管理页：左 30% 服务列表（卡片 `#1c1c27`、圆角 8px、悬停边框 `#E89FD9`、选中左侧 3px `#E89FD9`、发布/草稿用绿/灰圆点）；右 70% 详情区 Tabs：Basic Info | API Keys | WeChat Channel | Test；API Keys 表斑马纹深色行；复制按钮用 Phosphor `Copy` + 点击高亮 Accent；图标 `@phosphor-icons/react`（Plus/Trash/PencilSimple/LinkSimple/ArrowsClockwise/GridFour）；品牌色与 `FLOAT_SHADOW`、`MODAL_RADIUS` 12px 与 Login/Chat 一致
+      Scheduler/          — placeholder (migrating from scheduler.html)
+      WeChat/             — placeholder (migrating from admin-wechat overlay)
+    services/api.ts       — typed API client (port of legacy js/api.js)
+    stores/authContext.tsx — React Context for auth state
+    styles/
+      global.css          — scrollbar, markdown, antd overrides
+      theme.ts            — antd ThemeConfig matching original dark palette
+    types/index.ts        — shared TS interfaces
+  public/                 — static assets (legacy HTML kept for FastAPI template pages)
+    service-chat.html     — consumer chat (served by FastAPI /s/{service_id})
+    wechat-scan.html      — WeChat scan (served by FastAPI /wc/{service_id})
+  server.js               — legacy Express proxy (kept, use `npm run legacy`)
+  public/js/              — legacy vanilla JS (reference during migration)
+  public/css/             — legacy CSS (reference during migration)
+```
+
+## Storage Backend (可选 S3)
+- 通过环境变量 `STORAGE_BACKEND=local|s3` 切换，默认 `local`
+- `local` 模式：所有文件操作使用本地磁盘（行为与原代码一致）
+- `s3` 模式：文件存取走 S3 API（兼容 AWS S3、MinIO、R2、OSS 等）
+- **工厂函数**：`get_storage_service()` 返回 StorageService 实例，`create_agent_backend()` 返回 deepagents BackendProtocol 实例
+- **S3 键映射**：用户文件 `{prefix}/{user_id}/fs/{path}`，消费者生成文件 `{prefix}/{admin_id}/svc/{svc_id}/{conv_id}/gen/{path}`
+- **媒体访问**：S3 模式下使用 presigned URL（302 重定向），local 模式使用 FileResponse
+- **脚本执行**：S3 模式下临时下载脚本到本地执行，结果上传回 S3
+- 新增依赖：boto3, aioboto3（仅 S3 模式使用）
+
+## Two-Tier Design
+- **Admin**: registers, manages docs/scripts/prompts, publishes Services
+- **Service**: a published config selecting model + docs + scripts + capabilities
+- **Consumer**: authenticates via per-service API key (`sk-svc-...`)
+- **Isolation**: consumer generated content isolated per `conversation_id` under
+  `users/{admin_id}/services/{service_id}/conversations/{conv_id}/generated/`
+- **Consumer APIs**:
+  - `POST /api/v1/chat` — custom SSE (same event format as admin)
+  - `POST /api/v1/chat/completions` — OpenAI-compatible streaming/non-streaming
+  - `POST /api/v1/conversations` — create conversation
+  - `GET /api/v1/conversations/{conv_id}` — get conversation history
+  - `GET /api/v1/conversations/{conv_id}/files` — list generated files
+- **Admin Service APIs**: `POST/GET/PUT/DELETE /api/services/{service_id}`, key mgmt at `/keys`
+- **Standalone Chat**: `GET /s/{service_id}` serves `service-chat.html`
+
+## Startup
+```bash
+# 推荐：跨平台 Python 启动器（自动端口检测 + 旧实例清理）
+python launcher.py              # 生产模式
+python launcher.py --dev        # 开发模式（uvicorn --reload + vite dev）
+python launcher.py --port 9000  # 自定义后端端口
+
+# 快捷脚本
+./start_local.sh      # Mac/Linux
+start_local.bat       # Windows
+
+# Docker
+./start.sh            # Docker 容器内启动
+
+# 手动启动后端（调试用）
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+## Key Technical Details
+- **Checkpointer**: `AsyncSqliteSaver` — DB at `data/checkpoints.db`; package `langgraph-checkpoint-sqlite` is installed in venv
+  - **WAL 模式**：`init_checkpointer` 在 `aiosqlite.connect` 后执行 `PRAGMA journal_mode=WAL` + `PRAGMA synchronous=NORMAL`，降低多路由/多 bridge 并发读写 checkpoint 时的锁冲突。PRAGMA 失败（极少数网络盘场景）不阻塞启动。
+- **deepagents**: installed in venv at d:\semi-deep-agent\venv
+- **No `deepagents` in system Python** — always use `.\venv\Scripts\python.exe`
+- **Auth (admin)**: JSON-based, stored in `users/users.json`; bcrypt with sha256 fallback
+- **Auth (consumer)**: per-service API keys (`sk-svc-...`), sha256 hashed, stored in `users/{admin}/services/{svc}/keys.json`
+- **Langfuse**: optional, env-based; SDK v3 (reads from env vars directly)
+- **S2S Voice**: WebSocket proxy to OpenAI Realtime API; tools injected at `session.update`
+- **Research tools (rag_query, market_data)**: removed in commit a301b31
+
+## API Key / Base URL Configuration
+- **Centralised in `app/core/api_config.py`** — `get_api_config(capability)` returns `(key, base_url)`
+- **Provider defaults**: `OPENAI_API_KEY` / `OPENAI_BASE_URL`, `ANTHROPIC_API_KEY` / `ANTHROPIC_BASE_URL`
+- **Per-capability overrides** (fall back to provider defaults if unset):
+  - `IMAGE_API_KEY` / `IMAGE_BASE_URL` — image generation
+  - `TTS_API_KEY` / `TTS_BASE_URL` — text-to-speech
+  - `VIDEO_API_KEY` / `VIDEO_BASE_URL` — video generation
+  - `S2S_API_KEY` / `S2S_BASE_URL` — realtime voice
+  - `STT_API_KEY` / `STT_BASE_URL` — speech-to-text (Whisper)
+- **LLM base_url**: `_resolve_model` in `agent.py` passes `base_url` to `init_chat_model` when `OPENAI_BASE_URL` or `ANTHROPIC_BASE_URL` is set
+- **Never hardcode API URLs** — always go through `api_config` or env vars
+
+## Supported Models
+- Claude Opus/Sonnet/Haiku 4.x with optional Thinking variants
+- GPT-5.x, GPT-4o, o3-mini
+- Model IDs use `provider:model-id` format (e.g., `anthropic:claude-sonnet-4-5-20250929`)
+- Thinking models configured in `app/services/agent.py::THINKING_MODEL_CONFIG`
+
+## Dev Guidelines
+- All imports should use `app.*` package paths
+- No top-level imports of `deepagents` outside `app/services/agent.py`, `app/services/consumer_agent.py`, and `app/voice/router.py`
+- Route files use `APIRouter` — assembled in `app/main.py`
+- Circular imports avoided by doing lazy imports inside functions (e.g., `clear_agent_cache` in prompt.py/subagents.py)
+- Consumer agent uses `get_service_context` dependency (not `get_current_user`)
+
+## Security Architecture
+- **Path traversal prevention**: all user-facing path operations use `app.core.path_security.safe_join()` / `ensure_within()` which resolve via `pathlib.Path.resolve()` + separator-aware boundary check
+- **XSS prevention**: `consumer_ui.py` uses `html.escape()` for template injection; frontend uses DOMPurify to sanitize `marked.parse()` output
+- **Script sandbox (two layers, defense-in-depth)**:
+  1. **AST static analysis** (`script_runner._check_script_safety`): blocks dangerous modules (subprocess, pathlib, ctypes, io, pickle, threading, posix/nt/_posixsubprocess, etc.), dangerous builtins (exec, eval, getattr, setattr, globals, etc.), only *absolutely dangerous* os functions (system/popen/exec*/spawn*/fork/kill/chown/setuid/chroot/chdir), and access to `__builtins__`/`__subclasses__`/`__globals__`/`__dict__`/`__mro__`/`__bases__`. **File I/O functions (remove/rename/mkdir/listdir/chmod/...) are intentionally NOT in the AST blacklist** — they pass AST and are enforced at runtime via path whitelist.
+  2. **Runtime wrapper** (`_sandbox_wrapper.py`): monkey-patches `builtins.open`, `io.open`, `os.listdir`, `os.scandir`, `os.walk`, `os.chdir` + **`os.open` / `os.readlink`** to enforce directory-level read/write restrictions; **writes** (`remove/unlink/rmdir/removedirs/rename/renames/replace/mkdir/makedirs/chmod/fchmod/lchmod/truncate/mkfifo/mknod/utime/link/symlink`) are wrapped to require their path args be inside `allowed_write` before delegating to the original function. **Absolutely dangerous** functions (`system/popen/exec*/spawn*/posix_spawn*/fork/forkpty/kill/killpg/chown/lchown/setuid/setgid/se[te]uid/se[te]gid/setres*id/chroot/pipe/pipe2/dup/dup2`) are *replaced* with `PermissionError`-raising stubs — `os.__dict__["system"]` and `os.system` both resolve to the blocked stub (since they reference the same module-level binding).
+- **沙箱加固 (2026-04-16 第一轮)**：AST 层——`ast.Call` 检查新增对 `func` 为 `ast.Subscript` 或 `ast.Call` 的拒绝，封堵 `os.__dict__['system'](...)` / `(lambda:...)()(...)` 等动态构造调用；新增 `__dict__`/`__mro__`/`__bases__` 属性黑名单。
+- **沙箱加固 (2026-04-16 第二轮，运行时纵深)**：真实 PoC 验证发现 `os.__dict__["popen"]` 在未加固前可拿到原函数并执行任意命令（且 root 进程风险）、`os.__dict__["remove"]` 绕过 builtins.open 补丁删除任意文件。加固：**(a)** 运行时直接覆盖 `os.system/popen/exec*/spawn*/fork/kill/chown/setuid/chroot/pipe/dup` 等为 `PermissionError` 报错函数，即使攻击者通过 `os.__dict__[name]` / `vars(os)[name]` / 未来未知的 AST 绕过拿到引用，调用时仍然抛错；**(b)** 写操作（`remove/rename/mkdir/chmod/link/symlink/truncate/utime/...`）统一走 `_check_write` 路径白名单，允许合法脚本在 `allowed_write` 内使用；**(c)** 新增 `os.open` / `os.readlink` 低层 FD 拦截，之前 `fd = os.open("/etc/passwd", os.O_RDONLY)` 完全裸奔；**(d)** 从 AST 黑名单移除 `os.remove/rename/listdir/mkdir/chmod/symlink` 等，否则合法写文件脚本会被误杀。**IfExp 残留绕过**（`fn = os.system if True else None; fn(...)`）由运行时层兜底，AST 层不再追加。综合验证 29/29 用例全通过。
+- **Script allowed directories**:
+  - Admin: read = `scripts/ + docs/`, write = `scripts/ + generated/`
+  - Consumer: read = `scripts/ + docs/` (filtered by allowed_scripts), write = conversation `generated/`
+- **Script 资源限制（2026-04-18 调优）**：
+  - `_MAX_NPROC = 256`（原 16，numpy/OpenBLAS 在 16 配额下 `pthread_create failed`，崩在 `import numpy` 阶段）
+  - `_MEMORY_LIMIT_BYTES = 1024 MB`（原 512MB，给 pandas/matplotlib 留余量）
+  - `_BLAS_THREAD_ENV` 强制注入 `OPENBLAS_NUM_THREADS=2` / `OMP_NUM_THREADS=2` / `MKL_NUM_THREADS=2` / `NUMEXPR_NUM_THREADS=2` / `VECLIB_MAXIMUM_THREADS=2`，避免单脚本启动数十线程占满 CPU
+  - **Linux 注意**：`RLIMIT_NPROC` 限制的是 **当前 uid 的进程/线程总数**（pthread = LWP），切到 `jellyfish (uid=1000)` 非 root 后更敏感
+- **Script 全局排队（2026-04-18 新增）**：
+  - `script_runner._SCRIPT_SEMAPHORE = threading.BoundedSemaphore(SCRIPT_CONCURRENCY)` 进程内信号量
+  - 默认 `SCRIPT_CONCURRENCY=4`、`SCRIPT_QUEUE_TIMEOUT=180s`，可通过环境变量覆盖
+  - 排队中的脚本只占一个 Python 线程，不消耗子进程 / 内存 / NPROC 配额
+  - 超时返回友好错误：`"脚本执行队列繁忙，已等待 180 秒。当前 N 个脚本运行中，前面还有 M 个等待。"`
+  - `_active_count` / `_pending_count` 由 `_SCRIPT_STATS_LOCK` 保护，可通过 `get_script_runtime_stats()` 读取（未来若加 `/api/admin/script-stats` 端点可直接复用）
+  - **当前规模 (admin ≤ 20, uvicorn workers=1) 进程内 semaphore 足够**；扩到多 worker 需替换为 cross-process 队列 (Redis / file lock)
+- **Sandbox read exemptions** (automatically applied, not user-configurable):
+  - `_PYTHON_READ_ROOTS`: `sys.prefix`, `sys.base_prefix`, `sys.exec_prefix`, `site.getsitepackages()` — allows `import matplotlib` etc.
+  - `_SYSTEM_READ_DIRS`（2026-04-21 大幅放宽）: 整个 `/usr`、`/etc`、`/opt`、`/Library`、`/System`、`/Applications`、`/private/etc`、`/private/var/folders`、`/bin`、`/sbin`、`/lib`、`/lib64`、`/var/cache/fontconfig`、`~/.fonts`、`~/.local/share/fonts`、`~/Library/Fonts` — 覆盖 matplotlib 字体扫描、PIL codec、SSL CA、locale/timezone 等几乎所有库 import 时遍历的系统目录（写权限不变，依然只允许 `_ALLOWED_WRITE`）
+  - `_TEMP_DIR` (write): `tempfile.gettempdir()` — allows library cache writes (matplotlib font cache etc.)
+  - 环境变量预设（启动时强制写入沙盒可写目录）：`MPLCONFIGDIR=$TMPDIR/mpl_sandbox`（matplotlib 配置/字体缓存）、`MPLBACKEND=Agg`（无头后端，避免 Tk/Qt/Cocoa 探测）、`FONTCONFIG_PATH=/etc/fonts`、`XDG_CACHE_HOME=$TMPDIR/xdg_cache_sandbox`
+- **Sandbox 静默扫描 (2026-04-21)**：`os.listdir` / `os.scandir` / `os.walk` 对越权路径**返回空集**而非抛 `PermissionError`。原因：matplotlib `font_manager` 等库会主动遍历一堆系统/家目录，遇到一个就抛会让整个 import 链挂掉；扫描型调用静默返回空让库以为「目录是空的」从而跳过；真正读文件内容仍走 `open()` 硬拦截，敏感文件（如 `~/.zsh_history`、`~/.ssh/`）依旧被保护
+- **Sandbox 检查函数防递归 (2026-04-21 关键)**：`_check_read` / `_check_write` / `_is_read_allowed` / `_is_write_allowed` 都用 `_check_guard = threading.local()` 守护 —— 因为它们内部要 `os.path.realpath(path)` 解析符号链接，而 realpath 会调 `os.readlink`（已被 patch），patched readlink 又会回头调 `_check_read` → realpath → readlink…。必须在最外层置 `busy=True`，递归进来直接放行（外层兜底）。错误信息里二次调用 realpath 也必须包在 guard 里（用 `_safe_realpath` helper），否则一旦失败路径触发就死循环成 `RecursionError`。**任何新增的 patched os 函数若内部调用了路径检查或 realpath，都必须遵守这个 guard 协议**
+
+## Cross-platform (Windows / Linux)
+- **Path prefix checks** (`path_security.ensure_within`, `script_runner` scripts_dir guard, `_sandbox_wrapper._is_within`): use `str.startswith(root + os.sep)` — on Windows (case-insensitive FS) mixed-case paths can theoretically false-negative if resolved strings differ in case from `root_resolved`.
+- **script_runner**: `preexec_fn` is intentionally `None` on Windows — no `resource.setrlimit` (memory/NPROC); Unix/macOS get extra limits. Subprocess uses `encoding="utf-8"` / `PYTHONIOENCODING=utf-8` (good vs locale/GBK).
+- **`_sandbox_wrapper`**: monkey-patches are OS-agnostic in CPython; `os.fchdir` gated with `hasattr`. Pipe `|` as dir delimiter is fine (Windows paths use `:` in drive letters, not `|`).
+- **`files.py` / `security.py`**: text I/O is explicitly UTF-8; non-UTF-8 files (e.g. legacy GBK) surface as decode errors / “binary” preview — more common on Chinese-locale Windows.
+- **Known gap**: `run_script(..., input_data=...)` documents stdin but does not pass `stdin` to `subprocess.run` (all OS).
+
+## WeChat iLink Bot 集成（wechat-bot/）
+
+### 协议概要
+腾讯 iLink Bot API（`ilinkai.weixin.qq.com`），基于 `@tencent-weixin/openclaw-weixin@1.0.2` 源码还原。
+
+### 关键发现（踩坑记录）
+1. **`qrcode_img_content` 是扫码 URL**，不是 base64 图片，需要用 qrcode 库生成 QR 码
+2. **`sendmessage` 必须包含 `base_info` 和 `client_id`**，缺少任何一个都会导致消息静默丢失（HTTP 200 但不送达）
+3. **`msg.from_user_id` 必须是空字符串 `""`**，填 bot ID 会导致消息不送达
+4. **`client_id` 格式**: `openclaw-weixin:{timestamp_ms}-{random_hex_8}`
+5. **`SendMessageResp` 正常就是 `{}`**（空对象），不含 ret 字段
+6. **`ilink_user_id` 只用于 `getconfig` 和 `sendtyping`**，不能加到 `sendmessage`/`getupdates`
+7. **`getconfig` 需要 `ilink_user_id` + `context_token` + `base_info`**
+8. **网络分流**：iLink（国内）必须直连（`proxy=None`），OpenAI 走 SOCKS5 代理
+
+### sendmessage 正确格式（对齐源码 send.ts + api.ts）
+```json
+{
+  "msg": {
+    "from_user_id": "",
+    "to_user_id": "xxx@im.wechat",
+    "client_id": "openclaw-weixin:1774427815868-44e6cc41",
+    "message_type": 2,
+    "message_state": 2,
+    "context_token": "<从 inbound 消息取>",
+    "item_list": [{"type": 1, "text_item": {"text": "回复内容"}}]
+  },
+  "base_info": {"channel_version": "1.0.2"}
+}
+```
+
+### 文件结构
+```
+wechat-bot/
+├── bot.py              # 主程序入口 + 消息路由 + GPT 多轮对话
+├── ilink_client.py     # iLink 协议客户端（对齐 npm 源码）
+├── chat.py             # OpenAI GPT-4o 对话管理 + Vision
+├── media.py            # AES-128-ECB 加解密
+├── requirements.txt    # httpx[socks], openai, pycryptodome, qrcode, python-dotenv
+└── .env                # OPENAI_API_KEY, OPENAI_PROXY
+```
+
+### 集成到 semi-deep-agent 的方向（完整设计文档：docs/wechat-channel-design.md）
+- 两层二维码架构：Service QR（稳定 URL）→ iLink QR（动态刷新）
+- 每个微信用户扫码后分配独立 conversation_id，复用 consumer conversation 机制
+- consumer_agent.py 需支持 humanchat capability → 注入 send_message 工具
+- consumer_agent.py `_build_consumer_system_prompt`：支持 `user_profile_version_id` 注入 Profile 版本内容到 `{user_profile_context}` 占位符
+- WeChat Bridge 拦截 send_message tool_result → 通过 iLink sendmessage 转发
+- 新增模块：app/channels/wechat/（client, media, session_manager, bridge, router）
+- 中间页路由：app/routes/wechat_ui.py → /wc/{service_id}
+- 中间页前端：frontend/public/wechat-scan.html
+- Service config 扩展 wechat_channel 字段（enabled, expires_at, max_sessions）
+- Service config 支持 `system_prompt_version_id` 和 `user_profile_version_id`（均可选），指定后 consumer agent 使用对应版本内容
+- main.py 已注册路由 + startup/shutdown 钩子（restore_sessions, start_all_polling, cleanup_task）
+- app 路由总数从 64 增至 70
+- admin-services.html 新增微信渠道管理面板（启用/禁用/过期设置/QR 链接/活跃会话列表/断开/查看对话记录）
+- session_manager: 指数退避重连（max 20次后自动移除）；有 `from_user_id` 的会话**不**参与 24h 无活动清理（长期保留）；无 `from_user_id` 的空会话才按 inactive 清理；空轮询仅对「未建立用户」会话在 50 次后丢弃
+- **delivery.py（统一投递层）**：`app/channels/wechat/delivery.py`
+  - `deliver_tool_message(content_json, session, client)` — 解析 send_message 工具结果，投递文本+媒体到微信
+  - `send_media_to_wechat(session, client, media_path)` — 发送生成的媒体文件（图片/视频/语音/文件）
+  - `extract_media_tags(text) -> (cleaned_text, [paths])` — **从 send_message 的 text 中提取 `<<FILE:path>>` 标签**（去重 + 折叠空行），转为额外媒体投递；admin_bridge / consumer bridge 共享
+  - Bridge 和 Scheduler 共享此模块，避免重复代码
+- **微信媒体投递的 `<<FILE:...>>` 兼容（2026-04-18 修复）**：
+  - 背景：`tools.py::generate_image/speech/video` 工具返回提示语 `"请使用 <<FILE:{path}>> 展示给用户"`，system prompt 也教 agent 用此标签（web 端 markdown.ts 渲染契约）。Agent 在微信对话里会把 `<<FILE:...>>` 直接塞进 `send_message(message=...)` 的 text，没用 `media_path` 参数 → 投递层之前只看 `payload.media`，结果用户在微信端看到字面字符串
+  - 修复：投递层做"宽容解析"，主动从 text 抽 `<<FILE:...>>` 标签作为额外 media 投递，剩余 cleaned_text 作为文本发出。同时支持 `media_path` 参数和 `<<FILE:...>>` 标签两种用法
+  - 涉及：`delivery.py::extract_media_tags` + `deliver_tool_message`（consumer bridge / scheduler 自动获益）；`admin_bridge.py` 内联 send_message 处理（admin/consumer 媒体路径解析逻辑不同，仅共享解析 helper）
+- **定时任务微信投递**：scheduler.py `_run_service_agent_task(reply_to=...)` 在 agent 执行循环中拦截 send_message 工具调用，通过 delivery.py 实时发送到微信（支持文本+媒体）；`_deliver_reply` 仅在 agent 未使用 send_message 工具时作为兜底（纯文本摘要）
+- bridge: 图片消息双向支持
+  - 接收：CDN GET 下载 + AES 解密 → base64 multimodal → Agent Vision
+  - 发送：getuploadurl(filekey/media_type/rawsize/rawfilemd5/filesize/aeskey_hex) → POST encrypted to CDN → x-encrypted-param header → sendmessage(image_item.media.encrypt_query_param + aes_key=base64(hex))
+- bridge: 语音消息支持（CDN 下载 → AES 解密 → SILK→WAV 转码 → Whisper 转文字 → Agent 处理）
+- bridge: 发送 TTS 音频：/generated/audio/ 目录下的 MP3 文件通过 send_file 作为文件附件发送
+  - SILK 语音条方案暂停（pysilk 编码的 SILK 在 WeChat 客户端始终静音，24kHz/16kHz 均无效，待进一步调研）
+  - voice_item 字段中 encode_type/sample_rate 会导致消息被静默丢弃，只能用 media+playtime
+  - TTS 文件名不可预测（hangzhou_intro.mp3 etc），按目录 `/audio/` 检测而非文件名前缀
+### iLink 媒体下载协议要点（重要！）
+- 接收的图片/语音/视频**没有 cdn_url 字段**，下载方式和发送完全不同
+- 字段名：image_item.aeskey（直接hex）、media.aes_key（base64编码）、media.encrypt_query_param
+- CDN 下载：GET https://novac2c.cdn.weixin.qq.com/c2c/download?encrypted_query_param={url_encode(value)}
+  - 注意参数名是 encrypted_query_param（有d），不是 encrypt_query_param
+  - 值必须 URL 编码（urllib.parse.quote）
+- AES key 三种格式：直接hex(32字符)、base64(原始16字节)、base64(hex字符串)
+- 微信语音使用 SILK 格式（WeChat 变体：首字节 0x02），需用 pysilk 解码为 PCM 再转 WAV
+- logging 配置：main.py 需要 logging.basicConfig(level=logging.INFO) 否则 wechat.* 日志不输出
+- Go SDK 参考：github.com/openilink/openilink-sdk-go（cdn.go 有完整实现）
+- 协议文档：https://www.wechatbot.dev/zh/protocol
+- rate_limiter: 单用户消息频率限制（10条/60s）、QR 生成频率（5次/60s）、全局 session 上限（config max_sessions）
+- 多 Admin 隔离：list_sessions/remove_session 按 admin_id 过滤，防止跨 Admin 越权
+- router: 新增 GET /api/wc/{service_id}/sessions/{session_id}/messages 端点（Admin 查看对话历史）
+- frontend/server.js: 新增 /wc 代理规则（此前缺失导致 /wc/ 被 SPA fallback 拦截到登录页）
+- frontend/server.js SPA fallback：**不要**用 `app.get('/{*path}', ...)`，Express 5 + path-to-regexp v8 下对深层路径（如 `/settings/services`）匹配不稳定，会触发 "Cannot GET /xxx/yyy"。改用 `app.use((req,res,next)=>{...})` 兜底，并显式排除 `/api`、`/s/`、`/wc/`、`/assets/`（不存在的 assets 应当 404 而不是被错当 HTML 返还，否则浏览器解析旧 chunk 时会报令人困惑的语法错误）
+- frontend/server.js 代理 pathFilter 用 `'/wc/'` 而非 `'/wc'`：http-proxy-middleware v3 的 pathFilter 是前缀匹配，加结尾斜杠避免误拦截 `/wcanything`
+
+## Consumer Agent — 渠道感知（channel-aware）
+- `create_consumer_agent(..., channel: str = "web")` —— 调用方必须显式传渠道：
+  - `channel="web"`（`/api/v1/chat`、`/api/v1/chat/completions`，consumer 直连 SSE）—— **不**注入 `send_message`，即便 humanchat capability 启用。原因：web 上 agent 输出已经直接流给浏览器，再调 send_message 既无投递目标，又会让消费者看到不该看的工具事件
+  - `channel="wechat"`（`bridge.py`）—— 注入 send_message，工具结果由 delivery 层反向投递给微信
+  - `channel="scheduler"`（`scheduler.py`）—— 同理，定时任务用 send_message 推送
+- cache_key 中加入 `::ch={channel}`（仅当非默认 web 时），避免不同渠道复用错误的 agent
+
+## service-chat — React 入口（已统一渲染管线）
+**❗ 旧的 `frontend/public/service-chat.html` 已删除，不要重新引入**。当前架构：
+
+### 文件布局
+- `frontend/service-chat.html` — vite multi-entry 顶层 HTML（含 `<!-- SVC_INJECT -->` 占位）
+- `frontend/src/service-chat/main.tsx` — React entry，`createRoot(...).render(<ServiceChatApp/>)`
+- `frontend/src/service-chat/ServiceChatApp.tsx` — 主组件
+- `frontend/src/service-chat/ServiceToolBadge.tsx` — service 端友好状态条（替代 admin 的 ToolIndicator）
+- `frontend/src/service-chat/streamHandler.ts` — 轻量 SSE handler（hook 形式，无 admin 的 subagent/HITL/interrupt 状态）
+- `frontend/src/service-chat/serviceApi.ts` — consumer-side API（与 `services/api.ts` 解耦，避免 token 串台）
+- `frontend/src/service-chat/serviceChat.module.css` — 服务端专属样式
+- `vite.config.ts` 的 `rollupOptions.input` 必须同时声明 `main` 和 `service-chat` 两个 entry
+- `app/routes/consumer_ui.py` 读 `frontend/dist/service-chat.html`，把 `<!-- SVC_INJECT -->` 替换为 `<script>window.__SVC__={...}</script>`
+- dev 模式（dist 不存在）：`consumer_ui.py` 返回引用 `http://localhost:3000/src/service-chat/main.tsx` 的兜底 HTML，依赖 vite dev server 跨域 ESM
+
+### 跨 admin / service 共享组件（**改一次两边都生效**）
+- `frontend/src/pages/Chat/markdown.ts` — 唯一的 markdown 渲染管线，含 `<<FILE:path>>` 媒体标签处理 / DOMPurify 配置 / hljs 语言注册
+- `frontend/src/pages/Chat/components/StreamingMessage.tsx` — 共享渲染组件，接受 `toolRenderer` / `hideSubagents` / `avatarSrc` props 让两端定制差异部分
+- `frontend/src/pages/Chat/types.ts` 的 `StreamBlock` 数据结构
+
+### 渲染差异（设计意图）
+- **工具块**：admin 用默认 `ToolIndicator`（真实工具名 + 可展开 args/result，调试用）；service 传 `toolRenderer={ServiceToolBadge}`（白名单友好文案，未在白名单的统一「思考中…」，不展示 args/result）
+- **subagent**：service 传 `hideSubagents` 隐藏，避免向消费者泄露内部子流程；admin 显示完整 `SubagentCard`
+- **媒体 URL 鉴权**：`markdown.ts` 暴露 `setMediaUrlBuilder(fn)`，admin 默认走 admin token（`adminMediaUrl`），service-chat `main.tsx` 启动时调用 `setMediaUrlBuilder(buildConsumerMediaUrl)` 覆盖为 `/api/v1/conversations/{conv_id}/files/{path}?key=...`（query 参数携带 service API key，因为 `<img src>` 不支持 Authorization header）
+
+### 改动检查清单（修 admin chat 时）
+- 改 `markdown.ts` → service 自动同步 ✅
+- 改 `StreamingMessage.tsx` 的 props/逻辑 → 同步影响 service；新增 prop 务必给默认值或在 `ServiceChatApp.tsx` 中传值
+- 新加 SSE 事件类型 → 同时改 `streamContext.tsx`（admin）和 `streamHandler.ts`（service）；后者意图保持轻量，不要把 admin 的 HITL/interrupt 引入
+- 千万别为图省事在 `service-chat/` 复制一份 `markdown.ts` 之类——这就是之前 `<<FILE:>>` 媒体 bug 在 wechat 和 web consumer 各坏一次的根因
+
+### 历史踩坑（已修复）
+- 旧 `public/service-chat.html` 用 CDN 的 `marked + DOMPurify`，没处理 `<<FILE:path>>` 媒体标签，consumer 只看到字面文本——同 wechat delivery 的同源 bug
+- 旧版 sanitize 没加 iframe/audio/video 白名单，即便补了媒体处理也会被剥
+- 旧版 `pathFilter: '/wc'` 是前缀匹配，`/wcanything` 也会被代理；改成 `/wc/`
+- **ServiceToolBadge 白名单初版工具名拍脑袋写错**（`read_doc` / `list_docs` 等）：实际工具名以 `consumer_agent.py` (`ls`, `read_file`) + deepagents 内置 (`glob`, `grep`, `write_file`, `edit_file`, `write_todos`, `task`) + `tools.py` 的 `generate_image/speech/video` 和 `run_script` 为准。修工具时务必同步该白名单，否则 consumer 端全部显示"思考中…"
+- **streamHandler.ts onDone 闭包陷阱**：早期版本 `onDone: () => stream.blocks` 会拿到首次 render 闭包到的 stale state（永远是 `[]`），导致 streaming 完成后整段 assistant 消息消失。修复：让 hook 直接把 `finalBlocks` 作为参数传给 `onDone`，**消费者绝对不要从外层 stream 引用读 blocks**。同时 hook 内部用 `optsRef.current.xxx` 而非闭包到 opts，避免 send 函数因 opts 每次新对象而重建
+- **架构差异提醒**：admin /chat 的"流结束 → 消息持久化"走的是后端 `save_message(blocks=...)` + 前端 `getConversation(convId)` refetch 的路径，没有客户端 commit step；service-chat 没用同样的 refetch（消费者侧没有"会话历史"页面），所以必须在 onDone 客户端 commit 一份到 messages list
+- Admin 微信接入：admin_router.py + admin_bridge.py（独立于 Service 渠道）
+  - Admin 扫码连接自己的主 Agent（完整 docs/scripts/tools 权限 + humanchat）
+  - 对话存入 Admin 的 conversations 目录（和普通对话共存）
+  - 端点：POST /api/admin/wechat/qrcode、GET qrcode/status、GET/DELETE session、GET messages
+  - **会话持久化**：`users/{user_id}/admin_wechat_session.json`，Docker/服务重启后自动恢复
+  - `_save_admin_session()` 在会话创建、`from_user_id` 首次捕获时写入
+  - `restore_admin_sessions()` 在 `main.py` startup 时调用，扫描所有用户目录恢复
+  - `shutdown_admin_sessions()` 仅停止轮询和关闭连接，**不删除**持久化文件
+  - `_remove_admin_session()` 用于主动断开或连续错误 20 次，会删除持久化文件
+  - 前端：index.html 侧边栏"微信接入"按钮 → 弹窗面板（QR/状态/对话记录）
+  - JS：frontend/public/js/admin-wechat.js
+  - CSS：style.css .awc-* 样式
+
+### 多模态 Vision 支持（全链路）
+- 后端 schema：ChatRequest.message 和 ConsumerChatRequest.message 改为 Any（接受 str 或 multimodal list）
+- chat.py / consumer.py：_extract_text() 提取纯文本用于持久化，原始 content 直接发给 LangChain agent
+- 微信 bridge/admin_bridge：_build_multimodal_content() 将图片 base64 编码为 image_url block
+- 前端 Admin（chat.js）：_pendingImages + 粘贴/拖拽/按钮上传 → sendMessage 构建 multimodal list
+- 前端 Consumer（service-chat.html）：同上逻辑
+- 格式：OpenAI compatible [{"type":"text","text":"..."}, {"type":"image_url","image_url":{"url":"data:...base64"}}]
+- GPT-4o / Claude Sonnet/Opus 均原生支持
+
+## Soul 记忆系统（memory_tools）
+- **soul config 目录**：`users/{user_id}/soul/config.json`（应用层元数据，agent 不可直接访问）
+  - `config.json`：`memory_enabled`、`include_consumer_conversations`、`max_recent_messages`（默认 5）、`memory_subagent_enabled`（Memory Subagent 写入开关）、`soul_edit_enabled`（Soul 文件系统暴露开关）
+- **soul 内容目录**：`users/{user_id}/filesystem/soul/`（agent 可读写的笔记/人格文件）
+  - 物理存放在 filesystem 根目录内，避免 deepagents FilesystemBackend 路径逃逸检查
+  - 旧版使用 symlink `filesystem/soul → ../soul`，在 Docker/Linux 上因 `Path.resolve()` 跟随符号链接导致路径逃逸报错，已废弃
+  - `sync_soul_symlink()` 现在负责：移除旧 symlink、创建 `filesystem/soul/` 目录、自动迁移旧 `soul/` 内容文件
+- **Memory Subagent**：
+  - Admin：内置 memory subagent（`subagents.py` DEFAULT_SUBAGENTS），基础工具 = `list_conversations`/`read_conversation`/`list_service_conversations`/`read_service_conversation`/`read_inbox`
+  - `memory_subagent_enabled=true` 时追加 soul 写入工具：`soul_list`/`soul_read`/`soul_write`/`soul_delete`
+    - 对话记录保持只读，Subagent 不能修改聊天历史
+    - 只能在 `filesystem/soul/` 内创建、编辑、删除文件（`config.json` 禁止修改）
+    - soul 工具的 `soul_root` 指向 `_soul_content_dir()`（= `filesystem/soul/`）
+  - Consumer：内置 memory subagent，工具 = `read_my_conversation`（仅读自己对话）
+  - Admin 的 `include_consumer_conversations=false` 时，Service 对话工具返回提示
+- **Soul 文件系统暴露**：
+  - `soul_edit_enabled=true` 时，`filesystem/soul/` 自然可被 Agent 的 `FilesystemBackend` 访问，文件面板也可见
+  - `create_user_agent` 和 API `PUT /api/soul/config` 都会调用 `sync_soul_symlink`
+- **Soul 能力提示词**（`CAPABILITY_PROMPTS` 扩展）：
+  - `memory_subagent`：当 `memory_subagent_enabled=true` 时注入，告诉 Agent 有 memory subagent 可委托、soul/ 可写入
+  - `soul_edit`：当 `soul_edit_enabled=true` 时注入，告诉 Agent 有 /soul/ 目录可直接读写
+  - 注入逻辑在 `agent.py::create_user_agent` 中，读取 `soul_config` 判断
+- **前端 Soul 设置**：
+  - 设置 → Prompt → 第三 Tab「Memory & Soul」（`SoulSettings.tsx`）
+  - 两个 Switch：Memory Subagent 写入（`memory_subagent_enabled`）、Soul 文件系统（`soul_edit_enabled`）
+  - 每个 Switch 下方附带可编辑的提示词（仅在开关打开时显示），支持自定义/恢复默认
+  - 附加 Switch：包含消费者对话（`include_consumer_conversations`）
+  - API：`GET /api/soul/config`、`PUT /api/soul/config`（`settings_routes.py`）
+  - 更新配置后自动 `clear_agent_cache` 使 Agent 重建时生效
+- **能力提示词系统（Capability Prompts）**：
+  - 所有 `CAPABILITY_PROMPTS`（`tools.py`）支持 per-user 自定义覆盖
+  - 存储：`users/{user_id}/capability_prompts.json`（仅存覆盖项，不存默认）
+  - 后端：`prompt.py` 的 `get_capability_prompts`/`save_capability_prompts`/`get_resolved_capability_prompt`
+  - API：`GET /api/capability-prompts`（列出所有 + 标记是否自定义）、`PUT /api/capability-prompts/{key}`（保存覆盖）、`DELETE /api/capability-prompts/{key}`（恢复默认）
+  - `agent.py::create_user_agent` 使用 `get_resolved_capability_prompt` 替代直接读 `CAPABILITY_PROMPTS`
+  - 前端操作规则 Tab（`SystemPromptEditor.tsx`）：主 prompt 编辑器下方增加「能力提示词」折叠面板，展开可逐条编辑/恢复默认
+  - 前端 Soul Tab（`SoulSettings.tsx`）：soul 相关提示词直接嵌入开关下方
+  - Soul 相关 key（`memory_subagent`、`soul_edit`）不在操作规则 Tab 显示，避免重复
+- **短期记忆注入**：
+  - `scheduler.py` 的 `_run_service_agent_task` / `_run_agent_task`：从 conversation JSON 读最近 N 条消息，拼入 prompt 前缀
+  - `inbox.py` 的 `_trigger_inbox_agent`：注入最近 3 条 inbox 历史
+- **消息来源标注**：
+  - Service 定时任务 prompt 头部加 `[系统指令 - 来自管理员]`，明确 send_message 发给用户、contact_admin 发给管理员
+  - Inbox agent prompt 头部加 `[系统指令 - Service 收件箱通知]`，明确 send_message 发给管理员本人
+- **任务结果持久化**：`_run_agent_loop` 结束后调用 `save_message` / `save_consumer_message` 写入对话 JSON（含 `source: "scheduled_task"` 或 `"admin_broadcast"` 标记）
+- **Inbox thread_id 稳定化**：`inbox-{admin_id}`（同一 Admin 共用，有累积记忆）
+- **publish_service_task**：
+  - `service_ids` 支持 ID 和名称匹配（大小写不敏感），未匹配时返回可用 Service 列表
+  - `session_ids` 可选参数，精确到单个微信会话
+  - `run_now` 调度使用 `_schedule_coro` 线程安全模式（先尝试 `get_running_loop()`，失败回退 `run_coroutine_threadsafe`）
+- **工厂函数**：`create_admin_memory_tools(user_id)` 返回 5~9 个工具（取决于 `memory_subagent_enabled`），`create_consumer_memory_tools(admin_id, svc_id, conv_id)` 返回 1 个工具
+- **soul/ 初始化**：`_create_user_dirs` 调用 `ensure_soul_dir(user_id)` 自动创建
+- **Subagent 可用工具**（`SHARED_TOOL_NAMES` + `MEMORY_TOOL_NAMES`）：
+  - 通用工具：`run_script`、`web_search`、`web_fetch`、`generate_image`、`generate_speech`、`generate_video`、`schedule_task`、`manage_scheduled_tasks`、`publish_service_task`、`send_message`
+  - 记忆工具：`list_conversations`、`read_conversation`、`list_service_conversations`、`read_service_conversation`、`read_inbox`、`soul_list`、`soul_read`、`soul_write`、`soul_delete`
+  - `build_subagent_tools` 按需创建：仅实例化 subagent 配置中列出的工具，避免不必要的初始化
+  - 前端 SubagentManager 显示全部可选工具（`GET /api/subagents` 返回 `available_tools`）
+
+## Per-User Python 环境（venv_manager）
+- **模块**：`app/services/venv_manager.py`
+- **目录**：`users/{user_id}/venv/`，每个 Admin 独立的 Python 虚拟环境
+  - 使用 `--system-site-packages` 创建，继承系统预装包（numpy、pandas 等）
+  - 用户自定义安装的包持久化到 `users/{user_id}/venv/requirements.txt`
+- **脚本执行集成**：
+  - `script_runner.run_script` 新增 `python_executable` 参数
+  - `tools.py::create_run_script_tool` 和 `consumer_agent.py` 均使用 `get_user_python(user_id)` 获取用户 Python
+  - Consumer 脚本使用 admin 的 venv（`get_user_python(admin_id)`）
+- **API**：
+  - `GET /api/packages` — 列出已安装包 + venv 状态
+  - `POST /api/packages/init` — 初始化用户 venv
+  - `POST /api/packages/install` — 安装包（含输入安全检查）
+  - `POST /api/packages/uninstall` — 卸载包
+- **启动恢复**：`main.py` startup 调用 `restore_all_venvs()`，扫描所有用户目录，对有 `requirements.txt` 的用户自动 `pip install -r` 还原
+- **前端**：设置 → Python 环境（`PackagesPage.tsx`），支持初始化环境、安装/卸载包、查看已安装包列表
+- **安全**：包名禁止 `;|&$\`` 等注入字符；pip 操作在用户 venv 内执行，不影响系统环境
+
+## YOLO 模式（admin 自动批准, 2026-04-21）
+- **痛点**：单人开发时 HITL 审批卡（write_file / edit_file / propose_plan）频繁打断流，每次都要手动点「批准」。
+- **架构** — 同步前后端，复用现有 `Command(resume=...)` 协议，零侵入 deepagents：
+  - `app/schemas/requests.py::ChatRequest/ResumeRequest` 各加 `yolo: Optional[bool]`
+  - `app/routes/chat.py::_stream_agent(yolo=False)` —— 把原 `async for event in agent.astream(...)` 抽成内部 helper `_drain_one_pass(payload)`（async generator，通过 nonlocal 共享 closure state，保持原 body 缩进 0 改动），外层 try 内套 `while True:` 循环：
+    1. `async for sse in _drain_one_pass(input_payload): yield sse`
+    2. 用 `agent.aget_state(config)` 检测 interrupt
+    3. `not has_interrupt` → break（正常退出 + done 事件 + 存盘）
+    4. `not yolo` → 发 `interrupt` SSE + 写 `_interrupt_state` + return（**完全保留原行为**）
+    5. YOLO 路径：构造 `[{"type":"approve"}] * N` decisions、push `auto_approve` block 到 blocks 持久化数组、yield `auto_approve` SSE、`input_payload = Command(resume=...)`、`continue`
+    6. 防御性 `MAX_YOLO_LOOPS=50`，超出发 error 事件
+  - cancel 处理：原 `return` 之前加 `_cancelled = True`（nonlocal），外层 while 检测 → 立即 return（避免 helper 的 `return` 让 while 死循环）
+  - `api_chat` / `api_chat_resume` 透传 `yolo=bool(req.yolo)`
+- **前端**：
+  - `frontend/src/utils/yoloMode.ts` — `getYoloMode/setYoloMode`，localStorage key `yolo_mode_admin`，全局事件 `yolo-mode-changed` 让多个面板同步
+  - `frontend/src/types/index.ts` — `ChatOptions.yolo`、`SSECallbacks.onAutoApprove`、`MessageBlock` 加 `auto_approve` variant（持久化历史可看）
+  - `frontend/src/pages/Chat/types.ts` — `StreamBlock | AutoApproveBlock`
+  - `frontend/src/services/api.ts` — body 里塞 `yolo: true`（streamChat / resumeChat），SSE switch 加 `case 'auto_approve': onAutoApprove?.(count, actions); break;`
+  - `frontend/src/stores/streamContext.tsx` — `StreamOpts.yolo` 透传；`onAutoApprove` 回调 close thinking 后 push `{type:'auto_approve', count, actions}` block + scheduleFlush
+  - `frontend/src/pages/Chat/index.tsx` — 两处 `startStream` / `resumeStream` 调用都带 `yolo: getYoloMode()`
+  - `frontend/src/pages/Settings/GeneralPage.tsx` — 「YOLO 模式」卡片放在「界面样式」之后、「批量运行」之前，黄色 Tag「已开启」+ ⚠ 警告语 + 「仅作用于 Admin 端」说明。监听 `YOLO_EVENT` 同步状态
+  - `frontend/src/pages/Chat/components/AutoApproveBadge.tsx` — 小徽章「⚡ YOLO 自动批准 N 项」可展开看具体 tool name 列表；橘黄色，参考 ToolIndicator 交互
+  - `StreamingMessage.tsx` + `MessageBubble.tsx::BlocksRenderer` 都加 `case 'auto_approve'` → `<AutoApproveBadge>`
+  - `chat.module.css` 末尾 `.autoApprove*` 样式（橘黄主色 #f59e0b，与 admin 蓝色主色形成视觉区分）
+- **关键设计决策**：
+  - **不影响 service / consumer**：consumer agent 本身就没配置 `interrupt_on`（见 `consumer_agent.py` 注释 "No HITL interrupts on writes"），不存在审批，YOLO 开关对其无意义
+  - **不复用微信 admin_bridge 自动批准代码**：bridge.py 是同步 `ainvoke` 模式（非流式），chat.py 是 SSE 流式，两套接口；但**自动批准的语义/decisions 构造完全一致**（`[{"type":"approve"}] * N`）
+  - **历史回看也保留 auto_approve 标记**：blocks 数组里持久化 `{type:'auto_approve', count, actions:[{name, args}]}`，刷新页面后仍能看到「⚡ 自动批准了哪些操作」
+  - **YOLO 状态在前端，不持久化到后端**：localStorage 即可；用户每个浏览器/设备独立选择，不需服务端一致性
+- **不要做的事**：
+  - 不在 chat 顶部加横幅 banner（用户明确否决）
+  - 不在 service-chat 端加任何 YOLO UI（service 默认就是无审批，加开关只会让消费者困惑）
+  - 不重新拆 _stream_agent 函数（helper async generator + nonlocal 已经是最小侵入）
+  - 不修改 deepagents `interrupt_on` 配置（HITL 中间件继续生效，前端只是看到再 resume）
+
+### YOLO 行为调整（2026-04-22, 用户反馈：「不设上限，不要显眼徽章」）
+- **后端 `app/routes/chat.py::_stream_agent`**：
+  - 删除 `MAX_YOLO_LOOPS=50` 硬上限及超出后 yield error / save_message 的中止分支。
+  - 改为 `YOLO_WARN_EVERY=50`，每达 50 次 `yolo_loops % 50 == 0` 就 `_log.warning(...)` 一次，便于排查死循环但不打断流。
+  - **不再向 `blocks` 数组追加 `auto_approve` 块**（避免历史回看出现 ⚡ 大徽章）；仅保留 SSE `auto_approve` 事件（用于驱动前端底部小 tag）。
+- **前端 `streamContext.tsx`**：
+  - 新增 `yoloApprovedConvs: Set<string>` 状态（context 暴露），记录本次浏览器会话内发生过 YOLO 自动批准的 convId。
+  - `onAutoApprove` 回调改为「只 close thinking + add convId 到 yoloApprovedConvs」，**不再 push `{type:'auto_approve', ...}` 到 blocks**。
+- **前端 `Chat/index.tsx`**：
+  - 新增 `yoloOn` 本地 state 监听 `YOLO_EVENT` 同步开关。
+  - 输入区 `inputArea` 末尾（`inputWrapper` 之后）加一行小 tag `<div className={styles.yoloFooterTag}>` —— 仅在 `yoloOn && currentConvId && yoloApprovedConvs.has(currentConvId)` 时渲染，含一个橙色小圆点 + 文本 `yolo`，title 解释含义；浏览器刷新或后端没再 yield `auto_approve` 时不显示。
+- **前端 `MessageBubble.tsx` / `StreamingMessage.tsx`**：`case 'auto_approve': return null`（彻底隐藏；包括反序列化的旧消息），并删除对 `AutoApproveBadge` 组件的 import。
+- **删除文件**：`frontend/src/pages/Chat/components/AutoApproveBadge.tsx`、`chat.module.css` 中 `.autoApprove*` 一整段。
+- **保留**：`StreamBlock` 联合中仍保留 `AutoApproveBlock` 类型（仅向后兼容旧消息反序列化），`types.ts` 的 JSDoc 已更新说明它现在不被渲染。
+- **新增 CSS**：`chat.module.css::.yoloFooterTag` —— `align-self: flex-end`、`opacity: 0.7`、`font-size: 10px`、圆角 pill、橙色 5px 小点 `.yoloFooterDot`。极简、不抢视觉。
+- **教训**：自动批准这种「持续 N 轮」的流程，不要在每轮 push 持久化块到消息流——会产生大量重复条目污染历史。状态信号放在「全局 UI 角落」（如本案的输入区底部 tag）即可。
+
+## 聊天里 `<<FILE:>>` tag 一键定位（2026-04-22）
+- **痛点**：agent 回复里出现 `<<FILE:/path/to/file.txt>>`，非媒体类型在 `markdown.ts::filePathToHtml` 返回 null 后退化为 `<FILE:...>` 文本（被 marked 渲染为单尖括号）；用户没有快捷方式跳到 FilePanel 对应位置。媒体（图片/音视频/pdf/html）虽已直接渲染，也缺少「在文件浏览器看一眼上下文」的入口。
+- **方案**（admin /chat 与 service-chat 共用渲染层 `pages/Chat/markdown.ts`，但 admin 才有 FilePanel）：
+  - **`stores/fileWorkspaceContext.tsx`**：
+    - 把 FilePanel 的 local `currentPath` 提升到 context（`browserPath` + `setBrowserPath`），FilePanel 改为消费 context 中的字段（别名解构 `browserPath: currentPath, setBrowserPath: setCurrentPath` 保留组件内已有命名，最小改动）。
+    - 新增 `revealInBrowser(path)`：`setBrowserPath(parentDir(path))` + `setFileBrowserOpen(true)` + `await openFile(path)` —— 一次点击同时「打开文件 + 跳到所在目录 + 展开右侧文件浏览器」。
+    - 在 Provider 内 `useEffect` 安装 **document 级别的全局点击委托**：捕获 `target.closest('[data-jf-file]')`，读 `data-jf-file` 调 `revealInBrowser`，并 `e.preventDefault() / e.stopPropagation()`。这样 markdown 渲染（无 React 上下文）也能触发跳转，无需在每个 `dangerouslySetInnerHTML` 容器上挂 onClick。
+  - **`pages/Chat/markdown.ts`**：
+    - 新增 `_fileRevealEnabled` 开关 + `setFileRevealEnabled(enabled)` 导出。默认 `true`（admin 端）；service-chat 在 `ServiceChatApp.tsx` 的 mediaUrlBuilder useEffect 内 `setFileRevealEnabled(false)` 关掉，避免渲染出无效的可点击 pill。
+    - 新增 `nonMediaFileToHtml(filePath)`：把非媒体 `<<FILE:>>` 渲染成 `<button type="button" class="jf-file-link" data-jf-file="${escaped}">📄 ${name}</button>` 内联 pill；关闭时回退到 `&lt;FILE:...&gt;` 文本。
+    - 新增 `buildRevealAction(filePath)`：给媒体 `.jf-media-caption` 拼接一个 `<button class="jf-file-reveal" data-jf-file="...">📁</button>` 小按钮，让图片/音视频/pdf/html 也能一键定位到 FilePanel。
+    - **重要**：`<a href="javascript:void(0)">` 会被 DOMPurify 默认按 URI 安全策略剥掉 href —— 改用 `<button type="button">` + `data-jf-file` 委托。`data-*` 属性 DOMPurify 默认放行，无需扩 ADD_ATTR。
+  - **`chat.module.css`**：新增 `:global(.jf-file-link)` / `:global(.jf-file-link-icon)` / `:global(.jf-file-link-name)` / `:global(.jf-file-reveal)` 全局类（与 `.jf-media*` 同处一段，使用 `:global()` 规避 CSS Modules 哈希）。pill 用主色 `var(--jf-primary)` 浅紫调，name 限宽 320px 配 ellipsis；reveal 按钮 transparent 背景 hover 才上色，避免 caption 拥挤。
+- **关键设计决策**：
+  - **不在每个消费 dangerouslySetInnerHTML 的组件挂 onClick**：使用 document 级委托一次性覆盖 MessageBubble / StreamingMessage / SubagentCard / FilePreview 全部入口，零侵入。
+  - **复用现有 openFile**：context 里的 openFile 已经处理 split 模式切换 + media 类型不读文本的分支；revealInBrowser 直接复用，错误 toast 也由 openFile 统一弹。
+  - **在父目录跳转**：browserPath 设为 `parentDir(path)`（自实现 `lastIndexOf('/')`），让用户在 FilePanel 看到同级文件上下文；同时 FilePanel 内部 `editingFile === joinPath(currentPath, item.name)` 自动高亮当前打开项。
+- **不要做的事**：
+  - 不要在 markdown 输出里写 `onclick="..."` 内联 handler 调用全局函数 —— 路径里的 `'` 会破坏 JS 字符串字面量；用 data-attribute + 委托更鲁棒。
+  - 不要试图扩展 DOMPurify 的 URI scheme 白名单去支持 `javascript:` —— 直接换 `<button>` 即可。
+
+## write_file / edit_file 流式可视化（StreamingFilePreview, 2026-04-21）
+- **痛点**：deepagents 的 write_file / edit_file 是 LLM token-by-token 生成 args，但前端一直把 args 累在折叠的 ToolIndicator 里看不到。HITL 审批卡又要等 LLM 写完才弹出，用户全程等待。
+- **方案**：纯前端改造（后端 SSE 已经在推 `tool_call_chunk` + `args_delta`，零改动）。三层组件：
+  - `frontend/src/utils/partialJson.ts::extractStreamingField(raw, field)` — 状态机扫 incomplete JSON，提取字符串字段当前到达部分。处理 \" \\n \\\\ \\u00xx 等转义；末尾孤立反斜杠/半个 unicode 容错；区分 key vs value（避免 `"content":"x"` 中的 `"content"` 在 value 里被误判）。13 个 case 全过。
+  - `frontend/src/pages/Chat/components/StreamingFilePreview.tsx` — 双层：
+    - `FilePreviewBody`（命名 export）：纯展示，接收 `{filePath, text, kind: 'write'|'edit', status: 'streaming'|'pending'|'done'|'error', errorMessage?, langOverride?, showCursor?}`，做语法高亮 + 状态徽章 + 打字机光标。ApprovalCard 直接复用。
+    - `StreamingFilePreview`（默认 export）：包装层，从 ToolBlock.args 解析 partial JSON 后传给 FilePreviewBody。
+  - 高亮：复用 `markdown.ts` 已注册到 highlight.js 全局单例的语言（py/ts/json/bash/yaml/md/html/css/java/go/rust/cpp/sql/toml/dockerfile）。后缀 → lang 映射表 `EXT_TO_LANG`，未匹配走 `hljs.highlightAuto`。**副作用 import `'../markdown'`** 保证语言一定注册（即使本组件被先于 markdown.ts 加载）。
+- **路由入口**：在三处独立判断 `name === 'write_file' || name === 'edit_file'`：
+  1. `StreamingMessage.tsx`（live admin/consumer 流式视图）— `isStreaming = isLast && isStreaming`
+  2. `MessageBubble.tsx::BlocksRenderer`（历史消息回看）— `isStreaming = false`
+  3. `ApprovalCard.tsx::FileActionCard`（HITL 审批）— write_file 用 FilePreviewBody（status='pending'）；edit_file 用 `EditDiffViewer`（status='pending'）。批准前可点「编辑」切到 TextArea 改 new_string
+- **状态语义**：
+  - `streaming`：流式中（光标 + 旋转图标 + 主色）
+  - `pending`：HITL 等待审批（"待审批" + 警告色）
+  - `done`：写入/编辑成功（"已写入"/"已编辑" + 成功色）
+  - `error`：result 以 error/failed/失败/出错 开头自动识别（红色 + 错误信息）
+- **样式**：`chat.module.css` 末尾新增 `streamFile*` 与 `approvalFileBlock`/`approvalActionBar`，全用 themes.css 变量；打字机光标 `streamCursor` 用 `▍` 字符 + 1s 闪烁动画。
+- **service-chat 不需要改**：因为路由判断在 StreamingMessage 内部，consumer 端自动获益（流式打字机 + done 状态，无审批）。`ServiceToolBadge` 不会被 file 工具调用，不必为 write_file/edit_file 列白名单。
+- **性能**：`useMemo(parseArgs(args), [args])` 避免每次重渲染重新解析；highlight 同步执行（hljs 很快），未做 web worker。文件 > 480px 高度自动滚动。
+- **不要做的事**：
+  - 不引第三方 partial-json 库（自己写状态机，~100 行，零依赖）
+  - 不在 LLM 调用约定上加约束（不走 Cursor 模式）
+  - 不取消 HITL 审批
+  - 不对 edit_file 在 ApprovalCard 中改用 FilePreviewBody（diff 视图更直观）
+
+## edit_file git 风格 diff（EditDiffViewer, 2026-04-21）
+- **痛点**：`edit_file` 的预览只有 `old_string` ↔ `new_string` 两段对照，看不出在原文件哪一行、附近代码是什么；用户没法判断 agent 改的是不是正确位置。
+- **方案**：新增 `EditDiffViewer` 组件，**自己拉原文件 + 算 unified diff + 渲染 git 风格 hunk**。流式中继续打字机 new_string，流完切到 diff（避免无效 fetch）。
+- **算法（`frontend/src/utils/unifiedDiff.ts`）**：
+  - `lineDiff(oldLines, newLines)` — 经典 LCS（dp 二维 Int32Array），回溯顺序保证「del 在 add 之前」（git 习惯）。文件 < 5000 行实测足够快。
+  - `computeUnifiedDiff(originalText, oldString, newString, contextLines=3)` — 在原文中 `indexOf(oldString)` 定位 → 替换得到新文件 → `lineDiff(整个旧, 整个新)` → `sliceHunks` 按上下文行数切 hunk（相邻自动合并）。
+  - `sliceHunks` — 标记每个改动行 `[i-ctx, i+ctx]` 范围 keep=1，连续 keep 段切成 hunk；hunk header 复刻 `@@ -3,4 +3,4 @@`。
+  - 14 个单元测试覆盖：等长替换 / 插入 / 删除 / 多行 old / 远距离改动 / 上下文重叠 / not_found 容错。
+- **组件（`frontend/src/pages/Chat/components/EditDiffViewer.tsx`）**：
+  - 异步 GET `/api/files/read` 拿原文件 → useMemo 算 diff → 渲染。
+  - 容错：原文找不到 old_string（agent 写错或文件已变） / 文件读不到 / 是新文件 → 降级到「双段对照」(old 全部 - / new 全部 +)，**不阻断 UI**。
+  - UI：复用 `streamFileCard*` 头部样式（FileCode 图标 + 路径 + lang + 状态徽章）；diff 行用 4 段 grid（旧行号 / 新行号 / 符号 / 代码），代码段走 hljs 高亮（与 markdown 共享语言注册）。状态徽章带 `+N -M` 行数统计。
+  - 「展开全文」按钮切换 hunk 视图 ↔ 完整 diff；max-height 480px 内滚动。
+- **接入点**：
+  - `StreamingFilePreview`：`!isWrite && status !== 'streaming' && filePath && oldString && newString` → 直接 `return <EditDiffViewer />`（流式期保留打字机 new_string）。这覆盖了 live 流（StreamingMessage） + 历史回看（MessageBubble.BlocksRenderer），因为后端 `chat.py` 在持久化 blocks 时把 `args` 累成完整 JSON 字符串保留。
+  - `ApprovalCard.FileActionCard`：edit_file 分支由原 SBS diff 改为 `<EditDiffViewer status="pending" />`，按钮区与 write_file 一致（`approvalActionBar`）。`computeLineDiff` 旧函数与 SBS 渲染已删除。
+- **样式**：`chat.module.css` 末尾新增 `diff*` 系列（`diffBody/diffHunk/diffHunkHeader/diffRow{Add,Del,Context}/diffRow{Old,New}Num/diffRowSign/diffRowText/diffExpandBtn/diffStat{Add,Del}/diffLoading/diffWarn/diffEmpty`）；颜色用 `--jf-success/--jf-error` 半透明背景。
+- **不要做的事**：
+  - 不在 write_file 上做 diff（即使覆盖现有文件也保持「全文新建」视图，逻辑简单清晰）
+  - 不在流式期间做 diff（new_string 还在变 + 频繁 fetch 浪费）
+  - 不上 jsdiff（~50KB gz，自己 LCS ~120 行够用）
+  - 不在 EditDiffViewer 里加编辑功能（编辑 new_string 由 ApprovalCard 外层 TextArea 负责，组件只管展示）
+
+## 文件元信息排序工具（list_files_sorted, 2026-04-21）
+- **动机**：deepagents 内置的 `ls` 只返回文件名列表，agent 拿不到大小/时间，无法回答「最新生成的图是哪个」「找最大的 csv」之类问题；不动框架内置工具，新增一个语义更明确的工具。
+- **后端实现**：
+  - `app/services/tools.py::create_list_files_sorted_tool(user_id)` — admin 版本，走 `get_storage_service().list_dir(user_id, path)`（自动支持 local/S3 两种 backend）
+  - `app/services/consumer_agent.py::_create_consumer_read_tools` 内 `list_files_sorted` — consumer 版本，仅扫描 `docs_dir` 并经过 `_is_allowed` 过滤，禁止访问 `generated/`
+  - 共享辅助函数 `_format_size` / `_format_mtime_short` / `_SORT_KEYS` 都在 `tools.py`，consumer 版本直接 import
+- **工具签名**：`list_files_sorted(path="/", order_by="modified", desc=True, limit=50)`，`order_by` 接受 `name|modified|mtime|size`（`mtime` 是 `modified` 的别名），`limit` 上限 500
+- **输出格式**：`类型 大小 修改时间 名称` 表格，目录显示为 `DIR /`，文件大小走 `K/M/G/T` 单位，时间用 `YYYY-MM-DD HH:MM`（去秒/微秒/时区，节省 token）
+- **注册入口**：`app/services/agent.py::create_user_agent` 在 `tools = [...]` 初始化时注入；consumer 通过 `_create_consumer_read_tools` 返回值自动注入
+- **前端联动**：`frontend/src/service-chat/ServiceToolBadge.tsx` 的 `TOOL_LABELS` 白名单需同步加 `list_files_sorted: '正在整理文件…'`，否则 consumer 会兜底显示「思考中…」
+- **不做的事**：不存储 `created_at`（macOS `st_birthtime` / Linux 不可靠 / S3 没有），只暴露 `modified_at`；不加 REST API 排序参数，前端用 `useMemo` 客户端排序
+
+## 联网工具（web_tools）
+- 新增 `app/services/web_tools.py`：`web_fetch(url)` / `web_search(query, count)`
+- 双 provider：优先 CloudsWay（`CLOUDSWAY_SEARCH_KEY`），fallback Tavily（`TAVILY_API_KEY`）
+- 环境变量：`CLOUDSWAY_SEARCH_KEY`、`CLOUDSWAY_READ_URL`（可选覆盖）、`CLOUDSWAY_SEARCH_URL`（可选覆盖）、`TAVILY_API_KEY`
+- Admin agent：**永远注入** web 工具（无需在 capabilities 里填 "web"）
+- Consumer/Service agent：`service_config.research_tools=true` 或 `capabilities` 含 "web" 时注入
+
+## 定时任务（scheduler）
+- `app/services/scheduler.py`：TaskScheduler 单例，asyncio 循环每 30s 检查所有用户任务
+
+### Admin 任务
+- 存储：`{user_dir}/tasks/{task_id}.json`（以 `task_` 前缀），含最近 20 条运行记录
+- 支持调度类型：`once`（一次性 ISO 时间）、`cron`（需 `pip install croniter`）、`interval`（秒数）
+- 支持任务类型：`script`（执行 scripts/ 脚本）、`agent`（Batch Agent + 可选文档上下文）
+- API：`GET/POST /api/scheduler`、`GET/PUT/DELETE /api/scheduler/{id}`、`GET /api/scheduler/{id}/runs`、`POST /api/scheduler/{id}/run-now`
+- Admin agent **默认**注入 `schedule_task`（创建）和 `manage_scheduled_tasks`（list/update/delete）工具
+- `reply_wechat=True` 参数可让结果推送回管理员微信
+
+### Service 任务（与 admin 任务分离）
+- 存储：`{user_dir}/services/{service_id}/tasks/{task_id}.json`（以 `stask_` 前缀）
+- 仅支持 `agent` 类型（无脚本），使用 consumer agent 执行
+- `reply_to` 字段记录 {channel, admin_id, service_id, conversation_id, session_id}
+- 执行完自动通过 `_deliver_reply` 推送结果到 WeChat
+- Consumer agent 通过 `create_service_schedule_tool` 注入 `schedule_task`，通过 `create_service_manage_tasks_tool` 注入 `manage_scheduled_tasks`（仅 `"scheduler"` 在 capabilities 中时）
+- Service 的 `manage_scheduled_tasks` 仅能操作当前 `conversation_id` 的任务（权限隔离）
+- API：`GET /api/scheduler/services/all`、`GET/POST /api/scheduler/services/{svc_id}`、`GET/PUT/DELETE /api/scheduler/services/{svc_id}/{task_id}`
+
+### 前端
+- `scheduler.html` 侧边栏有 **管理员任务 / 服务任务** 两个标签页
+- 服务任务显示 service_id、📬 推送标记、reply_to 信息
+
+### 消息级时间戳注入（2026-04-13 重构）
+- **设计**：精确时间不再写入 system prompt（按天缓存会冻结时间），改为每条用户消息前注入时间戳 `[YYYY-MM-DD HH:MM:SS]`
+- **system prompt**：`DEFAULT_SYSTEM_PROMPT` 只保留 `{today}`（日期），移除 `{time}`
+- **工具函数**：`prompt.py::stamp_message(content, user_id)` — 支持 str 和 multimodal list 两种 content 格式，按用户时区格式化
+- **注入点**：`chat.py`（Web）、`admin_bridge.py`（微信 Admin）、`consumer.py`（Consumer，3处）、`bridge.py`（微信 Consumer）
+- **优势**：(1) 不依赖缓存刷新，每条消息实时精确 (2) 历史回溯时知道每条消息的发送时间 (3) agent 缓存恢复按天粒度，不浪费资源
+- **注意**：consumer 端使用 `admin_id` 获取时区（跟随 admin 设置）
+
+### 时区处理（2026-04-10 修复）
+- 每个任务 JSON 中存储 `tz_offset_hours` 字段，记录创建时的用户时区偏移
+- **cron 表达式按用户时区解释**：`_next_cron` 将 UTC now 转为用户本地时间 → 传给 croniter → 结果转回 UTC
+- **once 类型必须带时区后缀**（如 `+08:00`）：`_compute_next_run` 用 `fromisoformat` 解析带 tz 的 ISO 字符串；无 tz 时按 `tz_offset_hours` 补充
+- **工具层防御**：`_ensure_tz_suffix(iso_str, tz_offset_hours)` 在 `tools.py` 中自动为无时区的 ISO 字符串补上用户偏移后缀
+- **Agent prompt 已引导**：CAPABILITY_PROMPTS 中 `scheduler` / `service_scheduler` 明确要求 once 类型带时区后缀，cron 按用户时区
+- **interval 类型不受影响**：直接按秒数偏移，与时区无关
+- `create_task` / `create_service_task`：若 data 中无 `tz_offset_hours`，自动从 `preferences.get_tz_offset(user_id)` 获取
+- **`_compute_next_run` 不可用 `task.get("tz_offset_hours", 0)`**：缺字段的旧任务会误按 UTC；应使用 `_resolve_task_tz_offset(task)`（缺字段时回退 `get_tz_offset(user_id)`，与 `preferences` 默认 +8 一致）
+- React **Scheduler** 页创建/更新任务时 body 须带 `tz_offset_hours: getTzOffset()`（与设置页一致），避免任务 JSON 长期缺字段
+
+### 通用
+- main.py startup 启动调度器，shutdown 优雅停止
+- **运行记录步骤日志**：每条 run record 含 `steps[]`，每步有 `type/content/ts` + 扩展字段
+  - Script 步骤类型：`start`→`stdout`→`stderr`→`exit`（或 `error`）
+  - Agent 步骤类型：`start`→`docs_loaded`→`loop`→`tool_call`→`tool_result`→`ai_message`→`auto_approve`→`finish`（或 `error`）→`reply`
+- **沙箱权限配置**：`task_config.permissions = {read_dirs: [...], write_dirs: [...]}`
+  - 路径相对用户文件系统根目录（如 "docs", "scripts", "generated", "tasks", "data/output"）
+  - 默认权限：`_DEFAULT_READ_DIRS = _DEFAULT_WRITE_DIRS = ["docs","scripts","generated","tasks"]`
+- **脚本路径规则**：脚本通过子进程执行，cwd 为 `scripts/` 的真实路径
+  - 脚本内不能用 `/docs/`、`/scripts/` 等虚拟路径（会变成容器绝对路径）
+  - 必须用相对路径：`open("../docs/file.csv", "r")`、`open("output.txt", "w")`
+
+## Frontend (React + Vite)
+
+### 启动
+```bash
+cd frontend
+npm run dev        # Vite dev server on :3000, proxy to FastAPI :8000
+npm run build      # Production build → dist/
+npm run legacy     # Old Express server (fallback)
+```
+
+### 技术栈
+- **React 19** + **TypeScript 5.7** + **Vite 6**
+- **Ant Design 5** (dark theme via ConfigProvider, 中文 locale)
+- **React Router 7** (BrowserRouter, history mode — 干净 URL)
+- **marked** + **DOMPurify** + **highlight.js** (markdown rendering, XSS safe)
+- State: React Context (auth), component-local state (pages)
+
+### 开发规范
+- 组件使用函数式 + hooks，不用 class
+- API 调用统一通过 `src/services/api.ts`
+- 类型定义在 `src/types/index.ts`
+- 页面组件放 `src/pages/<PageName>/index.tsx`
+- 共享组件放 `src/components/`
+- 样式优先使用 antd 组件 + inline style，复杂布局用 CSS Modules
+
+### Chat 页面增强架构
+```
+pages/Chat/
+  index.tsx           — 主页面：对话列表 + 消息区域 + SSE streaming + 模型/能力选择 + Plan Mode
+  types.ts            — StreamBlock 联合类型 (thinking/text/tool/subagent)
+  markdown.ts         — marked + highlight.js (按需导入 17 种语言, 83KB vs 1MB) + <<FILE:path>> 媒体嵌入 (image/audio/video/pdf/html)
+  chat.module.css     — CSS Modules：JellyfishBot 暗色主题（设计 tokens 挂在 `.chatContainer` 的 `--jf-*` 变量上；主色 #E89FD9、辅色 #8B7FD9、强调 #5FC9E6；侧栏宽 240px；代码字体 JetBrains Mono；勿删组件已引用的类名）
+  useSmartScroll.ts   — 智能滚动 hook (用户上滚暂停吸底, 回底部恢复)
+  components/
+    ThinkingBlock.tsx  — 思考过程折叠/展开
+    ToolIndicator.tsx  — 工具调用 (流式参数预览 + 结果 + 折叠)
+    SubagentCard.tsx   — Subagent 执行卡片 (timeline 时间顺序渲染: text/tool/thinking 交替)
+    StreamingMessage.tsx — 流式消息容器 (管理交替的 blocks)
+    MessageBubble.tsx  — 历史消息气泡 (含 tool_calls 回放)
+    ApprovalCard.tsx   — HITL 审批 (文件操作 diff / Plan 审批 + 编辑)；按钮/标题图标用 Phosphor（FileCode、ListChecks、Check、X、PencilSimple 等），不再用 `@ant-design/icons`
+    ImageAttachment.tsx — 图片附件 (粘贴/拖拽/选择 + 缩略图)
+    VoiceInput.tsx     — 语音输入 (MediaRecorder + 转写)；**toggle 模式**：单击按钮开始 → 再次单击停止并自动转写填入；录音中 Esc 取消（不发送）；不绑任何全局开始快捷键（旧版 Tab 按住模式因 keydown `!e.repeat` 未阻止重复事件导致焦点切换 bug，且 Tab 破坏无障碍焦点导航，已废弃）
+pages/AdminServices/
+  index.tsx           — Service 完整管理 (CRUD + API Key + 微信渠道 + 内联测试)
+pages/Scheduler/
+  index.tsx           — 定时任务管理 (Admin/Service + 运行记录 + 步骤日志)
+pages/WeChat/
+  index.tsx           — 微信接入 (QR 生成/轮询 + 状态 + 消息)
+components/
+  FilePanel.tsx       — 文件浏览面板 (多选/内拖拽/虚拟剪贴板/系统粘贴/批量 zip/发送到/Diff)
+  FolderPicker.tsx    — 单选文件夹选择器（懒加载，禁用源/源后代节点；用于「发送到/复制到」）
+  FilePreview.tsx     — 多类型文件查看器（按 fileKind 分发渲染，详见下文「文件预览面板」）
+  modals/
+    SystemPromptEditor.tsx — System Prompt 版本管理 + Diff
+    BatchRunner.tsx        — Excel 批量运行 (配置→进度→结果)；**入口在设置 → 通用 Tab 内嵌**，非独立路由
+    SubagentManager.tsx    — Subagent CRUD + 工具/模型配置
+    UserProfileEditor.tsx  — 用户画像 (投资偏好/自定义)
+    SoulSettings.tsx       — Memory & Soul 高级设置 (Subagent 写入/文件系统暴露)
+```
+
+### Chat 组件视觉（JellyfishBot）
+- 助手气泡头像：`public/media_resources/jellyfishlogo.png`，在 `MessageBubble` / `StreamingMessage` 中用 `<img>`（用户侧仍为字母 **U**）。
+- 子组件图标：`@phosphor-icons/react`（如 ThinkingBlock=Brain + 流式时头部三点弹跳；ToolIndicator=Wrench、CircleNotch 旋转、CheckCircle；SubagentCard=Robot、CaretDown/Right、子工具行 Wrench；历史 tool 回放与流式一致）。
+- 品牌色可参考：Primary `#E89FD9`、Secondary `#8B7FD9`、Accent `#5FC9E6`、Warning `#FFB86C`、Error `#FF6B9D`；Subagent 状态文案可用内联 `color` 与之一致。
+- 若需 keyframes（弹跳、旋转）且不改 `chat.module.css`，可在组件内用局部 `<style>` 块，类名加 `jellyfish-` 前缀避免污染。
+
+### Service 自助化（v2.x）
+- **专属链接附带 Key**（`/s/{id}?key=sk-svc-xxx`）
+  - 后端：`app/routes/consumer_ui.py` 注入模板变量；`service-chat.html` 启动时 `URLSearchParams` 读 `key` → 写 localStorage → `history.replaceState` 立即清掉 query（避免 referer/历史曝光，但仍残留在浏览器请求日志/网关访问日志中，**等同分享 Key**）
+  - 前端 admin：Key Modal 生成成功后**额外**展示带 key 的完整链接 + 警告文案；只能在生成那一刻拿到（已存的 key 是哈希，无法回溯）
+- **欢迎语 + 快速问题**（`welcome_message: str`、`quick_questions: List[str]`）
+  - Schema：`app/schemas/service.py` `CreateServiceRequest` / `UpdateServiceRequest` 新增字段；持久化层用 `**data` 透传，无需改 `published.py`
+  - 后端模板注入：`_safe_json_for_inline_script` 把 `</` 转义为 `<\/` 防 script breakout；占位符 `{{WELCOME_MESSAGE_JSON}}` `{{QUICK_QUESTIONS_JSON}}` 直接 inline JSON
+  - 前端 chat 页：ChatGPT 风格首屏（大欢迎语+渐变 + chips 横排自动 wrap），发送第一条消息（含 chip 点击）后自动隐藏；为空字段则降级回旧的 empty-state
+  - 前端 admin：Modal 中独立模块「聊天页定制」，欢迎语 = `TextArea(maxLength=300, showCount)`，快速问题 = `Form.List`（动态增删，单条 80 字限制）
+- **可访问文件/脚本图形选择器**（替换原"逗号分隔字符串"输入）
+  - 组件：`frontend/src/components/FileTreePicker.tsx` —— antd `Tree` checkable + `loadData` 懒加载（按需调 `api.listFiles`）+ 「全部 (*)」 Switch 快捷开关 + 缺失路径警告
+  - 文件夹勾选 = 整个目录递归允许（key 以 `/` 结尾）；文件勾选 = 单文件
+  - **根目录限定**：`allowed_docs` 只展示 `/docs`；`allowed_scripts` 只展示 `/scripts`（与项目文件系统约定一致）
+  - Trigger 行：`PickerTrigger`（紧凑展示已选摘要，"全部" 用绿色 Tag，多选超 3 个截断为"X, Y, Z 等 N 项"）
+  - Form 集成：用 `PickerField` 包装一层适配 antd Form 的 `value/onChange`，弹窗确定后 `form.setFieldValue` 写回
+- **schema 字段保留逗号字符串兼容**：后端不再强制；前端老数据若是 `["doc1", "doc2"]` 列表自然兼容；空 `allowed_docs` 自动回落 `["*"]`，空 `allowed_scripts` 保持空数组（语义=禁止脚本）
+
+### 文件预览面板（FilePreview）
+- **kind 分类**：`utils/fileKind.ts` 按扩展名 → `image|audio|video|pdf|markdown|html|csv|json|text|binary`
+- **openFile 优化** (`stores/fileWorkspaceContext.tsx`)：媒体/binary 跳过 `api.readFile`，直接 `setEditingFile(path)` 避免拉大文件文本
+- **渲染策略**（`components/FilePreview.tsx`）：
+  - 媒体（image/audio/video/pdf）：原生 `<img>/<audio>/<video>` 或 `<iframe>` 走 `mediaUrl(path)`，工具栏自动隐藏「保存」按钮
+  - markdown：默认预览（复用 `pages/Chat/markdown.ts` 的 `renderMarkdown`，含 hljs/<<FILE:>> 处理）；样式用全局 `.jf-file-md-preview`（见 `styles/global.css`）
+  - html：默认预览，`<iframe sandbox="allow-scripts">`（**无 same-origin** —— 允许 Plotly/ECharts 交互但禁止访问父页/cookies/localStorage）
+  - csv/tsv：默认预览，`utils/csvParse.ts` 状态机解析（支持引号转义/CRLF/引号内换行），用 antd `Table` 渲染（最多 2000 行，超过显示「仅显示前 N 行」提示）；自动识别 `,`/`\t`
+  - json/jsonl/ndjson：默认预览，`JSON.parse` + `hljs.highlight(..., {language:'json'})` 高亮；解析失败降级为源码 + 错误提示
+  - text/code（py/js/ts/yaml/sh/...）：保持现状 textarea，无高亮编辑（极简设计）
+  - binary：`Empty` 占位 + 下载按钮
+- **工具栏切换**：toggle 类（md/html/csv/json）头部加 antd `Segmented`「预览/源码」；切换文件自动重置为预览
+- **下载按钮**：所有 kind 工具栏统一新增；保存按钮仅在 `isEditableKind` 显示
+
+### Markdown 标题锚点 + 右侧 TOC + 路径 clickable（聊天 / 文件预览共享）
+> 所有改动集中在 `pages/Chat/markdown.ts`、`components/FilePreview.tsx`、`styles/global.css`，因为聊天气泡和 markdown 文件预览复用同一套 `renderMarkdown`。
+
+- **标题锚点（`pages/Chat/markdown.ts` 自定义 `headingRenderer`）**
+  - 用 `marked.use({ renderer: { heading: headingRenderer } })` 替换默认 h 渲染
+  - `slugifyHeading(text)` 把标题转 URL 友好 id；**保留 CJK 字符**（不靠纯 `[a-z0-9-]` 过滤），重复标题加 `-2 / -3` 后缀
+  - **每次 `renderMarkdown` 调用前先 `_resetHeadingIds()`** —— 否则模块级 `_headingIdSeen` Set 会跨多条聊天消息累积，造成同名标题不停退化为 `heading-2/3/4...`，破坏锚点稳定性
+  - `this.parser.parseInline(tokens)`（`marked` v15 把 `this` 绑到 parser）保证标题里的 em/strong/code/link 仍正常渲染
+  - 末尾追加 `<a class="jf-heading-anchor" href="#id">#</a>`，hover 标题才显形（CSS 在 `styles/global.css`）
+  - DOMPurify 白名单默认放行 `id/class/href`，无需扩 SANITIZE_OPTS
+
+- **TOC（`components/FilePreview.tsx > MarkdownPreview`）**
+  - `extractToc(html)` 用 `DOMParser` 解析 h1-h3 → `[{id, depth, text}]`；**仅在 markdown 文件预览展示**，聊天气泡不渲染 TOC
+  - 滚动高亮：`IntersectionObserver` 监听容器内所有 `[id]^=` 标题；`rootMargin: '-20% 0px -70% 0px'` 让"接近视口顶部"的标题成为 active
+  - UI：右侧 `<aside>` 浮层，可点击 `UnorderedListOutlined` 折叠/展开；点击条目 `scrollIntoView({ behavior: 'smooth', block: 'start' })`
+  - 折叠后保留圆形按钮入口；TOC 仅在 `toc.length >= 2` 时显示（避免单标题文件无意义 TOC）
+
+- **路径 clickable（聊天里贴出来的工作区路径自动可点）**
+  - `markdown.ts > postProcessInlinePaths(html)` 用 `INLINE_PATH_RE` 把 `<code>/docs/x.md</code>` 这类**含 `/` 且带扩展名**的内联代码替换成 `<button class="jf-file-link jf-file-link-inline" data-jf-file="..."><span class="jf-file-link-icon">📄</span><span class="jf-file-link-name">...</span></button>`，与已有 `[[FILE:..]]` 块级链接（`renderFileLinkButton`）的样式族保持一致，行内显示更紧凑
+  - 触发条件刻意保守：必须含 `/`、不含空格/引号/反斜杠/冒号、扩展名 1-8 位字母数字 —— 避免误转 URL、Windows 盘符、命令行片段
+  - 点击转跳：`stores/fileWorkspaceContext.tsx` 在 `document` 上挂全局点击委托，命中 `[data-jf-file]` 即调 `revealInBrowser(path)` 打开文件面板并定位 —— 因此 chat 气泡 / FilePreview / 任何把 markdown 渲染到 DOM 的位置都自动可用
+  - DOMPurify 必须放行 `data-jf-file` 属性（`SANITIZE_OPTS.ADD_ATTR` 已含）
+
+- **CSS（`styles/global.css`）**
+  - `.jf-heading` 提供锚点定位的 `scroll-margin-top`
+  - `.jf-heading-anchor` 默认 `opacity: 0`，`.jf-heading:hover .jf-heading-anchor` / `:focus-visible` 才显形；hover 变品牌色
+  - `.jf-file-link-inline` 行内代码风格 + 主题色边框 hover 高亮，明确"可点"语义
+
+### 文件面板批量操作 / 拖拽 / 剪贴板 / Zip 下载 / 发送到（FilePanel + 后端 zip & copy）
+> 改动文件：`components/FilePanel.tsx`、`components/FolderPicker.tsx`（新增）、`services/api.ts`、`app/routes/files.py`、`app/storage/{base,local,s3}.py`、`app/schemas/requests.py`
+
+#### 后端
+- **`StorageService` 新增两个抽象方法**（`app/storage/base.py`）
+  - `copy(user_id, source, destination) -> str`：单文件用 `shutil.copy2`，目录用 `shutil.copytree`；S3 用 `_copy_or_move(... delete_source=False)` 复用 move 的递归逻辑（`list_objects_v2` 分页 + `copy_object`）
+  - `walk_files(user_id, path) -> Generator[(rel_path, bytes), None, None]`：local 用 `os.walk` 流式 yield；S3 用 paginator + `get_object` —— **不 buffer 整个目录**，配合 `BytesIO` zip 实现近常量内存
+  - **拒绝把目录复制到自身/后代下**（`_is_descendant` 检查，与 move 行为一致）
+- **`POST /api/files/copy`**（`CopyFileRequest{source, destination}`）
+  - 复用 `safe_join` + `path_security` 防遍历；和 move 一样捕获 `FileExistsError` → 409、`ValueError` → 400
+- **流式 Zip 下载**（`app/routes/files.py`）
+  - `_iter_zip_stream(user_id, paths)`：把所有 path 的 `walk_files()` 输出写入 `zipfile.ZipFile(BytesIO, 'w', ZIP_DEFLATED)`，**每写一个文件就 yield 一次 BytesIO 当前缓冲并 truncate**，实现"逐文件刷出去"的伪流式（pure-Python `zipfile` 不支持真正的 streaming writer，但够用）
+  - `GET /api/files/zip?paths=[json]`：标准 Bearer Auth，前端 fetch 拿 blob 触发下载
+  - `GET /api/files/zip-token?paths=...&token=...`：**给 `<a download>` 直接用的 token-in-query 变体**——浏览器原生 `<a>` 下载无法附带 Authorization 头，所以专门走 query token；token 仍走 `verify_token` 校验，行为等同 Bearer
+  - `_zip_filename_from_paths(paths)`：单根用根名，多根用 `selection-{N}.zip` 命名
+
+#### 前端（FilePanel 重写要点）
+- **多选状态机**（Finder 风格）
+  - `selected: Set<string>`、`lastSelected: string | null`
+  - 单击：清空只选当前；`Ctrl/Cmd+click`：toggle 单项；`Shift+click`：基于 `displayedFiles` 顺序的连续区间选择
+  - `Ctrl+A` 全选当前目录、`Esc` 清空选择
+  - 顶部条件渲染**批量工具栏**（仅 `selected.size > 0` 出现）：复制/剪切/发送到/打包下载/删除
+
+- **虚拟剪贴板（与系统剪贴板互不冲突）**
+  - `clipboard: { paths: string[]; mode: 'copy' | 'cut'; sourceDir: string } | null`
+  - `Ctrl+C` / `Ctrl+X` 仅在 `selected.size > 0` 且**焦点不在输入框**时触发（用 `e.target.tagName` 排除）
+  - `Ctrl+V` → `pasteHere()`：cut 模式用 `moveFile` + 清空 clipboard；copy 模式用 `copyFile` + 保留 clipboard 支持多次粘贴
+  - 顶部还有"剪贴板提示条"：显示来源目录 + 项数 + 模式，提供 `粘贴到这里` / `清空` 按钮，让虚拟剪贴板的状态可视化
+
+- **面板内拖拽（移动）**
+  - 自定义 MIME `application/x-jf-file-paths`（JSON 字符串）—— 用于和系统拖入文件区分；外部拖入文件继续走 `dataTransfer.files` → 上传逻辑
+  - `draggable` 仅在非重命名状态启用；拖动多选项目时一并带上整个 selection
+  - drop 目标：**目录行 + 面包屑某段 + 「返回上一级」按钮**，拖拽悬停加 `.jf-drop-hover` 视觉反馈
+  - 落在自身/源目录直接 no-op；冲突走 `performBulkMoveOrCopy` 的同名询问（`overwrite | rename | skip | abort`）
+
+- **系统剪贴板粘贴**
+  - 给面板根 div 绑 `onPaste`：从 `e.clipboardData.items` 读图片 → 自动命名 `clip-YYYYMMDD-HHMMSS.png` 上传到当前目录；普通文件走标准 `uploadFiles`
+
+- **「发送到 / 复制到」（右键菜单 + 工具栏）**
+  - 弹出 `FolderPicker`（新组件，`components/FolderPicker.tsx`）：antd `Tree`、`loadData` 懒加载、过滤掉非 directory；`disabledPaths` 把源目录 + 后代标灰防止自坑
+  - 选中后调 `performBulkMoveOrCopy(targetDir, mode)`，统一走冲突解决逻辑
+
+- **批量 Zip 下载**
+  - 单文件直接 `mediaUrl(path)`；多个或包含目录走 `zipDownloadUrl(paths)`（`api.ts` 的工具函数，拼接 `/files/zip-token?paths=...&token=...`），用动态 `<a download>` 触发
+  - 不需要前端 buffer，整个流程 backend StreamingResponse 推过去
+
+- **右键菜单（`buildContextMenu`）**
+  - 单项：打开 / 重命名 / 下载 / 复制 / 剪切 / 发送到 / 复制到 / 删除
+  - 多选：复制 / 剪切 / 发送到 / 复制到 / 打包下载 / 批量删除
+  - 在文件夹空白处：粘贴（含数量提示）/ 上传 / 新建文件 / 新建文件夹
+
+- **冲突解决（`performBulkMoveOrCopy`）**
+  - 遍历 selection 调 move/copy；命中 409 时弹 antd `Modal.confirm` 让用户选 `覆盖 / 重命名（追加 (1)/(2)）/ 跳过 / 全部中止`
+  - "记住本次"开关把决策应用到剩余冲突，避免连点
+
+- **API 客户端（`services/api.ts`）**
+  - `copyFile(source, destination)` → `POST /files/copy`
+  - `zipDownloadUrl(paths)` → 拼 `zip-token` 完整 URL（含 token），交给 `<a>` 用
+  - 走原 `getToken()`，复用现有鉴权
+
+#### 关键边界 / 已知约束
+- 拖拽**仅识别 effectAllowed=move**；不支持跨用户/跨 service 拖拽（路径 prefix 受 `path_security` 限制）
+- Zip 流式实质是"逐文件 chunk"，不是 zip64 真流式；超大目录（如几 GB）建议分批选；S3 模式 `walk_files` 已用 paginator，不会一次性 list 完
+- 虚拟剪贴板**仅在 SPA 内**有效，关掉浏览器即失效；和系统剪贴板隔离避免混淆
+- 复制/移动时 `source == destination` 或 src 是 dst 祖先，后端会抛 `ValueError` → 400 文案明确返回
+- "发送到"目标为根 `/` 时也支持（拼接为 `/{name}`）
+
+### 媒体文件嵌入（<<FILE:path>> 标签）
+- **后端**: `tools.py` 的 `generate_image`/`generate_speech`/`generate_video` 返回 `<<FILE:/generated/images/xxx.png>>` 格式
+- **前端 markdown.ts**: 三阶段渲染管线
+  1. `preProcessMediaTags`: 正则匹配 `<<FILE:path>>` → 替换为带认证 URL 的媒体 HTML（image/audio/video/pdf/html）
+  2. `marked.parse`: 标准 Markdown → HTML
+  3. `postProcessMediaSrc`: 修正 `![](path)` 生成的 `<img src>` → 认证 media URL
+- **DOMPurify**: 白名单含 `audio`, `video`, `source`, `iframe` + `controls`, `preload`, `onclick` 等属性
+- **CSS**: `chat.module.css` 末尾 `:global(.jf-media*)` 系列样式（因通过 `dangerouslySetInnerHTML` 注入，不走 CSS Modules 编译）
+- **认证 URL**: `mediaUrl(path)` → `/api/files/media?path=...&token=...`
+- **Consumer chat** (`service-chat.html`): 旧版，暂未移植此功能
+
+### 流式性能优化
+- SSE 回调通过 `useRef` 直接修改 blocks 数组 (避免每 token 触发 setState)
+- `requestAnimationFrame` 节流刷新 (~60fps), 批量更新到 React state
+- `StreamingMessage` 使用 `React.memo` 避免不必要的 parent re-render
+
+### 错误边界（ErrorBoundary）
+- 组件：`frontend/src/components/ErrorBoundary.tsx`（**全仓唯一的 class 组件**，React 19 仍要求 class 形式的错误边界，无 hook 等价物，刻意豁免 "avoid classes" 规则）
+- 三层部署（`router/index.tsx`）：
+  - `scope="app-layout"` 包裹 `<AppLayout/>` — 兜底整个受保护区域
+  - `scope="chat"` 包裹 `<ChatPage/>` — 聊天页崩溃不影响侧栏导航
+  - `scope="settings"` 包裹 `<SettingsLayout/>` — 设置页崩溃不影响聊天
+- 交互：友好提示 + **可展开错误详情** + **复制错误信息**按钮（Clipboard API，含 scope/时间/URL/UA/stack/componentStack），小团队 admin 便于把错误贴给维护者
+- 操作按钮：刷新页面 / 回到首页 / 复制错误信息
+- 样式用 Ant Design `Result` + `Collapse`，错误详情背景用 `--jf-bg-deep` 暗色主题变量保持一致性
+
+### 迁移状态
+- ✅ 登录/注册 (Login.tsx — 品牌分屏布局, 水母呼吸动画, 渐变按钮)
+- ✅ 对话/聊天 (Chat/index.tsx — 完整流式: Thinking/Tool/Subagent blocks)
+- ✅ Markdown + 代码高亮 (highlight.js 按需加载, JetBrains Mono 代码字体)
+- ✅ 智能滚动 (useSmartScroll)
+- ✅ 模型选择 + 能力开关 + Plan Mode
+- ✅ HITL 审批卡片 (ApprovalCard.tsx — 文件操作 diff + Plan 审批 + 编辑)
+- ✅ 图片附件 (ImageAttachment.tsx — 粘贴/拖拽/文件选择 + 缩略图)
+- ✅ 语音输入 (VoiceInput.tsx — MediaRecorder + 转写)
+- ✅ Service 管理 (AdminServices/index.tsx — 完整 CRUD + API Key + 微信渠道 + 内联测试)
+- ✅ 定时任务 (Scheduler/index.tsx — Admin/Service 任务 + 运行记录步骤日志)
+- ✅ 微信接入 (WeChat/index.tsx — QR 生成/轮询 + 连接状态 + 消息展示)
+- ✅ 文件面板 (FilePanel.tsx — 文件浏览/编辑/上传/删除/重命名/移动/Diff)
+- ✅ System Prompt 编辑器 (SystemPromptEditor.tsx — 版本历史 + Diff + 回滚)
+- ✅ 批量运行 (GeneralPage 内嵌 BatchRunner.tsx — Excel 上传 + 进度 + 结果下载；`/settings/batch` 重定向到 `/settings/general`)
+- ✅ Subagent 管理 (SubagentManager.tsx — CRUD + 工具/模型配置)
+- ✅ 用户画像设置 (UserProfileEditor.tsx — 投资画像 + 自定义备注)
+- 🔲 Voice Agent Mode
+- 🔲 HumanChat Mode
+
+### 设计系统 (Design System)
+- **图标库**: `@phosphor-icons/react` (全站统一, 替代 @ant-design/icons)
+- **圆角**: sm=4px / md=8px / lg=12px / bubble=16px
+- **字体**: 正文 Segoe UI / 代码 JetBrains Mono (Google Fonts CDN)
+- **Logo**: `/media_resources/jellyfishlogo.png` (像素水母)
+- **theme.ts**: 集中导出 brandColors 等 JS 常量（仅作后备参考），主题色以 CSS 变量为准
+- **chat.module.css**: CSS变量 `--jf-*` 前缀, 所有 Chat 组件 scoped 样式
+
+### 多主题系统 (Theming)
+- **核心文件**：`src/styles/themes.css`（CSS 变量定义）、`src/stores/themeContext.tsx`（状态管理）
+- **原则**：所有颜色通过 `var(--jf-*)` 引用，硬编码仅在 `themes.css` 和 `themeContext.tsx`（Antd ThemeConfig）中
+- **主题切换**：`[data-theme]` 属性在 `<html>` 上，由 ThemeProvider 控制
+- **持久化**：localStorage `jf-theme`
+- **已有主题**：`dark`（默认，暖粉紫深色）、`cyber-ocean`（青蓝浅色）、`terminal`（磷绿 CRT 终端风格）
+- **terminal 主题特殊规则**：
+  - 全局 monospace 字体（覆盖 body + Antd 组件）
+  - `border-radius: 0`（所有 `--jf-radius-*` 变量 + `:root` 覆盖共享 token）
+  - 磷光文字发光 `text-shadow: var(--jf-glow)` / `var(--jf-glow-strong)`
+  - CRT 扫描线覆盖层（`#root::after` repeating-linear-gradient + mix-blend-mode）
+  - 按钮：无圆角 + 大写 + hover 反转（绿底黑字）
+  - 标题：`text-transform: uppercase` + `letter-spacing: 0.08em`
+  - 输入框：无圆角 + 绿色聚焦发光
+  - 选择色：绿底黑字
+  - 配色：primary `#33ff00`（磷绿）、secondary `#ffb000`（琥珀）、error `#ff3333`、bg `#0a0a0a`
+- **添加新主题**：在 `themes.css` 中复制一个 `[data-theme]` 块并调整值，在 `themeContext.tsx` 中添加 THEMES 项和 Antd 配置
+- **CSS 变量命名**：
+  - 品牌色：`--jf-primary/secondary/accent/highlight/legacy`
+  - RGB 三元组：`--jf-primary-rgb` 等（用于 `rgba(var(--jf-primary-rgb), 0.12)` 写法）
+  - 渐变：`--jf-gradient-from/to`、`--jf-user-bubble-bg/shadow`、`--jf-bot-avatar-bg/user-avatar-bg`
+  - 背景：`--jf-bg-deep/panel/raised/code/inset`
+  - 文字：`--jf-text/text-muted/text-dim/text-quaternary/text-on-primary/text-on-gradient`
+  - 边框：`--jf-border/border-rgb/border-strong`
+  - 语义色：`--jf-success/warning/error/info`（含 `-rgb` 后缀版本）
+  - 阴影：`--jf-shadow-float/hover/brand`
+  - Diff：`--jf-diff-add-bg/add-text/del-bg/del-text/eq-text`
+  - Antd：`--jf-menu-selected-bg/menu-hover-bg/select-option-bg`
+- **UI 入口**：侧栏底部 Sun/Moon/Terminal 三态循环切换（AppLayout.tsx）+ Settings 页详细选择
+- **Antd 适配**：ThemeProvider 根据 themeName 返回对应 ThemeConfig（含 `algorithm: darkAlgorithm | defaultAlgorithm`），App.tsx 动态传入 ConfigProvider
+
+### Agent 执行控制
+- **Stop 按钮**: 流式输出时发送按钮变为红色 Stop 按钮 (Phosphor `Stop`)
+- **后端取消**: `POST /api/chat/stop` 设置 `asyncio.Event` 取消标志, `_stream_agent` 每次迭代检查
+- **SSE 断流处理**: `handleSSEStream` 中网络错误正确调用 `onError`, 不再静默卡死
+- **错误时保存**: 后端异常时将已生成的部分回复 + 错误信息保存到对话历史
+- **连接中断保存**: `_stream_agent` / `_stream_consumer` / `_stream_openai_compat` 的 `finally` 块检测未保存的部分回复，追加 "⚠️ [连接中断 — 已保存已生成内容]" 后持久化（`_saved` 标志位防止重复保存）
+- **活跃流追踪**: `_active_streams` 字典追踪当前正在 streaming 的 `{thread_id → {user_id, conv_id}}`；`GET /api/chat/streaming-status` 返回当前用户活跃 streaming 对话列表
+- **前端断连恢复**: Chat 页面加载时调用 `checkServerStreaming()`，如果当前对话仍在后台 streaming，显示黄色横幅（"上一轮对话仍在后台运行中"），提供「终止并保存」和「刷新状态」按钮；发消息前检查 `serverStreaming` 防止写入冲突
+
+### Consumer 页面（不在 SPA 路由中）
+- `service-chat.html` / `wechat-scan.html` 仍由 FastAPI 直接返回（占位符替换）
+- 位于 `frontend/public/`，Vite 直出静态文件
+
+## Tauri 桌面启动器（tauri-launcher/）
+
+### 架构
+- **Tauri v2** (Rust + WebView) 封装为原生桌面应用（.dmg / .exe）
+- 内嵌 Python 3.12 + Node.js 20 运行时 + 后端代码 + 前端构建产物
+- 用户双击即启动，无需命令行
+
+### 关键配置（踩坑记录）
+- **`withGlobalTauri: true`** — 必须！否则 `window.__TAURI__` 为 undefined，JS 走 mock 函数
+- **`server.js` 使用 ESM 语法** — `package.json` 有 `"type": "module"`，不能用 `require()`
+- **Express 5 通配符** — 用 `'/{*path}'` 代替 `'*'`
+- **路径必须绝对** — `launcher.py` 的 `_resolve_python/node()` 必须返回 `os.path.abspath()`
+- **路径必须剥离 `\\?\` 扩展前缀（Windows 关键坑，2026-04-20）**
+  - **症状**：Windows .exe 启动后 uvicorn 报 `OSError: Cannot load native module 'Crypto.Util._cpuid_c': Not found '_cpuid_c.cp37-win_amd64.pyd'`，但 `.pyd` 文件物理上明明在 `D:\JellyfishBot\python\Lib\site-packages\Crypto\Util\` 下
+  - **根因**：Tauri 的 `app.path().resource_dir()` 在 Windows 上返回 `\\?\D:\JellyfishBot\` 形式的扩展长路径前缀；该前缀通过 `Command::new(python_exe)` 和 `JELLYFISH_PYTHON` 环境变量传给 Python 子进程，污染 `sys.executable` 和所有 site-packages 模块的 `__file__`；`pycryptodome` 的 `os.path.isfile()` 在 `\\?\` 前缀路径下查不到 sibling 的 `.pyd` 文件，整个 wechat 模块加载失败
+  - **复现**：直接运行 `\\?\D:\JellyfishBot\python\python.exe -c "from Crypto.Cipher import AES"` 立即报错；plain 路径 `D:\JellyfishBot\python\python.exe -c "..."` 正常
+  - **诊断脚本**：`tauri-launcher/scripts/verify_extended_path_bug.ps1`（5 个 Test 对比 plain vs `\\?\`）
+  - **修复**：`src-tauri/src/lib.rs` 加 `strip_win_extended_prefix()` helper，在 `resolve_project_dir` / `find_bundled_python` / `find_bundled_node` 三处强制剥离前缀；`launcher.py` 加 `_strip_extended_prefix()` 双重防御 `JELLYFISH_PYTHON/NODE` 和 `SCRIPT_DIR`
+  - **同样的坑也会影响 numpy/scipy/matplotlib 等其他依赖原生扩展的包**（虽然他们多数模块不像 pycryptodome 用 `os.path.isfile` 显式检查），所以剥离动作放在源头一次解决
+  - **mac 完全无此问题**（`/Applications/JellyfishBot.app/Contents/Resources/` 路径正常无前缀）
+- **macOS 签名** — 修改 Resources 后需 `codesign --force --deep --sign - <app_path>`
+- **`express` + `http-proxy-middleware`** 必须在 `frontend/package.json` 的 `dependencies` 中
+
+### 超管功能（Tauri 命令）
+- `list_registration_keys` — 读 `config/registration_keys.json`
+- `generate_registration_keys(count)` — 生成 `JFBOT-XXXX-XXXX-XXXX` 格式注册码
+- `delete_registration_key(key)` — 仅删未使用的码
+- `list_admin_users` — 读 `users/users.json`（脱敏：不含 token/password_hash）
+- `reset_admin_password(userId)` — 生成临时密码（sha256 哈希，兼容 Python 后端）
+- `delete_admin_user(userId)` — 删 JSON 条目 + 用户目录
+- `get_admin_stats` — 统计：总用户/7 天活跃/已配 Key/可用注册码
+
+### 关于 / 工具命令（2026-04-20 新增）
+- `open_project_dir` — 调 `open::that(project_dir)`
+- `open_users_dir` — `users/` 不存在时先 `create_dir_all` 再打开（首次安装无 users/ 也能正常弹窗）
+- `open_logs_dir` — `logs/` 同上 lazy 创建
+- `open_release_page` — 浏览器跳转 `https://github.com/LiUshin/JellyfishBot/releases/latest`（公开镜像仓库；私有 dev 仓库 `LiUshin/semi-deep-agent` 不对外暴露）
+- `get_app_version` — 返回 `env!("CARGO_PKG_VERSION")`，**和 Cargo.toml 一致，无需另存版本字符串**
+
+### Launcher Bug 修复记录（2026-04-21）
+- **Toast 反复弹窗**：`updateRunUI` 之前每次 polling（2s）只要 ready 就 `showToast('JellyfishBot 服务已就绪')`，导致用户被骚扰。修复：用闭包外的 `lastReadyState` 标志，仅在 false→true 转变瞬间弹一次；停止时复位
+- **关闭窗口未杀子进程（核心坑）**：`launcher.py` 通过 `Popen` 启动 uvicorn + express 两个孙子进程；Tauri 默认窗口 X 关闭只触发 process exit，不会杀子进程，且 `Child::kill()` 在 Windows 上**只杀直接子**，孙子（实际占着 8000/3000 端口的进程）变成孤儿，下次启动报「端口被占」
+  - 修复 (a)：`stop_jellyfish` 抽 `kill_process_tree(child)` helper —— Windows 用 `taskkill /T /F /PID <pid>` 递归杀整棵树；Unix 用 `SIGTERM` + 800ms 宽限期 + `SIGKILL` 兜底
+  - 修复 (b)：Tauri Builder 加 `.on_window_event` 监听 `WindowEvent::CloseRequested`，关闭瞬间同步调 `shutdown_jellyfish(&state)`；不 `prevent close`，杀完直接让窗口关
+  - 修复 (c)：双保险 —— `App::run(|app, event|)` 监听 `RunEvent::Exit`，即便 CloseRequested 没触发（系统强 Exit / 任务管理器结束）也再清一次。`shutdown_jellyfish(&AppState)` 是 `stop_jellyfish` 命令和窗口事件共享的 helper，避免逻辑重复
+  - **不要回退到只用 `child.kill()`** —— Windows 实测会留 uvicorn.exe + node.exe 残留进程
+- **Logo 不显示**：`dist/index.html` 中 `<img class="logo-img">` 用了 700 字节的 base64 占位（实际是个无效图片），需要把 `frontend/public/media_resources/jellyfishlogo.png` (324KB) 拷贝到 `tauri-launcher/dist/jellyfishlogo.png`，HTML 改用 `./jellyfishlogo.png` 相对路径（dist 目录会被 Tauri `frontendDist` 整体打包，无需额外配置 resources）。注意 logo 容器有 `image-rendering: pixelated` 样式 —— 真实水母图也保持像素风视觉，无需调整
+- **Release URL 用户名拼写**：`open_release_page` 之前是占位 `jellyfishbot/jellyfishbot`，正确公开仓库是 `LiUshin/JellyfishBot`（注意大小写：U 大写、JellyfishBot 驼峰）。git remote 里 `public` 才是发布用，`origin` (`semi-deep-agent`) 是私有 dev
+
+### Windows 本机 dev 环境要求（重要！踩坑记录）
+- `npx tauri dev` / `npx tauri build` 都需要：
+  1. **Rust toolchain**（cargo 在 `C:\Users\{user}\.cargo\bin\` —— 默认不在 PATH，PowerShell 里要手动 `$env:Path = "C:\Users\X\.cargo\bin;$env:Path"`）
+  2. **MSVC linker（link.exe）** —— VS 2022 Build Tools 或 Community 都行
+  3. **Windows SDK**（提供 `kernel32.lib` / `ntdll.lib` 等）—— **VS 安装时容易漏勾！** 没装会在编译期间死掉，报 `LNK1181: 无法打开输入文件"kernel32.lib"`。检测命令：`Test-Path "C:\Program Files (x86)\Windows Kits\10"`
+  4. 解决：开 Visual Studio Installer → Modify → 勾选「使用 C++ 的桌面开发」工作负载（自动包含 SDK）
+- 一行式启动 dev（注入 MSVC + cargo PATH）：
+  ```powershell
+  $vsBat = "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
+  & cmd /c "`"$vsBat`" -arch=x64 -no_logo && set" | ForEach-Object {
+    if ($_ -match '^([^=]+)=(.*)$') { [Environment]::SetEnvironmentVariable($matches[1], $matches[2], 'Process') }
+  }
+  $env:Path = "C:\Users\$env:USERNAME\.cargo\bin;$env:Path"
+  cd tauri-launcher; npx tauri dev
+  ```
+- **`tauri.conf.json` 不要保留 `devUrl`**：纯静态 `frontendDist: "../dist"` 项目没有 Vite/dev server，留着 `devUrl` 会让 `tauri dev` 一直卡在 `Waiting for your frontend dev server to start on http://localhost:1420/...` 死循环。已删除（2026-04-20）。
+- **冷启动 Rust 全量编译约 4 分钟**（457 个 crate），后续增量 ~5-30 秒。改 `dist/index.html` 不需要重编译，**Tauri 窗口里 Ctrl+R 即时刷新**
+
+### 迭代规则（更新版）
+- 改 `dist/index.html` → **dev 模式 Ctrl+R 即时生效**；生产模式需 `npx tauri build`（HTML/CSS/JS 编译进二进制，**不可热修**）
+- 改 `lib.rs` / `tauri.conf.json` → 必须 `npx tauri build`（dev 模式下文件 watcher 会自动重编）
+- 改 `launcher.py` / `server.js` / `app/**` / `frontend/dist/**` → 这些是 Tauri **resources**（`bundle-resources/` 解压到磁盘），**可热修**：直接覆盖安装目录里的对应文件 + 重启 launcher 即可（macOS 还需 `codesign --force --deep --sign - <app_path>`）
+
+### UI 结构（`dist/index.html`）
+- 左侧 76px 窄导航栏（Logo + 4 页 Tab）—— 整页是**单文件 HTML（含内联 CSS + 内联 JS + base64 logo）**，无构建步骤；`window.__TAURI__` 不存在时走 `mockInvoke()`，所以拿浏览器直开 `file://.../dist/index.html` 也能预览样式
+- Page 1 **控制台**（`page-launcher`）：环境检测 3 列 pill + 圆形 START 按钮 + API Keys 配置表单
+- Page 2 **注册码管理**（`page-keys`）：表格 + 生成/删除 + 复制按钮
+- Page 3 **账户管理**（`page-admin`）：统计摘要 4 卡 + 用户表格 + 重置密码/删除 + 确认弹窗
+- Page 4 **关于 / 工具**（`page-about`，2026-04-20 新增）：渐变版本号 + 版本副标题 + 「查看最新 release」主按钮 + 4 张工具卡（项目目录 / 用户数据 / 日志目录 / 跳转 release）
+  - 版本号通过 `invoke('get_app_version')` 读 `env!("CARGO_PKG_VERSION")`，同时回写侧栏底部 `#navVer`
+  - 工具卡用 `.tool-grid` + `.tool-btn`（毛玻璃 hover 上浮，见 `.tool-btn:hover`）
+  - 卡片图标统一在 `.tool-icon` 容器内（38px 圆角小框 + accent 色描边 SVG）
+- 品牌视觉对齐主应用：`--jf-*` CSS 变量、JetBrains Mono 等宽字体、渐变按钮
+
+### 构建
+```bash
+cd tauri-launcher
+python scripts/build.py          # 完整打包（下载运行时 + staging + Tauri build）
+npx tauri build                  # 仅重编译（需先 staging）
+python scripts/version.py bump patch  # 版本管理
+```
+
+### 包大小
+- DMG ~247 MB，解压 ~998 MB
+
+## Docker 部署
+
+### Dockerfile（多阶段构建）
+- **Stage 1 (frontend-builder)**: `node:20-alpine`，`npm ci` + `npm run build` 编译 React → `dist/`
+- **Stage 2 (production)**: `python:3.11-slim` + Node.js 20，安装 Python 依赖 + Express 运行时依赖（`express`, `http-proxy-middleware`），复制 `dist/` 产物
+- React 源码和 devDependencies **不进入**最终镜像
+- Express `server.js` 从 `dist/` 目录提供静态文件（不再是 `public/`）
+
+### docker-compose
+- Nginx(:80) → Express(:3000) → FastAPI(:8000)
+- 用户数据通过 volume 挂载 `./data/users:/app/users`
+- `.env` 注入环境变量
+
+### 启动脚本 (start.sh)
+- 先启 FastAPI(8000)，等待就绪后启 Express(3000)
+- `wait -n` 监控两个进程
+
+### .dockerignore
+- 排除 `frontend/node_modules/`、`frontend/dist/`、`venv/`、`data/`、`.env`、`.git/` 等
+
+## 用户附件存储（query_appendix）
+- **目录结构**：与 `generated/` 对称，每个对话独立
+  - Admin: `users/{user_id}/conversations/{conv_id}/query_appendix/images/...`
+  - Consumer: `users/{admin_id}/services/{service_id}/conversations/{conv_id}/query_appendix/images/...`
+- **消息格式**：`save_message` / `save_consumer_message` 新增 `attachments` 参数
+  ```json
+  {"role": "user", "content": "...", "attachments": [
+    {"type": "image", "filename": "wx_abc123.jpg", "path": "images/wx_abc123.jpg"}
+  ]}
+  ```
+- **文件服务端点**：
+  - Admin: `GET /api/conversations/{conv_id}/attachments/{file_path}`
+  - Consumer: `GET /api/v1/conversations/{conv_id}/attachments/{file_path}`
+- **来源**：
+  - 微信 Bridge（Consumer/Admin）：下载的用户图片存到 `query_appendix/images/`
+  - React Chat：后端 `chat.py` 自动从 multimodal message 中提取 base64 图片并保存
+- **前端渲染**：`MessageBubble` 通过 `attachments` 字段渲染图片缩略图画廊，点击可放大
+- **前端 API**：`attachmentUrl(convId, path)` 构造附件访问 URL
+
+## Advanced 页面可见性（前端 localStorage）
+- `GeneralPage.tsx`「高级功能」卡片：两个 Switch 控制 Prompt 页的 Advanced Tab 是否显示
+- localStorage key：`show_advanced_system`（操作规则）、`show_advanced_soul`（Memory & Soul），值 `'1'` 显示 / 其他隐藏
+- 默认关闭（首次访问 localStorage 无值 → 不显示）
+- `PromptPage.tsx` 通过自定义事件 `advanced-settings-changed` 实时响应 GeneralPage 的 Switch 变更
+- 当 Tab 被隐藏时，若当前 activeKey 正好是被隐藏的 Tab，自动回退到 `'profile'`
+
+## Remaining Review Notes
+- `main.py`: CORS `allow_origins=["*"]` + `allow_credentials=True` — tighten origins in production
+- `admin-services.html`: `startNewTest` creates a new API key per test — orphan keys without cleanup
+- `app/schemas/requests.py`: many fields use untyped `list`; no max length on strings
+- `frontend/server.js`: `API_TARGET` hardcoded — use env for deploys
+
+### AppLayout（`frontend/src/layouts/AppLayout.tsx`）
+- 侧栏导航与底部快捷操作：**图标统一使用 `@phosphor-icons/react`**（导航 `size={20}`），不再使用 `@ant-design/icons` 于该布局文件。
+- 侧栏品牌区：`/media_resources/jellyfishlogo.png`（32×32）+ 文案 **JellyfishBot**；点击标题区仍可折叠侧栏。
+- 侧栏宽度 **240px ↔ 64px**，Sider `style` 含 `transition: width 0.3s ease-in-out`；主菜单用 `inlineCollapsed={collapsed}` 与折叠宽度一致。
+- 底部：**上半**为 System Prompt / Subagent / 用户画像 / 文件面板（均有 Tooltip）；Excel **批量运行**在 **设置 → 通用** 内嵌，不再单独侧栏项；**下半**为用户 Avatar + 用户名 + 退出（登出使用 Phosphor `SignOut`）。
+- 文件面板按钮开启态：**品牌色 `#E89FD9`** + 浅粉半透明背景 `rgba(232, 159, 217, 0.14)`。
+
+### AdminServices（`frontend/src/pages/AdminServices/index.tsx`）
+- 内联 `style.borderRadius` 使用 `themes.css` 变量字符串：`var(--jf-radius-sm|md|lg|bubble)`（对应原 4/8/12/16px 档）；圆形指示点等保留 `borderRadius: '50%'`。
+
+### Scheduler（`frontend/src/pages/Scheduler/index.tsx`）
+- 内联 `borderRadius` 与 AdminServices 一致：`4→sm`、`8→md`、`12/10→lg`、`16+→bubble`；原 `6px` 类圆角用 `md`；圆形头像/时间轴点保留 `'50%'`。
+
+### WeChat（`frontend/src/pages/WeChat/index.tsx`）
+- 内联 `borderRadius` 与 AdminServices/Scheduler 相同；消息气泡四角简写（原 `14px`/`4px`）用 `lg`/`sm` 变量组合，无 `50%` 圆形元素。
+
+### FilePanel / Modals / Chat 审批卡
+- `FilePanel.tsx`、`components/modals/*`（SystemPromptEditor、BatchRunner、SubagentManager、UserProfileEditor）、`Chat/components/ApprovalCard.tsx`：内联 `borderRadius` 已统一为 `themes.css` 的 `var(--jf-radius-sm|md|bubble)` 字符串；`dropZone` 底部两角用 `borderBottom*Radius` + `md`。`ThinkingBlock` / `ToolIndicator` / `SubagentCard` 无内联数字圆角（由 `chat.module.css` 等控制）。
+- **FilePanel 排序（2026-04-21）**：`SortKey` 联合类型 `name-asc|name-desc|mtime-desc|mtime-asc|size-desc|size-asc`，下拉按钮放在刷新右侧（`SortAscendingOutlined`），偏好持久化到 `localStorage['jf-filepanel-sort']`。`files` state 只保存 API 返回的原始顺序，渲染前用 `useMemo(sortFiles(files, sortKey))` 派生 `displayedFiles`，4 处旧的 `setFiles(... .sort(...))` 已全部去掉内联排序，否则会和 sortKey 冲突。当 sortKey 是 `mtime-*` 时文件行额外显示 `MM-DD HH:mm`。后端 `app/storage/{local,s3}.py` 的 `FileEntry.modified_at` 已经填好（`st_mtime` / `LastModified`），`api_list_files` 透传到前端无需改动；REST 不加排序参数（纯客户端排序，省一次往返）。
+
+### Settings / Chat 主界面内联圆角
+- `Settings/GeneralPage.tsx`、`PackagesPage.tsx`、`InboxPage.tsx`；`Chat/index.tsx`（如流式区缩略图）、`Chat/components/MessageBubble.tsx`（附件预览等）：内联样式中 `borderRadius` 使用字符串 `'var(--jf-radius-sm|md|lg)'`（4/8/12px 档），与 AdminServices 映射一致。
+
+## 消息 Blocks 持久化（交错渲染）
+- **目的**：流式输出和历史消息使用统一的交错渲染（thinking → text → tool → text → subagent → text…）
+- **后端持久化**：`save_message` / `save_consumer_message` 新增 `blocks` 参数
+  - `blocks` 是有序数组，每个元素为 `{"type": "thinking|text|tool|subagent", ...}`
+  - `text`: `{"type": "text", "content": "..."}`
+  - `thinking`: `{"type": "thinking", "content": "..."}`
+  - `tool`: `{"type": "tool", "name": "...", "args": "...", "result": "...", "done": true}`
+  - `subagent`: `{"type": "subagent", "name": "...", "task": "...", "status": "done", "content": "...", "tools": [...], "timeline": [{"kind":"text|tool|thinking", ...}], "done": true}`
+- **后端构建**：`chat.py::_stream_agent` 和 `consumer.py::_stream_consumer` 在流式过程中同步构建 `blocks[]`
+- **前端渲染**：`MessageBubble` 检测到 `msg.blocks` 时使用 `BlocksRenderer`（复用 `ThinkingBlock` / `ToolIndicator` / `SubagentCard` 组件），否则 fallback 旧逻辑（`tool_calls` 在上 + `content` 在下）
+- **向后兼容**：旧消息无 `blocks` 字段时使用 fallback 渲染
+- **类型定义**：`frontend/src/types/index.ts` 新增 `MessageBlock` 联合类型，`Message` 接口新增 `blocks?: MessageBlock[]`
+
+## WeChat 投递可靠性修复（2026-04-09）
+- **Bug 1 — inbox agent 线程池问题**：`contact_admin` 是 sync tool，LangGraph 通过 `run_in_executor` 在线程池执行，`asyncio.get_running_loop()` 失败。修复：`inbox.py` 缓存主事件循环 (`set_main_loop`)，sync 上下文用 `run_coroutine_threadsafe` 提交
+- **Bug 2 — context_token 不持久化**：`admin_bridge.py` 更新 `context_token` 后未调用 `_save_admin_session`，重启后 token 过期。修复：每次 `context_token` 更新时调用 `_save_admin_session`
+- **Bug 3 — send_message 投递静默失败**：`_resolve_wechat_client` 返回 None 时无日志。修复：`scheduler.py` 在 `_run_agent_task` / `_run_service_agent_task` 中添加 `wechat_warning` step
+- **Bug 4 — from_user_id/context_token 空值**：`_handle_send_message_tool` 对空 `to_user` 静默发送。修复：空值检查 + 明确的 `wechat_error` step 和日志
+- **关键机制**：LangChain sync tool → `BaseTool._arun` → `run_in_executor(None, self._run)` → 线程池线程无 event loop。所有需要 asyncio 的 sync tool 必须通过 `_main_loop` + `run_coroutine_threadsafe` 调度
+
+## 跨平台启动器（launcher.py）
+
+### 功能
+- **旧实例检测**：通过端口扫描（lsof/netstat）检测已运行的 JellyfishBot 进程
+- **用户确认后杀掉**：列出占用端口的进程，用户确认后 SIGTERM → SIGKILL
+- **自动端口发现**：默认 8000(后端) + 3000(前端)，被占用时自动递增查找
+- **双进程管理**：启动 uvicorn + Express(server.js)，子进程异常退出时全部清理
+- **干净退出**：Ctrl+C / SIGTERM 时优雅终止所有子进程（5s 超时后 SIGKILL）
+- **日志 tee（2026-04-20 新增）**：所有由 launcher 拉起的子进程（backend/frontend）的 stdout+stderr 同时写到 `{project_dir}/logs/{name}-YYYYMMDD.log`（按天滚动 + append 模式 + session header `==== JellyfishBot session start ... ====`）和原始 stdout
+  - 实现：`_spawn_with_log(cmd, cwd, env, log_name)` 替代裸 `Popen`，subprocess 的 stdout/stderr 合并到 `PIPE` 后由 `_tee_pipe_to(fh, src)` 后台 daemon 线程逐行落盘
+  - `_log_files` / `_log_threads` 用于 cleanup 时关闭文件句柄
+  - 与 Tauri 的 `open_logs_dir` 命令配合，用户在「关于 / 工具」里可一键打开日志目录
+  - **不要回退到 `subprocess.PIPE` + `communicate()`** —— 长流程会阻塞 `wait()`；当前实现的 daemon 线程 + `bufsize=0` 是经过验证的非阻塞方案
+
+### 文件
+- `launcher.py` — 主启动器（纯 Python 标准库，无额外依赖）
+- `start_local.sh` — Mac/Linux 快捷脚本（自动检测 python3/python）
+- `start_local.bat` — Windows 快捷脚本（双击启动）
+- `start.sh` — Docker 容器启动脚本（支持 `BACKEND_PORT` / `FRONTEND_PORT` 环境变量）
+
+### 端口配置
+- `server.js`：通过 `FRONTEND_PORT` 和 `API_TARGET` 环境变量配置（原硬编码 3000/8000）
+- `start.sh`（Docker）：通过 `BACKEND_PORT` / `FRONTEND_PORT` 环境变量配置
+- `launcher.py`：通过 `--port` / `--frontend-port` 命令行参数配置
+
+### 使用
+```bash
+python launcher.py                    # 生产模式
+python launcher.py --dev              # 开发模式
+python launcher.py --port 9000        # 自定义后端端口
+python launcher.py --backend-only     # 仅后端
+python launcher.py --skip-check       # 跳过旧实例检测
+```
+
+## Per-Admin API Key（用户级密钥管理）
+
+### 设计概要
+- 每个 Admin 可在 Settings → General 中配置自己的 OpenAI/Anthropic/Tavily 等 API Key
+- Key **AES-256-GCM 加密**存储于 `users/{user_id}/api_keys.json`
+- 优先级链：**用户配置 > 环境变量 > 未配置（提醒设置）**
+- Admin 的所有 Agent（主 Agent、Subagent、Consumer Agent）统一使用该 Admin 的 key
+
+### 核心文件
+- `app/core/encryption.py` — AES-256-GCM 加解密，master key 自动生成于 `data/encryption.key`（或 `ENCRYPTION_KEY` 环境变量覆盖）
+- `app/core/user_api_keys.py` — 用户 API key 的 CRUD（加密存储 + 脱敏返回）
+  - `get_user_api_keys(user_id)` — 解密返回全部 key
+  - `save_user_api_keys(user_id, keys)` — 加密保存
+  - `get_masked_keys(user_id)` — 脱敏 + `*_configured` 标记
+- `app/core/api_config.py` — 所有 `get_api_config`/`get_openai_llm_config`/`get_anthropic_llm_config`/`has_provider` 新增 `user_id` 可选参数
+
+### 调用链变更
+- `agent.py::_resolve_model(model_id, user_id=None)` — 通过 `api_key` 和 `base_url` 传给 `init_chat_model`
+- `consumer_agent.py::create_consumer_agent` — 传 `admin_id` 给 `_resolve_model`
+- `ai_tools.py::generate_*` — `get_api_config("image", user_id=user_id)`
+- `web_tools.py::web_search/web_fetch` — 新增 `user_id` 参数，查找 tavily/cloudsway key
+- `tools.py::create_web_tools(user_id=None)` — 传递 user_id
+- `voice/router.py` / `routes/scripts.py` / `routes/models.py` — 传 user_id
+- `subagents.py::build_subagent_tools` — 传 user_id 给 `create_web_tools`
+
+### API 端点
+- `GET /api/settings/api-keys` — 返回脱敏 key + configured 状态
+- `PUT /api/settings/api-keys` — 保存 key（触发 `clear_agent_cache` + `clear_consumer_cache`）
+- `POST /api/settings/api-keys/test` — 测试 provider 连通性（openai/anthropic/tavily/all）
+- `GET /api/settings/api-keys/status` — 快速检查是否有 LLM provider 可用
+
+### 前端
+- `GeneralPage.tsx` — 顶部新增 **API Keys** 卡片（Anthropic/OpenAI/Tavily 三组折叠面板），支持编辑/保存/测试连接
+- `ApiKeyWarning.tsx` — 无 LLM Key 时弹出引导 Modal（sessionStorage 防重复弹出）
+- `AppLayout.tsx` — 集成 `<ApiKeyWarning />`
+- `api.ts` — 新增 `getApiKeys/updateApiKeys/testApiKeys/getApiKeysStatus`
+
+### 支持的 Key 字段
+- 密钥：`openai_api_key`, `anthropic_api_key`, `tavily_api_key`, `cloudsway_search_key`, `image_api_key`, `tts_api_key`, `video_api_key`, `s2s_api_key`, `stt_api_key`
+- URL：`openai_base_url`, `anthropic_base_url`, `image_base_url`, `tts_base_url`, `video_base_url`, `s2s_base_url`, `stt_base_url`
+
+### 缓存失效
+- key 更新后自动调用 `clear_agent_cache(user_id)` + `clear_consumer_cache(admin_id=user_id)`
+- Agent 下次请求时重新创建，使用新 key
+
+## Tauri 原生启动器 (tauri-launcher/)
+- **目的**：为不会用命令行的用户提供一键启动体验（.exe / .dmg）
+- **技术栈**：Tauri v2 + Rust + 单文件 HTML UI（无构建步骤前端）
+- **结构**：
+```
+tauri-launcher/
+├── package.json            # @tauri-apps/cli
+├── dist/
+│   └── index.html          # 自包含启动器 UI（品牌色 + JellyfishBot 风格）
+└── src-tauri/
+    ├── Cargo.toml           # tauri 2, reqwest, tokio, serde, open, libc(unix)
+    ├── tauri.conf.json      # 窗口 720×580, NSIS(Windows), macOS ≥10.15
+    ├── build.rs
+    └── src/
+        ├── main.rs          # entry point
+        └── lib.rs           # 8 个 Tauri Command
+```
+- **8 个 Tauri Command**：
+  - `detect_environment` — Python/Node.js/项目文件检测
+  - `load_env_config` / `save_env_config` — 读写 `.env`（保留注释/未知键）
+  - `test_api_key` — HTTP 测试 OpenAI/Anthropic/Tavily 连通性
+  - `start_jellyfish` — 调用 `launcher.py --skip-check`（自动端口）
+  - `stop_jellyfish` — SIGTERM(Unix) / kill(Windows)
+  - `get_status` — 轮询进程 + 端口存活
+  - `open_in_browser` — 打开浏览器到前端
+- **UI 流程**：环境检测 → API Keys 填写+测试 → 保存到 .env → 一键启动 → 2s 轮询状态 → 浏览器打开
+- **构建**：`cd tauri-launcher && python scripts/build.py`（一键完成）
+- **前提**：需安装 Rust 工具链 + Node.js（Tauri CLI 自动通过 npm 安装）
+
+## 打包分发 (Phase 4)
+- **build.py** (`tauri-launcher/scripts/build.py`)：一键打包脚本
+  - 下载嵌入式 Python (python-build-standalone 3.12.7) + Node.js 20.18.0 到 `.cache/`
+  - 暂存 app/、config/、frontend dist、launcher.py、requirements.txt 到 `bundle-resources/`
+  - 预装 pip 依赖到嵌入式 Python site-packages
+  - 调用 `npx tauri build` 生成安装包 (.dmg / .exe)
+  - 参数：`--version X.Y.Z`、`--clean`、`--no-pip`、`--no-frontend`、`--stage-only`、`--target <triple>`
+- **version.py** (`tauri-launcher/scripts/version.py`)：版本管理
+  - `show` / `bump patch|minor|major` / `set X.Y.Z` / `tag [--push]`
+  - 同步更新 `tauri.conf.json` + `Cargo.toml` + `package.json`
+- **launcher.py**：支持 `JELLYFISH_PYTHON` / `JELLYFISH_NODE` 环境变量
+  - Tauri 启动时将嵌入式运行时路径传入，launcher.py 优先使用
+- **lib.rs**：14 个 Tauri Command（base 9 + `open_project_dir` / `open_users_dir` / `open_logs_dir` / `open_release_page` / `get_app_version`）
+  - 资源感知路径：`resolve_project_dir(app)` 先查 resource_dir 再 fallback dev 路径
+  - `find_bundled_python/node`：先查 resources/{python,node}，再查系统 PATH
+  - `detect_environment` 返回 `python_bundled`、`node_bundled`、`first_run`
+  - `strip_win_extended_prefix(p)` —— 所有路径出口必经，剥离 `\\?\` 前缀，避免污染 Python 子进程 sys.executable（详见上面 pycryptodome 踩坑）
+- **CI/CD** (`.github/workflows/release.yml`)：
+  - 触发：push tag `v*` 或手动 workflow_dispatch
+  - 三平台矩阵：macOS-arm64、macOS-x64、Windows-x64
+  - 产物上传 + 自动创建 GitHub Release (draft)
+- **发版流程**：`version.py bump patch` → `build.py` 本地测试 → `version.py tag --push` → CI 自动构建
+
+## 数据备份与恢复 (2026-04-21)
+
+每个用户可在 **Settings → 数据备份** 自助导出/导入自己的全部数据，用于
+迁移机器或定期备份。launcher 端则提供整库一键打包按钮。
+
+### Tauri Launcher：一键备份按钮 (lib.rs `pack_backup`)
+- About 页底部 `打包备份 (config / data / logs / users)` 按钮 + 旁边问号 hover tooltip
+- Rust 端：`rfd::AsyncFileDialog` 弹原生保存对话 + `zip` crate 流式打包
+  - 默认文件名：`jellyfishbot-backup-YYYYMMDD-HHmmss.zip`
+  - 始终跳过：`__pycache__`、`.pytest_cache`、`node_modules`、`venv`、`.venv`、`target`、`.git`
+  - 不打包 `.env`（含明文 API Key，避免 ZIP 泄漏；新机器请重配）
+  - 锁定中的日志文件单文件失败不会中断整个备份（计入 `skipped_dirs`）
+  - 64KB 流式分块写入，支持 GB 级 users/ 目录
+- 前端 `dist/index.html`：`runBackup()` JS handler，进度态 / 成功 toast 含路径与文件数
+- 新增 Cargo 依赖：`zip = "2"`、`walkdir = "2"`、`rfd = "0.15"`
+
+### 后端 Per-User 备份 (`app/services/backup.py` + `app/routes/backup.py`)
+- 6 个模块（`MODULE_PATHS`）：
+  - `filesystem` → `users/{uid}/filesystem/`
+  - `conversations` → `users/{uid}/conversations/`
+  - `services` → `users/{uid}/services/`
+  - `tasks` → `users/{uid}/tasks/`
+  - `settings` → `preferences.json` + `subagents.json` + `capability_prompts.json` + `system_prompt*.json[+versions/]` + `user_profile*.json[+versions/]` + `soul/`
+  - `api_keys` → 特殊处理：导出时**解密为明文**写入 `api_keys.PLAINTEXT.json`，
+    导入时用本机 master key 重新加密（实现跨机器迁移；ZIP 一定要保密！）
+- 永久排除：venv/、__pycache__/、.git/、`*.pyc`、`.DS_Store`、`Thumbs.db`
+- `include_media=False` 时跳过 `generated/` 与 `query_appendix/images/` 内的 png/jpg/mp4/silk 等媒体文件，保留 JSON/脚本/文档
+- ZIP 内含 `_jellyfishbot_backup.json` manifest（kind / version / user_id / modules / created_at），用于导入校验
+- Zip-Slip 防御：`_safe_extract_target` 强制目标路径必须在 user_dir 之内
+- 4 个 REST 端点（统一 `/api/backup/*`，需登录态）：
+  - `GET /api/backup/modules` → 模块列表 + 默认勾选
+  - `POST /api/backup/preview` (Form: modules, include_media, include_api_keys) → 每模块文件数 + 未压缩字节数预估
+  - `POST /api/backup/export` (Form 同上) → `StreamingResponse` 64KB 分块流式下载，临时文件用完自删
+  - `POST /api/backup/import` (multipart: file + mode + password + modules) → 5GB 上传上限
+- 两种导入模式：
+  - **merge**：跳过已存在文件（只补缺）
+  - **overwrite**：先把现有模块整体 `shutil.move` 到 `users/{uid}.pre-restore-{ts}/` 快照目录再解压，**强制要求登录密码确认**（`_verify_password_for_user`）
+
+### 前端 (`frontend/src/pages/Settings/BackupPage.tsx`)
+- 设置侧栏新增 `数据备份` Tab（Phosphor `Archive` 图标）
+- 导出卡片：6 个模块 Checkbox + 每项问号 Tooltip + 「包含媒体」与「导出 API Keys」开关 + 「预估大小 / 导出 ZIP / 全选 / 重置默认」按钮 + 预估表格（按模块拆 + 合计）
+- 导入卡片：`Upload.Dragger` 拖拽上传 ZIP + 模式 Radio (merge/overwrite) + 覆盖时显示密码输入框 + 二次确认 Modal + 结果 Alert（写入数 / 跳过数 / API Keys 重新加密数 / 快照路径）
+- API 工具 (`api.ts` 末尾)：`listBackupModules` / `previewBackup` / `downloadBackup`（自动触发 `<a download>` 浏览器保存）/ `importBackup`
+
+### 设计权衡
+- **API Keys 明文导出 + 重新加密导入**：ENC: 密文用源机器 `data/encryption.key` 加密，跨机器无法解密，因此选择导出时解密、导入时用目标机器 master key 重新加密。代价是 ZIP 内含明文，需用户自行保密（UI 二次 Modal 确认 + 默认不勾选）。
+- **覆盖模式不直接删除**：`shutil.move` 到 `<userdir>.pre-restore-<ts>/`，给用户留后悔药，可手动找回。
+- **不强制 manifest**：导入时若 ZIP 缺 `_jellyfishbot_backup.json` 仅 warning，仍尝试按文件路径反查模块（便于从手工压缩的备份恢复）。
+- **包含媒体开关**：默认开（数据完整），允许关掉减小备份体积；关掉后聊天记录里的引用图会丢，但 JSON / 脚本 / 文档保留。
+
+## 项目文档
+
+### 文档清单
+- `README.md` — 项目总览（中英文双语：#english / #中文 锚点）、快速开始、架构图、技术栈、环境变量、两层架构说明
+- `docs/USER_GUIDE.md` — 详细使用指南（中文）：登录注册、界面总览、对话/文件/设置/Service/定时任务/微信/收件箱全功能说明、Consumer API 集成、Docker 部署、FAQ
+- `docs/USER_GUIDE_EN.md` — Full user guide (English): complete translation of USER_GUIDE.md
+- `docs/DEVELOPER_GUIDE.md` — 开发文档（中文）：架构设计、后端/前端目录结构、路由/依赖注入/Agent 引擎/工具系统/存储层/安全架构详解、SSE 流式处理、设计系统 Token、组件规范、API 参考、扩展开发指南
+- `docs/DEVELOPER_GUIDE_EN.md` — Developer Guide (English): complete translation of DEVELOPER_GUIDE.md
+- `docs/WEBSITE_DESIGN_BRIEF.md` — JellyfishBot 官网设计需求：水母哲学核心叙事（身体=Admin/触手=Service/进出同口=文件驱动自循环）、竞品分析（OpenClaw/Dify差异化）、6大触手卖点、品牌视觉规范（深海意象）、Landing Page 7个Section（Hero/三句话/场景驱动/水母架构图/QuickStart/技术基石/Footer）、交互动效、文案语气指南
+- `docs/filesystem-architecture.md` — 文件系统与 S3 键规范
+- `docs/wechat-integration-guide.md` — iLink 微信集成实战
+- `frontend/docs/DESIGN_SYSTEM.md` — UI 设计系统规范
+
+## 模型与接口总览（适配/升级前整理，2026-04-22）
+
+用于后续统一换型、对表 OpenAI/Anthropic 新 API 或第三方兼容网关时的**单一索引**；具体 ID 以 `app/routes/models.py`、`app/services/agent.py` 与 `.env` 为准。
+
+### 凭据与解析顺序
+- **核心逻辑**：`app/core/api_config.py` — `get_openai_llm_config` / `get_anthropic_llm_config`（LLM）；`get_api_config(capability)` 用于 image / tts / video / s2s / stt，顺序为**用户 per-capability 键 > 用户 provider 回退 > `{CAP}_API_KEY` / env > OpenAI/Anthropic 默认**。
+- **用户存储**：`app/core/user_api_keys.py` — `ALL_FIELDS` 含 `openai_*`、`anthropic_*`、Tavily、CloudsWay、以及 `image/tts/video/s2s/stt` 的 `*_api_key` / `*_base_url`（设置页 `GeneralPage` 目前只显式展示 Anthropic / OpenAI / Tavily，其余可经 API 写入或走 env）。
+
+### 聊天 LLM（主 Agent / 子 Agent / DeepAgents）
+- **列表与默认**：`GET /api/models` → `app/routes/models.py` 的 `AVAILABLE_MODELS`；有 Anthropic 时默认 `anthropic:claude-sonnet-4-5-20250929`，否则 `openai:gpt-4o`。
+- **解析与特化参数**：`app/services/agent.py` — `langchain.chat_models.init_chat_model`；`THINKING_MODEL_CONFIG` 中 Anthropic「thinking」系列映射到非 `-thinking` 的 `base_model` 并带 `thinking` / `max_tokens`；`openai:gpt-5.4` 带 `use_responses_api` 与 `reasoning` kwargs。
+- **默认模型串**：`app/core/settings.py` 的 `DEFAULT_MODEL`；`config/agent_config.json` 的 `main_agent.model` 由 `_get_default_model()` 读取。
+- **复用同一路径**：批处理 `create_batch_agent`、定时/技能链 `create_user_agent`、Consumer `create_consumer_agent`（`svc_config["model"]` 默认同左）、`app/services/inbox.py` 收件箱代答用 `_get_default_model()`。
+
+### 多模态生成（OpenAI 兼容 HTTP，模型名在代码中写死）
+- **图片**：`app/services/ai_tools.py` → `POST {base}/images/generations`，`model: "gpt-image-1"`，capability **`image`**。
+- **TTS**：同文件 → `POST {base}/audio/speech`，默认 `model` 参数 `tts-1`（工具层可传），capability **`tts`**。
+- **视频（Sora）**：同文件 → `POST {base}/videos` + 轮询 + `GET .../content`，`model: "sora-2-2025-12-08"`，capability **`video`**。
+
+### 语音
+- **S2S Realtime 代理**：`app/voice/router.py` — WebSocket `get_api_config("s2s")`，上游 URL `{wss}/realtime?model=gpt-4o-realtime-preview`，头 `OpenAI-Beta: realtime=v1`。
+- **STT（聊天页上传等）**：`app/routes/scripts.py` `POST /api/audio/transcribe` — `get_api_config("stt")`，`POST {base}/audio/transcriptions`，`model=whisper-1`。
+- **微信语音转写**：`app/channels/wechat/bridge.py`、`admin_bridge.py` — `AsyncOpenAI` / 默认 `OPENAI_BASE_URL`，`whisper-1`（与 per-user stt 配置路径不完全一致，升级时注意）。
+
+### 联网检索
+- **实现**：`app/services/web_tools.py` — 优先 `CLOUDSWAY_SEARCH_KEY` + `CLOUDSWAY_SEARCH_URL` / `CLOUDSWAY_READ_URL`（**用户级** `cloudsway_search_key`），否则 Tavily（`TAVILY_API_KEY` 或 `tavily_api_key`），请求官方 `api.tavily.com`。
+
+### 可观测
+- **Langfuse**：`app/core/observability.py` — `LANGFUSE_*` 环境变量，供 LangGraph 回调（非「模型」但属外部接口）。
+
+### 子 Agent
+- `app/services/subagents.py` — 用户 `subagents.json` 中可选字段 **`model`** 传入 deepagents 子图；未设则与主模型行为一致（由库默认）。
+
+### 升级适配时的提示
+- 同步改三处：`(1) app/routes/models.py` 白名单与默认 `(2) agent.py` 的 `THINKING_MODEL_CONFIG` / OpenAI 特参 `(3) 多模态/语音/视频里**硬编码**的 model 字符串`。
+- 若增加「只改 env 的模型名」：优先考虑把硬编码提升为**配置或 env**，避免漏改工具层。
+
+## Provider 适配层 + Hybrid Catalog（2026-04-22 Phase 0 上线）
+
+> 目的：解决「新模型上架要改多处硬编码」「非 OpenAI 兼容厂商接入难」两个痛点。
+> Phase 0 完成的是**骨架 + 默认 OpenAI 接入**，三家新 vendor（Kimi/MiniMax/豆包）将在 Phase 1-3 增量加入。
+
+### 文件结构
+- `app/services/providers/base.py` — 抽象 `ImageProvider/TTSProvider/VideoProvider/STTProvider`；统一 `invoke(model, credentials, **)` + `extras: dict`；`ProviderError` / `UnknownModelError`。
+- `app/services/providers/registry.py` — `_REGISTRY[capability][provider_name]`；`register()`、`dispatch(capability, model_id, user_id=, **)`；`parse_model_id("openai:gpt-image-1")`。
+- `app/services/providers/openai_image.py` / `openai_tts.py` / `openai_video.py` / `openai_stt.py` — 内置 4 个 OpenAI provider，模块底部 `register(...)` 自动登记；`providers/__init__.py::_bootstrap()` 触发导入。
+- `app/services/model_catalog.py` — Hybrid catalog 加载（仓库 + 用户深合并）；`list_models / find_model / get_default_model / resolve_model`。
+- `config/model_catalog.json` — 仓库内置默认 catalog；用户级覆盖在 `users/{uid}/model_catalog.json`（同 id 整条覆盖；新 id 追加）。
+- `app/core/api_config.py` 新增 `get_provider_credentials(provider, user_id, capability=None)` 与 `has_provider_credentials(...)`：openai/anthropic 走原 `get_*_llm_config` 与 `get_api_config`；kimi/minimax/doubao 直接读 `user_api_keys`。
+- `app/core/user_api_keys.py` 扩字段：`kimi_api_key/base_url`、`minimax_api_key/group_id`、`doubao_access_key/secret_key/region`。
+- `app/services/preferences.py` 扩 `capability_defaults: {llm/image/tts/video/stt/s2s → model_id}`，`get_capability_default(uid, cap)` 给 catalog 用。
+
+### 路由
+- `GET /api/models` — 仍只返回 LLM + 当前默认（向后兼容形状），数据源改为 catalog。
+- `GET /api/capabilities/{cap}/models` — 列表 + `available` 标记（按凭据过滤）+ `default_params/params_schema`。
+- `GET /api/capabilities/defaults` / `PUT /api/capabilities/defaults` — 用户每 capability 默认 model。
+- `GET /api/catalog` — 完整合并 catalog，前端模型管理页用。
+
+### 调用流
+- 工具层（`ai_tools.generate_image/speech/video`）公共签名不变，内部改：
+  `model_id = resolve_model(cap, user_id=, explicit=model)` → `dispatch(cap, model_id, **)` → 持久化。
+- `routes/scripts.py::api_transcribe_audio` 同样改走 `dispatch("stt", ...)`，丢弃硬编码 `whisper-1`。
+- `voice/router.py` Realtime URL 中的 model 改为读 catalog `s2s` 默认（仍 `openai:gpt-4o-realtime-preview`）。
+- `agent.py::_get_default_model(user_id=None)` 优先尊重 `capability_defaults.llm`，否则回退 `agent_config.json` → `DEFAULT_MODEL`。
+
+### 增加新 vendor 的 5 步标准流程
+1. `app/services/providers/<vendor>_<cap>.py` 继承对应抽象类，模块底部 `register(<vendor>Provider())`。
+2. `providers/registry.py::_bootstrap` 末尾追加 import。
+3. `config/model_catalog.json` 新增 `<provider>:<model>` 条目（含 default_params / params_schema）。
+4. `user_api_keys.py` 与 `api_config.get_provider_credentials` 增凭据形态。
+5. 前端 GeneralPage 加凭据卡片（凭据形态非 Bearer 时单独 UI）。
+
+### 兼容/取舍
+- LLM 仍走 `langchain.chat_models.init_chat_model`，**不**进 Provider 接口（深度依赖 LangChain 的 thinking/tool-use 等）。Kimi 通过 OpenAI-compat 接入也走 `init_chat_model(model="openai:moonshot-...", api_key=, base_url=)`。
+- S2S Realtime 是有状态 WebSocket 代理，不进 Provider 接口；但 model 名走 catalog，便于换型。
+- 历史会话兼容：catalog 中删除某 model 时由 `dispatch` 抛出结构化错误，不静默回退。
+- 不引入新 SDK：所有 vendor 走直 HTTP；后续 vendor 模块可按需自行 `import` 自家 SDK，不影响其他 capability。
+- **改图片模型时同步 4 处**：`ai_tools.py` 的 `model` 字段 + `tools.py::CAPABILITY_PROMPTS["image"]` + `tools.py::generate_image` 的 docstring + `.env.example` 注释；这些是 agent prompt 和工具说明里写死的字符串，改了真实 API 不改 prompt 会让 agent 在回复里说错型号。
+- **Anthropic 新模型可能引入 breaking 参数 schema**：例如 Opus 4.7（2026-04-16 发布）只支持 `thinking: {"type": "adaptive"}`，传 `budget_tokens` 直接 400；同时 `temperature/top_p/top_k` 设非默认值也 400。新增到 `THINKING_MODEL_CONFIG` 时不要照抄旧条目的 `enabled` + `budget_tokens` 模板，按官方最新 API 写；`_resolve_model` 里只塞 `api_key/base_url`，不会注入采样参数，所以默认安全。
+
+### 接入新模型的快速 checklist（2026-04-22）
+- **LLM**：
+  1. `app/routes/models.py::AVAILABLE_MODELS` 加条目（thinking 变体放 Anthropic — Thinking 区，普通版放 Anthropic — Latest 区，OpenAI 同理）
+  2. 如果带 thinking / reasoning 特参 → `app/services/agent.py::THINKING_MODEL_CONFIG` 加配置（注意 Anthropic 新版 API 的 schema 变化）
+  3. 默认模型是否要改？看 `app/routes/models.py::api_list_models` 的 `default_model` 逻辑 + `app/core/settings.py::DEFAULT_MODEL` + `config/agent_config.json::main_agent.model`
+- **图片/TTS/视频**：直接改 `app/services/ai_tools.py` 的硬编码 `model` 字段（当前 image=`gpt-image-2`、tts 默认 `tts-1`、video=`sora-2-2025-12-08`）+ `tools.py` 里的 prompt/docstring。
+
+## 定时任务结果作为 Tool Use 进入对话（2026-04-22）
+
+> 目的：把定时任务（admin & service consumer）的执行结果当作「Agent 自己调用了一个名为 scheduled_task 的工具」一样，既在前端有专属卡片展示，也注入回 LangGraph 状态让 Agent 真正"记得"。
+
+### 两层结构
+- **L1 持久化 / 前端展示**：`app/services/scheduler.py` 调 `_build_scheduled_task_block(task_meta, output_text, success, error)` 把结果写成 `messages.json` 中的 `tool` block，`name="scheduled_task"`、`args` 是 JSON `{task_meta, status}`、`result` 是输出文本。前端 `ScheduledTaskCard.tsx` 渲染（信息蓝 `--jf-info`，失败红 `--jf-danger`）；管理端用全量元信息卡片，consumer 端通过 `scheduledTaskFriendlyMode={true}` 隐藏 task_id/scope。
+- **L2 Agent 记忆注入**：`app/services/scheduled_inject.py` 把同一次结果做成合成 `AIMessage(tool_calls=[scheduled_task])` + `ToolMessage` 对，通过 `agent.aupdate_state(...)` 写进 LangGraph checkpoint。Agent 下一轮会直接看到这条「自己执行过的工具调用」。
+
+### scheduled_inject 关键设计
+- **每 thread 一个 asyncio.Queue**：`_pending[thread_id]`，常驻后台 `_drainer_loop` 在线程**空闲**时合并 drain。
+- **active 引用计数 + 异步上下文管理器**：`mark_thread_active` / `mark_thread_inactive` 由 4 个流式入口（admin web `routes/chat.py`、consumer web + OpenAI 兼容 `routes/consumer.py`、admin 微信 `channels/wechat/admin_bridge.py`、consumer 微信 `channels/wechat/bridge.py`）调用。微信桥用 `async with scheduled_inject.thread_active(thread_id):` 包住整个流式 + 落库段，确保异常路径也会释放，避免 drainer 死锁。
+- **超时兜底**：单 item 在队列里超过 10 分钟就放弃 L2，仅留 L1。
+- **截断（避免上下文膨胀，2026-04-26 改造）**：state 里同名 pair 超过 `_MAX_LIVE_PAIRS=5`（通过 `additional_kwargs._sched_pair_id` + `_scheduled_task` 标识识别）时，通过 `RemoveMessage` 移除最老的若干对，并把它们摘要进**单个合成 `AIMessage`(tool_calls=[scheduled_task]) + `ToolMessage`** 对（`additional_kwargs._sched_summary=True` + `_sched_pair_id="summary_<rand>"`）。已存在的旧摘要里的行会被合并保留进新摘要；`evict_count==0` 时不重建摘要。**一定不要用 `SystemMessage` 做摘要**（见下文 Anthropic 坑）。
+- **Agent factory**：`_admin_agent_factory(user_id, conv_id)` / `_consumer_agent_factory(service_id, conv_id)` 是闭包，drain 时才调用 `create_user_agent` / `create_consumer_agent`，因此走的是已有 LRU 缓存。
+- **失败也注入**：scheduler 的 `_safe_persist_admin_failure` / `_safe_persist_service_failure` 已改为 async，同时写 L1 + 入 L2 队列（status=error）。
+
+### ⚠️ Anthropic "multiple non-consecutive system messages" 坑（2026-04-26 修复）
+- **症状**：`langchain_anthropic.chat_models._format_messages` 抛 `ValueError: Received multiple non-consecutive system messages.`；agent.astream 彻底崩掉，之后每次 astream 都复现（因为 bad state 已写进 checkpoint）。
+- **根因**：旧版 `scheduled_inject.py` 的截断路径把老的 scheduled_task pairs 替换成 `SystemMessage(content="[历史定时任务摘要] ...", additional_kwargs={"_sched_summary": True})`，这条 SystemMessage 沉在**对话历史中部**。Anthropic 的 formatter 明确只允许**单个 leading SystemMessage**（agent factory 注入的那条），再遇到任何 SystemMessage 都 raise。LangGraph checkpoint 会把这条 SystemMessage 永久存下来，所以**一次坏注入 = 线程永久不可用**，直到被 `RemoveMessage` 清掉。
+- **修复**（两层）：
+  1. **断未来**：`_build_summary_pair(summary_text, folded_count)` 改返回 `[AIMessage(tool_calls=[scheduled_task]), ToolMessage(content=summary_text)]`，tool_name 仍是 `scheduled_task`，`additional_kwargs` 标 `_sched_summary=True`；`_inject_batch` 用这对替代旧的 SystemMessage。这样摘要和正常的 scheduled_task pair 在类型上完全一致，Anthropic formatter 根本不会把它当 system 看。
+  2. **治存量**：新增 `async def repair_scheduled_state(agent, thread_id)`，用 `_find_legacy_system_summary_ids()` 找出所有 `isinstance(SystemMessage) and additional_kwargs["_sched_summary"]=True` 的消息，通过 `agent.aupdate_state(..., {"messages": [RemoveMessage(id) for id in ...]})` 删除。**幂等，状态干净时零成本**。
+  3. **调用时机**：5 个 agent.astream 入口必须在调用前先 repair 一次：
+     - `app/routes/chat.py::_stream_agent` — `await scheduled_inject.repair_scheduled_state(agent, thread_id)` → `mark_thread_active`
+     - `app/routes/consumer.py` — 3 处（`_stream_consumer` / `_stream_openai_compat` / 非流式），全部加 repair 调用
+     - `app/channels/wechat/admin_bridge.py` + `app/channels/wechat/bridge.py` — 改用 `async with scheduled_inject.thread_active(thread_id, agent=agent):`（`thread_active` 新增 `agent=` 可选参数，内部自动 repair）
+- **辅助 helper**：
+  - `_find_summary_ids(msgs)` — 返回**新形态** summary pair 的 id 列表（两条，AI + Tool）
+  - `_find_legacy_system_summary_ids(msgs)` — 返回**旧形态** SystemMessage summary 的 id 列表（给 repair 用）
+  - `_parse_summary_body(content)` — 从 ToolMessage content（新）或 SystemMessage content（老）中解析出 `["- A\n- B"]` → `["A", "B"]`，升级时保留老摘要内容
+  - `_scan_existing_pairs(msgs)` — 显式**跳过** `_sched_summary=True` 的 pair，不进 budget 计数（否则 5 个 pair 的上限会被摘要吃掉）
+- **为什么 L1（messages.jsonl 里的 tool block）没受影响**：L1 是前端渲染/持久化用的 `{"type":"tool","name":"scheduled_task",...}`，从来就不是 LangChain message object，和 Anthropic formatter 无关。L2 才是写进 LangGraph state 的真 message。
+- **禁止回退**：任何时候都不要为了"省一对消息"而把摘要改回 `SystemMessage`，或在对话历史中部插入任何 SystemMessage。真需要给 Agent 推系统级信息时，用 `AIMessage` 或 ToolMessage 包装；要改全局规则请改 `config["system_prompt"]` 或让 `middleware/todo.py::awrap_model_call` 在最外层 rewrite system_message（这才是 Anthropic 接受的做法）。
+- **Smoke test**：包含 7 个用例，覆盖 legacy 检测 / 新形态构造 / budget 排除 / 向前向后 summary body 解析 / Anthropic formatter 接受新形态 / Anthropic formatter 拒绝旧形态（reproduction）。未来修改 `scheduled_inject.py` 时务必回归。
+
+### thread_id 约定
+- Admin：`f"{user_id}-{conv_id}"`
+- Consumer：`f"svc-{service_id}-{conv_id}"`
+- scheduler 必须用同一规则才能命中正确的 LangGraph 线程；新增一种入口时务必同步。
+
+### 排查要点
+- Agent "不记得"任务 → 先看 `_pending[tid]` 是否长期非空 / `_active_refcount[tid]` 是否卡 >0（可能是某个流式入口忘了用 `thread_active` 上下文）。
+- 摘要消息越来越长 → `_summarize_pair` 截断了 80 字符，但行数会随历史无限增长；如果用户产生数百条历史定时任务，可改 `_extract_prior_summary_lines` 加上行数上限。
+- 前端没看到卡片 → 检查 `messages.jsonl` 里 block 的 `type==tool` && `name=="scheduled_task"`，老消息可能没这个结构（Phase 1 之前的 plain text 不会自动迁移）。
+
+## JSONL 存储改造（2026-04-23）
+
+> 目的：把 conversation / scheduler / inbox 这类 append-heavy 数据从「整 JSON 全量重写」改成「只追加一行 + 旁路 meta」，把 `save_message` 之类操作从 O(N) 降到 O(1)，并避免列表/统计要打开每个文件。
+
+### 核心模块
+- `app/core/jsonl_store.py` — 全部 JSONL 读写工具：`append_jsonl`（append-only 一行 = 一条记录）、`read_jsonl`、`read_jsonl_tail`（seek-from-end，查最近 N 条不读全文件）、`rewrite_jsonl`（atomic 重写）、`safe_load_json`（坏 JSON 回退 None）、`append_jsonl_many`（批量初始化 / 迁移用）。**所有新增的"流水"写入都走这里**。
+
+### 文件布局（新）
+```
+users/{uid}/conversations/{conv_id}/
+    meta.json          # {id,title,created_at,updated_at,message_count} — 每次 save 用 atomic 重写（小）
+    messages.jsonl     # 每行一条消息 — append-only
+    query_appendix/    # 用户上传附件（不变）
+    .legacy.json       # 迁移备份（保留旧整 JSON）
+
+users/{admin}/services/{svc}/conversations/{conv_id}/
+    meta.json + messages.jsonl + .legacy.json   # 同上结构对称
+    generated/, query_appendix/                  # 不变
+
+users/{uid}/tasks/
+    {task_id}.json                # 任务配置 + run summaries（runs[] 不再嵌入 steps[]）
+    {task_id}.steps/{run_id}.jsonl # 每次 run 一个 jsonl，每行一个 step
+
+users/{admin}/services/{svc}/tasks/
+    {task_id}.json + {task_id}.steps/...        # 同上对称
+
+users/{admin}/inbox/
+    {msg_id}.json                  # 单条消息（不变）
+    _index.json                    # 旁路摘要索引：{messages: {msg_id: {summary fields}}}
+                                   # list_inbox / count_unread 只读这个，不打开每个 msg
+```
+
+### 在线懒迁移（lazy migration）
+- 不写一次性脚本，**第一次访问**触发迁移：
+  - `conversations.py::_migrate_if_needed(uid, conv_id)` — 旧 `{conv_id}.json` → 新目录 `meta.json + messages.jsonl + .legacy.json`
+  - `published.py::_migrate_consumer_conv(...)` — 旧 `{conv_id}/messages.json` → 同目录拆出 `meta.json + messages.jsonl + .legacy.json`
+  - `scheduler.py::_externalize_run_steps(...)` — 旧 task.runs[*].steps → `{task_id}.steps/{run_id}.jsonl`，下次 `_save_task` 自动外置
+  - `inbox.py::_ensure_index(admin_id)` — 索引文件丢失 / 数量对不上时重建
+- 全部幂等。失败保留旧文件不破坏数据。
+- backup.py **不需要改**：所有新文件都落在已有的 module 路径（`conversations/`, `services/`, `tasks/`）下，walk 自动覆盖；restore 解压旧格式 ZIP 后，下次访问自动迁移。
+- FilePanel **不暴露 conversations/**（保持现状）。
+
+### API 形状不变
+- `GET /api/conversations` → `[{id, title, created_at, updated_at, message_count}]`（之前就有 message_count，现在直接读 meta.json 不用计算）
+- `GET /api/conversations/{id}` → `{id, title, ..., messages: [...]}`（一次性读 jsonl 全部还原）
+- `GET /api/scheduler/{id}/runs` → 内部走 `_attach_run_steps` 把 jsonl 重新拼回 runs[*].steps，前端无感
+- `GET /api/inbox` → `{messages, unread_count}`，`agent_response` 字段也在 `_INDEX_FIELDS` 里，前端不缺字段
+
+### 短期记忆注入提速
+- `memory_tools.load_recent_admin_messages` / `load_recent_consumer_messages` 改用 `get_recent_messages` / `get_consumer_recent_messages`，内部走 `read_jsonl_tail`，长会话注入只读尾部 N 行而不再 `json.load` 全文件。
+- `memory_tools::list_service_conversations` 改成读 `meta.json` 优先，落 legacy 才打开 `messages.json`，并主动调 `_migrate_consumer_conv` 触发迁移。
+
+### 已知边界
+- **并发同 conv 写**：`append_jsonl` 用 `open("ab")` 在 Linux 小写入近似原子，Windows 不保证；与原方案（atomic_json_save 直接覆盖会丢一条）相比至少不会丢，但极端并发下可能 line 交错。如果将来出现这个问题，加 `asyncio.Lock` per conv_id。
+- **不 fsync**：每次 append 不调 `os.fsync`，否则失去 JSONL 的速度优势。最近的未刷盘行在硬断电时可能丢，但 meta.json 走 atomic 不会损坏。
+- **scheduler steps 不限流**（A 方案）：每次 run 结束一次性写 jsonl，run 内累积在内存 — 与改造前完全一致，不引入新风险。
+- **inbox `_index.json`** 与文件数对不上时自动 `_rebuild_index`，所以手工删 / 加 `inbox/*.json` 不会破坏列表。
+
+## 前端 Chat 渲染优化（2026-04-23）
+
+> 痛点：30+ 条历史消息时，**输入框打字会卡顿**——每次 `setInputValue` 触发 `ChatPage` 全量 re-render，30 个 `MessageBubble` 全部重跑 `marked + hljs + DOMPurify`。长会话切换 / 滚动时 fps 也会随消息数线性下降。
+
+### 三层优化（全部已落地）
+
+**1. `React.memo(MessageBubble)`（治根：输入卡顿）**
+- `frontend/src/pages/Chat/components/MessageBubble.tsx` 默认导出包了一层 `memo`。
+- props 全部从 `messages` 数组里取（稳定引用），打字 / 顶层任何不相关 state 变化都会被浅比较挡住，**已渲染消息直接 bail out**，不进 reconcile。
+- 调用点（`Chat/index.tsx` 的 `messages.map`）传的 `conversationId` 也是字符串，不会被打字干扰。
+
+**2. `renderMarkdown` LRU 缓存（治根：重复渲染贵）**
+- `frontend/src/pages/Chat/markdown.ts` 顶部加了 256 条上限的 `Map<string, string>` 缓存。
+- key = `${_fileRevealEnabled ? '1' : '0'}|${text}`（admin / consumer 渲染规则不同，不能共享）。
+- 跳过缓存条件：text 长度 ≤ 16 或 ≥ 200KB（极短无收益，极大占内存）。
+- 命中 → `Map.delete + Map.set` 把 key 移到队尾（LRU）；满 → 弹掉队首。
+- **副作用**：`StreamingMessage` / `SubagentCard` / `ScheduledTaskCard` / `FilePreview` 等所有复用 `renderMarkdown` 的组件都自动受益。流式文本因为每帧字符串都不同会 cache miss，旧条目被自然挤出，**不会污染历史的命中**。
+
+**3. `react-virtuoso` 虚拟化（治本：长会话规模化）**
+- 新增 `frontend/src/pages/Chat/components/MessageList.tsx`，封装 Virtuoso + smart-scroll 的所有逻辑。
+- 关键设计：
+  - **`customScrollParent={scrollParentEl}`**：复用外层 `.messagesContainer` 的 overflow + padding，CSS 一字未改，"回到底部"浮层按钮的 `position: absolute` 上下文也保留。
+  - **「实时尾部」节点不要塞进 Virtuoso `Components.Footer`**：`StreamingMessage` / `PlanTracker` / `ApprovalCard` 直接作为 `MessageList` 的兄弟节点挂在 `messagesContainer` 下。详见下方「Virtuoso Footer 高频流式陷阱」。
+  - **`followOutput="auto"`**：等价于旧 `useSmartScroll` 的「停在底部时跟随，上滑后停下」行为。
+  - **`atBottomStateChange` → `atBottomRef`**：用 ref 不用 state，避免 follow tail 时频繁 re-render。
+  - **`computeItemKey`**：`${timestamp}-${role}` 做指纹，新增消息时 Virtuoso 能复用旧 DOM 节点。
+- ref 暴露 `scrollToBottom / resetScroll / isScrolledUp`，与旧 `useSmartScroll` API 一致；`Chat/index.tsx` 内部调用点全部无侵入迁移。
+- 旧 `frontend/src/pages/Chat/useSmartScroll.ts` 已删除。
+- bundle 增量：main.js +56KB / +20KB gzip（react-virtuoso 4.18.5）。
+
+### 边界 / 注意
+
+- **service-chat 没动**：`ServiceChatApp.tsx` 用的是 `StreamingMessage` 而非 `MessageBubble`，且消息流较短，本轮先不动；如果将来 consumer 端也出现长会话卡顿，按相同方法虚拟化即可（`renderMarkdown` 缓存已经全局生效）。
+- **`streamBlocks` 仍走 React Context**：流式过程中 `ChatPage` 会被 `streamContext` 拉着重渲染，但 `MessageBubble` 已 memo + `MessageList` 只渲染可视区，所以重渲染只波及到末尾「实时尾部」节点（即正在流式的 `StreamingMessage`，挂在 `MessageList` 兄弟位置），符合预期。
+
+### ⚠️ Virtuoso Footer 高频流式陷阱（2026-04-24 修复）
+
+- **症状**：`write_file` / `edit_file` 流式中，IDE 风格代码卡片出来了，但内容区域一直显示「等待内容…」+ 旋转图标，直到 LLM 写完才一次性把全部代码渲染出来；历史回看正常。中间档的 `tool_call_chunk`（每秒几十次 `args_delta`）丢了。
+- **根因**：早期版本把 `StreamingMessage` / `PlanTracker` / `ApprovalCard` 通过 `react-virtuoso` 的 `components.Footer` + `context` 注入。Virtuoso v4 的 Footer 是 `E.memo` 包的，内部 `useEmitterValue("context")` 走 `useSyncExternalStore` 订阅。`scheduleFlush` 每帧 `setStreamBlocks([...])` → `ChatPage` re-render → 新 `context` 对象 publish 到 emitter → 在 React 18 自动批处理 + Virtuoso emitter 内部去重的双重作用下，**高频中间帧大概率被合并/吞掉**，只有「最后一次稳定状态」（流结束、`block.done = true` 那次）才一定重渲染 Footer。其他低频卡片（`ToolIndicator` / `ScheduledTaskCard`）感觉不到，但每秒几十次的 `args_delta` 打字机直接报废。
+- **修复**：把 `StreamingMessage` / `PlanTracker` / `ApprovalCard` 从 `MessageList::footerSlot` / Virtuoso Footer 中拿出来，作为 `MessageList` 的兄弟节点直接挂到 `messagesContainer` 下：
+  - `frontend/src/pages/Chat/index.tsx` 553 行起改成 `<>{messages.length > 0 && <MessageList .../>} {showStreamBlocks && <StreamingMessage .../>} ...</>`。
+  - `frontend/src/pages/Chat/components/MessageList.tsx`：删除 `footerSlot` prop、`FooterContext` interface、`Footer` memo 组件、`components` 对象、`context` useMemo、`<Virtuoso context=... components=...>`，把 `memo` / `useMemo` import 也删掉。
+  - 滚动语义零变化：Virtuoso 用 `customScrollParent={scrollParentEl}`，`messagesContainer` 是真·滚动容器，`scrollTop = scrollHeight` 自然包含兄弟节点高度，`scrollFooterIntoView` 行为完全不变。
+  - 新增 `messages.length === 0 && showStreamBlocks` 的场景兜底（首条消息流式中，messages 还是空数组）：`scrollToBottom` / `resetScroll` 在 `messageListRef.current` 为 null 时回退到 `scrollParentEl.scrollTop = scrollParentEl.scrollHeight`。
+- **教训**：**任何高频（> 30Hz）更新的 React 子树都不要走 Virtuoso 的 `components.Footer/Header/EmptyPlaceholder` 走 `context` 注入**。Virtuoso 的内部 emitter / React 18 的 batching 不保证每个 publish 都被 commit，只保证最终一致。需要每帧都更新的实时 UI 应该走「直接 React state → 直接子树重渲染」的最短路径。Virtuoso 的 components 适合放「不怎么变」的辅助节点（如 loading spinner、版权说明、分页按钮）。
+- **conversation 切换时滚到底部**：`loadMessages` 末尾的 `requestAnimationFrame(() => resetScroll())` 会在 setMessages 之后调用 Virtuoso 的 `scrollToIndex({ index: 'LAST' })`。Virtuoso 对未测量的 index 会先估算后落位，UX 与旧实现一致。
+- **不要再回头给 `MessageBubble` 加 props**：所有新增 props 必须保证从 `messages` / 稳定引用来源传入，否则会破掉 `React.memo` 的浅比较。如果必须传函数，记得用 `useCallback`。
+- **「滚到底部」必须两步走**：
+  1. `virtuosoRef.current?.scrollToIndex({ index: 'LAST', align: 'end' })` — 让 Virtuoso 测量并把最后一条 data item 滚入视野（解决「切换对话刚 mount 时 scrollHeight 只反映已渲染头部、`scrollTop=scrollHeight` 落在中间」）。
+  2. **下下帧**（`rAF` × 2）`scrollParent.scrollTop = scrollParent.scrollHeight` — 把 footer（StreamingMessage / PlanTracker / ApprovalCard，渲染在 data items 下方）也带进视野（解决「最后一条流式消息只露顶部」）。
+  - 单独用任一步都会有 bug，两步缺一不可。封装在 `MessageList::scrollToAbsoluteBottom` 里。
+- **「回到底部」按钮可见性必须用 React state 不是 ref**：MessageList 内部 `atBottomRef` 用于 follow-tail 判断（避免每次跨阈值都 re-render Virtuoso），但按钮 className 必须由 ChatPage 的 `isAtBottom` state 驱动，否则 className 不会随用户滚动重算。MessageList 通过 `onAtBottomChange?: (atBottom: boolean) => void` prop 把状态抛上去，ChatPage `setIsAtBottom`。两者并存：ref 给内部用，state 给 UI 用。
+- **「回到底部」按钮显示规则放宽**：旧版只在 `isViewingStream && isStreaming && !isAtBottom` 才显示，长会话非流式状态上滑后没法一键到底，UX 偏弱。改为 `!isAtBottom && messages.length > 0` 即显示。
+- **`selectedModel` 本地记忆**：`frontend/src/utils/lastSelectedModel.ts` 提供 `getLastSelectedModel/setLastSelectedModel`，localStorage key `last_selected_llm`。`Chat/index.tsx::loadModels` 优先恢复本地值（前提：仍出现在 `/api/models` 返回的 available 列表里，否则回退到 `data.default`）；下拉框 onChange 包了一层 `handleSelectModel` 同步写 localStorage。**只是本地记忆不动后端**——设置页里的 capability_defaults 才是真·全局默认，跨设备/跨浏览器仍走那个；当时刻意没做 B 方案（PUT defaults）以免覆盖用户在设置页的偏好。
+
+### ⚠️ Virtuoso 不算 margin 的兄弟节点重叠陷阱（2026-04-26 修复）
+
+- **症状**：streaming 时 `StreamingMessage` 的顶边框（assistant 气泡顶部 1px border）压在用户最后一条 query 气泡的最后一行行中心，重叠约半行 + 24px 间距，整个流式消息看起来"咬"在用户消息身上。
+- **根因**：`react-virtuoso` v4 (`dist/index.mjs:303`) 用 `wo(m.children, e, "offsetHeight", r)` 测量每个 item 高度。`offsetHeight = height + padding + border`，**不含 margin**。`.messageBubble` / `.messageBubbleUser` 之前用 `margin-bottom: 24px` 做消息间距 → Virtuoso 内部记账漏算每条 24px → 它给 `customScrollParent` 模式下的 item-list 设的 `paddingBottom`（行 2451-2452）也短了对应高度 → 外层 `.messagesContainer` 的 scrollHeight 比真实视觉高度短 → 作为 MessageList **兄弟节点**渲染的 `StreamingMessage` / `PlanTracker` / `ApprovalCard` 从亏空位置开始，叠在最后一条历史消息上。
+- **修复**：`chat.module.css` 把 `.messageBubble` / `.messageBubbleUser` 的 `margin-bottom: 24px` 改成 `padding-bottom: 24px`。padding 是 `offsetHeight` 的一部分 → Virtuoso 测对真实高度 → 兄弟节点回到正确位置。两个 wrapper 都没有 bg/border，padding 视觉上与 margin 100% 等价。
+- **不要做的事**：
+  - **不要回退到 `margin-bottom`** —— 重叠 bug 立即复现。
+  - **不要在 `MessageList::itemContent` 包一层 padding 的 div + 关掉 bubble 自己的间距** —— 这种"两次重写"的方案改动面更大，且 `StreamingMessage` 当兄弟节点时还得另想办法保持间距。
+  - **不要动 `MessageBubble.tsx` / `StreamingMessage.tsx` 给 wrapper 加 inline style** —— 两边都用同一个 `.messageBubble` class，CSS 改一次两边都生效。
+- **类比预防**：今后任何虚拟化容器（不只 react-virtuoso，react-window / react-virtual 同理）+ 兄弟节点的布局，**永远不要用 margin 做 item 间距**——一律用 `padding-bottom`（或者父容器 `gap`，前提是父容器自己直接渲染 items，虚拟化场景一般不行）。
+
+## Service「使用情况」面板（2026-04-23）
+
+> 痛点：admin 看不到自己 published service 在被怎么用 —— 既没有 consumer 对话历史的 UI（数据其实在 `services/{svc}/conversations/`，但只有 memory_tools 能读），也没有「这个 key 调了多少次 / 谁失败了」的视图。
+
+### 后端
+
+**`app/services/usage_log.py`（新）** — 轻量请求级 access log：
+- 按 service 分目录、按月轮转：`users/{admin_id}/services/{svc_id}/usage/usage-YYYY-MM.jsonl`
+- `record_request(admin_id, svc_id, *, channel, key_id, conv_id, endpoint, status_code, latency_ms, ok)` 一行 JSONL，fire-and-forget（异常一律吞，绝不阻塞用户请求）。
+- `list_records(..., limit, channel, max_months=6)` 按月份倒序合并 tail 读，只把命中的 channel 算入 limit。
+- 字段是「最小集」——后续要 token / IP / model_used 时直接加字段，老记录靠 `rec.get(...)` 向后兼容。
+- **不主动归档/清理**。典型 service 量小，单文件一年也就几 MB；爆了再说。
+
+**`app/services/published.py`** —
+- `create_consumer_conversation(..., source: str = "")` 多了 source 参数（"web" / "api" / "wechat"），写进 `meta.json`；老会话迁移过来 source 是空，UI 显示「未知」。
+- 新增 `list_consumer_conversations(admin_id, svc_id)` —— 只读每个 conv 的 `meta.json`，不读 `messages.jsonl`，O(1) per conv。
+- 新增 `delete_consumer_conversation(admin_id, svc_id, conv_id)` —— 整目录 rmtree，附件也一起清。
+
+**接入点**：
+- `app/routes/consumer.py`：3 个端点都包了计时 + `record_request`。`/chat` source="web"，`/chat/completions` source="api"，`/conversations` source="api"。SSE 用 `_record_stream(gen, ...)` 包外层 generator，在 finally 阶段记一条（捕获完整流时长 + 异常），客户端中断（GeneratorExit）算 ok。
+- `app/channels/wechat/session_manager.py`：`create_consumer_conversation(..., source="wechat")`。
+- `app/channels/wechat/bridge.py::handle_wechat_message`：try/finally 计时，channel="wechat", endpoint="wechat:on_message"，key_id 留空（微信没 key 概念）。
+
+**新增 admin routes**（`app/routes/services.py`）：
+- `GET /api/services/{sid}/conversations` — list 摘要
+- `GET /api/services/{sid}/conversations/{cid}` — 整段对话（含 messages）
+- `DELETE /api/services/{sid}/conversations/{cid}` — 硬删
+- `GET /api/services/{sid}/usage?limit=&channel=` — 调用记录
+
+### 前端
+
+`frontend/src/services/api.ts` 加 `ServiceConvSummary / ServiceConvDetail / ServiceUsageRecord` 三个 type + 4 个 API 函数。
+
+`frontend/src/pages/AdminServices/index.tsx`：在 service 详情右侧加一个 **"使用情况" `ModuleCard`**，header 用 `Segmented` 切「会话 (N) / 调用 (M)」，刷新按钮重读对应数据。
+- 会话视图：Table 列 [来源 Tag / 标题 / 消息数 / 最近活跃 / 查看·删除]，「查看」打开 `Drawer` 用纯文本+pre-wrap 渲染消息（**没复用 admin 的 MessageBubble** —— 避免拖进 markdown / hljs / Virtuoso 一大套，admin 只是要看一眼，能看清就行）。
+- 调用视图：Table 列 [时间 / 来源 / Endpoint / Key / 会话 / 状态 / 耗时]，会话列点了直接弹 Drawer 看那条会话；上方多一个 channel 过滤 `Segmented`（全部 / 网页 / API / 微信）。
+- 进 service 时 `selectService` 自动并行加载 convs + usage。
+- 来源色：web=blue, api=purple, wechat=green。
+
+### 边界 / 注意
+
+- **「会话」的 source 在 conv 创建时就定了**，是 conv 自己的属性，不是消息的属性。同一个 conv 可以被 web / api / wechat 任意一个**首次**触发创建，之后被多个渠道复用也不会改 source。如果以后要按消息粒度区分，得在 `save_consumer_message` 里加 `source` 字段。
+- **request log 是 fire-and-forget**：`record_request` 内部 try/except 全吞 —— 哪怕 usage_log 文件被锁、磁盘满，也绝不能让 consumer API 返 500。代价是丢日志比丢请求体面。
+- **WeChat 没有 key 概念**：消息从微信扫码 session 走，没经过 sk-svc 鉴权链，`key_id=""`。前端表格 Key 列空就显示 `-`。
+- **不要给 record_request 加 await 或 IO 重试**：现在它是同步的、单 `open(path,"ab") + write` 的 syscall，POSIX 保证 < PIPE_BUF 写入原子，多 worker 并发也不会撕行。改成异步 / 加重试反而引入复杂度和新的丢日志路径。
+- **Drawer 里直接拼字符串**：`m.tool_calls` 用 `JSON.stringify(...).slice(0, 300)` 截断，避免特别大的 tool result 把 Drawer 撑爆。如果以后要展开看完整内容，再加个「展开」按钮。
+- **前端 `usageView` 切「调用」时不会自动重新拉 usage**：进 service 时已经一起拉了一遍，切 tab 只切视图。要刷新得点头部「刷新」按钮或者切 channel 过滤器。这个语义和 react state 流向一致；如果嫌不直观，把 `usageView` 切到 records 时触发一次 `loadSvcUsage` 即可。
+
+---
+
+## MCP / 外部工具
+
+### huozi-mcp（项目级安装，2026-04-23）
+
+- 配置文件：`.cursor/mcp.json`（**项目级**，仅本仓库 Cursor 会加载；`.cursor/` 已在 `.gitignore` 第 72 行，Key 不会被提交）。
+- 端点：`https://cloud.huozi.app/mcp`，HTTP 传输 + `Authorization: Bearer <api_key>`。
+- workspace：`liushinan1998`（key_id `k_f76b3a174a94bf6b`）。
+- Key 是**长期凭据**，被泄露时去 https://huozi.app/workspace 吊销并用 `npx huozi-mcp --client cursor` 或 device-code 流程重新申请。
+- 自部署时把 `HUOZI_CLOUD_URL` 指向自己的实例即可，CLI 流程一致。
+
+## 前端移动端适配（2026-04-27）
+
+> 范围：`/chat`（admin）、`/s/{id}`（consumer service chat）、FilePanel、FilePreview、`/settings/*`（含 `/services` / `/scheduler` / `/wechat` —— 它们实际是 settings 的 sub-route 共用 `SettingsLayout`）。断点统一 **≤ 767px**。
+
+### 基础设施
+- `frontend/src/hooks/useMediaQuery.ts` —— 新增。SSR 安全；`useMediaQuery(query)` + 导出常量 `MOBILE_BREAKPOINT = '(max-width: 767px)'` + shortcut `useIsMobile()`。内部用 `mql.addEventListener('change', ...)`，Safari < 14 走 `addListener` 兼容分支。
+- `frontend/index.html` / `frontend/service-chat.html` / `app/routes/consumer_ui.py::_dev_fallback_html` —— 三处 viewport 都加了 `viewport-fit=cover`（顶到刘海/底部安全区）+ `<meta name="theme-color" content="#1c1c27">`（iOS Safari / Android Chrome 把地址栏涂成品牌色）。**新增 HTML 入口必须同步改**。
+- `frontend/src/styles/global.css` 末尾追加了一段 `@media (max-width: 767px)` baseline：`input/textarea/select/[contenteditable]` 强制 `font-size: 16px !important`（阻止 iOS Safari focus 时放大页面）、滚动条 `width/height: 2px`、`.ant-modal` 窄屏铺满、`.ant-drawer-content-wrapper { max-width: 100vw }`、`body { touch-action: manipulation }` 禁双击缩放。**baseline 只放「全站都需要的」规则**，页面微调写各自 `.module.css`。
+
+### AppLayout 抽屉化（`frontend/src/layouts/AppLayout.tsx`）
+- 桌面：保留原 `<Sider>` + 内嵌 `FilePreview` + 右侧 `FilePanel` 的三栏布局，零改动。
+- 移动：
+  - **导航 Sider → `Drawer` (placement=left, width=min(85vw, 320px), zIndex 1050)**，在 `<Content>` 左上 `position: absolute; top:6; left:6; zIndex:20` 放了个 Phosphor `List`（汉堡）按钮作触发器。
+  - **必须 `forceRender`** —— Chat 的 conversation 列表是 `createPortal(sidebarContent, document.getElementById('sider-slot'))`；抽屉关闭时如果不强制保留 DOM，`#sider-slot` 就没了，portal 报错。
+  - 抽取了 `renderSidebarContents(isCollapsed)` helper，桌面 `Sider` 和移动 `Drawer` **共用同一份 JSX**（包含 `<div id="sider-slot"/>`），保证 portal target 在两种模式下都活着。
+  - `useEffect` 监听 `location.pathname`，**切路由自动关掉 nav drawer**（移动侧栏点菜单后立刻收回）。
+  - **FilePreview → 全屏右抽屉 (placement=right, width=100vw, zIndex 1040, `destroyOnClose={false}`)**。`onClose={() => closeFile()}` 同步清 `editingFile`，否则抽屉关了 state 还认为文件在编辑，下次打开会闪旧文件。`closeFile` 本身带 dirty-check 的 modal confirm（见 `fileWorkspaceContext`），ESC / 遮罩点击都会触发确认，不会悄悄丢改动。
+  - 桌面的**可拖拽分隔条**（chat/preview 间的 `col-resize` div）在 `!isMobile` 判断下直接不渲染。
+  - **flex 计算**要补 `isMobile` 分支：`flex: isSettings ? 1 : (showChat ? (showPreview && !isMobile ? splitRatio : 1) : 0)` —— 移动端不再因 `showPreview=true` 就把 chat 列挤到 splitRatio 宽度。
+- `HeaderControls.tsx` 也加了 `isMobile` 判断，**分屏切换按钮 `SplitToggle` 及其分隔线在移动端整个不渲染**（移动已全屏 Drawer，分屏无意义）。文件浏览器按钮保留。
+
+### FilePanel 抽屉化（`frontend/src/components/FilePanel.tsx`）
+- 把原函数末尾的 `return (<div ref={panelRef}>...)` 抽成 `const panelBody = (...)`，然后末尾分支：`isMobile → <Drawer placement=right width=100vw title="文件" closable>{panelBody}</Drawer>`；桌面保留 `if (!fileBrowserOpen) return null; return panelBody;`。
+- `if (!isMobile && !fileBrowserOpen) return null` —— **移动端即便关闭也要 render**（交给 Drawer 处理动画），桌面端可以早退省资源。
+- 内部 `<div ref={panelRef}>` 在移动模式下 `width: '100%'`、`borderLeft: 'none'`；**左侧 `col-resize` 拖动把手在 `!isMobile` 下不渲染**（移动端没有拖动宽度的概念）。
+- `panelRef` 语义不变（drag-leave 判定、键盘快捷键焦点），因为 ref 挂在内部 div 上，Drawer 是包装层不影响 DOM 树中 ref 指向的元素。
+- Drawer `zIndex: 1045`，落在 nav drawer (1050) 和 FilePreview drawer (1040) 之间；如果两个文件相关 drawer 同时开着，FilePanel 会盖在 FilePreview 上——符合「选文件 > 看文件」的交互直觉。
+
+### Chat (/chat) 移动样式（`frontend/src/pages/Chat/chat.module.css` 末尾 `@media (max-width: 767px)`）
+- `.chatHeader { padding: 0 12px 0 52px; height: 48px }` —— **左侧留 52px 给浮动汉堡**（AppLayout 里的 List 按钮 36×36 + 留白）；少于 52px 会和 `.chatTitle` 重叠。
+- `.chatTitle { font-size: 13px }`、`.messagesContainer { padding: 14px 14px 24px }`、`.messageBody { max-width: 94% }`、`.messageBubble/.messageBubbleUser { gap: 10px; padding-bottom: 18px }`、`.messageAvatar { 28×28 }`。
+- `.inputArea { padding: 10px 12px 12px }`、`.inputToolbar { gap: 2px; padding: 0 2px 6px }`、`.capBtn { 32×32 }`（触控友好）、`.inputWrapper { padding: 4px 6px 4px 12px; gap: 6px }`。
+- `.emptyState` / `.suggestionChips` / `.streamElsewhereBanner` 各自缩字号和内边距，banner 允许 `flex-wrap` 并 `flex: 1 1 100%`（按钮换行到下一行）。
+- `.scrollBottomBtn` 向内收 `right/bottom: 12px`。
+- `.modelSelect { width: 180px }`（桌面），移动覆写 `width: 128px`。**注意 `Select` 原来是 `style={{ width: 180 }}`**，改成 `className={styles.modelSelect}` 才能被 media query 覆盖。以后再给 `Select` 加 inline width 就会破坏这个覆写。
+- **Chat 主 render 逻辑本身没动**，包括 Virtuoso + 浮动 StreamingMessage/PlanTracker/ApprovalCard 的结构、`scrollToAbsoluteBottom` 两步滚动、YOLO footer tag 等——零侵入。
+
+### service-chat 移动样式（`frontend/src/service-chat/serviceChat.module.css` 末尾 `@media (max-width: 767px)`）
+- `.header` padding `10px 14px`、logo 28×28、title 14px、**`.headerDesc { display: none }`**（描述过长会把标题挤出）。
+- `.authBox` 宽度 `max-width: calc(100vw - 32px)`，iPhone SE 也不会溢出。
+- `.messages { padding: 14px 12px 18px }`、`.userMsg { max-width: 90% }`。
+- `.welcomeScreen` 标题 22px、chip `max-width: 100%`（桌面是 360px）。
+- `.inputArea { padding: 8px 10px 10px }`、`.inputForm { gap: 6px }`、`.btnSend { padding: 0 14px; font-size: 13px; height: 40px }`、`.imgThumb img { 48×48 }`。
+- ServiceChatApp.tsx 本身**没动**，纯 CSS 适配。
+
+### 关键注意事项 / 未来改动须知
+- **不要删除 Drawer 的 `forceRender`**：Chat 的侧栏 createPortal 依赖它。
+- **给 `Select` / `Input` 设宽度时用 className 而非 inline style**，否则 media query 无法覆写。
+- **移动端新增汉堡 / 悬浮按钮要避让 `chatHeader`**：目前占用 `top: 6; left: 6; zIndex: 20`，`chatHeader` 已预留 `padding-left: 52px`。如果再加一个右侧悬浮按钮（比如「新对话」快捷），需要同步预留 `padding-right`。
+- **给 drawer 子内容新增「关闭」按钮时复用 `closeFile()`**，不要直接 `setEditingFile(null)` —— 会绕过 dirty-check。
+- **新增全 HTML 入口**（比如未来的 `admin-chat.html`）记得加 viewport-fit=cover + theme-color 两个 meta。
+- **SettingsLayout 侧栏自动随 AppLayout drawer 一起打开**：`SettingsLayout` 用 `createPortal` 把自己的 `Menu` 注入 AppLayout 的 `#sider-slot`，所以移动端汉堡菜单里**同时**展示「一级导航 + 当前 settings 子页选中项」。**不要**再额外给 Settings 搞独立侧栏，两个侧栏并存会让用户困惑。
+- **Settings 管理页通用套路**（2026-04-27 扩展范围）：
+  - `global.css` 追加了一段 Ant Design 组件兜底（`@media (max-width: 767px)` 内）：`.ant-tabs-nav-wrap { overflow-x: auto }`、`.ant-segmented { max-width: 100%; overflow-x: auto }`、`.ant-pagination { white-space: nowrap; overflow-x: auto }`、`.ant-tag { font-size: 12px }`、`.ant-drawer-body .ant-form-item .ant-form-item-label { padding-bottom: 4px }`、`.ant-modal-footer/.ant-drawer-footer { display: flex; gap: 8px }` + 子 `.ant-btn { flex: 1 }`、`.ant-table-content { overflow-x: auto }`、`.ant-select-dropdown { max-height: 50vh }`。以及两个工具类 `.jf-mobile-page-top`（`padding-left: 44px`）和 `.jf-mobile-page-header`（`padding-left: 52px; padding-right: 16px`）—— 供页面顶部自助避让汉堡按钮。**新加全站级 Ant Design fix 放这里，不要塞进单个页面 module.css。**
+  - 每个 settings 子页面标准套路：导 `useIsMobile()` → 最外层 padding 改成 `isMobile ? '16px 12px 24px' : '24px 32px'` + **强制 `paddingLeft: 52`**（给汉堡按钮让位）→ 顶部头部 `flexWrap: 'wrap'` + `gap: 8~12` → 卡片 padding 从 `24px` 缩到 `16px 14px` → 内部 `grid-template-columns` 收敛（比如 `80px 1fr` / `repeat(2, 1fr)`）→ 过长并列元素改 `flexDirection: 'column'` 堆叠。已适配：`WeChatPage`、`InboxPage`、`PackagesPage`、`BackupPage`、`PromptPage` 及其 3 个 inline 编辑器（`UserProfileEditor` / `SystemPromptEditor` / `SoulSettings`）、`GeneralPage` 及 `ApiKeysCard`、`SubagentManager`（`inline` + `Modal` 双模式）。
+  - **Table 横滚**：admin 管理页的 Table 统一加 `scroll={isMobile ? { x: 'max-content' } : undefined}` + `pagination={{ ..., simple: isMobile }}`。**简单列表页** PackagesPage 采用同样做法。
+  - **Modal → 全屏**：体积大的编辑/创建 Modal（AdminServices 的 Service 编辑、Scheduler 的任务编辑、SubagentManager 的编辑 Modal、AdminServices 的 API Key Modal、WeChat History Modal）走 `width={isMobile ? '100%' : N}` + `style={isMobile ? { top: 0, paddingBottom: 0, maxWidth: '100%', margin: 0 } : undefined}`，获得全屏效果。**不**用 Drawer 代替 —— Modal 已经能满足大表单的垂直滚动需要，避免重写。
+- **AdminServices / Scheduler 的 Stack 导航**（列表↔详情切换，替代双栏）：
+  - 桌面：保留左侧 30% 列表 + 右侧 70% 详情的双栏。
+  - 移动：用 `currentSvc` / `currentTask` state 决定渲染哪一栏：没选 → 列表铺满 100%；选中 → 详情铺满 100%，顶部多一个 Phosphor `ArrowLeft` 按钮调 `setCurrentSvc(null)` / `setCurrentTask(null)` 回到列表（原生 iOS/Android 的 stack 导航直觉）。
+  - 代码层面：**不额外加 `view` state**，直接复用已有的 `currentSvc` / `currentTask`；`display` 属性切换（`isMobile && !showListOnMobile ? 'none' : 'flex'`），**不**做条件渲染（保持 state 不丢、返回列表后滚动位置还在）。
+  - Detail header 里的按钮在移动端：图标按钮（`size="small"`）+ 空字符串作文本，复用同一 `<Button>` JSX 不写两套。返回按钮放在 header 最左侧，`order: isMobile ? ... : 0` 调 flex 顺序把标题挤下一行。
+  - **`AdminServices` 的 `createPortal` 不改**：里面没用到 sider-slot（它的导航走 SettingsLayout 的 Tabs portal，自动跟着 AppLayout drawer 走）。
+- **踩坑**：
+  - 给 Modal 传 `style={{ top: 0 }}` 一定要配 `paddingBottom: 0, maxWidth: '100%', margin: 0`，否则 Ant Design 默认的 `top: 100px` 和 `padding-bottom: 24px` 会让 Modal 还差一截。
+  - 不要在 settings inline 编辑器里用固定 `width: 280` 给侧栏，移动端必须 `isMobile ? '100%' : 280`，不然会横向溢出。
+  - 通用兜底中 `.ant-modal-footer > .ant-btn { flex: 1 }` 会让所有 Modal 的按钮变等宽——视觉上更适合触屏，但**如果某个 Modal 故意只有一个按钮，也会被拉成全宽**。接受这个 trade-off，不再单独 override。
+
+## 一次性封面页
+
+### 活字印刷术
+
+- `cover/movable-type.html` —— 活字印刷术封面页 demo，单文件、CDN 依赖（Google Fonts + ECharts SVG 渲染）、纯 CSS 纸纹与朱砂印章、ECharts 横向时间线（毕昇→古腾堡→王选 8 个节点，上下交错避让）。如果以后要做"项目封面/PPT 首页"风格的静态页，可以直接抄这套色板与版式：米色三段渐变 `#fbf3df → #f1e3c0 → #e6d2a3`、朱砂主色 `#9b2a2a`、衬线字体 `Noto Serif SC` + `Cormorant Garamond`、四角 1px 边框 + inset 6px 同色描边的"花边"装饰。
+
+## 文档读取工具与深链跳转（2026-04-24）
+
+### 后端：`app/services/document_tools.py`
+- 两个新工具，均经 `safe_join` + `_is_allowed` 校验，禁止越权：
+  - **`read_document(path)`** — 结构化文本提取
+    - `.pdf` → pypdfium2 全文，每页前注 `[Page N]`
+    - `.docx` → python-docx，按段落保留标题层级
+    - `.xlsx` → openpyxl 转每个 sheet 为 markdown 表格
+    - 纯文本 `.md/.txt/.csv/.json/...` → 提示用 `read_file`（不重复造轮子）
+    - 输出超 `_MAX_TEXT_BYTES=200KB` 自动截断（约 50-70K tokens），提示改用 vision 工具或写脚本
+  - **`view_pdf_page_or_image(path, page=1)`** — 多模态视觉弥补
+    - PDF → pypdfium2 渲染单页为 PNG (`_PDF_RENDER_SCALE=1.5`，约 108 dpi) → base64
+    - 图片（png/jpg/jpeg/webp/gif/bmp）→ base64
+    - **限单页粒度**：PDF 必须传 page 参数（1-based），不允许批量
+    - **运行时 throttle**：`_MAX_VIEW_PER_PATH=5`，同 path 单 thread 超限拒绝（用 `contextvars.ContextVar` 隔离，每请求独立计数；不同 path 计数独立）
+    - 返回 `list[dict]`（`text` + `image_url` block），LangChain 0.3+ ToolNode 自动包成 multimodal `ToolMessage`
+  - 旧版 Office `.doc/.xls/.pptx` 一律返回明确错误，引导用户另存或写脚本
+- **注册策略**：
+  - `agent.py::create_user_agent` — 两个工具**始终注入**（read-only + 路径限制 + throttle，零滥用风险）；`documents` 能力 prompt 无条件追加
+  - `agent.py::create_batch_agent` — 仅注入 `read_document`（视觉工具按行调用太慢/太贵；单行需要 vision 让用户自己写 pypdfium2 脚本）
+  - `consumer_agent.py::_create_consumer_read_tools` — 在 consumer 上下文中重新包一层 `@tool`（path 相对 `docs_dir`、`_is_allowed` 过滤、禁止 `generated/`），复用 `document_tools.py` 的纯函数 `_extract_pdf_text/_extract_docx_text/_extract_xlsx_text/_render_pdf_page_to_png_b64/_read_image_to_b64/_bump_and_check_view_count` + 共享常量 `_PLAIN_TEXT_EXTS/_IMAGE_EXTS`；prompt 同步追加
+- **依赖**：`requirements.txt` 加 `pypdfium2>=4.30.0`（Apache-2.0、纯 wheel、无系统依赖、PDF 文本提取 + 渲染一体）、`python-docx>=1.1.0`、`pillow>=10.0.0`
+- **不进沙箱**：两个工具直接在主进程跑，不走 `script_runner` 子进程沙箱（无需 numpy/matplotlib 类资源限制；本身就是 read-only + path-limited）
+
+### 前端：`<<FILE:/path#anchor>>` 深链跳转
+- **统一语法**：`<<FILE:/docs/x.md#标题>>` / `<<FILE:/docs/x.pdf#page=3>>`，标题不存在静默落到文件顶部（用户明确选择，不报错）
+- **markdown.ts 改造**：
+  - 导出 `slugifyHeading(raw)` 让 FilePreview 能匹配 agent 写的标题文本
+  - `splitPathAndAnchor(raw)` 把 `<<FILE:>>` 体按首个 `#` 拆 `[path, anchor?]`
+  - `filePathToHtml(path, anchor?)`：PDF 直接把 `#anchor` 拼到 iframe `src` —— 浏览器原生 PDF viewer（Chrome/Edge/Firefox）按 Adobe Open Parameters 规范处理 `#page=N`/`#zoom=`/`#search=`，无需 JS plumbing
+  - `nonMediaFileToHtml(path, anchor?)` / `buildRevealAction(path, anchor?)` / `postProcessInlinePaths` 全部传 `data-jf-anchor` 透传给 reveal 委托
+  - 非媒体文件 pill 显示 `📄 name #anchor`，方便用户预判跳转目标（CSS 类 `.jf-file-link-anchor`，accent 色 + monospace）
+  - `INLINE_PATH_RE` 也支持可选 `#anchor`（保守：要含 `/` 且有扩展名）
+  - `SANITIZE_OPTS.ADD_ATTR` 显式列出 `data-jf-file/data-jf-anchor`（DOMPurify 默认放行 data-*，列出仅是文档化）
+- **fileWorkspaceContext.tsx**：
+  - `revealInBrowser(path, anchor?)` 第二参可选；`pendingAnchor: string|null` + `consumePendingAnchor()` 一次性消费协议
+  - 全局 `[data-jf-file]` 点击委托同时读 `data-jf-anchor` → `revealInBrowser(path, anchor)`
+  - **anchor set 顺序**：先 `setPendingAnchor` 再 `await openFile`，保证 MarkdownPreview mount effect 能同步拿到（content 已缓存场景）
+- **FilePreview.tsx**：
+  - `MediaView` (kind='pdf')：`useEffect` 注入 `#${pendingAnchor}` 到 iframe src + 调 `consumePendingAnchor()`；`baseUrl` 永远是裸 `mediaUrl(path)`，避免重复 fragment
+  - `MarkdownPreview`：`useEffect([pendingAnchor, html])` 用 `requestAnimationFrame` 延一帧再做 3 步 fallback 解析：
+    1. `getElementById(anchor)` 直接命中（agent 写了 slug 或 CJK 直传）
+    2. `getElementById(slugifyHeading(anchor))`（agent 写的是原标题文本）
+    3. 遍历 h1-h6 做大小写不敏感的 `textContent.includes(needle)` 子串匹配
+  - 找不到时**静默 no-op**，不弹 toast，符合「找不到打开文件顶部」设计
+  - 一定 `consumePendingAnchor()`（无论是否命中）—— 防止用户切换文件后旧 anchor 重放
+
+### 不要做的事
+- **不要给 read_document 加 `.pptx` 支持**：python-pptx 抽文本噪声大、速度慢；用户写脚本更可控
+- **不要让 view_pdf_page_or_image 一次返回多页**：会让 base64 体积失控 + agent 滥用读长文档；想全文用 read_document
+- **不要尝试解析 PDF 的 PDF outline (bookmark) 跳到标题**：需要 pypdfium2 outline API + 复杂的 page index 转换；当前 `#page=N` 已覆盖 90% 场景
+- **不要给 MarkdownPreview 的 anchor 解析加 toast 报错**：找不到默认行为是「打开文件顶部」，弹错反而打断用户阅读
+- **不要在 chat-inline 的 markdown 渲染里做 anchor 滚动**：聊天气泡里点 `<<FILE:/x.md#标题>>` 应该跳到 FilePreview，不应该在聊天里"原地"滚（聊天里没有完整 markdown 渲染上下文）—— 当前实现就是走 reveal 路径，符合预期
+
+## 聊天框 @ 文件引用（MentionPicker, 2026-04-24）
+
+> 痛点：admin 想让 agent 看自己 docs/scripts/generated 里的某个文件时，必须手动写完整路径（甚至记不住），跟 markdown 渲染层早就支持的 `<<FILE:>>` clickable 形成不闭环。改造目标：在 chat 输入框打 `@<query>` 唤出 fuzzy 候选，回车插入，进 agent 时自动展开成 `<<FILE:>>` —— 与 `data-jf-file` 跳转面板形成 **「输入引用 ↔ 渲染跳转」** 完整闭环。
+
+### 数据流（关键 invariant）
+
+- **前端输入**：用户在 textarea 里看到的是 `[[FILE:/docs/x.md]]`（人类可读、可手动删除/编辑）
+- **后端落库**：`app/routes/chat.py::api_chat` 在调 `save_message` / `stamp_message` 之前先调 `app.services.prompt.expand_file_mentions(canonical_message)`，把 `[[FILE:/path]]` 全部 rewrite 成 `<<FILE:/path>>`
+- **持久化的对话历史 = agent 看到的内容 = markdown.ts 渲染时识别的内容 = `<<FILE:/path>>`**，三者完全一致，没有任何渠道会看到 `[[FILE:>>` 字面字符串
+- `expand_file_mentions` 是幂等的（第二次调用 no-op）；`stamp_message` 也是 idempotent 的，两者前后顺序都安全
+
+### 文件清单
+
+- `app/services/prompt.py::expand_file_mentions(content)` —— 单一来源的 rewrite。接受 str / multimodal-list 两种 content 形态（与 `stamp_message` 完全对称，只处理 `type=="text"` 的 block）。**未来如果 consumer / 微信 bridge 也想支持 @ 引用，直接在它们的入口 import 同一个函数即可，绝不要复制粘贴正则**。
+- `app/routes/files.py::api_list_file_index(root, include_dirs)` —— 新增 `GET /api/files/index`，BFS 走 `storage.list_dir`（local/S3 兼容），返回扁平 entries 列表。**深度上限 12、条目上限 10000、跳过 `__pycache__/node_modules/.git/venv/...` 和 `.DS_Store` 等垃圾**；点开头 (`startswith('.')`) 一律不进索引，避免 `.cursor/.config` 之类污染候选
+- `frontend/src/utils/recentFiles.ts` —— `localStorage[jf-recent-files]` 容量 30 的 most-recent-first 列表；`pushRecentFile` 在 `fileWorkspaceContext.openFile` 成功打开后调用（含 media/binary 分支），用作 fuzzy 排序的 boost 信号
+- `frontend/src/utils/fuzzyMatch.ts` —— subsequence 评分 + 多档 type bonus（exact 50 / startsWith 30 / contains 20 / path-contains 10）+ recent boost（`max(0, 200 - 7*idx)`）。**空 query 时返回 recents 在前的兜底列表**，让"@ + 立即按方向键"也能选最近用过的文件
+- `frontend/src/pages/Chat/components/MentionPicker.tsx` —— 纯展示组件，下拉位于 `inputWrapper` 上方（`position: absolute; bottom: calc(100% + 6px)`，要求 wrapper `position: relative`）。MAX_CANDIDATES=8，匹配字符高亮用 `highlightMatches` 拆段。**键盘事件不在 picker 里处理**，由 chat 页的 `handleKeyDown` 在 textarea 上拦截，避免"focus 跑到 picker 后键盘 routing 复杂"
+- `frontend/src/pages/Chat/index.tsx` —— 集成点：`mention` state（`{active, triggerStart, query, activeIndex}`）+ `detectMentionTrigger(value, cursor)` 词边界检测 + `handleInputChange` 替换 `setInputValue` + `handleKeyDown` 优先消化 `↑↓/Enter/Tab/Esc`（mention active 时）+ `insertMention(item)` 替换 `@<query>` 为 `[[FILE:/path]] `（带尾随空格）+ `requestAnimationFrame` 把光标精准放到 token 末尾
+- `frontend/src/pages/Chat/chat.module.css` 末尾新增 `.mention*` 系列（picker 浮层 + header + list + item active 高亮 + name 匹配字符 primary 色加粗 + dir hint 右对齐 ellipsis）
+
+### 触发规则（不要破坏）
+
+- `@` 必须**前面是行首 / 空格 / `\n` / `\t`**（避免 email / `obj.@prop` 误触发）—— 在 `detectMentionTrigger` 内做检查
+- query（`@` 与光标之间的文本）含任何空白字符立即关闭 picker（用户开始打下一个词，不再属于 mention 上下文）
+- `handleInputChange` 是**唯一**的检测入口；点击改变光标位置不会重新触发 picker，这是有意为之（避免误触）；用户想用 `@` 必须主动打字
+- 发送消息时 `setMention({active: false, ...})` 必须显式重置，否则 streaming 完成后下一条消息可能继承上一次的 mention 状态
+
+### 性能 / 容量
+
+- 文件索引 lazy-load：第一次 `@` 触发时拉 `/api/files/index`，缓存到 `fileIndex` state；同会话期间不再重复请求。**未来若需要刷新（用户在 FilePanel 新建文件后）**：在 `fileWorkspaceContext` 暴露一个 `bumpFileIndexEpoch` 让 chat 页订阅重拉
+- in-memory fuzzy：典型 admin 用户几百到几千文件，subsequence 算法 O(n*m) 实测每次按键 < 5ms，无需 web worker
+- BFS 上限：10000 条目 / depth 12，对正常项目永远不会触顶；触顶时 `truncated: true` 返回，前端目前未渲染该提示（可后续加）
+
+### onMouseDown vs onClick（picker 选择陷阱）
+
+- MentionPicker 内的候选项用 `onMouseDown(e) { e.preventDefault(); onSelect(...) }` —— **不能用 `onClick`**。原因：click 事件 fire 时 textarea 的 blur 已经触发，textarea 的 `onBlur` 会 setTimeout 关闭 picker（120ms 防抖让 mousedown 优先），但即便不关，焦点丢失也会让 `requestAnimationFrame(focus textareaRef)` 行为不可控。`mousedown.preventDefault()` 直接阻止 textarea blur，整个交互保持在 textarea focus 上下文里
+- textarea blur 必须延迟 120ms 关 picker，**不能立即关**：mousedown → blur → click 的事件顺序中，立即关会让 picker DOM 在 click 之前消失，onSelect 永远不触发
+
+### antd TextArea ref 的特殊取法
+
+- antd v5 `Input.TextArea` 的 ref 是 `TextAreaRef`（`{ resizableTextArea: { textArea: HTMLTextAreaElement }, focus, blur, ... }`），**不是直接拿到 `HTMLTextAreaElement`**。`insertMention` 里要操作 `setSelectionRange`，必须从 `el.resizableTextArea.textArea` 取真实 dom：
+  ```ts
+  ref={(el) => {
+    const inner = (el as unknown as { resizableTextArea?: { textArea: HTMLTextAreaElement } } | null)?.resizableTextArea?.textArea ?? null;
+    textareaRef.current = inner;
+  }}
+  ```
+- 不要 `import { TextAreaRef } from 'antd/es/input/TextArea'`（路径不稳定）；inline cast 更轻
+
+### FileTokenInput（contenteditable 芯片输入框，2026-04-24 升级）
+
+- **为什么换掉 antd TextArea**：`textarea` 是纯文本控件，无法在文本内嵌入可点击/可删除的富文本芯片（chip）。contenteditable div 可以把 `[[FILE:]]` token 渲染成交互式小卡片
+- **文件**：`frontend/src/pages/Chat/components/FileTokenInput.tsx`
+- **DOM 结构**（保持平坦，避免浏览器在 Enter 时插入 `<div>` ）：
+  ```
+  <div contenteditable="true">
+    普通文字
+    <span class="jf-token-chip" data-mention-path="/docs/x.pdf" contenteditable="false">
+      <button class="jf-token-chip-x">×</button>  ← hover 时从宽度 0 展开
+      <span class="jf-token-chip-icon">📄</span>
+      <span class="jf-token-chip-name">x.pdf</span>
+    </span>
+    更多文字
+  </div>
+  ```
+- **序列化**：`serializeDom(root)` 逐节点拼字符串，chip 输出 `[[FILE:/path]]`，BR 输出 `\n`，其他节点忽略
+- **反序列化**（仅外部 value 变化时）：`hydrateFromText(root, value, onDelete)` 用正则把 `[[FILE:...]]` 换成 chip DOM 节点；以 `internalValueRef` 跟踪"自己的 onChange"，避免 re-hydrate 死循环
+- **Backspace 芯片删除**：`getChipBeforeCaret` 检测"光标紧贴 chip 后方"时，拦截 Backspace 整体移除 chip span
+- **× 按钮**：用 `mousedown`（不用 `click`）阻止 focus 丢失；CSS 默认 `width:0`，hover 时展开到 16px
+- **文件夹芯片**：chip 上带 `data-jf-is-dir="true"` / `data-jf-file="/path"`，全局 `[data-jf-file]` 点击委托（fileWorkspaceContext）直接识别并导航文件夹
+- **光标偏移**：`getCaretOffset` 用 `Range.cloneContents` 克隆 root→caret 片段再 serialize，优雅处理 chip 和文本混合；`setCaretOffset` 遍历 childNodes 匹配目标偏移
+- **mention 触发**：检测逻辑与原 `detectMentionTrigger` 完全相同；在组件内部的 `syncToParent` 里运行，通过 `onMentionTrigger(null|{triggerStart,query})` 上报，父组件不再需要在 onChange 里自己检测
+- **键盘路由**：`mentionPickerActive=true` 时 ↑↓/Enter/Tab/Esc 经过 `onMentionNavUp/Down/Confirm/Dismiss` 回调上报给父；Enter（无 Shift）→ `onSend`；Shift+Enter → 手动插入 `<br>`；浏览器自动插入的 `<div>` 被 `flattenBrowserWrappers` 展平
+
+### 文件夹点击导航（2026-04-24）
+
+- **问题**：点击 `<<FILE:/some/folder/>>` 或从 `[[FILE:]]` 中引用了一个目录路径时，`revealInBrowser` 调用 `openFile(path)` → `api.readFile(path)` → 报错
+- **修复**（`stores/fileWorkspaceContext.tsx`）：
+  - `revealInBrowser` 新增 `isDir?: boolean` 第三参数
+  - 全局点击委托读取 `el.getAttribute('data-jf-is-dir')`，并同时 fallback 检查 `path.endsWith('/')`
+  - 命中目录逻辑：`setBrowserPath(dirPath); setFileBrowserOpen(true); return` — 不调 `openFile`
+- **chip 的目录检测**：chip span 上设置 `data-jf-is-dir="true"` + `data-jf-file="/path/"`
+
+### 不要做 / 已否决
+
+- **不在前端做 `[[FILE:>>` → `<<FILE:>>` 的 rewrite**：会让发到 agent 的 message 和 textarea 显示的不一致，且 SSE 重放历史时也会麻烦。统一在后端 `chat.py` 一处做 rewrite，单一真相源
+- **不在 service-chat 接入 @-mention**：consumer agent 的文件视图本来就是 `allowed_docs` 限定子集，UX 会和 admin 不一致；且 consumer 大多在微信里用，textarea 输入比例小。如果以后要加，复用 fuzzyMatch / MentionPicker / `expand_file_mentions` 三件套即可，但 `/api/files/index` 需要新增 consumer 版本（按 `allowed_docs` 过滤）
+- **不主动持久化 fileIndex**：每次 chat 页 mount 重拉一次足够新鲜（cost: 一次轻量 BFS）；持久化反而要处理失效
+
+### 端到端验证
+
+- `python -c "from app.services.prompt import expand_file_mentions; ..."` 用例覆盖：纯文本 / 多模态 list / 无 mention / 幂等场景，全部通过
+- fuzzyMatch JS port 单元测试：`wec` + recent boost 让 wechat_send.py 排第一（249 vs 49）；`rep` → report.pdf 50+19；`docs` → 目录 exact 匹配 74 vs 内容文件 10；空 query 推 recents 1000/999；`nope` → 空数组
+- ReadLints 全部 9 个改动文件：0 errors
+- `npx tsc --noEmit`：除已有的 `react-virtuoso` 缺类型声明（环境问题，不在本次改动范围）外，0 errors
+
+## FilePanel 上传进度（2026-04-25）
+
+> 痛点：选/拖一堆文件或一个 200 文件的文件夹，UI 没任何反馈，用户不知道在跑还是卡了；超大文件夹甚至会让 fetch 静默挂十几秒。
+
+- **`api.ts::uploadFilesWithProgress(path, files, keepStructure, onProgress)`**：用 `XMLHttpRequest` 替代 fetch，挂 `xhr.upload.onprogress` 拿字节级进度（fetch 只有 `ReadableStream` 实验性方案，浏览器兼容性差）。自动按 `MAX_BATCH_BYTES=50MB` / `MAX_BATCH_FILES=50` 切批，避免单 request 体积过大触发后端 body-size 限制；`cumulativeLoaded/cumulativeTotal` 跨批次累加，UI 看到的是「整体进度」而不是「当前批次进度」。401 / 网络错误 / 业务失败都映射到 reject 并把后端 `detail` 透出来。
+- **`UploadProgressEvent` 字段**：`{loaded, total, batchIndex, batchCount, cumulativeLoaded, cumulativeTotal, currentFileName, fileCount}` —— `currentFileName` 是当前批次第一个文件的 heuristic（onprogress 只能拿到 XHR 的整体进度，没法对应到具体文件）。
+- **`FilePanel.tsx::runUploadTo(targetDir, files, keepStructure)`** 公共 helper 收口三个旧调用点：button 选择 / 面板根拖拽 / 文件夹行拖拽（`onItemDrop`）。原本三处各自 `await api.uploadFiles + message.success + loadFiles` 重复代码，现在统一走 runUploadTo。
+- **rAF 节流 onProgress 回调**：localhost 上 xhr.upload.onprogress 一秒能触发几十上百次，直接 setState 会让 React 反复 re-render 整个 FilePanel。改用 `pendingTick` + `requestAnimationFrame(flushTick)` 模式，每帧最多 setState 一次。
+- **Sticky 进度横幅** 放在 toolbar 下方、剪贴板提示之上、文件列表之上：旋转 LoadingOutlined + `上传中…/上传文件夹中…` + 文件总数 + 多批时 `第 N/M 批` + `已传字节 / 总字节` + antd `Progress` 条（品牌粉色 `--jf-primary`）+ 当前文件名（截断 + title 提示）。完成后 setTimeout 400ms 移除，让用户看到 100% 瞬间。
+- **不在切批之间 `loadFiles` 刷新**：只在最终成功后刷一次，避免列表抖动；失败时同样不刷新（保持错误前状态）。
+- **Future**：如果将来要做「单文件级进度」（哪个文件正在传），需要把每个文件改成独立 XHR 请求并自己合并进度，权衡是请求数量上去了；当前批量 multipart 是后端友好的方案。
+
+## 文件夹地址点击导航修复（2026-04-25）
+
+- `fileWorkspaceContext.tsx::revealInBrowser(path, anchor?, isDir?)` 不能只依赖 `data-jf-is-dir` 或尾斜杠判断目录。原因：`@文件夹` 输入 chip 会带 `data-jf-is-dir="true"`，但聊天中 agent/markdown 渲染出的普通 `<<FILE:/docs>>` / `<<FILE:/generated/images>>` pill 没有文件系统元数据，而且多数 agent 不会给目录路径补尾斜杠，结果会继续走 `openFile('/docs')` → `api.readFile` → 报「打开文件失败」。
+- 当前修复：在 explicit flag / trailing slash 之外，`revealInBrowser` 会通过**父目录元数据**判断：`api.listFiles(parentDir(path))` 后找到同名 `FileItem`，只有 `item.is_dir === true` 才 `setBrowserPath(path)` + `setFileBrowserOpen(true)` + `setPendingAnchor(null)` 并 return；确认是文件或找不到时才 fall through 到 `openFile(path)`。
+- **不要用 `api.listFiles(path)` 直接探测目录**：某些后端/路径组合对「文件路径」可能返回空列表而不是抛错，前端会误判为“空文件夹”，导致 `<<FILE:/docs/a.md>>` 打不开文件、FilePanel 显示空目录。目录探测必须以父目录 listing 的 `is_dir` 为准。
+- 取舍：普通文件点击会多一次 `GET /api/files?path=<parent>` 元数据请求，再打开文件；但不会弹 toast，且父目录列表通常很小。若未来 FilePanel/markdown 渲染能直接携带 `data-jf-is-dir`，可跳过这个探测。
+
+## 移动端 safe-area + FilePanel↔Preview 互切（2026-04-27）
+
+> 痛点：(1) iOS Safari / Android Chrome 的地址栏和底部工具栏会**盖住页面底部**（输入框+功能按钮被截掉一截），用户截图反馈「对话框和功能选择栏被浏览器自身按钮遮住」。(2) 移动端点开文件后 FilePanel drawer（`zIndex: 1045`）仍盖在 FilePreview drawer（`zIndex: 1040`）上方，用户得**手动关掉**文件面板才能看到预览；关掉预览回来又得重开面板。
+
+### 修复 1：动态视口 + safe-area 内边距
+
+- `frontend/src/styles/global.css` 窄屏块新增：
+  ```css
+  html, body, #root {
+    height: 100vh;        /* 老浏览器 fallback */
+    height: 100dvh;       /* iOS Safari / Android Chrome 响应 URL bar 收缩 */
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  ```
+  `100dvh` 不是 `100vh` —— 后者是「初始视口高度」，地址栏收起后页面反而被下方留白；`dvh` 会随浏览器 UI 动态调整，输入栏永远挂在可见区域底部。
+- `pages/Chat/chat.module.css` 窄屏块：
+  - `.chatHeader` `padding` 改为 `env(safe-area-inset-top, 0px) 12px 0 calc(52px + env(safe-area-inset-left, 0px))`，`height` 改为 `calc(48px + env(safe-area-inset-top, 0px))` —— 刘海屏顶部不遮住 chatTitle，且汉堡菜单也不会被压住（菜单按钮自身的 top 已 offset）。
+  - `.inputArea` `padding` 四向全部用 `env(safe-area-inset-*, 0px)` —— iPhone 小黑条（home indicator）区域不再占用输入框点击面积。
+- `service-chat/serviceChat.module.css` 窄屏块：`.header` 和 `.inputArea` 同样用 `env(safe-area-inset-*)`。
+- `layouts/AppLayout.tsx` 汉堡按钮：`top`/`left` 改为 `calc(6px + env(safe-area-inset-*, 0px))`。
+- **前提：`index.html` / `service-chat.html` 必须有 `viewport-fit=cover`**（否则 env 都返回 0）。已在历史 commit 里加过，别回滚。
+
+### 修复 2：FilePanel ↔ FilePreview 互切（仅移动端）
+
+- 现状：两个组件都是独立的全屏 Drawer，z-index 叠在一起，用户体验割裂。
+- 方案：在 `AppLayout.tsx` 加一个 effect 监听 `editingFile` 变化，**只在 isMobile=true 时启用**：
+  - `prevEditingRef: null → path`（打开文件）+ `fileBrowserOpen=true` → `setFileBrowserOpen(false)` 并用 `reopenPanelRef.current=true` 打标记；
+  - `prevEditingRef: path → null`（关闭预览）+ `reopenPanelRef.current=true` → 自动 `setFileBrowserOpen(true)` 并清标记。
+- 桌面端：effect 在 `!isMobile` 分支 early return，行为完全不变（两个面板同屏 split 显示）。
+- 关键点：
+  1. `prevEditingRef.current = editingFile` 在 effect 开头立刻更新，避免同一次转换被重复触发；
+  2. deps 里必须含 `fileBrowserOpen` —— 否则用户在 `<<FILE:/folder/>>` 链接（`revealInBrowser` 先 `setFileBrowserOpen(true)` 再决定是否 `openFile`）场景下会漏触发；
+  3. `reopenPanelRef` 用 `useRef` 不用 state —— 不需要触发 re-render，只是个跨调用的持久标记；
+  4. 从 desktop → mobile 切屏时，effect 会把 reopenPanelRef 重置为 false，避免误触发。
+- 不改 FilePanel/FilePreview 内部 —— 逻辑集中在 AppLayout 这个唯一同时持有两个 drawer 的地方，避免两个组件互相引用。
+
+### 不要做的事
+
+- **不要把 FilePreview drawer 的 zIndex 改成比 FilePanel 高** 就想靠盖住解决 —— 用户还是看到两层 drawer 叠加的动效，下层 drawer 的遮罩会让上层输入失焦，体验更差。
+- **不要用 `100svh`**（small viewport height）：它是地址栏**展开**状态的高度，输入框会悬空在屏幕中间，桌子上留白。要的是动态响应，用 `dvh`。
+- **不要动 `position: fixed` 布局**：桌面端 FilePanel 本来是 inline 侧栏（`position: relative`），只在 isMobile 时才是 Drawer。强制 fixed 会破坏桌面 split layout。
+
+## 黄金 ETF 定时分析任务 Demo 设想（2026-04-28）
+
+- 用户想在另一个 demo page 做一个“定时分析任务/黄金 ETF 智能交易系统”演示，样式需贴近现有定时任务页面，而不是微信双手机聊天组件。
+- 演示重点：6 个定时任务时间轴（09:00 数据采集、14:00 决策前采集、14:10 新闻扫描、14:25 预测推送、15:30 验证、周日 22:00 周度演化）、4 因子决策打分、风控仓位、预测-验证-演化闭环、两条微信推送样例。
+- 视觉方向：深色海洋主题、sea token 风格、玻璃卡片、任务时间轴、因子权重条、手机推送卡片、状态徽标；可用单个 HTML 原型先验证信息层级。
+
+## 个性规则历史与 service Markdown 表格（2026-04-29）
+
+- 个性规则历史复用 `PromptVersion` 结构，后端入口在 `app/services/prompt.py` 的 profile versions 区域，路由在 `app/routes/settings_routes.py` 的 `/api/user-profile/versions/*`。若继续扩展历史记录元数据，应保持和 system prompt versions 的接口形状一致。
+- service-chat 直接复用 admin 的 `StreamingMessage` / `chat.module.css`，因此 service 根节点必须提供 `--jf-border`、`--jf-bg-raised`、`--jf-text` 等 `chat.module.css` 依赖的 token；否则 Markdown 表格边框等样式会因 CSS 变量缺失而失效。
+
+---
+> Source: [LiUshin/JellyfishBot](https://github.com/LiUshin/JellyfishBot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-01 -->
