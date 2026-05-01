@@ -1,0 +1,9 @@
+{
+  "name": "sipyourdrink-ltd--bernstein",
+  "displayName": "bernstein",
+  "description": "Deterministic orchestrator for 30+ CLI AI coding agents. Git worktree isolation, HMAC audit trail, MCP server mode.",
+  "version": "1.0.0",
+  "author": "sipyourdrink-ltd",
+  "homepage": "https://github.com/sipyourdrink-ltd/bernstein",
+  "skills": []
+}
