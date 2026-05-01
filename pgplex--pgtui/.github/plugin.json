@@ -1,0 +1,9 @@
+{
+  "name": "pgplex--pgtui",
+  "displayName": "pgtui",
+  "description": "A simple terminal UI for PostgreSQL, written in Go with Bubble Tea",
+  "version": "1.0.0",
+  "author": "pgplex",
+  "homepage": "https://github.com/pgplex/pgtui",
+  "skills": []
+}
