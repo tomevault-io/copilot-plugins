@@ -1,0 +1,9 @@
+{
+  "name": "the-perfect-developer--the-perfect-opencode",
+  "displayName": "the-perfect-opencode",
+  "description": "A curated collection of agents, skills, and commands for OpenCode \u2014 specialized AI agents, 50+ domain skills, workflow commands, and a one-liner installer for AI-powered development.",
+  "version": "1.0.0",
+  "author": "the-perfect-developer",
+  "homepage": "https://github.com/the-perfect-developer/the-perfect-opencode",
+  "skills": []
+}
