@@ -4,7 +4,7 @@
   "repo": "Maestro",
   "description": "Agent Orchestration Command Center",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RunMaestro/Maestro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T20:16:31Z"
+  "distributed_at": "2026-05-01T14:08:32Z"
 }
