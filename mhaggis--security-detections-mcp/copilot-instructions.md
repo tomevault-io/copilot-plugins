@@ -1,122 +1,43 @@
-## linux-testing-workflow
+## pip-install
 
-> Linux detection testing workflow and lessons learned
+> Any `pip install` command MUST include one of these options:
 
+# Pip Install Requirements
 
-# Linux Detection Testing Workflow
+## ALWAYS use force or direct PyPI URL
 
-## Key Learnings
-
-### 1. Parent Process Relationships Are Hard to Simulate
-
-When testing detections that require specific parent-child process relationships:
-
-**Challenge**: Sysmon captures the actual binary path, not script names
-- Running `/tmp/telnetd` (a bash script) shows ParentImage: `/usr/bin/bash`
-- `exec -a telnetd bash` shows CommandLine with `telnetd` but Image still `/usr/bin/bash`
-
-**Solutions**:
-1. **Use the actual service**: If possible, configure the real daemon (e.g., xinetd → telnetd)
-2. **Compile a binary**: Create a C program named exactly as needed
-3. **Accept partial match**: Generate command-line telemetry even if parent doesn't match exactly
-
-### 2. Patched vs Vulnerable Behavior
-
-Modern packages are patched - they won't reproduce vulnerable behavior:
-- Installed `inetutils-telnetd` is patched for CVE-2026-24061
-- It won't pass `-f root` to login even with USER environment variable
-
-**Solutions**:
-1. Create synthetic test data that matches expected pattern
-2. Use attack_data repo pre-built datasets
-3. Document that live testing requires vulnerable binary
-
-### 3. Sysmon for Linux Data Flow
-
-The data flow depends on your SIEM platform:
-
-**Splunk**:
-```
-Linux Host → Sysmon → journald → Splunk Universal Forwarder → Splunk
-```
-- Data lands in `unix` index by default, sourcetype: `sysmon:linux`
-
-**Sentinel**:
-```
-Linux Host → Sysmon → journald → Azure Monitor Agent (AMA) → Log Analytics Workspace
-```
-- Data lands in `Syslog` table or custom table via DCR
-
-**Elastic**:
-```
-Linux Host → Sysmon → journald → Elastic Agent / Filebeat → Elasticsearch
-```
-- Data lands in `logs-system.syslog-*` or custom index
-
-**Common**:
-- Process creation: EventCode=1 / EventID=1
-- Ingestion delay: 1-3 minutes typical (all platforms)
-
-### 4. Testing Checklist
-
-Before claiming validation:
-- [ ] Data exists in target SIEM (check index/table/data stream)
-- [ ] Detection query returns results
-- [ ] Field values match expected pattern
-- [ ] Parent-child relationship correct (if required)
-- [ ] Severity/risk score appropriate
-
-## Linux Attack Range Access
+Any `pip install` command MUST include one of these options:
 
 ```bash
-# SSH to Linux target
-ssh -i ~/.ssh/id_ar ubuntu@<IP>
+# Option 1: Force reinstall
+pip install --force-reinstall <package>
 
-# Check Sysmon running
-ps aux | grep sysmon
+# Option 2: Direct PyPI URL
+pip install --index-url https://pypi.org/simple/ <package>
 
-# View recent Sysmon events
-sudo journalctl -u sysmon --since "5 minutes ago" | head -50
+# Option 3: Both (most reliable)
+pip install --force-reinstall --index-url https://pypi.org/simple/ <package>
 
-# Check specific EventCode
-sudo journalctl -u sysmon --since "5 minutes ago" | grep "EventID>1<"
+# Example with requirements
+pip install --force-reinstall --index-url https://pypi.org/simple/ -r requirements.txt
 ```
 
-## Data Location by SIEM
+## Why?
 
-### Splunk Sourcetype Mappings
-| Source | Sourcetype | Index |
-|--------|------------|-------|
-| Sysmon Linux | sysmon:linux | unix |
-| Linux Audit | linux:audit | unix |
-| Windows Sysmon | XmlWinEventLog:Microsoft-Windows-Sysmon/Operational | win |
+Network/proxy restrictions may interfere with default pip behavior. Using explicit PyPI URL ensures direct connection.
 
-### Sentinel Table Mappings
-| Source | Table |
-|--------|-------|
-| Sysmon Linux | Syslog (or SysmonEvent via custom DCR) |
-| Linux Audit | CommonSecurityLog or Syslog |
-| Windows (MDE) | DeviceProcessEvents |
+## Common Commands
 
-### Elastic Index Mappings
-| Source | Index Pattern |
-|--------|---------------|
-| Sysmon Linux | logs-system.syslog-* |
-| Linux Audit | logs-system.auth-* |
-| Windows (Endpoint Security) | logs-endpoint.events.process-* |
+```bash
+# Install package
+pip install --force-reinstall --index-url https://pypi.org/simple/ requests
 
-## Story Alignment
+# Upgrade package
+pip install --upgrade --force-reinstall --index-url https://pypi.org/simple/ contentctl
 
-When creating complementary detections for a PR:
-1. Check the existing story name in the PR
-2. Either use the SAME story or create a new one and reference both
-3. Don't create duplicate stories with different names
-
-Example issue found:
-- PR story: "Telnetd CVE-2026-24061"  
-- Our story: "CVE-2026-24061 Telnetd Authentication Bypass"
-
-Fix: Align story names or update detections to reference both.
+# Install from requirements
+pip install --force-reinstall --index-url https://pypi.org/simple/ -r requirements.txt
+```
 
 ---
 > Source: [MHaggis/Security-Detections-MCP](https://github.com/MHaggis/Security-Detections-MCP) — distributed by [TomeVault](https://tomevault.io).
