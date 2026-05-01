@@ -1,22 +1,51 @@
-## tsdown-dist-layout-in-tests
+## type-extraction-from-contract
 
-> Use tsdown dist root paths in TS test mappings
+> Extract TypeScript types from contract.d.ts and helpers
 
 
-# tsdown dist layout for test path mappings
+# Type Extraction from Contract
 
-When packages are built with `tsdown`, declaration outputs are emitted in the package `dist/` root as `.d.mts` files (for example `dist/types.d.mts`), not under `dist/exports/*.d.ts`.
+## Pattern
 
-## Rules
+`CodecTypes` and `OperationTypes` are carried via **TypeMaps** (type-only, not runtime keys).
 
-- In temporary `tsconfig` fixtures used by tests, map package paths to `dist/*.d.mts` or `dist/*`.
-- Do not assume `dist/exports/` exists unless the package explicitly emits that structure.
-- Prefer wildcard mappings (`dist/*`) for subpath imports that may include both `.mjs` and `.d.mts` outputs.
+- **Emitted workflow**: `contract.d.ts` exports `Contract` and `TypeMaps` separately. Use `CodecTypesOf<TypeMaps>` and `OperationTypesOf<TypeMaps>` for explicit threading.
+- **No-emit workflow**: `defineContract().build()` returns `ContractWithTypeMaps<Contract, TypeMaps>`. Use `ExtractCodecTypes` / `ExtractOperationTypes` which extract from the phantom key.
 
-## Why
+```typescript
+// Emitted: import TypeMaps, use CodecTypesOf<TypeMaps>
+import type { Contract, TypeMaps } from './contract';
+type CodecTypes = CodecTypesOf<TypeMaps>;
 
-- Prevents module resolution failures after tsup -> tsdown migrations.
-- Keeps integration tests aligned with the actual package export artifact layout.
+// No-emit: ExtractCodecTypes works with ContractWithTypeMaps
+type CodecTypes = ExtractCodecTypes<typeof contract>;
+```
+
+## Helper Types
+
+- `CodecTypesOf<TTypeMaps>`: Extracts `codecTypes` from TypeMaps
+- `OperationTypesOf<TTypeMaps>`: Extracts `operationTypes` from TypeMaps
+- `ExtractTypeMapsFromContract<T>`: Extracts TypeMaps from contract (`TypeMapsPhantomKey` → extract, or `never` for emitted)
+- `ExtractCodecTypes<T>`: Extracts from ContractWithTypeMaps (no-emit), fallback `Record<string, never>`
+- `ExtractOperationTypes<T>`: Same for operation types
+
+## Lane APIs with Explicit TypeMaps
+
+`schema`, `sql`, and `orm` accept optional `TTypeMaps` (defaults to `ExtractTypeMapsFromContract<TContract>`):
+
+```typescript
+// No-emit: infers from ContractWithTypeMaps
+const schemaHandle = schema<Contract>(context);
+
+// Emitted: pass TypeMaps explicitly
+const schemaHandle = schema<Contract, TypeMaps>(context);
+```
+
+## Important
+
+- Codec/operation type maps do **not** exist at runtime on `contract.mappings`
+- Runtime contract values include only structural mappings (modelToTable, tableToModel, fieldToColumn, columnToField)
+- Generated `Contract` type (emitted) has no phantom keys; TypeMaps is a separate export
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
