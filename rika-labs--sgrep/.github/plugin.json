@@ -1,0 +1,9 @@
+{
+  "name": "rika-labs--sgrep",
+  "displayName": "sgrep",
+  "description": "Local lightning-fast semantic code search built for agents",
+  "version": "1.0.0",
+  "author": "Rika-Labs",
+  "homepage": "https://github.com/Rika-Labs/sgrep",
+  "skills": []
+}
