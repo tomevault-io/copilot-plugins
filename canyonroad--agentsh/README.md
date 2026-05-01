@@ -7,11 +7,11 @@ Execution-Layer Security (ELS) for AI agents — policy-enforced shell with audi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [canyonroad/agentsh](https://github.com/canyonroad/agentsh).
+Original source: `CLAUDE.md` in [canyonroad/agentsh](https://github.com/canyonroad/agentsh).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
