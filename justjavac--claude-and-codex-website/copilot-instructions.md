@@ -1,0 +1,55 @@
+## claude-and-codex-website
+
+> > 静态 Markdown 项目，无需构建/测试
+
+# AGENTS.md
+
+> 静态 Markdown 项目，无需构建/测试
+
+## README.md 格式
+
+### 包月付费
+```markdown
+#### [网站名](链接)
+
+- **支持模型**：Claude Code、Codex、Gemini
+- **价格**：¥49/月
+- **购买方式**：支付宝
+- **注册优惠**：暂无
+```
+
+### 按量付费
+```markdown
+| 名称 | 支持模型 | 购买方式 | 注册优惠 |
+|------|----------|----------|----------|
+| [网站名](链接) | Claude Code、Codex、Gemini | 支付宝 | 暂无 |
+```
+
+## 规则
+
+- **分类**：只支持包月 → 包月付费；只支持按量 → 按量付费；都支持 → 分别列入
+- **排序**：按网站名称字母顺序（A-Z）
+- **模型格式**：`Claude Code、Codex、Gemini`（用顿号 `、` 分隔）
+- **价格格式**：人民币 `¥`（如 ¥49/月），美元 `$`（如 $6.30/月）
+
+## 添加网站流程
+
+1. 确定分类（包月/按量）
+2. 按字母顺序找到正确位置
+3. 按格式填写信息
+4. 验证排序正确
+
+## 操作
+
+- 使用 `edit` 工具精确替换
+- 修改后读取文件确认格式正确
+
+## 注意
+
+- 不修改已有网站信息
+- 不删除任何网站
+- 保持中立，不推荐特定网站
+
+---
+> Source: [justjavac/claude-and-codex-website](https://github.com/justjavac/claude-and-codex-website) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-26 -->
