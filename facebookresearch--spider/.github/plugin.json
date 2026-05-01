@@ -1,0 +1,9 @@
+{
+  "name": "facebookresearch--spider",
+  "displayName": "spider",
+  "description": "A general physic-based retargeting framework.",
+  "version": "1.0.0",
+  "author": "facebookresearch",
+  "homepage": "https://github.com/facebookresearch/spider",
+  "skills": []
+}
