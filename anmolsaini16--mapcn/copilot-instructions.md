@@ -1,98 +1,57 @@
-## mapcn
+## rules
 
-> **mapcn** is a free, open-source library of ready-to-use, customizable map components for React. Built on [MapLibre GL](https://maplibre.org/), styled with [Tailwind CSS](https://tailwindcss.com/), works seamlessly with [shadcn/ui](https://ui.shadcn.com/).
+> You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
-# AGENTS.md
 
-## Project Overview
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
-**mapcn** is a free, open-source library of ready-to-use, customizable map components for React. Built on [MapLibre GL](https://maplibre.org/), styled with [Tailwind CSS](https://tailwindcss.com/), works seamlessly with [shadcn/ui](https://ui.shadcn.com/).
+Code Style and Structure
 
-The repo serves dual purpose: the core map component registry (`src/registry/`) and the documentation site at [mapcn.dev](https://mapcn.dev).
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported component, subcomponents, helpers, static content, types.
 
-## Tech Stack
+Naming Conventions
 
-- **Framework**: Next.js 16 (App Router, React 19)
-- **Language**: TypeScript (strict)
-- **Styling**: Tailwind CSS v4, shadcn/ui, Radix UI
-- **Map Engine**: MapLibre GL JS v5
-- **Fonts**: Geist (sans) + Geist Mono
-- **Code Highlighting**: Shiki (dual light/dark theme)
-- **Registry**: shadcn CLI for building distributable components
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Favor named exports for components.
 
-## Project Structure
+TypeScript Usage
 
-```
-src/
-├── app/
-│   ├── layout.tsx                    # Root layout (fonts, metadata, providers)
-│   ├── (main)/                       # Main layout group (header + content)
-│   │   ├── layout.tsx                # Header wrapper
-│   │   ├── (home)/                   # Landing page
-│   │   │   └── _components/          # Homepage examples grid
-│   │   ├── docs/                     # Documentation pages
-│   │   │   └── _components/          # Docs layout, sidebar, TOC, code blocks
-│   │   └── blocks/                   # Full-page block demos
-│   └── (view)/                       # Standalone block viewer
-├── components/                       # Shared app components (header, footer, logo, nav)
-│   └── ui/                           # shadcn/ui primitives
-├── registry/                         # Core map components (the library itself)
-│   ├── map.tsx                       # Main map component + all sub-components
-│   └── blocks/                       # Full-page block examples
-├── lib/                              # Utilities, navigation config, helpers
-└── styles/
-    └── globals.css                   # Theme tokens, animations, base styles
-```
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use maps instead.
+- Use functional components with TypeScript interfaces.
 
-## Key Conventions
+Syntax and Formatting
 
-### Components
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
 
-- Use functional components with named exports
-- Prefer React Server Components; use `"use client"` only when Web APIs are needed
-- Structure files: exported component → subcomponents → helpers → static content → types
-- Use `cn()` from `@/lib/utils` for conditional class merging
+UI and Styling
 
-### Styling
+- Use Shadcn UI, Radix, and Tailwind for components and styling.
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.
 
-- Tailwind utility classes only — no CSS modules, no styled-components
-- Mobile-first responsive design
-- Theme tokens defined as CSS custom properties in `globals.css` (oklch color space)
-- No hardcoded colors — always use semantic tokens (`foreground`, `muted-foreground`, `border`, etc.)
+Performance Optimization
 
-### Registry (`src/registry/`)
+- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+- Wrap client components in Suspense with fallback.
+- Use dynamic loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
 
-- `map.tsx` is the single-file component library containing Map, Marker, Popup, Route, Controls, etc.
-- Blocks live in `src/registry/blocks/` — each block is a self-contained page component
-- Registry is built via `npm run registry:build` using the shadcn CLI
+Key Conventions
 
-### Naming
+- Use 'nuqs' for URL search parameter state management.
+- Optimize Web Vitals (LCP, CLS, FID).
+- Limit 'use client':
+  - Favor server components and Next.js SSR.
+  - Use only for Web API access in small components.
+  - Avoid for data fetching or state management.
 
-- Directories: lowercase with dashes (`docs-sidebar`, `block-preview`)
-- Components: PascalCase exports (`DocsLayout`, `PageHeader`)
-- Files: kebab-case (`command-search.tsx`, `page-header.tsx`)
-
-### Navigation
-
-- All site navigation is centralized in `src/lib/site-navigation.ts`
-- Docs sidebar nav uses `docsNavigation`, command search uses `siteNavigation`
-
-## Design System
-
-- Color palette is monochrome (grayscale oklch)
-- Radius: `0.625rem` base with computed variants
-- Animations: `fade-up`, `fade-in`, `scale-in` with staggered delays (100ms intervals)
-- Header: sticky, backdrop-blur, gradient bottom border
-- Footer: gradient top border matching header
-
-## Commands
-
-```bash
-npm run dev              # Start dev server
-npm run build            # Production build
-npm run lint             # ESLint
-npm run registry:build   # Build distributable registry to public/r/
-```
+Follow Next.js docs for Data Fetching, Rendering, and Routing.
 
 ---
 > Source: [AnmolSaini16/mapcn](https://github.com/AnmolSaini16/mapcn) — distributed by [TomeVault](https://tomevault.io).
