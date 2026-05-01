@@ -7,11 +7,11 @@ Smart local file search app that understands your files
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Hamza5/file-brain](https://github.com/Hamza5/file-brain).
+Original source: `CLAUDE.md` in [Hamza5/file-brain](https://github.com/Hamza5/file-brain).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
