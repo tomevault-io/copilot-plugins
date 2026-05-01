@@ -1,8 +1,8 @@
 {
-  "name": "MUX0",
+  "name": "Mux0",
   "owner": "10xChengTu",
-  "repo": "MUX0",
-  "description": "",
+  "repo": "Mux0",
+  "description": "A native macOS terminal built on libghostty. Workspaces, tabs, and split panes for your repos \u2014 with live status for every Claude Code, OpenCode, and Codex session you run.",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/10xChengTu/MUX0",
+  "source_url": "https://github.com/10xChengTu/Mux0",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T01:47:00Z"
+  "distributed_at": "2026-05-01T05:30:12Z"
 }
