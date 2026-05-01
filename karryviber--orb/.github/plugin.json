@@ -1,0 +1,9 @@
+{
+  "name": "karryviber--orb",
+  "displayName": "Orb",
+  "description": "Self-evolving AI agent framework \u2014 wraps Claude Code CLI with persistent memory, multi-profile isolation, and messaging platform integration",
+  "version": "1.0.0",
+  "author": "KarryViber",
+  "homepage": "https://github.com/KarryViber/Orb",
+  "skills": []
+}
