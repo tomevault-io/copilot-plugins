@@ -4,7 +4,7 @@
   "repo": "agentsys",
   "description": "AI writes code. This automates everything else \u00b7 19 plugins, 47 agents, and 40 skills \u00b7 for Claude Code, OpenCode, Codex, Cursor, Kiro.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agent-sh/agentsys",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T00:41:54Z"
+  "distributed_at": "2026-05-01T05:58:24Z"
 }
