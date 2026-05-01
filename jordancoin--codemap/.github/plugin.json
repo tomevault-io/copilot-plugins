@@ -1,0 +1,9 @@
+{
+  "name": "jordancoin--codemap",
+  "displayName": "codemap",
+  "description": "a project brain for your AI. Give LLMs instant architectural context without burning tokens",
+  "version": "1.0.0",
+  "author": "JordanCoin",
+  "homepage": "https://github.com/JordanCoin/codemap",
+  "skills": []
+}
