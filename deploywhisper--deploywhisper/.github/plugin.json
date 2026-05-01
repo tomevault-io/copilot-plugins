@@ -1,0 +1,9 @@
+{
+  "name": "deploywhisper--deploywhisper",
+  "displayName": "deploywhisper",
+  "description": "An AI powred open-source pre-deployment risk intelligence platform for infrastructure changes.",
+  "version": "1.0.0",
+  "author": "deploywhisper",
+  "homepage": "https://github.com/deploywhisper/deploywhisper",
+  "skills": []
+}
