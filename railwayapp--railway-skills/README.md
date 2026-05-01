@@ -7,11 +7,11 @@ Agent skills for interacting with Railway
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [railwayapp/railway-skills](https://github.com/railwayapp/railway-skills).
+Original source: `CLAUDE.md` in [railwayapp/railway-skills](https://github.com/railwayapp/railway-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
