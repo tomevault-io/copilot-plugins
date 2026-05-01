@@ -1,0 +1,9 @@
+{
+  "name": "quantsquirrel--claude-synod-debate",
+  "displayName": "claude-synod-debate",
+  "description": "Multi-agent deliberation system for Claude Code - 3-vendor heterogeneous ensemble (Claude + Gemini + OpenAI)",
+  "version": "1.0.0",
+  "author": "quantsquirrel",
+  "homepage": "https://github.com/quantsquirrel/claude-synod-debate",
+  "skills": []
+}
