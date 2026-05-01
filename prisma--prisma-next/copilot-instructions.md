@@ -1,53 +1,205 @@
-## git-staging
+## import-validation
 
-> Git commit best practices - avoid git add -A, stage files explicitly
+> Import validation and package layering rules
 
-# Git Commit Best Practices
 
-## Never Use `git add -A` or `git add .`
+# Import Validation
 
-**CRITICAL**: Do not use `git add -A`, `git add .`, or `git add --all` when staging changes. These commands stage all changes including unrelated or untracked files.
+## Overview
 
-## Correct Approach
+The repository uses a domain/layer/plane package layering architecture with unidirectional dependencies enforced by Dependency Cruiser. The import validation uses data-driven configuration from `architecture.config.json` to validate that packages follow dependency rules.
 
-Always stage files explicitly:
+## Domain/Layer/Plane Structure
 
-```bash
-# Stage specific files
-git add path/to/file1.ts path/to/file2.ts
+Packages are organized by:
+- **Domains**: framework (target-agnostic) and target families (sql, document, etc.)
+- **Layers**: core → authoring → targets → lanes → runtime → adapters (dependency direction)
+- **Planes**: migration (authoring, tooling, targets), runtime (lanes, runtime, adapters), and shared — cross‑plane code and prebuilt artifacts safe for both
 
-# Stage modified files only (doesn't add untracked files)
-git add -u
+Dependencies flow inward (toward core) within a domain:
 
-# Stage files matching a pattern (be specific)
-git add packages/1-framework/1-core/*/package.json
+```
+core → authoring → targets → lanes → runtime → adapters
 ```
 
-## Never Amend Pushed Commits
+## Import Validation Configuration
 
-Do not use `git commit --amend` on commits that have already been pushed to the remote. This rewrites history and causes problems for anyone else working with the branch.
+Dependency Cruiser (`dependency-cruiser.config.mjs`) uses data-driven configuration from `architecture.config.json`:
 
-Instead, create a new commit with the fix.
+1. **Package Configs**: Maps package glob patterns to domain/layer/plane
+   ```json
+   {
+     "glob": "packages/framework/core-plan/**",
+     "domain": "framework",
+     "layer": "core",
+     "plane": "shared"
+   }
+   ```
 
-## Best Practices
+2. **Layer Order**: Defines dependency direction within domains
+   ```json
+   {
+     "layerOrder": {
+       "framework": ["core", "authoring", "tooling", "runtime-core"],
+       "sql": ["core", "authoring", "targets", "lanes", "runtime", "adapters"]
+     }
+   }
+   ```
 
-1. **Review before staging**: Run `git status` to see what will be staged
-2. **Stage explicitly**: List the specific files or use `-u` for modified files only
-3. **Verify before committing**: Run `git diff --cached` to review staged changes
-4. **Keep commits focused**: Each commit should contain related changes only
-5. **Don't amend pushed commits**: Only amend commits that haven't been pushed yet
+3. **Rules**: Defines allowed/denied dependency patterns
+   ```json
+   {
+     "rules": {
+       "sameLayer": "allow",
+       "downward": "allow",
+       "upward": "deny",
+       "crossDomain": "denyExceptFramework",
+       "migrationToRuntime": "deny",
+       "runtimeToMigration": "allowArtifactsOnly"
+     }
+   }
+   ```
 
-## Shell-safe commit messages
+4. **Plane Rules**: Declarative plane import constraints with exceptions
+   ```json
+   {
+     "planeRules": {
+       "shared": {
+         "allow": ["shared"],
+         "forbid": ["migration", "runtime"],
+         "exceptions": []
+       },
+       "migration": {
+         "allow": ["shared", "migration"],
+         "forbid": ["runtime"],
+         "exceptions": []
+       },
+       "runtime": {
+         "allow": ["shared", "runtime"],
+         "forbid": ["migration"],
+         "exceptions": []
+       }
+     }
+   }
+   ```
 
-When using `git commit -m`, avoid shell interpolation pitfalls:
-- Prefer **single quotes** around `-m` message strings.
-- Don’t use backticks in commit messages (they can trigger command substitution in some shells).
+## Rules
 
-A good commit:
+### Same-Layer Imports
 
-- Represents one logical step (a coherent unit of change)
-- Explains intent ("why"), not just mechanics ("what")
-- Is reviewable on its own (small diff, focused scope)
+Packages in the same layer can import from each other. For example, `orm-lane` can import from `sql-relational-core` (both are in the `lanes` layer).
+
+**✅ CORRECT: Same-layer imports**
+```typescript
+// packages/sql/lanes/orm-lane/src/orm-builder.ts
+import { schema } from '@prisma-next/sql-relational-core/schema';
+```
+
+### Cross-Layer Imports
+
+Packages can only import from inner layers (layers closer to core). Outer layers cannot import from inner layers.
+
+**✅ CORRECT: Import from inner layer**
+```typescript
+// packages/sql/lanes/orm-lane/src/orm-builder.ts (lanes layer)
+import { planInvalid } from '@prisma-next/plan'; // core layer - allowed
+```
+
+**❌ WRONG: Import from outer layer**
+```typescript
+// packages/framework/core-plan/src/plan.ts (core layer)
+import { sql } from '@prisma-next/sql-lane'; // lanes layer - NOT allowed
+```
+
+### Plane Rules and Exceptions
+
+Plane import constraints are defined declaratively in `architecture.config.json` under `planeRules`. Each plane specifies:
+- `allow`: List of planes that can be imported from
+- `forbid`: List of planes that cannot be imported from
+- `exceptions`: Array of glob pattern exceptions with `from`, `to`, and `reason` fields
+
+**Adding Plane Exceptions**:
+
+When a package needs to temporarily import across plane boundaries (e.g., during refactoring), add an exception to the appropriate plane rule in `architecture.config.json`:
+
+```json
+{
+  "planeRules": {
+    "runtime": {
+      "allow": ["shared", "runtime"],
+      "forbid": ["migration"],
+      "exceptions": []
+    }
+  }
+}
+```
+
+**Important**: Plane exceptions must:
+- Include a clear `reason` explaining why the exception exists
+- Reference the relevant brief or issue in the reason
+- Be removed once the refactoring is complete
+- Use glob patterns that match the package paths in `architecture.config.json`
+
+## Adding New Packages
+
+When adding a new package:
+
+1. **Add to `architecture.config.json`**: Add a package config entry with glob pattern, domain, layer, and plane
+   ```json
+   {
+     "glob": "packages/framework/tooling/new-tool/**",
+     "domain": "framework",
+     "layer": "tooling",
+     "plane": "migration"
+   }
+   ```
+
+2. **Update `tsconfig.base.json`**: Add project references if needed
+
+3. **Update `pnpm-workspace.yaml`**: Add package glob pattern if needed
+
+4. **Run `pnpm lint:deps`**: Verify no violations
+
+## Running Import Validation
+
+```bash
+pnpm lint:deps
+```
+
+This command:
+- Scans all TypeScript files in `packages/`
+- Validates imports against domain/layer/plane rules
+- Reports violations with detailed context
+- Can be run locally or in CI
+
+## Common Issues
+
+### Package Not Found in Config
+
+If a package is not in `architecture.config.json`, it will be treated as a legacy package (allows all imports). Add it to the config to enforce proper dependency rules.
+
+### Path Matching Issues
+
+Dependency Cruiser uses regex pattern matching to find the most specific package match. Patterns are derived from glob patterns in `architecture.config.json` and converted to regex patterns in `dependency-cruiser.config.mjs`.
+
+### Domain/Layer/Plane Structure
+
+Packages are organized by:
+- **Domain**: framework (target-agnostic) or target families (sql, document, etc.)
+- **Layer**: core → authoring → targets → lanes → runtime → adapters (dependency direction)
+- **Plane**: migration (authoring, tooling, targets) vs runtime (lanes, runtime, adapters)
+
+Dependency Cruiser enforces:
+- Same-layer imports: allowed
+- Downward imports (toward core): allowed
+- Upward imports (away from core): denied
+- Cross-domain imports: denied except framework domain
+- Plane boundaries: enforced via declarative `planeRules` in `architecture.config.json`
+  - Shared plane: cannot import from migration or runtime
+  - Migration plane: cannot import from runtime
+  - Runtime plane: cannot import from migration (with documented exceptions)
+
+Plane rules are defined declaratively in `architecture.config.json` and enforced by `dependency-cruiser.config.mjs`. See `architecture.config.json` for the complete plane rule definitions.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
