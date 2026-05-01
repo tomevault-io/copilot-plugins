@@ -7,11 +7,11 @@ Web & Mobile UI for Claude Code & Codex . Launch sessions, stream responses, app
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [The-Vibe-Company/companion](https://github.com/The-Vibe-Company/companion).
+Original source: `CLAUDE.md` in [The-Vibe-Company/companion](https://github.com/The-Vibe-Company/companion).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
