@@ -7,11 +7,11 @@ Unofficial Python API and agentic skill for Google NotebookLM. Full programmatic
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [teng-lin/notebooklm-py](https://github.com/teng-lin/notebooklm-py).
+Original source: `CLAUDE.md` in [teng-lin/notebooklm-py](https://github.com/teng-lin/notebooklm-py).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
