@@ -1,0 +1,9 @@
+{
+  "name": "roshie548--proxmux",
+  "displayName": "proxmux",
+  "description": "Terminal UI for managing Proxmox VE - VMs, containers, storage, and more",
+  "version": "1.0.0",
+  "author": "roshie548",
+  "homepage": "https://github.com/roshie548/proxmux",
+  "skills": []
+}
