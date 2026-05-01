@@ -4,7 +4,7 @@
   "repo": "rhzl-Agentic-Design-Patterns-cn",
   "description": "\u667a\u80fd\u4f53\u8bbe\u8ba1\u6a21\u5f0f",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fzy2012/rhzl-Agentic-Design-Patterns-cn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T06:16:12Z"
+  "distributed_at": "2026-05-01T19:09:26Z"
 }
