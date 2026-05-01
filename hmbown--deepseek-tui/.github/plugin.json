@@ -1,0 +1,9 @@
+{
+  "name": "hmbown--deepseek-tui",
+  "displayName": "DeepSeek-TUI",
+  "description": "Coding agent for DeepSeek models that runs in your terminal",
+  "version": "1.0.0",
+  "author": "Hmbown",
+  "homepage": "https://github.com/Hmbown/DeepSeek-TUI",
+  "skills": []
+}
