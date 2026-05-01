@@ -1,0 +1,9 @@
+{
+  "name": "mcdxai--minecraft-dev-mcp",
+  "displayName": "minecraft-dev-mcp",
+  "description": "Model Context Protocol server for Minecraft Development",
+  "version": "1.0.0",
+  "author": "MCDxAI",
+  "homepage": "https://github.com/MCDxAI/minecraft-dev-mcp",
+  "skills": []
+}
