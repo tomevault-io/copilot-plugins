@@ -1,67 +1,78 @@
-## melony-react
+## melony
 
-> The `@melony/react` package provides React hooks and providers for client-side integration with Melony agents.
+> Melony is an event-based framework for building AI agents and Server-Driven UI (SDUI) applications. It follows a minimal orchestration loop: `Event → Handler → Events`.
 
-# Melony React Guidelines
+# Melony Framework Guidelines
 
-The `@melony/react` package provides React hooks and providers for client-side integration with Melony agents.
+Melony is an event-based framework for building AI agents and Server-Driven UI (SDUI) applications. It follows a minimal orchestration loop: `Event → Handler → Events`.
 
-## Setup Providers
+This document describes the core `melony` runtime.
 
-Wrap your application with `MelonyProvider`. Usually, you'll also need `MelonyUIProvider` from `@melony/ui-kit`.
+## Core Runtime
 
-```tsx
-import { MelonyClient } from "melony/client";
-import { MelonyProvider } from "@melony/react";
-import { MelonyUIProvider } from "@melony/ui-kit";
-import { shadcnElements } from "@melony/ui-shadcn";
+The `melony` package provides the core runtime and builder API for defining agents and handlers.
 
-const client = new MelonyClient({ url: "/api/chat" });
+## Backend Development
 
-export default function RootLayout({ children }) {
-  return (
-    <MelonyProvider client={client}>
-      <MelonyUIProvider components={shadcnElements}>
-        {children}
-      </MelonyUIProvider>
-    </MelonyProvider>
-  );
-}
+### Creating an Agent
+Use the `melony()` builder to define event handlers.
+
+```typescript
+import { melony } from "melony";
+
+export const agent = melony()
+  .on("agent:input", async function* (event, { runtime }) {
+    // Logic here
+    yield { type: "agent:output", data: { content: "Processing..." } };
+    
+    // Yield UI components
+    yield { 
+      type: "ui", 
+      data: { 
+        type: "card", 
+        props: { title: "Result" },
+        children: [{ type: "text", props: { content: "Done!" } }]
+      } 
+    };
+  });
 ```
 
-## Using Hooks
+### API Routes (Next.js)
+```typescript
+import { agent } from "./agent";
 
-Use `useMelony` to interact with the agent stream.
-
-```tsx
-import { useMelony } from "@melony/react";
-import { MelonyRenderer } from "@melony/ui-kit";
-
-function Chat() {
-  const { messages, send, streaming } = useMelony();
-
-  return (
-    <div>
-      {messages.map(msg => (
-        <div key={msg.runId}>
-          {msg.content.map(event => (
-            event.type === "ui" ? <MelonyRenderer key={event.id} node={event.data} /> : null
-          ))}
-        </div>
-      ))}
-      <button onClick={() => send({ type: "agent:input", data: { content: "Hi" } })}>
-        Send
-      </button>
-    </div>
-  );
+export async function POST(req: Request) {
+  const { event } = await req.json();
+  return agent.streamResponse(event);
 }
 ```
 
 ## Best Practices
 
-- Use `useMelony` for real-time interaction and status tracking (`streaming`).
-- Pass the appropriate `MelonyClient` to the provider.
-- Leverage `MelonyRenderer` to handle UI-type events automatically.
+### Event Structure
+Events should follow this structure:
+```typescript
+interface Event {
+  type: string;
+  data: any;
+  meta?: {
+    id?: string;
+    runId?: string;
+    role?: "user" | "assistant" | "system";
+    // ...
+  };
+}
+```
+
+### Manager-Worker Pattern
+For complex agents, use a Manager agent that delegates to Worker plugins.
+- Use `delegateTask` tool in the Manager.
+- Workers should yield a completion event (e.g., `agent:os:output`).
+- The Manager's plugin should bridge this back to the tool result.
+
+### State Management
+- Use `context.state` within handlers to persist information across events in a single run.
+- Use `suspend()` to halt execution for human-in-the-loop (HITL) scenarios.
 
 ---
 > Source: [meetopenbot/openbot](https://github.com/meetopenbot/openbot) — distributed by [TomeVault](https://tomevault.io).
