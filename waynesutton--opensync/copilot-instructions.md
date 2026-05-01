@@ -1,102 +1,204 @@
-## help
+## opensync-ecosystem
 
-> full-stack AI convex developer
+> OpenSync ecosystem development guidelines for building and maintaining plugins
 
 
-# Core Development Guidelines
+# OpenSync Ecosystem Development Rules
 
-## 1. Reflect Deeply Before Acting
+## Overview
 
-Before implementing any solution, follow this reflection process:
-• Carefully reflect on why the current implementation or response may not be working.
-• Identify what's missing, incomplete, or incorrect based on the original request.
-• Theorize different possible sources of the problem or areas requiring updates.
-• Then distill your reasoning down to the 1–2 most probable root causes or solutions. Only proceed after clear understanding.
+OpenSync is a platform for syncing AI coding sessions. This rule covers the ecosystem of plugins and the main application.
 
-⸻
+## Architecture
 
-## 2. When Implementing Solutions
+### Main Application (opensync/)
 
-### Follow Convex's recommended approaches at all times:
+- React + Vite frontend
+- Convex backend
+- WorkOS AuthKit authentication
+- Dashboard for viewing sessions
 
-• Use direct mutation calls with plain objects.
-• Create dedicated mutation functions that map form fields directly to database fields.
-• Ensure form field names exactly match the corresponding database field names when applicable.
+### Plugins (separate repos)
 
-### Use Convex documentation:
+Each plugin syncs sessions from a specific CLI tool:
 
-• Mutation Functions: https://docs.convex.dev/functions/mutation-functions
-• Query Functions: https://docs.convex.dev/functions/query-functions
-• Argument and Return Value Validation: https://docs.convex.dev/functions/validation
-• General Function Docs: https://docs.convex.dev/functions
-• When creating Convex mutations, always patch directly without reading first, use indexed queries for ownership checks instead of `ctx.db.get()`, make mutations idempotent with early returns, use timestamp-based ordering for new items, and use `Promise.all()` for parallel independent operations to avoid write conflicts.
-• When updating changelog.md, follow @changelog.mdc format for GitHub Releases automation
-• Do you understand, what I’m asking? Never assume anything on your own, if anything isn’t clear, please ask questions and clarify your doubts.
-• reference @dev2.mdc @help.mdc @changelog.mdc @files.md if needed
+- `codex-sync` - Codex CLI (source: "codex-cli")
+- `claude-code-sync` - Claude Code (source: "claude-code")
+- `opencode-sync` - OpenCode (source: "opencode")
+- `cursor-cli-sync` - Cursor (source: "cursor")
 
-### Understand the following foundational principles:
+## Plugin Development
 
-• Zen of Convex: https://docs.convex.dev/understanding/zen
-• End-to-End Type Support with TypeScript: https://docs.convex.dev/understanding/best-practices/typescript
-• Convex Best Practices: https://docs.convex.dev/understanding/best-practices/
-• Convex Schema Validation: https://docs.convex.dev/database/schemas
-• workos AuthKit https://workos.com/docs/authkit/vanilla/nodejs and workos docs https://workos.com/docs
-• you are an expert setting up Convex & WorkOS AuthKit https://docs.convex.dev/auth/authkit/
+### Source Identifiers
 
-⸻
+Every plugin MUST have a unique source identifier:
 
-## 3. Change Scope and Restrictions
+- Used in session `source` field
+- Appears in dashboard source filter
+- Format: lowercase with hyphens (e.g., "amp-cli", "agent-trace")
 
-When making changes to the codebase:
-• Update Convex Schema if needed
-• Only update files when it's directly necessary to fix the original request.
-• Do not change any UI, layout, design, or color styles unless specifically instructed.
-• Preserve all current admin dashboard sections and frontend components unless explicitly told to update, fix, or replace them.
-• Never remove sections, features, or components unless directly requested.
+### Required Fields for Sessions
 
-⸻
+```typescript
+{
+  externalId: string,      // Unique session ID from your plugin
+  source: string,          // Your plugin identifier
+  promptTokens: number,    // Input tokens
+  completionTokens: number,// Output tokens
+  cost: number,            // Calculated USD cost
+}
+```
 
-## 4. UI/UX Guidelines
+### Required Fields for Messages
 
-### Pop-ups, Alerts, Modals, Warnings, Notifications, and Confirmations:
+```typescript
+{
+  sessionExternalId: string, // Links to session externalId
+  externalId: string,        // Unique message ID
+  role: "user" | "assistant" | "system" | "tool" | "unknown",
+}
+```
 
-• For any pop-ups, alerts, modals, warnings, notifications, or confirmations, always follow the site's existing design system. Never use the browser's default pop-ups.
-• Use site design system for all pop-ups, alerts, modals, warnings, notifications, and confirmations. Do not use browser defaults.
+## API Integration
 
-### Follow the Vercel Web Interface Guidelines:
+### Endpoints
 
-• https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/refs/heads/main/AGENTS.md
+- `POST /sync/session` - Sync a session
+- `POST /sync/message` - Sync a message
+- `POST /sync/batch` - Batch sync (preferred for multiple items)
+- `GET /health` - Health check
 
-⸻
+### URL Normalization
 
-## 5. Documentation Policy
+Convex URLs must be converted for HTTP endpoints:
 
-**!IMPORTANT**: **DO NOT** externalize or document your work, usage guidelines, or benchmarks (e.g. `README.md`, `CONTRIBUTING.md`, `SUMMARY.md`, `USAGE_GUIDELINES.md` after completing the task, unless explicitly instructed to do so. You may include a brief summary of your work, but do not create separate documentation files for it.
+```typescript
+const httpUrl = convexUrl.replace(".convex.cloud", ".convex.site");
+```
 
-### Additional Formatting Rules:
+### Authentication
 
-• Never use emoji or emojis in the readme or app unless instructed
+Plugins use API key authentication:
 
-⸻
+```typescript
+headers: {
+  'Authorization': `Bearer ${apiKey}`,  // Format: osk_xxxxx
+  'Content-Type': 'application/json',
+  'User-Agent': `plugin-name/${version}`,
+}
+```
 
-## 6. Code Confidence Requirement
+## Convex Backend Patterns
 
-Don't write any code until you're very confident (98% or more) in what needs to be done.
+### Idempotent Upserts
 
-If unclear, ask for more info.
+Always use upsert pattern for sync operations:
 
-⸻
+```typescript
+const existing = await ctx.db
+  .query("sessions")
+  .withIndex("by_user_external", (q) =>
+    q.eq("userId", userId).eq("externalId", externalId),
+  )
+  .first();
 
-## 7. Git Safety
+if (existing) {
+  await ctx.db.patch(existing._id, updates);
+} else {
+  await ctx.db.insert("sessions", data);
+}
+```
 
-Follow all rules in @gitruels.mdc:
+### Indexed Queries
 
-- Never use `git checkout` to revert changes without examining what will be destroyed
-- Always use `git diff <file>` before any destructive operation
-- Never run destructive commands (`git reset --hard`, `git checkout -- .`, `git clean -fd`, `git stash drop`) without explicit user approval
-- Always run `git status` first before any git operation
-- When asked to "undo" changes, manually edit files instead of using checkout
-- If uncommitted changes exist, stop and ask user before proceeding
+Always use indexes, never filters:
+
+```typescript
+// Good
+.withIndex("by_user", (q) => q.eq("userId", userId))
+
+// Bad - causes performance issues
+.filter((q) => q.eq(q.field("userId"), userId))
+```
+
+### Batch Operations
+
+Use batch mutations to reduce write conflicts:
+
+```typescript
+export const batchUpsert = internalMutation({
+  args: { userId: v.id("users"), sessions: v.array(...) },
+  handler: async (ctx, args) => {
+    // Process all items in one transaction
+  },
+});
+```
+
+## CLI Commands
+
+Every plugin should implement:
+
+- `login` - Configure API key and Convex URL
+- `status` - Show configuration and connection status
+- `sync` - Sync sessions to OpenSync
+- `logout` - Clear configuration
+
+## Configuration Storage
+
+Standard config location: `~/.plugin-name/config.json`
+
+```json
+{
+  "convexUrl": "https://app.convex.cloud",
+  "apiKey": "osk_xxxxx"
+}
+```
+
+## Cost Calculation
+
+Use standard pricing lookup by model:
+
+```typescript
+const MODEL_PRICING = {
+  "gpt-4o": { input: 2.5, cached: 1.25, output: 10.0 },
+  "claude-3-5-sonnet": { input: 3.0, cached: 1.5, output: 15.0 },
+  // ... per 1M tokens
+};
+```
+
+## Testing
+
+Before publishing a plugin:
+
+1. Test `login` stores credentials
+2. Test `status` shows connection state
+3. Test `sync` creates sessions in dashboard
+4. Verify source filter includes your plugin
+5. Check token counts and costs are accurate
+
+## Git Workflow
+
+Each plugin is a separate repository:
+
+- Commit to the correct repo (check `pwd` first)
+- Each repo has its own version and changelog
+- Publish independently with `npm publish`
+
+## Documentation
+
+Keep updated in each plugin:
+
+- `README.md` - Installation and usage
+- `changelog.md` - Version history
+- `files.md` - Codebase structure
+
+## Common Mistakes to Avoid
+
+1. Using `.convex.cloud` instead of `.convex.site` for HTTP endpoints
+2. Missing `source` field in session data
+3. Using `filter()` instead of `withIndex()`
+4. Committing to wrong repository in multi-repo workspace
+5. Forgetting to update version before `npm publish`
 
 ---
 > Source: [waynesutton/opensync](https://github.com/waynesutton/opensync) — distributed by [TomeVault](https://tomevault.io).
