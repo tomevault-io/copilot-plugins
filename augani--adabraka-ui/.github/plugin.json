@@ -1,0 +1,9 @@
+{
+  "name": "augani--adabraka-ui",
+  "displayName": "adabraka-ui",
+  "description": "A ui component library for building desktop applications in rust",
+  "version": "1.0.0",
+  "author": "Augani",
+  "homepage": "https://github.com/Augani/adabraka-ui",
+  "skills": []
+}
