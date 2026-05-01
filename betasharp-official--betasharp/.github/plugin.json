@@ -1,0 +1,9 @@
+{
+  "name": "betasharp-official--betasharp",
+  "displayName": "betasharp",
+  "description": "Minecraft Beta 1.7.3 written in C#",
+  "version": "1.0.0",
+  "author": "betasharp-official",
+  "homepage": "https://github.com/betasharp-official/betasharp",
+  "skills": []
+}
