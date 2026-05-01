@@ -4,7 +4,7 @@
   "repo": "speech-swift",
   "description": "AI speech toolkit for Apple Silicon \u2014 ASR, TTS, speech-to-speech, VAD, and diarization powered by MLX and CoreML",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/soniqo/speech-swift",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T20:45:23Z"
+  "distributed_at": "2026-05-01T03:44:54Z"
 }
