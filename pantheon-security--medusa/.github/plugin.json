@@ -1,0 +1,9 @@
+{
+  "name": "pantheon-security--medusa",
+  "displayName": "medusa",
+  "description": "AI-first security scanner with 76 analyzers, 9,600+ detection rules, and repo poisoning detection for AI/ML, LLM agents, and MCP servers. Scan any GitHub repo with: medusa scan --git user/repo",
+  "version": "1.0.0",
+  "author": "Pantheon-Security",
+  "homepage": "https://github.com/Pantheon-Security/medusa",
+  "skills": []
+}
