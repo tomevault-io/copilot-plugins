@@ -1,155 +1,118 @@
-## opensync
+## about
 
-> Changelog management for GitHub Releases automation
+> Project documentation rule for creating about.md files that explain projects in plain language
 
 
-# Changelog Management for GitHub Releases
+# Project Documentation Rule
 
-This project uses a GitHub Action that automatically creates GitHub Releases from changelog.md. Follow this format exactly.
+After completing any significant project or feature, create or update `about.md` with detailed documentation.
 
-## Format Requirements
+## What to include
 
-The changelog MUST follow [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format with these rules:
+### Technical architecture
 
-### Version Header Format
+Explain how the system works. What are the main components? How do they connect? Draw ASCII diagrams with nicknames for each component.
 
-```
-## [X.X.X] - YYYY-MM-DD
-```
+### Codebase structure
 
-- Version number in brackets: `[1.0.0]`
-- Date in ISO format: `2025-01-20`
-- Hyphen between version and date
-- The GitHub Action parses this exact pattern to create releases
+Walk through the file tree. Explain what each major file or directory does and why it exists.
 
-### Section Headers
+### Technology choices
 
-Use these standard headers under each version:
+List the technologies used and why you picked them over alternatives. Include the tradeoffs you considered.
 
-```
-### Added
-### Changed
-### Fixed
-### Removed
-### Deprecated
-### Security
-```
+### Decisions and rationale
 
-### Unreleased Section
+Document the non-obvious choices. Why this database? Why this API design? Why this folder structure?
 
-Always keep an `[Unreleased]` section at the top for work in progress:
+### Assumptions and invariants
 
-```markdown
-## [Unreleased]
+What must remain true as the code evolves? What are the core constraints the architecture depends on?
 
-### Added
-- New feature being developed
+### Lessons learned
 
-## [1.0.0] - 2025-01-20
-...
-```
+This is the most important section. Include:
 
-## How to Create a Release
+- Bugs you ran into and how you fixed them
+- Potential pitfalls and how to avoid them
+- New technologies used and what you learned about them
+- How experienced engineers think through problems
+- Best practices you discovered or applied
+- Patterns worth reusing in future projects
 
-When ready to release:
+### Tests to add next
 
-1. Create a new version section with today's date
-2. Move items from `[Unreleased]` to the new version
-3. Keep `[Unreleased]` section (can be empty)
-4. Commit and push to main
+What tests would make this code more reliable? What edge cases need coverage? This section transfers learning into reliability.
 
-### Before Release
+## Writing style
 
-```markdown
-## [Unreleased]
+Make it engaging. This is not boring technical documentation.
 
-### Added
-- New feature X
-- New feature Y
+- Use analogies. Compare unfamiliar concepts to familiar ones.
+- Tell the story. How did the project evolve? What problems did you solve along the way?
+- Include anecdotes. What surprised you? What took longer than expected?
+- Be specific. Name the files, the functions, the exact errors.
+- Write like you're explaining it to a friend who's a developer but hasn't seen this codebase.
 
-### Fixed
-- Bug fix Z
-
-## [0.1.0] - 2025-01-17
-...
-```
-
-### After Release
-
-```markdown
-## [Unreleased]
-
-## [1.0.0] - 2025-01-20
-
-### Added
-- New feature X
-- New feature Y
-
-### Fixed
-- Bug fix Z
-
-## [0.1.0] - 2025-01-17
-...
-```
-
-## Version Number Guidelines
-
-Use semantic versioning:
-
-| Change Type | Version Bump | Example |
-|-------------|--------------|---------|
-| Breaking changes | Major | 1.0.0 -> 2.0.0 |
-| New features (backwards compatible) | Minor | 1.0.0 -> 1.1.0 |
-| Bug fixes only | Patch | 1.0.0 -> 1.0.1 |
-
-## When Adding Changelog Entries
-
-- Add entries under `[Unreleased]` as you work
-- Group by category (Added, Changed, Fixed, etc.)
-- Use bullet points with clear, concise descriptions
-- No need to add dates until creating a release
-- Include issue/PR references when relevant: `(fixes #123)`
-
-## Commit Message for Releases
-
-When creating a release version, use this commit format:
+## Example: Production line analogy
 
 ```
-release: v1.0.0
++-----------------------------------------------------------------------+
+|                        YOUR YOUTUBE NEWSLETTER                         |
++-----------------------------------------------------------------------+
+|                                                                       |
+|   INTAKE                   PROCESSING                OUTPUT           |
+|   ------------            ------------------      --------------      |
+|                                                                       |
+|   get_videos.py  ->  get_transcripts.py -> write_articles.py         |
+|   (The Scout)        (The Stenographer)    (The Writer)              |
+|       |                       |                    |                  |
+|       v                       v                    v                  |
+|   YouTube API          Transcript API          Claude AI              |
+|                                                                       |
+|                               |                                       |
+|                               v                                       |
+|                          send_email.py                                |
+|                         (The Publisher)                               |
+|                               |                                       |
+|                       +-------+-------+                               |
+|                       v               v                               |
+|                  EPUB Ebook    Email Newsletter                       |
+|                                                                       |
++-----------------------------------------------------------------------+
+|   CONTROL CENTER                                                      |
+|   ----------------                                                    |
+|   main.py           -> Orchestrates the whole pipeline                |
+|   video_tracker.py  -> Remembers what's already been sent             |
+|   dashboard.py      -> Pretty web interface (no Terminal needed!)     |
+|   *.plist files     -> Mac automation (runs while you sleep)          |
++-----------------------------------------------------------------------+
 ```
 
-This helps identify release commits in git history.
+Each file gets a role and a nickname. The architecture becomes a story about characters doing jobs.
 
-## What Happens on Push
+## Why this works
 
-When you push changelog.md changes to main:
+This approach turns "vibe coding" into deliberate practice. You ship code, then you ship the explanation. The act of writing forces you to understand what you built. The document becomes a reference for future projects and a teaching tool for others.
 
-1. GitHub Action detects the change
-2. Parses the latest `## [X.X.X] - YYYY-MM-DD` version
-3. Extracts content between that version and the next `##`
-4. Creates a GitHub Release with tag `vX.X.X`
-5. Creates a GitHub Discussion in the Changelog category
-6. Skips both if that release already exists
+The assumptions + invariants section catches the implicit knowledge that usually lives only in the original developer's head. The tests to add next section builds the habit of thinking about reliability even when you don't have time to implement it immediately.
 
-**Important:** Only versioned sections trigger releases. `[Unreleased]` content is ignored until moved to a version.
+You compound skill by shipping artifacts and explanations together.
 
-## Example Entry
+## Quick checklist
 
-```markdown
-## [1.2.0] - 2025-01-21
+When creating about.md:
 
-### Added
-- Real-time Platform Stats leaderboard on Login page
-- Discord and Support icons in footer (fixes #5)
+1. Technical architecture (with ASCII diagrams and component nicknames)
+2. Codebase structure walkthrough
+3. Technology choices and why
+4. Key decisions and rationale
+5. Assumptions and invariants (what must stay true)
+6. Lessons learned (bugs, fixes, pitfalls, patterns)
+7. Tests to add next
 
-### Fixed
-- Provider display showing "unknown" for OAuth sessions (fixes #2)
-- Auth session persistence on page refresh (fixes #1)
-
-### Changed
-- Removed user email from dropdown menus for cleaner UX
-```
+Credit: Inspired by @zarazhangrui and the FORZARA project documentation pattern.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/waynesutton) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [waynesutton/opensync](https://github.com/waynesutton/opensync) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
