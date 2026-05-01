@@ -7,11 +7,11 @@ HTML-native motion-graphics video workspace — 12 finished projects built on Hy
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nateherkai/hyperframes-student-kit](https://github.com/nateherkai/hyperframes-student-kit).
+Original source: `CLAUDE.md` in [nateherkai/hyperframes-student-kit](https://github.com/nateherkai/hyperframes-student-kit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
