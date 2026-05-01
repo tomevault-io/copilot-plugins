@@ -1,23 +1,73 @@
-## omit-should-in-tests
+## postgres-lateral-patterns
 
-> Enforce omitting "should" in test descriptions
+> PostgreSQL LATERAL and json_agg rendering patterns
 
 
-When writing unit tests, omit the word "should" in test descriptions. Write concise, direct descriptions instead.
+# PostgreSQL LATERAL Join Patterns
 
-Good examples:
-- it("equals 1")
-- it("returns the correct value")
-- it("handles null input")
-- it("throws an error when invalid")
+## Identifier Quoting
 
-Avoid:
-- it("should equal 1")
-- it("should return the correct value")
-- it("should handle null input")
-- it("should throw an error when invalid")
+**Don't quote identifiers early in functions.** Quote them only when needed in SQL generation to avoid double-quoting issues.
 
-This makes test descriptions more concise and easier to read.
+**❌ Wrong:**
+```typescript
+function renderInclude(include: IncludeAst): string {
+  const alias = quoteIdentifier(include.alias);  // Already quoted: "posts"
+  // Later: quoteIdentifier(alias) would produce """posts""" (triple quotes)
+  return `... AS ${quoteIdentifier(alias)} ...`;
+}
+```
+
+**✅ Correct:**
+```typescript
+function renderInclude(include: IncludeAst): string {
+  const alias = include.alias;  // Unquoted: posts
+  // Quote only when needed in SQL
+  return `... AS ${quoteIdentifier(alias)} ...`;  // Produces: "posts"
+}
+```
+
+## LATERAL Join Column Selection
+
+When using LATERAL joins in PostgreSQL adapters, use different aliases for the table alias and column alias to avoid ambiguity:
+
+- **Table alias**: Use `{alias}_lateral` (e.g., `posts_lateral`)
+- **Column alias**: Use `{alias}` (e.g., `posts`)
+- **Selection**: Select using `table_alias.column_alias` (e.g., `"posts_lateral"."posts"`)
+
+**Example:**
+```typescript
+// In adapter lowering
+const tableAlias = `${alias}_lateral`;  // e.g., "posts_lateral"
+return `LEFT JOIN LATERAL ${subquery} AS ${quoteIdentifier(tableAlias)} ON true`;
+
+// In projection rendering
+return `${quoteIdentifier(tableAlias)}.${quoteIdentifier(item.expr.alias)} AS ${quoteIdentifier(item.alias)}`;
+// Results in: "posts_lateral"."posts" AS "posts"
+```
+
+This pattern prevents PostgreSQL from getting confused when both the table and column have the same name.
+
+## ORDER BY with LIMIT in Subqueries
+
+When both ORDER BY and LIMIT are present in a LATERAL subquery, wrap the query in an inner SELECT that projects individual columns with aliases, then use `json_agg(row_to_json(sub.*))` on the result:
+
+**Pattern:**
+```sql
+SELECT json_agg(row_to_json(sub.*)) AS "posts"
+FROM (
+  SELECT "post"."id" AS "id", "post"."title" AS "title"
+  FROM "post"
+  WHERE ...
+  ORDER BY "id" ASC  -- Use column alias, not table.column
+  LIMIT 1
+) sub
+```
+
+**Key points:**
+- Use column aliases in ORDER BY when the column is in the SELECT list
+- Map column references to their aliases before generating ORDER BY clause
+- Wrap in subquery to avoid GROUP BY issues with aggregates
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
