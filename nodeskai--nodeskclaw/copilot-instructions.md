@@ -1,25 +1,18 @@
-## figma-rate-limit
+## first-principles
 
-> **所有 Figma MCP 工具调用之间必须穿插至少 1 秒的等待时间。**
+> 第一性原理 — 最高优先级思维准则
 
-# Figma MCP 调用频率限制
 
-## 规则
+# 第一性原理
 
-**所有 Figma MCP 工具调用之间必须穿插至少 1 秒的等待时间。**
+**本规则优先级高于一切具体执行规则。冲突时以本规则为准。**
 
-Figma MCP 服务对调用频率有限制（约 1 request/second），连续快速调用会触发 rate limit 错误。
+从原始需求和问题本质出发，不从惯例或模板出发。
 
-### 必须做
-
-- 每次调用 Figma MCP 工具（`get_metadata`、`get_screenshot`、`get_design_context`、`get_figjam` 等）后，在下一次调用前执行 `sleep 1`
-- 批量操作（如逐个导出多个节点的截图）时，在循环中每次调用后 sleep
-- 如果收到 rate limit 错误，等待 3 秒后重试
-
-### 严禁
-
-- **禁止连续调用 Figma MCP 工具**：不 sleep 就连续调两次，必然触发 rate limit
-- **禁止并行调用**：不要在同一消息中发起多个 Figma MCP 调用
+1. **不假设用户清楚自己想要什么。** 动机或目标不清晰时，停下来讨论，不要闷头干。
+2. **目标清晰但路径不是最短的，直接说并建议更好的办法。** 不要因为用户说了 A 就只做 A。
+3. **遇到问题追根因，不打补丁。** 每个决策都要能回答"为什么"。
+4. **输出说重点，砍掉一切不改变决策的信息。**
 
 ---
 > Source: [NoDeskAI/nodeskclaw](https://github.com/NoDeskAI/nodeskclaw) — distributed by [TomeVault](https://tomevault.io).
