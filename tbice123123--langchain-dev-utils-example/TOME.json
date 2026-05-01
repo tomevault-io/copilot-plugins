@@ -1,0 +1,44 @@
+{
+  "name": "langchain-dev-utils-example",
+  "owner": "TBice123123",
+  "repo": "langchain-dev-utils-example",
+  "description": "This project demonstrates how to use the langchain-dev-utils library to build enhanced LangChain and LangGraph applications.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TBice123123/langchain-dev-utils-example",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T04:21:07Z"
+}
