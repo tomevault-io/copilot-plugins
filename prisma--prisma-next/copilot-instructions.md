@@ -1,40 +1,23 @@
-## object-hasown
+## omit-should-in-tests
 
-> Use Object.hasOwn() instead of hasOwnProperty()
+> Enforce omitting "should" in test descriptions
 
 
-# Use Object.hasOwn() Instead of hasOwnProperty()
+When writing unit tests, omit the word "should" in test descriptions. Write concise, direct descriptions instead.
 
-**CRITICAL**: Always use `Object.hasOwn()` instead of `hasOwnProperty()` to check for own properties.
+Good examples:
+- it("equals 1")
+- it("returns the correct value")
+- it("handles null input")
+- it("throws an error when invalid")
 
-## Why?
+Avoid:
+- it("should equal 1")
+- it("should return the correct value")
+- it("should handle null input")
+- it("should throw an error when invalid")
 
-- `Object.hasOwn()` is the modern, recommended API (ES2022)
-- `hasOwnProperty()` can be overridden or shadowed
-- Biome lint rule `noPrototypeBuiltins` enforces this
-
-## Examples
-
-**❌ WRONG: Using hasOwnProperty()**
-```typescript
-if (obj.hasOwnProperty('key')) { /* ... */ }
-if (meta.annotations?.codecs?.hasOwnProperty('id')) { /* ... */ }
-```
-
-**✅ CORRECT: Using Object.hasOwn()**
-```typescript
-if (Object.hasOwn(obj, 'key')) { /* ... */ }
-if (Object.hasOwn(meta.annotations?.codecs ?? {}, 'id')) { /* ... */ }
-```
-
-**Note**: When using optional chaining, provide a fallback object:
-```typescript
-// ❌ WRONG
-Object.hasOwn(meta.annotations?.codecs, 'id')  // May pass undefined
-
-// ✅ CORRECT
-Object.hasOwn(meta.annotations?.codecs ?? {}, 'id')
-```
+This makes test descriptions more concise and easier to read.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
