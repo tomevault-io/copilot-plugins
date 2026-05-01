@@ -1,0 +1,9 @@
+{
+  "name": "thereisnotime--warpgate-operator",
+  "displayName": "warpgate-operator",
+  "description": "Kubernetes operator for managing Warpgate bastion host resources via CRDs",
+  "version": "1.0.0",
+  "author": "thereisnotime",
+  "homepage": "https://github.com/thereisnotime/warpgate-operator",
+  "skills": []
+}
