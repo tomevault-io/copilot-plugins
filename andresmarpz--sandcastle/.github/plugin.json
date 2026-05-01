@@ -1,0 +1,9 @@
+{
+  "name": "andresmarpz--sandcastle",
+  "displayName": "sandcastle",
+  "description": "Sandcastle is the open agent orchestrator to manage all loops.",
+  "version": "1.0.0",
+  "author": "andresmarpz",
+  "homepage": "https://github.com/andresmarpz/sandcastle",
+  "skills": []
+}
