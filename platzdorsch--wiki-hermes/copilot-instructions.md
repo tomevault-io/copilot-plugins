@@ -1,0 +1,333 @@
+## wiki-hermes
+
+> Ein LLM-gepflegtes Branchen-Wiki nach dem [LLM Wiki Pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Das Wiki wird ausschließlich von LLM-Agenten geschrieben und gepflegt. Der Mensch kuratiert Quellen, stellt Fragen und gibt die Richtung vor.
+
+# wiki-hermes
+
+Ein LLM-gepflegtes Branchen-Wiki nach dem [LLM Wiki Pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Das Wiki wird ausschließlich von LLM-Agenten geschrieben und gepflegt. Der Mensch kuratiert Quellen, stellt Fragen und gibt die Richtung vor.
+
+---
+
+## KRITISCHE REGELN
+
+> ⛔ Diese Regeln gelten IMMER. Kein Workflow ist abgeschlossen ohne sie zu befolgen.
+
+### Pflicht-Updates nach JEDER Wiki-Operation
+
+Jede Operation die Wiki-Seiten erstellt oder aktualisiert MUSS mit diesen drei Schritten ENDEN:
+
+1. **`wiki/index.md` aktualisieren** — Alle neuen/geänderten Seiten eintragen. Lies den Index, prüfe ob alles drin steht.
+2. **`wiki/overview.md` aktualisieren** — Branchenübersicht anpassen. Neue Themen, Trends, Player einarbeiten.
+3. **`wiki/log.md` ergänzen** — Eintrag am Ende anfügen mit Datum, Operation und betroffenen Seiten.
+
+Ein Ingest, Query oder Draft ohne diese drei Updates ist **UNVOLLSTÄNDIG**. Beende niemals einen Workflow ohne diese Dateien geprüft und aktualisiert zu haben.
+
+### Verlinkung — kategorieübergreifend, bidirektional und pflichtmäßig
+
+Die Verlinkungen zwischen Wiki-Seiten sind das Herzstück des Wikis. Sie machen die Wissensstruktur in Obsidian Graph View sichtbar. Ohne Verlinkungen ist das Wiki nur eine Sammlung loser Dateien.
+
+**WICHTIG:** Nur echte Markdown-Links im Seiteninhalt erzeugen Kanten im Graphen. Das `sources`-Feld im YAML-Frontmatter ist für den Graphen UNSICHTBAR.
+
+Jede Wiki-Seite MUSS am Ende einen Abschnitt haben:
+
+```markdown
+## Verwandte Seiten
+- [Seitentitel](../kategorie/dateiname.md)
+- [Seitentitel](../kategorie/dateiname.md)
+```
+
+Regeln:
+- **Mindestens 2 Verlinkungen** pro Seite
+- **Kategorieübergreifend** — Links MÜSSEN über Ordnergrenzen hinweg gehen (siehe Tabelle unten)
+- **Bidirektional** — wenn Seite A auf Seite B verlinkt, MUSS Seite B auch auf Seite A verlinken
+- Bei neuen Seiten: bestehende thematisch passende Seiten finden UND dort einen Rückverweis setzen
+- Relative Markdown-Links verwenden: `[Titel](../kategorie/dateiname.md)`
+- Bei Widersprüchen zwischen Seiten: `> ⚠️ Widerspruch: ...` markieren
+
+### Pflicht-Verlinkungen nach Seitentyp
+
+| Seitentyp | MUSS verlinken auf |
+|---|---|
+| `sources/` | Alle Topics, Trends, Players und Regulation-Seiten die aus dieser Quelle entstanden oder aktualisiert wurden |
+| `topics/` | Relevante Sources, verwandte Trends, beteiligte Players, betroffene Regulation |
+| `trends/` | Relevante Sources, verwandte Topics, beteiligte Players, betroffene Regulation |
+| `players/` | Relevante Sources, zugehörige Topics, relevante Trends |
+| `regulation/` | Relevante Sources, betroffene Topics, beteiligte Players |
+| `market/` | Relevante Sources, verwandte Topics, relevante Trends, relevante Players |
+| `synthesis/` | Alle Wiki-Seiten auf denen die Analyse basiert |
+
+Beispiel einer gut verlinkten Topic-Seite:
+
+```markdown
+## Verwandte Seiten
+
+### Quellen
+- [McKinsey Report 2026](../sources/2026-04-06-mckinsey-report.md)
+- [Heise-Artikel KI-Agenten](../sources/2026-04-05-heise-ki-agenten.md)
+
+### Trends
+- [KI-Agenten](../trends/ki-agenten.md)
+- [Prozessautomatisierung](../trends/prozessautomatisierung.md)
+
+### Akteure
+- [Microsoft](../players/microsoft.md)
+- [Fraunhofer IAO](../players/fraunhofer-iao.md)
+
+### Regulierung
+- [EU AI Act](../regulation/eu-ai-act.md)
+```
+
+---
+
+## Architektur
+
+```
+raw/          → Unveränderliche Quelldokumente (Input)
+wiki/         → LLM-generierte Wiki-Seiten (Verarbeitung)
+content/      → Abgeleiteter Content für Veröffentlichung (Output)
+```
+
+### raw/ — Quellen
+
+Immutable. Der Agent liest, aber verändert niemals Dateien in `raw/`.
+
+| Unterordner | Inhalt |
+|---|---|
+| `raw/articles/` | Web-Artikel als Markdown |
+| `raw/pdfs/` | PDF-Dokumente |
+| `raw/notes/` | Eigene Notizen, Gesprächsnotizen, Ideen |
+
+### wiki/ — Wissensbasis
+
+Der Agent besitzt diesen Layer vollständig. Er erstellt Seiten, aktualisiert sie, pflegt Querverweise und hält alles konsistent.
+
+| Unterordner | Inhalt |
+|---|---|
+| `wiki/topics/` | Fachthemen — Technologien, Methoden, Prozesse |
+| `wiki/trends/` | Aufkommende Entwicklungen, schwache Signale, Prognosen |
+| `wiki/regulation/` | Gesetze, Normen, Standards, Compliance |
+| `wiki/market/` | Marktdaten, Segmente, Wachstumsbereiche, Preismodelle |
+| `wiki/players/` | Firmen, Verbände, Personen, Forschungseinrichtungen, Partner |
+| `wiki/sources/` | Eine Summary-Seite pro verarbeiteter Quelle |
+| `wiki/synthesis/` | Eigene Analysen, Querverbindungen, Schlussfolgerungen |
+
+Sonderdateien:
+
+| Datei | Zweck |
+|---|---|
+| `wiki/index.md` | Katalog aller Wiki-Seiten mit Kategorie, Link und Kurzbeschreibung |
+| `wiki/log.md` | Chronologisches Protokoll aller Operationen (append-only) |
+| `wiki/overview.md` | High-Level-Branchenübersicht — das "Big Picture" |
+
+### content/ — Output
+
+Abgeleiteter Content für Veröffentlichung. Wird aus Wiki-Seiten generiert.
+
+| Unterordner | Inhalt |
+|---|---|
+| `content/drafts/` | LLM-generierte Entwürfe (vor Review) |
+| `content/published/` | Freigegebene, finale Inhalte |
+| `content/templates/` | Vorlagen für wiederkehrende Formate |
+
+---
+
+## Konventionen
+
+### Dateinamen
+
+- Lowercase, Wörter mit Bindestrich: `kuenstliche-intelligenz.md`
+- Keine Umlaute in Dateinamen: ä→ae, ö→oe, ü→ue, ß→ss
+- Keine Sonderzeichen, keine Leerzeichen
+
+### Frontmatter
+
+Jede Wiki-Seite beginnt mit YAML-Frontmatter:
+
+```yaml
+---
+title: "Künstliche Intelligenz im Maschinenbau"
+category: topics          # topics|trends|regulation|market|players|sources|synthesis
+created: 2026-04-06
+updated: 2026-04-06
+tags: [ki, maschinenbau, automatisierung]
+sources: [quelle-1.md, quelle-2.md]
+status: active            # active|draft|stale|archived
+---
+```
+
+Für `sources/`-Seiten zusätzlich:
+
+```yaml
+source_type: article      # article|pdf|note|web
+source_path: raw/articles/beispiel.md
+ingested: 2026-04-06
+```
+
+Für `trends/`-Seiten zusätzlich:
+
+```yaml
+first_seen: 2026-04-06
+momentum: rising          # rising|stable|declining|emerging
+relevance: high           # high|medium|low
+```
+
+Für `players/`-Seiten zusätzlich:
+
+```yaml
+player_type: company      # company|person|association|research|partner
+```
+
+### Verlinkung
+
+Siehe KRITISCHE REGELN oben. Jede Seite braucht einen "Verwandte Seiten"-Abschnitt mit kategorieübergreifenden, bidirektionalen Links. Die Pflicht-Verlinkungstabelle definiert welche Seitentypen aufeinander verweisen MÜSSEN.
+
+### Sprache
+
+- Wiki-Inhalte auf **Deutsch**
+- Fachbegriffe dürfen englisch bleiben, wenn sie in der Branche üblich sind
+- Frontmatter-Keys auf Englisch
+
+---
+
+## Workflows
+
+### 0. Scrape — Web-Quelle abrufen
+
+Auslöser: User teilt eine URL oder sagt "scrape das", "lies diesen Artikel".
+
+Schritte:
+
+1. URL fetchen und HTML zu sauberem Markdown konvertieren
+2. Boilerplate entfernen (Navigation, Footer, Ads, Cookie-Banner)
+3. Metadaten extrahieren (Titel, Autor, Datum)
+4. Als Markdown in `raw/articles/` speichern mit Frontmatter:
+   ```yaml
+   ---
+   title: "Originaltitel"
+   url: "https://example.com/artikel"
+   author: "Name"
+   published: YYYY-MM-DD
+   scraped: YYYY-MM-DD
+   ---
+   ```
+5. Dateiname: `YYYY-MM-DD-kurztitel.md`
+6. Direkt Ingest-Workflow ausführen (Schritte 1–9 unten). Nur überspringen wenn der User explizit ablehnt.
+
+### 1. Ingest — Neue Quelle verarbeiten
+
+Auslöser: Neue Datei in `raw/` oder User gibt URL/Text zum Verarbeiten.
+
+Schritte:
+
+1. Quelle lesen und verstehen
+2. `wiki/index.md` lesen — aktuellen Wissensstand erfassen
+3. Summary-Seite erstellen in `wiki/sources/` mit Frontmatter
+4. Kernaussagen extrahieren und mit User besprechen
+5. Relevante bestehende Wiki-Seiten identifizieren und aktualisieren:
+   - Neue Informationen einarbeiten
+   - Widersprüche zu bestehenden Aussagen markieren
+   - Neue Querverweise setzen
+   - "Verwandte Seiten"-Abschnitte in bestehenden Seiten ergänzen (bidirektional!)
+6. Bei Bedarf neue Seiten anlegen in `wiki/topics/`, `wiki/trends/`, `wiki/players/` etc. Jede neue Seite braucht einen "Verwandte Seiten"-Abschnitt.
+7. ⛔ `wiki/index.md` aktualisieren — ALLE neuen Seiten eintragen. Index lesen und prüfen.
+8. ⛔ `wiki/overview.md` aktualisieren — Branchenübersicht an neue Erkenntnisse anpassen. IMMER, nicht optional.
+9. ⛔ Eintrag in `wiki/log.md` schreiben (append)
+
+Hinweis: Eine einzelne Quelle kann 5–15 Wiki-Seiten betreffen.
+
+### 2. Query — Fragen beantworten
+
+Auslöser: User stellt eine Frage zum Branchenwissen.
+
+Schritte:
+
+1. `wiki/index.md` lesen — relevante Seiten identifizieren
+2. Relevante Wiki-Seiten lesen
+3. Antwort synthetisieren mit Verweisen auf Wiki-Seiten
+4. Bei hochwertigen Antworten: als neue Seite in `wiki/synthesis/` speichern
+5. `wiki/index.md` und `wiki/log.md` aktualisieren
+
+### 3. Lint — Gesundheitscheck
+
+Auslöser: User fordert Lint an, oder periodisch via Cron.
+
+Prüfungen:
+
+- **Widersprüche**: Behauptungen die sich zwischen Seiten widersprechen
+- **Stale Content**: Seiten deren Aussagen durch neuere Quellen überholt sind
+- **Orphan Pages**: Seiten ohne eingehende Links
+- **Missing Pages**: Konzepte die erwähnt aber nicht als eigene Seite existieren
+- **Missing Cross-References**: Seiten die thematisch zusammenhängen aber nicht verlinkt sind
+- **Datenlücken**: Wichtige Themen mit wenig Quellenmaterial
+
+Ergebnis als Bericht in `wiki/log.md` dokumentieren.
+
+### 4. Draft — Content-Entwurf erstellen
+
+Auslöser: User will Content für Veröffentlichung.
+
+Schritte:
+
+1. Thema und Format klären (Blog, Newsletter, Briefing, LinkedIn, Slides)
+2. Relevante Wiki-Seiten lesen
+3. Template aus `content/templates/` laden (falls vorhanden)
+4. Entwurf erstellen in `content/drafts/` mit Frontmatter:
+   ```yaml
+   ---
+   title: "..."
+   format: blog            # blog|newsletter|briefing|linkedin|slides
+   based_on: [wiki/trends/ki-agenten.md, wiki/topics/automatisierung.md]
+   created: 2026-04-06
+   status: draft            # draft|review|approved|published
+   ---
+   ```
+5. Eintrag in `wiki/log.md`
+
+### 5. Newsletter — Wochenrückblick
+
+Auslöser: User fordert Newsletter an, oder wöchentlich via Cron.
+
+Schritte:
+
+1. `wiki/log.md` scannen — Aktivitäten der letzten 7 Tage
+2. Neue/aktualisierte Trend-Seiten prüfen
+3. Newsletter-Entwurf in `content/drafts/` erstellen
+4. Format: 3–5 Highlights mit Einordnung, Links zu Wiki-Seiten als Referenz
+
+---
+
+## Index-Format
+
+Die `wiki/index.md` ist der zentrale Katalog. Format:
+
+```markdown
+## Topics
+- [Künstliche Intelligenz](topics/kuenstliche-intelligenz.md) — Überblick KI-Anwendungen in der Branche (3 Quellen)
+
+## Trends
+- [KI-Agenten](trends/ki-agenten.md) — Autonome Agenten für Geschäftsprozesse, rising (2 Quellen)
+
+## Regulation
+...
+```
+
+Jeder Eintrag: `[Titel](pfad) — Kurzbeschreibung (Anzahl Quellen)`
+
+## Log-Format
+
+Die `wiki/log.md` ist append-only. Format:
+
+```markdown
+## [2026-04-06] ingest | Artikeltitel
+- Quelle: raw/articles/beispiel.md
+- Erstellt: wiki/sources/beispiel.md, wiki/topics/neues-thema.md
+- Aktualisiert: wiki/trends/trend-x.md, wiki/players/firma-y.md
+- Zusammenfassung: Kernaussage der Quelle in einem Satz.
+
+## [2026-04-06] query | Wie entwickelt sich Trend X?
+- Antwort gespeichert: wiki/synthesis/trend-x-analyse.md
+```
+
+---
+> Source: [PLATZDORSCH/wiki-hermes](https://github.com/PLATZDORSCH/wiki-hermes) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-26 -->
