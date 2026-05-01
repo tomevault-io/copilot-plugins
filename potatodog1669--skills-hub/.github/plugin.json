@@ -1,0 +1,9 @@
+{
+  "name": "potatodog1669--skills-hub",
+  "displayName": "skills-hub",
+  "description": "Unify your AI skillbox. A local hub to visualize, manage, and sync skills across Antigravity, Claude, Cursor, Trae, and other AI agents.",
+  "version": "1.0.0",
+  "author": "PotatoDog1669",
+  "homepage": "https://github.com/PotatoDog1669/skills-hub",
+  "skills": []
+}
