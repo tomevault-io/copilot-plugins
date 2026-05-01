@@ -1,0 +1,9 @@
+{
+  "name": "browserbase--stagehand-ruby",
+  "displayName": "stagehand-ruby",
+  "description": "Official Stagehand AI Browser Automation SDK for Ruby users. Built by Browserbase.com",
+  "version": "1.0.0",
+  "author": "browserbase",
+  "homepage": "https://github.com/browserbase/stagehand-ruby",
+  "skills": []
+}
