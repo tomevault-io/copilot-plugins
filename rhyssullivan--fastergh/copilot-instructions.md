@@ -1,36 +1,43 @@
-## react-red-flags
+## subagent-context
 
-> Red flags in a React codebase
+> When spawning subagents via the Task tool, remember that subagents start with **zero context** about the current task, conversation history, or codebase state.
 
 
-Red flags in a React codebase
+# Subagent Context Requirements
 
-🚩 functions like <button onClick={handleClick}
+When spawning subagents via the Task tool, remember that subagents start with **zero context** about the current task, conversation history, or codebase state.
 
-- handleClick doesn't explain what it does
-- you lose colocation
-- need new names for each callback
+## Required Context to Provide
 
-Inline callbacks can call multiple functions with good names
+Always include in the subagent prompt:
 
-onClick={() => {
-analytics.event('this-button')
-openModal()
+1. **What we're working on** - The high-level goal or feature being implemented
+2. **Relevant file paths** - Specific files the subagent needs to examine or modify
+3. **Current state** - What has already been done, what's working, what's broken
+4. **Specific task** - Clear, actionable instructions for what the subagent should do
+5. **Expected output** - What information or result you need back from the subagent
 
-🚩 useMemo
+## Examples
 
-React devs are terrified of renders and often overuseMemo
+### ❌ Bad (Missing Context)
 
-- memoize things that you pass as props to components that may have expensive children
-- it's ok for leaf components to over-render
+```
+Task: "Find where the user authentication happens"
+```
 
-useMemo does not fix bugs, it just makes them happen less often
+### ✅ Good (Full Context)
 
-🚩 <div onClick
+```
+Task: "We're implementing Discord OAuth for the AnswerOverflow rewrite. 
+The auth setup is in packages/database/convex/auth.ts.
+We've already configured the Discord provider but login is failing silently.
+Find where the OAuth callback is handled and check if there are any error logs or missing configuration.
+Return the file paths and any issues you find."
+```
 
-divs are not interactive elements and adding onClick requires implementing keyboard control, screen reader announcement, etc
+## Key Principle
 
-This is almost never the right move, and anyone capable of doing it right (the new tweet button) isn't going to be swayed by this tweet
+If you had to hand this task to a colleague who just joined the project, would they have enough information to complete it without asking clarifying questions? If not, add more context.
 
 ---
 > Source: [RhysSullivan/fastergh](https://github.com/RhysSullivan/fastergh) — distributed by [TomeVault](https://tomevault.io).
