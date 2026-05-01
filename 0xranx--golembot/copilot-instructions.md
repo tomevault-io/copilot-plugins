@@ -1,137 +1,109 @@
-## engine-internals
+## testing-conventions
 
-> Coding Agent engine implementation details (Cursor + Claude Code) — reference when modifying engine.ts or debugging Agent behavior
+> Testing conventions — must reference when modifying src/ code or tests
 
 
-# Cursor Engine Implementation Details
+# Testing Conventions
 
-## Agent CLI Invocation
+## Feature Changes Must Be Verified (Most Important Rule)
 
-- Binary path: `~/.local/bin/agent` (not `cursor`, nor `cursor agent`)
-- Uses standard `child_process.spawn` — no PTY (node-pty) needed since CLI version 2026.02+
-- Key flags: `--output-format stream-json --stream-partial-output --force --trust --sandbox disabled --approve-mcps`
+**Any substantive change to source files under `src/` must:**
 
-## stream-json Output Format
+1. **Add dedicated tests for the new functionality** — passing existing tests is not enough. Each new feature/field/parameter needs corresponding test cases; these must fail when the feature is removed.
+2. Evaluate whether **e2e tests** need updates — if the change affects interaction with the real Agent (e.g. params, output parsing, event types), add new assertions in e2e.
+3. **Run e2e once** (`pnpm run e2e`) to ensure real scenarios still work — even if the change seems small.
 
-Output is clean NDJSON on stdout; `stripAnsi()` is retained as a safety net but is not expected to be needed.
+### ⚠️ Anti-Pattern Warning
 
-One JSON object per line, main types:
+**"Changed code + all old tests pass = done" — that is wrong.** Old tests only verify old behavior. New functionality without dedicated tests is effectively unverified.
 
-```
-{ "type": "system", "subtype": "init", "session_id": "xxx", ... }     → Init; does not signal end of conversation
-{ "type": "assistant", "message": { "content": [{ "type": "text", "text": "..." }] } }  → Assistant text delta
-{ "type": "tool_call", "subtype": "started", "tool_call": { "<XxxToolCall>": { "args": {...} } } }  → Tool call started
-{ "type": "tool_call", "subtype": "completed", "tool_call": { "<XxxToolCall>": { "args": {...}, "result": {...} } } }  → Tool call completed
-{ "type": "result", "subtype": "success", "is_error": false, "session_id": "xxx", "duration_ms": 1234 }  → Normal end
-{ "type": "result", "subtype": "error", "is_error": true, "result": "error msg" }  → Error end
-```
+Typical mistakes:
+- Added `apiKey` to `InvokeOpts` → but no test verifies `apiKey` is actually passed to the engine
+- Added `durationMs` to `done` event → but no test for with/without `duration_ms` scenarios
+- Modified `parseStreamLine` → but e2e has no assertion for the new fields returned by the real Agent
 
-### Key Notes
+Correct approach:
+1. Unit tests: mock engine captures new params; verify end-to-end propagation of new fields from source to consumer
+2. e2e assertions: verify new fields have values in real conversations (e.g. `durationMs > 0`)
+3. Do not consider it done until tests have been run
 
-1. **tool_call has both started and completed events** — started → yield `tool_call`, completed → yield `tool_result`; do not treat both as tool_call (would duplicate)
-2. **tool_call name is not a fixed field** — iterate over the `tool_call` object keys and find the one ending with `ToolCall`; some tools use `function` format (`{ "name": "...", "arguments": "..." }`)
-3. **`--stream-partial-output` changes assistant event granularity** — with it, each assistant event is character-level delta; without it, full paragraphs. **Critical**: after all deltas for each segment (text between tool calls), Cursor sends one more summary event (content = concatenation of that segment’s deltas). CursorEngine uses accumulated text comparison to detect and skip summary, avoiding duplicate text
-4. **assistant.message.content is an array** — multiple blocks; filter those with `type === 'text'` and concatenate
-5. **system event is not a termination signal** — do not end the stream on system event
-6. **session_id appears in both system and result** — use the one in result as the final session_id
+## Unit Tests (vitest)
 
-## apiKey Authentication Passthrough (Cursor)
+Location: `src/__tests__/<module>.test.ts`
 
-Headless environments (cloud servers, CI/CD) have no `agent login` state; must authenticate via API Key. Full passthrough chain:
+### Mock Engine Pattern
 
-```
-CreateAssistantOpts.apiKey (user-provided)
-  → index.ts: stored in closure, passed to engine.invoke() on each doChat()
-    → InvokeOpts.apiKey
-      → CursorEngine:
-        1. args.push('--api-key', opts.apiKey)   // CLI argument
-        2. env.CURSOR_API_KEY = opts.apiKey       // env var (backup)
-      → ClaudeCodeEngine:
-        1. env.ANTHROPIC_API_KEY = opts.apiKey    // env var
+Unit tests do not call the real Agent (Cursor / Claude Code). Replace with a mock engine:
+
+```typescript
+async function* mockInvoke(prompt, opts): AsyncIterable<StreamEvent> {
+  yield { type: 'text', content: 'mock response' };
+  yield { type: 'done', sessionId: 'mock-session-123' };
+}
 ```
 
-CLI layer (`cli.ts`) `run` and `serve` commands both support `--api-key <key>` (generic, any engine).
+Inject via `vi.mock('../engine.js', ...)`, returning mock engine from `createEngine`.
 
-When apiKey is not passed, the engine inherits `process.env` (including existing `CURSOR_API_KEY` or `ANTHROPIC_API_KEY`); works if the host process already sets those env vars.
+### Key Test Scenarios
 
-## durationMs Extraction
+- **session.test.ts**: Multi-key routing, Phase 1 format migration, concurrency safety
+- **index.test.ts**: sessionKey routing, KeyedMutex concurrency isolation, resetSession
+- **server.test.ts**: All HTTP endpoints, SSE streaming, Bearer auth, CORS, input validation
+- **engine.test.ts**: stream-json parsing (parseStreamLine + parseClaudeStreamLine), ANSI stripping, injectClaudeSkills, createEngine factory
+- **workspace.test.ts**: golem.yaml read/write, skills scanning, AGENTS.md generation
 
-Cursor result event includes `duration_ms` (integer, milliseconds). `parseStreamLine` extracts it and puts it in the `done` event’s `durationMs` field.
+### Running
 
-- Has `duration_ms` → `{ type: 'done', sessionId, durationMs: 4500 }`
-- No `duration_ms` → `{ type: 'done', sessionId, durationMs: undefined }`
-- `duration_ms: 0` → `{ type: 'done', sessionId, durationMs: 0 }` (valid value)
-- error result → do not expose durationMs (return error event)
-
-## Session Resume
-
-- Flag: `--resume <sessionId>`
-- On resume failure, Agent process may exit with error (exit code != 0) or return is_error in result event
-- GolemBot fallback: on resume-related error → clearSession → retry once without --resume
-- Resume failure keywords: error message contains "resume" or "session" (case-insensitive)
-
-## Skill Injection
-
-- Cursor discovers Skills from `.cursor/skills/` directory
-- GolemBot strategy: symlink `skills/<name>` to `.cursor/skills/<name>`
-- Before each invoke, remove old symlinks (only those that are isSymbolicLink), then recreate
-- Ensures Skill list always matches `skills/` directory
-
-## Skill Auto-Discovery and Usage (Important)
-
-After reading AGENTS.md and SKILL.md from .cursor/skills/, the Coding Agent **decides on its own** when to use which Skill.
-- Test prompts should not explicitly say "use xxx script" or "follow xxx Skill"
-- Correct approach: describe the task in natural language and let the Agent decide
-- Assertions should be looser (Agent may use different filenames or output directly in the reply without writing a file)
-
-## stdout Buffer Handling
-
-- stdout `data` events may fire at arbitrary byte boundaries (not by line)
-- Must maintain a buffer, split on `\n`, keep the last incomplete line
-- On process close, drain the remaining buffer (append `\n` then process)
-- After close, check whether done/error was already yielded; if not, emit an error
-
-# Claude Code Engine Implementation Details
-
-## CLI Invocation
-
-- Binary path: `~/.local/bin/claude`
-- Uses standard `child_process.spawn` (**no PTY needed**); reads stream-json from stdout
-- Key flags: `-p <prompt> --output-format stream-json --verbose --dangerously-skip-permissions`
-- `--verbose` is **required**; without it, stream-json only outputs the final result event, not intermediate assistant/user events
-
-## stream-json Output Format
-
-No ANSI escape sequences (plain stdout JSON); no stripAnsi needed.
-
-One JSON object per line, main types:
-
-```
-{ "type": "system", "subtype": "init", "session_id": "xxx", ... }  → Ignore
-{ "type": "assistant", "message": { "content": [{ "type": "text", "text": "..." }, { "type": "tool_use", "name": "Bash", "input": {...} }] } }  → May yield multiple StreamEvents
-{ "type": "user", "message": { "content": [{ "type": "tool_result", "content": "..." }] } }  → Tool execution result
-{ "type": "result", "is_error": false, "session_id": "xxx", "duration_ms": 1234, "total_cost_usd": 0.01, "num_turns": 2 }  → done
+```bash
+pnpm run test         # Single run
+pnpm run test:watch   # Watch mode
 ```
 
-### Key Notes
+## End-to-End Tests
 
-1. **Single message can have mixed content blocks** — assistant message content array can include both text and tool_use. `parseClaudeStreamLine()` returns `StreamEvent[]` not a single event
-2. **`--verbose` is required** — without it, only result is output; no intermediate stream events at all
-3. **tool_result content has two formats** — string or `[{ type: "text", text: "..." }]` array; parser must handle both
-4. **result event extended fields** — `total_cost_usd`, `num_turns`, `duration_api_ms`, `usage`; mapped to `StreamEvent.done`’s `costUsd` and `numTurns`
-5. **No segmentAccum dedup needed** — Claude Code does not have summary events like Cursor
+### Three e2e Test Files
 
-## Skill Injection
+| File | Command | Scenario | Prerequisites |
+|------|---------|----------|---------------|
+| `examples/e2e-test.ts` | `pnpm run e2e` | Cursor engine full feature verification (IM / CI / Pipeline / HTTP) | Cursor Agent CLI |
+| `examples/e2e-headless.ts` | `pnpm run e2e:headless` | Cursor headless deployment verification (apiKey / HTTP / service restart) | Cursor Agent CLI + `CURSOR_API_KEY` |
+| `examples/e2e-claude-code.ts` | `pnpm run e2e:claude-code` | Claude Code engine verification (chat / multi-turn / session / HTTP / costUsd) | Claude Code CLI + `claude auth` or `ANTHROPIC_API_KEY` |
 
-- Claude Code natively discovers Skills from `.claude/skills/` directory (mirrors Cursor’s `.cursor/skills/`)
-- `injectClaudeSkills()` also generates `CLAUDE.md` (extra context)
-- Skill frontmatter (name, description, etc.) is natively recognized by Claude Code
+### .env Auto-Loading
 
-## Authentication
+All three e2e scripts auto-load env vars from the project root `.env` file (without overwriting existing vars). Sensitive values (`CURSOR_API_KEY`, `ANTHROPIC_API_KEY`) go in `.env`; no need to pass them manually each time.
 
-- `claude auth login` for interactive login
-- `ANTHROPIC_API_KEY` env var (headless)
-- apiKey passthrough: `InvokeOpts.apiKey → env.ANTHROPIC_API_KEY`
+`.env` is in `.gitignore`; `.env.example` provides a template without secrets.
+
+### Design Principles
+
+1. **Use natural language prompts** — Do not specify Skill names, script paths, or filenames in prompts. Let the Agent discover and use Skills on its own.
+2. **Loosen assertions** — Agent may choose different filenames or output directly in the reply without writing a file. Assertions should tolerate this flexibility.
+3. **Isolated temp directories** — Each test scenario uses `mkdtemp()` for an isolated directory; cleaned up after the test.
+4. **Check concrete data** — Do not just check "there is output"; verify the output contains expected values or keywords.
+
+### e2e-test.ts Structure
+
+- PART 1: Core engine capabilities (chat, durationMs validation, file I/O, Skill hot-swap, script invocation, persistent memory)
+- PART 2: Embedded scenarios (IM bot, CI/CD code review, data pipeline)
+- PART 3: Multi-instance isolation verification
+- PART 4: HTTP service (startup, health, auth, multi-user session, reset)
+
+### e2e-headless.ts Structure
+
+- PART 1: Initial deployment (apiKey create assistant + Skill config)
+- PART 2: apiKey direct chat (auth chain + durationMs + session persistence)
+- PART 3: HTTP service production deployment (health, auth, ops log analysis, monitoring data analysis, multi-tenant isolation, session reset)
+- PART 4: Service restart (session persistence across restarts + multi-turn chat after restart)
+
+### Notes
+
+- Cursor e2e requires Cursor Agent CLI available (`~/.local/bin/agent`)
+- Claude Code e2e requires Claude Code CLI available (`~/.local/bin/claude`) + auth
+- e2e-test.ts takes ~5–7 minutes per run; e2e-headless.ts ~2–3 min; e2e-claude-code.ts ~1–2 min
+- On failure, process.exit(1), with clear markers for which assertions failed
+- e2e-headless.ts auto-skips when `CURSOR_API_KEY` is missing (exit 0)
+- e2e-claude-code.ts auto-skips when Claude Code CLI is unavailable or not authenticated and no `ANTHROPIC_API_KEY` (exit 0)
 
 ---
 > Source: [0xranx/golembot](https://github.com/0xranx/golembot) — distributed by [TomeVault](https://tomevault.io).
