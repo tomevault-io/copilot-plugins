@@ -1,109 +1,210 @@
-## test-database-limitations
+## test-file-organization
 
-> When writing tests
+> Test file organization and splitting guidelines
 
 
-# Test Database Limitations
+# Test File Organization
 
-## Overview
+## File Size Limits
 
-Test databases created via `withDevDatabase()` from `@prisma-next/test-utils` use **pglite** (an in-memory PostgreSQL implementation via `@prisma/dev`). Pglite does **not support PostgreSQL extensions** like `pgvector`, `pg_trgm`, etc.
+**Maximum file size: 500 lines**
 
-## The Problem
+Test files should be kept under 500 lines to maintain readability and navigability. If a test file exceeds this limit, it should be split into multiple files.
 
-When writing tests that use features requiring PostgreSQL extensions:
+## Splitting Strategy
 
-**❌ WRONG: Trying to use extensions in pglite**
+### When to Split
+
+Split test files when:
+- ✅ File exceeds 500 lines
+- ✅ File contains multiple distinct concerns that can be logically separated
+- ✅ File has multiple top-level `describe` blocks that can be split by functionality
+
+### How to Split
+
+**1. Identify logical groupings:**
+- Group tests by functionality (e.g., "basic", "errors", "structure", "generation")
+- Group tests by feature area (e.g., "joins", "projections", "includes")
+- Group tests by test type (e.g., "unit", "integration", "edge-cases")
+- **Integration tests that depend on multiple packages** should be placed in `@prisma-next/integration-tests` to avoid cyclic dependencies. For example, tests that use both `sql-contract-ts` and `sql-query` belong in the integration-tests package.
+
+**2. Use descriptive file names:**
+- Use suffixes to indicate test category: `.basic.test.ts`, `.errors.test.ts`, `.structure.test.ts`
+- Use prefixes for feature areas: `runtime.joins.test.ts`, `runtime.projections.test.ts`
+- Keep the base name consistent: `codecs.registry.test.ts`, `codecs.encoding.test.ts`
+
+**3. Split at natural boundaries:**
+- Split by `describe` blocks when they represent distinct concerns
+- Split by test categories (basic vs advanced, success vs error cases)
+- Split by feature areas (joins, projections, includes, etc.)
+
+**4. Ensure each file is complete:**
+- Each new file must have all necessary imports
+- Each new file must have all necessary setup/teardown code
+- Each new file should be independently runnable
+
+### Examples
+
+**✅ CORRECT: Split by functionality**
 
 ```typescript
-await withClient(connectionString, async (client) => {
-  await client.query('create extension if not exists vector');  // ❌ Fails: extension not available
-  await client.query('create table post (embedding vector(1536))');  // ❌ Fails: vector type doesn't exist
+// codecs.registry.test.ts - Registry operations
+describe('codec registry', () => {
+  it('registers codec', () => { /* ... */ });
+  it('gets codec by id', () => { /* ... */ });
+  it('checks if codec exists', () => { /* ... */ });
+});
+
+// codecs.encoding.test.ts - Encoding operations
+describe('codec encoding', () => {
+  it('encodes string value', () => { /* ... */ });
+  it('encodes number value', () => { /* ... */ });
+  it('handles null values', () => { /* ... */ });
+});
+
+// codecs.decoding.test.ts - Decoding operations
+describe('codec decoding', () => {
+  it('decodes string value', () => { /* ... */ });
+  it('decodes number value', () => { /* ... */ });
+  it('handles null values', () => { /* ... */ });
 });
 ```
 
-**Error:** `extension "vector" is not available` or `type "vector" does not exist`
-
-## Solutions
-
-### Option 1: Avoid Extension Features in Tests (Recommended for Non-Extension Tests)
-
-If your test is **not specifically testing extension functionality**, avoid selecting or using extension-dependent columns:
-
-**✅ CORRECT: Don't select extension columns in non-extension tests**
+**✅ CORRECT: Split by feature area**
 
 ```typescript
-// Test is about ORM includes, not vector operations
-const plan = orm
-  .user()
-  .include.posts((child) =>
-    child
-      .select((m) => ({
-        id: m.id,
-        title: m.title,
-        createdAt: m.createdAt,
-        // ✅ Don't select embedding - test is about includes, not vectors
-      }))
-  )
-  .select((u) => ({ id: u.id, posts: true }))
-  .findMany();
+// runtime.joins.test.ts - Join-related tests
+describe('runtime joins', () => {
+  it('executes inner join', () => { /* ... */ });
+  it('executes left join', () => { /* ... */ });
+  it('executes right join', () => { /* ... */ });
+});
+
+// runtime.projections.test.ts - Projection-related tests
+describe('runtime projections', () => {
+  it('executes nested projection', () => { /* ... */ });
+  it('executes multi-level projection', () => { /* ... */ });
+});
 ```
 
-**Why?** The test focuses on the feature being tested (includes), not the extension functionality. Extension functionality should be tested separately.
-
-### Option 2: Use Real PostgreSQL Database
-
-If you **must test extension functionality**, use a real PostgreSQL database instead of `withDevDatabase()`:
-
-**✅ CORRECT: Use real PostgreSQL for extension tests**
+**✅ CORRECT: Split by test type**
 
 ```typescript
-// Connect to real PostgreSQL database (not pglite)
-const connectionString = process.env['DATABASE_URL']; // Real PostgreSQL
-const client = new Client({ connectionString });
-await client.connect();
+// runtime.constructor.test.ts - Constructor tests
+describe('runtime constructor', () => {
+  it('creates runtime with default mode', () => { /* ... */ });
+  it('creates runtime with permissive mode', () => { /* ... */ });
+});
 
-try {
-  await client.query('create extension if not exists vector');
-  await client.query('create table post (embedding vector(1536))');
-  // ... test extension functionality
-} finally {
-  await client.end();
-}
+// runtime.edge-cases.test.ts - Edge case tests
+describe('runtime edge cases', () => {
+  it('handles empty result set', () => { /* ... */ });
+  it('handles plugin errors', () => { /* ... */ });
+});
 ```
 
-**Note:** This requires a real PostgreSQL instance with the extension installed, which may not be available in all CI environments.
+**❌ WRONG: Split arbitrarily without logical grouping**
 
-## Extension Test Strategy
+```typescript
+// codecs.part1.test.ts - First 250 lines
+// codecs.part2.test.ts - Next 250 lines
+// codecs.part3.test.ts - Remaining lines
+```
 
-**Current approach in codebase:**
+**Why?** Arbitrary splits make it hard to find related tests and understand the test organization.
 
-1. **Unit tests** (`packages/extensions/pgvector/test/*.test.ts`): Test codec registry, operation signatures, and manifest loading. These don't require a database.
+## Test Assertion Patterns
 
-2. **Integration tests** (`test/integration/test/pgvector.integration.test.ts`): Test pack loading and registration. These don't require a database.
+### Prefer Object Comparison Over Property-by-Property Checks
 
-3. **No database execution tests**: There are currently no tests that execute queries with pgvector against a real database. This is acceptable because:
-   - Lowering tests verify SQL generation is correct
-   - Codec tests verify encode/decode logic
-   - The extension is tested in production use cases (e.g., `examples/prisma-next-demo/scripts/seed.ts`)
+**✅ CORRECT: Use `toEqual` or `toMatchObject` for object comparison**
 
-## When to Use Each Approach
+```typescript
+// Compare entire objects
+expect(rows[0]).toEqual({ id: 1, name: 'Test User', email: 'test@example.com' });
 
-**Use Option 1 (avoid extension features)** when:
-- ✅ Testing features that don't require extensions (e.g., ORM includes, relation filters)
-- ✅ The test focuses on core functionality, not extension-specific behavior
-- ✅ You want fast, reliable tests that work in all environments
+// Use toMatchObject for partial comparison
+expect(rows[0]).toMatchObject({ id: expect.any(Number), email: expect.any(String) });
 
-**Use Option 2 (real PostgreSQL)** when:
-- ✅ Specifically testing extension functionality end-to-end
-- ✅ You need to verify extension behavior in a real database
-- ✅ You have access to a PostgreSQL instance with the extension installed
+// Use expect.any() for type-only checks
+expect(rows[0]).toMatchObject({ id: expect.any(Number) });
 
-## Related Patterns
+// Use expect.not.objectContaining() for absence checks
+expect(rows[0]).not.toMatchObject({ deletedAt: expect.anything() });
+```
 
-- `docs/Testing Guide.md`: Testing best practices
-- `test/utils/README.md`: Test database utilities documentation
-- `packages/extensions/pgvector/README.md`: pgvector extension documentation
+**❌ WRONG: Piece-by-piece property checks**
+
+```typescript
+// Brittle, hard to maintain, breaks with type changes
+expect(rows[0]).toHaveProperty('id');
+expect(rows[0]).toHaveProperty('name');
+expect(rows[0]).toHaveProperty('email');
+expect(typeof rows[0]?.['id']).toBe('number');
+expect(typeof rows[0]?.['name']).toBe('string');
+expect(typeof rows[0]?.['email']).toBe('string');
+```
+
+**Why?** Object comparison is:
+- More maintainable (single assertion per object)
+- More readable (shows expected structure clearly)
+- Type-safe (TypeScript can infer types from objects)
+- Less brittle (doesn't break when properties are added/removed)
+
+### Plan Structure Assertions
+
+**✅ CORRECT: Compare entire plan structures**
+
+```typescript
+expect(plan.ast?.joins).toEqual([
+  {
+    kind: 'join',
+    joinType: 'inner',
+    table: { kind: 'table', name: 'post' },
+    on: {
+      kind: 'eqCol',
+      left: { kind: 'col', table: 'user', column: 'id' },
+      right: { kind: 'col', table: 'post', column: 'userId' },
+    },
+  },
+]);
+```
+
+**❌ WRONG: Piece-by-piece plan checks**
+
+```typescript
+// Brittle, doesn't verify complete structure
+expect(plan.ast?.joins?.length).toBe(1);
+expect(plan.ast?.joins?.[0]?.joinType).toBe('inner');
+expect(plan.ast?.joins?.[0]?.table?.name).toBe('post');
+```
+
+**Why?** Full structure comparison ensures all AST fields are present and correct, not just a subset.
+
+## File Naming Conventions
+
+**Pattern:** `{base}.{category}.test.ts`
+
+- **Base name**: The main subject being tested (e.g., `codecs`, `runtime`, `driver`)
+- **Category**: The test category (e.g., `basic`, `errors`, `structure`, `generation`, `joins`, `projections`)
+- **Extension**: Always `.test.ts` for test files
+
+**Examples:**
+- `codecs.registry.test.ts` - Codec registry tests
+- `codecs.encoding.test.ts` - Codec encoding tests
+- `runtime.joins.test.ts` - Runtime join tests
+- `runtime.projections.test.ts` - Runtime projection tests
+- `driver.basic.test.ts` - Driver basic functionality tests
+- `driver.errors.test.ts` - Driver error handling tests
+
+## Verification
+
+After splitting files, verify:
+- ✅ All files are under 500 lines
+- ✅ Each file has all necessary imports
+- ✅ Each file is independently runnable
+- ✅ Test descriptions are clear and descriptive
+- ✅ File names follow the naming convention
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
