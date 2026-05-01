@@ -1,6 +1,8 @@
 # lc-studylab
 
-> Config by [leonyangdev](https://github.com/leonyangdev/lc-studylab) — distributed by [TomeVault](https://tomevault.io/claim/leonyangdev)
+> Tome by [leonyangdev](https://github.com/leonyangdev/lc-studylab) — distributed by [TomeVault](https://tomevault.io)
+
+LC-StudyLab 是一个完整演示 LangChain v1.0 全家桶能力的开源项目，整合了 LangGraph、DeepAgents、RAG 检索增强生成、Guardrails 安全校验与流式输出智能体等核心特性，帮助开发者系统掌握 LangChain v1 的所有关键组件
 
 ## GitHub Copilot Config
 
@@ -15,9 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [leonyangdev/lc-studylab](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/leonyangdev](https://tomevault.io/claim/leonyangdev)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/leonyangdev/lc-studylab](https://github.com/leonyangdev/lc-studylab)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/leonyangdev) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
