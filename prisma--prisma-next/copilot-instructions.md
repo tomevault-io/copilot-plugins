@@ -1,31 +1,22 @@
-## test-mocking-patterns
+## tsdown-config-package-source-only
 
-> Test-only type assertions and mocking patterns (avoid brittle mocks)
+> Keep @prisma-next/tsdown source-only exports
 
 
-# Test Mocking Patterns
+# @prisma-next/tsdown source-only policy
 
-## Type assertions in tests
+The package `packages/0-config/tsdown` is source-only and must not add emitted JavaScript artifacts to work around runtime config loading.
 
-**Allowed in tests only**:
-- `@ts-expect-error` (with a short reason)
-- Double casts (`as unknown as X`) for mocks / dynamic proxies
+## Rules
 
-Prefer `unknown` over `any` to keep the unsafe boundary explicit.
+- Do not add `base.js` (or other transpiled JS siblings) in `packages/0-config/tsdown`.
+- Do not change `packages/0-config/tsdown/package.json` exports to point to `.js` files.
+- Keep the export source-only (currently `./base.ts`).
 
-## Mocking class instances
+## Rationale
 
-**Rule**: Don’t spread (`{ ...instance }`) class instances in tests — you’ll lose prototype methods.
-
-```typescript
-const mocked = Object.create(Object.getPrototypeOf(original));
-Object.assign(mocked, original, { verify: mockedVerify });
-```
-
-## When a test mock needs a cast
-
-- Keep the mock shape minimal (only fields you need)
-- Put the cast at the boundary (return statement), not sprinkled throughout the test
+- This package is an internal config helper and should remain canonical TypeScript source.
+- Workarounds for runtime loading must be solved in consumers/tooling, not by emitting parallel JS files here.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
