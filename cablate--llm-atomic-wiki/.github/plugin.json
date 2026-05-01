@@ -1,0 +1,9 @@
+{
+  "name": "cablate--llm-atomic-wiki",
+  "displayName": "llm-atomic-wiki",
+  "description": "An extension of Karpathy's LLM Wiki pattern: atom layer, topic-branches, two-layer Lint. Distilled from running the pattern end-to-end.",
+  "version": "1.0.0",
+  "author": "cablate",
+  "homepage": "https://github.com/cablate/llm-atomic-wiki",
+  "skills": []
+}
