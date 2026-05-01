@@ -1,0 +1,9 @@
+{
+  "name": "nshkrdotcom--agent-session-manager",
+  "displayName": "agent_session_manager",
+  "description": "Agent Session Manager - A comprehensive Elixir library for managing AI agent sessions, state persistence, conversation context, and multi-agent orchestration workflows",
+  "version": "1.0.0",
+  "author": "nshkrdotcom",
+  "homepage": "https://github.com/nshkrdotcom/agent_session_manager",
+  "skills": []
+}
