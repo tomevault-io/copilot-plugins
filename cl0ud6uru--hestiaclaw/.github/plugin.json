@@ -1,0 +1,9 @@
+{
+  "name": "cl0ud6uru--hestiaclaw",
+  "displayName": "HestiaClaw",
+  "description": "The AI that remembers, learns, and actually does things in your Home Assistant environment.",
+  "version": "1.0.0",
+  "author": "cl0ud6uru",
+  "homepage": "https://github.com/cl0ud6uru/HestiaClaw",
+  "skills": []
+}
