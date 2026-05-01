@@ -1,96 +1,87 @@
-## nextjs
+## project-structure
 
-> This rule explains how to correctly use Next.js and related technologies.
+> This rule explains the folder structure of the project. Use this as a reference for navigating and understanding the codebase.
 
 
-# Next.js
+# Project Structure Guide
 
-This rule explains how to correctly use Next.js and related technologies.
-You are an expert in TypeScript, React, Node.js, Next.js App Router, Shadcn UI, TailwindCSS.
+This rule explains the folder structure of the project. Use this as a reference for navigating and understanding the codebase.
 
-## Code Style and Structure
+## Root Directory
 
-- Write concise, technical TypeScript code using the rules below
-- Use functional and declarative programming patterns; avoid classes
-- Prefer iteration and modularization over code duplication
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-- Structure files: exported component, subcomponents, helpers, static content
+The root contains configuration files and the main project folders:
+- [package.json](mdc:package.json): Project dependencies and scripts
+- [tsconfig.json](mdc:tsconfig.json): TypeScript configuration
+- [next.config.js](mdc:next.config.js): Next.js configuration
+- [tailwind.config.js](mdc:tailwind.config.js): Tailwind CSS configuration
 
-## Rules
+## Key Directories
 
-- No unused variables.
-- For multi-line if statements, use curly braces.
-- Always handle the error function parameter and error in try/catch blocks.
-- Use camelcase for variables and functions.
-- Use PascalCase for constructors and React components.
+### [components/](mdc:components)
 
-## Naming Conventions
+Reusable React components, organized by feature:
 
-- Use lowercase with dashes for directories (e.g., components/auth-wizard).
-- Use named exports; avoid default exports (e.g. export const Button = () => {})
+- `landing/`: Landing page components
+- `shared/`: Shared UI primitives (often Shadcn-based)
+- `search/`: Search UI components
+- `icons/`: SVG and icon components
 
-# React Best Practices
+### [app/](mdc:app)
 
-- Implement hooks correctly (useState, useEffect, useContext, useReducer, useMemo, useCallback).
-- Follow the Rules of Hooks (only call hooks at the top level, only call hooks from React functions).
-- Create custom hooks to extract reusable component logic.
-- Prefer composition over inheritance.
-- Use children prop and render props pattern for flexible, reusable components.
-- Implement React.lazy() and Suspense for code splitting.
-- Use refs sparingly and mainly for DOM access.
-- Prefer controlled components over uncontrolled components.
-- Implement error boundaries to catch and handle errors gracefully.
-- Use cleanup functions in useEffect to prevent memory leaks.
-- Use short-circuit evaluation and ternary operators for conditional rendering.
-- Use dynamic loading for non-critical components.
+Next.js App Router directory. Contains all route definitions and API endpoints:
 
-## UI and Styling
+- `page.tsx`: Main entry point
+- `layout.tsx`: Root layout
+- `not-found.tsx`: 404 page
+- `seo.tsx`, `theme-providers.tsx`: SEO and theme context
+- Subfolders for routes: `about/`, `api/`, `terms/`, `pricing/`, `privacy/`, etc.
 
-- Use Shadcn UI for component foundations from [`@/components/shared/ui`](mdc:components/shared/ui)
-- Implement responsive design with Tailwind CSS; use a mobile-first approach.
-- Use Tailwind for utility classes and rapid prototyping.
-- Implement dark mode support
+### [scripts/](mdc:scripts)
 
-## Forms and Validation
+Node scripts for build, RSS generation, and app info automation.
 
-- Use controlled components for form inputs.
-- Implement form validation (client-side and server-side).
-- Consider using libraries like react-hook-form for complex forms.
-- Use Zod for schema validation.
+### [css/](mdc:css)
 
-## Page Metadata
+Global and syntax highlighting CSS files.
 
-- **For page metadata, use the Shipixen utility:**
-  - Use `genPageMetadata` from ](mdc:app/seo.tsx) for all page meta generation.
+### [lib/](mdc:lib)
 
-  **Example:**
-  ```ts
-  import { genPageMetadata } from '@/app/seo';
-  export const metadata = genPageMetadata({ title: 'Home', description: 'Welcome!' });
-  ```
+Utility functions and helpers.
 
-## Error Handling and Validation
+### [components/shared/](mdc:components/shared)
 
-- Prioritize error handling and edge cases.
-- Handle errors and edge cases at the beginning of functions.
-- Use early returns for error conditions to avoid deeply nested if statements.
-- Place the happy path last in the function for improved readability.
-- Avoid unnecessary else statements; use if-return pattern instead.
-- Use guard clauses to handle preconditions and invalid states early.
-- Implement proper error logging and user-friendly error messages.
+**Shared Components**: Common UI and logic used across the app, including:
+- `Header.tsx`: Main site header, navigation, and theme switcher. Uses `headerNavLinks` from config.
+- `Footer.tsx`: Main site footer, renders columns and social links using `footerLinks` and `siteConfig`.
+- `MobileNav.tsx`, `ScrollTop.tsx`, `ThemeSwitch.tsx`, `Analytics.tsx`, `PageTitle.tsx`, `SectionContainer.tsx`, `VideoPlayer.tsx`, `ActiveLink.tsx`, `Link.tsx`, `FooterSupportButton.tsx`, `Image.tsx`: Utility and layout components for navigation, theming, analytics, and content display.
+- `SearchProvider.tsx`: Context provider for search functionality.
+- `useThemeSwitch.tsx`: Custom hook for theme toggling.
+- **[ui/](mdc:components/shared/ui)**: Shadcn-based UI primitives (buttons, toggles, dialogs, forms, etc.) for consistent design system usage. Example primitives:
+  - `button.tsx`: Button component with multiple variants and sizes.
+  - `toggle.tsx`: Toggle switch using Radix UI and class-variance-authority.
+  - `dropdown-menu.tsx`, `menubar.tsx`, `pagination.tsx`, `calendar.tsx`, `card.tsx`, `table.tsx`, `tabs.tsx`, `select.tsx`, `sheet.tsx`, `slider.tsx`, `switch.tsx`, `badge.tsx`, `dialog.tsx`, `alert.tsx`, `avatar.tsx`, `form.tsx`, etc.
+  - All primitives are designed for accessibility, theme support, and composability.
 
-## Accessibility (a11y)
+### [data/config/](mdc:data/config)
 
-- Use semantic HTML elements.
-- Implement proper ARIA attributes.
-- Ensure keyboard navigation support.
+**Configuration Directory**: Centralized site and UI configuration:
+- `site.settings.js`: Main site config (title, description, analytics, search, etc.), imported as `siteConfig`.
+- `siteSettingsInterface.ts`: TypeScript interface for site config and metadata.
+- `metadata.js`: Site metadata (title, description, domain, social links, theme, etc.).
+- `footerLinks.ts`: Footer navigation columns and links.
+- `headerNavLinks.ts`: Header navigation links, referencing `siteConfig` for dynamic paths.
+- `colors.js`: Semantic color palette for Tailwind and UI.
+- `pricingData.tsx` & `pricingDataInterface.ts`: Pricing tiers, frequencies, and types for pricing pages.
+- `searchLinks.ts`: Quick navigation/search links for the app.
 
-## Security
+These config files are imported throughout the app and components to ensure consistent navigation, theming, and business logic.
 
-- Sanitize user inputs to prevent XSS attacks.
-- Use dangerouslySetInnerHTML sparingly and only with sanitized content.
+## Other Notable Folders
 
-Follow latest Next.js conventions for Data Fetching, Rendering, and Routing. See [Next.js Documentation](https://nextjs.org/docs)
+- `.cursor/`: Cursor AI rules and metadata
+- `public/`: Static assets
+
+Refer to this rule for a high-level overview of the project structure and the purpose of each directory.
 
 ---
 > Source: [PageAI-Pro/vibe-coding-starter](https://github.com/PageAI-Pro/vibe-coding-starter) — distributed by [TomeVault](https://tomevault.io).
