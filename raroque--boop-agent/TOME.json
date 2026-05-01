@@ -1,0 +1,44 @@
+{
+  "name": "boop-agent",
+  "owner": "raroque",
+  "repo": "boop-agent",
+  "description": "Your new best friend \ud83d\udc36 A proactive iMessage based agent built on the Claude Agent SDK (Ready to be customized with pre built multi-agent architecture, robust memory, automations, and integrations)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/raroque/boop-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T21:35:13Z"
+}
