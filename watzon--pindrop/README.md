@@ -7,11 +7,11 @@ A native macOS menu bar dictation app using local speech-to-text with WhisperKit
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [watzon/pindrop](https://github.com/watzon/pindrop).
+Original source: `CLAUDE.md` in [watzon/pindrop](https://github.com/watzon/pindrop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
