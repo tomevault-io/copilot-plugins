@@ -1,0 +1,9 @@
+{
+  "name": "gadaalabs--claude-code-on-steroids",
+  "displayName": "claude-code-on-steroids",
+  "description": "obra/superpowers extended \u2014 14\u219224 skills, 6 GadaaLabs engineering improvements, override infrastructure, one-command install",
+  "version": "1.0.0",
+  "author": "GadaaLabs",
+  "homepage": "https://github.com/GadaaLabs/claude-code-on-steroids",
+  "skills": []
+}
