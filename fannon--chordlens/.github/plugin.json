@@ -1,0 +1,9 @@
+{
+  "name": "fannon--chordlens",
+  "displayName": "ChordLens",
+  "description": "ChordLens is a clean MIDI chord and scale detector",
+  "version": "1.0.0",
+  "author": "Fannon",
+  "homepage": "https://github.com/Fannon/ChordLens",
+  "skills": []
+}
