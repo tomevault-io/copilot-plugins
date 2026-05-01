@@ -1,60 +1,44 @@
-## core
+## docs-maintenance
 
-> Conventions for the core pipeline and orchestration layer
+> Keep agent config and documentation in sync with code changes
 
 
-# Core Pipeline Rules
+# Documentation Maintenance
 
-## Platform Agnosticism
+When you make a structural change to the codebase, update the relevant
+documentation **in the same commit**. A "structural change" is any of:
 
-This package must never import from `src/adapters/` directly. The exceptions are
-`registry_builder.py` and `workflow_registry.py`, which use lazy imports inside
-try/except blocks.
+- Adding, removing, or renaming a platform adapter
+- Adding or removing a content modality
+- Changing a protocol signature in `ports/`
+- Adding or renaming a CLI command
+- Adding or removing a web route, or changing the dashboard architecture
+- Changing the pipeline stages or orchestration flow
+- Adding or removing a major dependency
+- Adding or removing a workflow or workflow step
 
-## Pipeline (`pipeline.py`)
+## What to Update
 
-`ContentPipeline.execute(content, platform)` runs four stages:
-1. `ContentNormaliser.normalise()` — match/case on content type
-2. `bundle.renderer.render()` — platform-specific transformation
-3. `sanitise_text()` — strip em/en-dashes from all text fields (anti-AI-detection)
-4. `bundle.uploader.upload_batch()` — media upload, refs stored in `extra._media_refs`
-5. `bundle.adapter.publish()` (or `send_dm()` for DIRECT_MESSAGE)
+| Change | Files to update |
+|--------|-----------------|
+| New/removed adapter | `CLAUDE.md` (Adapters table), `src/adapters/CLAUDE.md` (adapter list), `AGENTS.md` (if key files change), `README.md` (platform table) |
+| New/removed modality | `CLAUDE.md` (Content Models section), `src/marketmenow/CLAUDE.md` (Content Model Hierarchy) |
+| Protocol signature change | `CLAUDE.md` (Protocols section), `src/marketmenow/CLAUDE.md` (Protocol Signatures) |
+| New CLI command | `CLAUDE.md` (Commands section), `README.md` (CLI reference) |
+| New web route or architecture change | `src/web/CLAUDE.md`, `.cursor/rules/web.mdc` |
+| Pipeline/orchestration change | `src/marketmenow/CLAUDE.md`, `.cursor/rules/core.mdc` |
+| New dependency | `CLAUDE.md` (if it affects setup commands) |
+| New/removed workflow | `CLAUDE.md` (Workflows section), `core/workflow_registry.py` (registration) |
 
-## Orchestrator (`orchestrator.py`)
+## Rules
 
-`Orchestrator.run_campaign(campaign)` validates targets against the registry,
-then runs executable targets in parallel via `asyncio.gather`. Returns
-`CampaignResult` with results and errors.
-
-## Distributor (`distributor.py`)
-
-`ContentDistributor.distribute(content, platforms=None)` resolves target platforms
-from `DistributionMap` (or explicit override), intersects with registered adapters,
-builds a `Campaign`, and delegates to `Orchestrator`.
-
-## Registry Builder (`registry_builder.py`)
-
-`build_registry()` calls `_try_<platform>()` for each adapter. Each function:
-1. Lazy-imports the adapter's bundle factory and settings class
-2. Constructs settings (reads env vars)
-3. Builds the bundle and registers it
-4. Catches all exceptions — missing config silently skips that platform
-
-When adding a new adapter, add a corresponding `_try_yourplatform()` here.
-
-## Workflow System (`workflow.py`, `workflow_registry.py`)
-
-`Workflow` is a named sequence of `WorkflowStep` instances sharing a `WorkflowContext`.
-Steps implement the `WorkflowStep` protocol: `name`, `description`, `execute(ctx)`.
-The context carries `params` (CLI args) and `artifacts` (step outputs).
-
-`build_workflow_registry()` auto-discovers built-in workflows from `workflows/` via
-lazy imports. When adding a new workflow, add a `_try_register()` call here.
-
-## Scheduler (`scheduler.py`)
-
-In-process scheduler for timed campaign execution. Uses `ScheduleRule` from
-`models/campaign.py`.
+- Keep updates minimal and factual — match the existing tone and format.
+- Do not rewrite entire files; surgically update the affected sections.
+- If you add a new top-level package or fundamentally new subsystem, create a
+  `CLAUDE.md` in that directory following the pattern of existing ones.
+- `AGENTS.md` only needs updating when key file paths or commands change.
+- `.cursor/rules/*.mdc` files only need updating when conventions or patterns
+  for that scope change, not for every new file.
 
 ---
 > Source: [thearnavrustagi/marketmenow](https://github.com/thearnavrustagi/marketmenow) — distributed by [TomeVault](https://tomevault.io).
