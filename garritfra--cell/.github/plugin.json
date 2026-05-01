@@ -1,0 +1,9 @@
+{
+  "name": "garritfra--cell",
+  "displayName": "cell",
+  "description": "A terminal spreadsheet editor with Vim keybindings",
+  "version": "1.0.0",
+  "author": "garritfra",
+  "homepage": "https://github.com/garritfra/cell",
+  "skills": []
+}
