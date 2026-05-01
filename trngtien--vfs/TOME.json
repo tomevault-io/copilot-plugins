@@ -4,7 +4,7 @@
   "repo": "vfs",
   "description": "Reduce AI agent token usage by 98% via Virtual Function Signatures. MCP server for Cursor & Claude Desktop. Supports Go, TypeScript, Python, Rust, Java, Swift, Kotlin, C# and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TrNgTien/vfs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:14:59Z"
+  "distributed_at": "2026-05-01T19:47:17Z"
 }
