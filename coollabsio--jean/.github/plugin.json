@@ -1,9 +1,9 @@
 {
   "name": "coollabsio--jean",
   "displayName": "jean",
-  "description": "jean",
+  "description": "A dev environment for AI agents.",
   "version": "1.0.0",
   "author": "coollabsio",
-  "homepage": "https://tomevault.io/claim/coollabsio",
+  "homepage": "https://github.com/coollabsio/jean",
   "skills": []
 }
