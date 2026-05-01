@@ -1,107 +1,57 @@
-## ultracite
+## writing-scannable-code
 
-> Ultracite Rules - AI-Ready Formatter and Linter
+> Code should be scannable through proper abstraction, not comments. Use variables and helper functions to make intent clear at a glance.
 
 
-# Project Context
+# Scannable Code Guidelines/Separating Concerns.
 
-Ultracite enforces strict type safety, accessibility standards, and consistent code quality for JavaScript/TypeScript projects using Biome's formatter.
+## Core Principle
 
-## Key Principles
+Code should be scannable through proper abstraction, not comments. Use variables and helper functions to make intent clear at a glance.
 
-- Zero configuration required
-- Subsecond performance
-- Maximum type safety
-- AI-friendly code generation
+## Good Scannable Code
 
-## Before Writing Code
+- Extract complex logic into well-named variables
+- Create helper functions for multi-step operations
+- Use descriptive names that explain intent
 
-1. Analyze existing patterns in the codebase
-2. Consider edge cases and error scenarios
-3. Follow the rules below strictly
-4. Validate accessibility requirements
-5. Avoid code duplication
+Examples:
 
-## Rules
+```javascript
+// ✅ Scannable: Intent is clear from variable names
+const isValidUser = user.isActive && user.hasPermissions;
+const shouldProcessPayment = amount > 0 && !order.isPaid;
 
-### Accessibility (a11y)
-
-- Always include a `title` element for icons unless there's text beside the icon.
-- Always include a `type` attribute for button elements.
-- Accompany `onClick` with at least one of: `onKeyUp`, `onKeyDown`, or `onKeyPress`.
-- Accompany `onMouseOver`/`onMouseOut` with `onFocus`/`onBlur`.
-
-### Code Complexity and Quality
-
-- Don't use primitive type aliases or misleading types.
-- Don't use the comma operator.
-- Use for...of statements instead of Array.forEach.
-- Don't initialize variables to undefined.
-- Use .flatMap() instead of map().flat() when possible.
-
-### React and JSX Best Practices
-
-- Don't import `React` itself.
-- Don't use both `children` and `dangerouslySetInnerHTML` props on the same element.
-- Don't insert comments as text nodes.
-- Use `<>...</>` instead of `<Fragment>...</Fragment>`.
-
-### Function Parameters and Props
-
-- Always use destructured props objects instead of individual parameters in functions.
-- Example: `function helloWorld({ prop }: { prop: string })` instead of `function helloWorld(param: string)`.
-- This applies to all functions, not just React components.
-
-### Correctness and Safety
-
-- Don't assign a value to itself.
-- Avoid unused imports and variables.
-- Don't use await inside loops.
-- Don't hardcode sensitive data like API keys and tokens.
-- Don't use the TypeScript directive @ts-ignore.
-- Make sure the `preconnect` attribute is used when using Google Fonts.
-- Don't use the `delete` operator.
-- Don't use `require()` in TypeScript/ES modules - use proper `import` statements.
-
-### TypeScript Best Practices
-
-- Don't use TypeScript enums.
-- Use either `T[]` or `Array<T>` consistently.
-- Don't use the `any` type.
-
-### Style and Consistency
-
-- Don't use global `eval()`.
-- Use `String.slice()` instead of `String.substr()` and `String.substring()`.
-- Don't use `else` blocks when the `if` block breaks early.
-- Put default function parameters and optional function parameters last.
-- Use `new` when throwing an error.
-- Use `String.trimStart()` and `String.trimEnd()` over `String.trimLeft()` and `String.trimRight()`.
-
-### Next.js Specific Rules
-
-- Don't use `<img>` elements in Next.js projects.
-- Don't use `<head>` elements in Next.js projects.
-
-## Example: Error Handling
-
-```typescript
-// ✅ Good: Comprehensive error handling
-try {
-  const result = await fetchData();
-  return { success: true, data: result };
-} catch (error) {
-  console.error("API call failed:", error);
-  return { success: false, error: error.message };
-}
-
-// ❌ Bad: Swallowing errors
-try {
-  return await fetchData();
-} catch (e) {
-  console.log(e);
-}
+// ✅ Scannable: Complex logic extracted to helper
+const searchParams = buildFreesoundSearchParams({ query, filters, pagination });
+const transformedResults = transformFreesoundResults({ rawResults });
 ```
+
+## Bad Unscannable Code
+
+Avoid:
+
+```javascript
+// ❌ Hard to scan: What does this condition mean?
+if (type === "effects" || !type) {
+  params.append("filter", "duration:[* TO 30.0]");
+  params.append("filter", `avg_rating:[${min_rating} TO *]`);
+  if (commercial_only) {
+    params.append("filter", 'license:("Attribution" OR "Creative Commons 0")');
+  }
+}
+
+// ❌ Hard to scan: Complex ternary
+const sortParam = query
+  ? sort === "score"
+    ? "score"
+    : `${sort}_desc`
+  : `${sort}_desc`;
+```
+
+## Rule
+
+Make code scannable by extracting intent into variables and helper functions. If you need to think about what code does, extract it. The reader should understand the flow without diving into implementation details.
 
 ---
 > Source: [msgbyte/cutia](https://github.com/msgbyte/cutia) — distributed by [TomeVault](https://tomevault.io).
