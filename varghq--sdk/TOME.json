@@ -4,7 +4,7 @@
   "repo": "sdk",
   "description": "AI video generation SDK \u2014 JSX for videos. One API for Kling, Flux, ElevenLabs, Sora. Built on Vercel AI SDK.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vargHQ/sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T13:32:20Z"
+  "distributed_at": "2026-05-01T15:33:58Z"
 }
