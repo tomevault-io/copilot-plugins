@@ -1,0 +1,9 @@
+{
+  "name": "get-aurora-dev--common",
+  "displayName": "common",
+  "description": "OCI layer for things that need to be on every Aurora",
+  "version": "1.0.0",
+  "author": "get-aurora-dev",
+  "homepage": "https://github.com/get-aurora-dev/common",
+  "skills": []
+}
