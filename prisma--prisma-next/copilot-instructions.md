@@ -1,109 +1,42 @@
-## family-instance-domain-actions
+## generic-parameters
 
-> Family instance domain action implementation patterns
+> Generic parameter defaults (avoid pointless defaults)
 
 
-# Family Instance Domain Actions
+# Generic Parameter Defaults
 
-## Overview
+**Rule**: Don’t add generic defaults unless the type is meaningfully usable with the default.
 
-Family instances implement control-plane domain actions (e.g., `emitContract`, `verify`, `schemaVerify`, `introspect`) as methods. These methods should be self-contained and own their implementation logic.
+## Good defaults
 
-## Pattern: Inline Core Logic, Import Helper Functions
-
-When implementing domain actions on family instances:
-
-**✅ CORRECT: Import helper functions, inline orchestration logic**
+Defaults are fine when they represent a real “no-specialization” mode:
 
 ```typescript
-// Import pure helper functions from core
-import { canonicalizeContract } from '@prisma-next/core-control-plane/emission/canonicalization';
-import { computeExecutionHash, computeProfileHash, computeStorageHash } from '@prisma-next/core-control-plane/emission/hashing';
-import { format } from 'prettier';
-
-// Inline the domain action orchestration
-async emitContract({ contractIR }): Promise<EmitContractResult> {
-  const ir = contractIR as ContractIR;
-
-  // Validate structure
-  // ... validation logic ...
-
-  // Use helper functions
-  const storageHash = computeStorageHash(contractJson);
-  const executionHash = computeExecutionHash(contractJson);
-  const profileHash = computeProfileHash(contractJson);
-  const contractJsonString = JSON.stringify(
-    { ...JSON.parse(canonicalizeContract(contractWithHashes)), _generated: {...} },
-    null,
-    2
-  );
-
-  // Generate types via hook
-  const contractDts = await format(
-    sqlTargetFamilyHook.generateContractTypes(ir, codecTypeImports, operationTypeImports),
-    { parser: 'typescript', ... }
-  );
-
-  return { contractJson: contractJsonString, contractDts, storageHash, executionHash, profileHash };
+interface EventEmitter<T = unknown> {
+  emit(event: string, data: T): void;
 }
 ```
 
-**❌ WRONG: Import and call domain action functions from core**
+## Bad defaults
+
+If the type is pointless without concrete generics, defaults create a false “optional” API:
 
 ```typescript
-// Don't import domain action functions
-import { emit } from '@prisma-next/core-control-plane/emission/emit';
-
-async emitContract({ contractIR }): Promise<EmitContractResult> {
-  // Don't delegate to core domain action - inline the logic instead
-  const result = await emit(contractIR, options, sqlTargetFamilyHook);
-  return result;
+interface ColumnBuilderState<
+  Name extends string,
+  Nullable extends boolean,
+  Type extends string,
+> {
+  readonly name: Name;
+  readonly nullable: Nullable;
+  readonly type: Type;
 }
 ```
 
-## Why This Pattern?
+## Why this matters
 
-1. **Self-contained instances**: Family instances own their domain action implementations
-2. **Clear ownership**: The family instance is responsible for orchestrating the action, not core
-3. **Flexibility**: Each family can customize the orchestration as needed
-4. **Helper reuse**: Pure helper functions (canonicalization, hashing) are still reusable
-5. **No thin wrappers**: Avoids creating thin wrapper functions in core that just call helpers
-
-## What to Import vs Inline
-
-**Import (pure helper functions):**
-- `canonicalizeContract()` - Pure canonicalization logic
-- `computeStorageHash()`, `computeExecutionHash()`, `computeProfileHash()` - Pure hashing logic
-- `format()` from prettier - Pure formatting
-- Other pure utility functions
-
-**Inline (orchestration logic):**
-- Validation steps
-- Building validation contexts
-- Calling family hooks (`sqlTargetFamilyHook.validateTypes()`, etc.)
-- Assembling final results
-- Error handling specific to the domain action
-
-## Core Control Plane Role
-
-Core control plane provides:
-- **Types**: `FamilyInstance`, `EmitContractResult`, `VerifyDatabaseResult`, etc.
-- **Helper functions**: Pure utilities like `canonicalizeContract`, `computeStorageHash`
-- **Error factories**: Structured error creation
-
-Core control plane does **not** provide:
-- Domain action implementations (these are on `FamilyInstance`)
-- Orchestration logic (this is inlined in family instances)
-
-## Example: SQL Family Instance
-
-The SQL family instance's `emitContract()` method:
-- Imports helper functions: `canonicalizeContract`, `computeStorageHash`, `computeExecutionHash`, `computeProfileHash`
-- Inlines validation, orchestration, and result assembly
-- Uses the instance's preassembled state (operation registry, type imports, extension IDs)
-- Calls the SQL family hook for type generation
-
-This keeps the family instance self-contained while still reusing pure helper functions from core.
+- Avoids accidental “too-wide” types (`string`, `boolean`) leaking into core surfaces
+- Makes intent clear: the generic is required for correctness, not flexibility
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
