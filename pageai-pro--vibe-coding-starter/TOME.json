@@ -4,7 +4,7 @@
   "repo": "vibe-coding-starter",
   "description": "Create great UIs with AI, see the full tutorial",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PageAI-Pro/vibe-coding-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T11:43:49Z"
+  "distributed_at": "2026-05-01T11:46:36Z"
 }
