@@ -1,0 +1,44 @@
+{
+  "name": "axiom-wiki",
+  "owner": "abubakarsiddik31",
+  "repo": "axiom-wiki",
+  "description": "Inspired by Andrej Karpathy's llm-wiki \u2014 the idea that LLMs should maintain a persistent, compounding wiki rather than re-derive answers from raw sources on every query. https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/abubakarsiddik31/axiom-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T21:35:37Z"
+}
