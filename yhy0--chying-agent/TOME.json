@@ -2,9 +2,9 @@
   "name": "CHYing-agent",
   "owner": "yhy0",
   "repo": "CHYing-agent",
-  "description": "",
+  "description": "\u817e\u8baf\u4e91\u9ed1\u5ba2\u677e - \u667a\u80fd\u6e17\u900f\u6311\u6218\u8d5b Top9",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/yhy0",
+  "source_url": "https://github.com/yhy0/CHYing-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T16:36:59Z"
+  "distributed_at": "2026-05-01T16:04:24Z"
 }
