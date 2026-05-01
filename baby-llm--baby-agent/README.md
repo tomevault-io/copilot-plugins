@@ -7,11 +7,11 @@ AI agent tutorials for backend developers without AI background. 适合后端工
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [baby-llm/baby-agent](https://github.com/baby-llm/baby-agent).
+Original source: `CLAUDE.md` in [baby-llm/baby-agent](https://github.com/baby-llm/baby-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
