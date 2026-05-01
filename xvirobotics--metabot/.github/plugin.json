@@ -1,0 +1,9 @@
+{
+  "name": "xvirobotics--metabot",
+  "displayName": "metabot",
+  "description": "\u6784\u5efa\u53d7\u76d1\u7763\u7684\u3001\u81ea\u6211\u8fdb\u5316\u7684 Agent \u7ec4\u7ec7\u7684\u57fa\u7840\u8bbe\u65bd | Infrastructure for supervised, self-improving agent organization. \u4ece\u98de\u4e66/Telegram \u8fd0\u884c Claude Code\uff0c\u5171\u4eab\u8bb0\u5fc6\u3001Agent \u5de5\u5382\u3001\u5b9a\u65f6\u4efb\u52a1\u3001\u901a\u4fe1\u603b\u7ebf\u3002",
+  "version": "1.0.0",
+  "author": "xvirobotics",
+  "homepage": "https://github.com/xvirobotics/metabot",
+  "skills": []
+}
