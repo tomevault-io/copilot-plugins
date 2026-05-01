@@ -1,9 +1,9 @@
-## trend-analysis
+## trend-to-product-mapper
 
-> Skill — trend-analysis. Analyzes market trends across TikTok, Reddit, App Store, and Google Trends for a topic or category. Writes a new file to memory/market_insights/.
+> Skill — trend-to-product-mapper. Maps viral content and trending topics to concrete app opportunities via problem extraction.
 
 
-See [skills/trend-analysis/SKILL.md](../../skills/trend-analysis/SKILL.md) for full instructions and output schema.
+See [skills/trend-to-product-mapper/SKILL.md](../../skills/trend-to-product-mapper/SKILL.md) for full instructions and output schema.
 
 ---
 > Source: [MaxKmet/idea-validation-agents](https://github.com/MaxKmet/idea-validation-agents) — distributed by [TomeVault](https://tomevault.io).
