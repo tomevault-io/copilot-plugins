@@ -7,11 +7,11 @@ A fast terminal Excel viewer with an interactive TUI. Features full-text search,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bgreenwell/xleak](https://github.com/bgreenwell/xleak).
+Original source: `CLAUDE.md` in [bgreenwell/xleak](https://github.com/bgreenwell/xleak).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
