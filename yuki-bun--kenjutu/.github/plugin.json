@@ -1,0 +1,9 @@
+{
+  "name": "yuki-bun--kenjutu",
+  "displayName": "kenjutu",
+  "description": "Track your code review progress hunk-by-hunk through history rewrites for jj users",
+  "version": "1.0.0",
+  "author": "Yuki-bun",
+  "homepage": "https://github.com/Yuki-bun/kenjutu",
+  "skills": []
+}
