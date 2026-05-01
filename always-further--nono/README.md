@@ -7,11 +7,11 @@ nono - a capability-based, multiplexing sandbox tool, built for developers - lif
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [always-further/nono](https://github.com/always-further/nono).
+Original source: `CLAUDE.md` in [always-further/nono](https://github.com/always-further/nono).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
