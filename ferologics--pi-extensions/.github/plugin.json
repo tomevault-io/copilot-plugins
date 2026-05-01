@@ -1,0 +1,9 @@
+{
+  "name": "ferologics--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "Custom pi-coding-agent extensions",
+  "version": "1.0.0",
+  "author": "ferologics",
+  "homepage": "https://github.com/ferologics/pi-extensions",
+  "skills": []
+}
