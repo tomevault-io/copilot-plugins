@@ -1,0 +1,44 @@
+{
+  "name": "CodexClaw",
+  "owner": "Rhapsody0x1",
+  "repo": "CodexClaw",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e QQ \u5b98\u65b9\u673a\u5668\u4eba\u5e73\u53f0\u7684\u3001\u7531 Codex \u9a71\u52a8\u7684\u79c1\u4eba AI \u52a9\u7406\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Rhapsody0x1/CodexClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T07:42:31Z"
+}
