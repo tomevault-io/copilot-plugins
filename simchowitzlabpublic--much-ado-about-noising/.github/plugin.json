@@ -1,0 +1,9 @@
+{
+  "name": "simchowitzlabpublic--much-ado-about-noising",
+  "displayName": "much-ado-about-noising",
+  "description": "A optimized PyTorch framework for behavior cloning with flow related generative models. ",
+  "version": "1.0.0",
+  "author": "simchowitzlabpublic",
+  "homepage": "https://github.com/simchowitzlabpublic/much-ado-about-noising",
+  "skills": []
+}
