@@ -7,13 +7,13 @@ One hub for every AI coding agent. Unified configuration management for 22+ assi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AkaraChen/aghub](https://github.com/AkaraChen/aghub).
+Original source: `.cursor/rules/*.mdc` in [AkaraChen/aghub](https://github.com/AkaraChen/aghub).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
