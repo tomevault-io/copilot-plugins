@@ -1,9 +1,9 @@
-## qmd-search
+## skill-conventions
 
-> Prefer QMD over grep/ripgrep for searching vault content
+> Project conventions for creating and editing Obsidian vault skills
 
 
-Read and follow [.agents/rules/qmd-search.md](../../.agents/rules/qmd-search.md).
+Read and follow [.agents/rules/skill-conventions.md](../../.agents/rules/skill-conventions.md).
 
 ---
 > Source: [benoror/obsidianos_work](https://github.com/benoror/obsidianos_work) — distributed by [TomeVault](https://tomevault.io).
