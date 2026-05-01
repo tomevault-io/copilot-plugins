@@ -4,7 +4,7 @@
   "repo": "agentsh",
   "description": "Execution-Layer Security (ELS) for AI agents \u2014 policy-enforced shell with audit.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/canyonroad/agentsh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T15:56:49Z"
+  "distributed_at": "2026-05-01T12:04:59Z"
 }
