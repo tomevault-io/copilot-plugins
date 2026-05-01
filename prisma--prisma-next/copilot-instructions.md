@@ -1,42 +1,53 @@
-## generic-parameters
+## git-staging
 
-> Generic parameter defaults (avoid pointless defaults)
+> Git commit best practices - avoid git add -A, stage files explicitly
 
+# Git Commit Best Practices
 
-# Generic Parameter Defaults
+## Never Use `git add -A` or `git add .`
 
-**Rule**: Don’t add generic defaults unless the type is meaningfully usable with the default.
+**CRITICAL**: Do not use `git add -A`, `git add .`, or `git add --all` when staging changes. These commands stage all changes including unrelated or untracked files.
 
-## Good defaults
+## Correct Approach
 
-Defaults are fine when they represent a real “no-specialization” mode:
+Always stage files explicitly:
 
-```typescript
-interface EventEmitter<T = unknown> {
-  emit(event: string, data: T): void;
-}
+```bash
+# Stage specific files
+git add path/to/file1.ts path/to/file2.ts
+
+# Stage modified files only (doesn't add untracked files)
+git add -u
+
+# Stage files matching a pattern (be specific)
+git add packages/1-framework/1-core/*/package.json
 ```
 
-## Bad defaults
+## Never Amend Pushed Commits
 
-If the type is pointless without concrete generics, defaults create a false “optional” API:
+Do not use `git commit --amend` on commits that have already been pushed to the remote. This rewrites history and causes problems for anyone else working with the branch.
 
-```typescript
-interface ColumnBuilderState<
-  Name extends string,
-  Nullable extends boolean,
-  Type extends string,
-> {
-  readonly name: Name;
-  readonly nullable: Nullable;
-  readonly type: Type;
-}
-```
+Instead, create a new commit with the fix.
 
-## Why this matters
+## Best Practices
 
-- Avoids accidental “too-wide” types (`string`, `boolean`) leaking into core surfaces
-- Makes intent clear: the generic is required for correctness, not flexibility
+1. **Review before staging**: Run `git status` to see what will be staged
+2. **Stage explicitly**: List the specific files or use `-u` for modified files only
+3. **Verify before committing**: Run `git diff --cached` to review staged changes
+4. **Keep commits focused**: Each commit should contain related changes only
+5. **Don't amend pushed commits**: Only amend commits that haven't been pushed yet
+
+## Shell-safe commit messages
+
+When using `git commit -m`, avoid shell interpolation pitfalls:
+- Prefer **single quotes** around `-m` message strings.
+- Don’t use backticks in commit messages (they can trigger command substitution in some shells).
+
+A good commit:
+
+- Represents one logical step (a coherent unit of change)
+- Explains intent ("why"), not just mechanics ("what")
+- Is reviewable on its own (small diff, focused scope)
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
