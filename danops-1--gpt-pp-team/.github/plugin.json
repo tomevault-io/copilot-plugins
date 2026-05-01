@@ -1,0 +1,9 @@
+{
+  "name": "danops-1--gpt-pp-team",
+  "displayName": "gpt-pp-team",
+  "description": "ChatGPT Team \u8ba2\u9605\u534f\u8bae\u7aef\u5230\u7aef\u91cd\u653e\u5de5\u5177\u96c6 \u00b7 hCaptcha \u89c6\u89c9\u6c42\u89e3\u5668 \u00b7 \u53cd\u6b3a\u8bc8\u673a\u5236\u5b9e\u8bc1\u7814\u7a76 / End-to-end protocol replay toolkit for ChatGPT Team subscription with from-scratch hCaptcha solver and empirical anti-fraud research",
+  "version": "1.0.0",
+  "author": "DanOps-1",
+  "homepage": "https://github.com/DanOps-1/gpt-pp-team",
+  "skills": []
+}
