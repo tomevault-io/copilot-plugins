@@ -1,0 +1,9 @@
+{
+  "name": "tmzt--matter-stream",
+  "displayName": "matter-stream",
+  "description": "A WGPU UI library based on TSX with no JS Virtual Machine",
+  "version": "1.0.0",
+  "author": "tmzt",
+  "homepage": "https://github.com/tmzt/matter-stream",
+  "skills": []
+}
