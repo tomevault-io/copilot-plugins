@@ -1,142 +1,117 @@
-## common-issues
+## knowledge-graph
 
-> 常见问题和解决方案
+> 知识图谱和 Cypher 查询相关规范
 
-# 常见问题与解决方案
+# 知识图谱架构指南
 
-## 导入错误
+## Neo4j 图结构
 
-### 问题：`ImportError: cannot import name 'QueryPreprocessor'`
-**原因**: `packages/utils/__init__.py` 未导出该类
+### 节点（Entity）
+```cypher
+(:Entity {
+    name: string,           // 实体名称（主键）
+    type: string,           // 实体类型（如 "Intrusion Set", "Malware"）
+    description: string,    // 实体描述
+    embedding: float[]      // 向量嵌入（用于相似度搜索）
+})
+```
 
-**解决方案**:
+### 关系
+```cypher
+[:RELATION {
+    type: string,                  // 关系类型
+    relationship_type: string      // 备用关系类型字段
+}]
+```
+
+### 向量索引
+- 索引名称: `entityEmbeddings`
+- 维度: 根据 embedding 模型配置
+- 相似度函数: `cosine`
+
+## Cypher 查询模式
+
+### 单跳查询
+```cypher
+MATCH (n:Entity {name: 'APT41'})
+RETURN n.type AS type
+```
+
+### 多跳路径查询
+```cypher
+MATCH p = (a:Entity)-[*..3]-(b:Entity)
+WHERE a.name = 'APT41' AND b.name = 'WannaCry'
+RETURN p LIMIT 5
+```
+
+### 特定关系路径
+```cypher
+MATCH p = (group:Entity)-[:USES]->(tool:Entity)-[:EXPLOITS]->(vuln:Entity {name: 'Log4Shell'})
+WHERE group.type = 'Intrusion Set'
+RETURN p LIMIT 5
+```
+
+### 向量相似度搜索
+```cypher
+CALL db.index.vector.queryNodes('entityEmbeddings', 10, $embedding)
+YIELD node AS similarEntity, score
+RETURN similarEntity.name AS name, score
+```
+
+## LLM Cypher 生成
+
+### 工作流程
+1. 获取图 Schema (`get_schema_str()`)
+2. 准备上下文（问题 + 提取的实体）
+3. 使用 [cypher_generation_template](mdc:packages/utils/prompts.py) 生成 Cypher
+4. 从 LLM 响应中提取 Cypher（支持 markdown 代码块）
+5. 执行查询并处理结果
+
+### 关键方法
 ```python
-# packages/utils/__init__.py
-from .bm25 import AbstractBM25
-from .query_preprocessor import QueryPreprocessor
+# packages/core/graphbase.py
+
+def get_schema_str(self) -> str:
+    """获取节点标签、关系类型和属性"""
+    pass
+
+def generate_cypher_query(self, query: str, entities: list, graph_schema: str) -> str:
+    """LLM 生成 Cypher 查询"""
+    pass
+
+def query(self, cypher_query: str) -> list:
+    """执行任意 Cypher 查询"""
+    pass
 ```
 
-### 问题：`ImportError: attempted relative import beyond top-level package`
-**原因**: 使用相对导入 `..` 但 Python 无法识别包结构
+## 实体嵌入管理
 
-**解决方案**: 将相对导入改为绝对导入
+### 自动索引
+[graph_indexer.py](mdc:packages/core/graph_indexer.py) 定时扫描并为没有嵌入的节点创建向量：
+- 默认间隔: 3600 秒（1小时）
+- 批处理大小: 100 个节点
+
+### 手动添加
 ```python
-# 错误
-from .. import config
-# 正确
-from packages import config
+graph_base.add_embedding_to_nodes(node_names, kgdb_name='neo4j')
 ```
 
-## Milvus 错误
+## STIX 实体类型
+系统支持的威胁情报实体类型：
+- `attack-pattern` - 攻击模式
+- `malware` - 恶意软件
+- `tool` - 工具
+- `vulnerability` - 漏洞
+- `intrusion-set` - 入侵集合/APT 组织
+- `indicator` - 指标
+- `identity` - 身份
+- `location` - 位置
 
-### 问题：`DataNotMatchException: field should be int64, but got float`
-**原因**: `file_created_at` 字段类型不匹配
-
-**解决方案**:
-```python
-if isinstance(static_file_created_at, float):
-    static_file_created_at = int(static_file_created_at)
-```
-
-### 问题：`MilvusException: unsupported pattern: %pattern%`
-**原因**: 动态字段不支持 `LIKE` 的 `%pattern%` 模糊匹配
-
-**解决方案**: 使用静态字段和精确匹配
-```python
-# 错误（动态字段）
-filter = "$metadata['filename'] LIKE '%1月6日%'"
-
-# 正确（静态字段）
-filter = "date_key == '20250106'"
-```
-
-### 问题：索引创建失败
-**解决方案**: 使用 `prepare_index_params()`
-```python
-index_params = self.client.prepare_index_params()
-index_params.add_index(
-    field_name="vector",
-    index_type="AUTOINDEX",
-    metric_type="COSINE",
-)
-self.client.create_index(collection_name, index_params)
-```
-
-## Neo4j 图查询
-
-### 问题：图检索返回空结果
-**可能原因**:
-1. 使用了传统检索而非四阶段混合检索
-2. 从原始问题提取的实体不在图中
-3. LLM 生成的 Cypher 查询不正确
-
-**解决方案**:
-1. 确保 `meta["use_hybrid_retrieval"] = True`
-2. 检查日志中的 Cypher 查询语句
-3. 验证图中是否有相关实体：
-   ```cypher
-   MATCH (n:Entity) WHERE n.name CONTAINS '关键词' RETURN n LIMIT 5
-   ```
-
-### 问题：向量索引不存在
-**解决方案**: 确保在添加实体时创建了向量索引
-```python
-await graph_base.txt_add_vector_entity(triples, kgdb_name)
-```
-
-## BM25 相关
-
-### 问题：缺少依赖
-**解决方案**: 安装必需的库
-```bash
-pip install jieba>=0.42.1 PyStemmer>=2.2.0
-```
-
-### 问题：中英文混用查询效果差
-**原因**: BM25 分词器是单语言的
-
-**建议**: 
-- 知识库和查询使用相同语言
-- 或使用机器翻译预处理查询
-
-## 日志过于冗长
-
-### 问题：API 响应包含大量 JSON 数据
-**解决方案**: 使用 `response_mode="simple"`
-```python
-# API 调用时
-{
-    "query": "...",
-    "meta": {...},
-    "response_mode": "simple"  // 只返回答案和摘要
-}
-```
-
-## 多日期查询
-
-### 问题：只能识别一个日期
-**解决方案**: 已升级为支持多日期 OR 逻辑
-```python
-# 查询: "综合1月18日和1月26日的报告"
-# 自动生成: (date_key == '20250118' or date_key == '20250126')
-```
-
-## 性能优化
-
-### 向量检索慢
-- 确保 Milvus 集合已加载到内存
-- 使用 `AUTOINDEX` 索引类型
-- 合理设置 `top_k` 和阈值
-
-### 图查询慢
-- 限制多跳查询的深度（建议 `[*..3]`）
-- 使用 `LIMIT` 子句
-- 为常用查询模式创建索引
-
-### LLM 调用慢
-- 使用协程池并发处理
-- 考虑使用流式响应
-- 缓存常见查询结果
+## 注意事项
+- 实体名称区分大小写
+- 关系类型会自动替换空格为下划线
+- 向量维度必须与 embedding 模型匹配
+- Cypher 生成时必须严格遵循 Schema，不能虚构不存在的标签或关系
 
 ---
 > Source: [Ais1on/CTI-RAG](https://github.com/Ais1on/CTI-RAG) — distributed by [TomeVault](https://tomevault.io).
