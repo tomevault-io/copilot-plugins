@@ -7,11 +7,11 @@ worktree coding agents command center.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [supabitapp/supacode](https://github.com/supabitapp/supacode).
+Original source: `CLAUDE.md` in [supabitapp/supacode](https://github.com/supabitapp/supacode).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
