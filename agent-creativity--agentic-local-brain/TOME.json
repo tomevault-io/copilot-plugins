@@ -1,0 +1,44 @@
+{
+  "name": "agentic-local-brain",
+  "owner": "agent-creativity",
+  "repo": "agentic-local-brain",
+  "description": "a personal knowledge management system that collects and retrieves knowledge from files, webpages, papers, emails, and notes. It features intelligent tag extraction, semantic search, RAG-powered Q&A, and automated knowledge mining with entity extraction, relationship discovery, and topic clustering. Runs entirely locally.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/agent-creativity/agentic-local-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T06:15:44Z"
+}
