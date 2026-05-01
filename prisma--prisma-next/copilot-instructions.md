@@ -1,97 +1,16 @@
-## include-many-patterns
+## mermaid-compat
 
-> Type inference patterns for includeMany feature
+> Mermaid diagram compatibility guidelines for docs
 
 
-# includeMany Type Inference Patterns
+# Mermaid compatibility (docs)
 
-## Includes Map Pattern
+Different Mermaid renderers (GitHub, VS Code previews, docs sites) can be stricter than Mermaid itself. To avoid parse/render failures in project docs:
 
-When implementing `includeMany` or similar features that accumulate type information:
-
-**Pattern**: Use a generic type parameter that accumulates include definitions:
-
-```typescript
-class SelectBuilderImpl<
-  TContract extends SqlContract<SqlStorage>,
-  Row = unknown,
-  CodecTypes extends Record<string, { output: unknown }> = Record<string, never>,
-  Includes extends Record<string, any> = Record<string, never>,  // Accumulates includes
-> {
-  includeMany<..., AliasName extends string = string>(
-    ...
-  ): SelectBuilderImpl<..., Includes & { [K in AliasName]: ChildRow }> {
-    // Updates Includes map with new include
-  }
-}
-```
-
-**Why**: This allows TypeScript to track include definitions across multiple `includeMany()` calls and infer correct array types in the final result.
-
-## ExtractIncludeType Helper
-
-When looking up types from an accumulated map:
-
-**Pattern**: Use a helper type that safely extracts types:
-
-```typescript
-type ExtractIncludeType<
-  K extends string,
-  Includes extends Record<string, any>,
-> = K extends keyof Includes ? Includes[K] : unknown;
-```
-
-**Why**: This provides type-safe lookup with a fallback to `unknown` if the key doesn't exist, preventing type errors while maintaining type safety.
-
-## Boolean True for Include References
-
-When using boolean `true` to mark include references in projections:
-
-**Pattern**: Handle `true` in type inference:
-
-```typescript
-: P[K] extends true
-  ? Array<ExtractIncludeType<K & string, Includes>>
-  : ...
-```
-
-**Why**: This allows `select({ posts: true })` to infer `Array<ChildShape>` from the `Includes` map, providing type-safe include references.
-
-## Capability Gating
-
-When gating features by capabilities (used by `includeMany` and DML `returning()`):
-
-**Pattern**: Check capabilities at runtime in builder methods:
-
-```typescript
-// Runtime check in builder method
-returning<const Columns extends readonly ColumnBuilder[]>(
-  ...columns: Columns
-): InsertBuilder<TContract, CodecTypes, InferReturningRow<Columns>> {
-  // Runtime capability check
-  const target = this.contract.target;
-  const capabilities = this.contract.capabilities;
-  if (!capabilities || !capabilities[target]) {
-    throw planInvalid('returning() requires returning capability');
-  }
-  const targetCapabilities = capabilities[target];
-  if (targetCapabilities['returning'] !== true) {
-    throw planInvalid('returning() requires returning capability to be true');
-  }
-
-  // Continue with implementation...
-}
-```
-
-**For multiple capabilities** (like `includeMany`):
-```typescript
-// Runtime check
-if (targetCapabilities['lateral'] !== true || targetCapabilities['jsonAgg'] !== true) {
-  throw planInvalid('includeMany requires lateral and jsonAgg capabilities');
-}
-```
-
-**Why**: Runtime checks prevent execution errors when capabilities are missing or false. This pattern ensures consistent behavior across all capability-gated features (`includeMany`, DML `returning()`, etc.).
+- Prefer ASCII in node labels (avoid curly quotes, arrows like `→`, ellipses like `…`, and emoji prefixes).
+- Avoid Markdown formatting inside labels (especially backticks).
+- Prefer `direction TB` inside `subgraph` blocks.
+- Keep labels short; move detail to surrounding Markdown.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
