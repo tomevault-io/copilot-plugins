@@ -1,0 +1,9 @@
+{
+  "name": "tsubotax--melta-ui",
+  "displayName": "melta-ui",
+  "description": "\u4eba\u9593\u306b\u3082\u3001AI\u306b\u3082\u3001\u8aad\u3081\u308b\u30c7\u30b6\u30a4\u30f3\u30b7\u30b9\u30c6\u30e0 \u2014 AI-Ready Design System for Claude Code & Cursor",
+  "version": "1.0.0",
+  "author": "tsubotax",
+  "homepage": "https://github.com/tsubotax/melta-ui",
+  "skills": []
+}
