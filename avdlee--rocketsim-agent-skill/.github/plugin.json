@@ -1,0 +1,9 @@
+{
+  "name": "avdlee--rocketsim-agent-skill",
+  "displayName": "RocketSim-Agent-Skill",
+  "description": "Add RocketSim Simulator automation to your AI coding tool (Agent Skills open format): inspect visible UI elements, tap, swipe, type, and navigate iOS Simulator apps through the RocketSim CLI.",
+  "version": "1.0.0",
+  "author": "AvdLee",
+  "homepage": "https://github.com/AvdLee/RocketSim-Agent-Skill",
+  "skills": []
+}
