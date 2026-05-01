@@ -4,7 +4,7 @@
   "repo": "Ops-Tools",
   "description": " rust devops cli terraform terragrunt ai-tools mcp-server security-scanner clean-code automation",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DennySORA/Ops-Tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T00:37:15Z"
+  "distributed_at": "2026-05-01T13:53:20Z"
 }
