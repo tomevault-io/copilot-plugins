@@ -1,0 +1,9 @@
+{
+  "name": "michaelliv--poster",
+  "displayName": "poster",
+  "description": "\ud83c\udfa8 Single-file distributable React posters \u2014 one .tsx file, every format you'll ever need. Works as a CLI and as a library.",
+  "version": "1.0.0",
+  "author": "Michaelliv",
+  "homepage": "https://github.com/Michaelliv/poster",
+  "skills": []
+}
