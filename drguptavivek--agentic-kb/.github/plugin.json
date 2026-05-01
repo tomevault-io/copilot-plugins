@@ -1,0 +1,9 @@
+{
+  "name": "drguptavivek--agentic-kb",
+  "displayName": "agentic_kb",
+  "description": "Cross repo knowledge base that may be referenced by multiple repositories as git submodule",
+  "version": "1.0.0",
+  "author": "drguptavivek",
+  "homepage": "https://github.com/drguptavivek/agentic_kb",
+  "skills": []
+}
