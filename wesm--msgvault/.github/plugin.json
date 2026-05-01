@@ -1,0 +1,9 @@
+{
+  "name": "wesm--msgvault",
+  "displayName": "msgvault",
+  "description": "Archive a lifetime of email and chat. Offline search, analytics, and AI query over your full message history. Powered by DuckDB",
+  "version": "1.0.0",
+  "author": "wesm",
+  "homepage": "https://github.com/wesm/msgvault",
+  "skills": []
+}
