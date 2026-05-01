@@ -7,11 +7,11 @@ The open-source managed agents platform. Turn coding agents into real teammates 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [multica-ai/multica](https://github.com/multica-ai/multica).
+Original source: `CLAUDE.md` in [multica-ai/multica](https://github.com/multica-ai/multica).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
