@@ -7,11 +7,11 @@ A guide to writing idiomatic Effect code.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kitlangton/effect-solutions](https://github.com/kitlangton/effect-solutions).
+Original source: `CLAUDE.md` in [kitlangton/effect-solutions](https://github.com/kitlangton/effect-solutions).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
