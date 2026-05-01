@@ -4,7 +4,7 @@
   "repo": "nelson",
   "description": "Organisation for your agent teams inspired by time-tested Royal Navy operating procedures.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aspegio/nelson",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T21:44:43Z"
+  "distributed_at": "2026-05-01T04:19:10Z"
 }
