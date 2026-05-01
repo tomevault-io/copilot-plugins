@@ -1,22 +1,22 @@
-## tsdown-config-package-source-only
+## tsdown-dist-layout-in-tests
 
-> Keep @prisma-next/tsdown source-only exports
+> Use tsdown dist root paths in TS test mappings
 
 
-# @prisma-next/tsdown source-only policy
+# tsdown dist layout for test path mappings
 
-The package `packages/0-config/tsdown` is source-only and must not add emitted JavaScript artifacts to work around runtime config loading.
+When packages are built with `tsdown`, declaration outputs are emitted in the package `dist/` root as `.d.mts` files (for example `dist/types.d.mts`), not under `dist/exports/*.d.ts`.
 
 ## Rules
 
-- Do not add `base.js` (or other transpiled JS siblings) in `packages/0-config/tsdown`.
-- Do not change `packages/0-config/tsdown/package.json` exports to point to `.js` files.
-- Keep the export source-only (currently `./base.ts`).
+- In temporary `tsconfig` fixtures used by tests, map package paths to `dist/*.d.mts` or `dist/*`.
+- Do not assume `dist/exports/` exists unless the package explicitly emits that structure.
+- Prefer wildcard mappings (`dist/*`) for subpath imports that may include both `.mjs` and `.d.mts` outputs.
 
-## Rationale
+## Why
 
-- This package is an internal config helper and should remain canonical TypeScript source.
-- Workarounds for runtime loading must be solved in consumers/tooling, not by emitting parallel JS files here.
+- Prevents module resolution failures after tsup -> tsdown migrations.
+- Keeps integration tests aligned with the actual package export artifact layout.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
