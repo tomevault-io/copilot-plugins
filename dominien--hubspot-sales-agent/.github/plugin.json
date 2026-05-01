@@ -1,0 +1,9 @@
+{
+  "name": "dominien--hubspot-sales-agent",
+  "displayName": "hubspot-sales-agent",
+  "description": "Autonomous sales agent \u2014 bulk outreach, inbox classification, research-driven personalization, lead recovery. HubSpot + Gmail. Runs on any local agent harness.",
+  "version": "1.0.0",
+  "author": "Dominien",
+  "homepage": "https://github.com/Dominien/hubspot-sales-agent",
+  "skills": []
+}
