@@ -1,0 +1,9 @@
+{
+  "name": "drhalto--agentmako",
+  "displayName": "agentmako",
+  "description": "Local-first MCP server that gives coding agents structured context packets, code/schema facts, and diagnostics - backed by a local SQLite store.",
+  "version": "1.0.0",
+  "author": "drhalto",
+  "homepage": "https://github.com/drhalto/agentmako",
+  "skills": []
+}
