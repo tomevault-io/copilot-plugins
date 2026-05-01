@@ -1,0 +1,9 @@
+{
+  "name": "blazorblueprintui--ui",
+  "displayName": "ui",
+  "description": "A collection of accessible, headless primitives and beautifully-designed components for Blazor inspired by shadcn/ui.",
+  "version": "1.0.0",
+  "author": "blazorblueprintui",
+  "homepage": "https://github.com/blazorblueprintui/ui",
+  "skills": []
+}
