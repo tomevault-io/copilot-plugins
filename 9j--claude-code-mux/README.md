@@ -7,11 +7,11 @@ High-performance AI routing proxy built in Rust with automatic failover, priorit
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [9j/claude-code-mux](https://github.com/9j/claude-code-mux).
+Original source: `CLAUDE.md` in [9j/claude-code-mux](https://github.com/9j/claude-code-mux).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
