@@ -4,7 +4,7 @@
   "repo": "ledger",
   "description": "A modernised git interface for improved agent and human collaboration, review and control",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peterjthomson/ledger",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T12:24:30Z"
+  "distributed_at": "2026-05-01T11:49:38Z"
 }
