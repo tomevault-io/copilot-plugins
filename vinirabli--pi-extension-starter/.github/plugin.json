@@ -1,0 +1,9 @@
+{
+  "name": "vinirabli--pi-extension-starter",
+  "displayName": "pi-extension-starter",
+  "description": "Source-first starter template for building pi CLI extensions with TypeScript, lifecycle hooks, session state, interactive UI, and tests.",
+  "version": "1.0.0",
+  "author": "vinirabli",
+  "homepage": "https://github.com/vinirabli/pi-extension-starter",
+  "skills": []
+}
