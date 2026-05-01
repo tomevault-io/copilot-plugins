@@ -1,0 +1,9 @@
+{
+  "name": "dizlexic--moo-tasks",
+  "displayName": "moo-tasks",
+  "description": "A simple multiuser multiboard task MCP server managed via kanban board interface.",
+  "version": "1.0.0",
+  "author": "dizlexic",
+  "homepage": "https://github.com/dizlexic/moo-tasks",
+  "skills": []
+}
