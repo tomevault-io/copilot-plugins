@@ -4,7 +4,7 @@
   "repo": "xleak",
   "description": "A fast terminal Excel viewer with an interactive TUI. Features full-text search, formula display, lazy loading for large files, clipboard support, and export to CSV/JSON. Built with Rust and ratatui.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bgreenwell/xleak",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T02:43:59Z"
+  "distributed_at": "2026-05-01T15:48:35Z"
 }
