@@ -1,65 +1,59 @@
-## ui-cross-platform
+## use-agent-sdk
 
-> 修改任何 UI 界面时，必须同时考虑 Windows 和 macOS 的差异。
+> AI 调用规范：统一使用 agent-client.ts 调用层，支持 Claude 和 OpenAI(via proxy) 两种 provider
 
 
-# UI 跨平台兼容（Windows & macOS）
+# AI 调用规范
 
-修改任何 UI 界面时，必须同时考虑 Windows 和 macOS 的差异。
+## 统一调用层
 
-## 字体
+所有 AI 调用必须通过 `src/electron/libs/agent-client.ts`，**禁止**直接导入 SDK：
 
-```css
-/* ❌ BAD */
-font-family: -apple-system, BlinkMacSystemFont;
+```typescript
+import { runAgent, promptOnce } from "./libs/agent-client.js";
 
-/* ✅ GOOD */
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+// 完整 Agent 会话
+const q = await runAgent(prompt, { provider: "claude", cwd: targetDir });
+for await (const msg of q) { /* handle */ }
+
+// 一次性文本生成
+const title = await promptOnce("生成标题...", { provider: "openai" });
 ```
 
-## 滚动条
+## 两种 Provider
 
-```css
-/* macOS 默认隐藏，Windows 始终显示，需统一样式 */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; }
+| Provider | 后端 | 认证方式 |
+|---|---|---|
+| `claude`（默认） | Anthropic API | `ANTHROPIC_API_KEY` / app 内配置 |
+| `openai` | OpenAI via 本地代理 | OpenAI OAuth Token（app 内登录） |
+
+当 `provider: "openai"` 时，`agent-client.ts` 自动启动本地代理（`openai-proxy.ts`），
+将 Claude Agent SDK 的请求翻译为 OpenAI Responses API 格式。
+
+## 优先使用 app 内配置的 API Key
+
+若用户在 app 设置中配置了 API Key，**必须优先使用**，不能依赖外部文件（`~/.claude/settings.json`）。
+
+---
+
+## ❌ 禁止做法
+
+```typescript
+// ❌ 直接导入 SDK
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+// ❌ 原始 Anthropic SDK
+import Anthropic from "@anthropic-ai/sdk";
+const resp = await new Anthropic({ apiKey }).messages.create({ ... });
+
+// ❌ 原始 OpenAI SDK
+import OpenAI from "openai";
+const resp = await new OpenAI({ apiKey }).chat.completions.create({ ... });
+
+// ❌ 解析 LLM 文本再手动写文件
+const match = text.match(/<output>([\s\S]*?)<\/output>/);
+writeFileSync(path, match[1]);
 ```
-
-## 窗口标题栏 / 拖拽区域
-
-- macOS 交通灯按钮在左，Windows 关闭按钮在右
-- 使用 `-webkit-app-region: drag` 时，确保 Windows 下点击区域不遮挡交互元素
-- Electron 中通过 `process.platform` 判断平台，分别渲染自定义标题栏
-
-```tsx
-const isMac = process.platform === 'darwin';
-// macOS 不需要自定义最小化/最大化/关闭按钮
-{!isMac && <WindowControls />}
-```
-
-## 间距与字号
-
-- Windows 系统 DPI 缩放（125%、150%）可能导致布局错位，避免使用奇数像素值
-- 关键布局使用 `rem` 或 `flex`，而非固定 `px`
-
-## 快捷键文案
-
-```tsx
-/* ❌ BAD */
-<span>⌘K</span>
-
-/* ✅ GOOD */
-const isMac = process.platform === 'darwin';
-<span>{isMac ? '⌘K' : 'Ctrl+K'}</span>
-```
-
-## 检查清单
-
-- [ ] 字体 fallback 包含 Segoe UI（Windows）
-- [ ] 滚动条样式在两个平台均可见
-- [ ] 标题栏/拖拽区域在 Windows 和 macOS 下布局正确
-- [ ] 快捷键文案根据平台动态显示
-- [ ] 在 125%/150% DPI 下验证布局不错位
 
 ---
 > Source: [zhangdszq/teamclaw](https://github.com/zhangdszq/teamclaw) — distributed by [TomeVault](https://tomevault.io).
