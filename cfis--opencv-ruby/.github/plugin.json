@@ -1,0 +1,9 @@
+{
+  "name": "cfis--opencv-ruby",
+  "displayName": "opencv-ruby",
+  "description": "Ruby bindings for OpenCV 4+",
+  "version": "1.0.0",
+  "author": "cfis",
+  "homepage": "https://github.com/cfis/opencv-ruby",
+  "skills": []
+}
