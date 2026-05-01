@@ -1,0 +1,9 @@
+{
+  "name": "roasbeef--obsidian-claude-code",
+  "displayName": "obsidian-claude-code",
+  "description": "A native Obsidian plugin that embeds Claude as an AI assistant directly within your vault.",
+  "version": "1.0.0",
+  "author": "Roasbeef",
+  "homepage": "https://github.com/Roasbeef/obsidian-claude-code",
+  "skills": []
+}
