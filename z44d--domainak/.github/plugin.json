@@ -1,0 +1,9 @@
+{
+  "name": "z44d--domainak",
+  "displayName": "domainak",
+  "description": "Domainak is a GitHub-authenticated subdomain router with a React dashboard, a Hono API, Postgres for metadata, Redis for routing and traffic counters, and OpenResty for dynamic proxying.",
+  "version": "1.0.0",
+  "author": "z44d",
+  "homepage": "https://github.com/z44d/domainak",
+  "skills": []
+}
