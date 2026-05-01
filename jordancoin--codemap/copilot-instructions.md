@@ -1,0 +1,44 @@
+## codemap
+
+> Run codemap from the git repository root. Hooks and context files resolve from the current working directory, so running from a subdirectory can break hook context.
+
+# 🛑 STOP — Run codemap before ANY task
+
+## Repo Root Requirement (Critical)
+
+Run codemap from the git repository root. Hooks and context files resolve from the current working directory, so running from a subdirectory can break hook context.
+
+```bash
+cd "$(git rev-parse --show-toplevel)"
+```
+
+`codemap` expects these at repo root:
+- `.git/`
+- `.codemap/`
+- `.claude/settings.local.json` (project-local hooks)
+
+```bash
+codemap .                     # Project structure
+codemap --deps                # How files connect
+codemap --diff                # What changed vs main
+codemap --diff --ref <branch> # Changes vs specific branch
+```
+
+## Required Usage
+
+**BEFORE starting any task**, run `codemap .` first.
+
+**ALWAYS run `codemap --deps` when:**
+- User asks how something works
+- Refactoring or moving code
+- Tracing imports or dependencies
+
+**ALWAYS run `codemap --diff` when:**
+- Reviewing or summarizing changes
+- Before committing code
+- User asks what changed
+- Use `--ref <branch>` when comparing against something other than main
+
+---
+> Source: [JordanCoin/codemap](https://github.com/JordanCoin/codemap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
