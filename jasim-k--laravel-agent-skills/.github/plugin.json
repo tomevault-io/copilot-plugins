@@ -1,0 +1,9 @@
+{
+  "name": "jasim-k--laravel-agent-skills",
+  "displayName": "laravel-agent-skills",
+  "description": "A curated library of AI Agent skills for modern Laravel development. Standardizing patterns for Inertia, Vue 3, and full-stack architecture. Optimized for Claude Code, Cursor, and Windsurf.",
+  "version": "1.0.0",
+  "author": "jasim-k",
+  "homepage": "https://github.com/jasim-k/laravel-agent-skills",
+  "skills": []
+}
