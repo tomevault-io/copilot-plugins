@@ -4,7 +4,7 @@
   "repo": "idea-validation-agents",
   "description": "AI agents that act as your personal venture analyst - from startup idea brainstorming to full validation and go-to-market strategy. Built for developers who'd rather validate in 10 minutes than regret in six months. Powered by Claude Code, OpenAI Codex, and Cursor.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MaxKmet/idea-validation-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T18:46:16Z"
+  "distributed_at": "2026-05-01T21:38:27Z"
 }
