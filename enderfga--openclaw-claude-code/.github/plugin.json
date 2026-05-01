@@ -1,0 +1,9 @@
+{
+  "name": "enderfga--openclaw-claude-code",
+  "displayName": "openclaw-claude-code",
+  "description": "OpenClaw plugin \u2014 turn Claude Code CLI into a programmable, headless coding engine with plenty of tools, agent teams, and multi-model proxy",
+  "version": "1.0.0",
+  "author": "Enderfga",
+  "homepage": "https://github.com/Enderfga/openclaw-claude-code",
+  "skills": []
+}
