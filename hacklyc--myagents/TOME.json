@@ -1,0 +1,44 @@
+{
+  "name": "MyAgents",
+  "owner": "hAcKlyc",
+  "repo": "MyAgents",
+  "description": "MyAgents - \u4f18\u96c5\u3001\u6613\u7528\u7684 Agent \u684c\u9762\u7aef \uff0c\u4e00\u7ad9\u5f0f Agent \u5de5\u4f5c\u53f0\u4e0e\u4efb\u52a1\u4e2d\u5fc3",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hAcKlyc/MyAgents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T07:39:24Z"
+}
