@@ -1,78 +1,52 @@
-## melony
+## openbot-sdui
 
-> Melony is an event-based framework for building AI agents and Server-Driven UI (SDUI) applications. It follows a minimal orchestration loop: `Event → Handler → Events`.
+> In OpenBot, dynamic UI widgets in conversations are powered by **Melony's Server-Driven UI (SDUI)**. This allows the backend to send rich, interactive components directly to the chat thread without requiring frontend-specific code for every new feature.
 
-# Melony Framework Guidelines
+# OpenBot Server-Driven UI (SDUI)
 
-Melony is an event-based framework for building AI agents and Server-Driven UI (SDUI) applications. It follows a minimal orchestration loop: `Event → Handler → Events`.
+In OpenBot, dynamic UI widgets in conversations are powered by **Melony's Server-Driven UI (SDUI)**. This allows the backend to send rich, interactive components directly to the chat thread without requiring frontend-specific code for every new feature.
 
-This document describes the core `melony` runtime.
+## 🎯 Core Scope
+- **Conversations Only**: SDUI should only be used to generate dynamic widgets *inside* the chat history (e.g., status updates, data summaries, interactive cards).
+- **Not for Layout**: Do NOT use SDUI for the main application layout (sidebar, header, etc.). Use React components in `/web` for that.
 
-## Core Runtime
+## 🏗️ Technical Implementation
 
-The `melony` package provides the core runtime and builder API for defining agents and handlers.
+### 1. Widget Creation
+All reusable UI widgets should be defined as functions returning `UINode` (from `@melony/ui-kit`) in `server/src/ui/widgets/`.
 
-## Backend Development
+```typescript:server/src/ui/widgets/my-widget.ts
+import { ui, UINode } from '@melony/ui-kit';
 
-### Creating an Agent
-Use the `melony()` builder to define event handlers.
-
-```typescript
-import { melony } from "melony";
-
-export const agent = melony()
-  .on("agent:input", async function* (event, { runtime }) {
-    // Logic here
-    yield { type: "agent:output", data: { content: "Processing..." } };
-    
-    // Yield UI components
-    yield { 
-      type: "ui", 
-      data: { 
-        type: "card", 
-        props: { title: "Result" },
-        children: [{ type: "text", props: { content: "Done!" } }]
-      } 
-    };
-  });
+export const myWidget = (title: string, data: any): UINode =>
+  ui.card({ title }, [
+    ui.text(`Info: ${data.info}`, { size: 'sm', color: 'muted' }),
+    ui.button('Action', { action: 'myAction', data: { id: data.id } })
+  ]);
 ```
 
-### API Routes (Next.js)
-```typescript
-import { agent } from "./agent";
+### 2. Emitting UI in Plugins
+Plugins should use `yield ui.event(widget(...))` to send UI to the frontend.
 
-export async function POST(req: Request) {
-  const { event } = await req.json();
-  return agent.streamResponse(event);
-}
+```typescript:server/src/plugins/my-plugin/index.ts
+import { ui } from '@melony/ui-kit';
+import { myWidget } from '../../ui/widgets/my-widget.js';
+
+builder.on("my:event", async function* (event) {
+  // Emit a dynamic widget in the conversation
+  yield ui.event(myWidget(event.data.title, event.data));
+});
 ```
 
-## Best Practices
+## 🛠️ Components & Contracts
+- **`@melony/ui-kit`**: Provides the `ui` helper and standard `UINode` types.
+- **`@melony/ui-shadcn`**: Backend-to-frontend component registry (Shadcn-based).
+- **Refer to `melony-ui.mdc`**: For detailed SDUI component guidelines and recursive rendering rules.
 
-### Event Structure
-Events should follow this structure:
-```typescript
-interface Event {
-  type: string;
-  data: any;
-  meta?: {
-    id?: string;
-    runId?: string;
-    role?: "user" | "assistant" | "system";
-    // ...
-  };
-}
-```
-
-### Manager-Worker Pattern
-For complex agents, use a Manager agent that delegates to Worker plugins.
-- Use `delegateTask` tool in the Manager.
-- Workers should yield a completion event (e.g., `agent:os:output`).
-- The Manager's plugin should bridge this back to the tool result.
-
-### State Management
-- Use `context.state` within handlers to persist information across events in a single run.
-- Use `suspend()` to halt execution for human-in-the-loop (HITL) scenarios.
+## 💡 Best Practices
+- **Compose**: Use standard layout nodes (`ui.row`, `ui.col`, `ui.box`) instead of custom components where possible.
+- **Type-Safe**: Always use the `ui` helper to ensure the generated JSON matches the Melony UI contract.
+- **Interactive**: Use `ui.button` with `action` props to trigger plugin events from the UI.
 
 ---
 > Source: [meetopenbot/openbot](https://github.com/meetopenbot/openbot) — distributed by [TomeVault](https://tomevault.io).
