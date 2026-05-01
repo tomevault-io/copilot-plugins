@@ -1,0 +1,9 @@
+{
+  "name": "nim-community--nexum",
+  "displayName": "nexum",
+  "description": "A compile-time reactive web framework for Nim. Zero virtual DOM. Full SSR. Partial hydration.",
+  "version": "1.0.0",
+  "author": "nim-community",
+  "homepage": "https://github.com/nim-community/nexum",
+  "skills": []
+}
