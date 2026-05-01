@@ -1,50 +1,38 @@
-## rust-cli-conventions
+## rust-native-architecture
 
-> Conventions for the CLI/TUI, provider abstraction, tool safety, and agent loop.
+> Enforces native-first architecture and crate boundary rules for the nca workspace.
 
 
-# CLI and Agent Conventions
+# Native-First Architecture
 
-## Provider Abstraction
+## Crate Boundaries
 
-- All LLM calls go through the `Provider` trait defined in `core::provider`.
-- Adapters for specific providers (Anthropic, OpenAI, Gemini) implement this trait.
-- The `genai` crate is the default adapter. Direct clients (`anthropic-async`, `async-openai`) are used only when provider-specific features are needed.
-- Never hard-code a model name. Always read from config or CLI flags.
+- `common` is the leaf crate. It has no internal dependencies. Every other crate may depend on it.
+- `core` depends on `common` only. It owns the agent loop, provider abstraction, tool registry, and approval policy.
+- `runtime` depends on `common` and `core`. It owns PTY management, sandboxed process execution, IPC, session persistence, and tmux integration.
+- `cli` depends on `common`, `core`, and `runtime`. It owns the TUI, REPL, rendering, and user input.
 
-## Tool Safety
+## No JavaScript
 
-- Every tool call must pass through `core::approval::ApprovalPolicy` before execution.
-- Tools are classified into three tiers: `Allowed`, `Ask`, `Denied`.
-- File-write tools must canonicalize paths and verify they are inside the workspace root before writing.
-- Bash tools must run inside a PTY via `runtime::pty` with a timeout. Never use raw `std::process::Command` for user-facing execution.
+- Never introduce a dependency that requires Node.js, npm, or a JavaScript runtime.
+- Never use a webview-based framework (Tauri, Dioxus Desktop, Electron) in any crate.
 
-## Streaming
+## Async Convention
 
-- Provider responses are streamed via `tokio::sync::mpsc` channels.
-- The REPL renders partial markdown as tokens arrive.
-- Tool-use blocks are buffered until the closing tag is received before execution begins.
-- Cancellation (ESC / Ctrl+C) sends a cancel signal through the channel and drops the in-flight request.
+- All I/O (network, file, PTY, IPC) must be async via `tokio`.
+- Never call blocking I/O on the tokio runtime. Use `tokio::task::spawn_blocking` for unavoidable blocking work.
+- Prefer `tokio::sync::mpsc` for internal channels. Use `tokio::sync::broadcast` only when multiple consumers need the same stream.
 
-## TUI Rendering
+## Error Handling
 
-- Use `ratatui` widgets for all terminal UI. Never print raw ANSI escape codes directly.
-- Markdown rendering uses `pulldown-cmark` for parsing and `syntect` for syntax highlighting.
-- Diffs use `similar` for generation and colored output via ratatui styled spans.
+- Library crates (`common`, `core`, `runtime`) define typed errors with `thiserror`.
+- The application crate (`cli`) may use `anyhow` for top-level error propagation.
+- Never use `.unwrap()` or `.expect()` in library code. Application code may use `.expect()` only during startup for required config.
 
-## Config Loading
+## Public API Surface
 
-- Config resolution order: compiled defaults -> `~/.nca/config.toml` -> `.nca/config.local.toml` -> env vars -> CLI flags.
-- Use `clap` derive macros for CLI argument definitions.
-- Config structs live in `common::config` and are shared across all crates.
-
-## Testing
-
-- Unit tests go in the same file as the code under test (`#[cfg(test)] mod tests`).
-- Integration tests for the CLI go in `crates/cli/tests/`.
-- Use `tempfile` for any test that touches the filesystem.
-- Use `insta` for snapshot tests of rendered TUI output.
-- Never depend on network access in unit tests. Mock the `Provider` trait.
+- Keep `pub` exports minimal. Default to `pub(crate)` and only promote to `pub` when another crate needs the item.
+- Every public type and trait must have a doc comment.
 
 ---
 > Source: [madebyaris/native-cli-ai](https://github.com/madebyaris/native-cli-ai) — distributed by [TomeVault](https://tomevault.io).
