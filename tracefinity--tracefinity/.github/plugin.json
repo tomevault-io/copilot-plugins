@@ -1,0 +1,9 @@
+{
+  "name": "tracefinity--tracefinity",
+  "displayName": "tracefinity",
+  "description": "Generate custom gridfinity bins with AI, from photos of your tools",
+  "version": "1.0.0",
+  "author": "tracefinity",
+  "homepage": "https://github.com/tracefinity/tracefinity",
+  "skills": []
+}
