@@ -4,7 +4,7 @@
   "repo": "kiro-account-manager",
   "description": "\ud83d\ude80 \u667a\u80fd\u7ba1\u7406 Kiro IDE \u8d26\u53f7\uff0c\u4e00\u952e\u5207\u6362\uff0c\u914d\u989d\u76d1\u63a7 | \u5b98\u7f51\uff1ahttps://kiro-website-six.vercel.app",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hj01857655/kiro-account-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T16:22:36Z"
+  "distributed_at": "2026-05-01T12:23:30Z"
 }
