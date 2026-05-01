@@ -1,0 +1,9 @@
+{
+  "name": "papercomputeco--sweeper",
+  "displayName": "sweeper",
+  "description": "Multi threaded code maintenance with resource isolated subagents.",
+  "version": "1.0.0",
+  "author": "papercomputeco",
+  "homepage": "https://github.com/papercomputeco/sweeper",
+  "skills": []
+}
