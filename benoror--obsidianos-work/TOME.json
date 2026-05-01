@@ -4,7 +4,7 @@
   "repo": "obsidianos_work",
   "description": "ObsidianOS - Work Vault",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/benoror/obsidianos_work",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:04:51Z"
+  "distributed_at": "2026-05-01T19:09:55Z"
 }
