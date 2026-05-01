@@ -1,0 +1,9 @@
+{
+  "name": "sane-apps--sanebar",
+  "displayName": "SaneBar",
+  "description": "The privacy-first menu bar manager for macOS. Native, lightweight, and scriptable.",
+  "version": "1.0.0",
+  "author": "sane-apps",
+  "homepage": "https://github.com/sane-apps/SaneBar",
+  "skills": []
+}
