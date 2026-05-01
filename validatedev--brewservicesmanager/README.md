@@ -7,11 +7,11 @@ A macOS menu bar app for managing Homebrew services
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [validatedev/BrewServicesManager](https://github.com/validatedev/BrewServicesManager).
+Original source: `CLAUDE.md` in [validatedev/BrewServicesManager](https://github.com/validatedev/BrewServicesManager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
