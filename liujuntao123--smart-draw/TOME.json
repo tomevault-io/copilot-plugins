@@ -4,7 +4,7 @@
   "repo": "smart-draw",
   "description": "Draw any professional and beautiful diagram you can imagine in the simplest way",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liujuntao123/smart-draw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T03:02:43Z"
+  "distributed_at": "2026-05-01T16:06:55Z"
 }
