@@ -1,0 +1,9 @@
+{
+  "name": "smarzola--hermes-local-memory",
+  "displayName": "hermes-local-memory",
+  "description": "Local-first SQLite memory provider for Hermes Agent",
+  "version": "1.0.0",
+  "author": "smarzola",
+  "homepage": "https://github.com/smarzola/hermes-local-memory",
+  "skills": []
+}
