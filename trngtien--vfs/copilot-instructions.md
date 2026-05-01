@@ -1,323 +1,266 @@
-## vfs
+## vfs-agent-search
 
-> Use when MCP is not configured or not available in your tool:
+> Code search strategy: vfs for navigation, Grep/Read for understanding. Combine both to avoid hallucination.
 
-# vfs -- Agent Instructions
 
-> **Any AI coding agent reading this file MUST follow these rules when working in a project that has `vfs` available.**
->
-> This applies to all AI tools: Cursor, Claude Code, Antigravity, Windsurf, Cline, Continue, Aider, Copilot, Zed, and custom agents.
+# Code Search Strategy: Navigate with vfs, Understand with Grep/Read
 
-## What is vfs?
+> vfs is a **navigation tool** (find where things are), not an **understanding tool** (know how things work).
+> Signatures without bodies create false confidence. Always read implementation before claiming to understand behavior.
 
-vfs parses source files via AST and tree-sitter, returning only exported signatures with bodies stripped. This reduces token consumption by **60-70%** compared to grep-based search. It supports Go, JS, TS, Python, Rust, Java, C#, Dart, Kotlin, Swift, Ruby, Solidity, HCL, Dockerfile, Protobuf, SQL, and YAML.
+## How vfs Works
 
-## Security & Privacy
+vfs parses source files via AST and returns **exported signatures with bodies stripped**. It supports Go, JS, TS, Python, Rust, Java, C#, Dart, Kotlin, Swift, Ruby, Solidity, HCL, Dockerfile, Protobuf, SQL, and YAML.
 
-vfs is local-only and offline. When a user asks about security, these are the key points:
+**What vfs gives you:** `internal/services/fare.go:42: func CalculateFare(req *FareRequest) (*FareResponse, error)`
+**What vfs hides:** The 50 lines of implementation inside that function.
 
-| Property | Detail |
-|----------|--------|
-| Zero network access | All parsing is local. No outbound connections, ever |
-| No secrets exposure | Does not read or store API keys, credentials, or environment variables |
-| No data collection | No telemetry, no analytics, no tracking |
-| No code storage | Source is parsed in memory and discarded. Only `~/.vfs/history.jsonl` (scan statistics) is written |
+This makes vfs excellent for **locating** definitions, but dangerous for **understanding** behavior.
 
-## Installation
+## Step 1: Classify Your Intent
 
-When helping a user install vfs, pick the simplest method for their OS:
+Before searching, determine what you need:
 
-**Pre-built binary (Linux -- no Go or C compiler needed):**
+| Intent | Description | Primary tool | Depth required |
+|--------|-------------|-------------|----------------|
+| **Locate** | "Which file defines X?" | vfs | Signature only — no Read needed |
+| **Understand** | "How does X work?" | vfs → Read body + context | Full implementation + dependencies |
+| **Modify** | "Change how X behaves" | vfs → Read body + callers | Full implementation + Grep for usages |
+| **Debug** | "Why does X fail?" | Grep + Read | Bodies, callers, error paths — vfs alone is useless here |
 
-```bash
-# x86_64
-curl -L https://github.com/TrNgTien/vfs/releases/latest/download/vfs-linux-amd64.tar.gz | tar xz
-sudo mv vfs /usr/local/bin/
+## Step 2: Search (vfs for navigation)
 
-# ARM64
-curl -L https://github.com/TrNgTien/vfs/releases/latest/download/vfs-linux-arm64.tar.gz | tar xz
-sudo mv vfs /usr/local/bin/
-```
+Use vfs as the **first step** to locate definitions — not as the final answer.
 
-**Build from source (macOS, Linux, Windows -- requires Go 1.24+ and a C compiler):**
+### Access Priority: MCP First, CLI Fallback
 
-```bash
-git clone https://github.com/TrNgTien/vfs.git && cd vfs
-go install ./cmd/vfs
-```
-
-C compiler per OS:
-
-| OS | Command |
-|----|---------|
-| macOS | `xcode-select --install` |
-| Linux (Debian/Ubuntu) | `sudo apt install build-essential` |
-| Linux (Fedora/RHEL) | `sudo yum groupinstall "Development Tools"` |
-| Windows | Install [TDM-GCC](https://jmeubank.github.io/tdm-gcc/) (easiest) or [MSYS2](https://www.msys2.org/) + MinGW-w64 |
-
-**Docker (any OS):**
-
-```bash
-docker build -t vfs-mcp .
-docker run --rm -v $(pwd):/workspace -p 8080:8080 -p 3000:3000 vfs-mcp
-
-# Custom ports via environment variables
-docker run --rm -v $(pwd):/workspace -e VFS_PORT=9090 -e VFS_DASHBOARD_PORT=4000 -p 9090:9090 -p 4000:4000 vfs-mcp
-```
-
-> `vfs: command not found` after install? Add Go's bin to PATH: `export PATH="$PATH:$(go env GOPATH)/bin"` (macOS/Linux) or add `%USERPROFILE%\go\bin` to PATH (Windows).
-
-## Rule: Always Use vfs for Code Discovery
-
-Every search for function definitions, method signatures, class names, or type declarations **MUST start with vfs** unless a skip condition applies.
-
-### When to Skip vfs
-
-| # | Condition | Action |
-|---|-----------|--------|
-| 1 | You already know the exact file and line | Read it directly |
-| 2 | Searching inside function bodies (string literals, error messages, config keys) | Use grep |
-| 3 | Non-code files (JSON, CSS, Markdown, `.env`) | Use grep |
-| 4 | The user gave you a file path | Read it directly |
-
-### Decision Flow
-
-```
-Step,Condition,Action,Next
-1,Skip condition met (known file/line; body search; non-code file),Grep / Read directly,Done
-2,Looking for definitions / signatures / types,Try vfs search,Step 3
-3,MCP available?,Use MCP search (preferred),Step 5
-4,CLI available? (`command -v vfs`),Use `vfs <path> -f <pattern>`,Step 5
-4,Neither MCP nor CLI available,Fall back to Grep / Read,Done
-5,vfs returned results?,Read exact file:line (targeted),Step 6
-5,vfs returned no results?,Fall back to Grep / Read,Done
-6,Modifying code?,Grep for callers/usages then Done,Done
-6,Read-only / understand?,Done -- full context with minimal tokens,Done
-```
-
-**Why this matters:**
-
-| Approach | Output | Est. tokens |
-|----------|--------|-------------|
-| Read all files | Entire source | ~26,000 |
-| Grep | Matching lines + context | ~3,500 |
-| **vfs** | **Signatures only** | **~370** |
-
-vfs gives the agent a "table of contents" via AST. Grep fills the gap for things AST can't see (string literals, error messages, callers). Together they give full context at 90%+ token savings.
-
-## How to Use
-
-### MCP (preferred)
-
-MCP runs on the host outside the editor sandbox. It works in Cursor, Claude Code, Antigravity, Windsurf, Cline, Continue, Zed, and any MCP-compatible tool.
-
-**CRITICAL: Always use absolute paths in MCP calls.** MCP runs on the host, not inside the editor sandbox. Relative paths like `["."]` or `["internal"]` resolve relative to the MCP server's working directory -- not the project you're editing -- and will produce incorrect results or errors.
-
-How to get the absolute path depends on your tool:
-
-| Tool | How to get workspace path |
-|------|--------------------------|
-| Cursor | Read `Workspace Path` from the `<user_info>` block in the system prompt |
-| Claude Code | Run `pwd` in the shell once at the start of the session |
-| Antigravity | Check workspace context provided by the IDE, or run `pwd` |
-| Windsurf / Cline / Continue | Check workspace context or run `pwd` |
-| Other tools | Run `pwd` once. One `pwd` call is far cheaper than multiple failed MCP calls |
-
-| Tool | Purpose | Parameters |
-|------|---------|------------|
-| `search` | Find signatures matching a pattern | `paths: string[]`, `pattern: string` |
-| `extract` | Return all signatures from paths | `paths: string[]` |
-| `list_languages` | Supported languages and extensions | none |
-
-```
-search(paths: ["/absolute/path/to/project"], pattern: "HandleLogin")
-extract(paths: ["/absolute/path/to/project/internal/handlers"])
-```
-
-### CLI (fallback)
-
-Use when MCP is not configured or not available in your tool:
-
-```bash
-vfs <path> -f <pattern>     # filter signatures (case-insensitive)
-vfs .                        # all exported sigs in current project
-vfs ./internal ./pkg         # scan specific directories
-vfs server.go                # single file
-```
-
-The CLI works in any environment with shell access -- terminal-based tools like Aider, Claude Code, Antigravity, or custom scripts.
-
-### Pre-flight Check
-
-On the first code search in a session, verify vfs is available:
+MCP runs on the host outside the sandbox and bypasses binary restrictions.
 
 ```
 Step,Name,Action,Condition,Result
-1,MCP,"MCP `search` tool available?",success,Use MCP for all vfs operations
-1,MCP,"MCP `search` tool available?",failure/error,Go to step 2
+1,MCP,"CallMcpTool(server: user-user-vfs, toolName: search, ...)",success,Use MCP for all vfs operations
+1,MCP,"CallMcpTool(server: user-user-vfs, toolName: search, ...)",failure/error,Go to step 2
 2,CLI fallback,"run `command -v vfs` in Shell",found,"Use `vfs <path> -f <pattern>` via Shell"
 2,CLI fallback,"run `command -v vfs` in Shell",not found,Go to step 3
 3,Grep/Read fallback,"Fall back to Grep/Read silently",,Notify user once per session if needed; Do NOT block progress
 ```
 
-If neither is available, pick whichever keeps momentum:
+### MCP Calls (preferred)
 
-| Option | Behavior | When to use |
-|--------|----------|-------------|
-| **Notify** | Tell user once: "vfs MCP/CLI not available. Proceed with Grep?" | First occurrence, user may want to fix setup |
-| **Skip & proceed** | Fall back to Grep/Read silently | Time-sensitive, already notified, or simple search |
+Server name: **`user-user-vfs`**
 
-**Do NOT block progress waiting for vfs.** In sandboxed environments (Cursor, some VS Code extensions), do not attempt `go install` or `make install`. Recommend MCP setup instead.
+> **CRITICAL: MCP calls MUST use absolute paths.** MCP runs on the host and does NOT share the agent's working directory. Always use the full workspace path from `<user_info>`.
 
-## Strict Rules
+```
+# Find definitions by name
+CallMcpTool(server: "user-user-vfs", toolName: "search", arguments: { "paths": ["/absolute/path/to/workspace"], "pattern": "HandleLogin" })
 
-| # | Rule | Reason |
-|---|------|--------|
-| 1 | NEVER start with grep/rg for definitions, signatures, class names, or type declarations | Use vfs first -- unless confirmed unavailable (both MCP and CLI failed) |
-| 2 | NEVER read an entire file to hunt for a function | Use vfs to locate, then read only the specific lines |
-| 3 | After vfs locates a signature, read with exact file + line range | Not the whole file -- minimizes token usage |
-| 4 | `-f` is case-insensitive | No need to search both `fare` and `Fare` |
-| 5 | If both MCP and CLI fail, notify once or skip | Do NOT stall or repeatedly alert. One notification per session is enough |
-| 6 | ALWAYS use absolute paths in MCP calls | Relative paths fail because MCP runs on the host, not inside the editor |
+# List all exports from a directory
+CallMcpTool(server: "user-user-vfs", toolName: "extract", arguments: { "paths": ["/absolute/path/to/workspace/internal/handlers"] })
+```
+
+### CLI Calls (fallback only)
+
+```bash
+vfs <path> -f <pattern>           # filter signatures (case-insensitive)
+vfs .                             # all exported sigs in current project
+vfs ./internal ./pkg              # scan specific directories
+```
+
+## Step 3: Read with Sufficient Depth (Anti-Hallucination)
+
+> **NEVER assume you understand a function's behavior from its signature alone.**
+> A signature is an address, not a description. You must read the body before making claims.
+
+After vfs locates a signature, determine how much to read based on your intent:
+
+### Locate intent — signature is enough
+```
+vfs search → found fare.go:42: func CalculateFare(...)
+Answer: "CalculateFare is defined in internal/services/fare.go at line 42."
+Done. No Read needed.
+```
+
+### Understand intent — read the full function + surrounding context
+```
+vfs search → found fare.go:42: func CalculateFare(...)
+
+Read: fare.go L1-20    (imports + package-level vars — reveals dependencies)
+Read: fare.go L42-90   (the full function body — reveals actual behavior)
+```
+
+**Why read imports/package-level context:** A function that imports `"encoding/csv"` behaves very differently from one that imports `"net/http"`. The signature won't tell you this.
+
+**Minimum read range:** For any function body, read at least:
+- The complete function (not just the first 10 lines — logic often lives at the end)
+- Package-level variables and init() if they exist (first 20-30 lines of file)
+- Types referenced in the signature if they're in the same package
+
+### Modify intent — read body + find all callers
+```
+vfs search → found fare.go:42: func CalculateFare(...)
+
+Read: fare.go L1-20    (imports)
+Read: fare.go L42-90   (full body)
+Grep: "CalculateFare" across the codebase  (find all callers before changing)
+```
+
+### Debug intent — skip vfs, start with Grep/Read
+When debugging, you need to follow execution flow through bodies. vfs strips the information you need most. Start with Grep for error messages, log strings, or the failing function name, then Read the relevant bodies.
+
+## When to Skip vfs Entirely
+
+Use Grep/Read directly when:
+
+1. **You already know the exact file and line** — just Read it.
+2. **Searching inside function bodies** — string literals, config keys, error messages, log strings.
+3. **Non-code files** — JSON, CSS, Markdown, `.env`.
+4. **The user gave you a file path** — e.g. "look at line 50 of client.go".
+5. **Debugging** — you need execution flow through bodies, not signatures.
+6. **Finding callers/usages** — vfs finds definitions, not call sites. Use Grep for "who calls X?"
+
+## Generated Files
+
+vfs automatically skips protobuf-generated files (`*.pb.go`, `*_pb2.py`, `*_pb.js`, `*_pb.ts`, `*.pb.dart`, `*_pb.rb`, etc.), other common generated patterns (`.g.dart`, `.generated.cs`, `.freezed.dart`), and Solidity test/script files (`*.t.sol`, `*.s.sol` from Foundry). They will not appear in search results.
+
+If you encounter a generated file through Grep or Read, **do not modify it** — find and edit the source (`.proto`, codegen config) instead.
+
+## When to Use vfs + Grep Together
+
+The strongest search pattern combines both:
+
+```
+# 1. vfs: locate the definition
+vfs search("CalculateFare")
+  → internal/services/fare.go:42
+
+# 2. Read: understand the implementation
+Read fare.go L1-20 (imports), L42-90 (body)
+
+# 3. Grep: find all callers and usages
+Grep "CalculateFare" across internal/
+  → internal/services/booking.go:88: resp, err := s.CalculateFare(req)
+  → internal/services/fare_test.go:12: ...
+
+# Now you have: where it's defined + how it works + who uses it
+```
+
+## Hallucination Guardrails
+
+These are hard rules to prevent false confidence:
+
+1. **Never describe what a function "does" based only on its name/signature.** You must Read the body first. A function named `GetAddress` might create addresses, call external APIs, or have side effects the name doesn't reveal.
+2. **Never assume a function follows a pattern** just because other functions in the same file do. Always verify by reading the specific body.
+3. **If you're about to say "this function probably..."** — STOP. That word "probably" means you haven't read the implementation. Read it first.
+4. **After vfs, ask yourself: "Do I need to understand the behavior, or just the location?"** If behavior, you MUST Read the body before proceeding.
+5. **When making code changes**, always Read the full function body AND Grep for callers. Never modify a function based on signature alone.
+
+## MCP Tools Reference (server: `user-user-vfs`)
+
+| Tool | Purpose | Parameters | Example |
+|------|---------|------------|---------|
+| `search` | Find definitions by name | `paths: string[]`, `pattern: string` | `search(paths: ["/abs/path"], pattern: "auth")` |
+| `extract` | List all exported signatures | `paths: string[]` | `extract(paths: ["/abs/path/internal/handlers"])` |
+| `list_languages` | Supported languages and extensions | none | `list_languages()` |
+
+## Stats Recording
+
+Recording is on by default — leave it. Never pass `--no-record` unless explicitly testing.
+
+- History: `~/.vfs/history.jsonl`
+- Summary: `vfs stats` (CLI only)
 
 ## Examples
 
-**Discovery** -- "what functions relate to auth?"
-
+### Locate — "where is the fare logic?"
 ```
-vfs . -f auth
-  → src/handlers/auth.go:23: func HandleLogin(w http.ResponseWriter, r *http.Request)
-  → src/services/auth.go:10: func ValidateToken(token string) (*Claims, error)
-
-Read: src/handlers/auth.go L23-45
+vfs search("fare") → internal/services/fare.go:42: func CalculateFare(...)
+Answer: "CalculateFare is defined in internal/services/fare.go at line 42."
 ```
 
-**Multi-language project:**
-
+### Understand — "how does fare calculation work?"
 ```
-vfs . -f user
-  → internal/services/user.go:42:     func CreateUser(name string, email string) (*User, error)
-  → src/hooks/useUser.ts:8:           export function useUser(id: string): UserState
-  → app/models/user.py:15:            class User(BaseModel)
-  → src/api/UserService.java:22:      public class UserService
-  → contracts/UserRegistry.sol:10:    contract UserRegistry is Ownable { ... }
+vfs search("CalculateFare") → internal/services/fare.go:42
+Read: fare.go L1-20     ← imports reveal dependencies
+Read: fare.go L42-90    ← full body reveals actual logic
+Now describe the behavior based on what you READ, not what you assumed.
 ```
 
-**When grep IS correct:**
-
+### Modify — "change fare calculation to add surcharge"
 ```
-grep "INVALID_API_KEY" ./internal/   ← string literal inside function body
-grep "database_url" ./*.yaml         ← non-code file
-```
-
-## MCP Setup by Tool
-
-All tools use the same MCP server config. The only difference is where the config file lives:
-
-| Tool | Config location |
-|------|----------------|
-| **Cursor** | `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global) |
-| **Claude Code** | `claude mcp add vfs -- vfs mcp` (recommended) or `.mcp.json` (project) |
-| **Claude Desktop** | `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) |
-| **Antigravity** | MCP settings panel, or project MCP config. Also reads `AGENTS.md` / `GEMINI.md` |
-| **Windsurf** | `.windsurf/mcp.json` (project) or global via Windsurf settings |
-| **Cline** | MCP config in VS Code Cline extension settings |
-| **Continue** | `.continue/config.json` under `experimental.modelContextProtocolServers` |
-| **Zed** | `~/.config/zed/settings.json` under `context_servers` |
-| **Any HTTP client** | Point to `http://localhost:8080/mcp` after running `vfs up` (use `--port` for custom port) |
-
-### Claude Code setup
-
-**Recommended:** Use the CLI command (registers in `~/.claude.json` under project scope):
-
-```bash
-claude mcp add vfs -- vfs mcp
+vfs search("CalculateFare") → internal/services/fare.go:42
+Read: fare.go L1-20     ← imports
+Read: fare.go L42-90    ← full body — understand current logic
+Grep: "CalculateFare"   ← find all callers to assess impact
+Now make the change with full context.
 ```
 
-This is the most reliable method. Claude Code reads MCP configs from its own settings file (`~/.claude.json`), not from `.mcp.json`. Using `claude mcp add` ensures the server is registered in the right place.
-
-**Alternative:** Add a `.mcp.json` file at the project root:
-
-```json
-{
-  "mcpServers": {
-    "vfs": {
-      "command": "vfs",
-      "args": ["mcp"]
-    }
-  }
-}
+### Debug — skip vfs, go straight to bodies
+```
+Grep: "fare calculation failed" in internal/   ← find the error message
+Read: fare.go L55-80                           ← read the error path
+Grep: "CalculateFare" in internal/             ← trace the call chain
 ```
 
-> **Note:** Claude Code uses stdio transport for local MCP servers. Do NOT use `"type": "sse"` or `"type": "http"` — those are for HTTP-based tools like Cursor. If `.mcp.json` is not being picked up, use `claude mcp add` instead.
-
-### Other tools (Cursor, Windsurf, Cline, etc.)
-
-The stdio config (works for most tools):
-
-```json
-{
-  "mcpServers": {
-    "vfs": {
-      "command": "vfs",
-      "args": ["mcp"]
-    }
-  }
-}
+### When Grep IS the right first tool (skip vfs)
+```
+Grep: "INVALID_API_KEY" in ./internal/     ← string literal inside function body
+Grep: "database_url" in ./*.env            ← non-code file
+Read: handlers/upload.go L42-60            ← user gave exact file path
 ```
 
-The HTTP config (for Docker, remote, or tools that prefer HTTP):
+## Supported File Types
 
-```json
-{
-  "mcpServers": {
-    "vfs": {
-      "url": "http://localhost:8080/mcp"
-    }
-  }
-}
+| Language        | Extensions                              |
+|-----------------|-----------------------------------------|
+| Go              | `.go`                                   |
+| JavaScript      | `.js`, `.mjs`, `.cjs`, `.jsx`           |
+| TypeScript      | `.ts`, `.mts`, `.cts`, `.tsx`           |
+| Python          | `.py`                                   |
+| Rust            | `.rs`                                   |
+| Java            | `.java`                                 |
+| C#              | `.cs`                                   |
+| Dart            | `.dart`                                 |
+| Kotlin          | `.kt`, `.kts`                           |
+| Swift           | `.swift`                                |
+| Ruby            | `.rb`                                   |
+| Solidity        | `.sol`                                  |
+| HCL / Terraform | `.tf`, `.hcl`                           |
+| Dockerfile      | `Dockerfile`, `Dockerfile.*`, `*.dockerfile` |
+| Protobuf        | `.proto`                                |
+| SQL             | `.sql`                                  |
+| YAML            | `.yml`, `.yaml`                         |
+
+For anything not in this table, use Grep/rg directly.
+
+## Self-Check Before Answering
+
+After searching and reading, ask yourself these questions before responding:
+
+1. **Did I read the function body?** If I'm about to describe behavior and I only have a signature — STOP and Read the body first.
+2. **Did I read the imports?** Dependencies reveal the real mechanism (embedded CSV vs HTTP API vs database).
+3. **Am I saying "probably" or "likely"?** Those words mean I'm guessing. Read more code until I can state facts.
+4. **For modifications: did I find all callers?** Grep for the function name across the codebase before suggesting changes.
+5. **Is my answer based on what I READ or what I ASSUMED from the name?** If assumed, go back and read.
+
+## Subagent / Task Tool Delegation
+
+Subagents launched via `Task` do NOT inherit workspace rules.
+
+**When launching ANY subagent that may search code, prepend this to the task prompt:**
+
 ```
-
-To use a custom port: `vfs up --port 9090` and update the URL to `http://localhost:9090/mcp`.
-
-See [README.md](README.md#setup-for-ai-tools) for detailed per-tool setup instructions.
-
-## Supported Languages
-
-| Language | Extensions |
-|----------|-----------|
-| Go | `.go` |
-| JavaScript | `.js`, `.mjs`, `.cjs`, `.jsx` |
-| TypeScript | `.ts`, `.mts`, `.cts`, `.tsx` |
-| Python | `.py` |
-| Rust | `.rs` |
-| Java | `.java` |
-| C# | `.cs` |
-| Dart | `.dart` |
-| Kotlin | `.kt`, `.kts` |
-| Swift | `.swift` |
-| Ruby | `.rb` |
-| Solidity | `.sol` |
-| HCL/Terraform | `.tf`, `.hcl` |
-| Dockerfile | `Dockerfile`, `Dockerfile.*`, `*.dockerfile` |
-| Protobuf | `.proto` |
-| SQL | `.sql` |
-| YAML | `.yml`, `.yaml` |
-
-For anything not in this table, use grep directly.
-
-## Releasing
-
-Releases are automated via `scripts/release.sh` and [GitHub Actions](/.github/workflows/release.yml).
-
-```bash
-./scripts/release.sh              # release version from VERSION file
-./scripts/release.sh --dry-run    # preview without changing anything
+Code search strategy — vfs for navigation, Read for understanding:
+1. Use vfs MCP to LOCATE definitions first (never Grep for definitions):
+   CallMcpTool(server: "user-user-vfs", toolName: "search", arguments: { "paths": ["<ABSOLUTE_WORKSPACE_PATH>"], "pattern": "<name>" })
+   Workspace path: <insert workspace path here>
+   CRITICAL: Use ABSOLUTE paths in MCP calls, never relative paths like ".".
+2. After vfs returns file:line, ALWAYS Read the full function body + imports before describing behavior.
+   Never assume behavior from signatures alone — that causes hallucination.
+3. If modifying code, also Grep for all callers/usages before making changes.
+4. Use Grep directly for: string literals inside bodies, non-code files, callers/usages, debugging.
+5. If MCP errors, try CLI: `vfs . -f <name>`. If both fail, fall back to Grep silently.
 ```
-
-The script verifies you're on `main` with a clean tree, runs tests, creates a tag `v<version>`, and pushes. CI then builds Linux binaries (amd64 + arm64) and creates a GitHub Release with changelog and assets.
-
-The `VERSION` file at the repo root contains the current semver. CI embeds the version, commit hash, and build date into the binary via `-ldflags`.
 
 ---
 > Source: [TrNgTien/vfs](https://github.com/TrNgTien/vfs) — distributed by [TomeVault](https://tomevault.io).
