@@ -1,0 +1,9 @@
+{
+  "name": "light-heart-labs--dreamserver",
+  "displayName": "DreamServer",
+  "description": "Local AI anywhere, for everyone \u2014 LLM inference, chat UI, voice, agents, workflows, RAG, and image generation. No cloud, no subscriptions.",
+  "version": "1.0.0",
+  "author": "Light-Heart-Labs",
+  "homepage": "https://github.com/Light-Heart-Labs/DreamServer",
+  "skills": []
+}
