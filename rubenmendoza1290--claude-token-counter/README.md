@@ -7,14 +7,14 @@ A CLI tool to visualize Claude API token usage and track monthly subscription li
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [rubenmendoza1290/claude-token-counter](https://github.com/rubenmendoza1290/claude-token-counter).
+Original source: `AGENTS.md` in [rubenmendoza1290/claude-token-counter](https://github.com/rubenmendoza1290/claude-token-counter).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [rubenmendoza1290/claude-token-counter](https://github.com/rubenmendoza1290/claude-token-counter) — a repo with 8+ stars on GitHub.
