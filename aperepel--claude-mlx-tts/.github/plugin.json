@@ -1,0 +1,9 @@
+{
+  "name": "aperepel--claude-mlx-tts",
+  "displayName": "claude-mlx-tts",
+  "description": "Voice-cloned smart attention TTS notifications for Claude Code. AI summarizes deep work session responses, speaks in your cloned voice. MLX Chatterbox Turbo on Apple Silicon. Zero config, works out of",
+  "version": "1.0.0",
+  "author": "aperepel",
+  "homepage": "https://github.com/aperepel/claude-mlx-tts",
+  "skills": []
+}
