@@ -1,95 +1,67 @@
-## melony-plugin
+## melony-react
 
-> Melony plugins extend agent functionality via an event-based architecture. This guide focuses on **Registry-Ready Local Plugins** used in OpenBot.
+> The `@melony/react` package provides React hooks and providers for client-side integration with Melony agents.
 
-# Melony Plugin Development Guidelines
+# Melony React Guidelines
 
-Melony plugins extend agent functionality via an event-based architecture. This guide focuses on **Registry-Ready Local Plugins** used in OpenBot.
+The `@melony/react` package provides React hooks and providers for client-side integration with Melony agents.
 
-## Local Plugin Structure (Registry API)
+## Setup Providers
 
-Local plugins should be placed in `server/src/plugins/<plugin-name>/` and must export a `plugin` object (or as `default`) that implements the `PluginRegistryEntry` interface. This allows them to be dynamically loaded or manually registered.
+Wrap your application with `MelonyProvider`. Usually, you'll also need `MelonyUIProvider` from `@melony/ui-kit`.
 
-### The `plugin` Export Object
+```tsx
+import { MelonyClient } from "melony/client";
+import { MelonyProvider } from "@melony/react";
+import { MelonyUIProvider } from "@melony/ui-kit";
+import { shadcnElements } from "@melony/ui-shadcn";
 
-The core of a local plugin is an object containing metadata, tool definitions, and a factory function.
+const client = new MelonyClient({ url: "/api/chat" });
 
-```typescript
-import { MelonyPlugin } from "melony";
-import { z } from "zod";
-
-// 1. Tool Definitions
-export const myToolDefinitions = {
-  doSomething: {
-    description: "Brief description of what the tool does",
-    inputSchema: z.object({
-      param1: z.string().describe("What param1 is for"),
-    }),
-  },
-};
-
-// 2. Plugin Factory
-export const myPluginFactory = (options: any = {}): MelonyPlugin => (builder) => {
-  builder.on("action:doSomething", async function* (event, { state }) {
-    const { param1, toolCallId } = event.data;
-    // ... logic ...
-    yield {
-      type: "action:result",
-      data: { action: "doSomething", toolCallId, result: { success: true } }
-    };
-  });
-};
-
-// 3. Registry Entry (The "Determined API")
-export const plugin = {
-  name: "my-plugin",
-  description: "Handles custom logic",
-  toolDefinitions: myToolDefinitions,
-  factory: myPluginFactory,
-};
-
-export default plugin;
-```
-
-## Plugin Components
-
-### 1. Tool Definitions
-The LLM uses these Zod schemas to understand how to call your plugin. Always use `.describe()` for parameters.
-
-### 2. Event Interfaces
-Define types for events emitted by your plugin to ensure type safety.
-
-```typescript
-import { Event } from "melony";
-
-export interface MyStatusEvent extends Event {
-  type: "my:status";
-  data: { message: string; severity?: "info" | "success" | "error" };
+export default function RootLayout({ children }) {
+  return (
+    <MelonyProvider client={client}>
+      <MelonyUIProvider components={shadcnElements}>
+        {children}
+      </MelonyUIProvider>
+    </MelonyProvider>
+  );
 }
 ```
 
-### 3. Action Handlers
-Events triggered by LLM tool calls follow the pattern `action:<toolName>`. Every action handler **MUST** yield an `action:result` event to close the loop with the LLM.
+## Using Hooks
 
-## Registration
+Use `useMelony` to interact with the agent stream.
 
-### Manual Registration (in `open-bot.ts`)
-```typescript
-import { plugin as myPlugin } from "./plugins/my-plugin/index.js";
+```tsx
+import { useMelony } from "@melony/react";
+import { MelonyRenderer } from "@melony/ui-kit";
 
-pluginRegistry.register(myPlugin);
+function Chat() {
+  const { messages, send, streaming } = useMelony();
+
+  return (
+    <div>
+      {messages.map(msg => (
+        <div key={msg.runId}>
+          {msg.content.map(event => (
+            event.type === "ui" ? <MelonyRenderer key={event.id} node={event.data} /> : null
+          ))}
+        </div>
+      ))}
+      <button onClick={() => send({ type: "agent:input", data: { content: "Hi" } })}>
+        Send
+      </button>
+    </div>
+  );
+}
 ```
-
-### Dynamic Loading
-Plugins in `~/.openbot/plugins/` are automatically loaded if they export a `plugin` or `default` object with a `factory` function.
 
 ## Best Practices
 
-- **Atomic Actions**: Each tool should perform one clear task.
-- **Informative Status**: Yield status events (`my:status`) during long operations.
-- **Error Boundaries**: Wrap plugin logic in try/catch and return a failed `result` in `action:result`.
-- **UI Events**: Use `ui.event(ui.text(...))` for visual feedback.
-- **State**: Use `context.state` for persistence across the stream.
+- Use `useMelony` for real-time interaction and status tracking (`streaming`).
+- Pass the appropriate `MelonyClient` to the provider.
+- Leverage `MelonyRenderer` to handle UI-type events automatically.
 
 ---
 > Source: [meetopenbot/openbot](https://github.com/meetopenbot/openbot) — distributed by [TomeVault](https://tomevault.io).
