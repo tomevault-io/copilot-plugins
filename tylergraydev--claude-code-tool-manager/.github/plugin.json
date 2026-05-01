@@ -1,0 +1,9 @@
+{
+  "name": "tylergraydev--claude-code-tool-manager",
+  "displayName": "claude-code-tool-manager",
+  "description": "GUI app to manage MCP servers for Claude Code",
+  "version": "1.0.0",
+  "author": "tylergraydev",
+  "homepage": "https://github.com/tylergraydev/claude-code-tool-manager",
+  "skills": []
+}
