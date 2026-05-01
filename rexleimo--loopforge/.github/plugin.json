@@ -1,0 +1,9 @@
+{
+  "name": "rexleimo--loopforge",
+  "displayName": "LoopForge",
+  "description": "Open-source Agent OS in Rust for long-running autonomous workflows: memory, tool sandboxing, and multi-provider LLM routing.",
+  "version": "1.0.0",
+  "author": "rexleimo",
+  "homepage": "https://github.com/rexleimo/LoopForge",
+  "skills": []
+}
