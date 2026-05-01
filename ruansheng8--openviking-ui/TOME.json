@@ -1,0 +1,44 @@
+{
+  "name": "openviking-ui",
+  "owner": "ruansheng8",
+  "repo": "openviking-ui",
+  "description": "\u652f\u6301\u7ba1\u7406 OpenViking \u591a\u79df\u6237\u4f53\u7cfb\u3001\u7ba1\u7406\u4e0e\u64cd\u4f5c\u77e5\u8bc6\u8d44\u6e90\u5e93\uff0c\u5e76\u63d0\u4f9b\u7cfb\u7edf\u7684\u5b9e\u65f6\u76d1\u63a7\u548c\u9ad8\u7ea7\u641c\u7d22\u80fd\u529b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ruansheng8/openviking-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T22:39:49Z"
+}
