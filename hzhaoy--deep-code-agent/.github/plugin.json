@@ -1,0 +1,9 @@
+{
+  "name": "hzhaoy--deep-code-agent",
+  "displayName": "deep-code-agent",
+  "description": "A DeepAgents-based coding assistant with subagents for review, tests, docs, debugging, and refactoring.",
+  "version": "1.0.0",
+  "author": "hzhaoy",
+  "homepage": "https://github.com/hzhaoy/deep-code-agent",
+  "skills": []
+}
