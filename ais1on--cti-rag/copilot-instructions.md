@@ -1,117 +1,204 @@
-## knowledge-graph
+## model-integration
 
-> 知识图谱和 Cypher 查询相关规范
+> 多模型集成和使用指南
 
-# 知识图谱架构指南
+# 多模型集成指南
 
-## Neo4j 图结构
+## 模型选择机制
 
-### 节点（Entity）
-```cypher
-(:Entity {
-    name: string,           // 实体名称（主键）
-    type: string,           // 实体类型（如 "Intrusion Set", "Malware"）
-    description: string,    // 实体描述
-    embedding: float[]      // 向量嵌入（用于相似度搜索）
-})
-```
+系统通过 `select_model()` 函数支持多个 LLM 提供商，可以在 API 请求中动态切换模型。
 
-### 关系
-```cypher
-[:RELATION {
-    type: string,                  // 关系类型
-    relationship_type: string      // 备用关系类型字段
-}]
-```
+### 支持的模型提供商
+- **openai** - OpenAI 官方模型（GPT-4o, GPT-4-turbo, GPT-3.5-turbo 等）
+- **ollama** - 本地 Ollama 模型（支持 GPU 加速）
+- **deepseek** - DeepSeek 模型
+- **custom** - 自定义模型（通过配置文件添加）
+- **其他** - 任何兼容 OpenAI API 格式的提供商
 
-### 向量索引
-- 索引名称: `entityEmbeddings`
-- 维度: 根据 embedding 模型配置
-- 相似度函数: `cosine`
+### 模型配置位置
+- 全局配置: `config.yaml` 或环境变量
+- 自定义模型: `config.custom_models` 列表
 
-## Cypher 查询模式
+## API 使用方式
 
-### 单跳查询
-```cypher
-MATCH (n:Entity {name: 'APT41'})
-RETURN n.type AS type
-```
-
-### 多跳路径查询
-```cypher
-MATCH p = (a:Entity)-[*..3]-(b:Entity)
-WHERE a.name = 'APT41' AND b.name = 'WannaCry'
-RETURN p LIMIT 5
-```
-
-### 特定关系路径
-```cypher
-MATCH p = (group:Entity)-[:USES]->(tool:Entity)-[:EXPLOITS]->(vuln:Entity {name: 'Log4Shell'})
-WHERE group.type = 'Intrusion Set'
-RETURN p LIMIT 5
-```
-
-### 向量相似度搜索
-```cypher
-CALL db.index.vector.queryNodes('entityEmbeddings', 10, $embedding)
-YIELD node AS similarEntity, score
-RETURN similarEntity.name AS name, score
-```
-
-## LLM Cypher 生成
-
-### 工作流程
-1. 获取图 Schema (`get_schema_str()`)
-2. 准备上下文（问题 + 提取的实体）
-3. 使用 [cypher_generation_template](mdc:packages/utils/prompts.py) 生成 Cypher
-4. 从 LLM 响应中提取 Cypher（支持 markdown 代码块）
-5. 执行查询并处理结果
-
-### 关键方法
+### 方式1：使用全局默认模型
 ```python
-# packages/core/graphbase.py
-
-def get_schema_str(self) -> str:
-    """获取节点标签、关系类型和属性"""
-    pass
-
-def generate_cypher_query(self, query: str, entities: list, graph_schema: str) -> str:
-    """LLM 生成 Cypher 查询"""
-    pass
-
-def query(self, cypher_query: str) -> list:
-    """执行任意 Cypher 查询"""
-    pass
+# 不指定 model_provider 和 model_name
+{
+    "query": "你的问题",
+    "meta": {
+        "db_id": "kb_xxx"
+    }
+}
 ```
 
-## 实体嵌入管理
-
-### 自动索引
-[graph_indexer.py](mdc:packages/core/graph_indexer.py) 定时扫描并为没有嵌入的节点创建向量：
-- 默认间隔: 3600 秒（1小时）
-- 批处理大小: 100 个节点
-
-### 手动添加
+### 方式2：指定模型提供商
 ```python
-graph_base.add_embedding_to_nodes(node_names, kgdb_name='neo4j')
+{
+    "query": "你的问题",
+    "meta": {
+        "db_id": "kb_xxx",
+        "model_provider": "deepseek",
+        "model_name": "deepseek-chat"
+    }
+}
 ```
 
-## STIX 实体类型
-系统支持的威胁情报实体类型：
-- `attack-pattern` - 攻击模式
-- `malware` - 恶意软件
-- `tool` - 工具
-- `vulnerability` - 漏洞
-- `intrusion-set` - 入侵集合/APT 组织
-- `indicator` - 指标
-- `identity` - 身份
-- `location` - 位置
+### 方式3：使用自定义模型
+```python
+{
+    "query": "你的问题",
+    "meta": {
+        "db_id": "kb_xxx",
+        "model_provider": "custom",
+        "model_name": "my-custom-model-id"
+    }
+}
+```
+
+## 支持多模型的 API 端点
+
+### `/chat/stream` (流式聊天)
+```python
+POST /chat/stream
+{
+    "query": "分析这个威胁",
+    "meta": {
+        "model_provider": "deepseek",  # 可选
+        "model_name": "deepseek-chat",  # 可选
+        "db_id": "kb_xxx",
+        "use_graph": true
+    }
+}
+```
+
+### `/chat/hybrid-retrieval` (四阶段检索)
+```python
+POST /chat/hybrid-retrieval
+{
+    "query": "综合分析",
+    "meta": {
+        "model_provider": "custom",
+        "model_name": "my-model",
+        "db_id": "kb_xxx"
+    },
+    "response_mode": "simple"  # 或 "full"
+}
+```
+
+## 添加新模型
+
+### 1. 添加兼容 OpenAI API 的模型
+在 `config.yaml` 中配置：
+```yaml
+model_names:
+  my_provider:
+    base_url: "https://api.example.com/v1"
+    default: "model-name"
+    models: ["model-name"]
+    env: ["MY_API_KEY"]
+```
+
+### 2. 添加自定义模型
+在 `config.custom_models` 中添加：
+```yaml
+custom_models:
+  - custom_id: "my-custom-model"
+    base_url: "https://api.custom.com"
+    api_key: "your-key"
+    model_name: "actual-model-name"
+```
+
+### 3. 实现专用模型类
+在 `packages/models/chat_model.py` 中添加：
+```python
+class MyCustomProvider:
+    def __init__(self, model_name):
+        self.model_name = model_name
+        # 初始化逻辑
+    
+    def predict(self, messages, stream=False):
+        # 实现预测逻辑
+        pass
+```
+
+然后在 `select_model()` 中添加分支：
+```python
+if model_provider == "my_provider":
+    from .chat_model import MyCustomProvider
+    return MyCustomProvider(model_name)
+```
+
+## 模型响应格式
+
+所有模型必须返回包含以下属性的对象：
+- `content` (str) - 生成的文本内容
+- `model_name` (str) - 模型名称
+- 流式模式下需要支持迭代器
 
 ## 注意事项
-- 实体名称区分大小写
-- 关系类型会自动替换空格为下划线
-- 向量维度必须与 embedding 模型匹配
-- Cypher 生成时必须严格遵循 Schema，不能虚构不存在的标签或关系
+
+1. **API Key 管理**: 使用环境变量存储 API Key，不要硬编码
+2. **模型兼容性**: 确保模型支持所需的功能（如流式输出）
+3. **错误处理**: 模型调用失败时应有优雅的降级处理
+4. **日志记录**: 记录使用的模型信息，便于追踪和调试
+
+## 示例：切换到不同模型
+
+### 使用 OpenAI GPT-4
+```python
+{
+    "query": "深度分析这个复杂的 APT 攻击模式",
+    "meta": {
+        "model_provider": "openai",
+        "model_name": "gpt-4o",
+        "db_id": "kb_threat"
+    }
+}
+```
+
+### 使用 Ollama 本地模型
+```python
+{
+    "query": "分析这个日志文件",
+    "meta": {
+        "model_provider": "ollama",
+        "model_name": "qwen2.5:7b",  # 中文场景推荐
+        "db_id": "kb_logs"
+    }
+}
+```
+
+### 使用 DeepSeek 进行推理任务
+```python
+{
+    "query": "推理攻击链路径",
+    "meta": {
+        "model_provider": "deepseek",
+        "model_name": "deepseek-chat",
+        "db_id": "kb_threat"
+    }
+}
+```
+
+### 使用自定义模型
+```python
+{
+    "query": "快速分类这个样本",
+    "meta": {
+        "model_provider": "custom",
+        "model_name": "local-llama",
+        "db_id": "kb_malware"
+    }
+}
+```
+
+## 性能优化建议
+
+- **模型缓存**: 相同配置的模型实例可以复用
+- **并发控制**: 使用协程池限制并发模型调用
+- **超时设置**: 为模型调用设置合理的超时时间
+- **降级策略**: 主模型失败时自动切换到备用模型
 
 ---
 > Source: [Ais1on/CTI-RAG](https://github.com/Ais1on/CTI-RAG) — distributed by [TomeVault](https://tomevault.io).
