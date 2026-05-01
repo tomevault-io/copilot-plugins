@@ -7,11 +7,11 @@ Annotate and review coding agent plans and code diffs visually, share with your 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [backnotprop/plannotator](https://github.com/backnotprop/plannotator).
+Original source: `CLAUDE.md` in [backnotprop/plannotator](https://github.com/backnotprop/plannotator).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
