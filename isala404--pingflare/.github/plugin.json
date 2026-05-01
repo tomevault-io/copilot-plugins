@@ -1,0 +1,9 @@
+{
+  "name": "isala404--pingflare",
+  "displayName": "pingflare",
+  "description": "Uptime monitoring system built to run natively within cloudflare",
+  "version": "1.0.0",
+  "author": "isala404",
+  "homepage": "https://github.com/isala404/pingflare",
+  "skills": []
+}
