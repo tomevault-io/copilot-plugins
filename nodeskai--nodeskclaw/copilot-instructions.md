@@ -1,69 +1,78 @@
-## proxy-no-proxy
+## runtime-provider-awareness
 
-> 代理与 no_proxy 配置规范：拉取外部制品走代理，内网流量绕过代理
+> **所有涉及实例基础设施操作的代码，必须同时考虑 runtime 类型（OpenClaw / Nanobot / ...）和 compute provider（K8s / Docker / Process）的差异。禁止硬编码任何 runtime 或 provider 特定的值。**
 
+# Runtime / Compute Provider 感知规则
 
-# 代理与 no_proxy 配置
+## 核心原则
 
-## 背景
+**所有涉及实例基础设施操作的代码，必须同时考虑 runtime 类型（OpenClaw / Nanobot / ...）和 compute provider（K8s / Docker / Process）的差异。禁止硬编码任何 runtime 或 provider 特定的值。**
 
-开发机和部署环境通过 HTTP 代理加速拉取外部制品（Docker 镜像、npm 包、pip 包等），同时通过 OpenVPN 访问内网资源（火山云 VKE 集群、RDS、NAS 等）。**内网流量必须绕过代理，否则会被代理服务器拦截或路由错误，导致连接超时 / 拒绝。**
+## Runtime 差异
 
-## 标准 no_proxy 配置
+不同 runtime 的基础参数不同，必须从 `RuntimeSpec`（`RUNTIME_REGISTRY`）查取：
 
-```bash
-export no_proxy="10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,localhost,127.0.0.1"
-export NO_PROXY="$no_proxy"
-```
+| 参数 | OpenClaw | Nanobot |
+|------|----------|---------|
+| Gateway 端口 | 18789 | 18790 |
+| 数据目录 | `/root/.openclaw` | `/opt/nanobot` |
+| 配置文件格式 | JSON (JSONC) | YAML |
+| 镜像仓库 key | `image_registry` | `image_registry_nanobot` |
 
-覆盖范围：
+### 必须做
 
-| CIDR | 说明 |
-|---|---|
-| `10.0.0.0/8` | 火山云 VPC 内网、VKE 节点、RDS、NAS 等 |
-| `172.16.0.0/12` | Docker 默认网桥、部分云内网段 |
-| `192.168.0.0/16` | 本地局域网、VPN 分配地址 |
-| `localhost` / `127.0.0.1` | 本地回环 |
+- **端口、数据目录、配置路径等 runtime 相关值必须从 `RuntimeSpec` 查取**，通过 `RUNTIME_REGISTRY.get(runtime_id)` 获取
+- **新增 runtime 相关字段时**，必须在 `RuntimeSpec` dataclass 中添加字段，并在 `_register_builtins()` 中为所有已注册 runtime 设置值
+- **端口传递链路**：`RuntimeSpec.gateway_port` -> `InstanceComputeConfig.gateway_port` -> 各 provider 使用
+- **新增 runtime 时**，必须在 `_register_builtins()` 中注册完整的 `RuntimeSpec`，所有字段都要填写
 
-## 使用场景
+### 严禁
 
-### 终端命令
+- **禁止硬编码端口号**（如 `18789`、`8080`）在 provider 或 deploy 逻辑中
+- **禁止硬编码数据目录路径**（如 `/root/.openclaw`）在通用逻辑中
+- **禁止假设所有 runtime 行为一致**——端口、配置格式、日志路径、健康检查方式都可能不同
 
-当用户遇到 `docker pull` 超时、`kubectl` 连接失败、`pip install` / `npm install` 慢等网络问题时，先确认代理配置：
+## Compute Provider 差异
 
-- **外部制品拉取慢/超时** → 检查是否设置了 `http_proxy` / `https_proxy`，没设就建议加上
-- **内网资源连接失败**（kubectl、数据库、NFS）→ 检查 `no_proxy` 是否包含目标 IP 段，没有就补上述配置
+同一操作在不同 provider 下的实现方式不同：
 
-### Docker 构建
+| 操作 | K8s | Docker | Process |
+|------|-----|--------|---------|
+| 文件访问 | `kubectl exec` (PodFS) | 宿主机路径 (DockerFS) | 直接本地路径 |
+| 端口暴露 | Service + Ingress | Docker Compose ports | 直接绑定 |
+| 日志获取 | `kubectl logs` | `docker logs` | stdout/stderr |
+| 重启 | `kubectl rollout restart` | `docker compose restart` | 进程信号 |
 
-Dockerfile 中需要拉取外部依赖时，通过 `--build-arg` 传入代理，同时 `no_proxy` 必须一起传：
+### 必须做
 
-```bash
-docker build --platform linux/amd64 \
-  --build-arg http_proxy="$http_proxy" \
-  --build-arg https_proxy="$https_proxy" \
-  --build-arg no_proxy="$no_proxy" \
-  -t my-image:latest .
-```
+- **新增文件系统操作时**，必须同时实现 `PodFS` 和 `DockerFS` 两套逻辑，保持接口签名和返回格式一致
+- **新增 compute provider 操作时**，必须检查所有 provider 实现（`K8sAdapter`、`DockerComputeProvider`、`ProcessComputeProvider`）是否都已覆盖
+- **接口方法签名变更时**，必须同步更新所有实现类
 
-### K8s Pod 内
+### 严禁
 
-Pod 如果需要访问外部 API（如 LLM Provider），可在 Deployment env 中注入代理变量；同时 `NO_PROXY` 必须包含集群内部 Service CIDR 和 Pod CIDR，避免 Service 间调用被代理。
+- **禁止只实现 K8s 路径**——Docker 和 Process provider 同样需要支持
+- **禁止在通用 service 层假定 provider 类型**（如直接调用 `kubectl`），必须通过 `RemoteFS` 或 `ComputeProvider` 抽象层操作
 
-## 排查清单
+## 自查清单
 
-用户反馈网络问题时，按以下顺序排查：
+每次改动涉及实例操作时，必须自问：
 
-1. `echo $http_proxy $https_proxy` — 代理是否设置
-2. `echo $no_proxy` — 内网段是否已排除
-3. 目标地址是内网还是外网 — 判断该走代理还是绕过
-4. `curl -v <target>` — 确认实际连接行为
+1. **换个 runtime 还能跑吗？** 端口、路径、配置格式是否都从 RuntimeSpec 查取？
+2. **换个 provider 还能跑吗？** K8s 实例能用，Docker 实例也能用吗？
+3. **新增了 runtime 特有字段？** 是否已加到 `RuntimeSpec` 并为所有 runtime 设值？
+4. **新增了文件系统操作？** `PodFS` 和 `DockerFS` 是否都实现了，签名和返回格式是否一致？
 
-## 禁止
+## 关键代码路径
 
-- **禁止在代理环境下不设 `no_proxy`** — 会导致内网流量（kubectl、数据库、NFS）全部走代理然后失败
-- **禁止 `no_proxy="*"`** — 等于关闭代理，外部制品拉取会回退到直连（可能很慢或不通）
-- **禁止只设 `no_proxy` 不设 `NO_PROXY`** — 部分工具只认大写变量，两个都要设
+| 组件 | 文件 |
+|------|------|
+| RuntimeSpec 定义与注册 | `nodeskclaw-backend/app/services/runtime/registries/runtime_registry.py` |
+| ComputeConfig 定义 | `nodeskclaw-backend/app/services/runtime/compute/base.py` |
+| K8s 部署 | `nodeskclaw-backend/app/services/deploy_service.py` (`_execute_deploy_inner`) |
+| Docker 部署 | `nodeskclaw-backend/app/services/runtime/compute/docker_provider.py` |
+| 文件系统抽象 | `nodeskclaw-backend/app/services/nfs_mount.py` (`PodFS` / `DockerFS`) |
+| K8s 资源构建 | `nodeskclaw-backend/app/services/k8s/resource_builder.py` |
 
 ---
 > Source: [NoDeskAI/nodeskclaw](https://github.com/NoDeskAI/nodeskclaw) — distributed by [TomeVault](https://tomevault.io).
