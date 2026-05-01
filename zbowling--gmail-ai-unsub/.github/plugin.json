@@ -1,0 +1,9 @@
+{
+  "name": "zbowling--gmail-ai-unsub",
+  "displayName": "gmail-ai-unsub",
+  "description": "AI-powered CLI tool to identify and automatically unsubscribe from marketing emails in Gmail using LLMs (Gemini, Claude, OpenAI) and browser automation",
+  "version": "1.0.0",
+  "author": "zbowling",
+  "homepage": "https://github.com/zbowling/gmail-ai-unsub",
+  "skills": []
+}
