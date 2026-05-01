@@ -7,11 +7,11 @@ Entire CLI hooks into your Git workflow to capture AI agent sessions as you work
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [entireio/cli](https://github.com/entireio/cli).
+Original source: `CLAUDE.md` in [entireio/cli](https://github.com/entireio/cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
