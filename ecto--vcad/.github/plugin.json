@@ -1,0 +1,9 @@
+{
+  "name": "ecto--vcad",
+  "displayName": "vcad",
+  "description": "BRep CAD kernel in Rust (and WASM)",
+  "version": "1.0.0",
+  "author": "ecto",
+  "homepage": "https://github.com/ecto/vcad",
+  "skills": []
+}
