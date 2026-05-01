@@ -1,7 +1,7 @@
 {
   "name": "tetherto--qvac",
   "displayName": "qvac",
-  "description": "qvac",
+  "description": "QVAC - Local AI SDK and libraries for building private, cross-platform, peer-to-peer AI applications. Run LLMs, speech-to-text, translation, and more locally on Linux, macOS, Windows, Android, and iOS",
   "version": "1.0.0",
   "author": "tetherto",
   "homepage": "https://github.com/tetherto/qvac",
