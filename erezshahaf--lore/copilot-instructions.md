@@ -1,57 +1,75 @@
-## coding-style
+## prompt-modules
 
-> Project coding style and conventions for Lore
+> Modular structure for Lore skill-classification prompts (entry.md fragments)
 
 
-# Coding Style — Lore
+# Prompt modules (skill-classification)
 
-## Naming
+## Token budget
 
-- No abbreviations. Use full, descriptive names for variables, functions, parameters, and types.
-- Boolean variables and functions should read as assertions: `isVisible`, `hasPermission`, `shouldRestructure`.
+- Target ≤300 instructional tokens per `entry.md` body (trimmed). Approximate: `Math.ceil(trimmedUtf8Length / 4)` for English-heavy text.
+- If content does not fit, split into another file under the same subtree (or for first-turn, another `shared/first-turn-classifier/*.md` fragment); never drop behavior silently.
 
-## TypeScript
+## First-turn classifier merge
 
-- Strongly type everything. No `any`. Use `unknown` when the type is genuinely unknown and narrow it explicitly.
-- Prefer `interface` for object shapes, `type` for unions, intersections, and computed types.
-- All function parameters and return types must be explicitly typed.
-- Use `readonly` on properties and arrays that should not be mutated.
-- Prefer `const` assertions and `as const` where applicable.
-- Use discriminated unions over optional fields when modeling distinct states.
+- [`skills/skill-classification/entry.md`](skills/skill-classification/entry.md) loads first.
+- Then all `*.md` in [`skills/skill-classification/shared/first-turn-classifier/`](skills/skill-classification/shared/first-turn-classifier/) in lexicographic order, joined with `\n\n---\n\n`.
+- See [`electron/services/skillLoader.ts`](electron/services/skillLoader.ts) `loadClassificationRootOnly`.
+- The merged prompt contains multiple `<system_prompt>` blocks separated by `---`; that is expected.
 
-## Code Structure
+## Outer wrapper
 
-- Keep functions small and focused. Extract helpers rather than nesting `if`/`else` blocks.
-- Avoid deeply nested logic. Use early returns, guard clauses, and extracted functions.
-- Reuse logic where beneficial — extract shared behavior into utility functions or shared modules.
-- Use abstraction (interfaces, generics, composition) when it genuinely reduces duplication or clarifies intent. Do not force abstraction for its own sake.
+Every fragment file uses one stable envelope:
 
-## Comments
+```markdown
+<system_prompt id="unique-stable-id">
+...
+</system_prompt>
+```
 
-- Do not add comments that merely narrate what code does.
-- Only comment when the intent, trade-off, or constraint is non-obvious and cannot be conveyed by naming alone.
+- `id`: snake_case, unique across fragments in the same merged prompt (first-turn: unique across `entry.md` + all `first-turn-classifier/*.md`).
+- For forked skills, each leaf `entry.md` is one fragment; parent `entry.md` files stay thin (routing only).
 
-## Error Handling
+## Inner sections
 
-- Never swallow errors silently. Always log or propagate.
-- Use typed error classes when distinguishing error categories matters.
+Inside `<system_prompt>`, use these XML blocks (lowercase tag names). Omit a section only when it is truly empty. Prefer one blank line between adjacent major tags; one line break between list items.
 
-## Imports
+| Tag | Purpose |
+|-----|---------|
+| `<role>` | 1–3 sentences: named agent + sole job. Plain text only (no markdown bold inside XML). |
+| `<logic_flow>` | Numbered steps (`1.`, `2.`, …). Imperative instructions; phase labels in plain caps with a colon (e.g. `ANALYZE:`). Sub-bullets for branches; positive defaults first (“Prefer X when …”). |
+| `<constraints>` | Hard rules: schema invariants, overrides, safety. |
+| `<verbatim_handling>` | Optional nested block inside `<constraints>` when quoting user or stored text must not be paraphrased. Numbered rules; state when to copy exact bytes or lines. |
+| `<formatting_rules>` | Output contract: JSON shape, “exactly one object”, no markdown fences, prose-only replies, optional `<thinking>` rules, markdown allowed for replay (e.g. blockquotes) when specified. |
+| `<examples>` | Optional; after `<formatting_rules>`. At most one `<example>` with `<input>` / `<response>` if token budget allows. |
 
-- Use named imports. Avoid default exports where practical.
-- Group imports: external libraries, then internal modules, then relative imports.
+Do not use `**bold**` inside the XML instruction body; structure comes from tags and numbering. Backticks for literal tokens (`actions`, field names) are fine.
 
-## React / UI
+Reserve long “Never …” lists for irreversible mistakes; prefer tight IF or ALWAYS bullets in `<constraints>`.
 
-- Functional components only.
-- Extract reusable hooks for shared stateful logic.
-- Keep component files focused — one primary component per file.
-- Colocate styles, types, and helpers with the component when they are not shared.
+## Structured output and `<thinking>`
 
-## File Organization
+Callers of [`generateStructuredResponse`](electron/services/ollamaService.ts) parse JSON via `sanitizeStructuredJsonResponse`, which strips a leading `<thinking>...</thinking>` block when present, then extracts the first balanced `{...}` object.
 
-- Use `index.ts` barrel files sparingly — only at module boundaries, not inside deeply nested folders.
-- Name files after the primary export they contain.
+- Preferred instruction: ask for exactly one JSON object as the full reply (matches repair-turn wording).
+- Allowed: optional `<thinking>...</thinking>` before JSON for chain-of-thought; keep reasoning free of stray `{` / `}` or parsing can fail.
+
+Unstructured or chat-only prompts that never go through `parseStructuredResponse` may use richer formatting per their `<formatting_rules>`.
+
+## Few-shot
+
+- At most one minimal `<example>` per leaf if it fits the budget; otherwise omit or add a dedicated small fragment file.
+
+## Validation (manual)
+
+After edits, from repo root:
+
+```bash
+rg '<lore_fragment|</lore_fragment>|<output_format>|</output_format>' skills/skill-classification
+rg '\*\*' skills/skill-classification --glob '*.md'
+```
+
+Both commands should return no matches inside fragment bodies.
 
 ---
 > Source: [ErezShahaf/Lore](https://github.com/ErezShahaf/Lore) — distributed by [TomeVault](https://tomevault.io).
