@@ -4,7 +4,7 @@
   "repo": "moltis",
   "description": "A secure persistent personal agent server in Rust. One binary, sandboxed execution, multi-provider LLMs, voice, memory, Telegram, WhatsApp, Discord, Teams, and MCP tools. Secure by design, runs on your hardware.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moltis-org/moltis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T17:46:51Z"
+  "distributed_at": "2026-05-01T00:04:18Z"
 }
