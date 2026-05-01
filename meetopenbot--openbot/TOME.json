@@ -2,7 +2,7 @@
   "name": "openbot",
   "owner": "meetopenbot",
   "repo": "openbot",
-  "description": "",
+  "description": "Meet OpenBot. Your own personal AI assistant. ",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/meetopenbot/openbot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T15:08:36Z"
+  "distributed_at": "2026-05-01T08:15:08Z"
 }
