@@ -4,7 +4,7 @@
   "repo": "proxmux",
   "description": "Terminal UI for managing Proxmox VE - VMs, containers, storage, and more",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/roshie548/proxmux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:42:31Z"
+  "distributed_at": "2026-05-01T10:05:17Z"
 }
