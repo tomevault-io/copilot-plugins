@@ -1,348 +1,1810 @@
-## cutia
+## codebase-index
 
-> Ultracite enforces strict type safety, accessibility standards, and consistent code quality for JavaScript/TypeScript projects using Biome's lightning-fast formatter and linter.
+> **This file provides an index of exported functions, types, interfaces, classes, and constants in your codebase.**
 
+---
+alwaysApply: true
+---
 
-# Project Context
+# video-editor-oss Codebase Index
 
-Ultracite enforces strict type safety, accessibility standards, and consistent code quality for JavaScript/TypeScript projects using Biome's lightning-fast formatter and linter.
+**This file provides an index of exported functions, types, interfaces, classes, and constants in your codebase.**
 
-## Key Principles
+Updated in real-time by Twiggy. Use this to discover existing utilities and avoid duplicating code.
 
-- Zero configuration required
-- Subsecond performance
-- Maximum type safety
-- AI-friendly code generation
+## How to Use
 
-## Before Writing Code
-
-1. Analyze existing patterns in the codebase
-2. Consider edge cases and error scenarios
-3. Follow the rules below strictly
-4. Validate accessibility requirements
-
-## Rules
-
-### Accessibility (a11y)
-
-- Don't use `accessKey` attribute on any HTML element.
-- Don't set `aria-hidden="true"` on focusable elements.
-- Don't add ARIA roles, states, and properties to elements that don't support them.
-- Don't use distracting elements like `<marquee>` or `<blink>`.
-- Only use the `scope` prop on `<th>` elements.
-- Don't assign non-interactive ARIA roles to interactive HTML elements.
-- Make sure label elements have text content and are associated with an input.
-- Don't assign interactive ARIA roles to non-interactive HTML elements.
-- Don't assign `tabIndex` to non-interactive HTML elements.
-- Don't use positive integers for `tabIndex` property.
-- Don't include "image", "picture", or "photo" in img alt prop.
-- Don't use explicit role property that's the same as the implicit/default role.
-- Make static elements with click handlers use a valid role attribute.
-- Always include a `title` element for SVG elements.
-- Give all elements requiring alt text meaningful information for screen readers.
-- Make sure anchors have content that's accessible to screen readers.
-- Assign `tabIndex` to non-interactive HTML elements with `aria-activedescendant`.
-- Include all required ARIA attributes for elements with ARIA roles.
-- Make sure ARIA properties are valid for the element's supported roles.
-- Always include a `type` attribute for button elements.
-- Make elements with interactive roles and handlers focusable.
-- Give heading elements content that's accessible to screen readers (not hidden with `aria-hidden`).
-- Always include a `lang` attribute on the html element.
-- Always include a `title` attribute for iframe elements.
-- Accompany `onClick` with at least one of: `onKeyUp`, `onKeyDown`, or `onKeyPress`.
-- Accompany `onMouseOver`/`onMouseOut` with `onFocus`/`onBlur`.
-- Include caption tracks for audio and video elements.
-- Use semantic elements instead of role attributes in JSX.
-- Make sure all anchors are valid and navigable.
-- Ensure all ARIA properties (`aria-*`) are valid.
-- Use valid, non-abstract ARIA roles for elements with ARIA roles.
-- Use valid ARIA state and property values.
-- Use valid values for the `autocomplete` attribute on input elements.
-- Use correct ISO language/country codes for the `lang` attribute.
-
-### Code Complexity and Quality
-
-- Don't use consecutive spaces in regular expression literals.
-- Don't use the `arguments` object.
-- Don't use primitive type aliases or misleading types.
-- Don't use the comma operator.
-- Don't use empty type parameters in type aliases and interfaces.
-- Don't write functions that exceed a given Cognitive Complexity score.
-- Don't nest describe() blocks too deeply in test files.
-- Don't use unnecessary boolean casts.
-- Don't use unnecessary callbacks with flatMap.
-- Use for...of statements instead of Array.forEach.
-- Don't create classes that only have static members (like a static namespace).
-- Don't use this and super in static contexts.
-- Don't use unnecessary catch clauses.
-- Don't use unnecessary constructors.
-- Don't use unnecessary continue statements.
-- Don't export empty modules that don't change anything.
-- Don't use unnecessary escape sequences in regular expression literals.
-- Don't use unnecessary fragments.
-- Don't use unnecessary labels.
-- Don't use unnecessary nested block statements.
-- Don't rename imports, exports, and destructured assignments to the same name.
-- Don't use unnecessary string or template literal concatenation.
-- Don't use String.raw in template literals when there are no escape sequences.
-- Don't use useless case statements in switch statements.
-- Don't use ternary operators when simpler alternatives exist.
-- Don't use useless `this` aliasing.
-- Don't use any or unknown as type constraints.
-- Don't initialize variables to undefined.
-- Don't use the void operators (they're not familiar).
-- Use arrow functions instead of function expressions.
-- Use Date.now() to get milliseconds since the Unix Epoch.
-- Use .flatMap() instead of map().flat() when possible.
-- Use literal property access instead of computed property access.
-- Don't use parseInt() or Number.parseInt() when binary, octal, or hexadecimal literals work.
-- Use concise optional chaining instead of chained logical expressions.
-- Use regular expression literals instead of the RegExp constructor when possible.
-- Don't use number literal object member names that aren't base 10 or use underscore separators.
-- Remove redundant terms from logical expressions.
-- Use while loops instead of for loops when you don't need initializer and update expressions.
-- Don't pass children as props.
-- Don't reassign const variables.
-- Don't use constant expressions in conditions.
-- Don't use `Math.min` and `Math.max` to clamp values when the result is constant.
-- Don't return a value from a constructor.
-- Don't use empty character classes in regular expression literals.
-- Don't use empty destructuring patterns.
-- Don't call global object properties as functions.
-- Don't declare functions and vars that are accessible outside their block.
-- Make sure builtins are correctly instantiated.
-- Don't use super() incorrectly inside classes. Also check that super() is called in classes that extend other constructors.
-- Don't use variables and function parameters before they're declared.
-- Don't use 8 and 9 escape sequences in string literals.
-- Don't use literal numbers that lose precision.
-
-### React and JSX Best Practices
-
-- Don't use the return value of React.render.
-- Make sure all dependencies are correctly specified in React hooks.
-- Make sure all React hooks are called from the top level of component functions.
-- Don't forget key props in iterators and collection literals.
-- Don't destructure props inside JSX components in Solid projects.
-- Don't define React components inside other components.
-- Don't use event handlers on non-interactive elements.
-- Don't assign to React component props.
-- Don't use both `children` and `dangerouslySetInnerHTML` props on the same element.
-- Don't use dangerous JSX props.
-- Don't use Array index in keys.
-- Don't insert comments as text nodes.
-- Don't assign JSX properties multiple times.
-- Don't add extra closing tags for components without children.
-- Use `<>...</>` instead of `<Fragment>...</Fragment>`.
-- Watch out for possible "wrong" semicolons inside JSX elements.
-
-### Correctness and Safety
-
-- Don't assign a value to itself.
-- Don't return a value from a setter.
-- Don't compare expressions that modify string case with non-compliant values.
-- Don't use lexical declarations in switch clauses.
-- Don't use variables that haven't been declared in the document.
-- Don't write unreachable code.
-- Make sure super() is called exactly once on every code path in a class constructor before this is accessed if the class has a superclass.
-- Don't use control flow statements in finally blocks.
-- Don't use optional chaining where undefined values aren't allowed.
-- Don't have unused function parameters.
-- Don't have unused imports.
-- Don't have unused labels.
-- Don't have unused private class members.
-- Don't have unused variables.
-- Make sure void (self-closing) elements don't have children.
-- Don't return a value from a function with the return type 'void'
-- Use isNaN() when checking for NaN.
-- Make sure "for" loop update clauses move the counter in the right direction.
-- Make sure typeof expressions are compared to valid values.
-- Make sure generator functions contain yield.
-- Don't use await inside loops.
-- Don't use bitwise operators.
-- Don't use expressions where the operation doesn't change the value.
-- Make sure Promise-like statements are handled appropriately.
-- Don't use **dirname and **filename in the global scope.
-- Prevent import cycles.
-- Don't use configured elements.
-- Don't hardcode sensitive data like API keys and tokens.
-- Don't let variable declarations shadow variables from outer scopes.
-- Don't use the TypeScript directive @ts-ignore.
-- Prevent duplicate polyfills from Polyfill.io.
-- Don't use useless backreferences in regular expressions that always match empty strings.
-- Don't use unnecessary escapes in string literals.
-- Don't use useless undefined.
-- Make sure getters and setters for the same property are next to each other in class and object definitions.
-- Make sure object literals are declared consistently (defaults to explicit definitions).
-- Use static Response methods instead of new Response() constructor when possible.
-- Make sure switch-case statements are exhaustive.
-- Make sure the `preconnect` attribute is used when using Google Fonts.
-- Use `Array#{indexOf,lastIndexOf}()` instead of `Array#{findIndex,findLastIndex}()` when looking for the index of an item.
-- Make sure iterable callbacks return consistent values.
-- Use `with { type: "json" }` for JSON module imports.
-- Use numeric separators in numeric literals.
-- Use object spread instead of `Object.assign()` when constructing new objects.
-- Always use the radix argument when using `parseInt()`.
-- Make sure JSDoc comment lines start with a single asterisk, except for the first one.
-- Include a description parameter for `Symbol()`.
-- Don't use spread (`...`) syntax on accumulators.
-- Don't use the `delete` operator.
-- Don't access namespace imports dynamically.
-- Don't use namespace imports.
-- Declare regex literals at the top level.
-- Don't use `target="_blank"` without `rel="noopener"`.
-
-### TypeScript Best Practices
-
-- Don't use TypeScript enums.
-- Don't export imported variables.
-- Don't add type annotations to variables, parameters, and class properties that are initialized with literal expressions.
-- Don't use TypeScript namespaces.
-- Don't use non-null assertions with the `!` postfix operator.
-- Don't use parameter properties in class constructors.
-- Don't use user-defined types.
-- Use `as const` instead of literal types and type annotations.
-- Use either `T[]` or `Array<T>` consistently.
-- Initialize each enum member value explicitly.
-- Use `export type` for types.
-- Use `import type` for types.
-- Make sure all enum members are literal values.
-- Don't use TypeScript const enum.
-- Don't declare empty interfaces.
-- Don't let variables evolve into any type through reassignments.
-- Don't use the any type.
-- Don't misuse the non-null assertion operator (!) in TypeScript files.
-- Don't use implicit any type on variable declarations.
-- Don't merge interfaces and classes unsafely.
-- Don't use overload signatures that aren't next to each other.
-- Use the namespace keyword instead of the module keyword to declare TypeScript namespaces.
-
-### Style and Consistency
-
-- Don't use global `eval()`.
-- Don't use callbacks in asynchronous tests and hooks.
-- Don't use negation in `if` statements that have `else` clauses.
-- Don't use nested ternary expressions.
-- Don't reassign function parameters.
-- This rule lets you specify global variable names you don't want to use in your application.
-- Don't use specified modules when loaded by import or require.
-- Don't use constants whose value is the upper-case version of their name.
-- Use `String.slice()` instead of `String.substr()` and `String.substring()`.
-- Don't use template literals if you don't need interpolation or special-character handling.
-- Don't use `else` blocks when the `if` block breaks early.
-- Don't use yoda expressions.
-- Don't use Array constructors.
-- Use `at()` instead of integer index access.
-- Follow curly brace conventions.
-- Use `else if` instead of nested `if` statements in `else` clauses.
-- Use single `if` statements instead of nested `if` clauses.
-- Use `new` for all builtins except `String`, `Number`, and `Boolean`.
-- Use consistent accessibility modifiers on class properties and methods.
-- Use `const` declarations for variables that are only assigned once.
-- Put default function parameters and optional function parameters last.
-- Include a `default` clause in switch statements.
-- Use the `**` operator instead of `Math.pow`.
-- Use `for-of` loops when you need the index to extract an item from the iterated array.
-- Use `node:assert/strict` over `node:assert`.
-- Use the `node:` protocol for Node.js builtin modules.
-- Use Number properties instead of global ones.
-- Use assignment operator shorthand where possible.
-- Use function types instead of object types with call signatures.
-- Use template literals over string concatenation.
-- Use `new` when throwing an error.
-- Don't throw non-Error values.
-- Use `String.trimStart()` and `String.trimEnd()` over `String.trimLeft()` and `String.trimRight()`.
-- Use standard constants instead of approximated literals.
-- Don't assign values in expressions.
-- Don't use async functions as Promise executors.
-- Don't reassign exceptions in catch clauses.
-- Don't reassign class members.
-- Don't compare against -0.
-- Don't use labeled statements that aren't loops.
-- Don't use void type outside of generic or return types.
-- Don't use console.
-- Don't use control characters and escape sequences that match control characters in regular expression literals.
-- Don't use debugger.
-- Don't assign directly to document.cookie.
-- Use `===` and `!==`.
-- Don't use duplicate case labels.
-- Don't use duplicate class members.
-- Don't use duplicate conditions in if-else-if chains.
-- Don't use two keys with the same name inside objects.
-- Don't use duplicate function parameter names.
-- Don't have duplicate hooks in describe blocks.
-- Don't use empty block statements and static blocks.
-- Don't let switch clauses fall through.
-- Don't reassign function declarations.
-- Don't allow assignments to native objects and read-only global variables.
-- Use Number.isFinite instead of global isFinite.
-- Use Number.isNaN instead of global isNaN.
-- Don't assign to imported bindings.
-- Don't use irregular whitespace characters.
-- Don't use labels that share a name with a variable.
-- Don't use characters made with multiple code points in character class syntax.
-- Make sure to use new and constructor properly.
-- Don't use shorthand assign when the variable appears on both sides.
-- Don't use octal escape sequences in string literals.
-- Don't use Object.prototype builtins directly.
-- Don't redeclare variables, functions, classes, and types in the same scope.
-- Don't have redundant "use strict".
-- Don't compare things where both sides are exactly the same.
-- Don't let identifiers shadow restricted names.
-- Don't use sparse arrays (arrays with holes).
-- Don't use template literal placeholder syntax in regular strings.
-- Don't use the then property.
-- Don't use unsafe negation.
-- Don't use var.
-- Don't use with statements in non-strict contexts.
-- Make sure async functions actually use await.
-- Make sure default clauses in switch statements come last.
-- Make sure to pass a message value when creating a built-in error.
-- Make sure get methods always return a value.
-- Use a recommended display strategy with Google Fonts.
-- Make sure for-in loops include an if statement.
-- Use Array.isArray() instead of instanceof Array.
-- Make sure to use the digits argument with Number#toFixed().
-- Make sure to use the "use strict" directive in script files.
-
-### Next.js Specific Rules
-
-- Don't use `<img>` elements in Next.js projects.
-- Don't use `<head>` elements in Next.js projects.
-- Don't import next/document outside of pages/\_document.jsx in Next.js projects.
-- Don't use the next/head module in pages/\_document.js on Next.js projects.
-
-### Testing Best Practices
-
-- Don't use export or module.exports in test files.
-- Don't use focused tests.
-- Make sure the assertion function, like expect, is placed inside an it() function call.
-- Don't use disabled tests.
-
-## Common Tasks
-
-- `npx ultracite init` - Initialize Ultracite in your project
-- `npx ultracite format` - Format and fix code automatically
-- `npx ultracite lint` - Check for issues without fixing
-
-## Example: Error Handling
+When implementing new features:
+1. Check if similar functionality already exists
+2. Reuse existing types and utilities
+3. Understand the API surface of your codebase
 
 ```typescript
-// ✅ Good: Comprehensive error handling
-try {
-  const result = await fetchData();
-  return { success: true, data: result };
-} catch (error) {
-  console.error("API call failed:", error);
-  return { success: false, error: error.message };
-}
+## apps/web/src/constants
 
-// ❌ Bad: Swallowing errors
-try {
-  return await fetchData();
-} catch (e) {
-  console.log(e);
-}
+editor-constants.ts
+  export const PLATFORM_LAYOUTS: Record<TPlatformLayout, string>
+  export const PANEL_CONFIG
+
+export-constants.ts
+  export const DEFAULT_EXPORT_OPTIONS
+  export const EXPORT_MIME_TYPES
+
+font-constants.ts
+  export interface FontOption {
+    value: string
+    label: string
+    category: "system" | "google" | "custom"
+    weights?: number[]
+    hasClassName?: boolean
+  }
+  export const FONT_OPTIONS: FontOption[]
+  export const DEFAULT_FONT
+  export type FontFamily = (typeof FONT_OPTIONS)[number]["value"]
+  export const getFontByValue = (value: string): FontOption | undefined => ...
+  export const getGoogleFonts = (): FontOption[] => ...
+  export const getSystemFonts = (): FontOption[] => ...
+
+language-constants.ts
+  export const LANGUAGES
+
+project-constants.ts
+  export const DEFAULT_CANVAS_PRESETS: TCanvasSize[]
+  export const FPS_PRESETS
+  export const BLUR_INTENSITY_PRESETS: { label: string; value: number }[]
+  export const DEFAULT_CANVAS_SIZE: TCanvasSize
+  export const DEFAULT_FPS
+  export const DEFAULT_BLUR_INTENSITY
+  export const DEFAULT_COLOR
+
+site-constants.ts
+  export const SITE_URL
+  export const SITE_INFO
+  export type ExternalTool = {
+  	name: string;
+  	description: string;
+  	url: string;
+  	icon: React.ElementType;
+  }
+  export const EXTERNAL_TOOLS: ExternalTool[]
+  export const DEFAULT_LOGO_URL
+  export const SOCIAL_LINKS
+  export type Sponsor = {
+  	name: string;
+  	url: string;
+  	logo: string;
+  	description: string;
+  }
+  export const SPONSORS: Sponsor[]
+
+stickers-constants.ts
+  export const STICKER_CATEGORIES
+  export const STICKER_CATEGORY_CONFIG: Record<
+  	(typeof STICKER_CATEGORIES)[number],
+  	string | undefined
+  >
+
+text-constants.ts
+  export const DEFAULT_TEXT_ELEMENT: Omit<TextElement, "id">
+
+timeline-constants.tsx
+  export const TRACK_COLORS: Record<TrackType, { background: string }>
+  export const TRACK_HEIGHTS: Record<TrackType, number>
+  export const TRACK_GAP
+  export const TIMELINE_CONSTANTS
+  export const DEFAULT_TIMELINE_VIEW_STATE: TTimelineViewState
+  export const TRACK_ICONS: Record<TrackType, React.ReactNode>
+
+transcription-constants.ts
+  export const TRANSCRIPTION_LANGUAGES
+  export const TRANSCRIPTION_MODELS: TranscriptionModel[]
+  export const DEFAULT_TRANSCRIPTION_MODEL: TranscriptionModelId
+  export const DEFAULT_CHUNK_LENGTH_SECONDS
+  export const DEFAULT_STRIDE_SECONDS
+  export const DEFAULT_WORDS_PER_CAPTION
+  export const MIN_CAPTION_DURATION_SECONDS
+
+## apps/web/src/core
+
+index.ts
+  export class EditorCore {
+    instance: EditorCore | null
+    command: CommandManager
+    playback: PlaybackManager
+    timeline: TimelineManager
+    scenes: ScenesManager
+    project: ProjectManager
+    media: MediaManager
+    renderer: RendererManager
+    save: SaveManager
+    audio: AudioManager
+    selection: SelectionManager
+    static getInstance(): EditorCore
+    static reset(): void
+  }
+
+## apps/web/src/hooks
+
+use-editor.ts
+  export function useEditor(): EditorCore
+
+use-file-upload.ts
+  export function useFileUpload({
+  	accept,
+  	multiple,
+  	onFilesSelected,
+  }: UseFileUploadOptions = {})
+
+use-infinite-scroll.ts
+  export function useInfiniteScroll({
+  	onLoadMore,
+  	hasMore,
+  	isLoading,
+  	threshold = 200,
+  	enabled = true,
+  }: UseInfiniteScrollOptions)
+
+use-keybindings.ts
+  export function useKeybindingsListener()
+  export function useKeybindingDisabler()
+
+use-keyboard-shortcuts-help.ts
+  export interface KeyboardShortcut {
+    id: string
+    keys: string[]
+    description: string
+    category: string
+    action: TAction
+    icon?: React.ReactNode
+  }
+  export function useKeyboardShortcutsHelp()
+
+use-mobile.ts
+  export function useIsMobile()
+
+use-raf-loop.ts
+  export function useRafLoop(callback: ({ time }: { time: number }) => void)
+
+use-reveal-item.ts
+  export function useRevealItem(
+  	highlightId: string | null,
+  	onClearHighlight: () => void,
+  	highlightDuration = 1000,
+  )
+
+use-sound-search.ts
+  export function useSoundSearch({
+  	query,
+  	commercialOnly,
+  }: {
+  	query: string;
+  	commercialOnly: boolean;
+  })
+
+## apps/web/src/hooks/actions
+
+use-action-handler.ts
+  export function useActionHandler(
+  	action: A,
+  	handler: TActionFunc<A>,
+  	isActive: TActionHandlerOptions,
+  )
+
+use-editor-actions.ts
+  export function useEditorActions()
+
+## apps/web/src/hooks/storage
+
+use-local-storage.ts
+  export function useLocalStorage({
+  	key,
+  	defaultValue,
+  }: {
+  	key: string;
+  	defaultValue: T;
+  }): [
+  	T,
+  	({ value }: { value: T | ((previousValue: T) => T) }) => void,
+  	boolean,
+  ]
+
+## apps/web/src/hooks/timeline
+
+use-edge-auto-scroll.ts
+  export function useEdgeAutoScroll({
+  	isActive,
+  	getMouseClientX,
+  	rulerScrollRef,
+  	tracksScrollRef,
+  	contentWidth,
+  	edgeThreshold = 100,
+  	maxScrollSpeed = 15,
+  }: UseEdgeAutoScrollParams): void
+
+use-scroll-sync.ts
+  export function useScrollSync({
+  	tracksScrollRef,
+  	rulerScrollRef,
+  	trackLabelsScrollRef,
+  	bookmarksScrollRef,
+  }: UseScrollSyncProps)
+
+use-selection-box.ts
+  export function useSelectionBox({
+  	containerRef,
+  	onSelectionComplete,
+  	isEnabled = true,
+  	tracksScrollRef,
+  	zoomLevel,
+  }: UseSelectionBoxProps)
+
+use-snap-indicator-position.ts
+  export function useSnapIndicatorPosition({
+  	snapPoint,
+  	zoomLevel,
+  	tracks,
+  	timelineRef,
+  	trackLabelsRef,
+  	tracksScrollRef,
+  }: UseSnapIndicatorPositionParams): SnapIndicatorPosition
+
+use-timeline-drag-drop.ts
+  export function useTimelineDragDrop({
+  	containerRef,
+  	headerRef,
+  	zoomLevel,
+  }: UseTimelineDragDropProps)
+
+use-timeline-playhead.ts
+  export function useTimelinePlayhead({
+  	zoomLevel,
+  	rulerRef,
+  	rulerScrollRef,
+  	tracksScrollRef,
+  	playheadRef,
+  }: UseTimelinePlayheadProps)
+
+use-timeline-seek.ts
+  export function useTimelineSeek({
+  	playheadRef,
+  	trackLabelsRef,
+  	rulerScrollRef,
+  	tracksScrollRef,
+  	zoomLevel,
+  	duration,
+  	isSelecting,
+  	clearSelectedElements,
+  	seek,
+  }: UseTimelineSeekProps)
+
+use-timeline-snapping.ts
+  export interface SnapPoint {
+    time: number
+    type: "element-start" | "element-end" | "playhead"
+    elementId?: string
+    trackId?: string
+  }
+  export interface SnapResult {
+    snappedTime: number
+    snapPoint: SnapPoint | null
+    snapDistance: number
+  }
+  export interface UseTimelineSnappingOptions {
+    snapThreshold?: number
+    enableElementSnapping?: boolean
+    enablePlayheadSnapping?: boolean
+  }
+  export function useTimelineSnapping({
+  	snapThreshold = 10,
+  	enableElementSnapping = true,
+  	enablePlayheadSnapping = true,
+  }: UseTimelineSnappingOptions = {})
+
+use-timeline-zoom.ts
+  export function useTimelineZoom({
+  	containerRef,
+  	minZoom = TIMELINE_CONSTANTS.ZOOM_MIN,
+  	initialZoom,
+  	initialScrollLeft,
+  	initialPlayheadTime,
+  	tracksScrollRef,
+  	rulerScrollRef,
+  }: UseTimelineZoomProps): UseTimelineZoomReturn
+
+## apps/web/src/hooks/timeline/element
+
+use-element-interaction.ts
+  export function useElementInteraction({
+  	zoomLevel,
+  	timelineRef,
+  	tracksContainerRef,
+  	tracksScrollRef,
+  	headerRef,
+  	snappingEnabled,
+  	onSnapPointChange,
+  }: UseElementInteractionProps)
+
+use-element-resize.ts
+  export interface ResizeState {
+    elementId: string
+    side: "left" | "right"
+    startX: number
+    initialTrimStart: number
+    initialTrimEnd: number
+    initialStartTime: number
+    initialDuration: number
+  }
+  export function useTimelineElementResize({
+  	element,
+  	track,
+  	zoomLevel,
+  	onSnapPointChange,
+  	onResizeStateChange,
+  }: UseTimelineElementResizeProps)
+
+use-element-selection.ts
+  export function useElementSelection()
+
+## apps/web/src/lib
+
+drag-data.ts
+  export function setDragData({
+  	dataTransfer,
+  	dragData,
+  }: {
+  	dataTransfer: DataTransfer;
+  	dragData: TimelineDragData;
+  }): void
+  export function getDragData({
+  	dataTransfer,
+  }: {
+  	dataTransfer: DataTransfer;
+  }): TimelineDragData | null
+  export function hasDragData({
+  	dataTransfer,
+  }: {
+  	dataTransfer: DataTransfer;
+  }): boolean
+  export function clearDragData(): void
+
+export.ts
+  export function getExportMimeType({
+  	format,
+  }: {
+  	format: ExportFormat;
+  }): string
+  export function getExportFileExtension({
+  	format,
+  }: {
+  	format: ExportFormat;
+  }): string
+
+iconify-api.ts
+  export const ICONIFY_HOSTS
+  export interface IconSet {
+    prefix: string
+    name: string
+    total: number
+    author?: {
+  		name: string;
+  		url?: string;
+  	}
+    license?: {
+  		title: string;
+  		spdx?: string;
+  		url?: string;
+  	}
+    samples?: string[]
+    category?: string
+    palette?: boolean
+  }
+  export interface IconSearchResult {
+    icons: string[]
+    total: number
+    limit: number
+    start: number
+    collections: Record<string, IconSet>
+  }
+  export interface CollectionInfo {
+    prefix: string
+    total: number
+    title?: string
+    uncategorized?: string[]
+    categories?: Record<string, string[]>
+    hidden?: string[]
+    aliases?: Record<string, string>
+  }
+  export function getCollections(
+  	category?: string,
+  ): Promise<Record<string, IconSet>>
+  export function getCollection(
+  	prefix: string,
+  ): Promise<CollectionInfo | null>
+  export function searchIcons(
+  	query: string,
+  	limit: number = 64,
+  	prefixes?: string[],
+  	category?: string,
+  ): Promise<IconSearchResult>
+  export function buildIconSvgUrl(
+  	host: string,
+  	iconName: string,
+  	params?: {
+  		color?: string;
+  		width?: number;
+  		height?: number;
+  		flip?: "horizontal" | "vertical" | "horizontal,vertical";
+  		rotate?: number | string;
+  	},
+  ): string
+  export function getIconSvgUrl(
+  	iconName: string,
+  	params?: Parameters<typeof buildIconSvgUrl>[2],
+  ): string
+  export function downloadSvgAsText(
+  	iconName: string,
+  	params?: Parameters<typeof getIconSvgUrl>[1],
+  ): Promise<string>
+  export function svgToFile(svgText: string, fileName: string): File
+  export const POPULAR_COLLECTIONS
+  export function getCategoriesFromCollections(
+  	collections: Record<string, IconSet>,
+  ): string[]
+
+rate-limit.ts
+  export const baseRateLimit
+  export function checkRateLimit({ request }: { request: Request })
+
+scenes.ts
+  export function getMainScene({ scenes }: { scenes: TScene[] }): TScene | null
+  export function ensureMainScene({ scenes }: { scenes: TScene[] }): TScene[]
+  export function buildDefaultScene({
+  	name,
+  	isMain,
+  }: {
+  	name: string;
+  	isMain: boolean;
+  }): TScene
+  export function canDeleteScene({ scene }: { scene: TScene }): {
+  	canDelete: boolean;
+  	reason?: string;
+  }
+  export function getFallbackSceneAfterDelete({
+  	scenes,
+  	deletedSceneId,
+  	currentSceneId,
+  }: {
+  	scenes: TScene[];
+  	deletedSceneId: string;
+  	currentSceneId: string | null;
+  }): TScene | null
+  export function findCurrentScene({
+  	scenes,
+  	currentSceneId,
+  }: {
+  	scenes: TScene[];
+  	currentSceneId: string;
+  }): TScene | null
+  export function getProjectDurationFromScenes({
+  	scenes,
+  }: {
+  	scenes: TScene[];
+  }): number
+  export function updateSceneInArray({
+  	scenes,
+  	sceneId,
+  	updates,
+  }: {
+  	scenes: TScene[];
+  	sceneId: string;
+  	updates: Partial<TScene>;
+  }): TScene[]
+
+time.ts
+  export function roundToFrame({
+  	time,
+  	fps,
+  }: {
+  	time: number;
+  	fps: number;
+  }): number
+  export function formatTimeCode({
+  	timeInSeconds,
+  	format = "HH:MM:SS:CS",
+  	fps,
+  }: {
+  	timeInSeconds: number;
+  	format?: TTimeCode;
+  	fps?: number;
+  }): string
+  export function parseTimeCode({
+  	timeCode,
+  	format = "HH:MM:SS:CS",
+  	fps,
+  }: {
+  	timeCode: string;
+  	format?: TTimeCode;
+  	fps: number;
+  }): number | null
+  export function guessTimeCodeFormat({
+  	timeCode,
+  }: {
+  	timeCode: string;
+  }): TTimeCode | null
+  export function timeToFrame({
+  	time,
+  	fps,
+  }: {
+  	time: number;
+  	fps: number;
+  }): number
+  export function frameToTime({
+  	frame,
+  	fps,
+  }: {
+  	frame: number;
+  	fps: number;
+  }): number
+  export function snapTimeToFrame({
+  	time,
+  	fps,
+  }: {
+  	time: number;
+  	fps: number;
+  }): number
+  export function getSnappedSeekTime({
+  	rawTime,
+  	duration,
+  	fps,
+  }: {
+  	rawTime: number;
+  	duration: number;
+  	fps: number;
+  }): number
+  export function getLastFrameTime({
+  	duration,
+  	fps,
+  }: {
+  	duration: number;
+  	fps: number;
+  }): number
+
+## apps/web/src/lib/ai/providers
+
+types.ts
+  export interface AIImageProvider {
+    id: string
+    name: string
+    description: string
+  }
+  export interface AIVideoProvider {
+    id: string
+    name: string
+    description: string
+  }
+
+image-providers.ts
+  export const IMAGE_PROVIDERS: AIImageProvider[]
+
+video-providers.ts
+  export const VIDEO_PROVIDERS: AIVideoProvider[]
+
+index.ts
+  export type { AIImageProvider, AIVideoProvider } from "./types"
+  export { IMAGE_PROVIDERS } from "./image-providers"
+  export { VIDEO_PROVIDERS } from "./video-providers"
+
+## apps/web/src/lib/actions
+
+definitions.ts
+  export type TActionCategory = | "playback"
+  	| "navigation"
+  	| "editing"
+  	| "selection"
+  	| "history"
+  	| "timeline"
+  	| "con...
+  export interface TActionDefinition {
+    description: string
+    category: TActionCategory
+    defaultShortcuts?: ShortcutKey[]
+    args?: Record<string, unknown>
+  }
+  export const ACTIONS
+  export type TAction = keyof typeof ACTIONS
+  export function getActionDefinition(action: TAction): TActionDefinition
+  export function getDefaultShortcuts(): Record<ShortcutKey, TAction>
+
+registry.ts
+  export function bindAction(
+  	action: A,
+  	handler: TActionFunc<A>,
+  )
+  export function unbindAction(
+  	action: A,
+  	handler: TActionFunc<A>,
+  )
+  export const invokeAction = (
+  	action: A,
+  	args?: TArgOfAction<A>,
+  	trigger?: TInvocationTrigger,
+  ) => ...
+
+types.ts
+  export type TActionArgsMap = {
+  	"seek-forward": { seconds: number } | undefined;
+  	"seek-backward": { seconds: number } | und...
+  export type TActionWithArgs = keyof TActionArgsMap
+  export type TActionWithOptionalArgs = | TActionWithNoArgs
+  	| TKeysWithValueUndefined<TActionArgsMap>
+  export type TActionWithNoArgs = Exclude<TAction, TActionWithArgs>
+  export type TArgOfAction<A extends TAction> = A extends TActionWithArgs
+  	? TActionArgsMap[A]
+  	: undefined
+  export type TActionFunc<A extends TAction> = A extends TActionWithArgs
+  	? (arg: TArgOfAction<A>, trigger?: TInvocationTrigger) => void
+  	: (_...
+  export type TInvocationTrigger = "keypress" | "mouseclick"
+  export type TBoundActionList = {
+  	[A in TAction]?: Array<TActionFunc<A>>;
+  }
+  export type TActionHandlerOptions = | MutableRefObject<boolean>
+  	| boolean
+  	| undefined
+
+## apps/web/src/lib/auth
+
+server.ts
+  export const auth
+  export type Auth = typeof auth
+
+## apps/web/src/lib/db
+
+index.ts
+  export const db
+
+schema.ts
+  export const users
+  export const sessions
+  export const accounts
+  export const verifications
+
+## apps/web/src/lib/gradients
+
+canvas.ts
+  export function drawCssBackground({
+  	ctx,
+  	width,
+  	height,
+  	css,
+  }: {
+  	ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+  	width: number;
+  	height: number;
+  	css: string;
+  }): void
+
+parser.ts
+  export type GradientOrientation = LinearOrientation | Array<RadialOrientation>
+  export type Color = | { type: "hex"; value: string }
+  	| { type: "literal"; value: string }
+  	| { type: "rgb"; value:...
+  export type ColorStop = Color & { length?: Distance }
+  export type GradientAst = {
+  	type: GradientType;
+  	orientation: GradientOrientation | undefined;
+  	colorStops: Array<Color...
+  export const parseGradient = ({
+  	code,
+  }: {
+  	code: string;
+  }): Array<GradientAst> => ...
+  export const GradientParser
+
+## apps/web/src/lib/media
+
+audio.ts
+  export type CollectedAudioElement = Omit<
+  	AudioElement,
+  	"type" | "mediaId" | "volume" | "id" | "name" | "sourceType" | "sourceUrl...
+  export function createAudioContext(): AudioContext
+  export interface DecodedAudio {
+    samples: Float32Array
+    sampleRate: number
+  }
+  export function decodeAudioToFloat32({
+  	audioBlob,
+  }: {
+  	audioBlob: Blob;
+  }): Promise<DecodedAudio>
+  export function collectAudioElements({
+  	tracks,
+  	mediaAssets,
+  	audioContext,
+  }: {
+  	tracks: TimelineTrack[];
+  	mediaAssets: MediaAsset[];
+  	audioContext: AudioContext;
+  }): Promise<CollectedAudioElement[]>
+  export interface AudioClipSource {
+    id: string
+    sourceKey: string
+    file: File
+    startTime: number
+    duration: number
+    trimStart: number
+    trimEnd: number
+    muted: boolean
+  }
+  export function collectAudioMixSources({
+  	tracks,
+  	mediaAssets,
+  }: {
+  	tracks: TimelineTrack[];
+  	mediaAssets: MediaAsset[];
+  }): Promise<AudioMixSource[]>
+  export function collectAudioClips({
+  	tracks,
+  	mediaAssets,
+  }: {
+  	tracks: TimelineTrack[];
+  	mediaAssets: MediaAsset[];
+  }): Promise<AudioClipSource[]>
+  export function createTimelineAudioBuffer({
+  	tracks,
+  	mediaAssets,
+  	duration,
+  	sampleRate = 44100,
+  	audioContext,
+  }: {
+  	tracks: TimelineTrack[];
+  	mediaAssets: MediaAsset[];
+  	duration: number;
+  	sampleRate?: number;
+  	audioContext?: AudioContext;
+  }): Promise<AudioBuffer | null>
+
+media-utils.ts
+  export const SUPPORTS_AUDIO: readonly MediaType[]
+  export function mediaSupportsAudio({
+  	media,
+  }: {
+  	media: MediaAsset | null | undefined;
+  }): boolean
+  export const getMediaTypeFromFile = ({
+  	file,
+  }: {
+  	file: File;
+  }): MediaType | null => ...
+
+mediabunny.ts
+  export function getVideoInfo({
+  	videoFile,
+  }: {
+  	videoFile: File;
+  }): Promise<{
+  	duration: number;
+  	width: number;
+  	height: number;
+  	fps: number;
+  }>
+  export const extractTimelineAudio = ({
+  	tracks,
+  	mediaAssets,
+  	totalDuration,
+  	onProgress,
+  }: {
+  	tracks: TimelineTrack[];
+  	mediaAssets: MediaAsset[];
+  	totalDuration: number;
+  	onProgress?: (progress: number) => void;
+  }): Promise<Blob> => ...
+
+processing.ts
+  export interface ProcessedMediaAsset extends Omit<MediaAsset, "id">
+  export function generateThumbnail({
+  	videoFile,
+  	timeInSeconds,
+  }: {
+  	videoFile: File;
+  	timeInSeconds: number;
+  }): Promise<string>
+  export function generateImageThumbnail({
+  	imageFile,
+  }: {
+  	imageFile: File;
+  }): Promise<string>
+  export function processMediaAssets({
+  	files,
+  	onProgress,
+  }: {
+  	files: FileList | File[];
+  	onProgress?: ({ progress }: { progress: number }) => void;
+  }): Promise<ProcessedMediaAsset[]>
+
+## apps/web/src/lib/timeline
+
+bookmarks.ts
+  export function findBookmarkIndex({
+  	bookmarks,
+  	frameTime,
+  }: {
+  	bookmarks: number[];
+  	frameTime: number;
+  }): number
+  export function isBookmarkAtTime({
+  	bookmarks,
+  	frameTime,
+  }: {
+  	bookmarks: number[];
+  	frameTime: number;
+  }): boolean
+  export function toggleBookmarkInArray({
+  	bookmarks,
+  	frameTime,
+  }: {
+  	bookmarks: number[];
+  	frameTime: number;
+  }): number[]
+  export function removeBookmarkFromArray({
+  	bookmarks,
+  	frameTime,
+  }: {
+  	bookmarks: number[];
+  	frameTime: number;
+  }): number[]
+  export function getFrameTime({
+  	time,
+  	fps,
+  }: {
+  	time: number;
+  	fps: number;
+  }): number
+
+drop-utils.ts
+  export function computeDropTarget({
+  	elementType,
+  	mouseX,
+  	mouseY,
+  	tracks,
+  	playheadTime,
+  	isExternalDrop,
+  	elementDuration,
+  	pixelsPerSecond,
+  	zoomLevel,
+  	verticalDragDirection,
+  	startTimeOverride,
+  	excludeElementId,
+  }: ComputeDropTargetParams): DropTarget
+  export function getDropLineY({
+  	dropTarget,
+  	tracks,
+  }: {
+  	dropTarget: DropTarget;
+  	tracks: TimelineTrack[];
+  }): number
+
+element-utils.ts
+  export function canElementHaveAudio(
+  	element: TimelineElement,
+  )
+  export function canElementBeHidden(
+  	element: TimelineElement,
+  )
+  export function hasMediaId(
+  	element: TimelineElement,
+  )
+  export function requiresMediaId({
+  	element,
+  }: {
+  	element: CreateTimelineElement;
+  }): boolean
+  export function checkElementOverlaps({
+  	elements,
+  }: {
+  	elements: TimelineElement[];
+  }): boolean
+  export function resolveElementOverlaps({
+  	elements,
+  }: {
+  	elements: TimelineElement[];
+  }): TimelineElement[]
+  export function wouldElementOverlap({
+  	elements,
+  	startTime,
+  	endTime,
+  	excludeElementId,
+  }: {
+  	elements: TimelineElement[];
+  	startTime: number;
+  	endTime: number;
+  	excludeElementId?: string;
+  }): boolean
+  export function buildTextElement({
+  	raw,
+  	startTime,
+  }: {
+  	raw: Partial<Omit<TextElement, "type" | "id">>;
+  	startTime: number;
+  }): CreateTimelineElement
+  export function buildStickerElement({
+  	iconName,
+  	startTime,
+  }: {
+  	iconName: string;
+  	startTime: number;
+  }): CreateStickerElement
+  export function buildVideoElement({
+  	mediaId,
+  	name,
+  	duration,
+  	startTime,
+  }: {
+  	mediaId: string;
+  	name: string;
+  	duration: number;
+  	startTime: number;
+  }): CreateVideoElement
+  export function buildImageElement({
+  	mediaId,
+  	name,
+  	duration,
+  	startTime,
+  }: {
+  	mediaId: string;
+  	name: string;
+  	duration: number;
+  	startTime: number;
+  }): CreateImageElement
+  export function buildUploadAudioElement({
+  	mediaId,
+  	name,
+  	duration,
+  	startTime,
+  	buffer,
+  }: {
+  	mediaId: string;
+  	name: string;
+  	duration: number;
+  	startTime: number;
+  	buffer?: AudioBuffer;
+  }): CreateUploadAudioElement
+  export function buildLibraryAudioElement({
+  	sourceUrl,
+  	name,
+  	duration,
+  	startTime,
+  	buffer,
+  }: {
+  	sourceUrl: string;
+  	name: string;
+  	duration: number;
+  	startTime: number;
+  	buffer?: AudioBuffer;
+  }): CreateLibraryAudioElement
+  export function getElementsAtTime({
+  	tracks,
+  	time,
+  }: {
+  	tracks: TimelineTrack[];
+  	time: number;
+  }): { trackId: string; elementId: string }[]
+
+index.ts
+  export function calculateTotalDuration({
+  	tracks,
+  }: {
+  	tracks: TimelineTrack[];
+  }): number
+
+ruler-utils.ts
+  export interface RulerConfig {
+    labelIntervalSeconds: number
+    tickIntervalSeconds: number
+  }
+  export function getRulerConfig({
+  	zoomLevel,
+  	fps,
+  }: {
+  	zoomLevel: number;
+  	fps: number;
+  }): RulerConfig
+  export function shouldShowLabel({
+  	time,
+  	labelIntervalSeconds,
+  }: {
+  	time: number;
+  	labelIntervalSeconds: number;
+  }): boolean
+  export function formatRulerLabel({
+  	timeInSeconds,
+  	fps,
+  }: {
+  	timeInSeconds: number;
+  	fps: number;
+  }): string
+
+track-utils.ts
+  export function canTracktHaveAudio(
+  	track: TimelineTrack,
+  )
+  export function canTrackBeHidden(
+  	track: TimelineTrack,
+  )
+  export function getTrackColor({ type }: { type: TrackType })
+  export function getTrackClasses({ type }: { type: TrackType })
+  export function getTrackHeight({ type }: { type: TrackType }): number
+  export function getCumulativeHeightBefore({
+  	tracks,
+  	trackIndex,
+  }: {
+  	tracks: Array<{ type: TrackType }>;
+  	trackIndex: number;
+  }): number
+  export function getTotalTracksHeight({
+  	tracks,
+  }: {
+  	tracks: Array<{ type: TrackType }>;
+  }): number
+  export function buildEmptyTrack({
+  	id,
+  	type,
+  	name,
+  }: {
+  	id: string;
+  	type: TrackType;
+  	name?: string;
+  }): TimelineTrack
+  export function getDefaultInsertIndexForTrack({
+  	tracks,
+  	trackType,
+  }: {
+  	tracks: TimelineTrack[];
+  	trackType: TrackType;
+  }): number
+  export function getHighestInsertIndexForTrack({
+  	tracks,
+  	trackType,
+  }: {
+  	tracks: TimelineTrack[];
+  	trackType: TrackType;
+  }): number
+  export function isMainTrack(track: TimelineTrack)
+  export function getMainTrack({
+  	tracks,
+  }: {
+  	tracks: TimelineTrack[];
+  }): TimelineTrack | null
+  export function ensureMainTrack({
+  	tracks,
+  }: {
+  	tracks: TimelineTrack[];
+  }): TimelineTrack[]
+  export function canElementGoOnTrack({
+  	elementType,
+  	trackType,
+  }: {
+  	elementType: ElementType;
+  	trackType: TrackType;
+  }): boolean
+  export function validateElementTrackCompatibility({
+  	element,
+  	track,
+  }: {
+  	element: { type: ElementType };
+  	track: { type: TrackType };
+  }): { isValid: boolean; errorMessage?: string }
+
+zoom-utils.ts
+  export function getTimelineZoomMin({
+  	duration,
+  	containerWidth,
+  }: {
+  	duration: number;
+  	containerWidth: number | null | undefined;
+  }): number
+  export function getTimelinePaddingPx({
+  	containerWidth,
+  	zoomLevel,
+  	minZoom,
+  }: {
+  	containerWidth: number;
+  	zoomLevel: number;
+  	minZoom: number;
+  }): number
+  export function getZoomPercent({
+  	zoomLevel,
+  	minZoom,
+  }: {
+  	zoomLevel: number;
+  	minZoom: number;
+  }): number
+  export function sliderToZoom({
+  	sliderPosition,
+  	minZoom,
+  	maxZoom = TIMELINE_CONSTANTS.ZOOM_MAX,
+  }: {
+  	sliderPosition: number;
+  	minZoom: number;
+  	maxZoom?: number;
+  }): number
+  export function zoomToSlider({
+  	zoomLevel,
+  	minZoom,
+  	maxZoom = TIMELINE_CONSTANTS.ZOOM_MAX,
+  }: {
+  	zoomLevel: number;
+  	minZoom: number;
+  	maxZoom?: number;
+  }): number
+
+## apps/web/src/lib/transcription
+
+caption.ts
+  export function buildCaptionChunks({
+  	segments,
+  	wordsPerChunk = DEFAULT_WORDS_PER_CAPTION,
+  	minDuration = MIN_CAPTION_DURATION_SECONDS,
+  }: {
+  	segments: TranscriptionSegment[];
+  	wordsPerChunk?: number;
+  	minDuration?: number;
+  }): CaptionChunk[]
+
+## apps/web/src/services/renderer
+
+canvas-renderer.ts
+  export type CanvasRendererParams = {
+  	width: number;
+  	height: number;
+  	fps: number;
+  }
+  export class CanvasRenderer {
+    canvas: OffscreenCanvas | HTMLCanvasElement
+    context: OffscreenCanvasRenderingContext2D | CanvasRenderingContext2D
+    width: number
+    height: number
+    fps: number
+    constructor({ width, height, fps }: CanvasRendererParams)
+    setSize({ width, height }: { width: number; height: number })
+    async render({ node, time }: { node: BaseNode; time: number })
+    async renderToCanvas({
+  		node,
+  		time,
+  		targetCanvas,
+  	}: {
+  		node: BaseNode;
+  		time: number;
+  		targetCanvas: HTMLCanvasElement;
+  	})
+  }
+
+scene-builder.ts
+  export type BuildSceneParams = {
+  	canvasSize: TCanvasSize;
+  	tracks: TimelineTrack[];
+  	mediaAssets: MediaAsset[];
+  	duration: ...
+  export function buildScene(params: BuildSceneParams)
+
+scene-exporter.ts
+  export type ExportFormat = "mp4" | "webm"
+  export type ExportQuality = "low" | "medium" | "high" | "very_high"
+  export type SceneExporterEvents = {
+  	progress: [progress: number];
+  	complete: [buffer: ArrayBuffer];
+  	error: [error: Error];
+  	c...
+  export class SceneExporter extends EventEmitter<SceneExporterEvents> {
+    renderer: CanvasRenderer
+    format: ExportFormat
+    quality: ExportQuality
+    shouldIncludeAudio: boolean
+    audioBuffer: AudioBuffer
+    isCancelled
+    constructor({
+  		width,
+  		height,
+  		fps,
+  		format,
+  		quality,
+  		shouldIncludeAudio,
+  		audioBuffer,
+  	}: ExportParams)
+    cancel(): void
+    async export({
+  		rootNode,
+  	}: {
+  		rootNode: RootNode;
+  	}): Promise<ArrayBuffer | null>
+  }
+
+## apps/web/src/services/storage
+
+indexeddb-adapter.ts
+  export class IndexedDBAdapter implements StorageAdapter<T> {
+    dbName: string
+    storeName: string
+    version: number
+    constructor(dbName: string, storeName: string, version = 1)
+    async get(key: string): Promise<T | null>
+    async set(key: string, value: T): Promise<void>
+    async remove(key: string): Promise<void>
+    async list(): Promise<string[]>
+    async getAll(): Promise<T[]>
+    async clear(): Promise<void>
+  }
+  export function deleteDatabase({
+  	dbName,
+  }: {
+  	dbName: string;
+  }): Promise<void>
+
+opfs-adapter.ts
+  export class OPFSAdapter implements StorageAdapter<File> {
+    directoryName: string
+    constructor(directoryName = "media")
+    async get(key: string): Promise<File | null>
+    async set(key: string, file: File): Promise<void>
+    async remove(key: string): Promise<void>
+    async list(): Promise<string[]>
+    async clear(): Promise<void>
+    static isSupported(): boolean
+  }
+
+service.ts
+  export const storageService
+
+types.ts
+  export interface StorageAdapter<T> {
+    get(key: string): Promise<T | null>
+    set(key: string, value: T): Promise<void>
+    remove(key: string): Promise<void>
+    list(): Promise<string[]>
+    clear(): Promise<void>
+  }
+  export interface MediaAssetData {
+    id: string
+    name: string
+    type: MediaType
+    size: number
+    lastModified: number
+    width?: number
+    height?: number
+    duration?: number
+    fps?: number
+    ephemeral?: boolean
+    thumbnailUrl?: string
+  }
+  export type SerializedScene = Omit<TScene, "createdAt" | "updatedAt"> & {
+  	createdAt: string;
+  	updatedAt: string;
+  }
+  export type SerializedProjectMetadata = Omit<
+  	TProjectMetadata,
+  	"createdAt" | "updatedAt"
+  > & {
+  	createdAt: string;
+  	updatedAt: st...
+  export type SerializedProject = Omit<TProject, "metadata" | "scenes"> & {
+  	metadata: SerializedProjectMetadata;
+  	scenes: Serial...
+  export interface StorageConfig {
+    projectsDb: string
+    mediaDb: string
+    savedSoundsDb: string
+    version: number
+  }
+
+## apps/web/src/services/transcription
+
+service.ts
+  export const transcriptionService
+
+worker.ts
+  export type WorkerMessage = | { type: "init"; modelId: string }
+  	| { type: "transcribe"; audio: Float32Array; language: stri...
+  export type WorkerResponse = | { type: "init-progress"; progress: number }
+  	| { type: "init-complete" }
+  	| { type: "init-err...
+
+## apps/web/src/services/video-cache
+
+service.ts
+  export class VideoCache {
+    sinks
+    initPromises
+    async getFrameAt({
+  		mediaId,
+  		file,
+  		time,
+  	}: {
+  		mediaId: string;
+  		file: File;
+  		time: number;
+  	}): Promise<WrappedCanvas | null>
+    clearVideo({ mediaId }: { mediaId: string }): void
+    clearAll(): void
+    getStats()
+  }
+  export const videoCache
+
+## apps/web/src/stores
+
+ai-settings-store.ts
+  export const useAISettingsStore
+
+assets-panel-store.tsx
+  export const TAB_KEYS
+  export type Tab = (typeof TAB_KEYS)[number]
+  export const tabs
+  export const useAssetsPanelStore
+
+editor-store.ts
+  export const useEditorStore
+
+keybindings-store.ts
+  export const defaultKeybindings: KeybindingConfig
+  export interface KeybindingConflict {
+    key: ShortcutKey
+    existingAction: TActionWithOptionalArgs
+    newAction: TActionWithOptionalArgs
+  }
+  export const useKeybindingsStore
+
+panel-store.ts
+  export interface PanelSizes {
+    tools: number
+    preview: number
+    properties: number
+    mainContent: number
+    timeline: number
+  }
+  export type PanelId = keyof PanelSizes
+  export const usePanelStore
+
+sounds-store.ts
+  export const useSoundsStore
+
+stickers-store.ts
+  export const useStickersStore
+
+text-properties-store.ts
+  export type TextPropertiesTab = "text" | "transform"
+  export interface TextPropertiesTabMeta {
+    value: TextPropertiesTab
+    label: string
+  }
+  export const TEXT_PROPERTIES_TABS: ReadonlyArray<TextPropertiesTabMeta>
+  export function isTextPropertiesTab(value: string)
+  export const useTextPropertiesStore
+
+timeline-store.ts
+  export const useTimelineStore
+
+## apps/web/src/types
+
+assets.ts
+  export type MediaType = "image" | "video" | "audio"
+  export interface MediaAsset extends Omit<MediaAssetData, "size" | "lastModified"> {
+    file: File
+    url?: string
+  }
+
+drag.ts
+  export interface MediaDragData extends BaseDragData {
+    type: "media"
+    mediaType: "image" | "video" | "audio"
+  }
+  export interface TextDragData extends BaseDragData {
+    type: "text"
+    content: string
+  }
+  export interface StickerDragData extends BaseDragData {
+    type: "sticker"
+    iconName: string
+  }
+  export type TimelineDragData = MediaDragData | TextDragData | StickerDragData
+
+editor.ts
+  export type TPlatformLayout = "tiktok"
+
+export.ts
+  export const EXPORT_QUALITY_VALUES
+  export const EXPORT_FORMAT_VALUES
+  export type ExportFormat = (typeof EXPORT_FORMAT_VALUES)[number]
+  export type ExportQuality = (typeof EXPORT_QUALITY_VALUES)[number]
+  export interface ExportOptions {
+    format: ExportFormat
+    quality: ExportQuality
+    fps?: number
+    includeAudio?: boolean
+    onProgress?: ({ progress }: { progress: number }) => void
+    onCancel?: () => boolean
+  }
+  export interface ExportResult {
+    success: boolean
+    buffer?: ArrayBuffer
+    error?: string
+    cancelled?: boolean
+  }
+
+keybinding.ts
+  export type ModifierKeys = | "ctrl"
+  	| "alt"
+  	| "shift"
+  	| "ctrl+shift"
+  	| "alt+shift"
+  	| "ctrl+alt"
+  	| "ctrl+alt+shift"
+  export type Key = | "a"
+  	| "b"
+  	| "c"
+  	| "d"
+  	| "e"
+  	| "f"
+  	| "g"
+  	| "h"
+  	| "i"
+  	| "j"
+  	| "k"
+  	| "l"
+  	|...
+  export type ModifierBasedShortcutKey = `${ModifierKeys}+${Key}`
+  export type SingleCharacterShortcutKey = `${Key}`
+  export type ShortcutKey = ModifierBasedShortcutKey | SingleCharacterShortcutKey
+  export type KeybindingConfig = {
+  	[key in ShortcutKey]?: TActionWithOptionalArgs;
+  }
+
+language.ts
+  export type Language = (typeof LANGUAGES)[number]
+  export type LanguageCode = Language["code"]
+
+project.ts
+  export type TBackground = | {
+  			type: "color";
+  			color: string;
+  	  }
+  	| {
+  			type: "blur";
+  			blurIntensity: number...
+  export interface TCanvasSize {
+    width: number
+    height: number
+  }
+  export interface TProjectMetadata {
+    id: string
+    name: string
+    thumbnail?: string
+    duration: number
+    createdAt: Date
+    updatedAt: Date
+  }
+  export interface TProjectSettings {
+    fps: number
+    canvasSize: TCanvasSize
+    originalCanvasSize?: TCanvasSize | null
+    background: TBackground
+  }
+  export interface TTimelineViewState {
+    zoomLevel: number
+    scrollLeft: number
+    playheadTime: number
+  }
+  export interface TProject {
+    metadata: TProjectMetadata
+    scenes: TScene[]
+    currentSceneId: string
+    settings: TProjectSettings
+    version: number
+    timelineViewState?: TTimelineViewState
+  }
+  export type TProjectSortKey = "createdAt" | "updatedAt" | "name" | "duration"
+  export type TSortOrder = "asc" | "desc"
+  export type TProjectSortOption = `${TProjectSortKey}-${TSortOrder}`
+
+sounds.ts
+  export interface SoundEffect {
+    id: number
+    name: string
+    description: string
+    url: string
+    previewUrl?: string
+    downloadUrl?: string
+    duration: number
+    filesize: number
+    type: string
+    channels: number
+    bitrate: number
+    bitdepth: number
+    samplerate: number
+    username: string
+    tags: string[]
+    license: string
+    created: string
+    downloads: number
+    rating: number
+    ratingCount: number
+  }
+  export interface SavedSound {
+    id: number
+    name: string
+    username: string
+    previewUrl?: string
+    downloadUrl?: string
+    duration: number
+    tags: string[]
+    license: string
+    savedAt: string
+  }
+  export interface SavedSoundsData {
+    sounds: SavedSound[]
+    lastModified: string
+  }
+
+stickers.ts
+  export type StickerCategory = (typeof STICKER_CATEGORIES)[number]
+
+time.ts
+  export type TTimeCode = "MM:SS" | "HH:MM:SS" | "HH:MM:SS:CS" | "HH:MM:SS:FF"
+
+timeline.ts
+  export interface TScene {
+    id: string
+    name: string
+    isMain: boolean
+    tracks: TimelineTrack[]
+    bookmarks: number[]
+    createdAt: Date
+    updatedAt: Date
+  }
+  export type TrackType = "video" | "text" | "audio" | "sticker"
+  export interface VideoTrack extends BaseTrack {
+    type: "video"
+    elements: (VideoElement | ImageElement)[]
+    isMain: boolean
+    muted: boolean
+    hidden: boolean
+  }
+  export interface TextTrack extends BaseTrack {
+    type: "text"
+    elements: TextElement[]
+    hidden: boolean
+  }
+  export interface AudioTrack extends BaseTrack {
+    type: "audio"
+    elements: AudioElement[]
+    muted: boolean
+  }
+  export interface StickerTrack extends BaseTrack {
+    type: "sticker"
+    elements: StickerElement[]
+    hidden: boolean
+  }
+  export type TimelineTrack = VideoTrack | TextTrack | AudioTrack | StickerTrack
+  export interface Transform {
+    scale: number
+    position: {
+  		x: number;
+  		y: number;
+  	}
+    rotate: number
+  }
+  export interface UploadAudioElement extends BaseAudioElement {
+    sourceType: "upload"
+    mediaId: string
+  }
+  export interface LibraryAudioElement extends BaseAudioElement {
+    sourceType: "library"
+    sourceUrl: string
+  }
+  export type AudioElement = UploadAudioElement | LibraryAudioElement
+  export interface VideoElement extends BaseTimelineElement {
+    type: "video"
+    mediaId: string
+    muted?: boolean
+    hidden?: boolean
+    transform: Transform
+    opacity: number
+  }
+  export interface ImageElement extends BaseTimelineElement {
+    type: "image"
+    mediaId: string
+    hidden?: boolean
+    transform: Transform
+    opacity: number
+  }
+  export interface TextElement extends BaseTimelineElement {
+    type: "text"
+    content: string
+    fontSize: number
+    fontFamily: string
+    color: string
+    backgroundColor: string
+    textAlign: "left" | "center" | "right"
+    fontWeight: "normal" | "bold"
+    fontStyle: "normal" | "italic"
+    textDecoration: "none" | "underline" | "line-through"
+    hidden?: boolean
+    transform: Transform
+    opacity: number
+  }
+  export interface StickerElement extends BaseTimelineElement {
+    type: "sticker"
+    iconName: string
+    hidden?: boolean
+    transform: Transform
+    opacity: number
+    color?: string
+  }
+  export type TimelineElement = | AudioElement
+  	| VideoElement
+  	| ImageElement
+  	| TextElement
+  	| StickerElement
+  export type ElementType = TimelineElement["type"]
+  export type CreateUploadAudioElement = Omit<UploadAudioElement, "id">
+  export type CreateLibraryAudioElement = Omit<LibraryAudioElement, "id">
+  export type CreateAudioElement = | CreateUploadAudioElement
+  	| CreateLibraryAudioElement
+  export type CreateVideoElement = Omit<VideoElement, "id">
+  export type CreateImageElement = Omit<ImageElement, "id">
+  export type CreateTextElement = Omit<TextElement, "id">
+  export type CreateStickerElement = Omit<StickerElement, "id">
+  export type CreateTimelineElement = | CreateAudioElement
+  	| CreateVideoElement
+  	| CreateImageElement
+  	| CreateTextElement
+  	| Crea...
+  export interface ElementDragState {
+    isDragging: boolean
+    elementId: string | null
+    trackId: string | null
+    startMouseX: number
+    startMouseY: number
+    startElementTime: number
+    clickOffsetTime: number
+    currentTime: number
+    currentMouseY: number
+  }
+  export interface DropTarget {
+    trackIndex: number
+    isNewTrack: boolean
+    insertPosition: "above" | "below" | null
+    xPosition: number
+  }
+  export interface ComputeDropTargetParams {
+    elementType: ElementType
+    mouseX: number
+    mouseY: number
+    tracks: TimelineTrack[]
+    playheadTime: number
+    isExternalDrop: boolean
+    elementDuration: number
+    pixelsPerSecond: number
+    zoomLevel: number
+    verticalDragDirection?: "up" | "down" | null
+    startTimeOverride?: number
+    excludeElementId?: string
+  }
+  export interface ClipboardItem {
+    trackId: string
+    trackType: TrackType
+    element: CreateTimelineElement
+  }
+
+transcription.ts
+  export type TranscriptionLanguage = LanguageCode | "auto"
+  export interface TranscriptionSegment {
+    text: string
+    start: number
+    end: number
+  }
+  export interface TranscriptionResult {
+    text: string
+    segments: TranscriptionSegment[]
+    language: string
+  }
+  export type TranscriptionStatus = | "idle"
+  	| "loading-model"
+  	| "transcribing"
+  	| "complete"
+  	| "error"
+  export interface TranscriptionProgress {
+    status: TranscriptionStatus
+    progress: number
+    message?: string
+  }
+  export type TranscriptionModelId = | "whisper-tiny"
+  	| "whisper-small"
+  	| "whisper-medium"
+  	| "whisper-large-v3-turbo"
+  export interface TranscriptionModel {
+    id: TranscriptionModelId
+    name: string
+    huggingFaceId: string
+    description: string
+  }
+  export interface CaptionChunk {
+    text: string
+    startTime: number
+    duration: number
+  }
+
+## apps/web/src/utils
+
+browser.ts
+  export function isTypableDOMElement({
+  	element,
+  }: {
+  	element: HTMLElement;
+  }): boolean
+
+date.ts
+  export function formatDate({ date }: { date: Date }): string
+
+geometry.ts
+  export function dimensionToAspectRatio({
+  	width,
+  	height,
+  }: {
+  	width: number;
+  	height: number;
+  }): string
+
+id.ts
+  export function generateUUID(): string
+
+math.ts
+  export function clamp({
+  	value,
+  	min,
+  	max,
+  }: {
+  	value: number;
+  	min: number;
+  	max: number;
+  }): number
+
+platform.ts
+  export function getPlatformSpecialKey(): string
+  export function getPlatformAlternateKey(): string
+  export function isAppleDevice(): boolean
+
+string.ts
+  export function capitalizeFirstLetter({ string }: { string: string })
+  export function uppercase({ string }: { string: string })
+
+ui.ts
+  export function cn(...inputs: ClassValue[]): string
+
+## packages/ui/src/icons
+
+brand.tsx
+  export function OcVercelIcon({ className }: { className?: string })
+  export function OcDataBuddyIcon({
+  	className = "",
+  	size = 32,
+  }: {
+  	className?: string;
+  	size?: number;
+  })
+
+ui.tsx
+  export function OcVideoIcon({
+  	className = "",
+  	size = 32,
+  }: {
+  	className?: string;
+  	size?: number;
+  })
+
 ```
+
+---
+
+*Generated and maintained by [Twiggy](https://github.com/twiggy-tools/Twiggy)*
 
 ---
 > Source: [msgbyte/cutia](https://github.com/msgbyte/cutia) — distributed by [TomeVault](https://tomevault.io).
