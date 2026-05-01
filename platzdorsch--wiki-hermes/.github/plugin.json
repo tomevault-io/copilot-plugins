@@ -1,0 +1,9 @@
+{
+  "name": "platzdorsch--wiki-hermes",
+  "displayName": "wiki-hermes",
+  "description": "An LLM-maintained industry knowledge wiki based on the LLM Wiki Pattern by Andrej Karpathy.",
+  "version": "1.0.0",
+  "author": "PLATZDORSCH",
+  "homepage": "https://github.com/PLATZDORSCH/wiki-hermes",
+  "skills": []
+}
