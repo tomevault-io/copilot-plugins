@@ -1,0 +1,9 @@
+{
+  "name": "wavezync--durable",
+  "displayName": "durable",
+  "description": "A durable workflow execution engine for Elixir ",
+  "version": "1.0.0",
+  "author": "wavezync",
+  "homepage": "https://github.com/wavezync/durable",
+  "skills": []
+}
