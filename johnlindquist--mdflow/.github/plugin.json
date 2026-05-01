@@ -1,0 +1,9 @@
+{
+  "name": "johnlindquist--mdflow",
+  "displayName": "mdflow",
+  "description": "Multi-backend CLI for executable markdown prompts. Run .md files against Claude, Codex, Gemini, or Copilot.",
+  "version": "1.0.0",
+  "author": "johnlindquist",
+  "homepage": "https://github.com/johnlindquist/mdflow",
+  "skills": []
+}
