@@ -1,53 +1,65 @@
-## ts-no-unused
+## ui-cross-platform
 
-> TypeScript noUnusedLocals / noUnusedParameters 构建检查
+> 修改任何 UI 界面时，必须同时考虑 Windows 和 macOS 的差异。
 
 
-# 禁止未使用的变量和参数
+# UI 跨平台兼容（Windows & macOS）
 
-项目 tsconfig 开启了 `noUnusedLocals` 和 `noUnusedParameters`，未使用的声明会导致构建失败。
+修改任何 UI 界面时，必须同时考虑 Windows 和 macOS 的差异。
 
-## 规则
+## 字体
 
-每次修改 `.ts` / `.tsx` 文件后，必须检查：
+```css
+/* ❌ BAD */
+font-family: -apple-system, BlinkMacSystemFont;
 
-1. 新增的 import、变量、参数、解构字段是否都被使用
-2. 删除功能代码后，相关的 import 和参数是否已一并清理
-3. 接口/类型中移除了某个字段时，所有引用该字段的解构也要同步清理
+/* ✅ GOOD */
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+```
 
-## 常见修复方式
+## 滚动条
 
-```typescript
-// ❌ BAD — 解构了但未使用
-const { used, unused } = props;
+```css
+/* macOS 默认隐藏，Windows 始终显示，需统一样式 */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; }
+```
 
-// ✅ GOOD — 只解构需要的
-const { used } = props;
+## 窗口标题栏 / 拖拽区域
 
-// ❌ BAD — import 后未使用
-import { helperA, helperB } from './utils';
-// 只用了 helperA
+- macOS 交通灯按钮在左，Windows 关闭按钮在右
+- 使用 `-webkit-app-region: drag` 时，确保 Windows 下点击区域不遮挡交互元素
+- Electron 中通过 `process.platform` 判断平台，分别渲染自定义标题栏
 
-// ✅ GOOD
-import { helperA } from './utils';
+```tsx
+const isMac = process.platform === 'darwin';
+// macOS 不需要自定义最小化/最大化/关闭按钮
+{!isMac && <WindowControls />}
+```
 
-// ❌ BAD — 参数未使用
-function handler(req: Request, res: Response, next: NextFunction) {
-  res.send('ok');
-}
+## 间距与字号
 
-// ✅ GOOD — 用下划线前缀标记有意忽略
-function handler(_req: Request, res: Response, _next: NextFunction) {
-  res.send('ok');
-}
+- Windows 系统 DPI 缩放（125%、150%）可能导致布局错位，避免使用奇数像素值
+- 关键布局使用 `rem` 或 `flex`，而非固定 `px`
+
+## 快捷键文案
+
+```tsx
+/* ❌ BAD */
+<span>⌘K</span>
+
+/* ✅ GOOD */
+const isMac = process.platform === 'darwin';
+<span>{isMac ? '⌘K' : 'Ctrl+K'}</span>
 ```
 
 ## 检查清单
 
-- [ ] 新增的 import 全部被引用
-- [ ] 解构的字段全部被使用
-- [ ] 函数参数全部被使用（不需要的加 `_` 前缀）
-- [ ] 删除代码后相关的 import 已清理
+- [ ] 字体 fallback 包含 Segoe UI（Windows）
+- [ ] 滚动条样式在两个平台均可见
+- [ ] 标题栏/拖拽区域在 Windows 和 macOS 下布局正确
+- [ ] 快捷键文案根据平台动态显示
+- [ ] 在 125%/150% DPI 下验证布局不错位
 
 ---
 > Source: [zhangdszq/teamclaw](https://github.com/zhangdszq/teamclaw) — distributed by [TomeVault](https://tomevault.io).
