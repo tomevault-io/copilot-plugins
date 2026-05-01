@@ -1,0 +1,9 @@
+{
+  "name": "wedow--ticket",
+  "displayName": "ticket",
+  "description": "Fast, powerful, git-native ticket tracking in a single bash script. Dependency graphs, priority levels, zero setup.",
+  "version": "1.0.0",
+  "author": "wedow",
+  "homepage": "https://github.com/wedow/ticket",
+  "skills": []
+}
