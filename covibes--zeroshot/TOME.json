@@ -4,7 +4,7 @@
   "repo": "zeroshot",
   "description": "Your autonomous engineering team in a CLI. Point Zeroshot at an issue, walk away, and return to production-grade code. Supports Claude Code, OpenAI Codex, OpenCode, and Gemini CLI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/covibes/zeroshot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T09:35:47Z"
+  "distributed_at": "2026-05-01T10:16:31Z"
 }
