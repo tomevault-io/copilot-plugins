@@ -1,0 +1,9 @@
+{
+  "name": "temporal-cortex--mcp",
+  "displayName": "mcp",
+  "description": "Calendar MCP server with atomic booking, conflict prevention, deterministic RRULE expansion, and TOON token compression for AI agents",
+  "version": "1.0.0",
+  "author": "temporal-cortex",
+  "homepage": "https://github.com/temporal-cortex/mcp",
+  "skills": []
+}
