@@ -55,5 +55,5 @@ Use the following `make` commands for common tasks:
 - **Database**: Use the `RefreshDatabase` trait for tests that interact with the database.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/JauheniS) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/jauhenis) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-16 -->
