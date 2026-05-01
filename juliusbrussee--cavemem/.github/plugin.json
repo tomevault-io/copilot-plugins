@@ -1,0 +1,9 @@
+{
+  "name": "juliusbrussee--cavemem",
+  "displayName": "cavemem",
+  "description": "Cross-agent persistent memory for coding assistants. Stored compressed. Retrieved fast. Local by default.",
+  "version": "1.0.0",
+  "author": "JuliusBrussee",
+  "homepage": "https://github.com/JuliusBrussee/cavemem",
+  "skills": []
+}
