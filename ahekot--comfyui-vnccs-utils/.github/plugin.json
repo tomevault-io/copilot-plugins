@@ -1,0 +1,9 @@
+{
+  "name": "ahekot--comfyui-vnccs-utils",
+  "displayName": "ComfyUI_VNCCS_Utils",
+  "description": "A collection of utility nodes from the VNCCS project that are useful not only for the project's primary goals but also for everyday ComfyUI workflows.",
+  "version": "1.0.0",
+  "author": "AHEKOT",
+  "homepage": "https://github.com/AHEKOT/ComfyUI_VNCCS_Utils",
+  "skills": []
+}
