@@ -1,46 +1,22 @@
-## use-if-defined
+## use-pathe-for-paths
 
-> Use ifDefined() for conditional object spreads
+> Prefer pathe over node:path in TypeScript files.
 
+# Use pathe for path operations
 
-# Use ifDefined() for Conditional Object Spreads
+Use `pathe` instead of `node:path` for path manipulation:
 
-**CRITICAL**: Use `ifDefined` from `@prisma-next/utils/defined` instead of inline conditional spread patterns.
+- Consistent behavior across Windows/macOS/Linux
+- Works in non-Node runtimes (Deno, Bun, edge)
+- Drop-in replacement with identical API
 
-## Why?
-
-- Cleaner, more readable syntax
-- Explicit about which properties are optional
-- Satisfies `exactOptionalPropertyTypes`
-- Preserves falsy values (0, '', false, null) — only excludes `undefined`
-
-## Examples
-
-**❌ WRONG: Inline conditional spread**
 ```typescript
-const obj = {
-  required: 'value',
-  ...(options.default ? { default: options.default } : {}),
-  ...(options.name !== undefined ? { name: options.name } : {}),
-};
+// Good
+import { dirname, join, resolve } from 'pathe';
+
+// Avoid
+import { dirname, join, resolve } from 'node:path';
 ```
-
-**✅ CORRECT: Using ifDefined**
-```typescript
-import { ifDefined } from '@prisma-next/utils/defined';
-
-const obj = {
-  required: 'value',
-  ...ifDefined('default', options.default),
-  ...ifDefined('name', options.name),
-};
-```
-
-## Behavior
-
-- `ifDefined('key', value)` returns `{ key: value }` when `value !== undefined`
-- `ifDefined('key', undefined)` returns `{}`
-- Falsy values like `0`, `''`, `false`, and `null` are preserved
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
