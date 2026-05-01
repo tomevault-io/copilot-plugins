@@ -1,55 +1,116 @@
-## multi-plane-entrypoints
+## multi-plane-packages
 
-> Single package exposing migration/runtime/shared entrypoints via subpaths
+> Guidelines for packages that span multiple planes
 
 
-# Multi‑Plane Entrypoints in a Single Package
+# Multi-Plane Packages
 
-Sometimes a single installable package must serve both migration and runtime planes with distinct entrypoints (e.g., adapter `/control` for control plane and `/runtime` for execution) while sharing a core implementation. This rule encodes how to do that without violating plane boundaries.
+## Overview
 
-## Pattern
+Some packages need to span multiple planes (shared, migration, runtime) to provide both CLI entry points and runtime implementations. These packages use a structured directory layout to separate code by plane.
 
-- Keep one NPM package (e.g., `@prisma-next/adapter-postgres`).
-- Split sources by plane inside the package:
-  - `src/core/**` — shared plane only
-  - `src/exports/control.ts` — migration plane entrypoint (control plane)
-  - `src/exports/runtime.ts` — runtime plane entrypoint
-- Export entrypoints from `package.json`:
+## Structure
+
+Multi-plane packages use the following structure:
+
+```
+packages/{domain}/{package-name}/
+├── src/
+│   ├── core/              # Shared plane code
+│   │   ├── adapter.ts    # Core implementation
+│   │   ├── codecs.ts      # Codec definitions
+│   │   └── types.ts       # Type definitions
+│   └── exports/           # Entry points
+│       ├── control.ts     # Migration plane (control plane descriptors)
+│       ├── runtime.ts     # Runtime plane (runtime factories)
+│       ├── adapter.ts     # Re-export from core
+│       ├── codec-types.ts # Re-export from core
+│       └── types.ts       # Re-export from core
+```
+
+## Architecture Config
+
+Multi-plane packages require **multiple globs** in `architecture.config.json`, one for each plane:
 
 ```json
 {
-  "exports": {
-    "./adapter": { "types": "./dist/exports/adapter.d.ts", "import": "./dist/exports/adapter.js" },
-    "./control": { "types": "./dist/exports/control.d.ts", "import": "./dist/exports/control.js" },
-    "./runtime": { "types": "./dist/exports/runtime.d.ts", "import": "./dist/exports/runtime.js" }
-  }
+  "glob": "packages/targets/postgres-adapter/src/core/**",
+  "domain": "targets",
+  "layer": "adapters",
+  "plane": "shared"
+},
+{
+  "glob": "packages/targets/postgres-adapter/src/exports/control.ts",
+  "domain": "targets",
+  "layer": "adapters",
+  "plane": "migration"
+},
+{
+  "glob": "packages/targets/postgres-adapter/src/exports/runtime.ts",
+  "domain": "targets",
+  "layer": "adapters",
+  "plane": "runtime"
 }
 ```
 
-## Architecture Mapping
+## Plane Separation
 
-Register subpaths as separate globs in `architecture.config.json` to map planes:
+- **`src/core/**`**: Shared plane code that can be imported by both migration and runtime planes
+  - Core implementation (e.g., adapter, codecs, types)
+  - No CLI-specific or runtime-specific dependencies
+  - Can import from shared plane packages only
 
-```json
-{ "glob": "packages/targets/postgres-adapter/src/core/**", "domain": "targets", "layer": "adapters", "plane": "shared" }
-{ "glob": "packages/targets/postgres-adapter/src/exports/control.ts", "domain": "targets", "layer": "adapters", "plane": "migration" }
-{ "glob": "packages/targets/postgres-adapter/src/exports/runtime.ts", "domain": "targets", "layer": "adapters", "plane": "runtime" }
+- **`src/exports/control.ts`**: Migration plane entry point (control plane)
+  - Exports control plane descriptors (`ControlAdapterDescriptor`, `ControlTargetDescriptor`, `ControlDriverDescriptor`, etc.)
+  - Can import from migration plane packages (e.g., `@prisma-next/cli`, `@prisma-next/core-control-plane`)
+  - Can import from core (`../core/...`)
+  - **Naming convention**: Use `control.ts` (not `cli.ts`) and export as `./control` (not `./cli`)
+
+- **`src/exports/runtime.ts`**: Runtime plane entry point
+  - Exports runtime factories (e.g., `createPostgresAdapter`)
+  - Can import from runtime plane packages
+  - Can import from core (`../core/...`)
+
+## Build Configuration
+
+All entry points can be built in a single `tsdown` configuration block:
+
+```typescript
+import { defineConfig } from '@prisma-next/tsdown';
+
+export default defineConfig({
+  entry: [
+    'src/exports/adapter.ts',
+    'src/exports/types.ts',
+    'src/exports/codec-types.ts',
+    'src/exports/control.ts',
+    'src/exports/runtime.ts',
+  ],
+});
 ```
 
-This lets dependency guards treat a single package as three plane‑scoped module groups, so imports remain plane‑safe.
+## When to Use Multi-Plane Structure
 
-## Do’s and Don’ts
+Use this structure when:
+- ✅ Package needs both CLI entry points (for config files) and runtime code
+- ✅ Package has shared code that both CLI and runtime need
+- ✅ Package needs to import from both migration and runtime planes
 
-- Do keep `src/core/**` free of migration/runtime imports; depend only on shared‑plane packages.
-- Do import control plane/tooling only from `src/exports/control.ts`.
-- Do import runtime/driver only from `src/exports/runtime.ts`.
-- Don't add plane‑crossing imports inside `src/core/**`.
-- Don't export plane‑specific files via the wrong entrypoint.
-- **Naming convention**: Migration plane entrypoints use `control.ts` (not `cli.ts`) and export as `./control` (not `./cli`).
+**Examples:**
+- Adapter packages (CLI descriptor + runtime adapter implementation)
+- Target packages (CLI descriptor + runtime target-specific code)
 
-## Rationale
+## Benefits
 
-This pattern keeps a single installable artifact with tree‑shakeable, plane‑specific entrypoints while maintaining strict plane boundaries enforced by dependency‑cruiser.
+- **Clear separation**: Plane boundaries are explicit in the directory structure
+- **Dependency validation**: Dependency Cruiser can validate plane boundaries correctly
+- **Flexibility**: Same package can provide both CLI and runtime functionality
+- **Shared code**: Core implementation can be reused by both planes
+
+## Related Patterns
+
+- `.cursor/rules/shared-plane-packages.mdc`: Packages that are entirely in the shared plane
+- `.cursor/rules/import-validation.mdc`: Import validation rules for plane boundaries
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
