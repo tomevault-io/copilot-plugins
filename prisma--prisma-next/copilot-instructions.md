@@ -1,24 +1,54 @@
-## test-import-patterns
+## test-intent-readability
 
-> Test import patterns and conventions
+> Tests must be readable by context (BDD-style grouping)
 
 
-# Test Import Patterns
+# Test intent readability (context-driven structure)
 
-This rulecard is intentionally short. For more examples, see `docs/reference/test-import-patterns.md`.
+Tests must communicate **intent** without requiring the reader to inspect implementation details.
 
-## Within-package tests
+## Do
 
-- **Import from source** (`../src/...`), not from package exports.
+- Group assertions by the **conditions under which they’re true**.
+  - Use nested `describe()` blocks to model state and transitions (“given…”, “when…”, “after…”).
+- Make each `it()` read as a statement about behavior under that context.
+- Prefer lifecycle tests that read like a story:
+  - **given** an object in state A
+  - **when** an action happens
+  - **then** behavior X is observed
+- If a suite is validating a lifecycle, encode the lifecycle in the test structure (describes), not by scattered `it()` blocks.
 
-## Cross-package / integration tests
+## Don’t
 
-- **Import from package exports** (`@prisma-next/...`) to verify the public API.
+- Don’t write “disjointed” tests where the reader must reverse‑engineer a lifecycle from unrelated expectations.
+- Don’t mix multiple preconditions in a single `describe()` without naming them.
+- Don’t rely on comments to explain context; make the context explicit via structure and naming.
 
-## Related rules
+## Example: lifecycle tests
 
-- `.cursor/rules/test-file-organization.mdc`
-- `.cursor/rules/test-fixture-typechecking.mdc`
+✅ Prefer:
+
+```ts
+describe('postgres driver', () => {
+  describe('given an unbound driver', () => {
+    it('throws when query is called', async () => { /* ... */ });
+
+    describe('when connected with url binding', () => {
+      it('executes queries', async () => { /* ... */ });
+    });
+  });
+});
+```
+
+❌ Avoid:
+
+```ts
+describe('postgres driver', () => {
+  it('throws clear error when query called before connect', async () => { /* ... */ });
+  it('connects from url binding and executes', async () => { /* ... */ });
+  it('close works after connect with pool binding', async () => { /* ... */ });
+});
+```
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
