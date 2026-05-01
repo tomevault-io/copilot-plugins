@@ -1,0 +1,9 @@
+{
+  "name": "senweaver--senweavercoding",
+  "displayName": "SenWeaverCoding",
+  "description": "A Rust-first autonomous AI agent runtime and CLI code editor. Built on SenAgentOS, it applies Harness Engineering to code engineering: orchestrate LLM agents for autonomous exploration, refactoring, t",
+  "version": "1.0.0",
+  "author": "senweaver",
+  "homepage": "https://github.com/senweaver/SenWeaverCoding",
+  "skills": []
+}
