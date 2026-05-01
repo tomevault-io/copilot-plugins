@@ -1,0 +1,9 @@
+{
+  "name": "platformersdev--kubectl-x",
+  "displayName": "kubectl-x",
+  "description": "A kubectl plugin to run certain commands again multiple contexts",
+  "version": "1.0.0",
+  "author": "platformersdev",
+  "homepage": "https://github.com/platformersdev/kubectl-x",
+  "skills": []
+}
