@@ -1,0 +1,9 @@
+{
+  "name": "shin-sibainu--ccmux",
+  "displayName": "ccmux",
+  "description": "Claude Code Multiplexer \u2014 manage multiple Claude Code instances in TUI panes",
+  "version": "1.0.0",
+  "author": "Shin-sibainu",
+  "homepage": "https://github.com/Shin-sibainu/ccmux",
+  "skills": []
+}
