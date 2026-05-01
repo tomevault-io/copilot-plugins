@@ -7,11 +7,11 @@ Bash for Agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vercel-labs/just-bash](https://github.com/vercel-labs/just-bash).
+Original source: `CLAUDE.md` in [vercel-labs/just-bash](https://github.com/vercel-labs/just-bash).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
