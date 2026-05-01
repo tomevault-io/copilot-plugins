@@ -1,0 +1,9 @@
+{
+  "name": "thetronjohnson--layrr",
+  "displayName": "layrr",
+  "description": "A browser coding agent interface for selecting elements and sending instructions directly to Claude Code.",
+  "version": "1.0.0",
+  "author": "thetronjohnson",
+  "homepage": "https://github.com/thetronjohnson/layrr",
+  "skills": []
+}
