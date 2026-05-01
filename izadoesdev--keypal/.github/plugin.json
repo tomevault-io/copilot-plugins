@@ -1,9 +1,9 @@
 {
   "name": "izadoesdev--keypal",
   "displayName": "keypal",
-  "description": "keypal",
+  "description": "A TypeScript library for secure API key management with cryptographic hashing, expiration, scopes, and pluggable storage",
   "version": "1.0.0",
   "author": "izadoesdev",
-  "homepage": "https://tomevault.io/claim/izadoesdev",
+  "homepage": "https://github.com/izadoesdev/keypal",
   "skills": []
 }
