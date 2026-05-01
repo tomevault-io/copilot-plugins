@@ -1,0 +1,14 @@
+{
+  "name": "koalabuttz--roguelike",
+  "displayName": "roguelike",
+  "description": "A cross-platform roguelike dungeon crawler written in Rust \u2014 from modern terminals to the Commodore 64.",
+  "version": "1.0.0",
+  "author": "koalabuttz",
+  "homepage": "https://github.com/koalabuttz/roguelike",
+  "skills": [
+    {
+      "name": "playtest",
+      "description": ""
+    }
+  ]
+}
