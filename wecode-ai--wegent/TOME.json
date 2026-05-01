@@ -4,7 +4,7 @@
   "repo": "Wegent",
   "description": "An open-source AI-native operating system to define, organize, and run intelligent agent teams",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wecode-ai/Wegent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T06:10:03Z"
+  "distributed_at": "2026-05-01T08:19:25Z"
 }
