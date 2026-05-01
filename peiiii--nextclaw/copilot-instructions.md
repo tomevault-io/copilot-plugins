@@ -1,51 +1,25 @@
-## code-citation-clickable
+## commit-message-english
 
-> 代码块行号引用、行内路径与模块引用优先可跳转（围栏 + Markdown 链接）
+> Use English for git commit messages
 
 
-# 可点击代码引用
+# Commit Message Language
 
-在解释实现、走查链路或回答「代码在哪」时，**优先给出带路径与行号的引用**，便于在 Cursor 里打开文件并跳到行号；同时需知：**并非所有界面都会把代码块变成可点击链接**。
+All git commit messages must be written in **English**.
 
-## 为何「很多不能跳转」（预期内限制）
+- Use conventional commit format: `type(scope): subject`
+- Keep subject line under 72 characters
+- Body and footer in English
 
-- **渲染通道不同**：助手回复里手打的 ` ```start:end:path ` 围栏，在部分会话/预览里只会语法高亮，**不保证**出现可点击 chip；能否跳转依赖 Cursor 当前面板实现与版本。
-- **缩进代码块不算**：围栏前若有列表缩进或整段被缩进成「indented code block」，通常**不会**按 `行:行:路径` 解析，应视为不可跳转。
-- **路径必须落在当前工作区**：相对路径需相对**已打开的仓库根**；路径错、文件不在本 workspace、或复制到外部工具查看时，都无法跳转。
-- **格式必须干净**：起始行只能是 ` ```数字:数字:路径 `，**单独一行**；不要 `- ```...` 同列一行、不要在反引号与行号之间插空格、不要用 HTML 转义路径。
+```bash
+# ✅ GOOD
+git commit -m "fix(ncp): resolve stream encoder tool call ordering"
+git commit -m "feat(api): add pagination support"
 
-## 首选：带行号的代码围栏（助手侧写法）
-
-使用**单独一行、无列表前缀、无整段缩进**的起始围栏：` ```起始行:结束行:相对仓库根路径 `，下一行起为代码，最后一行单独 ` ``` ` 结束。
-
-- 路径使用**相对仓库根**，例如 `packages/nextclaw/src/cli/commands/plugins.ts`。
-- 引用取最小连续区间；无关行用 `...` 占位。
-- 反例：正文里只写裸文件名、无路径也无行号。
-
-## 行内代码引用与模块引用
-
-**行内**（句子里的文件/符号）反引号往往**不可点**；在需要「一点就开」时，**应用 Markdown 链接**，路径仍相对仓库根：
-
-- 文件：`[`plugin.controller.ts`](packages/nextclaw-server/src/ui/router/marketplace/plugin.controller.ts)`；若需精确定位，在链接后加纯文本行号，如「见上文 L127–178」或单独再给一行号围栏。
-- 目录：链到该目录下的 `README.md` 或代表性入口文件，避免链到裸目录（部分渲染器不支持）。
-- **Workspace 包 / 模块名**（如 `@nextclaw/server`）：链到**本次讨论最相关的一个源码文件**（例如正在改的 `*.ts`）；若无单一文件，再退到该包 [`package.json`](packages/nextclaw-server/package.json) 或包内 `README.md`（**仅当文件存在时再写链接**，避免死链）。
-- **外部 npm 包**（非本仓库）：用 `https://` 链到 registry、文档或源码仓库；不要随意写成指向本仓库的假路径。
-
-行内链接与行号围栏**互补**：链接负责「打开对的文件」，围栏负责「锁定行区间」。
-
-## 用户侧最稳打开方式
-
-- 用 **Quick Open**（`Cmd+P` / `Ctrl+P`）粘贴路径，打开后再 `Cmd+G` 跳行号。
-- 在 Chat 里用 **`@` 引用文件** 让 Cursor 绑定工作区文件，再结合助手给出的行号跳转。
-
-## 次选补充
-
-- **同一文件多段逻辑**：拆成多个上述代码块，或第一段给全路径+行号，后续在同文件可用「同上文件」+ 行号范围；行内再次提到该文件时用 Markdown 链接缩短阅读路径。
-
-## 避免
-
-- 大段粘贴无路径无行号的裸代码。
-- 用 HTML 实体代替 `<`、`&` 等（围栏内保持字面量）。
+# ❌ BAD
+git commit -m "修复 NCP 流式编码器问题"
+git commit -m "新增分页功能"
+```
 
 ---
 > Source: [Peiiii/nextclaw](https://github.com/Peiiii/nextclaw) — distributed by [TomeVault](https://tomevault.io).
