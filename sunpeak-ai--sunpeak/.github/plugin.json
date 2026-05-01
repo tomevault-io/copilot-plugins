@@ -1,0 +1,9 @@
+{
+  "name": "sunpeak-ai--sunpeak",
+  "displayName": "sunpeak",
+  "description": "Local-first MCP App framework for ChatGPT Apps, Claude, and more.",
+  "version": "1.0.0",
+  "author": "Sunpeak-AI",
+  "homepage": "https://github.com/Sunpeak-AI/sunpeak",
+  "skills": []
+}
