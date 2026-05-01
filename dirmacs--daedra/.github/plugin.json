@@ -1,0 +1,9 @@
+{
+  "name": "dirmacs--daedra",
+  "displayName": "daedra",
+  "description": "Self-contained web search MCP server. 7 backends with automatic fallback. Pure Rust. Works from any IP.",
+  "version": "1.0.0",
+  "author": "dirmacs",
+  "homepage": "https://github.com/dirmacs/daedra",
+  "skills": []
+}
