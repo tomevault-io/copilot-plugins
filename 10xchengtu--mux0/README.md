@@ -1,11 +1,13 @@
-# MUX0
+# Mux0
 
-> Tome by [10xChengTu](https://github.com/10xChengTu/MUX0) — distributed by [TomeVault](https://tomevault.io)
+> Source: [10xChengTu/Mux0](https://github.com/10xChengTu/Mux0) — distributed by [TomeVault](https://tomevault.io)
+
+A native macOS terminal built on libghostty. Workspaces, tabs, and split panes for your repos — with live status for every Claude Code, OpenCode, and Codex session you run.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [10xChengTu/MUX0](https://github.com/10xChengTu/MUX0).
+Original source: `AGENTS.md` in [10xChengTu/Mux0](https://github.com/10xChengTu/Mux0).
 
 ## Also available for
 
@@ -15,10 +17,10 @@ Original source: `AGENTS.md` in [10xChengTu/MUX0](https://github.com/10xChengTu/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/10xChengTu/MUX0](https://github.com/10xChengTu/MUX0)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/10xChengTu/Mux0](https://github.com/10xChengTu/Mux0)
 
 ---
 
 Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:t-c-p -->
+<!-- genome:d-c-q -->
