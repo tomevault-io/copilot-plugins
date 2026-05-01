@@ -1,0 +1,9 @@
+{
+  "name": "kingbootoshi--codex-orchestrator",
+  "displayName": "codex-orchestrator",
+  "description": "Delegate tasks to OpenAI Codex agents via tmux sessions. Designed for Claude Code orchestration.",
+  "version": "1.0.0",
+  "author": "kingbootoshi",
+  "homepage": "https://github.com/kingbootoshi/codex-orchestrator",
+  "skills": []
+}
