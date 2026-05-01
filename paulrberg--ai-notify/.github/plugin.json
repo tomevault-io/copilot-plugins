@@ -1,0 +1,9 @@
+{
+  "name": "paulrberg--ai-notify",
+  "displayName": "ai-notify",
+  "description": "macOS notifications for Claude Code and Codex CLI with intelligent session tracking",
+  "version": "1.0.0",
+  "author": "PaulRBerg",
+  "homepage": "https://github.com/PaulRBerg/ai-notify",
+  "skills": []
+}
