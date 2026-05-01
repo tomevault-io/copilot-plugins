@@ -1,85 +1,70 @@
-## self-improve
+## tailwind-styling
 
-> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
+> This rule outlines our Tailwind CSS styling conventions.
 
 
-# Self-Improvement
+# Tailwind CSS Styling Practices
 
-This rule explains how to continuously improve Cursor rules based on emerging code patterns and best practices.
+This rule outlines our Tailwind CSS styling conventions.
 
-## Rule Improvement Triggers
+## Class Organization
 
-- New code patterns not covered by existing rules
-- Repeated similar implementations across files
-- Common error patterns that could be prevented
-- New libraries or tools being used consistently
-- Emerging best practices in the codebase
+Organize Tailwind classes in logical groups:
 
-# Analysis Process:
-- Compare new code with existing rules
-- Identify patterns that should be standardized
-- Look for references to external documentation
-- Check for consistent error handling patterns
-- Monitor test patterns and coverage
+1. Layout/positioning classes first
+2. Sizing classes
+3. Spacing (margin/padding)
+4. Visual styles (colors, borders)
+5. Typography
+6. Interactive states
+7. Responsive variants last
 
-# Rule Updates:
+Example:
+```tsx
+className="flex flex-col gap-4 w-full p-6 bg-primary-100/20 text-sm hover:bg-primary-200/30 md:flex-row"
+```
 
-- **Add New Rules When:**
-  - A new technology/pattern is used in 3+ files
-  - Common bugs could be prevented by a rule
-  - Code reviews repeatedly mention the same feedback
-  - New security or performance patterns emerge
+## Responsive Design
 
-- **Modify Existing Rules When:**
-  - Better examples exist in the codebase
-  - Additional edge cases are discovered
-  - Related rules have been updated
-  - Implementation details have changed
+- Mobile-first approach (base classes for mobile, prefixed classes for larger screens)
+- Use responsive prefixes: `sm:`, `md:`, `lg:`, `xl:`, `2xl:`
 
-- **Example Pattern Recognition:**
+## Color System
 
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
-  });
+- Use semantic color naming with numeric scale (primary-100, primary-900)
+- Apply opacity with slash notation: `bg-primary-100/20`
+- Use consistent dark mode variants: `dark:bg-primary-900/10`
 
-  // Consider adding to [prisma.mdc](mdc:shipixen/.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
-  ```
+```tsx
+className="bg-primary-100/20 text-primary-900 dark:bg-primary-900/10 dark:text-primary-100"
+```
 
-- **Rule Quality Checks:**
-- Rules should be actionable and specific
-- Examples should come from actual code
-- References should be up to date
-- Patterns should be consistently enforced
+## Layout Patterns
 
-## Continuous Improvement:
+- Use flex and grid for layouts
+- Use gap utilities instead of margins between flex/grid children
+- Container classes for width constraints: `container-narrow`, `container-wide`, `container-ultrawide`, `max-w-sm` etc.
 
-- Monitor code review comments
-- Track common development questions
-- Update rules after major refactors
-- Add links to relevant documentation
-- Cross-reference related rules
+## Design System Integration
 
-## Rule Deprecation
+- Use consistent color palette (primary, secondary)
+- Use consistent spacing scale
+- Apply opacity for subtle UI elements
+- Use gradient backgrounds for visual interest
 
-- Mark outdated patterns as deprecated
-- Remove rules that no longer apply
-- Update references to deprecated rules
-- Document migration paths for old patterns
+```tsx
+className="bg-gradient-to-r from-gray-50/5 via-gray-100/60 to-gray-50/5"
+```
 
-## Documentation Updates:
+## Styling Approach
+- Shadcn UI for behavior + TailwindCSS for styling
+- Use `cn()` utility for conditional classes
+- Leverage CVA for component variants
 
-- Keep examples synchronized with code
-- Update references to external docs
-- Maintain links between related rules
-- Document breaking changes
-
-Follow [cursor-rules.mdc](mdc:.cursor/rules/cursor-rules.mdc) for proper rule formatting and structure.
+## Best Practices
+- Use composition and props to extend functionality.
+- Follow accessibility and responsive design patterns as established in the codebase.
+- Prefer functional, declarative usage and avoid class-based components.
 
 ---
 > Source: [PageAI-Pro/vibe-coding-starter](https://github.com/PageAI-Pro/vibe-coding-starter) — distributed by [TomeVault](https://tomevault.io).
