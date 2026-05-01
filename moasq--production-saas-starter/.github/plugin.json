@@ -1,0 +1,9 @@
+{
+  "name": "moasq--production-saas-starter",
+  "displayName": "production-saas-starter",
+  "description": "Production-ready B2B SaaS Starter Kit (Go + Next.js). Modular Monolith. Hexagonal Arch.",
+  "version": "1.0.0",
+  "author": "moasq",
+  "homepage": "https://github.com/moasq/production-saas-starter",
+  "skills": []
+}
