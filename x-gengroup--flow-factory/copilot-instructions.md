@@ -1,13 +1,36 @@
-## examples-yaml-sync
+## no-defensive-except
 
-> Remind to update ALL example YAML configs when modifying hparams dataclasses
+> Prefer explicit checks and raise; avoid broad defensive try/except
 
 
-When modifying fields in hparams/ dataclasses:
-- New fields: add to ALL example configs in examples/ with default value and `# Options:` comment
-- Renamed fields: search-and-replace across ALL YAML files (old keys fail silently)
-- Removed fields: clean up from ALL YAML files
-See constraint #15 in .agents/knowledge/constraints.md.
+# Error handling: fail fast with informative raises
+
+Do not write defensive `try`/`except` that hides failures: no bare `except`, no `except Exception` that returns a default, logs and continues, or swallows errors.
+
+When behavior violates expectations (wrong type, `None`, bad shape, invalid range):
+
+- Prefer `isinstance`, explicit `None` checks, dimension/range validation, or invariant checks **before** relying on values.
+- On failure, `raise` with a **specific** exception (`TypeError`, `ValueError`, or a narrow project exception) and a message that includes **what was expected**, **what was received**, and **relevant identifiers** (names, shapes, ids) so users can debug.
+
+Narrow `try`/`except` is acceptable only when documented (e.g. optional import → `ImportError`, or an API that returns error codes). Prefer `raise ... from e` to preserve the chain.
+
+```python
+# Bad: swallow or mask
+try:
+    x = f(y)
+except Exception:
+    x = 0
+
+# Bad: vague message
+if not isinstance(x, int):
+    raise TypeError("bad type")
+
+# Good: explicit check + informative raise
+if not isinstance(x, int):
+    raise TypeError(
+        f"expected int for batch_size, got {type(x).__name__}: {x!r}"
+    )
+```
 
 ---
 > Source: [X-GenGroup/Flow-Factory](https://github.com/X-GenGroup/Flow-Factory) — distributed by [TomeVault](https://tomevault.io).
