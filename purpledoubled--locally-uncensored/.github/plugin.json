@@ -1,0 +1,9 @@
+{
+  "name": "purpledoubled--locally-uncensored",
+  "displayName": "locally-uncensored",
+  "description": "Local AI desktop app \u2014 chat, agent mode, image gen, video gen. Supports Ollama, Gemma 4, Llama, Qwen, OpenAI, Anthropic. Single .exe, no Docker.",
+  "version": "1.0.0",
+  "author": "PurpleDoubleD",
+  "homepage": "https://github.com/PurpleDoubleD/locally-uncensored",
+  "skills": []
+}
