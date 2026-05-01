@@ -1,0 +1,9 @@
+{
+  "name": "hssstg--murmur",
+  "displayName": "murmur",
+  "description": "Free offline voice-to-text for macOS. Push-to-talk, works in any app.",
+  "version": "1.0.0",
+  "author": "hssstg",
+  "homepage": "https://github.com/hssstg/murmur",
+  "skills": []
+}
