@@ -1,0 +1,9 @@
+{
+  "name": "ko1--lumitrace",
+  "displayName": "lumitrace",
+  "description": "Inline expression tracing for Ruby",
+  "version": "1.0.0",
+  "author": "ko1",
+  "homepage": "https://github.com/ko1/lumitrace",
+  "skills": []
+}
