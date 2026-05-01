@@ -4,7 +4,7 @@
   "repo": "dev-browser",
   "description": "A Claude Skill to give your agent the ability to use a web browser",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SawyerHood/dev-browser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T16:12:49Z"
+  "distributed_at": "2026-05-01T12:13:58Z"
 }
