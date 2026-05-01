@@ -1,0 +1,9 @@
+{
+  "name": "tobilg--ai-observer",
+  "displayName": "ai-observer",
+  "description": "Unified local observability for AI coding assistants",
+  "version": "1.0.0",
+  "author": "tobilg",
+  "homepage": "https://github.com/tobilg/ai-observer",
+  "skills": []
+}
