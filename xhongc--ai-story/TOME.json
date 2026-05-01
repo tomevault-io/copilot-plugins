@@ -4,7 +4,7 @@
   "repo": "ai_story",
   "description": "AI\u89c6\u9891, AI\u52a8\u6f2b,AI \u77ed\u5267,AI\u6f2b\u5267\u81ea\u52a8\u5316\u751f\u6210\u5de5\u5177",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xhongc/ai_story",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T02:50:41Z"
+  "distributed_at": "2026-05-01T15:56:59Z"
 }
