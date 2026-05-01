@@ -1,26 +1,63 @@
 ## chying-agent
 
-> 当你实现 langgraph 时 ，请先深入学习一下官方的实现
+> 本文件为 Claude Code 提供项目代码指导。
 
+# CLAUDE.md
 
-当你实现 langgraph 时 ，请先深入学习一下官方的实现
-https://langchain-ai.github.io/langgraph/how-tos/multi_agent/
-https://langchain-ai.github.io/langgraph/concepts/multi_agent/
-https://langchain-ai.github.io/langgraph/agents/multi-agent/
+本文件为 Claude Code 提供项目代码指导。
 
-这个是官方的最佳实践
-https://github.com/langchain-ai/open_deep_research/
+## 项目概述
 
-工具使用 ToolNode
-要有记忆模块
-目录结构清晰，每个文件负责不同的职能
+**CHYing Agent** - 基于 LangGraph 的 AI 自动化渗透测试 Agent，用于 CTF 比赛。
 
-现在请结合当前上下文，深入分析问题，并提出专业的全局性解决方案。
-**请牢记：使用中文回答 **
-** 这是一个使用 uv 管理的项目**
-** 代码中的注释使用中文**
+**核心设计**：双 Agent 协作（顾问 MiniMax + 主攻手 DeepSeek），三个核心工具（execute_command、execute_python_poc、submit_flag）。
+
+## 核心文件
+
+| 文件 | 职责 |
+|------|------|
+| `main.py` | 入口，支持 `-t 目标` 单题模式和 `-api` 比赛模式 |
+| `chying_agent/graph.py` | LangGraph 图构建，advisor_node + main_agent_node + tool_node |
+| `chying_agent/state.py` | 状态定义 PenetrationTesterState |
+| `chying_agent/challenge_solver.py` | 单题解题逻辑 |
+| `chying_agent/tools/` | 工具定义 |
+
+## 运行命令
+
+```bash
+uv run main.py -t http://target.com  # 单目标
+uv run main.py -api                   # 比赛模式
+```
+
+## 关键机制
+
+1. **顾问介入**：任务开始、失败 3/6/9 次、每 5 次定期咨询、主动求助
+2. **自动 FLAG 提交**：tool_node 扫描输出自动提交，防止 LLM 漏调 submit_flag
+3. **角色互换**：重试时 DeepSeek ↔ MiniMax 轮换
+
+## 修改指南
+
+- **改 Agent 行为**：修改 `graph.py` 中的 `_build_system_prompt()` 或 `_build_main_system_prompt()`
+- **加新工具**：在 `tools/` 创建，用 `@tool` 装饰器，在 `__init__.py` 导出
+- **不要**：创建新图节点、绕过执行器、直接修改状态
+
+## 协作原则
+
+### Review 时
+- 深入分析每个文件的实现细节，不要只看表面
+- 检查边界条件、错误处理、并发安全
+- 关注代码是否符合项目现有模式
+
+### 新增功能时
+- **先搜索**：检查是否已存在类似实现，优先复用
+- **质疑必要性**：这个功能真的需要吗？能否用现有能力组合实现？
+- **保持极简**：项目核心理念是「少即是多」，避免过度设计
+
+### 独立思考
+- 不要总是认可用户意见，发现问题要直接指出
+- 如果方案有更好的替代，主动提出
+- 技术决策要基于事实，不是讨好
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/yhy0)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/yhy0)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [yhy0/CHYing-agent](https://github.com/yhy0/CHYing-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
