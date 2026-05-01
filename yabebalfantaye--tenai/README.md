@@ -7,14 +7,14 @@ Infrastructure-as-code for multi-device, multi-agent development environments. M
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [yabebalFantaye/tenai](https://github.com/yabebalFantaye/tenai).
+Original source: `AGENTS.md` in [yabebalFantaye/tenai](https://github.com/yabebalFantaye/tenai).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [yabebalFantaye/tenai](https://github.com/yabebalFantaye/tenai) — a repo with 8+ stars on GitHub.
