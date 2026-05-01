@@ -1,11 +1,11 @@
-# moonrail-challenge-laravel
+# AI instruction files for moonrail-challenge-laravel
 
-> Tome by [JauheniS](https://github.com/JauheniS/moonrail-challenge-laravel) — distributed by [TomeVault](https://tomevault.io)
+> Sourced from [jauhenis/moonrail-challenge-laravel](https://github.com/jauhenis/moonrail-challenge-laravel) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [JauheniS/moonrail-challenge-laravel](https://github.com/JauheniS/moonrail-challenge-laravel).
+Original source: `.cursor/rules/*.mdc` in [jauhenis/moonrail-challenge-laravel](https://github.com/jauhenis/moonrail-challenge-laravel).
 
 ## Also available for
 
@@ -15,14 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [JauheniS/moonrail-challenge-laravel](
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [JauheniS/moonrail-challenge-laravel](https://github.com/JauheniS/moonrail-challenge-laravel) — a repo with 0+ stars on GitHub.
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/jauhenis/moonrail-challenge-laravel](https://github.com/jauhenis/moonrail-challenge-laravel)
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install JauheniS/moonrail-challenge-laravel
-```
-Source: [github.com/JauheniS/moonrail-challenge-laravel](https://github.com/JauheniS/moonrail-challenge-laravel).
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
 
-<!-- genome:t-i-s -->
+<!-- genome:a-e-p -->
