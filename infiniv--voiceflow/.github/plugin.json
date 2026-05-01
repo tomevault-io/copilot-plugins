@@ -1,0 +1,9 @@
+{
+  "name": "infiniv--voiceflow",
+  "displayName": "VoiceFlow",
+  "description": "VoiceFlow brings the power of OpenAI's Whisper directly to your Windows machine. It runs entirely on your hardware, ensuring your voice data never leaves your device. Designed for privacy, speed, and ",
+  "version": "1.0.0",
+  "author": "infiniV",
+  "homepage": "https://github.com/infiniV/VoiceFlow",
+  "skills": []
+}
