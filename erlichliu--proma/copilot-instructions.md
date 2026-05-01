@@ -1,4 +1,4 @@
-## proma
+## use-bun-instead-of-node-vite-npm-pnpm
 
 > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
