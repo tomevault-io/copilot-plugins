@@ -1,38 +1,40 @@
-## no-tautological-tests
+## object-hasown
 
-> Avoid tautological tests that only restate fixture input
+> Use Object.hasOwn() instead of hasOwnProperty()
 
 
-# Avoid Tautological Tests
+# Use Object.hasOwn() Instead of hasOwnProperty()
 
-Tests must verify behavior, not mirror object shape passed by the test itself.
+**CRITICAL**: Always use `Object.hasOwn()` instead of `hasOwnProperty()` to check for own properties.
 
-## Rule
+## Why?
 
-- Prefer assertions that validate transformation, branching, integration behavior, error handling, or side effects.
-- Do not add tests that only confirm an object still contains fields copied directly from the test input.
-- If coverage pressure encourages low-value assertions, tune coverage configuration instead of adding meaningless tests.
+- `Object.hasOwn()` is the modern, recommended API (ES2022)
+- `hasOwnProperty()` can be overridden or shadowed
+- Biome lint rule `noPrototypeBuiltins` enforces this
 
 ## Examples
 
-**❌ Avoid**
-
+**❌ WRONG: Using hasOwnProperty()**
 ```typescript
-const value = makeThing({ a: 1, b: 2 });
-expect(value).toMatchObject({ a: 1, b: 2 });
+if (obj.hasOwnProperty('key')) { /* ... */ }
+if (meta.annotations?.codecs?.hasOwnProperty('id')) { /* ... */ }
 ```
 
-When `makeThing()` only stores the same input fields, this adds little signal and mostly tests fixture setup.
-
-**✅ Prefer**
-
+**✅ CORRECT: Using Object.hasOwn()**
 ```typescript
-const value = makeThing({ precision: 12 });
-expect(value.normalize()).toBe('numeric(12)');
-expect(() => makeThing({ precision: -1 })).toThrow();
+if (Object.hasOwn(obj, 'key')) { /* ... */ }
+if (Object.hasOwn(meta.annotations?.codecs ?? {}, 'id')) { /* ... */ }
 ```
 
-These assertions validate behavior and error paths that can actually regress.
+**Note**: When using optional chaining, provide a fallback object:
+```typescript
+// ❌ WRONG
+Object.hasOwn(meta.annotations?.codecs, 'id')  // May pass undefined
+
+// ✅ CORRECT
+Object.hasOwn(meta.annotations?.codecs ?? {}, 'id')
+```
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
