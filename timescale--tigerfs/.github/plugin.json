@@ -1,0 +1,9 @@
+{
+  "name": "timescale--tigerfs",
+  "displayName": "tigerfs",
+  "description": "Mount PostgreSQL as a filesystem. Build apps with files, explore databases with ls and cat.",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/tigerfs",
+  "skills": []
+}
