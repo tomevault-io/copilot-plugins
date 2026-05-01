@@ -1,0 +1,9 @@
+{
+  "name": "its-ahoh--codey",
+  "displayName": "codey",
+  "description": "Gateway for routing coding agent requests across multiple chat platforms with worker teams",
+  "version": "1.0.0",
+  "author": "its-ahoh",
+  "homepage": "https://github.com/its-ahoh/codey",
+  "skills": []
+}
