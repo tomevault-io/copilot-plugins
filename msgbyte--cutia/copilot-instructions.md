@@ -1,39 +1,25 @@
-## comments
+## handling-uncertainty
 
-> - Explain WHY, not WHAT
+> If you can't confidently respond due to missing context, data access, or ambiguity (multiple interpretations), report it instead of guessing. Seek clarification to avoid errors.
 
 
-# Comment Guidelines
+# Handling Uncertainty
 
-## Good Comments (Human-style)
-- Explain WHY, not WHAT
-- Document non-obvious behavior or edge cases
-- Warn about performance implications or side effects
-- Explain business logic that isn't clear from code
+## Principle
+If you can't confidently respond due to missing context, data access, or ambiguity (multiple interpretations), report it instead of guessing. Seek clarification to avoid errors.
 
-Examples:
-```javascript
-// transfer, not copy; sender buffer detaches
-// satisfies: check shape; keep literals  
-// keep multibyte across chunks
-// timingSafeEqual throws on length mismatch
-```
+Apply when: query lacks details, no access to info/tools, or unclear intent.
 
-## Bad Comments (AI-style)
-- Don't explain what the code literally does
-- Don't add changelog-style comments in code
-- Don't comment every line or obvious operations
+## How to Report
+1. **Description**: Why uncertain and what you need.
+2. **Questions**: 1-3 targeted ones.
+3. **Assumptions** (opt.): State if proceeding; omit otherwise.
 
-Avoid:
-```javascript
-// Prevent duplicate initialization
-// Check if project is already loaded  
-// Mark as initializing to prevent race conditions
-// (changed from blah to blah)
-```
+Direct and concise.
 
-## Rule
-Only add comments when there's genuinely non-obvious behavior, performance considerations, or business logic that needs context. Code should be self-documenting through naming and structure.
+**Assumptions**: None.
+
+Builds transparency.
 
 ---
 > Source: [msgbyte/cutia](https://github.com/msgbyte/cutia) — distributed by [TomeVault](https://tomevault.io).
