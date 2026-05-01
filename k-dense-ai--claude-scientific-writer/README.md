@@ -7,13 +7,13 @@ A general purpose scientific writer
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [K-Dense-AI/claude-scientific-writer](https://github.com/K-Dense-AI/claude-scientific-writer).
+Original source: `CLAUDE.md` in [K-Dense-AI/claude-scientific-writer](https://github.com/K-Dense-AI/claude-scientific-writer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
