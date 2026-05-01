@@ -1,13 +1,56 @@
-## readability
+## separation-of-concerns
 
-> Optimize code for AI agents to understand and modify.
+> Each file should have one single purpose/responsibility. Related functionality should be grouped together, unrelated functionality should be separated.
 
 
-# Readability First
+# Separation of Concerns
 
-Optimize code for AI agents to understand and modify.
+## Core Principle
 
-Never abbreviate. `event` not `e`, `element` not `el`. If it's easy to read, it's correct. In this case, "config" is better than "configuration" because it's shorter and is **still very readable**. "El" is not very readable.
+Each file should have one single purpose/responsibility. Related functionality should be grouped together, unrelated functionality should be separated.
+
+## Good Separation
+
+- One file per major concern (auth, validation, data transformation)
+- Group related utilities together
+- Extract shared logic into dedicated files
+- Keep API routes focused on their specific endpoint logic
+
+Examples:
+
+```javascript
+// ✅ Good: Each file has clear responsibility
+/lib/rate-limit.ts          // Rate limiting utilities
+/lib/validation.ts          // Input validation schemas
+/lib/freesound-api.ts       // External API integration
+/api/sounds/search/route.ts // Route handler only
+```
+
+## Bad Mixing of Concerns
+
+Avoid cramming multiple responsibilities into one file:
+
+```javascript
+// ❌ Bad: Route file doing everything
+/api/sounds/search/route.ts
+- Rate limiting logic
+- Validation schemas
+- API transformation
+- External API calls
+- Response formatting
+- Error handling utilities
+```
+
+## When to Separate
+
+- File is getting long (>500 lines)
+- Multiple distinct responsibilities in one file
+- Logic could be reused elsewhere
+- Complex utilities that distract from main purpose
+
+## Rule
+
+One file, one responsibility. Extract shared concerns into focused utility files
 
 ---
 > Source: [msgbyte/cutia](https://github.com/msgbyte/cutia) — distributed by [TomeVault](https://tomevault.io).
