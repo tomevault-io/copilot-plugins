@@ -1,0 +1,44 @@
+{
+  "name": "tiny_polyhedral_compiler",
+  "owner": "hikettei",
+  "repo": "tiny_polyhedral_compiler",
+  "description": "wip: a playground repository dedicated to implement random polyhedral compiler algorithms (an attempt to reimplement extended integer set library?)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hikettei/tiny_polyhedral_compiler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T14:29:48Z"
+}
