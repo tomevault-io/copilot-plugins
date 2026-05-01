@@ -1,0 +1,9 @@
+{
+  "name": "agno-agi--dash",
+  "displayName": "dash",
+  "description": "A self-learning data agent built with systems engineering principles. It grounds answers in 6 layers of context and improves with every query.",
+  "version": "1.0.0",
+  "author": "agno-agi",
+  "homepage": "https://github.com/agno-agi/dash",
+  "skills": []
+}
