@@ -1,0 +1,9 @@
+{
+  "name": "d-n91--home-assistant-global-health-score",
+  "displayName": "home-assistant-global-health-score",
+  "description": "The open standard for Home Assistant instance health monitoring.",
+  "version": "1.0.0",
+  "author": "D-N91",
+  "homepage": "https://github.com/D-N91/home-assistant-global-health-score",
+  "skills": []
+}
