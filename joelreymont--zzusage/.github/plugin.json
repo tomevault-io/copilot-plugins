@@ -1,0 +1,9 @@
+{
+  "name": "joelreymont--zzusage",
+  "displayName": "zzusage",
+  "description": "Claude Code usage analyzer in Zig",
+  "version": "1.0.0",
+  "author": "joelreymont",
+  "homepage": "https://github.com/joelreymont/zzusage",
+  "skills": []
+}
