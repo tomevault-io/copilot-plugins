@@ -1,46 +1,46 @@
-## use-hash-constructors
+## use-if-defined
 
-> Use coreHash() and profileHash() constructors instead of 'as never' casts for branded hash types
+> Use ifDefined() for conditional object spreads
 
 
-# Use Hash Constructors for Branded Hash Types
+# Use ifDefined() for Conditional Object Spreads
 
-When creating `CoreHashBase` or `ProfileHashBase` values in tests, use the `coreHash()` and `profileHash()` constructors from `@prisma-next/contract/types`.
+**CRITICAL**: Use `ifDefined` from `@prisma-next/utils/defined` instead of inline conditional spread patterns.
 
-## The Problem
+## Why?
 
-`CoreHashBase` and `ProfileHashBase` are branded types (`string & Brand<'CoreHash'>`). Plain strings don't satisfy the brand, so tests historically used `as never` casts to bypass the type system:
+- Cleaner, more readable syntax
+- Explicit about which properties are optional
+- Satisfies `exactOptionalPropertyTypes`
+- Preserves falsy values (0, '', false, null) — only excludes `undefined`
 
+## Examples
+
+**❌ WRONG: Inline conditional spread**
 ```typescript
-// ❌ WRONG: unsafe cast, hides the branded type from the reader
-coreHash: 'sha256:test' as never,
-profileHash: 'sha256:test-profile' as never,
+const obj = {
+  required: 'value',
+  ...(options.default ? { default: options.default } : {}),
+  ...(options.name !== undefined ? { name: options.name } : {}),
+};
 ```
 
-## The Solution
-
+**✅ CORRECT: Using ifDefined**
 ```typescript
-import { coreHash, profileHash } from '@prisma-next/contract/types';
+import { ifDefined } from '@prisma-next/utils/defined';
 
-// ✅ CORRECT: type-safe, preserves literal type via const type parameter
-coreHash: coreHash('sha256:test'),
-profileHash: profileHash('sha256:test-profile'),
+const obj = {
+  required: 'value',
+  ...ifDefined('default', options.default),
+  ...ifDefined('name', options.name),
+};
 ```
 
-The constructors use `const` type parameters so `coreHash('sha256:test')` returns `CoreHashBase<'sha256:test'>`, not `CoreHashBase<string>`.
+## Behavior
 
-## Available Constructors
-
-From `@prisma-next/contract/types`:
-- `coreHash<const T extends string>(value: T): CoreHashBase<T>`
-- `profileHash<const T extends string>(value: T): ProfileHashBase<T>`
-
-## When to Use
-
-- ✅ Any test or test utility that constructs an `SqlContract` or `ContractBase` literal
-- ✅ Test helper functions that accept optional hash strings and need to produce branded values
-
-Do **not** use these in production emission code — the emitter computes hashes via `computeCoreHash()` and returns plain strings that are consumed at the type level through `contract.d.ts`.
+- `ifDefined('key', value)` returns `{ key: value }` when `value !== undefined`
+- `ifDefined('key', undefined)` returns `{}`
+- Falsy values like `0`, `''`, `false`, and `null` are preserved
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
