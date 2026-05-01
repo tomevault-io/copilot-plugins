@@ -1,0 +1,26 @@
+# AI instruction files for setupvibe
+
+> Sourced from [promovaweb/setupvibe](https://github.com/promovaweb/setupvibe) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+The ultimate cross-platform development environment setup script
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [promovaweb/setupvibe](https://github.com/promovaweb/setupvibe).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/promovaweb/setupvibe](https://github.com/promovaweb/setupvibe)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-p -->
