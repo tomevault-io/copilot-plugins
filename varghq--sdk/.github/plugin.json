@@ -1,0 +1,9 @@
+{
+  "name": "varghq--sdk",
+  "displayName": "sdk",
+  "description": "AI video generation SDK \u2014 JSX for videos. One API for Kling, Flux, ElevenLabs, Sora. Built on Vercel AI SDK.",
+  "version": "1.0.0",
+  "author": "vargHQ",
+  "homepage": "https://github.com/vargHQ/sdk",
+  "skills": []
+}
