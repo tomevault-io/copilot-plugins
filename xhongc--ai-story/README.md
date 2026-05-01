@@ -7,11 +7,11 @@ AI视频, AI动漫,AI 短剧,AI漫剧自动化生成工具
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xhongc/ai_story](https://github.com/xhongc/ai_story).
+Original source: `CLAUDE.md` in [xhongc/ai_story](https://github.com/xhongc/ai_story).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
