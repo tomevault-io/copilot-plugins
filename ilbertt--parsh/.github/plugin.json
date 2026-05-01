@@ -1,0 +1,9 @@
+{
+  "name": "ilbertt--parsh",
+  "displayName": "parsh",
+  "description": "Build type-safe CLIs in TypeScript",
+  "version": "1.0.0",
+  "author": "ilbertt",
+  "homepage": "https://github.com/ilbertt/parsh",
+  "skills": []
+}
