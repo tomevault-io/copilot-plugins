@@ -4,7 +4,7 @@
   "repo": "native-cli-ai",
   "description": "A native Rust CLI  for orchestrating AI agents across projects, with persistent sessions, worktrees, and local-first control.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/madebyaris/native-cli-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T12:45:40Z"
+  "distributed_at": "2026-05-01T19:03:44Z"
 }
