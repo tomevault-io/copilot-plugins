@@ -4,7 +4,7 @@
   "repo": "file-brain",
   "description": "Smart local file search app that understands your files",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hamza5/file-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T03:20:49Z"
+  "distributed_at": "2026-05-01T18:30:33Z"
 }
