@@ -1,37 +1,46 @@
-## integrations
+## quality
 
-> Integration client patterns
+> Pre-commit quality checklist and PR standards
 
 
-# Integration Clients
+# Quality Standards
 
-## Directory Structure
+## Before Every PR
 
-```
-app/integrations/
-├── clients/
-│   ├── grafana/          # Vendor-specific client packages
-│   ├── datadog/
-│   ├── s3_client.py      # Single-file clients
-│   └── vercel.py
-├── opensre_mcp.py        # MCP server implementation
-└── ...
+All three must pass — CI blocks merging if any fail:
+
+```bash
+make lint        # ruff: style and import checking
+make typecheck   # mypy: type annotation checking
+make test-cov    # pytest: tests with coverage report
 ```
 
-## Adding a New Integration
+## PR Checklist
 
-1. Create a client under `app/integrations/clients/<vendor>/`
-2. Implement connection, authentication, and API methods
-3. Create a tool under `app/tools/<VendorTool>/` that uses the client
-4. Wire availability into `resolve_integrations` node if the integration requires runtime discovery
-5. Add the vendor to `EvidenceSource` literal in `app/state.py` if it's a new source type
+- Link to the relevant GitHub issue (`Fixes #123`)
+- All local checks pass
+- Tests added for bug fixes and new features
+- Documentation updated if behavior changed
+- Self-reviewed your own code
+- Edge cases considered
+- Breaking changes called out explicitly
 
-## Conventions
+## AI-Assisted Code
 
-- Clients should be stateless or use context managers for connection lifecycle
-- Return `{"success": bool, "data": ..., "error": ...}` from client methods
-- Keep API-specific logic in the client; tool handles param extraction and result formatting
-- MCP tools are registered via `opensre-mcp` entry point in `pyproject.toml`
+If AI tools were used to generate code:
+- Review every line (not just skim)
+- Understand the logic and can explain it
+- Test edge cases
+- Match project conventions
+- Verify tests pass
+
+## Code Quality Principles
+
+- Clarity over cleverness
+- DRY: extract common patterns
+- Strong typing on all function signatures
+- One responsibility per function/class
+- Comments explain "why", not "what"
 
 ---
 > Source: [Tracer-Cloud/opensre](https://github.com/Tracer-Cloud/opensre) — distributed by [TomeVault](https://tomevault.io).
