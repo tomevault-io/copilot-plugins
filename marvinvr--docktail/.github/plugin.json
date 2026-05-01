@@ -1,0 +1,9 @@
+{
+  "name": "marvinvr--docktail",
+  "displayName": "docktail",
+  "description": "Expose Docker containers as Tailscale Services using label-based configuration.",
+  "version": "1.0.0",
+  "author": "marvinvr",
+  "homepage": "https://github.com/marvinvr/docktail",
+  "skills": []
+}
