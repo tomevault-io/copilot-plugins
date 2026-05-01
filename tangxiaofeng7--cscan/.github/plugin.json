@@ -1,0 +1,9 @@
+{
+  "name": "tangxiaofeng7--cscan",
+  "displayName": "cscan",
+  "description": "\ud83d\ude80 Enterprise-grade Distributed Asset & Vulnerability Scanner. Features: Port Scanning, Subdomain Brute-force, Fingerprinting, and PoC Detection. Built on Go-Zero & Vue3. \u9ad8\u6027\u80fd\u5206\u5e03\u5f0f\u7f51\u7edc\u8d44\u4ea7\u626b\u63cf\u5e73\u53f0 (\u7aef\u53e3/\u5b50\u57df\u540d/\u6307\u7eb9/\u6f0f\u626b)-",
+  "version": "1.0.0",
+  "author": "tangxiaofeng7",
+  "homepage": "https://github.com/tangxiaofeng7/cscan",
+  "skills": []
+}
