@@ -1,197 +1,141 @@
-## backend-architecture-and-conventions
+## frontend-architecture-and-conventions
 
-> ChatClaw 后端（Go/Wails）架构约束
+> ChatClaw 前端（Vue 3/shadcn-vue）架构约束
 
 
-# Go/Wails 后端编码约束
+# Vue 3 前端编码约束
+
+## 技术栈
+
+Vue 3 + TypeScript + Vite + TailwindCSS v4 + shadcn-vue + Pinia + vue-i18n
 
 ## 目录职责
 
-当你需要创建或修改后端代码时，遵循以下目录约定：
+当你需要创建或修改前端代码时，遵循以下目录约定：
 
-- `main.go` — 只写启动逻辑，不写业务代码
-- `internal/bootstrap/` — 应用组装、窗口创建、服务注册
-- `internal/services/*/` — 业务服务，每个服务一个目录
-- `internal/services/i18n/` — 多语言服务，翻译文件在 `locales/*.json`
-- `internal/services/windows/` — 窗口管理服务
-- `internal/errs/` — 业务错误类型
-- `internal/sqlite/` — 数据库连接和迁移
-- `internal/define/` — 环境配置、内置常量、**数据目录布局**（见下）
-- `internal/native/` — **ChatClaw 原生**边界：包 `native` 提供 `DataRootDir()`，对应当前活跃的原生数据根 `define.NativeDataRootDir()`（`$HOME/.chatclaw/native`）。与 OpenClaw 无关的业务逻辑仍主要在 `internal/services/*`；新增「仅原生、且适合单独成包」的辅助代码可放在此目录下，避免与 OpenClaw 混放。
-- `internal/openclaw/` — **OpenClaw 集成**边界：与本地 OpenClaw Gateway 通讯、Agent 同步、运行时进程等代码放在此处，例如：
-  - `internal/openclaw/agents/` — 包 `openclawagents`，OpenClaw 侧 Agent 的 DB 与 Wails 暴露
-  - `internal/openclaw/runtime/` — 包 `openclawruntime`，Gateway 生命周期、RPC/WebSocket、bundle 解析、配置片段同步  
-  包 `openclaw` 根下的 `paths.go` 提供 `DataRootDir()`，对应 `define.OpenClawDataRootDir()`（`$HOME/.chatclaw/openclaw`）。**不要**再把新的 OpenClaw 专用服务放到 `internal/services/openclaw*`（历史路径已迁入 `internal/openclaw/`）。
-
-**用户数据目录（与前端 native/openclaw 划分一致）**
-
-- `define.LegacyDataRootDir()` — `$HOME/.chatclaw`：旧版布局，**仅迁移与兼容读取**；启动时由 `define.EnsureDataLayout()` 将文件迁往子目录。
-- `define.NativeDataRootDir()` — `$HOME/.chatclaw/native`：原生 SQLite、应用日志、`skills/`、`mcp/` 等。
-- `define.OpenClawDataRootDir()` — `$HOME/.chatclaw/openclaw`：`openclaw.json`、Gateway 日志、`OPENCLAW_STATE_DIR` 内容、`workspace-*`、`agents/` 等与 Gateway 强相关的落盘数据。
-- `define.AppDataDir()` — 等同于 **原生数据根**（`NativeDataRootDir`）；新代码若语义是「OpenClaw 落盘」应显式使用 `OpenClawDataRootDir()`。
+- `src/components/ui/` — shadcn-vue 组件（只能通过 CLI 添加，不要手写）
+- `src/components/layout/` — 布局组件
+- `src/components/` — 其他业务组件
+- `src/composables/` — 组合式函数 `useXxx`
+- `src/stores/` — Pinia stores，命名 `useXxxStore`
+- `src/locales/` — 语言包 `zh-CN.ts` / `en-US.ts`
+- `src/lib/` — 工具函数
+- `src/assets/` — 静态资源、全局样式
+- `src/pages/assistant/` — **ChatClaw 主助手**（Eino 等），与 OpenClaw 隔离
+- `src/pages/openclaw/` — **OpenClaw Gateway** 相关页面与组件；入口页 `OpenClawPage.vue`；Pinia 导航模块名为 `openclaw`（不要使用 `openclaw-assistant`）
+- `src/pages/*`（其他）— 共享业务页（如知识库、设置）等
 
 ## 必须遵守
 
-1. **新建业务服务时**：默认放在 `internal/services/[服务名]/`，用 `NewXxxService()` 构造函数。**若服务仅服务于 OpenClaw Gateway 集成**，应放在 `internal/openclaw/` 下合适子包，而不是 `internal/services/`。
-2. **返回错误给前端时**：必须用 `errs.New()` / `errs.Newf()` / `errs.Wrap()`，不要直接返回 `error`
-3. **需要翻译的文本**：用 `i18n.T("key")` 或 `i18n.Tf("key", data)`，翻译 key 加到 `internal/services/i18n/locales/*.json`
-4. **新建数据库迁移**：放在 `internal/sqlite/migrations/`，文件名格式 `YYYYMMDDHHMM_描述.go`
-5. **错误处理**：用 `fmt.Errorf("context: %w", err)` 包装，不要吞掉错误
+1. **所有组件**：使用 `<script setup lang="ts">`，不用 Options API
+2. **导入路径**：始终用 `@/` 别名，如 `import { Button } from '@/components/ui/button'`
+3. **样式**：用 Tailwind 类名，颜色用 shadcn 语义变量（`bg-background`、`text-foreground`、`text-muted-foreground` 等）
+4. **条件类名**：用 `cn()` 函数合并，如 `cn('text-sm', disabled && 'opacity-50')`
+5. **添加 UI 组件**：运行 `npx shadcn-vue@latest add [组件名]`
+6. **翻译文本**：用 `const { t } = useI18n()`，key 格式 `模块.功能`
+7. **调用后端**：从 `@bindings/...` 导入，必须处理错误
+8. **ref 在模板中的使用**：在 `<template>` 中，ref 会自动解包，**不要**使用 `.value`
+
+## shadcn-vue 组件用法规范
+
+shadcn-vue 组件基于 Radix Vue 封装，必须使用 Vue 标准的 `v-model` / `:model-value` + `@update:model-value` 来绑定值，**不要**使用 Radix 底层的原始 prop 名（如 `:checked`、`@update:checked`、`:pressed`、`@update:pressed` 等）。
+
+```vue
+<!-- ❌ BAD — 使用了 Radix 底层的 :checked / @update:checked -->
+<Switch :checked="value" @update:checked="value = $event" />
+
+<!-- ✅ GOOD — 使用 v-model -->
+<Switch v-model="value" />
+
+<!-- ✅ GOOD — 使用 :model-value + @update:model-value（需要自定义处理逻辑时） -->
+<Switch :model-value="value" @update:model-value="handleChange" />
+```
+
+此规则适用于所有 shadcn-vue 双向绑定组件（Switch、Checkbox、Select、Slider 等）。
+
+## ref 在模板中的使用规则
+
+在 Vue 3 的 `<template>` 中，ref 会自动解包，**不需要**使用 `.value`。`.value` 只在 `<script setup>` 中使用。
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const scale = ref(1)
+const count = ref(0)
+
+// ✅ 在 script 中必须使用 .value
+const zoomIn = () => {
+  scale.value += 0.1
+}
+
+const increment = () => {
+  count.value++
+}
+</script>
+
+<template>
+  <!-- ❌ BAD — 在模板中使用了 .value -->
+  <Button :disabled="scale.value <= 0.5" @click="zoomIn">
+    Zoom In
+  </Button>
+  <div>{{ count.value }}</div>
+
+  <!-- ✅ GOOD — 在模板中直接使用 ref，自动解包 -->
+  <Button :disabled="scale <= 0.5" @click="zoomIn">
+    Zoom In
+  </Button>
+  <div>{{ count }}</div>
+</template>
+```
+
+**关键规则**：
+- `<script setup>` 中：必须使用 `ref.value` 访问或修改值
+- `<template>` 中：直接使用 `ref`，Vue 会自动解包
 
 ## 禁止
 
-- 不要在 `main.go` 写业务逻辑
-- 不要创建循环依赖（services 之间不要互相 import）
-- 不要直接 `log.Fatal`，除非是 `main.go` 中的启动失败
-- 不要硬编码用户可见的文本，必须走 i18n
-- **不要在函数体内裸调 `syscall.NewCallback` / `windows.NewCallback`**——Go 在 Windows 上只有约 2000 个回调槽位且永不释放，必须用 `sync.Once` 保证只创建一次（详见 `docs/windows-syscall-callback-limit.md`）
-
-## 更新内置供应商 / 模型
-
-当需要新增、修改或移除内置 AI 供应商或模型时，**必须**按以下两步操作：
-
-1. **修改配置**：编辑 `internal/define/builtin_providers.go`，在 `BuiltinProviders` / `BuiltinModels` 切片中增删改条目。
-2. **新建迁移文件**：在 `internal/sqlite/migrations/` 中创建迁移文件，调用已有的通用同步函数：
-
-```go
-package migrations
-
-import (
-    "context"
-    "github.com/uptrace/bun"
-)
-
-func init() {
-    Migrations.MustRegister(
-        func(ctx context.Context, db *bun.DB) error {
-            return SyncBuiltinProvidersAndModels(ctx, db)
-        },
-        func(ctx context.Context, db *bun.DB) error {
-            return nil
-        },
-    )
-}
-```
-
-`SyncBuiltinProvidersAndModels`（定义在 `sync_builtin.go`）会自动：
-
-- 新增不存在的供应商/模型
-- 更新已存在的内置供应商/模型的元数据（保留用户的 api_key、enabled 等设置）
-- 如果用户已手动添加了同名 model_id，会将其标记为内置并更新元数据
-- 将已从配置中移除的旧内置模型标记为非内置（不删除）
-
-**禁止**在迁移文件中手写 INSERT/UPDATE SQL 来逐条添加模型。
-
-## 数据库模型时间戳
-
-所有 bun 模型的 `created_at` / `updated_at` **必须**通过 `bun.BeforeInsertHook` 钩子自动设置，使用 `sqlite.NowUTC()` 生成 UTC 时间字符串。**禁止**依赖 bun tag 的 `default:current_timestamp` 或 `nullzero`——SQLite 建表 DDL 不一定有 DEFAULT，且 bun 的 nullzero 会跳过零值导致字段缺失。
-
-```go
-// ✅ 正确——每个模型都要加 BeforeInsertHook
-var _ bun.BeforeInsertHook = (*myModel)(nil)
-
-func (*myModel) BeforeInsert(ctx context.Context, query *bun.InsertQuery) error {
-    now := sqlite.NowUTC()
-    query.Value("created_at", "?", now)
-    query.Value("updated_at", "?", now)
-    return nil
-}
-
-// ❌ 错误——仅靠 bun tag，实际插入时 created_at 为零值会触发 NOT NULL 约束
-type myModel struct {
-    CreatedAt time.Time `bun:"created_at,nullzero,notnull,default:current_timestamp"`
-}
-```
+- 不要手动在 `src/components/ui/` 创建文件，必须用 shadcn CLI
+- 不要写内联 style，用 Tailwind 类名
+- 不要用相对路径 `../../`，用 `@/` 别名
+- 不要硬编码用户可见文本，必须走 i18n
+- 不要直接写颜色值如 `text-gray-500`，用语义变量 `text-muted-foreground`
+- 不要使用 Radix 底层 prop（如 `:checked`、`:pressed`），必须用 `v-model` 或 `:model-value`
+- **不要在模板中使用 `ref.value`**：Vue 3 模板中 ref 会自动解包，直接使用 `ref` 即可
 
 ## 代码模式
 
-```go
-// 创建服务
-func NewXxxService(app *application.App) *XxxService {
-    return &XxxService{app: app}
-}
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { useAppStore } from '@/stores'
 
-// 返回业务错误
-return errs.Newf("error.xxx_failed", map[string]any{"Name": name})
+const { t } = useI18n()
+const appStore = useAppStore()
 
-// 包装底层错误
-return errs.Wrap("error.xxx_failed", err)
+defineProps<{
+  title: string
+  disabled?: boolean
+}>()
+</script>
 
-// 使用翻译
-title := i18n.T("window.settings_title")
+<template>
+  <div class="flex items-center gap-2 bg-background text-foreground">
+    <Button :class="cn('w-full', disabled && 'opacity-50')">
+      {{ t('button.submit') }}
+    </Button>
+  </div>
+</template>
 ```
 
-## Windows 回调模式
+## 多窗口
 
-在 Windows 平台调用 `syscall.NewCallback` / `windows.NewCallback` 时，**必须**用 `sync.Once` 包裹，确保回调只创建一次。回调函数不能是闭包，需通过包级变量传参。
-
-```go
-// ✅ 正确
-var (
-    myCBOnce sync.Once
-    myCB     uintptr
-    myMu     sync.Mutex
-    myParam  string
-    myResult uintptr
-)
-
-func myEnumProc(hwnd uintptr, _ uintptr) uintptr {
-    // use myParam / myResult ...
-    return 1
-}
-
-func myFunc(param string) uintptr {
-    myMu.Lock()
-    defer myMu.Unlock()
-    myParam = param
-    myResult = 0
-    myCBOnce.Do(func() { myCB = syscall.NewCallback(myEnumProc) })
-    procEnumWindows.Call(myCB, 0)
-    return myResult
-}
-
-// ❌ 错误 — 每次调用都分配新槽位
-func myFunc(param string) uintptr {
-    var result uintptr
-    cb := syscall.NewCallback(func(hwnd uintptr, _ uintptr) uintptr { ... })
-    procEnumWindows.Call(cb, 0)
-    return result
-}
-```
-
-## Windows 隐藏控制台窗口
-
-在 Windows 上执行外部命令时（如 MCP stdio 模式），**必须**隐藏控制台窗口以避免弹窗闪烁。使用 `syscall.SysProcAttr` 设置 `HideWindow: true`。
-
-```go
-import "syscall"
-
-// 在 exec.CommandContext 后添加
-if runtime.GOOS == "windows" {
-    cmd.SysProcAttr = &syscall.SysProcAttr{
-        HideWindow: true,
-    }
-}
-```
-
-## 数据库迁移时间戳冲突
-
-当修改了已存在的迁移文件（如 `202604161212_create_xxx.go`），但该迁移已经被 SQLite 记录（bun 使用文件名时间戳判断），**不能**直接覆盖原文件，因为迁移系统不会重新执行已记录的迁移。
-
-**解决方法**：将文件名时间戳调大，使其成为"新"迁移：
-
-```bash
-# 例如将 202604161212 改为 202604170000
-mv 202604161212_create_xxx.go 202604170000_create_xxx.go
-```
-
-**原则**：新时间戳只要大于数据库中已记录的最大迁移时间戳，bun 就会认为这是一个新迁移并执行。常用策略：
-
-- 改到当天晚些时候（如 `202604162359_`）
-- 改到次日（如 `202604170000_`）
-- 改到近未来（如 `202604300000_`）
-
-**注意**：如果迁移使用了 `DROP TABLE IF EXISTS` 来重建表，每次改名重新执行没问题。但如果迁移是增量的（不重建），改名重新执行可能导致数据丢失，需根据实际情况判断。
+- 主窗口入口：`src/main.ts` + `index.html`
+- 子窗口入口：`src/winsnap/main.ts` + `winsnap.html`
+- 新窗口需要在 `vite.config.ts` 的 `rollupOptions.input` 添加入口
 
 ---
 > Source: [zhimaAi/ChatClaw](https://github.com/zhimaAi/ChatClaw) — distributed by [TomeVault](https://tomevault.io).
