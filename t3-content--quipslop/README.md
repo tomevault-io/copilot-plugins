@@ -5,13 +5,13 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [T3-Content/quipslop](https://github.com/T3-Content/quipslop).
+Original source: `.cursor/rules/*.mdc` in [T3-Content/quipslop](https://github.com/T3-Content/quipslop).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
