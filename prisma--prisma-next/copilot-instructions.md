@@ -1,63 +1,50 @@
-## no-inline-imports
+## no-target-branches
 
-> Prohibit inline type imports in source files
+> Never branch on target - use adapters instead
 
 
-# No Inline Type Imports
+# No Target-Specific Branches
 
-**CRITICAL**: Never use inline type imports (e.g., `import('./module').Type`) in source files. Always use top-level type imports instead.
+**CRITICAL**: Never branch on `target` in core code. Target-specific logic belongs in adapters and target packages.
 
-## The Problem
-
-Inline type imports like `import('./module').Type` make code harder to read, maintain, and understand. They hide dependencies and make it difficult to see what types are being used in a file.
-
-## The Solution
-
-**❌ WRONG: Inline type import**
+**❌ WRONG: Branch on target in core packages**
 
 ```typescript
-export interface OperationExpr {
-  readonly returns: import('./operations-registry').ReturnSpec;
-  readonly lowering: import('./operations-registry').LoweringSpec;
+function canonicalizeColumnType(scalar: string, target: string): string {
+  if (target === 'postgres') {
+    const scalarMap: Record<string, string> = {
+      int4: 'pg/int4@1',
+      text: 'pg/text@1',
+    };
+    return scalarMap[scalar] ?? scalar;
+  }
+  return scalar;
 }
 ```
 
-**✅ CORRECT: Top-level type import**
+**✅ CORRECT: Put target-specific logic behind an adapter interface**
 
 ```typescript
-import type { LoweringSpec, ReturnSpec } from './operations-registry';
+interface Adapter {
+  canonicalizeType(scalar: string): string;
+}
 
-export interface OperationExpr {
-  readonly returns: ReturnSpec;
-  readonly lowering: LoweringSpec;
+class PostgresAdapter implements Adapter {
+  canonicalizeType(scalar: string): string {
+    const scalarMap: Record<string, string> = {
+      int4: 'pg/int4@1',
+      text: 'pg/text@1',
+    };
+    return scalarMap[scalar] ?? scalar;
+  }
 }
 ```
 
-## Benefits
+## Why this matters
 
-- **Better readability**: All imports are visible at the top of the file
-- **Easier maintenance**: Dependencies are clear and easy to update
-- **Consistent style**: Matches standard TypeScript import patterns
-- **Better tooling**: IDEs can better track and refactor imports
-
-## How to Refactor
-
-If you find inline type imports in source files:
-
-1. **Add top-level import**: Add `import type { TypeName } from './module'` at the top
-2. **Replace inline usage**: Replace `import('./module').TypeName` with `TypeName`
-3. **Verify**: Ensure the file compiles and tests pass
-
-## Examples from Codebase
-
-**Good patterns:**
-- Top-level type imports: `import type { ReturnSpec, LoweringSpec } from './operations-registry'`
-- Standard import statements at file top
-
-**Bad patterns (to avoid):**
-- `import('./module').Type` in interface definitions
-- `import('@prisma-next/package').Type` in type annotations
-- Inline imports in function return types (except in tests)
+- Keeps the core target-agnostic (“thin core, fat targets”)
+- Avoids hard-to-extend `if/else` and `switch` ladders as targets grow
+- Improves testability by mocking the adapter interface instead of branching on target
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
