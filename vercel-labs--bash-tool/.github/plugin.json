@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--bash-tool",
+  "displayName": "bash-tool",
+  "description": "A bash tool for AI SDK",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/bash-tool",
+  "skills": []
+}
