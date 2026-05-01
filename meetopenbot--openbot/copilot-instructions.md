@@ -1,93 +1,95 @@
-## openbot
+## melony-plugin
 
-> OpenBot is an extensible AI assistant ecosystem built on the **Melony** framework. It follows a "Manager-Agent" orchestration pattern to provide a powerful, multi-modal sidekick for developers and power users.
+> Melony plugins extend agent functionality via an event-based architecture. This guide focuses on **Registry-Ready Local Plugins** used in OpenBot.
 
-# OpenBot Context & Architecture
+# Melony Plugin Development Guidelines
 
-OpenBot is an extensible AI assistant ecosystem built on the **Melony** framework. It follows a "Manager-Agent" orchestration pattern to provide a powerful, multi-modal sidekick for developers and power users.
+Melony plugins extend agent functionality via an event-based architecture. This guide focuses on **Registry-Ready Local Plugins** used in OpenBot.
 
-## 🧠 Core Philosophy
-- **Delegate by Default**: The central Manager Agent focuses on orchestration and memory, delegating specialized tasks (shell, browser, files) to dedicated agents.
-- **Event-Driven**: All communication happens via an asynchronous event bus (Melony).
-- **Extensible**: New agents can be added via YAML configuration, and new capabilities via Melony plugins.
+## Local Plugin Structure (Registry API)
 
-## 🏗️ Architecture Overview
+Local plugins should be placed in `server/src/plugins/<plugin-name>/` and must export a `plugin` object (or as `default`) that implements the `PluginRegistryEntry` interface. This allows them to be dynamically loaded or manually registered.
 
-### 1. The Manager Agent
-The central entry point. Its primary responsibilities are:
-- **Orchestration**: Analyzing user intent and routing tasks to the correct agent using the `delegateTask` tool.
-- **Memory**: Using the `memory` plugin to manage long-term memory (`remember`/`recall`).
-- **Summarization**: Providing high-level, concise summaries of sub-agent activities.
+### The `plugin` Export Object
 
-### 2. Specialized Agents
-Agents are workers that handle specific domains.
-- **`os` Agent**: Handles shell commands and file system operations.
-- **`browser` Agent**: (If installed) Performs web navigation and interaction.
-- **`topic` Agent**: Background agent that automatically titles chat threads.
-- **YAML Agents**: Defined in `~/.openbot/agents/*/AGENT.md`, they allow for custom prompts and tool configurations without code changes.
+The core of a local plugin is an object containing metadata, tool definitions, and a factory function.
 
-### 3. Key Plugins
-Plugins provide the actual tools and logic used by agents.
-- **`llm`**: The core LLM integration, handling completion and tool calling.
-- **`memory`**: Agent definition and long-term memory management. Stores data in `~/.openbot/AGENT.md` and `~/.openbot/memory/`.
-- **`shell`**: Secure terminal execution.
-- **`file-system`**: CRUD operations on the local disk.
-- **`approval`**: A middleware plugin that requires user confirmation for destructive or sensitive actions.
+```typescript
+import { MelonyPlugin } from "melony";
+import { z } from "zod";
 
-## 🔄 Common Workflows
+// 1. Tool Definitions
+export const myToolDefinitions = {
+  doSomething: {
+    description: "Brief description of what the tool does",
+    inputSchema: z.object({
+      param1: z.string().describe("What param1 is for"),
+    }),
+  },
+};
 
-### Task Delegation Flow
-1. **User Input** → `agent:input` event.
-2. **Manager Decides** → Calls `delegateTask(agent, task)`.
-3. **Delegation Handler** → Emits `agent:input` to the sub-agent's runtime.
-4. **Agent Execution** → Agent performs task, emits `agent:output`.
-5. **Manager Bridge** → Manager catches output, reports results to user.
+// 2. Plugin Factory
+export const myPluginFactory = (options: any = {}): MelonyPlugin => (builder) => {
+  builder.on("action:doSomething", async function* (event, { state }) {
+    const { param1, toolCallId } = event.data;
+    // ... logic ...
+    yield {
+      type: "action:result",
+      data: { action: "doSomething", toolCallId, result: { success: true } }
+    };
+  });
+};
 
-### Memory Workflow
-1. **Action** → Manager calls \`remember(content, tags)\`.
-2. **Storage** → \`memory\` plugin saves to local JSON.
-3. **Retrieval** → Manager calls \`recall(query)\` to inject past context into its prompt.
+// 3. Registry Entry (The "Determined API")
+export const plugin = {
+  name: "my-plugin",
+  description: "Handles custom logic",
+  toolDefinitions: myToolDefinitions,
+  factory: myPluginFactory,
+};
 
-## 📂 Project Structure
-- `/server`: Node.js/TypeScript backend core.
-  - `/src/open-bot.ts`: Entry point where registries are initialized and the Melony app is composed.
-  - `/src/plugins/`: Implementation of core functionalities (each folder should export a `plugin` object).
-  - `/src/registry/`: Logic for loading and managing agents and plugins.
-  - `/src/agents/`: Built-in agent implementations (e.g., `os-agent.ts`).
-- `/web`: React/Vite dashboard for interaction.
-- `/docs`: Detailed documentation on architecture and extensions.
+export default plugin;
+```
 
-## 🛠️ Development Guide: Adding Features
+## Plugin Components
 
-### 1. Adding a New Plugin
-Plugins are the primary way to add new capabilities (tools) to OpenBot.
-1. Create a folder in `server/src/plugins/<name>/`.
-2. Define tool schemas using `zod`.
-3. Create a `MelonyPlugin` factory that handles `action:<toolName>` events.
-4. Export a `plugin` object with `name`, `description`, `toolDefinitions`, and `factory`.
-5. Register it in `server/src/open-bot.ts` using `pluginRegistry.register()`.
+### 1. Tool Definitions
+The LLM uses these Zod schemas to understand how to call your plugin. Always use `.describe()` for parameters.
 
-### 2. Adding a New Agent
-Agents are specialized personas that use plugins.
-- **Built-in Agent**:
-  1. Create a file in `server/src/agents/<name>-agent.ts`.
-  2. Implement it using `melony()` and include an `llmPlugin`.
-  3. Register it in `server/src/open-bot.ts` using `agentRegistry.register()`.
-- **YAML Agent** (No code required):
-  1. Create a folder in `~/.openbot/agents/<name>/` and an `AGENT.md` file within it.
-  2. Define `name`, `description`, `model`, and `plugins` (referencing registered plugin names) in the YAML frontmatter.
-  3. Write the instructions (prompt) as the Markdown body below the frontmatter.
+### 2. Event Interfaces
+Define types for events emitted by your plugin to ensure type safety.
 
-### 3. Using Registry for Discovery
-The `AgentRegistry` and `PluginRegistry` are used to:
-- Dynamically build the Manager's `delegateTask` tool (it automatically lists all registered agents and their capabilities).
-- Resolve plugin names in YAML agent definitions.
-- Auto-wire event subscriptions for agents (e.g., if an agent subscribes to `agent:output`).
+```typescript
+import { Event } from "melony";
 
-## 🎨 UI & Events
-- **Status Updates**: Plugins should yield `memory:status` or similar events to show progress in the UI.
-- **Dynamic Widgets (SDUI)**: Use `ui.event(widget(...))` to send dynamic UI widgets to the conversation history. See `.cursor/rules/openbot-sdui.mdc` for detailed guidelines.
-- **Task Results**: Always yield `action:result` with the `toolCallId` to close tool-calling loops.
+export interface MyStatusEvent extends Event {
+  type: "my:status";
+  data: { message: string; severity?: "info" | "success" | "error" };
+}
+```
+
+### 3. Action Handlers
+Events triggered by LLM tool calls follow the pattern `action:<toolName>`. Every action handler **MUST** yield an `action:result` event to close the loop with the LLM.
+
+## Registration
+
+### Manual Registration (in `open-bot.ts`)
+```typescript
+import { plugin as myPlugin } from "./plugins/my-plugin/index.js";
+
+pluginRegistry.register(myPlugin);
+```
+
+### Dynamic Loading
+Plugins in `~/.openbot/plugins/` are automatically loaded if they export a `plugin` or `default` object with a `factory` function.
+
+## Best Practices
+
+- **Atomic Actions**: Each tool should perform one clear task.
+- **Informative Status**: Yield status events (`my:status`) during long operations.
+- **Error Boundaries**: Wrap plugin logic in try/catch and return a failed `result` in `action:result`.
+- **UI Events**: Use `ui.event(ui.text(...))` for visual feedback.
+- **State**: Use `context.state` for persistence across the stream.
 
 ---
 > Source: [meetopenbot/openbot](https://github.com/meetopenbot/openbot) — distributed by [TomeVault](https://tomevault.io).
