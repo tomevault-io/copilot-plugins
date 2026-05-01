@@ -4,7 +4,7 @@
   "repo": "nodeskclaw",
   "description": "Humans and AI work together \u2764\ufe0f",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NoDeskAI/nodeskclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T08:20:39Z"
+  "distributed_at": "2026-05-01T07:32:39Z"
 }
