@@ -1,0 +1,9 @@
+{
+  "name": "zhimaai--chatclaw",
+  "displayName": "ChatClaw",
+  "description": "ChatClaw: Get OpenClaw-like knowledge base personal AI agent in 5 mins. Sandbox-secured, ultra-small 30MB installer for macOS & Windows (install in 1 min). Connects to WhatsApp, Telegram, Slack, Disco",
+  "version": "1.0.0",
+  "author": "zhimaAi",
+  "homepage": "https://github.com/zhimaAi/ChatClaw",
+  "skills": []
+}
