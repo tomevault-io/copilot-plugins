@@ -1,0 +1,9 @@
+{
+  "name": "natureblueee--wow-harness",
+  "displayName": "wow-harness",
+  "description": "Local AI development harness for Claude Code. Fail-closed 8-gate governance, 16 skills, hooks-level enforcement.",
+  "version": "1.0.0",
+  "author": "NatureBlueee",
+  "homepage": "https://github.com/NatureBlueee/wow-harness",
+  "skills": []
+}
