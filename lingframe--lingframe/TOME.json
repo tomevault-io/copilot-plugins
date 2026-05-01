@@ -4,7 +4,7 @@
   "repo": "LingFrame",
   "description": "LingFrame: A JVM Runtime Security Governance Solution for Long-Running Systems. It implements modular isolation and zero-trust permission control to deliver automatic method-level full-link tracing, security auditing, and zero-downtime canary releases.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LingFrame/LingFrame",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T20:10:32Z"
+  "distributed_at": "2026-05-01T14:01:04Z"
 }
