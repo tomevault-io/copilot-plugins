@@ -1,0 +1,9 @@
+{
+  "name": "rsarver--stella-decks",
+  "displayName": "stella-decks",
+  "description": "HTML slide deck system with design system, viewer, and PDF export. AI-native via Claude Code.",
+  "version": "1.0.0",
+  "author": "rsarver",
+  "homepage": "https://github.com/rsarver/stella-decks",
+  "skills": []
+}
