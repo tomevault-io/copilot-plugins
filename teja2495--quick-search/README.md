@@ -7,11 +7,11 @@ An all-in-one search app for Android which can search apps, contacts, files, cal
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [teja2495/quick-search](https://github.com/teja2495/quick-search).
+Original source: `CLAUDE.md` in [teja2495/quick-search](https://github.com/teja2495/quick-search).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
