@@ -1,20 +1,13 @@
-## mf0-github-backup
+## no-custom-hacks
 
-> Back up MF0-1984 to GitHub when the user declares a new project version
+> No one-off hacks or magic branches in code
 
 
-# Back up MF0-1984 to GitHub
+# No one-off hacks or “magic for a single case”
 
-When the user clearly says **this is a new project version** (or similar: new version, release this version, pin the version, push to GitHub, GitHub backup in a version context) — **run immediately** in the `mf-lab` project directory:
-
-1. Ensure `git` exists and remote `origin` is `git@github.com:PavelMuntyan/MF0-1984.git` (add if missing).
-2. `git add -A` (do not commit `.env` — it is in `.gitignore`).
-3. `git commit -m "..."` — **English only** (GitHub-facing), **must include the version** from `package.json` (`version`) or the number/name the user gave.
-4. Default branch: `main`. First push: `git push -u origin main`, else `git push origin main`.
-
-If push fails (SSH, empty GitHub repo) — briefly describe the error and what to check locally.
-
-Do not defer push “for later” after such a phrase unless the user explicitly forbids it.
+- **Do not add** hacks, branches tied to specific user data, hard-coded entity/name/brand lists, or heuristics that only apply to one node.
+- **Do not duplicate** business meaning with string tricks where real analysis belongs (duplicate entities, languages, categories) — move that to an **explicit**, **shared** layer (e.g. one LLM step with a clear JSON contract for arbitrary inputs), and keep persistence **straightforward** (exactly what that layer decided).
+- If a private hack seems unavoidable — **agree with the product owner first** or propose one short general rule; do not ship silently.
 
 ---
 > Source: [PavelMuntyan/MF0-1984](https://github.com/PavelMuntyan/MF0-1984) — distributed by [TomeVault](https://tomevault.io).
