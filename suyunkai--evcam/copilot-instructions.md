@@ -1,49 +1,48 @@
-## code-maintainability
+## version-name-timestamp
 
-> Maintain code organization and separation of concerns
+> 每次修改代码后更新 versionName 添加测试时间戳
 
 
-# 代码可维护性原则
+# 版本名时间戳规则
 
-## 核心原则
+每次修改或增加代码后，必须更新 `app/build.gradle.kts` 中的 `versionName`。
 
-修改或新增代码时，必须保持项目的可维护性和模块化设计。
+## 格式要求
 
-## 具体要求
-
-### 1. 避免在 MainActivity 中堆积业务逻辑
-
-```java
-// ❌ BAD - 把业务逻辑写在 MainActivity
-private void uploadWechatVideos(String commandId, String timestamp) {
-    // 查找文件、上传、传输...大量业务代码
-}
-
-// ✅ GOOD - 委托给专门的 Manager 类
-wechatRemoteManager.handleRecordingComplete(commandId, timestamp, callback);
+```
+versionName = "基础版本号-test-MMddHHmm"
 ```
 
-### 2. 参考现有模式
+- **基础版本号**：保持原有版本号不变（如 `1.0.2`）
+- **时间戳格式**：`MMddHHmm`（月日时分，24小时制）
 
-- 新增远程平台功能时，参考 `DingTalkHandler`、`TelegramHandler` 等已验证的实现模式
-- 使用现有工具类如 `MediaFileFinder`、`WakeUpHelper` 等
-- 遵循项目中已有的架构分层
+## 示例
 
-### 3. Manager 类职责划分
+假设当前时间是 2026年1月30日 15:30：
 
-| 类型 | 职责 | 示例 |
-|------|------|------|
-| MainActivity | UI 交互、相机操作、生命周期 | 启动/停止录制 |
-| RemoteManager | 平台业务逻辑、命令处理 | 文件上传、结果上报 |
-| CloudManager | 网络通信、API 调用 | HTTP 请求、Token 管理 |
-| Helper/Util | 通用工具方法 | 文件查找、唤醒锁管理 |
+```kotlin
+// 修改前
+versionName = "1.0.2"
 
-### 4. 独立可维护性
+// 修改后
+versionName = "1.0.2-test-01301530"
+```
 
-每个功能模块（如微信小程序）应该：
-- 有独立的包结构（如 `com.kooo.evcam.wechat`）
-- 逻辑自包含，不散落在多个无关文件中
-- 可以独立理解和修改，不影响其他模块
+如果已有测试后缀，替换为新时间：
+
+```kotlin
+// 修改前
+versionName = "1.0.2-test-01291200"
+
+// 修改后
+versionName = "1.0.2-test-01301530"
+```
+
+## 重要说明
+
+- 只修改 `-test-` 后缀部分，不要改动基础版本号
+- 用户发布正式版时会自己修改版本号，届时移除 `-test-` 后缀
+- 此规则帮助用户区分不同时间的测试构建
 
 ---
 > Source: [suyunkai/EVCam](https://github.com/suyunkai/EVCam) — distributed by [TomeVault](https://tomevault.io).
