@@ -1,0 +1,9 @@
+{
+  "name": "xjarid--meshcore-eastmesh",
+  "displayName": "MeshCore-EastMesh",
+  "description": "EastMesh firmware builds for MeshCore, with MQTT repeaters, WiFi companions, and simple release downloads for supported boards.",
+  "version": "1.0.0",
+  "author": "xJARiD",
+  "homepage": "https://github.com/xJARiD/MeshCore-EastMesh",
+  "skills": []
+}
