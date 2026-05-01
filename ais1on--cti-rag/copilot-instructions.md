@@ -1,204 +1,89 @@
-## model-integration
+## project-structure
 
-> 多模型集成和使用指南
+> ThreatRAG 是一个威胁情报分析系统，结合了 RAG（检索增强生成）、知识图谱和混合检索技术。
 
-# 多模型集成指南
+# ThreatRAG 项目结构指南
 
-## 模型选择机制
+## 项目概述
+ThreatRAG 是一个威胁情报分析系统，结合了 RAG（检索增强生成）、知识图谱和混合检索技术。
 
-系统通过 `select_model()` 函数支持多个 LLM 提供商，可以在 API 请求中动态切换模型。
+## 核心目录结构
 
-### 支持的模型提供商
-- **openai** - OpenAI 官方模型（GPT-4o, GPT-4-turbo, GPT-3.5-turbo 等）
-- **ollama** - 本地 Ollama 模型（支持 GPU 加速）
-- **deepseek** - DeepSeek 模型
-- **custom** - 自定义模型（通过配置文件添加）
-- **其他** - 任何兼容 OpenAI API 格式的提供商
+### 主入口
+- [main.py](mdc:main.py) - 应用程序主入口，负责启动 Milvus、Neo4j 和 FastAPI 服务器
 
-### 模型配置位置
-- 全局配置: `config.yaml` 或环境变量
-- 自定义模型: `config.custom_models` 列表
+### 核心模块 (`packages/core/`)
+- [knowledgebase.py](mdc:packages/core/knowledgebase.py) - Milvus 向量数据库管理，文档嵌入和检索
+- [graphbase.py](mdc:packages/core/graphbase.py) - Neo4j 图数据库管理，实体关系存储和 Cypher 查询生成
+- [retriever.py](mdc:packages/core/retriever.py) - 核心检索逻辑，实现四阶段混合检索（向量→实体提取→图查询→上下文融合）
+- [bm25_retriever.py](mdc:packages/core/bm25_retriever.py) - BM25 混合检索器，结合向量检索和 BM25 算法
+- [indexing.py](mdc:packages/core/indexing.py) - 文档分块和文本提取
+- [graph_indexer.py](mdc:packages/core/graph_indexer.py) - 图数据库索引器，为实体创建嵌入向量
 
-## API 使用方式
+### 工具模块 (`packages/utils/`)
+- [bm25.py](mdc:packages/utils/bm25.py) - 高级 BM25 实现，支持中文（jieba）和英文（PyStemmer）分词
+- [query_preprocessor.py](mdc:packages/utils/query_preprocessor.py) - 查询预处理，提取日期等元数据过滤条件（支持多日期 OR 逻辑）
+- [prompts.py](mdc:packages/utils/prompts.py) - 所有 LLM 提示词模板，包括 Cypher 生成模板
+- [stopwords.py](mdc:packages/utils/stopwords.py) - 中英文停用词列表
 
-### 方式1：使用全局默认模型
-```python
-# 不指定 model_provider 和 model_name
-{
-    "query": "你的问题",
-    "meta": {
-        "db_id": "kb_xxx"
-    }
-}
-```
+### API 服务 (`rag/`)
+- **API 路由** (`rag/api/routers/`)
+  - [chat_api.py](mdc:rag/api/routers/chat_api.py) - 聊天接口
+    - `/chat/stream` - 流式聊天接口
+    - `/chat/hybrid-retrieval` - 四阶段混合检索接口
+    - `/chat/sessions/{thread_id}` - 会话管理
+  - [data_api.py](mdc:rag/api/routers/data_api.py) - 数据管理接口
+  - [graph_api.py](mdc:rag/api/routers/graph_api.py) - 知识图谱接口
+  - [token_api.py](mdc:rag/api/routers/token_api.py) - 认证接口
 
-### 方式2：指定模型提供商
-```python
-{
-    "query": "你的问题",
-    "meta": {
-        "db_id": "kb_xxx",
-        "model_provider": "deepseek",
-        "model_name": "deepseek-chat"
-    }
-}
-```
+- **缓存与会话** (`rag/cache/`)
+  - Redis 会话管理 - 存储对话历史，支持会话持久化和过期控制
+  - 使用 `RedisSessionManager` 管理用户会话和对话历史
 
-### 方式3：使用自定义模型
-```python
-{
-    "query": "你的问题",
-    "meta": {
-        "db_id": "kb_xxx",
-        "model_provider": "custom",
-        "model_name": "my-custom-model-id"
-    }
-}
-```
+### 数据库管理 (`packages/manager/`)
+- **MySQL** - 知识库元数据管理
+  - `kb_db_manager.py` - 知识库、文件和用户数据的持久化存储
+  - 使用 SQLAlchemy ORM 管理数据库操作
+  
+- **Redis** - 会话缓存
+  - 存储用户对话历史（thread_id 为键）
+  - 支持自动过期（默认 3600 秒）
+  - 用于多轮对话的上下文保持
 
-## 支持多模型的 API 端点
+## 关键数据流
 
-### `/chat/stream` (流式聊天)
-```python
-POST /chat/stream
-{
-    "query": "分析这个威胁",
-    "meta": {
-        "model_provider": "deepseek",  # 可选
-        "model_name": "deepseek-chat",  # 可选
-        "db_id": "kb_xxx",
-        "use_graph": true
-    }
-}
-```
+### 四阶段混合检索流程
+1. **阶段1：向量检索** (`_vector_retrieval_stage`) - 从 Milvus 广泛召回相关文档
+2. **阶段2：实体链接** (`_entity_linking_stage`) - 从文档中提取实体
+3. **阶段3：图检索** (`_graph_retrieval_stage`) - LLM 生成 Cypher 查询，在 Neo4j 中精确查找
+4. **阶段4：上下文融合** (`_context_fusion_stage`) - 整合向量和图检索结果
 
-### `/chat/hybrid-retrieval` (四阶段检索)
-```python
-POST /chat/hybrid-retrieval
-{
-    "query": "综合分析",
-    "meta": {
-        "model_provider": "custom",
-        "model_name": "my-model",
-        "db_id": "kb_xxx"
-    },
-    "response_mode": "simple"  # 或 "full"
-}
-```
+### 数据库架构
+- **Milvus** - 向量数据库
+  - 存储文档嵌入向量
+  - 支持静态字段过滤（source_filename, date_key, file_type, file_created_at）
+  - 使用 COSINE 相似度进行向量检索
 
-## 添加新模型
+- **Neo4j** - 知识图谱数据库
+  - 存储实体（Entity）和关系（RELATION）
+  - 支持向量索引（entityEmbeddings）进行实体相似度搜索
+  - 执行 LLM 生成的 Cypher 查询
 
-### 1. 添加兼容 OpenAI API 的模型
-在 `config.yaml` 中配置：
-```yaml
-model_names:
-  my_provider:
-    base_url: "https://api.example.com/v1"
-    default: "model-name"
-    models: ["model-name"]
-    env: ["MY_API_KEY"]
-```
+- **MySQL** - 元数据数据库
+  - 存储知识库配置（名称、描述、embedding 模型）
+  - 管理文件上传记录和处理状态
+  - 用户数据和权限管理
 
-### 2. 添加自定义模型
-在 `config.custom_models` 中添加：
-```yaml
-custom_models:
-  - custom_id: "my-custom-model"
-    base_url: "https://api.custom.com"
-    api_key: "your-key"
-    model_name: "actual-model-name"
-```
+- **Redis** - 缓存数据库
+  - 会话管理（thread_id → 对话历史）
+  - 支持 TTL 过期机制
+  - 提供快速的会话数据访问
 
-### 3. 实现专用模型类
-在 `packages/models/chat_model.py` 中添加：
-```python
-class MyCustomProvider:
-    def __init__(self, model_name):
-        self.model_name = model_name
-        # 初始化逻辑
-    
-    def predict(self, messages, stream=False):
-        # 实现预测逻辑
-        pass
-```
-
-然后在 `select_model()` 中添加分支：
-```python
-if model_provider == "my_provider":
-    from .chat_model import MyCustomProvider
-    return MyCustomProvider(model_name)
-```
-
-## 模型响应格式
-
-所有模型必须返回包含以下属性的对象：
-- `content` (str) - 生成的文本内容
-- `model_name` (str) - 模型名称
-- 流式模式下需要支持迭代器
-
-## 注意事项
-
-1. **API Key 管理**: 使用环境变量存储 API Key，不要硬编码
-2. **模型兼容性**: 确保模型支持所需的功能（如流式输出）
-3. **错误处理**: 模型调用失败时应有优雅的降级处理
-4. **日志记录**: 记录使用的模型信息，便于追踪和调试
-
-## 示例：切换到不同模型
-
-### 使用 OpenAI GPT-4
-```python
-{
-    "query": "深度分析这个复杂的 APT 攻击模式",
-    "meta": {
-        "model_provider": "openai",
-        "model_name": "gpt-4o",
-        "db_id": "kb_threat"
-    }
-}
-```
-
-### 使用 Ollama 本地模型
-```python
-{
-    "query": "分析这个日志文件",
-    "meta": {
-        "model_provider": "ollama",
-        "model_name": "qwen2.5:7b",  # 中文场景推荐
-        "db_id": "kb_logs"
-    }
-}
-```
-
-### 使用 DeepSeek 进行推理任务
-```python
-{
-    "query": "推理攻击链路径",
-    "meta": {
-        "model_provider": "deepseek",
-        "model_name": "deepseek-chat",
-        "db_id": "kb_threat"
-    }
-}
-```
-
-### 使用自定义模型
-```python
-{
-    "query": "快速分类这个样本",
-    "meta": {
-        "model_provider": "custom",
-        "model_name": "local-llama",
-        "db_id": "kb_malware"
-    }
-}
-```
-
-## 性能优化建议
-
-- **模型缓存**: 相同配置的模型实例可以复用
-- **并发控制**: 使用协程池限制并发模型调用
-- **超时设置**: 为模型调用设置合理的超时时间
-- **降级策略**: 主模型失败时自动切换到备用模型
+## 重要约定
+- 所有响应使用中文
+- 日志使用 `logger` 从 `packages.utils.logging_config` 导入
+- 配置从 `packages.config` 导入
+- 嵌入模型通过 `packages.models.embedding.get_embedding_model` 获取
 
 ---
 > Source: [Ais1on/CTI-RAG](https://github.com/Ais1on/CTI-RAG) — distributed by [TomeVault](https://tomevault.io).
