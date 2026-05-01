@@ -1,106 +1,131 @@
-## workflow-builder-template
+## ultracite
 
-> This project uses **pnpm** as its package manager. Always use pnpm for all package operations:
+> Ultracite Rules - AI-Ready Formatter and Linter
 
-# Agent Instructions
 
-## Package Management
+# Ultracite Code Standards
 
-This project uses **pnpm** as its package manager. Always use pnpm for all package operations:
+This project uses **Ultracite**, a zero-config Biome preset that enforces strict code quality standards through automated formatting and linting.
 
-- Installing packages: `pnpm add <package>`
-- Running scripts: `pnpm <script-name>`
-- **For shadcn/ui components**: Use `pnpm dlx shadcn@latest add <component>` (not `npx`)
+## Quick Reference
 
-Never use npm or yarn for this project.
+- **Format code**: `npx ultracite fix`
+- **Check for issues**: `npx ultracite check`
+- **Diagnose setup**: `npx ultracite doctor`
+
+Biome (the underlying engine) provides extremely fast Rust-based linting and formatting. Most issues are automatically fixable.
 
 ---
 
-When working on this project, always follow these steps before completing your work:
+## Core Principles
 
-## 1. Type Check
-```bash
-pnpm type-check
-```
-Run TypeScript compiler to check for type errors. Fix any type errors that appear.
+Write code that is **accessible, performant, type-safe, and maintainable**. Focus on clarity and explicit intent over brevity.
 
-## 2. Fix Code
-```bash
-pnpm fix
-```
-This will automatically format and lint all code using Ultracite (combines formatting and linting with auto-fixes).
+### Type Safety & Explicitness
 
-## 3. Fix Issues
-If any of the above commands fail or show errors:
-- Read the error messages carefully
-- Fix the issues in the relevant files
-- Re-run the commands to verify fixes
-- Repeat until all checks pass
+- Use explicit types for function parameters and return values when they enhance clarity
+- Prefer `unknown` over `any` when the type is genuinely unknown
+- Use const assertions (`as const`) for immutable values and literal types
+- Leverage TypeScript's type narrowing instead of type assertions
+- Use meaningful variable names instead of magic numbers - extract constants with descriptive names
 
-## Important Notes
-- Never commit code with type errors or linting issues
-- Run `pnpm fix` before making commits to ensure code is properly formatted and linted
-- All checks must pass before work is considered complete
+### Modern JavaScript/TypeScript
 
-## Documentation Guidelines
-- **No Emojis**: Do not use emojis in any code, documentation, or README files
-- **No File Structure**: Do not include file/folder structure diagrams in README files
-- **No Random Documentation**: Do not create markdown documentation files unless explicitly requested by the user. This includes integration guides, feature documentation, or any other .md files
+- Use arrow functions for callbacks and short functions
+- Prefer `for...of` loops over `.forEach()` and indexed `for` loops
+- Use optional chaining (`?.`) and nullish coalescing (`??`) for safer property access
+- Prefer template literals over string concatenation
+- Use destructuring for object and array assignments
+- Use `const` by default, `let` only when reassignment is needed, never `var`
 
-## Component Guidelines
-- **Use shadcn/ui**: Always use shadcn/ui components when available. Do not create custom components that duplicate shadcn functionality
-- **Add Components**: Use `pnpm dlx shadcn@latest add <component>` to add new shadcn components as needed
-- **No Native Dialogs**: Never use native `alert()` or `confirm()` dialogs. Always use shadcn AlertDialog, Dialog, or Sonner toast components instead
+### Async & Promises
 
-## Database Migrations
-- **Generate Migrations**: Use `pnpm db:generate` to automatically generate database migrations from schema changes
-- **Never Write Manual Migrations**: Do not manually create SQL migration files in the `drizzle/` directory
-- **Workflow**: 
-  1. Update the schema in `lib/db/schema.ts`
-  2. Run `pnpm db:generate` to generate the migration
-  3. Run `pnpm db:push` to apply the migration to the database
-- The migration generator will create properly formatted SQL files based on your schema changes
+- Always `await` promises in async functions - don't forget to use the return value
+- Use `async/await` syntax instead of promise chains for better readability
+- Handle errors appropriately in async code with try-catch blocks
+- Don't use async functions as Promise executors
 
-## Code Cleanliness
-- **Remove Unused Code**: If a variable, import, or function is unused, remove it entirely. Do not prefix with underscore unless it's intentionally unused but required (e.g., function parameters)
-- **Use Correct Jotai Hooks**: When working with Jotai atoms, use the appropriate hook based on usage:
-  - `useAtom(atom)` - Use when you need both the value and setter
-  - `useAtomValue(atom)` - Use when you only need to read the value
-  - `useSetAtom(atom)` - Use when you only need the setter function
-  - Never use `useAtom` if you're only using one part (getter or setter)
+### React & JSX
 
-## API Architecture
-- **Use API Routes**: This project uses API routes instead of Next.js server actions
-- **API Client**: Always use the type-safe API client from `@/lib/api-client` for all backend calls
-- **No Server Actions**: Do not create or use server actions (files with `"use server"` directive)
-- **Import Pattern**: Import the API client as `import { api } from "@/lib/api-client"`
-- **Available APIs**:
-  - `api.ai.*` - AI operations (generate workflows)
-  - `api.integration.*` - Test integration connections
-  - `api.user.*` - User operations (get, update)
-  - `api.vercelProject.*` - Vercel project integrations
-  - `api.workflow.*` - Workflow CRUD and operations (create, update, delete, deploy, execute, etc.)
-- **No Barrel Files**: Do not create barrel/index files that re-export from other files
+- Use function components over class components
+- Call hooks at the top level only, never conditionally
+- Specify all dependencies in hook dependency arrays correctly
+- Use the `key` prop for elements in iterables (prefer unique IDs over array indices)
+- Nest children between opening and closing tags instead of passing as props
+- Don't define components inside other components
+- Use semantic HTML and ARIA attributes for accessibility:
+  - Provide meaningful alt text for images
+  - Use proper heading hierarchy
+  - Add labels for form inputs
+  - Include keyboard event handlers alongside mouse events
+  - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
 
-## Plugin Guidelines
-- **No SDK Dependencies**: Plugin step files must use `fetch` directly instead of SDK client libraries. Do not add npm package dependencies for API integrations.
-- **No dependencies field**: Do not use the `dependencies` field in plugin `index.ts` files. All API calls should use native `fetch`.
-- **Why**: Using `fetch` instead of SDKs reduces supply chain attack surface. SDKs have transitive dependencies that could be compromised.
+### Error Handling & Debugging
 
-## Step Output Format
-All plugin steps must return a standardized output format:
+- Remove `console.log`, `debugger`, and `alert` statements from production code
+- Throw `Error` objects with descriptive messages, not strings or other values
+- Use `try-catch` blocks meaningfully - don't catch errors just to rethrow them
+- Prefer early returns over nested conditionals for error cases
 
-```typescript
-// Success
-return { success: true, data: { id: "...", name: "..." } };
+### Code Organization
 
-// Error
-return { success: false, error: { message: "Error description" } };
-```
+- Keep functions focused and under reasonable cognitive complexity limits
+- Extract complex conditions into well-named boolean variables
+- Use early returns to reduce nesting
+- Prefer simple conditionals over nested ternary operators
+- Group related code together and separate concerns
 
-- **outputFields** in plugin `index.ts` should reference fields without `data.` prefix (e.g., `{ field: "id" }` not `{ field: "data.id" }`)
-- Template variables automatically unwrap: `{{GetUser.firstName}}` resolves to `data.firstName`
-- Logs display only the inner `data` or `error` object, not the full wrapper
+### Security
+
+- Add `rel="noopener"` when using `target="_blank"` on links
+- Avoid `dangerouslySetInnerHTML` unless absolutely necessary
+- Don't use `eval()` or assign directly to `document.cookie`
+- Validate and sanitize user input
+
+### Performance
+
+- Avoid spread syntax in accumulators within loops
+- Use top-level regex literals instead of creating them in loops
+- Prefer specific imports over namespace imports
+- Avoid barrel files (index files that re-export everything)
+- Use proper image components (e.g., Next.js `<Image>`) over `<img>` tags
+
+### Framework-Specific Guidance
+
+**Next.js:**
+- Use Next.js `<Image>` component for images
+- Use `next/head` or App Router metadata API for head elements
+- Use Server Components for async data fetching instead of async Client Components
+
+**React 19+:**
+- Use ref as a prop instead of `React.forwardRef`
+
+**Solid/Svelte/Vue/Qwik:**
+- Use `class` and `for` attributes (not `className` or `htmlFor`)
+
+---
+
+## Testing
+
+- Write assertions inside `it()` or `test()` blocks
+- Avoid done callbacks in async tests - use async/await instead
+- Don't use `.only` or `.skip` in committed code
+- Keep test suites reasonably flat - avoid excessive `describe` nesting
+
+## When Biome Can't Help
+
+Biome's linter will catch most issues automatically. Focus your attention on:
+
+1. **Business logic correctness** - Biome can't validate your algorithms
+2. **Meaningful naming** - Use descriptive names for functions, variables, and types
+3. **Architecture decisions** - Component structure, data flow, and API design
+4. **Edge cases** - Handle boundary conditions and error states
+5. **User experience** - Accessibility, performance, and usability considerations
+6. **Documentation** - Add comments for complex logic, but prefer self-documenting code
+
+---
+
+Most formatting and common issues are automatically fixed by Biome. Run `npx ultracite fix` before committing to ensure compliance.
 
 ---
 > Source: [vercel-labs/workflow-builder-template](https://github.com/vercel-labs/workflow-builder-template) — distributed by [TomeVault](https://tomevault.io).
