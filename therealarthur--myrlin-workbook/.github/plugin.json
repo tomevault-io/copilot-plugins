@@ -1,0 +1,9 @@
+{
+  "name": "therealarthur--myrlin-workbook",
+  "displayName": "myrlin-workbook",
+  "description": "Workspace manager for Claude Code sessions. Embedded terminals, project discovery, drag-and-drop organization.",
+  "version": "1.0.0",
+  "author": "therealarthur",
+  "homepage": "https://github.com/therealarthur/myrlin-workbook",
+  "skills": []
+}
