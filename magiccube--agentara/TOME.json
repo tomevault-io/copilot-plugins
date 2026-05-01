@@ -4,7 +4,7 @@
   "repo": "agentara",
   "description": "Your 24/7 personal assistant powered by Claude Code and OpenAI Codex. Multi-channel messaging, long-term memory, skills, task scheduling, session management, and more \u2014 all running locally.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MagicCube/agentara",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T11:58:41Z"
+  "distributed_at": "2026-05-01T07:52:42Z"
 }
