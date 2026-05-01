@@ -1,116 +1,53 @@
-## validate-contract-usage
+## vitest-expect-typeof
 
-> When you use validateContract()
+> When writing type tests
 
-# validateContract Usage Pattern
+# Vitest expectTypeOf API
 
-## Plane placement (important)
+## Deprecated: `toMatchTypeOf`
 
-`validateContract()` is **shared-plane logic** (pure normalization + structural/logical validation).
+The `toMatchTypeOf()` matcher has been deprecated in Vitest's `expectTypeOf` API.
 
-- If you need contract validation from **runtime-plane** code, **do not** make runtime packages depend on migration-plane packages (e.g. `@prisma-next/sql-contract-ts`). Instead, move/extract `validateContract()` into a shared-plane package and import it from there.
-
-## Critical Requirement
-
-`validateContract<TContract>()` **requires a fully-typed contract type** `TContract`, NOT a generic `SqlContract<SqlStorage>`. Using a generic type will cause all subsequent type inference to fail, resulting in `unknown` types throughout your code.
-
-## Correct Usage
-
-**✅ CORRECT: Use fully-typed contract type from contract.d.ts**
-
+**Do not use:**
 ```typescript
-import { validateContract } from '@prisma-next/sql-contract/validate';
-import type { Contract } from './contract.d';
-import contractJson from './contract.json' with { type: 'json' };
-
-const contract = validateContract<Contract>(contractJson);
-// Now contract has full type information: contract.storage.tables.user.columns.id.codecId === 'pg/int4@1'
+expectTypeOf(plan).toMatchTypeOf<Plan<Row>>();
 ```
 
-**✅ CORRECT: Define contract type inline for tests**
+## Use `toExtend()` instead
 
+Use `toExtend()` to verify that a type extends or matches another type:
+
+**Correct usage:**
 ```typescript
-import type { SqlContract } from '@prisma-next/sql-contract/types';
-
-// Define a fully-typed contract type
-type MyContract = SqlContract<
-  {
-    readonly tables: {
-      readonly user: {
-        readonly columns: {
-          readonly id: { readonly nativeType: 'int4'; readonly codecId: 'pg/int4@1'; nullable: false };
-          readonly email: { readonly nativeType: 'text'; readonly codecId: 'pg/text@1'; nullable: false };
-        };
-      };
-    };
-  },
-  {},
-  {},
-  {}
->;
-
-const contract = validateContract<MyContract>({
-  target: 'postgres',
-  targetFamily: 'sql' as const,
-  storageHash: 'sha256:test',
-  storage: {
-    tables: {
-      user: {
-        columns: {
-          id: { nativeType: 'int4', codecId: 'pg/int4@1', nullable: false },
-          email: { nativeType: 'text', codecId: 'pg/text@1', nullable: false },
-        },
-      },
-    },
-  },
-  models: {},
-  relations: {},
-  mappings: {},
-});
+expectTypeOf(plan).toExtend<Plan<Row>>();
 ```
 
-## Incorrect Usage
+## When to use `toExtend()` vs `toEqualTypeOf()`
 
-**❌ WRONG: Don't use generic SqlContract<SqlStorage>**
+- `toExtend<T>()`: Verifies that the type extends `T` (allows subtypes). Use when checking that a value's type matches or is a subtype of the expected type.
+- `toEqualTypeOf<T>()`: Verifies exact type equality. Use when checking for exact type matches.
+
+For most cases where you're verifying that a plan or object has the correct type structure, `toExtend()` is the appropriate choice.
+
+## Anti-pattern: Manual type checks with conditional types
+
+**Do not use manual type checking patterns with conditional types:**
 
 ```typescript
-import { validateContract } from '@prisma-next/sql-contract/validate';
-import type { SqlContract, SqlStorage } from '@prisma-next/sql-contract/types';
-import contractJson from './contract.json' with { type: 'json' };
-
-const contract = validateContract<SqlContract<SqlStorage>>(contractJson);
-// ❌ Types will be inferred as 'unknown' - this won't work!
-// contract.storage.tables.user.columns.id.codecId === unknown (not 'pg/int4@1')
+// ❌ WRONG: Manual type check pattern
+const _textTypeIdCheck: TextTypeId extends 'pg/text@1' ? true : false = true;
+const _intTypeIdCheck: IntTypeId extends 'pg/int4@1' ? true : false = true;
 ```
 
-## Why This Matters
+**Use Vitest's `expectTypeOf` instead:**
 
-The type parameter `TContract` provides the specific table structure, column types, and model definitions. TypeScript uses this type information to:
+```typescript
+// ✅ CORRECT: Use Vitest type helpers
+expectTypeOf<TextTypeId>().toEqualTypeOf<'pg/text@1'>();
+expectTypeOf<IntTypeId>().toEqualTypeOf<'pg/int4@1'>();
+```
 
-1. Infer column types in the schema builder
-2. Provide type-safe access to tables and columns
-3. Enable correct type inference in query builders
-4. Ensure type safety throughout the query pipeline
-
-Without a fully-typed contract, all of these will fail and types will be inferred as `unknown`.
-
-## When This Pattern Appears
-
-This mistake commonly appears in:
-- Type-level tests (`.test-d.ts` files)
-- Test fixtures that create contracts inline
-- Code that validates contracts without importing the proper type
-
-## Solution
-
-1. **For production code**: Always import the contract type from `contract.d.ts` (generated by the emitter)
-2. **For tests**: Either use the fixture contract type or define a fully-typed contract type inline
-3. **Never use**: `validateContract<SqlContract<SqlStorage>>()` - this will not work for type inference
-
-## Related Documentation
-
-- See `packages/2-sql/1-core/contract/src/validate.ts` for implementation details
-- See `packages/2-sql/1-core/contract/README.md` for usage examples
+The manual pattern creates unnecessary variables and is less readable. Vitest's `expectTypeOf` provides clear, declarative type assertions that integrate with the test framework.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
