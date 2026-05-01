@@ -1,0 +1,9 @@
+{
+  "name": "matheusmaiberg--tracklay",
+  "displayName": "tracklay",
+  "description": "First-party tracking proxy for Shopify on Cloudflare Workers. Bypass ad-blockers with UUID-based obfuscation for Facebook Pixel, GTM, and Google Analytics. Features: intelligent caching, rate limiting",
+  "version": "1.0.0",
+  "author": "matheusmaiberg",
+  "homepage": "https://github.com/matheusmaiberg/tracklay",
+  "skills": []
+}
