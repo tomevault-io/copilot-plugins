@@ -1,0 +1,9 @@
+{
+  "name": "monchin--tablers",
+  "displayName": "tablers",
+  "description": "A blazingly fast PDF table extraction library with python API powered by Rust",
+  "version": "1.0.0",
+  "author": "monchin",
+  "homepage": "https://github.com/monchin/tablers",
+  "skills": []
+}
