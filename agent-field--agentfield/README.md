@@ -7,11 +7,11 @@ Build, run and scale AI agents like API and microservices - observable,auditable
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Agent-Field/agentfield](https://github.com/Agent-Field/agentfield).
+Original source: `CLAUDE.md` in [Agent-Field/agentfield](https://github.com/Agent-Field/agentfield).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
