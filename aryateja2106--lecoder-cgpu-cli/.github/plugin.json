@@ -1,0 +1,9 @@
+{
+  "name": "aryateja2106--lecoder-cgpu-cli",
+  "displayName": "LeCoder-cgpu-CLI",
+  "description": "CLI tool which lets you connect Google Collab GPU with your terminal",
+  "version": "1.0.0",
+  "author": "aryateja2106",
+  "homepage": "https://github.com/aryateja2106/LeCoder-cgpu-CLI",
+  "skills": []
+}
