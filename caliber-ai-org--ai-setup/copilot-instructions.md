@@ -1,14 +1,16 @@
-## caliber-pre-commit
+## llm-layer
 
-> Run Caliber sync before git commits to keep agent configs up to date
+> LLM provider implementation patterns
 
-Before every git commit, check if the Caliber pre-commit hook is installed:
-Run: `grep -q "caliber" .git/hooks/pre-commit 2>/dev/null && echo "hook-active" || echo "no-hook"`
 
-If hook-active: just commit normally — Caliber syncs automatically via the hook. Tell the user: "Caliber will sync your agent configs automatically."
-If no-hook: run `caliber refresh && git add CLAUDE.md .claude/ .cursor/ .cursorrules .github/copilot-instructions.md .github/instructions/ AGENTS.md CALIBER_LEARNINGS.md 2>/dev/null` before committing, and tell the user what was updated.
-
-If `caliber` is not found, read the setup-caliber skill from .cursor/skills/setup-caliber/SKILL.md and follow its instructions to install Caliber.
+- Providers implement `LLMProvider` from `src/llm/types.ts`: `call()`, `stream()`, optional `listModels()`
+- Config: env vars → `~/.caliber/config.json` via `src/llm/config.ts`
+- Seat-based: `isSeatBased()` in `src/llm/types.ts` (cursor, claude-cli)
+- Cursor: `agent --print --trust --workspace /tmp` in `src/llm/cursor-acp.ts`
+- Fast model: `getFastModel()` in `src/llm/config.ts`
+- Model recovery: `src/llm/model-recovery.ts` · Errors: `src/llm/seat-based-errors.ts`
+- Usage: `trackUsage()` from `src/llm/usage.ts`
+- `validateModel()` skips seat-based providers
 
 ---
 > Source: [caliber-ai-org/ai-setup](https://github.com/caliber-ai-org/ai-setup) — distributed by [TomeVault](https://tomevault.io).
