@@ -1,0 +1,9 @@
+{
+  "name": "miscusi-peek--cheatengine-mcp-bridge",
+  "displayName": "cheatengine-mcp-bridge",
+  "description": "Connect Cursor, Copilot & Claude AI directly to Cheat Engine via MCP. Automate reverse engineering, pointer scanning, and memory analysis using natural language.",
+  "version": "1.0.0",
+  "author": "miscusi-peek",
+  "homepage": "https://github.com/miscusi-peek/cheatengine-mcp-bridge",
+  "skills": []
+}
