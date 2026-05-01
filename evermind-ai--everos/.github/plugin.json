@@ -1,0 +1,9 @@
+{
+  "name": "evermind-ai--everos",
+  "displayName": "EverOS",
+  "description": "Build, evaluate, and integrate long-term memory for self-evolving agents.",
+  "version": "1.0.0",
+  "author": "EverMind-AI",
+  "homepage": "https://github.com/EverMind-AI/EverOS",
+  "skills": []
+}
