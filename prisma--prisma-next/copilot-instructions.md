@@ -1,77 +1,111 @@
-## use-ast-factories
+## use-contract-ir-factories
 
-> Use factory functions for creating AST nodes instead of manual object creation
+> Use factory functions for creating ContractIR objects instead of manual object creation
 
 
-# Use Factory Functions for AST Nodes
+# Use Factory Functions for ContractIR
 
-**CRITICAL**: When creating AST nodes in tests, use factory functions instead of manual object creation.
+**CRITICAL**: When creating `ContractIR` objects in tests, use factory functions instead of manual object creation.
 
 ## The Problem
 
-Manual AST node creation:
-- Duplicates AST structure definitions
-- Is error-prone (easy to miss required fields or use wrong values)
-- Makes refactoring harder (changes to AST structure require updates in many places)
-- Doesn't benefit from factory function validation
+Manual ContractIR creation:
+- Duplicates contract structure definitions
+- Is error-prone (easy to miss required fields like `capabilities`, `meta`, `sources`)
+- Makes refactoring harder (changes to ContractIR structure require updates in many places)
+- Doesn't ensure all required fields are present with proper defaults
 
 ## The Solution
 
-**❌ WRONG: Manual AST node creation**
+**❌ WRONG: Manual ContractIR creation**
 
 ```typescript
-const colRef: ColumnRef = { kind: 'col', table: 'user', column: 'id' };
-const paramRef: ParamRef = { kind: 'param', index: 1, name: 'userId' };
-const literalExpr: LiteralExpr = { kind: 'literal', value: 'test' };
+const ir: ContractIR = {
+  schemaVersion: '1',
+  targetFamily: 'sql',
+  target: 'postgres',
+  models: {},
+  relations: {},
+  storage: { tables: {} },
+  extensions: {},
+  capabilities: {},
+  meta: {},
+  sources: {},
+};
 ```
 
 **✅ CORRECT: Use factory functions**
 
 ```typescript
-import { createColumnRef, createParamRef, createLiteralExpr } from '@prisma-next/sql-relational-core/ast';
+import { createContractIR } from './utils'; // or from '@prisma-next/emitter' if exported
 
-const colRef: ColumnRef = createColumnRef('user', 'id');
-const paramRef: ParamRef = createParamRef(1, 'userId');
-const literalExpr: LiteralExpr = createLiteralExpr('test');
+const ir = createContractIR({
+  storage: {
+    tables: {
+      user: {
+        columns: {
+          id: { type: 'pg/int4@1', nullable: false },
+        },
+      },
+    },
+  },
+});
 ```
 
 ## Available Factory Functions
 
-From `@prisma-next/sql-relational-core/ast`:
-- `createColumnRef(table, column)` - Creates a `ColumnRef`
-- `createParamRef(index, name?)` - Creates a `ParamRef`
-- `createLiteralExpr(value)` - Creates a `LiteralExpr`
-- `createTableRef(name)` - Creates a `TableRef`
-- `createBinaryExpr(op, left, right)` - Creates a `BinaryExpr` (from `ast/predicate`)
+From test utilities:
+- `createContractIR(overrides?)` - Creates a `ContractIR` with sensible defaults
+
+**Note**: This factory function is currently in test utilities but may be moved to production code in the future for use when loading contracts from JSON or constructing contracts programmatically.
 
 ## When to Use Factory Functions
 
 Use factory functions when:
-- ✅ Creating `ColumnRef`, `ParamRef`, `LiteralExpr`, `TableRef` in tests
-- ✅ Creating `BinaryExpr` in tests
-- ✅ Any AST node that has a factory function available
+- ✅ Creating `ContractIR` objects in tests
+- ✅ Constructing contracts from parsed JSON (ensures all required fields are present)
+- ✅ Creating minimal contracts programmatically
 
-**Exception**: `OperationExpr` objects are complex and don't have a factory function (the `createOperationExpr` function just returns the operation as-is). Manual creation is acceptable for `OperationExpr` in tests.
+**Exception**: When using the contract builder (`defineContract()`), the builder handles normalization and you don't need the factory function.
+
+## Required Fields
+
+All `ContractIR` fields are required (non-optional). The factory function ensures all fields are present:
+- `schemaVersion`: string
+- `targetFamily`: string
+- `target`: string
+- `models`: Record<string, unknown> (can be empty `{}`)
+- `relations`: Record<string, unknown> (can be empty `{}`)
+- `storage`: Record<string, unknown> (must have `tables` for SQL contracts)
+- `extensions`: Record<string, unknown> (can be empty `{}`)
+- `capabilities`: Record<string, Record<string, boolean>> (can be empty `{}`)
+- `meta`: Record<string, unknown> (can be empty `{}`)
+- `sources`: Record<string, unknown> (can be empty `{}`)
+
+## Type Notes
+
+- `capabilities` is typed as `Record<string, Record<string, boolean>>`, not `Record<string, unknown>`
+- `ExtensionPack` requires both `manifest` and `path` properties
 
 ## Benefits
 
-- **Consistency**: All AST nodes created the same way
+- **Consistency**: All ContractIR objects created the same way
 - **Type safety**: Factory functions ensure correct structure
-- **Maintainability**: Changes to AST structure only need updates in factory functions
-- **Less duplication**: No need to repeat AST structure in tests
-- **Validation**: Factory functions can validate inputs
+- **Maintainability**: Changes to ContractIR structure only need updates in factory functions
+- **Less duplication**: No need to repeat all required fields in every test
+- **Default values**: Factory provides sensible defaults for all required fields
 
 ## Examples from Codebase
 
 **Good patterns:**
-- Using `createColumnRef('user', 'id')` instead of `{ kind: 'col', table: 'user', column: 'id' }`
-- Using `createParamRef(1, 'userId')` instead of `{ kind: 'param', index: 1, name: 'userId' }`
-- Using `createLiteralExpr('test')` instead of `{ kind: 'literal', value: 'test' }`
+- Using `createContractIR({ storage: {...} })` instead of manually constructing the full object
+- Using `createContractIR()` for minimal contracts
+- Overriding specific fields: `createContractIR({ target: 'mysql' })`
 
 **Bad patterns (to avoid):**
-- Manual object creation for AST nodes that have factory functions
-- Duplicating AST structure definitions in tests
-- Creating AST nodes with incomplete or incorrect structure
+- Manual object creation for ContractIR in tests
+- Duplicating ContractIR structure definitions in tests
+- Creating ContractIR objects with incomplete structure (missing required fields)
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
