@@ -1,0 +1,43 @@
+## clawnetes
+
+> This is an instruction file for AI coding agents (OpenAI Codex, Claude Code, Gemini)
+
+# AGENTS.md
+
+This is an instruction file for AI coding agents (OpenAI Codex, Claude Code, Gemini)
+
+## Clarifications
+
+If the request is not clear, or is ambigious, ask for clarifications before making changes to code.
+
+## Stability
+
+When asked to do one thing, make code changes ONLY related to that thing. If something else needs to change along with it, be upfront and ASK about it before making the change.
+
+Whenever changing code, take extra care that code addition or removal does not break working functionality.
+
+## Planning
+
+Always make a thorough plan and write it to file. Also track progress on file.
+
+## Test driven development
+
+When adding feautures, always add extensise unit tests.
+
+## Running tests
+
+After implementing a feature, or making code changes, always run tests.
+Fix test failures. Do not stop until all tests pass.
+
+## Validating work
+
+Always run `npm run tauri dev` after making code change. If there are issues, fix them based on the output.
+Do NOT stop working until all issues are addressed.
+
+## Commiting
+
+ALWAYS ask before commiting changes to git and pushing to remote branch.
+
+---
+> Source: [clawnetes/Clawnetes](https://github.com/clawnetes/Clawnetes) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-27 -->
