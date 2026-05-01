@@ -1,16 +1,22 @@
-## mermaid-compat
+## modular-refactoring-patterns
 
-> Mermaid diagram compatibility guidelines for docs
+> Patterns for refactoring large monolithic files into modular structures
 
 
-# Mermaid compatibility (docs)
+# Modular Refactoring Patterns
 
-Different Mermaid renderers (GitHub, VS Code previews, docs sites) can be stricter than Mermaid itself. To avoid parse/render failures in project docs:
+This rulecard is intentionally short. For step-by-step patterns and larger examples, see `docs/reference/modular-refactoring-patterns.md`.
 
-- Prefer ASCII in node labels (avoid curly quotes, arrows like `→`, ellipses like `…`, and emoji prefixes).
-- Avoid Markdown formatting inside labels (especially backticks).
-- Prefer `direction TB` inside `subgraph` blocks.
-- Keep labels short; move detail to surrounding Markdown.
+## Default approach
+
+- Extract **pure helpers** first (no I/O, no global state)
+- Extract **types** next (reduce import cycles)
+- Keep **public API** stable while moving internals
+
+## Related rules
+
+- `.cursor/rules/resolving-cyclic-dependencies.mdc`
+- `.cursor/rules/no-barrel-files.mdc`
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
