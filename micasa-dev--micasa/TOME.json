@@ -4,7 +4,7 @@
   "repo": "micasa",
   "description": "A modal TUI for tracking home projects, maintenance schedules, appliances, and vendor quotes.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/micasa-dev/micasa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T18:17:06Z"
+  "distributed_at": "2026-05-01T00:18:33Z"
 }
