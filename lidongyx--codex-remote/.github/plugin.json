@@ -1,0 +1,9 @@
+{
+  "name": "lidongyx--codex-remote",
+  "displayName": "codex-remote",
+  "description": "Local-first remote Codex workspace with bridge, relay, and iOS client",
+  "version": "1.0.0",
+  "author": "lidongyx",
+  "homepage": "https://github.com/lidongyx/codex-remote",
+  "skills": []
+}
