@@ -1,0 +1,9 @@
+{
+  "name": "aktsmm--skill-ninja-mcp-server",
+  "displayName": "skill-ninja-mcp-server",
+  "description": "MCP Server for Agent Skill Ninja - Search, Install, and Manage Agent Skills",
+  "version": "1.0.0",
+  "author": "aktsmm",
+  "homepage": "https://github.com/aktsmm/skill-ninja-mcp-server",
+  "skills": []
+}
