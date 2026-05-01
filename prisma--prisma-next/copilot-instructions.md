@@ -1,84 +1,109 @@
-## drive-project-workflow
+## family-instance-domain-actions
 
-> Organize work as spec → plan → implement (Drive skills + projects/ layout)
+> Family instance domain action implementation patterns
 
 
-# Drive project workflow
+# Family Instance Domain Actions
 
-Use this workflow when shaping and delivering a **new project**.
+## Overview
 
-## Shape a project (spec first)
+Family instances implement control-plane domain actions (e.g., `emitContract`, `verify`, `schemaVerify`, `introspect`) as methods. These methods should be self-contained and own their implementation logic.
 
-This is the expected maker workflow:
+## Pattern: Inline Core Logic, Import Helper Functions
 
-1. Run `drive-create-project` to scaffold `projects/<project>/`.
-2. Run `drive-create-spec` to produce the **project spec** at `projects/<project>/spec.md`.
-3. Run `drive-generate-plan` to produce the **project plan** at `projects/<project>/plan.md` (and task plans under `projects/<project>/plans/`).
+When implementing domain actions on family instances:
 
-The agent should guide a short, targeted conversation to resolve ambiguity and document decisions in the spec/plan format, and keep Linear in sync.
+**✅ CORRECT: Import helper functions, inline orchestration logic**
 
-## Project lifecycle expectations
+```typescript
+// Import pure helper functions from core
+import { canonicalizeContract } from '@prisma-next/core-control-plane/emission/canonicalization';
+import { computeExecutionHash, computeProfileHash, computeStorageHash } from '@prisma-next/core-control-plane/emission/hashing';
+import { format } from 'prettier';
 
-The lifecycle for a project is:
+// Inline the domain action orchestration
+async emitContract({ contractIR }): Promise<EmitContractResult> {
+  const ir = contractIR as ContractIR;
 
-1. **Shaping (collaboration-heavy)**: Run the workflow above. The output is the project artifacts under `projects/<project>/`.
-   - Commit these artifacts to a new branch (typically the first branch for the project).
-   - Open a PR for the shaping artifacts and validate early:
-     - Validate the **spec** with the PM / stakeholders.
-     - Validate the **plan** with the team.
-   This is the phase where collaboration yields the highest leverage; it’s cheaper to iterate on assumptions and design decisions now than after implementation work depends on them.
+  // Validate structure
+  // ... validation logic ...
 
-2. **Execution (iterate freely)**: Implement tasks from the plan, using as many follow-on branches/PRs as needed and following normal review.
+  // Use helper functions
+  const storageHash = computeStorageHash(contractJson);
+  const executionHash = computeExecutionHash(contractJson);
+  const profileHash = computeProfileHash(contractJson);
+  const contractJsonString = JSON.stringify(
+    { ...JSON.parse(canonicalizeContract(contractWithHashes)), _generated: {...} },
+    null,
+    2
+  );
 
-3. **Stakeholder verification**: Verify with the stakeholder (PM / requester) that the objectives and acceptance criteria in the spec were met.
+  // Generate types via hook
+  const contractDts = await format(
+    sqlTargetFamilyHook.generateContractTypes(ir, codecTypeImports, operationTypeImports),
+    { parser: 'typescript', ... }
+  );
 
-4. **Close-out (final PR)**: Migrate long-lived docs into `docs/`, strip repo-wide references to `projects/<project>/**` (replace with canonical `docs/` links or remove), then delete `projects/<project>/` (the close-out PR removes the transient project directory).
+  return { contractJson: contractJsonString, contractDts, storageHash, executionHash, profileHash };
+}
+```
 
-## Keep project docs current during execution
+**❌ WRONG: Import and call domain action functions from core**
 
-As you implement, keep project documentation up to date:
+```typescript
+// Don't import domain action functions
+import { emit } from '@prisma-next/core-control-plane/emission/emit';
 
-- If you change the approach, sequencing, or discover new constraints, update `projects/<project>/plan.md` (and any supporting docs in `projects/<project>/**`).
-- You may regenerate the plan as you learn new things (rerun `drive-generate-plan`). Any time the plan changes, update the plan doc and supporting docs.
-- If you need to change the **project spec** (`projects/<project>/spec.md`), treat it as a major assumption change:
-  - Stop and inform the user you’ve hit a constraint that requires their permission to update the spec
-  - Recommend validating the change with external stakeholders (e.g. Product) before proceeding
+async emitContract({ contractIR }): Promise<EmitContractResult> {
+  // Don't delegate to core domain action - inline the logic instead
+  const result = await emit(contractIR, options, sqlTargetFamilyHook);
+  return result;
+}
+```
 
-Keep Linear up to date throughout execution:
+## Why This Pattern?
 
-- Linear is an observability mechanism for the health of the project and the maker’s lane.
-- If tickets aren’t moving, it’s a signal to an engineering manager that the maker may be blocked.
-- The agent is expected to update Linear projects/milestones/issues to reflect progress and plan changes (create/update/re-sequence as needed).
+1. **Self-contained instances**: Family instances own their domain action implementations
+2. **Clear ownership**: The family instance is responsible for orchestrating the action, not core
+3. **Flexibility**: Each family can customize the orchestration as needed
+4. **Helper reuse**: Pure helper functions (canonicalization, hashing) are still reusable
+5. **No thin wrappers**: Avoids creating thin wrapper functions in core that just call helpers
 
-## Keep project artifacts under `projects/<project>/`
+## What to Import vs Inline
 
-- Project home: `projects/<project>/`
-- Canonical project spec: `projects/<project>/spec.md`
-- Task/feature specs: `projects/<project>/specs/<task>.spec.md`
-- Project plan: `projects/<project>/plan.md`
-- Task/feature plans: `projects/<project>/plans/<task>-plan.md`
-- Project-specific reference material/assets: `projects/<project>/**`
+**Import (pure helper functions):**
+- `canonicalizeContract()` - Pure canonicalization logic
+- `computeStorageHash()`, `computeExecutionHash()`, `computeProfileHash()` - Pure hashing logic
+- `format()` from prettier - Pure formatting
+- Other pure utility functions
 
-When starting work on a **task** from a project, ensure its spec is recorded under `projects/<project>/specs/` before implementation.
+**Inline (orchestration logic):**
+- Validation steps
+- Building validation contexts
+- Calling family hooks (`sqlTargetFamilyHook.validateTypes()`, etc.)
+- Assembling final results
+- Error handling specific to the domain action
 
-## `projects/` is transient (close-out required)
+## Core Control Plane Role
 
-Anything under `projects/` is **temporary** and should be deleted when the work is done.
+Core control plane provides:
+- **Types**: `FamilyInstance`, `EmitContractResult`, `VerifyDatabaseResult`, etc.
+- **Helper functions**: Pure utilities like `canonicalizeContract`, `computeStorageHash`
+- **Error factories**: Structured error creation
 
-- The **final task** in a project is to:
-  - Verify all acceptance criteria are met
-  - Finalize ADRs and any long-lived documentation
-  - Migrate finalized ADRs/docs into `docs/` (e.g. `docs/architecture docs/adrs/` or relevant subsystem docs)
-  - Strip repo-wide references to `projects/<project>/**` (replace with canonical `docs/` links or remove)
-  - Delete `projects/<project>/` (specs, plans, notes, assets)
+Core control plane does **not** provide:
+- Domain action implementations (these are on `FamilyInstance`)
+- Orchestration logic (this is inlined in family instances)
 
-## Collaboration + PR expectations
+## Example: SQL Family Instance
 
-- Shaping output is the project spec. This is the best time for team collaboration: share the **spec**, **plan**, and any **ADRs** early and validate decisions.
-- Project specs can change without ADRs. ADRs are for changes to the system architecture/behavior and are recorded under `docs/`.
-- During implementation you may update the plan freely, but keep the project spec stable (it should not change often).
-- Open an initial PR containing the project spec. During the project’s lifetime, later task PRs should reference the project spec (and usually should not modify it).
-- The close-out PR may (and usually will) migrate finalized docs into `docs/` and delete `projects/<project>/`.
+The SQL family instance's `emitContract()` method:
+- Imports helper functions: `canonicalizeContract`, `computeStorageHash`, `computeExecutionHash`, `computeProfileHash`
+- Inlines validation, orchestration, and result assembly
+- Uses the instance's preassembled state (operation registry, type imports, extension IDs)
+- Calls the SQL family hook for type generation
+
+This keeps the family instance self-contained while still reusing pure helper functions from core.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
