@@ -1,0 +1,9 @@
+{
+  "name": "anbeeld--agents-md",
+  "displayName": "AGENTS.md",
+  "description": "Global instructions for coding agents: evidence, parallelization, validation, all in one AGENTS.md / CLAUDE.md",
+  "version": "1.0.0",
+  "author": "Anbeeld",
+  "homepage": "https://github.com/Anbeeld/AGENTS.md",
+  "skills": []
+}
