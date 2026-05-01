@@ -1,0 +1,9 @@
+{
+  "name": "kasonye--ui-aesthetics-skill",
+  "displayName": "ui-aesthetics-skill",
+  "description": "A skill that improves AI aesthetic judgment for web UI generation, review, and refinement.",
+  "version": "1.0.0",
+  "author": "kasonye",
+  "homepage": "https://github.com/kasonye/ui-aesthetics-skill",
+  "skills": []
+}
