@@ -1,61 +1,60 @@
-## adapters
+## core
 
-> Conventions for platform adapter packages
+> Conventions for the core pipeline and orchestration layer
 
 
-# Adapter Development Rules
+# Core Pipeline Rules
 
-## Structure
+## Platform Agnosticism
 
-Every adapter package follows this layout:
+This package must never import from `src/adapters/` directly. The exceptions are
+`registry_builder.py` and `workflow_registry.py`, which use lazy imports inside
+try/except blocks.
 
-```
-adapters/yourplatform/
-├── __init__.py      # create_yourplatform_bundle(settings) -> PlatformBundle
-├── adapter.py       # PlatformAdapter implementation
-├── renderer.py      # ContentRenderer implementation
-├── uploader.py      # Uploader implementation
-├── settings.py      # pydantic BaseSettings for env vars
-└── cli.py           # Typer sub-commands (optional)
-```
+## Pipeline (`pipeline.py`)
 
-## Protocol Compliance
+`ContentPipeline.execute(content, platform)` runs four stages:
+1. `ContentNormaliser.normalise()` — match/case on content type
+2. `bundle.renderer.render()` — platform-specific transformation
+3. `sanitise_text()` — strip em/en-dashes from all text fields (anti-AI-detection)
+4. `bundle.uploader.upload_batch()` — media upload, refs stored in `extra._media_refs`
+5. `bundle.adapter.publish()` (or `send_dm()` for DIRECT_MESSAGE)
 
-- Implement protocols from `marketmenow.ports` via structural subtyping.
-  Never subclass or inherit from the Protocol class.
-- Required: `PlatformAdapter`, `ContentRenderer`, `Uploader`.
-- Optional: `AnalyticsCollector`.
-- All adapter methods are `async def`.
-- `platform_name` is a `@property` returning a lowercase string.
+## Orchestrator (`orchestrator.py`)
 
-## Bundle Factory
+`Orchestrator.run_campaign(campaign)` validates targets against the registry,
+then runs executable targets in parallel via `asyncio.gather`. Returns
+`CampaignResult` with results and errors.
 
-Expose `create_yourplatform_bundle(settings)` in `__init__.py`.
-Construct a `PlatformBundle(adapter=..., renderer=..., uploader=...)`.
+## Distributor (`distributor.py`)
 
-## Registration
+`ContentDistributor.distribute(content, platforms=None)` resolves target platforms
+from `DistributionMap` (or explicit override), intersects with registered adapters,
+builds a `Campaign`, and delegates to `Orchestrator`.
 
-Add a `_try_yourplatform()` function in `marketmenow/core/registry_builder.py`.
-Use lazy imports inside a try/except so missing credentials cause graceful skip.
+## Registry Builder (`registry_builder.py`)
 
-## Isolation
+`build_registry()` calls `_try_<platform>()` for each adapter. Each function:
+1. Lazy-imports the adapter's bundle factory and settings class
+2. Constructs settings (reads env vars)
+3. Builds the bundle and registers it
+4. Catches all exceptions — missing config silently skips that platform
 
-- Never import from other adapter packages.
-- Never import adapter code in `src/marketmenow/` (except `core/registry_builder.py`).
-- Settings use `pydantic.BaseSettings` or `pydantic_settings.BaseSettings`
-  reading credentials from environment variables.
+When adding a new adapter, add a corresponding `_try_yourplatform()` here.
 
-## Browser Automation
+## Workflow System (`workflow.py`, `workflow_registry.py`)
 
-Adapters that post via browser (Twitter, Reddit, Facebook, LinkedIn) use Playwright
-with chromium. Store browser state files in project root (gitignored).
+`Workflow` is a named sequence of `WorkflowStep` instances sharing a `WorkflowContext`.
+Steps implement the `WorkflowStep` protocol: `name`, `description`, `execute(ctx)`.
+The context carries `params` (CLI args) and `artifacts` (step outputs).
 
-## CLI Integration
+`build_workflow_registry()` auto-discovers built-in workflows from `workflows/` via
+lazy imports. When adding a new workflow, add a `_try_register()` call here.
 
-Create a Typer app in `cli.py` and register it in `marketmenow/cli.py` via
-`app.add_typer(yourplatform_app, name="yourplatform", hidden=True)`.
-Adapter CLIs are hidden from `mmn --help` — the user-facing CLI uses
-`mmn run <workflow>`. Hidden commands remain callable by the web frontend.
+## Scheduler (`scheduler.py`)
+
+In-process scheduler for timed campaign execution. Uses `ScheduleRule` from
+`models/campaign.py`.
 
 ---
 > Source: [thearnavrustagi/marketmenow](https://github.com/thearnavrustagi/marketmenow) — distributed by [TomeVault](https://tomevault.io).
