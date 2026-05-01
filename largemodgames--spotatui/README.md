@@ -7,11 +7,11 @@ A fully standalone Spotify client for the terminal. Native streaming included, n
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LargeModGames/spotatui](https://github.com/LargeModGames/spotatui).
+Original source: `CLAUDE.md` in [LargeModGames/spotatui](https://github.com/LargeModGames/spotatui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
