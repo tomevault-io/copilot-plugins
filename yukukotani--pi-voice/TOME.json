@@ -1,0 +1,57 @@
+{
+  "name": "pi-voice",
+  "owner": "yukukotani",
+  "repo": "pi-voice",
+  "description": "Headless voice interface for the Pi Coding Agent",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pi-coding-agent-config",
+      "path": ".agents/skills/pi-coding-agent-config",
+      "github_url": "https://github.com/yukukotani/pi-voice/tree/main/.agents/skills/pi-coding-agent-config",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "path": "example/.pi/skills/weather",
+      "github_url": "https://github.com/yukukotani/pi-voice/tree/main/example/.pi/skills/weather",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yukukotani/pi-voice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T09:30:39Z"
+}
