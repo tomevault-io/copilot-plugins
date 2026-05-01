@@ -1,76 +1,18 @@
-## resolving-cyclic-dependencies
+## review-scope-overrides
 
-> How to resolve cyclic dependencies when moving types or refactoring packages
+> Honor explicitly provided base branches in review artifacts
 
 
-# Resolving Cyclic Dependencies
+# Review scope overrides
 
-## Overview
+When producing local PR/branch review artifacts (walkthroughs, code reviews, design reviews), **honor an explicitly-provided base/parent branch**.
 
-When resolving dependency violations by moving types or refactoring packages, always check for unused dependencies that might create cycles. Cyclic dependencies can be broken by removing unused dependencies rather than restructuring code.
+## Rules
 
-## The Problem
-
-When moving types to resolve dependency violations, you may discover that the target package already depends on the source package, creating a cycle:
-
-```
-Package A → Package B (needs types)
-Package B → Package A (unused dependency)
-```
-
-## The Solution
-
-**Before restructuring code, check if the cycle can be broken by removing unused dependencies:**
-
-1. **Check for unused dependencies**: Use `grep` to verify if Package B actually imports anything from Package A
-2. **Remove unused dependencies**: If Package B doesn't use Package A, remove it from `package.json`
-3. **Verify**: Run `pnpm install` and `pnpm typecheck` to ensure nothing breaks
-
-## Pattern
-
-**✅ CORRECT: Remove unused dependency to break cycle**
-
-```bash
-# Check if package actually uses the dependency
-grep -r "@prisma-next/package-a" packages/framework/core-package-b/src
-
-# If no matches, remove from package.json
-# Then verify
-pnpm install
-pnpm --filter @prisma-next/package-b typecheck
-```
-
-**❌ WRONG: Restructure code when unused dependency exists**
-
-```typescript
-// Don't restructure types or create workarounds
-// when the cycle can be broken by removing unused dependencies
-```
-
-## Example
-
-When moving `TypesImportSpec` from `@prisma-next/emitter` to `@prisma-next/contract`:
-
-1. **Discovered cycle**: `@prisma-next/contract` → `@prisma-next/operations` (needs `OperationRegistry`)
-   - `@prisma-next/operations` → `@prisma-next/contract` (unused dependency)
-
-2. **Verified unused**: `grep` showed `@prisma-next/operations` doesn't import from `@prisma-next/contract`
-
-3. **Removed dependency**: Removed `@prisma-next/contract` from `@prisma-next/operations/package.json`
-
-4. **Verified fix**: `pnpm install` and typechecks passed
-
-## When to Use This Pattern
-
-- When resolving dependency violations by moving types
-- When `pnpm install` reports cyclic dependency warnings
-- When refactoring package dependencies
-- Before restructuring code to work around cycles
-
-## Related Patterns
-
-- `.cursor/rules/import-validation.mdc`: Import validation and package layering rules
-- `.cursor/rules/shared-plane-packages.mdc`: When to create shared plane packages
+- If the user specifies a parent branch (e.g. `spec/prisma-next-psl-contract-authoring`), use that as the base for the review range:
+  - `origin/<base>...HEAD`
+- Do not “helpfully” substitute `origin/HEAD` / `origin/main` when a base is explicitly given.
+- If the base branch name is ambiguous (local vs remote), resolve it to `origin/<base>` when possible and record the resolved range in the review artifacts.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
