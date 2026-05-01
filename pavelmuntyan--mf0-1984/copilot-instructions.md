@@ -1,0 +1,28 @@
+## mf-lab-restart-api
+
+> After API edits the agent restarts mf-lab-api itself (pm2 or port 35184).
+
+
+# Restart MF0-1984 API (`mf-lab`)
+
+When **`server/**/*.mjs`**, the `/api` contract, the API proxy, or loading fresh code from disk matters — **the agent restarts the local API** in the terminal, not only telling the user to restart.
+
+## Steps
+
+1. Working directory: **`mf-lab` root** (where `server/api.mjs`, `package.json` live).
+2. First: **`pm2 restart mf-lab-api`** (optionally **`pm2 save`** on success).
+3. If pm2 is missing, there is no `mf-lab-api` process, or the command fails:
+   - API port: **`API_PORT`** from env or **35184** by default;
+   - kill the process listening on that port (e.g. `lsof -ti :35184`), then run in the background: **`node server/api.mjs`** from `mf-lab`.
+4. Check: **`GET http://127.0.0.1:<PORT>/api/health`** — JSON must include **`ok: true`** and **`mfLabApi: true`**.
+
+## Limits
+
+- Do not use restart as cover for **destructive tests** on live `data/*.sqlite` — see **`no-destructive-db-in-agent-tests.mdc`**.
+- If the environment blocks network/processes and restart is impossible — briefly tell the user what to do manually.
+
+Do not stop at “please restart the API” without trying the steps above when the terminal is available.
+
+---
+> Source: [PavelMuntyan/MF0-1984](https://github.com/PavelMuntyan/MF0-1984) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
