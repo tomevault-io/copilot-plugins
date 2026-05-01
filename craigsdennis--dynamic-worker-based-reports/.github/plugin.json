@@ -1,0 +1,9 @@
+{
+  "name": "craigsdennis--dynamic-worker-based-reports",
+  "displayName": "dynamic-worker-based-reports",
+  "description": "An AI Report generator that makes use of Cloudflare Dynamic Workers",
+  "version": "1.0.0",
+  "author": "craigsdennis",
+  "homepage": "https://github.com/craigsdennis/dynamic-worker-based-reports",
+  "skills": []
+}
