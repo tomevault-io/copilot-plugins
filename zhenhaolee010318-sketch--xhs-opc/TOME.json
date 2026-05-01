@@ -1,0 +1,44 @@
+{
+  "name": "xhs-opc",
+  "owner": "zhenhaolee010318-sketch",
+  "repo": "xhs-opc",
+  "description": "\u57fa\u4e8eopc\u6240\u751f\u6210\u7684\u5c0f\u7ea2\u4e66\u8425\u9500skill\uff0c\u642d\u914dopenclaw\u6765\u5b9e\u73b0\u5c0f\u7ea2\u4e66\u81ea\u52a8\u5316\u6355\u83b7\u6700\u65b0\u5e16\u5b50\uff0c\u81ea\u52a8\u53d1\u9001\u5e16\u5b50\u81ea\u52a8\u56de\u590d\u8bc4\u8bba\u7b49",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhenhaolee010318-sketch/xhs-opc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T09:57:24Z"
+}
