@@ -4,7 +4,7 @@
   "repo": "anywhere-agents",
   "description": "One config to rule all your AI agents: portable (every project, every session), effective (curated writing, routing, skills), and safer (destructive-command guard).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yzhao062/anywhere-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T08:50:57Z"
+  "distributed_at": "2026-05-01T21:37:16Z"
 }
