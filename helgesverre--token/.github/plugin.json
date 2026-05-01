@@ -1,0 +1,9 @@
+{
+  "name": "helgesverre--token",
+  "displayName": "token",
+  "description": "Minimal text editor in Rust using the Elm Architecture",
+  "version": "1.0.0",
+  "author": "HelgeSverre",
+  "homepage": "https://github.com/HelgeSverre/token",
+  "skills": []
+}
