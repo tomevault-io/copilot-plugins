@@ -4,7 +4,7 @@
   "repo": "revolut-x-api",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/revolut-engineering/revolut-x-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T11:37:32Z"
+  "distributed_at": "2026-05-01T10:19:42Z"
 }
