@@ -1,22 +1,98 @@
-## modular-refactoring-patterns
+## moving-packages
 
-> Patterns for refactoring large monolithic files into modular structures
+> Guidelines for moving packages and updating relative paths
 
 
-# Modular Refactoring Patterns
+# Moving Packages
 
-This rulecard is intentionally short. For step-by-step patterns and larger examples, see `docs/reference/modular-refactoring-patterns.md`.
+When moving packages to new locations, you must update all relative paths that reference root-level files or other packages.
 
-## Default approach
+## Relative Path Calculation
 
-- Extract **pure helpers** first (no I/O, no global state)
-- Extract **types** next (reduce import cycles)
-- Keep **public API** stable while moving internals
+**Key Principle**: Count the directory depth from the package to the root, then use that many `../` segments.
 
-## Related rules
+**Formula**: Count the directory depth from package to root (note: numbered prefixes like `1-framework` count as one directory):
+- From `packages/1-framework/1-core/shared/plan/` to root = 5 levels up (`../../../../../`)
+- From `packages/2-sql/3-tooling/emitter/` to root = 4 levels up (`../../../../`)
+- From `packages/3-targets/6-adapters/postgres/` to root = 4 levels up (`../../../../`)
+- From `packages/3-extensions/pgvector/` to root = 3 levels up (`../../../`)
 
-- `.cursor/rules/resolving-cyclic-dependencies.mdc`
-- `.cursor/rules/no-barrel-files.mdc`
+### Common Paths to Update
+
+1. **Test files** - Paths to other packages:
+   - Extension pack manifests (e.g., `packages/sql/runtime/adapters/postgres/packs/manifest.json`)
+   - Fixture paths
+   - Import paths in test utilities
+
+## Examples
+
+### Moving from `packages/` to `test/`
+
+**Before** (from `packages/integration-tests/test/`):
+```typescript
+const packs = loadExtensionPacks(join(__dirname, '../../sql/runtime/adapters/postgres'), []);
+// Resolves to: packages/sql/runtime/adapters/postgres
+```
+
+**After** (from `test/integration/test/`):
+```typescript
+const packs = loadExtensionPacks(join(__dirname, '../../../packages/3-targets/6-adapters/postgres'), []);
+// Resolves to: packages/3-targets/6-adapters/postgres
+```
+
+**Why?** From `test/integration/test/`:
+- `../` → `test/integration/`
+- `../../` → `test/`
+- `../../../` → root
+- `../../../packages/3-targets/` → `packages/3-targets/`
+
+## Checklist When Moving Packages
+
+1. **Update test files** - Paths to other packages, fixtures, manifests
+2. **Update `pnpm-workspace.yaml`** - Add/remove package globs if needed
+3. **Update `architecture.config.json`** - Add/remove package entries
+   - For multi-plane packages, add separate globs for each plane (see `.cursor/rules/multi-plane-packages.mdc`)
+4. **Update `tsconfig.base.json`** - Update project references
+5. **Update `dependency-cruiser.config.mjs`** - Update exclude patterns if needed
+6. **Update CI workflows** - Update any hardcoded paths
+7. **Update documentation** - READMEs, AGENTS.md, etc.
+8. **Update relative paths in source files** - Manifest paths, import paths, etc.
+
+## Verification
+
+After moving a package, verify paths work:
+
+```bash
+# From the moved package directory
+node -e "const path = require('path'); console.log(path.resolve(__dirname, '../../packages/sql/runtime/adapters/postgres'))"
+```
+
+This should resolve to the correct absolute path.
+
+## Common Mistakes
+
+**❌ WRONG: Not updating paths after move**
+```typescript
+// Still using old path after moving from packages/ to test/
+const packs = loadExtensionPacks(join(__dirname, '../../sql/runtime/adapters/postgres'), []);
+// This resolves to test/sql/runtime/adapters/postgres (doesn't exist!)
+```
+
+**✅ CORRECT: Update paths based on new location**
+```typescript
+// Updated path after moving to test/
+const packs = loadExtensionPacks(join(__dirname, '../../../packages/3-targets/6-adapters/postgres'), []);
+// This resolves to packages/3-targets/6-adapters/postgres (correct!)
+```
+
+## Test Packages Special Case
+
+Test packages moved to `test/` directory:
+- Still need to be in `pnpm-workspace.yaml` for dependency resolution
+- Use `workspace:*` protocol for dependencies
+- Marked as `private: true` in `package.json`
+- Not included in `architecture.config.json` (not source packages)
+- Excluded from dependency cruiser checks (via `exclude` patterns)
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
