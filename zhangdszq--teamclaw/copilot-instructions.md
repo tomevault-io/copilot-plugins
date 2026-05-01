@@ -1,85 +1,34 @@
-## dev-test-workflow
+## no-emoji-icons
 
-> 开发完成后：编译验证 → 重启应用 → CDP 截图测试，遇问题可反复排查
+> Icon 不用 emoji，统一用 inline SVG
 
 
-# 开发测试工作流
+# Icon 规范：SVG 替代 Emoji
 
-每次完成 UI / 功能开发后，按以下流程验证效果。
+UI 中所有图标一律使用 inline SVG，禁止使用 emoji 字符。
 
-## 1. 编译验证（必须先通过）
+```tsx
+// ❌ BAD
+<span className="text-base">{item.icon}</span>    // "🎓" emoji
+<span>📋</span>
 
-```bash
-# React + TypeScript 编译
-cd /Users/zhang/git-repos/VK-Cowork && bun run build
+// ✅ GOOD — inline SVG with currentColor
+<svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+  <path d="M12 14l9-5-9-5-9 5 9 5z" />
+  <path d="M12 14l6.16-3.42A12 12 0 0112 21a12 12 0 01-6.16-10.42L12 14z" />
+</svg>
 
-# Electron 端编译
-bun run transpile:electron
+// ✅ GOOD — icon 为空时用分类色首字母圆标
+<span
+  className="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold text-white"
+  style={{ backgroundColor: categoryColor }}
+>
+  {name.slice(0, 1)}
+</span>
 ```
 
-两条命令均 exit 0 才继续，否则先修复错误。
-
-## 2. 重启应用
-
-```bash
-pkill -f electron 2>/dev/null; pkill -f vite 2>/dev/null
-sleep 1 && npm run dev &
-sleep 10  # 等待 Electron 窗口出现
-```
-
-## 3. Electron 调试端口截图
-
-应用不带 `--remote-debugging-port` 时，用 Python CDP 直接连 9222（若需要则重启带端口）：
-
-```bash
-# 带调试端口启动（替代 npm run dev）
-pkill -f electron 2>/dev/null; pkill -f vite 2>/dev/null; sleep 1
-bun run dev:react &
-sleep 3 && npx electron . --remote-debugging-port=9222 &
-sleep 6
-```
-
-```python
-# 截图脚本（保存至 screenshots/）
-import json, base64, asyncio, websockets, urllib.request
-
-async def screenshot(path="screenshots/test.png"):
-    # 获取页面列表
-    pages = json.loads(urllib.request.urlopen("http://localhost:9222/json").read())
-    ws_url = pages[0]["webSocketDebuggerUrl"]
-    async with websockets.connect(ws_url) as ws:
-        await ws.send(json.dumps({"id": 1, "method": "Page.enable"}))
-        await ws.recv()
-        await ws.send(json.dumps({"id": 2, "method": "Page.captureScreenshot", "params": {"format": "png"}}))
-        resp = json.loads(await ws.recv())
-        open(path, "wb").write(base64.b64decode(resp["result"]["data"]))
-        print(f"Screenshot: {path}")
-
-asyncio.run(screenshot())
-```
-
-## 4. 激活窗口截全屏（备用方案）
-
-```bash
-osascript -e 'tell application "System Events" to tell process "Electron" to set frontmost to true'
-sleep 1 && screencapture -o screenshots/test.png
-```
-
-## 5. 反复排查流程
-
-遇到崩溃或渲染异常：
-
-1. 检查 `better-sqlite3` 是否需要重编：
-   ```bash
-   npx electron-rebuild -f -w better-sqlite3 --electron-version 39.2.7
-   ```
-2. 重启（步骤 2）→ 截图（步骤 3/4）→ 对比
-
-## 注意
-
-- CDP websocket URL 每次启动会变，从 `http://localhost:9222/json` 动态获取
-- `pip3 install websockets --break-system-packages`（首次需要）
-- Vite dev server 地址：`http://localhost:5173`，Electron 嵌入 API：`http://localhost:2620`
+- 静态数据中 `icon` 字段留空字符串 `""`，渲染时 fallback 到首字母圆标
+- HAND.toml 等外部数据可能带 emoji，渲染层统一用 SVG 或首字母替代
 
 ---
 > Source: [zhangdszq/teamclaw](https://github.com/zhangdszq/teamclaw) — distributed by [TomeVault](https://tomevault.io).
