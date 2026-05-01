@@ -1,0 +1,9 @@
+{
+  "name": "giosakti--duragent",
+  "displayName": "duragent",
+  "description": "Durable agent runtime. Sessions survive crashes. Agents are just files. One binary, zero dependencies.",
+  "version": "1.0.0",
+  "author": "giosakti",
+  "homepage": "https://github.com/giosakti/duragent",
+  "skills": []
+}
