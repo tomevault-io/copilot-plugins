@@ -1,0 +1,9 @@
+{
+  "name": "durable-streams--durable-streams",
+  "displayName": "durable-streams",
+  "description": "The data primitive for the agent\u00a0loop.",
+  "version": "1.0.0",
+  "author": "durable-streams",
+  "homepage": "https://github.com/durable-streams/durable-streams",
+  "skills": []
+}
