@@ -1,64 +1,76 @@
-## commit-messages
+## pull-requests
 
-> Commit message conventions for all repositories
+> Pull request conventions for all repositories
 
 
-# Commit Message Conventions
+# Pull Request Conventions
 
-## Format
+## Title
+
+Use the same format as commit messages:
 
 ```
 <type>: <concise summary in imperative mood>
-
-<optional body — explain WHY, not WHAT>
 ```
 
-## Types
+Examples: `feat: add custom domain management`, `fix: prevent primary domain deletion`
 
-| Type | When |
-|------|------|
-| `feat` | New feature or capability |
-| `fix` | Bug fix |
-| `refactor` | Code restructuring with no behavior change |
-| `chore` | Maintenance, dependency updates, cleanup |
-| `docs` | Documentation only |
-| `style` | Formatting, whitespace (no logic change) |
-| `perf` | Performance improvement |
-| `test` | Adding or updating tests |
+## Body Format
+
+```markdown
+## Summary
+
+<1-3 sentences explaining WHAT changed and WHY>
+
+## Changes
+
+- Bullet list of specific changes grouped logically
+- Focus on behavior changes, not file-by-file diffs
+- Use imperative mood: "Add X" not "Added X"
+
+## Test plan
+
+- [ ] Actionable checklist of how to verify the changes
+- [ ] Include edge cases worth testing
+```
 
 ## Rules
 
-- **Imperative mood**: "add user auth" not "added user auth" or "adding user auth"
-- **Lowercase** after the type prefix: `feat: add domain management`
-- **No period** at the end of the subject line
-- **50 chars max** for the subject line (type + summary)
-- **Body** (if needed): wrap at 72 chars, separated by a blank line
-- **Focus on WHY** in the body, not what — the diff shows what changed
+- **Base branch**: always create PRs against the `develop` branch
+- **Assignee**: always assign the PR to the current GitHub user (`gh api user --jq '.login'`)
+- **Labels**: apply a label based on PR type — `Bug` for `fix:` PRs, `Feature request` for `feat:` PRs, `Improvement` for `refactor:` or `perf:` PRs, `Documentation` for `docs:` PRs. Skip labels for other types (chore, style, test)
 - **No AI attribution**: never mention Cursor, AI, copilot, or assistant
-- **No filler words**: avoid "various", "some", "minor", "misc" — be specific
-- **No WIP commits**: if the work is incomplete, describe what IS done
+- **Summary over detail**: reviewers read the diff — the PR describes intent
+- **Imperative mood** throughout: "Add", "Fix", "Remove", not past tense
+- **No filler**: avoid "various improvements", "some fixes" — be specific
+- **Link issues** when applicable: "Closes #123" in the summary
+- **Keep it scannable**: bullets over paragraphs, short lines
+- **Test plan is mandatory**: always include at least one verification step
 - **No trailer parameters**: do not use `--trailer` flags in git commit commands
 
-## Examples
+## Example
 
-```
-feat: add custom domain management to cloud settings
+```markdown
+## Summary
 
-refactor: extract tenant scoping into domain repository
+Add domain management UI and API for cloud tenants, allowing users to
+connect custom domains, verify DNS, and set a primary canonical URL.
 
-fix: prevent deletion of primary domain
+## Changes
 
-chore: remove orphaned management sync endpoint
-```
-
-## Multi-concern commits (use bullet body)
-
-```
-refactor: clean up domain management feature
-
-- Remove dead unset-primary code path
-- Add tenant scoping to verification updates
+- Add settings page at `/settings/domains` with add/remove/verify flows
+- Add API routes for domain CRUD, status checking, and primary selection
+- Integrate Vercel SDK for domain registration and DNS verification
+- Add middleware redirect from non-primary domains to primary
 - Enforce 10-domain limit per tenant
+
+## Test plan
+
+- [ ] Add a custom domain and verify it appears in the list
+- [ ] Check DNS status shows correct records to configure
+- [ ] Set a domain as primary and confirm redirect works
+- [ ] Attempt to remove primary domain — should be blocked
+- [ ] Attempt to add 11th domain — should be rejected
 ```
 
 ---
