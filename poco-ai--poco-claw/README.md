@@ -7,11 +7,11 @@ A more beautiful and easier-to-use alternative to OpenClaw. It features a nicer 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [poco-ai/poco-claw](https://github.com/poco-ai/poco-claw).
+Original source: `CLAUDE.md` in [poco-ai/poco-claw](https://github.com/poco-ai/poco-claw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
