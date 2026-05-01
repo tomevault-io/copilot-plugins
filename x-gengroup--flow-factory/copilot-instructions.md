@@ -1,14 +1,13 @@
-## base-class-contract
+## examples-yaml-sync
 
-> Check all subclasses when modifying base class interfaces
+> Remind to update ALL example YAML configs when modifying hparams dataclasses
 
 
-Changes to abc.py base classes (BaseTrainer, BaseAdapter, BaseRewardModel) affect ALL subclasses.
-Before modifying:
-- List ALL subclasses that override the changed method
-- Update each subclass to match the new signature
-- Verify no trainer/adapter/reward is broken
-See constraints #11-#14 in .agents/knowledge/constraints.md.
+When modifying fields in hparams/ dataclasses:
+- New fields: add to ALL example configs in examples/ with default value and `# Options:` comment
+- Renamed fields: search-and-replace across ALL YAML files (old keys fail silently)
+- Removed fields: clean up from ALL YAML files
+See constraint #15 in .agents/knowledge/constraints.md.
 
 ---
 > Source: [X-GenGroup/Flow-Factory](https://github.com/X-GenGroup/Flow-Factory) — distributed by [TomeVault](https://tomevault.io).
