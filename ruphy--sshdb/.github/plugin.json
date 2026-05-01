@@ -1,0 +1,9 @@
+{
+  "name": "ruphy--sshdb",
+  "displayName": "sshdb",
+  "description": "Keyboard-first SSH library and launcher TUI",
+  "version": "1.0.0",
+  "author": "ruphy",
+  "homepage": "https://github.com/ruphy/sshdb",
+  "skills": []
+}
