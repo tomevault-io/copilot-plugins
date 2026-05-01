@@ -1,211 +1,24 @@
-## config-validation-and-normalization
+## contract-default-values
 
-> Patterns for config validation and normalization using Arktype
+> Validate emitted column default values
 
 
-# Config Validation and Normalization
+# Contract Default Values
 
-## Overview
+## Key points
 
-When implementing config files (e.g., `prisma-next.config.ts`), use Arktype for validation and normalization. This ensures type safety, provides clear error messages, and applies sensible defaults.
+- When adding column defaults, re-emit the contract and verify the emitted JSON includes the full default payload.
+- Add the corresponding `defaults.*` capability when using function defaults like `autoincrement()` or `now()`.
 
-## Pattern: Validation + Normalization in defineConfig()
+## CLI output: tree vs JSON
 
-**✅ CORRECT: Validate and normalize in defineConfig()**
+Column defaults are handled differently depending on output format:
 
-```typescript
-import { type } from 'arktype';
-import { join, dirname } from 'node:path';
+- **Tree output** (`db introspect`): Labels show only type and nullability, e.g. `id: int4 (not nullable)`. Defaults are omitted from labels to keep tree output concise.
+- **JSON output** (`db introspect --json`): Full default information is preserved in the schema IR.
+- **Programmatic access**: Defaults are always available in `SchemaTreeNode.meta.default` for tooling that needs them.
 
-const ConfigSchema = type({
-  required: 'string',
-  'optional?': 'string',
-  nested: type({
-    'nestedOptional?': 'number',
-  }),
-});
-
-export function defineConfig(config: ConfigInput): ConfigOutput {
-  // 1. Validate structure using Arktype
-  const validated = ConfigSchema(config);
-  if (validated instanceof type.errors) {
-    const messages = validated.map((p: { message: string }) => p.message).join('; ');
-    throw new Error(`Config validation failed: ${messages}`);
-  }
-
-  // 2. Normalize by applying defaults
-  const normalized: ConfigOutput = {
-    ...config,
-    optional: config.optional ?? 'default-value',
-    nested: {
-      ...config.nested,
-      nestedOptional: config.nested?.nestedOptional ?? 42,
-    },
-  };
-
-  // 3. Return normalized IR (not raw input)
-  return normalized;
-}
-```
-
-**Why?**
-- **Validation**: Catches structural errors early with clear messages
-- **Normalization**: Applies defaults in one place, making behavior predictable
-- **Type safety**: Arktype validates structure matches TypeScript types
-- **Single responsibility**: `defineConfig()` is the only place normalization happens
-
-## Normalization Responsibilities
-
-**The `defineConfig()` function is the ONLY place where normalization should occur.**
-
-All other components (loaders, validators, commands) should assume configs are already normalized.
-
-### defineConfig() Responsibility
-
-**Responsibility: Validation and Normalization**
-
-- Validates config structure using Arktype schemas
-- Applies default values for optional fields
-- Returns normalized config IR (not raw input)
-- Throws errors if structure is invalid
-
-**When to normalize:**
-- When defining a config via `defineConfig()`
-- The function should always output a fully normalized config
-
-**When NOT to normalize:**
-- Never normalize in config loaders
-- Never normalize in command handlers
-- Never normalize in validators
-
-### Config Loader Responsibility
-
-**Responsibility: Loading Only**
-
-The config loader loads the config file and calls `defineConfig()` (which handles validation/normalization). It does NOT normalize the config.
-
-**What it does:**
-- Loads config file using c12 or similar
-- Calls `defineConfig()` to validate and normalize
-- Returns the normalized config
-
-**What it does NOT do:**
-- Does NOT set default values for missing fields
-- Does NOT normalize the config structure
-
-**Assumption:**
-- The config returned from `defineConfig()` is already normalized
-
-### Command Handler Responsibility
-
-**Responsibility: Using Normalized Config**
-
-Command handlers use the normalized config directly. They do NOT normalize the config.
-
-**What it does:**
-- Uses normalized config values (defaults already applied)
-- Accesses config fields directly (no need to check for defaults)
-
-**What it does NOT do:**
-- Does NOT normalize the config structure
-- Does NOT set default values for missing fields
-
-**Assumption:**
-- The config passed to commands is already normalized
-
-## Default Path Resolution
-
-When normalizing paths, use `join()` and `dirname()` for proper path handling:
-
-**✅ CORRECT: Use path utilities for defaults**
-
-```typescript
-import { join, dirname } from 'node:path';
-
-const output = config.contract.output ?? 'src/prisma/contract.json';
-const types = output.endsWith('.json')
-  ? output.slice(0, -5) + '.d.ts'
-  : join(dirname(output), 'contract.d.ts');
-```
-
-**Why?**
-- Handles both relative and absolute paths correctly
-- Works across platforms (Windows, Unix)
-- Properly handles edge cases (paths without extensions, directory paths)
-
-## Nested Config Structures
-
-When config has nested structures, validate and normalize each level:
-
-**✅ CORRECT: Nested validation and normalization**
-
-```typescript
-const NestedConfigSchema = type({
-  source: 'unknown',
-  'output?': 'string',
-});
-
-const ConfigSchema = type({
-  family: 'unknown',
-  target: 'unknown',
-  adapter: 'unknown',
-  'contract?': NestedConfigSchema,
-});
-
-export function defineConfig(config: ConfigInput): ConfigOutput {
-  const validated = ConfigSchema(config);
-  if (validated instanceof type.errors) {
-    throw new Error(/* ... */);
-  }
-
-  // Normalize nested structure if present
-  if (config.contract) {
-    const normalizedContract = {
-      source: config.contract.source,
-      output: config.contract.output ?? 'src/prisma/contract.json',
-    };
-
-    return {
-      ...config,
-      contract: normalizedContract,
-    };
-  }
-
-  return config;
-}
-```
-
-## Error Messages
-
-Provide clear, actionable error messages:
-
-**✅ CORRECT: Clear error messages**
-
-```typescript
-if (validated instanceof type.errors) {
-  const messages = validated.map((p: { message: string }) => p.message).join('; ');
-  throw new Error(`Config validation failed: ${messages}`);
-}
-```
-
-**Why?**
-- Arktype provides detailed error messages
-- Multiple errors are joined for visibility
-- Users can fix issues quickly
-
-## Benefits
-
-1. **Single Responsibility**: Normalization happens in one place
-2. **Predictability**: Defaults are always applied consistently
-3. **Type Safety**: Arktype validates structure matches types
-4. **Maintainability**: Changes to defaults only affect one function
-5. **Testability**: Easy to test normalization logic in isolation
-
-## Related Patterns
-
-- `.cursor/rules/arktype-usage.mdc`: Arktype validation patterns
-- `.cursor/rules/contract-normalization-responsibilities.mdc`: Similar pattern for contracts
-- `.cursor/rules/declarative-config.mdc`: Declarative configuration patterns
+This separation keeps human-readable tree output clean while preserving full data for automation.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
