@@ -4,7 +4,7 @@
   "repo": "nao",
   "description": "\ud83d\udc7e nao is an open source analytics agent. (1) Create context with nao-core cli, (2) deploy nao chat interface for everyone",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getnao/nao",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T05:54:55Z"
+  "distributed_at": "2026-05-01T08:04:55Z"
 }
