@@ -1,0 +1,9 @@
+{
+  "name": "skeeto--elfeed2",
+  "displayName": "elfeed2",
+  "description": "The Elfeed feed reader experience without Emacs",
+  "version": "1.0.0",
+  "author": "skeeto",
+  "homepage": "https://github.com/skeeto/elfeed2",
+  "skills": []
+}
