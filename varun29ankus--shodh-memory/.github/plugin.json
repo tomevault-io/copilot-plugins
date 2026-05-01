@@ -1,0 +1,9 @@
+{
+  "name": "varun29ankus--shodh-memory",
+  "displayName": "shodh-memory",
+  "description": "Cognitive memory for AI agents \u2014 learns from use, forgets what's irrelevant, strengthens what matters. Single binary, fully offline.",
+  "version": "1.0.0",
+  "author": "varun29ankuS",
+  "homepage": "https://github.com/varun29ankuS/shodh-memory",
+  "skills": []
+}
