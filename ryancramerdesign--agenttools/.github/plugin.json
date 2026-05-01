@@ -1,0 +1,9 @@
+{
+  "name": "ryancramerdesign--agenttools",
+  "displayName": "AgentTools",
+  "description": "Enables AI coding agents to access ProcessWire\u2019s API and provides a database migration system.",
+  "version": "1.0.0",
+  "author": "ryancramerdesign",
+  "homepage": "https://github.com/ryancramerdesign/AgentTools",
+  "skills": []
+}
