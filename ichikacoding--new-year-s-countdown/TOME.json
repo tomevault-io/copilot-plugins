@@ -1,0 +1,44 @@
+{
+  "name": "new-year-s-countdown",
+  "owner": "IchikaCoding",
+  "repo": "new-year-s-countdown",
+  "description": "\u304a\u6b63\u6708\u30ab\u30a6\u30f3\u30c8\u30c0\u30a6\u30f3\u30a2\u30d7\u30ea",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/IchikaCoding/new-year-s-countdown",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T03:49:11Z"
+}
