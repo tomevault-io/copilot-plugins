@@ -1,0 +1,9 @@
+{
+  "name": "karlraf--gtm-starter-kit",
+  "displayName": "gtm-starter-kit",
+  "description": "A Claude Code repository for GTM teams. Context templates, skills, workflows, and a fully built-out example \u2014 fork it, fill in your context, and run AI-powered GTM tasks from a single prompt.",
+  "version": "1.0.0",
+  "author": "KarlRaf",
+  "homepage": "https://github.com/KarlRaf/gtm-starter-kit",
+  "skills": []
+}
