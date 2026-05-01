@@ -1,0 +1,9 @@
+{
+  "name": "vre--flow-state",
+  "displayName": "flow-state",
+  "description": "Flow State - a Claude Plugin Marketplace",
+  "version": "1.0.0",
+  "author": "vre",
+  "homepage": "https://github.com/vre/flow-state",
+  "skills": []
+}
