@@ -1,0 +1,44 @@
+{
+  "name": "AI-Gateway",
+  "owner": "YougLin-dev",
+  "repo": "AI-Gateway",
+  "description": "This project was developed using an early experimental version of AhaLoop, created entirely by AI through a single prompt. While there are still some minor issues and the README may slightly differ from the actual implementation, it remains an interesting experiment.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YougLin-dev/AI-Gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T00:00:17Z"
+}
