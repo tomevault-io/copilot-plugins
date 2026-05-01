@@ -1,0 +1,9 @@
+{
+  "name": "yellowcooln--meshcore-health-check",
+  "displayName": "meshcore-health-check",
+  "description": "Self-hosted MeshCore observer coverage app that generates test codes, watches MQTT observer receipts, and scores real-   world message reachability with per-observer path details.",
+  "version": "1.0.0",
+  "author": "yellowcooln",
+  "homepage": "https://github.com/yellowcooln/meshcore-health-check",
+  "skills": []
+}
