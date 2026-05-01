@@ -1,27 +1,31 @@
-## git-linear-automation
+## linear-mcp
 
-> 当用户需要执行 git 操作时，自动应用本规则；如涉及 Linear issue（如 HX-{number}），则同时应用 Linear MCP 规则。
+> 当用户提及 HX-{number} 或者使用 linear 做任何操作时，自动应用本规则。
 
-# 自动化 git 操作与 Linear issue 相关操作标准流程
+## Linear MCP
+- 当前 team 只有一个 ，名为 HeXian, 团队成员也只有一个 hexianweb
+- Use as many emojis as possible in issues, descriptions, comments, and markdown content to enhance readability and fun.
+- When creating an issue, automatically set the status to 📝 To Do.
+- Automatically assign the issue to hexianweb.
+- Labels should be set intelligently according to the scenario (e.g., bug 🐞, feature ✨, enhancement 🚀, question ❓, etc.).
+- 可以出现"参考 PRD.md" 或者 "参考 TD.md" 等文字，但同时也要求读取相应文件中具体内容，将特定内容写入issue中。
+- 所有的 issue 在刚建立时都默认预付优先级为 中等
+- **根据 issue 具体内容决定 issue 的 label 属性**，必要时创建新的 label tag
+- 当 Intent context 中有 "HX-{number}" 时，他指代的是 ID 为 HX-{number} 的 issue。
+- 当 Intent context 有子任务 子issue 时，要求为 ID 为 HX-{number} 添加 sub issue
 
-## 适用范围
-- 本规则适用于所有涉及 git 版本管理与 Linear issue 协同的开发流程。
-- 适用于团队成员与 AI 助手自动化操作。
 
-## 1. git 操作
-- 有 staged 文件时，优先将其作为一次 commit。
-- 仅有 unstaged 文件时，需分批 git add，确保每次提交内容与 Linear issue 关联合理，粒度清晰。
-- commit message 必须通过 Linear MCP 获取 issue 详细内容，按 commitizen 规范撰写，结尾加上 Linear issue 及其 GitHub issue 编号。
-- 自动执行 git add、git commit。
-
-## 2. Linear issue 操作
-- 创建 issue 时自动分配 hexianweb，状态 📝 To Do，优先级中等，label 智能分配。
-- issue 描述自动引用并提取 docs/PRD.md、docs/TD.md 相关内容，丰富 issue 信息，多用 emoji。
-- 支持自动添加评论、子任务、变更状态、调整优先级等。
-- 支持 issue 与 GitHub PR/commit 自动关联。
-
-## 3. 操作指令
-- 只需告知要提交的文件、关联的 Linear issue（HX-编号）、是否自动生成/更新 issue、评论、子任务等，AI 助手自动完成剩余操作。
+## git 
+- **✅ 确保 Linear MCP 工具可用且已授权确保 linear mcp 一定可用**
+- 当 git Staging Area 暂存区里面存在待 commit 的文件时，优先考虑将其视为一次 commit 并撰写 commit msg
+- 当 git 暂存区 不存在内容并且 unstaged changes存在大量文件时, 他们通常是为了完成 linear HX-{number} issue 而做的修改，你需要将文件分数次进入 暂存区：粒度合理，能清晰反映每个 issue 的工作内容，每次执行 git 指令都需要告诉我具体文件分配，
+- git commit 会被要求为用于解决 linear ID 序号为 HX-{number} 的 issue, 所以 commit message 可以先通过 mcp tool: linear 来获取 issue 具体内容，然后撰写。
+- **git commit 需要遵守 commitizen 提交规范**
+- git commit message 最后文字需要将 **linear ID 序号为 HX-{number} 的 issue** 所关联的 GitHub issue 序号填在最后
+- commit 粒度合理，能清晰反映每个 issue 的工作内容
+ 例如:  linear HX-24 关联的 github issue 序号为 9
+ commit meg 为: refactor(building): 基类实现通用 upgrade，清理子类冗余升级逻辑，修复升级扣费依据目标等级 cost 的 BUG (#9)
+- **IDE 拥有调用 git 的权限，当我确认上述所有内容无误后，你自行执行 git add 相应 file, 并且 git commit message 命令。**
 
 ---
 > Source: [hexianWeb/Third-Person-MC](https://github.com/hexianWeb/Third-Person-MC) — distributed by [TomeVault](https://tomevault.io).
