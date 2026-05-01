@@ -1,0 +1,9 @@
+{
+  "name": "fitchmultz--pi-oracle",
+  "displayName": "pi-oracle",
+  "description": "ChatGPT web-oracle extension for pi with isolated browser auth, async jobs, and project-context archives.",
+  "version": "1.0.0",
+  "author": "fitchmultz",
+  "homepage": "https://github.com/fitchmultz/pi-oracle",
+  "skills": []
+}
