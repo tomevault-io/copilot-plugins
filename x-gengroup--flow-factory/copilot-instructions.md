@@ -1,14 +1,15 @@
-## registry-consistency
+## skills-reusable-only
 
-> Keep registry entries in sync with actual module locations
+> Only place reusable, documented workflows in .agents/skills/. Temporary utilities go in scripts/ or tests/.
 
 
-Registry entries map string keys to fully qualified Python import paths.
-When modifying registry files:
-- Verify each path actually resolves to the correct class
-- Check that class names match the import path
-- Test with get_*_class() to confirm resolution works
-See constraints #1-#4 in .agents/knowledge/constraints.md.
+The `.agents/skills/` directory is for permanent, reusable agent workflows only.
+
+Rules:
+- Every skill folder must contain a `SKILL.md` with YAML frontmatter (`name` and `description`)
+- Skill names use lowercase letters and hyphens only
+- Skills must be registered in `CLAUDE.md` and `.agents/skills/README.md`
+- Temporary automation, one-off scripts, or experimental code belongs in `scripts/` or `tests/`
 
 ---
 > Source: [X-GenGroup/Flow-Factory](https://github.com/X-GenGroup/Flow-Factory) — distributed by [TomeVault](https://tomevault.io).
