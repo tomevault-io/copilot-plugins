@@ -1,0 +1,44 @@
+{
+  "name": "Folio-OCR",
+  "owner": "vorojar",
+  "repo": "Folio-OCR",
+  "description": "Open-source batch OCR workbench \u2014 a free, local alternative to ABBYY FineReader. Powered by Ollama + GLM-OCR + PP-DocLayoutV3, ~0.5s/page on RTX 4090. Three-panel editor, layout-aware, PDF/image batch processing, Markdown/Word export. \u6279\u91cfOCR\u5de5\u4f5c\u53f0\uff0c\u7eaf\u672c\u5730\u8fd0\u884c\uff0c\u514d\u8d39\u5e73\u66ffABBYY\uff0c\u9002\u5408\u4e66\u7c4d\u6587\u6863\u6570\u5b57\u5316\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vorojar/Folio-OCR",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T04:12:03Z"
+}
