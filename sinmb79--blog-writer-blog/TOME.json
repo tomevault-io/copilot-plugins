@@ -1,0 +1,44 @@
+{
+  "name": "blog-writer-blog",
+  "owner": "sinmb79",
+  "repo": "blog-writer-blog",
+  "description": "blog-writer-blog \uc790\ub3d9 \uc791\uc131\ud558\ub294 \ud504\ub85c\uadf8\ub7a8",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sinmb79/blog-writer-blog",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T08:23:43Z"
+}
