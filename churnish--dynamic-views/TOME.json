@@ -4,7 +4,7 @@
   "repo": "dynamic-views",
   "description": "Obsidian plugin that adds elegant grid and masonry card views for Bases.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/churnish/dynamic-views",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T08:30:08Z"
+  "distributed_at": "2026-05-01T19:38:11Z"
 }
