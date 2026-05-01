@@ -1,0 +1,9 @@
+{
+  "name": "0xdeafbeef--no-block-pls",
+  "displayName": "no-block-pls",
+  "description": "Detect blocking sections in async code",
+  "version": "1.0.0",
+  "author": "0xdeafbeef",
+  "homepage": "https://github.com/0xdeafbeef/no-block-pls",
+  "skills": []
+}
