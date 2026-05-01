@@ -4,7 +4,7 @@
   "repo": "ast-outline",
   "description": "Fast, AST-based structural outline for source files. Built for LLM coding agents and humans.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aeroxy/ast-outline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T11:35:39Z"
+  "distributed_at": "2026-05-01T10:14:57Z"
 }
