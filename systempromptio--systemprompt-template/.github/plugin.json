@@ -1,0 +1,9 @@
+{
+  "name": "systempromptio--systemprompt-template",
+  "displayName": "systemprompt-template",
+  "description": "AI Governance Infrastructure \u2014 local evaluation. The governance layer for AI agents: a single compiled Rust binary that authenticates, authorises, rate-limits, logs, and costs every AI interaction. Se",
+  "version": "1.0.0",
+  "author": "systempromptio",
+  "homepage": "https://github.com/systempromptio/systemprompt-template",
+  "skills": []
+}
