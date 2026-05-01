@@ -4,7 +4,7 @@
   "repo": "onyx-foss",
   "description": "Open Source AI Platform - AI Chat with advanced features that works with every LLM",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/onyx-dot-app/onyx-foss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T06:10:32Z"
+  "distributed_at": "2026-05-01T19:04:28Z"
 }
