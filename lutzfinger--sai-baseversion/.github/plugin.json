@@ -1,0 +1,9 @@
+{
+  "name": "lutzfinger--sai-baseversion",
+  "displayName": "SAI-baseversion",
+  "description": "AI agents built for trust: structured workflows, human approval, secure tool access, audit logs, and grounded outputs for real enterprise work.",
+  "version": "1.0.0",
+  "author": "lutzfinger",
+  "homepage": "https://github.com/lutzfinger/SAI-baseversion",
+  "skills": []
+}
