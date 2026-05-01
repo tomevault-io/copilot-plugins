@@ -4,7 +4,7 @@
   "repo": "nono",
   "description": "nono - a capability-based, multiplexing sandbox tool, built for developers - lift'n'shift seamless path to prod. Run agents securely without needing any additional infra, zero setup, zero latency. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/always-further/nono",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T17:54:29Z"
+  "distributed_at": "2026-05-01T00:06:41Z"
 }
