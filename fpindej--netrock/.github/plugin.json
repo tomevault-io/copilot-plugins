@@ -1,0 +1,9 @@
+{
+  "name": "fpindej--netrock",
+  "displayName": "netrock",
+  "description": "SaaS starter kit for small productions - .NET 10 Clean Architecture API + SvelteKit frontend, fully dockerized. Fork it, init it, build your product..",
+  "version": "1.0.0",
+  "author": "fpindej",
+  "homepage": "https://github.com/fpindej/netrock",
+  "skills": []
+}
