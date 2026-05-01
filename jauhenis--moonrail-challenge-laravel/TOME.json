@@ -1,6 +1,6 @@
 {
   "name": "moonrail-challenge-laravel",
-  "owner": "JauheniS",
+  "owner": "jauhenis",
   "repo": "moonrail-challenge-laravel",
   "description": "",
   "type": "config",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/JauheniS/moonrail-challenge-laravel",
+  "source_url": "https://github.com/jauhenis/moonrail-challenge-laravel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T20:44:27Z"
+  "distributed_at": "2026-05-01T03:41:52Z"
 }
