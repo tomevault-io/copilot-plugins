@@ -1,0 +1,9 @@
+{
+  "name": "semos-labs--attyx",
+  "displayName": "attyx",
+  "description": "Fast programmable GPU-accelerated terminal emulator built with Zig",
+  "version": "1.0.0",
+  "author": "semos-labs",
+  "homepage": "https://github.com/semos-labs/attyx",
+  "skills": []
+}
