@@ -7,11 +7,11 @@ ContextWeaver 是一个基于 MCP 协议、利用 Tree-sitter 和向量搜索为
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hsingjui/ContextWeaver](https://github.com/hsingjui/ContextWeaver).
+Original source: `CLAUDE.md` in [hsingjui/ContextWeaver](https://github.com/hsingjui/ContextWeaver).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
