@@ -7,11 +7,11 @@ Local AI assistant, dreaming explorable worlds.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [localgpt-app/localgpt](https://github.com/localgpt-app/localgpt).
+Original source: `CLAUDE.md` in [localgpt-app/localgpt](https://github.com/localgpt-app/localgpt).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
