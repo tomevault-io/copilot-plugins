@@ -1,0 +1,9 @@
+{
+  "name": "haoran-ni--ralph-loop-optimizer",
+  "displayName": "ralph-loop-optimizer",
+  "description": "Ralph Loop Optimizer: an AI-driven framework that turns any evaluatable codebase into a self-improving optimization loop for strategies, models, prompts, and workflows",
+  "version": "1.0.0",
+  "author": "haoran-ni",
+  "homepage": "https://github.com/haoran-ni/ralph-loop-optimizer",
+  "skills": []
+}
