@@ -1,0 +1,9 @@
+{
+  "name": "teng-lin--agent-fetch",
+  "displayName": "agent-fetch",
+  "description": "Full-content web fetcher for AI agents \u2014 Chrome TLS fingerprinting, browser impersonation, and    multi-strategy article extraction",
+  "version": "1.0.0",
+  "author": "teng-lin",
+  "homepage": "https://github.com/teng-lin/agent-fetch",
+  "skills": []
+}
