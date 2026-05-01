@@ -4,7 +4,7 @@
   "repo": "agent-runtime-kit",
   "description": "\ud83e\udd16 Universal runtime configuration for AI coding agents (Claude Code & Cursor). Auto-detects languages, applies best practices, and standardizes team workflows.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shir-bruchim/agent-runtime-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T11:39:25Z"
+  "distributed_at": "2026-05-01T10:26:48Z"
 }
