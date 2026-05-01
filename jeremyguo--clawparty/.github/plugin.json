@@ -1,0 +1,9 @@
+{
+  "name": "jeremyguo--clawparty",
+  "displayName": "ClawParty",
+  "description": "\ud83e\udd80 A self-hosted, multi-agent service framework built in Rust. Agents as services, not scripts.",
+  "version": "1.0.0",
+  "author": "JeremyGuo",
+  "homepage": "https://github.com/JeremyGuo/ClawParty",
+  "skills": []
+}
