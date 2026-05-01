@@ -4,7 +4,7 @@
   "repo": "remotion-bits",
   "description": "Building blocks for your videos.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/av/remotion-bits",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:58:38Z"
+  "distributed_at": "2026-05-01T07:38:15Z"
 }
