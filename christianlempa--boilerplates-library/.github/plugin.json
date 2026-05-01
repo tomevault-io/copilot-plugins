@@ -1,0 +1,9 @@
+{
+  "name": "christianlempa--boilerplates-library",
+  "displayName": "boilerplates-library",
+  "description": "My personal Boilerplates template library contains a growing collection of templates for homelabs and self-hosted infrastructure, covering Docker Compose, Docker Swarm, Kubernetes, Helm, Terraform, An",
+  "version": "1.0.0",
+  "author": "ChristianLempa",
+  "homepage": "https://github.com/ChristianLempa/boilerplates-library",
+  "skills": []
+}
