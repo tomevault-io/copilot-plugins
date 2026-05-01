@@ -1,0 +1,9 @@
+{
+  "name": "iamzhihuix--skills-manage",
+  "displayName": "skills-manage",
+  "description": "Desktop app to manage AI coding agent skills across Claude Code, Cursor, Gemini CLI, Codex, and 20+ platforms from one place.",
+  "version": "1.0.0",
+  "author": "iamzhihuix",
+  "homepage": "https://github.com/iamzhihuix/skills-manage",
+  "skills": []
+}
