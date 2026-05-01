@@ -2,7 +2,7 @@
   "name": "keypal",
   "owner": "izadoesdev",
   "repo": "keypal",
-  "description": "",
+  "description": "A TypeScript library for secure API key management with cryptographic hashing, expiration, scopes, and pluggable storage",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/izadoesdev",
+  "source_url": "https://github.com/izadoesdev/keypal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T08:59:06Z"
+  "distributed_at": "2026-05-01T16:16:18Z"
 }
