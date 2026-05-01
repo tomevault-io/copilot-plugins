@@ -1,0 +1,9 @@
+{
+  "name": "corey924--zerospec",
+  "displayName": "ZeroSpec",
+  "description": "ZeroSpec is a zero-dependency Markdown framework that helps AI agents understand your repository structure, rules, and source of truth before coding.",
+  "version": "1.0.0",
+  "author": "corey924",
+  "homepage": "https://github.com/corey924/ZeroSpec",
+  "skills": []
+}
