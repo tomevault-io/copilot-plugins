@@ -1,0 +1,44 @@
+{
+  "name": "gridinstruments",
+  "owner": "zitongcharliedeng",
+  "repo": "gridinstruments",
+  "description": "Web-based isomorphic grid keyboard synthesizer \u2014 play in any tuning with computer keyboards, mice, MPE midis, touchscreen, and see music under a geometric, 2D based lens.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zitongcharliedeng/gridinstruments",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T00:03:53Z"
+}
