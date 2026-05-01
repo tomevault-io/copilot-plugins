@@ -1,0 +1,9 @@
+{
+  "name": "shuyu-labs--webcode",
+  "displayName": "WebCode",
+  "description": "WebCode is a browser-based AI coding platform that lets you remotely run CLI assistants like Claude Code and Codex. Code anywhere with just a web browser. We\u2019re also adding an office-assistant mode fo",
+  "version": "1.0.0",
+  "author": "shuyu-labs",
+  "homepage": "https://github.com/shuyu-labs/WebCode",
+  "skills": []
+}
