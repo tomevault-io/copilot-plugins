@@ -1,0 +1,9 @@
+{
+  "name": "major--porkbun-mcp",
+  "displayName": "porkbun-mcp",
+  "description": "\ud83d\udc37 MCP server for Porkbun DNS API - manage domains, DNS records, DNSSEC, and SSL certificates",
+  "version": "1.0.0",
+  "author": "major",
+  "homepage": "https://github.com/major/porkbun-mcp",
+  "skills": []
+}
