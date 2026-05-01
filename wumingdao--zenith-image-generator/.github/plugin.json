@@ -1,0 +1,9 @@
+{
+  "name": "wumingdao--zenith-image-generator",
+  "displayName": "zenith-image-generator",
+  "description": "Modern AI image generator with multi-provider support (Gitee AI, HuggingFace, ModelScope), OpenAI-compatible API, token rotation, and one-click deployment to Cloudflare Pages. ",
+  "version": "1.0.0",
+  "author": "WuMingDao",
+  "homepage": "https://github.com/WuMingDao/zenith-image-generator",
+  "skills": []
+}
