@@ -1,164 +1,86 @@
-## webcode
+## antd
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> 你是一位精通Blazor组件库的资深开发专家
+
+<role>你是一位精通Blazor组件库的资深开发专家</role>
+
+<expertise>
+- 深入理解Blazor框架的核心概念和最佳实践
+- 具备丰富的Blazor界面开发和优化经验
+</expertise>
+
+<task>根据用户提供的需求，优化使用Blazor组件库构建的界面</task>
+
+<instructions>
+1. 仔细聆听用户描述的具体需求
+2. 分析当前界面实现，识别可优化的方面
+3. 提供清晰、具体的优化建议，包括但不限于：
+   - 组件选择和配置调整
+   - 布局结构优化
+   - 性能提升方案
+   - 用户体验改进
+4. 解释每项优化建议的理由和预期效果
+5. 如有必要，提供优化后的代码示例
+</instructions>
+
+<response_format>
+- 使用专业且易懂的语言
+- 按优先级或逻辑顺序组织建议
+- 为复杂的优化提供分步骤说明
+</response_format>
+
+<additional_guidance>
+- 确保建议符合Blazor的最佳实践
+- 考虑界面的可维护性、可扩展性和重用性
+- 在保持功能完整的同时，追求简洁高效的实现
+- 多语言需要修改Resource\Localization目录而不是wwwroot目录，请注意确保4个语言都同步修改
+</additional_guidance>
 
 
-# CLAUDE.md
+<components>
+## 主组件
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+- `AutoCompleteDropdown` — 输入框自动完成下拉层，支持键盘导航、模板/历史标识、高亮匹配与定位显示，并在选择模板时写入历史。文件: [WebCodeCli/Components/AutoCompleteDropdown.razor](WebCodeCli/Components/AutoCompleteDropdown.razor)
+- `BatchOperationDialog` — 批量文件操作确认弹窗，支持删除/移动/复制，展示选中文件与目标目录输入。文件: [WebCodeCli/Components/BatchOperationDialog.razor](WebCodeCli/Components/BatchOperationDialog.razor)
+- `ChatInputPanel` — 聊天输入区，包含上传、目标目录选择、消息输入框、技能选择器与发送按钮，支持注入自动完成内容。文件: [WebCodeCli/Components/ChatInputPanel.razor](WebCodeCli/Components/ChatInputPanel.razor)
+- `ChatMessageListPanel` — 聊天消息列表渲染，区分用户/助手，支持 Markdown/JSONL 内容与加载中态。文件: [WebCodeCli/Components/ChatMessageListPanel.razor](WebCodeCli/Components/ChatMessageListPanel.razor)
+- `ChatToolbarPanel` — 聊天工具栏按钮集合（会话列表、项目管理、上下文、清空）。文件: [WebCodeCli/Components/ChatToolbarPanel.razor](WebCodeCli/Components/ChatToolbarPanel.razor)
+- `CodePreviewModal` — 文件预览模态框，按类型展示代码/图片/PDF/Office/不支持提示，并提供复制/下载/新窗口打开。文件: [WebCodeCli/Components/CodePreviewModal.razor](WebCodeCli/Components/CodePreviewModal.razor)
+- `ContextPreviewPanel` — 右侧上下文预览与管理面板，支持筛选、搜索、优先级调整、包含/排除、导出与统计信息。文件: [WebCodeCli/Components/ContextPreviewPanel.razor](WebCodeCli/Components/ContextPreviewPanel.razor)
+- `DependencyInstallProgress` — 依赖安装/处理进度弹窗，显示步骤、进度条与实时日志，可取消。文件: [WebCodeCli/Components/DependencyInstallProgress.razor](WebCodeCli/Components/DependencyInstallProgress.razor)
+- `DiffViewerPanel` — Git 差异查看器，支持分屏/统一视图、版本输入与差异统计。文件: [WebCodeCli/Components/DiffViewerPanel.razor](WebCodeCli/Components/DiffViewerPanel.razor)
+- `EnvironmentVariableConfigModal` — 工具环境变量配置弹窗，支持加载/保存/重置与敏感值隐藏。文件: [WebCodeCli/Components/EnvironmentVariableConfigModal.razor](WebCodeCli/Components/EnvironmentVariableConfigModal.razor)
+- `FileMonitorPanel` — 文件变更监控面板，展示监控状态、过滤器、统计与变更详情。文件: [WebCodeCli/Components/FileMonitorPanel.razor](WebCodeCli/Components/FileMonitorPanel.razor)
+- `FilePreviewPanel` — 通用文件预览组件，支持代码/文本/图片/HTML/PDF/Office 等类型与加载/错误态。文件: [WebCodeCli/Components/FilePreviewPanel.razor](WebCodeCli/Components/FilePreviewPanel.razor)
+- `FileSearchPanel` — 工作区文件搜索面板，支持大小写、全词、正则、类型过滤与分组结果展示。文件: [WebCodeCli/Components/FileSearchPanel.razor](WebCodeCli/Components/FileSearchPanel.razor)
+- `HtmlPreviewPanel` — HTML/前端项目预览面板，支持预览根目录选择、项目检测、启动/停止预览服务器与 iframe 刷新。文件: [WebCodeCli/Components/HtmlPreviewPanel.razor](WebCodeCli/Components/HtmlPreviewPanel.razor)
+- `LanguageSwitcher` — 语言切换下拉菜单，读取/保存语言并触发刷新。文件: [WebCodeCli/Components/LanguageSwitcher.razor](WebCodeCli/Components/LanguageSwitcher.razor)
+- `OutputResultPanel` — 输出事件流面板，支持事件分组、Markdown 渲染、用户问题插槽、加载更多与 Token 使用统计。文件: [WebCodeCli/Components/OutputResultPanel.razor](WebCodeCli/Components/OutputResultPanel.razor)
+- `PreviewTabsHeader` — 输出/工作区/HTML 预览的顶部分页切换头。文件: [WebCodeCli/Components/PreviewTabsHeader.razor](WebCodeCli/Components/PreviewTabsHeader.razor)
+- `ProgressTracker` — 执行进度跟踪条，阶段化展示、进度条、耗时与可取消。文件: [WebCodeCli/Components/ProgressTracker.razor](WebCodeCli/Components/ProgressTracker.razor)
+- `ProjectManageModal` — 项目管理弹窗，列出项目、克隆/拉取/编辑/删除与新建项目表单。文件: [WebCodeCli/Components/ProjectManageModal.razor](WebCodeCli/Components/ProjectManageModal.razor)
+- `ProjectSelectModal` — 会话项目选择弹窗，支持选择空白会话与是否包含 Git。文件: [WebCodeCli/Components/ProjectSelectModal.razor](WebCodeCli/Components/ProjectSelectModal.razor)
+- `QuickActionsPanel` — 快捷操作面板，展示/折叠快捷动作并支持自定义管理与新增/编辑。文件: [WebCodeCli/Components/QuickActionsPanel.razor](WebCodeCli/Components/QuickActionsPanel.razor)
+- `SessionListPanel` — 会话侧栏列表，支持新建、选择、多选批量删除、重命名与分享入口。文件: [WebCodeCli/Components/SessionListPanel.razor](WebCodeCli/Components/SessionListPanel.razor)
+- `ShareSessionModal` — 会话分享弹窗，创建分享链接（密码/有效期）并管理已分享项。文件: [WebCodeCli/Components/ShareSessionModal.razor](WebCodeCli/Components/ShareSessionModal.razor)
+- `TemplateLibraryModal` — 提示词模板库，支持搜索/筛选/收藏/导入导出/新增编辑/变量输入。文件: [WebCodeCli/Components/TemplateLibraryModal.razor](WebCodeCli/Components/TemplateLibraryModal.razor)
+- `UpdateNotificationModal` — 版本更新提示与更新日志展示弹窗。文件: [WebCodeCli/Components/UpdateNotificationModal.razor](WebCodeCli/Components/UpdateNotificationModal.razor)
+- `UserInfoPanel` — 顶部用户与工具选择区，包含工具切换、GitHub 跳转、用户菜单、环境变量配置与更新检查入口。文件: [WebCodeCli/Components/UserInfoPanel.razor](WebCodeCli/Components/UserInfoPanel.razor)
+- `UserQuestionPanel` — 用户问题卡片，支持单选/多选与自定义文本答复并提交。文件: [WebCodeCli/Components/UserQuestionPanel.razor](WebCodeCli/Components/UserQuestionPanel.razor)
+- `VersionHistoryPanel` — Git 文件历史面板，查看提交时间线、内容对比与差异查看入口。文件: [WebCodeCli/Components/VersionHistoryPanel.razor](WebCodeCli/Components/VersionHistoryPanel.razor)
+- `WorkspaceFileTreePanel` — 工作区文件树容器，支持上传、创建文件夹、下载全部、批量操作与分页加载节点。文件: [WebCodeCli/Components/WorkspaceFileTreePanel.razor](WebCodeCli/Components/WorkspaceFileTreePanel.razor)
+- `WorkspaceTabPanel` — 工作区子页签容器（文件/历史/差异/监控/搜索）。文件: [WebCodeCli/Components/WorkspaceTabPanel.razor](WebCodeCli/Components/WorkspaceTabPanel.razor)
 
-## 项目概述
+## 对话框组件（Dialogs）
 
-WebCode 是一个在线 AI 全能工作平台，通过 Web 浏览器远程控制各种 AI CLI 助手，支持编程、文档处理、需求分析、报告撰写等全方位工作场景。
+- `BatchSessionDeleteDialog` — 批量删除会话确认弹窗，展示选中会话与风险提示。文件: [WebCodeCli/Components/Dialogs/BatchSessionDeleteDialog.razor](WebCodeCli/Components/Dialogs/BatchSessionDeleteDialog.razor)
+- `CreateFolderDialog` — 新建文件夹弹窗，输入名称并校验。文件: [WebCodeCli/Components/Dialogs/CreateFolderDialog.razor](WebCodeCli/Components/Dialogs/CreateFolderDialog.razor)
+- `DeleteWorkspaceItemDialog` — 删除文件/文件夹确认弹窗，显示路径与不可恢复提示。文件: [WebCodeCli/Components/Dialogs/DeleteWorkspaceItemDialog.razor](WebCodeCli/Components/Dialogs/DeleteWorkspaceItemDialog.razor)
+- `RenameSessionDialog` — 会话重命名弹窗，输入标题并保存。文件: [WebCodeCli/Components/Dialogs/RenameSessionDialog.razor](WebCodeCli/Components/Dialogs/RenameSessionDialog.razor)
+- `SessionDeleteDialog` — 单个会话删除确认弹窗，展示会话信息与风险提示。文件: [WebCodeCli/Components/Dialogs/SessionDeleteDialog.razor](WebCodeCli/Components/Dialogs/SessionDeleteDialog.razor)
+- `TemplateVariableInputDialog` — 模板变量填写弹窗，用于运行模板前输入变量值。文件: [WebCodeCli/Components/Dialogs/TemplateVariableInputDialog.razor](WebCodeCli/Components/Dialogs/TemplateVariableInputDialog.razor)
 
-- **技术栈**: .NET 10.0 Blazor Server + Tailwind CSS + SqlSugar ORM
-- **AI 工具**: Claude Code CLI、Codex CLI、OpenCode CLI
-- **架构模式**: 领域驱动设计 (DDD) + 模块化服务注册
-
-## 项目结构
-
-```
-WebCode/
-├── WebCodeCli/              # 主应用程序（Blazor Server）
-│   ├── Pages/               # Blazor 页面
-│   │   ├── CodeAssistant.razor/.cs    # 桌面端主界面
-│   │   ├── CodeAssistantMobile.razor/.cs # 移动端界面
-│   │   └── Setup.razor      # 初始化设置向导
-│   ├── Components/          # 可重用 Blazor 组件
-│   ├── Controllers/         # API 控制器
-│   ├── wwwroot/             # 静态资源
-│   └── Program.cs           # 应用入口点
-│
-├── WebCodeCli.Domain/       # 领域层（DDD）
-│   ├── Common/
-│   │   ├── Extensions/      # 服务注册扩展
-│   │   ├── Options/         # 配置选项类
-│   │   └── Map/             # AutoMapper 配置
-│   ├── Domain/
-│   │   ├── Model/           # 领域模型
-│   │   ├── Service/         # 领域服务
-│   │   │   ├── Adapters/    # CLI 工具适配器
-│   │   │   └── Channels/    # 飞书渠道服务
-│   │   └── Exceptions/      # 自定义异常
-│   └── Repositories/        # 数据仓储（SqlSugar）
-│
-├── docs/                     # 技术文档
-├── cli/                      # CLI 工具文档
-└── docker/                   # Docker 部署配置
-```
-
-## 常用命令
-
-### 构建和运行
-
-```bash
-# 恢复 NuGet 包
-dotnet restore
-
-# 构建解决方案
-dotnet build WebCodeCli.sln
-
-# 运行应用（开发模式）
-dotnet run --project WebCodeCli
-
-# 发布应用
-dotnet publish WebCodeCli.sln -c Release -o publish
-```
-
-### Docker 部署
-
-```bash
-# 一键启动
-docker compose up -d
-
-# 构建镜像
-docker build -t webcodecli:latest .
-
-# 查看日志
-docker logs webcodecli
-```
-
-### Tailwind CSS 构建
-
-```bash
-cd WebCodeCli
-npm install
-npm run build:css
-```
-
-## 核心架构模式
-
-### 服务注册模式
-
-使用自定义 `[ServiceDescription]` 属性自动注册服务：
-
-```csharp
-[ServiceDescription(Lifetime = ServiceLifetime.Singleton)]
-public class MyService : IMyService { ... }
-
-// 在 Program.cs 中自动发现
-builder.Services.AddServicesFromAssemblies("WebCodeCli", "WebCodeCli.Domain");
-```
-
-### CLI 适配器模式
-
-在 `WebCodeCli.Domain/Domain/Service/Adapters/` 目录下添加新的 AI CLI 工具适配器。
-
-### 后台服务模式
-
-飞书渠道服务等继承自 `BackgroundService`，在应用启动时自动运行。
-
-### 命令自动扫描模式
-
-飞书命令服务会自动扫描全局技能、项目技能和插件目录下的Markdown文档，自动生成可用命令列表：
-- 扫描目录：`skills/`（全局）、`.claude/skills/`（项目）、`plugins/`（插件）
-- 支持的文档格式：`SKILL.md`、`COMMAND.md`、`*.command.md`、`README.md`
-- 自动解析YAML Front Matter和Markdown内容，提取命令名称、描述、用法等信息
-- 支持 `/feishuhelp` 命令手动刷新命令列表
-
-## 关键文件
-
-| 文件路径 | 说明 |
-|---------|------|
-| `WebCodeCli/Program.cs` | 应用入口点，服务配置 |
-| `WebCodeCli/appsettings.json` | 应用配置文件 |
-| `WebCodeCli/Pages/CodeAssistant.razor.cs` | 桌面端主界面逻辑（2000+ 行）|
-| `WebCodeCli.Domain/Domain/Service/CliExecutorService.cs` | CLI 工具执行服务（核心引擎）|
-| `WebCodeCli.Domain/Domain/Service/Channels/FeishuChannelService.cs` | 飞书渠道服务 |
-| `WebCodeCli.Domain/Domain/Service/Channels/FeishuCommandService.cs` | 飞书命令管理服务（自动扫描技能/插件命令）|
-| `WebCodeCli.Domain/Domain/Service/Channels/FeishuHelpCardBuilder.cs` | 飞书帮助卡片构建服务 |
-
-## 开发约定
-
-- 使用中文注释
-- 服务通过 `[ServiceDescription]` 属性自动注册
-- 配置通过 `IOptions&lt;T&gt;` 模式访问
-- 每个会话有独立的临时工作目录
-
-### 飞书命令开发约定
-
-创建新命令只需在对应目录下添加Markdown文档即可，无需修改代码：
-1. 全局技能：`skills/{技能名}/SKILL.md`
-2. 项目技能：`.claude/skills/{技能名}/SKILL.md`
-3. 插件命令：`plugins/{插件名}/COMMAND.md`
-
-文档格式要求：
-```markdown
----
-name: "/命令名"
-description: "命令功能描述"
-usage: "/命令名 [参数]"
-official: true
----
-# 命令名称
-
-命令详细说明...
-
-## 示例
-```bash
-/命令名 参数
-```
-```
+</components>
 
 ---
 > Source: [shuyu-labs/WebCode](https://github.com/shuyu-labs/WebCode) — distributed by [TomeVault](https://tomevault.io).
