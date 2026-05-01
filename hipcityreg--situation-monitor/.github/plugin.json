@@ -1,0 +1,9 @@
+{
+  "name": "hipcityreg--situation-monitor",
+  "displayName": "situation-monitor",
+  "description": "Real-time dashboard for monitoring global news, markets, and geopolitical events",
+  "version": "1.0.0",
+  "author": "hipcityreg",
+  "homepage": "https://github.com/hipcityreg/situation-monitor",
+  "skills": []
+}
