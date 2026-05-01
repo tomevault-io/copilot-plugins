@@ -1,0 +1,9 @@
+{
+  "name": "indenscale--monoco-toolkit",
+  "displayName": "monoco-toolkit",
+  "description": "Agent-Native task management, CLI, and Kanban dashboard for AI agents. The cockpit of Monoco. ",
+  "version": "1.0.0",
+  "author": "IndenScale",
+  "homepage": "https://github.com/IndenScale/monoco-toolkit",
+  "skills": []
+}
