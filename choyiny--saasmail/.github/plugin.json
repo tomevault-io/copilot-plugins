@@ -1,0 +1,9 @@
+{
+  "name": "choyiny--saasmail",
+  "displayName": "saasmail",
+  "description": "Self-hosted email server for SaaS teams, on Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "choyiny",
+  "homepage": "https://github.com/choyiny/saasmail",
+  "skills": []
+}
