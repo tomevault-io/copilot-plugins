@@ -1,0 +1,9 @@
+{
+  "name": "dcrebbin--cursor-unchained",
+  "displayName": "cursor-unchained",
+  "description": "Cursor's Tab complete for all: Reverse engineering Cursors AI Tab completion to allow for it to be used in other IDEs",
+  "version": "1.0.0",
+  "author": "dcrebbin",
+  "homepage": "https://github.com/dcrebbin/cursor-unchained",
+  "skills": []
+}
