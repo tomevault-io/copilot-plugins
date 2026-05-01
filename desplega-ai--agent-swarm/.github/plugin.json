@@ -1,0 +1,9 @@
+{
+  "name": "desplega-ai--agent-swarm",
+  "displayName": "agent-swarm",
+  "description": "Agent Swarm framework for AI coding agents and more!",
+  "version": "1.0.0",
+  "author": "desplega-ai",
+  "homepage": "https://github.com/desplega-ai/agent-swarm",
+  "skills": []
+}
