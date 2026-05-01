@@ -1,81 +1,137 @@
-## vibe-coding-starter
+## cursor-rules
 
-> Follow these instructions carefully and do not deviate from them.
+> How to add or edit Cursor rules in your project
 
-Follow these instructions carefully and do not deviate from them.
 
-## Project Overview & Structure
+# Cursor Rules Management Guide
 
-Comprehensive guide to the folder structure and organization of the project, including all main directories, key files, and their purposes.
+## Rule Structure Format
 
-@.cursor/rules/project-structure.mdc
+Every cursor rule must follow this exact metadata and content structure:
 
-## Tech Stack & Dependencies
+````markdown
+---
+description: Short description of the rule's purpose
+globs: optional/path/pattern/**/*
+alwaysApply: false
+---
+# Rule Title
 
-Complete listing of the tech stack, frameworks, libraries, and dependencies used throughout the project, with version information and usage patterns.
+Main content explaining the rule with markdown formatting.
 
-@.cursor/rules/tech-stack-dependencies.mdc
+1. Step-by-step instructions
+2. Code examples
+3. Guidelines
 
-## TypeScript Code Style Guide
+Example:
+```typescript
+// Good
+function goodExample() {
+  // Correct implementation
+}
 
-TypeScript conventions including parameter passing patterns, type safety rules, import organization, functional programming practices, and documentation standards.
+// Bad example
+function badExample() {
+  // Incorrect implementation
+}
+```
+````
 
-@.cursor/rules/typescript-style.mdc
+## File Organization
 
-## Next.js
+### Required Location
 
-Expert guidance on React, Next.js App Router, and related technologies including code structure, naming conventions, React best practices, UI styling, forms, metadata, error handling, accessibility, and security.
+All cursor rule files **must** be placed in:
 
-@.cursor/rules/nextjs.mdc
+```
+PROJECT_ROOT/.cursor/rules/
+```
 
-## UI Components from Shadcn UI
+### Directory Structure
 
-Guidelines for using Shadcn UI components from the shared UI library, including usage, import conventions, and best practices for composing user interfaces.
+```
+PROJECT_ROOT/
+├── .cursor/
+│   └── rules/
+│       ├── your-rule-name.mdc
+│       ├── another-rule.mdc
+│       └── cursor-rules.mdc
+└── ...
+```
 
-@.cursor/rules/ui-components.mdc
+### Naming Conventions
 
-## Tailwind CSS Styling Practices
+- Use **kebab-case** for all filenames
+- Always use **.mdc** extension
+- Make names **descriptive** of the rule's purpose
+- Examples: `typescript-style.mdc`, `tailwind-styling.mdc`, `mdx-documentation.mdc`
 
-Tailwind CSS conventions covering class organization, responsive design, color system usage, layout patterns, design system integration, and styling best practices.
+## Content Guidelines
 
-@.cursor/rules/tailwind-styling.mdc
+### Writing Effective Rules
 
-## Landing Page Components Rule
+1. **Be specific and actionable** - Provide clear instructions
+2. **Include code examples** - Show both good and bad practices
+3. **Reference existing files** - Use `@filename.ext` format
+4. **Keep it focused** - One rule per concern/pattern
+5. **Add context** - Explain why the rule exists
 
-Instructions for building public-facing pages using landing page components, including component sources, documentation references, structure examples, and implementation best practices.
+### Code Examples Format
 
-@.cursor/rules/landing-components.mdc
+```typescript
+// ✅ Good: Clear and follows conventions
+function processUser({ id, name }: { id: string; name: string }) {
+  return { id, displayName: name };
+}
 
-## Self-Improvement
+// ❌ Bad: Unclear parameter passing
+function processUser(id: string, name: string) {
+  return { id, displayName: name };
+}
+```
 
-Guidelines for continuously improving rules based on emerging code patterns, including analysis processes, rule updates, quality checks, and documentation maintenance.
+### File References
 
-@.cursor/rules/self-improve.mdc
+When referencing project files in rules, use this pattern to mention other files:
 
-## Git & Version Control
+```markdown
+[file.tsx](mdc:path/to/file.tsx)
+```
 
-- Add and commit automatically whenever an entire task is finished
-- Use descriptive commit messages that capture the full scope of changes
+## Forbidden Locations
 
-## Retrieving library documentation by using Context 7
+**Never** place rule files in:
+- Project root directory
+- Any subdirectory outside `.cursor/rules/`
+- Component directories
+- Source code folders
+- Documentation folders
 
-When the user requests code examples, setup or configuration steps, or library/API documentation, use the context7 mcp server to get the information.
+## Rule Categories
 
-## Verifying features in the browser
+Organize rules by purpose:
+- **Code Style**: `typescript-style.mdc`, `css-conventions.mdc`
+- **Architecture**: `component-patterns.mdc`, `folder-structure.mdc`
+- **Documentation**: `mdx-documentation.mdc`, `readme-format.mdc`
+- **Tools**: `testing-patterns.mdc`, `build-config.mdc`
+- **Meta**: `cursor-rules.mdc`, `self-improve.mdc`
 
-Use the Playwright MCP server to verify features in the browser.
-Check for console errors and ensure the implemented functionality is working as expected.
+## Best Practices
 
-## **EXTREMELY IMPORTANT:** Code Quality Checks
+### Rule Creation Checklist
+- [ ] File placed in `.cursor/rules/` directory
+- [ ] Filename uses kebab-case with `.mdc` extension
+- [ ] Includes proper metadata section
+- [ ] Contains clear title and sections
+- [ ] Provides both good and bad examples
+- [ ] References relevant project files
+- [ ] Follows consistent formatting
 
-**ALWAYS follow these instructions before completing a task.**
-
-Automatically use the IDE's built-in diagnostics tool to check for linting and type errors:
-   - Run `mcp__ide__getDiagnostics` to check all files for diagnostics
-   - Fix any linting or type errors before considering the task complete
-   - Do this for *each* file you create or edit
-
-This is a CRITICAL step that must NEVER be skipped when working on any code-related task.
+### Maintenance
+- **Review regularly** - Keep rules up to date with codebase changes
+- **Update examples** - Ensure code samples reflect current patterns
+- **Cross-reference** - Link related rules together
+- **Document changes** - Update rules when patterns evolve
 
 ---
 > Source: [PageAI-Pro/vibe-coding-starter](https://github.com/PageAI-Pro/vibe-coding-starter) — distributed by [TomeVault](https://tomevault.io).
