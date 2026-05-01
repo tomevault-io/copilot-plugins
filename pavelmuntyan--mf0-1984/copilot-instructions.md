@@ -1,27 +1,20 @@
-## mf-lab-version-github-pm2
+## mf0-github-backup
 
-> Version → GitHub; after project edits → pm2 restart (mf-lab)
+> Back up MF0-1984 to GitHub when the user declares a new project version
 
 
-# Version, GitHub, and PM2 (`mf-lab`)
+# Back up MF0-1984 to GitHub
 
-## New version → GitHub
+When the user clearly says **this is a new project version** (or similar: new version, release this version, pin the version, push to GitHub, GitHub backup in a version context) — **run immediately** in the `mf-lab` project directory:
 
-When the user **declares a new project version** (release, pin version, push to GitHub, etc.) — **immediately** run the full flow from **`mf0-github-backup.mdc`**: `git add`, commit with version from `package.json` (or as the user said), `git push` to `origin` / `main`, remote `git@github.com:PavelMuntyan/MF0-1984.git`.
+1. Ensure `git` exists and remote `origin` is `git@github.com:PavelMuntyan/MF0-1984.git` (add if missing).
+2. `git add -A` (do not commit `.env` — it is in `.gitignore`).
+3. `git commit -m "..."` — **English only** (GitHub-facing), **must include the version** from `package.json` (`version`) or the number/name the user gave.
+4. Default branch: `main`. First push: `git push -u origin main`, else `git push origin main`.
 
-## After edits in the project → PM2
+If push fails (SSH, empty GitHub repo) — briefly describe the error and what to check locally.
 
-When the agent **wrote changes** to `mf-lab` repo files in response to the user:
-
-1. **At the end** of handling the request (before the final reply), if there were substantive code changes — from project root run **`pm2 restart mf-lab-api mf-lab-vite`** (same as **`npm run pm2:restart`**).
-2. If `pm2` is unavailable or processes are missing — for the API follow **`mf-lab-restart-api.mdc`** (`mf-lab-api` / default port 35184).
-3. If **no project files** changed for the request (read-only, advice only) — do not restart PM2.
-
-Do not only say “restart yourself” when the terminal is available.
-
-## Limits
-
-- Do not use restart and the API for **destructive tests** on live `data/*.sqlite` — see **`no-destructive-db-in-agent-tests.mdc`**.
+Do not defer push “for later” after such a phrase unless the user explicitly forbids it.
 
 ---
 > Source: [PavelMuntyan/MF0-1984](https://github.com/PavelMuntyan/MF0-1984) — distributed by [TomeVault](https://tomevault.io).
