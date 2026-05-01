@@ -1,0 +1,9 @@
+{
+  "name": "cpinto--ror-agent",
+  "displayName": "ror-agent",
+  "description": "Agent instructions for Ruby on Rails, to hopefully some day hit the same productivity levels as Replit",
+  "version": "1.0.0",
+  "author": "cpinto",
+  "homepage": "https://github.com/cpinto/ror-agent",
+  "skills": []
+}
