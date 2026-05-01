@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--race-condition",
+  "displayName": "race-condition",
+  "description": "The open source multi-agent simulation from the Developer Keynote at Google Cloud Next '26. A deployable reference architecture for autonomous AI agents using Gemini and ADK.",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/race-condition",
+  "skills": []
+}
