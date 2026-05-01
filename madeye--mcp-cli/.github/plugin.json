@@ -1,0 +1,9 @@
+{
+  "name": "madeye--mcp-cli",
+  "displayName": "mcp-cli",
+  "description": "save fork/exec overhead of ai code agent",
+  "version": "1.0.0",
+  "author": "madeye",
+  "homepage": "https://github.com/madeye/mcp-cli",
+  "skills": []
+}
