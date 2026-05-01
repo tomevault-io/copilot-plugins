@@ -1,42 +1,50 @@
-## testing
+## web
 
-> Testing conventions for MarketMeNow test suite
+> Conventions for the FastAPI web dashboard
 
 
-# Testing Conventions
+# Web Dashboard Rules
 
-## Framework
+## Architecture
 
-- pytest + pytest-asyncio with `asyncio_mode = "auto"`.
-- Async tests are plain `async def test_...` -- no decorator needed.
-- `from __future__ import annotations` in every test file.
+The web app spawns `mmn` CLI commands as subprocesses — it does not call the
+Python pipeline directly. `cli_runner.py` handles subprocess execution and
+progress parsing. Real-time updates flow through `EventHub` → WebSocket.
+
+Adapter CLIs are mounted as **hidden groups** in `marketmenow/cli.py`
+(`hidden=True`). They don't appear in `mmn --help` but remain callable by the
+web frontend. New workflows (like `reddit-launch`) use `mmn run <name>` directly.
+
+## Key Modules
+
+- `app.py` — FastAPI app with lifespan (DB pool + queue worker), WebSocket at
+  `/ws/content/{item_id}`, route registration, static/output mounts.
+- `cli_runner.py` — `run_cli()` and `run_cli_streaming()`. Defines `PLATFORM_META`
+  (JSON params) and `BUILDERS` (command constructors). Progress parsed via regex.
+- `queue_worker.py` — `run_queue_loop()` background task. Polls DB queue, checks
+  per-platform rate limits, calls `run_cli_streaming` for each job.
+- `events.py` — `EventHub` pub/sub per content-item UUID. `ProgressEvent` types:
+  `phase`, `progress`, `wait`, `log`, `stderr`, `done`, `error`.
+- `db.py` — asyncpg pool, all DB operations (content, queue, rate limits, post log).
 
 ## Patterns
 
-- Use `pytest.raises(ExceptionType)` for expected exceptions, never try/except.
-- Use `tmp_path` fixture for any file-system tests (YAML, CSV, templates).
-- Assert on specific fields, not full model equality, to avoid brittle
-  UUID/datetime comparisons.
-- No mocking of Pydantic validation -- test it directly with
-  `pytest.raises(ValidationError)`.
+- Routes live in `routes/` as separate `APIRouter` instances.
+- Templates are Jinja2 in `templates/`.
+- Static assets in `static/` (CSS, JS).
+- Generated output mounted at `/output` from `settings.output_dir`.
 
-## Mocks and Fixtures
+## Adding a Platform to the Dashboard
 
-- Mock adapters implement Protocol interfaces via structural subtyping.
-  Never subclass or inherit from the Protocol.
-- Content model factories live in `conftest.py` (e.g. `make_text_post()`,
-  `make_video()`). Prefer these over inline construction in tests.
-- A pre-built `AdapterRegistry` fixture is available in `conftest.py`.
+1. Add an entry to `PLATFORM_META` in `cli_runner.py` (label, modality, params).
+2. Write generate and publish `CommandBuilder` functions.
+3. Register them in the `BUILDERS` dict.
+4. No route changes needed — the generate page auto-discovers from `PLATFORM_META`.
 
-## Naming
+## Database
 
-- Files: `test_{module}.py` matching the source module under test.
-- Functions: `test_{module}_{behavior}` (e.g. `test_normaliser_video_with_thumbnail`).
-
-## No External I/O
-
-- Tests must never call external APIs, send emails, or launch browsers.
-- All network and I/O dependencies are replaced with in-memory mocks.
+PostgreSQL via asyncpg. Pool initialized in lifespan, closed on shutdown.
+`MMN_WEB_DATABASE_URL` env var required.
 
 ---
 > Source: [thearnavrustagi/marketmenow](https://github.com/thearnavrustagi/marketmenow) — distributed by [TomeVault](https://tomevault.io).
