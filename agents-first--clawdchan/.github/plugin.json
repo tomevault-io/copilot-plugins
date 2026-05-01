@@ -1,0 +1,9 @@
+{
+  "name": "agents-first--clawdchan",
+  "displayName": "clawdchan",
+  "description": "Let my Claude talk to yours.",
+  "version": "1.0.0",
+  "author": "agents-first",
+  "homepage": "https://github.com/agents-first/clawdchan",
+  "skills": []
+}
