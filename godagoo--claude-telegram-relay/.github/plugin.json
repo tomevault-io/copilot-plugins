@@ -1,0 +1,9 @@
+{
+  "name": "godagoo--claude-telegram-relay",
+  "displayName": "claude-telegram-relay",
+  "description": "Minimal pattern for running Claude Code as an always-on Telegram bot. Cross-platform daemon setup included.",
+  "version": "1.0.0",
+  "author": "godagoo",
+  "homepage": "https://github.com/godagoo/claude-telegram-relay",
+  "skills": []
+}
