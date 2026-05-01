@@ -1,0 +1,9 @@
+{
+  "name": "netclaw-dev--skill-server",
+  "displayName": "skill-server",
+  "description": "A self-hosted skill server that provides versioned skill feeds for use by agents.",
+  "version": "1.0.0",
+  "author": "netclaw-dev",
+  "homepage": "https://github.com/netclaw-dev/skill-server",
+  "skills": []
+}
