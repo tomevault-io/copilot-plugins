@@ -1,119 +1,167 @@
-## debugging
+## getting-started
 
-> Common issues, Developer Mode, version compatibility, state machine diagnosis
+> SDK setup, Swift Package Manager integration, Info.plist configuration, and first connection to Meta glasses
 
 
 
-# Debugging (iOS)
+# Getting Started with DAT SDK (iOS)
 
-Guide for diagnosing common issues with DAT SDK integrations.
+Guide for setting up the Meta Wearables Device Access Toolkit in an iOS app.
 
-## Quick diagnosis
+## Prerequisites
 
-```text
-Device not connecting?
-│
-├── Is Developer Mode enabled? → Enable in Meta AI app settings
-│
-├── Is device registered? → Check registration state
-│
-├── Is device in range? → Bluetooth on, glasses powered on
-│
-├── Is the app registered? → Check registrationStateStream()
-│
-└── Stream stuck in waitingForDevice? → Check device availability
+- Xcode 15.0+, iOS 16.0+ deployment target
+- Meta AI companion app installed on test device
+- Ray-Ban Meta glasses or Meta Ray-Ban Display glasses (or use MockDeviceKit for development)
+- Developer Mode enabled in Meta AI app (Settings > Your glasses > Developer Mode)
+
+## Step 1: Add the SDK via Swift Package Manager
+
+1. In Xcode, select **File** > **Add Package Dependencies...**
+2. Enter `https://github.com/facebook/meta-wearables-dat-ios`
+3. Select a [version](https://github.com/facebook/meta-wearables-dat-ios/tags)
+4. Add `MWDATCore` and `MWDATCamera` to your target
+
+## Step 2: Configure Info.plist
+
+Add these required entries to your `Info.plist`:
+
+```xml
+<!-- URL scheme for Meta AI callbacks -->
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLName</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>myexampleapp</string>
+    </array>
+  </dict>
+</array>
+
+<!-- Allow Meta AI to callback -->
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>fb-viewapp</string>
+</array>
+
+<!-- External accessory protocol -->
+<key>UISupportedExternalAccessoryProtocols</key>
+<array>
+  <string>com.meta.ar.wearable</string>
+</array>
+
+<!-- Background modes -->
+<key>UIBackgroundModes</key>
+<array>
+  <string>bluetooth-peripheral</string>
+  <string>external-accessory</string>
+</array>
+<key>NSBluetoothAlwaysUsageDescription</key>
+<string>Needed to connect to Meta Wearables</string>
+
+<!-- DAT configuration -->
+<key>MWDAT</key>
+<dict>
+  <key>AppLinkURLScheme</key>
+  <string>myexampleapp://</string>
+  <key>MetaAppID</key>
+  <string>0</string>
+</dict>
 ```
 
-## Developer Mode
+Replace `myexampleapp` with your app's URL scheme. Use `0` for `MetaAppID` during development with Developer Mode.
 
-Developer Mode must be enabled for 3P apps to access device features.
+## Step 3: Initialize the SDK
 
-### Enabling Developer Mode
-
-1. Open Meta AI app on phone
-2. Go to Settings → (Your connected glasses)
-3. Find "Developer Mode" toggle
-4. Toggle ON
-5. Device may restart
-
-### Symptoms of Developer Mode disabled
-
-- Registration completes but device never connects
-- StreamSession stuck in `waitingForDevice`
-- Permission requests fail or never appear
-
-### Common gotchas
-
-- Developer Mode toggles **off** after firmware updates — re-enable it
-- Developer Mode is per-device — enable for each glasses pair
-- Some features need additional permissions beyond Developer Mode
-
-## StreamSession state issues
-
-### Expected flow
-
-```text
-stopped → waitingForDevice → starting → streaming → stopped
-```
-
-### Stuck in waitingForDevice
-
-- Device not in range or not connected
-- Device not reporting availability
-- DeviceSelector not matching any device
-
-### Unexpected stop
-
-- Device disconnected (out of range, battery died)
-- Channel closed by device
-- Error in frame processing
-
-## Version compatibility
-
-Ensure compatible versions of SDK, Meta AI app, and glasses firmware:
-
-| SDK | Meta AI App | Ray-Ban Meta | Meta Ray-Ban Display |
-|-----|-------------|--------------|----------------------|
-| 0.6.0 | Check [version dependencies](https://wearables.developer.meta.com/docs/version-dependencies) | Check docs | Check docs |
-| 0.4.0 | V254 | V20 | V21 |
-| 0.3.0 | V249 | V20 | — |
-
-## Known issues
-
-| Issue | Workaround |
-|-------|-----------|
-| No internet → registration fails | Internet required for registration |
-| Streams started with glasses doffed pause when donned | Unpause by tapping side of glasses |
-| `DeviceStateSession` unreliable with camera stream | Avoid using `DeviceStateSession` |
-| [iOS] Meta Ray-Ban Display: no audio feedback on pause/resume | Will be fixed in future release |
-
-## Adding debug logging
+Call `Wearables.configure()` once at app launch:
 
 ```swift
-import os
+import MWDATCore
 
-private let logger = Logger(subsystem: "com.yourapp", category: "Wearables")
+@main
+struct MyApp: App {
+    init() {
+        do {
+            try Wearables.configure()
+        } catch {
+            assertionFailure("Failed to configure Wearables SDK: \(error)")
+        }
+    }
 
-// In your streaming code:
-logger.debug("Stream state changed to: \(state)")
-logger.error("Stream error: \(error)")
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
 ```
 
-## Checklist
+## Step 4: Handle URL callbacks
 
-- [ ] Developer Mode enabled in Meta AI app
-- [ ] Meta AI app updated to compatible version
-- [ ] Glasses firmware updated to compatible version
-- [ ] Internet connection available for registration
-- [ ] Bluetooth enabled on phone
-- [ ] Correct URL scheme configured in Info.plist
-- [ ] Background modes enabled (bluetooth-peripheral, external-accessory)
+Your app must handle the URL callback from Meta AI after registration:
 
-## Links
+```swift
+.onOpenURL { url in
+    Task {
+        _ = try? await Wearables.shared.handleUrl(url)
+    }
+}
+```
 
-- [Known issues](https://wearables.developer.meta.com/docs/knownissues)
-- [Version dependencies](https://wearables.developer.meta.com/docs/version-dependencies)
-- [Troubleshooting discussions](https://github.com/facebook/meta-wearables-dat-ios/discussions)
+## Step 5: Register with Meta AI
+
+```swift
+func startRegistration() throws {
+    try Wearables.shared.startRegistration()
+}
+```
+
+Observe registration state:
+
+```swift
+Task {
+    for await state in Wearables.shared.registrationStateStream() {
+        // Update UI based on registration state
+    }
+}
+```
+
+## Step 6: Start streaming
+
+```swift
+import MWDATCamera
+
+let deviceSelector = AutoDeviceSelector(wearables: Wearables.shared)
+let config = StreamSessionConfig(
+    videoCodec: .raw,
+    resolution: .low,
+    frameRate: 24
+)
+let session = StreamSession(streamSessionConfig: config, deviceSelector: deviceSelector)
+
+// Observe frames
+let frameToken = session.videoFramePublisher.listen { frame in
+    guard let image = frame.makeUIImage() else { return }
+    Task { @MainActor in
+        self.currentFrame = image
+    }
+}
+
+// Start
+Task { await session.start() }
+```
+
+## Next steps
+
+- [Camera Streaming](camera-streaming.md) — Resolution, frame rate, photo capture
+- [MockDevice Testing](mockdevice-testing.md) — Test without hardware
+- [Session Lifecycle](session-lifecycle.md) — Handle pause/resume/stop
+- [Permissions](permissions-registration.md) — Camera permission flows
+- [Full documentation](https://wearables.developer.meta.com/docs/develop/)
 
 ---
 > Source: [facebook/meta-wearables-dat-ios](https://github.com/facebook/meta-wearables-dat-ios) — distributed by [TomeVault](https://tomevault.io).
