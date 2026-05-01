@@ -1,0 +1,9 @@
+{
+  "name": "marquesds--kaizen",
+  "displayName": "kaizen",
+  "description": "Real-time, self-hostable agent observability: retros and experiments to improve your repo, across Cursor, Claude Code, and Codex. SQLite; redact before any sync you enable.",
+  "version": "1.0.0",
+  "author": "marquesds",
+  "homepage": "https://github.com/marquesds/kaizen",
+  "skills": []
+}
