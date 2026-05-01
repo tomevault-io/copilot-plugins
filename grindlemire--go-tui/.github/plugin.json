@@ -1,0 +1,9 @@
+{
+  "name": "grindlemire--go-tui",
+  "displayName": "go-tui",
+  "description": "A declarative terminal UI framework for Go.",
+  "version": "1.0.0",
+  "author": "grindlemire",
+  "homepage": "https://github.com/grindlemire/go-tui",
+  "skills": []
+}
