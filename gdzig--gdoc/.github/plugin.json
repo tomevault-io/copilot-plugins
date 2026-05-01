@@ -1,0 +1,9 @@
+{
+  "name": "gdzig--gdoc",
+  "displayName": "gdoc",
+  "description": "CLI documentation viewer for Godot API docs \u2014 parses XML class references and displays them as formatted Markdown in the terminal",
+  "version": "1.0.0",
+  "author": "gdzig",
+  "homepage": "https://github.com/gdzig/gdoc",
+  "skills": []
+}
