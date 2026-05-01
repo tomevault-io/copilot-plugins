@@ -1,205 +1,97 @@
-## import-validation
+## include-many-patterns
 
-> Import validation and package layering rules
+> Type inference patterns for includeMany feature
 
 
-# Import Validation
+# includeMany Type Inference Patterns
 
-## Overview
+## Includes Map Pattern
 
-The repository uses a domain/layer/plane package layering architecture with unidirectional dependencies enforced by Dependency Cruiser. The import validation uses data-driven configuration from `architecture.config.json` to validate that packages follow dependency rules.
+When implementing `includeMany` or similar features that accumulate type information:
 
-## Domain/Layer/Plane Structure
+**Pattern**: Use a generic type parameter that accumulates include definitions:
 
-Packages are organized by:
-- **Domains**: framework (target-agnostic) and target families (sql, document, etc.)
-- **Layers**: core → authoring → targets → lanes → runtime → adapters (dependency direction)
-- **Planes**: migration (authoring, tooling, targets), runtime (lanes, runtime, adapters), and shared — cross‑plane code and prebuilt artifacts safe for both
-
-Dependencies flow inward (toward core) within a domain:
-
-```
-core → authoring → targets → lanes → runtime → adapters
-```
-
-## Import Validation Configuration
-
-Dependency Cruiser (`dependency-cruiser.config.mjs`) uses data-driven configuration from `architecture.config.json`:
-
-1. **Package Configs**: Maps package glob patterns to domain/layer/plane
-   ```json
-   {
-     "glob": "packages/framework/core-plan/**",
-     "domain": "framework",
-     "layer": "core",
-     "plane": "shared"
-   }
-   ```
-
-2. **Layer Order**: Defines dependency direction within domains
-   ```json
-   {
-     "layerOrder": {
-       "framework": ["core", "authoring", "tooling", "runtime-core"],
-       "sql": ["core", "authoring", "targets", "lanes", "runtime", "adapters"]
-     }
-   }
-   ```
-
-3. **Rules**: Defines allowed/denied dependency patterns
-   ```json
-   {
-     "rules": {
-       "sameLayer": "allow",
-       "downward": "allow",
-       "upward": "deny",
-       "crossDomain": "denyExceptFramework",
-       "migrationToRuntime": "deny",
-       "runtimeToMigration": "allowArtifactsOnly"
-     }
-   }
-   ```
-
-4. **Plane Rules**: Declarative plane import constraints with exceptions
-   ```json
-   {
-     "planeRules": {
-       "shared": {
-         "allow": ["shared"],
-         "forbid": ["migration", "runtime"],
-         "exceptions": []
-       },
-       "migration": {
-         "allow": ["shared", "migration"],
-         "forbid": ["runtime"],
-         "exceptions": []
-       },
-       "runtime": {
-         "allow": ["shared", "runtime"],
-         "forbid": ["migration"],
-         "exceptions": []
-       }
-     }
-   }
-   ```
-
-## Rules
-
-### Same-Layer Imports
-
-Packages in the same layer can import from each other. For example, `orm-lane` can import from `sql-relational-core` (both are in the `lanes` layer).
-
-**✅ CORRECT: Same-layer imports**
 ```typescript
-// packages/sql/lanes/orm-lane/src/orm-builder.ts
-import { schema } from '@prisma-next/sql-relational-core/schema';
-```
-
-### Cross-Layer Imports
-
-Packages can only import from inner layers (layers closer to core). Outer layers cannot import from inner layers.
-
-**✅ CORRECT: Import from inner layer**
-```typescript
-// packages/sql/lanes/orm-lane/src/orm-builder.ts (lanes layer)
-import { planInvalid } from '@prisma-next/plan'; // core layer - allowed
-```
-
-**❌ WRONG: Import from outer layer**
-```typescript
-// packages/framework/core-plan/src/plan.ts (core layer)
-import { sql } from '@prisma-next/sql-lane'; // lanes layer - NOT allowed
-```
-
-### Plane Rules and Exceptions
-
-Plane import constraints are defined declaratively in `architecture.config.json` under `planeRules`. Each plane specifies:
-- `allow`: List of planes that can be imported from
-- `forbid`: List of planes that cannot be imported from
-- `exceptions`: Array of glob pattern exceptions with `from`, `to`, and `reason` fields
-
-**Adding Plane Exceptions**:
-
-When a package needs to temporarily import across plane boundaries (e.g., during refactoring), add an exception to the appropriate plane rule in `architecture.config.json`:
-
-```json
-{
-  "planeRules": {
-    "runtime": {
-      "allow": ["shared", "runtime"],
-      "forbid": ["migration"],
-      "exceptions": []
-    }
+class SelectBuilderImpl<
+  TContract extends SqlContract<SqlStorage>,
+  Row = unknown,
+  CodecTypes extends Record<string, { output: unknown }> = Record<string, never>,
+  Includes extends Record<string, any> = Record<string, never>,  // Accumulates includes
+> {
+  includeMany<..., AliasName extends string = string>(
+    ...
+  ): SelectBuilderImpl<..., Includes & { [K in AliasName]: ChildRow }> {
+    // Updates Includes map with new include
   }
 }
 ```
 
-**Important**: Plane exceptions must:
-- Include a clear `reason` explaining why the exception exists
-- Reference the relevant brief or issue in the reason
-- Be removed once the refactoring is complete
-- Use glob patterns that match the package paths in `architecture.config.json`
+**Why**: This allows TypeScript to track include definitions across multiple `includeMany()` calls and infer correct array types in the final result.
 
-## Adding New Packages
+## ExtractIncludeType Helper
 
-When adding a new package:
+When looking up types from an accumulated map:
 
-1. **Add to `architecture.config.json`**: Add a package config entry with glob pattern, domain, layer, and plane
-   ```json
-   {
-     "glob": "packages/framework/tooling/new-tool/**",
-     "domain": "framework",
-     "layer": "tooling",
-     "plane": "migration"
-   }
-   ```
+**Pattern**: Use a helper type that safely extracts types:
 
-2. **Update `tsconfig.base.json`**: Add project references if needed
-
-3. **Update `pnpm-workspace.yaml`**: Add package glob pattern if needed
-
-4. **Run `pnpm lint:deps`**: Verify no violations
-
-## Running Import Validation
-
-```bash
-pnpm lint:deps
+```typescript
+type ExtractIncludeType<
+  K extends string,
+  Includes extends Record<string, any>,
+> = K extends keyof Includes ? Includes[K] : unknown;
 ```
 
-This command:
-- Scans all TypeScript files in `packages/`
-- Validates imports against domain/layer/plane rules
-- Reports violations with detailed context
-- Can be run locally or in CI
+**Why**: This provides type-safe lookup with a fallback to `unknown` if the key doesn't exist, preventing type errors while maintaining type safety.
 
-## Common Issues
+## Boolean True for Include References
 
-### Package Not Found in Config
+When using boolean `true` to mark include references in projections:
 
-If a package is not in `architecture.config.json`, it will be treated as a legacy package (allows all imports). Add it to the config to enforce proper dependency rules.
+**Pattern**: Handle `true` in type inference:
 
-### Path Matching Issues
+```typescript
+: P[K] extends true
+  ? Array<ExtractIncludeType<K & string, Includes>>
+  : ...
+```
 
-Dependency Cruiser uses regex pattern matching to find the most specific package match. Patterns are derived from glob patterns in `architecture.config.json` and converted to regex patterns in `dependency-cruiser.config.mjs`.
+**Why**: This allows `select({ posts: true })` to infer `Array<ChildShape>` from the `Includes` map, providing type-safe include references.
 
-### Domain/Layer/Plane Structure
+## Capability Gating
 
-Packages are organized by:
-- **Domain**: framework (target-agnostic) or target families (sql, document, etc.)
-- **Layer**: core → authoring → targets → lanes → runtime → adapters (dependency direction)
-- **Plane**: migration (authoring, tooling, targets) vs runtime (lanes, runtime, adapters)
+When gating features by capabilities (used by `includeMany` and DML `returning()`):
 
-Dependency Cruiser enforces:
-- Same-layer imports: allowed
-- Downward imports (toward core): allowed
-- Upward imports (away from core): denied
-- Cross-domain imports: denied except framework domain
-- Plane boundaries: enforced via declarative `planeRules` in `architecture.config.json`
-  - Shared plane: cannot import from migration or runtime
-  - Migration plane: cannot import from runtime
-  - Runtime plane: cannot import from migration (with documented exceptions)
+**Pattern**: Check capabilities at runtime in builder methods:
 
-Plane rules are defined declaratively in `architecture.config.json` and enforced by `dependency-cruiser.config.mjs`. See `architecture.config.json` for the complete plane rule definitions.
+```typescript
+// Runtime check in builder method
+returning<const Columns extends readonly ColumnBuilder[]>(
+  ...columns: Columns
+): InsertBuilder<TContract, CodecTypes, InferReturningRow<Columns>> {
+  // Runtime capability check
+  const target = this.contract.target;
+  const capabilities = this.contract.capabilities;
+  if (!capabilities || !capabilities[target]) {
+    throw planInvalid('returning() requires returning capability');
+  }
+  const targetCapabilities = capabilities[target];
+  if (targetCapabilities['returning'] !== true) {
+    throw planInvalid('returning() requires returning capability to be true');
+  }
+
+  // Continue with implementation...
+}
+```
+
+**For multiple capabilities** (like `includeMany`):
+```typescript
+// Runtime check
+if (targetCapabilities['lateral'] !== true || targetCapabilities['jsonAgg'] !== true) {
+  throw planInvalid('includeMany requires lateral and jsonAgg capabilities');
+}
+```
+
+**Why**: Runtime checks prevent execution errors when capabilities are missing or false. This pattern ensures consistent behavior across all capability-gated features (`includeMany`, DML `returning()`, etc.).
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
