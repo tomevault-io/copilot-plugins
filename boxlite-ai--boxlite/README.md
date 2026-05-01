@@ -7,11 +7,11 @@ Sandboxes for every agent. Embeddable, stateful, snapshots, and hardware isolati
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [boxlite-ai/boxlite](https://github.com/boxlite-ai/boxlite).
+Original source: `CLAUDE.md` in [boxlite-ai/boxlite](https://github.com/boxlite-ai/boxlite).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
