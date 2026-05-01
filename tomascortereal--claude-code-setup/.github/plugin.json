@@ -1,0 +1,9 @@
+{
+  "name": "tomascortereal--claude-code-setup",
+  "displayName": "claude-code-setup",
+  "description": "My full Claude Code configuration \u2014 agents, skills, hooks, plugins, and global instructions",
+  "version": "1.0.0",
+  "author": "tomascortereal",
+  "homepage": "https://github.com/tomascortereal/claude-code-setup",
+  "skills": []
+}
