@@ -1,0 +1,9 @@
+{
+  "name": "adrienbrault--geekmagic-hacs",
+  "displayName": "geekmagic-hacs",
+  "description": "Home Assistant integration for GeekMagic displays (SmallTV Pro/Ultra). Server-side rendering, no device flashing required.",
+  "version": "1.0.0",
+  "author": "adrienbrault",
+  "homepage": "https://github.com/adrienbrault/geekmagic-hacs",
+  "skills": []
+}
