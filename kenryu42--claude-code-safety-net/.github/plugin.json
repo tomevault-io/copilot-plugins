@@ -1,0 +1,9 @@
+{
+  "name": "kenryu42--claude-code-safety-net",
+  "displayName": "claude-code-safety-net",
+  "description": "A coding agent hook that acts as a safety net, catching destructive git and filesystem commands before they execute.",
+  "version": "1.0.0",
+  "author": "kenryu42",
+  "homepage": "https://github.com/kenryu42/claude-code-safety-net",
+  "skills": []
+}
