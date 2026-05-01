@@ -1,57 +1,25 @@
-## docs-writing-style
+## figma-rate-limit
 
-> 设计文档写作规范 — 重架构轻代码
+> **所有 Figma MCP 工具调用之间必须穿插至少 1 秒的等待时间。**
 
+# Figma MCP 调用频率限制
 
-# 设计文档写作规范
+## 规则
 
-## 核心原则
+**所有 Figma MCP 工具调用之间必须穿插至少 1 秒的等待时间。**
 
-文档的目的是**讲清楚设计决策和架构**，不是提前写代码。代码到实现阶段再写。
+Figma MCP 服务对调用频率有限制（约 1 request/second），连续快速调用会触发 rate limit 错误。
 
-## 该写什么
+### 必须做
 
-- 架构图、流程图（ASCII / Mermaid）
-- 模块职责划分、分层关系
-- 数据模型（ER 图、字段表格）
-- API 接口约定（路径、请求/响应 Schema）
-- 调用链路、时序关系
-- 关键设计决策和取舍理由
-- 配置项、环境变量清单
+- 每次调用 Figma MCP 工具（`get_metadata`、`get_screenshot`、`get_design_context`、`get_figjam` 等）后，在下一次调用前执行 `sleep 1`
+- 批量操作（如逐个导出多个节点的截图）时，在循环中每次调用后 sleep
+- 如果收到 rate limit 错误，等待 3 秒后重试
 
-## 不该写什么
+### 严禁
 
-- 完整的类/函数实现代码
-- 超过 10 行的代码块
-- 逐行注释的代码示例
-
-## 代码使用原则
-
-- 代码只用于**说明接口签名或数据结构**，不写实现逻辑
-- 每个代码块不超过 10 行，只展示关键签名
-- 用伪代码或文字描述代替完整实现
-
-```python
-# ✅ 好 — 只展示接口签名
-class K8sClientManager:
-    async def get_or_create(cluster_id, kubeconfig_enc) -> ApiClient: ...
-    async def rebuild(cluster_id, kubeconfig_enc) -> ApiClient: ...
-    async def remove(cluster_id): ...
-
-# ❌ 坏 — 在文档里写完整实现
-class K8sClientManager:
-    def __init__(self, crypto):
-        self._crypto = crypto
-        self._entries = {}
-        self._lock = asyncio.Lock()
-
-    async def get_or_create(self, cluster_id, kubeconfig_enc):
-        async with self._lock:
-            entry = self._entries.get(cluster_id)
-            if entry is None:
-                entry = await self._create_entry(...)
-            # ... 50 more lines ...
-```
+- **禁止连续调用 Figma MCP 工具**：不 sleep 就连续调两次，必然触发 rate limit
+- **禁止并行调用**：不要在同一消息中发起多个 Figma MCP 调用
 
 ---
 > Source: [NoDeskAI/nodeskclaw](https://github.com/NoDeskAI/nodeskclaw) — distributed by [TomeVault](https://tomevault.io).
