@@ -1,0 +1,9 @@
+{
+  "name": "hkirat--ai-trading-agent",
+  "displayName": "ai-trading-agent",
+  "description": "Trade using LLMs ",
+  "version": "1.0.0",
+  "author": "hkirat",
+  "homepage": "https://github.com/hkirat/ai-trading-agent",
+  "skills": []
+}
