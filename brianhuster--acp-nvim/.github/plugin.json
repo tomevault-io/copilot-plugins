@@ -1,0 +1,9 @@
+{
+  "name": "brianhuster--acp-nvim",
+  "displayName": "acp.nvim",
+  "description": "An ACP (Agent Client Protocol) client for Nvim",
+  "version": "1.0.0",
+  "author": "brianhuster",
+  "homepage": "https://github.com/brianhuster/acp.nvim",
+  "skills": []
+}
