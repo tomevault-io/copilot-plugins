@@ -1,0 +1,9 @@
+{
+  "name": "zhiwendesign--kkskills",
+  "displayName": "kkskills",
+  "description": "\u4e00\u4e2a\u9762\u5411\u652f\u6301 skill \u7684 agent \u73af\u5883\u7684\u6d77\u62a5\u6280\u80fd\u96c6\u5408\u4ed3\u5e93\u3002\u5b83\u628a\u6587\u7ae0\u3001\u7b14\u8bb0\u3001\u8bfe\u7a0b\u6458\u8981\u3001\u9879\u76ee\u8bf4\u660e\u6216\u63a8\u8350\u6e05\u5355\uff0c\u8f6c\u6362\u6210\u56fa\u5b9a\u6bd4\u4f8b\u7684 HTML \u6d77\u62a5\uff0c\u5e76\u53ef\u7ee7\u7eed\u622a\u56fe\u5bfc\u51fa\u4e3a PNG",
+  "version": "1.0.0",
+  "author": "zhiwendesign",
+  "homepage": "https://github.com/zhiwendesign/kkskills",
+  "skills": []
+}
