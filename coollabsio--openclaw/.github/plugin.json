@@ -1,0 +1,9 @@
+{
+  "name": "coollabsio--openclaw",
+  "displayName": "openclaw",
+  "description": "Fully featured & automated OpenClaw docker images",
+  "version": "1.0.0",
+  "author": "coollabsio",
+  "homepage": "https://github.com/coollabsio/openclaw",
+  "skills": []
+}
