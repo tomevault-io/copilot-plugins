@@ -1,0 +1,9 @@
+{
+  "name": "snowflake-labs--pg-lake",
+  "displayName": "pg_lake",
+  "description": "pg_lake: Postgres with Iceberg and data lake access",
+  "version": "1.0.0",
+  "author": "Snowflake-Labs",
+  "homepage": "https://github.com/Snowflake-Labs/pg_lake",
+  "skills": []
+}
