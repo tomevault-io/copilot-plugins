@@ -1,78 +1,107 @@
-## storage-migration
+## ultracite
 
-> Enforce storage migration scripts when project save format changes
+> Ultracite Rules - AI-Ready Formatter and Linter
 
 
-# Storage Migration
+# Project Context
 
-When a code change modifies the persisted project data shape (fields in `TProject`, `TScene`, `TProjectMetadata`, `TProjectSettings`, `TimelineTrack`, or `TimelineElement` types), you **must** also implement a storage migration so existing saved projects upgrade automatically.
+Ultracite enforces strict type safety, accessibility standards, and consistent code quality for JavaScript/TypeScript projects using Biome's formatter.
 
-## When a Migration is Required
+## Key Principles
 
-- Adding, removing, or renaming a field on any persisted type
-- Changing the semantics or default of an existing persisted field
-- Restructuring nested data (e.g. moving a field from root to `metadata`)
+- Zero configuration required
+- Subsecond performance
+- Maximum type safety
+- AI-friendly code generation
 
-## Checklist
+## Before Writing Code
 
-1. **Bump version** — increment `CURRENT_PROJECT_VERSION` in `services/storage/migrations/index.ts`
-2. **Transformer** — create `transformers/vN-to-vM.ts` with pure transform logic
-3. **Migration class** — create `vN-to-vM.ts` extending `StorageMigration` (`from = N`, `to = M`)
-4. **Register** — add the new migration instance to the `migrations` array in `index.ts`
-5. **Tests** — add `__tests__/vN-to-vM.test.ts` with fixture data covering normal, edge-case, and already-migrated scenarios
+1. Analyze existing patterns in the codebase
+2. Consider edge cases and error scenarios
+3. Follow the rules below strictly
+4. Validate accessibility requirements
+5. Avoid code duplication
 
-## File Structure
+## Rules
 
-```
-services/storage/migrations/
-├── index.ts                        # CURRENT_PROJECT_VERSION + migrations array
-├── base.ts                         # StorageMigration abstract class
-├── runner.ts                       # Migration executor
-├── vN-to-vM.ts                     # Migration class
-├── transformers/
-│   ├── vN-to-vM.ts                 # Pure transform function
-│   ├── types.ts                    # ProjectRecord, MigrationResult
-│   └── utils.ts                    # getProjectId, isRecord, etc.
-└── __tests__/
-    ├── vN-to-vM.test.ts
-    └── fixtures/
-        └── vN.ts                   # Fixture data for version N
-```
+### Accessibility (a11y)
 
-## Migration Pattern
+- Always include a `title` element for icons unless there's text beside the icon.
+- Always include a `type` attribute for button elements.
+- Accompany `onClick` with at least one of: `onKeyUp`, `onKeyDown`, or `onKeyPress`.
+- Accompany `onMouseOver`/`onMouseOut` with `onFocus`/`onBlur`.
+
+### Code Complexity and Quality
+
+- Don't use primitive type aliases or misleading types.
+- Don't use the comma operator.
+- Use for...of statements instead of Array.forEach.
+- Don't initialize variables to undefined.
+- Use .flatMap() instead of map().flat() when possible.
+
+### React and JSX Best Practices
+
+- Don't import `React` itself.
+- Don't use both `children` and `dangerouslySetInnerHTML` props on the same element.
+- Don't insert comments as text nodes.
+- Use `<>...</>` instead of `<Fragment>...</Fragment>`.
+
+### Function Parameters and Props
+
+- Always use destructured props objects instead of individual parameters in functions.
+- Example: `function helloWorld({ prop }: { prop: string })` instead of `function helloWorld(param: string)`.
+- This applies to all functions, not just React components.
+
+### Correctness and Safety
+
+- Don't assign a value to itself.
+- Avoid unused imports and variables.
+- Don't use await inside loops.
+- Don't hardcode sensitive data like API keys and tokens.
+- Don't use the TypeScript directive @ts-ignore.
+- Make sure the `preconnect` attribute is used when using Google Fonts.
+- Don't use the `delete` operator.
+- Don't use `require()` in TypeScript/ES modules - use proper `import` statements.
+
+### TypeScript Best Practices
+
+- Don't use TypeScript enums.
+- Use either `T[]` or `Array<T>` consistently.
+- Don't use the `any` type.
+
+### Style and Consistency
+
+- Don't use global `eval()`.
+- Use `String.slice()` instead of `String.substr()` and `String.substring()`.
+- Don't use `else` blocks when the `if` block breaks early.
+- Put default function parameters and optional function parameters last.
+- Use `new` when throwing an error.
+- Use `String.trimStart()` and `String.trimEnd()` over `String.trimLeft()` and `String.trimRight()`.
+
+### Next.js Specific Rules
+
+- Don't use `<img>` elements in Next.js projects.
+- Don't use `<head>` elements in Next.js projects.
+
+## Example: Error Handling
 
 ```typescript
-// transformers/vN-to-vM.ts
-export function transformProjectVNToVM({
-  project,
-}: {
-  project: ProjectRecord;
-}): MigrationResult<ProjectRecord> {
-  const projectId = getProjectId({ project });
-  if (!projectId) {
-    return { project, skipped: true, reason: "no project id" };
-  }
+// ✅ Good: Comprehensive error handling
+try {
+  const result = await fetchData();
+  return { success: true, data: result };
+} catch (error) {
+  console.error("API call failed:", error);
+  return { success: false, error: error.message };
+}
 
-  if (isAlreadyMigrated({ project })) {
-    return { project, skipped: true, reason: "already vM" };
-  }
-
-  const migratedProject = {
-    ...project,
-    /* apply changes */
-    version: M,
-  };
-
-  return { project: migratedProject, skipped: false };
+// ❌ Bad: Swallowing errors
+try {
+  return await fetchData();
+} catch (e) {
+  console.log(e);
 }
 ```
-
-## Key Rules
-
-- Transformers must be **pure functions** — no side-effects, no DB access
-- Always guard with an `isAlreadyMigrated` check so re-runs are safe
-- Never delete data without first copying it to the new location
-- Keep each migration small and single-purpose
 
 ---
 > Source: [msgbyte/cutia](https://github.com/msgbyte/cutia) — distributed by [TomeVault](https://tomevault.io).
