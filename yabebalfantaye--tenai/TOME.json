@@ -4,7 +4,7 @@
   "repo": "tenai",
   "description": "Infrastructure-as-code for multi-device, multi-agent development environments. Mesh VPN, AI agent orchestration, and web control panel.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yabebalFantaye/tenai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T04:31:24Z"
+  "distributed_at": "2026-05-01T15:55:24Z"
 }
