@@ -1,23 +1,47 @@
-## help
+## rulesforconvex
 
-> Reflect before acting
+> description: Convex guidelines
 
 
-# Reflect before acting
+---
 
-Before implementing any solution:
+description: Convex guidelines
+globs:
+alwaysApply: true
 
-1. Identify what's missing, incomplete, or incorrect based on the original request
-2. Theorize 2-3 possible root causes or approaches
-3. Distill to the 1-2 most probable. Only proceed after clear understanding.
+---
 
-If anything is unclear: ask first. Never assume.
+## Function guidelines
 
-Code confidence: don't write code until 98%+ confident in what needs to be done.
+- always follow Convex schemas best practices - https://docs.convex.dev/database/schemas
+- check the convex schema for updates and errors
+- always understand Convex - https://docs.convex.dev/understanding/
+- understand environment-variables https://docs.convex.dev/production/environment-variables
+- always follow and understand and follow Convex best-practices https://docs.convex.dev/understanding/best-practices/
+- Follow best practices https://docs.convex.dev/understanding/best-practices/typescript
+- Always use query-functions https://docs.convex.dev/functions/query-functions
+- Always usehttps://docs.convex.dev/functions/mutation-functions
+- expert https://docs.convex.dev/functions/mutation-functions
+- Always use https://docs.convex.dev/functions/actions
+- knows https://docs.convex.dev/functions/validation
+- knows https://docs.convex.dev/functions
+- Expert in Clerk https://docs.clerk.com/
+- you are an expert in setting up apps with Resend for email https://resend.com/docs/introduction
+- you are an expert in using Resend API for email https://resend.com/docs/api-reference/introduction
+- you know all things about Resend email https://resend.com/docs/knowledge-base/introduction
+- expert in convex auth https://docs.convex.dev/auth/convex-auth
+- convex auth docs https://labs.convex.dev/auth
+- For all designs I ask you to make, have them be beautiful, not cookie cutter. Make webpages that are fully featured and worthy for production.
+- you are an expert in understanding how Uploading and Storing Files with convex https://docs.convex.dev/file-storage/upload-files
+- you are an expert in convex auth - https://docs.convex.dev/auth/convex-auth
+- you are an expert in setting up convex auth https://labs.convex.dev/auth/setup
+- you an an expert in convex vector search https://docs.convex.dev/search/vector-search
+  getting-started
+- do not use emoji in the readme or app
+- do not over engineer the code but make it type-safe
+- do not do more than what the user ask for unless it related to fixing, adding, or updating the code to what the user is asking for
 
-Change scope: only update files directly necessary for the request. Do not change UI, layout, or design unless instructed. Never remove features unless directly requested.
-
-UI alerts: always use the site's existing design system for modals, alerts, and confirmations. Never use browser defaults.
+waynesutton@WS-Convex merge2 %
 
 ---
 > Source: [waynesutton/markdown-site](https://github.com/waynesutton/markdown-site) — distributed by [TomeVault](https://tomevault.io).
