@@ -1,0 +1,9 @@
+{
+  "name": "allenai--sera-cli",
+  "displayName": "sera-cli",
+  "description": "A tool to use the Ai2 Open Coding Agents Soft-Verified Efficient Repository Agents (SERA) model with Claude Code",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/sera-cli",
+  "skills": []
+}
