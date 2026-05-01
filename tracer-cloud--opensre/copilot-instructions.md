@@ -1,36 +1,42 @@
-## opensre
+## code-style
 
-> - Build `make install`
+> Code style and conventions
 
-## Tracer Development Reference
 
-## Build and Run commands
+# Code Style
 
-- Build `make install`
-- Run `opensre`
+## Formatting
 
-## Lint & Format
+- 100-character line length (enforced by ruff and `.editorconfig`)
+- 4-space indentation for Python
+- 2-space indentation for YAML, JSON, TOML
+- Tabs for Makefiles
 
-- Lint all: `make lint`
-- Fix linting: `ruff check app/ tests/ --fix`
-- Type check: `make typecheck`
+## Python Conventions
 
-## Testing
-
-- Test: `make test-cov`
-- Test real alerts: `make test-rca`
-
-## Code Style
-
-- Use strict typing, follow DRY principle
+- Use `from __future__ import annotations` for forward references
+- Absolute imports only: `from app.tools.base import BaseTool`
+- Type hints on all function parameters and return types
+- `TypedDict` for graph state, Pydantic `StrictConfigModel` for configs
 - One clear purpose per file (separation of concerns)
 
-### Before Push
+## Tooling
 
-1. Clean working tree
-2. `make test-cov`
-3. `make lint`
-4. `make typecheck`
+- **Linter:** ruff (rules: E, W, F, I, B, C4, UP, ARG, SIM)
+- **Type checker:** mypy (Python 3.12 target, `warn_return_any`)
+- **Formatter:** ruff format (Black-compatible)
+- **Python version:** >=3.11, target 3.12
+
+## Quality Commands
+
+```bash
+make lint        # ruff check app/ tests/
+make typecheck   # mypy app/
+make test-cov    # pytest with coverage
+make format      # ruff format
+```
+
+All three checks (lint, typecheck, test-cov) must pass before submitting a PR.
 
 ---
 > Source: [Tracer-Cloud/opensre](https://github.com/Tracer-Cloud/opensre) — distributed by [TomeVault](https://tomevault.io).
