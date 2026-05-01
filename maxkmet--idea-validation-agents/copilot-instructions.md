@@ -1,9 +1,9 @@
-## cac-modeler
+## competitor-mapper
 
-> Skill — cac-modeler. Models customer acquisition cost by channel and assesses viability at indie developer budget.
+> Skill — competitor-mapper. Maps direct, indirect, and substitute competitors with positioning gaps.
 
 
-See [skills/cac-modeler/SKILL.md](../../skills/cac-modeler/SKILL.md) for full instructions and output schema.
+See [skills/competitor-mapper/SKILL.md](../../skills/competitor-mapper/SKILL.md) for full instructions and output schema.
 
 ---
 > Source: [MaxKmet/idea-validation-agents](https://github.com/MaxKmet/idea-validation-agents) — distributed by [TomeVault](https://tomevault.io).
