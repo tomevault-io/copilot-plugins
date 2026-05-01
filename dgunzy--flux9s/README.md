@@ -7,11 +7,11 @@ A K9s-inspired terminal UI for monitoring Flux resources in real-time
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dgunzy/flux9s](https://github.com/dgunzy/flux9s).
+Original source: `CLAUDE.md` in [dgunzy/flux9s](https://github.com/dgunzy/flux9s).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
