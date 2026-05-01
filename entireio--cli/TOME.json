@@ -4,7 +4,7 @@
   "repo": "cli",
   "description": "Entire CLI hooks into your Git workflow to capture AI agent sessions as you work. Sessions are indexed alongside commits, creating a searchable record of how code was written in your repo.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/entireio/cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T03:38:44Z"
+  "distributed_at": "2026-05-01T07:59:06Z"
 }
