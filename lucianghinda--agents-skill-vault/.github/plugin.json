@@ -1,0 +1,9 @@
+{
+  "name": "lucianghinda--agents-skill-vault",
+  "displayName": "agents_skill_vault",
+  "description": "A gem that can manage a vault (a local folder) with various skills from Github URLs",
+  "version": "1.0.0",
+  "author": "lucianghinda",
+  "homepage": "https://github.com/lucianghinda/agents_skill_vault",
+  "skills": []
+}
