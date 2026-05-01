@@ -1,0 +1,9 @@
+{
+  "name": "deepmyst--mysti",
+  "displayName": "Mysti",
+  "description": "AI coding dream team of agents for VS Code. Claude Code + openai Codex collaborate in brainstorm mode, debate solutions, and synthesize the best approach for your code.",
+  "version": "1.0.0",
+  "author": "DeepMyst",
+  "homepage": "https://github.com/DeepMyst/Mysti",
+  "skills": []
+}
