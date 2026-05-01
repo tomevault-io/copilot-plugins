@@ -1,0 +1,9 @@
+{
+  "name": "bkrabach--remote-mount",
+  "displayName": "remote-mount",
+  "description": "Cross-platform CLI for managing persistent remote filesystem mounts with auto-reconnect",
+  "version": "1.0.0",
+  "author": "bkrabach",
+  "homepage": "https://github.com/bkrabach/remote-mount",
+  "skills": []
+}
