@@ -1,51 +1,37 @@
-## type-extraction-from-contract
+## type-predicates
 
-> Extract TypeScript types from contract.d.ts and helpers
+> Replace blind casts with type predicates (type guards)
 
 
-# Type Extraction from Contract
+# Type Predicates (Replace Blind Casts)
 
-## Pattern
+**Rule**: Blind casts like `as unknown as X` are **forbidden** in production code.
 
-`CodecTypes` and `OperationTypes` are carried via **TypeMaps** (type-only, not runtime keys).
+Prefer:
+- Type predicates (`value is X`) / type guards
+- Refactoring the type surface so the compiler can do the narrowing
 
-- **Emitted workflow**: `contract.d.ts` exports `Contract` and `TypeMaps` separately. Use `CodecTypesOf<TypeMaps>` and `OperationTypesOf<TypeMaps>` for explicit threading.
-- **No-emit workflow**: `defineContract().build()` returns `ContractWithTypeMaps<Contract, TypeMaps>`. Use `ExtractCodecTypes` / `ExtractOperationTypes` which extract from the phantom key.
-
-```typescript
-// Emitted: import TypeMaps, use CodecTypesOf<TypeMaps>
-import type { Contract, TypeMaps } from './contract';
-type CodecTypes = CodecTypesOf<TypeMaps>;
-
-// No-emit: ExtractCodecTypes works with ContractWithTypeMaps
-type CodecTypes = ExtractCodecTypes<typeof contract>;
-```
-
-## Helper Types
-
-- `CodecTypesOf<TTypeMaps>`: Extracts `codecTypes` from TypeMaps
-- `OperationTypesOf<TTypeMaps>`: Extracts `operationTypes` from TypeMaps
-- `ExtractTypeMapsFromContract<T>`: Extracts TypeMaps from contract (`TypeMapsPhantomKey` → extract, or `never` for emitted)
-- `ExtractCodecTypes<T>`: Extracts from ContractWithTypeMaps (no-emit), fallback `Record<string, never>`
-- `ExtractOperationTypes<T>`: Same for operation types
-
-## Lane APIs with Explicit TypeMaps
-
-`schema`, `sql`, and `orm` accept optional `TTypeMaps` (defaults to `ExtractTypeMapsFromContract<TContract>`):
+## Example
 
 ```typescript
-// No-emit: infers from ContractWithTypeMaps
-const schemaHandle = schema<Contract>(context);
+type ColumnBuilder = { kind: 'column'; table: string; column: string };
 
-// Emitted: pass TypeMaps explicitly
-const schemaHandle = schema<Contract, TypeMaps>(context);
+export function isColumnBuilder(value: unknown): value is ColumnBuilder {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'kind' in value &&
+    (value as { kind: unknown }).kind === 'column'
+  );
+}
 ```
 
-## Important
+## Tests-only exception
 
-- Codec/operation type maps do **not** exist at runtime on `contract.mappings`
-- Runtime contract values include only structural mappings (modelToTable, tableToModel, fieldToColumn, columnToField)
-- Generated `Contract` type (emitted) has no phantom keys; TypeMaps is a separate export
+In `*.test.ts` / `*.test-d.ts`, double casts can be acceptable for mocks/dynamic proxies, but:
+- Use `unknown` (not `any`)
+- Keep the cast local and explained
+- Don’t copy the pattern into production code
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
