@@ -1,167 +1,119 @@
-## getting-started
+## mockdevice-testing
 
-> SDK setup, Swift Package Manager integration, Info.plist configuration, and first connection to Meta glasses
+> MockDeviceKit for testing without physical glasses hardware
 
 
 
-# Getting Started with DAT SDK (iOS)
+# MockDevice Testing (iOS)
 
-Guide for setting up the Meta Wearables Device Access Toolkit in an iOS app.
+Guide for testing DAT SDK integrations without physical Meta glasses.
 
-## Prerequisites
+## Overview
 
-- Xcode 15.0+, iOS 16.0+ deployment target
-- Meta AI companion app installed on test device
-- Ray-Ban Meta glasses or Meta Ray-Ban Display glasses (or use MockDeviceKit for development)
-- Developer Mode enabled in Meta AI app (Settings > Your glasses > Developer Mode)
+MockDeviceKit simulates Meta glasses behavior for development and testing. It provides:
+- `MockDeviceKit` — Entry point for creating simulated devices
+- `MockRaybanMeta` — Simulated Ray-Ban Meta glasses
+- `MockCameraKit` — Simulated camera with configurable video feed and photo capture
 
-## Step 1: Add the SDK via Swift Package Manager
+## Setup
 
-1. In Xcode, select **File** > **Add Package Dependencies...**
-2. Enter `https://github.com/facebook/meta-wearables-dat-ios`
-3. Select a [version](https://github.com/facebook/meta-wearables-dat-ios/tags)
-4. Add `MWDATCore` and `MWDATCamera` to your target
-
-## Step 2: Configure Info.plist
-
-Add these required entries to your `Info.plist`:
-
-```xml
-<!-- URL scheme for Meta AI callbacks -->
-<key>CFBundleURLTypes</key>
-<array>
-  <dict>
-    <key>CFBundleTypeRole</key>
-    <string>Editor</string>
-    <key>CFBundleURLName</key>
-    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>myexampleapp</string>
-    </array>
-  </dict>
-</array>
-
-<!-- Allow Meta AI to callback -->
-<key>LSApplicationQueriesSchemes</key>
-<array>
-  <string>fb-viewapp</string>
-</array>
-
-<!-- External accessory protocol -->
-<key>UISupportedExternalAccessoryProtocols</key>
-<array>
-  <string>com.meta.ar.wearable</string>
-</array>
-
-<!-- Background modes -->
-<key>UIBackgroundModes</key>
-<array>
-  <string>bluetooth-peripheral</string>
-  <string>external-accessory</string>
-</array>
-<key>NSBluetoothAlwaysUsageDescription</key>
-<string>Needed to connect to Meta Wearables</string>
-
-<!-- DAT configuration -->
-<key>MWDAT</key>
-<dict>
-  <key>AppLinkURLScheme</key>
-  <string>myexampleapp://</string>
-  <key>MetaAppID</key>
-  <string>0</string>
-</dict>
-```
-
-Replace `myexampleapp` with your app's URL scheme. Use `0` for `MetaAppID` during development with Developer Mode.
-
-## Step 3: Initialize the SDK
-
-Call `Wearables.configure()` once at app launch:
+Add `MWDATMockDevice` to your target via Swift Package Manager (it's included in the `meta-wearables-dat-ios` package).
 
 ```swift
-import MWDATCore
+import MWDATMockDevice
+```
 
-@main
-struct MyApp: App {
-    init() {
-        do {
-            try Wearables.configure()
-        } catch {
-            assertionFailure("Failed to configure Wearables SDK: \(error)")
-        }
+## Creating a mock device
+
+```swift
+import MWDATMockDevice
+
+let mockDeviceKit = MockDeviceKit.shared
+mockDeviceKit.enable()
+
+let mockDevice = mockDeviceKit.pairRaybanMeta()
+```
+
+## Simulating device states
+
+```swift
+// Simulate glasses lifecycle
+await mockDevice.powerOn()
+await mockDevice.unfold()
+await mockDevice.don()    // Simulate wearing the glasses
+
+// Later...
+await mockDevice.doff()   // Simulate removing
+await mockDevice.fold()
+await mockDevice.powerOff()
+```
+
+## Setting up mock camera feeds
+
+### Video streaming
+
+```swift
+let camera = mockDevice.services.camera
+camera.setCameraFeed(fileURL: videoURL)
+```
+
+### Photo capture
+
+```swift
+let camera = mockDevice.services.camera
+camera.setCapturedImage(fileURL: imageURL)
+```
+
+## Writing tests with MockDeviceKit
+
+Create a reusable test base class:
+
+```swift
+import XCTest
+import MetaWearablesDAT
+
+@MainActor
+class MockDeviceKitTestCase: XCTestCase {
+    private var mockDevice: MockRaybanMeta?
+    private var cameraKit: MockCameraKit?
+
+    override func setUp() async throws {
+        try await super.setUp()
+        MockDeviceKit.shared.enable()
+        mockDevice = MockDeviceKit.shared.pairRaybanMeta()
+        cameraKit = mockDevice?.services.camera
     }
 
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+    override func tearDown() async throws {
+        MockDeviceKit.shared.disable()
+        mockDevice = nil
+        cameraKit = nil
+        try await super.tearDown()
     }
 }
 ```
 
-## Step 4: Handle URL callbacks
+## Using MockDeviceKit in the CameraAccess sample
 
-Your app must handle the URL callback from Meta AI after registration:
+The CameraAccess sample app includes a Debug menu for MockDeviceKit:
 
-```swift
-.onOpenURL { url in
-    Task {
-        _ = try? await Wearables.shared.handleUrl(url)
-    }
-}
-```
+1. Tap the **Debug icon** to open the MockDeviceKit menu
+2. Tap **Pair RayBan Meta** to create a simulated device
+3. Use **PowerOn**, **Unfold**, **Don** to simulate glasses states
+4. Select video/image files to configure mock camera feeds
+5. Start streaming to see simulated frames
 
-## Step 5: Register with Meta AI
+## Supported media formats
 
-```swift
-func startRegistration() throws {
-    try Wearables.shared.startRegistration()
-}
-```
+| Type | Formats |
+|------|---------|
+| Video | h.265 (HEVC) |
+| Image | JPEG, PNG |
 
-Observe registration state:
+## Links
 
-```swift
-Task {
-    for await state in Wearables.shared.registrationStateStream() {
-        // Update UI based on registration state
-    }
-}
-```
-
-## Step 6: Start streaming
-
-```swift
-import MWDATCamera
-
-let deviceSelector = AutoDeviceSelector(wearables: Wearables.shared)
-let config = StreamSessionConfig(
-    videoCodec: .raw,
-    resolution: .low,
-    frameRate: 24
-)
-let session = StreamSession(streamSessionConfig: config, deviceSelector: deviceSelector)
-
-// Observe frames
-let frameToken = session.videoFramePublisher.listen { frame in
-    guard let image = frame.makeUIImage() else { return }
-    Task { @MainActor in
-        self.currentFrame = image
-    }
-}
-
-// Start
-Task { await session.start() }
-```
-
-## Next steps
-
-- [Camera Streaming](camera-streaming.md) — Resolution, frame rate, photo capture
-- [MockDevice Testing](mockdevice-testing.md) — Test without hardware
-- [Session Lifecycle](session-lifecycle.md) — Handle pause/resume/stop
-- [Permissions](permissions-registration.md) — Camera permission flows
-- [Full documentation](https://wearables.developer.meta.com/docs/develop/)
+- [Mock Device Kit overview](https://wearables.developer.meta.com/docs/mock-device-kit)
+- [iOS testing guide](https://wearables.developer.meta.com/docs/testing-mdk-ios)
 
 ---
 > Source: [facebook/meta-wearables-dat-ios](https://github.com/facebook/meta-wearables-dat-ios) — distributed by [TomeVault](https://tomevault.io).
