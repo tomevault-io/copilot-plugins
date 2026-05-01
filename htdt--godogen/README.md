@@ -7,11 +7,11 @@ Claude Code & Codex skills that build complete Godot projects from a game descri
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [htdt/godogen](https://github.com/htdt/godogen).
+Original source: `CLAUDE.md` in [htdt/godogen](https://github.com/htdt/godogen).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
