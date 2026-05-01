@@ -1,0 +1,9 @@
+{
+  "name": "rilab--argprep",
+  "displayName": "argprep",
+  "description": "Snakemake pipeline for generating SINGER input files from whole genome alignment .maf files.",
+  "version": "1.0.0",
+  "author": "RILAB",
+  "homepage": "https://github.com/RILAB/argprep",
+  "skills": []
+}
