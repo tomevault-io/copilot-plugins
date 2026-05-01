@@ -1,0 +1,9 @@
+{
+  "name": "symfony--ux-symfony-com",
+  "displayName": "ux.symfony.com",
+  "description": "The ux.symfony.com website",
+  "version": "1.0.0",
+  "author": "symfony",
+  "homepage": "https://github.com/symfony/ux.symfony.com",
+  "skills": []
+}
