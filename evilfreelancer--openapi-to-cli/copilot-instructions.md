@@ -1,0 +1,56 @@
+## architecture
+
+> Architecture of openapi-to-cli (ocli)
+
+
+## Architectural Rules
+
+### General Architecture
+
+The `openapi-to-cli` project is a Node.js/TypeScript CLI application that:
+
+- reads an OpenAPI/Swagger spec from a URL or file;
+- caches the spec in `.ocli/specs`;
+- uses profiles to describe connected APIs;
+- maps OpenAPI operations to `ocli` subcommands.
+
+### Data Flow
+
+```text
+ocli onboard --options --> write profile (profiles.ini) --> download OpenAPI --> save to .ocli/specs
+       |
+       v
+ocli [--profile] <tool> [options] --> load profile + cached spec --> build commands from OpenAPI --> perform HTTP request to API_BASE_URL
+```
+
+### Components
+
+- **config** - locate and select `.ocli` directory, resolve `profiles.ini` paths with global and local priority.
+- **profile-store** - read and write profile INI files (`profiles.ini`), select current profile.
+- **openapi-loader** - load spec from URL or file and cache it into `.ocli/specs/<profile>.json`.
+- **openapi-to-commands** - parse OpenAPI, apply include/exclude filters, build command names and option schemas.
+- **cli** - entry point, argument parser, command registration, help rendering.
+
+### Design Principles
+
+1. **OpenAPI-driven** - the list of commands and their parameters is defined by the spec.
+2. **Profiles** - all API settings are configured via profiles (global or local).
+3. **Spec cache** - the spec is cached under `.ocli/specs` to avoid fetching it on every run.
+4. **TypeScript strict** - `strict: true`; explicit types for public APIs and profile interfaces.
+5. **TDD for core logic** - unit tests for profile parsing, spec loading and command mapping.
+6. **Language** - all documentation and code comments for this project must be written in English.
+
+### Repository Layout (for the openapi-to-cli directory)
+
+- `README.md` - concept and description of the CLI and profiles.
+- `package.json` - npm package with the `ocli` binary.
+- `tsconfig.json` - TypeScript config with strict mode.
+- `jest.config.js` - Jest configuration.
+- `src/`:
+  - `cli.ts` - `ocli` binary entry point.
+  - future modules: `config`, `profile-store`, `openapi-loader`, `openapi-to-commands`, etc.
+- `tests/` - tests for the modules above.
+
+---
+> Source: [EvilFreelancer/openapi-to-cli](https://github.com/EvilFreelancer/openapi-to-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
