@@ -4,7 +4,7 @@
   "repo": "agentfield",
   "description": "Build, run and scale AI agents like API and microservices - observable,auditable and identity-aware from day one.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Agent-Field/agentfield",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T02:41:18Z"
+  "distributed_at": "2026-05-01T15:47:24Z"
 }
