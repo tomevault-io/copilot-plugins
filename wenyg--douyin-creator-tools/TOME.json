@@ -1,0 +1,44 @@
+{
+  "name": "douyin-creator-tools",
+  "owner": "wenyg",
+  "repo": "douyin-creator-tools",
+  "description": "\u963f\u91cc\u867e\u7684\u6296\u97f3\u521b\u4f5c\u8005\u5de5\u5177",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wenyg/douyin-creator-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T22:35:37Z"
+}
