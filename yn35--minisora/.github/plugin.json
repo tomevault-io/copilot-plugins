@@ -1,0 +1,9 @@
+{
+  "name": "yn35--minisora",
+  "displayName": "minisora",
+  "description": "A minimal & Scalable PyTorch re-implementation of the OpenAI Sora training",
+  "version": "1.0.0",
+  "author": "YN35",
+  "homepage": "https://github.com/YN35/minisora",
+  "skills": []
+}
