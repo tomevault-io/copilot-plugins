@@ -1,0 +1,9 @@
+{
+  "name": "spacehunterz--emergent-learning-framework-elf",
+  "displayName": "Emergent-Learning-Framework_ELF",
+  "description": "ELF provides persistent memory, pattern tracking, and multi-agent coordination for Claude Code sessions without the need for an api key",
+  "version": "1.0.0",
+  "author": "Spacehunterz",
+  "homepage": "https://github.com/Spacehunterz/Emergent-Learning-Framework_ELF",
+  "skills": []
+}
