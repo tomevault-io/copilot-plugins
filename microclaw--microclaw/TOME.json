@@ -4,7 +4,7 @@
   "repo": "microclaw",
   "description": "\ud83e\udd80An agentic AI assistant that lives in your chats, inspired by nanoclaw and incorporating some of its design ideas. Built with Rust \ud83e\udd80",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microclaw/microclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T20:41:49Z"
+  "distributed_at": "2026-05-01T03:41:25Z"
 }
