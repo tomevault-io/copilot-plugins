@@ -1,0 +1,9 @@
+{
+  "name": "tableproapp--tablepro",
+  "displayName": "TablePro",
+  "description": "Native macOS client for every database",
+  "version": "1.0.0",
+  "author": "TableProApp",
+  "homepage": "https://github.com/TableProApp/TablePro",
+  "skills": []
+}
