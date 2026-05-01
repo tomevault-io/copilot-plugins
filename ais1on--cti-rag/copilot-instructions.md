@@ -1,113 +1,142 @@
-## code-style
+## common-issues
 
-> - 所有注释、文档字符串和日志消息必须使用中文
+> 常见问题和解决方案
 
-# Python 代码规范
+# 常见问题与解决方案
 
-## 通用规范
-- 所有注释、文档字符串和日志消息必须使用中文
-- 使用 4 空格缩进，不使用 Tab
-- 函数和类的文档字符串使用三引号 `"""`
-- 导入顺序：标准库 → 第三方库 → 项目内部模块
+## 导入错误
 
-## 导入规范
+### 问题：`ImportError: cannot import name 'QueryPreprocessor'`
+**原因**: `packages/utils/__init__.py` 未导出该类
 
-### 相对导入
+**解决方案**:
 ```python
+# packages/utils/__init__.py
+from .bm25 import AbstractBM25
+from .query_preprocessor import QueryPreprocessor
+```
+
+### 问题：`ImportError: attempted relative import beyond top-level package`
+**原因**: 使用相对导入 `..` 但 Python 无法识别包结构
+
+**解决方案**: 将相对导入改为绝对导入
+```python
+# 错误
 from .. import config
-from ..utils import logger, hashstr
-from ..models import select_model
+# 正确
+from packages import config
 ```
 
-### 已修复的导入问题
-- `packages.utils.__init__.py` 必须导出：
-  ```python
-  from .bm25 import AbstractBM25
-  from .query_preprocessor import QueryPreprocessor
-  ```
+## Milvus 错误
 
-## 日志规范
+### 问题：`DataNotMatchException: field should be int64, but got float`
+**原因**: `file_created_at` 字段类型不匹配
+
+**解决方案**:
 ```python
-from packages.utils.logging_config import logger
-
-# 信息日志
-logger.info(f"开始处理: {query}")
-
-# 调试日志（用于开发，不应影响生产日志）
-logger.debug(f"检索参数: {meta}")
-
-# 错误日志（包含堆栈跟踪）
-logger.error(f"检索失败: {e}, {traceback.format_exc()}")
-```
-
-## 数据库操作
-
-### Milvus
-```python
-# 创建集合时使用 create_schema
-schema = self.client.create_schema(
-    auto_id=False,
-    enable_dynamic_field=True,
-)
-schema.add_field(field_name="id", datatype=DataType.INT64, is_primary=True)
-# ...
-
-# 确保 file_created_at 为 int 类型
 if isinstance(static_file_created_at, float):
     static_file_created_at = int(static_file_created_at)
 ```
 
-### Neo4j
-```python
-# 使用 with 语句管理会话
-with self.driver.session(database=self.kgdb_name) as session:
-    return session.execute_read(query_func, params)
+### 问题：`MilvusException: unsupported pattern: %pattern%`
+**原因**: 动态字段不支持 `LIKE` 的 `%pattern%` 模糊匹配
 
-# Cypher 查询使用参数化
-tx.run("MATCH (n:Entity {name: $name}) RETURN n", name=entity_name)
+**解决方案**: 使用静态字段和精确匹配
+```python
+# 错误（动态字段）
+filter = "$metadata['filename'] LIKE '%1月6日%'"
+
+# 正确（静态字段）
+filter = "date_key == '20250106'"
 ```
 
-## 异步处理
+### 问题：索引创建失败
+**解决方案**: 使用 `prepare_index_params()`
 ```python
-# 在同步函数中运行异步代码
-import asyncio
-import concurrent.futures
-
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    future = executor.submit(
-        lambda: asyncio.run(async_function(params))
-    )
-    result = future.result()
+index_params = self.client.prepare_index_params()
+index_params.add_index(
+    field_name="vector",
+    index_type="AUTOINDEX",
+    metric_type="COSINE",
+)
+self.client.create_index(collection_name, index_params)
 ```
 
-## LLM Prompt 模板
-定义在 [packages/utils/prompts.py](mdc:packages/utils/prompts.py)：
-- 使用 `.format()` 方法进行变量替换
-- 包含清晰的指令和示例
-- Cypher 生成 prompt 必须包含 Schema 信息和多跳查询示例
+## Neo4j 图查询
 
-## 错误处理
+### 问题：图检索返回空结果
+**可能原因**:
+1. 使用了传统检索而非四阶段混合检索
+2. 从原始问题提取的实体不在图中
+3. LLM 生成的 Cypher 查询不正确
+
+**解决方案**:
+1. 确保 `meta["use_hybrid_retrieval"] = True`
+2. 检查日志中的 Cypher 查询语句
+3. 验证图中是否有相关实体：
+   ```cypher
+   MATCH (n:Entity) WHERE n.name CONTAINS '关键词' RETURN n LIMIT 5
+   ```
+
+### 问题：向量索引不存在
+**解决方案**: 确保在添加实体时创建了向量索引
 ```python
-try:
-    # 主要逻辑
-    result = some_operation()
-except SpecificException as e:
-    logger.error(f"具体错误描述: {e}, {traceback.format_exc()}")
-    # 优雅降级或返回错误信息
-    return {"status": "error", "message": str(e)}
+await graph_base.txt_add_vector_entity(triples, kgdb_name)
 ```
 
-## 类型提示
-```python
-from typing import Dict, List, Optional, Any
+## BM25 相关
 
-def function(
-    query: str,
-    meta: Dict[str, Any],
-    history: Optional[List[dict]] = None
-) -> Dict[str, Any]:
-    pass
+### 问题：缺少依赖
+**解决方案**: 安装必需的库
+```bash
+pip install jieba>=0.42.1 PyStemmer>=2.2.0
 ```
+
+### 问题：中英文混用查询效果差
+**原因**: BM25 分词器是单语言的
+
+**建议**: 
+- 知识库和查询使用相同语言
+- 或使用机器翻译预处理查询
+
+## 日志过于冗长
+
+### 问题：API 响应包含大量 JSON 数据
+**解决方案**: 使用 `response_mode="simple"`
+```python
+# API 调用时
+{
+    "query": "...",
+    "meta": {...},
+    "response_mode": "simple"  // 只返回答案和摘要
+}
+```
+
+## 多日期查询
+
+### 问题：只能识别一个日期
+**解决方案**: 已升级为支持多日期 OR 逻辑
+```python
+# 查询: "综合1月18日和1月26日的报告"
+# 自动生成: (date_key == '20250118' or date_key == '20250126')
+```
+
+## 性能优化
+
+### 向量检索慢
+- 确保 Milvus 集合已加载到内存
+- 使用 `AUTOINDEX` 索引类型
+- 合理设置 `top_k` 和阈值
+
+### 图查询慢
+- 限制多跳查询的深度（建议 `[*..3]`）
+- 使用 `LIMIT` 子句
+- 为常用查询模式创建索引
+
+### LLM 调用慢
+- 使用协程池并发处理
+- 考虑使用流式响应
+- 缓存常见查询结果
 
 ---
 > Source: [Ais1on/CTI-RAG](https://github.com/Ais1on/CTI-RAG) — distributed by [TomeVault](https://tomevault.io).
