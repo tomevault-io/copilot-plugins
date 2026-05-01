@@ -1,42 +1,137 @@
-## architecture-constraints
+## engine-internals
 
-> GolemBot architecture hard constraints — must check before modifying any src/ code
+> Coding Agent engine implementation details (Cursor + Claude Code) — reference when modifying engine.ts or debugging Agent behavior
 
 
-# Architecture Hard Constraints
+# Cursor Engine Implementation Details
 
-When modifying code under `src/`, the following constraints must not be violated. To relax them, first update docs/architecture.md.
+## Agent CLI Invocation
 
-## Things You Must Never Do
+- Binary path: `~/.local/bin/agent` (not `cursor`, nor `cursor agent`)
+- Uses standard `child_process.spawn` — no PTY (node-pty) needed since CLI version 2026.02+
+- Key flags: `--output-format stream-json --stream-partial-output --force --trust --sandbox disabled --approve-mcps`
 
-1. **Don't do what the Agent should do** — GolemBot does not manage context window, dispatch tools, reason, or set session TTL. All "intelligent" behavior is delegated to the underlying Coding Agent.
-2. **Don't add new core concepts** — The framework has only two concepts: assistant directory + Skill. Do not introduce Tool, Blueprint, Registry, Pipeline, or other abstractions.
-3. **Don't put CLI logic in the core library** — `cli.ts` is a thin shell; it only parses arguments and formats output. All business logic must live in `index.ts` / `workspace.ts` / `engine.ts` / `session.ts` / `server.ts`.
-4. **Don't declare Skills in config** — The `skills/` directory is the single source of truth. `golem.yaml` only configures engine and name.
-5. **Process invocation is engine-owned** — All engines use `child_process.spawn`. Do not assume invocation style outside the engine.
+## stream-json Output Format
 
-## Interface Change Rules
+Output is clean NDJSON on stdout; `stripAnsi()` is retained as a safety net but is not expected to be needed.
 
-- Any signature change to the `Assistant` interface (`index.ts`) must be reflected in docs/architecture.md Chapter 5 (API definition)
-- Any change to the `AgentEngine` interface (`engine.ts`) must be reflected in docs/architecture.md Chapter 7
-- `StreamEvent` type changes must verify compatibility with `server.ts` SSE output and `cli.ts` event handling
+One JSON object per line, main types:
 
-## File Responsibility Boundaries
+```
+{ "type": "system", "subtype": "init", "session_id": "xxx", ... }     → Init; does not signal end of conversation
+{ "type": "assistant", "message": { "content": [{ "type": "text", "text": "..." }] } }  → Assistant text delta
+{ "type": "tool_call", "subtype": "started", "tool_call": { "<XxxToolCall>": { "args": {...} } } }  → Tool call started
+{ "type": "tool_call", "subtype": "completed", "tool_call": { "<XxxToolCall>": { "args": {...}, "result": {...} } } }  → Tool call completed
+{ "type": "result", "subtype": "success", "is_error": false, "session_id": "xxx", "duration_ms": 1234 }  → Normal end
+{ "type": "result", "subtype": "error", "is_error": true, "result": "error msg" }  → Error end
+```
 
-| File | Responsibility | Should Not Contain |
-|------|-----------------|--------------------|
-| `index.ts` | Public API, concurrency locks, orchestration of workspace/engine/session | Engine implementation details, HTTP logic |
-| `engine.ts` | Engine interface, Cursor / Claude Code implementations, stream-json parsing, Skill injection | Session management, config loading |
-| `workspace.ts` | golem.yaml read/write, skills scanning, AGENTS.md generation | Engine invocation, session management |
-| `session.ts` | Session persistence (indexed by sessionKey) | Any other logic |
-| `server.ts` | HTTP service, SSE, auth | Engine implementation details |
-| `cli.ts` | Argument parsing → call core API → format output | Business logic |
+### Key Notes
 
-## Concurrency Model
+1. **tool_call has both started and completed events** — started → yield `tool_call`, completed → yield `tool_result`; do not treat both as tool_call (would duplicate)
+2. **tool_call name is not a fixed field** — iterate over the `tool_call` object keys and find the one ending with `ToolCall`; some tools use `function` format (`{ "name": "...", "arguments": "..." }`)
+3. **`--stream-partial-output` changes assistant event granularity** — with it, each assistant event is character-level delta; without it, full paragraphs. **Critical**: after all deltas for each segment (text between tool calls), Cursor sends one more summary event (content = concatenation of that segment’s deltas). CursorEngine uses accumulated text comparison to detect and skip summary, avoiding duplicate text
+4. **assistant.message.content is an array** — multiple blocks; filter those with `type === 'text'` and concatenate
+5. **system event is not a termination signal** — do not end the stream on system event
+6. **session_id appears in both system and result** — use the one in result as the final session_id
 
-- `chat()` calls with the same `sessionKey` must be serialized (KeyedMutex)
-- Different `sessionKey`s can run in parallel
-- Do not introduce global locks (Phase 1 Mutex has been replaced with KeyedMutex)
+## apiKey Authentication Passthrough (Cursor)
+
+Headless environments (cloud servers, CI/CD) have no `agent login` state; must authenticate via API Key. Full passthrough chain:
+
+```
+CreateAssistantOpts.apiKey (user-provided)
+  → index.ts: stored in closure, passed to engine.invoke() on each doChat()
+    → InvokeOpts.apiKey
+      → CursorEngine:
+        1. args.push('--api-key', opts.apiKey)   // CLI argument
+        2. env.CURSOR_API_KEY = opts.apiKey       // env var (backup)
+      → ClaudeCodeEngine:
+        1. env.ANTHROPIC_API_KEY = opts.apiKey    // env var
+```
+
+CLI layer (`cli.ts`) `run` and `serve` commands both support `--api-key <key>` (generic, any engine).
+
+When apiKey is not passed, the engine inherits `process.env` (including existing `CURSOR_API_KEY` or `ANTHROPIC_API_KEY`); works if the host process already sets those env vars.
+
+## durationMs Extraction
+
+Cursor result event includes `duration_ms` (integer, milliseconds). `parseStreamLine` extracts it and puts it in the `done` event’s `durationMs` field.
+
+- Has `duration_ms` → `{ type: 'done', sessionId, durationMs: 4500 }`
+- No `duration_ms` → `{ type: 'done', sessionId, durationMs: undefined }`
+- `duration_ms: 0` → `{ type: 'done', sessionId, durationMs: 0 }` (valid value)
+- error result → do not expose durationMs (return error event)
+
+## Session Resume
+
+- Flag: `--resume <sessionId>`
+- On resume failure, Agent process may exit with error (exit code != 0) or return is_error in result event
+- GolemBot fallback: on resume-related error → clearSession → retry once without --resume
+- Resume failure keywords: error message contains "resume" or "session" (case-insensitive)
+
+## Skill Injection
+
+- Cursor discovers Skills from `.cursor/skills/` directory
+- GolemBot strategy: symlink `skills/<name>` to `.cursor/skills/<name>`
+- Before each invoke, remove old symlinks (only those that are isSymbolicLink), then recreate
+- Ensures Skill list always matches `skills/` directory
+
+## Skill Auto-Discovery and Usage (Important)
+
+After reading AGENTS.md and SKILL.md from .cursor/skills/, the Coding Agent **decides on its own** when to use which Skill.
+- Test prompts should not explicitly say "use xxx script" or "follow xxx Skill"
+- Correct approach: describe the task in natural language and let the Agent decide
+- Assertions should be looser (Agent may use different filenames or output directly in the reply without writing a file)
+
+## stdout Buffer Handling
+
+- stdout `data` events may fire at arbitrary byte boundaries (not by line)
+- Must maintain a buffer, split on `\n`, keep the last incomplete line
+- On process close, drain the remaining buffer (append `\n` then process)
+- After close, check whether done/error was already yielded; if not, emit an error
+
+# Claude Code Engine Implementation Details
+
+## CLI Invocation
+
+- Binary path: `~/.local/bin/claude`
+- Uses standard `child_process.spawn` (**no PTY needed**); reads stream-json from stdout
+- Key flags: `-p <prompt> --output-format stream-json --verbose --dangerously-skip-permissions`
+- `--verbose` is **required**; without it, stream-json only outputs the final result event, not intermediate assistant/user events
+
+## stream-json Output Format
+
+No ANSI escape sequences (plain stdout JSON); no stripAnsi needed.
+
+One JSON object per line, main types:
+
+```
+{ "type": "system", "subtype": "init", "session_id": "xxx", ... }  → Ignore
+{ "type": "assistant", "message": { "content": [{ "type": "text", "text": "..." }, { "type": "tool_use", "name": "Bash", "input": {...} }] } }  → May yield multiple StreamEvents
+{ "type": "user", "message": { "content": [{ "type": "tool_result", "content": "..." }] } }  → Tool execution result
+{ "type": "result", "is_error": false, "session_id": "xxx", "duration_ms": 1234, "total_cost_usd": 0.01, "num_turns": 2 }  → done
+```
+
+### Key Notes
+
+1. **Single message can have mixed content blocks** — assistant message content array can include both text and tool_use. `parseClaudeStreamLine()` returns `StreamEvent[]` not a single event
+2. **`--verbose` is required** — without it, only result is output; no intermediate stream events at all
+3. **tool_result content has two formats** — string or `[{ type: "text", text: "..." }]` array; parser must handle both
+4. **result event extended fields** — `total_cost_usd`, `num_turns`, `duration_api_ms`, `usage`; mapped to `StreamEvent.done`’s `costUsd` and `numTurns`
+5. **No segmentAccum dedup needed** — Claude Code does not have summary events like Cursor
+
+## Skill Injection
+
+- Claude Code natively discovers Skills from `.claude/skills/` directory (mirrors Cursor’s `.cursor/skills/`)
+- `injectClaudeSkills()` also generates `CLAUDE.md` (extra context)
+- Skill frontmatter (name, description, etc.) is natively recognized by Claude Code
+
+## Authentication
+
+- `claude auth login` for interactive login
+- `ANTHROPIC_API_KEY` env var (headless)
+- apiKey passthrough: `InvokeOpts.apiKey → env.ANTHROPIC_API_KEY`
 
 ---
 > Source: [0xranx/golembot](https://github.com/0xranx/golembot) — distributed by [TomeVault](https://tomevault.io).
