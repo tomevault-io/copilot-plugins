@@ -1,0 +1,9 @@
+{
+  "name": "blaizzy--mlx-audio-swift",
+  "displayName": "mlx-audio-swift",
+  "description": "A modular Swift SDK for audio processing with MLX on Apple Silicon",
+  "version": "1.0.0",
+  "author": "Blaizzy",
+  "homepage": "https://github.com/Blaizzy/mlx-audio-swift",
+  "skills": []
+}
