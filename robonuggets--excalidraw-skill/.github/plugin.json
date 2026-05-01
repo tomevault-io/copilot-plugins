@@ -1,0 +1,9 @@
+{
+  "name": "robonuggets--excalidraw-skill",
+  "displayName": "excalidraw-skill",
+  "description": "Excalidraw diagramming skill for Claude Code \u2014 10 visual techniques, layout best practices, self-correcting diagrams via MCP",
+  "version": "1.0.0",
+  "author": "robonuggets",
+  "homepage": "https://github.com/robonuggets/excalidraw-skill",
+  "skills": []
+}
