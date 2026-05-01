@@ -1,0 +1,9 @@
+{
+  "name": "agno-agi--vibe-video",
+  "displayName": "vibe-video",
+  "description": "Create motion-graphics videos from natural-language using Hyperframes. Researches topics, explains GitHub repos, renders the result.",
+  "version": "1.0.0",
+  "author": "agno-agi",
+  "homepage": "https://github.com/agno-agi/vibe-video",
+  "skills": []
+}
