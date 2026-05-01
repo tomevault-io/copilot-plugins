@@ -1,0 +1,9 @@
+{
+  "name": "mcpworks-technologies-inc--mcpworks-api",
+  "displayName": "mcpworks-api",
+  "description": "Open-source platform for token-efficient AI agents. Self-host with docker compose up.",
+  "version": "1.0.0",
+  "author": "MCPWorks-Technologies-Inc",
+  "homepage": "https://github.com/MCPWorks-Technologies-Inc/mcpworks-api",
+  "skills": []
+}
