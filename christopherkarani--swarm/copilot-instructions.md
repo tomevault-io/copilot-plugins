@@ -1,0 +1,289 @@
+## swarm
+
+> generates the JSON schema, parameter parsing, and output encoding.
+
+# CLAUDE.md
+
+Guidance for AI coding assistants (Claude Code, Cursor, etc.) working in this
+repository. This file is the canonical, in-repo briefing — read it before making
+changes.
+
+## What is Swarm?
+
+Swarm is a Swift 6.2 framework for building **agents and multi-agent
+workflows** on Apple platforms (iOS 26+, macOS 26+, tvOS 26+) and Linux. It is
+built around:
+
+- **Agents** — `Agent` struct with `@ToolBuilder` trailing closures, an
+  `AgentRuntime` protocol, and pluggable inference providers.
+- **Workflows** — fluent composition (`.step`, `.parallel`, `.route`,
+  `.repeatUntil`) compiled to a DAG with checkpoint/resume.
+- **Tools** — the `@Tool` macro generates JSON schemas from Swift structs at
+  compile time; `FunctionTool` covers ad-hoc closures.
+- **Memory** — conversation, sliding-window, summary, vector, and
+  persistent backends.
+- **Guardrails / Resilience / Observability** — first-class concerns, not
+  bolt-ons.
+- **Providers** — Foundation Models, Anthropic, OpenAI, Ollama, Gemini,
+  OpenRouter, MLX, all routed through [Conduit](https://github.com/christopherkarani/Conduit).
+- **MCP** — Model Context Protocol client and server support.
+
+The package uses Swift 6.2 with `StrictConcurrency` enabled across all targets.
+**All public types must be `Sendable`** — the compiler enforces it.
+
+## Repository Layout
+
+```
+Swarm/
+├── Package.swift                  # SPM manifest (Swift 6.2, traits, products)
+├── README.md                      # User-facing overview
+├── Sources/
+│   ├── Swarm/                     # Main library (156 .swift files)
+│   │   ├── Agents/                # Agent struct, workspace integration
+│   │   ├── Core/                  # AgentRuntime, Conversation, Environment,
+│   │   │                          #   PromptEnvelope, RuntimeMetadata, …
+│   │   ├── Workflow/              # Workflow + durable engine + checkpointing
+│   │   ├── Tools/                 # Tool protocol, ToolCollection, ParallelExecutor,
+│   │   │                          #   built-ins, web tools, schema bridging
+│   │   ├── Memory/                # Conversation, sliding window, summary, vector,
+│   │   │                          #   SwiftData, ContextCore, hybrid backends
+│   │   ├── Providers/             # Conduit adapters, multi-provider, sessions
+│   │   ├── Guardrails/            # Input/Output/Tool guardrail specs + runner
+│   │   ├── Resilience/            # Retry, circuit breaker, fallback, rate limit
+│   │   ├── Observability/         # AgentTracer, SwiftLog/OSLog tracers, metrics
+│   │   ├── MCP/                   # MCPClient, MCPServer, ToolBridge, capabilities
+│   │   ├── Workspace/             # AgentWorkspace (AGENTS.md, .swarm/ skills)
+│   │   ├── Macros/                # Public macro declarations
+│   │   ├── Integration/           # Membrane and Wax integrations
+│   │   └── Internal/GraphRuntime/ # Compiled DAG runtime (internal)
+│   ├── SwarmMacros/               # Compiler plugin (@Tool, @Parameter,
+│   │                              #   @Traceable, #Prompt, builders)
+│   ├── SwarmMembrane/             # Membrane workflow integration product
+│   ├── SwarmMCP/                  # MCP server adapter product
+│   ├── SwarmCapabilityShowcase/        # Executable: deterministic showcase CLI
+│   ├── SwarmCapabilityShowcaseSupport/ # Library backing the showcase
+│   ├── SwarmDemo/                 # (opt-in) demo executable
+│   └── SwarmMCPServerDemo/        # (opt-in) MCP server demo
+├── Tests/
+│   ├── SwarmTests/                # Main test target (mirrors Sources/Swarm)
+│   │   └── Mocks/                 # MockAgentRuntime, MockInferenceProvider, …
+│   ├── HiveSwarmTests/            # Hive integration tests (gated)
+│   ├── SwarmMacrosTests/          # Macro expansion tests
+│   └── SwarmCapabilityShowcaseTests/
+├── Examples/CodeReviewer/         # Standalone example SPM project
+├── docs/
+│   ├── guide/                     # Getting started, agent workspace, showcase
+│   ├── reference/                 # API catalog, front-facing-api, audits
+│   └── release/                   # release-checklist.md
+└── .github/workflows/             # swift.yml, claude.yml, claude-code-review.yml,
+                                   #   docs.yml
+```
+
+## Build, Test, Lint
+
+This is a Swift Package — there is no Xcode project committed. All commands run
+from the repo root.
+
+```bash
+swift package resolve         # Resolve dependencies
+swift build                   # Build the library targets
+swift test                    # Run all tests
+swift test --no-parallel      # Match CI ordering (recommended)
+swift test --filter SwarmTests.WorkflowTests   # Run a single suite
+```
+
+CI (`.github/workflows/swift.yml`) runs on macOS 15 and Ubuntu with Swift 6.2
+and uses these env vars:
+
+```bash
+SWARM_HIVE_RUNTIME=1 SWARM_INCLUDE_HIVE=1 swift test --no-parallel
+```
+
+The Hive integration tests live in the `HiveSwarmTests` target. The
+`orchestrationRequireHiveFailClosed` test is asserted explicitly in CI as a
+fail-closed contract.
+
+### Demo / benchmark executables
+
+The `SwarmDemo`, `ContextBenchmark`, and `SwarmMCPServerDemo` executables are
+**opt-in** — they only build when `SWARM_INCLUDE_DEMO=1` is set:
+
+```bash
+SWARM_INCLUDE_DEMO=1 swift build
+SWARM_INCLUDE_DEMO=1 swift run SwarmDemo
+```
+
+### Capability showcase
+
+`SwarmCapabilityShowcase` is always built and exercises the stable surface area
+in a deterministic matrix that is CI-safe:
+
+```bash
+swift run SwarmCapabilityShowcase list      # Enumerate scenarios
+swift run SwarmCapabilityShowcase matrix    # Run the deterministic matrix
+swift run SwarmCapabilityShowcase run handoff
+swift run SwarmCapabilityShowcase smoke     # Live-provider, opt-in via env vars
+```
+
+See `docs/guide/capability-showcase.md` for the full scenario catalog and
+smoke-mode environment variables.
+
+### Lint / format
+
+CI runs `swiftlint lint --strict` and `swiftformat --lint .` on macOS. The
+config files (`.swiftlint.yml`, `.swiftformat`) are intentionally
+**git-ignored** — contributors keep them locally. If you change Swift files,
+match the surrounding style and assume both linters will run in CI.
+
+To format using the SwiftFormat package plugin (per README):
+
+```bash
+swift package plugin --allow-writing-to-package-directory swiftformat
+```
+
+## Key Conventions
+
+### Concurrency
+
+- Swift 6.2 with `StrictConcurrency` is enabled on the main targets via
+  `swarmSwiftSettings`. Macro and showcase targets enable
+  `enableExperimentalFeature("StrictConcurrency")` directly.
+- **All public types must be `Sendable`.** Don't suppress data-race diagnostics
+  with `@unchecked Sendable` unless you have a documented reason.
+- Use `actor` for stateful coordinators (e.g. `Conversation`,
+  `InMemorySession`), `struct` for value types, and `AsyncThrowingStream` for
+  streaming output.
+
+### Agents
+
+- The canonical initializer is `Agent(_ instructions: String, ...)` with an
+  unlabeled instructions string and a trailing `@ToolBuilder` closure for
+  tools. See `Sources/Swarm/Agents/Agent.swift`.
+- Provider resolution order is documented at the top of `Agent.swift`:
+  1. explicit provider passed in,
+  2. `.environment(\.inferenceProvider, ...)`,
+  3. `Swarm.defaultProvider`,
+  4. `Swarm.cloudProvider`,
+  5. Foundation Models (on-device),
+  6. else throw `AgentError.inferenceProviderUnavailable`.
+- The `Agent` struct is `Sendable`; tools are stored as `[any AnyJSONTool]`.
+
+### Tools
+
+- Prefer the `@Tool` macro over conforming to `AnyJSONTool` directly. The macro
+  generates the JSON schema, parameter parsing, and output encoding.
+- Use `@Parameter("description") var name: T` inside a `@Tool` struct.
+- For one-off closure tools use `FunctionTool` with `ToolParameter` values.
+- Multiple tools can be composed with `@ToolBuilder` (the trailing closure on
+  `Agent.init`).
+
+### Workflows
+
+- `Workflow()` is a fluent builder; chain `.step`, `.parallel(_, merge:)`,
+  `.route { ... }`, `.repeatUntil`, `.timeout`.
+- Durable execution lives in `Workflow+Durable.swift` and
+  `WorkflowDurableEngine.swift`. Use
+  `.durable.checkpoint(id:policy:)` and `.durable.checkpointing(...)` to enable
+  resume-from-checkpoint behavior.
+- The `Internal/GraphRuntime` directory is the compiled DAG runtime — treat it
+  as an implementation detail.
+
+### Memory & Workspace
+
+- `MemoryOption` is the user-facing entry point: `.conversation(limit:)`,
+  `.slidingWindow(count:)`, `.summary(summarizer:)`, `.vector(embeddingProvider:)`.
+- `AgentWorkspace` (in `Sources/Swarm/Workspace/`) is the on-device workspace
+  layout backed by `AGENTS.md` + `.swarm/agents/<id>.md` + `.swarm/skills/` +
+  `.swarm/memory/`. **Do not confuse the runtime `AGENTS.md` (workspace
+  instructions consumed by Swarm) with this `CLAUDE.md` (briefing for AI coding
+  assistants).** The runtime `AGENTS.md` is git-ignored at the repo root.
+- Always call `try await workspace.validate()` from new tests that touch the
+  workspace.
+
+### Providers
+
+- All inference goes through `InferenceProvider` adapters in
+  `Sources/Swarm/Providers/`. Production providers are routed through
+  [Conduit](https://github.com/christopherkarani/Conduit) (pinned to `0.3.14`
+  in `Package.swift`) with traits enabled for OpenAI, OpenRouter, Anthropic,
+  and MLX.
+- Foundation Models are now also routed through Conduit (see commits
+  `89d7ffa` and `6ae1df6`).
+
+### Mocks & Test Helpers
+
+- `Tests/SwarmTests/Mocks/` contains the canonical mocks: `MockAgentRuntime`,
+  `MockInferenceProvider`, `MockAgentMemory`, `MockEmbeddingProvider`,
+  `MockSummarizer`, `MockTool`, plus `SwarmConfigurationTestIsolation` for
+  isolating `Swarm.defaultProvider`/`Swarm.configure(...)` between tests.
+- New tests should reuse these mocks rather than reinventing local stubs.
+- Tests that touch `Swarm.configure` global state must use the isolation helper
+  to avoid cross-test pollution under `--no-parallel`.
+
+## Development Workflow
+
+1. **Read before you write.** The codebase is large (≈156 source files,
+   ≈150 test files). Use `Grep` / `Glob` to find call sites before changing a
+   public type.
+2. **Mirror the source tree in tests.** A change in
+   `Sources/Swarm/Workflow/Foo.swift` should land alongside or update
+   `Tests/SwarmTests/Workflow/FooTests.swift`.
+3. **Keep public surfaces `Sendable` and DocC-commented.** Public types in this
+   package carry rich DocC comments — match that style on anything new.
+4. **Don't over-engineer.** Per the project's documentation history, prefer
+   small, surgical changes that preserve the existing public API. Audit reports
+   live in `docs/reference/` (`api-catalog.md`, `front-facing-api.md`,
+   `documentation-*.md`) — consult them before introducing new public types.
+5. **Run the deterministic matrix.** Before opening a PR, run
+   `swift run SwarmCapabilityShowcase matrix` in addition to `swift test` to
+   catch regressions in cross-cutting scenarios.
+6. **Never push to `main` directly.** Branch, run tests, open a PR.
+7. **Do not commit `Package.resolved`.** It is git-ignored intentionally —
+   Swarm is a library and consumers resolve their own dependency graph.
+
+## Things That Are Git-Ignored (and Why)
+
+The `.gitignore` deliberately excludes a number of paths AI assistants might
+otherwise want to create or check in. **Do not work around these.**
+
+- `.claude/`, `.mcp.json`, `.agent_context.md`, `AGENTS.md` — local AI tooling
+  config.
+- `.swiftformat`, `.swiftlint.yml`, `.swift-version` — contributors keep these
+  locally; CI uses pinned tool versions.
+- `Package.resolved` — library, not application.
+- `docs/plans/`, `docs/prompts/`, `docs/work-packages/`, `docs/validation/`,
+  `tasks/`, `scripts/`, `IMPLEMENTATION_PLAN.md`,
+  `HIVE_EXTENSIBILITY_INTEGRATION_PLAN.md`, `PRODUCTION_READINESS_AUDIT.md` —
+  internal planning artifacts.
+- `marketing/`, `website/`, VitePress build output.
+
+`CLAUDE.md` itself was previously git-ignored; it has been intentionally
+un-ignored so this guidance can live in-repo.
+
+## Public API Stability
+
+The framework is at `0.5.0` (`Sources/Swarm/Swarm.swift`) and treats its public
+surface as semi-stable. The audit documents in `docs/reference/` (especially
+`api-catalog.md`, `front-facing-api.md`, and `docc-audit-report.md`) define the
+sanctioned surface. Prefer:
+
+- adding new types over breaking existing ones,
+- adding new initializer overloads over changing parameter labels on existing
+  ones,
+- documenting deprecations rather than silently removing symbols.
+
+## When You're Stuck
+
+- For "what does X do?" questions, search `Sources/Swarm/<Area>/` first, then
+  `docs/reference/api-catalog.md`.
+- For workflow examples, read `Sources/SwarmCapabilityShowcaseSupport/CapabilityShowcase.swift`
+  — it touches every stable subsystem.
+- For provider behaviour, look at `Sources/Swarm/Providers/Conduit/` and the
+  `LanguageModelSession*` files.
+- The `README.md` quick-start, the `docs/guide/getting-started.md` tutorial,
+  and `docs/guide/agent-workspace.md` are the user-facing canonical docs —
+  keep code samples consistent with them when changing surface area.
+
+---
+> Source: [christopherkarani/Swarm](https://github.com/christopherkarani/Swarm) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
