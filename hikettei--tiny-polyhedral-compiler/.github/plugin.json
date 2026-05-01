@@ -1,0 +1,9 @@
+{
+  "name": "hikettei--tiny-polyhedral-compiler",
+  "displayName": "tiny_polyhedral_compiler",
+  "description": "wip: a playground repository dedicated to implement random polyhedral compiler algorithms (an attempt to reimplement extended integer set library?)",
+  "version": "1.0.0",
+  "author": "hikettei",
+  "homepage": "https://github.com/hikettei/tiny_polyhedral_compiler",
+  "skills": []
+}
