@@ -1,0 +1,9 @@
+{
+  "name": "meet-miyani--compose-skill",
+  "displayName": "compose-skill",
+  "description": "AI agent skill for Jetpack Compose & Compose Multiplatform (KMP/CMP). MVI architecture, Navigation 3, Koin/Hilt, Ktor, Room, DataStore, Paging 3, Coil, coroutines/Flow, animations, performance, access",
+  "version": "1.0.0",
+  "author": "Meet-Miyani",
+  "homepage": "https://github.com/Meet-Miyani/compose-skill",
+  "skills": []
+}
