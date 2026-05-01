@@ -1,101 +1,85 @@
-## bot-runner-reuse
+## dev-test-workflow
 
-> Bot/Runner 架构规范：业务逻辑不写死到具体 bot，最大化 runner 和 bot 复用
+> 开发完成后：编译验证 → 重启应用 → CDP 截图测试，遇问题可反复排查
 
 
-# Bot / Runner 复用架构规范
+# 开发测试工作流
 
-## 核心原则
+每次完成 UI / 功能开发后，按以下流程验证效果。
 
-业务逻辑（AI 调用、persona 构建、历史上下文、消息持久化）**必须提取到共享层**，各 bot 只负责平台 I/O。
+## 1. 编译验证（必须先通过）
 
-共享层位置：`src/electron/libs/bot-base.ts`
+```bash
+# React + TypeScript 编译
+cd /Users/zhang/git-repos/VK-Cowork && bun run build
 
----
-
-## ❌ 禁止：在 bot 文件内重复实现
-
-以下函数在 telegram/dingtalk/feishu 三个 bot 里各有一份，**不要再复制**：
-
-```typescript
-// ❌ BAD — 每个 bot 各自有一份 buildQueryEnv
-function buildQueryEnv(): Record<string, string | undefined> {
-  const settings = loadUserSettings();
-  const apiKey = settings.anthropicAuthToken || process.env.ANTHROPIC_API_KEY || "";
-  // ... 三处完全相同
-}
-
-// ❌ BAD — runClaudeQuery 写死在 telegram-bot.ts 里
-async function runClaudeQuery(session, prompt, opts) {
-  const env = buildQueryEnv();  // 内嵌逻辑
-  // ... 50 行重复逻辑
-}
+# Electron 端编译
+bun run transpile:electron
 ```
 
----
+两条命令均 exit 0 才继续，否则先修复错误。
 
-## ✅ 正确：从 bot-base.ts 导入共享函数
+## 2. 重启应用
 
-```typescript
-// bot-base.ts — 共享层
-export function buildQueryEnv(): Record<string, string | undefined>
-export function buildStructuredPersona(opts: BaseBotOptions, extras?: string[]): string
-export function buildHistoryContext(history: ConvMessage[], assistantId?: string): string
-export async function runClaudeQueryBase(
-  opts: BaseBotOptions,
-  userText: string,
-  sendReply: (text: string) => Promise<void>,  // 平台回调，由各 bot 传入
-  sendFile?: (path: string) => Promise<void>,
-): Promise<void>
-export async function persistReply(assistantId: string, role: string, content: string): Promise<void>
-
-// telegram-bot.ts — 只负责平台 I/O
-import { buildQueryEnv, buildStructuredPersona, runClaudeQueryBase } from "./bot-base.js";
-
-bot.on("message", async (ctx) => {
-  await runClaudeQueryBase(opts, ctx.message.text, (reply) => ctx.reply(reply));
-  //                                                 ↑ Telegram 专属的发送函数
-});
+```bash
+pkill -f electron 2>/dev/null; pkill -f vite 2>/dev/null
+sleep 1 && npm run dev &
+sleep 10  # 等待 Electron 窗口出现
 ```
 
----
+## 3. Electron 调试端口截图
 
-## ✅ Runner 复用规范
+应用不带 `--remote-debugging-port` 时，用 Python CDP 直接连 9222（若需要则重启带端口）：
 
-多个 assistant 共享同一 runner，**通过 `assistantId` 隔离会话**，不要为每个 assistant 新建独立 runner 实例：
-
-```typescript
-// ❌ BAD — 为每个 bot 硬编码 session 前缀
-const sessionId = `tg-${chatId}`;   // telegram-bot.ts
-const sessionId = `dt-${senderStaffId}`;  // dingtalk-bot.ts
-
-// ✅ GOOD — 统一格式，由 bot-base 生成
-export function buildSessionId(platform: BotPlatformType, assistantId: string, userId: string) {
-  return `${platform}:${assistantId}:${userId}`;
-}
+```bash
+# 带调试端口启动（替代 npm run dev）
+pkill -f electron 2>/dev/null; pkill -f vite 2>/dev/null; sleep 1
+bun run dev:react &
+sleep 3 && npx electron . --remote-debugging-port=9222 &
+sleep 6
 ```
 
----
+```python
+# 截图脚本（保存至 screenshots/）
+import json, base64, asyncio, websockets, urllib.request
 
-## ✅ MCP 服务器名称不能写死
+async def screenshot(path="screenshots/test.png"):
+    # 获取页面列表
+    pages = json.loads(urllib.request.urlopen("http://localhost:9222/json").read())
+    ws_url = pages[0]["webSocketDebuggerUrl"]
+    async with websockets.connect(ws_url) as ws:
+        await ws.send(json.dumps({"id": 1, "method": "Page.enable"}))
+        await ws.recv()
+        await ws.send(json.dumps({"id": 2, "method": "Page.captureScreenshot", "params": {"format": "png"}}))
+        resp = json.loads(await ws.recv())
+        open(path, "wb").write(base64.b64decode(resp["result"]["data"]))
+        print(f"Screenshot: {path}")
 
-```typescript
-// ❌ BAD — session MCP 名称写死在各 bot 内
-mcpServers: [{ name: "tg-session" }]   // telegram
-mcpServers: [{ name: "dt-session" }]   // dingtalk
-
-// ✅ GOOD — 传参
-mcpServers: [{ name: `${platform}-session` }]
+asyncio.run(screenshot())
 ```
 
----
+## 4. 激活窗口截全屏（备用方案）
 
-## 修改检查清单
+```bash
+osascript -e 'tell application "System Events" to tell process "Electron" to set frontmost to true'
+sleep 1 && screencapture -o screenshots/test.png
+```
 
-- [ ] 新增业务逻辑优先放 `bot-base.ts`，bot 文件只做平台适配
-- [ ] 不在 bot 文件内 import `api/services/runner.ts`（跨层依赖）
-- [ ] `buildStructuredPersona` / `buildQueryEnv` / `persistReply` 改一处即全部生效
-- [ ] session ID 用 `buildSessionId()` 统一生成
+## 5. 反复排查流程
+
+遇到崩溃或渲染异常：
+
+1. 检查 `better-sqlite3` 是否需要重编：
+   ```bash
+   npx electron-rebuild -f -w better-sqlite3 --electron-version 39.2.7
+   ```
+2. 重启（步骤 2）→ 截图（步骤 3/4）→ 对比
+
+## 注意
+
+- CDP websocket URL 每次启动会变，从 `http://localhost:9222/json` 动态获取
+- `pip3 install websockets --break-system-packages`（首次需要）
+- Vite dev server 地址：`http://localhost:5173`，Electron 嵌入 API：`http://localhost:2620`
 
 ---
 > Source: [zhangdszq/teamclaw](https://github.com/zhangdszq/teamclaw) — distributed by [TomeVault](https://tomevault.io).
