@@ -1,0 +1,9 @@
+{
+  "name": "texmeijin--claude-code-mascot-statusline",
+  "displayName": "claude-code-mascot-statusline",
+  "description": "\ud83d\udc3e A tiny pixel pet that lives in your Claude Code status line \u2014 it thinks when you think, panics when context runs low, and celebrates every successful tool call. Your emotional support companion for ",
+  "version": "1.0.0",
+  "author": "TeXmeijin",
+  "homepage": "https://github.com/TeXmeijin/claude-code-mascot-statusline",
+  "skills": []
+}
