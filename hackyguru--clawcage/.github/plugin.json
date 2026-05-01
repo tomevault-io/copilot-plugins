@@ -1,0 +1,9 @@
+{
+  "name": "hackyguru--clawcage",
+  "displayName": "clawcage",
+  "description": "Air-gapped Linux VM on your Mac for running Open Claw and other AI agents",
+  "version": "1.0.0",
+  "author": "hackyguru",
+  "homepage": "https://github.com/hackyguru/clawcage",
+  "skills": []
+}
