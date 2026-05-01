@@ -1,0 +1,9 @@
+{
+  "name": "raroque--boop-agent",
+  "displayName": "boop-agent",
+  "description": "Your new best friend \ud83d\udc36 A proactive iMessage based agent built on the Claude Agent SDK (Ready to be customized with pre built multi-agent architecture, robust memory, automations, and integrations)",
+  "version": "1.0.0",
+  "author": "raroque",
+  "homepage": "https://github.com/raroque/boop-agent",
+  "skills": []
+}
