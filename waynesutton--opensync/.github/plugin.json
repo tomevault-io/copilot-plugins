@@ -1,7 +1,7 @@
 {
   "name": "waynesutton--opensync",
   "displayName": "opensync",
-  "description": "opensync",
+  "description": "Cloud-synced dashboards for OpenCode and Claude Code. Track sessions, search with semantic lookup, export eval datasets.",
   "version": "1.0.0",
   "author": "waynesutton",
   "homepage": "https://github.com/waynesutton/opensync",
