@@ -1,0 +1,9 @@
+{
+  "name": "geomys--sandboxed-step",
+  "displayName": "sandboxed-step",
+  "description": "A GitHub Action that runs a command in a gVisor sandbox",
+  "version": "1.0.0",
+  "author": "geomys",
+  "homepage": "https://github.com/geomys/sandboxed-step",
+  "skills": []
+}
