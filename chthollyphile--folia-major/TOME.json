@@ -1,0 +1,44 @@
+{
+  "name": "folia-major",
+  "owner": "chthollyphile",
+  "repo": "folia-major",
+  "description": "\u4e13\u6ce8\u4e8e\u7eda\u4e3d\u7684\u6b4c\u8bcd\u52a8\u753b\u6548\u679c\u7684\u7b2c\u4e09\u65b9\u7f51\u6613\u4e91\u64ad\u653e\u5668",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chthollyphile/folia-major",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T05:31:47Z"
+}
