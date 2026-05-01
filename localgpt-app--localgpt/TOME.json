@@ -4,7 +4,7 @@
   "repo": "localgpt",
   "description": "Local AI assistant, dreaming explorable worlds.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/localgpt-app/localgpt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T18:21:34Z"
+  "distributed_at": "2026-05-01T00:20:59Z"
 }
