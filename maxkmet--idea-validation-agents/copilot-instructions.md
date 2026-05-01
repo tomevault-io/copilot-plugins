@@ -1,9 +1,9 @@
-## decision-memo
+## desire-evaluator
 
-> Skill — decision-memo. Writes a human-readable decision brief: verdict, score, top 3 strengths, top 3 risks, next step.
+> Skill — desire-evaluator. Scores core human desire motivations (survival, status, belonging, control, curiosity) for an idea.
 
 
-See [skills/decision-memo/SKILL.md](../../skills/decision-memo/SKILL.md) for full instructions and output schema.
+See [skills/desire-evaluator/SKILL.md](../../skills/desire-evaluator/SKILL.md) for full instructions and output schema.
 
 ---
 > Source: [MaxKmet/idea-validation-agents](https://github.com/MaxKmet/idea-validation-agents) — distributed by [TomeVault](https://tomevault.io).
