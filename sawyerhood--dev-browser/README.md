@@ -7,11 +7,11 @@ A Claude Skill to give your agent the ability to use a web browser
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SawyerHood/dev-browser](https://github.com/SawyerHood/dev-browser).
+Original source: `CLAUDE.md` in [SawyerHood/dev-browser](https://github.com/SawyerHood/dev-browser).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
