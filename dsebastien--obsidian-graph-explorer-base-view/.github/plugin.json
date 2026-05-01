@@ -1,0 +1,9 @@
+{
+  "name": "dsebastien--obsidian-graph-explorer-base-view",
+  "displayName": "obsidian-graph-explorer-base-view",
+  "description": "An Obsidian plugin that adds a custom Bases view which renders notes as an interactive force-directed graph \u2014 purpose-built for exploring, tracking and growing a knowledge base note by note.",
+  "version": "1.0.0",
+  "author": "dsebastien",
+  "homepage": "https://github.com/dsebastien/obsidian-graph-explorer-base-view",
+  "skills": []
+}
