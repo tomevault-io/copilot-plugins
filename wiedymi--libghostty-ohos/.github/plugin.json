@@ -1,0 +1,9 @@
+{
+  "name": "wiedymi--libghostty-ohos",
+  "displayName": "libghostty-ohos",
+  "description": "HarmonyOS HAR library for embedding a Ghostty-powered terminal surface with native rendering, IME, search, and theme support.",
+  "version": "1.0.0",
+  "author": "wiedymi",
+  "homepage": "https://github.com/wiedymi/libghostty-ohos",
+  "skills": []
+}
