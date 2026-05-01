@@ -1,0 +1,33 @@
+## outclaw
+
+> Run all checks at once: `./checks.sh`
+
+# OutClaw — Agent Guidelines
+
+## Automated Code Checks
+
+Run all checks at once: `./checks.sh`
+
+Individual checks:
+
+- `npm run check` (svelte-check + TypeScript)
+- `npm run lint` (ESLint)
+- `npm run format:check` (Prettier)
+- `cargo clippy --all-targets` (Rust/Tauri backend)
+- `cargo test` (Rust tests)
+
+## Code Style
+
+- TypeScript: strict mode, no `any` types
+- Svelte: use SvelteKit conventions, shadcn-svelte components
+- Rust: standard Tauri patterns
+- Dark theme by default (shadcn dark mode)
+
+## Project Context
+
+OutClaw is a desktop app (Tauri) for managing OpenClaw Docker instances.
+See /specs/projects/outclaw/ for full specifications.
+
+---
+> Source: [scosman/outclaw](https://github.com/scosman/outclaw) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-26 -->
