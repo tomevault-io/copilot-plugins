@@ -1,0 +1,9 @@
+{
+  "name": "bx33661--wireshark-mcp",
+  "displayName": "Wireshark-MCP",
+  "description": "Wireshark-MCP\uff0cGive your AI assistant a packet analyzer. Drop a .pcap file, ask questions in plain English \u2014 get answers backed by real tshark data.",
+  "version": "1.0.0",
+  "author": "bx33661",
+  "homepage": "https://github.com/bx33661/Wireshark-MCP",
+  "skills": []
+}
