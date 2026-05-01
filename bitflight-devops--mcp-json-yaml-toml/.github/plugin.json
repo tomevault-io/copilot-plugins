@@ -1,0 +1,9 @@
+{
+  "name": "bitflight-devops--mcp-json-yaml-toml",
+  "displayName": "mcp-json-yaml-toml",
+  "description": "A structured data reader and writer like 'jq' and 'yq' for AI Agents",
+  "version": "1.0.0",
+  "author": "bitflight-devops",
+  "homepage": "https://github.com/bitflight-devops/mcp-json-yaml-toml",
+  "skills": []
+}
