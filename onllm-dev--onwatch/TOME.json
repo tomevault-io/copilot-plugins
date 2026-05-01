@@ -4,7 +4,7 @@
   "repo": "onWatch",
   "description": "Track AI API quotas across Synthetic, Z.ai, Anthropic (Claude Code), Codex, GitHub Copilot & Antigravity in real time. Lightweight background daemon (<50MB RAM), SQLite storage, Material Design 3 dashboard. Zero telemetry.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/onllm-dev/onWatch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T20:48:55Z"
+  "distributed_at": "2026-05-01T03:48:24Z"
 }
