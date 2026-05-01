@@ -4,7 +4,7 @@
   "repo": "deer.sh",
   "description": "\ud83e\udd8c The AI Elasticsearch Engineer",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aspectrr/deer.sh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T23:58:39Z"
+  "distributed_at": "2026-05-01T14:27:42Z"
 }
