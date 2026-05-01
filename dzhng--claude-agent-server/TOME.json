@@ -4,7 +4,7 @@
   "repo": "claude-agent-server",
   "description": "Run Claude Agent (Claude Code) in a sandbox, control it via websocket",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dzhng/claude-agent-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T12:19:15Z"
+  "distributed_at": "2026-05-01T14:18:41Z"
 }
