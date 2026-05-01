@@ -1,0 +1,9 @@
+{
+  "name": "agentic-assets--corbis-literature-starter-kit",
+  "displayName": "corbis-literature-starter-kit",
+  "description": "A lightweight Claude Code project for exploring academic literature, brainstorming research ideas, and managing citations. Powered by Corbis MCP.",
+  "version": "1.0.0",
+  "author": "Agentic-Assets",
+  "homepage": "https://github.com/Agentic-Assets/corbis-literature-starter-kit",
+  "skills": []
+}
