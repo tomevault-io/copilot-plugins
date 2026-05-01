@@ -1,0 +1,9 @@
+{
+  "name": "fshiori--magi",
+  "displayName": "magi",
+  "description": "Three LLMs debate to make better decisions than any single model. Inspired by EVA's MAGI supercomputer.",
+  "version": "1.0.0",
+  "author": "fshiori",
+  "homepage": "https://github.com/fshiori/magi",
+  "skills": []
+}
