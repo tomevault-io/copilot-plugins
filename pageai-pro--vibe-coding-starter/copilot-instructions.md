@@ -1,137 +1,53 @@
-## cursor-rules
+## landing-components
 
-> How to add or edit Cursor rules in your project
+> When working on public pages under /app: landing page, features, contact, etc.
 
 
-# Cursor Rules Management Guide
+# Landing Page Components Rule
 
-## Rule Structure Format
+This rule explains how to use landing page components.
 
-Every cursor rule must follow this exact metadata and content structure:
+When building public-facing pages (e.g., landing, features, contact) under `/app`, use components from the `@landing` module. These components are designed for rapid, consistent, and visually appealing landing page development.
 
-````markdown
----
-description: Short description of the rule's purpose
-globs: optional/path/pattern/**/*
-alwaysApply: false
----
-# Rule Title
+## Component Source
 
-Main content explaining the rule with markdown formatting.
+- Import all landing page components from [/components/landing](mdc:shipixen/packages/website/components/landing)
+- Use shared UI elements (e.g., `Button`) from [/components/shared/ui](mdc:shipixen/packages/website/components/shared/ui).
+- Use icons from `lucide-react` for consistent iconography.
+- Use `Image` from `next/image` for optimized images.
 
-1. Step-by-step instructions
-2. Code examples
-3. Guidelines
+## Documentation
 
-Example:
-```typescript
-// Good
-function goodExample() {
-  // Correct implementation
-}
+- Refer to the official documentation for usage and props: [Landing Page Components Documentation](https:/shipixen.com/boilerplate-documentation/landing-page-components)
 
-// Bad example
-function badExample() {
-  // Incorrect implementation
-}
-```
-````
+## Example Structure
 
-## File Organization
-
-### Required Location
-
-All cursor rule files **must** be placed in:
-
-```
-PROJECT_ROOT/.cursor/rules/
-```
-
-### Directory Structure
-
-```
-PROJECT_ROOT/
-├── .cursor/
-│   └── rules/
-│       ├── your-rule-name.mdc
-│       ├── another-rule.mdc
-│       └── cursor-rules.mdc
-└── ...
-```
-
-### Naming Conventions
-
-- Use **kebab-case** for all filenames
-- Always use **.mdc** extension
-- Make names **descriptive** of the rule's purpose
-- Examples: `typescript-style.mdc`, `tailwind-styling.mdc`, `mdx-documentation.mdc`
-
-## Content Guidelines
-
-### Writing Effective Rules
-
-1. **Be specific and actionable** - Provide clear instructions
-2. **Include code examples** - Show both good and bad practices
-3. **Reference existing files** - Use `@filename.ext` format
-4. **Keep it focused** - One rule per concern/pattern
-5. **Add context** - Explain why the rule exists
-
-### Code Examples Format
-
-```typescript
-// ✅ Good: Clear and follows conventions
-function processUser({ id, name }: { id: string; name: string }) {
-  return { id, displayName: name };
-}
-
-// ❌ Bad: Unclear parameter passing
-function processUser(id: string, name: string) {
-  return { id, displayName: name };
-}
-```
-
-### File References
-
-When referencing project files in rules, use this pattern to mention other files:
-
-```markdown
-[file.tsx](mdc:path/to/file.tsx)
-```
-
-## Forbidden Locations
-
-**Never** place rule files in:
-- Project root directory
-- Any subdirectory outside `.cursor/rules/`
-- Component directories
-- Source code folders
-- Documentation folders
-
-## Rule Categories
-
-Organize rules by purpose:
-- **Code Style**: `typescript-style.mdc`, `css-conventions.mdc`
-- **Architecture**: `component-patterns.mdc`, `folder-structure.mdc`
-- **Documentation**: `mdx-documentation.mdc`, `readme-format.mdc`
-- **Tools**: `testing-patterns.mdc`, `build-config.mdc`
-- **Meta**: `cursor-rules.mdc`, `self-improve.mdc`
+A typical landing page should:
+- Compose sections using the following components:
+  - `LandingHeader`, `LandingHeaderMenuItem`
+  - `LandingPrimaryImageCtaSection`
+  - `LandingProductFeaturesGrid`, `LandingProductFeature`
+  - `LandingFeatureList`
+  - `LandingProductTourSection`, `LandingProductTourList`, `LandingProductTourTrigger`, `LandingProductTourContent`
+  - `LandingTestimonialGrid`
+  - `LandingPricingSection`, `LandingPricingPlan`
+  - `LandingFaqCollapsibleSection`
+  - `LandingSaleCtaSection`
+  - `LandingFooter`, `LandingFooterColumn`, `LandingFooterLink`
+  - `LandingBandSection`
+- Use arrays for feature, benefit, testimonial, and FAQ items, mapping over them to render lists.
+- Use Tailwind CSS for layout and spacing, following the project's [tailwind-styling.mdc](mdc:shipixen/.cursor/rules/tailwind-styling.mdc)
+- @tail
+- Use a mobile-first, responsive approach.
+- Implement dark mode support
 
 ## Best Practices
 
-### Rule Creation Checklist
-- [ ] File placed in `.cursor/rules/` directory
-- [ ] Filename uses kebab-case with `.mdc` extension
-- [ ] Includes proper metadata section
-- [ ] Contains clear title and sections
-- [ ] Provides both good and bad examples
-- [ ] References relevant project files
-- [ ] Follows consistent formatting
+- Use only the documented props for each component.
+- Compose sections in a logical, user-friendly order.
+- Follow the project's code style, React, and Next.js best practices [nextjs.mdc](mdc:shipixen/.cursor/rules/nextjs.mdc).
 
-### Maintenance
-- **Review regularly** - Keep rules up to date with codebase changes
-- **Update examples** - Ensure code samples reflect current patterns
-- **Cross-reference** - Link related rules together
-- **Document changes** - Update rules when patterns evolve
+For more details, always refer to the [Landing Page Components Documentation](https:/shipixen.com/boilerplate-documentation/landing-page-components).
 
 ---
 > Source: [PageAI-Pro/vibe-coding-starter](https://github.com/PageAI-Pro/vibe-coding-starter) — distributed by [TomeVault](https://tomevault.io).
