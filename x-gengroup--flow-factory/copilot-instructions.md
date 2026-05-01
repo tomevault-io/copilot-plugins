@@ -1,110 +1,34 @@
-## flow-factory
+## agents-docs-maintenance
 
-> Flow-Factory is a unified **online RL fine-tuning framework** for diffusion/flow-matching models. It provides a modular architecture where trainers, model adapters, and reward models are independently extensible via a registry-based plugin system.
+> Layered knowledge architecture — non-leaf nodes index, leaf nodes contain concise detail, all nodes cross-reference
 
-# Flow-Factory Development Guide
 
-## Project Overview
+# Knowledge documentation structure
 
-Flow-Factory is a unified **online RL fine-tuning framework** for diffusion/flow-matching models. It provides a modular architecture where trainers, model adapters, and reward models are independently extensible via a registry-based plugin system.
+The `.agents/knowledge/` system uses layered design with cross-references. Follow these rules when editing any `.agents/` markdown file.
 
-- **Algorithms**: GRPO, GRPO-Guard, DPO, DiffusionNFT, AWM
-- **Models**: FLUX.1/2, SD3.5, Wan2.1/2.2, Qwen-Image, Z-Image
-- **Rewards**: PickScore, CLIP, OCR, VLM-Evaluate, and custom rewards
-- **Python**: >=3.10 | **PyTorch**: >=2.6.0 | **License**: Apache-2.0
+## Layered structure
 
-**Language**: Match user's language.
+- **Non-leaf** (root, Tier 1): State thesis in 1-3 lines, then index to leaf docs via tables/pointers. No inline explanations, code examples, or checklists — those live in leaves.
+- **Leaf** (`topics/*.md`): Self-contained, concise detail. Include code refs, checklists, gotchas. No filler prose, no restating parent content.
+- No duplication across layers. If detail exists in a leaf, the parent points to it.
 
-## Context Loading
+## Cross-references
 
-On session start, read **Tier 1** (see `.agents/knowledge/README.md`):
-- `.agents/knowledge/philosophy.md` — design principles, coding style index
-- `.agents/knowledge/constraints.md` — hard rules, indexed by category
-- `.agents/knowledge/architecture.md` — module graph, pipeline stages, registries
+- Every leaf must have a `## Cross-refs` section linking UP to constraints/architecture.
+- Skills link DOWN to topics via `## Related Topics` or `## Pre-Review Reading`.
+- Reference constraint numbers (e.g., `constraints.md #7`), do not re-explain the rule.
 
-**Tier 2**: Topic docs triggered by change area. See `knowledge/README.md` for triggers.
+## No filler
 
-## Core Operating Principles
+Leaf docs are direct: no "In this document we will...", no introductory paragraphs, no restating what parent docs say. Every sentence must carry information the reader needs.
 
-1. **Constraints first** — Read `constraints.md` + `architecture.md` before changes; search codebase before attempting fixes.
-2. **Cross-component awareness** — Changes to `abc.py` affect ALL subclasses; verify across algorithms (GRPO + NFT/AWM).
-3. **Plan before implement** — Multi-file tasks -> TodoWrite. Plan must state which skills apply.
-4. **Challenge first, execute second** — Spot logic flaws or simpler alternatives? Raise before executing.
-5. **Escalation** — After three failed approaches, document findings and request review.
-6. **Fix capture** — After every bug fix, generate summary per `topics/fix_patterns.md` template.
-7. **English-only docs** — All code comments, docstrings, commit messages, and agent docs must be English.
+## Maintenance
 
-Hard rules: see `constraints.md`.
-
-## Development Commands
-
-```bash
-# Installation
-pip install -e "."              # Core only
-pip install -e ".[all]"         # With DeepSpeed + quantization
-pip install -e ".[deepspeed]"   # DeepSpeed only
-
-# Training
-ff-train <config.yaml>          # Main entry point
-flow-factory-train <config.yaml> # Alternative
-
-# Code Quality
-black --check src/              # Format check
-isort --check src/              # Import sort check
-pytest                          # Run tests
-```
-
-## Project Structure
-
-See `architecture.md` "Module Dependency Graph" for full details.
-
-## Documentation Reference
-
-| Document | Purpose |
-|----------|---------|
-| `guidance/workflow.md` | 6-stage training pipeline with code examples |
-| `guidance/algorithms.md` | GRPO, DiffusionNFT, AWM deep dive |
-| `guidance/rewards.md` | Reward system design, custom model creation |
-| `guidance/new_model.md` | Step-by-step model adapter integration |
-
-## Available Skills
-
-Skills follow the [Agent Skills](https://agentskills.io) open standard. Each skill is a folder in `.agents/skills/<name>/` containing a `SKILL.md` with YAML frontmatter. Skills are auto-discovered by compatible agents (Cursor, Claude Code, Codex, etc.) and can also be invoked manually with `/skill-name` in chat.
-
-| Skill | Purpose | Use When |
-|-------|---------|----------|
-| `/ff-develop` | Feature development with impact analysis | Implementing new functionality or refactoring |
-| `/ff-debug` | Bug fixing with structured protocol | Debugging errors, crashes, unexpected behavior |
-| `/ff-review` | Pre-commit code review | Before committing changes |
-| `/ff-new-model` | Model adapter integration | Adding support for a new diffusion model |
-| `/ff-new-reward` | Reward model integration | Adding a new reward function |
-| `/ff-new-algorithm` | RL algorithm integration | Adding a new training algorithm |
-
-### Quick Decision Guide
-
-- **"Add support for model X"** -> `/ff-new-model`
-- **"Add a new reward function"** -> `/ff-new-reward`
-- **"Add a new training algorithm"** -> `/ff-new-algorithm`
-- **"Fix this error" / "training hangs" / "wrong results"** -> `/ff-debug`
-- **"Add a new capability" / "refactor" / "clean up"** -> `/ff-develop`
-- **"Review before committing"** -> `/ff-review`
-
-## Commit & PR Conventions
-
-- **Commit messages**: Concise, descriptive, in English
-- **PR title format**: `[{modules}] {type}: {description}` (e.g., `[trainer,reward] feat: add multi-reward weighting`)
-- **Valid types**: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`
-- Run code quality checks before committing
-
-## Commit Flow
-
-1. Complete and verify the change.
-2. Update related documentation: `guidance/`, `examples/`, `.agents/knowledge/` — if the change introduces, modifies, or removes any API, config field, or workflow.
-3. Run `/ff-review` skill.
-4. **safe** -> commit. **risky** -> report to user, wait for approval.
-5. Each fix -> immediate commit. Do not batch unrelated changes.
-6. Run `black --check src/ && isort --check src/` before every commit.
-7. **Skill gap check**: If the task didn't match any existing skill, briefly assess after completion: Was this a one-off, or a repeatable pattern? If repeatable, suggest creating a new skill to the user.
+- New topic -> add row to `README.md` routing table + cross-refs in relevant skills.
+- New constraint -> update quick index range in `constraints.md` header + section header.
+- Append-only lists (`Numbered Gotchas`, `FF-Specific Pitfalls`) -> only append, never reorder or remove.
+- Full rules: `.agents/knowledge/docs_maintenance.md`.
 
 ---
 > Source: [X-GenGroup/Flow-Factory](https://github.com/X-GenGroup/Flow-Factory) — distributed by [TomeVault](https://tomevault.io).
