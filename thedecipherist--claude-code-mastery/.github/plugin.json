@@ -1,0 +1,9 @@
+{
+  "name": "thedecipherist--claude-code-mastery",
+  "displayName": "claude-code-mastery",
+  "description": "The complete guide to Claude Code: CLAUDE.md, hooks, skills, MCP servers, and commands",
+  "version": "1.0.0",
+  "author": "TheDecipherist",
+  "homepage": "https://github.com/TheDecipherist/claude-code-mastery",
+  "skills": []
+}
