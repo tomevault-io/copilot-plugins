@@ -4,7 +4,7 @@
   "repo": "WebCode",
   "description": "WebCode is a browser-based AI coding platform that lets you remotely run CLI assistants like Claude Code and Codex. Code anywhere with just a web browser. We\u2019re also adding an office-assistant mode for planning, research/summaries, meeting notes, and drafting docs/emails\u2014connected to your project context.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shuyu-labs/WebCode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T06:26:44Z"
+  "distributed_at": "2026-05-01T09:59:24Z"
 }
