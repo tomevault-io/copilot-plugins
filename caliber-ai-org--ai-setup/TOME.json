@@ -4,7 +4,7 @@
   "repo": "ai-setup",
   "description": "Continuously sync your AI setups with one command. Codebase tailor suited agent skills, MCPs and config files for Claude Code, Cursor, and Codex.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/caliber-ai-org/ai-setup",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T15:41:17Z"
+  "distributed_at": "2026-05-01T06:03:33Z"
 }
