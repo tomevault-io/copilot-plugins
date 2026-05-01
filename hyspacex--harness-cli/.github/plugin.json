@@ -1,0 +1,9 @@
+{
+  "name": "hyspacex--harness-cli",
+  "displayName": "harness-cli",
+  "description": "CLI harness for long-running app development with Claude Agent SDK or Codex App Server",
+  "version": "1.0.0",
+  "author": "hyspacex",
+  "homepage": "https://github.com/hyspacex/harness-cli",
+  "skills": []
+}
