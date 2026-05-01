@@ -1,0 +1,9 @@
+{
+  "name": "badrisnarayanan--antigravity-claude-proxy",
+  "displayName": "antigravity-claude-proxy",
+  "description": "Proxy that exposes Antigravity provided claude / gemini models, so we can use them in Claude Code and OpenClaw (Clawdbot)",
+  "version": "1.0.0",
+  "author": "badrisnarayanan",
+  "homepage": "https://github.com/badrisnarayanan/antigravity-claude-proxy",
+  "skills": []
+}
