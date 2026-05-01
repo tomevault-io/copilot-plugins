@@ -1,0 +1,9 @@
+{
+  "name": "mrkungfudn--antigravity-ide-mobile",
+  "displayName": "antigravity-ide-mobile",
+  "description": "\ud83d\udcf1 Remote control panel for Antigravity IDE \u2014 live AI chat streaming, file browser, Git, screen mirroring, terminal & admin panel. Built with Preact, Vite, Tailwind CSS & TypeScript. Fork & remix of Av",
+  "version": "1.0.0",
+  "author": "mrkungfudn",
+  "homepage": "https://github.com/mrkungfudn/antigravity-ide-mobile",
+  "skills": []
+}
