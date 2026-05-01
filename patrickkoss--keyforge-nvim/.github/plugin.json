@@ -1,0 +1,9 @@
+{
+  "name": "patrickkoss--keyforge-nvim",
+  "displayName": "keyforge.nvim",
+  "description": "Tower defense game to master vim keybindings inside Neovim",
+  "version": "1.0.0",
+  "author": "PatrickKoss",
+  "homepage": "https://github.com/PatrickKoss/keyforge.nvim",
+  "skills": []
+}
