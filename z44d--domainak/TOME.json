@@ -1,0 +1,44 @@
+{
+  "name": "domainak",
+  "owner": "z44d",
+  "repo": "domainak",
+  "description": "Domainak is a GitHub-authenticated subdomain router with a React dashboard, a Hono API, Postgres for metadata, Redis for routing and traffic counters, and OpenResty for dynamic proxying.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/z44d/domainak",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T09:58:33Z"
+}
