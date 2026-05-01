@@ -1,56 +1,78 @@
-## separation-of-concerns
+## storage-migration
 
-> Each file should have one single purpose/responsibility. Related functionality should be grouped together, unrelated functionality should be separated.
+> Enforce storage migration scripts when project save format changes
 
 
-# Separation of Concerns
+# Storage Migration
 
-## Core Principle
+When a code change modifies the persisted project data shape (fields in `TProject`, `TScene`, `TProjectMetadata`, `TProjectSettings`, `TimelineTrack`, or `TimelineElement` types), you **must** also implement a storage migration so existing saved projects upgrade automatically.
 
-Each file should have one single purpose/responsibility. Related functionality should be grouped together, unrelated functionality should be separated.
+## When a Migration is Required
 
-## Good Separation
+- Adding, removing, or renaming a field on any persisted type
+- Changing the semantics or default of an existing persisted field
+- Restructuring nested data (e.g. moving a field from root to `metadata`)
 
-- One file per major concern (auth, validation, data transformation)
-- Group related utilities together
-- Extract shared logic into dedicated files
-- Keep API routes focused on their specific endpoint logic
+## Checklist
 
-Examples:
+1. **Bump version** — increment `CURRENT_PROJECT_VERSION` in `services/storage/migrations/index.ts`
+2. **Transformer** — create `transformers/vN-to-vM.ts` with pure transform logic
+3. **Migration class** — create `vN-to-vM.ts` extending `StorageMigration` (`from = N`, `to = M`)
+4. **Register** — add the new migration instance to the `migrations` array in `index.ts`
+5. **Tests** — add `__tests__/vN-to-vM.test.ts` with fixture data covering normal, edge-case, and already-migrated scenarios
 
-```javascript
-// ✅ Good: Each file has clear responsibility
-/lib/rate-limit.ts          // Rate limiting utilities
-/lib/validation.ts          // Input validation schemas
-/lib/freesound-api.ts       // External API integration
-/api/sounds/search/route.ts // Route handler only
+## File Structure
+
+```
+services/storage/migrations/
+├── index.ts                        # CURRENT_PROJECT_VERSION + migrations array
+├── base.ts                         # StorageMigration abstract class
+├── runner.ts                       # Migration executor
+├── vN-to-vM.ts                     # Migration class
+├── transformers/
+│   ├── vN-to-vM.ts                 # Pure transform function
+│   ├── types.ts                    # ProjectRecord, MigrationResult
+│   └── utils.ts                    # getProjectId, isRecord, etc.
+└── __tests__/
+    ├── vN-to-vM.test.ts
+    └── fixtures/
+        └── vN.ts                   # Fixture data for version N
 ```
 
-## Bad Mixing of Concerns
+## Migration Pattern
 
-Avoid cramming multiple responsibilities into one file:
+```typescript
+// transformers/vN-to-vM.ts
+export function transformProjectVNToVM({
+  project,
+}: {
+  project: ProjectRecord;
+}): MigrationResult<ProjectRecord> {
+  const projectId = getProjectId({ project });
+  if (!projectId) {
+    return { project, skipped: true, reason: "no project id" };
+  }
 
-```javascript
-// ❌ Bad: Route file doing everything
-/api/sounds/search/route.ts
-- Rate limiting logic
-- Validation schemas
-- API transformation
-- External API calls
-- Response formatting
-- Error handling utilities
+  if (isAlreadyMigrated({ project })) {
+    return { project, skipped: true, reason: "already vM" };
+  }
+
+  const migratedProject = {
+    ...project,
+    /* apply changes */
+    version: M,
+  };
+
+  return { project: migratedProject, skipped: false };
+}
 ```
 
-## When to Separate
+## Key Rules
 
-- File is getting long (>500 lines)
-- Multiple distinct responsibilities in one file
-- Logic could be reused elsewhere
-- Complex utilities that distract from main purpose
-
-## Rule
-
-One file, one responsibility. Extract shared concerns into focused utility files
+- Transformers must be **pure functions** — no side-effects, no DB access
+- Always guard with an `isAlreadyMigrated` check so re-runs are safe
+- Never delete data without first copying it to the new location
+- Keep each migration small and single-purpose
 
 ---
 > Source: [msgbyte/cutia](https://github.com/msgbyte/cutia) — distributed by [TomeVault](https://tomevault.io).
