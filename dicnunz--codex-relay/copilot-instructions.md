@@ -1,0 +1,17 @@
+## codex-relay
+
+> - Keep this repo small, local-first, and dependency-light.
+
+# Agent Notes
+
+- Keep this repo small, local-first, and dependency-light.
+- Do not commit `.env`, bot tokens, runtime state, screenshots, or private logs.
+- Prefer standard-library Python unless a dependency removes real complexity.
+- Test with `python3 -m py_compile codex_relay.py scripts/configure.py`.
+- Use `./scripts/doctor.sh` and `./scripts/status.sh` after installer changes.
+- Use `./scripts/record_demo.sh` to regenerate the sanitized launch video.
+- Do not claim this is an official OpenAI project.
+
+---
+> Source: [dicnunz/codex-relay](https://github.com/dicnunz/codex-relay) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-27 -->
