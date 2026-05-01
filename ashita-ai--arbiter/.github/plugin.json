@@ -1,0 +1,9 @@
+{
+  "name": "ashita-ai--arbiter",
+  "displayName": "arbiter",
+  "description": "Arbiter provides simple APIs, complete observability, and provider-agnostic infrastructure for evaluating LLM outputs. Built on PydanticAI with automatic interaction tracking, multiple evaluators, and",
+  "version": "1.0.0",
+  "author": "ashita-ai",
+  "homepage": "https://github.com/ashita-ai/arbiter",
+  "skills": []
+}
