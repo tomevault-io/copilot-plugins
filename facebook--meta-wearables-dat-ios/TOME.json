@@ -4,7 +4,7 @@
   "repo": "meta-wearables-dat-ios",
   "description": "Meta Wearables Device Access Toolkit for iOS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/facebook/meta-wearables-dat-ios",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T00:03:51Z"
+  "distributed_at": "2026-05-01T12:20:27Z"
 }
