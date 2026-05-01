@@ -1,0 +1,9 @@
+{
+  "name": "glasner--aiki",
+  "displayName": "aiki",
+  "description": "Agent agnostic framework for building autonomous coding workflows.",
+  "version": "1.0.0",
+  "author": "glasner",
+  "homepage": "https://github.com/glasner/aiki",
+  "skills": []
+}
