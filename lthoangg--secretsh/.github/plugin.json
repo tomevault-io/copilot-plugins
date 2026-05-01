@@ -1,0 +1,9 @@
+{
+  "name": "lthoangg--secretsh",
+  "displayName": "secretsh",
+  "description": "Secure subprocess secret injection for AI agents. Encrypted vault, direct argv injection, streaming output redaction.",
+  "version": "1.0.0",
+  "author": "lthoangg",
+  "homepage": "https://github.com/lthoangg/secretsh",
+  "skills": []
+}
