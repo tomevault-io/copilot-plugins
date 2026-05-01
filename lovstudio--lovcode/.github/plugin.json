@@ -1,0 +1,9 @@
+{
+  "name": "lovstudio--lovcode",
+  "displayName": "lovcode",
+  "description": "A desktop companion app for AI coding tools. Browse Claude Code chat history, manage configurations, commands, skills, and more.",
+  "version": "1.0.0",
+  "author": "lovstudio",
+  "homepage": "https://github.com/lovstudio/lovcode",
+  "skills": []
+}
