@@ -1,0 +1,9 @@
+{
+  "name": "epam--dm-ai",
+  "displayName": "dm.ai",
+  "description": "EPAM AI/Run DMTools",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/dm.ai",
+  "skills": []
+}
