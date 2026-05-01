@@ -7,11 +7,11 @@ A modern Kubernetes GUI management desktop app for macOS & Windows. Multi-cluste
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [atilladeniz/Kubeli](https://github.com/atilladeniz/Kubeli).
+Original source: `CLAUDE.md` in [atilladeniz/Kubeli](https://github.com/atilladeniz/Kubeli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
