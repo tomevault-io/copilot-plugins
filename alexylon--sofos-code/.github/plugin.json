@@ -1,0 +1,9 @@
+{
+  "name": "alexylon--sofos-code",
+  "displayName": "sofos-code",
+  "description": "AI coding agent for your terminal, implemented in pure Rust",
+  "version": "1.0.0",
+  "author": "alexylon",
+  "homepage": "https://github.com/alexylon/sofos-code",
+  "skills": []
+}
