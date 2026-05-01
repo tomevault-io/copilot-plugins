@@ -1,0 +1,9 @@
+{
+  "name": "agentshield-ai--sigma-ai",
+  "displayName": "sigma-ai",
+  "description": "Sigma detection rules for AI agent security monitoring",
+  "version": "1.0.0",
+  "author": "agentshield-ai",
+  "homepage": "https://github.com/agentshield-ai/sigma-ai",
+  "skills": []
+}
