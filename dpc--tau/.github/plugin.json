@@ -1,0 +1,9 @@
+{
+  "name": "dpc--tau",
+  "displayName": "tau",
+  "description": "Tau Coding Agent - like Pi, but twice as much",
+  "version": "1.0.0",
+  "author": "dpc",
+  "homepage": "https://github.com/dpc/tau",
+  "skills": []
+}
