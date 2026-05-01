@@ -1,0 +1,9 @@
+{
+  "name": "yuzu-hub--appscreen",
+  "displayName": "appscreen",
+  "description": "Create screenshots for the iOS App Store",
+  "version": "1.0.0",
+  "author": "YUZU-Hub",
+  "homepage": "https://github.com/YUZU-Hub/appscreen",
+  "skills": []
+}
