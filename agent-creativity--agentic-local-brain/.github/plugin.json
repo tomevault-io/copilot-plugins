@@ -1,0 +1,9 @@
+{
+  "name": "agent-creativity--agentic-local-brain",
+  "displayName": "agentic-local-brain",
+  "description": "a personal knowledge management system that collects and retrieves knowledge from files, webpages, papers, emails, and notes. It features intelligent tag extraction, semantic search, RAG-powered Q&A, ",
+  "version": "1.0.0",
+  "author": "agent-creativity",
+  "homepage": "https://github.com/agent-creativity/agentic-local-brain",
+  "skills": []
+}
