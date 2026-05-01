@@ -1,0 +1,9 @@
+{
+  "name": "alchemist-x--predict-raven",
+  "displayName": "predict-raven",
+  "description": "The first autonomous, continuously-running trading agent for prediction markets. Live on Polymarket.",
+  "version": "1.0.0",
+  "author": "Alchemist-X",
+  "homepage": "https://github.com/Alchemist-X/predict-raven",
+  "skills": []
+}
