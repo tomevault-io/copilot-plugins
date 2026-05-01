@@ -4,7 +4,7 @@
   "repo": "clawdeck",
   "description": "Open source mission control for your OpenClaw agents \ud83e\udd9e",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clawdeckio/clawdeck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T21:37:39Z"
+  "distributed_at": "2026-05-01T04:10:52Z"
 }
