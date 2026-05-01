@@ -1,0 +1,9 @@
+{
+  "name": "slop-o-meter--slop-o-meter",
+  "displayName": "slop-o-meter",
+  "description": "An experiment in measuring software slop",
+  "version": "1.0.0",
+  "author": "slop-o-meter",
+  "homepage": "https://github.com/slop-o-meter/slop-o-meter",
+  "skills": []
+}
