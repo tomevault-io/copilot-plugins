@@ -1,0 +1,9 @@
+{
+  "name": "appcues--partitioned-buffer",
+  "displayName": "partitioned_buffer",
+  "description": "A fast write buffer for async actions",
+  "version": "1.0.0",
+  "author": "appcues",
+  "homepage": "https://github.com/appcues/partitioned_buffer",
+  "skills": []
+}
