@@ -1,0 +1,9 @@
+{
+  "name": "sbluemin--vsc-copilot-cli-agents",
+  "displayName": "vsc-copilot-cli-agents",
+  "description": "Get extension",
+  "version": "1.0.0",
+  "author": "sbluemin",
+  "homepage": "https://github.com/sbluemin/vsc-copilot-cli-agents",
+  "skills": []
+}
