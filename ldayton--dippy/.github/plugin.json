@@ -1,0 +1,9 @@
+{
+  "name": "ldayton--dippy",
+  "displayName": "Dippy",
+  "description": "\ud83d\udc24 Less permission fatigue, more momentum. Dippy knows what\u2019s safe to run and keeps Claude on track when plans change.",
+  "version": "1.0.0",
+  "author": "ldayton",
+  "homepage": "https://github.com/ldayton/Dippy",
+  "skills": []
+}
