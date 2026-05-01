@@ -1,0 +1,9 @@
+{
+  "name": "answerdotai--clipmd",
+  "displayName": "clipmd",
+  "description": "Convert clipboard from HTML to MD",
+  "version": "1.0.0",
+  "author": "AnswerDotAI",
+  "homepage": "https://github.com/AnswerDotAI/clipmd",
+  "skills": []
+}
