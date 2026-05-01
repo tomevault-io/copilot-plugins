@@ -1,63 +1,177 @@
-## react-guidelines
+## react-patterns
 
-> You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+> - **UIs are thin wrappers over data** - avoid using local state (like useState) unless absolutely necessary and it's independent of business logic
 
-# Expert Guidelines
 
-You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+# React Patterns and Best Practices
 
-## Code Style and Structure
+## Core Philosophy
 
-- Write concise, technical TypeScript code with accurate examples.
-- Use functional and declarative programming patterns; avoid classes.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-- Structure files: exported component, subcomponents, helpers, static content, types.
-- Use console.log({ value }) instead of console.log(value)
-- Use onCallback instead of handleCallback
-- Use flex and gap instead of space-x-n and space-y-n
-- Use cn to compose class names
-- Just pass ref directly to the component because of react 19
+- **UIs are thin wrappers over data** - avoid using local state (like useState) unless absolutely necessary and it's independent of business logic
+- Even when local state seems needed, consider if you can flatten the UI state into a basic calculation
+- useState is only necessary if it's truly reactive and cannot be derived
 
-## Naming Conventions
+## State Management
 
-- Use lowercase with dashes for directories (e.g., components/auth-wizard).
-- Favor named exports for components.
+- **Choose state machines over multiple useStates** - multiple useState calls make code harder to reason about
+- Prefer a single state object with reducers for complex state logic
+- Co-locate related state rather than spreading it across multiple useState calls
 
-## TypeScript Usage
+## Component Architecture
 
-- Use TypeScript for all code; prefer interfaces over types.
-- Avoid enums; use maps instead.
-- Use functional components with TypeScript interfaces.
+- **Create new component abstractions when nesting conditional logic**
+- Move complex logic to new components rather than deeply nested conditionals
+- Use ternaries only for small, easily readable logic
+- Avoid top-level if/else statements in JSX - extract to components instead
 
-## Syntax and Formatting
+## Side Effects and Dependencies
 
-- Use the "function" keyword for pure functions.
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-- Use declarative JSX.
+- **Avoid putting dependent logic in useEffects** - it causes misdirection about what the logic is doing
+- Choose to explicitly define logic rather than depend on implicit reactive behavior
+- When useEffect is necessary, be explicit about dependencies and cleanup
+- Prefer derived state and event handlers over effect-driven logic
 
-## UI and Styling
+## Timing and Async Patterns
 
-- Use Shadcn UI, Radix, and Tailwind for components and styling.
-- Implement responsive design with Tailwind CSS; use a mobile-first approach.
+- **setTimeouts are flaky and usually a hack** - always provide a comment explaining why setTimeout is needed
+- Consider alternatives like:
+  - Proper loading states
+  - Suspense boundaries
+  - Event-driven patterns
+  - State machines with delayed transitions
+  - requestAnimateFrame and queuMicrotask
 
-## Performance Optimization
+## Code Quality Impact
 
-- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
-- Wrap client components in Suspense with fallback.
-- Use dynamic loading for non-critical components.
-- Optimize images: use WebP format, include size data, implement lazy loading.
+These patterns prevent subtle bugs that pile up into major issues. While code may "work" without following these guidelines, violations often lead to:
 
-## Key Conventions
+- Hard-to-debug timing issues
+- Unexpected re-renders
+- State synchronization problems
+- Complex refactoring requirements
 
-- Optimize Web Vitals (LCP, CLS, FID).
-- Limit 'use client':
-  - Favor server components and Next.js SSR.
-  - Use only for Web API access in small components.
-  - Avoid for data fetching or state management.
-- Follow Next.js docs for Data Fetching, Rendering, and Routing.
+## Examples
 
-Make sure not to start the dev server or run type of lint checking on agent mode.
+### ❌ Avoid: Multiple useState
+
+```tsx
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState(null);
+const [data, setData] = useState(null);
+```
+
+### ✅ Prefer: State machine
+
+```tsx
+function useLazyRef<T>(fn: () => T) {
+  const ref = React.useRef<T | null>(null);
+
+  if (ref.current === null) {
+    ref.current = fn();
+  }
+
+  return ref as React.RefObject<T>;
+}
+
+interface Store<T> {
+  subscribe: (callback: () => void) => () => void
+  getState: () => T
+  setState: <K extends keyof T>(key: K, value: T[K]) => void
+  notify: () => void
+}
+
+function createStore<T>(
+  listenersRef: React.RefObject<Set<() => void>>,
+  stateRef: React.RefObject<T>,
+  onValueChange?: Partial<{
+    [K in keyof T]: (value: T[K], store: Store<T>) => void
+  }>
+): Store<T> {
+  const store: Store<T> = {
+      subscribe: (cb) => {
+          listenersRef.current.add(cb);
+      return () => listenersRef.current.delete(cb);
+    },
+    getState: () => stateRef.current,
+    setState: (key, value) => {
+      if (Object.is(stateRef.current[key], value)) return;
+      stateRef.current[key] = value;
+      onValueChange?.[key]?.(value, store);
+      store.notify();
+    },
+    notify: () => {
+      for (const cb of listenersRef.current) {
+        cb();
+      }
+    },
+  };
+
+  return store;
+}
+
+function useStoreSelector<T, U>(
+  store: Store<T>,
+  selector: (state: T) => U
+): U {
+  const getSnapshot = React.useCallback(
+    () => selector(store.snapshot()),
+    [store, selector]
+  );
+  
+  return React.useSyncExternalStore(
+    store.subscribe,
+    getSnapshot,
+    getSnapshot
+  );
+}
+```
+
+### ❌ Avoid: Complex conditionals in JSX
+
+```tsx
+return (
+  <div>
+    {user ? (
+      user.isAdmin ? (
+        <AdminPanel />
+      ) : user.isPremium ? (
+        <PremiumDashboard />
+      ) : (
+        <BasicDashboard />
+      )
+    ) : (
+      <LoginForm />
+    )}
+  </div>
+);
+```
+
+### ✅ Prefer: Component abstraction
+
+```tsx
+function UserDashboard({ user }) {
+  if (!user) return <LoginForm />;
+  if (user.isAdmin) return <AdminPanel />;
+  if (user.isPremium) return <PremiumDashboard />;
+  return <BasicDashboard />;
+}
+```
+
+### ❌ Avoid: Effect-driven logic
+
+```tsx
+useEffect(() => {
+  if (user && user.preferences) {
+    setTheme(user.preferences.theme);
+  }
+}, [user]);
+```
+
+### ✅ Prefer: Derived values
+
+```tsx
+const theme = user?.preferences?.theme ?? 'default';
+```
 
 ---
 > Source: [Johuniq/jolyui](https://github.com/Johuniq/jolyui) — distributed by [TomeVault](https://tomevault.io).
