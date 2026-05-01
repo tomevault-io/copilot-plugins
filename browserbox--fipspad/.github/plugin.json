@@ -1,0 +1,9 @@
+{
+  "name": "browserbox--fipspad",
+  "displayName": "FIPSPad",
+  "description": "Small FIPS 140-3 and NIST SP 800-53 Notepad app. ",
+  "version": "1.0.0",
+  "author": "BrowserBox",
+  "homepage": "https://github.com/BrowserBox/FIPSPad",
+  "skills": []
+}
