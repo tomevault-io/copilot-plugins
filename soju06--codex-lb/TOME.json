@@ -4,7 +4,7 @@
   "repo": "codex-lb",
   "description": "Codex/ChatGPT multiple account load balancer & proxy with usage tracking, dashboard, and OpenCode-compatible endpoints",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Soju06/codex-lb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T06:01:23Z"
+  "distributed_at": "2026-05-01T08:08:43Z"
 }
