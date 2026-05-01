@@ -1,0 +1,9 @@
+{
+  "name": "minh-tam-solution--tinysdlc",
+  "displayName": "tinysdlc",
+  "description": "Minimal agent orchestrator for AI coding \u2014 8 SDLC roles, separation of duties, security hardening, multi-channel (MIT)",
+  "version": "1.0.0",
+  "author": "Minh-Tam-Solution",
+  "homepage": "https://github.com/Minh-Tam-Solution/tinysdlc",
+  "skills": []
+}
