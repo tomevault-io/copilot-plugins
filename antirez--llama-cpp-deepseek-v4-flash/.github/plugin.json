@@ -1,0 +1,9 @@
+{
+  "name": "antirez--llama-cpp-deepseek-v4-flash",
+  "displayName": "llama.cpp-deepseek-v4-flash",
+  "description": "Experimental implementation of DeepSeek v4 flaash in llama.cpp",
+  "version": "1.0.0",
+  "author": "antirez",
+  "homepage": "https://github.com/antirez/llama.cpp-deepseek-v4-flash",
+  "skills": []
+}
