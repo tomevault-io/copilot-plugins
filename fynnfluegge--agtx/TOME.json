@@ -4,7 +4,7 @@
   "repo": "agtx",
   "description": "Multi-session AI coding terminal manager - autonomously orchestrate Claude, Codex, Gemini, OpenCode, Cursor",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fynnfluegge/agtx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T18:35:17Z"
+  "distributed_at": "2026-05-01T00:27:11Z"
 }
