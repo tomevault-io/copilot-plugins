@@ -7,11 +7,11 @@ A self-hosted web and macOS desktop app for Claude Code and Codex, powered by AC
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Mng-dev-ai/agentrove](https://github.com/Mng-dev-ai/agentrove).
+Original source: `CLAUDE.md` in [Mng-dev-ai/agentrove](https://github.com/Mng-dev-ai/agentrove).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
