@@ -1,0 +1,9 @@
+{
+  "name": "signerlabs--shipswift",
+  "displayName": "ShipSwift",
+  "description": "AI-native SwiftUI component library with full-stack recipes \u2014 connect via MCP for instant access.",
+  "version": "1.0.0",
+  "author": "signerlabs",
+  "homepage": "https://github.com/signerlabs/ShipSwift",
+  "skills": []
+}
