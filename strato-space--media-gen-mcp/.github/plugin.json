@@ -1,0 +1,9 @@
+{
+  "name": "strato-space--media-gen-mcp",
+  "displayName": "media-gen-mcp",
+  "description": "Media Gen MCP \u2014 Strict TypeScript MCP server for OpenAI gpt-image-1 and sora-2: generate, edit, and fetch images/video with smart compression, resource_link and image outputs, and a built-in test tool",
+  "version": "1.0.0",
+  "author": "strato-space",
+  "homepage": "https://github.com/strato-space/media-gen-mcp",
+  "skills": []
+}
