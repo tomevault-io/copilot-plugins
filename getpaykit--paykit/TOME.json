@@ -4,7 +4,7 @@
   "repo": "paykit",
   "description": "The billing framework for TypeScript. Code-first products, handles Stripe, webhooks, and usage state, runs in your app.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getpaykit/paykit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T18:39:47Z"
+  "distributed_at": "2026-05-01T00:33:34Z"
 }
