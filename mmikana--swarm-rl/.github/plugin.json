@@ -1,0 +1,9 @@
+{
+  "name": "mmikana--swarm-rl",
+  "displayName": "swarm-rl",
+  "description": "use swarm rl do some experiments",
+  "version": "1.0.0",
+  "author": "mmikana",
+  "homepage": "https://github.com/mmikana/swarm-rl",
+  "skills": []
+}
