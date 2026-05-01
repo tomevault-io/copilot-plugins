@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--misina",
+  "displayName": "misina",
+  "description": "Driver-based, zero-dependency, fetch-first TypeScript HTTP client. Hooks, retry, redirect security, RFC 9111 cache, RFC 6265 cookies, Idempotency-Key on retry, RFC 9457 problem+json, circuit breaker, ",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/misina",
+  "skills": []
+}
