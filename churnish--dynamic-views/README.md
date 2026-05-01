@@ -7,11 +7,11 @@ Obsidian plugin that adds elegant grid and masonry card views for Bases.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [churnish/dynamic-views](https://github.com/churnish/dynamic-views).
+Original source: `CLAUDE.md` in [churnish/dynamic-views](https://github.com/churnish/dynamic-views).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
