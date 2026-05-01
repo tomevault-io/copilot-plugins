@@ -7,11 +7,11 @@ AI writes code. This automates everything else · 19 plugins, 47 agents, and 40 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agent-sh/agentsys](https://github.com/agent-sh/agentsys).
+Original source: `CLAUDE.md` in [agent-sh/agentsys](https://github.com/agent-sh/agentsys).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
