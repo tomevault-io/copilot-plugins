@@ -1,0 +1,9 @@
+{
+  "name": "harmonicom--dig",
+  "displayName": "dig",
+  "description": "SQL query builder for Zig language",
+  "version": "1.0.0",
+  "author": "HARMONICOM",
+  "homepage": "https://github.com/HARMONICOM/dig",
+  "skills": []
+}
