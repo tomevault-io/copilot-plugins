@@ -1,0 +1,9 @@
+{
+  "name": "neolabhq--context-engineering-kit",
+  "displayName": "context-engineering-kit",
+  "description": "Hand-crafted Claude Code Skills focused on improving agent results quality. Compatible with OpenCode, Cursor, Antigravity, Gemini CLI, and others.",
+  "version": "1.0.0",
+  "author": "NeoLabHQ",
+  "homepage": "https://github.com/NeoLabHQ/context-engineering-kit",
+  "skills": []
+}
