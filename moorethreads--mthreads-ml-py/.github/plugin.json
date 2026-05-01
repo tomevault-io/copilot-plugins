@@ -1,0 +1,9 @@
+{
+  "name": "moorethreads--mthreads-ml-py",
+  "displayName": "mthreads-ml-py",
+  "description": "Provides a Python interface to GPU management and monitoring functions. This is a wrapper around the MTML library.",
+  "version": "1.0.0",
+  "author": "MooreThreads",
+  "homepage": "https://github.com/MooreThreads/mthreads-ml-py",
+  "skills": []
+}
