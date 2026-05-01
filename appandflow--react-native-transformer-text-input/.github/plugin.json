@@ -1,0 +1,9 @@
+{
+  "name": "appandflow--react-native-transformer-text-input",
+  "displayName": "react-native-transformer-text-input",
+  "description": "TextInput component that allows transforming text synchronously with a worklet.",
+  "version": "1.0.0",
+  "author": "AppAndFlow",
+  "homepage": "https://github.com/AppAndFlow/react-native-transformer-text-input",
+  "skills": []
+}
