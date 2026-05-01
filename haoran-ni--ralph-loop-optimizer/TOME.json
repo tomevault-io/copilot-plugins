@@ -1,0 +1,44 @@
+{
+  "name": "ralph-loop-optimizer",
+  "owner": "haoran-ni",
+  "repo": "ralph-loop-optimizer",
+  "description": "Ralph Loop Optimizer: an AI-driven framework that turns any evaluatable codebase into a self-improving optimization loop for strategies, models, prompts, and workflows",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/haoran-ni/ralph-loop-optimizer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T09:46:53Z"
+}
