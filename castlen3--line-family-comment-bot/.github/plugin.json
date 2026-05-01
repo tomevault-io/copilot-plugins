@@ -1,0 +1,9 @@
+{
+  "name": "castlen3--line-family-comment-bot",
+  "displayName": "line-family-comment-bot",
+  "description": "A beginner-friendly n8n workflow for a warm LINE family group comment bot.",
+  "version": "1.0.0",
+  "author": "castlen3",
+  "homepage": "https://github.com/castlen3/line-family-comment-bot",
+  "skills": []
+}
