@@ -1,0 +1,9 @@
+{
+  "name": "datadog--adipo",
+  "displayName": "adipo",
+  "description": "adipo - Architecture-Aware Fat Binaries",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/adipo",
+  "skills": []
+}
