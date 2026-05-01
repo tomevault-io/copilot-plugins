@@ -1,0 +1,9 @@
+{
+  "name": "johnnichev--selectools",
+  "displayName": "selectools",
+  "description": "Production-ready Python framework for AI agents with built-in guardrails, audit logging, cost tracking, and hybrid RAG. Supports OpenAI, Anthropic, Gemini, Ollama. By NichevLabs.",
+  "version": "1.0.0",
+  "author": "johnnichev",
+  "homepage": "https://github.com/johnnichev/selectools",
+  "skills": []
+}
