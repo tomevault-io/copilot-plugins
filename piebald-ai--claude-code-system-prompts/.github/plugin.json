@@ -1,0 +1,9 @@
+{
+  "name": "piebald-ai--claude-code-system-prompts",
+  "displayName": "claude-code-system-prompts",
+  "description": "All parts of Claude Code's system prompt, 24 builtin tool descriptions, sub agent prompts (Plan/Explore/Task), utility prompts (CLAUDE.md, compact,  statusline, magic docs, WebFetch, Bash cmd, securit",
+  "version": "1.0.0",
+  "author": "Piebald-AI",
+  "homepage": "https://github.com/Piebald-AI/claude-code-system-prompts",
+  "skills": []
+}
