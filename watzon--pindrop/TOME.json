@@ -4,7 +4,7 @@
   "repo": "pindrop",
   "description": "A native macOS menu bar dictation app using local speech-to-text with WhisperKit",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/watzon/pindrop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:45:14Z"
+  "distributed_at": "2026-05-01T06:10:11Z"
 }
