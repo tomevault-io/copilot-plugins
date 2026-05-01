@@ -1,0 +1,9 @@
+{
+  "name": "junduck--trading-indi",
+  "displayName": "trading-indi",
+  "description": "A TypeScript library for technical indicators with incremental, stateful calculation optimized for real-time and intraday trading applications.",
+  "version": "1.0.0",
+  "author": "junduck",
+  "homepage": "https://github.com/junduck/trading-indi",
+  "skills": []
+}
