@@ -1,15 +1,33 @@
-## skills-reusable-only
+## variable-naming
 
-> Only place reusable, documented workflows in .agents/skills/. Temporary utilities go in scripts/ or tests/.
+> Variable and identifier naming in code and docs — contextual, meaningful abbreviations; no initialism-only or overly long names
 
 
-The `.agents/skills/` directory is for permanent, reusable agent workflows only.
+# Variable and identifier naming
 
-Rules:
-- Every skill folder must contain a `SKILL.md` with YAML frontmatter (`name` and `description`)
-- Skill names use lowercase letters and hyphens only
-- Skills must be registered in `CLAUDE.md` and `.agents/skills/README.md`
-- Temporary automation, one-off scripts, or experimental code belongs in `scripts/` or `tests/`
+Applies when writing or editing **Python** under `src/flow_factory/` (modules, functions, parameters, locals, comprehensions, type aliases) and when authoring **Markdown** that contains code or pseudocode (guidance, `.agents/`, README, research notes). Docstrings and comments should use the same naming discipline as implementation code.
+
+## Requirements
+
+- **Contextual names**: Reflect role, domain, and scope (what the value is, not only its type). Prefer a short, widely understood abbreviation over spelling out every word when surrounding code or prose already establishes context.
+- **Abbreviations**: Use conventional ML/diffusion shorthand only when it stays unambiguous in context (e.g. `num_inference_steps`, `guidance_scale`). If an abbreviation could be read multiple ways, spell it out or add a word (e.g. `video_latents` not a bare `vl`).
+- **Avoid initialism-only minimal names**: Do not use bare unrelated initials or single-letter names except idiomatic loop indices or math symbols that the surrounding docstring or comment defines. Prefer `negative_prompt` over `np` when `np` would collide with NumPy; prefer `connector_mask` over `cm` when clarity matters.
+- **Avoid excessive length**: Do not chain redundant qualifiers into a sentence-like identifier. Prefer `max_seq_len` or `max_sequence_length` (pick one convention in a module) over `maximum_sequence_length_for_the_text_encoder_in_this_pipeline`.
+
+## Examples
+
+```text
+# Too minimal / unclear without definition
+cfg, u, v, tmp, obj, fp, ap
+
+# Too long / noisy
+the_packed_video_latent_tensor_after_vae_encode
+
+# Prefer
+guidance_scale, uncond_embeds, video_latents, packed_latents, connector_attention_mask
+```
+
+For public APIs and cross-module types, align names with existing `flow_factory` patterns so readers can grep and navigate consistently.
 
 ---
 > Source: [X-GenGroup/Flow-Factory](https://github.com/X-GenGroup/Flow-Factory) — distributed by [TomeVault](https://tomevault.io).
