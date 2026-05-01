@@ -1,0 +1,9 @@
+{
+  "name": "sokratisvidros--pg-workflows",
+  "displayName": "pg-workflows",
+  "description": "Postgres workflows. Durable execution built on pg-boss. Like Temporal, Inngest, or Trigger, powered by Postgres.",
+  "version": "1.0.0",
+  "author": "SokratisVidros",
+  "homepage": "https://github.com/SokratisVidros/pg-workflows",
+  "skills": []
+}
