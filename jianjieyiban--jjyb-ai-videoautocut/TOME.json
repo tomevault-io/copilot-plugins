@@ -1,0 +1,44 @@
+{
+  "name": "JJYB_AI_VideoAutoCut",
+  "owner": "jianjieyiban",
+  "repo": "JJYB_AI_VideoAutoCut",
+  "description": "JJYB_AI \u667a\u526a - \u667a\u80fd\u89c6\u9891\u81ea\u52a8\u526a\u8f91\u4e0eAI\u89e3\u8bf4\u5de5\u5177\uff08\u79bb\u7ebfTTS\u3001\u539f\u521b\u89e3\u8bf4\u3001\u6df7\u526a\u3001AI\u914d\u97f3\uff09",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jianjieyiban/JJYB_AI_VideoAutoCut",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T12:13:14Z"
+}
