@@ -4,7 +4,7 @@
   "repo": "Jellyfish",
   "description": "\u4e00\u7ad9\u5f0f AI \u751f\u6210\u77ed\u5267\uff08\u7ad6\u5c4f\u77ed\u5267 / \u5fae\u77ed\u5267\uff09\u7684\u751f\u4ea7\u5de5\u5177 ,  \u4ece\u5267\u672c\u8f93\u5165 \u2192 \u667a\u80fd\u5206\u955c \u2192 \u89d2\u8272/\u573a\u666f/\u9053\u5177\u4e00\u81f4\u6027\u7ba1\u7406 \u2192 AI \u89c6\u9891\u751f\u6210 \u2192 \u540e\u671f\u526a\u8f91 \u2192 \u4e00\u952e\u5bfc\u51fa\u6210\u7247 . ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Forget-C/Jellyfish",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T08:48:34Z"
+  "distributed_at": "2026-05-01T05:58:51Z"
 }
