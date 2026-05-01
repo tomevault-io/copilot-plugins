@@ -1,0 +1,169 @@
+## tally
+
+> Project-specific guidance for Claude when working on this codebase.
+
+# CLAUDE.md
+
+Project-specific guidance for Claude when working on this codebase.
+
+## Bash Commands
+
+```bash
+uv run tally --help              # Show all commands
+uv run tally up /path/to/config  # Run analysis
+uv run tally up --format json -v /path/to/config   # JSON output with reasoning
+uv run tally explain /path/to/config               # Classification summary
+uv run tally explain Netflix /path/to/config       # Explain specific merchant
+uv run tally explain Netflix -vv /path/to/config   # Full details + which rule matched
+uv run tally explain --category Food /path/to/config  # Explain all Food category merchants
+uv run tally explain --tags business /path/to/config  # Explain business-tagged merchants
+uv run tally diag /path/to/config # Debug config issues (shows tag stats)
+uv run tally discover /path/to/config # Find unknown merchants
+uv run tally inspect file.csv    # Analyze CSV structure
+uv run pytest tests/             # Run all tests
+uv run pytest tests/test_analyzer.py -v # Run analyzer tests
+```
+
+## Example: tally explain Output
+
+```bash
+$ tally explain Netflix -vv
+Netflix → Monthly
+  Monthly: Subscriptions appears 6/6 months (50% threshold = 3)
+  Tags: entertainment, recurring
+
+  Decision trace:
+    ✗ NOT excluded: Subscriptions not in [Transfers, Cash, Income]
+    ✗ NOT travel: category=Subscriptions
+    ✗ NOT annual: (Subscriptions, Streaming) not in annual categories
+    ✗ NOT periodic: no periodic patterns matched
+    ✓ IS monthly: Subscriptions with 6/6 months (>= 3 bill threshold)
+
+  Calculation: avg (CV=0.00 (<0.3), payments are consistent)
+    Formula: avg_when_active = 95.94 / 6 months = 15.99
+    CV: 0.00
+
+  Rule: NETFLIX.* (user)   # Shows which pattern matched
+```
+
+## merchant_categories.csv Format
+
+```csv
+Pattern,Merchant,Category,Subcategory,Tags
+NETFLIX,Netflix,Subscriptions,Streaming,entertainment|recurring
+GITHUB,GitHub,Subscriptions,Software,business|recurring
+UBER\s(?!EATS),Uber,Transport,Rideshare,business|reimbursable
+WHOLEFDS,Whole Foods,Food,Grocery,
+```
+
+**Tags** are optional, pipe-separated labels. Filter with `--tags business` or in UI via `t:business`.
+
+## Core Files
+
+- `src/tally/analyzer.py` - Core analysis, HTML report generation, currency formatting
+- `src/tally/cli.py` - CLI commands, AGENTS.md template (update for new features)
+- `src/tally/config_loader.py` - Settings loading, migration logic
+- `src/tally/format_parser.py` - CSV format string parsing
+- `src/tally/merchant_utils.py` - Merchant normalization, rule matching, tags parsing
+- `tests/test_analyzer.py` - Main test file for new features
+- `docs/` - Marketing website (GitHub Pages)
+- `config/` - Example configuration files
+
+## IMPORTANT: Requirements
+
+**Testing:**
+- YOU MUST add tests for new analyzer features in `tests/test_analyzer.py`
+- YOU MUST use Playwright MCP to verify HTML report changes before committing
+
+**Development:**
+- YOU MUST use `uv run` to run tally during development
+- YOU MUST NOT use `python -m tally` or direct Python invocation
+
+**HTML Report Development:**
+- Use `--no-embedded-html` to output separate CSS/JS/data files for easier iteration:
+  ```bash
+  uv run tally up --no-embedded-html -o /tmp/dev-report/spending.html /path/to/config
+  ```
+  This creates:
+  - `spending.html` - HTML with external `<link>` and `<script>` references
+  - `spending_report.css` - Editable styles
+  - `spending_report.js` - Editable Vue app
+  - `spending_data.js` - Transaction data
+
+  Edit CSS/JS directly and refresh browser - no need to regenerate the report.
+
+**Releases:**
+- YOU MUST use GitHub workflow for releases
+- YOU MUST NOT create releases manually or tag commits directly
+- YOU MUST update release notes after workflow completes (see Release Process below)
+
+**Commits:**
+- YOU MUST use `Fixes #<issue>` or `Closes #<issue>` syntax to auto-close issues:
+  ```
+  Fix tooltip display on mobile
+
+  Fixes #42
+  ```
+- YOU MUST NOT commit without referencing the issue when working on a tracked issue
+
+**Configuration:**
+- YOU MUST maintain backwards compatibility for `settings.yaml`
+- YOU MUST implement automatic migration in `config_loader.py` if breaking changes are unavoidable
+- YOU MUST document new options in `config/settings.yaml.example`
+- YOU MUST update AGENTS.md in `cli.py` for new user-facing features
+
+**Rule Engine (CRITICAL):**
+- The rule engine is the CORE VALUE of tally - users carry personalized rules across versions
+- YOU MUST NOT change rule matching behavior without making it opt-in
+- YOU MUST run snapshot tests (`tests/test_rule_snapshots.py`) before committing rule engine changes
+- Breaking changes to `merchant_engine.py` or `merchant_utils.py` require:
+  1. New behavior behind a flag (e.g., `rule_mode` in settings.yaml)
+  2. Default behavior unchanged
+  3. Snapshot tests passing
+- Historical example: commit 952c508 broke customers by changing "first match wins" to "most specific wins"
+
+## Release Process
+
+1. **Check commits since last release:**
+   ```bash
+   git fetch --tags
+   gh release list --limit 1                    # Get latest version
+   git log v0.1.XX..HEAD --oneline              # See what's new
+   ```
+
+2. **Draft release notes** focusing on user-facing features (not repo/doc changes):
+   - New Features (with code examples)
+   - Bug Fixes
+   - Improvements
+
+3. **Trigger release with notes:**
+   ```bash
+   gh workflow run release.yml -f release_notes="
+   ### Currency Display Format (Issue #12)
+   Display amounts in your local currency:
+   \`\`\`yaml
+   currency_format: \"€{amount}\"  # Euro
+   currency_format: \"{amount} zł\" # Złoty
+   \`\`\`
+
+   ### Bug Fixes
+   - Fixed X
+   "
+   gh run watch                                 # Wait for completion
+   ```
+
+   The workflow auto-appends install instructions to your notes.
+
+## Error Messages & Diagnostics
+
+- Error messages MUST be self-descriptive and guide users on what to do next
+- SHOULD include specific suggestions (e.g., `Add: columns:\n  description: "{field} ..."`)
+- Use `tally diag` to debug - it shows:
+  - Config directory and settings file status
+  - Data sources with parsed format details (columns, custom captures, templates)
+  - Merchant rules (user-defined rules)
+- The tool MUST be usable without external documentation
+
+---
+> Source: [davidfowl/tally](https://github.com/davidfowl/tally) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
