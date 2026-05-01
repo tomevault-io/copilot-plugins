@@ -1,34 +1,30 @@
-## release-tagging
+## toml-string-safety
 
-> 发版打 tag 的正确顺序，防止 package.json 版本号与 git tag 不一致
+> TOML string pre-processing safety rules for fixTomlArrayTables
 
 
-# 发版流程
+# TOML String Pre-processing
 
-每次发新版本必须按以下顺序操作：
+`fixTomlArrayTables` pre-processes LLM-generated TOML before parsing.
 
-```bash
-# 1. 更新 package.json 版本号
-sed -i '' 's/"version": "x.x.x"/"version": "x.x.y"/' package.json
+## Critical: Preserve triple-quoted strings
 
-# 2. 提交版本号变更
-git add package.json
-git commit -m "chore: bump version to x.x.y"
+TOML `"""..."""` multi-line strings must NOT be matched by single-line quote fixers.
+Always use negative lookahead `(?!"{3})` before matching `"(.*)"` patterns.
 
-# 3. 打 tag
-git tag vx.x.y
+```typescript
+// BAD — mangles """ into "\""
+/^(\s*\w[\w.-]*\s*=\s*)"(.*)"$/gm
 
-# 4. 推送（本仓库常用远端名 `teamclaw`）
-git push teamclaw main && git push teamclaw vx.x.y
+// GOOD — skips triple-quoted lines
+/^(\s*\w[\w.-]*\s*=\s*)(?!"{3})"(.*)"$/gm
 ```
 
-推送 `v*` tag 后，GitHub Actions **CI & Release** 会打包并发布到 **GitHub Releases**（无需阿里云；可选配置 OSS 再传对象存储）。也可使用脚本：`./scripts/release-github.sh x.x.y`（要求工作区干净）。
+## Common LLM TOML mistakes to handle
 
-## ❌ 禁止
-
-- 不能先打 tag 再改版本号
-- 不能 force push 已有 tag（GitHub Actions 可能不重新触发）
-- 不能跳过 package.json 更新（应用内显示版本来自 package.json，不是 git tag）
+1. Unescaped inner quotes: `description = "识别为"值得沉淀"的标准"`
+2. Misformed multi-line strings: `system_prompt = "\""` followed by bare text
+3. Missing `[[array]]` table headers turning into invalid keys
 
 ---
 > Source: [zhangdszq/teamclaw](https://github.com/zhangdszq/teamclaw) — distributed by [TomeVault](https://tomevault.io).
