@@ -4,7 +4,7 @@
   "repo": "Tele-Bot",
   "description": "A clean Bot running on your PC, interacting with you on Telegram via Claude or Codex.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MaxMiksa/Tele-Bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T09:12:44Z"
+  "distributed_at": "2026-05-01T22:04:42Z"
 }
