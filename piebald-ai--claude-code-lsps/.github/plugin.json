@@ -1,0 +1,9 @@
+{
+  "name": "piebald-ai--claude-code-lsps",
+  "displayName": "claude-code-lsps",
+  "description": "Claude Code Plugin Marketplace with LSP servers",
+  "version": "1.0.0",
+  "author": "Piebald-AI",
+  "homepage": "https://github.com/Piebald-AI/claude-code-lsps",
+  "skills": []
+}
