@@ -1,186 +1,57 @@
-## git-conventions
+## grep-search-discipline
 
-> Git 规范（分支命名 / PR 标题 / Commit Message）
+> Grep 搜索必须用精确模式，搜不到时先扩大范围再下结论
 
 
-# Git 规范
+# Grep 搜索纪律
 
-## 分支命名规范
+## 核心规则
 
-**格式：`<type>/<kebab-case-description>`**
+**Grep 搜索"无结果"不等于"不存在"。搜不到时，必须换更宽泛的关键词重试，确认确实不存在后才能下结论。**
 
-### 分支前缀
+这个规则源于真实事故：用 `specsTab` 搜索 EE Admin 的 i18n 词条，搜不到就断定"词条缺失"——实际上词条以嵌套格式 `specs: { tab: "..." }` 存在，只是搜索模式不匹配。
 
-常用前缀与 commit type 取交集：
+## 搜索策略
 
-- `feat` - 新功能
-- `fix` - 修复 bug
-- `refactor` - 重构、优化
-- `chore` - 构建过程或辅助工具的变动
-- `docs` - 文档
-- `perf` - 性能优化
-- `test` - 测试
-- `build` - 打包
+### 1. 先从代码中提取实际使用的字符串
 
-`style` 和 `revert` 不作为分支前缀——纯格式改动合入 `chore/`，回退操作直接在原分支提交。
-
-### description 规则
-
-- 使用 kebab-case（小写英文 + 连字符），2-5 个词
-- 必须描述分支做什么，让人一眼看懂
-
-### 特殊分支
-
-- `main` — 主分支
-- `release-<version>` — 发布分支（如 `release-0.1.0`）
-
-### 示例
+搜索某个东西是否存在之前，先确认你要搜的关键词是什么。**从使用方（调用处）提取实际字符串**，而不是自己猜测命名格式。
 
 ```
-feat/operation-audit
-fix/deploy-env-serialize
-refactor/ce-ee-split
-chore/upgrade-fastapi
-docs/add-contributing-guide
+# 错误：猜测 i18n 键名格式然后去搜
+Grep: specsTab|specsSaved|specsValidation
+
+# 正确：先从代码中看到 t('settings.specs.tab')，再用实际键名搜
+Grep: settings\.specs\.
 ```
 
-### 禁止
+### 2. 第一次搜不到时必须扩大范围
 
-- **无意义名称**（`cccc`、`test123`、`temp`、`my-branch`）
-- **纯日期名称**（`chore/openclaw-2026.3.8`）— 看不出做了什么
-- **`feature/` 全称** — 统一用 `feat/`
-- **中文、大写、下划线** — 只允许小写英文字母、数字和连字符
+| 搜不到的情况 | 扩大方式 |
+|---|---|
+| 搜具体格式（如 `specsTab`） | 改为搜最短核心词（如 `specs`） |
+| 搜组合关键词 | 拆成单个关键词分别搜 |
+| 限定了文件类型/路径 | 去掉限定，全项目搜 |
+| 用了正则 | 改为纯文本搜索 |
 
-## PR 标题规范
+### 3. 搜索结论必须附带搜索模式
 
-**格式与 commit message 一致：`<type>(<scope>): <中文描述>`**
-
-- PR 标题应能概括整个 PR 的变更目标
-- 当 PR 包含多个 commit 时，标题描述整体目标而非单个 commit
-- scope 选填，与 commit message 的 scope 规则相同
-
-### 示例
+报告"某个东西不存在"时，必须说明用了什么搜索模式。让结论可验证：
 
 ```
-feat(backend): CE 操作审计系统 — Hook 埋点 + 持久化 + AuthActor 识别
-fix(portal): 修复实例列表分页后状态丢失问题
-refactor(deploy): 部署流程拆分为独立 service 模块
+# 错误
+"EE Admin 的 i18n 词条缺失"
+
+# 正确
+"用 `settings\.specs\.` 在 ee/nodeskclaw-frontend/src/i18n/locales/ 搜索，
+zh-CN.ts 第 302-314 行找到完整 specs 词条"
 ```
 
-### 禁止
+## 禁止
 
-- **无意义标题**（`update`、`fix bug`、`WIP`）
-- **纯日期/版本号标题**（`openclaw-2026.3.11`）
-- **与分支名相同但无额外信息**（`feat/operation-audit` 直接当标题）
-
-## 自动提交（最高优先级）
-
-**每次完成一个有意义的改动后，必须主动提交 commit，绝对不要等用户来提醒。**
-
-这是强制规则，不是"尽量"。忘记提交 = 严重违规。
-
-**核心原则：改完即提交，永远不要在回复用户"已完成"之后才想起来没 commit。完成改动 → 立刻 git add + commit → 然后才回复用户。**
-
-触发提交的时机：
-- 修复了一个 bug
-- 完成了一个功能
-- 完成了一次重构或优化
-- 修改了配置/规则文件
-- 新增了组件、工具函数等
-- 连续做了多个小改动后，应合并为一次有意义的提交
-- 对话中发现自己已经改了不少代码但还没提交，立即补提交
-
-## 单元性改动提交原则
-
-**每完成一个单元性改动后，都必须立刻提交代码。禁止攒多个彼此独立的改动，等最后一次性提交。**
-
-这里的"单元性改动"指：一个可独立描述、可独立验证、可独立回滚的最小完整改动单元，例如：
-
-- 一个 bug 修复
-- 一次样式或布局微调
-- 一个 API / 路由调整
-- 一次规则或文档更新
-- 一个独立的小型重构
-
-执行要求：
-
-- 同一轮工作里如果先完成了 A 改动，再完成 B 改动，且 A/B 彼此独立，则 A 完成后必须先提交，再继续做 B
-- 只有多个修改明确属于同一个不可拆分的改动单元时，才允许合并为一个 commit
-- 提交前至少完成该改动单元的基本自检（如查看 diff、lint、最小验证）
-- **禁止** "先累计一堆改动，最后一起提交"
-
-## Commit Message 格式
-
-```
-<type>(<scope>): <subject>
-```
-
-- 冒号后面有空格
-- subject 必须使用中文
-- scope 选填，表示作用范围（如 frontend、backend、deploy、cluster、instance 等）
-
-### type 类型
-
-- `feat` - 新功能
-- `fix` - 修复 bug
-- `docs` - 文档注释
-- `style` - 代码格式（不影响运行的变动）
-- `refactor` - 重构、优化（既不增加新功能也不修复 bug）
-- `perf` - 性能优化
-- `test` - 增加测试
-- `chore` - 构建过程或辅助工具的变动
-- `revert` - 回退
-- `build` - 打包
-
-### 示例
-
-```
-feat(instance): 实例列表新增搜索和过滤功能
-fix(deploy): 修复 env_vars 存数据库未序列化的问题
-refactor(frontend): SSE 流 baseURL 统一走配置常量
-chore: 移除 Alembic 依赖，改用 create_all 建表
-```
-
-## 社区 PR 合并规范
-
-**合并外部贡献者的 PR 时，必须保留原作者的 commit 归属。** 贡献者必须出现在项目的 Contributors 列表中，这是对开源贡献的基本尊重。
-
-### 标准流程
-
-1. **Review 社区 PR**，确认需要修改的地方
-2. **从 main 创建新分支**（如 `fix/xxx-v2`）
-3. **`git cherry-pick <原始commit>`**（默认保留 author）— 禁止使用 `--no-commit` 后自己重新提交
-4. **在原始 commit 之上追加独立的修复 commit**（author 是维护者自己）
-5. **创建 PR 并合并**，PR body 中用 `@contributor` 标注原作者贡献
-6. **在原 PR 上留言说明**，告知贡献者已合并并保留了归属
-
-### 验证
-
-合并前必须用 `git log --format="%an - %s"` 确认原始 commit 的 Author 字段是贡献者本人。
-
-### 严禁
-
-- **禁止 `cherry-pick --no-commit` 后自己重新提交** — 这会把 author 变成维护者
-- **禁止 squash merge 吞掉贡献者的 commit** — 除非 squash 时显式设置 `--author`
-- **禁止不标注原作者就合并** — PR body 和 comment 都要提及
-
-### 如果贡献者的 PR 勾选了 "Allow edits from maintainers"
-
-可以直接在贡献者的分支上 push 修复 commit，这是最简单的方式。原始 commit 天然保留 author。
-
-## 禁止 Co-authored-by 标签
-
-**严禁在 commit message 中出现 `Co-authored-by` 行。**
-
-- 提交时必须使用 `--no-gpg-sign` 以外的方式确保消息干净
-- 如果 Cursor IDE 自动追加了 `Co-authored-by: Cursor <cursoragent@cursor.com>`，必须在提交前手动移除，或使用 HEREDOC 方式传递 commit message 以避免被追加
-- 发现历史提交中存在该标签时，应提醒用户并协助清除
-
-## 注意事项
-
-- 不要提交 `.env` 文件（包含密钥）
-- 不要提交 `node_modules/`、`__pycache__/`、`.venv/` 等
-- 一次 commit 尽量只做一件事，保持原子性
+- **禁止一次搜索无结果就下结论** — 必须至少换一次更宽泛的模式重试
+- **禁止假设命名格式** — 从源码实际调用处提取搜索词，不要用自己猜测的格式
+- **禁止省略搜索依据** — "不存在"的结论必须附带搜索模式和搜索范围
 
 ---
 > Source: [NoDeskAI/nodeskclaw](https://github.com/NoDeskAI/nodeskclaw) — distributed by [TomeVault](https://tomevault.io).
