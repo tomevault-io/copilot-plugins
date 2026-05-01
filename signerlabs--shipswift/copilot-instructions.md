@@ -1,0 +1,47 @@
+## shipswift
+
+> - ShipSwift iOS component template library (public repo)
+
+# CLAUDE.md
+
+## Project Overview
+- ShipSwift iOS component template library (public repo)
+
+## Directory Structure
+- Reusable components live under `ShipSwift/SWPackage/` in five directories:
+  - `SWAnimation/` — Self-contained animation components (each works independently, may depend on SWUtil only)
+  - `SWChart/` — Self-contained chart components (each works independently, may depend on SWUtil only)
+  - `SWComponent/` — Self-contained UI components organized by category:
+    - `Display/` — Display components (FloatingLabels, MarkdownText, ScrollingFAQ, RotatingQuote, BulletPointText, GradientDivider, Label, OnboardingView, OrderView, RootTabView)
+    - `Feedback/` — Feedback components (Alert, Loading, ThinkingIndicator)
+    - `Input/` — Input components (TabButton, Stepper, AddSheet)
+  - `SWModule/` — Multi-file frameworks (SWAuth, SWCamera, SWPaywall, SWChat, SWSetting, SWSubjectLifting, SWTikTokTracking)
+  - `SWUtil/` — Shared utilities (no dependencies on other SWPackage directories)
+- Showcase app views live under `ShipSwift/View/` (HomeView, ChatView, ComponentView, ProPaywallView, RootTabView, SettingView, ShipSwiftAuthView)
+- App services live under `ShipSwift/Service/` (ChatService, ComponentRegistry)
+- Shared app components live under `ShipSwift/Component/` (ListItem)
+
+## Naming Conventions
+- All type names use the `SW` prefix: `SWAlertManager`, `SWStoreManager`, `SWCameraView`
+- View modifier methods use `.sw` lowercase prefix: `.swAlert()`, `.swPageLoading()`, `.swPrimary`
+- File names match their primary type: `SWAlert.swift` contains `SWAlertManager`
+- **Platform suffix rule**: iOS-only files use `+iOS` suffix (e.g. `SWCameraManager+iOS.swift`), macOS-only files use `+macOS` suffix. Cross-platform files have no suffix
+- **Xcode Build Phases reminder**: This project supports both iOS and macOS. When adding a `+iOS` or `+macOS` file, remind the user to set the platform filter in Xcode → Build Phases → Compile Sources (change "Always Used" to "iOS" or "macOS"). Do NOT use `#if os(iOS)` / `#if os(macOS)` as a substitute
+
+## Dependency Rules
+- `SWUtil` has zero dependencies on other SWPackage directories
+- `SWAnimation`, `SWChart`, and `SWComponent` may only depend on `SWUtil`
+- `SWModule` may depend on `SWUtil`, `SWComponent`, and other files within the same module
+
+## Self-Containment Principle
+- Every file in `SWAnimation/`, `SWChart/`, and `SWComponent/` must work without importing other SWPackage files (except `SWUtil`)
+- Alert and Loading merge their managers into the same file for self-containment
+- CameraManager uses an `onError` closure instead of directly referencing `SWAlertManager`
+
+## Code Style
+- All comments and documentation in English (this is a public repo; overrides the global Chinese rule)
+- No external constants file — product IDs, URLs, and config values are inlined or configurable via struct properties
+
+---
+> Source: [signerlabs/ShipSwift](https://github.com/signerlabs/ShipSwift) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
