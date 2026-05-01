@@ -4,7 +4,7 @@
   "repo": "supabase-auth-site",
   "description": "A production-ready, fully configurable authentication portal powered by Supabase.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saltbo/supabase-auth-site",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T16:35:24Z"
+  "distributed_at": "2026-05-01T04:04:32Z"
 }
