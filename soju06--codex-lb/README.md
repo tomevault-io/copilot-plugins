@@ -7,11 +7,11 @@ Codex/ChatGPT multiple account load balancer & proxy with usage tracking, dashbo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Soju06/codex-lb](https://github.com/Soju06/codex-lb).
+Original source: `CLAUDE.md` in [Soju06/codex-lb](https://github.com/Soju06/codex-lb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
