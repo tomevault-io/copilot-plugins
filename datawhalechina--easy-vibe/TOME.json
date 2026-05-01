@@ -4,7 +4,7 @@
   "repo": "easy-vibe",
   "description": "\ud83d\udcbb vibe coding 2026 | Your first modern programming course for beginners to master step by step.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/datawhalechina/easy-vibe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T09:01:13Z"
+  "distributed_at": "2026-05-01T10:03:38Z"
 }
