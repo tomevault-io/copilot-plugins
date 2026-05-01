@@ -1,0 +1,9 @@
+{
+  "name": "goplussecurity--agentguard",
+  "displayName": "agentguard",
+  "description": "Security guard for AI agents \u2014 blocks malicious skills, prevents data leaks, protects secrets. 24 detection rules, runtime action evaluation, trust registry.",
+  "version": "1.0.0",
+  "author": "GoPlusSecurity",
+  "homepage": "https://github.com/GoPlusSecurity/agentguard",
+  "skills": []
+}
