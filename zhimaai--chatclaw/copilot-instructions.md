@@ -1,24 +1,39 @@
-## think-docs-convention
+## ui-icons-and-toast-theme
 
-> 规划文档、思考文档等内部开发文档的存放规范
+> UI 图标与 Toast 的黑白灰科技风规范（深色模式友好）
 
 
-# think_docs 文件夹使用规范
+# UI 图标与 Toast 视觉规范
 
-## 适用场景
+## SVG 图标（必须深色模式友好）
 
-以下类型的文档应放入项目根目录的 `think_docs/` 文件夹：
+- **禁止写死颜色**：不要在 SVG 里使用 `stroke="#262626"` / `fill="#000"` 这类硬编码。
+- **统一改为 `currentColor`**：用 `stroke="currentColor"` / `fill="currentColor"`，让图标自动跟随文本颜色。
+- **在使用处控制颜色**：在 Vue 模板里用 Tailwind 的语义色（例如 `text-muted-foreground`、`text-foreground/80`、`text-destructive`）控制图标颜色。
 
-- **规划文档**：功能设计、技术方案、架构演进计划等
-- **思考文档**：需求分析、方案对比、决策记录等
-- **AI 协作文档**：给 AI 辅助开发用的上下文说明、提示词草稿等
-- **内部草稿**：任何非面向最终用户/客户的开发过程文档
+示例：
 
-## 规则
+```svg
+<!-- ❌ BAD -->
+<path stroke="#262626" ... />
 
-1. `think_docs/` 已加入 `.gitignore`，**不会被提交到 Git 仓库**。
-2. 当需要创建上述类型的文档时，**必须**放在 `think_docs/` 下，而非项目其他位置。
-3. 面向用户的文档（如 README、CHANGELOG、用户帮助文档）不受此规则约束，应放在项目常规位置。
+<!-- ✅ GOOD -->
+<path stroke="currentColor" ... />
+```
+
+## Toast（黑白灰科技风）
+
+- **避免彩色大底与强烈阴影**：success/error 不要使用大面积绿/红背景；不要用 `shadow-lg` 造成“边缘阴影条”。
+- **统一基底**：使用 `bg-popover text-popover-foreground border-border`。
+- **区分状态用“克制提示”**：可用左侧细边框或图标灰阶区分 success/error（不使用彩色）。
+- **阴影策略**：用 `shadow-sm dark:shadow-none dark:ring-1 dark:ring-white/10`，与项目卡片一致。
+
+示例（Toast 容器）：
+
+```ts
+// ✅ GOOD（示意）
+'... rounded-lg border p-4 shadow-sm dark:shadow-none dark:ring-1 dark:ring-white/10 bg-popover text-popover-foreground'
+```
 
 ---
 > Source: [zhimaAi/ChatClaw](https://github.com/zhimaAi/ChatClaw) — distributed by [TomeVault](https://tomevault.io).
