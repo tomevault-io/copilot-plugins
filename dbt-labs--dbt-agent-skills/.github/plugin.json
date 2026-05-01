@@ -1,0 +1,9 @@
+{
+  "name": "dbt-labs--dbt-agent-skills",
+  "displayName": "dbt-agent-skills",
+  "description": "A curated collection of Agent Skills for working with dbt, to help AI agents understand and execute dbt workflows more effectively.",
+  "version": "1.0.0",
+  "author": "dbt-labs",
+  "homepage": "https://github.com/dbt-labs/dbt-agent-skills",
+  "skills": []
+}
