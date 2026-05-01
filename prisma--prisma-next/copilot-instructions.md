@@ -1,14 +1,17 @@
-## adr-writing
+## arktype-usage
 
-> ADR writing guidelines (clarity, flow, examples)
+> When you would otherwise reach for Zod, use Arktype. Read this any time you need to work with Arktype
 
 
-- Prefer a coherent narrative: **context → problem → constraints → decision → consequences → examples**
-- Keep responsibility splits explicit (e.g. adapter lowering vs codec encode/decode vs driver transport/normalization)
-- If an ADR discusses capabilities, follow `.cursor/rules/capabilities-ownership.mdc` for wording
-- If you need to describe sequencing (order of operations), keep it **short** and place it near the responsibilities/decision; avoid long procedural sections that read out-of-place
-- Use fenced code blocks for SQL (` ```sql `) and TS (` ```ts `); avoid nested backticks inside inline code
-- Worked examples should be end-to-end and make it obvious which layer owns each step (lane, adapter, codec, driver, runtime)
+# Arktype Usage Guidelines
+
+This rulecard is intentionally short. For examples and edge cases, see `docs/reference/arktype-usage.md`.
+
+## Rules of thumb
+
+- Use optional keys via `'key?'` (not `string | undefined`).
+- Use `type({ '[string]': Schema })` for records.
+- Use `Schema.array()` for arrays (avoid tuple mistakes).
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
